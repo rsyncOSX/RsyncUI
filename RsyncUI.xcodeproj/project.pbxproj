@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E90787FF2D352B0B007C4AAD /* RsyncUIDeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = E90787FE2D352B0B007C4AAD /* RsyncUIDeepLinks */; };
+		E90788012D352B13007C4AAD /* RsyncUIDeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = E90788002D352B13007C4AAD /* RsyncUIDeepLinks */; };
 		E911E85E2C6BCD9D00152CD6 /* SSHCreateKey in Frameworks */ = {isa = PBXBuildFile; productRef = E911E85D2C6BCD9D00152CD6 /* SSHCreateKey */; };
 		E95CA3E42C73230800966D69 /* DecodeEncodeGeneric in Frameworks */ = {isa = PBXBuildFile; productRef = E95CA3E32C73230800966D69 /* DecodeEncodeGeneric */; };
 		E961CC052D33B3C400A5F5A5 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E961CC042D33B3C400A5F5A5 /* WidgetKit.framework */; };
@@ -90,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E90787FF2D352B0B007C4AAD /* RsyncUIDeepLinks in Frameworks */,
 				E961CC072D33B3C400A5F5A5 /* SwiftUI.framework in Frameworks */,
 				E961CC052D33B3C400A5F5A5 /* WidgetKit.framework in Frameworks */,
 			);
@@ -111,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E90788012D352B13007C4AAD /* RsyncUIDeepLinks in Frameworks */,
 				E9DA3DD12D35116500F88799 /* SwiftUI.framework in Frameworks */,
 				E9DA3DD02D35116500F88799 /* WidgetKit.framework in Frameworks */,
 			);
@@ -170,6 +174,7 @@
 			);
 			name = RsyncUIWidgetExtension;
 			packageProductDependencies = (
+				E90787FE2D352B0B007C4AAD /* RsyncUIDeepLinks */,
 			);
 			productName = RsyncUIWidgetExtension;
 			productReference = E961CC022D33B3C400A5F5A5 /* RsyncUIWidgetExtension.appex */;
@@ -222,6 +227,7 @@
 			);
 			name = RsyncUIWidgetEstimateExtension;
 			packageProductDependencies = (
+				E90788002D352B13007C4AAD /* RsyncUIDeepLinks */,
 			);
 			productName = RsyncUIWidgetEstimateExtension;
 			productReference = E9DA3DCF2D35116500F88799 /* RsyncUIWidgetEstimateExtension.appex */;
@@ -753,6 +759,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E90787FE2D352B0B007C4AAD /* RsyncUIDeepLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9C566042D1BF046009C540F /* XCRemoteSwiftPackageReference "RsyncUIDeepLinks" */;
+			productName = RsyncUIDeepLinks;
+		};
+		E90788002D352B13007C4AAD /* RsyncUIDeepLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9C566042D1BF046009C540F /* XCRemoteSwiftPackageReference "RsyncUIDeepLinks" */;
+			productName = RsyncUIDeepLinks;
+		};
 		E911E85D2C6BCD9D00152CD6 /* SSHCreateKey */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E911E85C2C6BCD9D00152CD6 /* XCRemoteSwiftPackageReference "SSHCreateKey" */;
