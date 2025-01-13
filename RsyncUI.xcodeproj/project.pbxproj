@@ -16,6 +16,9 @@
 		E9BAB99D2C60A611008A1707 /* RsyncArguments in Frameworks */ = {isa = PBXBuildFile; productRef = E9BAB99C2C60A611008A1707 /* RsyncArguments */; };
 		E9C077762C8CCA65005F8669 /* ParseRsyncOutput in Frameworks */ = {isa = PBXBuildFile; productRef = E9C077752C8CCA65005F8669 /* ParseRsyncOutput */; };
 		E9C566062D1BF046009C540F /* RsyncUIDeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = E9C566052D1BF046009C540F /* RsyncUIDeepLinks */; };
+		E9DA3DD02D35116500F88799 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E961CC042D33B3C400A5F5A5 /* WidgetKit.framework */; };
+		E9DA3DD12D35116500F88799 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E961CC062D33B3C400A5F5A5 /* SwiftUI.framework */; };
+		E9DA3DDD2D35116600F88799 /* RsyncUIWidgetEstimateExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E9DA3DCF2D35116500F88799 /* RsyncUIWidgetEstimateExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +29,13 @@
 			remoteGlobalIDString = E961CC012D33B3C400A5F5A5;
 			remoteInfo = RsyncUIWidgetExtension;
 		};
+		E9DA3DDB2D35116600F88799 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E985C5BB25F3AC0700CB895C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E9DA3DCE2D35116500F88799;
+			remoteInfo = RsyncUIWidgetEstimateExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +45,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				E9DA3DDD2D35116600F88799 /* RsyncUIWidgetEstimateExtension.appex in Embed Foundation Extensions */,
 				E961CC152D33B3C500A5F5A5 /* RsyncUIWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -48,9 +59,17 @@
 		E961CC062D33B3C400A5F5A5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E985C5C325F3AC0700CB895C /* RsyncUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RsyncUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99DE0F826A32F8B00A08A69 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		E9DA3DCF2D35116500F88799 /* RsyncUIWidgetEstimateExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RsyncUIWidgetEstimateExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E9DA3DE12D35116600F88799 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E9DA3DCE2D35116500F88799 /* RsyncUIWidgetEstimateExtension */;
+		};
 		E9EF76492D2D6DC70039D1D4 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -62,6 +81,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E961CC082D33B3C400A5F5A5 /* RsyncUIWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = RsyncUIWidget; sourceTree = "<group>"; };
+		E9DA3DD22D35116500F88799 /* RsyncUIWidgetEstimate */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E9DA3DE12D35116600F88799 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = RsyncUIWidgetEstimate; sourceTree = "<group>"; };
 		E9EF75A62D2D6DC70039D1D4 /* RsyncUI */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E9EF76492D2D6DC70039D1D4 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = RsyncUI; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -87,6 +107,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E9DA3DCC2D35116500F88799 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9DA3DD12D35116500F88799 /* SwiftUI.framework in Frameworks */,
+				E9DA3DD02D35116500F88799 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -105,6 +134,7 @@
 				E99DE0F826A32F8B00A08A69 /* Credits.rtf */,
 				E9EF75A62D2D6DC70039D1D4 /* RsyncUI */,
 				E961CC082D33B3C400A5F5A5 /* RsyncUIWidget */,
+				E9DA3DD22D35116500F88799 /* RsyncUIWidgetEstimate */,
 				E961CC032D33B3C400A5F5A5 /* Frameworks */,
 				E985C5C425F3AC0700CB895C /* Products */,
 			);
@@ -115,6 +145,7 @@
 			children = (
 				E985C5C325F3AC0700CB895C /* RsyncUI.app */,
 				E961CC022D33B3C400A5F5A5 /* RsyncUIWidgetExtension.appex */,
+				E9DA3DCF2D35116500F88799 /* RsyncUIWidgetEstimateExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -157,6 +188,7 @@
 			);
 			dependencies = (
 				E961CC142D33B3C500A5F5A5 /* PBXTargetDependency */,
+				E9DA3DDC2D35116600F88799 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				E9EF75A62D2D6DC70039D1D4 /* RsyncUI */,
@@ -173,6 +205,28 @@
 			productReference = E985C5C325F3AC0700CB895C /* RsyncUI.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E9DA3DCE2D35116500F88799 /* RsyncUIWidgetEstimateExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9DA3DE02D35116600F88799 /* Build configuration list for PBXNativeTarget "RsyncUIWidgetEstimateExtension" */;
+			buildPhases = (
+				E9DA3DCB2D35116500F88799 /* Sources */,
+				E9DA3DCC2D35116500F88799 /* Frameworks */,
+				E9DA3DCD2D35116500F88799 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				E9DA3DD22D35116500F88799 /* RsyncUIWidgetEstimate */,
+			);
+			name = RsyncUIWidgetEstimateExtension;
+			packageProductDependencies = (
+			);
+			productName = RsyncUIWidgetEstimateExtension;
+			productReference = E9DA3DCF2D35116500F88799 /* RsyncUIWidgetEstimateExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -188,6 +242,9 @@
 					};
 					E985C5C225F3AC0700CB895C = {
 						CreatedOnToolsVersion = 12.4;
+					};
+					E9DA3DCE2D35116500F88799 = {
+						CreatedOnToolsVersion = 16.2;
 					};
 				};
 			};
@@ -215,6 +272,7 @@
 			targets = (
 				E985C5C225F3AC0700CB895C /* RsyncUI */,
 				E961CC012D33B3C400A5F5A5 /* RsyncUIWidgetExtension */,
+				E9DA3DCE2D35116500F88799 /* RsyncUIWidgetEstimateExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -235,6 +293,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E9DA3DCD2D35116500F88799 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -252,6 +317,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E9DA3DCB2D35116500F88799 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -259,6 +331,11 @@
 			isa = PBXTargetDependency;
 			target = E961CC012D33B3C400A5F5A5 /* RsyncUIWidgetExtension */;
 			targetProxy = E961CC132D33B3C500A5F5A5 /* PBXContainerItemProxy */;
+		};
+		E9DA3DDC2D35116600F88799 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E9DA3DCE2D35116500F88799 /* RsyncUIWidgetEstimateExtension */;
+			targetProxy = E9DA3DDB2D35116600F88799 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -522,6 +599,75 @@
 			};
 			name = Release;
 		};
+		E9DA3DDE2D35116600F88799 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = RsyncUIWidgetEstimate/RsyncUIWidgetEstimate.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 93M47F4H9T;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RsyncUIWidgetEstimate/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RsyncUIWidgetEstimate;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI.RsyncUIWidgetEstimate;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E9DA3DDF2D35116600F88799 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = RsyncUIWidgetEstimate/RsyncUIWidgetEstimate.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 93M47F4H9T;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RsyncUIWidgetEstimate/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RsyncUIWidgetEstimate;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI.RsyncUIWidgetEstimate;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -548,6 +694,15 @@
 			buildConfigurations = (
 				E985C5ED25F3AC0800CB895C /* Debug */,
 				E985C5EE25F3AC0800CB895C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E9DA3DE02D35116600F88799 /* Build configuration list for PBXNativeTarget "RsyncUIWidgetEstimateExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9DA3DDE2D35116600F88799 /* Debug */,
+				E9DA3DDF2D35116600F88799 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
