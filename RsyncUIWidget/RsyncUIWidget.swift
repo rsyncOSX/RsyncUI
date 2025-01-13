@@ -7,7 +7,6 @@
 
 import WidgetKit
 import SwiftUI
-import AppIntents
 
 struct RsyncUIProvider: TimelineProvider {
     func placeholder(in context: Context) -> RsyncUIStatusEntry {
