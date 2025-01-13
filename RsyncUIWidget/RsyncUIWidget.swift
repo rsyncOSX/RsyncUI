@@ -11,18 +11,18 @@ import AppIntents
 
 struct RsyncUIProvider: TimelineProvider {
     func placeholder(in context: Context) -> RsyncUIStatusEntry {
-        RsyncUIStatusEntry(date: Date(), rsyncuistatus: "😀")
+        RsyncUIStatusEntry(date: Date())
     }
 
     func getSnapshot(in context: Context, completion: @escaping (RsyncUIStatusEntry) -> ()) {
-        let entry = RsyncUIStatusEntry(date: Date(), rsyncuistatus: "😀")
+        let entry = RsyncUIStatusEntry(date: Date())
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         let currentDate = Date()
-        let entryDate = Calendar.current.date(byAdding: .minute, value: 15, to: currentDate)!
-        let entry = RsyncUIStatusEntry(date: entryDate, rsyncuistatus: "😀")
+        let entryDate = Calendar.current.date(byAdding: .minute, value: 0, to: currentDate)!
+        let entry = RsyncUIStatusEntry(date: entryDate)
         let timeline = Timeline(entries: [entry], policy: .atEnd)
         completion(timeline)
     }
@@ -30,27 +30,33 @@ struct RsyncUIProvider: TimelineProvider {
 
 struct RsyncUIStatusEntry: TimelineEntry {
     let date: Date
-    let rsyncuistatus: String
 }
 
 struct RsyncUIWidgetEntryView : View {
     var entry: RsyncUIProvider.Entry
-    let urlstring = URL(string: "rsyncuiapp://loadprofileandverify?profile=Pictures&id=Pictures_backup")
+    let urlstringverify = URL(string: "rsyncuiapp://loadprofileandverify?profile=Pictures&id=Pictures_backup")
+    let urlstringestimate = URL(string: "rsyncuiapp://loadprofileandestimate?profile=default")
 
     var body: some View {
         VStack {
             
             HStack {
-                Text("Time:")
+                Text("Verify:")
                 Text(entry.date, style: .time)
+                Image(systemName: "play.fill")
+                    .foregroundColor(.blue)
+                    .widgetURL(urlstringverify)
             }
 
             HStack {
-                Text("RsyncUI status:")
-                Text(entry.rsyncuistatus)
+                Text("Estimate:")
+                Text(entry.date, style: .time)
+                Image(systemName: "play.fill")
+                    .foregroundColor(.yellow)
+                    .widgetURL(urlstringestimate)
             }
         }
-        .widgetURL(urlstring)
+        // .widgetURL(urlstring)
     }
     
     var profilenames: WidgetProfilenames {
@@ -63,22 +69,28 @@ struct RsyncUIWidget: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: RsyncUIProvider()) { entry in
-            if #available(macOS 14.0, *) {
-                RsyncUIWidgetEntryView(entry: entry)
-                    .containerBackground(.fill.tertiary, for: .widget)
-            } else {
-                RsyncUIWidgetEntryView(entry: entry)
-                    .padding()
-                    .background()
-            }
+            RsyncUIWidgetEntryView(entry: entry)
+                .containerBackground(.fill.tertiary, for: .widget)
         }
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
     }
 }
 
-struct ExecuteTask: AppIntent {
-    static var title: LocalizedStringResource = "Execute Task"
+/*
+struct ExecuteTaskVerify: AppIntent {
+    static var title: LocalizedStringResource = "Execute Verify"
+    let urlstring = URL(string: "rsyncuiapp://loadprofileandverify?profile=Pictures&id=Pictures_backup")
+    
+    func perform() async throws -> some IntentResult {
+        print("Perform triggered")
+        // NSWorkspace.shared.open(URL(string: urlstring)!)
+        return .result()
+    }
+}
+
+struct ExecuteTaskEstimate: AppIntent {
+    static var title: LocalizedStringResource = "Estimate Task"
     // let urlstring = "https://rsyncui.netlify.app/blog/"
     
     func perform() async throws -> some IntentResult {
@@ -87,3 +99,4 @@ struct ExecuteTask: AppIntent {
         return .result()
     }
 }
+*/
