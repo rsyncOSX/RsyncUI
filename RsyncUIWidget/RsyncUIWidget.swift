@@ -38,29 +38,13 @@ struct RsyncUIWidgetEntryView : View {
     let urlstringestimate = URL(string: "rsyncuiapp://loadprofileandestimate?profile=default")
 
     var body: some View {
-        VStack {
-            
-            HStack {
-                Text("Verify:")
-                Text(entry.date, style: .time)
-                Image(systemName: "play.fill")
-                    .foregroundColor(.blue)
-                    .widgetURL(urlstringverify)
-            }
-
-            HStack {
-                Text("Estimate:")
-                Text(entry.date, style: .time)
-                Image(systemName: "play.fill")
-                    .foregroundColor(.yellow)
-                    .widgetURL(urlstringestimate)
-            }
+        HStack {
+            Text("Verify:")
+            Text(entry.date, style: .time)
+            Image(systemName: "play.fill")
+                .foregroundColor(.blue)
+                .widgetURL(urlstringverify)
         }
-        // .widgetURL(urlstring)
-    }
-    
-    var profilenames: WidgetProfilenames {
-        WidgetProfilenames()
     }
 }
 
