@@ -18,4 +18,10 @@ struct WidgetURLstrings: Codable {
         urlstringverify = data.urlstringverify
         urlstringestimate = data.urlstringestimate
     }
+    
+    @discardableResult
+    init( urletimate: String, urlverify: String) {
+        urlstringverify = urlverify
+        urlstringestimate = urletimate
+    }
 }

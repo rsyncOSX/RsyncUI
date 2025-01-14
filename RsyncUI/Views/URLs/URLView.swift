@@ -67,9 +67,11 @@ struct URLView: View {
                         EditValue(500, nil, $stringestimate)
                         
                         Button("Save Estimate & Synchronize URL") {
-                            
+                            let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
+                            WriteWidgetsURLStringsJSON(data,.estimate)
                         }
                         .buttonStyle(ColorfulButtonStyle())
+                        .disabled(stringestimate.isEmpty)
                         
                     }
                     
@@ -78,9 +80,11 @@ struct URLView: View {
                         EditValue(500, nil, $stringverify)
                         
                         Button("Save Verify URL") {
-                            //
+                            let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
+                            WriteWidgetsURLStringsJSON(data,.verify)
                         }
                         .buttonStyle(ColorfulButtonStyle())
+                        .disabled(stringverify.isEmpty)
                     }
                    
                 }

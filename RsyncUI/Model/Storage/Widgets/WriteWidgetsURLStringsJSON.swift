@@ -23,9 +23,10 @@ final class WriteWidgetsURLStringsJSON {
             
             switch whichurltowrite {
             case .estimate:
-                let pathestimate = userHomeDirectoryPath.appending(path.estimatestringsandboxcatalog)
+                let pathestimate = userHomeDirectoryPath.appending("/" + path.estimatestringsandboxcatalog)
                 let fullpathURL = URL(fileURLWithPath: pathestimate)
                 let estimatefileURL = fullpathURL.appendingPathComponent(SharedReference.shared.userconfigjson)
+                Logger.process.info("WriteWidgetsURLStringsJSON: URL-string \(estimatefileURL)")
                 if let jsonData {
                     do {
                         try jsonData.write(to: estimatefileURL)
@@ -36,9 +37,10 @@ final class WriteWidgetsURLStringsJSON {
                 }
                     
             case .verify:
-                let pathverify = userHomeDirectoryPath.appending(path.verifystrngsandboxcatalog)
+                let pathverify = userHomeDirectoryPath.appending("/" + path.verifystrngsandboxcatalog)
                 let fullpathURL = URL(fileURLWithPath: pathverify)
                 let veirfyfileURL = fullpathURL.appendingPathComponent(SharedReference.shared.userconfigjson)
+                Logger.process.info("WriteWidgetsURLStringsJSON: URL-string \(veirfyfileURL)")
                 if let jsonData {
                     do {
                         try jsonData.write(to: veirfyfileURL)
@@ -51,7 +53,7 @@ final class WriteWidgetsURLStringsJSON {
         }
     }
 
-    private func encodeJSONData(_ urlwidgetstrings: DecodeWidgetStrings,
+    private func encodeJSONData(_ urlwidgetstrings: WidgetURLstrings,
                                 _ whichurltowrite: WidgetURLStringsJSON) {
         let encodejsondata = EncodeGeneric()
         do {
@@ -67,7 +69,7 @@ final class WriteWidgetsURLStringsJSON {
     }
 
     @discardableResult
-    init(_ urlwidgetstrings: DecodeWidgetStrings?, _ whichurltowrite: WidgetURLStringsJSON) {
+    init(_ urlwidgetstrings: WidgetURLstrings?, _ whichurltowrite: WidgetURLStringsJSON) {
         if let urlwidgetstrings {
             encodeJSONData(urlwidgetstrings, whichurltowrite)
         }
