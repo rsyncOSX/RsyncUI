@@ -63,9 +63,26 @@ struct URLView: View {
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
                     Text("URL for Estimate & Synchronize")
-                    EditValue(500, nil, $stringestimate)
+                    HStack {
+                        EditValue(500, nil, $stringestimate)
+                        
+                        Button("Save Estimate & Synchronize URL") {
+                            
+                        }
+                        .buttonStyle(ColorfulButtonStyle())
+                        
+                    }
+                    
                     Text("URL for Verify")
-                    EditValue(500, nil, $stringverify)
+                    HStack {
+                        EditValue(500, nil, $stringverify)
+                        
+                        Button("Save Verify URL") {
+                            //
+                        }
+                        .buttonStyle(ColorfulButtonStyle())
+                    }
+                   
                 }
             }
         }
