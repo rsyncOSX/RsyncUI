@@ -34,17 +34,17 @@ struct RsyncUIEstimateProvider: @preconcurrency TimelineProvider {
         let userconfigjson: String = "rsyncuiconfig.json"
         let decodeuserconfiguration = DecodeGeneric()
         var userconfigurationfile = ""
-        if let path = WidgetHomepath().fullpathmacserial {
+        if let path = documentscatalog {
             userconfigurationfile = path + "/" + userconfigjson
+            print(userconfigurationfile)
         } else {
             return nil
         }
         do {
             if let importeddata = try
-                decodeuserconfiguration.decodestringdatafileURL(DecodeUserConfigurationEstimate.self,
+                decodeuserconfiguration.decodestringdatafileURL(DecodeStringEstimate.self,
                                                                 fromwhere: userconfigurationfile)
             {
-                print(importeddata)
                 return importeddata.urlstringestimate
             }
 
@@ -52,6 +52,11 @@ struct RsyncUIEstimateProvider: @preconcurrency TimelineProvider {
             return nil
         }
         return nil
+    }
+    
+    var documentscatalog: String? {
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
+        return paths.firstObject as? String
     }
     
     var url: URL? {
@@ -110,7 +115,7 @@ struct RsyncUIWidgetEstimate: Widget {
     }
 }
 
-struct DecodeUserConfigurationEstimate: Codable {
+struct DecodeStringEstimate: Codable {
     let urlstringestimate: String?
 
     enum CodingKeys: String, CodingKey {

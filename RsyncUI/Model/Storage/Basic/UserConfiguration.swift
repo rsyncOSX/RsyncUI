@@ -33,10 +33,7 @@ struct UserConfiguration: Codable {
     var confirmexecute: Int?
     // Timedelay Syncjronize URL-actions
     var synchronizewithouttimedelay: Int = -1
-    // URLs for Widgets
-    var urlstringverify: String?
-    var urlstringestimate: String?
-
+    
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
             SharedReference.shared.rsyncversion3 = true
@@ -93,12 +90,6 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.synchronizewithouttimedelay = false
         }
-        if urlstringverify != nil {
-            SharedReference.shared.urlstringverify = urlstringverify
-        }
-        if urlstringestimate != nil {
-            SharedReference.shared.urlstringestimate = urlstringestimate
-        }
     }
 
     // Used when reading JSON data from store
@@ -117,9 +108,6 @@ struct UserConfiguration: Codable {
         checkforerrorinrsyncoutput = data.checkforerrorinrsyncoutput ?? -1
         confirmexecute = data.confirmexecute ?? -1
         synchronizewithouttimedelay = data.synchronizewithouttimedelay ?? -1
-        // Set user configdata read from permanent store
-        urlstringverify = data.urlstringverify
-        urlstringestimate = data.urlstringestimate
         // Set data read from JSON in SharedReference.
         setuserconfigdata()
     }
@@ -179,16 +167,6 @@ struct UserConfiguration: Codable {
             synchronizewithouttimedelay = 1
         } else {
             synchronizewithouttimedelay = -1
-        }
-        if SharedReference.shared.urlstringverify != nil {
-            urlstringverify = SharedReference.shared.urlstringverify
-        } else {
-            urlstringverify = nil
-        }
-        if SharedReference.shared.urlstringestimate != nil {
-            urlstringestimate = SharedReference.shared.urlstringestimate
-        } else {
-            urlstringestimate = nil
         }
     }
 }
