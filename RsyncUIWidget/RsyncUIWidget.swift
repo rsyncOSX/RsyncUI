@@ -8,7 +8,7 @@
 import WidgetKit
 import SwiftUI
 
-struct RsyncUIProvider: TimelineProvider {
+struct RsyncUIVerifyProvider: TimelineProvider {
     func placeholder(in context: Context) -> RsyncUIStatusEntry {
         RsyncUIStatusEntry(date: Date())
     }
@@ -25,23 +25,39 @@ struct RsyncUIProvider: TimelineProvider {
         let timeline = Timeline(entries: [entry], policy: .atEnd)
         completion(timeline)
     }
+    
+    var url: URL? {
+        if let url = URL(string: "rsyncuiapp://loadprofileandverify?profile=Pictures&id=Pictures_backup") {
+            return url
+        }
+        return nil
+    }
 }
 
 struct RsyncUIStatusEntry: TimelineEntry {
     let date: Date
+    var urlstringverify: URL?
 }
 
 struct RsyncUIWidgetEntryView : View {
-    var entry: RsyncUIProvider.Entry
-    let urlstringverify = URL(string: "rsyncuiapp://loadprofileandverify?profile=Pictures&id=Pictures_backup")
+    var entry: RsyncUIVerifyProvider.Entry
 
     var body: some View {
-        HStack {
-            Text("Verify:")
-            Text(entry.date, style: .time)
-            Image(systemName: "bolt.shield")
-                .foregroundColor(Color(.yellow))
-                .widgetURL(urlstringverify)
+        if let url = entry.urlstringverify {
+            VStack {
+                Text("Estimate: \(url)")
+                Text(entry.date, style: .time)
+                Image(systemName: "bolt.shield.fill")
+                    .foregroundColor(Color(.yellow))
+                    .widgetURL(url)
+            }
+        } else {
+            HStack {
+                Text("Estimate: no URL set")
+                Text(entry.date, style: .time)
+                Image(systemName: "bolt.shield.fill")
+                    .foregroundColor(Color(.red))
+            }
         }
     }
 }
@@ -50,7 +66,7 @@ struct RsyncUIWidget: Widget {
     let kind: String = "RsyncUIWidget"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: RsyncUIProvider()) { entry in
+        StaticConfiguration(kind: kind, provider: RsyncUIVerifyProvider()) { entry in
             RsyncUIWidgetEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }

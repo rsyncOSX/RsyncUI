@@ -8,7 +8,7 @@
 import WidgetKit
 import SwiftUI
 
-struct Provider: TimelineProvider {
+struct RsyncUIEstimateProvider: TimelineProvider {
     func placeholder(in context: Context) -> RsyncUIWidgetEstimateEntry {
         RsyncUIWidgetEstimateEntry(date: Date(), urlstringestimate: url)
     }
@@ -40,7 +40,7 @@ struct RsyncUIWidgetEstimateEntry: TimelineEntry {
 }
 
 struct RsyncUIWidgetEstimateEntryView : View {
-    var entry: Provider.Entry
+    var entry: RsyncUIEstimateProvider.Entry
 
     var body: some View {
         if let url = entry.urlstringestimate {
@@ -66,7 +66,7 @@ struct RsyncUIWidgetEstimate: Widget {
     let kind: String = "RsyncUIWidgetEstimate"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+        StaticConfiguration(kind: kind, provider: RsyncUIEstimateProvider()) { entry in
             RsyncUIWidgetEstimateEntryView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
