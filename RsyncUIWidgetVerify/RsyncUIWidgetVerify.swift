@@ -9,11 +9,24 @@ import WidgetKit
 import SwiftUI
 import DecodeEncodeGeneric
 import Foundation
+import RsyncUIDeepLinks
 
 @MainActor
 struct RsyncUIVerifyProvider: @preconcurrency TimelineProvider {
     func placeholder(in context: Context) -> RsyncUIWidgetVerifyEntry {
-        RsyncUIWidgetVerifyEntry(date: Date(), urlstringverify: url)
+        if let url  {
+            do {
+                let queryelement = try RsyncUIDeepLinks().validateScheme(url)
+                return RsyncUIWidgetVerifyEntry(date: Date(),
+                                                    urlstringverify: url,
+                                                  profile: queryelement?.queryItems?[0].value,
+                                                  task: queryelement?.queryItems?[1].value)
+            } catch {
+                return RsyncUIWidgetVerifyEntry(date: Date(), urlstringverify: url)
+            }
+            
+        }
+        return RsyncUIWidgetVerifyEntry(date: Date(), urlstringverify: url)
      }
 
      func getSnapshot(in context: Context, completion: @escaping (RsyncUIWidgetVerifyEntry) -> ()) {
@@ -72,6 +85,8 @@ struct RsyncUIVerifyProvider: @preconcurrency TimelineProvider {
 struct RsyncUIWidgetVerifyEntry: TimelineEntry {
     let date: Date
     var urlstringverify: URL?
+    var profile: String?
+    var task: String?
 }
 
 struct RsyncUIWidgetVerifyEntryView : View {

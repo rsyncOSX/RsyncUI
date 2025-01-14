@@ -21,6 +21,8 @@
 		E9DA3DD12D35116500F88799 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E961CC062D33B3C400A5F5A5 /* SwiftUI.framework */; };
 		E9DA3DDD2D35116600F88799 /* RsyncUIWidgetEstimateExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E9DA3DCF2D35116500F88799 /* RsyncUIWidgetEstimateExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E9DE70E12D3652D700EE0F5C /* DecodeEncodeGeneric in Frameworks */ = {isa = PBXBuildFile; productRef = E9DE70E02D3652D700EE0F5C /* DecodeEncodeGeneric */; };
+		E9E63D502D36E7BC0060C4DA /* RsyncUIDeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = E9E63D4F2D36E7BC0060C4DA /* RsyncUIDeepLinks */; };
+		E9E63D522D36E7C60060C4DA /* RsyncUIDeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = E9E63D512D36E7C60060C4DA /* RsyncUIDeepLinks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9E63D522D36E7C60060C4DA /* RsyncUIDeepLinks in Frameworks */,
 				E988C8502D369AB000F0F694 /* DecodeEncodeGeneric in Frameworks */,
 				E988C83E2D3699FE00F0F694 /* SwiftUI.framework in Frameworks */,
 				E988C83D2D3699FE00F0F694 /* WidgetKit.framework in Frameworks */,
@@ -114,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9E63D502D36E7BC0060C4DA /* RsyncUIDeepLinks in Frameworks */,
 				E9DA3DD12D35116500F88799 /* SwiftUI.framework in Frameworks */,
 				E9DE70E12D3652D700EE0F5C /* DecodeEncodeGeneric in Frameworks */,
 				E9DA3DD02D35116500F88799 /* WidgetKit.framework in Frameworks */,
@@ -205,6 +209,7 @@
 			name = RsyncUIWidgetVerifyExtension;
 			packageProductDependencies = (
 				E988C84F2D369AB000F0F694 /* DecodeEncodeGeneric */,
+				E9E63D512D36E7C60060C4DA /* RsyncUIDeepLinks */,
 			);
 			productName = RsyncUIWidgetVerifyExtension;
 			productReference = E988C83C2D3699FE00F0F694 /* RsyncUIWidgetVerifyExtension.appex */;
@@ -228,6 +233,7 @@
 			name = RsyncUIWidgetEstimateExtension;
 			packageProductDependencies = (
 				E9DE70E02D3652D700EE0F5C /* DecodeEncodeGeneric */,
+				E9E63D4F2D36E7BC0060C4DA /* RsyncUIDeepLinks */,
 			);
 			productName = RsyncUIWidgetEstimateExtension;
 			productReference = E9DA3DCF2D35116500F88799 /* RsyncUIWidgetEstimateExtension.appex */;
@@ -793,6 +799,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E94B878B2C7321090031B27A /* XCRemoteSwiftPackageReference "DecodeEncodeGeneric" */;
 			productName = DecodeEncodeGeneric;
+		};
+		E9E63D4F2D36E7BC0060C4DA /* RsyncUIDeepLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9C566042D1BF046009C540F /* XCRemoteSwiftPackageReference "RsyncUIDeepLinks" */;
+			productName = RsyncUIDeepLinks;
+		};
+		E9E63D512D36E7C60060C4DA /* RsyncUIDeepLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9C566042D1BF046009C540F /* XCRemoteSwiftPackageReference "RsyncUIDeepLinks" */;
+			productName = RsyncUIDeepLinks;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
