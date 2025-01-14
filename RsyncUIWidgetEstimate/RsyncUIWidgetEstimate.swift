@@ -10,38 +10,54 @@ import SwiftUI
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> RsyncUIWidgetEstimateEntry {
-        RsyncUIWidgetEstimateEntry(date: Date())
+        RsyncUIWidgetEstimateEntry(date: Date(), urlstringestimate: url)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (RsyncUIWidgetEstimateEntry) -> ()) {
-        let entry = RsyncUIWidgetEstimateEntry(date: Date())
+        let entry = RsyncUIWidgetEstimateEntry(date: Date(), urlstringestimate: url)
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         let currentDate = Date()
         let entryDate = Calendar.current.date(byAdding: .minute, value: 0, to: currentDate)!
-        let entry = RsyncUIWidgetEstimateEntry(date: entryDate)
+        let entry = RsyncUIWidgetEstimateEntry(date: entryDate, urlstringestimate: url)
         let timeline = Timeline(entries: [entry], policy: .atEnd)
         completion(timeline)
+    }
+    
+    var url: URL? {
+        if let url = URL(string: "rsyncuiapp://loadprofileandestimate?profile=default") {
+            return url
+        }
+        return nil
     }
 }
 
 struct RsyncUIWidgetEstimateEntry: TimelineEntry {
     let date: Date
+    var urlstringestimate: URL?
 }
 
 struct RsyncUIWidgetEstimateEntryView : View {
     var entry: Provider.Entry
-    let urlstringestimate = URL(string: "rsyncuiapp://loadprofileandestimate?profile=default")
 
     var body: some View {
-        HStack {
-            Text("Estimate:")
-            Text(entry.date, style: .time)
-            Image(systemName: "bolt.shield.fill")
-                .foregroundColor(Color(.yellow))
-                .widgetURL(urlstringestimate)
+        if let url = entry.urlstringestimate {
+            VStack {
+                Text("Estimate: \(url)")
+                Text(entry.date, style: .time)
+                Image(systemName: "bolt.shield.fill")
+                    .foregroundColor(Color(.yellow))
+                    .widgetURL(url)
+            }
+        } else {
+            HStack {
+                Text("Estimate: no URL set")
+                Text(entry.date, style: .time)
+                Image(systemName: "bolt.shield.fill")
+                    .foregroundColor(Color(.red))
+            }
         }
     }
 }
