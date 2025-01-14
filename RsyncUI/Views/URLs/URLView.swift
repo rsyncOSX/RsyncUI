@@ -66,7 +66,7 @@ struct URLView: View {
                     HStack {
                         EditValue(500, nil, $stringestimate)
                         
-                        Button("Save Estimate & Synchronize URL") {
+                        Button("Save Estimate") {
                             let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
                             WriteWidgetsURLStringsJSON(data,.estimate)
                         }
@@ -79,7 +79,7 @@ struct URLView: View {
                     HStack {
                         EditValue(500, nil, $stringverify)
                         
-                        Button("Save Verify URL") {
+                        Button("Save Verify") {
                             let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
                             WriteWidgetsURLStringsJSON(data,.verify)
                         }
