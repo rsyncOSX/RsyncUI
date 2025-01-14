@@ -8,8 +8,6 @@
 import Foundation
 
 public struct WidgetHomepath {
-    // full path without macserialnumber
-    var fullpathnomacserial: String?
     // full path with macserialnumber
     var fullpathmacserial: String?
     // Documentscatalog
@@ -17,6 +15,8 @@ public struct WidgetHomepath {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
         return paths.firstObject as? String
     }
+    // Path for userconfig
+    let configpath: String = "/.rsyncosx/"
 
     // Mac serialnumber
     public var macserialnumber: String? {
@@ -45,28 +45,19 @@ public struct WidgetHomepath {
             return nil
         }
     }
-
-    public func getfullpathmacserialcatalogsasstringnames() -> [String] {
-        let fm = FileManager.default
-        if let fullpathmacserial {
-            var array = [String]()
-            array.append("Default profile")
-            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            do {
-                for filesandfolders in try fm.contentsOfDirectory(at: fullpathmacserialURL,
-                                                                  includingPropertiesForKeys: nil)
-                    where filesandfolders.hasDirectoryPath
-                {
-                    array.append(filesandfolders.lastPathComponent)
-                }
-                return array
-            } catch {
-                return []
-            }
+    
+    var userHomeDirectoryPath: String? {
+        let pw = getpwuid(getuid())
+        if let home = pw?.pointee.pw_dir {
+            let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
+            return homePath
+        } else {
+            return nil
         }
-        return []
     }
 
-    public init() {}
+    public init() {
+        fullpathmacserial = (userHomeDirectoryPath ?? "") + configpath + (macserialnumber ?? "")
+    }
 }
 

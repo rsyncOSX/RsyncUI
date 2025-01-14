@@ -7,9 +7,12 @@
 
 import WidgetKit
 import SwiftUI
+import DecodeEncodeGeneric
+import Foundation
 
-struct RsyncUIEstimateProvider: TimelineProvider {
-    func placeholder(in context: Context) -> RsyncUIWidgetEstimateEntry {
+@MainActor
+struct RsyncUIEstimateProvider: @preconcurrency TimelineProvider {
+   func placeholder(in context: Context) -> RsyncUIWidgetEstimateEntry {
         RsyncUIWidgetEstimateEntry(date: Date(), urlstringestimate: url)
     }
 
@@ -26,8 +29,35 @@ struct RsyncUIEstimateProvider: TimelineProvider {
         completion(timeline)
     }
     
+    private func readuserconfiguration() -> String? {
+        // Userconfiguration json file
+        let userconfigjson: String = "rsyncuiconfig.json"
+        let decodeuserconfiguration = DecodeGeneric()
+        var userconfigurationfile = ""
+        if let path = WidgetHomepath().fullpathmacserial {
+            userconfigurationfile = path + "/" + userconfigjson
+        } else {
+            return nil
+        }
+        do {
+            if let importeddata = try
+                decodeuserconfiguration.decodestringdatafileURL(DecodeUserConfigurationEstimate.self,
+                                                                fromwhere: userconfigurationfile)
+            {
+                print(importeddata)
+                return importeddata.urlstringestimate
+            }
+
+        } catch {
+            return nil
+        }
+        return nil
+    }
+    
     var url: URL? {
-        if let url = URL(string: "rsyncuiapp://loadprofileandestimate?profile=default") {
+        let urlstring = readuserconfiguration()
+        guard let urlstring, urlstring.isEmpty == false else { return nil }
+        if let url = URL(string: urlstring) {
             return url
         }
         return nil
@@ -77,5 +107,18 @@ struct RsyncUIWidgetEstimate: Widget {
         }
         .configurationDisplayName("Estimate")
         .description("Estimate & Synchronize your files.")
+    }
+}
+
+struct DecodeUserConfigurationEstimate: Codable {
+    let urlstringestimate: String?
+
+    enum CodingKeys: String, CodingKey {
+        case urlstringestimate
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        urlstringestimate = try values.decodeIfPresent(String.self, forKey: .urlstringestimate)
     }
 }
