@@ -30,6 +30,8 @@ struct DecodeUserConfiguration: Codable {
     let confirmexecute: Int?
     // No timedaly synchronize URL actions
     let synchronizewithouttimedelay: Int?
+    let urlstringverify: String?
+    let urlstringestimate: String?
 
     enum CodingKeys: String, CodingKey {
         case rsyncversion3
@@ -45,6 +47,8 @@ struct DecodeUserConfiguration: Codable {
         case checkforerrorinrsyncoutput
         case confirmexecute
         case synchronizewithouttimedelay
+        case urlstringverify
+        case urlstringestimate
     }
 
     init(from decoder: Decoder) throws {
@@ -62,5 +66,7 @@ struct DecodeUserConfiguration: Codable {
         checkforerrorinrsyncoutput = try values.decodeIfPresent(Int.self, forKey: .checkforerrorinrsyncoutput)
         confirmexecute = try values.decodeIfPresent(Int.self, forKey: .confirmexecute)
         synchronizewithouttimedelay = try values.decodeIfPresent(Int.self, forKey: .synchronizewithouttimedelay)
+        urlstringverify = try values.decodeIfPresent(String.self, forKey: .urlstringverify)
+        urlstringestimate = try values.decodeIfPresent(String.self, forKey: .urlstringestimate)
     }
 }

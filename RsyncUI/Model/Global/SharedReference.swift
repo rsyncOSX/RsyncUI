@@ -78,6 +78,6 @@ final class SharedReference {
     // Default profile
     let defaultprofile = "Default profile"
     let bundleIdentifier: String = "no.blogspot.RsyncUI"
-    @ObservationIgnored var urlstringverify: String = "rsyncuiapp://loadprofileandverify?profile=Pictures&id=Pictures_backup"
-    @ObservationIgnored var urlstringestimate: String = "rsyncuiapp://loadprofileandestimate?profile=default"
+    @ObservationIgnored var urlstringverify: String? = "rsyncuiapp://loadprofileandverify?profile=Pictures&id=Pictures_backup"
+    @ObservationIgnored var urlstringestimate: String? = "rsyncuiapp://loadprofileandestimate?profile=default"
 }
