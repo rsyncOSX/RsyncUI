@@ -19,12 +19,12 @@ struct Homepath: PropogateError {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
         return paths.firstObject as? String
     }
+
     // Filestrings for Estimate and Verify Widgets.
     // They are Sandboxed and Documents catalog, to reade the URL-strings is in a Container
     let estimatestringsandboxcatalog = "Library/Containers/no.blogspot.RsyncUI.RsyncUIWidgetEstimate/Data/Documents"
     let verifystrngsandboxcatalog = "Library/Containers/no.blogspot.RsyncUI.RsyncUIWidgetVerify/Data/Documents"
 
-    
     // Mac serialnumber
     var macserialnumber: String? {
         if SharedReference.shared.macserialnumber == nil {

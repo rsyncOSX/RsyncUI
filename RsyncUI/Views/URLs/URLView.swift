@@ -65,28 +65,26 @@ struct URLView: View {
                     Text("URL for Estimate & Synchronize")
                     HStack {
                         EditValue(500, nil, $stringestimate)
-                        
+
                         Button("Save Estimate") {
                             let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
-                            WriteWidgetsURLStringsJSON(data,.estimate)
+                            WriteWidgetsURLStringsJSON(data, .estimate)
                         }
                         .buttonStyle(ColorfulButtonStyle())
                         .disabled(stringestimate.isEmpty)
-                        
                     }
-                    
+
                     Text("URL for Verify")
                     HStack {
                         EditValue(500, nil, $stringverify)
-                        
+
                         Button("Save Verify") {
                             let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
-                            WriteWidgetsURLStringsJSON(data,.verify)
+                            WriteWidgetsURLStringsJSON(data, .verify)
                         }
                         .buttonStyle(ColorfulButtonStyle())
                         .disabled(stringverify.isEmpty)
                     }
-                   
                 }
             }
         }

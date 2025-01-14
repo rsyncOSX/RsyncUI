@@ -5,81 +5,106 @@
 //  Created by Thomas Evensen on 14/01/2025.
 //
 
-import WidgetKit
-import SwiftUI
 import DecodeEncodeGeneric
 import Foundation
 import RsyncUIDeepLinks
+import SwiftUI
+import WidgetKit
 
 @MainActor
 struct RsyncUIVerifyProvider: @preconcurrency TimelineProvider {
-    func placeholder(in context: Context) -> RsyncUIWidgetVerifyEntry {
-        if let url  {
+    func placeholder(in _: Context) -> RsyncUIWidgetVerifyEntry {
+        if let queryelements, queryelements.queryItems?.count ?? 0 > 1 {
+            RsyncUIWidgetVerifyEntry(date: Date(),
+                                            urlstringverify: url,
+                                            profile: queryelements.queryItems?[0].value,
+                                            task: queryelements.queryItems?[1].value)
+        } else {
+            RsyncUIWidgetVerifyEntry(date: Date(), urlstringverify: url)
+        }
+    }
+
+    func getSnapshot(in _: Context, completion: @escaping (RsyncUIWidgetVerifyEntry) -> Void) {
+        if let queryelements, queryelements.queryItems?.count ?? 0 > 1 {
+            let entry = RsyncUIWidgetVerifyEntry(date: Date(),
+                                                 urlstringverify: url,
+                                                 profile: queryelements.queryItems?[0].value,
+                                                 task: queryelements.queryItems?[1].value)
+            completion(entry)
+        } else {
+            let entry = RsyncUIWidgetVerifyEntry(date: Date(), urlstringverify: url)
+            completion(entry)
+        }
+
+    }
+
+    func getTimeline(in _: Context, completion: @escaping (Timeline<Entry>) -> Void) {
+        let currentDate = Date()
+        let entryDate = Calendar.current.date(byAdding: .minute, value: 0, to: currentDate)!
+        if let queryelements, queryelements.queryItems?.count ?? 0 > 1 {
+            let entry = RsyncUIWidgetVerifyEntry(date: Date(),
+                                                 urlstringverify: url,
+                                                   profile: queryelements.queryItems?[0].value,
+                                                 task: queryelements.queryItems?[1].value)
+            let timeline = Timeline(entries: [entry], policy: .atEnd)
+            completion(timeline)
+        } else {
+            let entry = RsyncUIWidgetVerifyEntry(date: entryDate, urlstringverify: url)
+            let timeline = Timeline(entries: [entry], policy: .atEnd)
+            completion(timeline)
+        }
+    }
+
+    private func readuserconfiguration() -> String? {
+        // Userconfiguration json file
+        let userconfigjson = "rsyncuiconfig.json"
+        let decodeuserconfiguration = DecodeGeneric()
+        var userconfigurationfile = ""
+        if let path = documentscatalog {
+            userconfigurationfile = path + "/" + userconfigjson
+            print(userconfigurationfile)
+        } else {
+            return nil
+        }
+        do {
+            if let importeddata = try
+                decodeuserconfiguration.decodestringdatafileURL(DecodeStringVerify.self,
+                                                                fromwhere: userconfigurationfile)
+            {
+                return importeddata.urlstringverify
+            }
+
+        } catch {
+            return nil
+        }
+        return nil
+    }
+
+    var documentscatalog: String? {
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
+        return paths.firstObject as? String
+    }
+
+    var queryelements: URLComponents? {
+        if let url {
             do {
                 let queryelement = try RsyncUIDeepLinks().validateScheme(url)
-                return RsyncUIWidgetVerifyEntry(date: Date(),
-                                                    urlstringverify: url,
-                                                  profile: queryelement?.queryItems?[0].value,
-                                                  task: queryelement?.queryItems?[1].value)
+                return queryelement
             } catch {
-                return RsyncUIWidgetVerifyEntry(date: Date(), urlstringverify: url)
+                return nil
             }
-            
         }
-        return RsyncUIWidgetVerifyEntry(date: Date(), urlstringverify: url)
-     }
+        return nil
+    }
 
-     func getSnapshot(in context: Context, completion: @escaping (RsyncUIWidgetVerifyEntry) -> ()) {
-         let entry = RsyncUIWidgetVerifyEntry(date: Date(), urlstringverify: url)
-         completion(entry)
-     }
-
-     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-         let currentDate = Date()
-         let entryDate = Calendar.current.date(byAdding: .minute, value: 0, to: currentDate)!
-         let entry = RsyncUIWidgetVerifyEntry(date: entryDate, urlstringverify: url)
-         let timeline = Timeline(entries: [entry], policy: .atEnd)
-         completion(timeline)
-     }
-     
-     private func readuserconfiguration() -> String? {
-         // Userconfiguration json file
-         let userconfigjson: String = "rsyncuiconfig.json"
-         let decodeuserconfiguration = DecodeGeneric()
-         var userconfigurationfile = ""
-         if let path = documentscatalog {
-             userconfigurationfile = path + "/" + userconfigjson
-             print(userconfigurationfile)
-         } else {
-             return nil
-         }
-         do {
-             if let importeddata = try
-                 decodeuserconfiguration.decodestringdatafileURL(DecodeStringVerify.self,
-                                                                 fromwhere: userconfigurationfile)
-             {
-                 return importeddata.urlstringverify
-             }
-
-         } catch {
-             return nil
-         }
-         return nil
-     }
-     
-     var documentscatalog: String? {
-         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
-         return paths.firstObject as? String
-     }
-     
-     var url: URL? {
-         let urlstring = readuserconfiguration()
-         guard let urlstring, urlstring.isEmpty == false else { return nil }
-         if let url = URL(string: urlstring) {
-             return url
-         }
-         return nil
-     }
+    var url: URL? {
+        let urlstring = readuserconfiguration()
+        guard let urlstring, urlstring.isEmpty == false else { return nil }
+        if let url = URL(string: urlstring) {
+            return url
+        }
+        return nil
+    }
 }
 
 struct RsyncUIWidgetVerifyEntry: TimelineEntry {
@@ -89,12 +114,26 @@ struct RsyncUIWidgetVerifyEntry: TimelineEntry {
     var task: String?
 }
 
-struct RsyncUIWidgetVerifyEntryView : View {
+struct RsyncUIWidgetVerifyEntryView: View {
     var entry: RsyncUIVerifyProvider.Entry
 
     var body: some View {
-        if let url = entry.urlstringverify {
+        if let url = entry.urlstringverify,
+            let profile = entry.profile,
+            let task = entry.task {
             VStack {
+                Text("Verify: \(url)")
+                Text("Profile: \(profile)")
+                Text("Task: \(task)")
+                HStack {
+                    Text(entry.date, style: .time)
+                    Image(systemName: "bolt.shield")
+                        .foregroundColor(Color(.yellow))
+                        .widgetURL(url)
+                }
+            }
+        } else if let url = entry.urlstringverify {
+            HStack {
                 Text("Verify: \(url)")
                 HStack {
                     Text(entry.date, style: .time)
@@ -102,7 +141,6 @@ struct RsyncUIWidgetVerifyEntryView : View {
                         .foregroundColor(Color(.yellow))
                         .widgetURL(url)
                 }
-                
             }
         } else {
             HStack {

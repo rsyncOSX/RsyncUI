@@ -30,7 +30,7 @@ struct DecodeUserConfiguration: Codable {
     let confirmexecute: Int?
     // No timedaly synchronize URL actions
     let synchronizewithouttimedelay: Int?
-   
+
     enum CodingKeys: String, CodingKey {
         case rsyncversion3
         case addsummarylogrecord

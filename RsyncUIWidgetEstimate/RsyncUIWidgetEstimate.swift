@@ -5,45 +5,55 @@
 //  Created by Thomas Evensen on 13/01/2025.
 //
 
-import WidgetKit
-import SwiftUI
 import DecodeEncodeGeneric
 import Foundation
 import RsyncUIDeepLinks
+import SwiftUI
+import WidgetKit
 
 @MainActor
 struct RsyncUIEstimateProvider: @preconcurrency TimelineProvider {
-   func placeholder(in context: Context) -> RsyncUIWidgetEstimateEntry {
-       if let url  {
-           do {
-               let queryelement = try RsyncUIDeepLinks().validateScheme(url)
-               return RsyncUIWidgetEstimateEntry(date: Date(),
-                                                 urlstringestimate: url,
-                                                 profile: queryelement?.queryItems?[0].value)
-           } catch {
-               return RsyncUIWidgetEstimateEntry(date: Date(), urlstringestimate: url)
-           }
-           
-       }
-       return RsyncUIWidgetEstimateEntry(date: Date(), urlstringestimate: url)
+    func placeholder(in _: Context) -> RsyncUIWidgetEstimateEntry {
+        if let queryelements, queryelements.queryItems?.count ?? 0 > 0 {
+            RsyncUIWidgetEstimateEntry(date: Date(),
+                                       urlstringestimate: url,
+                                       profile: queryelements.queryItems?[0].value)
+        } else {
+            RsyncUIWidgetEstimateEntry(date: Date(), urlstringestimate: url)
+        }
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (RsyncUIWidgetEstimateEntry) -> ()) {
-        let entry = RsyncUIWidgetEstimateEntry(date: Date(), urlstringestimate: url)
-        completion(entry)
+    func getSnapshot(in _: Context, completion: @escaping (RsyncUIWidgetEstimateEntry) -> Void) {
+        if let queryelements, queryelements.queryItems?.count ?? 0 > 0 {
+            let entry = RsyncUIWidgetEstimateEntry(date: Date(),
+                                                   urlstringestimate: url,
+                                                   profile: queryelements.queryItems?[0].value)
+            completion(entry)
+        } else {
+            let entry = RsyncUIWidgetEstimateEntry(date: Date(), urlstringestimate: url)
+            completion(entry)
+        }
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+    func getTimeline(in _: Context, completion: @escaping (Timeline<Entry>) -> Void) {
         let currentDate = Date()
         let entryDate = Calendar.current.date(byAdding: .minute, value: 0, to: currentDate)!
-        let entry = RsyncUIWidgetEstimateEntry(date: entryDate, urlstringestimate: url)
-        let timeline = Timeline(entries: [entry], policy: .atEnd)
-        completion(timeline)
+        if let queryelements, queryelements.queryItems?.count ?? 0 > 0 {
+            let entry = RsyncUIWidgetEstimateEntry(date: Date(),
+                                                   urlstringestimate: url,
+                                                   profile: queryelements.queryItems?[0].value)
+            let timeline = Timeline(entries: [entry], policy: .atEnd)
+            completion(timeline)
+        } else {
+            let entry = RsyncUIWidgetEstimateEntry(date: entryDate, urlstringestimate: url)
+            let timeline = Timeline(entries: [entry], policy: .atEnd)
+            completion(timeline)
+        }
     }
-    
+
     private func readuserconfiguration() -> String? {
         // Userconfiguration json file
-        let userconfigjson: String = "rsyncuiconfig.json"
+        let userconfigjson = "rsyncuiconfig.json"
         let decodeuserconfiguration = DecodeGeneric()
         var userconfigurationfile = ""
         if let path = documentscatalog {
@@ -65,17 +75,29 @@ struct RsyncUIEstimateProvider: @preconcurrency TimelineProvider {
         }
         return nil
     }
-    
+
     var documentscatalog: String? {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
         return paths.firstObject as? String
     }
-    
+
     var url: URL? {
         let urlstring = readuserconfiguration()
         guard let urlstring, urlstring.isEmpty == false else { return nil }
         if let url = URL(string: urlstring) {
             return url
+        }
+        return nil
+    }
+
+    var queryelements: URLComponents? {
+        if let url {
+            do {
+                let queryelement = try RsyncUIDeepLinks().validateScheme(url)
+                return queryelement
+            } catch {
+                return nil
+            }
         }
         return nil
     }
@@ -87,20 +109,30 @@ struct RsyncUIWidgetEstimateEntry: TimelineEntry {
     var profile: String?
 }
 
-struct RsyncUIWidgetEstimateEntryView : View {
+struct RsyncUIWidgetEstimateEntryView: View {
     var entry: RsyncUIEstimateProvider.Entry
 
     var body: some View {
-        if let url = entry.urlstringestimate {
+        if let url = entry.urlstringestimate,
+           let profile = entry.profile {
             VStack {
                 Text("Estimate: \(url)")
+                Text("Profile: \(profile)")
                 HStack {
                     Text(entry.date, style: .time)
                     Image(systemName: "bolt.shield.fill")
                         .foregroundColor(Color(.yellow))
                         .widgetURL(url)
                 }
-                
+            }
+        } else if let url = entry.urlstringestimate {
+            HStack {
+                Text("Estimate: \(url)")
+                HStack {
+                    Text(entry.date, style: .time)
+                    Image(systemName: "bolt.shield.fill")
+                        .foregroundColor(Color(.yellow))
+                }
             }
         } else {
             HStack {

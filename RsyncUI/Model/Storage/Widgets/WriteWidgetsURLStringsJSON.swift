@@ -1,5 +1,5 @@
 //
-//  WriteUserConfigurationJSON.swift
+//  WriteWidgetsURLStringsJSON.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 12/02/2022.
@@ -20,7 +20,6 @@ final class WriteWidgetsURLStringsJSON {
 
     private func writeJSONToPersistentStore(jsonData: Data?, _ whichurltowrite: WidgetURLStringsJSON) {
         if let userHomeDirectoryPath = path.userHomeDirectoryPath {
-            
             switch whichurltowrite {
             case .estimate:
                 let pathestimate = userHomeDirectoryPath.appending("/" + path.estimatestringsandboxcatalog)
@@ -35,7 +34,7 @@ final class WriteWidgetsURLStringsJSON {
                         path.propogateerror(error: error)
                     }
                 }
-                    
+
             case .verify:
                 let pathverify = userHomeDirectoryPath.appending("/" + path.verifystrngsandboxcatalog)
                 let fullpathURL = URL(fileURLWithPath: pathverify)
@@ -54,7 +53,8 @@ final class WriteWidgetsURLStringsJSON {
     }
 
     private func encodeJSONData(_ urlwidgetstrings: WidgetURLstrings,
-                                _ whichurltowrite: WidgetURLStringsJSON) {
+                                _ whichurltowrite: WidgetURLStringsJSON)
+    {
         let encodejsondata = EncodeGeneric()
         do {
             if let encodeddata = try encodejsondata.encodedata(data: urlwidgetstrings) {

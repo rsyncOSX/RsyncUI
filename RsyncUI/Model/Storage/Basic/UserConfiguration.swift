@@ -33,7 +33,7 @@ struct UserConfiguration: Codable {
     var confirmexecute: Int?
     // Timedelay Syncjronize URL-actions
     var synchronizewithouttimedelay: Int = -1
-    
+
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
             SharedReference.shared.rsyncversion3 = true

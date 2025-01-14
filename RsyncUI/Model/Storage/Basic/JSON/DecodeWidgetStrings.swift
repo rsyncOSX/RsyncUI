@@ -1,5 +1,5 @@
 //
-//  DecodeWidgetString.swift
+//  DecodeWidgetStrings.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 14/01/2025.
