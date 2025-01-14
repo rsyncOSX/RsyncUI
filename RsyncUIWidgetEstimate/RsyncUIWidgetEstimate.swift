@@ -46,17 +46,22 @@ struct RsyncUIWidgetEstimateEntryView : View {
         if let url = entry.urlstringestimate {
             VStack {
                 Text("Estimate: \(url)")
-                Text(entry.date, style: .time)
-                Image(systemName: "bolt.shield.fill")
-                    .foregroundColor(Color(.yellow))
-                    .widgetURL(url)
+                HStack {
+                    Text(entry.date, style: .time)
+                    Image(systemName: "bolt.shield.fill")
+                        .foregroundColor(Color(.yellow))
+                        .widgetURL(url)
+                }
+                
             }
         } else {
             HStack {
                 Text("Estimate: no URL set")
-                Text(entry.date, style: .time)
-                Image(systemName: "bolt.shield.fill")
-                    .foregroundColor(Color(.red))
+                HStack {
+                    Text(entry.date, style: .time)
+                    Image(systemName: "bolt.shield.fill")
+                        .foregroundColor(Color(.red))
+                }
             }
         }
     }

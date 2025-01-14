@@ -14,14 +14,14 @@ struct RsyncUIVerifyProvider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping (RsyncUIStatusEntry) -> ()) {
-        let entry = RsyncUIStatusEntry(date: Date())
+        let entry = RsyncUIStatusEntry(date: Date(), urlstringverify: url)
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         let currentDate = Date()
         let entryDate = Calendar.current.date(byAdding: .minute, value: 0, to: currentDate)!
-        let entry = RsyncUIStatusEntry(date: entryDate)
+        let entry = RsyncUIStatusEntry(date: entryDate, urlstringverify: url)
         let timeline = Timeline(entries: [entry], policy: .atEnd)
         completion(timeline)
     }
@@ -45,18 +45,23 @@ struct RsyncUIWidgetEntryView : View {
     var body: some View {
         if let url = entry.urlstringverify {
             VStack {
-                Text("Estimate: \(url)")
-                Text(entry.date, style: .time)
-                Image(systemName: "bolt.shield.fill")
-                    .foregroundColor(Color(.yellow))
-                    .widgetURL(url)
+                Text("Verify: \(url)")
+                HStack {
+                    Text(entry.date, style: .time)
+                    Image(systemName: "bolt.shield")
+                        .foregroundColor(Color(.yellow))
+                        .widgetURL(url)
+                }
             }
         } else {
             HStack {
-                Text("Estimate: no URL set")
-                Text(entry.date, style: .time)
-                Image(systemName: "bolt.shield.fill")
-                    .foregroundColor(Color(.red))
+                Text("Verify: no URL set")
+                HStack {
+                    Text(entry.date, style: .time)
+                    Image(systemName: "bolt.shield")
+                        .foregroundColor(Color(.red))
+                }
+                
             }
         }
     }
