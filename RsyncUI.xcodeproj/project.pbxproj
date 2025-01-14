@@ -65,13 +65,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		E988C84E2D3699FE00F0F694 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = E988C83B2D3699FE00F0F694 /* RsyncUIWidgetVerifyExtension */;
-		};
 		E9DA3DE12D35116600F88799 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -89,7 +82,7 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		E988C83F2D3699FE00F0F694 /* RsyncUIWidgetVerify */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E988C84E2D3699FE00F0F694 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = RsyncUIWidgetVerify; sourceTree = "<group>"; };
+		E988C83F2D3699FE00F0F694 /* RsyncUIWidgetVerify */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = RsyncUIWidgetVerify; sourceTree = "<group>"; };
 		E9DA3DD22D35116500F88799 /* RsyncUIWidgetEstimate */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E9DA3DE12D35116600F88799 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = RsyncUIWidgetEstimate; sourceTree = "<group>"; };
 		E9EF75A62D2D6DC70039D1D4 /* RsyncUI */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E9EF76492D2D6DC70039D1D4 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = RsyncUI; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
