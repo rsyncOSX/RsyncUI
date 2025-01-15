@@ -9,17 +9,10 @@
 /* Begin PBXBuildFile section */
 		E911E85E2C6BCD9D00152CD6 /* SSHCreateKey in Frameworks */ = {isa = PBXBuildFile; productRef = E911E85D2C6BCD9D00152CD6 /* SSHCreateKey */; };
 		E95CA3E42C73230800966D69 /* DecodeEncodeGeneric in Frameworks */ = {isa = PBXBuildFile; productRef = E95CA3E32C73230800966D69 /* DecodeEncodeGeneric */; };
-		E988C83D2D3699FE00F0F694 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E961CC042D33B3C400A5F5A5 /* WidgetKit.framework */; };
-		E988C83E2D3699FE00F0F694 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E961CC062D33B3C400A5F5A5 /* SwiftUI.framework */; };
-		E988C84A2D3699FE00F0F694 /* RsyncUIWidgetVerifyExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E988C83C2D3699FE00F0F694 /* RsyncUIWidgetVerifyExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E988C8502D369AB000F0F694 /* DecodeEncodeGeneric in Frameworks */ = {isa = PBXBuildFile; productRef = E988C84F2D369AB000F0F694 /* DecodeEncodeGeneric */; };
 		E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E99DE0F826A32F8B00A08A69 /* Credits.rtf */; };
 		E9BAB99D2C60A611008A1707 /* RsyncArguments in Frameworks */ = {isa = PBXBuildFile; productRef = E9BAB99C2C60A611008A1707 /* RsyncArguments */; };
 		E9C077762C8CCA65005F8669 /* ParseRsyncOutput in Frameworks */ = {isa = PBXBuildFile; productRef = E9C077752C8CCA65005F8669 /* ParseRsyncOutput */; };
 		E9C566062D1BF046009C540F /* RsyncUIDeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = E9C566052D1BF046009C540F /* RsyncUIDeepLinks */; };
-		E9C9E35D2D379EA700E907AB /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E961CC042D33B3C400A5F5A5 /* WidgetKit.framework */; };
-		E9C9E35E2D379EA700E907AB /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E961CC062D33B3C400A5F5A5 /* SwiftUI.framework */; };
-		E9C9E36A2D379EA700E907AB /* WidgetTestExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E9C9E35C2D379EA600E907AB /* WidgetTestExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E9C9E3742D379F7000E907AB /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E961CC042D33B3C400A5F5A5 /* WidgetKit.framework */; };
 		E9C9E3752D379F7000E907AB /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E961CC062D33B3C400A5F5A5 /* SwiftUI.framework */; };
 		E9C9E3812D379F7100E907AB /* WidgetVerifyExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E9C9E3732D379F7000E907AB /* WidgetVerifyExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -30,29 +23,9 @@
 		E9C9E39C2D37A14300E907AB /* WidgetEstimateExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E9C9E38E2D37A14200E907AB /* WidgetEstimateExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E9C9E3A22D37A15D00E907AB /* DecodeEncodeGeneric in Frameworks */ = {isa = PBXBuildFile; productRef = E9C9E3A12D37A15D00E907AB /* DecodeEncodeGeneric */; };
 		E9C9E3A42D37A16200E907AB /* RsyncUIDeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = E9C9E3A32D37A16200E907AB /* RsyncUIDeepLinks */; };
-		E9DA3DD02D35116500F88799 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E961CC042D33B3C400A5F5A5 /* WidgetKit.framework */; };
-		E9DA3DD12D35116500F88799 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E961CC062D33B3C400A5F5A5 /* SwiftUI.framework */; };
-		E9DA3DDD2D35116600F88799 /* RsyncUIWidgetEstimateExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E9DA3DCF2D35116500F88799 /* RsyncUIWidgetEstimateExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E9DE70E12D3652D700EE0F5C /* DecodeEncodeGeneric in Frameworks */ = {isa = PBXBuildFile; productRef = E9DE70E02D3652D700EE0F5C /* DecodeEncodeGeneric */; };
-		E9E63D502D36E7BC0060C4DA /* RsyncUIDeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = E9E63D4F2D36E7BC0060C4DA /* RsyncUIDeepLinks */; };
-		E9E63D522D36E7C60060C4DA /* RsyncUIDeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = E9E63D512D36E7C60060C4DA /* RsyncUIDeepLinks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E988C8482D3699FE00F0F694 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E985C5BB25F3AC0700CB895C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E988C83B2D3699FE00F0F694;
-			remoteInfo = RsyncUIWidgetVerifyExtension;
-		};
-		E9C9E3682D379EA700E907AB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E985C5BB25F3AC0700CB895C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E9C9E35B2D379EA600E907AB;
-			remoteInfo = WidgetTestExtension;
-		};
 		E9C9E37F2D379F7100E907AB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E985C5BB25F3AC0700CB895C /* Project object */;
@@ -67,13 +40,6 @@
 			remoteGlobalIDString = E9C9E38D2D37A14200E907AB;
 			remoteInfo = WidgetEstimateExtension;
 		};
-		E9DA3DDB2D35116600F88799 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E985C5BB25F3AC0700CB895C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E9DA3DCE2D35116500F88799;
-			remoteInfo = RsyncUIWidgetEstimateExtension;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -83,10 +49,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				E9DA3DDD2D35116600F88799 /* RsyncUIWidgetEstimateExtension.appex in Embed Foundation Extensions */,
 				E9C9E3812D379F7100E907AB /* WidgetVerifyExtension.appex in Embed Foundation Extensions */,
-				E9C9E36A2D379EA700E907AB /* WidgetTestExtension.appex in Embed Foundation Extensions */,
-				E988C84A2D3699FE00F0F694 /* RsyncUIWidgetVerifyExtension.appex in Embed Foundation Extensions */,
 				E9C9E39C2D37A14300E907AB /* WidgetEstimateExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -98,22 +61,12 @@
 		E961CC042D33B3C400A5F5A5 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E961CC062D33B3C400A5F5A5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E985C5C325F3AC0700CB895C /* RsyncUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RsyncUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E988C83C2D3699FE00F0F694 /* RsyncUIWidgetVerifyExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RsyncUIWidgetVerifyExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99DE0F826A32F8B00A08A69 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
-		E9C9E35C2D379EA600E907AB /* WidgetTestExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetTestExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9C9E3732D379F7000E907AB /* WidgetVerifyExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetVerifyExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9C9E38E2D37A14200E907AB /* WidgetEstimateExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetEstimateExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		E9DA3DCF2D35116500F88799 /* RsyncUIWidgetEstimateExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RsyncUIWidgetEstimateExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		E9C9E36E2D379EA700E907AB /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = E9C9E35B2D379EA600E907AB /* WidgetTestExtension */;
-		};
 		E9C9E3852D379F7100E907AB /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -128,13 +81,6 @@
 			);
 			target = E9C9E38D2D37A14200E907AB /* WidgetEstimateExtension */;
 		};
-		E9DA3DE12D35116600F88799 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = E9DA3DCE2D35116500F88799 /* RsyncUIWidgetEstimateExtension */;
-		};
 		E9EF76492D2D6DC70039D1D4 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -145,11 +91,8 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		E988C83F2D3699FE00F0F694 /* RsyncUIWidgetVerify */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = RsyncUIWidgetVerify; sourceTree = "<group>"; };
-		E9C9E35F2D379EA700E907AB /* WidgetTest */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E9C9E36E2D379EA700E907AB /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = WidgetTest; sourceTree = "<group>"; };
 		E9C9E3762D379F7000E907AB /* WidgetVerify */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E9C9E3852D379F7100E907AB /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = WidgetVerify; sourceTree = "<group>"; };
 		E9C9E3912D37A14200E907AB /* WidgetEstimate */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E9C9E3A02D37A14300E907AB /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = WidgetEstimate; sourceTree = "<group>"; };
-		E9DA3DD22D35116500F88799 /* RsyncUIWidgetEstimate */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E9DA3DE12D35116600F88799 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = RsyncUIWidgetEstimate; sourceTree = "<group>"; };
 		E9EF75A62D2D6DC70039D1D4 /* RsyncUI */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E9EF76492D2D6DC70039D1D4 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = RsyncUI; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -163,26 +106,6 @@
 				E9BAB99D2C60A611008A1707 /* RsyncArguments in Frameworks */,
 				E95CA3E42C73230800966D69 /* DecodeEncodeGeneric in Frameworks */,
 				E911E85E2C6BCD9D00152CD6 /* SSHCreateKey in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E988C8392D3699FE00F0F694 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E9E63D522D36E7C60060C4DA /* RsyncUIDeepLinks in Frameworks */,
-				E988C8502D369AB000F0F694 /* DecodeEncodeGeneric in Frameworks */,
-				E988C83E2D3699FE00F0F694 /* SwiftUI.framework in Frameworks */,
-				E988C83D2D3699FE00F0F694 /* WidgetKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E9C9E3592D379EA600E907AB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E9C9E35E2D379EA700E907AB /* SwiftUI.framework in Frameworks */,
-				E9C9E35D2D379EA700E907AB /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,17 +131,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E9DA3DCC2D35116500F88799 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E9E63D502D36E7BC0060C4DA /* RsyncUIDeepLinks in Frameworks */,
-				E9DA3DD12D35116500F88799 /* SwiftUI.framework in Frameworks */,
-				E9DE70E12D3652D700EE0F5C /* DecodeEncodeGeneric in Frameworks */,
-				E9DA3DD02D35116500F88799 /* WidgetKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -236,9 +148,6 @@
 			children = (
 				E99DE0F826A32F8B00A08A69 /* Credits.rtf */,
 				E9EF75A62D2D6DC70039D1D4 /* RsyncUI */,
-				E9DA3DD22D35116500F88799 /* RsyncUIWidgetEstimate */,
-				E988C83F2D3699FE00F0F694 /* RsyncUIWidgetVerify */,
-				E9C9E35F2D379EA700E907AB /* WidgetTest */,
 				E9C9E3762D379F7000E907AB /* WidgetVerify */,
 				E9C9E3912D37A14200E907AB /* WidgetEstimate */,
 				E961CC032D33B3C400A5F5A5 /* Frameworks */,
@@ -250,9 +159,6 @@
 			isa = PBXGroup;
 			children = (
 				E985C5C325F3AC0700CB895C /* RsyncUI.app */,
-				E9DA3DCF2D35116500F88799 /* RsyncUIWidgetEstimateExtension.appex */,
-				E988C83C2D3699FE00F0F694 /* RsyncUIWidgetVerifyExtension.appex */,
-				E9C9E35C2D379EA600E907AB /* WidgetTestExtension.appex */,
 				E9C9E3732D379F7000E907AB /* WidgetVerifyExtension.appex */,
 				E9C9E38E2D37A14200E907AB /* WidgetEstimateExtension.appex */,
 			);
@@ -274,9 +180,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				E9DA3DDC2D35116600F88799 /* PBXTargetDependency */,
-				E988C8492D3699FE00F0F694 /* PBXTargetDependency */,
-				E9C9E3692D379EA700E907AB /* PBXTargetDependency */,
 				E9C9E3802D379F7100E907AB /* PBXTargetDependency */,
 				E9C9E39B2D37A14300E907AB /* PBXTargetDependency */,
 			);
@@ -294,52 +197,6 @@
 			productName = RsyncUI;
 			productReference = E985C5C325F3AC0700CB895C /* RsyncUI.app */;
 			productType = "com.apple.product-type.application";
-		};
-		E988C83B2D3699FE00F0F694 /* RsyncUIWidgetVerifyExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E988C84D2D3699FE00F0F694 /* Build configuration list for PBXNativeTarget "RsyncUIWidgetVerifyExtension" */;
-			buildPhases = (
-				E988C8382D3699FE00F0F694 /* Sources */,
-				E988C8392D3699FE00F0F694 /* Frameworks */,
-				E988C83A2D3699FE00F0F694 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				E988C83F2D3699FE00F0F694 /* RsyncUIWidgetVerify */,
-			);
-			name = RsyncUIWidgetVerifyExtension;
-			packageProductDependencies = (
-				E988C84F2D369AB000F0F694 /* DecodeEncodeGeneric */,
-				E9E63D512D36E7C60060C4DA /* RsyncUIDeepLinks */,
-			);
-			productName = RsyncUIWidgetVerifyExtension;
-			productReference = E988C83C2D3699FE00F0F694 /* RsyncUIWidgetVerifyExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
-		E9C9E35B2D379EA600E907AB /* WidgetTestExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E9C9E36D2D379EA700E907AB /* Build configuration list for PBXNativeTarget "WidgetTestExtension" */;
-			buildPhases = (
-				E9C9E3582D379EA600E907AB /* Sources */,
-				E9C9E3592D379EA600E907AB /* Frameworks */,
-				E9C9E35A2D379EA600E907AB /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				E9C9E35F2D379EA700E907AB /* WidgetTest */,
-			);
-			name = WidgetTestExtension;
-			packageProductDependencies = (
-			);
-			productName = WidgetTestExtension;
-			productReference = E9C9E35C2D379EA600E907AB /* WidgetTestExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 		E9C9E3722D379F7000E907AB /* WidgetVerifyExtension */ = {
 			isa = PBXNativeTarget;
@@ -389,30 +246,6 @@
 			productReference = E9C9E38E2D37A14200E907AB /* WidgetEstimateExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		E9DA3DCE2D35116500F88799 /* RsyncUIWidgetEstimateExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E9DA3DE02D35116600F88799 /* Build configuration list for PBXNativeTarget "RsyncUIWidgetEstimateExtension" */;
-			buildPhases = (
-				E9DA3DCB2D35116500F88799 /* Sources */,
-				E9DA3DCC2D35116500F88799 /* Frameworks */,
-				E9DA3DCD2D35116500F88799 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				E9DA3DD22D35116500F88799 /* RsyncUIWidgetEstimate */,
-			);
-			name = RsyncUIWidgetEstimateExtension;
-			packageProductDependencies = (
-				E9DE70E02D3652D700EE0F5C /* DecodeEncodeGeneric */,
-				E9E63D4F2D36E7BC0060C4DA /* RsyncUIDeepLinks */,
-			);
-			productName = RsyncUIWidgetEstimateExtension;
-			productReference = E9DA3DCF2D35116500F88799 /* RsyncUIWidgetEstimateExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -426,19 +259,10 @@
 					E985C5C225F3AC0700CB895C = {
 						CreatedOnToolsVersion = 12.4;
 					};
-					E988C83B2D3699FE00F0F694 = {
-						CreatedOnToolsVersion = 16.2;
-					};
-					E9C9E35B2D379EA600E907AB = {
-						CreatedOnToolsVersion = 16.2;
-					};
 					E9C9E3722D379F7000E907AB = {
 						CreatedOnToolsVersion = 16.2;
 					};
 					E9C9E38D2D37A14200E907AB = {
-						CreatedOnToolsVersion = 16.2;
-					};
-					E9DA3DCE2D35116500F88799 = {
 						CreatedOnToolsVersion = 16.2;
 					};
 				};
@@ -466,9 +290,6 @@
 			projectRoot = "";
 			targets = (
 				E985C5C225F3AC0700CB895C /* RsyncUI */,
-				E9DA3DCE2D35116500F88799 /* RsyncUIWidgetEstimateExtension */,
-				E988C83B2D3699FE00F0F694 /* RsyncUIWidgetVerifyExtension */,
-				E9C9E35B2D379EA600E907AB /* WidgetTestExtension */,
 				E9C9E3722D379F7000E907AB /* WidgetVerifyExtension */,
 				E9C9E38D2D37A14200E907AB /* WidgetEstimateExtension */,
 			);
@@ -481,20 +302,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E988C83A2D3699FE00F0F694 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E9C9E35A2D379EA600E907AB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,31 +319,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E9DA3DCD2D35116500F88799 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E985C5BF25F3AC0700CB895C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E988C8382D3699FE00F0F694 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E9C9E3582D379EA600E907AB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -557,26 +343,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E9DA3DCB2D35116500F88799 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E988C8492D3699FE00F0F694 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E988C83B2D3699FE00F0F694 /* RsyncUIWidgetVerifyExtension */;
-			targetProxy = E988C8482D3699FE00F0F694 /* PBXContainerItemProxy */;
-		};
-		E9C9E3692D379EA700E907AB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E9C9E35B2D379EA600E907AB /* WidgetTestExtension */;
-			targetProxy = E9C9E3682D379EA700E907AB /* PBXContainerItemProxy */;
-		};
 		E9C9E3802D379F7100E907AB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E9C9E3722D379F7000E907AB /* WidgetVerifyExtension */;
@@ -586,11 +355,6 @@
 			isa = PBXTargetDependency;
 			target = E9C9E38D2D37A14200E907AB /* WidgetEstimateExtension */;
 			targetProxy = E9C9E39A2D37A14300E907AB /* PBXContainerItemProxy */;
-		};
-		E9DA3DDC2D35116600F88799 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E9DA3DCE2D35116500F88799 /* RsyncUIWidgetEstimateExtension */;
-			targetProxy = E9DA3DDB2D35116600F88799 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -785,144 +549,6 @@
 			};
 			name = Release;
 		};
-		E988C84B2D3699FE00F0F694 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = RsyncUIWidgetVerify/RsyncUIWidgetVerify.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 130;
-				DEVELOPMENT_TEAM = 93M47F4H9T;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RsyncUIWidgetVerify/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = RsyncUIWidgetVerify;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.3.0;
-				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI.RsyncUIWidgetVerify;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		E988C84C2D3699FE00F0F694 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = RsyncUIWidgetVerify/RsyncUIWidgetVerify.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 130;
-				DEVELOPMENT_TEAM = 93M47F4H9T;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RsyncUIWidgetVerify/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = RsyncUIWidgetVerify;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.3.0;
-				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI.RsyncUIWidgetVerify;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		E9C9E36B2D379EA700E907AB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = WidgetTest/WidgetTest.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 93M47F4H9T;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WidgetTest/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = WidgetTest;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI.WidgetTest;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		E9C9E36C2D379EA700E907AB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = WidgetTest/WidgetTest.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 93M47F4H9T;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WidgetTest/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = WidgetTest;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI.WidgetTest;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 		E9C9E3832D379F7100E907AB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -933,7 +559,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 130;
 				DEVELOPMENT_TEAM = 93M47F4H9T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -947,8 +573,8 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI.WidgetVerify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -968,7 +594,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 130;
 				DEVELOPMENT_TEAM = 93M47F4H9T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -982,8 +608,8 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI.WidgetVerify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1002,7 +628,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 130;
 				DEVELOPMENT_TEAM = 93M47F4H9T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1016,8 +642,8 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI.WidgetEstimate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1037,7 +663,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 130;
 				DEVELOPMENT_TEAM = 93M47F4H9T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1051,78 +677,9 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI.WidgetEstimate;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		E9DA3DDE2D35116600F88799 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = RsyncUIWidgetEstimate/RsyncUIWidgetEstimate.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 130;
-				DEVELOPMENT_TEAM = 93M47F4H9T;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RsyncUIWidgetEstimate/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = RsyncUIWidgetEstimate;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.3.0;
-				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI.RsyncUIWidgetEstimate;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		E9DA3DDF2D35116600F88799 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = RsyncUIWidgetEstimate/RsyncUIWidgetEstimate.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 130;
-				DEVELOPMENT_TEAM = 93M47F4H9T;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RsyncUIWidgetEstimate/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = RsyncUIWidgetEstimate;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.3.0;
-				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI.RsyncUIWidgetEstimate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1151,24 +708,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E988C84D2D3699FE00F0F694 /* Build configuration list for PBXNativeTarget "RsyncUIWidgetVerifyExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E988C84B2D3699FE00F0F694 /* Debug */,
-				E988C84C2D3699FE00F0F694 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E9C9E36D2D379EA700E907AB /* Build configuration list for PBXNativeTarget "WidgetTestExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E9C9E36B2D379EA700E907AB /* Debug */,
-				E9C9E36C2D379EA700E907AB /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		E9C9E3822D379F7100E907AB /* Build configuration list for PBXNativeTarget "WidgetVerifyExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1183,15 +722,6 @@
 			buildConfigurations = (
 				E9C9E39E2D37A14300E907AB /* Debug */,
 				E9C9E39F2D37A14300E907AB /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E9DA3DE02D35116600F88799 /* Build configuration list for PBXNativeTarget "RsyncUIWidgetEstimateExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E9DA3DDE2D35116600F88799 /* Debug */,
-				E9DA3DDF2D35116600F88799 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1252,11 +782,6 @@
 			package = E94B878B2C7321090031B27A /* XCRemoteSwiftPackageReference "DecodeEncodeGeneric" */;
 			productName = DecodeEncodeGeneric;
 		};
-		E988C84F2D369AB000F0F694 /* DecodeEncodeGeneric */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E94B878B2C7321090031B27A /* XCRemoteSwiftPackageReference "DecodeEncodeGeneric" */;
-			productName = DecodeEncodeGeneric;
-		};
 		E9BAB99C2C60A611008A1707 /* RsyncArguments */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E9BAB99B2C60A611008A1707 /* XCRemoteSwiftPackageReference "RsyncArguments" */;
@@ -1288,21 +813,6 @@
 			productName = DecodeEncodeGeneric;
 		};
 		E9C9E3A32D37A16200E907AB /* RsyncUIDeepLinks */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E9C566042D1BF046009C540F /* XCRemoteSwiftPackageReference "RsyncUIDeepLinks" */;
-			productName = RsyncUIDeepLinks;
-		};
-		E9DE70E02D3652D700EE0F5C /* DecodeEncodeGeneric */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E94B878B2C7321090031B27A /* XCRemoteSwiftPackageReference "DecodeEncodeGeneric" */;
-			productName = DecodeEncodeGeneric;
-		};
-		E9E63D4F2D36E7BC0060C4DA /* RsyncUIDeepLinks */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E9C566042D1BF046009C540F /* XCRemoteSwiftPackageReference "RsyncUIDeepLinks" */;
-			productName = RsyncUIDeepLinks;
-		};
-		E9E63D512D36E7C60060C4DA /* RsyncUIDeepLinks */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E9C566042D1BF046009C540F /* XCRemoteSwiftPackageReference "RsyncUIDeepLinks" */;
 			productName = RsyncUIDeepLinks;
