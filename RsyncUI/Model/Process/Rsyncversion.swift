@@ -41,7 +41,7 @@ extension Rsyncversion {
             SharedReference.shared.rsyncversionshort =
                 rsyncversionshort.replacingOccurrences(of: "protocol", with: "\nprotocol")
 
-            if rsyncversionshort.contains("version 3.3") {
+            if rsyncversionshort.contains("version 3.3") || rsyncversionshort.contains("version 3.4") {
                 SharedReference.shared.rsyncversion3 = true
             } else {
                 SharedReference.shared.rsyncversion3 = false
