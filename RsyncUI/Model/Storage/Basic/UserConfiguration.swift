@@ -108,7 +108,7 @@ struct UserConfiguration: Codable {
         checkforerrorinrsyncoutput = data.checkforerrorinrsyncoutput ?? -1
         confirmexecute = data.confirmexecute ?? -1
         synchronizewithouttimedelay = data.synchronizewithouttimedelay ?? -1
-        // Set user configdata read from permanent store
+        // Set data read from JSON in SharedReference.
         setuserconfigdata()
     }
 

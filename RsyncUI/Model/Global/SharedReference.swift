@@ -77,4 +77,5 @@ final class SharedReference {
     // Used when starting up RsyncUI
     // Default profile
     let defaultprofile = "Default profile"
+    // let bundleIdentifier: String = "no.blogspot.RsyncUI"
 }

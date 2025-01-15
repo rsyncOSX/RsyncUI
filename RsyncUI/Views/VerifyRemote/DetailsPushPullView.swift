@@ -68,7 +68,7 @@ struct DetailsPushPullView: View {
                                                       pushremotedatanumbers: pushremotedatanumbers)
                 {
                 case .remotemoredata:
-                    MessageView(mytext: NSLocalizedString("It seems that REMOTE is more updated than LOCAL. A PULL may be next." , comment: ""), size: .title3)
+                    MessageView(mytext: NSLocalizedString("It seems that REMOTE is more updated than LOCAL. A PULL may be next.", comment: ""), size: .title3)
                 case .localmoredata:
                     MessageView(mytext: NSLocalizedString("It seems that LOCAL is more updated than REMOTE. A SYNCHRONIZE may be next.", comment: ""), size: .title3)
                 case .evenamountadata:
