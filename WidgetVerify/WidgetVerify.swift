@@ -1,8 +1,8 @@
 //
-//  RsyncUIWidgetVerify.swift
-//  RsyncUIWidgetVerify
+//  WidgetVerify.swift
+//  WidgetVerify
 //
-//  Created by Thomas Evensen on 14/01/2025.
+//  Created by Thomas Evensen on 15/01/2025.
 //
 
 import DecodeEncodeGeneric
@@ -155,8 +155,8 @@ struct RsyncUIWidgetVerifyEntryView: View {
     }
 }
 
-struct RsyncUIWidgetVerify: Widget {
-    let kind: String = "RsyncUIWidgetVerify"
+struct WidgetVerify: Widget {
+    let kind: String = "WidgetVerify"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: RsyncUIVerifyProvider()) { entry in

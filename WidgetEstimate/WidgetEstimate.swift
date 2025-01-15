@@ -1,10 +1,3 @@
-//
-//  RsyncUIWidgetEstimate.swift
-//  RsyncUIWidgetEstimate
-//
-//  Created by Thomas Evensen on 13/01/2025.
-//
-
 import DecodeEncodeGeneric
 import Foundation
 import RsyncUIDeepLinks
@@ -147,8 +140,8 @@ struct RsyncUIWidgetEstimateEntryView: View {
     }
 }
 
-struct RsyncUIWidgetEstimate: Widget {
-    let kind: String = "RsyncUIWidgetEstimate"
+struct WidgetEstimate: Widget {
+    let kind: String = "WidgetEstimate"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: RsyncUIEstimateProvider()) { entry in

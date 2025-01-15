@@ -22,8 +22,8 @@ struct Homepath: PropogateError {
 
     // Filestrings for Estimate and Verify Widgets.
     // They are Sandboxed and Documents catalog, to reade the URL-strings is in a Container
-    let estimatestringsandboxcatalog = "Library/Containers/no.blogspot.RsyncUI.RsyncUIWidgetEstimate/Data/Documents"
-    let verifystrngsandboxcatalog = "Library/Containers/no.blogspot.RsyncUI.RsyncUIWidgetVerify/Data/Documents"
+    let estimatestringsandboxcatalog = "Library/Containers/no.blogspot.RsyncUI.WidgetEstimate/Data/Documents"
+    let verifystrngsandboxcatalog = "Library/Containers/no.blogspot.RsyncUI.WidgetVerify/Data/Documents"
 
     // Mac serialnumber
     var macserialnumber: String? {
