@@ -1,9 +1,8 @@
-index_exclude:
-- RsyncUI/Model/Utils/yudpsocket/ytcpsocket.swift
 project: RsyncUI.xcodeproj
-retain_objc_accessible: true
 retain_public: true
 schemes:
 - RsyncUI
-targets:
-- RsyncUI
+- WidgetEstimateExtension
+- WidgetVerifyExtension
+index_exclude:
+- RsyncUI/Model/Utils/yudpsocket/ytcpsocket.swift
