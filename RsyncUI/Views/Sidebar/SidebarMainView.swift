@@ -33,7 +33,7 @@ struct SidebarMainView: View {
     @State private var newversion = CheckfornewversionofRsyncUI()
     // URL code
     @State var queryitem: URLQueryItem?
-    @State var urlcommand = false
+    @State var urlcommandestimateandsynchronize = false
     @State var urlcommandverify = false
 
     var body: some View {
@@ -80,7 +80,10 @@ struct SidebarMainView: View {
             // URL code
             handleURLsidebarmainView(incomingURL)
         }
-        .onChange(of: urlcommand) {
+        .onChange(of: urlcommandestimateandsynchronize) {
+            // URL code
+            // Binding to listen for initiating deep link execute estimate and synchronize from
+            // toolbar in TasksView
             let valueprofile = rsyncUIdata.profile ?? ""
             if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: valueprofile) {
                 handleURLsidebarmainView(url)
@@ -136,7 +139,7 @@ struct SidebarMainView: View {
                              estimateprogressdetails: estimateprogressdetails,
                              executetasknavigation: $executetasknavigation,
                              queryitem: $queryitem,
-                             urlcommand: $urlcommand,
+                             urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
                              urlcommandverify: $urlcommandverify)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)

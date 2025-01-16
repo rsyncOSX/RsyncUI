@@ -42,7 +42,7 @@ struct TasksView: View {
     // Navigation path
     @Binding var path: [Tasks]
     // For URL commands within RsyncUI
-    @Binding var urlcommand: Bool
+    @Binding var urlcommandestimateandsynchronize: Bool
     @Binding var urlcommandverify: Bool
 
     @State private var estimatestate = EstimateState()
@@ -241,10 +241,10 @@ struct TasksView: View {
             ToolbarItem {
                 Button {
                     ispressedestimate = true
-                    if urlcommand {
-                        urlcommand = false
+                    if urlcommandestimateandsynchronize {
+                        urlcommandestimateandsynchronize = false
                     } else {
-                        urlcommand = true
+                        urlcommandestimateandsynchronize = true
                     }
                     Task {
                         try await Task.sleep(seconds: 1)
