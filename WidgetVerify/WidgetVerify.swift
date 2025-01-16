@@ -122,7 +122,6 @@ struct RsyncUIWidgetVerifyEntryView: View {
             let profile = entry.profile,
             let task = entry.task {
             VStack {
-                Text("Verify: \(url)")
                 Text("Profile: \(profile)")
                 Text("Task: \(task)")
                 HStack {

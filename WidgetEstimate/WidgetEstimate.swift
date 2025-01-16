@@ -109,7 +109,6 @@ struct RsyncUIWidgetEstimateEntryView: View {
         if let url = entry.urlstringestimate,
            let profile = entry.profile {
             VStack {
-                Text("Estimate: \(url)")
                 Text("Profile: \(profile)")
                 HStack {
                     Text(entry.date, style: .time)
