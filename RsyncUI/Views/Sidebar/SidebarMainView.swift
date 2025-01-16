@@ -33,6 +33,8 @@ struct SidebarMainView: View {
     @State private var newversion = CheckfornewversionofRsyncUI()
     // URL code
     @State var queryitem: URLQueryItem?
+    // Bindings in TaskView triggered when Toolbar Icons, in TaskView, are pressed
+    // Toolbar Icons with yellow icons
     @State var urlcommandestimateandsynchronize = false
     @State var urlcommandverify = false
 
@@ -91,9 +93,6 @@ struct SidebarMainView: View {
         }
         .onChange(of: urlcommandverify) {
             let valueprofile = rsyncUIdata.profile ?? ""
-            Task {
-                try await Task.sleep(seconds: 1)
-            }
             var valueid = ""
             if let configurations = rsyncUIdata.configurations {
                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
