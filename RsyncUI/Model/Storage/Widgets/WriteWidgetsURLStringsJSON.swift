@@ -36,7 +36,7 @@ final class WriteWidgetsURLStringsJSON {
                 }
 
             case .verify:
-                let pathverify = userHomeDirectoryPath.appending("/" + path.verifystrngsandboxcatalog)
+                let pathverify = userHomeDirectoryPath.appending("/" + path.verifystringsandboxcatalog)
                 let fullpathURL = URL(fileURLWithPath: pathverify)
                 let veirfyfileURL = fullpathURL.appendingPathComponent(SharedReference.shared.userconfigjson)
                 Logger.process.info("WriteWidgetsURLStringsJSON: URL-string \(veirfyfileURL)")
