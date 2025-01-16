@@ -80,6 +80,7 @@ struct SidebarMainView: View {
         }
         .onOpenURL { incomingURL in
             // URL code
+            // Deep link triggered RsyncUI from outside
             handleURLsidebarmainView(incomingURL)
         }
         .onChange(of: urlcommandestimateandsynchronize) {
@@ -92,6 +93,9 @@ struct SidebarMainView: View {
             }
         }
         .onChange(of: urlcommandverify) {
+            // URL code
+            // Binding to listen for initiating deep link execute estimate and synchronize from
+            // toolbar in TasksView
             let valueprofile = rsyncUIdata.profile ?? ""
             var valueid = ""
             if let configurations = rsyncUIdata.configurations {
@@ -182,7 +186,7 @@ extension SidebarMainView {
     // URL code
     private func handleURLsidebarmainView(_ url: URL) {
         let deeplinkurl = DeeplinkURL()
-
+        
         // Verify URL action is verified
         guard deeplinkurl.validatenoaction(queryitem) else { return }
         // Verify no other process is running
