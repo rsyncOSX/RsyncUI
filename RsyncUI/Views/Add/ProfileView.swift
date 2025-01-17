@@ -83,6 +83,7 @@ extension ProfileView {
         profilenames.update(rsyncUIdata.validprofiles ?? [])
         selectedprofile = newdata.selectedprofile
         rsyncUIdata.profile = selectedprofile
+        rsyncUIdata.validprofiles = nil
         newprofile = ""
     }
 
@@ -91,5 +92,6 @@ extension ProfileView {
         profilenames.update(rsyncUIdata.validprofiles ?? [])
         selectedprofile = SharedReference.shared.defaultprofile
         rsyncUIdata.profile = SharedReference.shared.defaultprofile
+        rsyncUIdata.validprofiles = nil
     }
 }
