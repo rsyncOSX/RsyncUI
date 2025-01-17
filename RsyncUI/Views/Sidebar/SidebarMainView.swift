@@ -189,8 +189,7 @@ extension SidebarMainView {
     // URL code
     private func handleURLsidebarmainView(_ url: URL) {
         let deeplinkurl = DeeplinkURL()
-
-        // Verify URL action is verified
+        // Verify URL action is valid
         guard deeplinkurl.validatenoaction(queryitem) else { return }
         // Verify no other process is running
         guard SharedReference.shared.process == nil else { return }
