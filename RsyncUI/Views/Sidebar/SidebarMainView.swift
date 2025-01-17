@@ -109,6 +109,9 @@ struct SidebarMainView: View {
                 }
             }
         }
+        .onChange(of: rsyncUIdata.readdatafromstorecompleted) {
+            Logger.process.info("SidebarMainView: readdatafromstorecompleted: \(rsyncUIdata.readdatafromstorecompleted)")
+        }
     }
 
     @MainActor @ViewBuilder
@@ -170,7 +173,7 @@ struct SidebarMainView: View {
     }
 
     var profilenames: Profilenames {
-        Profilenames()
+        Profilenames(rsyncUIdata.validprofiles ?? [])
     }
 
     var disablesidebarmeny: Bool {
@@ -203,7 +206,7 @@ extension SidebarMainView {
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile - \(url)")
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
                 let profile = queryitems[0].value ?? ""
-                if deeplinkurl.validateprofile(profile) {
+                if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles ?? []) {
                     selectedprofile = profile
                 }
             } else {
@@ -224,7 +227,7 @@ extension SidebarMainView {
                         queryitem = queryitems[0]
                     }
                 } else {
-                    if deeplinkurl.validateprofile(profile) {
+                    if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles ?? []) {
                         selectedprofile = profile
                         selectedview = .synchronize
                         Task {
@@ -255,7 +258,7 @@ extension SidebarMainView {
                         queryitem = queryitems[1]
                     }
                 } else {
-                    if deeplinkurl.validateprofile(profile) {
+                    if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles ?? []) {
                         selectedprofile = profile
                         selectedview = .verify_remote
                         Task {

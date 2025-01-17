@@ -21,17 +21,13 @@ struct ProfilesnamesRecord: Hashable, Identifiable {
 final class Profilenames {
     var profiles: [ProfilesnamesRecord]?
 
-    var allprofiles: [String] {
-        Homepath().getfullpathmacserialcatalogsasstringnames()
-    }
-
-    func update() {
+    func update(_ allprofiles: [String]) {
         profiles = allprofiles.map { profile in
             ProfilesnamesRecord(profile)
         }
     }
 
-    init() {
+    init(_ allprofiles: [String]) {
         profiles = allprofiles.map { profile in
             ProfilesnamesRecord(profile)
         }
