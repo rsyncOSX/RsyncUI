@@ -82,8 +82,8 @@ extension ProfileView {
         newdata.createprofile(newprofile: newprofile)
         profilenames.update(rsyncUIdata.validprofiles ?? [])
         selectedprofile = newdata.selectedprofile
-        rsyncUIdata.profile = selectedprofile
         rsyncUIdata.validprofiles = nil
+        rsyncUIdata.profile = selectedprofile
         newprofile = ""
     }
 
@@ -91,8 +91,8 @@ extension ProfileView {
         newdata.deleteprofile(localselectedprofile)
         profilenames.update(rsyncUIdata.validprofiles ?? [])
         selectedprofile = SharedReference.shared.defaultprofile
-        rsyncUIdata.profile = SharedReference.shared.defaultprofile
-        // MUST fix - does not update when profile is deleted
+        // Must fix
         rsyncUIdata.validprofiles = nil
+        rsyncUIdata.profile = SharedReference.shared.defaultprofile
     }
 }
