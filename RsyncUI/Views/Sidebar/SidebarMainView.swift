@@ -189,7 +189,7 @@ extension SidebarMainView {
     // URL code
     private func handleURLsidebarmainView(_ url: URL) {
         let deeplinkurl = DeeplinkURL()
-        
+
         // Verify URL action is verified
         guard deeplinkurl.validatenoaction(queryitem) else { return }
         // Verify no other process is running
@@ -226,6 +226,7 @@ extension SidebarMainView {
                         // Observe queryitem
                         queryitem = queryitems[0]
                     }
+
                 } else {
                     if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles ?? []) {
                         selectedprofile = profile

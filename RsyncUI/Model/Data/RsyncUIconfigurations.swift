@@ -15,8 +15,7 @@ final class RsyncUIconfigurations {
     var profile: String?
     // This is observed when URL actions are initiated.
     // Befor commence the real action must be sure that selected profile data is loaded from store
-    // @ObservationIgnored var readdatafromstorecompleted: Bool = false
-    var readdatafromstorecompleted: Bool = false
+    var readdatafromstorecompleted: Bool = true
     @ObservationIgnored var validprofiles: [String]?
 
     init() {}
