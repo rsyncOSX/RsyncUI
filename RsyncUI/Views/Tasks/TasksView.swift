@@ -231,6 +231,11 @@ struct TasksView: View {
                         if ispressedverify {
                             Image(systemName: "bolt.shield")
                                 .foregroundColor(Color(.blue))
+                                .transition(
+                                    TransitionButton()
+                                        .animation(.easeInOut(duration: 0.5)
+                                        )
+                                )
                         } else {
                             Image(systemName: "bolt.shield")
                                 .foregroundColor(Color(.yellow))
