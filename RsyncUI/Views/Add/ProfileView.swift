@@ -92,6 +92,7 @@ extension ProfileView {
         profilenames.update(rsyncUIdata.validprofiles ?? [])
         selectedprofile = SharedReference.shared.defaultprofile
         rsyncUIdata.profile = SharedReference.shared.defaultprofile
+        // MUST fix - does not update when profile is deleted
         rsyncUIdata.validprofiles = nil
     }
 }
