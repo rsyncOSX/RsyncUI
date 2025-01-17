@@ -110,7 +110,7 @@ struct SidebarMainView: View {
             }
         }
         .onChange(of: rsyncUIdata.readdatafromstorecompleted) {
-            Logger.process.info("SidebarMainView: readdatafromstorecompleted: \(rsyncUIdata.readdatafromstorecompleted)")
+            Logger.process.info("SidebarMainView: READDATAFROMSTORECOMPLETED: \(rsyncUIdata.readdatafromstorecompleted)")
         }
     }
 
