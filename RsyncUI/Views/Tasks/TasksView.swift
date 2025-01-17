@@ -70,6 +70,8 @@ struct TasksView: View {
     @State private var ispressedverify: Bool = false
     @State private var ispressedestimate: Bool = false
 
+    @State var isOpen: Bool = false
+
     var body: some View {
         ZStack {
             ListofTasksMainView(
@@ -254,6 +256,11 @@ struct TasksView: View {
                     if ispressedestimate {
                         Image(systemName: "bolt.shield.fill")
                             .foregroundColor(Color(.blue))
+                            .transition(
+                                TransitionButton()
+                                    .animation(.easeInOut(duration: 0.5)
+                                    )
+                            )
                     } else {
                         Image(systemName: "bolt.shield.fill")
                             .foregroundColor(Color(.yellow))
@@ -409,5 +416,13 @@ extension TasksView {
         estimatestate.updateestimatestate(state: .start)
         selectedconfig.config = nil
         thereareestimates = false
+    }
+}
+
+struct TransitionButton: Transition {
+    func body(content: Content, phase: TransitionPhase) -> some View {
+        content
+            .rotationEffect(Angle(degrees: phase.isIdentity ? 360 : 0))
+            .scaleEffect(phase.isIdentity ? 1 : 0)
     }
 }
