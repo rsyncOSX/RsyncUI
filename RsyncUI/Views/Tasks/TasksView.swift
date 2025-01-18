@@ -230,7 +230,7 @@ struct TasksView: View {
                     } label: {
                         if ispressedverify {
                             Image(systemName: "bolt.shield")
-                                .foregroundColor(Color(.blue))
+                                .foregroundColor(Color(.yellow))
                                 .transition(
                                     TransitionButton()
                                         .animation(.easeInOut(duration: 0.5)
@@ -260,7 +260,7 @@ struct TasksView: View {
                 } label: {
                     if ispressedestimate {
                         Image(systemName: "bolt.shield.fill")
-                            .foregroundColor(Color(.blue))
+                            .foregroundColor(Color(.yellow))
                             .transition(
                                 TransitionButton()
                                     .animation(.easeInOut(duration: 0.5)
