@@ -222,6 +222,7 @@ extension SidebarMainView {
                     Task {
                         try await Task.sleep(seconds: 1)
                         guard rsyncUIdata.readdatafromstorecompleted else { return }
+                        guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
                         // Observe queryitem
                         queryitem = queryitems[0]
                     }
@@ -233,6 +234,7 @@ extension SidebarMainView {
                         Task {
                             try await Task.sleep(seconds: 1)
                             guard rsyncUIdata.readdatafromstorecompleted else { return }
+                            guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
                             // Observe queryitem
                             queryitem = queryitems[0]
                         }
@@ -254,6 +256,7 @@ extension SidebarMainView {
                     Task {
                         try await Task.sleep(seconds: 1)
                         guard rsyncUIdata.readdatafromstorecompleted else { return }
+                        guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
                         // Observe queryitem
                         queryitem = queryitems[1]
                     }
@@ -263,7 +266,14 @@ extension SidebarMainView {
                         selectedview = .verify_remote
                         Task {
                             try await Task.sleep(seconds: 1)
-                            guard rsyncUIdata.readdatafromstorecompleted else { return }
+                            guard rsyncUIdata.readdatafromstorecompleted else {
+                                selectedview = .synchronize
+                                return
+                            }
+                            guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
+                                selectedview = .synchronize
+                                return
+                            }
                             queryitem = queryitems[1]
                         }
                     }
