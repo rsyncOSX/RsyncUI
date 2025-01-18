@@ -123,7 +123,7 @@ struct RsyncUIWidgetVerifyEntryView: View {
         {
             VStack {
                 Text("Profile: \(profile)")
-                Text("Task: \(task)")
+                Text("\(task)")
                 HStack {
                     Text(entry.date, style: .time)
                     Image(systemName: "bolt.shield")
