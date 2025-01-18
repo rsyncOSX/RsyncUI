@@ -233,7 +233,7 @@ struct TasksView: View {
                                 .foregroundColor(Color(.yellow))
                                 .transition(
                                     TransitionButton()
-                                        .animation(.easeInOut(duration: 0.5)
+                                        .animation(.easeInOut(duration: 1.0)
                                         )
                                 )
                         } else {
@@ -263,7 +263,7 @@ struct TasksView: View {
                             .foregroundColor(Color(.yellow))
                             .transition(
                                 TransitionButton()
-                                    .animation(.easeInOut(duration: 0.5)
+                                    .animation(.easeInOut(duration: 1.0)
                                     )
                             )
                     } else {
