@@ -47,7 +47,8 @@ struct RsyncUIView: View {
                                                        SharedReference.shared.monitornetworkconnection,
                                                        SharedReference.shared.sshport,
                                                        SharedReference.shared.fileconfigurationsjson)
-            rsyncUIdata.readdatafromstorecompleted = true
+            // rsyncUIdata.readdatafromstorecompleted = true
+            rsyncUIdata.validprofiles = Homepath().getfullpathmacserialcatalogsasstringnames()
         }
         .onChange(of: selectedprofile) {
             Task {
@@ -59,6 +60,9 @@ struct RsyncUIView: View {
                                                            SharedReference.shared.sshport,
                                                            SharedReference.shared.fileconfigurationsjson)
                 rsyncUIdata.readdatafromstorecompleted = true
+                if rsyncUIdata.validprofiles == nil {
+                    rsyncUIdata.validprofiles = Homepath().getfullpathmacserialcatalogsasstringnames()
+                }
             }
         }
     }

@@ -35,7 +35,7 @@ struct ProfileView: View {
                     }
                 }
 
-                ProfilesToUpdataView(allprofiles: allprofiles)
+                ProfilesToUpdataView(allprofiles: rsyncUIdata.validprofiles)
             }
 
             EditValue(150, NSLocalizedString("Create profile", comment: ""),
@@ -75,25 +75,24 @@ struct ProfileView: View {
             }
         }
     }
-
-    var allprofiles: [String]? {
-        Homepath().getfullpathmacserialcatalogsasstringnames()
-    }
 }
 
 extension ProfileView {
     func createprofile() {
         newdata.createprofile(newprofile: newprofile)
-        profilenames.update()
+        profilenames.update(rsyncUIdata.validprofiles ?? [])
         selectedprofile = newdata.selectedprofile
+        rsyncUIdata.validprofiles = nil
         rsyncUIdata.profile = selectedprofile
         newprofile = ""
     }
 
     func deleteprofile() {
         newdata.deleteprofile(localselectedprofile)
-        profilenames.update()
+        profilenames.update(rsyncUIdata.validprofiles ?? [])
         selectedprofile = SharedReference.shared.defaultprofile
+        // Must fix
+        rsyncUIdata.validprofiles = nil
         rsyncUIdata.profile = SharedReference.shared.defaultprofile
     }
 }

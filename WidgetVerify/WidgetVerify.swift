@@ -16,9 +16,9 @@ struct RsyncUIVerifyProvider: @preconcurrency TimelineProvider {
     func placeholder(in _: Context) -> RsyncUIWidgetVerifyEntry {
         if let queryelements, queryelements.queryItems?.count ?? 0 > 1 {
             RsyncUIWidgetVerifyEntry(date: Date(),
-                                            urlstringverify: url,
-                                            profile: queryelements.queryItems?[0].value,
-                                            task: queryelements.queryItems?[1].value)
+                                     urlstringverify: url,
+                                     profile: queryelements.queryItems?[0].value,
+                                     task: queryelements.queryItems?[1].value)
         } else {
             RsyncUIWidgetVerifyEntry(date: Date(), urlstringverify: url)
         }
@@ -35,16 +35,15 @@ struct RsyncUIVerifyProvider: @preconcurrency TimelineProvider {
             let entry = RsyncUIWidgetVerifyEntry(date: Date(), urlstringverify: url)
             completion(entry)
         }
-
     }
 
     func getTimeline(in _: Context, completion: @escaping (Timeline<Entry>) -> Void) {
         let currentDate = Date()
-        let entryDate = Calendar.current.date(byAdding: .minute, value: 0, to: currentDate)!
+        let entryDate = Calendar.current.date(byAdding: .minute, value: 1, to: currentDate)!
         if let queryelements, queryelements.queryItems?.count ?? 0 > 1 {
             let entry = RsyncUIWidgetVerifyEntry(date: Date(),
                                                  urlstringverify: url,
-                                                   profile: queryelements.queryItems?[0].value,
+                                                 profile: queryelements.queryItems?[0].value,
                                                  task: queryelements.queryItems?[1].value)
             let timeline = Timeline(entries: [entry], policy: .atEnd)
             completion(timeline)
@@ -119,12 +118,12 @@ struct RsyncUIWidgetVerifyEntryView: View {
 
     var body: some View {
         if let url = entry.urlstringverify,
-            let profile = entry.profile,
-            let task = entry.task {
+           let profile = entry.profile,
+           let task = entry.task
+        {
             VStack {
-                Text("Verify: \(url)")
                 Text("Profile: \(profile)")
-                Text("Task: \(task)")
+                Text("\(task)")
                 HStack {
                     Text(entry.date, style: .time)
                     Image(systemName: "bolt.shield")

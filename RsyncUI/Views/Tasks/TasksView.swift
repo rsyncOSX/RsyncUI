@@ -42,7 +42,7 @@ struct TasksView: View {
     // Navigation path
     @Binding var path: [Tasks]
     // For URL commands within RsyncUI
-    @Binding var urlcommand: Bool
+    @Binding var urlcommandestimateandsynchronize: Bool
     @Binding var urlcommandverify: Bool
 
     @State private var estimatestate = EstimateState()
@@ -69,6 +69,8 @@ struct TasksView: View {
     // If buttons are pressed
     @State private var ispressedverify: Bool = false
     @State private var ispressedestimate: Bool = false
+
+    @State var isOpen: Bool = false
 
     var body: some View {
         ZStack {
@@ -228,7 +230,12 @@ struct TasksView: View {
                     } label: {
                         if ispressedverify {
                             Image(systemName: "bolt.shield")
-                                .foregroundColor(Color(.blue))
+                                .foregroundColor(Color(.yellow))
+                                .transition(
+                                    TransitionButton()
+                                        .animation(.easeInOut(duration: 1.0)
+                                        )
+                                )
                         } else {
                             Image(systemName: "bolt.shield")
                                 .foregroundColor(Color(.yellow))
@@ -241,10 +248,10 @@ struct TasksView: View {
             ToolbarItem {
                 Button {
                     ispressedestimate = true
-                    if urlcommand {
-                        urlcommand = false
+                    if urlcommandestimateandsynchronize {
+                        urlcommandestimateandsynchronize = false
                     } else {
-                        urlcommand = true
+                        urlcommandestimateandsynchronize = true
                     }
                     Task {
                         try await Task.sleep(seconds: 1)
@@ -253,7 +260,12 @@ struct TasksView: View {
                 } label: {
                     if ispressedestimate {
                         Image(systemName: "bolt.shield.fill")
-                            .foregroundColor(Color(.blue))
+                            .foregroundColor(Color(.yellow))
+                            .transition(
+                                TransitionButton()
+                                    .animation(.easeInOut(duration: 1.0)
+                                    )
+                            )
                     } else {
                         Image(systemName: "bolt.shield.fill")
                             .foregroundColor(Color(.yellow))
@@ -409,5 +421,13 @@ extension TasksView {
         estimatestate.updateestimatestate(state: .start)
         selectedconfig.config = nil
         thereareestimates = false
+    }
+}
+
+struct TransitionButton: Transition {
+    func body(content: Content, phase: TransitionPhase) -> some View {
+        content
+            .rotationEffect(Angle(degrees: phase.isIdentity ? 360 : 0))
+            .scaleEffect(phase.isIdentity ? 1 : 0)
     }
 }

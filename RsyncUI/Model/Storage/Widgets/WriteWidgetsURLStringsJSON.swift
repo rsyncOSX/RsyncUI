@@ -8,6 +8,7 @@
 import DecodeEncodeGeneric
 import Foundation
 import OSLog
+import RsyncUIDeepLinks
 
 enum WidgetURLStringsJSON {
     case estimate
@@ -17,6 +18,7 @@ enum WidgetURLStringsJSON {
 @MainActor
 final class WriteWidgetsURLStringsJSON {
     let path = Homepath()
+    let deeplinks = RsyncUIDeepLinks()
 
     private func writeJSONToPersistentStore(jsonData: Data?, _ whichurltowrite: WidgetURLStringsJSON) {
         if let userHomeDirectoryPath = path.userHomeDirectoryPath {
@@ -36,7 +38,7 @@ final class WriteWidgetsURLStringsJSON {
                 }
 
             case .verify:
-                let pathverify = userHomeDirectoryPath.appending("/" + path.verifystrngsandboxcatalog)
+                let pathverify = userHomeDirectoryPath.appending("/" + path.verifystringsandboxcatalog)
                 let fullpathURL = URL(fileURLWithPath: pathverify)
                 let veirfyfileURL = fullpathURL.appendingPathComponent(SharedReference.shared.userconfigjson)
                 Logger.process.info("WriteWidgetsURLStringsJSON: URL-string \(veirfyfileURL)")
@@ -71,7 +73,24 @@ final class WriteWidgetsURLStringsJSON {
     @discardableResult
     init(_ urlwidgetstrings: WidgetURLstrings?, _ whichurltowrite: WidgetURLStringsJSON) {
         if let urlwidgetstrings {
-            encodeJSONData(urlwidgetstrings, whichurltowrite)
+            switch whichurltowrite {
+            case .estimate:
+                do {
+                    let valid = try deeplinks.validateURLstring(urlwidgetstrings.urlstringestimate ?? "")
+                    if valid { encodeJSONData(urlwidgetstrings, whichurltowrite) }
+                } catch let e {
+                    let error = e
+                    path.propogateerror(error: error)
+                }
+            case .verify:
+                do {
+                    let valid = try deeplinks.validateURLstring(urlwidgetstrings.urlstringverify ?? "")
+                    if valid { encodeJSONData(urlwidgetstrings, whichurltowrite) }
+                } catch let e {
+                    let error = e
+                    path.propogateerror(error: error)
+                }
+            }
         }
     }
 

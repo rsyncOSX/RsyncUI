@@ -13,7 +13,10 @@ import SwiftUI
 final class RsyncUIconfigurations {
     var configurations: [SynchronizeConfiguration]?
     var profile: String?
-    @ObservationIgnored var readdatafromstorecompleted: Bool = false
+    // This is observed when URL actions are initiated.
+    // Befor commence the real action must be sure that selected profile data is loaded from store
+    var readdatafromstorecompleted: Bool = true
+    @ObservationIgnored var validprofiles: [String]?
 
     init() {}
 }

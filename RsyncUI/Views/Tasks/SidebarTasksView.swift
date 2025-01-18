@@ -29,7 +29,7 @@ struct SidebarTasksView: View {
     @Binding var executetasknavigation: [Tasks]
     // URL code
     @Binding var queryitem: URLQueryItem?
-    @Binding var urlcommand: Bool
+    @Binding var urlcommandestimateandsynchronize: Bool
     @Binding var urlcommandverify: Bool
 
     @State private var executeprogressdetails = ExecuteProgressDetails()
@@ -41,7 +41,7 @@ struct SidebarTasksView: View {
                       estimateprogressdetails: estimateprogressdetails,
                       selecteduuids: $selecteduuids,
                       path: $executetasknavigation,
-                      urlcommand: $urlcommand,
+                      urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
                       urlcommandverify: $urlcommandverify)
                 .navigationDestination(for: Tasks.self) { which in
                     makeView(view: which.task)

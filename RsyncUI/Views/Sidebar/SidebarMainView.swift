@@ -33,7 +33,9 @@ struct SidebarMainView: View {
     @State private var newversion = CheckfornewversionofRsyncUI()
     // URL code
     @State var queryitem: URLQueryItem?
-    @State var urlcommand = false
+    // Bindings in TaskView triggered when Toolbar Icons, in TaskView, are pressed
+    // Toolbar Icons with yellow icons
+    @State var urlcommandestimateandsynchronize = false
     @State var urlcommandverify = false
 
     var body: some View {
@@ -78,19 +80,23 @@ struct SidebarMainView: View {
         }
         .onOpenURL { incomingURL in
             // URL code
+            // Deep link triggered RsyncUI from outside
             handleURLsidebarmainView(incomingURL)
         }
-        .onChange(of: urlcommand) {
+        .onChange(of: urlcommandestimateandsynchronize) {
+            // URL code
+            // Binding to listen for initiating deep link execute estimate and synchronize from
+            // toolbar in TasksView
             let valueprofile = rsyncUIdata.profile ?? ""
             if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: valueprofile) {
                 handleURLsidebarmainView(url)
             }
         }
         .onChange(of: urlcommandverify) {
+            // URL code
+            // Binding to listen for initiating deep link execute estimate and synchronize from
+            // toolbar in TasksView
             let valueprofile = rsyncUIdata.profile ?? ""
-            Task {
-                try await Task.sleep(seconds: 1)
-            }
             var valueid = ""
             if let configurations = rsyncUIdata.configurations {
                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
@@ -102,6 +108,9 @@ struct SidebarMainView: View {
                     }
                 }
             }
+        }
+        .onChange(of: rsyncUIdata.readdatafromstorecompleted) {
+            Logger.process.info("SidebarMainView: READDATAFROMSTORECOMPLETED: \(rsyncUIdata.readdatafromstorecompleted)")
         }
     }
 
@@ -136,7 +145,7 @@ struct SidebarMainView: View {
                              estimateprogressdetails: estimateprogressdetails,
                              executetasknavigation: $executetasknavigation,
                              queryitem: $queryitem,
-                             urlcommand: $urlcommand,
+                             urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
                              urlcommandverify: $urlcommandverify)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
@@ -164,7 +173,7 @@ struct SidebarMainView: View {
     }
 
     var profilenames: Profilenames {
-        Profilenames()
+        Profilenames(rsyncUIdata.validprofiles ?? [])
     }
 
     var disablesidebarmeny: Bool {
@@ -180,8 +189,7 @@ extension SidebarMainView {
     // URL code
     private func handleURLsidebarmainView(_ url: URL) {
         let deeplinkurl = DeeplinkURL()
-
-        // Verify URL action is verified
+        // Verify URL action is valid
         guard deeplinkurl.validatenoaction(queryitem) else { return }
         // Verify no other process is running
         guard SharedReference.shared.process == nil else { return }
@@ -197,7 +205,7 @@ extension SidebarMainView {
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile - \(url)")
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
                 let profile = queryitems[0].value ?? ""
-                if deeplinkurl.validateprofile(profile) {
+                if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles ?? []) {
                     selectedprofile = profile
                 }
             } else {
@@ -214,16 +222,19 @@ extension SidebarMainView {
                     Task {
                         try await Task.sleep(seconds: 1)
                         guard rsyncUIdata.readdatafromstorecompleted else { return }
+                        guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
                         // Observe queryitem
                         queryitem = queryitems[0]
                     }
+
                 } else {
-                    if deeplinkurl.validateprofile(profile) {
+                    if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles ?? []) {
                         selectedprofile = profile
                         selectedview = .synchronize
                         Task {
                             try await Task.sleep(seconds: 1)
                             guard rsyncUIdata.readdatafromstorecompleted else { return }
+                            guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
                             // Observe queryitem
                             queryitem = queryitems[0]
                         }
@@ -245,16 +256,24 @@ extension SidebarMainView {
                     Task {
                         try await Task.sleep(seconds: 1)
                         guard rsyncUIdata.readdatafromstorecompleted else { return }
+                        guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
                         // Observe queryitem
                         queryitem = queryitems[1]
                     }
                 } else {
-                    if deeplinkurl.validateprofile(profile) {
+                    if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles ?? []) {
                         selectedprofile = profile
                         selectedview = .verify_remote
                         Task {
                             try await Task.sleep(seconds: 1)
-                            guard rsyncUIdata.readdatafromstorecompleted else { return }
+                            guard rsyncUIdata.readdatafromstorecompleted else {
+                                selectedview = .synchronize
+                                return
+                            }
+                            guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
+                                selectedview = .synchronize
+                                return
+                            }
                             queryitem = queryitems[1]
                         }
                     }
