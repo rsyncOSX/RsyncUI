@@ -119,9 +119,14 @@ struct RsyncParametersView: View {
 
                 if focusaborttask { labelaborttask }
             }
-            RsyncCommandView(config: $parameters.configuration,
-                             selectedrsynccommand: $selectedrsynccommand)
-                .disabled(parameters.configuration == nil)
+            VStack (alignment: .leading) {
+                Text("Select a task")
+                
+                RsyncCommandView(config: $parameters.configuration,
+                                 selectedrsynccommand: $selectedrsynccommand)
+                    .disabled(parameters.configuration == nil)
+            }
+            
         }
         .onChange(of: rsyncUIdata.profile) {
             selectedconfig = nil

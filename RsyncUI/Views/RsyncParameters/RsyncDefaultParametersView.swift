@@ -62,8 +62,13 @@ struct RsyncDefaultParametersView: View {
             }
 
             Spacer()
-
-            RsyncCommandView(config: $parameters.configuration, selectedrsynccommand: $selectedrsynccommand)
+            
+            VStack (alignment: .leading) {
+                Text("Select a task")
+                
+                RsyncCommandView(config: $parameters.configuration, selectedrsynccommand: $selectedrsynccommand)
+                    .disabled(parameters.configuration == nil)
+            }
         }
         .toolbar {
             ToolbarItem {
