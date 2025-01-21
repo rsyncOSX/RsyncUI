@@ -87,6 +87,7 @@ struct SidebarMainView: View {
         .onOpenURL { incomingURL in
             // URL code
             // Deep link triggered RsyncUI from outside
+            columnVisibility = .all
             handleURLsidebarmainView(incomingURL)
         }
         .onChange(of: urlcommandestimateandsynchronize) {
