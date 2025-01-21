@@ -14,8 +14,6 @@ struct ProfilePicker: View {
     @Binding var columnVisibility: NavigationSplitViewVisibility
     @Binding var selectedprofile: String?
 
-    @State private var uuidprofile = Set<ProfilesnamesRecord.ID>()
-
     var body: some View {
         if columnVisibility != .detailOnly {
             Picker("", selection: $selectedprofile) {
@@ -30,7 +28,7 @@ struct ProfilePicker: View {
                 List(stringprofiles, id: \.self, selection: $selectedprofile) { name in
                     Text(name)
                 }
-                .navigationTitle("Select Profile")
+                .navigationTitle("Select profile")
                 .onChange(of: selectedprofile) {
                     dismiss()
                 }

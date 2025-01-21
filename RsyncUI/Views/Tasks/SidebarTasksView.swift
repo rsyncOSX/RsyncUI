@@ -48,7 +48,8 @@ struct SidebarTasksView: View {
                       path: $executetasknavigation,
                       urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
                       urlcommandverify: $urlcommandverify,
-                      columnVisibility: $columnVisibility)
+                      columnVisibility: $columnVisibility,
+                      sheetispresented: $sheetispresented)
                 .navigationDestination(for: Tasks.self) { which in
                     makeView(view: which.task)
                 }

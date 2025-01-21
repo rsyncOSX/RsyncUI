@@ -46,6 +46,7 @@ struct TasksView: View {
     @Binding var urlcommandverify: Bool
     // Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
+    @Binding var sheetispresented: Bool
 
     @State private var estimatestate = EstimateState()
     // Focus buttons from the menu
@@ -133,7 +134,9 @@ struct TasksView: View {
         .toolbar(content: {
             if columnVisibility == .detailOnly {
                 ToolbarItem {
-                    Button {} label: {
+                    Button {
+                        sheetispresented = true
+                    } label: {
                         Text("Profile")
                     }
                     .buttonStyle(ColorfulButtonStyle())
