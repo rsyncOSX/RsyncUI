@@ -31,6 +31,8 @@ struct SidebarTasksView: View {
     @Binding var queryitem: URLQueryItem?
     @Binding var urlcommandestimateandsynchronize: Bool
     @Binding var urlcommandverify: Bool
+    // Show or hide Toolbar
+    @Binding var columnVisibility: NavigationSplitViewVisibility
 
     @State private var executeprogressdetails = ExecuteProgressDetails()
 

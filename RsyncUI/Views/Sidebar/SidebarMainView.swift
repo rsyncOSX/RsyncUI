@@ -37,9 +37,13 @@ struct SidebarMainView: View {
     // Toolbar Icons with yellow icons
     @State var urlcommandestimateandsynchronize = false
     @State var urlcommandverify = false
+    // Toggle sidebar
+    @State private var columnVisibility = NavigationSplitViewVisibility.doubleColumn
+    // .doubleColumn
+    // .detailOnly
 
     var body: some View {
-        NavigationSplitView {
+        NavigationSplitView(columnVisibility: $columnVisibility) {
             profilepicker
                 .padding([.bottom, .top], 5)
                 .disabled(disablesidebarmeny)
@@ -146,7 +150,8 @@ struct SidebarMainView: View {
                              executetasknavigation: $executetasknavigation,
                              queryitem: $queryitem,
                              urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
-                             urlcommandverify: $urlcommandverify)
+                             urlcommandverify: $urlcommandverify,
+                             columnVisibility: $columnVisibility)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
         case .verify_remote:
