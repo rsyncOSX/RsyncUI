@@ -19,7 +19,7 @@ enum ResourceType {
 struct Resources {
     // Resource strings
     private var changelog: String = "https://rsyncui.netlify.app/blog/"
-    private var documents: String = "https://rsyncui.netlify.app/docs/rsyncuidocs/"
+    private var documents: String = "https://rsyncui.netlify.app/docs/"
     private var urlJSON: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/versionRsyncUI/versionRsyncUIsonoma.json"
     // Get the resource.
     func getResource(resource: ResourceType) -> String {

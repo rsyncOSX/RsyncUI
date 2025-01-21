@@ -24,6 +24,7 @@ struct Tasks: Hashable, Identifiable {
 
 struct SidebarTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var executetasknavigation: [Tasks]
@@ -31,6 +32,10 @@ struct SidebarTasksView: View {
     @Binding var queryitem: URLQueryItem?
     @Binding var urlcommandestimateandsynchronize: Bool
     @Binding var urlcommandverify: Bool
+    // Show or hide Toolbox
+    @Binding var columnVisibility: NavigationSplitViewVisibility
+    // Present sheet
+    @State private var sheetispresented: Bool = false
 
     @State private var executeprogressdetails = ExecuteProgressDetails()
 
@@ -42,7 +47,9 @@ struct SidebarTasksView: View {
                       selecteduuids: $selecteduuids,
                       path: $executetasknavigation,
                       urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
-                      urlcommandverify: $urlcommandverify)
+                      urlcommandverify: $urlcommandverify,
+                      columnVisibility: $columnVisibility,
+                      sheetispresented: $sheetispresented)
                 .navigationDestination(for: Tasks.self) { which in
                     makeView(view: which.task)
                 }
@@ -53,6 +60,16 @@ struct SidebarTasksView: View {
         .onChange(of: queryitem) {
             // URL code
             handlequeryitem()
+        }
+        .sheet(isPresented: $sheetispresented) {
+            ProfilePicker(rsyncUIdata: rsyncUIdata,
+                          columnVisibility: $columnVisibility,
+                          selectedprofile: $selectedprofile)
+        }
+        .onChange(of: columnVisibility) {
+            if columnVisibility == .detailOnly {
+                sheetispresented = true
+            }
         }
     }
 

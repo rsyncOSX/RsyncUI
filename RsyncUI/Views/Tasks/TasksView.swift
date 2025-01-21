@@ -44,6 +44,9 @@ struct TasksView: View {
     // For URL commands within RsyncUI
     @Binding var urlcommandestimateandsynchronize: Bool
     @Binding var urlcommandverify: Bool
+    // Show or hide Toolbox
+    @Binding var columnVisibility: NavigationSplitViewVisibility
+    @Binding var sheetispresented: Bool
 
     @State private var estimatestate = EstimateState()
     // Focus buttons from the menu
@@ -129,6 +132,17 @@ struct TasksView: View {
         .focusedSceneValue(\.exporttasks, $focusexport)
         .focusedSceneValue(\.importtasks, $focusimport)
         .toolbar(content: {
+            if columnVisibility == .detailOnly {
+                ToolbarItem {
+                    Button {
+                        sheetispresented = true
+                    } label: {
+                        Text("Profile")
+                    }
+                    .buttonStyle(ColorfulButtonStyle())
+                }
+            }
+
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }

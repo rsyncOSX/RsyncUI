@@ -37,11 +37,17 @@ struct SidebarMainView: View {
     // Toolbar Icons with yellow icons
     @State var urlcommandestimateandsynchronize = false
     @State var urlcommandverify = false
+    // Toggle sidebar
+    @State private var columnVisibility = NavigationSplitViewVisibility.doubleColumn
+    // .doubleColumn
+    // .detailOnly
 
     var body: some View {
-        NavigationSplitView {
-            profilepicker
-                .padding([.bottom, .top], 5)
+        NavigationSplitView(columnVisibility: $columnVisibility) {
+            ProfilePicker(rsyncUIdata: rsyncUIdata,
+                          columnVisibility: $columnVisibility,
+                          selectedprofile: $selectedprofile)
+                .padding([.bottom, .top, .trailing], 7)
                 .disabled(disablesidebarmeny)
 
             Divider()
@@ -81,6 +87,7 @@ struct SidebarMainView: View {
         .onOpenURL { incomingURL in
             // URL code
             // Deep link triggered RsyncUI from outside
+            columnVisibility = .all
             handleURLsidebarmainView(incomingURL)
         }
         .onChange(of: urlcommandestimateandsynchronize) {
@@ -112,6 +119,9 @@ struct SidebarMainView: View {
         .onChange(of: rsyncUIdata.readdatafromstorecompleted) {
             Logger.process.info("SidebarMainView: READDATAFROMSTORECOMPLETED: \(rsyncUIdata.readdatafromstorecompleted)")
         }
+        .onChange(of: selectedprofile) {
+            selecteduuids.removeAll()
+        }
     }
 
     @MainActor @ViewBuilder
@@ -141,39 +151,21 @@ struct SidebarMainView: View {
             SnapshotsView(rsyncUIdata: rsyncUIdata)
         case .synchronize:
             SidebarTasksView(rsyncUIdata: rsyncUIdata,
+                             selectedprofile: $selectedprofile,
                              selecteduuids: $selecteduuids,
                              estimateprogressdetails: estimateprogressdetails,
                              executetasknavigation: $executetasknavigation,
                              queryitem: $queryitem,
                              urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
-                             urlcommandverify: $urlcommandverify)
+                             urlcommandverify: $urlcommandverify,
+                             columnVisibility: $columnVisibility)
         case .profiles:
-            ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
+            ProfileView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
         case .verify_remote:
             NavigationStack {
                 VerifyRemote(rsyncUIdata: rsyncUIdata, verifynavigation: $verifynavigation, queryitem: $queryitem)
             }
         }
-    }
-
-    var profilepicker: some View {
-        HStack {
-            Picker("", selection: $selectedprofile) {
-                ForEach(profilenames.profiles ?? [], id: \.self) { profile in
-                    Text(profile.profile ?? "")
-                        .tag(profile.profile)
-                }
-            }
-            .frame(width: 180)
-            .onChange(of: selectedprofile) {
-                selecteduuids.removeAll()
-            }
-            Spacer()
-        }
-    }
-
-    var profilenames: Profilenames {
-        Profilenames(rsyncUIdata.validprofiles ?? [])
     }
 
     var disablesidebarmeny: Bool {
