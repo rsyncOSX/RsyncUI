@@ -44,7 +44,7 @@ struct SidebarMainView: View {
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
-            profilepicker
+            ProfilePicker(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
                 .padding([.bottom, .top], 5)
                 .disabled(disablesidebarmeny)
 
@@ -116,6 +116,9 @@ struct SidebarMainView: View {
         .onChange(of: rsyncUIdata.readdatafromstorecompleted) {
             Logger.process.info("SidebarMainView: READDATAFROMSTORECOMPLETED: \(rsyncUIdata.readdatafromstorecompleted)")
         }
+        .onChange(of: selectedprofile) {
+            selecteduuids.removeAll()
+        }
     }
 
     @MainActor @ViewBuilder
@@ -153,32 +156,12 @@ struct SidebarMainView: View {
                              urlcommandverify: $urlcommandverify,
                              columnVisibility: $columnVisibility)
         case .profiles:
-            ProfileView(rsyncUIdata: rsyncUIdata, profilenames: profilenames, selectedprofile: $selectedprofile)
+            ProfileView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
         case .verify_remote:
             NavigationStack {
                 VerifyRemote(rsyncUIdata: rsyncUIdata, verifynavigation: $verifynavigation, queryitem: $queryitem)
             }
         }
-    }
-
-    var profilepicker: some View {
-        HStack {
-            Picker("", selection: $selectedprofile) {
-                ForEach(profilenames.profiles ?? [], id: \.self) { profile in
-                    Text(profile.profile ?? "")
-                        .tag(profile.profile)
-                }
-            }
-            .frame(width: 180)
-            .onChange(of: selectedprofile) {
-                selecteduuids.removeAll()
-            }
-            Spacer()
-        }
-    }
-
-    var profilenames: Profilenames {
-        Profilenames(rsyncUIdata.validprofiles ?? [])
     }
 
     var disablesidebarmeny: Bool {
@@ -319,5 +302,29 @@ struct SidebarRow: View {
         case .verify_remote:
             "arrow.down.circle.fill"
         }
+    }
+}
+
+
+struct ProfilePicker: View {
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var selectedprofile: String?
+    
+    var body: some View {
+        HStack {
+            Picker("", selection: $selectedprofile) {
+                ForEach(profilenames.profiles ?? [], id: \.self) { profile in
+                    Text(profile.profile ?? "")
+                        .tag(profile.profile)
+                }
+            }
+            .frame(width: 180)
+            
+            Spacer()
+        }
+    }
+    
+    var profilenames: Profilenames {
+        Profilenames(rsyncUIdata.validprofiles ?? [])
     }
 }
