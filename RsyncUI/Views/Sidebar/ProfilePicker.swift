@@ -8,20 +8,49 @@
 import SwiftUI
 
 struct ProfilePicker: View {
+    @Environment(\.dismiss) var dismiss
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    // Show or hide Toolbox
+    @Binding var columnVisibility: NavigationSplitViewVisibility
     @Binding var selectedprofile: String?
 
+    @State private var uuidprofile = Set<ProfilesnamesRecord.ID>()
+
     var body: some View {
-        Picker("", selection: $selectedprofile) {
-            ForEach(profilenames.profiles ?? [], id: \.self) { profile in
-                Text(profile.profile ?? "")
-                    .tag(profile.profile)
+        if columnVisibility != .detailOnly {
+            Picker("", selection: $selectedprofile) {
+                ForEach(profilenames.profiles ?? [], id: \.self) { profile in
+                    Text(profile.profile ?? "")
+                        .tag(profile.profile)
+                }
             }
+            .frame(width: 180)
+        } else {
+            NavigationStack {
+                List(stringprofiles, id: \.self, selection: $selectedprofile) { name in
+                    Text(name)
+                }
+                .navigationTitle("Select Profile")
+                .onChange(of: selectedprofile) {
+                    dismiss()
+                }
+                .frame(width: 200, height: 200)
+            }
+            
         }
-        .frame(width: 180)
     }
 
     var profilenames: Profilenames {
         Profilenames(rsyncUIdata.validprofiles ?? [])
+    }
+
+    var stringprofiles: [String] {
+        if let allprofiles = profilenames.profiles {
+            allprofiles.map {
+                $0.profile ?? ""
+            }
+        } else {
+            []
+        }
     }
 }

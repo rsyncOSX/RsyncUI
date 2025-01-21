@@ -44,7 +44,9 @@ struct SidebarMainView: View {
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
-            ProfilePicker(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
+            ProfilePicker(rsyncUIdata: rsyncUIdata,
+                          columnVisibility: $columnVisibility,
+                          selectedprofile: $selectedprofile)
                 .padding([.bottom, .top, .trailing], 7)
                 .disabled(disablesidebarmeny)
 
@@ -148,6 +150,7 @@ struct SidebarMainView: View {
             SnapshotsView(rsyncUIdata: rsyncUIdata)
         case .synchronize:
             SidebarTasksView(rsyncUIdata: rsyncUIdata,
+                             selectedprofile: $selectedprofile,
                              selecteduuids: $selecteduuids,
                              estimateprogressdetails: estimateprogressdetails,
                              executetasknavigation: $executetasknavigation,

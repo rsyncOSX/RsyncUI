@@ -13,7 +13,6 @@ struct ProfileView: View {
     @Binding var selectedprofile: String?
 
     @State private var newdata = ObservableProfiles()
-
     @State private var uuidprofile = Set<ProfilesnamesRecord.ID>()
     @State private var localselectedprofile: String?
     @State private var newprofile: String = ""

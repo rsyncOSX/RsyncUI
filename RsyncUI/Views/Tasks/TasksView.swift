@@ -133,10 +133,13 @@ struct TasksView: View {
         .toolbar(content: {
             if columnVisibility == .detailOnly {
                 ToolbarItem {
-                    Text("Profiles")
+                    Button {} label: {
+                        Text("Profile")
+                    }
+                    .buttonStyle(ColorfulButtonStyle())
                 }
             }
-            
+
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
