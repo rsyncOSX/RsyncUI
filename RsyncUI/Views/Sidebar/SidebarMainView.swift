@@ -45,7 +45,7 @@ struct SidebarMainView: View {
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             ProfilePicker(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
-                .padding([.bottom, .top], 5)
+                .padding([.bottom, .top], 7)
                 .disabled(disablesidebarmeny)
 
             Divider()
@@ -305,25 +305,20 @@ struct SidebarRow: View {
     }
 }
 
-
 struct ProfilePicker: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedprofile: String?
-    
+
     var body: some View {
-        HStack {
-            Picker("", selection: $selectedprofile) {
-                ForEach(profilenames.profiles ?? [], id: \.self) { profile in
-                    Text(profile.profile ?? "")
-                        .tag(profile.profile)
-                }
+        Picker("", selection: $selectedprofile) {
+            ForEach(profilenames.profiles ?? [], id: \.self) { profile in
+                Text(profile.profile ?? "")
+                    .tag(profile.profile)
             }
-            .frame(width: 180)
-            
-            Spacer()
         }
+        .frame(width: 180)
     }
-    
+
     var profilenames: Profilenames {
         Profilenames(rsyncUIdata.validprofiles ?? [])
     }
