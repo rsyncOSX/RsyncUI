@@ -122,18 +122,8 @@ struct RsyncUIWidgetVerifyEntryView: View {
            let task = entry.task
         {
             VStack {
-                Text("Profile: \(profile)")
+                Text("Verify profile: \(profile)")
                 Text("\(task)")
-                HStack {
-                    Text(entry.date, style: .time)
-                    Image(systemName: "bolt.shield")
-                        .foregroundColor(Color(.yellow))
-                        .widgetURL(url)
-                }
-            }
-        } else if let url = entry.urlstringverify {
-            HStack {
-                Text("Verify: \(url)")
                 HStack {
                     Text(entry.date, style: .time)
                     Image(systemName: "bolt.shield")
