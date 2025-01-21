@@ -31,7 +31,7 @@ struct SidebarTasksView: View {
     @Binding var queryitem: URLQueryItem?
     @Binding var urlcommandestimateandsynchronize: Bool
     @Binding var urlcommandverify: Bool
-    // Show or hide Toolbar
+    // Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
 
     @State private var executeprogressdetails = ExecuteProgressDetails()
@@ -44,7 +44,8 @@ struct SidebarTasksView: View {
                       selecteduuids: $selecteduuids,
                       path: $executetasknavigation,
                       urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
-                      urlcommandverify: $urlcommandverify)
+                      urlcommandverify: $urlcommandverify,
+                      columnVisibility: $columnVisibility)
                 .navigationDestination(for: Tasks.self) { which in
                     makeView(view: which.task)
                 }
