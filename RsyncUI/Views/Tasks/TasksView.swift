@@ -137,10 +137,12 @@ struct TasksView: View {
                     Button {
                         sheetispresented = true
                     } label: {
-                        Text("Profile")
+                        Image(systemName: "list.bullet.rectangle")
+                            .foregroundColor(Color(.blue))
                     }
-                    .buttonStyle(ColorfulButtonStyle())
+                    .help("Select profile")
                 }
+                
             }
 
             ToolbarItem {
