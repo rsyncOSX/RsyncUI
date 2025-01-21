@@ -110,21 +110,12 @@ struct RsyncUIWidgetEstimateEntryView: View {
            let profile = entry.profile
         {
             VStack {
-                Text("Profile: \(profile)")
+                Text("Estimate profile: \(profile)")
                 HStack {
                     Text(entry.date, style: .time)
                     Image(systemName: "bolt.shield.fill")
                         .foregroundColor(Color(.yellow))
                         .widgetURL(url)
-                }
-            }
-        } else if let url = entry.urlstringestimate {
-            HStack {
-                Text("Estimate: \(url)")
-                HStack {
-                    Text(entry.date, style: .time)
-                    Image(systemName: "bolt.shield.fill")
-                        .foregroundColor(Color(.yellow))
                 }
             }
         } else {
