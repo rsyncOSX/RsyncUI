@@ -68,7 +68,7 @@ struct SidebarTasksView: View {
         }
         .onChange(of: columnVisibility) {
             if columnVisibility == .detailOnly {
-                sheetispresented = true
+                sheetispresented = false
             }
         }
     }

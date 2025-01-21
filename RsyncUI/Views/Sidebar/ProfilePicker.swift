@@ -13,7 +13,7 @@ struct ProfilePicker: View {
     // Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
     @Binding var selectedprofile: String?
-
+    
     var body: some View {
         if columnVisibility != .detailOnly {
             Picker("", selection: $selectedprofile) {
@@ -24,16 +24,24 @@ struct ProfilePicker: View {
             }
             .frame(width: 180)
         } else {
-            NavigationStack {
-                List(stringprofiles, id: \.self, selection: $selectedprofile) { name in
-                    Text(name)
+            VStack {
+                NavigationStack {
+                    List(stringprofiles, id: \.self, selection: $selectedprofile) { name in
+                        Text(name)
+                    }
+                    .navigationTitle("Select profile")
+                    .onChange(of: selectedprofile) {
+                        dismiss()
+                    }
                 }
-                .navigationTitle("Select profile")
-                .onChange(of: selectedprofile) {
+                
+                Button("Dismiss") {
                     dismiss()
                 }
-                .frame(width: 200, height: 200)
+                .buttonStyle(ColorfulButtonStyle())
+                .padding()
             }
+            .frame(width: 250, height: 300)
         }
     }
 
