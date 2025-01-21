@@ -17,6 +17,10 @@ final class RsyncUIconfigurations {
     // Befor commence the real action must be sure that selected profile data is loaded from store
     var readdatafromstorecompleted: Bool = true
     @ObservationIgnored var validprofiles: [String]?
+    // Toggle sidebar
+    var columnVisibility = NavigationSplitViewVisibility.doubleColumn
+    // .doubleColumn
+    // .detailOnly
 
     init() {}
 }
