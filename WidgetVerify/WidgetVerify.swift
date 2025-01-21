@@ -121,8 +121,10 @@ struct RsyncUIWidgetVerifyEntryView: View {
            let profile = entry.profile,
            let task = entry.task
         {
-            VStack {
-                Text("Verify profile: \(profile)")
+            VStack(alignment: .leading) {
+                Text("Verify")
+                    .font(.title2)
+                Text("Profile: \(profile)")
                 Text("\(task)")
                 HStack {
                     Text(entry.date, style: .time)

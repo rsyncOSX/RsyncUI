@@ -109,8 +109,10 @@ struct RsyncUIWidgetEstimateEntryView: View {
         if let url = entry.urlstringestimate,
            let profile = entry.profile
         {
-            VStack {
-                Text("Estimate profile: \(profile)")
+            VStack(alignment: .leading) {
+                Text("Synchronize")
+                    .font(.title2)
+                Text("Profile: \(profile)")
                 HStack {
                     Text(entry.date, style: .time)
                     Image(systemName: "bolt.shield.fill")
