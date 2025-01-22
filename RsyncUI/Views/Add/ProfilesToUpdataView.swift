@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 struct ProfilesToUpdataView: View {
-    let allprofiles: [String]?
+    let allprofiles: [ProfilesnamesRecord]?
     @State private var configurations: [SynchronizeConfiguration]?
 
     var body: some View {
@@ -58,23 +58,24 @@ struct ProfilesToUpdataView: View {
         }
 
         .task {
-            configurations = await readalltasks(allprofiles: allprofiles)
+            if let allprofiles {
+                configurations = await readalltasks(allprofiles)
+            }
         }
     }
 
-    private func readalltasks(allprofiles: [String]?) async -> [SynchronizeConfiguration] {
+    private func readalltasks(_ validprofiles: [ProfilesnamesRecord]) async -> [SynchronizeConfiguration] {
         var old: [SynchronizeConfiguration]?
         // Important: we must temporarly disable monitor network connection
         if SharedReference.shared.monitornetworkconnection {
             Logger.process.info("ProfileView: monitornetworkconnection is disabled")
             SharedReference.shared.monitornetworkconnection = false
         }
+        
+        let allprofiles = validprofiles.map { $0.profilename }
 
-        for i in 0 ..< (allprofiles?.count ?? 0) {
-            var profilename = allprofiles?[i]
-            if profilename == "Default profile" {
-                profilename = nil
-            }
+        for i in 0 ..< allprofiles.count {
+            let profilename = allprofiles[i]
             let configurations = await ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profilename,
                                                        SharedReference.shared.monitornetworkconnection,
@@ -97,7 +98,7 @@ struct ProfilesToUpdataView: View {
                     if newelement.backupID.isEmpty {
                         newelement.backupID = "Synchronize ID"
                     }
-                    newelement.backupID += profilename ?? "Default profile"
+                    newelement.backupID += profilename
                     return newelement
                 }
             } else {
@@ -107,7 +108,7 @@ struct ProfilesToUpdataView: View {
                         if newelement.backupID.isEmpty {
                             newelement.backupID = "Synchronize ID"
                         }
-                        newelement.backupID += " : " + (profilename ?? "Default profile")
+                        newelement.backupID += " : " + profilename
                         return newelement
                     }
                     old?.append(contentsOf: profileold)

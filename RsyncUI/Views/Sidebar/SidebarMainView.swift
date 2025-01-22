@@ -45,7 +45,6 @@ struct SidebarMainView: View {
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             ProfilePicker(rsyncUIdata: rsyncUIdata,
-                          columnVisibility: $columnVisibility,
                           selectedprofile: $selectedprofile)
                 .padding([.bottom, .top, .trailing], 7)
                 .disabled(disablesidebarmeny)
@@ -197,7 +196,7 @@ extension SidebarMainView {
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile - \(url)")
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
                 let profile = queryitems[0].value ?? ""
-                if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles ?? []) {
+                if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
                     selectedprofile = profile
                 }
             } else {
@@ -220,7 +219,7 @@ extension SidebarMainView {
                     }
 
                 } else {
-                    if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles ?? []) {
+                    if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
                         selectedprofile = profile
                         selectedview = .synchronize
                         Task {
@@ -253,7 +252,7 @@ extension SidebarMainView {
                         queryitem = queryitems[1]
                     }
                 } else {
-                    if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles ?? []) {
+                    if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
                         selectedprofile = profile
                         selectedview = .verify_remote
                         Task {
