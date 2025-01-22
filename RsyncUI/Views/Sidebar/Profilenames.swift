@@ -21,13 +21,6 @@ struct ProfilesnamesRecord: Identifiable, Equatable, Hashable {
 final class Profilenames {
     var profiles: [ProfilesnamesRecord]?
 
-    /*
-     func update(_ allprofiles: [String]) {
-         profiles = allprofiles.map { profile in
-             ProfilesnamesRecord(profile)
-         }
-     }
-     */
     init(_ allprofiles: [String]?) {
         if let allprofiles {
             profiles = allprofiles.map { profile in
