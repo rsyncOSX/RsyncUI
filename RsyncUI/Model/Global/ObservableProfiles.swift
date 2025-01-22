@@ -14,14 +14,17 @@ final class ObservableProfiles: PropogateError {
     var deletedefaultprofile: Bool = false
 
     var deleted: Bool = false
-    var created: Bool = false
+    // var created: Bool = false
 
-    func createprofile(newprofile: String) {
-        guard newprofile.isEmpty == false else { return }
+    func createprofile(newprofile: String) -> Bool {
+        guard newprofile.isEmpty == false else { return false }
         let catalogprofile = CatalogForProfile()
-        catalogprofile.createprofilecatalog(newprofile)
-        selectedprofile = newprofile
-        created = true
+        if catalogprofile.createprofilecatalog(newprofile) {
+            selectedprofile = newprofile
+            return true
+        } else {
+            return false
+        }
     }
 
     func deleteprofile(_ profile: String?) {

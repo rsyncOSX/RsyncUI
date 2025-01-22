@@ -13,14 +13,14 @@ import OSLog
 struct CatalogForProfile {
     let path = Homepath()
 
-    func createprofilecatalog(_ profile: String) {
+    func createprofilecatalog(_ profile: String)  -> Bool {
         let fm = FileManager.default
         // First check if profilecatalog exists, if yes bail out
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathprofileString = fullpathmacserial + "/" + profile
             guard fm.locationExists(at: fullpathprofileString, kind: .folder) == false else {
                 Logger.process.info("CatalogProfile: profile catalog exist")
-                return
+                return false
             }
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -32,9 +32,10 @@ struct CatalogForProfile {
             } catch let e {
                 let error = e
                 path.propogateerror(error: error)
-                return
+                return false
             }
         }
+        return true
     }
 
     // Function for deleting profile directory
