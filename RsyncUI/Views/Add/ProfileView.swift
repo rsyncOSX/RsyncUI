@@ -16,6 +16,8 @@ struct ProfileView: View {
     @State private var uuidprofile: ProfilesnamesRecord.ID?
     @State private var localselectedprofile: String?
     @State private var newprofile: String = ""
+    
+    @State private var isPresentingConfirm: Bool = false
 
     var body: some View {
         VStack {
@@ -52,21 +54,21 @@ struct ProfileView: View {
                 }
                 .help("Add profile")
             }
-
+            
             ToolbarItem {
                 Button {
-                    guard localselectedprofile?.isEmpty == false else { return }
-                    newdata.showAlertfordelete = true
+                    isPresentingConfirm = (localselectedprofile?.isEmpty == false && localselectedprofile != SharedReference.shared.defaultprofile)
                 } label: {
                     Image(systemName: "trash.fill")
+                        .foregroundColor(Color(.blue))
                 }
                 .help("Delete profile")
-                .sheet(isPresented: $newdata.showAlertfordelete) {
-                    ConfirmDeleteProfileView(delete: $newdata.confirmdeleteselectedprofile,
-                                             profile: localselectedprofile)
-                        .onDisappear(perform: {
-                            deleteprofile()
-                        })
+                .confirmationDialog("Delete \(localselectedprofile ?? "")?",
+                                    isPresented: $isPresentingConfirm)
+                {
+                    Button("Delete", role: .destructive) {
+                        deleteprofile()
+                    }
                 }
             }
         }

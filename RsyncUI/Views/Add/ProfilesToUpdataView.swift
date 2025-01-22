@@ -98,7 +98,7 @@ struct ProfilesToUpdataView: View {
                     if newelement.backupID.isEmpty {
                         newelement.backupID = "Synchronize ID"
                     }
-                    newelement.backupID += profilename
+                    newelement.backupID += " : " + profilename
                     return newelement
                 }
             } else {
