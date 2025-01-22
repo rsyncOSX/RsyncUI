@@ -34,9 +34,7 @@ struct SidebarTasksView: View {
     @Binding var urlcommandverify: Bool
     // Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
-    // Present sheet
-    @State private var sheetispresented: Bool = false
-
+    
     @State private var executeprogressdetails = ExecuteProgressDetails()
 
     var body: some View {
@@ -48,8 +46,7 @@ struct SidebarTasksView: View {
                       path: $executetasknavigation,
                       urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
                       urlcommandverify: $urlcommandverify,
-                      columnVisibility: $columnVisibility,
-                      sheetispresented: $sheetispresented)
+                      columnVisibility: $columnVisibility)
                 .navigationDestination(for: Tasks.self) { which in
                     makeView(view: which.task)
                 }
@@ -60,16 +57,6 @@ struct SidebarTasksView: View {
         .onChange(of: queryitem) {
             // URL code
             handlequeryitem()
-        }
-        .sheet(isPresented: $sheetispresented) {
-            ProfilePicker(rsyncUIdata: rsyncUIdata,
-                          columnVisibility: $columnVisibility,
-                          selectedprofile: $selectedprofile)
-        }
-        .onChange(of: columnVisibility) {
-            if columnVisibility == .detailOnly {
-                sheetispresented = false
-            }
         }
     }
 

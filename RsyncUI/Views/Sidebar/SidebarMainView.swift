@@ -45,7 +45,6 @@ struct SidebarMainView: View {
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             ProfilePicker(rsyncUIdata: rsyncUIdata,
-                          columnVisibility: $columnVisibility,
                           selectedprofile: $selectedprofile)
                 .padding([.bottom, .top, .trailing], 7)
                 .disabled(disablesidebarmeny)

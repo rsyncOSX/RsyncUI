@@ -46,7 +46,6 @@ struct TasksView: View {
     @Binding var urlcommandverify: Bool
     // Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
-    @Binding var sheetispresented: Bool
 
     @State private var estimatestate = EstimateState()
     // Focus buttons from the menu
@@ -74,56 +73,78 @@ struct TasksView: View {
     @State private var ispressedestimate: Bool = false
 
     @State var isOpen: Bool = false
+    // View profiles on left
+    @State private var uuidprofile = Set<ProfilesnamesRecord.ID>()
+    @State private var localselectedprofile: String?
 
     var body: some View {
         ZStack {
-            ListofTasksMainView(
-                rsyncUIdata: rsyncUIdata,
-                selecteduuids: $selecteduuids,
-                filterstring: $filterstring,
-                doubleclick: $doubleclick,
-                progress: $progress,
-                executeprogressdetails: executeprogressdetails,
-                max: maxcount
-            )
-            .frame(maxWidth: .infinity)
-            .onChange(of: selecteduuids) {
-                if let configurations = rsyncUIdata.configurations {
-                    if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                        selectedconfig.config = configurations[index]
-                        // Must check if rsync version and snapshot
-                        if configurations[index].task == SharedReference.shared.snapshot,
-                           SharedReference.shared.rsyncversion3 == false
-                        {
-                            selecteduuids.removeAll()
+            HStack {
+                ListofTasksMainView(
+                    rsyncUIdata: rsyncUIdata,
+                    selecteduuids: $selecteduuids,
+                    filterstring: $filterstring,
+                    doubleclick: $doubleclick,
+                    progress: $progress,
+                    executeprogressdetails: executeprogressdetails,
+                    max: maxcount
+                )
+                .frame(maxWidth: .infinity)
+                .onChange(of: selecteduuids) {
+                    if let configurations = rsyncUIdata.configurations {
+                        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                            selectedconfig.config = configurations[index]
+                            // Must check if rsync version and snapshot
+                            if configurations[index].task == SharedReference.shared.snapshot,
+                               SharedReference.shared.rsyncversion3 == false
+                            {
+                                selecteduuids.removeAll()
+                            }
+                        } else {
+                            selectedconfig.config = nil
                         }
+                    }
+                    estimateprogressdetails.uuidswithdatatosynchronize = selecteduuids
+                }
+                .onChange(of: rsyncUIdata.profile) {
+                    reset()
+                }
+                .onChange(of: estimateprogressdetails.estimatedlist) {
+                    if estimateprogressdetails.estimatedlist == nil {
+                        thereareestimates = false
                     } else {
-                        selectedconfig.config = nil
+                        thereareestimates = true
                     }
                 }
-                estimateprogressdetails.uuidswithdatatosynchronize = selecteduuids
-            }
-            .onChange(of: rsyncUIdata.profile) {
-                reset()
-            }
-            .onChange(of: estimateprogressdetails.estimatedlist) {
-                if estimateprogressdetails.estimatedlist == nil {
-                    thereareestimates = false
-                } else {
-                    thereareestimates = true
+                .onChange(of: focusexport) {
+                    importorexport = focusexport
                 }
-            }
-            .onChange(of: focusexport) {
-                importorexport = focusexport
-            }
-            .onChange(of: focusimport) {
-                importorexport = focusimport
-            }
+                .onChange(of: focusimport) {
+                    importorexport = focusimport
+                }
 
-            Group {
-                if focusstartestimation { labelstartestimation }
-                if focusstartexecution { labelstartexecution }
-                if doubleclick { doubleclickaction }
+                Group {
+                    if focusstartestimation { labelstartestimation }
+                    if focusstartexecution { labelstartexecution }
+                    if doubleclick { doubleclickaction }
+                }
+
+                if columnVisibility == .detailOnly {
+                    Table(profilenames.profiles ?? [], selection: $uuidprofile) {
+                        TableColumn("Profiles") { name in
+                            Text(name.profile ?? "Default profile")
+                        }
+                    }
+                    .onChange(of: uuidprofile) {
+                        let profile = profilenames.profiles?.filter { profiles in
+                            uuidprofile.contains(profiles.id)
+                        }
+                        if profile?.count == 1 {
+                            localselectedprofile = profile?[0].profile
+                        }
+                    }
+                    .frame(width: 180)
+                }
             }
         }
         .navigationTitle("Synchronize tasks")
@@ -132,19 +153,7 @@ struct TasksView: View {
         .focusedSceneValue(\.exporttasks, $focusexport)
         .focusedSceneValue(\.importtasks, $focusimport)
         .toolbar(content: {
-            if columnVisibility == .detailOnly {
-                ToolbarItem {
-                    Button {
-                        sheetispresented = true
-                    } label: {
-                        Image(systemName: "list.bullet.rectangle")
-                            .foregroundColor(Color(.blue))
-                    }
-                    .help("Select profile")
-                }
-                
-            }
-
+            
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
@@ -357,6 +366,10 @@ struct TasksView: View {
         } else {
             return false
         }
+    }
+
+    var profilenames: Profilenames {
+        Profilenames(rsyncUIdata.validprofiles ?? [])
     }
 }
 
