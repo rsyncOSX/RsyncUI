@@ -9,6 +9,16 @@
 import Observation
 import SwiftUI
 
+struct ProfilesnamesRecord: Identifiable, Equatable, Hashable {
+    var profilename: String
+    let id = UUID()
+
+    init(_ name: String) {
+        profilename = name
+    }
+}
+
+
 @Observable @MainActor
 final class RsyncUIconfigurations {
     var configurations: [SynchronizeConfiguration]?

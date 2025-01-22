@@ -76,7 +76,6 @@ struct ProfileView: View {
 extension ProfileView {
     func createprofile() {
         newdata.createprofile(newprofile: newprofile)
-        // profilenames.update(rsyncUIdata.validprofiles ?? [])
         selectedprofile = newdata.selectedprofile
         rsyncUIdata.validprofiles.removeAll()
         rsyncUIdata.profile = selectedprofile
@@ -85,9 +84,7 @@ extension ProfileView {
 
     func deleteprofile() {
         newdata.deleteprofile(localselectedprofile)
-        // profilenames.update(rsyncUIdata.validprofiles ?? [])
         selectedprofile = SharedReference.shared.defaultprofile
-        // Must fix
         rsyncUIdata.validprofiles.removeAll()
         rsyncUIdata.profile = SharedReference.shared.defaultprofile
     }
