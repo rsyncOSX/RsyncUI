@@ -19,7 +19,7 @@ struct ConfigurationsTableDataView: View {
             filterstring.isEmpty ? true : $0.backupID.contains(filterstring)
         }, selection: $selecteduuids) {
             TableColumn("Profile") { _ in
-                Text(profile ?? "Default profile")
+                Text(profile ?? SharedReference.shared.defaultprofile)
             }
             .width(min: 50, max: 200)
             TableColumn("Synchronize ID") { data in

@@ -32,7 +32,7 @@ struct ConfigurationsTableDataMainView: View {
             .width(min: 70, ideal: 70)
             .defaultVisibility(visible_progress)
             TableColumn("Profile") { _ in
-                Text(profile ?? "Default profile")
+                Text(profile ?? SharedReference.shared.defaultprofile)
             }
             .width(min: 50, max: 100)
             .defaultVisibility(visible_not_progress)

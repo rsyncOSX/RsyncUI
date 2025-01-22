@@ -20,4 +20,22 @@ final class ObservableLogSettings: PropogateError {
     var confirmexecute: Bool = SharedReference.shared.confirmexecute
     // Synchronize without time delay URL actions
     var synchronizewithouttimedelay: Bool = SharedReference.shared.synchronizewithouttimedelay
+    // Toggle sidebar hidden on/off
+    var sidebarishidden: Bool = SharedReference.shared.sidebarishidden
 }
+
+/*
+enum LogSettings: String, CaseIterable, Identifiable, CustomStringConvertible{
+    
+    case addsummarylogrecord = "Monitor network"
+    case monitornetworkconnection = "Check for error in output"
+    case checkforerrorinrsyncoutput = "Add summary logrecord"
+    case confirmexecute = "Confirm execute"
+    case synchronizewithouttimedelay = "No time delay Synchronize URL-actions"
+    case sidebarishidden = "Hide the Sidebar on startup"
+    
+    
+    var id: String { rawValue }
+    var description: String { rawValue.localizedCapitalized }
+}
+*/

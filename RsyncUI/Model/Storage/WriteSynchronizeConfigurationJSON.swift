@@ -33,7 +33,7 @@ final class WriteSynchronizeConfigurationJSON {
             if let jsonData, let configurationfileURL {
                 do {
                     try jsonData.write(to: configurationfileURL)
-                    let myprofile = profile ?? "Default profile"
+                    let myprofile = profile ?? SharedReference.shared.defaultprofile
                     Logger.process.info("WriteSynchronizeConfigurationJSON - \(myprofile), privacy: .public): write configurations to permanent storage")
                 } catch let e {
                     let error = e
