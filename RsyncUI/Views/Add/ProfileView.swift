@@ -77,7 +77,8 @@ struct ProfileView: View {
 
 extension ProfileView {
     func createprofile() {
-        if newdata.createprofile(newprofile: newprofile) {
+        if newdata.createprofile(newprofile) {
+            // Add a profile record
             rsyncUIdata.validprofiles.append(ProfilesnamesRecord(newprofile))
             selectedprofile = newdata.selectedprofile
             rsyncUIdata.profile = selectedprofile
@@ -87,8 +88,17 @@ extension ProfileView {
     }
 
     func deleteprofile() {
-        newdata.deleteprofile(localselectedprofile)
-        selectedprofile = SharedReference.shared.defaultprofile
-        rsyncUIdata.profile = SharedReference.shared.defaultprofile
+        if let deleteprofile = localselectedprofile {
+            if newdata.deleteprofile(deleteprofile) {
+                selectedprofile = SharedReference.shared.defaultprofile
+                rsyncUIdata.profile = SharedReference.shared.defaultprofile
+                // Remove the profile record
+                var indexset = IndexSet()
+                if let index = rsyncUIdata.validprofiles.firstIndex(  where: { $0.id == uuidprofile}) {
+                    indexset.insert(index)
+                    rsyncUIdata.validprofiles.remove(atOffsets: indexset)
+                }
+            }
+        }
     }
 }

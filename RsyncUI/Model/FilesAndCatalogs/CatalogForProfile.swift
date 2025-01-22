@@ -39,7 +39,7 @@ struct CatalogForProfile {
     }
 
     // Function for deleting profile directory
-    func deleteprofilecatalog(_ profile: String) {
+    func deleteprofilecatalog(_ profile: String) -> Bool {
         let fm = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathprofileString = fullpathmacserial + "/" + profile
@@ -48,7 +48,7 @@ struct CatalogForProfile {
 
             guard fm.locationExists(at: fullpathprofileString, kind: .folder) == true else {
                 Logger.process.info("CatalogProfile: profile catalog does not exist")
-                return
+                return false
             }
             do {
                 Logger.process.info("CatalogProfile: deleted \(profileURL) catalog")
@@ -56,8 +56,10 @@ struct CatalogForProfile {
             } catch let e {
                 let error = e as NSError
                 path.propogateerror(error: error)
+                return false
             }
         }
+        return true
     }
 
     // Function for delete file, used in QuickTask
