@@ -14,8 +14,8 @@ struct ProfilePicker: View {
     var body: some View {
         Picker("", selection: $selectedprofile) {
             ForEach(profilenames.profiles ?? [], id: \.self) { profile in
-                Text(profile.profile ?? "")
-                    .tag(profile.profile)
+                Text(profile.profilename ?? "")
+                    .tag(profile.profilename)
             }
         }
         .frame(width: 180)

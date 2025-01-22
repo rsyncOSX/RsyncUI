@@ -9,11 +9,11 @@ import Foundation
 import Observation
 
 struct ProfilesnamesRecord: Hashable, Identifiable {
-    var profile: String?
+    var profilename: String?
     let id = UUID()
 
     init(_ name: String) {
-        profile = name
+        profilename = name
     }
 }
 
@@ -21,15 +21,21 @@ struct ProfilesnamesRecord: Hashable, Identifiable {
 final class Profilenames {
     var profiles: [ProfilesnamesRecord]?
 
+    /*
     func update(_ allprofiles: [String]) {
         profiles = allprofiles.map { profile in
             ProfilesnamesRecord(profile)
         }
     }
-
-    init(_ allprofiles: [String]) {
-        profiles = allprofiles.map { profile in
-            ProfilesnamesRecord(profile)
+*/
+    init(_ allprofiles: [String]?) {
+        if let allprofiles {
+            profiles = allprofiles.map { profile in
+                ProfilesnamesRecord(profile)
+            }
+        } else {
+            profiles = nil
         }
+        
     }
 }

@@ -20,21 +20,28 @@ struct ProfileView: View {
     var body: some View {
         VStack {
             HStack {
-                Table(profilenames.profiles ?? [], selection: $uuidprofile) {
+                Table(profilenames, selection: $uuidprofile) {
                     TableColumn("Profiles") { name in
-                        Text(name.profile ?? "Default profile")
+                        Text(name.profilename ?? "Default profile")
                     }
                 }
                 .onChange(of: uuidprofile) {
+                    /*
                     let profile = profilenames.profiles?.filter { profiles in
                         uuidprofile.contains(profiles.id)
                     }
                     if profile?.count == 1 {
                         localselectedprofile = profile?[0].profile
                     }
+                     */
                 }
+                /*
+                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                     hiddenID = configurations[index].hiddenID
+                 }
+                 */
 
-                ProfilesToUpdataView(allprofiles: rsyncUIdata.validprofiles)
+                // ProfilesToUpdataView(allprofiles: rsyncUIdata.validprofiles)
             }
 
             EditValue(150, NSLocalizedString("Create profile", comment: ""),
@@ -75,15 +82,19 @@ struct ProfileView: View {
         }
     }
 
-    var profilenames: Profilenames {
-        Profilenames(rsyncUIdata.validprofiles ?? [])
+    var profilenames: [ProfilesnamesRecord] {
+        if let allprofiles = Profilenames(rsyncUIdata.validprofiles).profiles {
+            return allprofiles
+        } else {
+            return []
+        }
     }
 }
 
 extension ProfileView {
     func createprofile() {
         newdata.createprofile(newprofile: newprofile)
-        profilenames.update(rsyncUIdata.validprofiles ?? [])
+        // profilenames.update(rsyncUIdata.validprofiles ?? [])
         selectedprofile = newdata.selectedprofile
         rsyncUIdata.validprofiles = nil
         rsyncUIdata.profile = selectedprofile
@@ -92,7 +103,7 @@ extension ProfileView {
 
     func deleteprofile() {
         newdata.deleteprofile(localselectedprofile)
-        profilenames.update(rsyncUIdata.validprofiles ?? [])
+        // profilenames.update(rsyncUIdata.validprofiles ?? [])
         selectedprofile = SharedReference.shared.defaultprofile
         // Must fix
         rsyncUIdata.validprofiles = nil

@@ -132,7 +132,7 @@ struct TasksView: View {
                 if columnVisibility == .detailOnly {
                     Table(profilenames.profiles ?? [], selection: $uuidprofile) {
                         TableColumn("Profiles") { name in
-                            Text(name.profile ?? "Default profile")
+                            Text(name.profilename ?? "Default profile")
                         }
                     }
                     .onChange(of: uuidprofile) {
@@ -140,7 +140,7 @@ struct TasksView: View {
                             uuidprofile.contains(profiles.id)
                         }
                         if profile?.count == 1 {
-                            localselectedprofile = profile?[0].profile
+                            localselectedprofile = profile?[0].profilename
                         }
                     }
                     .frame(width: 180)
