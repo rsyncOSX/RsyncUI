@@ -33,6 +33,8 @@ struct UserConfiguration: Codable {
     var confirmexecute: Int?
     // Timedelay Syncjronize URL-actions
     var synchronizewithouttimedelay: Int = -1
+    // Hide or show the Sidebar on startup
+    var sidebarishidden: Int = -1
 
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
@@ -90,6 +92,11 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.synchronizewithouttimedelay = false
         }
+        if sidebarishidden == 1 {
+            SharedReference.shared.sidebarishidden = true
+        } else {
+            SharedReference.shared.sidebarishidden = false
+        }
     }
 
     // Used when reading JSON data from store
@@ -108,6 +115,7 @@ struct UserConfiguration: Codable {
         checkforerrorinrsyncoutput = data.checkforerrorinrsyncoutput ?? -1
         confirmexecute = data.confirmexecute ?? -1
         synchronizewithouttimedelay = data.synchronizewithouttimedelay ?? -1
+        sidebarishidden = data.sidebarishidden ?? -1
         // Set data read from JSON in SharedReference.
         setuserconfigdata()
     }
@@ -167,6 +175,11 @@ struct UserConfiguration: Codable {
             synchronizewithouttimedelay = 1
         } else {
             synchronizewithouttimedelay = -1
+        }
+        if SharedReference.shared.sidebarishidden == true {
+            sidebarishidden = 1
+        } else {
+            sidebarishidden = -1
         }
     }
 }

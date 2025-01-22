@@ -37,6 +37,11 @@ struct Logsettings: View {
                         SharedReference.shared.synchronizewithouttimedelay = logsettings.synchronizewithouttimedelay
                         settingsischanged = true
                     }
+                ToggleViewDefault(text: NSLocalizedString("Hide the Sidebar on startup", comment: ""), binding: $logsettings.sidebarishidden)
+                    .onChange(of: logsettings.sidebarishidden) {
+                        SharedReference.shared.sidebarishidden = logsettings.sidebarishidden
+                        settingsischanged = true
+                    }
 
                 if SharedReference.shared.rsyncversion3 {
                     ToggleViewDefault(text: NSLocalizedString("Confirm execute", comment: ""), binding: $logsettings.confirmexecute)

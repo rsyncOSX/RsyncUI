@@ -20,4 +20,6 @@ final class ObservableLogSettings: PropogateError {
     var confirmexecute: Bool = SharedReference.shared.confirmexecute
     // Synchronize without time delay URL actions
     var synchronizewithouttimedelay: Bool = SharedReference.shared.synchronizewithouttimedelay
+    // Toggle sidebar hidden on/off
+    var sidebarishidden: Bool = SharedReference.shared.sidebarishidden
 }
