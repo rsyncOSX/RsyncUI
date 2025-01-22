@@ -68,7 +68,7 @@ struct DeeplinkURL: PropogateError {
         let host = Deeplinknavigation.loadprofileandverify.rawValue
         let adjustedvalueid = valueid.replacingOccurrences(of: " ", with: "_")
         var adjustedvalueprofile = valueprofile
-        if valueprofile == "Default profile" {
+        if valueprofile == SharedReference.shared.defaultprofile {
             adjustedvalueprofile = "default"
         }
         let queryitems: [URLQueryItem] = [URLQueryItem(name: "profile", value: adjustedvalueprofile),
@@ -83,7 +83,7 @@ struct DeeplinkURL: PropogateError {
     func createURLestimateandsynchronize(valueprofile: String) -> URL? {
         let host = Deeplinknavigation.loadprofileandestimate.rawValue
         var adjustedvalueprofile = valueprofile
-        if valueprofile == "Default profile" {
+        if valueprofile == SharedReference.shared.defaultprofile {
             adjustedvalueprofile = "default"
         }
         let queryitems: [URLQueryItem] = [URLQueryItem(name: "profile", value: adjustedvalueprofile)]

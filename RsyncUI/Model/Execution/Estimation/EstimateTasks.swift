@@ -63,7 +63,7 @@ final class EstimateTasks {
             // Or estimate all tasks
             stackoftasktobeestimated = filteredconfigurations.map(\.hiddenID)
         }
-        localestimateprogressdetails?.setprofileandnumberofconfigurations(structprofile ?? "Default profile", localconfigurations.count)
+        localestimateprogressdetails?.setprofileandnumberofconfigurations(structprofile ?? SharedReference.shared.defaultprofile, localconfigurations.count)
     }
 }
 

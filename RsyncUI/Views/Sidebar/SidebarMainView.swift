@@ -81,12 +81,14 @@ struct SidebarMainView: View {
             Task {
                 newversion.notifynewversion = await Getversionofrsync().getversionsofrsyncui()
                 SharedReference.shared.newversion = newversion.notifynewversion
+                if SharedReference.shared.sidebarishiiden {
+                    columnVisibility = .detailOnly
+                }
             }
         }
         .onOpenURL { incomingURL in
             // URL code
             // Deep link triggered RsyncUI from outside
-            columnVisibility = .all
             handleURLsidebarmainView(incomingURL)
         }
         .onChange(of: urlcommandestimateandsynchronize) {
@@ -208,7 +210,7 @@ extension SidebarMainView {
                 let profile = queryitems[0].value ?? ""
 
                 if profile == "default" {
-                    selectedprofile = "Default profile"
+                    selectedprofile = SharedReference.shared.defaultprofile
                     selectedview = .synchronize
                     Task {
                         try await Task.sleep(seconds: 1)
@@ -242,7 +244,7 @@ extension SidebarMainView {
                 let profile = queryitems[0].value ?? ""
 
                 if profile == "default" {
-                    selectedprofile = "Default profile"
+                    selectedprofile = SharedReference.shared.defaultprofile
                     selectedview = .verify_remote
                     Task {
                         try await Task.sleep(seconds: 1)

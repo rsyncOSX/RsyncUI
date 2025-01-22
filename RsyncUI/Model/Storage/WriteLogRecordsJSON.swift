@@ -32,7 +32,7 @@ final class WriteLogRecordsJSON {
             if let jsonData, let logrecordfileURL {
                 do {
                     try jsonData.write(to: logrecordfileURL)
-                    let myprofile = profile ?? "Default profile"
+                    let myprofile = profile ?? SharedReference.shared.defaultprofile
                     Logger.process.info("WriteLogRecordsJSON - \(myprofile), privacy: .public): write logrecords to permanent storage")
                 } catch let e {
                     Logger.process.error("WriteLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR writing logrecords to permanent storage")

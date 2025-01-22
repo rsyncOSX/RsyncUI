@@ -78,4 +78,5 @@ final class SharedReference {
     // Default profile
     let defaultprofile = "Default profile"
     // let bundleIdentifier: String = "no.blogspot.RsyncUI"
+    @ObservationIgnored var sidebarishiiden: Bool = true
 }
