@@ -34,7 +34,7 @@ struct SidebarTasksView: View {
     @Binding var urlcommandverify: Bool
     // Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
-    
+
     @State private var executeprogressdetails = ExecuteProgressDetails()
 
     var body: some View {
@@ -46,7 +46,8 @@ struct SidebarTasksView: View {
                       path: $executetasknavigation,
                       urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
                       urlcommandverify: $urlcommandverify,
-                      columnVisibility: $columnVisibility)
+                      columnVisibility: $columnVisibility,
+                      selectedprofile: $selectedprofile)
                 .navigationDestination(for: Tasks.self) { which in
                     makeView(view: which.task)
                 }

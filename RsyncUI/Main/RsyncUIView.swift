@@ -48,7 +48,10 @@ struct RsyncUIView: View {
                                                        SharedReference.shared.sshport,
                                                        SharedReference.shared.fileconfigurationsjson)
             // rsyncUIdata.readdatafromstorecompleted = true
-            rsyncUIdata.validprofiles = Homepath().getfullpathmacserialcatalogsasstringnames()
+            let catalognames = Homepath().getfullpathmacserialcatalogsasstringnames()
+            rsyncUIdata.validprofiles = catalognames.map { catalog in
+                ProfilesnamesRecord(catalog)
+            }
         }
         .onChange(of: selectedprofile) {
             Task {
@@ -60,8 +63,11 @@ struct RsyncUIView: View {
                                                            SharedReference.shared.sshport,
                                                            SharedReference.shared.fileconfigurationsjson)
                 rsyncUIdata.readdatafromstorecompleted = true
-                if rsyncUIdata.validprofiles == nil {
-                    rsyncUIdata.validprofiles = Homepath().getfullpathmacserialcatalogsasstringnames()
+                if rsyncUIdata.validprofiles.isEmpty {
+                    let catalognames = Homepath().getfullpathmacserialcatalogsasstringnames()
+                    rsyncUIdata.validprofiles = catalognames.map { catalog in
+                        ProfilesnamesRecord(catalog)
+                    }
                 }
             }
         }

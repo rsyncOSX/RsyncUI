@@ -13,33 +13,23 @@ struct ProfileView: View {
     @Binding var selectedprofile: String?
 
     @State private var newdata = ObservableProfiles()
-    @State private var uuidprofile = Set<ProfilesnamesRecord.ID>()
+    @State private var uuidprofile: ProfilesnamesRecord.ID?
     @State private var localselectedprofile: String?
     @State private var newprofile: String = ""
 
     var body: some View {
         VStack {
             HStack {
-                Table(profilenames, selection: $uuidprofile) {
+                Table(rsyncUIdata.validprofiles, selection: $uuidprofile) {
                     TableColumn("Profiles") { name in
-                        Text(name.profilename ?? "Default profile")
+                        Text(name.profilename)
                     }
                 }
                 .onChange(of: uuidprofile) {
-                    /*
-                    let profile = profilenames.profiles?.filter { profiles in
-                        uuidprofile.contains(profiles.id)
-                    }
-                    if profile?.count == 1 {
-                        localselectedprofile = profile?[0].profile
-                    }
-                     */
+                    let record = rsyncUIdata.validprofiles.filter { $0.id == uuidprofile }
+                    guard record.count > 0 else { return }
+                    localselectedprofile = record[0].profilename
                 }
-                /*
-                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                     hiddenID = configurations[index].hiddenID
-                 }
-                 */
 
                 // ProfilesToUpdataView(allprofiles: rsyncUIdata.validprofiles)
             }
@@ -81,14 +71,6 @@ struct ProfileView: View {
             }
         }
     }
-
-    var profilenames: [ProfilesnamesRecord] {
-        if let allprofiles = Profilenames(rsyncUIdata.validprofiles).profiles {
-            return allprofiles
-        } else {
-            return []
-        }
-    }
 }
 
 extension ProfileView {
@@ -96,7 +78,7 @@ extension ProfileView {
         newdata.createprofile(newprofile: newprofile)
         // profilenames.update(rsyncUIdata.validprofiles ?? [])
         selectedprofile = newdata.selectedprofile
-        rsyncUIdata.validprofiles = nil
+        rsyncUIdata.validprofiles.removeAll()
         rsyncUIdata.profile = selectedprofile
         newprofile = ""
     }
@@ -106,7 +88,7 @@ extension ProfileView {
         // profilenames.update(rsyncUIdata.validprofiles ?? [])
         selectedprofile = SharedReference.shared.defaultprofile
         // Must fix
-        rsyncUIdata.validprofiles = nil
+        rsyncUIdata.validprofiles.removeAll()
         rsyncUIdata.profile = SharedReference.shared.defaultprofile
     }
 }

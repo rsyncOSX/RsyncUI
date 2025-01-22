@@ -13,15 +13,11 @@ struct ProfilePicker: View {
 
     var body: some View {
         Picker("", selection: $selectedprofile) {
-            ForEach(profilenames.profiles ?? [], id: \.self) { profile in
+            ForEach(rsyncUIdata.validprofiles, id: \.self) { profile in
                 Text(profile.profilename ?? "")
                     .tag(profile.profilename)
             }
         }
         .frame(width: 180)
-    }
-
-    var profilenames: Profilenames {
-        Profilenames(rsyncUIdata.validprofiles ?? [])
     }
 }

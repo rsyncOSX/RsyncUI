@@ -38,9 +38,13 @@ struct DeeplinkURL: PropogateError {
         return nil
     }
 
-    func validateprofile(_ profile: String, _ validprofiles: [String]) -> Bool {
+    func validateprofile(_ profile: String, _ validprofiles: [ProfilesnamesRecord]) -> Bool {
+        let profiles: [String] = validprofiles.map { record in
+            record.profilename
+        }
+
         do {
-            try deeplinks.validateprofile(profile, validprofiles)
+            try deeplinks.validateprofile(profile, profiles)
             return true
         } catch let e {
             let error = e

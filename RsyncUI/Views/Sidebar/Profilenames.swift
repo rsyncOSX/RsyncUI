@@ -8,8 +8,8 @@
 import Foundation
 import Observation
 
-struct ProfilesnamesRecord: Hashable, Identifiable {
-    var profilename: String?
+struct ProfilesnamesRecord: Identifiable, Equatable, Hashable {
+    var profilename: String
     let id = UUID()
 
     init(_ name: String) {
@@ -22,12 +22,12 @@ final class Profilenames {
     var profiles: [ProfilesnamesRecord]?
 
     /*
-    func update(_ allprofiles: [String]) {
-        profiles = allprofiles.map { profile in
-            ProfilesnamesRecord(profile)
-        }
-    }
-*/
+     func update(_ allprofiles: [String]) {
+         profiles = allprofiles.map { profile in
+             ProfilesnamesRecord(profile)
+         }
+     }
+     */
     init(_ allprofiles: [String]?) {
         if let allprofiles {
             profiles = allprofiles.map { profile in
@@ -36,6 +36,5 @@ final class Profilenames {
         } else {
             profiles = nil
         }
-        
     }
 }

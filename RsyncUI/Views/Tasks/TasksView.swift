@@ -46,6 +46,7 @@ struct TasksView: View {
     @Binding var urlcommandverify: Bool
     // Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
+    @Binding var selectedprofile: String?
 
     @State private var estimatestate = EstimateState()
     // Focus buttons from the menu
@@ -74,8 +75,7 @@ struct TasksView: View {
 
     @State var isOpen: Bool = false
     // View profiles on left
-    @State private var uuidprofile = Set<ProfilesnamesRecord.ID>()
-    @State private var localselectedprofile: String?
+    @State private var uuidprofile: ProfilesnamesRecord.ID?
 
     var body: some View {
         ZStack {
@@ -130,18 +130,15 @@ struct TasksView: View {
                 }
 
                 if columnVisibility == .detailOnly {
-                    Table(profilenames.profiles ?? [], selection: $uuidprofile) {
+                    Table(rsyncUIdata.validprofiles, selection: $uuidprofile) {
                         TableColumn("Profiles") { name in
-                            Text(name.profilename ?? "Default profile")
+                            Text(name.profilename)
                         }
                     }
                     .onChange(of: uuidprofile) {
-                        let profile = profilenames.profiles?.filter { profiles in
-                            uuidprofile.contains(profiles.id)
-                        }
-                        if profile?.count == 1 {
-                            localselectedprofile = profile?[0].profilename
-                        }
+                        let record = rsyncUIdata.validprofiles.filter { $0.id == uuidprofile }
+                        guard record.count > 0 else { return }
+                        selectedprofile = record[0].profilename
                     }
                     .frame(width: 180)
                 }
@@ -153,7 +150,6 @@ struct TasksView: View {
         .focusedSceneValue(\.exporttasks, $focusexport)
         .focusedSceneValue(\.importtasks, $focusimport)
         .toolbar(content: {
-            
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
@@ -366,10 +362,6 @@ struct TasksView: View {
         } else {
             return false
         }
-    }
-
-    var profilenames: Profilenames {
-        Profilenames(rsyncUIdata.validprofiles ?? [])
     }
 }
 
