@@ -16,7 +16,7 @@ struct ProfileView: View {
     @State private var uuidprofile: ProfilesnamesRecord.ID?
     @State private var localselectedprofile: String?
     @State private var newprofile: String = ""
-    
+
     @State private var isPresentingConfirm: Bool = false
 
     var body: some View {
@@ -54,7 +54,7 @@ struct ProfileView: View {
                 }
                 .help("Add profile")
             }
-            
+
             ToolbarItem {
                 Button {
                     isPresentingConfirm = (localselectedprofile?.isEmpty == false && localselectedprofile != SharedReference.shared.defaultprofile)
