@@ -27,8 +27,8 @@ struct CatalogForProfile {
             let profileURL = fullpathmacserialURL.appendingPathComponent(profile)
 
             do {
+                Logger.process.info("CatalogProfile: creating \(profileURL) catalog")
                 try fm.createDirectory(at: profileURL, withIntermediateDirectories: true, attributes: nil)
-                Logger.process.info("CatalogProfile: creating profile catalog")
             } catch let e {
                 let error = e
                 path.propogateerror(error: error)
@@ -50,8 +50,8 @@ struct CatalogForProfile {
                 return
             }
             do {
+                Logger.process.info("CatalogProfile: deleted \(profileURL) catalog")
                 try fm.removeItem(at: profileURL)
-                Logger.process.info("CatalogProfile: deleted profile catalog")
             } catch let e {
                 let error = e as NSError
                 path.propogateerror(error: error)
