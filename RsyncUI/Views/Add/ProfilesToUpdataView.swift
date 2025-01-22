@@ -71,8 +71,8 @@ struct ProfilesToUpdataView: View {
             Logger.process.info("ProfileView: monitornetworkconnection is disabled")
             SharedReference.shared.monitornetworkconnection = false
         }
-        
-        let allprofiles = validprofiles.map { $0.profilename }
+
+        let allprofiles = validprofiles.map(\.profilename)
 
         for i in 0 ..< allprofiles.count {
             let profilename = allprofiles[i]

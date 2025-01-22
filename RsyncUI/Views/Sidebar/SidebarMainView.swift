@@ -44,10 +44,15 @@ struct SidebarMainView: View {
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
-            ProfilePicker(rsyncUIdata: rsyncUIdata,
-                          selectedprofile: $selectedprofile)
-                .padding([.bottom, .top, .trailing], 7)
-                .disabled(disablesidebarmeny)
+            Picker("", selection: $selectedprofile) {
+                ForEach(rsyncUIdata.validprofiles, id: \.self) { profile in
+                    Text(profile.profilename)
+                        .tag(profile.profilename)
+                }
+            }
+            .frame(width: 180)
+            .padding([.bottom, .top, .trailing], 7)
+            .disabled(disablesidebarmeny)
 
             Divider()
 

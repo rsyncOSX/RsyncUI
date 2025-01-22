@@ -16,9 +16,6 @@ final class ObservableProfiles: PropogateError {
     var deleted: Bool = false
     var created: Bool = false
 
-    var confirmdeleteselectedprofile: Bool = false
-    var showAlertfordelete: Bool = false
-
     func createprofile(newprofile: String) {
         guard newprofile.isEmpty == false else { return }
         let catalogprofile = CatalogForProfile()
@@ -28,7 +25,6 @@ final class ObservableProfiles: PropogateError {
     }
 
     func deleteprofile(_ profile: String?) {
-        guard confirmdeleteselectedprofile == true else { return }
         if let profile {
             guard profile != SharedReference.shared.defaultprofile else {
                 deletedefaultprofile = true

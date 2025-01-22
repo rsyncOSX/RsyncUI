@@ -18,7 +18,6 @@ struct ProfilesnamesRecord: Identifiable, Equatable, Hashable {
     }
 }
 
-
 @Observable @MainActor
 final class RsyncUIconfigurations {
     var configurations: [SynchronizeConfiguration]?
