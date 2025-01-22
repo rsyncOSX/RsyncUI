@@ -13,14 +13,14 @@ import OSLog
 struct CatalogForProfile {
     let path = Homepath()
 
-    func createprofilecatalog(_ profile: String) {
+    func createprofilecatalog(_ profile: String)  -> Bool {
         let fm = FileManager.default
         // First check if profilecatalog exists, if yes bail out
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathprofileString = fullpathmacserial + "/" + profile
             guard fm.locationExists(at: fullpathprofileString, kind: .folder) == false else {
                 Logger.process.info("CatalogProfile: profile catalog exist")
-                return
+                return false
             }
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -32,13 +32,14 @@ struct CatalogForProfile {
             } catch let e {
                 let error = e
                 path.propogateerror(error: error)
-                return
+                return false
             }
         }
+        return true
     }
 
     // Function for deleting profile directory
-    func deleteprofilecatalog(_ profile: String) {
+    func deleteprofilecatalog(_ profile: String) -> Bool {
         let fm = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathprofileString = fullpathmacserial + "/" + profile
@@ -47,7 +48,7 @@ struct CatalogForProfile {
 
             guard fm.locationExists(at: fullpathprofileString, kind: .folder) == true else {
                 Logger.process.info("CatalogProfile: profile catalog does not exist")
-                return
+                return false
             }
             do {
                 Logger.process.info("CatalogProfile: deleted \(profileURL) catalog")
@@ -55,8 +56,10 @@ struct CatalogForProfile {
             } catch let e {
                 let error = e as NSError
                 path.propogateerror(error: error)
+                return false
             }
         }
+        return true
     }
 
     // Function for delete file, used in QuickTask

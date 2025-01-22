@@ -13,36 +13,27 @@ final class ObservableProfiles: PropogateError {
     var selectedprofile: String?
     var deletedefaultprofile: Bool = false
 
-    var deleted: Bool = false
-    var created: Bool = false
+    // var deleted: Bool = false
+    // var created: Bool = false
 
-    func createprofile(newprofile: String) {
-        guard newprofile.isEmpty == false else { return }
+    func createprofile(_ newprofile: String) -> Bool {
+        guard newprofile.isEmpty == false else { return false }
         let catalogprofile = CatalogForProfile()
-        catalogprofile.createprofilecatalog(newprofile)
-        selectedprofile = newprofile
-        created = true
-    }
-
-    func deleteprofile(_ profile: String?) {
-        if let profile {
-            guard profile != SharedReference.shared.defaultprofile else {
-                deletedefaultprofile = true
-                Task {
-                    try await Task.sleep(seconds: 1)
-                    deletedefaultprofile = false
-                }
-                return
-            }
-            CatalogForProfile().deleteprofilecatalog(profile)
-            selectedprofile = nil
-            deleted = true
+        if catalogprofile.createprofilecatalog(newprofile) {
+            selectedprofile = newprofile
+            return true
         } else {
-            deletedefaultprofile = true
-            Task {
-                try await Task.sleep(seconds: 1)
-                deletedefaultprofile = false
-            }
+            return false
         }
     }
+
+    func deleteprofile(_ profile: String) -> Bool {
+            guard profile != SharedReference.shared.defaultprofile else { return false }
+            if CatalogForProfile().deleteprofilecatalog(profile) {
+                selectedprofile = nil
+                return true
+            } else {
+                return false
+            }
+        }
 }

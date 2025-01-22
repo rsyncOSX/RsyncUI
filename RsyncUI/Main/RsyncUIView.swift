@@ -63,12 +63,6 @@ struct RsyncUIView: View {
                                                            SharedReference.shared.sshport,
                                                            SharedReference.shared.fileconfigurationsjson)
                 rsyncUIdata.readdatafromstorecompleted = true
-                if rsyncUIdata.validprofiles.isEmpty {
-                    let catalognames = Homepath().getfullpathmacserialcatalogsasstringnames()
-                    rsyncUIdata.validprofiles = catalognames.map { catalog in
-                        ProfilesnamesRecord(catalog)
-                    }
-                }
             }
         }
     }
