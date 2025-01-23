@@ -10,7 +10,6 @@ import Observation
 
 @Observable @MainActor
 final class ObservableProfiles: PropogateError {
-
     func createprofile(_ newprofile: String) -> Bool {
         guard newprofile.isEmpty == false else { return false }
         let catalogprofile = CatalogForProfile()
@@ -22,11 +21,11 @@ final class ObservableProfiles: PropogateError {
     }
 
     func deleteprofile(_ profile: String) -> Bool {
-            guard profile != SharedReference.shared.defaultprofile else { return false }
-            if CatalogForProfile().deleteprofilecatalog(profile) {
-                return true
-            } else {
-                return false
-            }
+        guard profile != SharedReference.shared.defaultprofile else { return false }
+        if CatalogForProfile().deleteprofilecatalog(profile) {
+            return true
+        } else {
+            return false
         }
+    }
 }
