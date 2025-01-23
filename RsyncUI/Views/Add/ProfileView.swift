@@ -80,7 +80,6 @@ extension ProfileView {
         if newdata.createprofile(newprofile) {
             // Add a profile record
             rsyncUIdata.validprofiles.append(ProfilesnamesRecord(newprofile))
-            selectedprofile = newdata.selectedprofile
             rsyncUIdata.profile = selectedprofile
             newprofile = ""
         }
