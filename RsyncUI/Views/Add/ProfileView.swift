@@ -83,7 +83,6 @@ extension ProfileView {
             rsyncUIdata.profile = selectedprofile
             newprofile = ""
         }
-        
     }
 
     func deleteprofile() {
@@ -92,10 +91,8 @@ extension ProfileView {
                 selectedprofile = SharedReference.shared.defaultprofile
                 rsyncUIdata.profile = SharedReference.shared.defaultprofile
                 // Remove the profile record
-                var indexset = IndexSet()
-                if let index = rsyncUIdata.validprofiles.firstIndex(  where: { $0.id == uuidprofile}) {
-                    indexset.insert(index)
-                    rsyncUIdata.validprofiles.remove(atOffsets: indexset)
+                if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == uuidprofile }) {
+                    rsyncUIdata.validprofiles.remove(at: index)
                 }
             }
         }

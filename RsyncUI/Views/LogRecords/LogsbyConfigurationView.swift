@@ -17,7 +17,7 @@ struct LogsbyConfigurationView: View {
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedloguuids = Set<Log.ID>()
     // Alert for delete
-    @State private var showAlertfordelete = false
+    @State private var confirmdelete = false
     // Filterstring
     @State private var filterstring: String = ""
     @State private var showindebounce: Bool = false
@@ -61,7 +61,14 @@ struct LogsbyConfigurationView: View {
                     }
                 }
                 .onDeleteCommand {
-                    showAlertfordelete = true
+                    confirmdelete = true
+                }
+                .confirmationDialog("Delete ^[\(selectedloguuids.count) log](inflect: true)",
+                                    isPresented: $confirmdelete)
+                {
+                    Button("Delete", role: .destructive) {
+                        deletelogs(selectedloguuids)
+                    }
                 }
                 .overlay { if logs.count == 0 {
                     ContentUnavailableView {
@@ -139,14 +146,6 @@ struct LogsbyConfigurationView: View {
                 .help("Reset selections")
             }
         })
-        .sheet(isPresented: $showAlertfordelete) {
-            DeleteLogsView(
-                selectedloguuids: $selectedloguuids,
-                logrecords: $logrecords,
-                logs: $logs,
-                selectedprofile: rsyncUIdata.profile
-            )
-        }
         .padding()
     }
 
@@ -170,6 +169,33 @@ struct LogsbyConfigurationView: View {
             configurations
         } else {
             []
+        }
+    }
+
+    func deletelogs(_ uuids: Set<UUID>) {
+        if var records = logrecords {
+            var indexset = IndexSet()
+
+            for i in 0 ..< records.count {
+                for j in 0 ..< uuids.count {
+                    if let index = records[i].logrecords?.firstIndex(
+                        where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: j)] })
+                    {
+                        indexset.insert(index)
+                    }
+                }
+                records[i].logrecords?.remove(atOffsets: indexset)
+                indexset.removeAll()
+            }
+            WriteLogRecordsJSON(rsyncUIdata.profile, records)
+            selectedloguuids.removeAll()
+            logrecords = nil
+            Task {
+                let actorreadlogs = ActorReadLogRecordsJSON()
+                await logrecords =
+                    actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
+                logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+            }
         }
     }
 }
