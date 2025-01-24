@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SnapshotListView: View {
-    @Binding var snapshotdata: SnapshotData
+    @Binding var snapshotdata: ObservableSnapshotData
     @Binding var filterstring: String
 
     @Binding var selectedconfig: SynchronizeConfiguration?

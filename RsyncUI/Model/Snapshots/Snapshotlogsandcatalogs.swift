@@ -7,13 +7,12 @@
 //
 
 import Foundation
+import OSLog
 
 @MainActor
 final class Snapshotlogsandcatalogs {
-    // Number of local logrecords
-    // var logrecordssnapshot: [LogRecordSnapshot]?
     var catalogsanddates: [Catalogsanddates]?
-    var mysnapshotdata: SnapshotData?
+    var mysnapshotdata: ObservableSnapshotData?
     var config: SynchronizeConfiguration
     var logrecords: [LogRecords]
 
@@ -45,7 +44,7 @@ final class Snapshotlogsandcatalogs {
                 item.snapshotCatalog = snapshotcatalogfromschedulelog
                 return item
             } else {
-                var item = LogRecordSnapshot(date: Date(), dateExecuted: "no record", resultExecuted: "no record")
+                var item = LogRecordSnapshot(idlogrecord: UUID(), date: Date(), dateExecuted: "no record", resultExecuted: "no record")
                 let snapshotcatalogfromschedulelog = "./" + realsnapshotcatalog.dropFirst().dropLast()
                 item.period = "... no tag ..."
                 item.snapshotCatalog = snapshotcatalogfromschedulelog
@@ -53,6 +52,32 @@ final class Snapshotlogsandcatalogs {
             }
         }
         mysnapshotdata?.setsnapshotdata(adjustedlogrecords)
+        mysnapshotdata?.notmappedloguuids = mapnotuselogrecords()
+        mysnapshotdata?.readlogrecordsfromfile = logrecords
+    }
+    
+    // Mapping all UUIDS for not used logrecords. Those logrecords may be deleted.
+    // For snapshots, only log records with matched snap catalogs should be used
+    private func mapnotuselogrecords() -> Set<UUID> {
+         
+        var mergedalluuids = Set<UUID>()
+        var mergeuseduuids = Set<UUID>()
+        var merged: [Log] = [Log]()
+        _ = logrecords.map { logrecord in
+            if let logrecords = logrecord.logrecords {
+                merged += [logrecords].flatMap(\.self)
+            }
+        }
+        mergedalluuids = Set(merged.map { row in
+            row.id
+        })
+        if let logrecordssnapshot = mysnapshotdata?.logrecordssnapshot {
+            mergeuseduuids = Set(logrecordssnapshot.map { row in
+                row.idlogrecord
+            })
+        }
+        
+        return mergedalluuids.subtracting(mergeuseduuids)
     }
 
     private func calculatedays(datestringlocalized: String) -> Double? {
@@ -64,7 +89,7 @@ final class Snapshotlogsandcatalogs {
 
     init(config: SynchronizeConfiguration,
          logrecords: [LogRecords],
-         snapshotdata: SnapshotData)
+         snapshotdata: ObservableSnapshotData)
     {
         self.config = config
         self.logrecords = logrecords
@@ -72,6 +97,10 @@ final class Snapshotlogsandcatalogs {
 
         mysnapshotdata = snapshotdata
         getremotecataloginfo()
+    }
+    
+    deinit {
+        Logger.process.info("Snapshotlogsandcatalogs: deinit")
     }
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {

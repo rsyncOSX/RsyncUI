@@ -12,7 +12,7 @@ import OSLog
 final class DeleteSnapshots {
     var localeconfig: SynchronizeConfiguration?
     var snapshotcatalogstodelete: [String]?
-    var mysnapshotdata: SnapshotData?
+    var mysnapshotdata: ObservableSnapshotData?
 
     private func preparesnapshotcatalogsfordelete(logrecordssnapshot: [LogRecordSnapshot]?) {
         if let uuidsfordelete = mysnapshotdata?.snapshotuuidsfordelete, let logrecordssnapshot {
@@ -53,7 +53,7 @@ final class DeleteSnapshots {
     }
 
     init(config: SynchronizeConfiguration,
-         snapshotdata: SnapshotData,
+         snapshotdata: ObservableSnapshotData,
          logrecordssnapshot: [LogRecordSnapshot]?)
     {
         guard config.task == SharedReference.shared.snapshot else { return }

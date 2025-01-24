@@ -49,6 +49,8 @@ actor ActorReadLogRecordsJSON {
     func updatelogsbyhiddenID(_ logrecords: [LogRecords]?, _ hiddenID: Int) async -> [Log]? {
         Logger.process.info("ActorReadLogRecordsJSON: updatelogsbyhiddenID()  on main thread \(Thread.isMain)")
         if let logrecords {
+            // hiddenID == -1, merge logrecords for all tasks.
+            // if validhiddenID, merge logrecords for a specific task
             if hiddenID == -1 {
                 var merged = [Log]()
                 _ = logrecords.map { logrecord in

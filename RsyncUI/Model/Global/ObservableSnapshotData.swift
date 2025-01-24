@@ -7,9 +7,10 @@
 
 import Foundation
 import Observation
+import OSLog
 
 @Observable
-final class SnapshotData {
+final class ObservableSnapshotData {
     var maxnumbertodelete: Int = 0
     var remainingsnapshotstodelete: Int = 0
     // Deleteobject
@@ -17,10 +18,15 @@ final class SnapshotData {
     var inprogressofdelete: Bool = false
     // Show progress view when getting data
     var snapshotlist: Bool = false
-    // uuids for DELETE snapshots
+    // UUIDs for DELETE snapshots
     var snapshotuuidsfordelete = Set<LogRecordSnapshot.ID>()
     var catalogsanddates: [Catalogsanddates] = []
     var logrecordssnapshot: [LogRecordSnapshot]?
+    // Originally loaded logrecords, to be used if cleaning up logrecords
+    // with no snapshot catalogs
+    var readlogrecordsfromfile: [LogRecords]?
+    // UUIDs for logrecords with no snapshot catalogs
+    var notmappedloguuids: Set<Log.ID>?
 
     func setsnapshotdata(_ data: [LogRecordSnapshot]?) {
         logrecordssnapshot = data
@@ -28,6 +34,7 @@ final class SnapshotData {
         snapshotuuidsfordelete.removeAll()
         maxnumbertodelete = 0
         remainingsnapshotstodelete = 0
+        notmappedloguuids = nil
     }
 
     func getsnapshotdata() -> [LogRecordSnapshot]? {
@@ -42,6 +49,10 @@ final class SnapshotData {
             }
         }
         return nil
+    }
+    
+    deinit {
+        Logger.process.info("ObservableSnapshotData: deinit")
     }
 }
 
