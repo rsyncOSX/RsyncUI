@@ -53,6 +53,7 @@ final class Snapshotlogsandcatalogs {
         }
         mysnapshotdata?.setsnapshotdata(adjustedlogrecords)
         mysnapshotdata?.notmappedloguuids = mapnotuselogrecords()
+        mysnapshotdata?.readlogrecordsfromfile = logrecords
     }
     
     // Mapping all UUIDS for not used logrecords. Those logrecords may be deleted.

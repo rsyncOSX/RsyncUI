@@ -7,6 +7,7 @@
 
 import Foundation
 import Observation
+import OSLog
 
 @Observable
 final class ObservableSnapshotData {
@@ -17,11 +18,14 @@ final class ObservableSnapshotData {
     var inprogressofdelete: Bool = false
     // Show progress view when getting data
     var snapshotlist: Bool = false
-    // uuids for DELETE snapshots
+    // UUIDs for DELETE snapshots
     var snapshotuuidsfordelete = Set<LogRecordSnapshot.ID>()
     var catalogsanddates: [Catalogsanddates] = []
     var logrecordssnapshot: [LogRecordSnapshot]?
-    
+    // Originally loaded logrecords, to be used if cleaning up logrecords
+    // with no snapshot catalogs
+    var readlogrecordsfromfile: [LogRecords]?
+    // UUIDs for logrecords with no snapshot catalogs
     var notmappedloguuids: Set<Log.ID>?
 
     func setsnapshotdata(_ data: [LogRecordSnapshot]?) {
@@ -45,6 +49,10 @@ final class ObservableSnapshotData {
             }
         }
         return nil
+    }
+    
+    deinit {
+        Logger.process.info("ObservableSnapshotData: deinit")
     }
 }
 

@@ -30,6 +30,8 @@ struct SnapshotsView: View {
     @State private var filterstring: String = ""
     // For the weekly or monthly plans
     @State private var isdisabled: Bool = true
+    // confirmationDialog delete logrecords
+    @State private var isPresentingConfirm: Bool = false
 
     var body: some View {
         VStack {
@@ -104,12 +106,19 @@ struct SnapshotsView: View {
             if (snapshotdata.notmappedloguuids?.count ?? 0 > 0)  {
                 ToolbarItem {
                     Button {
-                        
+                        isPresentingConfirm = (snapshotdata.notmappedloguuids?.count ?? 0 > 0)
                     } label: {
                         Image(systemName: "trash.fill")
                             .foregroundColor(Color(.blue))
                     }
                     .help("Delete not used log records")
+                    .confirmationDialog("Delete ^[\(snapshotdata.notmappedloguuids?.count ?? 0) log](inflect: true)",
+                                        isPresented: $isPresentingConfirm)
+                    {
+                        Button("Delete", role: .destructive) {
+                            deletelogs(snapshotdata.notmappedloguuids)
+                        }
+                    }
                 }
             }
             
@@ -320,4 +329,24 @@ extension SnapshotsView {
             try await Task.sleep(seconds: 2)
         }
     }
+
+    func deletelogs(_ uuids: Set<UUID>?) {
+        if var records = snapshotdata.readlogrecordsfromfile, let uuids {
+            var indexset = IndexSet()
+            for i in 0 ..< records.count {
+                for j in 0 ..< uuids.count {
+                    if let index = records[i].logrecords?.firstIndex(
+                        where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: j)] })
+                    {
+                        indexset.insert(index)
+                    }
+                }
+                records[i].logrecords?.remove(atOffsets: indexset)
+                indexset.removeAll()
+            }
+            WriteLogRecordsJSON(rsyncUIdata.profile, records)
+            snapshotdata.readlogrecordsfromfile = nil
+        }
+    }
+
 }
