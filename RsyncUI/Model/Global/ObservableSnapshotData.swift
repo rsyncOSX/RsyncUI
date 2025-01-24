@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable
-final class SnapshotData {
+final class ObservableSnapshotData {
     var maxnumbertodelete: Int = 0
     var remainingsnapshotstodelete: Int = 0
     // Deleteobject
@@ -21,6 +21,8 @@ final class SnapshotData {
     var snapshotuuidsfordelete = Set<LogRecordSnapshot.ID>()
     var catalogsanddates: [Catalogsanddates] = []
     var logrecordssnapshot: [LogRecordSnapshot]?
+    
+    var notmappedloguuids: Set<Log.ID>?
 
     func setsnapshotdata(_ data: [LogRecordSnapshot]?) {
         logrecordssnapshot = data
@@ -28,6 +30,7 @@ final class SnapshotData {
         snapshotuuidsfordelete.removeAll()
         maxnumbertodelete = 0
         remainingsnapshotstodelete = 0
+        notmappedloguuids = nil
     }
 
     func getsnapshotdata() -> [LogRecordSnapshot]? {

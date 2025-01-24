@@ -11,7 +11,7 @@ import SwiftUI
 struct SnapshotsView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
 
-    @State private var snapshotdata = SnapshotData()
+    @State private var snapshotdata = ObservableSnapshotData()
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selectedconfiguuid = Set<SynchronizeConfiguration.ID>()
     // If not a snapshot

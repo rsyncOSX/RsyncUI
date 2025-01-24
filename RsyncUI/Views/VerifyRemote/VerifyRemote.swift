@@ -19,7 +19,6 @@ struct VerifyTasks: Hashable, Identifiable {
 }
 
 struct VerifyRemote: View {
-    @Environment(\.dismiss) var dismiss
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var verifynavigation: [VerifyTasks]
     // For supporting URL links

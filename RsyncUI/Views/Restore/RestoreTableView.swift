@@ -14,7 +14,7 @@ struct RestoreTableView: View {
     @State private var gettingfilelist: Bool = false
     @State private var focusaborttask: Bool = false
     // Restore snapshot
-    @State var snapshotdata = SnapshotData()
+    @State var snapshotdata = ObservableSnapshotData()
     @State private var snapshotcatalog: String = ""
     // Filterstring
     @State private var filterstring: String = ""

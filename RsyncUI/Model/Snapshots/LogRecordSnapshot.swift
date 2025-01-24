@@ -9,6 +9,9 @@ import Foundation
 
 struct LogRecordSnapshot: Identifiable {
     var id = UUID()
+    // Pick up the id from the actual log record
+    // The id is used to clear not used log records
+    var idlogrecord: UUID
     var date: Date
     var dateExecuted: String
     var resultExecuted: String
