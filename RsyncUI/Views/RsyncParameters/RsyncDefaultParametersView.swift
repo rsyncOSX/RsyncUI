@@ -76,7 +76,7 @@ struct RsyncDefaultParametersView: View {
                     saversyncparameters()
                 } label: {
                     Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(Color(.blue))
+                        .foregroundColor(Color(.green))
                 }
                 .help("Update task")
             }

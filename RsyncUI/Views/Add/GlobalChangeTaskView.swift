@@ -112,7 +112,7 @@ struct GlobalChangeTaskView: View {
                     showingAlert = true
                 } label: {
                     Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(Color(.blue))
+                        .foregroundColor(Color(.green))
                 }
                 .help("Update task")
                 .disabled(configurations.isEmpty)
