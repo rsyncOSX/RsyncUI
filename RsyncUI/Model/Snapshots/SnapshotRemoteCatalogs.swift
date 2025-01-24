@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 final class SnapshotRemoteCatalogs {
-    var mysnapshotdata: SnapshotData?
+    var mysnapshotdata: ObservableSnapshotData?
     var catalogsanddates: [Catalogsanddates]?
 
     func getremotecataloginfo(_ config: SynchronizeConfiguration) {
@@ -21,7 +21,7 @@ final class SnapshotRemoteCatalogs {
 
     @discardableResult
     init(config: SynchronizeConfiguration,
-         snapshotdata: SnapshotData)
+         snapshotdata: ObservableSnapshotData)
     {
         guard config.task == SharedReference.shared.snapshot else { return }
         mysnapshotdata = snapshotdata
