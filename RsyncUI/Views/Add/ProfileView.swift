@@ -50,7 +50,7 @@ struct ProfileView: View {
                     createprofile()
                 } label: {
                     Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(Color(.blue))
+                        .foregroundColor(Color(.green))
                 }
                 .help("Add profile")
             }

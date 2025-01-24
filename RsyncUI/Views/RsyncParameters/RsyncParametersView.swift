@@ -137,8 +137,10 @@ struct RsyncParametersView: View {
         .toolbar(content: {
             if notifydataisupdated {
                 ToolbarItem {
-                    MessageView(mytext: "  " + "Data is changed" + "  ", size: .caption2)
-                        .padding([.bottom, .top], 7)
+                    Button {} label: {
+                        Image(systemName: "square.and.arrow.down")
+                            .foregroundColor(.green)
+                    }
                 }
             }
 
@@ -161,7 +163,7 @@ struct RsyncParametersView: View {
                 } label: {
                     if notifydataisupdated {
                         Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(Color(.blue))
+                            .foregroundColor(Color(.green))
                     } else {
                         Image(systemName: "checkmark.circle")
                             .foregroundColor(Color(.blue))
