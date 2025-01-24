@@ -86,9 +86,6 @@
 "Backup configurations" = "Lagre konfigurasjoner";
 
 /* No comment provided by engineer. */
-"Cancel" = "Kanseler";
-
-/* No comment provided by engineer. */
 "Catalog parameters" = "Katalog parametre";
 
 /* No comment provided by engineer. */
@@ -149,6 +146,9 @@
 "Delete" = "Slett";
 
 /* No comment provided by engineer. */
+"Delete %@?" = "Slett %@?";
+
+/* No comment provided by engineer. */
 "Delete ^[%lld configuration](inflect: true)" = "Slett ^[%lld konfigurasjon](inflect: true)";
 
 /* No comment provided by engineer. */
@@ -156,6 +156,9 @@
 
 /* No comment provided by engineer. */
 "Delete ^[%lld snapshot](inflect: true)" = "Slett ^[%lld snapshot](inflect: true)";
+
+/* No comment provided by engineer. */
+"Delete not used log records" = "Slett ikke brukte logger";
 
 /* No comment provided by engineer. */
 "Delete profile" = "Slett profil";
@@ -225,6 +228,9 @@
 
 /* No comment provided by engineer. */
 "Global ssh-port" = "Global ssh-port";
+
+/* No comment provided by engineer. */
+"Hide the Sidebar on startup" = "Ikke vis Sidebar ved oppstart";
 
 /* No comment provided by engineer. */
 "Home catalogs" = "Hjemmekataloger";
@@ -431,7 +437,16 @@
 "RsyncUI settings" = "RsyncUI oppsett";
 
 /* No comment provided by engineer. */
+"Save Estimate" = "Lagre estimer";
+
+/* No comment provided by engineer. */
+"Save Verify" = "Lagre verifiser";
+
+/* No comment provided by engineer. */
 "Select a file for import" = "Velg fil for import";
+
+/* No comment provided by engineer. */
+"Select a task" = "Slett oppgave";
 
 /* No comment provided by engineer. */
 "Select catalog or file" = "Velg katalog eller fil";

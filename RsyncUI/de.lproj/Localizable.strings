@@ -86,9 +86,6 @@
 "Backup configurations" = "Konfiguration Sichern";
 
 /* No comment provided by engineer. */
-"Cancel" = "Abbrechen";
-
-/* No comment provided by engineer. */
 "Catalog parameters" = "Katalogparameter";
 
 /* No comment provided by engineer. */
@@ -149,6 +146,9 @@
 "Delete" = "Löschen";
 
 /* No comment provided by engineer. */
+"Delete %@?" = "Löschen %@?";
+
+/* No comment provided by engineer. */
 "Delete ^[%lld configuration](inflect: true)" = "Lösche ^[%lld configuration](inflect: true)";
 
 /* No comment provided by engineer. */
@@ -156,6 +156,9 @@
 
 /* No comment provided by engineer. */
 "Delete ^[%lld snapshot](inflect: true)" = "Lösche ^[%lld snapshot](inflect: true)";
+
+/* No comment provided by engineer. */
+"Delete not used log records" = "Nicht verwendete Protokolldatensätze löschen";
 
 /* No comment provided by engineer. */
 "Delete profile" = "Profil löschen";
@@ -225,6 +228,9 @@
 
 /* No comment provided by engineer. */
 "Global ssh-port" = "Globaler SSH-Port";
+
+/* No comment provided by engineer. */
+"Hide the Sidebar on startup" = "Seitenleiste beim Start ausblenden";
 
 /* No comment provided by engineer. */
 "Home catalogs" = "Home-Kataloge";
@@ -431,7 +437,16 @@
 "RsyncUI settings" = "RsyncUI-Einstellungen";
 
 /* No comment provided by engineer. */
+"Save Estimate" = "Schätzung Sicheren";
+
+/* No comment provided by engineer. */
+"Save Verify" = "Verifizieren Sicheren";
+
+/* No comment provided by engineer. */
 "Select a file for import" = "Wählen Sie eine Datei zum Importieren aus";
+
+/* No comment provided by engineer. */
+"Select a task" = " Aufgabe Wählen";
 
 /* No comment provided by engineer. */
 "Select catalog or file" = "Katalog oder Datei auswählen";
