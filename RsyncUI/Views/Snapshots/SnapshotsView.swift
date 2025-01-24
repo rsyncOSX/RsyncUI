@@ -28,7 +28,7 @@ struct SnapshotsView: View {
     @State private var deleteiscompleted: Bool = false
     // Filter
     @State private var filterstring: String = ""
-    //
+    // For the weekly or monthly plans
     @State private var isdisabled: Bool = true
 
     var body: some View {
@@ -100,6 +100,19 @@ struct SnapshotsView: View {
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
+            
+            if (snapshotdata.notmappedloguuids?.count ?? 0 > 0)  {
+                ToolbarItem {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "trash.fill")
+                            .foregroundColor(Color(.blue))
+                    }
+                    .help("Delete not used log records")
+                }
+            }
+            
             ToolbarItem {
                 Button {
                     updateplansnapshot()
