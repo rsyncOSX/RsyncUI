@@ -157,8 +157,8 @@ struct AddTaskView: View {
         .toolbar {
             if notifydataisupdated {
                 ToolbarItem {
-                    MessageView(mytext: " " + "Data is changed, please update" + " ", size: .caption2)
-                        .padding()
+                    MessageView(mytext: "  " + "Data is changed" + "  ", size: .caption2)
+                        .padding([.bottom, .top], 7)
                 }
             }
 

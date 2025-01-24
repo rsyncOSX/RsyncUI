@@ -85,6 +85,7 @@ struct ColorfulButtonStyle: ButtonStyle {
     }
 }
 
+/*
 struct ColorfulRedButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
@@ -96,3 +97,4 @@ struct ColorfulRedButtonStyle: ButtonStyle {
             )
     }
 }
+*/

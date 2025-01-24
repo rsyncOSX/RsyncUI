@@ -67,7 +67,8 @@ struct SidebarMainView: View {
             .disabled(disablesidebarmeny)
 
             if newversion.notifynewversion {
-                MessageView(mytext: "There is a new version\navailable for download", size: .caption2)
+                MessageView(mytext: "Update available", size: .caption2)
+                    .padding([.bottom], -30)
             }
 
             MessageView(mytext: SharedReference.shared.rsyncversionshort ?? "", size: .caption2)

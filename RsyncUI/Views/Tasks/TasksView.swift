@@ -130,17 +130,26 @@ struct TasksView: View {
                 }
 
                 if columnVisibility == .detailOnly {
-                    Table(rsyncUIdata.validprofiles, selection: $uuidprofile) {
-                        TableColumn("Profiles") { name in
-                            Text(name.profilename)
+                    VStack {
+                        Table(rsyncUIdata.validprofiles, selection: $uuidprofile) {
+                            TableColumn("Profiles") { name in
+                                Text(name.profilename)
+                            }
+                        }
+                        .onChange(of: uuidprofile) {
+                            let record = rsyncUIdata.validprofiles.filter { $0.id == uuidprofile }
+                            guard record.count > 0 else { return }
+                            selectedprofile = record[0].profilename
+                        }
+                        .frame(width: 180)
+                        
+                        if SharedReference.shared.newversion {
+                            MessageView(mytext: "Update available", size: .caption2)
+                                .padding()
+                                .frame(width: 180)
                         }
                     }
-                    .onChange(of: uuidprofile) {
-                        let record = rsyncUIdata.validprofiles.filter { $0.id == uuidprofile }
-                        guard record.count > 0 else { return }
-                        selectedprofile = record[0].profilename
-                    }
-                    .frame(width: 180)
+                    
                 }
             }
         }
