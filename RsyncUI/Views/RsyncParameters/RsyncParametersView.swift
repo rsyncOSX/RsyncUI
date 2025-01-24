@@ -137,7 +137,8 @@ struct RsyncParametersView: View {
         .toolbar(content: {
             if notifydataisupdated {
                 ToolbarItem {
-                    MessageView(mytext: " " + "Data is changed, please update" + " ", size: .caption2)
+                    MessageView(mytext: "  " + "Data is changed" + "  ", size: .caption2)
+                        .padding([.bottom, .top], 7)
                 }
             }
 
