@@ -127,7 +127,7 @@ struct SnapshotsView: View {
                     updateplansnapshot()
                 } label: {
                     Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(Color(.green))
+                        .foregroundColor(Color(.blue))
                 }
                 .help("Update plan snapshot")
                 .disabled(isdisabled)
