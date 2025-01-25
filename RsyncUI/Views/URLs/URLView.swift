@@ -64,9 +64,9 @@ struct URLView: View {
                 VStack(alignment: .leading) {
                     Text("URL for Estimate & Synchronize")
                     HStack {
-                        EditValue(500, nil, $stringestimate)
+                        EditValue(500, "Select a task to save an URL for Estimate & Synchronize", $stringestimate)
 
-                        Button("Save Estimate") {
+                        Button("Save") {
                             let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
                             WriteWidgetsURLStringsJSON(data, .estimate)
                         }
@@ -76,9 +76,9 @@ struct URLView: View {
 
                     Text("URL for Verify")
                     HStack {
-                        EditValue(500, nil, $stringverify)
+                        EditValue(500, "Select a task to save an URL for Verify", $stringverify)
 
-                        Button("Save Verify") {
+                        Button("Save") {
                             let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
                             WriteWidgetsURLStringsJSON(data, .verify)
                         }

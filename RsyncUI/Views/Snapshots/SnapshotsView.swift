@@ -47,7 +47,6 @@ struct SnapshotsView: View {
                                     if let index = configurations.firstIndex(where: { $0.id == selectedconfiguuid.first }) {
                                         selectedconfig = configurations[index]
                                         getdata()
-                                        isdisabled = false
                                     } else {
                                         selectedconfig = nil
                                         snapshotdata.setsnapshotdata(nil)
@@ -237,6 +236,7 @@ extension SnapshotsView {
         if let config = selectedconfig {
             guard config.task == SharedReference.shared.snapshot else {
                 notsnapshot = true
+                isdisabled = true
                 // Show added for 1 second
                 Task {
                     try await Task.sleep(seconds: 1)
@@ -244,6 +244,7 @@ extension SnapshotsView {
                 }
                 return
             }
+            isdisabled = false
             // Setting values for tagging snapshots
             if let mysnaplast = config.snaplast {
                 if mysnaplast == 0 {
