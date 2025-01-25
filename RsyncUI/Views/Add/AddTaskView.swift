@@ -155,15 +155,7 @@ struct AddTaskView: View {
             selectedconfig = nil
         }
         .toolbar {
-            if notifydataisupdated {
-                ToolbarItem {
-                    Button {} label: {
-                        Image(systemName: "square.and.arrow.down")
-                            .foregroundColor(.green)
-                    }
-                }
-            }
-
+    
             if newdata.selectedconfig != nil {
                 ToolbarItem {
                     Button {
@@ -183,7 +175,7 @@ struct AddTaskView: View {
                     } label: {
                         if notifydataisupdated {
                             Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(Color(.green))
+                                .foregroundColor(Color(.red))
                         } else {
                             Image(systemName: "checkmark.circle")
                                 .foregroundColor(Color(.blue))
