@@ -135,15 +135,7 @@ struct RsyncParametersView: View {
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
-            if notifydataisupdated {
-                ToolbarItem {
-                    Button {} label: {
-                        Image(systemName: "square.and.arrow.down")
-                            .foregroundColor(.green)
-                    }
-                }
-            }
-
+            
             if selectedconfig != nil {
                 ToolbarItem {
                     Button {
@@ -163,7 +155,7 @@ struct RsyncParametersView: View {
                 } label: {
                     if notifydataisupdated {
                         Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(Color(.green))
+                            .foregroundColor(Color(.red))
                     } else {
                         Image(systemName: "checkmark.circle")
                             .foregroundColor(Color(.blue))
