@@ -109,6 +109,7 @@ struct SnapshotsView: View {
                     } label: {
                         Image(systemName: "trash.fill")
                             .foregroundColor(Color(.blue))
+                            .badge(snapshotdata.notmappedloguuids?.count ?? 0)
                     }
                     .help("Delete not used log records")
                     .confirmationDialog("Delete ^[\(snapshotdata.notmappedloguuids?.count ?? 0) log](inflect: true)",
@@ -118,6 +119,18 @@ struct SnapshotsView: View {
                             deletelogs(snapshotdata.notmappedloguuids)
                         }
                     }
+                    .overlay(HStack(alignment: .top) {     
+                        Image(systemName: String((snapshotdata.notmappedloguuids?.count ?? 0) <= 50
+                                                 ? (snapshotdata.notmappedloguuids?.count ?? 0): 50))
+                            .foregroundColor(.red)
+                            .frame(maxWidth: .infinity)
+                        }
+                        .frame(maxHeight: .infinity)
+                        .symbolVariant(.fill)
+                        .symbolVariant(.circle)
+                        .allowsHitTesting(false)
+                        .offset(x: 10, y: -10)
+                    )
                 }
             }
             
