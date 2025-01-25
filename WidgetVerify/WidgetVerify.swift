@@ -54,7 +54,7 @@ struct RsyncUIVerifyProvider: @preconcurrency TimelineProvider {
         }
     }
 
-    private func readuserconfiguration() -> String? {
+    private func readconfiguration() -> String? {
         // Userconfiguration json file
         let userconfigjson = "rsyncuiconfig.json"
         let decodeuserconfiguration = DecodeGeneric()
@@ -97,7 +97,7 @@ struct RsyncUIVerifyProvider: @preconcurrency TimelineProvider {
     }
 
     var url: URL? {
-        let urlstring = readuserconfiguration()
+        let urlstring = readconfiguration()
         guard let urlstring, urlstring.isEmpty == false else { return nil }
         if let url = URL(string: urlstring) {
             return url
