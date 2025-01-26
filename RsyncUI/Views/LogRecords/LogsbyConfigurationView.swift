@@ -144,15 +144,15 @@ struct LogsbyConfigurationView: View {
                             .foregroundColor(Color(.red))
                             .overlay(HStack(alignment: .top) {
                                 Image(systemName:
-                                        String(selectedloguuids.count <= 50 ? selectedloguuids.count : 50))
+                                    String(selectedloguuids.count <= 50 ? selectedloguuids.count : 50))
                                     .foregroundColor(.red)
                                     .frame(maxWidth: .infinity)
-                                }
-                                .frame(maxHeight: .infinity)
-                                .symbolVariant(.fill)
-                                .symbolVariant(.circle)
-                                .allowsHitTesting(false)
-                                .offset(x: 10, y: -10)
+                            }
+                            .frame(maxHeight: .infinity)
+                            .symbolVariant(.fill)
+                            .symbolVariant(.circle)
+                            .allowsHitTesting(false)
+                            .offset(x: 10, y: -10)
                             )
                     }
                 }

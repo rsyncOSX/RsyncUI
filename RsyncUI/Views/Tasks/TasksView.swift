@@ -142,14 +142,13 @@ struct TasksView: View {
                             selectedprofile = record[0].profilename
                         }
                         .frame(width: 180)
-                        
+
                         if SharedReference.shared.newversion {
                             MessageView(mytext: "Update available", size: .caption2)
                                 .padding()
                                 .frame(width: 180)
                         }
                     }
-                    
                 }
             }
         }

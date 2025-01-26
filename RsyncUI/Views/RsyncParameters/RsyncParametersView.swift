@@ -135,7 +135,6 @@ struct RsyncParametersView: View {
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
-            
             if selectedconfig != nil {
                 ToolbarItem {
                     Button {
