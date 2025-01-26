@@ -48,6 +48,10 @@ final class ProcessRsync: PropogateError {
         task.standardError = pipe
         let outHandle = pipe.fileHandleForReading
         outHandle.waitForDataInBackgroundAndNotify()
+        
+        // addObserverProcessTermination()
+        // addObserversNSFileHandleDataAvailable()
+        
         // Combine, subscribe to NSNotification.Name.NSFileHandleDataAvailable
         NotificationCenter.default.publisher(
             for: NSNotification.Name.NSFileHandleDataAvailable)
@@ -93,7 +97,7 @@ final class ProcessRsync: PropogateError {
                 // Release Combine subscribers
                 subscriptons.removeAll()
             }.store(in: &subscriptons)
-
+        
         SharedReference.shared.process = task
         do {
             try task.run()
@@ -118,10 +122,6 @@ final class ProcessRsync: PropogateError {
         self.filehandler = filehandler
         self.usefilehandler = usefilehandler
         
-        /*
-        addObserverProcessTermination()
-        addObserversNSFileHandleDataAvailable()
-        */
         if let config {
             self.config = config
         }
@@ -178,7 +178,6 @@ final class ProcessRsync: PropogateError {
 
 extension ProcessRsync {
     
-    // NSNotification.Name.NSFileHandleDataAvailable
     func addObserversNSFileHandleDataAvailable() {
         Logger.process.info("Observation of NSFileHandleDataAvailable ADDED")
         NotificationCenter.default.addObserver(
