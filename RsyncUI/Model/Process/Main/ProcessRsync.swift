@@ -118,8 +118,10 @@ final class ProcessRsync: PropogateError {
         self.filehandler = filehandler
         self.usefilehandler = usefilehandler
         
-        // addObserverProcessTermination()
-        
+        /*
+        addObserverProcessTermination()
+        addObserversNSFileHandleDataAvailable()
+        */
         if let config {
             self.config = config
         }
@@ -175,29 +177,52 @@ final class ProcessRsync: PropogateError {
 }
 
 extension ProcessRsync {
-    // Test for termination
-
-    func addObserverProcessTermination() {
-        Logger.process.info("Observation of process termination ADDED")
+    
+    // NSNotification.Name.NSFileHandleDataAvailable
+    func addObserversNSFileHandleDataAvailable() {
+        Logger.process.info("Observation of NSFileHandleDataAvailable ADDED")
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(processterminationobserved),
+            name: NSNotification.Name.NSFileHandleDataAvailable,
+            object: nil
+        )
+    }
+
+    func addObserverProcessTermination() {
+        Logger.process.info("Observation of Process.didTerminateNotification ADDED")
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(NSFileHandleDataAvailableobserved),
             name: Process.didTerminateNotification,
             object: nil
         )
     }
 
     func removeObserverProcessTermination() {
-        Logger.process.info("Observation of process termination REMOVED")
+        Logger.process.info("Observation of Process.didTerminateNotification REMOVED")
         NotificationCenter.default.removeObserver(
             self,
             name: Process.didTerminateNotification,
             object: nil
         )
     }
+    
+    func removeObserverNSFileHandleDataAvailable() {
+        Logger.process.info("Observation of NSFileHandleDataAvailable REMOVED")
+        NotificationCenter.default.removeObserver(
+            self,
+            name: NSNotification.Name.NSFileHandleDataAvailable,
+            object: nil
+        )
+    }
 
     @objc func processterminationobserved() {
-        Logger.process.info("Observation of process termination DISCOVERED")
+        Logger.process.info("Observation of Process.didTerminateNotification DISCOVERED")
+    }
+    
+    @objc func NSFileHandleDataAvailableobserved() {
+        Logger.process.info("Observation of NSFileHandleDataAvailable DISCOVERED")
     }
 }
 
