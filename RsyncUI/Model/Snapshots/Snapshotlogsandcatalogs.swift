@@ -57,22 +57,22 @@ final class Snapshotlogsandcatalogs {
         // from store id is recomputed
         mysnapshotdata?.readlogrecordsfromfile = logrecords
     }
-    
+
     // Mapping all UUIDS not used logrecords. Those logrecords may be deleted.
     // For snapshots, only log records with matched snap catalogs should be used
     private func mapnotuselogrecords() -> Set<UUID> {
         var mergedalluuids = Set<UUID>()
         var mergeuseduuids = Set<UUID>()
-        var merged: [Log] = [Log]()
-        
+        var merged = [Log]()
+
         _ = logrecords.map { logrecord in
             if let logrecords = logrecord.logrecords {
                 merged += [logrecords].flatMap(\.self)
             }
         }
-        mergedalluuids = Set(merged.map { $0.id })
+        mergedalluuids = Set(merged.map(\.id))
         if let logrecordssnapshot = mysnapshotdata?.logrecordssnapshot {
-            mergeuseduuids = Set(logrecordssnapshot.map { $0.idlogrecord })
+            mergeuseduuids = Set(logrecordssnapshot.map(\.idlogrecord))
         }
         return mergedalluuids.subtracting(mergeuseduuids)
     }
@@ -95,7 +95,7 @@ final class Snapshotlogsandcatalogs {
         mysnapshotdata = snapshotdata
         getremotecataloginfo()
     }
-    
+
     deinit {
         Logger.process.info("Snapshotlogsandcatalogs: deinit")
     }

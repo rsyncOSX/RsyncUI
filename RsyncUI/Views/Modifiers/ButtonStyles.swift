@@ -86,15 +86,15 @@ struct ColorfulButtonStyle: ButtonStyle {
 }
 
 /*
-struct ColorfulRedButtonStyle: ButtonStyle {
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .foregroundColor(.white)
-            .padding(8)
-            .contentShape(Capsule())
-            .background(
-                ColorfulRedBackground(isHighlighted: configuration.isPressed, shape: Capsule())
-            )
-    }
-}
-*/
+ struct ColorfulRedButtonStyle: ButtonStyle {
+     func makeBody(configuration: Self.Configuration) -> some View {
+         configuration.label
+             .foregroundColor(.white)
+             .padding(8)
+             .contentShape(Capsule())
+             .background(
+                 ColorfulRedBackground(isHighlighted: configuration.isPressed, shape: Capsule())
+             )
+     }
+ }
+ */

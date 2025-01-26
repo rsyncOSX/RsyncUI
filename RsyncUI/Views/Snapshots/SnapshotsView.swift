@@ -101,8 +101,7 @@ struct SnapshotsView: View {
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
-            
-            if (snapshotdata.notmappedloguuids?.count ?? 0 > 0)  {
+            if snapshotdata.notmappedloguuids?.count ?? 0 > 0 {
                 ToolbarItem {
                     Button {
                         isPresentingConfirm = (snapshotdata.notmappedloguuids?.count ?? 0 > 0)
@@ -119,21 +118,21 @@ struct SnapshotsView: View {
                             deletelogs(snapshotdata.notmappedloguuids)
                         }
                     }
-                    .overlay(HStack(alignment: .top) {     
+                    .overlay(HStack(alignment: .top) {
                         Image(systemName: String((snapshotdata.notmappedloguuids?.count ?? 0) <= 50
-                                                 ? (snapshotdata.notmappedloguuids?.count ?? 0): 50))
+                                ? (snapshotdata.notmappedloguuids?.count ?? 0) : 50))
                             .foregroundColor(.red)
                             .frame(maxWidth: .infinity)
-                        }
-                        .frame(maxHeight: .infinity)
-                        .symbolVariant(.fill)
-                        .symbolVariant(.circle)
-                        .allowsHitTesting(false)
-                        .offset(x: 10, y: -10)
+                    }
+                    .frame(maxHeight: .infinity)
+                    .symbolVariant(.fill)
+                    .symbolVariant(.circle)
+                    .allowsHitTesting(false)
+                    .offset(x: 10, y: -10)
                     )
                 }
             }
-            
+
             ToolbarItem {
                 Button {
                     updateplansnapshot()
@@ -362,5 +361,4 @@ extension SnapshotsView {
             snapshotdata.readlogrecordsfromfile = nil
         }
     }
-
 }

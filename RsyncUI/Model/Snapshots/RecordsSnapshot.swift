@@ -27,7 +27,7 @@ final class RecordsSnapshot {
                     }
                 }
                 return LogRecordSnapshot(
-                    // Pick up the id from the log record itself. 
+                    // Pick up the id from the log record itself.
                     idlogrecord: record.id,
                     date: date ?? Date(),
                     dateExecuted: datestring ?? "",
