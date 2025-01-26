@@ -1,5 +1,5 @@
 //
-//  SnapshotData.swift
+//  ObservableSnapshotData.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 23/02/2021.
@@ -50,7 +50,7 @@ final class ObservableSnapshotData {
         }
         return nil
     }
-    
+
     deinit {
         Logger.process.info("ObservableSnapshotData: deinit")
     }

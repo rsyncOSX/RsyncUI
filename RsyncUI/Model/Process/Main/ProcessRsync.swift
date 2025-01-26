@@ -117,6 +117,9 @@ final class ProcessRsync: PropogateError {
         self.processtermination = processtermination
         self.filehandler = filehandler
         self.usefilehandler = usefilehandler
+        
+        // addObserverProcessTermination()
+        
         if let config {
             self.config = config
         }
@@ -168,6 +171,33 @@ final class ProcessRsync: PropogateError {
 
     deinit {
         Logger.process.info("ProcessRsync: DEINIT")
+    }
+}
+
+extension ProcessRsync {
+    // Test for termination
+
+    func addObserverProcessTermination() {
+        Logger.process.info("Observation of process termination ADDED")
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(processterminationobserved),
+            name: Process.didTerminateNotification,
+            object: nil
+        )
+    }
+
+    func removeObserverProcessTermination() {
+        Logger.process.info("Observation of process termination REMOVED")
+        NotificationCenter.default.removeObserver(
+            self,
+            name: Process.didTerminateNotification,
+            object: nil
+        )
+    }
+
+    @objc func processterminationobserved() {
+        Logger.process.info("Observation of process termination DISCOVERED")
     }
 }
 

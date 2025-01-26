@@ -44,27 +44,27 @@ struct ConfigurationsTableDataMainView: View {
                         Text("Synchronize ID")
                             .foregroundColor(color)
                             .contextMenu {
-                                Button("Temporarly halt task") {  }
+                                Button("Temporarly halt task") {}
                             }
 
                     } else {
                         Text(data.backupID)
                             .foregroundColor(color)
                             .contextMenu {
-                                Button("Temporarly halt task") {  }
+                                Button("Temporarly halt task") {}
                             }
                     }
                 } else {
                     if data.backupID.isEmpty == true {
                         Text("Synchronize ID")
                             .contextMenu {
-                                Button("Temporarly halt task") {  }
+                                Button("Temporarly halt task") {}
                             }
 
                     } else {
                         Text(data.backupID)
                             .contextMenu {
-                                Button("Temporarly halt task") {  }
+                                Button("Temporarly halt task") {}
                             }
                     }
                 }
