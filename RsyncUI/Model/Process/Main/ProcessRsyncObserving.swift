@@ -1,19 +1,19 @@
 //
-//  ProcessRsync.swift
+//  ProcessRsyncObserving.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 15/03/2021.
 //
 // swiftlint:disable function_body_length cyclomatic_complexity line_length
 
-import Combine
+// import Combine
 import Foundation
 import OSLog
 
 @MainActor
-final class ProcessRsync: PropogateError {
+final class ProcessRsyncObserving: PropogateError {
     // Combine subscribers
-    var subscriptons = Set<AnyCancellable>()
+    // var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures
     var processtermination: ([String]?, Int?) -> Void
     var filehandler: (Int) -> Void
@@ -27,6 +27,8 @@ final class ProcessRsync: PropogateError {
     // Check for error
     var checklineforerror: TrimOutputFromRsync?
     var errordiscovered: Bool = false
+    // Observer
+    weak var notifications: NSObjectProtocol?
 
     func executeProcess() {
         // Must check valid rsync exists
@@ -48,51 +50,20 @@ final class ProcessRsync: PropogateError {
         task.standardError = pipe
         let outHandle = pipe.fileHandleForReading
         outHandle.waitForDataInBackgroundAndNotify()
-        // Combine, subscribe to NSNotification.Name.NSFileHandleDataAvailable
-        NotificationCenter.default.publisher(
-            for: NSNotification.Name.NSFileHandleDataAvailable)
-            .sink { [self] _ in
-                let data = outHandle.availableData
-                if data.count > 0 {
-                    if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                        str.enumerateLines { line, _ in
-                            self.output.append(line)
-                            if SharedReference.shared.checkforerrorinrsyncoutput,
-                               self.errordiscovered == false
-                            {
-                                do {
-                                    try self.checklineforerror?.checkforrsyncerror(line)
-                                } catch let e {
-                                    self.errordiscovered = true
-                                    let error = e
-                                    self.propogateerror(error: error)
-                                }
-                            }
-                        }
-                        // Send message about files
-                        if usefilehandler {
-                            filehandler(output.count)
-                        }
-                    }
-                    outHandle.waitForDataInBackgroundAndNotify()
-                }
-            }.store(in: &subscriptons)
-        // Combine, subscribe to Process.didTerminateNotification
-        NotificationCenter.default.publisher(
-            for: Process.didTerminateNotification)
-            .debounce(for: .milliseconds(500), scheduler: DispatchQueue.main)
-            .sink { [self] _ in
-                processtermination(output, config?.hiddenID)
-                // Log error in rsync output to file
-                if errordiscovered, let config {
-                    Logfile(command: config.backupID,
-                            stringoutputfromrsync: output)
-                }
-                SharedReference.shared.process = nil
-                Logger.process.info("ProcessRsync: process = nil and termination discovered")
-                // Release Combine subscribers
-                subscriptons.removeAll()
-            }.store(in: &subscriptons)
+
+        notifications = NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable,
+                                                               object: nil, queue: nil)
+        { _ in
+            Task {
+                await self.datahandle(pipe)
+            }
+        }
+
+        notifications = NotificationCenter.default.addObserver(forName: Process.didTerminateNotification, object: task, queue: nil) { _ in
+            Task {
+                await self.termination()
+            }
+        }
 
         SharedReference.shared.process = task
         do {
@@ -102,8 +73,8 @@ final class ProcessRsync: PropogateError {
             propogateerror(error: error)
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
-            Logger.process.info("ProcessRsync: \(launchPath, privacy: .public)")
-            Logger.process.info("ProcessRsync: \(arguments.joined(separator: "\n"), privacy: .public)")
+            Logger.process.info("ProcessRsyncObserving: \(launchPath, privacy: .public)")
+            Logger.process.info("ProcessRsyncObserving: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
     }
 
@@ -117,6 +88,7 @@ final class ProcessRsync: PropogateError {
         self.processtermination = processtermination
         self.filehandler = filehandler
         self.usefilehandler = usefilehandler
+
         if let config {
             self.config = config
         }
@@ -142,7 +114,7 @@ final class ProcessRsync: PropogateError {
     {
         // To satisfy arguments
         let filehandler: (Int) -> Void = { _ in
-            Logger.process.info("ProcessRsync: You should not SEE this message")
+            Logger.process.info("ProcessRsyncObserving: You should not SEE this message")
         }
         self.init(arguments: arguments,
                   config: nil,
@@ -157,7 +129,7 @@ final class ProcessRsync: PropogateError {
     {
         // To satisfy arguments
         let filehandler: (Int) -> Void = { _ in
-            Logger.process.info("ProcessRsync: You should NOT SEE this message")
+            Logger.process.info("ProcessRsyncObserving: You should NOT SEE this message")
         }
         self.init(arguments: arguments,
                   config: config,
@@ -167,8 +139,54 @@ final class ProcessRsync: PropogateError {
     }
 
     deinit {
-        Logger.process.info("ProcessRsync: DEINIT")
+        Logger.process.info("ProcessRsyncObserving: DEINIT")
     }
 }
 
-// swiftlint:enable function_body_length cyclomatic_complexity line_length
+extension ProcessRsyncObserving {
+    func datahandle(_ pipe: Pipe) async {
+        let outHandle = pipe.fileHandleForReading
+        let data = outHandle.availableData
+        if data.count > 0 {
+            if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
+                str.enumerateLines { line, _ in
+                    self.output.append(line)
+                    if SharedReference.shared.checkforerrorinrsyncoutput,
+                       self.errordiscovered == false
+                    {
+                        do {
+                            try self.checklineforerror?.checkforrsyncerror(line)
+                        } catch let e {
+                            self.errordiscovered = true
+                            let error = e
+                            self.propogateerror(error: error)
+                        }
+                    }
+                }
+                // Send message about files
+                if usefilehandler {
+                    filehandler(output.count)
+                }
+            }
+            outHandle.waitForDataInBackgroundAndNotify()
+        }
+    }
+
+    func termination() async {
+        processtermination(output, config?.hiddenID)
+        // Log error in rsync output to file
+        if errordiscovered, let config {
+            Logfile(command: config.backupID,
+                    stringoutputfromrsync: output)
+        }
+        SharedReference.shared.process = nil
+        // NotificationCenter.default.removeObserver(notifications as Any)
+        NotificationCenter.default.removeObserver(notifications as Any,
+                                                  name: NSNotification.Name.NSFileHandleDataAvailable,
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(notifications as Any,
+                                                  name: Process.didTerminateNotification,
+                                                  object: nil)
+        Logger.process.info("ProcessRsyncObserving: process = nil and termination discovered")
+    }
+}
