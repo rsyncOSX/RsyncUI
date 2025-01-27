@@ -66,6 +66,8 @@ struct SynchronizeConfiguration: Identifiable, Codable {
     // Snapshots, day to save and last = 1 or every last=0
     var snapdayoffweek: String?
     var snaplast: Int?
+    // task is halted
+    var halted: Int = 0
 
     // Used when reading JSON data from store
     // see in ReadSynchronizeConfigurationJSON
