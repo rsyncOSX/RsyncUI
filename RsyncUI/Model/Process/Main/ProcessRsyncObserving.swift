@@ -27,8 +27,9 @@ final class ProcessRsyncObserving: PropogateError {
     // Check for error
     var checklineforerror: TrimOutputFromRsync?
     var errordiscovered: Bool = false
-    // Observer
-    weak var notifications: NSObjectProtocol?
+    // Observers
+    weak var notificationsfilehandle: NSObjectProtocol?
+    weak var notificationstermination: NSObjectProtocol?
 
     func executeProcess() {
         // Must check valid rsync exists
@@ -51,7 +52,7 @@ final class ProcessRsyncObserving: PropogateError {
         let outHandle = pipe.fileHandleForReading
         outHandle.waitForDataInBackgroundAndNotify()
 
-        notifications = NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable,
+        notificationsfilehandle = NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable,
                                                                object: nil, queue: nil)
         { _ in
             Task {
@@ -59,7 +60,7 @@ final class ProcessRsyncObserving: PropogateError {
             }
         }
 
-        notifications = NotificationCenter.default.addObserver(forName: Process.didTerminateNotification, object: task, queue: nil) { _ in
+        notificationstermination = NotificationCenter.default.addObserver(forName: Process.didTerminateNotification, object: task, queue: nil) { _ in
             Task {
                 await self.termination()
             }
@@ -181,10 +182,10 @@ extension ProcessRsyncObserving {
         }
         SharedReference.shared.process = nil
         // NotificationCenter.default.removeObserver(notifications as Any)
-        NotificationCenter.default.removeObserver(notifications as Any,
+        NotificationCenter.default.removeObserver(notificationsfilehandle as Any,
                                                   name: NSNotification.Name.NSFileHandleDataAvailable,
                                                   object: nil)
-        NotificationCenter.default.removeObserver(notifications as Any,
+        NotificationCenter.default.removeObserver(notificationstermination as Any,
                                                   name: Process.didTerminateNotification,
                                                   object: nil)
         Logger.process.info("ProcessRsyncObserving: process = nil and termination discovered")
