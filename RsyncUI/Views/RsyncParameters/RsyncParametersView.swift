@@ -135,7 +135,8 @@ struct RsyncParametersView: View {
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
-            if selectedconfig != nil {
+            if selectedconfig != nil,
+               selectedconfig?.task != SharedReference.shared.halted  {
                 ToolbarItem {
                     Button {
                         guard selecteduuids.isEmpty == false else { return }
