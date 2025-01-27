@@ -25,8 +25,8 @@ final class ProcessRsyncObserving: PropogateError {
     var checklineforerror: TrimOutputFromRsync?
     var errordiscovered: Bool = false
     // Observers
-    weak var notificationsfilehandle: NSObjectProtocol?
-    weak var notificationstermination: NSObjectProtocol?
+    var notificationsfilehandle: NSObjectProtocol?
+    var notificationstermination: NSObjectProtocol?
 
     func executeProcess() {
         // Must check valid rsync exists
