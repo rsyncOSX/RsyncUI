@@ -60,6 +60,7 @@ final class SharedReference {
     let synchronize: String = "synchronize"
     let snapshot: String = "snapshot"
     let syncremote: String = "syncremote"
+    let halted: String = "halted"
     // rsync short version
     var rsyncversionshort: String?
     // filsize logfile warning

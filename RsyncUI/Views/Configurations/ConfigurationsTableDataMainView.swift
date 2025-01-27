@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct ConfigurationsTableDataMainView: View {
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var filterstring: String
     @Binding var progress: Double
 
-    let profile: String?
-    let configurations: [SynchronizeConfiguration]
     let executeprogressdetails: ExecuteProgressDetails
     let max: Double
 
@@ -32,7 +31,7 @@ struct ConfigurationsTableDataMainView: View {
             .width(min: 70, ideal: 70)
             .defaultVisibility(visible_progress)
             TableColumn("Profile") { _ in
-                Text(profile ?? SharedReference.shared.defaultprofile)
+                Text(rsyncUIdata.profile ?? SharedReference.shared.defaultprofile)
             }
             .width(min: 50, max: 100)
             .defaultVisibility(visible_not_progress)
@@ -43,16 +42,9 @@ struct ConfigurationsTableDataMainView: View {
                     if data.backupID.isEmpty == true {
                         Text("Synchronize ID")
                             .foregroundColor(color)
-                            .contextMenu {
-                                Button("Temporarly halt task") {}
-                            }
-
                     } else {
                         Text(data.backupID)
                             .foregroundColor(color)
-                            .contextMenu {
-                                Button("Temporarly halt task") {}
-                            }
                     }
                 } else {
                     if data.backupID.isEmpty == true {
@@ -64,7 +56,11 @@ struct ConfigurationsTableDataMainView: View {
                     } else {
                         Text(data.backupID)
                             .contextMenu {
-                                Button("Temporarly halt task") {}
+                                Button("Temporarly halt task") {
+                                    let index = getindex(selecteduuids)
+                                    guard index != -1 else { return }
+                                    updatehalted(index)
+                                }
                             }
                     }
                 }
@@ -105,6 +101,10 @@ struct ConfigurationsTableDataMainView: View {
             .width(max: 120)
         }
     }
+    
+    var configurations: [SynchronizeConfiguration] {
+        return rsyncUIdata.configurations ?? []
+    }
 
     var visible_progress: Visibility {
         if max == 0 {
@@ -125,4 +125,49 @@ struct ConfigurationsTableDataMainView: View {
     private func markconfig(_ seconds: Double) -> Bool {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }
+    
+    private func halted(_ task: String) -> Halted {
+        switch task {
+            case "synchronize":
+            return .synchronize
+        case "syncremote":
+            return .syncremote
+        case "snapshot":
+            return .snapshot
+        default:
+            return .synchronize
+        }
+    }
+    
+    private func getindex(_ uuids: Set<UUID>) -> Int {
+        if let configurations = rsyncUIdata.configurations  {
+            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                return index
+            } else {
+                return -1
+            }
+        } else {
+            return -1
+        }
+    }
+    
+    private func updatehalted(_ index: Int) {
+        // Decide if already halted and enable task again, or
+        // halt a new task
+        print(rsyncUIdata.configurations?[index])
+        
+        /*
+        let task = rsyncUIdata.configurations?[index].task
+        rsyncUIdata.configurations?[index].halted = halted(task)
+        rsyncUIdata.configurations?[index].task = SharedReference.shared.halted
+         */
+        
+    }
+}
+
+
+enum Halted: Int {
+    case synchronize = 1 // before halted synchronize
+    case syncremote = 2 // as above but syncremote
+    case snapshot = 3 // as above but
 }
