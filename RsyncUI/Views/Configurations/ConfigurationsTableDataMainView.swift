@@ -50,13 +50,17 @@ struct ConfigurationsTableDataMainView: View {
                     if data.backupID.isEmpty == true {
                         Text("Synchronize ID")
                             .contextMenu {
-                                Button("Temporarly halt task") {}
+                                Button("Toggle halt task") {
+                                    let index = getindex(selecteduuids)
+                                    guard index != -1 else { return }
+                                    updatehalted(index)
+                                }
                             }
 
                     } else {
                         Text(data.backupID)
                             .contextMenu {
-                                Button("Temporarly halt task") {
+                                Button("Toggle halt task") {
                                     let index = getindex(selecteduuids)
                                     guard index != -1 else { return }
                                     updatehalted(index)
@@ -101,9 +105,9 @@ struct ConfigurationsTableDataMainView: View {
             .width(max: 120)
         }
     }
-    
+
     var configurations: [SynchronizeConfiguration] {
-        return rsyncUIdata.configurations ?? []
+        rsyncUIdata.configurations ?? []
     }
 
     var visible_progress: Visibility {
@@ -125,46 +129,71 @@ struct ConfigurationsTableDataMainView: View {
     private func markconfig(_ seconds: Double) -> Bool {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }
-    
+
     private func halted(_ task: String) -> Halted {
         switch task {
-            case "synchronize":
-            return .synchronize
+        case "synchronize":
+            .synchronize
         case "syncremote":
-            return .syncremote
+            .syncremote
         case "snapshot":
-            return .snapshot
+            .snapshot
         default:
-            return .synchronize
+            .synchronize
         }
     }
-    
-    private func getindex(_ uuids: Set<UUID>) -> Int {
-        if let configurations = rsyncUIdata.configurations  {
+
+    private func getindex(_: Set<UUID>) -> Int {
+        if let configurations = rsyncUIdata.configurations {
             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                return index
+                index
             } else {
-                return -1
+                -1
             }
         } else {
-            return -1
+            -1
         }
     }
-    
+
     private func updatehalted(_ index: Int) {
-        // Decide if already halted and enable task again, or
-        // halt a new task
-        print(rsyncUIdata.configurations?[index])
-        
-        /*
-        let task = rsyncUIdata.configurations?[index].task
-        rsyncUIdata.configurations?[index].halted = halted(task)
-        rsyncUIdata.configurations?[index].task = SharedReference.shared.halted
-         */
-        
+        if let halted = rsyncUIdata.configurations?[index].halted,
+           let task = rsyncUIdata.configurations?[index].task
+        {
+            if halted == 0 {
+                // Halt task
+                switch task {
+                case SharedReference.shared.synchronize:
+                    rsyncUIdata.configurations?[index].halted = 1
+                    rsyncUIdata.configurations?[index].task = SharedReference.shared.halted
+                case SharedReference.shared.syncremote:
+                    rsyncUIdata.configurations?[index].halted = 2
+                    rsyncUIdata.configurations?[index].task = SharedReference.shared.halted
+                case SharedReference.shared.snapshot:
+                    rsyncUIdata.configurations?[index].halted = 3
+                    rsyncUIdata.configurations?[index].task = SharedReference.shared.halted
+                default:
+                    break
+                }
+            } else {
+                // Enable task
+                switch halted {
+                case 1:
+                    rsyncUIdata.configurations?[index].task = SharedReference.shared.synchronize
+                    rsyncUIdata.configurations?[index].halted = 0
+                case 2:
+                    rsyncUIdata.configurations?[index].task = SharedReference.shared.syncremote
+                    rsyncUIdata.configurations?[index].halted = 0
+                case 3:
+                    rsyncUIdata.configurations?[index].task = SharedReference.shared.snapshot
+                    rsyncUIdata.configurations?[index].halted = 0
+                default:
+                    break
+                }
+            }
+            WriteSynchronizeConfigurationJSON(rsyncUIdata.profile, rsyncUIdata.configurations)
+        }
     }
 }
-
 
 enum Halted: Int {
     case synchronize = 1 // before halted synchronize

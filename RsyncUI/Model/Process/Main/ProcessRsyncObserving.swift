@@ -11,7 +11,6 @@ import OSLog
 
 @MainActor
 final class ProcessRsyncObserving: PropogateError {
-
     // Process termination and filehandler closures
     var processtermination: ([String]?, Int?) -> Void
     var filehandler: (Int) -> Void
