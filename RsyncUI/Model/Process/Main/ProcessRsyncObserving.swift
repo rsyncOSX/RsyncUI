@@ -6,14 +6,11 @@
 //
 // swiftlint:disable function_body_length cyclomatic_complexity line_length
 
-// import Combine
 import Foundation
 import OSLog
 
 @MainActor
 final class ProcessRsyncObserving: PropogateError {
-    // Combine subscribers
-    // var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures
     var processtermination: ([String]?, Int?) -> Void
     var filehandler: (Int) -> Void
@@ -52,19 +49,21 @@ final class ProcessRsyncObserving: PropogateError {
         let outHandle = pipe.fileHandleForReading
         outHandle.waitForDataInBackgroundAndNotify()
 
-        notificationsfilehandle = NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable,
-                                                               object: nil, queue: nil)
+        notificationsfilehandle =
+            NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable,
+                                                   object: nil, queue: nil)
         { _ in
             Task {
                 await self.datahandle(pipe)
             }
         }
 
-        notificationstermination = NotificationCenter.default.addObserver(forName: Process.didTerminateNotification, object: task, queue: nil) { _ in
-            Task {
-                await self.termination()
+        notificationstermination =
+            NotificationCenter.default.addObserver(forName: Process.didTerminateNotification, object: task, queue: nil) { _ in
+                Task {
+                    await self.termination()
+                }
             }
-        }
 
         SharedReference.shared.process = task
         do {
