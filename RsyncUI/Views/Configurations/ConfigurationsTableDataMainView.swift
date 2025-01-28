@@ -80,18 +80,6 @@ struct ConfigurationsTableDataMainView: View {
                                 updatehalted(index)
                             }
                         }
-                    /*
-                    Text(data.task)
-                        .contextMenu {
-                            Button("Toggle halt task") {
-                                let index = getindex(selecteduuids)
-                                guard index != -1 else { return }
-                                updatehalted(index)
-                            }
-                        }
-                        .foregroundColor(.red)
-                     */
-                    
                 } else {
                     Text(data.task)
                         .contextMenu {

@@ -169,7 +169,7 @@ struct TasksView: View {
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
-                    guard alltasksarehaalted() == false else { return }
+                    guard alltasksarehalted() == false else { return }
                     guard selectedtaskhalted == false else { return }
                     
                     guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
@@ -188,7 +188,7 @@ struct TasksView: View {
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
-                    guard alltasksarehaalted() == false else { return }
+                    guard alltasksarehalted() == false else { return }
                     guard selectedtaskhalted == false else { return }
                     
                     guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
@@ -225,7 +225,7 @@ struct TasksView: View {
             ToolbarItem {
                 Button {
                     guard selecteduuids.count > 0 else { return }
-                    guard alltasksarehaalted() == false else { return }
+                    guard alltasksarehalted() == false else { return }
                     
                     guard selecteduuids.count == 1 else {
                         path.append(Tasks(task: .summarizeddetailsview))
@@ -260,7 +260,7 @@ struct TasksView: View {
                 .help("Quick synchronize")
             }
 
-            if remoteconfigurations && alltasksarehaalted() == false {
+            if remoteconfigurations && alltasksarehalted() == false {
                 ToolbarItem {
                     Button {
                         guard selectedtaskhalted == false else { return }
@@ -292,7 +292,7 @@ struct TasksView: View {
                 }
             }
 
-            if alltasksarehaalted() == false {
+            if alltasksarehalted() == false {
                 ToolbarItem {
                     Button {
                         ispressedestimate = true
@@ -395,7 +395,7 @@ struct TasksView: View {
 
 extension TasksView {
     
-    private func alltasksarehaalted () -> Bool {
+    private func alltasksarehalted () -> Bool {
         let haltedtasks = rsyncUIdata.configurations?.filter { $0.task == SharedReference.shared.halted }
         return haltedtasks?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0
     }
