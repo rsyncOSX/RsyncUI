@@ -69,8 +69,17 @@ struct ConfigurationsTableDataMainView: View {
                     }
                 }
             }
-            TableColumn("Task", value: \.task)
-                .width(max: 80)
+            TableColumn("Task") { data in
+                Text(data.task)
+                    .contextMenu {
+                        Button("Toggle halt task") {
+                            let index = getindex(selecteduuids)
+                            guard index != -1 else { return }
+                            updatehalted(index)
+                        }
+                    }
+            }
+            .width(max: 80)
             TableColumn("Local catalog", value: \.localCatalog)
                 .width(min: 120, max: 400)
             TableColumn("Remote catalog", value: \.offsiteCatalog)
@@ -130,19 +139,6 @@ struct ConfigurationsTableDataMainView: View {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }
 
-    private func halted(_ task: String) -> Halted {
-        switch task {
-        case "synchronize":
-            .synchronize
-        case "syncremote":
-            .syncremote
-        case "snapshot":
-            .snapshot
-        default:
-            .synchronize
-        }
-    }
-
     private func getindex(_: Set<UUID>) -> Int {
         if let configurations = rsyncUIdata.configurations {
             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
@@ -191,12 +187,15 @@ struct ConfigurationsTableDataMainView: View {
                 }
             }
             WriteSynchronizeConfigurationJSON(rsyncUIdata.profile, rsyncUIdata.configurations)
+            selecteduuids.removeAll()
         }
     }
 }
 
+/*
 enum Halted: Int {
     case synchronize = 1 // before halted synchronize
     case syncremote = 2 // as above but syncremote
     case snapshot = 3 // as above but
 }
+*/
