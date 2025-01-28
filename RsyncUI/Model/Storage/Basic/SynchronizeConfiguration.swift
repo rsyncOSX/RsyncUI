@@ -67,7 +67,7 @@ struct SynchronizeConfiguration: Identifiable, Codable {
     var snapdayoffweek: String?
     var snaplast: Int?
     // task is halted
-    var halted: Int = 0
+    var halted: Int
 
     // Used when reading JSON data from store
     // see in ReadSynchronizeConfigurationJSON
@@ -101,6 +101,7 @@ struct SynchronizeConfiguration: Identifiable, Codable {
         }
         // Last run of task
         dateRun = data.dateRun
+        halted = data.halted ?? 0
     }
 
     // Create an empty record with no values
@@ -116,6 +117,7 @@ struct SynchronizeConfiguration: Identifiable, Codable {
         parameter4 = ""
         offsiteServer = ""
         backupID = ""
+        halted = 0
     }
 }
 
