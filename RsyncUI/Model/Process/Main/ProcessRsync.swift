@@ -31,6 +31,7 @@ final class ProcessRsync: PropogateError {
     func executeProcess() {
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
+        guard config?.task != SharedReference.shared.halted else { return }
         // Process
         let task = Process()
         // Getting version of rsync

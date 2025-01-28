@@ -76,6 +76,8 @@ struct TasksView: View {
     @State var isOpen: Bool = false
     // View profiles on left
     @State private var uuidprofile: ProfilesnamesRecord.ID?
+    // Selected task is halted
+    @State private var selectedtaskhalted: Bool = false
 
     var body: some View {
         ZStack {
@@ -94,6 +96,11 @@ struct TasksView: View {
                     if let configurations = rsyncUIdata.configurations {
                         if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                             selectedconfig.config = configurations[index]
+                            if selectedconfig.config?.task == SharedReference.shared.halted {
+                                selectedtaskhalted = true
+                            } else {
+                                selectedtaskhalted = false
+                            }
                             // Must check if rsync version and snapshot
                             if configurations[index].task == SharedReference.shared.snapshot,
                                SharedReference.shared.rsyncversion3 == false
@@ -102,6 +109,7 @@ struct TasksView: View {
                             }
                         } else {
                             selectedconfig.config = nil
+                            selectedtaskhalted = false
                         }
                     }
                     estimateprogressdetails.uuidswithdatatosynchronize = selecteduuids
@@ -161,10 +169,14 @@ struct TasksView: View {
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
+                    guard alltasksarehalted() == false else { return }
+                    guard selectedtaskhalted == false else { return }
+                    
                     guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
                         Logger.process.info("Estimate() no tasks selected, no configurations, bailing out")
                         return
                     }
+                    
                     path.append(Tasks(task: .summarizeddetailsview))
                 } label: {
                     Image(systemName: "wand.and.stars")
@@ -176,6 +188,9 @@ struct TasksView: View {
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
+                    guard alltasksarehalted() == false else { return }
+                    guard selectedtaskhalted == false else { return }
+                    
                     guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
                         Logger.process.info("Estimate() no tasks selected, no configurations, bailing out")
                         return
@@ -210,6 +225,8 @@ struct TasksView: View {
             ToolbarItem {
                 Button {
                     guard selecteduuids.count > 0 else { return }
+                    guard alltasksarehalted() == false else { return }
+                    
                     guard selecteduuids.count == 1 else {
                         path.append(Tasks(task: .summarizeddetailsview))
                         return
@@ -243,9 +260,10 @@ struct TasksView: View {
                 .help("Quick synchronize")
             }
 
-            if remoteconfigurations {
+            if remoteconfigurations && alltasksarehalted() == false {
                 ToolbarItem {
                     Button {
+                        guard selectedtaskhalted == false else { return }
                         ispressedverify = true
                         if urlcommandverify {
                             urlcommandverify = false
@@ -274,33 +292,35 @@ struct TasksView: View {
                 }
             }
 
-            ToolbarItem {
-                Button {
-                    ispressedestimate = true
-                    if urlcommandestimateandsynchronize {
-                        urlcommandestimateandsynchronize = false
-                    } else {
-                        urlcommandestimateandsynchronize = true
+            if alltasksarehalted() == false {
+                ToolbarItem {
+                    Button {
+                        ispressedestimate = true
+                        if urlcommandestimateandsynchronize {
+                            urlcommandestimateandsynchronize = false
+                        } else {
+                            urlcommandestimateandsynchronize = true
+                        }
+                        Task {
+                            try await Task.sleep(seconds: 1)
+                            ispressedestimate = false
+                        }
+                    } label: {
+                        if ispressedestimate {
+                            Image(systemName: "bolt.shield.fill")
+                                .foregroundColor(Color(.yellow))
+                                .transition(
+                                    TransitionButton()
+                                        .animation(.easeInOut(duration: 1.0)
+                                        )
+                                )
+                        } else {
+                            Image(systemName: "bolt.shield.fill")
+                                .foregroundColor(Color(.yellow))
+                        }
                     }
-                    Task {
-                        try await Task.sleep(seconds: 1)
-                        ispressedestimate = false
-                    }
-                } label: {
-                    if ispressedestimate {
-                        Image(systemName: "bolt.shield.fill")
-                            .foregroundColor(Color(.yellow))
-                            .transition(
-                                TransitionButton()
-                                    .animation(.easeInOut(duration: 1.0)
-                                    )
-                            )
-                    } else {
-                        Image(systemName: "bolt.shield.fill")
-                            .foregroundColor(Color(.yellow))
-                    }
+                    .help("Estimate & Synchronize")
                 }
-                .help("Estimate & Synchronize")
             }
         })
         .alert(isPresented: $showingAlert) {
@@ -374,8 +394,16 @@ struct TasksView: View {
 }
 
 extension TasksView {
+    
+    private func alltasksarehalted () -> Bool {
+        let haltedtasks = rsyncUIdata.configurations?.filter { $0.task == SharedReference.shared.halted }
+        return haltedtasks?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0
+    }
+    
     func doubleclickactionfunction() {
         guard SharedReference.shared.norsync == false else { return }
+        guard selectedtaskhalted == false else { return }
+        
         if estimateprogressdetails.estimatedlist == nil {
             dryrun()
         } else if estimateprogressdetails.onlyselectedtaskisestimated(selecteduuids) {
@@ -390,7 +418,8 @@ extension TasksView {
 
     func dryrun() {
         if selectedconfig.config != nil,
-           estimateprogressdetails.estimatedlist?.count ?? 0 == 0
+           estimateprogressdetails.estimatedlist?.count ?? 0 == 0,
+           selectedtaskhalted == false
         {
             Logger.process.info("DryRun: execute a dryrun for one task only")
             doubleclick = false

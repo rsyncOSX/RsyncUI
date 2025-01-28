@@ -61,7 +61,6 @@ struct RsyncUIVerifyProvider: @preconcurrency TimelineProvider {
         var userconfigurationfile = ""
         if let path = documentscatalog {
             userconfigurationfile = path + "/" + userconfigjson
-            print(userconfigurationfile)
         } else {
             return nil
         }

@@ -154,6 +154,7 @@ extension VerifyRemote {
            queryitem != nil
         {
             selectedconfig = config
+            guard selectedconfig?.task != SharedReference.shared.halted else { return }
             // Set config and execute a Verify
             verifynavigation.append(VerifyTasks(task: .verify))
             queryitem = nil

@@ -21,11 +21,10 @@ struct ListofTasksMainView: View {
     let max: Double
 
     var body: some View {
-        ConfigurationsTableDataMainView(selecteduuids: $selecteduuids,
+        ConfigurationsTableDataMainView(rsyncUIdata: rsyncUIdata,
+                                        selecteduuids: $selecteduuids,
                                         filterstring: $filterstring,
                                         progress: $progress,
-                                        profile: rsyncUIdata.profile,
-                                        configurations: rsyncUIdata.configurations ?? [],
                                         executeprogressdetails: executeprogressdetails,
                                         max: max)
             .overlay {

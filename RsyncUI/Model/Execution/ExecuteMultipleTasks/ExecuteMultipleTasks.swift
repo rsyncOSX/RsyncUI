@@ -67,7 +67,7 @@ final class ExecuteMultipleTasks {
             executestate?.updateexecutestate(state: .completed)
             return
         }
-        let taskstosynchronize = localconfigurations.filter { uuids.contains($0.id) }
+        let taskstosynchronize = localconfigurations.filter { uuids.contains($0.id) && $0.task != SharedReference.shared.halted }
         guard taskstosynchronize.count > 0 else {
             Logger.process.warning("class ExecuteMultipleTasks, guard uuids.contains($0.id): \(uuids.count, privacy: .public)")
             executestate?.updateexecutestate(state: .completed)
