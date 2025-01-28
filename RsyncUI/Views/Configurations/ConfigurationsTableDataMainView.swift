@@ -70,14 +70,40 @@ struct ConfigurationsTableDataMainView: View {
                 }
             }
             TableColumn("Task") { data in
-                Text(data.task)
-                    .contextMenu {
-                        Button("Toggle halt task") {
-                            let index = getindex(selecteduuids)
-                            guard index != -1 else { return }
-                            updatehalted(index)
+                if data.task == SharedReference.shared.halted {
+                    Image(systemName: "stop.fill")
+                        .foregroundColor(Color(.red))
+                        .contextMenu {
+                            Button("Toggle halt task") {
+                                let index = getindex(selecteduuids)
+                                guard index != -1 else { return }
+                                updatehalted(index)
+                            }
                         }
-                    }
+                    /*
+                    Text(data.task)
+                        .contextMenu {
+                            Button("Toggle halt task") {
+                                let index = getindex(selecteduuids)
+                                guard index != -1 else { return }
+                                updatehalted(index)
+                            }
+                        }
+                        .foregroundColor(.red)
+                     */
+                    
+                } else {
+                    Text(data.task)
+                        .contextMenu {
+                            Button("Toggle halt task") {
+                                let index = getindex(selecteduuids)
+                                guard index != -1 else { return }
+                                updatehalted(index)
+                            }
+                        }
+                }
+                
+                
             }
             .width(max: 80)
             TableColumn("Local catalog", value: \.localCatalog)
