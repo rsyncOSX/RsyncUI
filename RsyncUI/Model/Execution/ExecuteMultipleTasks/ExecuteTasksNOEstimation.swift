@@ -73,7 +73,7 @@ final class ExecuteTasksNOEstimation {
             let configurations = filteredconfigurations.filter { uuids.contains($0.id) && $0.task != SharedReference.shared.halted}
             stackoftasktobeestimated = configurations.map(\.hiddenID)
         } else {
-            let configurations = filteredconfigurations.filter { $0.task != SharedReference.shared.halted}
+            let configurations = filteredconfigurations.filter { $0.task != SharedReference.shared.halted }
             stackoftasktobeestimated = configurations.map(\.hiddenID)
         }
     }

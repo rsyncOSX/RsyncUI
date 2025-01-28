@@ -57,11 +57,12 @@ final class EstimateTasks {
         let filteredconfigurations = localconfigurations.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         // Estimate selected configurations
         if uuids.count > 0 {
-            let configurations = filteredconfigurations.filter { uuids.contains($0.id) }
+            let configurations = filteredconfigurations.filter { uuids.contains($0.id) && $0.task != SharedReference.shared.halted }
             stackoftasktobeestimated = configurations.map(\.hiddenID)
         } else {
             // Or estimate all tasks
-            stackoftasktobeestimated = filteredconfigurations.map(\.hiddenID)
+            let configurations = filteredconfigurations.filter { $0.task != SharedReference.shared.halted }
+            stackoftasktobeestimated = configurations.map(\.hiddenID)
         }
         localestimateprogressdetails?.setprofileandnumberofconfigurations(structprofile ?? SharedReference.shared.defaultprofile, localconfigurations.count)
     }
