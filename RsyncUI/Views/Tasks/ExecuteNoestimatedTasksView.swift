@@ -78,7 +78,7 @@ extension ExecuteNoestimatedTasksView {
                 ExecuteTasksNOEstimation(profile: rsyncUIdata.profile,
                                          rsyncuiconfigurations: configurations,
                                          executenoestimationprogressdetails: executenoestimationprogressdetails,
-                                         uuids: selecteduuids,
+                                         selecteduuids: selecteduuids,
                                          filter: filterstring,
                                          updateconfigurations: updateconfigurations)
             executetasks?.startexecution()
