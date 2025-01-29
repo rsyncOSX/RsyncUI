@@ -90,8 +90,6 @@ struct ConfigurationsTableDataMainView: View {
                             }
                         }
                 }
-                
-                
             }
             .width(max: 80)
             TableColumn("Local catalog", value: \.localCatalog)
