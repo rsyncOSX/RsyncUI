@@ -103,7 +103,9 @@ struct RestoreTableView: View {
             }
             .toolbar(content: {
                 ToolbarItem {
-                    if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
+                    if restore.selectedconfig?.task != SharedReference.shared.syncremote,
+                       restore.selectedconfig?.task != SharedReference.shared.halted,
+                        restore.selectedconfig?.offsiteServer.isEmpty == false,
                        restore.restorefilelist.count == 0
                     {
                         Button {

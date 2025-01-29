@@ -47,8 +47,8 @@ final class EstimateTasks {
 
     init(profile: String?,
          configurations: [SynchronizeConfiguration],
+         selecteduuids: Set<UUID>,
          estimateprogressdetails: EstimateProgressDetails?,
-         uuids: Set<UUID>,
          filter: String)
     {
         structprofile = profile
@@ -56,8 +56,8 @@ final class EstimateTasks {
         localestimateprogressdetails = estimateprogressdetails
         let filteredconfigurations = localconfigurations.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         // Estimate selected configurations
-        if uuids.count > 0 {
-            let configurations = filteredconfigurations.filter { uuids.contains($0.id) && $0.task != SharedReference.shared.halted }
+        if selecteduuids.count > 0 {
+            let configurations = filteredconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
             stackoftasktobeestimated = configurations.map(\.hiddenID)
         } else {
             // Or estimate all tasks
