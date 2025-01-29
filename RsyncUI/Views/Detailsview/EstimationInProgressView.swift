@@ -43,8 +43,8 @@ struct EstimationInProgressView: View {
                 // the EstimateTasks selects all tasks to be estimated
                 let estimate = EstimateTasks(profile: profile,
                                              configurations: configurations,
+                                             selecteduuids: selecteduuids,
                                              estimateprogressdetails: estimateprogressdetails,
-                                             uuids: selecteduuids,
                                              filter: "")
                 estimate.startestimation()
             }

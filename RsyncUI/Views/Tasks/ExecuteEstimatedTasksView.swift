@@ -85,31 +85,31 @@ extension ExecuteEstimatedTasksView {
     }
 
     func executemultipleestimatedtasks() {
-        var uuids: Set<SynchronizeConfiguration.ID>?
+        var adjustedselecteduuids: Set<SynchronizeConfiguration.ID>?
         if selecteduuids.count > 0 {
-            uuids = selecteduuids
+            adjustedselecteduuids = selecteduuids
         } else {
             if let estimatedlist = executeprogressdetails.estimatedlist {
-                uuids = Set<SynchronizeConfiguration.ID>()
+                adjustedselecteduuids = Set<SynchronizeConfiguration.ID>()
                 _ = estimatedlist.map { estimate in
                     if estimate.datatosynchronize == true {
-                        uuids?.insert(estimate.id)
+                        adjustedselecteduuids?.insert(estimate.id)
                     }
                 }
             }
         }
-        guard (uuids?.count ?? 0) > 0 else {
+        guard (adjustedselecteduuids?.count ?? 0) > 0 else {
             executeprogressdetails.estimatedlist = nil
             path.removeAll()
             return
         }
-        if let uuids {
-            Logger.process.info("ExecuteEstimatedTasksView: executemultipleestimatedtasks(): \(uuids, privacy: .public)")
+        if let adjustedselecteduuids {
+            Logger.process.info("ExecuteEstimatedTasksView: executemultipleestimatedtasks(): \(adjustedselecteduuids, privacy: .public)")
             if let configurations = rsyncUIdata.configurations {
                 executestate.updateexecutestate(state: .execute)
-                ExecuteMultipleTasks(uuids: uuids,
-                                     profile: rsyncUIdata.profile,
+                ExecuteMultipleTasks(profile: rsyncUIdata.profile,
                                      rsyncuiconfigurations: configurations,
+                                     selecteduuids: adjustedselecteduuids,
                                      executestateDelegate: executestate,
                                      executeprogressdetailsDelegate: executeprogressdetails,
                                      filehandler: filehandler,

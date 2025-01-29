@@ -48,9 +48,9 @@ final class ExecuteMultipleTasks {
     }
 
     @discardableResult
-    init(uuids: Set<UUID>,
-         profile: String?,
+    init(profile: String?,
          rsyncuiconfigurations: [SynchronizeConfiguration],
+         selecteduuids: Set<UUID>,
          executestateDelegate: ExecuteState?,
          executeprogressdetailsDelegate: ExecuteProgressDetails?,
          filehandler: @escaping (Int) -> Void,
@@ -62,14 +62,14 @@ final class ExecuteMultipleTasks {
         executeprogressdetails = executeprogressdetailsDelegate
         localfilehandler = filehandler
         localupdateconfigurations = updateconfigurations
-        guard uuids.count > 0 else {
-            Logger.process.warning("class ExecuteMultipleTasks, guard uuids.count > 0: \(uuids.count, privacy: .public)")
+        guard selecteduuids.count > 0 else {
+            Logger.process.warning("class ExecuteMultipleTasks, guard uuids.count > 0: \(selecteduuids.count, privacy: .public)")
             executestate?.updateexecutestate(state: .completed)
             return
         }
-        let taskstosynchronize = localconfigurations.filter { uuids.contains($0.id) && $0.task != SharedReference.shared.halted }
+        let taskstosynchronize = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
         guard taskstosynchronize.count > 0 else {
-            Logger.process.warning("class ExecuteMultipleTasks, guard uuids.contains($0.id): \(uuids.count, privacy: .public)")
+            Logger.process.warning("class ExecuteMultipleTasks, guard uuids.contains($0.id): \(selecteduuids.count, privacy: .public)")
             executestate?.updateexecutestate(state: .completed)
             return
         }
