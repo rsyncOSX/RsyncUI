@@ -15,18 +15,15 @@ struct ExecuteNoestimatedTasksView: View {
 
     // Must be stateobject
     @State private var executenoestimationprogressdetails = ExecuteNoEstimationProgressDetails()
-    @State private var filterstring: String = ""
     @State private var progressviewshowinfo: Bool = true
     @State private var executetasks: ExecuteTasksNOEstimation?
     @State private var focusaborttask: Bool = false
 
     var body: some View {
         ZStack {
-            ConfigurationsTableDataView(
-                selecteduuids: $selecteduuids,
-                profile: rsyncUIdata.profile,
-                configurations: rsyncUIdata.configurations ?? []
-            )
+            ConfigurationsTableDataView( selecteduuids: $selecteduuids,
+                                         profile: rsyncUIdata.profile,
+                                         configurations: rsyncUIdata.configurations)
 
             if progressviewshowinfo { ProgressView() }
             if focusaborttask { labelaborttask }
@@ -78,7 +75,6 @@ extension ExecuteNoestimatedTasksView {
                                          rsyncuiconfigurations: configurations,
                                          executenoestimationprogressdetails: executenoestimationprogressdetails,
                                          selecteduuids: selecteduuids,
-                                         filter: filterstring,
                                          updateconfigurations: updateconfigurations)
             executetasks?.startexecution()
         }

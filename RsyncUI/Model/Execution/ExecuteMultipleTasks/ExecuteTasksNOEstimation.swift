@@ -60,20 +60,18 @@ final class ExecuteTasksNOEstimation {
          rsyncuiconfigurations: [SynchronizeConfiguration],
          executenoestimationprogressdetails: ExecuteNoEstimationProgressDetails?,
          selecteduuids: Set<UUID>,
-         filter: String,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
         structprofile = profile
         localconfigurations = rsyncuiconfigurations
         localexecutenoestimationprogressdetails = executenoestimationprogressdetails
         localupdateconfigurations = updateconfigurations
-        let filteredconfigurations = localconfigurations.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         // Estimate selected configurations
         if selecteduuids.count > 0 {
-            let configurations = filteredconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
+            let configurations = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
             stackoftasktobeestimated = configurations.map(\.hiddenID)
         } else {
-            let configurations = filteredconfigurations.filter { $0.task != SharedReference.shared.halted }
+            let configurations = localconfigurations.filter { $0.task != SharedReference.shared.halted }
             stackoftasktobeestimated = configurations.map(\.hiddenID)
         }
     }

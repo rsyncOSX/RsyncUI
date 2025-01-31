@@ -16,7 +16,7 @@ struct ListofTasksAddView: View {
     var body: some View {
         ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                     profile: rsyncUIdata.profile,
-                                    configurations: rsyncUIdata.configurations ?? [])
+                                    configurations: rsyncUIdata.configurations)
             .confirmationDialog(
                 Text("Delete ^[\(selecteduuids.count) configuration](inflect: true)"),
                 isPresented: $confirmdelete
