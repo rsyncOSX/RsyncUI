@@ -14,7 +14,6 @@ struct ExportView: View {
     @State var filenameexport: String = "export"
 
     @State var somesnapshottask: Bool = false
-    @State private var filterstring: String = ""
 
     let configurations: [SynchronizeConfiguration]
     let profile: String?
@@ -23,7 +22,6 @@ struct ExportView: View {
     var body: some View {
         VStack {
             ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                        filterstring: $filterstring,
                                         profile: profile,
                                         configurations: configurations)
                 .onChange(of: selecteduuids) {

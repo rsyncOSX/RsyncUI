@@ -12,11 +12,9 @@ struct ListofTasksAddView: View {
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @State private var confirmdelete: Bool = false
-    @State private var filterstring: String = ""
 
     var body: some View {
         ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                    filterstring: $filterstring,
                                     profile: rsyncUIdata.profile,
                                     configurations: rsyncUIdata.configurations ?? [])
             .confirmationDialog(

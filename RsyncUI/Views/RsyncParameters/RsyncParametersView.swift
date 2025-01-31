@@ -29,7 +29,6 @@ struct RsyncParametersView: View {
     @State private var focusaborttask: Bool = false
     // Backup switch
     @State var backup: Bool = false
-    @State private var filterstring: String = ""
 
     var body: some View {
         NavigationStack(path: $rsyncnavigation) {
@@ -99,7 +98,6 @@ struct RsyncParametersView: View {
                 }
 
                 ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                            filterstring: $filterstring,
                                             profile: rsyncUIdata.profile,
                                             configurations: rsyncUIdata.configurations)
                     .frame(maxWidth: .infinity)

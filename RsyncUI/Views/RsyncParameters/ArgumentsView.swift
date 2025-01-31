@@ -13,12 +13,10 @@ struct ArgumentsView: View {
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var otherselectedrsynccommand = OtherRsyncCommand.list_remote_files
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    @State private var filterstring: String = ""
 
     var body: some View {
         VStack {
             ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                        filterstring: $filterstring,
                                         profile: rsyncUIdata.profile,
                                         configurations: rsyncUIdata.configurations)
                 .frame(maxWidth: .infinity)

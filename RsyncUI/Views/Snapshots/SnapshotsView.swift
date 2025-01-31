@@ -39,7 +39,6 @@ struct SnapshotsView: View {
                 HStack {
                     ZStack {
                         ConfigurationsTableDataView(selecteduuids: $selectedconfiguuid,
-                                                    filterstring: $filterstring,
                                                     profile: rsyncUIdata.profile,
                                                     configurations: rsyncUIdata.configurations)
                             .onChange(of: selectedconfiguuid) {

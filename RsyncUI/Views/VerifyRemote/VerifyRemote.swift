@@ -28,12 +28,9 @@ struct VerifyRemote: View {
     @State private var selectedconfiguuid = Set<SynchronizeConfiguration.ID>()
     @State private var showingAlert = false
 
-    @State private var filterstring: String = ""
-
     var body: some View {
         NavigationStack(path: $verifynavigation) {
             ConfigurationsTableDataView(selecteduuids: $selectedconfiguuid,
-                                        filterstring: $filterstring,
                                         profile: rsyncUIdata.profile,
                                         configurations: configurations)
                 .onChange(of: selectedconfiguuid) {

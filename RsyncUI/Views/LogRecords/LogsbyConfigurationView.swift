@@ -30,7 +30,6 @@ struct LogsbyConfigurationView: View {
             HStack {
                 ZStack {
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                                filterstring: $filterstring,
                                                 profile: rsyncUIdata.profile,
                                                 configurations: configurations)
                         .onChange(of: selecteduuids) {

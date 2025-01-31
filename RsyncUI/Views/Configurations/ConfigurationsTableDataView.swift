@@ -9,15 +9,12 @@ import SwiftUI
 
 struct ConfigurationsTableDataView: View {
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    @Binding var filterstring: String
 
     let profile: String?
     let configurations: [SynchronizeConfiguration]?
 
     var body: some View {
-        Table(configurations?.filter {
-            filterstring.isEmpty ? true : $0.backupID.contains(filterstring)
-        } ?? [], selection: $selecteduuids) {
+        Table(configurations ?? [], selection: $selecteduuids) {
             TableColumn("Profile") { _ in
                 Text(profile ?? SharedReference.shared.defaultprofile)
             }

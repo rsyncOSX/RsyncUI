@@ -15,7 +15,6 @@ struct ImportView: View {
     @State private var filenameimport: String = ""
     @State private var configurations = [SynchronizeConfiguration]()
     @State private var isShowingDialog: Bool = false
-    @State private var filterstring: String = ""
 
     let maxhiddenID: Int
 
@@ -23,7 +22,6 @@ struct ImportView: View {
         VStack {
             if configurations.isEmpty == false {
                 ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                            filterstring: $filterstring,
                                             profile: nil,
                                             configurations: configurations)
             } else {

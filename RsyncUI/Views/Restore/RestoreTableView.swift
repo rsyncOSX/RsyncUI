@@ -28,7 +28,6 @@ struct RestoreTableView: View {
                 ZStack {
                     HStack {
                         ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                                    filterstring: $filterstring,
                                                     profile: profile,
                                                     configurations: configurations)
                             .onChange(of: selecteduuids) {

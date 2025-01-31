@@ -24,7 +24,6 @@ struct ExecuteNoestimatedTasksView: View {
         ZStack {
             ConfigurationsTableDataView(
                 selecteduuids: $selecteduuids,
-                filterstring: $filterstring,
                 profile: rsyncUIdata.profile,
                 configurations: rsyncUIdata.configurations ?? []
             )

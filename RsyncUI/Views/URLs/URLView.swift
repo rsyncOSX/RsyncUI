@@ -24,12 +24,10 @@ struct URLView: View {
     @State private var urlestimate: URL?
     @State private var stringverify: String = ""
     @State private var stringestimate: String = ""
-    @State private var filterstring: String = ""
 
     var body: some View {
         VStack(alignment: .leading) {
             ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                        filterstring: $filterstring,
                                         profile: rsyncUIdata.profile,
                                         configurations: rsyncUIdata.configurations)
                 .onChange(of: selecteduuids) {
