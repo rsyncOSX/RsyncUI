@@ -61,7 +61,7 @@ final class UpdateConfigurations {
     }
 
     // Delete by IndexSet
-    func deleteconfigurations(uuids: Set<UUID>) {
+    func deleteconfigurations(_ uuids: Set<UUID>) {
         var indexset = IndexSet()
         if let configurations {
             _ = configurations.map { configuration in

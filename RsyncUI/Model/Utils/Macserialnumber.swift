@@ -8,11 +8,11 @@
 
 import Foundation
 
-final class Macserialnumber {
-    private var macSerialNumber: String?
+struct Macserialnumber {
+    // private var macSerialNumber: String?
 
     // Function for computing MacSerialNumber
-    func computemacSerialNumber() -> String {
+    func getMacSerialNumber() -> String {
         // Get the platform expert
         let platformExpert: io_service_t = IOServiceGetMatchingService(kIOMainPortDefault,
                                                                        IOServiceMatching("IOPlatformExpertDevice"))
@@ -28,7 +28,7 @@ final class Macserialnumber {
         // return (serialNumberAsCFString!.takeUnretainedValue() as? String) ?? ""
         return (serialNumberAsCFString?.takeRetainedValue() as? String) ?? "C00123456789"
     }
-
+/*
     // Function for returning the MacSerialNumber
     func getMacSerialNumber() -> String? {
         guard macSerialNumber != nil else {
@@ -38,4 +38,5 @@ final class Macserialnumber {
         }
         return macSerialNumber
     }
+ */
 }

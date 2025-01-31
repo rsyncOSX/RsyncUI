@@ -10,7 +10,7 @@ import Foundation
 import OSLog
 
 @MainActor
-final class WriteUserConfigurationJSON {
+struct WriteUserConfigurationJSON {
     let path = Homepath()
 
     private func writeJSONToPersistentStore(jsonData: Data?) {
@@ -47,9 +47,5 @@ final class WriteUserConfigurationJSON {
         if let userconfiguration {
             encodeJSONData(userconfiguration)
         }
-    }
-
-    deinit {
-        Logger.process.info("WriteUserConfigurationJSON: Deinitializing")
     }
 }

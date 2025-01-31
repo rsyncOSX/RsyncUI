@@ -62,7 +62,7 @@ struct ListofTasksMainView: View {
             let deleteconfigurations =
                 UpdateConfigurations(profile: rsyncUIdata.profile,
                                      configurations: configurations)
-            deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
+            deleteconfigurations.deleteconfigurations(selecteduuids)
             selecteduuids.removeAll()
             rsyncUIdata.configurations = deleteconfigurations.configurations
         }
