@@ -482,10 +482,3 @@ extension TasksView {
     }
 }
 
-struct TransitionButton: Transition {
-    func body(content: Content, phase: TransitionPhase) -> some View {
-        content
-            .rotationEffect(Angle(degrees: phase.isIdentity ? 360 : 0))
-            .scaleEffect(phase.isIdentity ? 1 : 0)
-    }
-}
