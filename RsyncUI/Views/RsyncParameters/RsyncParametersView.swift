@@ -29,6 +29,7 @@ struct RsyncParametersView: View {
     @State private var focusaborttask: Bool = false
     // Backup switch
     @State var backup: Bool = false
+    @State private var filterstring: String = ""
 
     var body: some View {
         NavigationStack(path: $rsyncnavigation) {
@@ -97,9 +98,10 @@ struct RsyncParametersView: View {
                     Spacer()
                 }
 
-                ListofTasksLightView(selecteduuids: $selecteduuids,
-                                     profile: rsyncUIdata.profile,
-                                     configurations: rsyncUIdata.configurations)
+                ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                            filterstring: $filterstring,
+                                            profile: rsyncUIdata.profile,
+                                            configurations: rsyncUIdata.configurations)
                     .frame(maxWidth: .infinity)
                     .onChange(of: selecteduuids) {
                         if let configurations = rsyncUIdata.configurations {
@@ -136,7 +138,8 @@ struct RsyncParametersView: View {
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
             if selectedconfig != nil,
-               selectedconfig?.task != SharedReference.shared.halted  {
+               selectedconfig?.task != SharedReference.shared.halted
+            {
                 ToolbarItem {
                     Button {
                         guard selecteduuids.isEmpty == false else { return }

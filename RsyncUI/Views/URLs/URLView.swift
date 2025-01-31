@@ -24,12 +24,14 @@ struct URLView: View {
     @State private var urlestimate: URL?
     @State private var stringverify: String = ""
     @State private var stringestimate: String = ""
+    @State private var filterstring: String = ""
 
     var body: some View {
         VStack(alignment: .leading) {
-            ListofTasksLightView(selecteduuids: $selecteduuids,
-                                 profile: rsyncUIdata.profile,
-                                 configurations: rsyncUIdata.configurations)
+            ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                        filterstring: $filterstring,
+                                        profile: rsyncUIdata.profile,
+                                        configurations: rsyncUIdata.configurations)
                 .onChange(of: selecteduuids) {
                     if let configurations = rsyncUIdata.configurations {
                         if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {

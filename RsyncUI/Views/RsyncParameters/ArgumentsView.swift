@@ -13,12 +13,14 @@ struct ArgumentsView: View {
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var otherselectedrsynccommand = OtherRsyncCommand.list_remote_files
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    @State private var filterstring: String = ""
 
     var body: some View {
         VStack {
-            ListofTasksLightView(selecteduuids: $selecteduuids,
-                                 profile: rsyncUIdata.profile,
-                                 configurations: rsyncUIdata.configurations)
+            ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                        filterstring: $filterstring,
+                                        profile: rsyncUIdata.profile,
+                                        configurations: rsyncUIdata.configurations)
                 .frame(maxWidth: .infinity)
                 .onChange(of: selecteduuids) {
                     if let configurations = rsyncUIdata.configurations {
@@ -33,7 +35,6 @@ struct ArgumentsView: View {
                     selecteduuids.removeAll()
                     selectedconfig = nil
                 }
-            Spacer()
 
             VStack(alignment: .leading) {
                 Text("Select a task")

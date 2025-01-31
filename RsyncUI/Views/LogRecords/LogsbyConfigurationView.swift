@@ -29,9 +29,10 @@ struct LogsbyConfigurationView: View {
         VStack {
             HStack {
                 ZStack {
-                    ListofTasksLightView(selecteduuids: $selecteduuids,
-                                         profile: rsyncUIdata.profile,
-                                         configurations: configurations)
+                    ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                                filterstring: $filterstring,
+                                                profile: rsyncUIdata.profile,
+                                                configurations: configurations)
                         .onChange(of: selecteduuids) {
                             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                 hiddenID = configurations[index].hiddenID

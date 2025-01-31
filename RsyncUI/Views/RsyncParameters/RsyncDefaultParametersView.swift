@@ -14,6 +14,7 @@ struct RsyncDefaultParametersView: View {
     @State private var parameters = ObservableParametersDefault()
     @State private var selectedrsynccommand = RsyncCommand.synchronize_data
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    @State private var filterstring: String = ""
 
     var body: some View {
         VStack {
@@ -42,9 +43,10 @@ struct RsyncDefaultParametersView: View {
                     Spacer()
                 }
 
-                ListofTasksLightView(selecteduuids: $selecteduuids,
-                                     profile: rsyncUIdata.profile,
-                                     configurations: rsyncUIdata.configurations)
+                ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                            filterstring: $filterstring,
+                                            profile: rsyncUIdata.profile,
+                                            configurations: rsyncUIdata.configurations)
                     .frame(maxWidth: .infinity)
                     .onChange(of: selecteduuids) {
                         if let configurations = rsyncUIdata.configurations {

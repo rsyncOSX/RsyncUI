@@ -86,15 +86,15 @@ struct ColorfulButtonStyle: ButtonStyle {
 }
 
 struct PressedButtonStyle: ButtonStyle {
-  let title: String
-  let systemImage: String
-  let pressedImage: String
+    let title: String
+    let systemImage: String
+    let pressedImage: String
 
-  func makeBody(configuration: Configuration) -> some View {
-    let imageName = configuration.isPressed ? pressedImage : systemImage
-    return Label(title, systemImage: imageName)
-          .symbolEffect(.scale.up, isActive: configuration.isPressed)
-  }
+    func makeBody(configuration: Configuration) -> some View {
+        let imageName = configuration.isPressed ? pressedImage : systemImage
+        return Label(title, systemImage: imageName)
+            .symbolEffect(.scale.up, isActive: configuration.isPressed)
+    }
 }
 
 struct TransitionButton: Transition {
@@ -126,8 +126,7 @@ struct TransitionButton: Transition {
      .padding()
    }
  }
- 
- 
+
  struct ColorfulRedButtonStyle: ButtonStyle {
      func makeBody(configuration: Self.Configuration) -> some View {
          configuration.label

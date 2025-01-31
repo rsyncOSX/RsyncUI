@@ -12,12 +12,12 @@ struct ConfigurationsTableDataView: View {
     @Binding var filterstring: String
 
     let profile: String?
-    let configurations: [SynchronizeConfiguration]
+    let configurations: [SynchronizeConfiguration]?
 
     var body: some View {
-        Table(configurations.filter {
+        Table(configurations?.filter {
             filterstring.isEmpty ? true : $0.backupID.contains(filterstring)
-        }, selection: $selecteduuids) {
+        } ?? [], selection: $selecteduuids) {
             TableColumn("Profile") { _ in
                 Text(profile ?? SharedReference.shared.defaultprofile)
             }

@@ -20,6 +20,8 @@ struct ExecutePushPullView: View {
     @State private var showingAlert = false
     @State private var dryrun: Bool = true
 
+    @State private var filterstring: String = ""
+
     let config: SynchronizeConfiguration
     let profile: String?
 
@@ -30,9 +32,10 @@ struct ExecutePushPullView: View {
             } else {
                 ZStack {
                     VStack {
-                        ListofTasksLightView(selecteduuids: $selecteduuids,
-                                             profile: profile,
-                                             configurations: configurations)
+                        ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                                    filterstring: $filterstring,
+                                                    profile: profile,
+                                                    configurations: configurations)
                             .frame(maxWidth: .infinity)
 
                         Spacer()

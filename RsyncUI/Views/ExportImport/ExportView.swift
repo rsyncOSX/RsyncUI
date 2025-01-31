@@ -14,6 +14,7 @@ struct ExportView: View {
     @State var filenameexport: String = "export"
 
     @State var somesnapshottask: Bool = false
+    @State private var filterstring: String = ""
 
     let configurations: [SynchronizeConfiguration]
     let profile: String?
@@ -21,7 +22,10 @@ struct ExportView: View {
 
     var body: some View {
         VStack {
-            ListofTasksLightView(selecteduuids: $selecteduuids, profile: profile, configurations: configurations)
+            ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                        filterstring: $filterstring,
+                                        profile: profile,
+                                        configurations: configurations)
                 .onChange(of: selecteduuids) {
                     let snapshottasks = configurations.filter { $0.task == SharedReference.shared.snapshot }
                     if snapshottasks.count > 0 {

@@ -171,12 +171,12 @@ struct TasksView: View {
                     guard SharedReference.shared.norsync == false else { return }
                     guard alltasksarehalted() == false else { return }
                     guard selectedtaskhalted == false else { return }
-                    
+
                     guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
                         Logger.process.info("Estimate() no tasks selected, no configurations, bailing out")
                         return
                     }
-                    
+
                     path.append(Tasks(task: .summarizeddetailsview))
                 } label: {
                     Image(systemName: "wand.and.stars")
@@ -190,7 +190,7 @@ struct TasksView: View {
                     guard SharedReference.shared.norsync == false else { return }
                     guard alltasksarehalted() == false else { return }
                     guard selectedtaskhalted == false else { return }
-                    
+
                     guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
                         Logger.process.info("Estimate() no tasks selected, no configurations, bailing out")
                         return
@@ -226,7 +226,7 @@ struct TasksView: View {
                 Button {
                     guard selecteduuids.count > 0 else { return }
                     guard alltasksarehalted() == false else { return }
-                    
+
                     guard selecteduuids.count == 1 else {
                         path.append(Tasks(task: .summarizeddetailsview))
                         return
@@ -260,7 +260,7 @@ struct TasksView: View {
                 .help("Quick synchronize")
             }
 
-            if remoteconfigurations && alltasksarehalted() == false {
+            if remoteconfigurations, alltasksarehalted() == false {
                 ToolbarItem {
                     Button {
                         guard selectedtaskhalted == false else { return }
@@ -394,16 +394,15 @@ struct TasksView: View {
 }
 
 extension TasksView {
-    
-    private func alltasksarehalted () -> Bool {
+    private func alltasksarehalted() -> Bool {
         let haltedtasks = rsyncUIdata.configurations?.filter { $0.task == SharedReference.shared.halted }
         return haltedtasks?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0
     }
-    
+
     func doubleclickactionfunction() {
         guard SharedReference.shared.norsync == false else { return }
         guard selectedtaskhalted == false else { return }
-        
+
         if estimateprogressdetails.estimatedlist == nil {
             dryrun()
         } else if estimateprogressdetails.onlyselectedtaskisestimated(selecteduuids) {
@@ -481,4 +480,3 @@ extension TasksView {
         thereareestimates = false
     }
 }
-

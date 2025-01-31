@@ -38,9 +38,10 @@ struct SnapshotsView: View {
             ZStack {
                 HStack {
                     ZStack {
-                        ListofTasksLightView(selecteduuids: $selectedconfiguuid,
-                                             profile: rsyncUIdata.profile,
-                                             configurations: rsyncUIdata.configurations)
+                        ConfigurationsTableDataView(selecteduuids: $selectedconfiguuid,
+                                                    filterstring: $filterstring,
+                                                    profile: rsyncUIdata.profile,
+                                                    configurations: rsyncUIdata.configurations)
                             .onChange(of: selectedconfiguuid) {
                                 guard SharedReference.shared.rsyncversion3 == true else { return }
                                 if let configurations = rsyncUIdata.configurations {
