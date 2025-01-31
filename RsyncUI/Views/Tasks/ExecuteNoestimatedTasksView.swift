@@ -22,12 +22,11 @@ struct ExecuteNoestimatedTasksView: View {
 
     var body: some View {
         ZStack {
-            ListofTasksView(
+            ConfigurationsTableDataView(
                 selecteduuids: $selecteduuids,
                 filterstring: $filterstring,
                 profile: rsyncUIdata.profile,
-                configurations: rsyncUIdata.configurations ?? []
-            )
+                configurations: rsyncUIdata.configurations ?? [])
 
             if progressviewshowinfo { ProgressView() }
             if focusaborttask { labelaborttask }

@@ -99,7 +99,7 @@ struct RsyncParametersView: View {
 
                 ListofTasksLightView(selecteduuids: $selecteduuids,
                                      profile: rsyncUIdata.profile,
-                                     configurations: rsyncUIdata.configurations ?? [])
+                                     configurations: rsyncUIdata.configurations)
                     .frame(maxWidth: .infinity)
                     .onChange(of: selecteduuids) {
                         if let configurations = rsyncUIdata.configurations {

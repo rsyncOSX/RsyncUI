@@ -29,7 +29,7 @@ struct URLView: View {
         VStack(alignment: .leading) {
             ListofTasksLightView(selecteduuids: $selecteduuids,
                                  profile: rsyncUIdata.profile,
-                                 configurations: rsyncUIdata.configurations ?? [])
+                                 configurations: rsyncUIdata.configurations)
                 .onChange(of: selecteduuids) {
                     if let configurations = rsyncUIdata.configurations {
                         if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
