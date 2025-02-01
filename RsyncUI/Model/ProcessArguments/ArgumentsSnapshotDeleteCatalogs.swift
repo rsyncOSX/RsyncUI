@@ -8,7 +8,6 @@
 // swiftlint:disable line_length
 
 import Foundation
-import OSLog
 import RsyncArguments
 
 @MainActor
@@ -20,7 +19,6 @@ final class ArgumentsSnapshotDeleteCatalogs {
 
     func argumentssshcommands() -> [String]? {
         if let config {
-            Logger.process.info("ArgumentsSnapshotDeleteCatalogs: using RsyncParametersSynchronize() from RsyncArguments")
             let sshparameter = SSHPrepareParameters(config: config).sshparameters
             let snapshotdelete = SnapshotDelete(sshparameters: sshparameter)
 

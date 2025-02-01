@@ -8,7 +8,6 @@
 // swiftlint:disable line_length
 
 import Foundation
-import OSLog
 import RsyncArguments
 
 @MainActor
@@ -17,7 +16,6 @@ final class ArgumentsVerify {
 
     func argumentsverify(forDisplay: Bool) -> [String]? {
         if let config {
-            Logger.process.info("ArgumentsVerify: using argumentsverify() - RsyncArguments")
             if let parameters = PrepareParameters(config: config).parameters {
                 let rsyncparameterssynchronize =
                     RsyncParametersSynchronize(parameters: parameters)

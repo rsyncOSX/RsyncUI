@@ -8,7 +8,6 @@
 // swiftlint:disable line_length
 
 import Foundation
-import OSLog
 import RsyncArguments
 
 @MainActor
@@ -17,8 +16,7 @@ final class ArgumentsSynchronize {
 
     func argumentsforpushlocaltoremote(dryRun: Bool, forDisplay: Bool) -> [String]? {
         if let config {
-            Logger.process.info("ArgumentsSynchronize: using argumentsforpushlocaltoremote() - RsyncArguments")
-            Logger.process.info("ArgumentsSynchronize: using argumentsforpushlocaltoremote() --delete is removed")
+            // Logger.process.info("ArgumentsSynchronize: using argumentsforpushlocaltoremote() --delete is removed")
             if let parameters = PrepareParameters(config: config).parameters {
                 let rsyncparameterssynchronize =
                     RsyncParametersSynchronize(parameters: parameters)
@@ -31,7 +29,6 @@ final class ArgumentsSynchronize {
 
     func argumentssynchronize(dryRun: Bool, forDisplay: Bool) -> [String]? {
         if let config {
-            Logger.process.info("ArgumentsSynchronize: using argumentssynchronize() - RsyncArguments")
             if let parameters = PrepareParameters(config: config).parameters {
                 let rsyncparameterssynchronize =
                     RsyncParametersSynchronize(parameters: parameters)

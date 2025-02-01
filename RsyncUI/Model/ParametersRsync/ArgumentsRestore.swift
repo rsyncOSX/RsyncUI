@@ -8,7 +8,6 @@
 // swiftlint:disable line_length
 
 import Foundation
-import OSLog
 import RsyncArguments
 
 @MainActor
@@ -18,7 +17,6 @@ final class ArgumentsRestore {
 
     func argumentsrestore(dryRun: Bool, forDisplay: Bool) -> [String]? {
         if let config {
-            Logger.process.info("ArgumentsRestore: using argumentsrestore() - RsyncArguments")
             if let parameters = PrepareParameters(config: config).parameters {
                 let rsyncparametersrestore =
                     RsyncParametersRestore(parameters: parameters)

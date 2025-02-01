@@ -172,7 +172,7 @@ extension ProcessRsyncObserving {
             outHandle.waitForDataInBackgroundAndNotify()
         }
     }
-
+    
     func termination() async {
         processtermination(output, config?.hiddenID)
         // Log error in rsync output to file
@@ -181,7 +181,6 @@ extension ProcessRsyncObserving {
                     stringoutputfromrsync: output)
         }
         SharedReference.shared.process = nil
-        // NotificationCenter.default.removeObserver(notifications as Any)
         NotificationCenter.default.removeObserver(notificationsfilehandle as Any,
                                                   name: NSNotification.Name.NSFileHandleDataAvailable,
                                                   object: nil)
