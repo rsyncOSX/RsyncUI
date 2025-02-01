@@ -359,6 +359,10 @@ extension SnapshotsView {
             }
             WriteLogRecordsJSON(rsyncUIdata.profile, records)
             snapshotdata.readlogrecordsfromfile = nil
+            selectedconfig = nil
+            snapshotdata.setsnapshotdata(nil)
+            filterstring = ""
+            isdisabled = true
         }
     }
 }
