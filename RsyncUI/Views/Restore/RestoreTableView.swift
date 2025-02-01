@@ -45,6 +45,15 @@ struct RestoreTableView: View {
                                     filterstring = ""
                                 }
                             }
+                            .overlay {
+                                if configurations.count == 0 {
+                                    ContentUnavailableView {
+                                        Label("No tasks yet", systemImage: "doc.richtext.fill")
+                                    } description: {
+                                        Text("And nothing to restore")
+                                    }
+                                }
+                            }
 
                         RestoreFilesTableView(filestorestore: $restore.filestorestore,
                                               datalist: restore.restorefilelist)

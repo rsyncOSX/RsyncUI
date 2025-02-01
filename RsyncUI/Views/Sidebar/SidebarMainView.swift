@@ -138,21 +138,13 @@ struct SidebarMainView: View {
             AddTaskView(rsyncUIdata: rsyncUIdata,
                         selectedprofile: $selectedprofile, addtasknavigation: $addtasknavigation)
         case .log_listings:
-            if rsyncUIdata.configurations != nil {
-                LogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
-            } else {
-                DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("No log records yet.", comment: ""))
-            }
+            LogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
         case .rsync_parameters:
             RsyncParametersView(rsyncUIdata: rsyncUIdata, rsyncnavigation: $rsyncnavigation)
         case .restore:
-            if let configurations = rsyncUIdata.configurations {
-                NavigationStack {
-                    RestoreTableView(profile: $rsyncUIdata.profile,
-                                     configurations: configurations)
-                }
-            } else {
-                DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("No configurations yet.", comment: ""))
+            NavigationStack {
+                RestoreTableView(profile: $rsyncUIdata.profile,
+                                 configurations: rsyncUIdata.configurations ?? [])
             }
         case .snapshots:
             SnapshotsView(rsyncUIdata: rsyncUIdata)

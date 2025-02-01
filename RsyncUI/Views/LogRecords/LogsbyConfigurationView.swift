@@ -47,6 +47,15 @@ struct LogsbyConfigurationView: View {
                                 }
                             }
                         }
+                        .overlay {
+                            if configurations.count == 0 {
+                                ContentUnavailableView {
+                                    Label("No tasks", systemImage: "doc.richtext.fill")
+                                } description: {
+                                    Text("Add tasks in Tasks.")
+                                }
+                            }
+                        }
                 }
 
                 Table(logs, selection: $selectedloguuids) {
