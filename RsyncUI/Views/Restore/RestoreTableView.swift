@@ -27,9 +27,9 @@ struct RestoreTableView: View {
             VStack {
                 ZStack {
                     HStack {
-                        ListofTasksLightView(selecteduuids: $selecteduuids,
-                                             profile: profile,
-                                             configurations: configurations)
+                        ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                                    profile: profile,
+                                                    configurations: configurations)
                             .onChange(of: selecteduuids) {
                                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                     restore.selectedconfig = configurations[index]
@@ -43,6 +43,15 @@ struct RestoreTableView: View {
                                     restore.restorefilelist.removeAll()
                                     snapshotdata.catalogsanddates.removeAll()
                                     filterstring = ""
+                                }
+                            }
+                            .overlay {
+                                if configurations.count == 0 {
+                                    ContentUnavailableView {
+                                        Label("No tasks yet", systemImage: "doc.richtext.fill")
+                                    } description: {
+                                        Text("And nothing to restore")
+                                    }
                                 }
                             }
 
@@ -105,7 +114,7 @@ struct RestoreTableView: View {
                 ToolbarItem {
                     if restore.selectedconfig?.task != SharedReference.shared.syncremote,
                        restore.selectedconfig?.task != SharedReference.shared.halted,
-                        restore.selectedconfig?.offsiteServer.isEmpty == false,
+                       restore.selectedconfig?.offsiteServer.isEmpty == false,
                        restore.restorefilelist.count == 0
                     {
                         Button {

@@ -74,7 +74,7 @@ struct ColorfulBackground<S: Shape>: View {
 }
 
 struct ColorfulButtonStyle: ButtonStyle {
-    func makeBody(configuration: Self.Configuration) -> some View {
+    func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .foregroundColor(.white)
             .padding(8)
@@ -85,7 +85,48 @@ struct ColorfulButtonStyle: ButtonStyle {
     }
 }
 
+struct PressedButtonStyle: ButtonStyle {
+    let title: String
+    let systemImage: String
+    let pressedImage: String
+
+    func makeBody(configuration: Configuration) -> some View {
+        let imageName = configuration.isPressed ? pressedImage : systemImage
+        return Label(title, systemImage: imageName)
+            .symbolEffect(.scale.up, isActive: configuration.isPressed)
+    }
+}
+
+struct TransitionButton: Transition {
+    func body(content: Content, phase: TransitionPhase) -> some View {
+        content
+            .rotationEffect(Angle(degrees: phase.isIdentity ? 360 : 0))
+            .scaleEffect(phase.isIdentity ? 1 : 0)
+    }
+}
+
 /*
+ struct InfoButton: View {
+   let action: () -> Void
+
+   init(_ action: @escaping () -> Void) {
+     self.action = action
+   }
+
+   var body: some View {
+     Button("") {
+       action()
+     }
+     .buttonStyle(
+       PressedButtonStyle(
+         title: "Info",
+         systemImage: "info.circle",
+         pressedImage: "info.circle.fill")
+     )
+     .padding()
+   }
+ }
+
  struct ColorfulRedButtonStyle: ButtonStyle {
      func makeBody(configuration: Self.Configuration) -> some View {
          configuration.label

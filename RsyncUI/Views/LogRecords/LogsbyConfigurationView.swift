@@ -29,9 +29,9 @@ struct LogsbyConfigurationView: View {
         VStack {
             HStack {
                 ZStack {
-                    ListofTasksLightView(selecteduuids: $selecteduuids,
-                                         profile: rsyncUIdata.profile,
-                                         configurations: configurations)
+                    ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                                profile: rsyncUIdata.profile,
+                                                configurations: configurations)
                         .onChange(of: selecteduuids) {
                             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                 hiddenID = configurations[index].hiddenID
@@ -44,6 +44,15 @@ struct LogsbyConfigurationView: View {
                                     logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
                                 } else {
                                     logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+                                }
+                            }
+                        }
+                        .overlay {
+                            if configurations.count == 0 {
+                                ContentUnavailableView {
+                                    Label("No tasks", systemImage: "doc.richtext.fill")
+                                } description: {
+                                    Text("Add tasks in Tasks.")
                                 }
                             }
                         }

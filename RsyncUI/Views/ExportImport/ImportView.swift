@@ -21,7 +21,9 @@ struct ImportView: View {
     var body: some View {
         VStack {
             if configurations.isEmpty == false {
-                ListofTasksLightView(selecteduuids: $selecteduuids, profile: nil, configurations: configurations)
+                ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                            profile: nil,
+                                            configurations: configurations)
             } else {
                 HStack {
                     Text("Select a file for import")

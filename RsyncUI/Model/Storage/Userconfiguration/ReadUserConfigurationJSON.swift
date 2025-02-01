@@ -11,7 +11,7 @@ import Foundation
 import OSLog
 
 @MainActor
-final class ReadUserConfigurationJSON {
+struct ReadUserConfigurationJSON {
     let path = Homepath()
 
     func readuserconfiguration() {
@@ -34,10 +34,6 @@ final class ReadUserConfigurationJSON {
             let error = e
             path.propogateerror(error: error)
         }
-    }
-
-    deinit {
-        Logger.process.info("ReadUserConfigurationJSON: Deinitialized")
     }
 }
 

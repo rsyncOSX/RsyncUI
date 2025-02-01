@@ -38,9 +38,9 @@ struct SnapshotsView: View {
             ZStack {
                 HStack {
                     ZStack {
-                        ListofTasksLightView(selecteduuids: $selectedconfiguuid,
-                                             profile: rsyncUIdata.profile,
-                                             configurations: rsyncUIdata.configurations ?? [])
+                        ConfigurationsTableDataView(selecteduuids: $selectedconfiguuid,
+                                                    profile: rsyncUIdata.profile,
+                                                    configurations: rsyncUIdata.configurations)
                             .onChange(of: selectedconfiguuid) {
                                 guard SharedReference.shared.rsyncversion3 == true else { return }
                                 if let configurations = rsyncUIdata.configurations {
@@ -359,6 +359,10 @@ extension SnapshotsView {
             }
             WriteLogRecordsJSON(rsyncUIdata.profile, records)
             snapshotdata.readlogrecordsfromfile = nil
+            selectedconfig = nil
+            snapshotdata.setsnapshotdata(nil)
+            filterstring = ""
+            isdisabled = true
         }
     }
 }

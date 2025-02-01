@@ -30,9 +30,9 @@ struct VerifyRemote: View {
 
     var body: some View {
         NavigationStack(path: $verifynavigation) {
-            ListofTasksLightView(selecteduuids: $selectedconfiguuid,
-                                 profile: rsyncUIdata.profile,
-                                 configurations: configurations)
+            ConfigurationsTableDataView(selecteduuids: $selectedconfiguuid,
+                                        profile: rsyncUIdata.profile,
+                                        configurations: configurations)
                 .onChange(of: selectedconfiguuid) {
                     if let configurations = rsyncUIdata.configurations {
                         if let index = configurations.firstIndex(where: { $0.id == selectedconfiguuid.first }) {

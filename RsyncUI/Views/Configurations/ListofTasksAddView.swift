@@ -12,13 +12,11 @@ struct ListofTasksAddView: View {
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @State private var confirmdelete: Bool = false
-    @State private var filterstring: String = ""
 
     var body: some View {
         ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                    filterstring: $filterstring,
                                     profile: rsyncUIdata.profile,
-                                    configurations: rsyncUIdata.configurations ?? [])
+                                    configurations: rsyncUIdata.configurations)
             .confirmationDialog(
                 Text("Delete ^[\(selecteduuids.count) configuration](inflect: true)"),
                 isPresented: $confirmdelete
@@ -38,7 +36,7 @@ struct ListofTasksAddView: View {
             let deleteconfigurations =
                 UpdateConfigurations(profile: rsyncUIdata.profile,
                                      configurations: configurations)
-            deleteconfigurations.deleteconfigurations(uuids: selecteduuids)
+            deleteconfigurations.deleteconfigurations(selecteduuids)
             selecteduuids.removeAll()
             rsyncUIdata.configurations = deleteconfigurations.configurations
         }

@@ -16,9 +16,9 @@ struct ArgumentsView: View {
 
     var body: some View {
         VStack {
-            ListofTasksLightView(selecteduuids: $selecteduuids,
-                                 profile: rsyncUIdata.profile,
-                                 configurations: rsyncUIdata.configurations ?? [])
+            ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                        profile: rsyncUIdata.profile,
+                                        configurations: rsyncUIdata.configurations)
                 .frame(maxWidth: .infinity)
                 .onChange(of: selecteduuids) {
                     if let configurations = rsyncUIdata.configurations {
@@ -33,7 +33,6 @@ struct ArgumentsView: View {
                     selecteduuids.removeAll()
                     selectedconfig = nil
                 }
-            Spacer()
 
             VStack(alignment: .leading) {
                 Text("Select a task")

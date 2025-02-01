@@ -21,7 +21,9 @@ struct ExportView: View {
 
     var body: some View {
         VStack {
-            ListofTasksLightView(selecteduuids: $selecteduuids, profile: profile, configurations: configurations)
+            ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                        profile: profile,
+                                        configurations: configurations)
                 .onChange(of: selecteduuids) {
                     let snapshottasks = configurations.filter { $0.task == SharedReference.shared.snapshot }
                     if snapshottasks.count > 0 {

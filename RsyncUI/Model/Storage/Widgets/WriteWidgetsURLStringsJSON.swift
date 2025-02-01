@@ -16,7 +16,7 @@ enum WidgetURLStringsJSON {
 }
 
 @MainActor
-final class WriteWidgetsURLStringsJSON {
+struct WriteWidgetsURLStringsJSON {
     let path = Homepath()
     let deeplinks = RsyncUIDeepLinks()
 
@@ -92,9 +92,5 @@ final class WriteWidgetsURLStringsJSON {
                 }
             }
         }
-    }
-
-    deinit {
-        Logger.process.info("WriteWidgetsURLStringsJSON: Deinitializing")
     }
 }

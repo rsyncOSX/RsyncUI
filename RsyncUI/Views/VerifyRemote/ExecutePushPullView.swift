@@ -30,9 +30,9 @@ struct ExecutePushPullView: View {
             } else {
                 ZStack {
                     VStack {
-                        ListofTasksLightView(selecteduuids: $selecteduuids,
-                                             profile: profile,
-                                             configurations: configurations)
+                        ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                                    profile: profile,
+                                                    configurations: configurations)
                             .frame(maxWidth: .infinity)
 
                         Spacer()

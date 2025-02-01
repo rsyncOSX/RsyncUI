@@ -9,7 +9,7 @@ import Foundation
 import OSLog
 
 @MainActor
-final class VerifyDuplicates: PropogateError {
+struct VerifyDuplicates: PropogateError {
     private var arrayofhiddenIDs = [Int]()
 
     private func checkforduplicates() throws {

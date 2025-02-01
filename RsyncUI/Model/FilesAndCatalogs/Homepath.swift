@@ -28,7 +28,7 @@ struct Homepath: PropogateError {
     // Mac serialnumber
     var macserialnumber: String? {
         if SharedReference.shared.macserialnumber == nil {
-            SharedReference.shared.macserialnumber = Macserialnumber().getMacSerialNumber() ?? ""
+            SharedReference.shared.macserialnumber = Macserialnumber().getMacSerialNumber()
         }
         return SharedReference.shared.macserialnumber
     }

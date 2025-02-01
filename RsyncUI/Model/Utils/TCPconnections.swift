@@ -23,7 +23,7 @@ enum Networkerror: LocalizedError {
     }
 }
 
-final class TCPconnections: Sendable {
+struct TCPconnections: Sendable {
     func verifyTCPconnection(_ host: String, port: Int, timeout: Int) -> Bool {
         let client = TCPClient(address: host, port: Int32(port))
         switch client.connect(timeout: timeout) {

@@ -97,9 +97,9 @@ struct RsyncParametersView: View {
                     Spacer()
                 }
 
-                ListofTasksLightView(selecteduuids: $selecteduuids,
-                                     profile: rsyncUIdata.profile,
-                                     configurations: rsyncUIdata.configurations ?? [])
+                ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                            profile: rsyncUIdata.profile,
+                                            configurations: rsyncUIdata.configurations)
                     .frame(maxWidth: .infinity)
                     .onChange(of: selecteduuids) {
                         if let configurations = rsyncUIdata.configurations {
@@ -136,7 +136,8 @@ struct RsyncParametersView: View {
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
             if selectedconfig != nil,
-               selectedconfig?.task != SharedReference.shared.halted  {
+               selectedconfig?.task != SharedReference.shared.halted
+            {
                 ToolbarItem {
                     Button {
                         guard selecteduuids.isEmpty == false else { return }

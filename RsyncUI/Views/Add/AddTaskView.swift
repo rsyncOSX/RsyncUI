@@ -156,7 +156,8 @@ struct AddTaskView: View {
         }
         .toolbar {
             if newdata.selectedconfig != nil,
-                newdata.selectedconfig?.task != SharedReference.shared.halted {
+               newdata.selectedconfig?.task != SharedReference.shared.halted
+            {
                 ToolbarItem {
                     Button {
                         addtasknavigation.append(AddTasks(task: .verify))
