@@ -60,7 +60,9 @@ final class ProcessRsyncObserving: PropogateError {
         }
 
         notificationstermination =
-            NotificationCenter.default.addObserver(forName: Process.didTerminateNotification, object: task, queue: nil) { _ in
+            NotificationCenter.default.addObserver(forName: Process.didTerminateNotification,
+                                                   object: task, queue: nil)
+        { _ in
                 Task {
                     await self.termination()
                 }
