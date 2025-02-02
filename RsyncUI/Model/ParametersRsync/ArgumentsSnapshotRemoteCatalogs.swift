@@ -8,7 +8,6 @@
 // swiftlint:disable line_length
 
 import Foundation
-import OSLog
 import RsyncArguments
 
 @MainActor
@@ -17,7 +16,6 @@ final class ArgumentsSnapshotRemoteCatalogs {
 
     func remotefilelistarguments() -> [String]? {
         if let config {
-            Logger.process.info("ArgumentsSnapshotRemoteCatalogs: using remotefilelistarguments() - RsyncArguments")
             if let parameters = PrepareParameters(config: config).parameters {
                 let rsyncparametersrestore =
                     RsyncParametersRestore(parameters: parameters)

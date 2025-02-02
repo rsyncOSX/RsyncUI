@@ -8,7 +8,6 @@
 // swiftlint:disable line_length
 
 import Foundation
-import OSLog
 import RsyncArguments
 
 @MainActor
@@ -19,7 +18,6 @@ final class ArgumentsSnapshotCreateCatalog {
 
     func argumentssshcommands() -> [String]? {
         if let config {
-            Logger.process.info("ArgumentsSnapshotCreateCatalog: using RsyncParametersSynchronize() from RsyncArguments")
             let sshparameter = SSHPrepareParameters(config: config).sshparameters
             let snapshotcreatecatalog = SnapshotCreateRootCatalog(sshparameters: sshparameter)
 

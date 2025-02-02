@@ -60,7 +60,9 @@ final class ProcessRsyncObserving: PropogateError {
         }
 
         notificationstermination =
-            NotificationCenter.default.addObserver(forName: Process.didTerminateNotification, object: task, queue: nil) { _ in
+            NotificationCenter.default.addObserver(forName: Process.didTerminateNotification,
+                                                   object: task, queue: nil)
+        { _ in
                 Task {
                     await self.termination()
                 }
@@ -146,6 +148,7 @@ final class ProcessRsyncObserving: PropogateError {
 
 extension ProcessRsyncObserving {
     func datahandle(_ pipe: Pipe) async {
+        Logger.process.info("ProcessRsyncObserving: datahandle() on main thread \(Thread.isMain)")
         let outHandle = pipe.fileHandleForReading
         let data = outHandle.availableData
         if data.count > 0 {
@@ -172,8 +175,9 @@ extension ProcessRsyncObserving {
             outHandle.waitForDataInBackgroundAndNotify()
         }
     }
-
+    
     func termination() async {
+        Logger.process.info("ProcessRsyncObserving: termination() on main thread \(Thread.isMain)")
         processtermination(output, config?.hiddenID)
         // Log error in rsync output to file
         if errordiscovered, let config {
@@ -181,7 +185,6 @@ extension ProcessRsyncObserving {
                     stringoutputfromrsync: output)
         }
         SharedReference.shared.process = nil
-        // NotificationCenter.default.removeObserver(notifications as Any)
         NotificationCenter.default.removeObserver(notificationsfilehandle as Any,
                                                   name: NSNotification.Name.NSFileHandleDataAvailable,
                                                   object: nil)
