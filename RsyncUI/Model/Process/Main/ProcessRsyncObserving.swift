@@ -10,7 +10,7 @@ import Foundation
 import OSLog
 
 @MainActor
-final class ProcessRsyncObserving: PropogateError {
+final class ProcessRsyncObserving {
     // Process termination and filehandler closures
     var processtermination: ([String]?, Int?) -> Void
     var filehandler: (Int) -> Void
@@ -80,6 +80,10 @@ final class ProcessRsyncObserving: PropogateError {
             Logger.process.info("ProcessRsyncObserving: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
     }
+    
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
+    }
 
     init(arguments: [String]?,
          config: SynchronizeConfiguration?,
@@ -148,7 +152,6 @@ final class ProcessRsyncObserving: PropogateError {
 
 extension ProcessRsyncObserving {
     func datahandle(_ pipe: Pipe) async {
-        Logger.process.info("ProcessRsyncObserving: datahandle() on main thread \(Thread.isMain)")
         let outHandle = pipe.fileHandleForReading
         let data = outHandle.availableData
         if data.count > 0 {
@@ -177,7 +180,6 @@ extension ProcessRsyncObserving {
     }
     
     func termination() async {
-        Logger.process.info("ProcessRsyncObserving: termination() on main thread \(Thread.isMain)")
         processtermination(output, config?.hiddenID)
         // Log error in rsync output to file
         if errordiscovered, let config {

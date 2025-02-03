@@ -11,7 +11,7 @@ import Foundation
 import OSLog
 
 @MainActor
-final class ProcessRsync: PropogateError {
+final class ProcessRsync {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures
@@ -106,6 +106,10 @@ final class ProcessRsync: PropogateError {
             Logger.process.info("ProcessRsync: \(launchPath, privacy: .public)")
             Logger.process.info("ProcessRsync: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
+    }
+    
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 
     init(arguments: [String]?,
