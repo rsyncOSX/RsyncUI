@@ -10,7 +10,7 @@ import Foundation
 import OSLog
 
 @MainActor
-final class ProcessRsyncObserving: PropogateError {
+final class ProcessRsyncObserving {
     // Process termination and filehandler closures
     var processtermination: ([String]?, Int?) -> Void
     var filehandler: (Int) -> Void
@@ -79,6 +79,10 @@ final class ProcessRsyncObserving: PropogateError {
             Logger.process.info("ProcessRsyncObserving: \(launchPath, privacy: .public)")
             Logger.process.info("ProcessRsyncObserving: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
+    }
+    
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 
     init(arguments: [String]?,

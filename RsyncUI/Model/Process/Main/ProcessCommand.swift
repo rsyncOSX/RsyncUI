@@ -10,7 +10,7 @@ import Foundation
 import OSLog
 
 @MainActor
-final class ProcessCommand: PropogateError {
+final class ProcessCommand {
     // Combine subscribers
     var subscriptons = Set<AnyCancellable>()
     // Process termination and filehandler closures
@@ -77,6 +77,10 @@ final class ProcessCommand: PropogateError {
         } else {
             Logger.process.warning("CommandProcess: no command to executed or arguments = 0")
         }
+    }
+    
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 
     init(command: String?,
