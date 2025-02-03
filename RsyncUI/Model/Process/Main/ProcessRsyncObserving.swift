@@ -64,6 +64,8 @@ final class ProcessRsyncObserving {
                                                    object: task, queue: nil)
         { _ in
                 Task {
+                    // Debounce termination for 500 ms
+                    try await Task.sleep(seconds: 0.5)
                     await self.termination()
                 }
             }
