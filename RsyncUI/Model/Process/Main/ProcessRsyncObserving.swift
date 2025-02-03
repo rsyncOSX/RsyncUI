@@ -68,7 +68,7 @@ final class ProcessRsyncObserving {
                     try await Task.sleep(seconds: 0.5)
                     await self.termination()
                 }
-            }
+        }
 
         SharedReference.shared.process = task
         do {
