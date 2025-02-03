@@ -114,7 +114,7 @@ struct ExecutePushPullView: View {
     func push(config: SynchronizeConfiguration) {
         let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: dryrun,
                                                                                            forDisplay: false)
-        let process = ProcessRsync(arguments: arguments,
+        let process = ProcessRsyncObserving(arguments: arguments,
                                    config: config,
                                    processtermination: processtermination)
         process.executeProcess()
@@ -123,7 +123,7 @@ struct ExecutePushPullView: View {
     func pull(config: SynchronizeConfiguration) {
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryrun,
                                                                                               forDisplay: false)
-        let process = ProcessRsync(arguments: arguments,
+        let process = ProcessRsyncObserving(arguments: arguments,
                                    config: config,
                                    processtermination: processtermination)
         process.executeProcess()
