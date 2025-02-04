@@ -182,8 +182,17 @@ struct SidebarMainView: View {
     
     var menuitems: [MenuItem] {
         print("computing menuitems")
-        return Sidebaritems.allCases.compactMap {
-            return MenuItem(menuitem: $0)
+        return Sidebaritems.allCases.compactMap { item in
+            if rsyncUIdata.oneormoretasksissnapshot == false && item == .snapshots {
+                return nil
+            }
+            if rsyncUIdata.oneormoretasksisremote == false && item == .verify_remote {
+                return nil
+            }
+            if rsyncUIdata.oneormoretasksisremote == false && item == .restore {
+                return nil
+            }
+            return MenuItem(menuitem: item)
         }
     }
 }
