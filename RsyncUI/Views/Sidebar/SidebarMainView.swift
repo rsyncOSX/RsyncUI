@@ -13,6 +13,11 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
     var id: String { rawValue }
 }
 
+struct MenuItem: Identifiable, Hashable {
+    var menuitem: Sidebaritems
+    let id = UUID()
+}
+
 struct SidebarMainView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedprofile: String?
@@ -56,12 +61,12 @@ struct SidebarMainView: View {
 
             Divider()
 
-            List(Sidebaritems.allCases, selection: $selectedview) { selectedview in
-                NavigationLink(value: selectedview) {
-                    SidebarRow(sidebaritem: selectedview)
+            List(menuitems, selection: $selectedview) { item in
+                NavigationLink(value: item.menuitem) {
+                    SidebarRow(sidebaritem: item.menuitem)
                 }
 
-                if selectedview == .tasks || selectedview == .snapshots || selectedview == .restore { Divider() }
+                if item.menuitem == .tasks || item.menuitem == .snapshots || item.menuitem == .restore { Divider() }
             }
             .listStyle(.sidebar)
             .disabled(disablesidebarmeny)
@@ -173,6 +178,13 @@ struct SidebarMainView: View {
             addtasknavigation.isEmpty == false ||
             verifynavigation.isEmpty == false ||
             SharedReference.shared.process != nil
+    }
+    
+    var menuitems: [MenuItem] {
+        print("computing menuitems")
+        return Sidebaritems.allCases.compactMap {
+            return MenuItem(menuitem: $0)
+        }
     }
 }
 
