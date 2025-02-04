@@ -53,9 +53,8 @@ struct RsyncUIView: View {
                 ProfilesnamesRecord(catalog)
             }
             rsyncUIdata.oneormoretasksissnapshot = (rsyncUIdata.configurations?.contains {
-                $0.task == SharedReference.shared.snapshot} ?? false)
-            rsyncUIdata.oneormoretasksisremote = (rsyncUIdata.configurations?.contains {
-                $0.offsiteServer.isEmpty == false} ?? false)
+                $0.task == SharedReference.shared.snapshot} ?? false )
+            rsyncUIdata.oneormoretasksisremote = rsyncUIdata.configurations?.filter({ $0.task == SharedReference.shared.synchronize && $0.offsiteServer.isEmpty == false }).count ?? 0 > 0
         }
         .onChange(of: selectedprofile) {
             Task {
@@ -67,9 +66,10 @@ struct RsyncUIView: View {
                                                            SharedReference.shared.sshport,
                                                            SharedReference.shared.fileconfigurationsjson)
                 rsyncUIdata.oneormoretasksissnapshot = (rsyncUIdata.configurations?.contains {
-                    $0.task == SharedReference.shared.snapshot} ?? false)
-                rsyncUIdata.oneormoretasksisremote = (rsyncUIdata.configurations?.contains {
-                    $0.offsiteServer.isEmpty == false} ?? false)
+                    $0.task == SharedReference.shared.snapshot} ?? false )
+                
+                rsyncUIdata.oneormoretasksisremote = rsyncUIdata.configurations?.filter({ $0.task == SharedReference.shared.synchronize && $0.offsiteServer.isEmpty == false }).count ?? 0 > 0
+                
                 rsyncUIdata.readdatafromstorecompleted = true
             }
         }
