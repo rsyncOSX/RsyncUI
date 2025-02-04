@@ -105,7 +105,7 @@ final class ProcessRsyncObserving {
             checklineforerror = TrimOutputFromRsync()
         }
     }
-
+/*
     convenience init(arguments: [String]?,
                      config: SynchronizeConfiguration?,
                      processtermination: @escaping ([String]?, Int?) -> Void,
@@ -117,7 +117,7 @@ final class ProcessRsyncObserving {
                   filehandler: filehandler,
                   usefilehandler: true)
     }
-
+*/
     convenience init(arguments: [String]?,
                      processtermination: @escaping ([String]?, Int?) -> Void)
     {
