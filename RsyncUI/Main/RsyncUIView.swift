@@ -52,6 +52,10 @@ struct RsyncUIView: View {
             rsyncUIdata.validprofiles = catalognames.map { catalog in
                 ProfilesnamesRecord(catalog)
             }
+            rsyncUIdata.oneormoretasksissnapshot = (rsyncUIdata.configurations?.contains {
+                $0.task == SharedReference.shared.snapshot} ?? false)
+            rsyncUIdata.oneormoretasksisremote = (rsyncUIdata.configurations?.contains {
+                $0.offsiteServer.isEmpty == false} ?? false)
         }
         .onChange(of: selectedprofile) {
             Task {
@@ -62,6 +66,10 @@ struct RsyncUIView: View {
                                                            SharedReference.shared.monitornetworkconnection,
                                                            SharedReference.shared.sshport,
                                                            SharedReference.shared.fileconfigurationsjson)
+                rsyncUIdata.oneormoretasksissnapshot = (rsyncUIdata.configurations?.contains {
+                    $0.task == SharedReference.shared.snapshot} ?? false)
+                rsyncUIdata.oneormoretasksisremote = (rsyncUIdata.configurations?.contains {
+                    $0.offsiteServer.isEmpty == false} ?? false)
                 rsyncUIdata.readdatafromstorecompleted = true
             }
         }

@@ -217,7 +217,6 @@ extension SidebarMainView {
                         // Observe queryitem
                         queryitem = queryitems[0]
                     }
-
                 } else {
                     if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
                         selectedprofile = profile

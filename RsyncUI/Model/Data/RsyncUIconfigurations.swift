@@ -29,6 +29,8 @@ final class RsyncUIconfigurations {
     // Toggle sidebar
     var columnVisibility = NavigationSplitViewVisibility.doubleColumn
     // .doubleColumn or .detailOnly
+    var oneormoretasksissnapshot: Bool = false
+    var oneormoretasksisremote: Bool = false
 
     init() {}
 }
