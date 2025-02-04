@@ -13,40 +13,18 @@ extension Color {
 
     static let lightStart = Color(red: 60 / 255, green: 160 / 255, blue: 240 / 255)
     static let lightEnd = Color(red: 30 / 255, green: 80 / 255, blue: 120 / 255)
-
+/*
     static let darkredStart = Color(red: 200 / 255, green: 0 / 255, blue: 0 / 255)
     static let darkredEnd = Color(red: 150 / 255, green: 0 / 255, blue: 0 / 255)
 
     static let lightredStart = Color(red: 100 / 255, green: 0 / 255, blue: 0 / 255)
     static let lightredEnd = Color(red: 50 / 255, green: 0 / 255, blue: 0 / 255)
+ */
 }
 
 extension LinearGradient {
     init(_ colors: Color...) {
         self.init(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing)
-    }
-}
-
-struct ColorfulRedBackground<S: Shape>: View {
-    var isHighlighted: Bool
-    var shape: S
-
-    var body: some View {
-        ZStack {
-            if isHighlighted {
-                shape
-                    .fill(LinearGradient(Color.lightredEnd, Color.lightredStart))
-                    .overlay(shape.stroke(LinearGradient(Color.lightredStart, Color.lightredEnd), lineWidth: 2))
-                    .shadow(color: Color.darkredStart, radius: 2, x: 1, y: 1)
-                    .shadow(color: Color.darkredEnd, radius: 2, x: -1, y: -1)
-            } else {
-                shape
-                    .fill(LinearGradient(Color.darkredStart, Color.darkredEnd))
-                    .overlay(shape.stroke(LinearGradient(Color.lightredStart, Color.lightredEnd), lineWidth: 2))
-                    .shadow(color: Color.darkredStart, radius: 2, x: -1, y: -1)
-                    .shadow(color: Color.darkredEnd, radius: 2, x: 1, y: 1)
-            }
-        }
     }
 }
 
@@ -85,18 +63,6 @@ struct ColorfulButtonStyle: ButtonStyle {
     }
 }
 
-struct PressedButtonStyle: ButtonStyle {
-    let title: String
-    let systemImage: String
-    let pressedImage: String
-
-    func makeBody(configuration: Configuration) -> some View {
-        let imageName = configuration.isPressed ? pressedImage : systemImage
-        return Label(title, systemImage: imageName)
-            .symbolEffect(.scale.up, isActive: configuration.isPressed)
-    }
-}
-
 struct TransitionButton: Transition {
     func body(content: Content, phase: TransitionPhase) -> some View {
         content
@@ -106,6 +72,43 @@ struct TransitionButton: Transition {
 }
 
 /*
+ 
+ struct PressedButtonStyle: ButtonStyle {
+     let title: String
+     let systemImage: String
+     let pressedImage: String
+
+     func makeBody(configuration: Configuration) -> some View {
+         let imageName = configuration.isPressed ? pressedImage : systemImage
+         return Label(title, systemImage: imageName)
+             .symbolEffect(.scale.up, isActive: configuration.isPressed)
+     }
+ }
+ 
+ struct ColorfulRedBackground<S: Shape>: View {
+     var isHighlighted: Bool
+     var shape: S
+
+     var body: some View {
+         ZStack {
+             if isHighlighted {
+                 shape
+                     .fill(LinearGradient(Color.lightredEnd, Color.lightredStart))
+                     .overlay(shape.stroke(LinearGradient(Color.lightredStart, Color.lightredEnd), lineWidth: 2))
+                     .shadow(color: Color.darkredStart, radius: 2, x: 1, y: 1)
+                     .shadow(color: Color.darkredEnd, radius: 2, x: -1, y: -1)
+             } else {
+                 shape
+                     .fill(LinearGradient(Color.darkredStart, Color.darkredEnd))
+                     .overlay(shape.stroke(LinearGradient(Color.lightredStart, Color.lightredEnd), lineWidth: 2))
+                     .shadow(color: Color.darkredStart, radius: 2, x: -1, y: -1)
+                     .shadow(color: Color.darkredEnd, radius: 2, x: 1, y: 1)
+             }
+         }
+     }
+ }
+ 
+ 
  struct InfoButton: View {
    let action: () -> Void
 
