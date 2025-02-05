@@ -24,14 +24,40 @@ final class RsyncUIconfigurations {
     var profile: String?
     // This is observed when URL actions are initiated.
     // Before commence the real action must be sure that selected profile data is loaded from store
-    var readdatafromstorecompleted: Bool = true
-    var validprofiles: [ProfilesnamesRecord] = []
+    @ObservationIgnored var readdatafromstorecompleted: Bool = true
+    @ObservationIgnored var validprofiles: [ProfilesnamesRecord] = []
     // Toggle sidebar
     var columnVisibility = NavigationSplitViewVisibility.doubleColumn
     // .doubleColumn or .detailOnly
-    @ObservationIgnored var oneormoretasksissnapshot: Bool = false
-    @ObservationIgnored var oneormoresnapshottasksisremote: Bool = false
-    @ObservationIgnored var oneormoresynchronizetasksisremote: Bool = false
+    @ObservationIgnored var oneormoretasksissnapshot: Bool {
+        return (configurations?.contains { $0.task == SharedReference.shared.snapshot} ?? false )
+    }
+    @ObservationIgnored var oneormoresnapshottasksisremote: Bool {
+        configurations?.filter({ $0.task == SharedReference.shared.snapshot &&
+            $0.offsiteServer.isEmpty == false }).count ?? 0 > 0
+    }
+    @ObservationIgnored var oneormoresynchronizetasksisremote: Bool {
+        configurations?.filter({ $0.task == SharedReference.shared.synchronize &&
+            $0.offsiteServer.isEmpty == false }).count ?? 0 > 0
+    }
     
-    init() {}
+    var test: Bool {
+        (configurations?.contains {
+            $0.task == SharedReference.shared.snapshot} ?? false )
+    }
+    
+    init() {
+        print("computed oneormoretasksissnapshot")
+    }
 }
+
+
+/*
+ rsyncUIdata.oneormoretasksissnapshot = (rsyncUIdata.configurations?.contains {
+     $0.task == SharedReference.shared.snapshot} ?? false )
+ rsyncUIdata.oneormoresnapshottasksisremote = rsyncUIdata.configurations?.filter({ $0.task == SharedReference.shared.snapshot &&
+     $0.offsiteServer.isEmpty == false }).count ?? 0 > 0
+ rsyncUIdata.oneormoresynchronizetasksisremote = rsyncUIdata.configurations?.filter({ $0.task == SharedReference.shared.synchronize &&
+     $0.offsiteServer.isEmpty == false }).count ?? 0 > 0
+ 
+ */
