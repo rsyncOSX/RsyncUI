@@ -23,7 +23,7 @@ final class RsyncUIconfigurations {
     var configurations: [SynchronizeConfiguration]?
     var profile: String?
     // This is observed when URL actions are initiated.
-    // Befor commence the real action must be sure that selected profile data is loaded from store
+    // Before commence the real action must be sure that selected profile data is loaded from store
     var readdatafromstorecompleted: Bool = true
     var validprofiles: [ProfilesnamesRecord] = []
     // Toggle sidebar

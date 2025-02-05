@@ -54,7 +54,8 @@ struct RsyncUIView: View {
             }
             rsyncUIdata.oneormoretasksissnapshot = (rsyncUIdata.configurations?.contains {
                 $0.task == SharedReference.shared.snapshot} ?? false )
-            rsyncUIdata.oneormoretasksisremote = rsyncUIdata.configurations?.filter({ $0.task == SharedReference.shared.synchronize && $0.offsiteServer.isEmpty == false }).count ?? 0 > 0
+            rsyncUIdata.oneormoretasksisremote = rsyncUIdata.configurations?.filter({ $0.task == SharedReference.shared.synchronize &&
+                $0.offsiteServer.isEmpty == false }).count ?? 0 > 0
         }
         .onChange(of: selectedprofile) {
             Task {
@@ -68,7 +69,8 @@ struct RsyncUIView: View {
                 rsyncUIdata.oneormoretasksissnapshot = (rsyncUIdata.configurations?.contains {
                     $0.task == SharedReference.shared.snapshot} ?? false )
                 
-                rsyncUIdata.oneormoretasksisremote = rsyncUIdata.configurations?.filter({ $0.task == SharedReference.shared.synchronize && $0.offsiteServer.isEmpty == false }).count ?? 0 > 0
+                rsyncUIdata.oneormoretasksisremote = rsyncUIdata.configurations?.filter({ $0.task == SharedReference.shared.synchronize &&
+                    $0.offsiteServer.isEmpty == false }).count ?? 0 > 0
                 
                 rsyncUIdata.readdatafromstorecompleted = true
             }

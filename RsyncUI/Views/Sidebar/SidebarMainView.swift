@@ -13,6 +13,8 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
     var id: String { rawValue }
 }
 
+// The sidebar is context sensitive, it is computed everytime a new profile is loaded
+
 struct MenuItem: Identifiable, Hashable {
     var menuitem: Sidebaritems
     let id = UUID()
@@ -180,24 +182,39 @@ struct SidebarMainView: View {
             SharedReference.shared.process != nil
     }
     
+    
+    // The Sidebar meny is context sensitive. There are three Sidebar meny options
+    // which are context sensitive:
+    // - Snapshots
+    // - Verify remote
+    // - Restore
     var menuitems: [MenuItem] {
-        print("computing menuitems")
         return Sidebaritems.allCases.compactMap { item in
+            // Return nil if there is one or more snapshot tasks
+            // Do not show the Snapshot sidebar meny
             if rsyncUIdata.oneormoretasksissnapshot == false &&
                 item == .snapshots {
                 return nil
             }
             
+            // Return nil if there is one or more remote tasks
+            // and only remote task is snapshot
+            // Do not show the Verify remote sidebar meny
             if rsyncUIdata.oneormoretasksissnapshot == true &&
-                rsyncUIdata.oneormoretasksisremote == true &&
+                rsyncUIdata.oneormoretasksisremote == false &&
                 item == .verify_remote {
                 return nil
             }
             
+            // Return nil if there is no remote tasks, only local attached discs
+            // Do not show the Verify remote sidebar meny
             if rsyncUIdata.oneormoretasksisremote == false &&
                 item == .verify_remote {
                 return nil
             }
+            
+            // Return nil if there is no remote tasks, only local attached discs
+            // Do not show the Restore remote sidebar meny
             if rsyncUIdata.oneormoretasksisremote == false &&
                 item == .restore {
                 return nil
