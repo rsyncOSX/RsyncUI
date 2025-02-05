@@ -193,32 +193,26 @@ struct SidebarMainView: View {
             // Return nil if there is one or more snapshot tasks
             // Do not show the Snapshot sidebar meny
             if rsyncUIdata.oneormoretasksissnapshot == false &&
-                item == .snapshots {
-                return nil
-            }
+                item == .snapshots { return nil }
             
             // Return nil if there is one or more remote tasks
             // and only remote task is snapshot
             // Do not show the Verify remote sidebar meny
             if rsyncUIdata.oneormoretasksissnapshot == true &&
-                rsyncUIdata.oneormoretasksisremote == false &&
-                item == .verify_remote {
-                return nil
-            }
+                rsyncUIdata.oneormoresynchronizetasksisremote == false &&
+                item == .verify_remote { return nil }
             
             // Return nil if there is no remote tasks, only local attached discs
             // Do not show the Verify remote sidebar meny
-            if rsyncUIdata.oneormoretasksisremote == false &&
-                item == .verify_remote {
-                return nil
-            }
+            if rsyncUIdata.oneormoresynchronizetasksisremote == false &&
+                item == .verify_remote { return nil }
             
             // Return nil if there is no remote tasks, only local attached discs
             // Do not show the Restore remote sidebar meny
-            if rsyncUIdata.oneormoretasksisremote == false &&
-                item == .restore {
-                return nil
-            }
+            if rsyncUIdata.oneormoresynchronizetasksisremote == false &&
+                rsyncUIdata.oneormoresnapshottasksisremote == false &&
+                item == .restore { return nil }
+            
             return MenuItem(menuitem: item)
         }
     }
