@@ -30,7 +30,8 @@ final class RsyncUIconfigurations {
     var columnVisibility = NavigationSplitViewVisibility.doubleColumn
     // .doubleColumn or .detailOnly
     @ObservationIgnored var oneormoretasksissnapshot: Bool = false
-    @ObservationIgnored var oneormoretasksisremote: Bool = false
-
+    @ObservationIgnored var oneormoresnapshottasksisremote: Bool = false
+    @ObservationIgnored var oneormoresynchronizetasksisremote: Bool = false
+    
     init() {}
 }
