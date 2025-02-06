@@ -137,25 +137,29 @@ struct SnapshotsView: View {
                     )
                 }
             }
-
-            ToolbarItem {
-                Button {
-                    updateplansnapshot()
-                } label: {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(Color(.blue))
+            
+            if selectedconfig?.task == SharedReference.shared.snapshot {
+                
+                ToolbarItem {
+                    Button {
+                        updateplansnapshot()
+                    } label: {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(Color(.blue))
+                    }
+                    .help("Update plan snapshot")
+                    .disabled(isdisabled)
                 }
-                .help("Update plan snapshot")
-                .disabled(isdisabled)
-            }
-
-            ToolbarItem {
-                Button {
-                    tagsnapshots()
-                } label: {
-                    Image(systemName: "tag")
+                
+                ToolbarItem {
+                    Button {
+                        tagsnapshots()
+                    } label: {
+                        Image(systemName: "tag")
+                    }
+                    .help("Tag snapshot")
                 }
-                .help("Tag snapshot")
+                
             }
 
             ToolbarItem {
