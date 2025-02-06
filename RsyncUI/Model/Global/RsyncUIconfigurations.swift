@@ -46,9 +46,7 @@ final class RsyncUIconfigurations {
             $0.task == SharedReference.shared.snapshot} ?? false )
     }
     
-    init() {
-        print("computed oneormoretasksissnapshot")
-    }
+    init() {}
 }
 
 

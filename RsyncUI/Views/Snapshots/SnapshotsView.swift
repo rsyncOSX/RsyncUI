@@ -14,8 +14,6 @@ struct SnapshotsView: View {
     @State private var snapshotdata = ObservableSnapshotData()
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selectedconfiguuid = Set<SynchronizeConfiguration.ID>()
-    // If not a snapshot
-    @State private var notsnapshot = false
     // Plan for tagging and administrating snapshots
     @State private var snaplast: String = PlanSnapshots.Last.rawValue
     @State private var snapdayofweek: String = StringDayofweek.Sunday.rawValue
@@ -69,14 +67,21 @@ struct SnapshotsView: View {
                                     deleteiscompleted = false
                                 }
                             }
+                            .overlay {
+                                if snapshotdata.logrecordssnapshot == nil {
+                                    ContentUnavailableView {
+                                        Label("There are no snapshots", systemImage: "doc.richtext.fill")
+                                    } description: {
+                                        Text("Please select a snapshot task")
+                                    }
+                                }
+                            }
 
                         if snapshotdata.snapshotlist { ProgressView() }
                     }
                 }
 
-                if notsnapshot == true { DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Not a snapshot task.", comment: "")) }
-
-                if SharedReference.shared.rsyncversion3 == false, notsnapshot == false {
+                if SharedReference.shared.rsyncversion3 == false {
                     DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Only rsync version 3.x supports snapshots.", comment: ""))
                 }
             }
@@ -247,13 +252,8 @@ extension SnapshotsView {
         guard SharedReference.shared.process == nil else { return }
         if let config = selectedconfig {
             guard config.task == SharedReference.shared.snapshot else {
-                notsnapshot = true
                 isdisabled = true
-                // Show added for 1 second
-                Task {
-                    try await Task.sleep(seconds: 1)
-                    notsnapshot = false
-                }
+                snapshotdata.logrecordssnapshot = nil
                 return
             }
             isdisabled = false

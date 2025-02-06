@@ -68,7 +68,7 @@ struct SidebarMainView: View {
                     SidebarRow(sidebaritem: item.menuitem)
                 }
 
-                if item.menuitem == .tasks || item.menuitem == .snapshots || item.menuitem == .restore { Divider() }
+                if item.menuitem == .tasks || item.menuitem == .snapshots || item.menuitem == .log_listings { Divider() }
             }
             .listStyle(.sidebar)
             .disabled(disablesidebarmeny)
