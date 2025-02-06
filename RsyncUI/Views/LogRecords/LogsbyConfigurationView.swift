@@ -52,7 +52,7 @@ struct LogsbyConfigurationView: View {
                                 ContentUnavailableView {
                                     Label("No tasks", systemImage: "doc.richtext.fill")
                                 } description: {
-                                    Text("Add tasks in Tasks.")
+                                    Text("Add tasks in Tasks")
                                 }
                             }
                         }

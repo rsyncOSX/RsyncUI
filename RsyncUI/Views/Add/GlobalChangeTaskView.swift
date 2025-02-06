@@ -76,10 +76,10 @@ struct GlobalChangeTaskView: View {
                 .overlay {
                     if configurations.isEmpty {
                         ContentUnavailableView {
-                            Label("Most likely, you try to update snapshot tasks, not allowed.",
+                            Label("Most likely, you try to update snapshot tasks, not allowed",
                                   systemImage: "doc.richtext.fill")
                         } description: {
-                            Text("Or there are no tasks to update.")
+                            Text("Or there are no tasks to update")
                         }
                     }
                 }

@@ -44,11 +44,11 @@ struct VerifyRemote: View {
                 }
                 .overlay { if configurations.count == 0 {
                     ContentUnavailableView {
-                        Label("The Verify remote is for networked configurations only.", systemImage: "doc.richtext.fill")
+                        Label("The Verify remote is for networked configurations only", systemImage: "doc.richtext.fill")
                     } description: {
                         VStack {
-                            Text("Version 3.x of rsync must be installed and enabled to use this function.")
-                            Text("A networked configuration is where destination is on a remote server.")
+                            Text("version 3.x of rsync must be installed and enabled to use this function,")
+                            Text("a networked configuration is where destination is on a remote server")
                         }
                     }
                 }

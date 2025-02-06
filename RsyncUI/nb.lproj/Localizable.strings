@@ -26,7 +26,7 @@
 "^[%lld file](inflect: true) new" = "^[%lld fil](inflect: true) nye";
 
 /* No comment provided by engineer. */
-"A networked configuration is where destination is on a remote server." = "En nettverkskonfigurasjon er der destinasjonen er på en ekstern server.";
+"a networked configuration is where destination is on a remote server" = "en nettverkskonfigurasjon er der destinasjonen er på en ekstern server";
 
 /* (No Comment) */
 "Abort" = "Avbryt";
@@ -296,7 +296,7 @@
 "Monitor network, error and log settings" = "Monitorer nettverk, feil og logg setting";
 
 /* No comment provided by engineer. */
-"Most likely, you try to update snapshot tasks, not allowed." = "Ser ut som du prøver å oppdatere en snapshot oppgave, det er ikke tillatt";
+"Most likely, you try to update snapshot tasks, not allowed" = "Ser ut som du prøver å oppdatere en snapshot oppgave, det er ikke tillatt";
 
 /* No comment provided by engineer. */
 "New" = "Ny";
@@ -542,13 +542,13 @@
 "Tasks" = "Oppgaver";
 
 /* No comment provided by engineer. */
-"The Verify remote is for networked configurations only." = "Verifiser er kun for konfigurasjoner med server konfigurasjon";
+"The Verify remote is for networked configurations only" = "Verifiser er kun for konfigurasjoner med server konfigurasjon";
 
 /* No comment provided by engineer. */
 "There are no logs by this filter" = "Det er ingen logger med dette søk";
 
 /* No comment provided by engineer. */
-"There are no snapshot records by this search string in Date or Tag." = "Det er ingen snapshots med denne søket i dato eller tag";
+"There are no snapshot records by this search string in Date or Tag" = "Det er ingen snapshots med denne søket i dato eller tag";
 
 /* No comment provided by engineer. */
 "There are no tasks by this Synchronize ID" = "Det er ingen oppgaver med denne Synchronize ID";
@@ -563,7 +563,7 @@
 "There is an equal amount of data. You can either perform a SYNCHRONIZE or a PULL operation.\n Alternatively, you can choose to do nothing." = "Det er like mye data. Du kan enten utføre en SYNCHRONISE- eller en PULL-operasjon.\n Alternativt kan du velge å ikke gjøre noe.";
 
 /* No comment provided by engineer. */
-"This is only due to Marknumberofdayssince set in the settings." = "Dette er kun ift Marknumberofdayssince i settings";
+"This is only due to Marknumberofdayssince set in the settings" = "Dette er kun ift Marknumberofdayssince i settings";
 
 /* No comment provided by engineer. */
 "Tot dir" = "Tot dir";
@@ -590,7 +590,7 @@
 "Try to search for other filter in Date or Result" = "Forsøk annet søk i Dato eller Resultat";
 
 /* No comment provided by engineer. */
-"Try to search for other filter in Synchronize ID or \n If new user, add Tasks." = "Endre søke filter for Synchronize ID eller hvis ny bruker, opprett oppgave";
+"Try to search for other filter in Synchronize ID or \n If new user, add Tasks" = "Endre søke filter for Synchronize ID eller hvis ny bruker, opprett oppgave";
 
 /* No comment provided by engineer. */
 "Update" = "Oppdater";
@@ -626,7 +626,7 @@
 "Verify task" = "Verifiser oppgave";
 
 /* No comment provided by engineer. */
-"Version 3.x of rsync must be installed and enabled to use this function." = "Versjon 3.x må være installert og valgt for å bruke denne funksjonen.";
+"version 3.x of rsync must be installed and enabled to use this function" = "versjon 3.x må være installert og valgt for å bruke denne funksjonen";
 
 /* No comment provided by engineer. */
 "Version rsync" = "Versjon rsync";
@@ -636,4 +636,3 @@
 
 /* No comment provided by engineer. */
 "View URLs" = "Se URL";
-

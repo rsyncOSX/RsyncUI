@@ -26,7 +26,7 @@
 "^[%lld file](inflect: true) new" = "^[%lld Datei](inflect: true) neu";
 
 /* No comment provided by engineer. */
-"A networked configuration is where destination is on a remote server." = "Bei einer Netzwerkkonfiguration befindet sich das Ziel auf einem Remote-Server.";
+"a networked configuration is where destination is on a remote server" = "bei einer Netzwerkkonfiguration befindet sich das Ziel auf einem Remote-Server";
 
 /* (No Comment) */
 "Abort" = "Abbrechen";
@@ -296,7 +296,7 @@
 "Monitor network, error and log settings" = "Überwachen Sie Netzwerk-, Fehler- und Protokolleinstellungen";
 
 /* No comment provided by engineer. */
-"Most likely, you try to update snapshot tasks, not allowed." = "Höchstwahrscheinlich versuchen Sie, Snapshot-Aufgaben zu aktualisieren, was nicht zulässig ist.";
+"Most likely, you try to update snapshot tasks, not allowed" = "Höchstwahrscheinlich versuchen Sie, Snapshot-Aufgaben zu aktualisieren, was nicht zulässig ist";
 
 /* No comment provided by engineer. */
 "New" = "Neu";
@@ -542,13 +542,13 @@
 "Tasks" = "Aufgaben";
 
 /* No comment provided by engineer. */
-"The Verify remote is for networked configurations only." = "Die Verify-Fernbedienung ist nur für Netzwerkkonfigurationen bestimmt.";
+"The Verify remote is for networked configurations only" = "Die Verify-Fernbedienung ist nur für Netzwerkkonfigurationen bestimmt";
 
 /* No comment provided by engineer. */
 "There are no logs by this filter" = "Für diesen Filter sind keine Protokolle vorhanden";
 
 /* No comment provided by engineer. */
-"There are no snapshot records by this search string in Date or Tag." = "Für diese Suchzeichenfolge gibt es in „Datum“ oder „Tag“ keine Snapshot-Datensätze.";
+"There are no snapshot records by this search string in Date or Tag" = "Für diese Suchzeichenfolge gibt es in „Datum“ oder „Tag“ keine Snapshot-Datensätze";
 
 /* No comment provided by engineer. */
 "There are no tasks by this Synchronize ID" = "Es gibt keine Aufgaben mit dieser Synchronisierungs-ID";
@@ -563,7 +563,7 @@
 "There is an equal amount of data. You can either perform a SYNCHRONIZE or a PULL operation.\n Alternatively, you can choose to do nothing." = "Es gibt eine gleiche Datenmenge. Sie können entweder eine SYNCHRONIZE- oder eine PULL-Operation durchführen. Alternativ können Sie sich dafür entscheiden, nichts zu tun.";
 
 /* No comment provided by engineer. */
-"This is only due to Marknumberofdayssince set in the settings." = "Dies liegt ausschließlich an der in den Einstellungen festgelegten Markierung „AnzahlderTagesseit“.";
+"This is only due to Marknumberofdayssince set in the settings" = "Dies liegt ausschließlich an der in den Einstellungen festgelegten Markierung „AnzahlderTagesseit“";
 
 /* No comment provided by engineer. */
 "Tot dir" = "Verzeichnisse Gesamt";
@@ -590,7 +590,7 @@
 "Try to search for other filter in Date or Result" = "Versuchen Sie, in „Datum“ oder „Ergebnis“ nach einem anderen Filter zu suchen";
 
 /* No comment provided by engineer. */
-"Try to search for other filter in Synchronize ID or \n If new user, add Tasks." = "Versuchen Sie, in Synchronize ID oder nach einem anderen Filter zu suchen.\nWenn Sie ein neuer Benutzer sind, fügen Sie einen Aufgabe hinzu.";
+"Try to search for other filter in Synchronize ID or \n If new user, add Tasks" = "Versuchen Sie, in Synchronize ID oder nach einem anderen Filter zu suchen.\nWenn Sie ein neuer Benutzer sind, fügen Sie einen Aufgabe hinzu";
 
 /* No comment provided by engineer. */
 "Update" = "Aktualisieren";
@@ -626,7 +626,7 @@
 "Verify task" = "Aufgabe verifizieren";
 
 /* No comment provided by engineer. */
-"Version 3.x of rsync must be installed and enabled to use this function." = "Um diese Funktion zu nutzen, muss Version 3.x von rsync installiert und aktiviert sein.";
+"version 3.x of rsync must be installed and enabled to use this function," = "um diese Funktion zu nutzen, muss Version 3.x von rsync installiert und aktiviert sein,";
 
 /* No comment provided by engineer. */
 "Version rsync" = "Version rsync";
@@ -636,4 +636,3 @@
 
 /* No comment provided by engineer. */
 "View URLs" = "URLs anzeigen";
-
