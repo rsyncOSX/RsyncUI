@@ -28,15 +28,15 @@ struct Macserialnumber {
         // return (serialNumberAsCFString!.takeUnretainedValue() as? String) ?? ""
         return (serialNumberAsCFString?.takeRetainedValue() as? String) ?? "C00123456789"
     }
-/*
-    // Function for returning the MacSerialNumber
-    func getMacSerialNumber() -> String? {
-        guard macSerialNumber != nil else {
-            // Compute it, set it and return
-            macSerialNumber = computemacSerialNumber()
-            return macSerialNumber!
+    /*
+        // Function for returning the MacSerialNumber
+        func getMacSerialNumber() -> String? {
+            guard macSerialNumber != nil else {
+                // Compute it, set it and return
+                macSerialNumber = computemacSerialNumber()
+                return macSerialNumber!
+            }
+            return macSerialNumber
         }
-        return macSerialNumber
-    }
- */
+     */
 }

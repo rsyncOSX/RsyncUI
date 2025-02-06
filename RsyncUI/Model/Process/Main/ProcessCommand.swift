@@ -78,7 +78,7 @@ final class ProcessCommand {
             Logger.process.warning("CommandProcess: no command to executed or arguments = 0")
         }
     }
-    
+
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }

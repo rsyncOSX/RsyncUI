@@ -63,11 +63,11 @@ final class ProcessRsyncObserving {
             NotificationCenter.default.addObserver(forName: Process.didTerminateNotification,
                                                    object: task, queue: nil)
         { _ in
-                Task {
-                    // Debounce termination for 500 ms
-                    try await Task.sleep(seconds: 0.5)
-                    await self.termination()
-                }
+            Task {
+                // Debounce termination for 500 ms
+                try await Task.sleep(seconds: 0.5)
+                await self.termination()
+            }
         }
 
         SharedReference.shared.process = task
@@ -82,7 +82,7 @@ final class ProcessRsyncObserving {
             Logger.process.info("ProcessRsyncObserving: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
     }
-    
+
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
@@ -105,19 +105,20 @@ final class ProcessRsyncObserving {
             checklineforerror = TrimOutputFromRsync()
         }
     }
-/*
-    convenience init(arguments: [String]?,
-                     config: SynchronizeConfiguration?,
-                     processtermination: @escaping ([String]?, Int?) -> Void,
-                     filehandler: @escaping (Int) -> Void)
-    {
-        self.init(arguments: arguments,
-                  config: config,
-                  processtermination: processtermination,
-                  filehandler: filehandler,
-                  usefilehandler: true)
-    }
-*/
+
+    /*
+     convenience init(arguments: [String]?,
+                      config: SynchronizeConfiguration?,
+                      processtermination: @escaping ([String]?, Int?) -> Void,
+                      filehandler: @escaping (Int) -> Void)
+     {
+         self.init(arguments: arguments,
+                   config: config,
+                   processtermination: processtermination,
+                   filehandler: filehandler,
+                   usefilehandler: true)
+     }
+     */
     convenience init(arguments: [String]?,
                      processtermination: @escaping ([String]?, Int?) -> Void)
     {
@@ -180,7 +181,7 @@ extension ProcessRsyncObserving {
             outHandle.waitForDataInBackgroundAndNotify()
         }
     }
-    
+
     func termination() async {
         processtermination(output, config?.hiddenID)
         // Log error in rsync output to file

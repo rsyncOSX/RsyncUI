@@ -13,13 +13,13 @@ extension Color {
 
     static let lightStart = Color(red: 60 / 255, green: 160 / 255, blue: 240 / 255)
     static let lightEnd = Color(red: 30 / 255, green: 80 / 255, blue: 120 / 255)
-/*
-    static let darkredStart = Color(red: 200 / 255, green: 0 / 255, blue: 0 / 255)
-    static let darkredEnd = Color(red: 150 / 255, green: 0 / 255, blue: 0 / 255)
+    /*
+        static let darkredStart = Color(red: 200 / 255, green: 0 / 255, blue: 0 / 255)
+        static let darkredEnd = Color(red: 150 / 255, green: 0 / 255, blue: 0 / 255)
 
-    static let lightredStart = Color(red: 100 / 255, green: 0 / 255, blue: 0 / 255)
-    static let lightredEnd = Color(red: 50 / 255, green: 0 / 255, blue: 0 / 255)
- */
+        static let lightredStart = Color(red: 100 / 255, green: 0 / 255, blue: 0 / 255)
+        static let lightredEnd = Color(red: 50 / 255, green: 0 / 255, blue: 0 / 255)
+     */
 }
 
 extension LinearGradient {
@@ -72,7 +72,7 @@ struct TransitionButton: Transition {
 }
 
 /*
- 
+
  struct PressedButtonStyle: ButtonStyle {
      let title: String
      let systemImage: String
@@ -84,7 +84,7 @@ struct TransitionButton: Transition {
              .symbolEffect(.scale.up, isActive: configuration.isPressed)
      }
  }
- 
+
  struct ColorfulRedBackground<S: Shape>: View {
      var isHighlighted: Bool
      var shape: S
@@ -107,8 +107,7 @@ struct TransitionButton: Transition {
          }
      }
  }
- 
- 
+
  struct InfoButton: View {
    let action: () -> Void
 

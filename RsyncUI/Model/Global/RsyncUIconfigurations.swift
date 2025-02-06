@@ -30,25 +30,29 @@ final class RsyncUIconfigurations {
     var columnVisibility = NavigationSplitViewVisibility.doubleColumn
     // .doubleColumn or .detailOnly
     @ObservationIgnored var oneormoretasksissnapshot: Bool {
-        return (configurations?.contains { $0.task == SharedReference.shared.snapshot} ?? false )
+        (configurations?.contains { $0.task == SharedReference.shared.snapshot } ?? false)
     }
+
     @ObservationIgnored var oneormoresnapshottasksisremote: Bool {
-        configurations?.filter({ $0.task == SharedReference.shared.snapshot &&
-            $0.offsiteServer.isEmpty == false }).count ?? 0 > 0
+        configurations?.filter { $0.task == SharedReference.shared.snapshot &&
+            $0.offsiteServer.isEmpty == false
+        }.count ?? 0 > 0
     }
+
     @ObservationIgnored var oneormoresynchronizetasksisremote: Bool {
-        configurations?.filter({ $0.task == SharedReference.shared.synchronize &&
-            $0.offsiteServer.isEmpty == false }).count ?? 0 > 0
+        configurations?.filter { $0.task == SharedReference.shared.synchronize &&
+            $0.offsiteServer.isEmpty == false
+        }.count ?? 0 > 0
     }
-    
+
     var test: Bool {
         (configurations?.contains {
-            $0.task == SharedReference.shared.snapshot} ?? false )
+            $0.task == SharedReference.shared.snapshot
+        } ?? false)
     }
-    
+
     init() {}
 }
-
 
 /*
  rsyncUIdata.oneormoretasksissnapshot = (rsyncUIdata.configurations?.contains {
@@ -57,5 +61,5 @@ final class RsyncUIconfigurations {
      $0.offsiteServer.isEmpty == false }).count ?? 0 > 0
  rsyncUIdata.oneormoresynchronizetasksisremote = rsyncUIdata.configurations?.filter({ $0.task == SharedReference.shared.synchronize &&
      $0.offsiteServer.isEmpty == false }).count ?? 0 > 0
- 
+
  */

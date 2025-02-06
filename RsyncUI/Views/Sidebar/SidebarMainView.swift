@@ -68,7 +68,11 @@ struct SidebarMainView: View {
                     SidebarRow(sidebaritem: item.menuitem)
                 }
 
-                if item.menuitem == .tasks || item.menuitem == .snapshots || item.menuitem == .log_listings { Divider() }
+                if item.menuitem == .tasks ||
+                    item.menuitem == .snapshots ||
+                    item.menuitem == .log_listings ||
+                    item.menuitem == .restore
+                { Divider() }
             }
             .listStyle(.sidebar)
             .disabled(disablesidebarmeny)
@@ -181,38 +185,37 @@ struct SidebarMainView: View {
             verifynavigation.isEmpty == false ||
             SharedReference.shared.process != nil
     }
-    
-    
+
     // The Sidebar meny is context sensitive. There are three Sidebar meny options
     // which are context sensitive:
     // - Snapshots
     // - Verify remote
     // - Restore
     var menuitems: [MenuItem] {
-        return Sidebaritems.allCases.compactMap { item in
+        Sidebaritems.allCases.compactMap { item in
             // Return nil if there is one or more snapshot tasks
             // Do not show the Snapshot sidebar meny
-            if rsyncUIdata.oneormoretasksissnapshot == false &&
-                item == .snapshots { return nil }
-            
+            if rsyncUIdata.oneormoretasksissnapshot == false,
+               item == .snapshots { return nil }
+
             // Return nil if there is one or more remote tasks
             // and only remote task is snapshot
             // Do not show the Verify remote sidebar meny
-            if rsyncUIdata.oneormoretasksissnapshot == true &&
-                rsyncUIdata.oneormoresynchronizetasksisremote == false &&
-                item == .verify_remote { return nil }
-            
+            if rsyncUIdata.oneormoretasksissnapshot == true,
+               rsyncUIdata.oneormoresynchronizetasksisremote == false,
+               item == .verify_remote { return nil }
+
             // Return nil if there is no remote tasks, only local attached discs
             // Do not show the Verify remote sidebar meny
-            if rsyncUIdata.oneormoresynchronizetasksisremote == false &&
-                item == .verify_remote { return nil }
-            
+            if rsyncUIdata.oneormoresynchronizetasksisremote == false,
+               item == .verify_remote { return nil }
+
             // Return nil if there is no remote tasks, only local attached discs
             // Do not show the Restore remote sidebar meny
-            if rsyncUIdata.oneormoresynchronizetasksisremote == false &&
-                rsyncUIdata.oneormoresnapshottasksisremote == false &&
-                item == .restore { return nil }
-            
+            if rsyncUIdata.oneormoresynchronizetasksisremote == false,
+               rsyncUIdata.oneormoresnapshottasksisremote == false,
+               item == .restore { return nil }
+
             return MenuItem(menuitem: item)
         }
     }
