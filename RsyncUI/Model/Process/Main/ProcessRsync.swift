@@ -107,7 +107,7 @@ final class ProcessRsync {
             Logger.process.info("ProcessRsync: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
     }
-    
+
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
