@@ -150,21 +150,23 @@ struct RsyncParametersView: View {
                 }
             }
 
-            ToolbarItem {
-                Button {
-                    saversyncparameters()
-                } label: {
-                    if notifydataisupdated {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(Color(.red))
-                    } else {
-                        Image(systemName: "checkmark.circle")
-                            .foregroundColor(Color(.blue))
+            if selectedconfig != nil {
+                ToolbarItem {
+                    Button {
+                        saversyncparameters()
+                    } label: {
+                        if notifydataisupdated {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(Color(.red))
+                        } else {
+                            Image(systemName: "checkmark.circle")
+                                .foregroundColor(Color(.blue))
+                        }
                     }
+                    .help("Update task")
                 }
-                .help("Update task")
             }
-
+            
             ToolbarItem {
                 Button {
                     rsyncnavigation.append(ParametersTasks(task: .defaultparameters))
