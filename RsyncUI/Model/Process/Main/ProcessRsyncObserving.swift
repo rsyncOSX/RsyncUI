@@ -118,6 +118,22 @@ final class ProcessRsyncObserving {
                    filehandler: filehandler,
                    usefilehandler: true)
      }
+     
+     convenience init(arguments: [String]?,
+                      config: SynchronizeConfiguration?,
+                      processtermination: @escaping ([String]?, Int?) -> Void)
+     {
+         // To satisfy arguments
+         let filehandler: (Int) -> Void = { _ in
+             Logger.process.info("ProcessRsyncObserving: You should NOT SEE this message")
+         }
+         self.init(arguments: arguments,
+                   config: config,
+                   processtermination: processtermination,
+                   filehandler: filehandler,
+                   usefilehandler: false)
+     }
+     
      */
     convenience init(arguments: [String]?,
                      processtermination: @escaping ([String]?, Int?) -> Void)
@@ -128,21 +144,6 @@ final class ProcessRsyncObserving {
         }
         self.init(arguments: arguments,
                   config: nil,
-                  processtermination: processtermination,
-                  filehandler: filehandler,
-                  usefilehandler: false)
-    }
-
-    convenience init(arguments: [String]?,
-                     config: SynchronizeConfiguration?,
-                     processtermination: @escaping ([String]?, Int?) -> Void)
-    {
-        // To satisfy arguments
-        let filehandler: (Int) -> Void = { _ in
-            Logger.process.info("ProcessRsyncObserving: You should NOT SEE this message")
-        }
-        self.init(arguments: arguments,
-                  config: config,
                   processtermination: processtermination,
                   filehandler: filehandler,
                   usefilehandler: false)
