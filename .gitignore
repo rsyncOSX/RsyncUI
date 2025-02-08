@@ -9,6 +9,7 @@ Logs/
 Build/
 ModuleCache.noindex/
 Index.noindex/
+*.dmg
 
 ## Various settings
 *.pbxuser

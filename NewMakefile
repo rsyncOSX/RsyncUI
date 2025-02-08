@@ -1,0 +1,96 @@
+APP = RsyncUI
+BUNDLE_ID = no.blogspot.$(APP)
+
+BUILD_PATH = $(PWD)/build
+APP_PATH = "$(BUILD_PATH)/$(APP).app"
+ZIP_PATH = "$(BUILD_PATH)/$(APP).zip"
+
+# .SILENT: archive notarize sign prepare-dmg clean next-version check history disk smc leveldb
+# .PHONY: build archive notarize sign prepare-dmg clean next-version check history open smc leveldb
+
+# build: clean next-version archive notarize sign prepare-dmg prepare-dSYM open
+
+build: clean archive notarize sign prepare-dmg open
+
+# --- MAIN WORLFLOW FUNCTIONS --- #
+
+archive: clean
+	osascript -e 'display notification "Exporting application archive..." with title "Build the Stats"'
+	echo "Exporting application archive..."
+
+	xcodebuild \
+  		-scheme $(APP) \
+  		-destination 'platform=OS X,arch=x86_64' \
+  		-configuration Release archive \
+  		-archivePath $(BUILD_PATH)/$(APP).xcarchive
+
+	echo "Application built, starting the export archive..."
+
+	xcodebuild -exportArchive \
+  		-exportOptionsPlist "images/exportOptions.plist" \
+  		-archivePath $(BUILD_PATH)/$(APP).xcarchive \
+  		-exportPath $(BUILD_PATH)
+
+	ditto -c -k --keepParent $(APP_PATH) $(ZIP_PATH)
+
+	echo "Project archived successfully"
+
+notarize:
+	osascript -e 'display notification "Submitting app for notarization..." with title "Build the Stats"'
+	echo "Submitting app for notarization..."
+
+	xcrun notarytool submit --keychain-profile "RsyncUI" --wait $(ZIP_PATH)
+
+	echo "Stats successfully notarized"
+
+sign:
+	osascript -e 'display notification "Stampling the Stats..." with title "Build the Stats"'
+	echo "Going to staple an application..."
+
+	xcrun stapler staple $(APP_PATH)
+	spctl -a -t exec -vvv $(APP_PATH)
+
+	osascript -e 'display notification "Stats successfully stapled" with title "Build the Stats"'
+	echo "Stats successfully stapled"
+
+prepare-dmg:
+	if [ ! -d $(PWD)/create-dmg ]; then \
+	    git clone https://github.com/create-dmg/create-dmg; \
+	fi
+
+	./create-dmg/create-dmg \
+	    --volname "RsyncUI ver 2.3.3 b(133)" \
+	    --background "./images/background.png" \
+	    --window-pos 200 120 \
+	    --window-size 500 320 \
+	    --icon-size 80 \
+	    --icon "RsyncUI.app" 125 175 \
+	    --hide-extension "RsyncUI.app" \
+	    --app-drop-link 375 175 \
+	    --no-internet-enable \
+	    --codesign 93M47F4H9T\
+	    "RsyncUI.2.3.3.dmg" \
+	    $(APP_PATH)
+
+	rm -rf ./create-dmg
+
+# --- HELPERS --- #
+
+clean:
+	rm -rf $(BUILD_PATH)
+	if [ -a $(PWD)/RsyncUI.dmg ]; then rm $(PWD)/RsyncUI.dmg; fi;
+
+check:
+	xcrun notarytool log 2d0045cc-8f0d-4f4c-ba6f-728895fd064a --keychain-profile "RsyncUI"
+
+history:
+	xcrun notarytool history --keychain-profile "RsyncUI"
+
+open:
+	osascript -e 'display notification "Stats signed and ready for distribution" with title "Build the Stats"'
+	echo "Opening working folder..."
+	open $(PWD)
+
+smc:
+	$(MAKE) --directory=./smc
+	open $(PWD)/smc
