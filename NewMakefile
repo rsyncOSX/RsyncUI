@@ -27,7 +27,7 @@ archive: clean
 	echo "Application built, starting the export archive..."
 
 	xcodebuild -exportArchive \
-  		-exportOptionsPlist "$(PWD)/exportOptions.plist" \
+  		-exportOptionsPlist "images/exportOptions.plist" \
   		-archivePath $(BUILD_PATH)/$(APP).xcarchive \
   		-exportPath $(BUILD_PATH)
 
@@ -59,7 +59,7 @@ prepare-dmg:
 	fi
 
 	./create-dmg/create-dmg \
-	    --volname $(APP) \
+	    --volname "RsyncUI ver 2.3.3 b(133)" \
 	    --background "./images/background.png" \
 	    --window-pos 200 120 \
 	    --window-size 500 320 \
@@ -69,7 +69,7 @@ prepare-dmg:
 	    --app-drop-link 375 175 \
 	    --no-internet-enable \
 	    --codesign 93M47F4H9T\
-	    $(PWD)/$(APP).dmg \
+	    "RsyncUI.2.3.3.dmg" \
 	    $(APP_PATH)
 
 	rm -rf ./create-dmg
@@ -94,31 +94,3 @@ open:
 smc:
 	$(MAKE) --directory=./smc
 	open $(PWD)/smc
-
-
-# all: release
-# debug:
-#	xcodebuild -derivedDataPath $(PWD) -configuration Debug -scheme RsyncUI
-# release:
-#	xcodebuild -derivedDataPath $(PWD) -configuration Release -scheme RsyncUI
-#clean:
-#	rm -Rf Build
-#	rm -Rf ModuleCache.noindex
-#	rm -Rf info.plist
-#	rm -Rf Logs
-#	rm -rf SourcePackages
-#	rm -rf SDKStatCaches.noindex
-#	rm -rf Index.noindex
-
-# Create the DMG
-#$CREATE_DMG \
-#  --volname "RsyncUI ver 2.3.2 b(132)" \
-#  --window-pos 200 120 \
-#  --window-size 800 400 \
-#  --icon-size 100 \
-#  --icon "RsyncUI.app" 200 190 \
-#  --hide-extension "RsyncUI.app" \
-#  --app-drop-link 600 185 \
-#  --codesign 93M47F4H9T\
-#  "RsyncUI.2.3.2.dmg" \
-#  "source_folder/"
