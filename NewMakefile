@@ -78,7 +78,7 @@ clean:
 	if [ -a $(PWD)/RsyncUI.dmg ]; then rm $(PWD)/RsyncUI.dmg; fi;
 
 check:
-	xcrun notarytool log 2d0045cc-8f0d-4f4c-ba6f-728895fd064a --keychain-profile "RsyncUI"
+	xcrun notarytool log f62c4146-0758-4942-baac-9575190858b8 --keychain-profile "RsyncUI"
 
 history:
 	xcrun notarytool history --keychain-profile "RsyncUI"
