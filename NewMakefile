@@ -27,7 +27,7 @@ archive: clean
 	echo "Application built, starting the export archive..."
 
 	xcodebuild -exportArchive \
-  		-exportOptionsPlist "images/exportOptions.plist" \
+  		-exportOptionsPlist "exportOptions.plist" \
   		-archivePath $(BUILD_PATH)/$(APP).xcarchive \
   		-exportPath $(BUILD_PATH)
 
@@ -54,11 +54,8 @@ sign:
 	echo "Stats successfully stapled"
 
 prepare-dmg:
-	if [ ! -d $(PWD)/create-dmg ]; then \
-	    git clone https://github.com/create-dmg/create-dmg; \
-	fi
 
-	./create-dmg/create-dmg \
+	../create-dmg/create-dmg \
 	    --volname "RsyncUI ver 2.3.3 b(133)" \
 	    --background "./images/background.png" \
 	    --window-pos 200 120 \
