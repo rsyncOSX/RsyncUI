@@ -9,6 +9,7 @@ ZIP_PATH = "$(BUILD_PATH)/$(APP).zip"
 # .PHONY: build archive notarize sign prepare-dmg clean next-version check history open smc leveldb
 
 # build: clean next-version archive notarize sign prepare-dmg prepare-dSYM open
+# spctl -a -v RsyncUI.2.3.3.dmg 
 
 build: clean archive notarize sign prepare-dmg open
 
