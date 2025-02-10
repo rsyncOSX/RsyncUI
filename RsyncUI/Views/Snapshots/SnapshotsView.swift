@@ -137,9 +137,8 @@ struct SnapshotsView: View {
                     )
                 }
             }
-            
+
             if selectedconfig?.task == SharedReference.shared.snapshot {
-                
                 ToolbarItem {
                     Button {
                         updateplansnapshot()
@@ -150,7 +149,7 @@ struct SnapshotsView: View {
                     .help("Update plan snapshot")
                     .disabled(isdisabled)
                 }
-                
+
                 ToolbarItem {
                     Button {
                         tagsnapshots()
@@ -159,7 +158,6 @@ struct SnapshotsView: View {
                     }
                     .help("Tag snapshot")
                 }
-                
             }
 
             ToolbarItem {
