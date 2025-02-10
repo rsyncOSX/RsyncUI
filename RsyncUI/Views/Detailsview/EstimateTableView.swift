@@ -32,7 +32,14 @@ struct EstimateTableView: View {
                 }
             }
             .width(min: 50, max: 200)
-            TableColumn("Task", value: \.task)
+            TableColumn("Task") { data in
+                if data.task == SharedReference.shared.halted {
+                    Image(systemName: "stop.fill")
+                        .foregroundColor(Color(.red))
+                } else {
+                    Text(data.task)
+                }
+            }
                 .width(max: 80)
             TableColumn("Local catalog", value: \.localCatalog)
                 .width(min: 80, max: 300)
