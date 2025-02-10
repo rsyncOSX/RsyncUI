@@ -40,7 +40,7 @@ struct EstimateTableView: View {
                     Text(data.task)
                 }
             }
-                .width(max: 80)
+            .width(max: 80)
             TableColumn("Local catalog", value: \.localCatalog)
                 .width(min: 80, max: 300)
             TableColumn("Remote catalog", value: \.offsiteCatalog)

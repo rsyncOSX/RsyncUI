@@ -166,7 +166,7 @@ struct RsyncParametersView: View {
                     .help("Update task")
                 }
             }
-            
+
             ToolbarItem {
                 Button {
                     rsyncnavigation.append(ParametersTasks(task: .defaultparameters))

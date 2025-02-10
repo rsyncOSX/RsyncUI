@@ -115,8 +115,8 @@ struct ExecutePushPullView: View {
         let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: dryrun,
                                                                                            forDisplay: false)
         let process = ProcessRsync(arguments: arguments,
-                                            config: config,
-                                            processtermination: processtermination)
+                                   config: config,
+                                   processtermination: processtermination)
         process.executeProcess()
     }
 
@@ -124,8 +124,8 @@ struct ExecutePushPullView: View {
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryrun,
                                                                                               forDisplay: false)
         let process = ProcessRsync(arguments: arguments,
-                                            config: config,
-                                            processtermination: processtermination)
+                                   config: config,
+                                   processtermination: processtermination)
         process.executeProcess()
     }
 
