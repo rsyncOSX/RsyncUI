@@ -101,6 +101,8 @@ struct SidebarMainView: View {
                 if SharedReference.shared.sidebarishidden {
                     columnVisibility = .detailOnly
                 }
+                // Observer for mounting volumes
+                observerdidMountNotification()
             }
         }
         .onOpenURL { incomingURL in
@@ -318,6 +320,17 @@ extension SidebarMainView {
             }
         default:
             return
+        }
+    }
+
+    func observerdidMountNotification() {
+        Logger.process.info("SidebarMainView: observerdidMountNotification added")
+        let notificationCenter = NSWorkspace.shared.notificationCenter
+        notificationCenter.addObserver(forName: NSWorkspace.didMountNotification,
+                                       object: nil, queue: .main) { notification in
+            if let volumeURL = notification.userInfo?[NSWorkspace.volumeURLUserInfoKey] as? URL {
+                Logger.process.info("SidebarMainView: observerdidMountNotification \(volumeURL)")
+            }
         }
     }
 }
