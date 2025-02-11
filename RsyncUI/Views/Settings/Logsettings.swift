@@ -13,6 +13,7 @@ struct Logsettings: View {
     @State private var logsettings = ObservableLogSettings()
     @State private var showthumbsup: Bool = false
     @State private var settingsischanged: Bool = false
+    @State private var toggleobservemountedvolumes: Bool = false
 
     var body: some View {
         Form {
@@ -45,6 +46,7 @@ struct Logsettings: View {
                 ToggleViewDefault(text: NSLocalizedString("Observe mounting of external drives", comment: ""), binding: $logsettings.observemountedvolumes)
                     .onChange(of: logsettings.observemountedvolumes) {
                         SharedReference.shared.observemountedvolumes = logsettings.observemountedvolumes
+                        toggleobservemountedvolumes = logsettings.observemountedvolumes
                         settingsischanged = true
                     }
 
@@ -57,6 +59,9 @@ struct Logsettings: View {
                 }
 
                 if showthumbsup { thumbsupgreen }
+                if toggleobservemountedvolumes {
+                    Text("If switched ON, please restart RsyncUI to take effect")
+                }
 
             } header: {
                 Text("Monitor network, error and log settings")
