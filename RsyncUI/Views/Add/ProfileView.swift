@@ -18,6 +18,7 @@ struct ProfileView: View {
     @State private var newprofile: String = ""
 
     @State private var isPresentingConfirm: Bool = false
+    @State private var allconfigurations: [SynchronizeConfiguration] = []
 
     var body: some View {
         VStack {
@@ -33,7 +34,7 @@ struct ProfileView: View {
                     localselectedprofile = record[0].profilename
                 }
 
-                ProfilesToUpdataView(allprofiles: rsyncUIdata.validprofiles)
+                ProfilesToUpdataView(allconfigurations: allconfigurations)
             }
 
             EditValue(150, NSLocalizedString("Create profile", comment: ""),
@@ -41,6 +42,9 @@ struct ProfileView: View {
         }
         .onSubmit {
             createprofile()
+        }
+        .task {
+            allconfigurations = await ReadAllTasks().readalltasks(rsyncUIdata.validprofiles)
         }
         .navigationTitle("Profile create or delete")
         .toolbar {
