@@ -335,13 +335,14 @@ extension SidebarMainView {
             if let volumeURL = notification.userInfo?[NSWorkspace.volumeURLUserInfoKey] as? URL {
                 Logger.process.info("SidebarMainView: observerdidMountNotification \(volumeURL)")
                 Task {
+                    guard await tasksareinprogress() == false else { return }
                     await verifyandloadprofilemountedvolume(volumeURL)
                 }
             }
         }
     }
 
-    func verifyandloadprofilemountedvolume(_ mountedvolume: URL) async {
+    private func verifyandloadprofilemountedvolume(_ mountedvolume: URL) async {
         let allconfigurations = await ReadAllTasks().readalltasks(rsyncUIdata.validprofiles)
         let volume = mountedvolume.lastPathComponent
         let mappedallconfigurations = allconfigurations.compactMap { configuration in
@@ -356,6 +357,20 @@ extension SidebarMainView {
             }
         }
         print(profile)
+    }
+    
+    // Must check that no tasks are running
+    private func tasksareinprogress() async -> Bool {
+        guard SharedReference.shared.process != nil else {
+            return true
+        }
+        guard estimateprogressdetails.estimatealltasksinprogress == false else {
+            return true
+        }
+        guard executetasknavigation.isEmpty == true else {
+            return true
+        }
+        return false
     }
 }
 
