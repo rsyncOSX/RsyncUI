@@ -42,6 +42,11 @@ struct Logsettings: View {
                         SharedReference.shared.sidebarishidden = logsettings.sidebarishidden
                         settingsischanged = true
                     }
+                ToggleViewDefault(text: NSLocalizedString("Observe mounting of external drives", comment: ""), binding: $logsettings.observemountedvolumes)
+                    .onChange(of: logsettings.observemountedvolumes) {
+                        SharedReference.shared.observemountedvolumes = logsettings.observemountedvolumes
+                        settingsischanged = true
+                    }
 
                 if SharedReference.shared.rsyncversion3 {
                     ToggleViewDefault(text: NSLocalizedString("Confirm execute", comment: ""), binding: $logsettings.confirmexecute)
