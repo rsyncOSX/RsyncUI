@@ -48,6 +48,7 @@ struct SidebarMainView: View {
     @State private var columnVisibility = NavigationSplitViewVisibility.doubleColumn
     // .doubleColumn
     // .detailOnly
+    @State private var mountingvolumenow: Bool = false
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
@@ -80,6 +81,17 @@ struct SidebarMainView: View {
             if newversion.notifynewversion {
                 MessageView(mytext: "Update available", size: .caption2)
                     .padding([.bottom], -30)
+            }
+            
+            if mountingvolumenow {
+                MessageView(mytext: "Mounting volume\nplease wait", size: .caption2)
+                    .padding([.bottom], -30)
+                    .onAppear {
+                        Task {
+                            try await Task.sleep(seconds: 3)
+                            mountingvolumenow = false
+                        }
+                    }
             }
 
             MessageView(mytext: SharedReference.shared.rsyncversionshort ?? "", size: .caption2)
@@ -343,6 +355,7 @@ extension SidebarMainView {
     }
 
     private func verifyandloadprofilemountedvolume(_ mountedvolume: URL) async {
+        mountingvolumenow = true
         let allconfigurations = await ReadAllTasks().readalltasks(rsyncUIdata.validprofiles)
         let volume = mountedvolume.lastPathComponent
         let mappedallconfigurations = allconfigurations.compactMap { configuration in
