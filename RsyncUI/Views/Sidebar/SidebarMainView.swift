@@ -356,12 +356,13 @@ extension SidebarMainView {
                 return nil
             }
         }
-        print(profile)
+        let uniqprofiles = Set(profile)
+        selectedprofile = uniqprofiles.first
     }
     
     // Must check that no tasks are running
     private func tasksareinprogress() async -> Bool {
-        guard SharedReference.shared.process != nil else {
+        guard SharedReference.shared.process == nil else {
             return true
         }
         guard estimateprogressdetails.estimatealltasksinprogress == false else {
