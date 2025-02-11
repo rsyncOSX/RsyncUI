@@ -1,15 +1,10 @@
 APP = RsyncUI
 BUNDLE_ID = no.blogspot.$(APP)
+VERSION = 2.3.3
 
 BUILD_PATH = $(PWD)/build
 APP_PATH = "$(BUILD_PATH)/$(APP).app"
-ZIP_PATH = "$(BUILD_PATH)/$(APP).zip"
-
-# .SILENT: archive notarize sign prepare-dmg clean next-version check history disk smc leveldb
-# .PHONY: build archive notarize sign prepare-dmg clean next-version check history open smc leveldb
-
-# build: clean next-version archive notarize sign prepare-dmg prepare-dSYM open
-# spctl -a -v RsyncUI.2.3.3.dmg 
+ZIP_PATH = "$(BUILD_PATH)/$(APP).$(VERSION).zip"
 
 build: clean archive notarize sign prepare-dmg open
 
@@ -57,7 +52,7 @@ sign:
 prepare-dmg:
 
 	../create-dmg/create-dmg \
-	    --volname "RsyncUI ver 2.3.3 b(133)" \
+	    --volname "RsyncUI ver $(VERSION)" \
 	    --background "./images/background.png" \
 	    --window-pos 200 120 \
 	    --window-size 500 320 \
@@ -67,10 +62,8 @@ prepare-dmg:
 	    --app-drop-link 375 175 \
 	    --no-internet-enable \
 	    --codesign 93M47F4H9T\
-	    "RsyncUI.2.3.3.dmg" \
+	    "$(APP).$(VERSION).dmg" \
 	    $(APP_PATH)
-
-	rm -rf ./create-dmg
 
 # --- HELPERS --- #
 
@@ -88,7 +81,3 @@ open:
 	osascript -e 'display notification "Stats signed and ready for distribution" with title "Build the Stats"'
 	echo "Opening working folder..."
 	open $(PWD)
-
-smc:
-	$(MAKE) --directory=./smc
-	open $(PWD)/smc
