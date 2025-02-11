@@ -101,7 +101,8 @@ struct SidebarMainView: View {
                 if SharedReference.shared.sidebarishidden {
                     columnVisibility = .detailOnly
                 }
-                if SharedReference.shared.observemountedvolumes {
+                // Only addObserver if there are more than the default profile
+                if SharedReference.shared.observemountedvolumes, rsyncUIdata.validprofiles.count > 1 {
                     // Observer for mounting volumes
                     observerdidMountNotification()
                 }
@@ -333,8 +334,28 @@ extension SidebarMainView {
         { notification in
             if let volumeURL = notification.userInfo?[NSWorkspace.volumeURLUserInfoKey] as? URL {
                 Logger.process.info("SidebarMainView: observerdidMountNotification \(volumeURL)")
+                Task {
+                    await verifyandloadprofilemountedvolume(volumeURL)
+                }
             }
         }
+    }
+
+    func verifyandloadprofilemountedvolume(_ mountedvolume: URL) async {
+        let allconfigurations = await ReadAllTasks().readalltasks(rsyncUIdata.validprofiles)
+        let volume = mountedvolume.lastPathComponent
+        let mappedallconfigurations = allconfigurations.compactMap { configuration in
+            (configuration.offsiteServer.isEmpty == true && configuration.offsiteCatalog.contains(volume) == true) ? configuration : nil
+        }
+        let profile = mappedallconfigurations.compactMap { configuration in
+            let split = configuration.backupID.split(separator: " : ")
+            if split.count == 2 {
+                return String(split[1])
+            } else {
+                return nil
+            }
+        }
+        print(profile)
     }
 }
 

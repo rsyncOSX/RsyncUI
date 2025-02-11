@@ -44,7 +44,7 @@ struct ProfileView: View {
             createprofile()
         }
         .task {
-            allconfigurations = await ReadAllTasks().readalltasks(rsyncUIdata.validprofiles)
+            allconfigurations = await ReadAllTasks().readallmarkedtasks(rsyncUIdata.validprofiles)
         }
         .navigationTitle("Profile create or delete")
         .toolbar {

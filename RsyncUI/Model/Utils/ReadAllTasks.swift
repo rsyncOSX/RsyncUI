@@ -10,7 +10,7 @@ import OSLog
 
 @MainActor
 struct ReadAllTasks {
-    func readalltasks(_ validprofiles: [ProfilesnamesRecord]) async -> [SynchronizeConfiguration] {
+    func readallmarkedtasks(_ validprofiles: [ProfilesnamesRecord]) async -> [SynchronizeConfiguration] {
         var old: [SynchronizeConfiguration]?
         // Important: we must temporarly disable monitor network connection
         if SharedReference.shared.monitornetworkconnection {
@@ -27,6 +27,7 @@ struct ReadAllTasks {
                                                        SharedReference.shared.monitornetworkconnection,
                                                        SharedReference.shared.sshport,
                                                        SharedReference.shared.fileconfigurationsjson)
+
             let profileold = configurations?.filter { element in
                 var seconds: Double {
                     if let date = element.dateRun {
@@ -38,6 +39,7 @@ struct ReadAllTasks {
                 }
                 return markconfig(seconds) == true
             }
+
             if old == nil, let profileold {
                 old = profileold.map { element in
                     var newelement = element
@@ -70,5 +72,39 @@ struct ReadAllTasks {
 
     private func markconfig(_ seconds: Double) -> Bool {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
+    }
+
+    func readalltasks(_ validprofiles: [ProfilesnamesRecord]) async -> [SynchronizeConfiguration] {
+        var allconfigurations: [SynchronizeConfiguration] = []
+        // Important: we must temporarly disable monitor network connection
+        if SharedReference.shared.monitornetworkconnection {
+            Logger.process.info("ReadAllTasks: monitornetworkconnection is disabled")
+            SharedReference.shared.monitornetworkconnection = false
+        }
+
+        let allprofiles = validprofiles.map(\.profilename)
+
+        for i in 0 ..< allprofiles.count {
+            let profilename = allprofiles[i]
+            let configurations = await ActorReadSynchronizeConfigurationJSON()
+                .readjsonfilesynchronizeconfigurations(profilename,
+                                                       SharedReference.shared.monitornetworkconnection,
+                                                       SharedReference.shared.sshport,
+                                                       SharedReference.shared.fileconfigurationsjson)
+
+            let adjustedconfigurations = configurations?.map { element in
+                var newelement = element
+                if newelement.backupID.isEmpty {
+                    newelement.backupID = "Synchronize ID"
+                }
+                newelement.backupID += " : " + profilename
+                return newelement
+            }
+
+            if let adjustedconfigurations {
+                allconfigurations.append(contentsOf: adjustedconfigurations)
+            }
+        }
+        return allconfigurations
     }
 }
