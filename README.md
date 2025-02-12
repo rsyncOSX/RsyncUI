@@ -20,6 +20,7 @@ It might take a few seconds. If not, RsyncUI might become unresponsive.
 ### RsyncUI (Swift, SwiftUI)
 
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD)
+![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.3.4/total)
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.3.2/total)
 [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
@@ -27,7 +28,7 @@ It might take a few seconds. If not, RsyncUI might become unresponsive.
 
 | App     | UI                  | Latest version                                                                                      |
 |---------|---------------------|-----------------------------------------------------------------------------------------------------|
-| RsyncUI | SwiftUI, declarativ | v2.3.2 - [29 January 2025](https://github.com/rsyncOSX/RsyncUI/releases) - in **active development** |
+| RsyncUI | SwiftUI, declarativ | v2.3.4 - [12 February 2025](https://github.com/rsyncOSX/RsyncUI/releases) - in **active development** |
 
 The [user guide](https://rsyncui.netlify.app/docs/) and [changelog](https://rsyncui.netlify.app/blog/)
 
