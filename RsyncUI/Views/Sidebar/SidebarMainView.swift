@@ -359,7 +359,9 @@ extension SidebarMainView {
         let allconfigurations = await ReadAllTasks().readalltasks(rsyncUIdata.validprofiles)
         let volume = mountedvolume.lastPathComponent
         let mappedallconfigurations = allconfigurations.compactMap { configuration in
-            (configuration.offsiteServer.isEmpty == true && configuration.offsiteCatalog.contains(volume) == true) ? configuration : nil
+            (configuration.offsiteServer.isEmpty == true &&
+             configuration.offsiteCatalog.contains(volume) == true &&
+             configuration.task != SharedReference.shared.halted ) ? configuration : nil
         }
         let profile = mappedallconfigurations.compactMap { $0.backupID }
         guard profile.count > 0 else {
