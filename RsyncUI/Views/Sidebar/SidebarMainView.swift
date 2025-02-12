@@ -48,6 +48,7 @@ struct SidebarMainView: View {
     @State private var columnVisibility = NavigationSplitViewVisibility.doubleColumn
     // .doubleColumn
     // .detailOnly
+    @State private var mountingvolumenow: Bool = false
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
@@ -81,6 +82,17 @@ struct SidebarMainView: View {
                 MessageView(mytext: "Update available", size: .caption2)
                     .padding([.bottom], -30)
             }
+            
+            if mountingvolumenow {
+                MessageView(mytext: "Mounting volume\nplease wait", size: .caption2)
+                    .padding([.bottom], -30)
+                    .onAppear {
+                        Task {
+                            try await Task.sleep(seconds: 3)
+                            mountingvolumenow = false
+                        }
+                    }
+            }
 
             MessageView(mytext: SharedReference.shared.rsyncversionshort ?? "", size: .caption2)
 
@@ -100,6 +112,11 @@ struct SidebarMainView: View {
                 SharedReference.shared.newversion = newversion.notifynewversion
                 if SharedReference.shared.sidebarishidden {
                     columnVisibility = .detailOnly
+                }
+                // Only addObserver if there are more than the default profile
+                if SharedReference.shared.observemountedvolumes, rsyncUIdata.validprofiles.count > 1 {
+                    // Observer for mounting volumes
+                    observerdidMountNotification()
                 }
             }
         }
@@ -319,6 +336,48 @@ extension SidebarMainView {
         default:
             return
         }
+    }
+
+    func observerdidMountNotification() {
+        Logger.process.info("SidebarMainView: observerdidMountNotification added")
+        let notificationCenter = NSWorkspace.shared.notificationCenter
+        notificationCenter.addObserver(forName: NSWorkspace.didMountNotification,
+                                       object: nil, queue: .main)
+        { notification in
+            if let volumeURL = notification.userInfo?[NSWorkspace.volumeURLUserInfoKey] as? URL {
+                Logger.process.info("SidebarMainView: observerdidMountNotification \(volumeURL)")
+                Task {
+                    guard await tasksareinprogress() == false else { return }
+                    await verifyandloadprofilemountedvolume(volumeURL)
+                }
+            }
+        }
+    }
+
+    private func verifyandloadprofilemountedvolume(_ mountedvolume: URL) async {
+        mountingvolumenow = true
+        let allconfigurations = await ReadAllTasks().readalltasks(rsyncUIdata.validprofiles)
+        let volume = mountedvolume.lastPathComponent
+        let mappedallconfigurations = allconfigurations.compactMap { configuration in
+            (configuration.offsiteServer.isEmpty == true && configuration.offsiteCatalog.contains(volume) == true) ? configuration : nil
+        }
+        let profile = mappedallconfigurations.compactMap { $0.backupID }
+        let uniqprofiles = Set(profile)
+        selectedprofile = uniqprofiles.first
+    }
+    
+    // Must check that no tasks are running
+    private func tasksareinprogress() async -> Bool {
+        guard SharedReference.shared.process == nil else {
+            return true
+        }
+        guard estimateprogressdetails.estimatealltasksinprogress == false else {
+            return true
+        }
+        guard executetasknavigation.isEmpty == true else {
+            return true
+        }
+        return false
     }
 }
 

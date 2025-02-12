@@ -52,7 +52,7 @@ final class ProcessRsyncObserving {
 
         notificationsfilehandle =
             NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable,
-                                                   object: nil, queue: nil)
+                                                   object: nil, queue: .main)
         { _ in
             Task {
                 await self.datahandle(pipe)
@@ -61,7 +61,7 @@ final class ProcessRsyncObserving {
 
         notificationstermination =
             NotificationCenter.default.addObserver(forName: Process.didTerminateNotification,
-                                                   object: task, queue: nil)
+                                                   object: task, queue: .main)
         { _ in
             Task {
                 // Debounce termination for 500 ms

@@ -35,6 +35,8 @@ struct UserConfiguration: Codable {
     var synchronizewithouttimedelay: Int = -1
     // Hide or show the Sidebar on startup
     var sidebarishidden: Int = -1
+    // Observe mounting local atteched discs
+    var observemountedvolumes: Int = -1
 
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
@@ -97,6 +99,11 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.sidebarishidden = false
         }
+        if observemountedvolumes == 1 {
+            SharedReference.shared.observemountedvolumes = true
+        } else {
+            SharedReference.shared.observemountedvolumes = false
+        }
     }
 
     // Used when reading JSON data from store
@@ -116,6 +123,7 @@ struct UserConfiguration: Codable {
         confirmexecute = data.confirmexecute ?? -1
         synchronizewithouttimedelay = data.synchronizewithouttimedelay ?? -1
         sidebarishidden = data.sidebarishidden ?? -1
+        observemountedvolumes = data.observemountedvolumes ?? -1
         // Set data read from JSON in SharedReference.
         setuserconfigdata()
     }
@@ -180,6 +188,11 @@ struct UserConfiguration: Codable {
             sidebarishidden = 1
         } else {
             sidebarishidden = -1
+        }
+        if SharedReference.shared.observemountedvolumes == true {
+            observemountedvolumes = 1
+        } else {
+            observemountedvolumes = -1
         }
     }
 }

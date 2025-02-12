@@ -29,6 +29,7 @@ final class RsyncUIconfigurations {
     // Toggle sidebar
     var columnVisibility = NavigationSplitViewVisibility.doubleColumn
     // .doubleColumn or .detailOnly
+    
     @ObservationIgnored var oneormoretasksissnapshot: Bool {
         (configurations?.contains { $0.task == SharedReference.shared.snapshot } ?? false)
     }
@@ -43,12 +44,6 @@ final class RsyncUIconfigurations {
         configurations?.filter { $0.task == SharedReference.shared.synchronize &&
             $0.offsiteServer.isEmpty == false
         }.count ?? 0 > 0
-    }
-
-    var test: Bool {
-        (configurations?.contains {
-            $0.task == SharedReference.shared.snapshot
-        } ?? false)
     }
 
     init() {}

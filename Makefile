@@ -11,3 +11,4 @@ clean:
 	rm -rf SourcePackages
 	rm -rf SDKStatCaches.noindex
 	rm -rf Index.noindex
+	rm -rf *.dmg

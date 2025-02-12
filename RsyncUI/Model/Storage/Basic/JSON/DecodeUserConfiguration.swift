@@ -32,6 +32,8 @@ struct DecodeUserConfiguration: Codable {
     let synchronizewithouttimedelay: Int?
     // Hide or show the Sidebar on startup
     let sidebarishidden: Int?
+    // Observe mounting local atteched discs
+    let observemountedvolumes: Int?
 
     enum CodingKeys: String, CodingKey {
         case rsyncversion3
@@ -48,6 +50,7 @@ struct DecodeUserConfiguration: Codable {
         case confirmexecute
         case synchronizewithouttimedelay
         case sidebarishidden
+        case observemountedvolumes
     }
 
     init(from decoder: Decoder) throws {
@@ -66,5 +69,6 @@ struct DecodeUserConfiguration: Codable {
         confirmexecute = try values.decodeIfPresent(Int.self, forKey: .confirmexecute)
         synchronizewithouttimedelay = try values.decodeIfPresent(Int.self, forKey: .synchronizewithouttimedelay)
         sidebarishidden = try values.decodeIfPresent(Int.self, forKey: .sidebarishidden)
+        observemountedvolumes = try values.decodeIfPresent(Int.self, forKey: .observemountedvolumes)
     }
 }
