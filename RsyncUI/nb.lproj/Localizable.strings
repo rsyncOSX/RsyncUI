@@ -71,7 +71,13 @@
 "Add task" = "Legg til oppgave";
 
 /* No comment provided by engineer. */
+"Add tasks in Tasks" = "Legg til oppgaver i Oppgave";
+
+/* No comment provided by engineer. */
 "All tasks has been synchronized in the past %lld days" = "Alle oppgaver er synkronisert de siste %lld dager";
+
+/* No comment provided by engineer. */
+"And nothing to restore" = "Og ikke noe for restore";
 
 /* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
@@ -245,6 +251,9 @@
 "Icon by: Zsolt Sándor" = "Ikon av: Zsolt Sándor";
 
 /* No comment provided by engineer. */
+"If switched ON, please restart RsyncUI to take effect" = "Hvis PÅ, restart RsyncUI for å ta effekt";
+
+/* No comment provided by engineer. */
 "Import" = "Importer";
 
 /* No comment provided by engineer. */
@@ -302,16 +311,10 @@
 "New" = "Ny";
 
 /* No comment provided by engineer. */
-"No configurations yet." = "Ingen oppgaver.";
-
-/* No comment provided by engineer. */
 "No data to synchronize" = "Ingen data å synchronisere";
 
 /* No comment provided by engineer. */
 "No error" = "Ingen feil";
-
-/* No comment provided by engineer. */
-"No log records yet." = "Ingen logger.";
 
 /* No comment provided by engineer. */
 "No profile with this name" = "Inngen profil med dette navn";
@@ -320,13 +323,19 @@
 "No remote server on task" = "Ingen ekstern tjener på oppgave";
 
 /* No comment provided by engineer. */
+"No tasks" = "Ingen oppgaver";
+
+/* No comment provided by engineer. */
+"No tasks yet" = "Ingen oppgaver enda";
+
+/* No comment provided by engineer. */
 "No time delay Synchronize URL-actions" = "Ingen tidsforsinkelse ved synkronisere URL-aksjoner";
 
 /* No comment provided by engineer. */
 "Norwegian translation by: Thomas Evensen" = "Norsk oversettelse av: Thomas Evensen";
 
 /* No comment provided by engineer. */
-"Not a snapshot task." = "Ikke snapshot oppgave.";
+"Observe mounting of external drives" = "Observer montering av ekstern disk";
 
 /* No comment provided by engineer. */
 "Off" = "Av";
@@ -336,9 +345,6 @@
 
 /* No comment provided by engineer. */
 "Only rsync version 3.x supports snapshots." = "Kun rsync versjon 3 støtter snapshot.";
-
-/* No comment provided by engineer. */
-"Or there are no tasks to update." = "Eller det er ingen oppgaver å oppdatere";
 
 /* No comment provided by engineer. */
 "Output from rsync" = "Utdata fra rsync";
@@ -437,10 +443,7 @@
 "RsyncUI settings" = "RsyncUI oppsett";
 
 /* No comment provided by engineer. */
-"Save Estimate" = "Lagre estimer";
-
-/* No comment provided by engineer. */
-"Save Verify" = "Lagre verifiser";
+"Save" = "Lagre";
 
 /* No comment provided by engineer. */
 "Select a file for import" = "Velg fil for import";
@@ -551,6 +554,9 @@
 "There are no snapshot records by this search string in Date or Tag" = "Det er ingen snapshots med denne søket i dato eller tag";
 
 /* No comment provided by engineer. */
+"There are no snapshots" = "Det er ingen snapshots";
+
+/* No comment provided by engineer. */
 "There are no tasks by this Synchronize ID" = "Det er ingen oppgaver med denne Synchronize ID";
 
 /* No comment provided by engineer. */
@@ -564,6 +570,9 @@
 
 /* No comment provided by engineer. */
 "This is only due to Marknumberofdayssince set in the settings" = "Dette er kun ift Marknumberofdayssince i settings";
+
+/* No comment provided by engineer. */
+"Toggle halt task" = "Toggle stopp oppgave";
 
 /* No comment provided by engineer. */
 "Tot dir" = "Tot dir";
@@ -626,7 +635,7 @@
 "Verify task" = "Verifiser oppgave";
 
 /* No comment provided by engineer. */
-"version 3.x of rsync must be installed and enabled to use this function" = "versjon 3.x må være installert og valgt for å bruke denne funksjonen";
+"version 3.x of rsync must be installed and enabled to use this function," = "version 3.x av rsync må være installert for å bruke denne funksjonen,";
 
 /* No comment provided by engineer. */
 "Version rsync" = "Versjon rsync";
@@ -636,3 +645,4 @@
 
 /* No comment provided by engineer. */
 "View URLs" = "Se URL";
+
