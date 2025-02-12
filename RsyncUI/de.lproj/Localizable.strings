@@ -71,7 +71,13 @@
 "Add task" = "Aufgabe hinzufügen";
 
 /* No comment provided by engineer. */
+"Add tasks in Tasks" = "Aufgabe hinzufügen im Aufgabe";
+
+/* No comment provided by engineer. */
 "All tasks has been synchronized in the past %lld days" = "Alle Aufgaben wurden am letzten %lld Tage synchronisiertt";
+
+/* No comment provided by engineer. */
+"And nothing to restore" = "Und nichts wiederherzustellen";
 
 /* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
@@ -245,6 +251,9 @@
 "Icon by: Zsolt Sándor" = "Symbol von: Zsolt Sándor";
 
 /* No comment provided by engineer. */
+"If switched ON, please restart RsyncUI to take effect" = "Wenn eingeschaltet, starten Sie RsyncUI neu, damit die Änderungen wirksam werden";
+
+/* No comment provided by engineer. */
 "Import" = "Importieren";
 
 /* No comment provided by engineer. */
@@ -302,16 +311,10 @@
 "New" = "Neu";
 
 /* No comment provided by engineer. */
-"No configurations yet." = "Noch keine Konfigurationen.";
-
-/* No comment provided by engineer. */
 "No data to synchronize" = "Keine Daten zum Synchronisieren";
 
 /* No comment provided by engineer. */
 "No error" = "Kein Fehler";
-
-/* No comment provided by engineer. */
-"No log records yet." = "Noch keine Protokolldatensätze.";
 
 /* No comment provided by engineer. */
 "No profile with this name" = "Keine Profil";
@@ -320,13 +323,19 @@
 "No remote server on task" = "Kein Remote-Server für die Aufgabe";
 
 /* No comment provided by engineer. */
+"No tasks" = "Keine Aufgaben";
+
+/* No comment provided by engineer. */
+"No tasks yet" = "Keine Aufgaben jetzt";
+
+/* No comment provided by engineer. */
 "No time delay Synchronize URL-actions" = "Keine Zeitverzögerung Synchronisation von URL-Aktionen";
 
 /* No comment provided by engineer. */
 "Norwegian translation by: Thomas Evensen" = "Norwegische Übersetzung von: Thomas Evensen";
 
 /* No comment provided by engineer. */
-"Not a snapshot task." = "Keine Snapshot-Aufgabe.";
+"Observe mounting of external drives" = "Montage externer Laufwerke beachten";
 
 /* No comment provided by engineer. */
 "Off" = "Aus";
@@ -338,7 +347,7 @@
 "Only rsync version 3.x supports snapshots." = "Nur rsync Version 3.x unterstützt Snapshots.";
 
 /* No comment provided by engineer. */
-"Or there are no tasks to update." = "Oder es sind keine Aufgaben zum Aktualisieren vorhanden.";
+"Or there are no tasks to update" = "Oder es sind keine Aufgaben zum Aktualisieren vorhanden";
 
 /* No comment provided by engineer. */
 "Output from rsync" = "Ausgabe von rsync";
@@ -348,6 +357,9 @@
 
 /* No comment provided by engineer. */
 "Path rsync" = "rsync-Pfad";
+
+/* No comment provided by engineer. */
+"Please select a snapshot task" = "Bitte wählen Sie eine Snapshot-Aufgabe aus";
 
 /* No comment provided by engineer. */
 "Profile" = "Profil";
@@ -437,10 +449,7 @@
 "RsyncUI settings" = "RsyncUI-Einstellungen";
 
 /* No comment provided by engineer. */
-"Save Estimate" = "Schätzung Sicheren";
-
-/* No comment provided by engineer. */
-"Save Verify" = "Verifizieren Sicheren";
+"Save" = "Speichern";
 
 /* No comment provided by engineer. */
 "Select a file for import" = "Wählen Sie eine Datei zum Importieren aus";
@@ -551,6 +560,9 @@
 "There are no snapshot records by this search string in Date or Tag" = "Für diese Suchzeichenfolge gibt es in „Datum“ oder „Tag“ keine Snapshot-Datensätze";
 
 /* No comment provided by engineer. */
+"There are no snapshots" = "Es gibt keine Snapshots";
+
+/* No comment provided by engineer. */
 "There are no tasks by this Synchronize ID" = "Es gibt keine Aufgaben mit dieser Synchronisierungs-ID";
 
 /* No comment provided by engineer. */
@@ -564,6 +576,9 @@
 
 /* No comment provided by engineer. */
 "This is only due to Marknumberofdayssince set in the settings" = "Dies liegt ausschließlich an der in den Einstellungen festgelegten Markierung „AnzahlderTagesseit“";
+
+/* No comment provided by engineer. */
+"Toggle halt task" = "Task anhalten ein-/ausschalten";
 
 /* No comment provided by engineer. */
 "Tot dir" = "Verzeichnisse Gesamt";
@@ -636,3 +651,4 @@
 
 /* No comment provided by engineer. */
 "View URLs" = "URLs anzeigen";
+
