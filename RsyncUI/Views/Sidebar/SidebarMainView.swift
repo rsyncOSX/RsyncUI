@@ -362,6 +362,10 @@ extension SidebarMainView {
             (configuration.offsiteServer.isEmpty == true && configuration.offsiteCatalog.contains(volume) == true) ? configuration : nil
         }
         let profile = mappedallconfigurations.compactMap { $0.backupID }
+        guard profile.count > 0 else {
+            mountingvolumenow = false
+            return
+        }
         let uniqprofiles = Set(profile)
         selectedprofile = uniqprofiles.first
     }
