@@ -69,7 +69,7 @@ prepare-dmg:
 
 clean:
 	rm -rf $(BUILD_PATH)
-	if [ -a $(PWD)/RsyncUI.dmg ]; then rm $(PWD)/RsyncUI.dmg; fi;
+	if [ -a $(PWD)/$(APP).$(VERSION).dmg ]; then rm $(PWD)/$(APP).$(VERSION).dmg; fi;
 
 check:
 	xcrun notarytool log f62c4146-0758-4942-baac-9575190858b8 --keychain-profile "RsyncUI"
