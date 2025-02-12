@@ -361,14 +361,7 @@ extension SidebarMainView {
         let mappedallconfigurations = allconfigurations.compactMap { configuration in
             (configuration.offsiteServer.isEmpty == true && configuration.offsiteCatalog.contains(volume) == true) ? configuration : nil
         }
-        let profile = mappedallconfigurations.compactMap { configuration in
-            let split = configuration.backupID.split(separator: " : ")
-            if split.count == 2 {
-                return String(split[1])
-            } else {
-                return nil
-            }
-        }
+        let profile = mappedallconfigurations.compactMap { $0.backupID }
         let uniqprofiles = Set(profile)
         selectedprofile = uniqprofiles.first
     }

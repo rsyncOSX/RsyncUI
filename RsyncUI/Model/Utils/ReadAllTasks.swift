@@ -74,6 +74,7 @@ struct ReadAllTasks {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }
 
+    // Put profilename in Backup ID
     func readalltasks(_ validprofiles: [ProfilesnamesRecord]) async -> [SynchronizeConfiguration] {
         var allconfigurations: [SynchronizeConfiguration] = []
         // Important: we must temporarly disable monitor network connection
@@ -94,10 +95,7 @@ struct ReadAllTasks {
 
             let adjustedconfigurations = configurations?.map { element in
                 var newelement = element
-                if newelement.backupID.isEmpty {
-                    newelement.backupID = "Synchronize ID"
-                }
-                newelement.backupID += " : " + profilename
+                newelement.backupID = profilename
                 return newelement
             }
 
