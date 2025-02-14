@@ -12,6 +12,9 @@ struct EstimationInProgressView: View {
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var nodatatosynchronize: Bool
+    
+    // Focus buttons from the menu
+    @State private var focusaborttask: Bool = false
 
     let profile: String?
     let configurations: [SynchronizeConfiguration]
@@ -25,12 +28,15 @@ struct EstimationInProgressView: View {
             }
 
             progressviewestimation
+            
+            if focusaborttask { labelaborttask }
         }
         .onAppear {
             estimateprogressdetails.resetcounts()
             executeprogressdetails.estimatedlist = nil
             estimateprogressdetails.startestimation()
         }
+        .focusedSceneValue(\.aborttask, $focusaborttask)
         .padding()
     }
 
@@ -61,11 +67,25 @@ struct EstimationInProgressView: View {
             }
             .progressViewStyle(.circular)
     }
+    
+    var labelaborttask: some View {
+        Label("", systemImage: "play.fill")
+            .onAppear(perform: {
+                focusaborttask = false
+                abort()
+            })
+    }
 
     func getuuid(uuid: UUID?) -> SynchronizeConfiguration.ID? {
         if let index = configurations.firstIndex(where: { $0.id == uuid }) {
             return configurations[index].id
         }
         return nil
+    }
+    
+    func abort() {
+        InterruptProcess()
+        estimateprogressdetails.resetcounts()
+        executeprogressdetails.estimatedlist = nil
     }
 }
