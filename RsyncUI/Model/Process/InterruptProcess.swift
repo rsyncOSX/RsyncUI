@@ -12,7 +12,6 @@ import Foundation
 struct InterruptProcess {
     @discardableResult
     init() {
-        guard SharedReference.shared.process != nil else { return }
         let string: [String] = ["Interrupted: " + Date().long_localized_string_from_date()]
         _ = Logfile(string, error: true)
         SharedReference.shared.process?.interrupt()
