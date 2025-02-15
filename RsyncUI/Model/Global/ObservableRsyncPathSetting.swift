@@ -41,7 +41,6 @@ final class ObservableRsyncPathSetting {
             SharedReference.shared.rsyncversionshort = "No valid rsync detected"
             let error = e
             propogateerror(error: error)
-            return
         }
     }
 
@@ -59,7 +58,6 @@ final class ObservableRsyncPathSetting {
         } catch let e {
             let error = e
             propogateerror(error: error)
-            return
         }
     }
 
@@ -92,7 +90,6 @@ final class ObservableRsyncPathSetting {
             marknumberofdayssince = "5"
             let error = e
             propogateerror(error: error)
-            return
         }
     }
 

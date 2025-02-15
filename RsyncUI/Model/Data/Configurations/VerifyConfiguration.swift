@@ -151,7 +151,6 @@ final class VerifyConfiguration: Connected {
         } catch let e {
             let error = e
             propogateerror(error: error)
-            return nil
         }
         // If validated and snapshottask create remote snapshotcatalog
         // Must be connected to create base remote snapshot catalog

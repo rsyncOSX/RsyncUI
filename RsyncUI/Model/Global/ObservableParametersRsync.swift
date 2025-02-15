@@ -128,7 +128,6 @@ final class ObservableParametersRsync {
         } catch let e {
             let error = e
             propogateerror(error: error)
-            return
         }
     }
 
@@ -146,7 +145,6 @@ final class ObservableParametersRsync {
         } catch let e {
             let error = e
             propogateerror(error: error)
-            return
         }
     }
 

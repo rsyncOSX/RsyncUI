@@ -37,7 +37,6 @@ final class ObservableSSH {
         } catch let e {
             let error = e
             propogateerror(error: error)
-            return
         }
     }
 
@@ -55,7 +54,6 @@ final class ObservableSSH {
         } catch let e {
             let error = e
             propogateerror(error: error)
-            return
         }
     }
 

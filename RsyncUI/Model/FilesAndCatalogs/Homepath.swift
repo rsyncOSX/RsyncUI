@@ -101,7 +101,6 @@ struct Homepath {
             } catch let e {
                 let error = e
                 propogateerror(error: error)
-                return
             }
 
             // Step 2
@@ -112,7 +111,6 @@ struct Homepath {
             } catch let e {
                 let error = e
                 propogateerror(error: error)
-                return
             }
         }
     }

@@ -41,7 +41,6 @@ final class ObservableRestore {
         } catch let e {
             let error = e
             propogateerror(error: error)
-            return
         }
     }
 
@@ -69,7 +68,6 @@ final class ObservableRestore {
         } catch let e {
             let error = e
             propogateerror(error: error)
-            return
         }
     }
 
