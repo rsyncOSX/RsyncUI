@@ -42,6 +42,10 @@ final class ReadLogRecordsJSON {
         return nil
     }
 
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
+    }
+
     deinit {
         Logger.process.info("ReadLogRecordsJSON: deinit")
     }

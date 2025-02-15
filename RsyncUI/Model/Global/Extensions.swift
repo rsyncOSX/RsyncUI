@@ -40,15 +40,3 @@ extension Connected {
         return false
     }
 }
-
-@MainActor
-protocol PropogateError {
-    func propogateerror(error: Error)
-}
-
-@MainActor
-extension PropogateError {
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
-    }
-}

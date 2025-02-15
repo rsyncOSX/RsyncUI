@@ -82,7 +82,7 @@ struct SidebarMainView: View {
                 MessageView(mytext: "Update available", size: .caption2)
                     .padding([.bottom], -30)
             }
-            
+
             if mountingvolumenow {
                 MessageView(mytext: "Mounting volume\nplease wait", size: .caption2)
                     .padding([.bottom], -30)
@@ -360,10 +360,10 @@ extension SidebarMainView {
         let volume = mountedvolume.lastPathComponent
         let mappedallconfigurations = allconfigurations.compactMap { configuration in
             (configuration.offsiteServer.isEmpty == true &&
-             configuration.offsiteCatalog.contains(volume) == true &&
-             configuration.task != SharedReference.shared.halted ) ? configuration : nil
+                configuration.offsiteCatalog.contains(volume) == true &&
+                configuration.task != SharedReference.shared.halted) ? configuration : nil
         }
-        let profile = mappedallconfigurations.compactMap { $0.backupID }
+        let profile = mappedallconfigurations.compactMap(\.backupID)
         guard profile.count > 0 else {
             mountingvolumenow = false
             return
@@ -371,7 +371,7 @@ extension SidebarMainView {
         let uniqprofiles = Set(profile)
         selectedprofile = uniqprofiles.first
     }
-    
+
     // Must check that no tasks are running
     private func tasksareinprogress() async -> Bool {
         guard SharedReference.shared.process == nil else {

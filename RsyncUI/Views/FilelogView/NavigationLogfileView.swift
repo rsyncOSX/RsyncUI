@@ -61,7 +61,7 @@ struct LogfileRecords: Identifiable {
 }
 
 @Observable @MainActor
-final class Logfileview: PropogateError {
+final class Logfileview {
     var output: [LogfileRecords]?
 }
 

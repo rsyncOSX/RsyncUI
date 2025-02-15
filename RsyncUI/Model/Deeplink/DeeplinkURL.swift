@@ -10,7 +10,8 @@ import OSLog
 import RsyncUIDeepLinks
 
 // URL code
-struct DeeplinkURL: PropogateError {
+@MainActor
+struct DeeplinkURL {
     let deeplinks = RsyncUIDeepLinks()
 
     func handleURL(_ url: URL) -> DeeplinkQueryItem? {
@@ -92,5 +93,9 @@ struct DeeplinkURL: PropogateError {
         } else {
             return nil
         }
+    }
+
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 }

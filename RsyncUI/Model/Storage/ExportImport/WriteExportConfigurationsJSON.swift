@@ -10,7 +10,8 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-final class WriteExportConfigurationsJSON: PropogateError {
+@MainActor
+final class WriteExportConfigurationsJSON {
     var exportpath: String?
 
     private func writeJSONToPersistentStore(jsonData: Data?) {
@@ -40,6 +41,10 @@ final class WriteExportConfigurationsJSON: PropogateError {
             let error = e
             propogateerror(error: error)
         }
+    }
+
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 
     @discardableResult

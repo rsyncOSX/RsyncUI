@@ -98,6 +98,10 @@ actor ActorReadSynchronizeConfigurationJSON {
 }
 
 @MainActor
-struct ReportError: PropogateError {}
+struct ReportError {
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
+    }
+}
 
 // swiftlint:enable line_length

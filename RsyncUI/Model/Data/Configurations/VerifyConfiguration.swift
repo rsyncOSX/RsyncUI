@@ -35,7 +35,7 @@ enum ValidateInputError: LocalizedError {
     }
 }
 
-struct AppendTask: PropogateError {
+struct AppendTask {
     var newtask: String
     var newlocalCatalog: String
     var newoffsiteCatalog: String
@@ -89,7 +89,7 @@ struct AppendTask: PropogateError {
 }
 
 @MainActor
-final class VerifyConfiguration: Connected, PropogateError {
+final class VerifyConfiguration: Connected {
     let archive: String = "--archive"
     let verbose: String = "--verbose"
     let compress: String = "--compress"
@@ -214,6 +214,10 @@ final class VerifyConfiguration: Connected, PropogateError {
             }
         }
         return true
+    }
+
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 }
 

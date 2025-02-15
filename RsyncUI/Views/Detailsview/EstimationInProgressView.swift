@@ -12,7 +12,7 @@ struct EstimationInProgressView: View {
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var nodatatosynchronize: Bool
-    
+
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
 
@@ -28,7 +28,7 @@ struct EstimationInProgressView: View {
             }
 
             progressviewestimation
-            
+
             if focusaborttask { labelaborttask }
         }
         .onAppear {
@@ -67,7 +67,7 @@ struct EstimationInProgressView: View {
             }
             .progressViewStyle(.circular)
     }
-    
+
     var labelaborttask: some View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
@@ -82,7 +82,7 @@ struct EstimationInProgressView: View {
         }
         return nil
     }
-    
+
     func abort() {
         InterruptProcess()
         estimateprogressdetails.resetcounts()

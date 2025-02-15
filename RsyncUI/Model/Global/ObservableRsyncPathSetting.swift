@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable @MainActor
-final class ObservableRsyncPathSetting: PropogateError {
+final class ObservableRsyncPathSetting {
     // True if version 3.1.2 or 3.1.3 of rsync in /usr/local/bin
     var rsyncversion3: Bool = SharedReference.shared.rsyncversion3
     // Optional path to rsync, the settings View is picking up the current value
@@ -94,6 +94,10 @@ final class ObservableRsyncPathSetting: PropogateError {
             propogateerror(error: error)
             return
         }
+    }
+
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 }
 

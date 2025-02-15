@@ -10,7 +10,7 @@ import Foundation
 import Observation
 
 @Observable @MainActor
-final class ObservableRestore: PropogateError {
+final class ObservableRestore {
     var pathforrestore: String = ""
     var restorefilesinprogress: Bool = false
     var numberoffiles: Int = 0
@@ -145,6 +145,10 @@ final class ObservableRestore: PropogateError {
             }
         }
         return nil
+    }
+
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 }
 

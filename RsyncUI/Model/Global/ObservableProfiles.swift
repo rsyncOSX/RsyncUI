@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable @MainActor
-final class ObservableProfiles: PropogateError {
+final class ObservableProfiles {
     func createprofile(_ newprofile: String) -> Bool {
         guard newprofile.isEmpty == false else { return false }
         let catalogprofile = CatalogForProfile()
