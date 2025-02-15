@@ -10,7 +10,7 @@ import Observation
 import SSHCreateKey
 
 @Observable @MainActor
-final class ObservableSSH: PropogateError {
+final class ObservableSSH {
     // Global SSH parameters
     // Have to convert String -> Int before saving
     // Set the current value as placeholder text
@@ -37,7 +37,6 @@ final class ObservableSSH: PropogateError {
         } catch let e {
             let error = e
             propogateerror(error: error)
-            return
         }
     }
 
@@ -55,8 +54,11 @@ final class ObservableSSH: PropogateError {
         } catch let e {
             let error = e
             propogateerror(error: error)
-            return
         }
+    }
+
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 
     init() {

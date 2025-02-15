@@ -10,7 +10,7 @@ import Observation
 import SSHCreateKey
 
 @Observable @MainActor
-final class ObservableParametersRsync: PropogateError {
+final class ObservableParametersRsync {
     // Set the current value as placeholder text
     var sshport: String = ""
     // SSH keypath and identityfile, the settings View is picking up the current value
@@ -128,7 +128,6 @@ final class ObservableParametersRsync: PropogateError {
         } catch let e {
             let error = e
             propogateerror(error: error)
-            return
         }
     }
 
@@ -146,8 +145,11 @@ final class ObservableParametersRsync: PropogateError {
         } catch let e {
             let error = e
             propogateerror(error: error)
-            return
         }
+    }
+
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 
     init() {

@@ -11,7 +11,7 @@ import Foundation
 import SSHCreateKey
 
 @MainActor
-final class SshKeys: PropogateError {
+final class SshKeys {
     var command: String?
     var arguments: [String]?
 

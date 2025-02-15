@@ -9,7 +9,7 @@ import Foundation
 import OSLog
 
 @MainActor
-struct VerifyDuplicates: PropogateError {
+struct VerifyDuplicates {
     private var arrayofhiddenIDs = [Int]()
 
     private func checkforduplicates() throws {
@@ -31,6 +31,10 @@ struct VerifyDuplicates: PropogateError {
             let error = e
             propogateerror(error: error)
         }
+    }
+
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 }
 

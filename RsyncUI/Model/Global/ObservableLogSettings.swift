@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable @MainActor
-final class ObservableLogSettings: PropogateError {
+final class ObservableLogSettings {
     // Detailed logging
     var addsummarylogrecord: Bool = SharedReference.shared.addsummarylogrecord
     // Check for network changes
@@ -25,4 +25,3 @@ final class ObservableLogSettings: PropogateError {
     // Observe mounting local atteched discs
     var observemountedvolumes: Bool = SharedReference.shared.observemountedvolumes
 }
-

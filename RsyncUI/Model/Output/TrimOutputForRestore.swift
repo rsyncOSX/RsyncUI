@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-final class TrimOutputForRestore: PropogateError {
+final class TrimOutputForRestore {
     var trimmeddata: [String]?
 
     init(_ stringoutputfromrsync: [String]) {

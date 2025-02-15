@@ -9,7 +9,7 @@ import Foundation
 import OSLog
 
 @MainActor
-struct Homepath: PropogateError {
+struct Homepath {
     // full path without macserialnumber
     var fullpathnomacserial: String?
     // full path with macserialnumber
@@ -101,7 +101,6 @@ struct Homepath: PropogateError {
             } catch let e {
                 let error = e
                 propogateerror(error: error)
-                return
             }
 
             // Step 2
@@ -112,9 +111,12 @@ struct Homepath: PropogateError {
             } catch let e {
                 let error = e
                 propogateerror(error: error)
-                return
             }
         }
+    }
+
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
     }
 
     init() {

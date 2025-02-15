@@ -35,6 +35,10 @@ struct ReadUserConfigurationJSON {
             path.propogateerror(error: error)
         }
     }
+
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
+    }
 }
 
 // swiftlint:enable line_length

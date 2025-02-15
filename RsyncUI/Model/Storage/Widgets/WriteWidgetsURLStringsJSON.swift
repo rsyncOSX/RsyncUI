@@ -70,6 +70,10 @@ struct WriteWidgetsURLStringsJSON {
         }
     }
 
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
+    }
+
     @discardableResult
     init(_ urlwidgetstrings: WidgetURLstrings?, _ whichurltowrite: WidgetURLStringsJSON) {
         if let urlwidgetstrings {

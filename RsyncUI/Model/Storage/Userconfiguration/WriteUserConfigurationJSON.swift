@@ -42,6 +42,10 @@ struct WriteUserConfigurationJSON {
         }
     }
 
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
+    }
+
     @discardableResult
     init(_ userconfiguration: UserConfiguration?) {
         if let userconfiguration {
