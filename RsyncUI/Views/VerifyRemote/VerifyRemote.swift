@@ -30,16 +30,22 @@ struct VerifyRemote: View {
         NavigationStack(path: $verifynavigation) {
             VStack {
                 Text("**Warning:** This function is advisory only.")
-                    .foregroundColor(.yellow)
+                    .foregroundColor(.blue)
                     .font(.title)
-                  
-                (
-                    Text("Select a task in Synchronize view and select the ") +
-                    Text(Image(systemName: "bolt.shield")) +
+
+                HStack {
+                    Text("Select a task in Synchronize view and select the ")
+                        .foregroundColor(.blue)
+                        .font(.title)
+
+                    Text(Image(systemName: "bolt.shield"))
+                        .foregroundColor(.yellow)
+                        .font(.title)
+
                     Text(" to verify.")
-                )
-                .foregroundColor(.yellow)
-                .font(.title)
+                        .foregroundColor(.blue)
+                        .font(.title)
+                }
             }
         }
         .navigationTitle("Verify remote")
@@ -51,7 +57,6 @@ struct VerifyRemote: View {
             handlequeryitem()
         }
         .toolbar(content: {
-           
             if let selectedconfig, selectedconfig.offsiteServer.isEmpty == false,
                SharedReference.shared.rsyncversion3
             {
