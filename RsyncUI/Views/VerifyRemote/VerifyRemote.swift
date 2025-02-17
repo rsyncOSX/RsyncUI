@@ -25,68 +25,28 @@ struct VerifyRemote: View {
     @Binding var queryitem: URLQueryItem?
 
     @State private var selectedconfig: SynchronizeConfiguration?
-    @State private var selectedconfiguuid = Set<SynchronizeConfiguration.ID>()
-    @State private var showingAlert = false
 
     var body: some View {
         NavigationStack(path: $verifynavigation) {
-            ConfigurationsTableDataView(selecteduuids: $selectedconfiguuid,
-                                        profile: rsyncUIdata.profile,
-                                        configurations: configurations)
-                .onChange(of: selectedconfiguuid) {
-                    if let configurations = rsyncUIdata.configurations {
-                        if let index = configurations.firstIndex(where: { $0.id == selectedconfiguuid.first }) {
-                            selectedconfig = configurations[index]
-                        } else {
-                            selectedconfig = nil
-                        }
-                    }
-                }
-                .overlay { if configurations.count == 0 {
-                    ContentUnavailableView {
-                        Label("The Verify remote is for networked configurations only", systemImage: "doc.richtext.fill")
-                    } description: {
-                        VStack {
-                            Text("version 3.x of rsync must be installed and enabled to use this function,")
-                            Text("a networked configuration is where destination is on a remote server")
-                        }
-                    }
-                }
-                }
-
-            if configurations.count > 0 {
-                MessageView(mytext: "**Warning:** This function is advisory only. You are solely responsible for verifying\n the correctness of the subsequent action. Performing an incorrect operation may result in data loss.", size: .title2)
+            VStack {
+                Text("**Warning:** This function is advisory only.")
+                    .foregroundColor(.yellow)
+                    .font(.title)
+                Text("Select a task in Synchronize view.")
+                    .foregroundColor(.yellow)
+                    .font(.title)
             }
         }
         .navigationTitle("Verify remote")
         .navigationDestination(for: VerifyTasks.self) { which in
             makeView(view: which.task)
         }
-        .onChange(of: rsyncUIdata.profile) {
-            selectedconfig = nil
-        }
         .onChange(of: queryitem) {
             // URL code
             handlequeryitem()
         }
-        .alert(isPresented: $showingAlert) {
-            Alert(title: Text("No profile with this name"))
-        }
         .toolbar(content: {
-            if let selectedconfig, selectedconfig.offsiteServer.isEmpty == false,
-               SharedReference.shared.rsyncversion3
-            {
-                ToolbarItem {
-                    Button {
-                        verifynavigation.append(VerifyTasks(task: .verify))
-                    } label: {
-                        Image(systemName: "play.fill")
-                            .foregroundColor(.blue)
-                    }
-                    .help("Check remote")
-                }
-            }
-
+           
             if let selectedconfig, selectedconfig.offsiteServer.isEmpty == false,
                SharedReference.shared.rsyncversion3
             {
@@ -157,9 +117,6 @@ extension VerifyRemote {
             guard selectedconfig?.task != SharedReference.shared.halted else { return }
             // Set config and execute a Verify
             verifynavigation.append(VerifyTasks(task: .verify))
-            queryitem = nil
-        } else {
-            if queryitem != nil { showingAlert = true }
             queryitem = nil
         }
     }
