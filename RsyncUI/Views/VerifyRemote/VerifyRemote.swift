@@ -32,9 +32,14 @@ struct VerifyRemote: View {
                 Text("**Warning:** This function is advisory only.")
                     .foregroundColor(.yellow)
                     .font(.title)
-                Text("Select a task in Synchronize view.")
-                    .foregroundColor(.yellow)
-                    .font(.title)
+                  
+                (
+                    Text("Select a task in Synchronize view and select the ") +
+                    Text(Image(systemName: "bolt.shield")) +
+                    Text(" to verify.")
+                )
+                .foregroundColor(.yellow)
+                .font(.title)
             }
         }
         .navigationTitle("Verify remote")
