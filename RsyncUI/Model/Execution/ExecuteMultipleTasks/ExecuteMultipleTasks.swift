@@ -90,7 +90,9 @@ extension ExecuteMultipleTasks {
         // If snahost task the snapshotnum is increased when updating the configuration.
         // When creating the logrecord, decrease the snapshotum by 1
         configrecords.append((hiddenID ?? -1, Date().en_us_string_from_date()))
-        if let stats = ParseRsyncOutput(stringoutputfromrsync ?? [],
+                
+        let preparedoutputfromrsync = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
+        if let stats = ParseRsyncOutput(preparedoutputfromrsync,
                                         SharedReference.shared.rsyncversion3).stats
         {
             schedulerecords.append((hiddenID ?? -1, stats))
