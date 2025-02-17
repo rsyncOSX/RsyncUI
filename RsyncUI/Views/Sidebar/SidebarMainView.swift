@@ -199,7 +199,7 @@ struct SidebarMainView: View {
         rsyncnavigation.isEmpty == false ||
             executetasknavigation.isEmpty == false ||
             addtasknavigation.isEmpty == false ||
-            verifynavigation.isEmpty == false ||
+            // verifynavigation.isEmpty == false ||
             SharedReference.shared.process != nil
     }
 

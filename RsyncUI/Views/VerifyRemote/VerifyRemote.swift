@@ -27,7 +27,8 @@ struct VerifyRemote: View {
     @State private var selectedconfig: SynchronizeConfiguration?
 
     var body: some View {
-        NavigationStack(path: $verifynavigation) {
+        // NavigationStack(path: $verifynavigation) {
+        if selectedconfig == nil {
             VStack {
                 Text("**Warning:** This function is advisory only.")
                     .foregroundColor(.blue)
@@ -47,74 +48,19 @@ struct VerifyRemote: View {
                         .font(.title)
                 }
             }
-        }
-        .navigationTitle("Verify remote")
-        .navigationDestination(for: VerifyTasks.self) { which in
-            makeView(view: which.task)
-        }
-        .onChange(of: queryitem) {
-            // URL code
-            handlequeryitem()
-        }
-        .toolbar(content: {
-            if let selectedconfig, selectedconfig.offsiteServer.isEmpty == false,
-               SharedReference.shared.rsyncversion3
-            {
-                ToolbarItem {
-                    Button {
-                        verifynavigation.append(VerifyTasks(task: .executepushpull))
-                    } label: {
-                        Image(systemName: "arrow.left.arrow.right.circle.fill")
-                            .foregroundColor(.blue)
-                    }
-                    .help("Pull or push")
-                }
+            .onChange(of: queryitem) {
+                // URL code
+                handlequeryitem()
             }
-
-            ToolbarItem {
-                Button {
-                    abort()
-                } label: {
-                    Image(systemName: "stop.fill")
-                }
-                .help("Abort (⌘K)")
-            }
-        })
-    }
-
-    @MainActor @ViewBuilder
-    func makeView(view: VerifyDestinationView) -> some View {
-        switch view {
-        case .verify:
-            if let selectedconfig {
-                DetailsPushPullView(verifynavigation: $verifynavigation,
-                                    queryitem: $queryitem,
-                                    config: selectedconfig)
-            }
-        case .executepushpull:
-            if let selectedconfig {
-                ExecutePushPullView(verifynavigation: $verifynavigation,
-                                    config: selectedconfig, profile: rsyncUIdata.profile)
-            }
+        } else if let selectedconfig {
+            DetailsPushPullView(verifynavigation: $verifynavigation,
+                                queryitem: $queryitem,
+                                config: selectedconfig)
         }
     }
 
-    func abort() {
-        InterruptProcess()
-    }
-
-    var configurations: [SynchronizeConfiguration] {
-        rsyncUIdata.configurations?.filter { configuration in
-            configuration.offsiteServer.isEmpty == false &&
-                configuration.task == SharedReference.shared.synchronize &&
-                SharedReference.shared.rsyncversion3 == true
-        } ?? []
-    }
-}
-
-extension VerifyRemote {
     // URL code
-    private func handlequeryitem() {
+    func handlequeryitem() {
         Logger.process.info("VerifyRemote: Change on queryitem discovered")
         // This is from URL
         let backupid = queryitem?.value
@@ -129,5 +75,17 @@ extension VerifyRemote {
             verifynavigation.append(VerifyTasks(task: .verify))
             queryitem = nil
         }
+    }
+
+    func abort() {
+        InterruptProcess()
+    }
+
+    var configurations: [SynchronizeConfiguration] {
+        rsyncUIdata.configurations?.filter { configuration in
+            configuration.offsiteServer.isEmpty == false &&
+                configuration.task == SharedReference.shared.synchronize &&
+                SharedReference.shared.rsyncversion3 == true
+        } ?? []
     }
 }
