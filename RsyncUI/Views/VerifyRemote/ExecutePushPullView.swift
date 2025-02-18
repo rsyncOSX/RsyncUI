@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct ExecutePushPullView: View {
-    @Binding var verifynavigation: [VerifyTasks]
-
+   
     @State private var progress = false
     @State private var remotedatanumbers: RemoteDataNumbers?
 
@@ -67,6 +66,7 @@ struct ExecutePushPullView: View {
                             }
 
                             PushPullCommandView(pushpullcommand: $pushpullcommand, dryrun: $dryrun, config: config)
+                                .padding()
                         }
                     }
 

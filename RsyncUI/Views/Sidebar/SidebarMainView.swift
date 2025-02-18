@@ -35,7 +35,7 @@ struct SidebarMainView: View {
     // Navigation addtasks and verify
     // Needed here because if not empty sidebar is disabled
     @State private var addtasknavigation: [AddTasks] = []
-    @State var verifynavigation: [VerifyTasks] = []
+    @State var verifynavigationispresented = false
     // Check if new version
     @State private var newversion = CheckfornewversionofRsyncUI()
     // URL code
@@ -190,7 +190,9 @@ struct SidebarMainView: View {
             ProfileView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
         case .verify_remote:
             NavigationStack {
-                VerifyRemote(rsyncUIdata: rsyncUIdata, verifynavigation: $verifynavigation, queryitem: $queryitem)
+                VerifyRemote(rsyncUIdata: rsyncUIdata,
+                             verifynavigationispresented: $verifynavigationispresented,
+                             queryitem: $queryitem)
             }
         }
     }
@@ -199,7 +201,7 @@ struct SidebarMainView: View {
         rsyncnavigation.isEmpty == false ||
             executetasknavigation.isEmpty == false ||
             addtasknavigation.isEmpty == false ||
-            // verifynavigation.isEmpty == false ||
+            verifynavigationispresented == true ||
             SharedReference.shared.process != nil
     }
 

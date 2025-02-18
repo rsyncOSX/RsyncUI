@@ -18,7 +18,7 @@ enum SwiftPushPullView: String, CaseIterable, Identifiable, CustomStringConverti
 
 struct DetailsPushPullView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var verifynavigation: [VerifyTasks]
+    @Binding var verifynavigationispresented: Bool
     // URL code
     @Binding var queryitem: URLQueryItem?
 
@@ -31,8 +31,6 @@ struct DetailsPushPullView: View {
     @State private var pushorpull = ObservablePushPull()
     // Switch view
     @State private var switchview: SwiftPushPullView = .both
-    // Is presented
-    @State private var ispresented: Bool = false
 
     let config: SynchronizeConfiguration
 
@@ -96,7 +94,7 @@ struct DetailsPushPullView: View {
                         Button {
                             // verifynavigation.removeAll()
                             // verifynavigation.append(VerifyTasks(task: .executepushpull))
-                            ispresented = true
+                            verifynavigationispresented = true
                         } label: {
                             Image(systemName: "arrow.left.arrow.right.circle.fill")
                                 .foregroundColor(.blue)
@@ -116,9 +114,8 @@ struct DetailsPushPullView: View {
             })
         }
         .navigationTitle("Verify remote")
-        .navigationDestination(isPresented: $ispresented) {
-            ExecutePushPullView(verifynavigation: $verifynavigation,
-                                config: config, profile: rsyncUIdata.profile)
+        .navigationDestination(isPresented: $verifynavigationispresented) {
+            ExecutePushPullView(config: config, profile: rsyncUIdata.profile)
         }
     }
 

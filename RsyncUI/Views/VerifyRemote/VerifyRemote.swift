@@ -8,19 +8,9 @@
 import OSLog
 import SwiftUI
 
-enum VerifyDestinationView: String, Identifiable {
-    case executepushpull
-    var id: String { rawValue }
-}
-
-struct VerifyTasks: Hashable, Identifiable {
-    let id = UUID()
-    var task: VerifyDestinationView
-}
-
 struct VerifyRemote: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var verifynavigation: [VerifyTasks]
+    @Binding var verifynavigationispresented: Bool
     // For supporting URL links
     @Binding var queryitem: URLQueryItem?
 
@@ -54,7 +44,7 @@ struct VerifyRemote: View {
             }
         } else if let selectedconfig {
             DetailsPushPullView(rsyncUIdata: rsyncUIdata,
-                                verifynavigation: $verifynavigation,
+                                verifynavigationispresented: $verifynavigationispresented,
                                 queryitem: $queryitem,
                                 config: selectedconfig)
         }
