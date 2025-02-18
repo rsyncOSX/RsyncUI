@@ -31,6 +31,8 @@ struct DetailsPushPullView: View {
     @State private var pushorpull = ObservablePushPull()
     // Switch view
     @State private var switchview: SwiftPushPullView = .both
+    // If aborted
+    @State private var isaborted: Bool = false
 
     let config: SynchronizeConfiguration
 
@@ -42,7 +44,18 @@ struct DetailsPushPullView: View {
                         Spacer()
 
                         ProgressView()
-
+                            .toolbar(content: {
+                                ToolbarItem {
+                                    Button {
+                                        isaborted = true
+                                        abort()
+                                    } label: {
+                                        Image(systemName: "stop.fill")
+                                    }
+                                    .help("Abort (⌘K)")
+                                }
+                            })
+                        
                         Spacer()
 
                     } else {
@@ -66,7 +79,7 @@ struct DetailsPushPullView: View {
                     }
                 }
 
-                if progress == false {
+                if progress == false, isaborted == false {
                     switch pushorpull.decideremoteVSlocal(pullremotedatanumbers: pullremotedatanumbers,
                                                           pushremotedatanumbers: pushremotedatanumbers)
                     {
@@ -101,15 +114,6 @@ struct DetailsPushPullView: View {
                         }
                         .help("Pull or push")
                     }
-                }
-
-                ToolbarItem {
-                    Button {
-                        abort()
-                    } label: {
-                        Image(systemName: "stop.fill")
-                    }
-                    .help("Abort (⌘K)")
                 }
             })
         }
@@ -156,6 +160,10 @@ struct DetailsPushPullView: View {
             pullremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                                       config: config)
         }
+        guard isaborted == false else {
+            progress = false
+            return
+        }
         // Rsync output pull
         pushorpull.rsyncpull = stringoutputfromrsync
         // Then do a synchronize task, adjusted for push vs pull
@@ -164,6 +172,10 @@ struct DetailsPushPullView: View {
 
     // This is a normal synchronize task, dry-run = true
     func pushprocesstermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+        guard isaborted == false else {
+            progress = false
+            return
+        }
         progress = false
         pushremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                                   config: config)
