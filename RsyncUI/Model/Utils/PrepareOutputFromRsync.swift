@@ -9,9 +9,9 @@ struct PrepareOutputFromRsync {
     func prepareOutputFromRsync(_ stringoutputfromrsync: [String]?) -> [String] {
         // Trim output, remove all catalogs - keep files only in output
         // And then only keep the lst 20 lines, it is there the accumulated numbers are
-        let trimmeddata = stringoutputfromrsync?.compactMap({ line in
-            return ((line.last != "/")) ? line : nil
-        })
+        let trimmeddata = stringoutputfromrsync?.compactMap { line in
+            (line.last != "/") ? line : nil
+        }
         var resultarrayrsyncoutput: [String]?
         let count = trimmeddata?.count
         // Delete most of lines and keep only the last 20 lines of array, that is where the summarized data stay.

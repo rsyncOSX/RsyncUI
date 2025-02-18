@@ -34,10 +34,6 @@ final class Backupconfigfiles {
         }
     }
 
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
-    }
-
     init() {
         fullpathnomacserial = homepath.fullpathnomacserial
         backuppath = homepath.documentscatalog

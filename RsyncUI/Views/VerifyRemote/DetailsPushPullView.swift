@@ -17,7 +17,8 @@ enum SwiftPushPullView: String, CaseIterable, Identifiable, CustomStringConverti
 }
 
 struct DetailsPushPullView: View {
-    @Binding var verifynavigation: [VerifyTasks]
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var verifynavigationispresented: Bool
     // URL code
     @Binding var queryitem: URLQueryItem?
 
@@ -34,80 +35,88 @@ struct DetailsPushPullView: View {
     let config: SynchronizeConfiguration
 
     var body: some View {
-        VStack {
-            HStack {
-                if progress {
-                    Spacer()
+        NavigationStack {
+            VStack {
+                HStack {
+                    if progress {
+                        Spacer()
 
-                    ProgressView()
+                        ProgressView()
 
-                    Spacer()
+                        Spacer()
 
-                } else {
-                    if let pullremotedatanumbers, let pushremotedatanumbers {
-                        if switchview == .both {
-                            HStack {
+                    } else {
+                        if let pullremotedatanumbers, let pushremotedatanumbers {
+                            if switchview == .both {
+                                HStack {
+                                    DetailsPullPushView(remotedatanumbers: pushremotedatanumbers,
+                                                        text: "PUSH local (Synchronize)")
+
+                                    DetailsPullPushView(remotedatanumbers: pullremotedatanumbers,
+                                                        text: "PULL remote")
+                                }
+                            } else if switchview == .push {
                                 DetailsPullPushView(remotedatanumbers: pushremotedatanumbers,
                                                     text: "PUSH local (Synchronize)")
-
+                            } else {
                                 DetailsPullPushView(remotedatanumbers: pullremotedatanumbers,
                                                     text: "PULL remote")
                             }
-                        } else if switchview == .push {
-                            DetailsPullPushView(remotedatanumbers: pushremotedatanumbers,
-                                                text: "PUSH local (Synchronize)")
-                        } else {
-                            DetailsPullPushView(remotedatanumbers: pullremotedatanumbers,
-                                                text: "PULL remote")
                         }
                     }
                 }
-            }
-            if progress == false {
-                switch pushorpull.decideremoteVSlocal(pullremotedatanumbers: pullremotedatanumbers,
-                                                      pushremotedatanumbers: pushremotedatanumbers)
-                {
-                case .remotemoredata:
-                    MessageView(mytext: NSLocalizedString("It seems that REMOTE is more updated than LOCAL. A PULL may be next.", comment: ""), size: .title3)
-                case .localmoredata:
-                    MessageView(mytext: NSLocalizedString("It seems that LOCAL is more updated than REMOTE. A SYNCHRONIZE may be next.", comment: ""), size: .title3)
-                case .evenamountadata:
-                    MessageView(mytext: NSLocalizedString("There is an equal amount of data. You can either perform a SYNCHRONIZE or a PULL operation.\n Alternatively, you can choose to do nothing.", comment: ""), size: .title3)
-                case .noevaluation:
-                    MessageView(mytext: NSLocalizedString("I couldn’t decide between LOCAL and REMOTE.", comment: ""), size: .title3)
+
+                if progress == false {
+                    switch pushorpull.decideremoteVSlocal(pullremotedatanumbers: pullremotedatanumbers,
+                                                          pushremotedatanumbers: pushremotedatanumbers)
+                    {
+                    case .remotemoredata:
+                        MessageView(mytext: NSLocalizedString("It seems that REMOTE is more updated than LOCAL. A PULL may be next.", comment: ""), size: .title3)
+                    case .localmoredata:
+                        MessageView(mytext: NSLocalizedString("It seems that LOCAL is more updated than REMOTE. A SYNCHRONIZE may be next.", comment: ""), size: .title3)
+                    case .evenamountadata:
+                        MessageView(mytext: NSLocalizedString("There is an equal amount of data. You can either perform a SYNCHRONIZE or a PULL operation.\n Alternatively, you can choose to do nothing.", comment: ""), size: .title3)
+                    case .noevaluation:
+                        MessageView(mytext: NSLocalizedString("I couldn’t decide between LOCAL and REMOTE.", comment: ""), size: .title3)
+                    }
                 }
             }
-        }
-        .onAppear {
-            pullremote(config: config)
-        }
-        .toolbar(content: {
-            if progress == false {
-                ToolbarItem {
-                    pickerselectview
+            .onAppear {
+                pullremote(config: config)
+            }
+            .toolbar(content: {
+                if progress == false {
+                    ToolbarItem {
+                        pickerselectview
+                    }
+
+                    ToolbarItem {
+                        Button {
+                            // verifynavigation.removeAll()
+                            // verifynavigation.append(VerifyTasks(task: .executepushpull))
+                            verifynavigationispresented = true
+                        } label: {
+                            Image(systemName: "arrow.left.arrow.right.circle.fill")
+                                .foregroundColor(.blue)
+                        }
+                        .help("Pull or push")
+                    }
                 }
 
                 ToolbarItem {
                     Button {
-                        verifynavigation.removeAll()
-                        verifynavigation.append(VerifyTasks(task: .executepushpull))
+                        abort()
                     } label: {
-                        Image(systemName: "arrow.left.arrow.right.circle.fill")
-                            .foregroundColor(.blue)
+                        Image(systemName: "stop.fill")
                     }
-                    .help("Pull or push")
+                    .help("Abort (⌘K)")
                 }
-            }
-
-            ToolbarItem {
-                Button {
-                    abort()
-                } label: {
-                    Image(systemName: "stop.fill")
-                }
-                .help("Abort (⌘K)")
-            }
-        })
+            })
+        }
+        .navigationTitle("Verify remote")
+        .navigationDestination(isPresented: $verifynavigationispresented) {
+            ExecutePushPullView(config: config, profile: rsyncUIdata.profile)
+        }
     }
 
     var pickerselectview: some View {
