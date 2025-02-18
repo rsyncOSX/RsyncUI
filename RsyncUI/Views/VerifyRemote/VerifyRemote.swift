@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 enum VerifyDestinationView: String, Identifiable {
-    case verify, executepushpull
+    case executepushpull
     var id: String { rawValue }
 }
 
@@ -53,7 +53,8 @@ struct VerifyRemote: View {
                 handlequeryitem()
             }
         } else if let selectedconfig {
-            DetailsPushPullView(verifynavigation: $verifynavigation,
+            DetailsPushPullView(rsyncUIdata: rsyncUIdata,
+                                verifynavigation: $verifynavigation,
                                 queryitem: $queryitem,
                                 config: selectedconfig)
         }
@@ -72,7 +73,6 @@ struct VerifyRemote: View {
             selectedconfig = config
             guard selectedconfig?.task != SharedReference.shared.halted else { return }
             // Set config and execute a Verify
-            verifynavigation.append(VerifyTasks(task: .verify))
             queryitem = nil
         }
     }
