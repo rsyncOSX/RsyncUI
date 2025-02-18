@@ -66,16 +66,4 @@ struct VerifyRemote: View {
             queryitem = nil
         }
     }
-
-    func abort() {
-        InterruptProcess()
-    }
-
-    var configurations: [SynchronizeConfiguration] {
-        rsyncUIdata.configurations?.filter { configuration in
-            configuration.offsiteServer.isEmpty == false &&
-                configuration.task == SharedReference.shared.synchronize &&
-                SharedReference.shared.rsyncversion3 == true
-        } ?? []
-    }
 }

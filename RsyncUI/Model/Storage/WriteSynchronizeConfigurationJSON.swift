@@ -55,10 +55,6 @@ final class WriteSynchronizeConfigurationJSON {
         }
     }
 
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
-    }
-
     @discardableResult
     init(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) {
         if let configurations {
