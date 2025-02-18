@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ExecutePushPullView: View {
-   
     @State private var progress = false
     @State private var remotedatanumbers: RemoteDataNumbers?
 
