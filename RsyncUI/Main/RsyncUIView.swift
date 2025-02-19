@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 struct RsyncUIView: View {
     @State private var selectedprofile: String? = SharedReference.shared.defaultprofile
@@ -53,6 +54,11 @@ struct RsyncUIView: View {
             }
         }
         .onChange(of: selectedprofile) {
+            // Only for external URL 
+            guard selectedprofile != rsyncUIdata.profile else {
+                Logger.process.info("RsyncUIView: external URL loaded")
+                return
+            }
             Task {
                 rsyncUIdata.profile = selectedprofile
                 rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
