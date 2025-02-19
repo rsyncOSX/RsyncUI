@@ -151,9 +151,6 @@ struct SidebarMainView: View {
                 }
             }
         }
-        .onChange(of: rsyncUIdata.readdatafromstorecompleted) {
-            Logger.process.info("SidebarMainView: READDATAFROMSTORECOMPLETED: \(rsyncUIdata.readdatafromstorecompleted)")
-        }
         .onChange(of: selectedprofile) {
             selecteduuids.removeAll()
         }
@@ -280,7 +277,6 @@ extension SidebarMainView {
                             // let profile load before comence action
                             try await Task.sleep(seconds: 1)
                         }
-                        guard rsyncUIdata.readdatafromstorecompleted else { return }
                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
                         // Observe queryitem
                         queryitem = queryitems[0]
@@ -295,7 +291,6 @@ extension SidebarMainView {
                                 // let profile load before comence action
                                 try await Task.sleep(seconds: 1)
                             }
-                            guard rsyncUIdata.readdatafromstorecompleted else { return }
                             guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
                             // Observe queryitem
                             queryitem = queryitems[0]
@@ -321,7 +316,6 @@ extension SidebarMainView {
                             // let profile load before comence action
                             try await Task.sleep(seconds: 1)
                         }
-                        guard rsyncUIdata.readdatafromstorecompleted else { return }
                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
                         // Observe queryitem
                         queryitem = queryitems[1]
@@ -335,10 +329,6 @@ extension SidebarMainView {
                                 // If loaded from incoming URL, just wait a second to
                                 // let profile load before comence action
                                 try await Task.sleep(seconds: 1)
-                            }
-                            guard rsyncUIdata.readdatafromstorecompleted else {
-                                selectedview = .synchronize
-                                return
                             }
                             guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
                                 selectedview = .synchronize
