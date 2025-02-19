@@ -268,30 +268,38 @@ extension SidebarMainView {
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
                 let profile = queryitems[0].value ?? ""
 
+                selectedview = .synchronize
+                
                 if profile == "default" {
-                    selectedprofile = SharedReference.shared.defaultprofile
-                    selectedview = .synchronize
+                   
                     Task {
                         if waitasecond {
+                            selectedprofile = SharedReference.shared.defaultprofile
                             // If loaded from incoming URL, just wait a second to
                             // let profile load before comence action
                             try await Task.sleep(seconds: 1)
                         }
-                        guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
+                        guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
+                            selectedview = .synchronize
+                            return
+                        }
                         // Observe queryitem
                         queryitem = queryitems[0]
                     }
                 } else {
                     if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
-                        selectedprofile = profile
-                        selectedview = .synchronize
+                        
                         Task {
+                            selectedprofile = profile
                             if waitasecond {
                                 // If loaded from incoming URL, just wait a second to
                                 // let profile load before comence action
                                 try await Task.sleep(seconds: 1)
                             }
-                            guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
+                            guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
+                                selectedview = .synchronize
+                                return
+                            }
                             // Observe queryitem
                             queryitem = queryitems[0]
                         }
@@ -306,26 +314,29 @@ extension SidebarMainView {
 
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 2 {
                 let profile = queryitems[0].value ?? ""
-
+                
+                selectedview = .verify_remote
+                
                 if profile == "default" {
-                    selectedprofile = SharedReference.shared.defaultprofile
-                    selectedview = .verify_remote
+                    
                     Task {
                         if waitasecond {
+                            selectedprofile = SharedReference.shared.defaultprofile
                             // If loaded from incoming URL, just wait a second to
                             // let profile load before comence action
                             try await Task.sleep(seconds: 1)
                         }
-                        guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
-                        // Observe queryitem
+                        guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
+                            selectedview = .synchronize
+                            return
+                        }
                         queryitem = queryitems[1]
                     }
                 } else {
                     if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
-                        selectedprofile = profile
-                        selectedview = .verify_remote
                         Task {
                             if waitasecond {
+                                selectedprofile = profile
                                 // If loaded from incoming URL, just wait a second to
                                 // let profile load before comence action
                                 try await Task.sleep(seconds: 1)
@@ -334,6 +345,7 @@ extension SidebarMainView {
                                 selectedview = .synchronize
                                 return
                             }
+                            
                             queryitem = queryitems[1]
                         }
                     }
