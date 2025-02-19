@@ -11,11 +11,10 @@ import UserNotifications
 
 @main
 struct RsyncUIApp: App {
-    @State private var selectedprofile: String? = SharedReference.shared.defaultprofile
 
     var body: some Scene {
         Window("RsyncUI", id: "main") {
-            RsyncUIView(selectedprofile: $selectedprofile)
+            RsyncUIView()
                 .task {
                     Homepath().createrootprofilecatalog()
                 }

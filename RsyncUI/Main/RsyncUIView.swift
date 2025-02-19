@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RsyncUIView: View {
-    @Binding var selectedprofile: String?
+    @State private var selectedprofile: String? = SharedReference.shared.defaultprofile
     @State private var rsyncversion = Rsyncversion()
     @State private var start: Bool = true
 
@@ -47,7 +47,6 @@ struct RsyncUIView: View {
                                                        SharedReference.shared.monitornetworkconnection,
                                                        SharedReference.shared.sshport,
                                                        SharedReference.shared.fileconfigurationsjson)
-            // rsyncUIdata.readdatafromstorecompleted = true
             let catalognames = Homepath().getfullpathmacserialcatalogsasstringnames()
             rsyncUIdata.validprofiles = catalognames.map { catalog in
                 ProfilesnamesRecord(catalog)
@@ -55,14 +54,12 @@ struct RsyncUIView: View {
         }
         .onChange(of: selectedprofile) {
             Task {
-                rsyncUIdata.readdatafromstorecompleted = false
                 rsyncUIdata.profile = selectedprofile
                 rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
                     .readjsonfilesynchronizeconfigurations(selectedprofile,
                                                            SharedReference.shared.monitornetworkconnection,
                                                            SharedReference.shared.sshport,
                                                            SharedReference.shared.fileconfigurationsjson)
-                rsyncUIdata.readdatafromstorecompleted = true
             }
         }
     }
