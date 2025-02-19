@@ -264,7 +264,6 @@ struct TasksView: View {
                 ToolbarItem {
                     Button {
                         guard selectedtaskhalted == false else { return }
-                        ispressedverify = true
                         if urlcommandverify {
                             urlcommandverify = false
                         } else {
@@ -272,21 +271,10 @@ struct TasksView: View {
                         }
                         Task {
                             try await Task.sleep(seconds: 1)
-                            ispressedverify = false
                         }
                     } label: {
-                        if ispressedverify {
-                            Image(systemName: "bolt.shield")
-                                .foregroundColor(Color(.yellow))
-                                .transition(
-                                    TransitionButton()
-                                        .animation(.easeInOut(duration: 1.0)
-                                        )
-                                )
-                        } else {
-                            Image(systemName: "bolt.shield")
-                                .foregroundColor(Color(.yellow))
-                        }
+                        Image(systemName: "bolt.shield")
+                            .foregroundColor(Color(.yellow))
                     }
                     .help("Verify Selected")
                 }
@@ -307,13 +295,8 @@ struct TasksView: View {
                         }
                     } label: {
                         if ispressedestimate {
-                            Image(systemName: "bolt.shield.fill")
+                            Image(systemName: "bolt.shield")
                                 .foregroundColor(Color(.yellow))
-                                .transition(
-                                    TransitionButton()
-                                        .animation(.easeInOut(duration: 1.0)
-                                        )
-                                )
                         } else {
                             Image(systemName: "bolt.shield.fill")
                                 .foregroundColor(Color(.yellow))
