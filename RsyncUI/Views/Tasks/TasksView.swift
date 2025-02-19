@@ -269,9 +269,6 @@ struct TasksView: View {
                         } else {
                             urlcommandverify = true
                         }
-                        Task {
-                            try await Task.sleep(seconds: 1)
-                        }
                     } label: {
                         Image(systemName: "bolt.shield")
                             .foregroundColor(Color(.yellow))
@@ -283,24 +280,14 @@ struct TasksView: View {
             if alltasksarehalted() == false {
                 ToolbarItem {
                     Button {
-                        ispressedestimate = true
                         if urlcommandestimateandsynchronize {
                             urlcommandestimateandsynchronize = false
                         } else {
                             urlcommandestimateandsynchronize = true
                         }
-                        Task {
-                            try await Task.sleep(seconds: 1)
-                            ispressedestimate = false
-                        }
                     } label: {
-                        if ispressedestimate {
-                            Image(systemName: "bolt.shield")
-                                .foregroundColor(Color(.yellow))
-                        } else {
-                            Image(systemName: "bolt.shield.fill")
-                                .foregroundColor(Color(.yellow))
-                        }
+                        Image(systemName: "bolt.shield.fill")
+                            .foregroundColor(Color(.yellow))
                     }
                     .help("Estimate & Synchronize")
                 }
