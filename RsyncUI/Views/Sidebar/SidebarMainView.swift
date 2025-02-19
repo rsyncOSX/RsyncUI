@@ -123,7 +123,7 @@ struct SidebarMainView: View {
         .onOpenURL { incomingURL in
             // URL code
             // Deep link triggered RsyncUI from outside
-            handleURLsidebarmainView(incomingURL)
+            handleURLsidebarmainView(incomingURL, true)
         }
         .onChange(of: urlcommandestimateandsynchronize) {
             // URL code
@@ -131,7 +131,7 @@ struct SidebarMainView: View {
             // toolbar in TasksView
             let valueprofile = rsyncUIdata.profile ?? ""
             if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: valueprofile) {
-                handleURLsidebarmainView(url)
+                handleURLsidebarmainView(url, false)
             }
         }
         .onChange(of: urlcommandverify) {
@@ -146,7 +146,7 @@ struct SidebarMainView: View {
                     if let url = DeeplinkURL().createURLloadandverify(valueprofile: valueprofile,
                                                                       valueid: valueid)
                     {
-                        handleURLsidebarmainView(url)
+                        handleURLsidebarmainView(url, false)
                     }
                 }
             }
@@ -242,7 +242,7 @@ struct SidebarMainView: View {
 
 extension SidebarMainView {
     // URL code
-    private func handleURLsidebarmainView(_ url: URL) {
+    private func handleURLsidebarmainView(_ url: URL, _ waitasecond: Bool) {
         let deeplinkurl = DeeplinkURL()
         // Verify URL action is valid
         guard deeplinkurl.validatenoaction(queryitem) else { return }
@@ -275,7 +275,11 @@ extension SidebarMainView {
                     selectedprofile = SharedReference.shared.defaultprofile
                     selectedview = .synchronize
                     Task {
-                        try await Task.sleep(seconds: 1)
+                        if waitasecond {
+                            // If loaded from incoming URL, just wait a second to
+                            // let profile load before comence action
+                            try await Task.sleep(seconds: 1)
+                        }
                         guard rsyncUIdata.readdatafromstorecompleted else { return }
                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
                         // Observe queryitem
@@ -286,7 +290,11 @@ extension SidebarMainView {
                         selectedprofile = profile
                         selectedview = .synchronize
                         Task {
-                            try await Task.sleep(seconds: 1)
+                            if waitasecond {
+                                // If loaded from incoming URL, just wait a second to
+                                // let profile load before comence action
+                                try await Task.sleep(seconds: 1)
+                            }
                             guard rsyncUIdata.readdatafromstorecompleted else { return }
                             guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
                             // Observe queryitem
@@ -308,7 +316,11 @@ extension SidebarMainView {
                     selectedprofile = SharedReference.shared.defaultprofile
                     selectedview = .verify_remote
                     Task {
-                        try await Task.sleep(seconds: 1)
+                        if waitasecond {
+                            // If loaded from incoming URL, just wait a second to
+                            // let profile load before comence action
+                            try await Task.sleep(seconds: 1)
+                        }
                         guard rsyncUIdata.readdatafromstorecompleted else { return }
                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
                         // Observe queryitem
@@ -319,7 +331,11 @@ extension SidebarMainView {
                         selectedprofile = profile
                         selectedview = .verify_remote
                         Task {
-                            try await Task.sleep(seconds: 1)
+                            if waitasecond {
+                                // If loaded from incoming URL, just wait a second to
+                                // let profile load before comence action
+                                try await Task.sleep(seconds: 1)
+                            }
                             guard rsyncUIdata.readdatafromstorecompleted else {
                                 selectedview = .synchronize
                                 return
@@ -418,3 +434,115 @@ struct SidebarRow: View {
         }
     }
 }
+
+/*
+ extension SidebarMainView {
+     // URL code
+     private func handleURLsidebarmainView(_ url: URL) {
+         Logger.process.info("handleURLsidebarmainView: URL request for: \(url)")
+
+         let deeplinkurl = DeeplinkURL()
+         // Verify URL action is valid
+         guard deeplinkurl.validatenoaction(queryitem) else { return }
+         // Verify no other process is running
+         guard SharedReference.shared.process == nil else { return }
+         // Also veriy that no other query item is processed
+         guard queryitem == nil else { return }
+
+         switch deeplinkurl.handleURL(url)?.host {
+         case .quicktask:
+             selectedview = .synchronize
+             executetasknavigation.append(Tasks(task: .quick_synchronize))
+         case .loadprofile:
+             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
+                 let profile = queryitems[0].value ?? ""
+                 if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
+                     selectedprofile = profile
+                 }
+             } else {
+                 return
+             }
+         case .loadprofileandestimate:
+             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
+                 let profile = queryitems[0].value ?? ""
+
+                 if profile == "default" {
+                     Task {
+                         await loadprofileforurllink(SharedReference.shared.defaultprofile)
+                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
+                             selectedview = .synchronize
+                             return
+                         }
+                         selectedview = .synchronize
+                         queryitem = queryitems[0]
+                     }
+                 } else {
+                     Task {
+                         await loadprofileforurllink(profile)
+                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
+                             selectedview = .synchronize
+                             return
+                         }
+                         selectedview = .synchronize
+                         queryitem = queryitems[0]
+                     }
+                 }
+             } else {
+                 return
+             }
+         case .loadprofileandverify:
+             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 2 {
+                 let profile = queryitems[0].value ?? ""
+
+                 if profile == "default" {
+                     Task {
+                         await loadprofileforurllink(SharedReference.shared.defaultprofile)
+                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
+                             selectedview = .synchronize
+                             return
+                         }
+                         selectedview = .verify_remote
+                         queryitem = queryitems[1]
+                     }
+                 } else {
+                     if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
+                         Task {
+                             await loadprofileforurllink(profile)
+                             guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
+                                 selectedview = .synchronize
+                                 return
+                             }
+                             selectedview = .verify_remote
+                             queryitem = queryitems[1]
+                         }
+                     }
+                 }
+             } else {
+                 return
+             }
+         default:
+             return
+         }
+     }
+
+
+     // Must load profile for URL-link async to make sure profile is
+     // loaded ahead of start requested action.
+     func loadprofileforurllink(_ profile: String) async {
+         Logger.process.info("SidebarMainView: loadprofileforurllink executed")
+         if profile == "default" {
+             rsyncUIdata.profile = SharedReference.shared.defaultprofile
+             selectedprofile = SharedReference.shared.defaultprofile
+         } else {
+             rsyncUIdata.profile = profile
+             selectedprofile = profile
+         }
+         rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
+             .readjsonfilesynchronizeconfigurations(selectedprofile,
+                                                    SharedReference.shared.monitornetworkconnection,
+                                                    SharedReference.shared.sshport,
+                                                    SharedReference.shared.fileconfigurationsjson)
+     }
+ }
+
+ */
