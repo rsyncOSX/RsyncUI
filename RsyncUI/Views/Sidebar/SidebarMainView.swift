@@ -239,7 +239,7 @@ struct SidebarMainView: View {
 
 extension SidebarMainView {
     // URL code
-    private func handleURLsidebarmainView(_ url: URL, _ waitasecond: Bool) {
+    private func handleURLsidebarmainView(_ url: URL, _ externalurl: Bool) {
         let deeplinkurl = DeeplinkURL()
         // Verify URL action is valid
         guard deeplinkurl.validatenoaction(queryitem) else { return }
@@ -273,11 +273,9 @@ extension SidebarMainView {
                 if profile == "default" {
                    
                     Task {
-                        if waitasecond {
-                            selectedprofile = SharedReference.shared.defaultprofile
-                            // If loaded from incoming URL, just wait a second to
-                            // let profile load before comence action
-                            try await Task.sleep(seconds: 1)
+                        if externalurl {
+                            // Load profile for external URL
+                            await loadprofileforexternalurllink(profile)
                         }
                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
                             selectedview = .synchronize
@@ -290,11 +288,9 @@ extension SidebarMainView {
                     if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
                         
                         Task {
-                            selectedprofile = profile
-                            if waitasecond {
-                                // If loaded from incoming URL, just wait a second to
-                                // let profile load before comence action
-                                try await Task.sleep(seconds: 1)
+                            if externalurl {
+                                // Load profile for external URL
+                                await loadprofileforexternalurllink(profile)
                             }
                             guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
                                 selectedview = .synchronize
@@ -320,32 +316,29 @@ extension SidebarMainView {
                 if profile == "default" {
                     
                     Task {
-                        if waitasecond {
-                            selectedprofile = SharedReference.shared.defaultprofile
-                            // If loaded from incoming URL, just wait a second to
-                            // let profile load before comence action
-                            try await Task.sleep(seconds: 1)
+                        if externalurl {
+                            // Load profile for external URL
+                            await loadprofileforexternalurllink(profile)
                         }
                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
                             selectedview = .synchronize
                             return
                         }
+                        // Observe queryitem
                         queryitem = queryitems[1]
                     }
                 } else {
                     if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
                         Task {
-                            if waitasecond {
-                                selectedprofile = profile
-                                // If loaded from incoming URL, just wait a second to
-                                // let profile load before comence action
-                                try await Task.sleep(seconds: 1)
+                            if externalurl {
+                                // Load profile for external URL
+                                await loadprofileforexternalurllink(profile)
                             }
                             guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
                                 selectedview = .synchronize
                                 return
                             }
-                            
+                            // Observe queryitem
                             queryitem = queryitems[1]
                         }
                     }
@@ -405,6 +398,25 @@ extension SidebarMainView {
         }
         return false
     }
+    
+    // Must load profile for URL-link async to make sure profile is
+    // loaded ahead of start requested action.
+    // Only for external URL requests
+    func loadprofileforexternalurllink(_ profile: String) async {
+        Logger.process.info("SidebarMainView: loadprofileforexternalurllink executed")
+        if profile == "default" {
+            rsyncUIdata.profile = SharedReference.shared.defaultprofile
+            selectedprofile = SharedReference.shared.defaultprofile
+        } else {
+            rsyncUIdata.profile = profile
+            selectedprofile = profile
+        }
+        rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
+            .readjsonfilesynchronizeconfigurations(selectedprofile,
+                                                   SharedReference.shared.monitornetworkconnection,
+                                                   SharedReference.shared.sshport,
+                                                   SharedReference.shared.fileconfigurationsjson)
+    }
 }
 
 struct SidebarRow: View {
@@ -436,115 +448,3 @@ struct SidebarRow: View {
         }
     }
 }
-
-/*
- extension SidebarMainView {
-     // URL code
-     private func handleURLsidebarmainView(_ url: URL) {
-         Logger.process.info("handleURLsidebarmainView: URL request for: \(url)")
-
-         let deeplinkurl = DeeplinkURL()
-         // Verify URL action is valid
-         guard deeplinkurl.validatenoaction(queryitem) else { return }
-         // Verify no other process is running
-         guard SharedReference.shared.process == nil else { return }
-         // Also veriy that no other query item is processed
-         guard queryitem == nil else { return }
-
-         switch deeplinkurl.handleURL(url)?.host {
-         case .quicktask:
-             selectedview = .synchronize
-             executetasknavigation.append(Tasks(task: .quick_synchronize))
-         case .loadprofile:
-             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
-                 let profile = queryitems[0].value ?? ""
-                 if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
-                     selectedprofile = profile
-                 }
-             } else {
-                 return
-             }
-         case .loadprofileandestimate:
-             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
-                 let profile = queryitems[0].value ?? ""
-
-                 if profile == "default" {
-                     Task {
-                         await loadprofileforurllink(SharedReference.shared.defaultprofile)
-                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                             selectedview = .synchronize
-                             return
-                         }
-                         selectedview = .synchronize
-                         queryitem = queryitems[0]
-                     }
-                 } else {
-                     Task {
-                         await loadprofileforurllink(profile)
-                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                             selectedview = .synchronize
-                             return
-                         }
-                         selectedview = .synchronize
-                         queryitem = queryitems[0]
-                     }
-                 }
-             } else {
-                 return
-             }
-         case .loadprofileandverify:
-             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 2 {
-                 let profile = queryitems[0].value ?? ""
-
-                 if profile == "default" {
-                     Task {
-                         await loadprofileforurllink(SharedReference.shared.defaultprofile)
-                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                             selectedview = .synchronize
-                             return
-                         }
-                         selectedview = .verify_remote
-                         queryitem = queryitems[1]
-                     }
-                 } else {
-                     if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
-                         Task {
-                             await loadprofileforurllink(profile)
-                             guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                                 selectedview = .synchronize
-                                 return
-                             }
-                             selectedview = .verify_remote
-                             queryitem = queryitems[1]
-                         }
-                     }
-                 }
-             } else {
-                 return
-             }
-         default:
-             return
-         }
-     }
-
-
-     // Must load profile for URL-link async to make sure profile is
-     // loaded ahead of start requested action.
-     func loadprofileforurllink(_ profile: String) async {
-         Logger.process.info("SidebarMainView: loadprofileforurllink executed")
-         if profile == "default" {
-             rsyncUIdata.profile = SharedReference.shared.defaultprofile
-             selectedprofile = SharedReference.shared.defaultprofile
-         } else {
-             rsyncUIdata.profile = profile
-             selectedprofile = profile
-         }
-         rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
-             .readjsonfilesynchronizeconfigurations(selectedprofile,
-                                                    SharedReference.shared.monitornetworkconnection,
-                                                    SharedReference.shared.sshport,
-                                                    SharedReference.shared.fileconfigurationsjson)
-     }
- }
-
- */
