@@ -123,7 +123,7 @@ struct SidebarMainView: View {
         .onOpenURL { incomingURL in
             // URL code
             // Deep link triggered RsyncUI from outside
-            handleURLsidebarmainView(incomingURL)
+            handleURLsidebarmainView(incomingURL, true)
         }
         .onChange(of: urlcommandestimateandsynchronize) {
             // URL code
@@ -131,7 +131,7 @@ struct SidebarMainView: View {
             // toolbar in TasksView
             let valueprofile = rsyncUIdata.profile ?? ""
             if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: valueprofile) {
-                handleURLsidebarmainView(url)
+                handleURLsidebarmainView(url, false)
             }
         }
         .onChange(of: urlcommandverify) {
@@ -146,7 +146,7 @@ struct SidebarMainView: View {
                     if let url = DeeplinkURL().createURLloadandverify(valueprofile: valueprofile,
                                                                       valueid: valueid)
                     {
-                        handleURLsidebarmainView(url)
+                        handleURLsidebarmainView(url, false)
                     }
                 }
             }
@@ -242,7 +242,7 @@ struct SidebarMainView: View {
 
 extension SidebarMainView {
     // URL code
-    private func handleURLsidebarmainView(_ url: URL) {
+    private func handleURLsidebarmainView(_ url: URL, _ waitasecond: Bool) {
         let deeplinkurl = DeeplinkURL()
         // Verify URL action is valid
         guard deeplinkurl.validatenoaction(queryitem) else { return }
@@ -275,7 +275,11 @@ extension SidebarMainView {
                     selectedprofile = SharedReference.shared.defaultprofile
                     selectedview = .synchronize
                     Task {
-                        try await Task.sleep(seconds: 1)
+                        if waitasecond {
+                            // If loaded from incoming URL, just wait a second to
+                            // let profile load before comence action
+                            try await Task.sleep(seconds: 1)
+                        }
                         guard rsyncUIdata.readdatafromstorecompleted else { return }
                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
                         // Observe queryitem
@@ -286,7 +290,11 @@ extension SidebarMainView {
                         selectedprofile = profile
                         selectedview = .synchronize
                         Task {
-                            try await Task.sleep(seconds: 1)
+                            if waitasecond {
+                                // If loaded from incoming URL, just wait a second to
+                                // let profile load before comence action
+                                try await Task.sleep(seconds: 1)
+                            }
                             guard rsyncUIdata.readdatafromstorecompleted else { return }
                             guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
                             // Observe queryitem
@@ -308,7 +316,11 @@ extension SidebarMainView {
                     selectedprofile = SharedReference.shared.defaultprofile
                     selectedview = .verify_remote
                     Task {
-                        try await Task.sleep(seconds: 1)
+                        if waitasecond {
+                            // If loaded from incoming URL, just wait a second to
+                            // let profile load before comence action
+                            try await Task.sleep(seconds: 1)
+                        }
                         guard rsyncUIdata.readdatafromstorecompleted else { return }
                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
                         // Observe queryitem
@@ -319,7 +331,11 @@ extension SidebarMainView {
                         selectedprofile = profile
                         selectedview = .verify_remote
                         Task {
-                            try await Task.sleep(seconds: 1)
+                            if waitasecond {
+                                // If loaded from incoming URL, just wait a second to
+                                // let profile load before comence action
+                                try await Task.sleep(seconds: 1)
+                            }
                             guard rsyncUIdata.readdatafromstorecompleted else {
                                 selectedview = .synchronize
                                 return
