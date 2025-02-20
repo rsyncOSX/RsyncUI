@@ -69,9 +69,6 @@ struct TasksView: View {
     @State private var maxcount: Double = 0
     // For estimates is true
     @State private var thereareestimates: Bool = false
-    // If buttons are pressed
-    @State private var ispressedverify: Bool = false
-    @State private var ispressedestimate: Bool = false
 
     @State var isOpen: Bool = false
     // View profiles on left
