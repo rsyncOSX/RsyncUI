@@ -20,7 +20,7 @@ struct VerifyRemote: View {
         // NavigationStack(path: $verifynavigation) {
         if selectedconfig == nil {
             VStack {
-                Text("**Warning:** This function is advisory only.")
+                Text("**Warning:** The Verify function is advisory only.")
                     .foregroundColor(.blue)
                     .font(.title)
 
@@ -33,7 +33,7 @@ struct VerifyRemote: View {
                         .foregroundColor(.yellow)
                         .font(.title)
 
-                    Text(" to verify.")
+                    Text(" on the toolbar to verify.")
                         .foregroundColor(.blue)
                         .font(.title)
                 }
