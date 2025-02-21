@@ -55,8 +55,9 @@ struct RsyncUIView: View {
         }
         .onChange(of: selectedprofile) {
             // Only for external URL 
-            guard selectedprofile != rsyncUIdata.profile else {
+            guard rsyncUIdata.externalurlrequestinprogress == false else {
                 Logger.process.info("RsyncUIView: external URL loaded")
+                rsyncUIdata.externalurlrequestinprogress = false
                 return
             }
             Task {

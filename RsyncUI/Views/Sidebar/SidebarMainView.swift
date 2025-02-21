@@ -404,6 +404,7 @@ extension SidebarMainView {
     // Only for external URL requests
     func loadprofileforexternalurllink(_ profile: String) async {
         Logger.process.info("SidebarMainView: loadprofileforexternalurllink executed")
+        rsyncUIdata.externalurlrequestinprogress = true
         if profile == "default" {
             rsyncUIdata.profile = SharedReference.shared.defaultprofile
             selectedprofile = SharedReference.shared.defaultprofile
