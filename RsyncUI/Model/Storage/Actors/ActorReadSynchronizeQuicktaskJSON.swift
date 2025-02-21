@@ -15,7 +15,7 @@ actor ActorReadSynchronizeQuicktaskJSON {
         var filename = ""
         let path = await Homepath()
 
-        Logger.process.info("ActorReadSynchronizeQuicktaskJSON: readjsonfilequicktask() on main thread \(Thread.isMain)")
+        Logger.process.info("ActorReadSynchronizeQuicktaskJSON: readjsonfilequicktask() main \(Thread.isMain)")
 
         if let path = path.fullpathmacserial {
             filename = path + "/" + "quicktask.json"

@@ -69,7 +69,7 @@ import OSLog
 
 actor GenerateLogfileforview {
     func generatedata() async -> [LogfileRecords] {
-        Logger.process.info("GenerateLogfileforview: generatedata() on main thread \(Thread.isMain)")
+        Logger.process.info("GenerateLogfileforview: generatedata() main \(Thread.isMain)")
         let data = await Logfile(false).getlogfile()
         return data.map { record in
             LogfileRecords(line: record)

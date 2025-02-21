@@ -56,7 +56,7 @@ actor ActorReadSynchronizeConfigurationJSON {
         var filename = ""
         let path = await Homepath()
 
-        Logger.process.info("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations() on main thread \(Thread.isMain)")
+        Logger.process.info("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations() main \(Thread.isMain)")
 
         if let profile, profile != "Default profile", let path = path.fullpathmacserial {
             filename = path + "/" + profile + "/" + filenameconfigurations
