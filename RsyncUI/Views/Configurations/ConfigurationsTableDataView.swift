@@ -49,6 +49,7 @@ struct ConfigurationsTableDataView: View {
                 }
             }
             .width(min: 50, max: 90)
+            /*
             TableColumn("Days") { data in
                 var seconds: Double {
                     if let date = data.dateRun {
@@ -66,6 +67,7 @@ struct ConfigurationsTableDataView: View {
                 Text(data.dateRun ?? "")
             }
             .width(max: 120)
+             */
         }
     }
 }
