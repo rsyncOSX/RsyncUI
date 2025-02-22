@@ -81,7 +81,7 @@ extension ExecuteNoestimatedTasksView {
     }
 
     func updateconfigurations(_ configurations: [SynchronizeConfiguration]) {
-        Logger.process.info("Updateconfigurations() in memory\nReset data and return to main task view")
+        Logger.process.info("Updateconfigurations() in memory\nReset data and return to MAIN THREADtask view")
         rsyncUIdata.configurations = configurations
         progressviewshowinfo = false
         executenoestimationprogressdetails.reset()

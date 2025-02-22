@@ -14,7 +14,7 @@ actor ActorWriteSynchronizeQuicktaskJSON {
     private func writeJSONToPersistentStore(jsonData: Data?) async {
         let path = await Homepath()
 
-        Logger.process.info("ActorWriteSynchronizeQuicktaskJSON: writeJSONToPersistentStore() main \(Thread.isMain)")
+        Logger.process.info("ActorWriteSynchronizeQuicktaskJSON: writeJSONToPersistentStore() MAIN THREAD \(Thread.isMain)")
 
         if let fullpathmacserial = path.fullpathmacserial {
             var configurationfileURL: URL?
