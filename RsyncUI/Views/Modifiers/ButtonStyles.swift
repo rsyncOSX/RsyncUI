@@ -72,7 +72,7 @@ struct ColorfulButtonStyle: ButtonStyle {
              .scaleEffect(phase.isIdentity ? 1 : 0)
      }
  }
- 
+
  struct PressedButtonStyle: ButtonStyle {
      let title: String
      let systemImage: String

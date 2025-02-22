@@ -5,8 +5,8 @@
 //  Created by Thomas Evensen on 17/06/2021.
 //
 
-import SwiftUI
 import OSLog
+import SwiftUI
 
 struct RsyncUIView: View {
     @State private var selectedprofile: String? = SharedReference.shared.defaultprofile
@@ -54,7 +54,7 @@ struct RsyncUIView: View {
             }
         }
         .onChange(of: selectedprofile) {
-            // Only for external URL 
+            // Only for external URL
             guard rsyncUIdata.externalurlrequestinprogress == false else {
                 Logger.process.info("RsyncUIView: external URL loaded")
                 rsyncUIdata.externalurlrequestinprogress = false

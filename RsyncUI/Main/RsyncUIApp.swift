@@ -11,7 +11,6 @@ import UserNotifications
 
 @main
 struct RsyncUIApp: App {
-
     var body: some Scene {
         Window("RsyncUI", id: "main") {
             RsyncUIView()

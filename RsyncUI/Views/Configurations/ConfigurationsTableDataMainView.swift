@@ -35,38 +35,34 @@ struct ConfigurationsTableDataMainView: View {
             }
             .width(min: 50, max: 100)
             .defaultVisibility(visible_not_progress)
-            TableColumn("Synchronize ID") { data in
+            TableColumn("Est") { data in
                 if let index = executeprogressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id }) {
                     let color: Color = executeprogressdetails.estimatedlist?[index].datatosynchronize == true ? .blue : .red
+                    Text(Image(systemName: "checkmark"))
+                        .foregroundColor(color)
+                }
+            }
+            .width(max: 25)
+            TableColumn("Synchronize ID") { data in
+                if data.backupID.isEmpty == true {
+                    Text("Synchronize ID")
+                        .contextMenu {
+                            Button("Toggle halt task") {
+                                let index = getindex(selecteduuids)
+                                guard index != -1 else { return }
+                                updatehalted(index)
+                            }
+                        }
 
-                    if data.backupID.isEmpty == true {
-                        Text("Synchronize ID")
-                            .foregroundColor(color)
-                    } else {
-                        Text(data.backupID)
-                            .foregroundColor(color)
-                    }
                 } else {
-                    if data.backupID.isEmpty == true {
-                        Text("Synchronize ID")
-                            .contextMenu {
-                                Button("Toggle halt task") {
-                                    let index = getindex(selecteduuids)
-                                    guard index != -1 else { return }
-                                    updatehalted(index)
-                                }
+                    Text(data.backupID)
+                        .contextMenu {
+                            Button("Toggle halt task") {
+                                let index = getindex(selecteduuids)
+                                guard index != -1 else { return }
+                                updatehalted(index)
                             }
-
-                    } else {
-                        Text(data.backupID)
-                            .contextMenu {
-                                Button("Toggle halt task") {
-                                    let index = getindex(selecteduuids)
-                                    guard index != -1 else { return }
-                                    updatehalted(index)
-                                }
-                            }
-                    }
+                        }
                 }
             }
             TableColumn("Task") { data in

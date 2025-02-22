@@ -55,7 +55,7 @@ struct DetailsPushPullView: View {
                                     .help("Abort (⌘K)")
                                 }
                             })
-                        
+
                         Spacer()
 
                     } else {

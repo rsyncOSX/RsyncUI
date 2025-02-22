@@ -268,9 +268,8 @@ extension SidebarMainView {
                 let profile = queryitems[0].value ?? ""
 
                 selectedview = .synchronize
-                
+
                 if profile == "default" {
-                   
                     Task {
                         if externalurl {
                             // Load profile for external URL
@@ -285,7 +284,6 @@ extension SidebarMainView {
                     }
                 } else {
                     if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
-                        
                         Task {
                             if externalurl {
                                 // Load profile for external URL
@@ -309,11 +307,10 @@ extension SidebarMainView {
 
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 2 {
                 let profile = queryitems[0].value ?? ""
-                
+
                 selectedview = .verify_remote
-                
+
                 if profile == "default" {
-                    
                     Task {
                         if externalurl {
                             // Load profile for external URL
@@ -397,7 +394,7 @@ extension SidebarMainView {
         }
         return false
     }
-    
+
     // Must load profile for URL-link async to make sure profile is
     // loaded ahead of start requested action.
     // Only for external URL requests

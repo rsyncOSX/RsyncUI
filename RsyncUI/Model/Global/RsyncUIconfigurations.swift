@@ -44,7 +44,7 @@ final class RsyncUIconfigurations {
             $0.offsiteServer.isEmpty == false
         }.count ?? 0 > 0
     }
-    
+
     @ObservationIgnored var externalurlrequestinprogress: Bool = false
 
     init() {}
