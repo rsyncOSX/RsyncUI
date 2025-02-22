@@ -17,6 +17,8 @@ struct SummarizedDetailsView: View {
     @State private var focusstartexecution: Bool = false
     @State private var nodatatosynchronize: Bool = false
     @State private var isPresentingConfirm: Bool = false
+    
+    @State private var dismissestimatedview: Bool = false
 
     let configurations: [SynchronizeConfiguration]
     let profile: String?
@@ -33,10 +35,19 @@ struct SummarizedDetailsView: View {
                                              nodatatosynchronize: $nodatatosynchronize,
                                              profile: profile,
                                              configurations: configurations)
+                    .onDisappear {
+                        let test = estimateprogressdetails.estimatedlist?.map { element in
+                            return element.datatosynchronize ? true : false
+                        }
+                        if let test{
+                            print(test)
+                        }
+                    }
                 } else {
                     leftcolumndetails
-
+                    
                     rightcolumndetails
+                    
                 }
             }
             .toolbar(content: {
