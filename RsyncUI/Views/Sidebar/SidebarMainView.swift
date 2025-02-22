@@ -14,7 +14,6 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
 }
 
 // The sidebar is context sensitive, it is computed everytime a new profile is loaded
-
 struct MenuItem: Identifiable, Hashable {
     var menuitem: Sidebaritems
     let id = UUID()
@@ -88,7 +87,7 @@ struct SidebarMainView: View {
                     .padding([.bottom], -30)
                     .onAppear {
                         Task {
-                            try await Task.sleep(seconds: 3)
+                            try await Task.sleep(seconds: 2)
                             mountingvolumenow = false
                         }
                     }
