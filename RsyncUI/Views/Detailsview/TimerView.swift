@@ -22,7 +22,7 @@ struct TimerView: View {
 
     var body: some View {
         if SharedReference.shared.synchronizewithouttimedelay {
-            Text("Synchronizing now")
+            Text("Synchronizing now, click to dismiss")
                 .foregroundColor(.blue)
                 .onReceive(timer) { firedDate in
                     timetosynchronize = 1
@@ -32,6 +32,9 @@ struct TimerView: View {
                         path.removeAll()
                         path.append(Tasks(task: .executestimatedview))
                     }
+                }
+                .onTapGesture {
+                    dismiss()
                 }
         } else {
             Button(timeosynchronizestring) {
