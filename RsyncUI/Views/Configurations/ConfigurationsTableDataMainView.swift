@@ -43,6 +43,7 @@ struct ConfigurationsTableDataMainView: View {
                 }
             }
             .width(max: 25)
+            .defaultVisibility(executeprogressdetails.estimatedlist == nil ? .hidden : .visible)
             TableColumn("Synchronize ID") { data in
                 if data.backupID.isEmpty == true {
                     Text("Synchronize ID")
