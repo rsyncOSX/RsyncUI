@@ -30,7 +30,7 @@ final class EstimateTasks {
                 localestimateprogressdetails?.estimationiscomplete()
                 return
             }
-            return 
+            return
         }
         let localhiddenID = stackoftasktobeestimated?.removeFirst()
         guard localhiddenID != nil else { return }
