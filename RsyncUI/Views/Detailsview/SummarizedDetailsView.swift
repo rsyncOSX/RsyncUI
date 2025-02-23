@@ -36,11 +36,13 @@ struct SummarizedDetailsView: View {
                                              profile: profile,
                                              configurations: configurations)
                     .onDisappear {
-                        let test = estimateprogressdetails.estimatedlist?.map { element in
-                            return element.datatosynchronize ? true : false
+                        let datatosynchronize = estimateprogressdetails.estimatedlist?.compactMap { element in
+                            return element.datatosynchronize ? true : nil
                         }
-                        if let test{
-                            print(test)
+                        if let datatosynchronize {
+                            if datatosynchronize.count == 0 {
+                                path.removeAll()
+                            }
                         }
                     }
                 } else {
