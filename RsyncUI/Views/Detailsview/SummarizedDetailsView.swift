@@ -15,11 +15,8 @@ struct SummarizedDetailsView: View {
     @Binding var path: [Tasks]
 
     @State private var focusstartexecution: Bool = false
-    @State private var nodatatosynchronize: Bool = false
     @State private var isPresentingConfirm: Bool = false
     
-    @State private var dismissestimatedview: Bool = false
-
     let configurations: [SynchronizeConfiguration]
     let profile: String?
     // URL code
@@ -32,7 +29,7 @@ struct SummarizedDetailsView: View {
                     EstimationInProgressView(executeprogressdetails: executeprogressdetails,
                                              estimateprogressdetails: estimateprogressdetails,
                                              selecteduuids: $selecteduuids,
-                                             nodatatosynchronize: $nodatatosynchronize,
+                                             // nodatatosynchronize: $nodatatosynchronize,
                                              profile: profile,
                                              configurations: configurations)
                     .onDisappear {
@@ -109,6 +106,7 @@ struct SummarizedDetailsView: View {
                     }
                 }
             })
+            .frame(maxWidth: .infinity)
             .focusedSceneValue(\.startexecution, $focusstartexecution)
             .onAppear {
                 guard estimateprogressdetails.estimatealltasksinprogress == false else {

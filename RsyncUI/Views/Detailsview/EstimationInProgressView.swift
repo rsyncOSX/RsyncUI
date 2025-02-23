@@ -11,8 +11,6 @@ struct EstimationInProgressView: View {
     @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    @Binding var nodatatosynchronize: Bool
-
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
 
@@ -37,7 +35,7 @@ struct EstimationInProgressView: View {
             estimateprogressdetails.startestimation()
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
-        .padding()
+        .frame(maxWidth: .infinity)
     }
 
     var progressviewestimation: some View {
@@ -53,17 +51,6 @@ struct EstimationInProgressView: View {
                                              estimateprogressdetails: estimateprogressdetails,
                                              filter: "")
                 estimate.startestimation()
-            }
-            .onDisappear {
-                // executeprogressdetails.estimatedlist = nil
-                // executeprogressdetails.estimatedlist = estimateprogressdetails.getestimatedlist()
-                nodatatosynchronize = if let data = estimateprogressdetails.estimatedlist?.filter({
-                    $0.datatosynchronize == true })
-                {
-                    data.isEmpty
-                } else {
-                    false
-                }
             }
             .progressViewStyle(.circular)
     }
