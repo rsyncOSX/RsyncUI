@@ -87,11 +87,14 @@ final class EstimateProgressDetails {
         estimatedlist?.append(record)
         numberofconfigurationsestimated = Double(estimatedlist?.count ?? 0)
         onetaskisestimated = true
+        let numbers = estimatedlist?.count ?? 0
+        Logger.process.info("EstimateProgressDetails: appendrecordestimatedlist - count: \(numbers)")
     }
 
     func estimationiscomplete() {
         estimatealltasksinprogress = false
-        Logger.process.info("EstimateProgressDetails: estimation COMPLETED")
+        let numbers = estimatedlist?.count ?? 0
+        Logger.process.info("EstimateProgressDetails: estimation COMPLETED: \(numbers)")
     }
 
     func startestimation() {
