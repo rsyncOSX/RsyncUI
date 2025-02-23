@@ -16,7 +16,7 @@ struct SummarizedDetailsView: View {
 
     @State private var focusstartexecution: Bool = false
     @State private var isPresentingConfirm: Bool = false
-    
+
     let configurations: [SynchronizeConfiguration]
     let profile: String?
     // URL code
@@ -32,21 +32,20 @@ struct SummarizedDetailsView: View {
                                              // nodatatosynchronize: $nodatatosynchronize,
                                              profile: profile,
                                              configurations: configurations)
-                    .onDisappear {
-                        let datatosynchronize = estimateprogressdetails.estimatedlist?.compactMap { element in
-                            return element.datatosynchronize ? true : nil
-                        }
-                        if let datatosynchronize {
-                            if datatosynchronize.count == 0 {
-                                path.removeAll()
+                        .onDisappear {
+                            let datatosynchronize = estimateprogressdetails.estimatedlist?.compactMap { element in
+                                element.datatosynchronize ? true : nil
+                            }
+                            if let datatosynchronize {
+                                if datatosynchronize.count == 0 {
+                                    path.removeAll()
+                                }
                             }
                         }
-                    }
                 } else {
                     leftcolumndetails
-                    
+
                     rightcolumndetails
-                    
                 }
             }
             .toolbar(content: {

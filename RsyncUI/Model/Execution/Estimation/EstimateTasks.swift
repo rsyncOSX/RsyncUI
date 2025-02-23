@@ -24,7 +24,6 @@ final class EstimateTasks {
     }
 
     func startestimation() {
-        
         let localhiddenID = stackoftasktobeestimated?.removeFirst()
         guard localhiddenID != nil else { return }
         if let config = getconfig(localhiddenID ?? -1) {
@@ -98,7 +97,6 @@ extension EstimateTasks {
             var record = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                            config: getconfig(hiddenID ?? -1))
             Task {
-                
                 record.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
                 localestimateprogressdetails?.appendrecordestimatedlist(record)
                 if Int(record.transferredNumber) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
