@@ -60,8 +60,9 @@ struct RemoteDataNumbers: Identifiable, Hashable {
 
         Logger.process.info("RemoteDataNumbers: adjusted output from rsync: \(stringoutputfromrsync?.count ?? 0) rows")
 
+        // Prepareoutput prepares output from rsync for extracting the numbers only.
+        // It removes all lines except the last 20 lines where summarized numbers are put
         let preparedoutputfromrsync = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
-
         if preparedoutputfromrsync.count > 0 {
             let parsersyncoutput = ParseRsyncOutput(preparedoutputfromrsync,
                                                     SharedReference.shared.rsyncversion3)
