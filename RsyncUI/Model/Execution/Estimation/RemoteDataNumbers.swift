@@ -70,10 +70,10 @@ struct RemoteDataNumbers: Identifiable, Hashable {
             transferredNumber = parsersyncoutput.formatted_transferredNumber
             transferredNumber_Int = parsersyncoutput.numbersonly?.filestransferred ?? 0
             totalDirs_Int = parsersyncoutput.numbersonly?.totaldirectories ?? 0
-            transferredNumberSizebytes_Int = Int(parsersyncoutput.numbersonly?.numberoffiles ?? 0)
+            transferredNumberSizebytes_Int = Int(parsersyncoutput.numbersonly?.totaltransferredfilessize ?? 0)
             totalNumber = parsersyncoutput.formatted_totalNumber
             totalNumberSizebytes = parsersyncoutput.formatted_totalNumberSizebytes
-            totalNumberSizebytes_Int = Int(parsersyncoutput.numbersonly?.numberoffiles ?? 0)
+            totalNumberSizebytes_Int = Int(parsersyncoutput.numbersonly?.totalfilesize ?? 0)
             totalDirs = parsersyncoutput.formatted_totalDirs
             totalNumber_totalDirs = parsersyncoutput.formatted_totalNumber
             newfiles = parsersyncoutput.formatted_newfiles
