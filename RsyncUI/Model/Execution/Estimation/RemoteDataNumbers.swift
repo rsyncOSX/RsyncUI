@@ -68,18 +68,18 @@ struct RemoteDataNumbers: Identifiable, Hashable {
                                                     SharedReference.shared.rsyncversion3)
             stats = parsersyncoutput.stats
             transferredNumber = parsersyncoutput.formatted_transferredNumber
-            transferredNumber_Int = parsersyncoutput.numbersonly?.transferNum ?? 0
-            totalDirs_Int = parsersyncoutput.numbersonly?.totDir ?? 0
-            transferredNumberSizebytes_Int = Int(parsersyncoutput.numbersonly?.transferNumSize ?? 0)
+            transferredNumber_Int = parsersyncoutput.numbersonly?.filestransferred ?? 0
+            totalDirs_Int = parsersyncoutput.numbersonly?.totaldirectories ?? 0
+            transferredNumberSizebytes_Int = Int(parsersyncoutput.numbersonly?.numberoffiles ?? 0)
             totalNumber = parsersyncoutput.formatted_totalNumber
             totalNumberSizebytes = parsersyncoutput.formatted_totalNumberSizebytes
-            totalNumberSizebytes_Int = Int(parsersyncoutput.numbersonly?.transferNumSize ?? 0)
+            totalNumberSizebytes_Int = Int(parsersyncoutput.numbersonly?.numberoffiles ?? 0)
             totalDirs = parsersyncoutput.formatted_totalDirs
             totalNumber_totalDirs = parsersyncoutput.formatted_totalNumber
             newfiles = parsersyncoutput.formatted_newfiles
-            newfiles_Int = parsersyncoutput.numbersonly?.newfiles ?? 0
+            newfiles_Int = parsersyncoutput.numbersonly?.numberofcreatedfiles ?? 0
             deletefiles = parsersyncoutput.formatted_deletefiles
-            deletefiles_Int = parsersyncoutput.numbersonly?.deletefiles ?? 0
+            deletefiles_Int = parsersyncoutput.numbersonly?.numberofdeletedfiles ?? 0
 
             if Int(transferredNumber) ?? 0 > 0 || Int(deletefiles) ?? 0 > 0 {
                 datatosynchronize = true
