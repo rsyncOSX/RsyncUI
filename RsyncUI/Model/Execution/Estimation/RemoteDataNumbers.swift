@@ -15,19 +15,18 @@ import ParseRsyncOutput
 struct RemoteDataNumbers: Identifiable, Hashable {
     var id: SynchronizeConfiguration.ID
     var hiddenID: Int = -1
-    var transferredNumber: String = ""
-    var transferredNumber_Int: Int = 0
+    var filestransferred: String = ""
+    var filestransferred_Int: Int = 0
     var transferredNumberSizebytes_Int: Int = 0
-    var totalNumber: String = ""
-    var totalNumberSizebytes: String = ""
-    var totalNumberSizebytes_Int: Int = 0
-    var totalDirs: String = ""
-    var totalDirs_Int: Int = 0
+    var numberoffiles: String = ""
+    var totalfilesize: String = ""
+    var totalfilesize_Int: Int = 0
+    var totaldirectories: String = ""
+    var totaldirectories_Int: Int = 0
     var newfiles: String = ""
     var newfiles_Int: Int = 0
     var deletefiles: String = ""
     var deletefiles_Int: Int = 0
-    var totalNumber_totalDirs: String = ""
 
     var task: String = ""
     var localCatalog: String = ""
@@ -67,32 +66,31 @@ struct RemoteDataNumbers: Identifiable, Hashable {
             let parsersyncoutput = ParseRsyncOutput(preparedoutputfromrsync,
                                                     SharedReference.shared.rsyncversion3)
             stats = parsersyncoutput.stats
-            transferredNumber = parsersyncoutput.formatted_filestransferred
-            transferredNumber_Int = parsersyncoutput.numbersonly?.filestransferred ?? 0
+            filestransferred = parsersyncoutput.formatted_filestransferred
+            filestransferred_Int = parsersyncoutput.numbersonly?.filestransferred ?? 0
             
-            totalDirs_Int = parsersyncoutput.numbersonly?.totaldirectories ?? 0
+            totaldirectories_Int = parsersyncoutput.numbersonly?.totaldirectories ?? 0
             transferredNumberSizebytes_Int = Int(parsersyncoutput.numbersonly?.totaltransferredfilessize ?? 0)
             
-            totalNumber = parsersyncoutput.formatted_numberoffiles
-            totalNumber_totalDirs = parsersyncoutput.formatted_numberoffiles
+            numberoffiles = parsersyncoutput.formatted_numberoffiles
             
-            totalNumberSizebytes = parsersyncoutput.formatted_totalfilesize
-            totalNumberSizebytes_Int = Int(parsersyncoutput.numbersonly?.totalfilesize ?? 0)
+            totalfilesize = parsersyncoutput.formatted_totalfilesize
+            totalfilesize_Int = Int(parsersyncoutput.numbersonly?.totalfilesize ?? 0)
             
-            totalDirs = parsersyncoutput.formatted_totaldirectories
+            totaldirectories = parsersyncoutput.formatted_totaldirectories
             
             newfiles = parsersyncoutput.formatted_numberofcreatedfiles
             newfiles_Int = parsersyncoutput.numbersonly?.numberofcreatedfiles ?? 0
             deletefiles = parsersyncoutput.formatted_numberofdeletedfiles
             deletefiles_Int = parsersyncoutput.numbersonly?.numberofdeletedfiles ?? 0
 
-            if Int(transferredNumber) ?? 0 > 0 || Int(deletefiles) ?? 0 > 0 {
+            if Int(            filestransferred) ?? 0 > 0 || Int(deletefiles) ?? 0 > 0 {
                 datatosynchronize = true
             } else {
                 datatosynchronize = false
             }
             if SharedReference.shared.rsyncversion3,
-               transferredNumber_Int + totalDirs_Int == newfiles_Int
+                           filestransferred_Int + totaldirectories_Int == newfiles_Int
             {
                 confirmsynchronize = true
                 Logger.process.info("RemoteDataNumbers: confirmsynchronize - TRUE")

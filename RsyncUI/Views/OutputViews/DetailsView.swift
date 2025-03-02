@@ -21,7 +21,7 @@ struct DetailsView: View {
                     VStack(alignment: .leading) {
                         Text("^[\(remotedatanumbers.newfiles_Int) file](inflect: true) new")
                         Text("^[\(remotedatanumbers.deletefiles_Int) file](inflect: true) for delete")
-                        Text("^[\(remotedatanumbers.transferredNumber_Int) file](inflect: true) changed")
+                        Text("^[\(remotedatanumbers.filestransferred_Int) file](inflect: true) changed")
                         Text("^[\(remotedatanumbers.transferredNumberSizebytes_Int) byte](inflect: true) for transfer")
                     }
                     .padding()

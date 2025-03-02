@@ -225,11 +225,11 @@ struct SummarizedDetailsView: View {
             .width(max: 40)
             TableColumn("Files") { files in
                 if files.datatosynchronize {
-                    Text(files.transferredNumber)
+                    Text(files.filestransferred)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .foregroundColor(.blue)
                 } else {
-                    Text(files.transferredNumber)
+                    Text(files.filestransferred)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }
@@ -246,17 +246,17 @@ struct SummarizedDetailsView: View {
             }
             .width(max: 60)
             TableColumn("Tot num") { files in
-                Text(files.totalNumber)
+                Text(files.numberoffiles)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .width(max: 80)
             TableColumn("Tot kB") { files in
-                Text("\(files.totalNumberSizebytes_Int / 1000)")
+                Text("\(files.totalfilesize_Int / 1000)")
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .width(max: 80)
             TableColumn("Tot dir") { files in
-                Text(files.totalDirs)
+                Text(files.totaldirectories)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .width(max: 70)

@@ -58,25 +58,25 @@ struct DetailsViewHeading: View {
 
                 VStack(alignment: .leading) {
                     LabeledContent("Total number of files: ") {
-                        Text(remotedatanumbers.totalNumber)
+                        Text(remotedatanumbers.numberoffiles)
                             .foregroundColor(.blue)
                     }
                     .padding(-3)
 
                     LabeledContent("Total number of catalogs: ") {
-                        Text(remotedatanumbers.totalDirs)
+                        Text(remotedatanumbers.totaldirectories)
                             .foregroundColor(.blue)
                     }
                     .padding(-3)
 
                     LabeledContent("Total numbers: ") {
-                        Text(remotedatanumbers.totalNumber_totalDirs)
+                        Text(remotedatanumbers.numberoffiles)
                             .foregroundColor(.blue)
                     }
                     .padding(-3)
 
                     LabeledContent("Total bytes: ") {
-                        Text(remotedatanumbers.totalNumberSizebytes)
+                        Text(remotedatanumbers.totalfilesize)
                             .foregroundColor(.blue)
                     }
                     .padding(-3)
