@@ -17,7 +17,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var hiddenID: Int = -1
     var filestransferred: String = ""
     var filestransferred_Int: Int = 0
-    var transferredNumberSizebytes_Int: Int = 0
+    var totaltransferredfilessize_Int: Int = 0
     var numberoffiles: String = ""
     var totalfilesize: String = ""
     var totalfilesize_Int: Int = 0
@@ -68,29 +68,29 @@ struct RemoteDataNumbers: Identifiable, Hashable {
             stats = parsersyncoutput.stats
             filestransferred = parsersyncoutput.formatted_filestransferred
             filestransferred_Int = parsersyncoutput.numbersonly?.filestransferred ?? 0
-            
+
             totaldirectories_Int = parsersyncoutput.numbersonly?.totaldirectories ?? 0
-            transferredNumberSizebytes_Int = Int(parsersyncoutput.numbersonly?.totaltransferredfilessize ?? 0)
-            
+            totaltransferredfilessize_Int = Int(parsersyncoutput.numbersonly?.totaltransferredfilessize ?? 0)
+
             numberoffiles = parsersyncoutput.formatted_numberoffiles
-            
+
             totalfilesize = parsersyncoutput.formatted_totalfilesize
             totalfilesize_Int = Int(parsersyncoutput.numbersonly?.totalfilesize ?? 0)
-            
+
             totaldirectories = parsersyncoutput.formatted_totaldirectories
-            
+
             newfiles = parsersyncoutput.formatted_numberofcreatedfiles
             newfiles_Int = parsersyncoutput.numbersonly?.numberofcreatedfiles ?? 0
             deletefiles = parsersyncoutput.formatted_numberofdeletedfiles
             deletefiles_Int = parsersyncoutput.numbersonly?.numberofdeletedfiles ?? 0
 
-            if Int(            filestransferred) ?? 0 > 0 || Int(deletefiles) ?? 0 > 0 {
+            if Int(filestransferred) ?? 0 > 0 || Int(deletefiles) ?? 0 > 0 {
                 datatosynchronize = true
             } else {
                 datatosynchronize = false
             }
             if SharedReference.shared.rsyncversion3,
-                           filestransferred_Int + totaldirectories_Int == newfiles_Int
+               filestransferred_Int + totaldirectories_Int == newfiles_Int
             {
                 confirmsynchronize = true
                 Logger.process.info("RemoteDataNumbers: confirmsynchronize - TRUE")

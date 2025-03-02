@@ -236,11 +236,11 @@ struct SummarizedDetailsView: View {
             .width(max: 40)
             TableColumn("kB") { files in
                 if files.datatosynchronize {
-                    Text("\(files.transferredNumberSizebytes_Int / 1000)")
+                    Text("\(files.totaltransferredfilessize_Int / 1000)")
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .foregroundColor(.blue)
                 } else {
-                    Text("\(files.transferredNumberSizebytes_Int / 1000)")
+                    Text("\(files.totaltransferredfilessize_Int / 1000)")
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }
