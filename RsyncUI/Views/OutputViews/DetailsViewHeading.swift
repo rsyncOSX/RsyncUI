@@ -70,7 +70,7 @@ struct DetailsViewHeading: View {
                     .padding(-3)
 
                     LabeledContent("Total numbers: ") {
-                        Text(remotedatanumbers.numberoffiles)
+                        Text(remotedatanumbers.totalnumbers)
                             .foregroundColor(.blue)
                     }
                     .padding(-3)

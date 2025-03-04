@@ -27,6 +27,8 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var newfiles_Int: Int = 0
     var deletefiles: String = ""
     var deletefiles_Int: Int = 0
+    
+    var totalnumbers: String = ""
 
     var task: String = ""
     var localCatalog: String = ""
@@ -67,22 +69,23 @@ struct RemoteDataNumbers: Identifiable, Hashable {
                                                     SharedReference.shared.rsyncversion3)
             stats = parsersyncoutput.stats
             filestransferred = parsersyncoutput.formatted_filestransferred
+            
             filestransferred_Int = parsersyncoutput.numbersonly?.filestransferred ?? 0
-
             totaldirectories_Int = parsersyncoutput.numbersonly?.totaldirectories ?? 0
-            totaltransferredfilessize_Int = Int(parsersyncoutput.numbersonly?.totaltransferredfilessize ?? 0)
-
-            numberoffiles = parsersyncoutput.formatted_numberoffiles
-
-            totalfilesize = parsersyncoutput.formatted_totalfilesize
-            totalfilesize_Int = Int(parsersyncoutput.numbersonly?.totalfilesize ?? 0)
-
-            totaldirectories = parsersyncoutput.formatted_totaldirectories
-
-            newfiles = parsersyncoutput.formatted_numberofcreatedfiles
             newfiles_Int = parsersyncoutput.numbersonly?.numberofcreatedfiles ?? 0
-            deletefiles = parsersyncoutput.formatted_numberofdeletedfiles
             deletefiles_Int = parsersyncoutput.numbersonly?.numberofdeletedfiles ?? 0
+            
+            totaltransferredfilessize_Int = Int(parsersyncoutput.numbersonly?.totaltransferredfilessize ?? 0)
+            totalfilesize_Int = Int(parsersyncoutput.numbersonly?.totalfilesize ?? 0)
+            
+            numberoffiles = parsersyncoutput.formatted_numberoffiles
+            totalfilesize = parsersyncoutput.formatted_totalfilesize
+            totaldirectories = parsersyncoutput.formatted_totaldirectories
+            newfiles = parsersyncoutput.formatted_numberofcreatedfiles
+            
+            deletefiles = parsersyncoutput.formatted_numberofdeletedfiles
+            
+            totalnumbers = parsersyncoutput.formatted_numberoffiles_totaldirectories
 
             if Int(filestransferred) ?? 0 > 0 || Int(deletefiles) ?? 0 > 0 {
                 datatosynchronize = true
@@ -90,7 +93,8 @@ struct RemoteDataNumbers: Identifiable, Hashable {
                 datatosynchronize = false
             }
             if SharedReference.shared.rsyncversion3,
-               filestransferred_Int + totaldirectories_Int == newfiles_Int
+               filestransferred_Int + totaldirectories_Int == newfiles_Int,
+               datatosynchronize
             {
                 confirmsynchronize = true
                 Logger.process.info("RemoteDataNumbers: confirmsynchronize - TRUE")
