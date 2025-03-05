@@ -27,7 +27,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var newfiles_Int: Int = 0
     var deletefiles: String = ""
     var deletefiles_Int: Int = 0
-    
+
     var totalnumbers: String = ""
 
     var task: String = ""
@@ -69,22 +69,22 @@ struct RemoteDataNumbers: Identifiable, Hashable {
                                                     SharedReference.shared.rsyncversion3)
             stats = parsersyncoutput.stats
             filestransferred = parsersyncoutput.formatted_filestransferred
-            
+
             filestransferred_Int = parsersyncoutput.numbersonly?.filestransferred ?? 0
             totaldirectories_Int = parsersyncoutput.numbersonly?.totaldirectories ?? 0
             newfiles_Int = parsersyncoutput.numbersonly?.numberofcreatedfiles ?? 0
             deletefiles_Int = parsersyncoutput.numbersonly?.numberofdeletedfiles ?? 0
-            
+
             totaltransferredfilessize_Int = Int(parsersyncoutput.numbersonly?.totaltransferredfilessize ?? 0)
             totalfilesize_Int = Int(parsersyncoutput.numbersonly?.totalfilesize ?? 0)
-            
+
             numberoffiles = parsersyncoutput.formatted_numberoffiles
             totalfilesize = parsersyncoutput.formatted_totalfilesize
             totaldirectories = parsersyncoutput.formatted_totaldirectories
             newfiles = parsersyncoutput.formatted_numberofcreatedfiles
-            
+
             deletefiles = parsersyncoutput.formatted_numberofdeletedfiles
-            
+
             totalnumbers = parsersyncoutput.formatted_numberoffiles_totaldirectories
 
             if Int(filestransferred) ?? 0 > 0 || Int(deletefiles) ?? 0 > 0 {
