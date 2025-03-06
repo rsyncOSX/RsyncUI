@@ -20,7 +20,7 @@ struct NewOpencatalogView: View {
             Button(action: {
                 isImporting = true
             }, label: {
-                Image(systemName: "folder")
+                Image(systemName: "folder.fill")
                     .foregroundColor(Color(.blue))
             })
             .fileImporter(isPresented: $isImporting,
@@ -38,7 +38,7 @@ struct NewOpencatalogView: View {
             Button(action: {
                 isImporting = true
             }, label: {
-                Image(systemName: "folder")
+                Image(systemName: "text.document.fill")
                     .foregroundColor(Color(.blue))
             })
             .fileImporter(isPresented: $isImporting,
