@@ -232,7 +232,7 @@ struct QuicktaskView: View {
                     .textContentType(.none)
                     .submitLabel(.continue)
 
-                OpencatalogView(catalog: $localcatalog, choosecatalog: catalogorfile)
+                NewOpencatalogView(catalog: $localcatalog, catalogs: catalogorfile)
             }
 
             // remotecatalog
@@ -242,7 +242,7 @@ struct QuicktaskView: View {
                     .textContentType(.none)
                     .submitLabel(.continue)
 
-                OpencatalogView(catalog: $remotecatalog, choosecatalog: catalogorfile)
+                NewOpencatalogView(catalog: $localcatalog, catalogs: catalogorfile)
             }
         }
     }
@@ -256,7 +256,7 @@ struct QuicktaskView: View {
                     .textContentType(.none)
                     .submitLabel(.continue)
 
-                OpencatalogView(catalog: $localcatalog, choosecatalog: catalogorfile)
+                NewOpencatalogView(catalog: $localcatalog, catalogs: catalogorfile)
             }
 
             // remotecatalog
@@ -266,7 +266,7 @@ struct QuicktaskView: View {
                     .textContentType(.none)
                     .submitLabel(.continue)
 
-                OpencatalogView(catalog: $remotecatalog, choosecatalog: catalogorfile)
+                NewOpencatalogView(catalog: $localcatalog, catalogs: catalogorfile)
             }
         }
     }

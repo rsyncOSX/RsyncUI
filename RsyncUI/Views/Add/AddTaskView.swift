@@ -335,7 +335,7 @@ struct AddTaskView: View {
                             }
                         })
                 }
-                NewOpencatalogView(catalog: $newdata.localcatalog)
+                NewOpencatalogView(catalog: $newdata.localcatalog, catalogs: true)
             }
             HStack {
                 // remotecatalog
@@ -350,7 +350,7 @@ struct AddTaskView: View {
                             }
                         })
                 }
-                NewOpencatalogView(catalog: $newdata.remotecatalog)
+                NewOpencatalogView(catalog: $newdata.remotecatalog, catalogs: true)
             }
         }
     }
@@ -367,7 +367,7 @@ struct AddTaskView: View {
                             }
                         })
                 }
-                NewOpencatalogView(catalog: $newdata.localcatalog)
+                NewOpencatalogView(catalog: $newdata.localcatalog, catalogs: true)
             }
             HStack {
                 // remotecatalog
@@ -379,7 +379,7 @@ struct AddTaskView: View {
                             }
                         })
                 }
-                NewOpencatalogView(catalog: $newdata.remotecatalog)
+                NewOpencatalogView(catalog: $newdata.remotecatalog, catalogs: true)
             }
         }
     }
