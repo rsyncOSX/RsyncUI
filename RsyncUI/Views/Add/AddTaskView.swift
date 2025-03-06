@@ -39,8 +39,6 @@ struct AddTaskView: View {
     // Enable change snapshotnum
     @State private var changesnapshotnum: Bool = false
 
-    var choosecatalog = true
-
     @FocusState private var focusField: AddConfigurationField?
     // Reload and show table data
     @State private var confirmcopyandpaste: Bool = false
@@ -337,7 +335,7 @@ struct AddTaskView: View {
                             }
                         })
                 }
-                OpencatalogView(catalog: $newdata.localcatalog, choosecatalog: choosecatalog)
+                NewOpencatalogView(catalog: $newdata.localcatalog)
             }
             HStack {
                 // remotecatalog
@@ -352,7 +350,7 @@ struct AddTaskView: View {
                             }
                         })
                 }
-                OpencatalogView(catalog: $newdata.remotecatalog, choosecatalog: choosecatalog)
+                NewOpencatalogView(catalog: $newdata.remotecatalog)
             }
         }
     }
@@ -369,7 +367,7 @@ struct AddTaskView: View {
                             }
                         })
                 }
-                OpencatalogView(catalog: $newdata.localcatalog, choosecatalog: choosecatalog)
+                NewOpencatalogView(catalog: $newdata.localcatalog)
             }
             HStack {
                 // remotecatalog
@@ -381,7 +379,7 @@ struct AddTaskView: View {
                             }
                         })
                 }
-                OpencatalogView(catalog: $newdata.remotecatalog, choosecatalog: choosecatalog)
+                NewOpencatalogView(catalog: $newdata.remotecatalog)
             }
         }
     }
