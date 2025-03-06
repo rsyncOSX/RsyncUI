@@ -16,6 +16,8 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
     case copy_public_SSHkey
     case verify_public_SSHkey
     case remote_disk_usage
+    case push_data_to_remote_server
+    case pull_data_from_remote_server
 
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
@@ -73,6 +75,24 @@ struct OtherRsyncCommandtoDisplay {
                 }
             } else {
                 str = NSLocalizedString("Use macOS Finder", comment: "")
+            }
+        case .push_data_to_remote_server:
+            if config.offsiteServer.isEmpty == false {
+                if let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: true,
+                                                                                                      forDisplay: false) {
+                    str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined(separator: " ")
+                }
+            } else {
+                str = NSLocalizedString("No remote server on task", comment: "")
+            }
+        case .pull_data_from_remote_server:
+            if config.offsiteServer.isEmpty == false {
+                if let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: true,
+                                                                                                      forDisplay: false) {
+                    str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined(separator: " ")
+                }
+            } else {
+                str = NSLocalizedString("No remote server on task", comment: "")
             }
         }
         command = str
