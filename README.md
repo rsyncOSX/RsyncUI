@@ -1,10 +1,10 @@
 ## Hi there 👋
 
-This is the repository for RsyncUI, a SwiftUI based macOS application. RsyncUI is released for *macOS Sonoma and later*.
-
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD)
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.3.5/total)
 [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
+
+This is the repository for RsyncUI, a SwiftUI based macOS application. RsyncUI is released for *macOS Sonoma and later*.
 
 ![](images/rsyncui.png)
 
@@ -15,7 +15,7 @@ The [user documentation](https://github.com/rsyncOSX/mydocsy) is based upon a fo
 | App     | UI                  | Latest version                                                                                      |
 |---------|---------------------|-----------------------------------------------------------------------------------------------------|
 | RsyncUI | SwiftUI, declarativ | v2.3.5 - [26 February 2025](https://github.com/rsyncOSX/RsyncUI/releases) - in **active development** |
-|  |  | The [user guide](https://rsyncui.netlify.app/docs/) and [changelog](https://rsyncui.netlify.app/blog/) |
+|  |  | [user guide](https://rsyncui.netlify.app/docs/) and [changelog](https://rsyncui.netlify.app/blog/) |
 
 ### Install by Homebrew
 
