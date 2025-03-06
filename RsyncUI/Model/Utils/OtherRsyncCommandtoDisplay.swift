@@ -79,7 +79,7 @@ struct OtherRsyncCommandtoDisplay {
         case .push_data_to_remote_server:
             if config.offsiteServer.isEmpty == false {
                 if let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: true,
-                                                                                                      forDisplay: false) {
+                                                                                                      forDisplay: true) {
                     str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined(separator: " ")
                 }
             } else {
@@ -88,7 +88,7 @@ struct OtherRsyncCommandtoDisplay {
         case .pull_data_from_remote_server:
             if config.offsiteServer.isEmpty == false {
                 if let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: true,
-                                                                                                      forDisplay: false) {
+                                                                                                      forDisplay: true) {
                     str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined(separator: " ")
                 }
             } else {
