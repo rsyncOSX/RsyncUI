@@ -10,6 +10,8 @@ RsyncUI is a GUI on the Apple macOS platform for the command line tool [rsync](h
 the synchronize data tasks. The GUI is *only* for organizing tasks, setting parameters to `rsync` and make it easier to use `rsync`.
 The [user documentation](https://github.com/rsyncOSX/mydocsy) is based upon a fork of the excellent Hugo based theme Docsy.
 
+![](images/rsyncui.png)
+
 **RsyncUI** is released for *macOS Sonoma and later*.
 
 | App     | UI                  | Latest version                                                                                      |
@@ -17,8 +19,6 @@ The [user documentation](https://github.com/rsyncOSX/mydocsy) is based upon a fo
 | RsyncUI | SwiftUI, declarativ | v2.3.5 - [26 February 2025](https://github.com/rsyncOSX/RsyncUI/releases) - in **active development** |
 
 The [user guide](https://rsyncui.netlify.app/docs/) and [changelog](https://rsyncui.netlify.app/blog/)
-
-![](images/rsyncui.png)
 
 ### Install by Homebrew
 
