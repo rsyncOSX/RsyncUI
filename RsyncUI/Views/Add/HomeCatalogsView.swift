@@ -31,6 +31,10 @@ struct HomeCatalogsView: View {
 
     @State private var selecteduuid: Catalognames.ID?
     @State private var selectedAttachedVolume: AttachedVolumes.ID?
+    @State private var selectedAttachedVolumeCatalogs: Catalognames.ID?
+
+    let homecatalogs: [Catalognames]
+    let attachedVolumes: [AttachedVolumes]
 
     var body: some View {
         HStack {
@@ -40,9 +44,25 @@ struct HomeCatalogsView: View {
                 }
             }
 
-            Table(attachedVolumes, selection: $selectedAttachedVolume) {
-                TableColumn("Attached Volumes") { volume in
-                    Text(volume.volumename?.path() ?? "")
+            VStack {
+                Table(attachedVolumes, selection: $selectedAttachedVolume) {
+                    TableColumn("Attached Volumes") { volume in
+                        Text(volume.volumename?.path() ?? "")
+                    }
+                }
+
+                Table(attachedVolumesCatalogs, selection: $selectedAttachedVolumeCatalogs) {
+                    TableColumn("Attached Volume Catalogs") { catalog in
+                        Text(catalog.catalogname ?? "")
+                    }
+                }
+                .overlay {
+                    if attachedVolumesCatalogs.isEmpty {
+                        ContentUnavailableView {
+                            Label("Select an Attached Volume",
+                                  systemImage: "play.fill")
+                        } description: {}
+                    }
                 }
             }
         }
@@ -56,8 +76,8 @@ struct HomeCatalogsView: View {
                 }
             }
             guard newdata.localcatalog.isEmpty == false else { return }
-            if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
-                if let selectedvolume = attachedVolumes[index].volumename?.path() {
+            if let index = attachedVolumesCatalogs.firstIndex(where: { $0.id == selectedAttachedVolumeCatalogs }) {
+                if let selectedvolume = attachedVolumesCatalogs[index].catalogname {
                     newdata.remotecatalog = selectedvolume + catalog
                 }
             } else {
@@ -65,46 +85,26 @@ struct HomeCatalogsView: View {
             }
         })
 
-        var homecatalogs: [Catalognames] {
-            let fm = FileManager.default
-            if let atpathURL = Homepath().userHomeDirectoryURLPath {
-                var catalogs = [Catalognames]()
-                do {
-                    for filesandfolders in try
-                        fm.contentsOfDirectory(at: atpathURL, includingPropertiesForKeys: nil)
-                        where filesandfolders.hasDirectoryPath
-                    {
-                        catalogs.append(Catalognames(filesandfolders.lastPathComponent))
-                    }
-                    return catalogs
-                } catch {
-                    return []
-                }
-            }
-            return []
-        }
-
-        var attachedVolumes: [AttachedVolumes] {
-            let keys: [URLResourceKey] = [.volumeNameKey,
-                                          .volumeIsRemovableKey,
-                                          .volumeIsEjectableKey]
-            let paths = FileManager()
-                .mountedVolumeURLs(includingResourceValuesForKeys: keys,
-                                   options: [])
-            var volumesarray = [AttachedVolumes]()
-            if let urls = paths {
-                for url in urls {
-                    let components = url.pathComponents
-                    if components.count > 1, components[1] == "Volumes" {
-                        volumesarray.append(AttachedVolumes(url))
+        var attachedVolumesCatalogs: [Catalognames] {
+            if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
+                let fm = FileManager.default
+                if let atpathURL = attachedVolumes[index].volumename {
+                    var catalogs = [Catalognames]()
+                    do {
+                        for filesandfolders in try
+                            fm.contentsOfDirectory(at: atpathURL, includingPropertiesForKeys: nil)
+                            where filesandfolders.hasDirectoryPath
+                        {
+                            catalogs.append(Catalognames(filesandfolders.lastPathComponent))
+                        }
+                        return catalogs
+                    } catch {
+                        return []
                     }
                 }
-            }
-            if volumesarray.count > 0 {
-                return volumesarray
-            } else {
                 return []
             }
+            return []
         }
     }
 }

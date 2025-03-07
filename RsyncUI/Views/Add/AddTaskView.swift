@@ -234,7 +234,47 @@ struct AddTaskView: View {
         switch view {
         case .homecatalogs:
             HomeCatalogsView(newdata: newdata,
-                             path: $addtasknavigation)
+                             path: $addtasknavigation,
+                             homecatalogs: {
+                                 let fm = FileManager.default
+                                 if let atpathURL = Homepath().userHomeDirectoryURLPath {
+                                     var catalogs = [Catalognames]()
+                                     do {
+                                         for filesandfolders in try
+                                             fm.contentsOfDirectory(at: atpathURL, includingPropertiesForKeys: nil)
+                                             where filesandfolders.hasDirectoryPath
+                                         {
+                                             catalogs.append(Catalognames(filesandfolders.lastPathComponent))
+                                         }
+                                         return catalogs
+                                     } catch {
+                                         return []
+                                     }
+                                 }
+                                 return []
+                             }(),
+                             attachedVolumes: {
+                                 let keys: [URLResourceKey] = [.volumeNameKey,
+                                                               .volumeIsRemovableKey,
+                                                               .volumeIsEjectableKey]
+                                 let paths = FileManager()
+                                     .mountedVolumeURLs(includingResourceValuesForKeys: keys,
+                                                        options: [])
+                                 var volumesarray = [AttachedVolumes]()
+                                 if let urls = paths {
+                                     for url in urls {
+                                         let components = url.pathComponents
+                                         if components.count > 1, components[1] == "Volumes" {
+                                             volumesarray.append(AttachedVolumes(url))
+                                         }
+                                     }
+                                 }
+                                 if volumesarray.count > 0 {
+                                     return volumesarray
+                                 } else {
+                                     return []
+                                 }
+                             }())
         case .verify:
             if let config = selectedconfig {
                 OutputRsyncVerifyView(config: config)
