@@ -27,7 +27,7 @@ struct AttachedVolumes: Identifiable {
 
 struct AttachedVolumeCatalogs {
     var catalogname: String
-    
+
     init(_ name: String) {
         catalogname = name
     }
@@ -45,7 +45,7 @@ struct HomeCatalogsView: View {
 
     @State private var selecteduuid: Catalognames.ID?
     @State private var selectedAttachedVolume: AttachedVolumes.ID?
-    @State private var selectedAttachedVolumeCatalogs: String? = nil
+    @State private var selectedAttachedVolumeCatalogs: String?
 
     let homecatalogs: [Catalognames]
     let attachedVolumes: [AttachedVolumes]
@@ -65,7 +65,7 @@ struct HomeCatalogsView: View {
                     }
                 }
 
-                Table(attachedVolumesCatalogs , selection: $selectedAttachedVolumeCatalogs) {
+                Table(attachedVolumesCatalogs, selection: $selectedAttachedVolumeCatalogs) {
                     TableColumn("Attached Volume Catalogs") { catalog in
                         Text(catalog.catalogname)
                     }
@@ -91,15 +91,15 @@ struct HomeCatalogsView: View {
             }
             guard newdata.localcatalog.isEmpty == false else { return }
             /*
-            if let index = attachedVolumesCatalogs.firstIndex(where: { $0.id == selectedAttachedVolumeCatalogs }) {
-                
-                if let selectedvolume = attachedVolumesCatalogs[index].catalogname {
-                    newdata.remotecatalog = selectedvolume + catalog
-                }
-            } else {
-                newdata.remotecatalog = "/mounted_Volume/" + catalog
-            }
-             */
+             if let index = attachedVolumesCatalogs.firstIndex(where: { $0.id == selectedAttachedVolumeCatalogs }) {
+
+                 if let selectedvolume = attachedVolumesCatalogs[index].catalogname {
+                     newdata.remotecatalog = selectedvolume + catalog
+                 }
+             } else {
+                 newdata.remotecatalog = "/mounted_Volume/" + catalog
+             }
+              */
         })
 
         var attachedVolumesCatalogs: [AttachedVolumeCatalogs] {
