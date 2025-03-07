@@ -87,7 +87,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
 
             totalnumbers = parsersyncoutput.formatted_numberoffiles_totaldirectories
 
-            if Int(filestransferred) ?? 0 > 0 || Int(deletefiles) ?? 0 > 0 {
+            if newfiles_Int > 0 || deletefiles_Int > 0 {
                 datatosynchronize = true
             } else {
                 datatosynchronize = false
