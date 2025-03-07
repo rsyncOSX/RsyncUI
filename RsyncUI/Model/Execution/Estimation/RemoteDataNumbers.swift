@@ -87,11 +87,20 @@ struct RemoteDataNumbers: Identifiable, Hashable {
 
             totalnumbers = parsersyncoutput.formatted_numberoffiles_totaldirectories
 
-            if newfiles_Int > 0 || deletefiles_Int > 0 {
-                datatosynchronize = true
+            if SharedReference.shared.rsyncversion3 {
+                if newfiles_Int > 0 || deletefiles_Int > 0 {
+                    datatosynchronize = true
+                } else {
+                    datatosynchronize = false
+                }
             } else {
-                datatosynchronize = false
+                if filestransferred_Int > 0 {
+                    datatosynchronize = true
+                } else {
+                    datatosynchronize = false
+                }
             }
+            
             if SharedReference.shared.rsyncversion3,
                filestransferred_Int + totaldirectories_Int == newfiles_Int,
                datatosynchronize
