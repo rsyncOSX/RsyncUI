@@ -52,7 +52,7 @@ struct ExportView: View {
                 Text(".json")
                     .foregroundColor(.secondary)
 
-                OpencatalogView(catalog: $exportcatalog, choosecatalog: true)
+                OpencatalogView(selecteditem: $exportcatalog, catalogs: true)
 
                 Button("Export") {
                     var path = ""

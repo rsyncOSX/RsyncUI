@@ -71,7 +71,8 @@ struct RsyncandPathsettings: View {
                 HStack {
                     setpathforrestore
 
-                    OpencatalogView(catalog: $rsyncpathsettings.temporarypathforrestore, choosecatalog: true)
+                    OpencatalogView(selecteditem: $rsyncpathsettings.temporarypathforrestore, catalogs: true)
+                    
                 }
             } header: {
                 Text("Path for restore")

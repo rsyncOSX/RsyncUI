@@ -1,32 +1,50 @@
 //
-//  OpencatalogView.swift
+//  NewOpencatalogView.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 09/11/2021.
+//  Created by Thomas Evensen on 06/03/2025.
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct OpencatalogView: View {
-    @Binding var catalog: String
-
-    var choosecatalog: Bool
-
+    
+    @Binding var selecteditem: String    
+    @State private var isImporting: Bool = false
+    let catalogs: Bool
+    
     var body: some View {
-        HStack {
-            Button {
-                let panel = NSOpenPanel()
-                panel.allowsMultipleSelection = false
-                panel.canChooseDirectories = choosecatalog
-                panel.canChooseFiles = !choosecatalog
-                if panel.runModal() == .OK {
-                    catalog = panel.url?.path ?? ""
+        
+            Button(action: {
+                isImporting = true
+            }, label: {
+                if catalogs {
+                    Image(systemName: "folder.fill")
+                        .foregroundColor(Color(.blue))
+                } else {
+                    Image(systemName: "text.document.fill")
+                        .foregroundColor(Color(.blue))
                 }
-            } label: {
-                Image(systemName: "folder")
-            }
-            .buttonStyle(ColorfulButtonStyle())
-            .help("Select catalog or file")
+            })
+            .fileImporter(isPresented: $isImporting,
+                          allowedContentTypes: [uutype],
+                          onCompletion: { result in
+                
+                switch result {
+                case .success(let url):
+                    selecteditem = url.relativePath
+                case .failure(let error):
+                    SharedReference.shared.errorobject?.alert(error: error)
+                }
+            })
+        }
+    
+    var uutype: UTType {
+        if catalogs {
+            .directory
+        } else {
+            .item
         }
     }
 }

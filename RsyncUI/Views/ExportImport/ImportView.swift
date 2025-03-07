@@ -27,7 +27,7 @@ struct ImportView: View {
             } else {
                 HStack {
                     Text("Select a file for import")
-                    OpencatalogView(catalog: $filenameimport, choosecatalog: false)
+                    OpencatalogView(selecteditem: $filenameimport, catalogs: false)
                 }
             }
 
