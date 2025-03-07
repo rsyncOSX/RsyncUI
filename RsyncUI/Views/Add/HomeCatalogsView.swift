@@ -74,32 +74,29 @@ struct HomeCatalogsView: View {
                     if attachedVolumesCatalogs.isEmpty {
                         ContentUnavailableView {
                             Label("Select an Attached Volume",
-                                  systemImage: "play.fill")
+                                  systemImage: "folder")
                         } description: {}
                     }
                 }
             }
         }
         .onDisappear(perform: {
-            var catalog = ""
             if let index = homecatalogs.firstIndex(where: { $0.id == selecteduuid }) {
                 if let selectedcatalog = homecatalogs[index].catalogname {
-                    catalog = selectedcatalog
                     newdata.localcatalog = newdata.localhome + "/" + selectedcatalog
                     newdata.backupID = "Backup of: " + selectedcatalog
                 }
             }
+            
             guard newdata.localcatalog.isEmpty == false else { return }
-            /*
-             if let index = attachedVolumesCatalogs.firstIndex(where: { $0.id == selectedAttachedVolumeCatalogs }) {
-
-                 if let selectedvolume = attachedVolumesCatalogs[index].catalogname {
-                     newdata.remotecatalog = selectedvolume + catalog
+            
+            if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
+                let attachedvolume = attachedVolumes[index].volumename
+                if let index = attachedVolumesCatalogs.firstIndex(where: { $0.catalogname == selectedAttachedVolumeCatalogs }) {
+                    let selectedvolume = (attachedvolume?.relativePath ?? "") + "/" + attachedVolumesCatalogs[index].catalogname
+                    newdata.remotecatalog = selectedvolume
                  }
-             } else {
-                 newdata.remotecatalog = "/mounted_Volume/" + catalog
-             }
-              */
+            }
         })
 
         var attachedVolumesCatalogs: [AttachedVolumeCatalogs] {
@@ -119,7 +116,6 @@ struct HomeCatalogsView: View {
                         return []
                     }
                 }
-                return []
             }
             return []
         }
