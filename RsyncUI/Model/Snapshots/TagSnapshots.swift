@@ -91,7 +91,7 @@ final class TagSnapshots {
                     if verifydaytokeepinmonth(datesnapshot) == true {
                         if month == monthToday - 1 {
                             let tag = "Keep" + " " + datesnapshot.localized_weekday_from_date() + ", "
-                                + datesnapshot.localized_month_from_date() + " " +  "previous month"
+                                + datesnapshot.localized_month_from_date() + " " + "previous month"
                             logrecordssnapshot?[index].period = tag
                         } else {
                             let tag = "Keep" + " " + datesnapshot.localized_weekday_from_date() + ", "

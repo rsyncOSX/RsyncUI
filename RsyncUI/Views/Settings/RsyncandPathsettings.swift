@@ -72,7 +72,6 @@ struct RsyncandPathsettings: View {
                     setpathforrestore
 
                     OpencatalogView(selecteditem: $rsyncpathsettings.temporarypathforrestore, catalogs: true)
-                    
                 }
             } header: {
                 Text("Path for restore")

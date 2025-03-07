@@ -29,9 +29,6 @@ struct HomeCatalogsView: View {
     @Bindable var newdata: ObservableAddConfigurations
     @Binding var path: [AddTasks]
 
-    let homecatalogs: [Catalognames]
-    let attachedVolumes: [AttachedVolumes]
-
     @State private var selecteduuid: Catalognames.ID?
     @State private var selectedAttachedVolume: AttachedVolumes.ID?
 
@@ -67,5 +64,47 @@ struct HomeCatalogsView: View {
                 newdata.remotecatalog = "/mounted_Volume/" + catalog
             }
         })
+
+        var homecatalogs: [Catalognames] {
+            let fm = FileManager.default
+            if let atpathURL = Homepath().userHomeDirectoryURLPath {
+                var catalogs = [Catalognames]()
+                do {
+                    for filesandfolders in try
+                        fm.contentsOfDirectory(at: atpathURL, includingPropertiesForKeys: nil)
+                        where filesandfolders.hasDirectoryPath
+                    {
+                        catalogs.append(Catalognames(filesandfolders.lastPathComponent))
+                    }
+                    return catalogs
+                } catch {
+                    return []
+                }
+            }
+            return []
+        }
+
+        var attachedVolumes: [AttachedVolumes] {
+            let keys: [URLResourceKey] = [.volumeNameKey,
+                                          .volumeIsRemovableKey,
+                                          .volumeIsEjectableKey]
+            let paths = FileManager()
+                .mountedVolumeURLs(includingResourceValuesForKeys: keys,
+                                   options: [])
+            var volumesarray = [AttachedVolumes]()
+            if let urls = paths {
+                for url in urls {
+                    let components = url.pathComponents
+                    if components.count > 1, components[1] == "Volumes" {
+                        volumesarray.append(AttachedVolumes(url))
+                    }
+                }
+            }
+            if volumesarray.count > 0 {
+                return volumesarray
+            } else {
+                return []
+            }
+        }
     }
 }
