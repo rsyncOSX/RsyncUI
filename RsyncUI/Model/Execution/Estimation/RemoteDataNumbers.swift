@@ -36,7 +36,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var offsiteServer: String = ""
     var backupID: String = ""
 
-    // Detailed output used in Views
+    // Detailed output used in Views, allocated as part of process termination estimate
     var outputfromrsync: [RsyncOutputData]?
     // True if data to synchronize
     var datatosynchronize: Bool = false
@@ -47,6 +47,8 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var confirmsynchronize: Bool = false
     // Summarized stats
     var stats: String?
+    // A reduced number of output
+    var preparedoutputfromrsync: [String]?
 
     init(stringoutputfromrsync: [String]?,
          config: SynchronizeConfiguration?)
@@ -58,13 +60,19 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         offsiteCatalog = config?.offsiteCatalog ?? ""
         backupID = config?.backupID ?? "Synchronize ID"
         id = config?.id ?? UUID()
-
+        
         Logger.process.info("RemoteDataNumbers: adjusted output from rsync: \(stringoutputfromrsync?.count ?? 0) rows")
 
         // Prepareoutput prepares output from rsync for extracting the numbers only.
         // It removes all lines except the last 20 lines where summarized numbers are put
-        let preparedoutputfromrsync = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
-        if preparedoutputfromrsync.count > 0 {
+        // Normally this is done before calling the RemoteDataNumbers
+        
+        if stringoutputfromrsync?.count ?? 0 > 20 {
+            preparedoutputfromrsync = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
+        } else {
+            preparedoutputfromrsync = stringoutputfromrsync
+        }
+        if let preparedoutputfromrsync, preparedoutputfromrsync.count > 0 {
             let parsersyncoutput = ParseRsyncOutput(preparedoutputfromrsync,
                                                     SharedReference.shared.rsyncversion3)
             stats = parsersyncoutput.stats
@@ -84,7 +92,6 @@ struct RemoteDataNumbers: Identifiable, Hashable {
             newfiles = parsersyncoutput.formatted_numberofcreatedfiles
 
             deletefiles = parsersyncoutput.formatted_numberofdeletedfiles
-
             totalnumbers = parsersyncoutput.formatted_numberoffiles_totaldirectories
 
             if SharedReference.shared.rsyncversion3 {

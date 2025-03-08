@@ -7,7 +7,6 @@
 // swiftlint: disable line_length
 
 import Foundation
-import OSLog
 
 @MainActor
 final class EstimateTasks {
@@ -71,7 +70,7 @@ extension EstimateTasks {
 
         if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
             adjustedoutputfromrsync = true
-            suboutput = Array(stringoutputfromrsync[stringoutputfromrsync.count - 20 ..< stringoutputfromrsync.count])
+            suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
         }
 
         if adjustedoutputfromrsync {
@@ -79,13 +78,25 @@ extension EstimateTasks {
                                            config: getconfig(hiddenID ?? -1))
             adjustedoutputfromrsync = false
             Task {
-                record.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
+                // Create data for output rsync for view
+                record.outputfromrsync =
+                    await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
                 localestimateprogressdetails?.appendrecordestimatedlist(record)
-                if Int(record.filestransferred) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
-                    if let config = getconfig(hiddenID ?? -1) {
-                        localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
+                
+                if SharedReference.shared.rsyncversion3 {
+                    if record.newfiles_Int > 0 || record.deletefiles_Int > 0 {
+                        if let config = getconfig(hiddenID ?? -1) {
+                            localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
+                        }
+                    }
+                } else {
+                    if record.filestransferred_Int > 0 {
+                        if let config = getconfig(hiddenID ?? -1) {
+                            localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
+                        }
                     }
                 }
+                
                 // Must check inside Task AFTER async task
                 if stackoftasktobeestimated?.count ?? 0 > 0 {
                     startestimation()
@@ -97,13 +108,25 @@ extension EstimateTasks {
             var record = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                            config: getconfig(hiddenID ?? -1))
             Task {
-                record.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
+                // Create data for output rsync for view
+                record.outputfromrsync =
+                    await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
                 localestimateprogressdetails?.appendrecordestimatedlist(record)
-                if Int(record.filestransferred) ?? 0 > 0 || Int(record.deletefiles) ?? 0 > 0 {
-                    if let config = getconfig(hiddenID ?? -1) {
-                        localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
+                
+                if SharedReference.shared.rsyncversion3 {
+                    if record.newfiles_Int > 0 || record.deletefiles_Int > 0 {
+                        if let config = getconfig(hiddenID ?? -1) {
+                            localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
+                        }
+                    }
+                } else {
+                    if record.filestransferred_Int > 0 {
+                        if let config = getconfig(hiddenID ?? -1) {
+                            localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
+                        }
                     }
                 }
+                
                 // Must check inside Task AFTER async task
                 if stackoftasktobeestimated?.count ?? 0 > 0 {
                     startestimation()

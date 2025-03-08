@@ -65,6 +65,7 @@ final class EstimateProgressDetails {
     }
 
     func appenduuidwithdatatosynchronize(_ id: UUID) {
+        Logger.process.info("EstimateProgressDetails: appending uuid \(id) to uuidswithdatatosynchronize")
         uuidswithdatatosynchronize.insert(id)
     }
 
