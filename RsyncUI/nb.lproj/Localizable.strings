@@ -2,10 +2,16 @@
 " : " = ":";
 
 /* No comment provided by engineer. */
+" on the toolbar to verify." = " på toolbar for å verifisere.";
+
+/* No comment provided by engineer. */
 "--dry-run" = "--dry-run";
 
 /* No comment provided by engineer. */
 ".json" = ".json";
+
+/* No comment provided by engineer. */
+"**Warning:** The Verify function is advisory only." = "**Advarsel:** Verifiser er kun anbefaling.";
 
 /* No comment provided by engineer. */
 "%" = "%";
@@ -24,9 +30,6 @@
 
 /* No comment provided by engineer. */
 "^[%lld file](inflect: true) new" = "^[%lld fil](inflect: true) nye";
-
-/* No comment provided by engineer. */
-"a networked configuration is where destination is on a remote server" = "en nettverkskonfigurasjon er der destinasjonen er på en ekstern server";
 
 /* (No Comment) */
 "Abort" = "Avbryt";
@@ -77,10 +80,16 @@
 "All tasks has been synchronized in the past %lld days" = "Alle oppgaver er synkronisert de siste %lld dager";
 
 /* No comment provided by engineer. */
+"Always present the summarized estimate view" = "Alltid vis summert estimert.";
+
+/* No comment provided by engineer. */
 "And nothing to restore" = "Og ikke noe for restore";
 
 /* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
+
+/* No comment provided by engineer. */
+"Attached Volume Catalogs" = "Tilkoblet volum kataloger";
 
 /* No comment provided by engineer. */
 "Attached Volumes" = "Tilkoblet disker";
@@ -111,9 +120,6 @@
 
 /* No comment provided by engineer. */
 "Check for error in output" = "Sjekk for feil i utdata";
-
-/* No comment provided by engineer. */
-"Check remote" = "Sjekk ekstern";
 
 /* No comment provided by engineer. */
 "Clear saved quicktask" = "Reset lagret quicktask";
@@ -191,6 +197,9 @@
 "Environment variable" = "Miljømessig variabel";
 
 /* No comment provided by engineer. */
+"Est" = "Est";
+
+/* No comment provided by engineer. */
 "Estimate" = "Estimer";
 
 /* No comment provided by engineer. */
@@ -216,9 +225,6 @@
 
 /* No comment provided by engineer. */
 "Filenames" = "Filnavn";
-
-/* No comment provided by engineer. */
-"Files" = "Filer";
 
 /* No comment provided by engineer. */
 "German translation by: Andre Voigtmann" = "Tysk oversettelse av: Andre Voigtmann";
@@ -269,7 +275,7 @@
 "It seems that REMOTE is more updated than LOCAL. A PULL may be next." = "Det ser ut til at REMOTE er mer oppdatert enn LOCAL. En PULL kan være neste.";
 
 /* No comment provided by engineer. */
-"kB" = "kB";
+"kB trans" = "kN trans";
 
 /* No comment provided by engineer. */
 "Last" = "Siste";
@@ -317,9 +323,6 @@
 "No error" = "Ingen feil";
 
 /* No comment provided by engineer. */
-"No profile with this name" = "Inngen profil med dette navn";
-
-/* No comment provided by engineer. */
 "No remote server on task" = "Ingen ekstern tjener på oppgave";
 
 /* No comment provided by engineer. */
@@ -345,6 +348,9 @@
 
 /* No comment provided by engineer. */
 "Only rsync version 3.x supports snapshots." = "Kun rsync versjon 3 støtter snapshot.";
+
+/* No comment provided by engineer. */
+"Or there are no tasks to update" = "Eller det er ingen oppgaver for oppdatering";
 
 /* No comment provided by engineer. */
 "Output from rsync" = "Utdata fra rsync";
@@ -452,7 +458,10 @@
 "Select a task" = "Slett oppgave";
 
 /* No comment provided by engineer. */
-"Select catalog or file" = "Velg katalog eller fil";
+"Select a task in Synchronize view and select the " = "Velg oppgave i Synkroniser og velg";
+
+/* No comment provided by engineer. */
+"Select an Attached Volume" = "Velg et tilkoblet volum";
 
 /* No comment provided by engineer. */
 "Select either pull or push" = "Velg enten pull eller push";
@@ -545,9 +554,6 @@
 "Tasks" = "Oppgaver";
 
 /* No comment provided by engineer. */
-"The Verify remote is for networked configurations only" = "Verifiser er kun for konfigurasjoner med server konfigurasjon";
-
-/* No comment provided by engineer. */
 "There are no logs by this filter" = "Det er ingen logger med dette søk";
 
 /* No comment provided by engineer. */
@@ -575,13 +581,13 @@
 "Toggle halt task" = "Toggle stopp oppgave";
 
 /* No comment provided by engineer. */
-"Tot dir" = "Tot dir";
+"Tot cat" = "Tot cat";
+
+/* No comment provided by engineer. */
+"Tot files" = "Tot files";
 
 /* No comment provided by engineer. */
 "Tot kB" = "Tot kB";
-
-/* No comment provided by engineer. */
-"Tot num" = "Tot num";
 
 /* No comment provided by engineer. */
 "Total bytes: " = "Total bytes:";
@@ -614,6 +620,9 @@
 "Update task" = "Oppdater oppgave";
 
 /* No comment provided by engineer. */
+"Updates" = "Oppdateringer";
+
+/* No comment provided by engineer. */
 "URL for Estimate & Synchronize" = "URL for å estimere & synkronisere";
 
 /* No comment provided by engineer. */
@@ -633,9 +642,6 @@
 
 /* No comment provided by engineer. */
 "Verify task" = "Verifiser oppgave";
-
-/* No comment provided by engineer. */
-"version 3.x of rsync must be installed and enabled to use this function," = "version 3.x av rsync må være installert for å bruke denne funksjonen,";
 
 /* No comment provided by engineer. */
 "Version rsync" = "Versjon rsync";

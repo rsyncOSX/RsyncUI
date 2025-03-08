@@ -2,10 +2,16 @@
 " : " = ":";
 
 /* No comment provided by engineer. */
+" on the toolbar to verify." = "auf der Symbolleiste, um dies zu überprüfen.";
+
+/* No comment provided by engineer. */
 "--dry-run" = "--dry-run";
 
 /* No comment provided by engineer. */
 ".json" = ".json";
+
+/* No comment provided by engineer. */
+"**Warning:** The Verify function is advisory only." = "**Warnung:** Die Funktion „Überprüfen“ hat nur beratenden Charakter.";
 
 /* No comment provided by engineer. */
 "%" = "%";
@@ -24,9 +30,6 @@
 
 /* No comment provided by engineer. */
 "^[%lld file](inflect: true) new" = "^[%lld Datei](inflect: true) neu";
-
-/* No comment provided by engineer. */
-"a networked configuration is where destination is on a remote server" = "bei einer Netzwerkkonfiguration befindet sich das Ziel auf einem Remote-Server";
 
 /* (No Comment) */
 "Abort" = "Abbrechen";
@@ -77,10 +80,16 @@
 "All tasks has been synchronized in the past %lld days" = "Alle Aufgaben wurden am letzten %lld Tage synchronisiertt";
 
 /* No comment provided by engineer. */
+"Always present the summarized estimate view" = "Immer die zusammenfassende Schätzungsansicht präsentieren";
+
+/* No comment provided by engineer. */
 "And nothing to restore" = "Und nichts wiederherzustellen";
 
 /* No comment provided by engineer. */
 "Apple Silicon" = "Apple Silicon";
+
+/* No comment provided by engineer. */
+"Attached Volume Catalogs" = "Angehängtes Volumen Katalogs";
 
 /* No comment provided by engineer. */
 "Attached Volumes" = "Angehängte Volumes";
@@ -111,9 +120,6 @@
 
 /* No comment provided by engineer. */
 "Check for error in output" = "Überprüfen Sie die Ausgabe auf Fehler";
-
-/* No comment provided by engineer. */
-"Check remote" = "Remote überprüfen";
 
 /* No comment provided by engineer. */
 "Clear saved quicktask" = "Gespeicherte Quicktask löschen";
@@ -191,6 +197,9 @@
 "Environment variable" = "Umgebungsvariable";
 
 /* No comment provided by engineer. */
+"Est" = "Est";
+
+/* No comment provided by engineer. */
 "Estimate" = "Schätzung";
 
 /* No comment provided by engineer. */
@@ -216,9 +225,6 @@
 
 /* No comment provided by engineer. */
 "Filenames" = "Filnamen";
-
-/* No comment provided by engineer. */
-"Files" = "Dateien";
 
 /* No comment provided by engineer. */
 "German translation by: Andre Voigtmann" = "Deutsche Übersetzung von: andre68723";
@@ -269,7 +275,7 @@
 "It seems that REMOTE is more updated than LOCAL. A PULL may be next." = "Es scheint, dass REMOTE aktueller ist als LOCAL. Ein PULL könnte als nächstes sein.";
 
 /* No comment provided by engineer. */
-"kB" = "kB";
+"kB trans" = "kB trans";
 
 /* No comment provided by engineer. */
 "Last" = "Letzte";
@@ -315,9 +321,6 @@
 
 /* No comment provided by engineer. */
 "No error" = "Kein Fehler";
-
-/* No comment provided by engineer. */
-"No profile with this name" = "Keine Profil";
 
 /* No comment provided by engineer. */
 "No remote server on task" = "Kein Remote-Server für die Aufgabe";
@@ -458,7 +461,10 @@
 "Select a task" = " Aufgabe Wählen";
 
 /* No comment provided by engineer. */
-"Select catalog or file" = "Katalog oder Datei auswählen";
+"Select a task in Synchronize view and select the " = "Wählen Sie eine Aufgabe in der Synchronisationsansicht aus und wählen Sie die";
+
+/* No comment provided by engineer. */
+"Select an Attached Volume" = "Auswählen eines angeschlossenen Volumes";
 
 /* No comment provided by engineer. */
 "Select either pull or push" = "Wählen Sie pull oder push";
@@ -551,9 +557,6 @@
 "Tasks" = "Aufgaben";
 
 /* No comment provided by engineer. */
-"The Verify remote is for networked configurations only" = "Die Verify-Fernbedienung ist nur für Netzwerkkonfigurationen bestimmt";
-
-/* No comment provided by engineer. */
 "There are no logs by this filter" = "Für diesen Filter sind keine Protokolle vorhanden";
 
 /* No comment provided by engineer. */
@@ -581,13 +584,13 @@
 "Toggle halt task" = "Task anhalten ein-/ausschalten";
 
 /* No comment provided by engineer. */
-"Tot dir" = "Verzeichnisse Gesamt";
+"Tot cat" = "Tot cat";
+
+/* No comment provided by engineer. */
+"Tot files" = "Tot files";
 
 /* No comment provided by engineer. */
 "Tot kB" = "Tot Kb";
-
-/* No comment provided by engineer. */
-"Tot num" = "Anzahl Gesamt";
 
 /* No comment provided by engineer. */
 "Total bytes: " = "Total bytes:";
@@ -620,6 +623,9 @@
 "Update task" = "Aufgabe aktualisieren";
 
 /* No comment provided by engineer. */
+"Updates" = "Aktualisierungen";
+
+/* No comment provided by engineer. */
 "URL for Estimate & Synchronize" = "URL für Schätzen und Synchronisieren";
 
 /* No comment provided by engineer. */
@@ -639,9 +645,6 @@
 
 /* No comment provided by engineer. */
 "Verify task" = "Aufgabe verifizieren";
-
-/* No comment provided by engineer. */
-"version 3.x of rsync must be installed and enabled to use this function," = "um diese Funktion zu nutzen, muss Version 3.x von rsync installiert und aktiviert sein,";
 
 /* No comment provided by engineer. */
 "Version rsync" = "Version rsync";
