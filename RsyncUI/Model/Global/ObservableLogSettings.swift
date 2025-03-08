@@ -24,4 +24,6 @@ final class ObservableLogSettings {
     var sidebarishidden: Bool = SharedReference.shared.sidebarishidden
     // Observe mounting local atteched discs
     var observemountedvolumes: Bool = SharedReference.shared.observemountedvolumes
+    // Always show the summarized estimated view
+    var alwaysshowestimateddetailsview: Bool = SharedReference.shared.alwaysshowestimateddetailsview
 }

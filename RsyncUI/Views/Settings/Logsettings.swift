@@ -14,6 +14,7 @@ struct Logsettings: View {
     @State private var showthumbsup: Bool = false
     @State private var settingsischanged: Bool = false
     @State private var toggleobservemountedvolumes: Bool = false
+    @State private var togglealwaysshowestimateddetailsview: Bool = false
 
     var body: some View {
         Form {
@@ -47,6 +48,12 @@ struct Logsettings: View {
                     .onChange(of: logsettings.observemountedvolumes) {
                         SharedReference.shared.observemountedvolumes = logsettings.observemountedvolumes
                         toggleobservemountedvolumes = logsettings.observemountedvolumes
+                        settingsischanged = true
+                    }
+                ToggleViewDefault(text: NSLocalizedString("Always present the summarized estimate view", comment: ""), binding: $logsettings.alwaysshowestimateddetailsview)
+                    .onChange(of: logsettings.alwaysshowestimateddetailsview) {
+                        SharedReference.shared.alwaysshowestimateddetailsview = logsettings.alwaysshowestimateddetailsview
+                        togglealwaysshowestimateddetailsview = logsettings.alwaysshowestimateddetailsview
                         settingsischanged = true
                     }
 

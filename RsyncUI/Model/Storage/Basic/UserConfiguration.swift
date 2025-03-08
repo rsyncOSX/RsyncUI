@@ -37,6 +37,8 @@ struct UserConfiguration: Codable {
     var sidebarishidden: Int = -1
     // Observe mounting local atteched discs
     var observemountedvolumes: Int = -1
+    // Alwasy show the summarized estimate view
+    var alwaysshowestimateddetailsview: Int = -1
 
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
@@ -104,6 +106,11 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.observemountedvolumes = false
         }
+        if alwaysshowestimateddetailsview == 1 {
+            SharedReference.shared.alwaysshowestimateddetailsview = true
+        } else {
+            SharedReference.shared.alwaysshowestimateddetailsview = false
+        }
     }
 
     // Used when reading JSON data from store
@@ -124,6 +131,7 @@ struct UserConfiguration: Codable {
         synchronizewithouttimedelay = data.synchronizewithouttimedelay ?? -1
         sidebarishidden = data.sidebarishidden ?? -1
         observemountedvolumes = data.observemountedvolumes ?? -1
+        alwaysshowestimateddetailsview = data.alwaysshowestimateddetailsview ?? -1
         // Set data read from JSON in SharedReference.
         setuserconfigdata()
     }
@@ -193,6 +201,11 @@ struct UserConfiguration: Codable {
             observemountedvolumes = 1
         } else {
             observemountedvolumes = -1
+        }
+        if SharedReference.shared.alwaysshowestimateddetailsview == true {
+            alwaysshowestimateddetailsview = 1
+        } else {
+            alwaysshowestimateddetailsview = -1
         }
     }
 }

@@ -34,6 +34,8 @@ struct DecodeUserConfiguration: Codable {
     let sidebarishidden: Int?
     // Observe mounting local atteched discs
     let observemountedvolumes: Int?
+    // Alwasy show the summarized estimate view
+    let alwaysshowestimateddetailsview: Int?
 
     enum CodingKeys: String, CodingKey {
         case rsyncversion3
@@ -51,6 +53,7 @@ struct DecodeUserConfiguration: Codable {
         case synchronizewithouttimedelay
         case sidebarishidden
         case observemountedvolumes
+        case alwaysshowestimateddetailsview
     }
 
     init(from decoder: Decoder) throws {
@@ -70,5 +73,6 @@ struct DecodeUserConfiguration: Codable {
         synchronizewithouttimedelay = try values.decodeIfPresent(Int.self, forKey: .synchronizewithouttimedelay)
         sidebarishidden = try values.decodeIfPresent(Int.self, forKey: .sidebarishidden)
         observemountedvolumes = try values.decodeIfPresent(Int.self, forKey: .observemountedvolumes)
+        alwaysshowestimateddetailsview = try values.decodeIfPresent(Int.self, forKey: .alwaysshowestimateddetailsview)
     }
 }
