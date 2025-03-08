@@ -60,13 +60,13 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         offsiteCatalog = config?.offsiteCatalog ?? ""
         backupID = config?.backupID ?? "Synchronize ID"
         id = config?.id ?? UUID()
-        
+
         Logger.process.info("RemoteDataNumbers: adjusted output from rsync: \(stringoutputfromrsync?.count ?? 0) rows")
 
         // Prepareoutput prepares output from rsync for extracting the numbers only.
         // It removes all lines except the last 20 lines where summarized numbers are put
         // Normally this is done before calling the RemoteDataNumbers
-        
+
         if stringoutputfromrsync?.count ?? 0 > 20 {
             preparedoutputfromrsync = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
         } else {
@@ -94,20 +94,8 @@ struct RemoteDataNumbers: Identifiable, Hashable {
             deletefiles = parsersyncoutput.formatted_numberofdeletedfiles
             totalnumbers = parsersyncoutput.formatted_numberoffiles_totaldirectories
 
-            if SharedReference.shared.rsyncversion3 {
-                if newfiles_Int > 0 || deletefiles_Int > 0 || filestransferred_Int > 0 {
-                    datatosynchronize = true
-                } else {
-                    datatosynchronize = false
-                }
-            } else {
-                if filestransferred_Int > 0 {
-                    datatosynchronize = true
-                } else {
-                    datatosynchronize = false
-                }
-            }
-            
+            datatosynchronize = parsersyncoutput.numbersonly?.datatosynchronize ?? true
+
             if SharedReference.shared.rsyncversion3,
                filestransferred_Int + totaldirectories_Int == newfiles_Int,
                datatosynchronize

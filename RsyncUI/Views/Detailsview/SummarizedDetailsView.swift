@@ -37,8 +37,8 @@ struct SummarizedDetailsView: View {
                             }
                             if let datatosynchronize {
                                 if datatosynchronize.count == 0,
-                                    SharedReference.shared.alwaysshowestimateddetailsview == false {
-                                    
+                                   SharedReference.shared.alwaysshowestimateddetailsview == false
+                                {
                                     path.removeAll()
                                 }
                             }

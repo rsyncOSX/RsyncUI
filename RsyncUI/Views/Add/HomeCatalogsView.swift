@@ -87,15 +87,15 @@ struct HomeCatalogsView: View {
                     newdata.backupID = "Backup of: " + selectedcatalog
                 }
             }
-            
+
             guard newdata.localcatalog.isEmpty == false else { return }
-            
+
             if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
                 let attachedvolume = attachedVolumes[index].volumename
                 if let index = attachedVolumesCatalogs.firstIndex(where: { $0.catalogname == selectedAttachedVolumeCatalogs }) {
                     let selectedvolume = (attachedvolume?.relativePath ?? "") + "/" + attachedVolumesCatalogs[index].catalogname
                     newdata.remotecatalog = selectedvolume
-                 }
+                }
             }
         })
 

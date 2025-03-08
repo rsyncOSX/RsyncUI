@@ -153,7 +153,7 @@ struct DetailsPushPullView: View {
 
     func pullprocesstermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
-            let suboutput = Array(stringoutputfromrsync[stringoutputfromrsync.count - 20 ..< stringoutputfromrsync.count])
+            let suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
             pullremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
                                                       config: config)
         } else {

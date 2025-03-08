@@ -82,5 +82,4 @@ final class SharedReference {
     @ObservationIgnored var sidebarishidden: Bool = false
     @ObservationIgnored var observemountedvolumes: Bool = false
     @ObservationIgnored var alwaysshowestimateddetailsview: Bool = true
-    
 }

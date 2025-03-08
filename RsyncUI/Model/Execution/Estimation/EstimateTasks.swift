@@ -74,7 +74,6 @@ extension EstimateTasks {
         }
 
         if adjustedoutputfromrsync {
-            
             var record = RemoteDataNumbers(stringoutputfromrsync: suboutput,
                                            config: getconfig(hiddenID ?? -1))
             adjustedoutputfromrsync = false
@@ -83,13 +82,13 @@ extension EstimateTasks {
                 record.outputfromrsync =
                     await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
                 localestimateprogressdetails?.appendrecordestimatedlist(record)
-                
-                if record.datatosynchronize  {
+
+                if record.datatosynchronize {
                     if let config = getconfig(hiddenID ?? -1) {
                         localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
                     }
                 }
-                
+
                 // Must check inside Task AFTER async task
                 if stackoftasktobeestimated?.count ?? 0 > 0 {
                     startestimation()
@@ -105,13 +104,13 @@ extension EstimateTasks {
                 record.outputfromrsync =
                     await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
                 localestimateprogressdetails?.appendrecordestimatedlist(record)
-                
-                if record.datatosynchronize  {
+
+                if record.datatosynchronize {
                     if let config = getconfig(hiddenID ?? -1) {
                         localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
                     }
                 }
-                
+
                 // Must check inside Task AFTER async task
                 if stackoftasktobeestimated?.count ?? 0 > 0 {
                     startestimation()

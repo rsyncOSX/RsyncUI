@@ -132,7 +132,7 @@ struct ExecutePushPullView: View {
         progress = false
 
         if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
-            let suboutput = Array(stringoutputfromrsync[stringoutputfromrsync.count - 20 ..< stringoutputfromrsync.count])
+            let suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
             remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
                                                   config: config)
         } else {
