@@ -81,4 +81,6 @@ final class SharedReference {
     // let bundleIdentifier: String = "no.blogspot.RsyncUI"
     @ObservationIgnored var sidebarishidden: Bool = false
     @ObservationIgnored var observemountedvolumes: Bool = false
+    @ObservationIgnored var alwaysshowestimateddetailsview: Bool = true
+    
 }

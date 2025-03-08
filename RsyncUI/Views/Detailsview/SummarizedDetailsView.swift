@@ -29,7 +29,6 @@ struct SummarizedDetailsView: View {
                     EstimationInProgressView(executeprogressdetails: executeprogressdetails,
                                              estimateprogressdetails: estimateprogressdetails,
                                              selecteduuids: $selecteduuids,
-                                             // nodatatosynchronize: $nodatatosynchronize,
                                              profile: profile,
                                              configurations: configurations)
                         .onDisappear {
@@ -37,7 +36,9 @@ struct SummarizedDetailsView: View {
                                 element.datatosynchronize ? true : nil
                             }
                             if let datatosynchronize {
-                                if datatosynchronize.count == 0 {
+                                if datatosynchronize.count == 0,
+                                    SharedReference.shared.alwaysshowestimateddetailsview == false {
+                                    
                                     path.removeAll()
                                 }
                             }
