@@ -19,8 +19,10 @@ struct DetailsView: View {
 
                 if remotedatanumbers.datatosynchronize {
                     VStack(alignment: .leading) {
-                        Text("^[\(remotedatanumbers.newfiles_Int) file](inflect: true) new")
-                        Text("^[\(remotedatanumbers.deletefiles_Int) file](inflect: true) for delete")
+                        if SharedReference.shared.rsyncversion3 {
+                            Text("^[\(remotedatanumbers.newfiles_Int) file](inflect: true) new")
+                            Text("^[\(remotedatanumbers.deletefiles_Int) file](inflect: true) for delete")
+                        }
                         Text("^[\(remotedatanumbers.filestransferred_Int) file](inflect: true) changed")
                         Text("^[\(remotedatanumbers.totaltransferredfilessize_Int) byte](inflect: true) for transfer")
                     }
