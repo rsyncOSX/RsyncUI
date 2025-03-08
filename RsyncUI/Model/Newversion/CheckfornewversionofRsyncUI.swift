@@ -33,7 +33,7 @@ final class CheckfornewversionofRsyncUI {
 }
 
 actor Getversionofrsync {
-    func getversionsofrsyncui() async -> Bool {
+    nonisolated func getversionsofrsyncui() async -> Bool {
         do {
             Logger.process.info("Getversionofrsync: getversionsofrsyncui() MAIN THREAD \(Thread.isMain)")
             let versions = await DecodeGeneric()

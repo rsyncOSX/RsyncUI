@@ -8,7 +8,6 @@
 // swiftlint:disable line_length
 
 import Foundation
-import OSLog
 import ParseRsyncOutput
 
 @MainActor
@@ -61,8 +60,6 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         backupID = config?.backupID ?? "Synchronize ID"
         id = config?.id ?? UUID()
 
-        Logger.process.info("RemoteDataNumbers: adjusted output from rsync: \(stringoutputfromrsync?.count ?? 0) rows")
-
         // Prepareoutput prepares output from rsync for extracting the numbers only.
         // It removes all lines except the last 20 lines where summarized numbers are put
         // Normally this is done before calling the RemoteDataNumbers
@@ -101,9 +98,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
                datatosynchronize
             {
                 confirmsynchronize = true
-                Logger.process.info("RemoteDataNumbers: confirmsynchronize - TRUE")
             } else {
-                Logger.process.info("RemoteDataNumbers: confirmsynchronize - FALSE")
             }
         }
     }

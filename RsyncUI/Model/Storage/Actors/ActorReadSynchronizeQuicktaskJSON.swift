@@ -11,7 +11,7 @@ import Foundation
 import OSLog
 
 actor ActorReadSynchronizeQuicktaskJSON {
-    func readjsonfilequicktask() async -> SynchronizeConfiguration? {
+    nonisolated func readjsonfilequicktask() async -> SynchronizeConfiguration? {
         var filename = ""
         let path = await Homepath()
 

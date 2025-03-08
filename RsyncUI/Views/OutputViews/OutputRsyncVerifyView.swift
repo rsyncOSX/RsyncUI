@@ -79,7 +79,7 @@ import OSLog
 
 actor CreateOutputforviewOutputRsync {
     // From Array[String]
-    func createoutputforviewoutputrsync(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
+    nonisolated func createoutputforviewoutputrsync(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.info("CreateOutputforviewOutputRsync: createoutputforviewoutputrsync() MAIN THREAD \(Thread.isMain)")
 
         if let data = stringoutputfromrsync {
@@ -91,7 +91,7 @@ actor CreateOutputforviewOutputRsync {
     }
 
     // From Set<String>
-    func createoutputforviewoutputrsync(_ setoutputfromrsync: Set<String>?) async -> [RsyncOutputData] {
+    nonisolated func createoutputforviewoutputrsync(_ setoutputfromrsync: Set<String>?) async -> [RsyncOutputData] {
         Logger.process.info("CreateOutputforviewOutputRsync: createoutputforviewoutputrsync() MAIN THREAD \(Thread.isMain)")
 
         if let data = setoutputfromrsync {

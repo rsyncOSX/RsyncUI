@@ -11,7 +11,7 @@ import Foundation
 import OSLog
 
 actor ActorWriteSynchronizeQuicktaskJSON {
-    private func writeJSONToPersistentStore(jsonData: Data?) async {
+    nonisolated private func writeJSONToPersistentStore(jsonData: Data?) async {
         let path = await Homepath()
 
         Logger.process.info("ActorWriteSynchronizeQuicktaskJSON: writeJSONToPersistentStore() MAIN THREAD \(Thread.isMain)")
@@ -33,7 +33,7 @@ actor ActorWriteSynchronizeQuicktaskJSON {
         }
     }
 
-    private func encodeJSONData(_ configuration: SynchronizeConfiguration) async {
+    nonisolated private func encodeJSONData(_ configuration: SynchronizeConfiguration) async {
         let encodejsondata = await EncodeGeneric()
         do {
             if let encodeddata = try await encodejsondata.encodedata(data: configuration) {

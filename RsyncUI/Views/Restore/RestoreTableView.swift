@@ -317,7 +317,7 @@ import OSLog
 
 actor CreateOutputforviewRestorefiles {
     // Show filelist for Restore, the TrimOutputForRestore prepares list
-    func createoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
+    nonisolated func createoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.info("CreateOutputforviewRestorefiles: createoutputforview()  MAIN THREAD \(Thread.isMain)")
         if let stringoutputfromrsync {
             if let trimmeddata = await TrimOutputForRestore(stringoutputfromrsync).trimmeddata {
@@ -330,7 +330,7 @@ actor CreateOutputforviewRestorefiles {
     }
 
     // After a restore, present files
-    func createrestoredfilesoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
+    nonisolated func createrestoredfilesoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.info("CreateOutputforviewRestorefiles: createrestoredfilesoutputforview() MAIN THREAD \(Thread.isMain)")
         if let stringoutputfromrsync {
             return stringoutputfromrsync.map { filename in

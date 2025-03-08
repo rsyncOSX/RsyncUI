@@ -14,7 +14,7 @@ final class ObservableRsyncOutput {
 }
 
 actor CreateOutputforview {
-    func createaoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
+    nonisolated func createaoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.info("CreateOutputforview: createaoutputforview() MAIN THREAD \(Thread.isMain)")
         if let stringoutputfromrsync {
             return stringoutputfromrsync.map { filename in

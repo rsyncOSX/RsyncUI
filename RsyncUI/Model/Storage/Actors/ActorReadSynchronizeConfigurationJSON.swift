@@ -13,7 +13,7 @@ import OSLog
 actor ActorReadSynchronizeConfigurationJSON {
     typealias TypeServerPort = (String, Int)
 
-    func verifyremoteconnection(configurations: [SynchronizeConfiguration]?, sharedsshport: Int?) async {
+    nonisolated func verifyremoteconnection(configurations: [SynchronizeConfiguration]?, sharedsshport: Int?) async {
         let reporterror = ReportError()
         var checkedserverandport = [TypeServerPort]()
 
@@ -48,7 +48,7 @@ actor ActorReadSynchronizeConfigurationJSON {
         }
     }
 
-    func readjsonfilesynchronizeconfigurations(_ profile: String?,
+    nonisolated func readjsonfilesynchronizeconfigurations(_ profile: String?,
                                                _ monitornetworkconnection: Bool,
                                                _ sharedsshport: Int?,
                                                _ filenameconfigurations: String) async -> [SynchronizeConfiguration]?

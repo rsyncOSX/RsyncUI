@@ -35,7 +35,7 @@ struct TCPconnections: Sendable {
     }
 
     // Async Test for TCP connection
-    func asyncverifyTCPconnection(_ host: String, port: Int) async throws {
+    nonisolated func asyncverifyTCPconnection(_ host: String, port: Int) async throws {
         let client = TCPClient(address: host, port: Int32(port))
         Logger.process.info("TCPconnections: asyncverifyTCPconnection() MAIN THREAD \(Thread.isMain)")
         switch client.connect(timeout: 5) {
