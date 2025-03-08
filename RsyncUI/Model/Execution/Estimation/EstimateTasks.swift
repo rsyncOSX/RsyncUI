@@ -74,6 +74,7 @@ extension EstimateTasks {
         }
 
         if adjustedoutputfromrsync {
+            
             var record = RemoteDataNumbers(stringoutputfromrsync: suboutput,
                                            config: getconfig(hiddenID ?? -1))
             adjustedoutputfromrsync = false
@@ -83,17 +84,9 @@ extension EstimateTasks {
                     await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
                 localestimateprogressdetails?.appendrecordestimatedlist(record)
                 
-                if SharedReference.shared.rsyncversion3 {
-                    if record.newfiles_Int > 0 || record.deletefiles_Int > 0 {
-                        if let config = getconfig(hiddenID ?? -1) {
-                            localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
-                        }
-                    }
-                } else {
-                    if record.filestransferred_Int > 0 {
-                        if let config = getconfig(hiddenID ?? -1) {
-                            localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
-                        }
+                if record.datatosynchronize  {
+                    if let config = getconfig(hiddenID ?? -1) {
+                        localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
                     }
                 }
                 
@@ -113,17 +106,9 @@ extension EstimateTasks {
                     await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
                 localestimateprogressdetails?.appendrecordestimatedlist(record)
                 
-                if SharedReference.shared.rsyncversion3 {
-                    if record.newfiles_Int > 0 || record.deletefiles_Int > 0 {
-                        if let config = getconfig(hiddenID ?? -1) {
-                            localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
-                        }
-                    }
-                } else {
-                    if record.filestransferred_Int > 0 {
-                        if let config = getconfig(hiddenID ?? -1) {
-                            localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
-                        }
+                if record.datatosynchronize  {
+                    if let config = getconfig(hiddenID ?? -1) {
+                        localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
                     }
                 }
                 
