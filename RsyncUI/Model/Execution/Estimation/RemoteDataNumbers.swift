@@ -98,7 +98,6 @@ struct RemoteDataNumbers: Identifiable, Hashable {
                datatosynchronize
             {
                 confirmsynchronize = true
-            } else {
             }
         }
     }
