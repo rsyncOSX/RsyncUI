@@ -757,7 +757,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/ParseRsyncOutput";
 			requirement = {
-				branch = main;
+				branch = NewMethodMaybe;
 				kind = branch;
 			};
 		};
