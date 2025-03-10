@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/ParseRsyncOutput",
       "state" : {
-        "branch" : "NewMethodMaybe",
-        "revision" : "dddd58855da5df328b2798faeb67156c211e779f"
+        "branch" : "main",
+        "revision" : "cd4ae42f7b147da0f86824b2095b8b9587367d99"
       }
     },
     {
