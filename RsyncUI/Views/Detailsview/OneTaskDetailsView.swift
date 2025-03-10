@@ -63,6 +63,12 @@ struct OneTaskDetailsView: View {
         return nil
     }
 
+    func validatetagging(_ lines: Int, _ tagged: Bool) throws {
+        if lines > 20 && tagged == false {
+            throw ErrorDatatoSynchronize.thereisdatatosynchronize
+        }
+    }
+    
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         var selectedconfig: SynchronizeConfiguration?
         let selected = configurations.filter { config in
@@ -79,6 +85,14 @@ struct OneTaskDetailsView: View {
         } else {
             remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                                   config: selectedconfig)
+        }
+        
+        // Validate that tagging is correct
+        do {
+            try validatetagging(stringoutputfromrsync?.count ?? 0 , remotedatanumbers?.datatosynchronize ?? true)
+        } catch let e {
+            let error = e
+            SharedReference.shared.errorobject?.alert(error: error)
         }
 
         Task {
