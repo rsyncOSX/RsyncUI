@@ -64,14 +64,8 @@ struct OneTaskDetailsView: View {
     }
 
     func validatetagging(_ lines: Int, _ tagged: Bool) throws {
-        if SharedReference.shared.rsyncversion3  {
-            if lines > 18 && tagged == false {
-                throw ErrorDatatoSynchronize.thereisdatatosynchronize
-            }
-        } else {
-            if lines > 17 && tagged == false {
-                throw ErrorDatatoSynchronize.thereisdatatosynchronize
-            }
+        if lines > 20 && tagged == false {
+            throw ErrorDatatoSynchronize.thereisdatatosynchronize
         }
     }
     
