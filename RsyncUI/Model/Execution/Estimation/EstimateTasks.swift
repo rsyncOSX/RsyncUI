@@ -10,7 +10,7 @@ import Foundation
 
 enum ErrorDatatoSynchronize: LocalizedError {
     case thereisdatatosynchronize
-    
+
     var errorDescription: String? {
         switch self {
         case .thereisdatatosynchronize:
@@ -50,9 +50,9 @@ final class EstimateTasks {
             }
         }
     }
-    
+
     func validatetagging(_ lines: Int, _ tagged: Bool) throws {
-        if lines > 20 && tagged == false {
+        if lines > 20, tagged == false {
             throw ErrorDatatoSynchronize.thereisdatatosynchronize
         }
     }
@@ -105,10 +105,10 @@ extension EstimateTasks {
                         localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
                     }
                 }
-                
+
                 // Validate that tagging is correct
                 do {
-                    try validatetagging(stringoutputfromrsync?.count ?? 0 , record.datatosynchronize)
+                    try validatetagging(stringoutputfromrsync?.count ?? 0, record.datatosynchronize)
                 } catch let e {
                     let error = e
                     SharedReference.shared.errorobject?.alert(error: error)
@@ -138,12 +138,12 @@ extension EstimateTasks {
 
                 // Validate that tagging is correct
                 do {
-                    try validatetagging(stringoutputfromrsync?.count ?? 0 , record.datatosynchronize)
+                    try validatetagging(stringoutputfromrsync?.count ?? 0, record.datatosynchronize)
                 } catch let e {
                     let error = e
                     SharedReference.shared.errorobject?.alert(error: error)
                 }
-                
+
                 // Must check inside Task AFTER async task
                 if stackoftasktobeestimated?.count ?? 0 > 0 {
                     startestimation()

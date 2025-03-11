@@ -11,8 +11,8 @@ import OSLog
 
 actor ActorReadLogRecordsJSON {
     nonisolated func readjsonfilelogrecords(_ profile: String?,
-                                _ validhiddenIDs: Set<Int>,
-                                _ filenamelogrecords: String) async -> [LogRecords]?
+                                            _ validhiddenIDs: Set<Int>,
+                                            _ filenamelogrecords: String) async -> [LogRecords]?
     {
         let path = await Homepath()
         var filename = ""

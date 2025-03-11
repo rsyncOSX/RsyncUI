@@ -49,9 +49,9 @@ actor ActorReadSynchronizeConfigurationJSON {
     }
 
     nonisolated func readjsonfilesynchronizeconfigurations(_ profile: String?,
-                                               _ monitornetworkconnection: Bool,
-                                               _ sharedsshport: Int?,
-                                               _ filenameconfigurations: String) async -> [SynchronizeConfiguration]?
+                                                           _ monitornetworkconnection: Bool,
+                                                           _ sharedsshport: Int?,
+                                                           _ filenameconfigurations: String) async -> [SynchronizeConfiguration]?
     {
         var filename = ""
         let path = await Homepath()
