@@ -242,7 +242,7 @@ struct QuicktaskView: View {
                     .textContentType(.none)
                     .submitLabel(.continue)
 
-                OpencatalogView(selecteditem: $localcatalog, catalogs: catalogorfile)
+                OpencatalogView(selecteditem: $remotecatalog, catalogs: catalogorfile)
             }
         }
     }
