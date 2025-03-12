@@ -94,6 +94,7 @@ struct GlobalChangeTaskView: View {
                             }
                         }
                     }
+                    .padding()
                 }
             }
             .alert(isPresented: $showingAlert) {
