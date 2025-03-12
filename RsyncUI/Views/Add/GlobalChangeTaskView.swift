@@ -19,9 +19,10 @@ struct GlobalChangeTaskView: View {
         HStack {
             // Column 1
             VStack(alignment: .leading) {
-                VStack(alignment: .leading) { synchronizeID }
-
+                
                 VStack(alignment: .leading) { localandremotecatalog }
+                
+                VStack(alignment: .leading) { synchronizeID }
 
                 VStack(alignment: .leading) { remoteuserandserver }
 

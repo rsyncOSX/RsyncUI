@@ -48,20 +48,24 @@ struct AddTaskView: View {
             HStack {
                 // Column 1
                 VStack(alignment: .leading) {
-                    pickerselecttypeoftask
-                        .disabled(selectedconfig != nil)
-
+                    
+                    HStack {
+                        pickerselecttypeoftask
+                            .disabled(selectedconfig != nil)
+                        
+                        VStack(alignment: .leading) {
+                            ToggleViewDefault(text: NSLocalizedString("Don´t add /", comment: ""),
+                                              binding: $newdata.donotaddtrailingslash)
+                        }
+                    }
+                    
+                    
                     if newdata.selectedrsynccommand == .syncremote {
                         VStack(alignment: .leading) { localandremotecatalogsyncremote }
 
                     } else {
                         VStack(alignment: .leading) { localandremotecatalog }
                             .disabled(selectedconfig?.task == SharedReference.shared.snapshot)
-                    }
-
-                    VStack(alignment: .leading) {
-                        ToggleViewDefault(text: NSLocalizedString("Don´t add /", comment: ""),
-                                          binding: $newdata.donotaddtrailingslash)
                     }
 
                     VStack(alignment: .leading) { synchronizeID }
