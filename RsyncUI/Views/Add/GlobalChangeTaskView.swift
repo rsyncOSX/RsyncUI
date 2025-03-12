@@ -21,7 +21,12 @@ struct GlobalChangeTaskView: View {
         NavigationStack {
             HStack {
                 // Column 1
+                
                 VStack(alignment: .leading) {
+                    
+                    Text("Use $ as split character")
+                        .padding(.vertical, 2)
+                    
                     VStack(alignment: .leading) { localandremotecatalog }
 
                     VStack(alignment: .leading) { synchronizeID }
@@ -158,6 +163,7 @@ struct GlobalChangeTaskView: View {
             }
         }
         .navigationTitle("Global changes")
+        .padding(-16)
     }
 
     var localandremotecatalog: some View {
