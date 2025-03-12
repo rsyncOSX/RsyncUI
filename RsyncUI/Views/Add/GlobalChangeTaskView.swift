@@ -9,6 +9,8 @@ import SwiftUI
 
 struct GlobalChangeTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var useglobalchanges: Bool
+
     @State private var newdata = ObservableGlobalchangeConfigurations()
     // Alert button
     @State private var showingAlert = false
@@ -16,141 +18,146 @@ struct GlobalChangeTaskView: View {
     @FocusState private var focusField: AddConfigurationField?
 
     var body: some View {
-        HStack {
-            // Column 1
-            VStack(alignment: .leading) {
-                
-                VStack(alignment: .leading) { localandremotecatalog }
-                
-                VStack(alignment: .leading) { synchronizeID }
+        NavigationStack {
+            HStack {
+                // Column 1
+                VStack(alignment: .leading) {
+                    VStack(alignment: .leading) { localandremotecatalog }
 
-                VStack(alignment: .leading) { remoteuserandserver }
+                    VStack(alignment: .leading) { synchronizeID }
 
-                Spacer()
+                    VStack(alignment: .leading) { remoteuserandserver }
+
+                    Spacer()
+
+                    ToggleViewDefault(text: NSLocalizedString("Flip global", comment: ""),
+                                      binding: $useglobalchanges)
+                }
+                .padding()
+
+                // Column 2
+                VStack(alignment: .leading) {
+                    Table(configurations) {
+                        TableColumn("Synchronize ID") { data in
+                            if newdata.occurence_backupID.isEmpty == false, newdata.occurence_backupID.contains("$") {
+                                Text(newdata.splitinput(input: newdata.occurence_backupID, original: data.backupID))
+                            } else {
+                                Text(data.backupID)
+                            }
+                        }
+                        .width(min: 50, max: 150)
+                        TableColumn("Local catalog") { data in
+                            if newdata.occurence_localcatalog.isEmpty == false, newdata.occurence_localcatalog.contains("$") {
+                                Text(newdata.splitinput(input: newdata.occurence_localcatalog, original: data.localCatalog))
+                            } else {
+                                Text(data.localCatalog)
+                            }
+                        }
+                        .width(min: 180, max: 300)
+                        TableColumn("Remote catalog") { data in
+                            if newdata.occurence_remotecatalog.isEmpty == false, newdata.occurence_remotecatalog.contains("$") {
+                                Text(newdata.splitinput(input: newdata.occurence_remotecatalog, original: data.offsiteCatalog))
+                            } else {
+                                Text(data.offsiteCatalog)
+                            }
+                        }
+                        .width(min: 180, max: 300)
+                        TableColumn("Remote user") { data in
+                            if newdata.occurence_remoteuser.isEmpty == false {
+                                Text(newdata.occurence_remoteuser)
+                            } else {
+                                Text(data.offsiteUsername)
+                            }
+                        }
+                        .width(min: 100, max: 150)
+                        TableColumn("Remote server") { data in
+                            if newdata.occurence_remoteserver.isEmpty == false {
+                                Text(newdata.occurence_remoteserver)
+                            } else {
+                                Text(data.offsiteServer)
+                            }
+                        }
+                        .width(min: 100, max: 150)
+                    }
+                    .overlay {
+                        if configurations.isEmpty {
+                            ContentUnavailableView {
+                                Label("Most likely, you try to update snapshot tasks, not allowed",
+                                      systemImage: "doc.richtext.fill")
+                            } description: {
+                                Text("Or there are no tasks to update")
+                            }
+                        }
+                    }
+                }
             }
+            .alert(isPresented: $showingAlert) {
+                Alert(
+                    title: Text("Update all configurations?"),
+                    primaryButton: .default(Text("Update")) {
+                        // any snapshotstasks
+                        if let snapshotstask = newdata.notchangedsnapshotconfigurations,
+                           let globalupdate = newdata.globalchangedconfigurations
+                        {
+                            rsyncUIdata.configurations = globalupdate + snapshotstask
+                        } else {
+                            rsyncUIdata.configurations = newdata.globalchangedconfigurations
+                        }
+                        WriteSynchronizeConfigurationJSON(rsyncUIdata.profile, rsyncUIdata.configurations)
+                    },
+                    secondaryButton: .cancel {
+                        newdata.globalchangedconfigurations = rsyncUIdata.configurations
+                    }
+                )
+            }
+            .toolbar(content: {
+                ToolbarItem {
+                    Button {
+                        guard newdata.whatischanged.isEmpty == false else { return }
+                        newdata.updateglobalchangedconfigurations()
+                        showingAlert = true
+                    } label: {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(Color(.blue))
+                    }
+                    .help("Update task")
+                    .disabled(configurations.isEmpty)
+                }
+            })
             .padding()
-
-            // Column 2
-            VStack(alignment: .leading) {
-                Table(configurations) {
-                    TableColumn("Synchronize ID") { data in
-                        if newdata.occurence_backupID.isEmpty == false, newdata.occurence_backupID.contains("$") {
-                            Text(newdata.splitinput(input: newdata.occurence_backupID, original: data.backupID))
-                        } else {
-                            Text(data.backupID)
-                        }
-                    }
-                    .width(min: 50, max: 150)
-                    TableColumn("Local catalog") { data in
-                        if newdata.occurence_localcatalog.isEmpty == false, newdata.occurence_localcatalog.contains("$") {
-                            Text(newdata.splitinput(input: newdata.occurence_localcatalog, original: data.localCatalog))
-                        } else {
-                            Text(data.localCatalog)
-                        }
-                    }
-                    .width(min: 180, max: 300)
-                    TableColumn("Remote catalog") { data in
-                        if newdata.occurence_remotecatalog.isEmpty == false, newdata.occurence_remotecatalog.contains("$") {
-                            Text(newdata.splitinput(input: newdata.occurence_remotecatalog, original: data.offsiteCatalog))
-                        } else {
-                            Text(data.offsiteCatalog)
-                        }
-                    }
-                    .width(min: 180, max: 300)
-                    TableColumn("Remote user") { data in
-                        if newdata.occurence_remoteuser.isEmpty == false {
-                            Text(newdata.occurence_remoteuser)
-                        } else {
-                            Text(data.offsiteUsername)
-                        }
-                    }
-                    .width(min: 100, max: 150)
-                    TableColumn("Remote server") { data in
-                        if newdata.occurence_remoteserver.isEmpty == false {
-                            Text(newdata.occurence_remoteserver)
-                        } else {
-                            Text(data.offsiteServer)
-                        }
-                    }
-                    .width(min: 100, max: 150)
+            .onAppear {
+                // Synchronize and syncremote tasks
+                newdata.globalchangedconfigurations = rsyncUIdata.configurations?.compactMap { task in
+                    (task.task != SharedReference.shared.snapshot) ? task : nil
                 }
-                .overlay {
-                    if configurations.isEmpty {
-                        ContentUnavailableView {
-                            Label("Most likely, you try to update snapshot tasks, not allowed",
-                                  systemImage: "doc.richtext.fill")
-                        } description: {
-                            Text("Or there are no tasks to update")
-                        }
-                    }
+                // Snapshot tasks
+                newdata.notchangedsnapshotconfigurations = rsyncUIdata.configurations?.compactMap { task in
+                    (task.task == SharedReference.shared.snapshot) ? task : nil
                 }
             }
-        }
-        .alert(isPresented: $showingAlert) {
-            Alert(
-                title: Text("Update all configurations?"),
-                primaryButton: .default(Text("Update")) {
-                    // any snapshotstasks
-                    if let snapshotstask = newdata.notchangedsnapshotconfigurations,
-                       let globalupdate = newdata.globalchangedconfigurations
-                    {
-                        rsyncUIdata.configurations = globalupdate + snapshotstask
-                    } else {
-                        rsyncUIdata.configurations = newdata.globalchangedconfigurations
-                    }
-                    WriteSynchronizeConfigurationJSON(rsyncUIdata.profile, rsyncUIdata.configurations)
-                },
-                secondaryButton: .cancel {
-                    newdata.globalchangedconfigurations = rsyncUIdata.configurations
-                }
-            )
-        }
-        .toolbar(content: {
-            ToolbarItem {
-                Button {
-                    guard newdata.whatischanged.isEmpty == false else { return }
+            .onSubmit {
+                switch focusField {
+                case .localcatalogField:
                     newdata.updateglobalchangedconfigurations()
                     showingAlert = true
-                } label: {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(Color(.blue))
+                case .remotecatalogField:
+                    newdata.updateglobalchangedconfigurations()
+                    showingAlert = true
+                case .remoteuserField:
+                    newdata.updateglobalchangedconfigurations()
+                    showingAlert = true
+                case .remoteserverField:
+                    newdata.updateglobalchangedconfigurations()
+                    showingAlert = true
+                case .synchronizeIDField:
+                    newdata.updateglobalchangedconfigurations()
+                    showingAlert = true
+                default:
+                    return
                 }
-                .help("Update task")
-                .disabled(configurations.isEmpty)
-            }
-        })
-        .padding()
-        .onAppear {
-            // Synchronize and syncremote tasks
-            newdata.globalchangedconfigurations = rsyncUIdata.configurations?.compactMap { task in
-                (task.task != SharedReference.shared.snapshot) ? task : nil
-            }
-            // Snapshot tasks
-            newdata.notchangedsnapshotconfigurations = rsyncUIdata.configurations?.compactMap { task in
-                (task.task == SharedReference.shared.snapshot) ? task : nil
             }
         }
-        .onSubmit {
-            switch focusField {
-            case .localcatalogField:
-                newdata.updateglobalchangedconfigurations()
-                showingAlert = true
-            case .remotecatalogField:
-                newdata.updateglobalchangedconfigurations()
-                showingAlert = true
-            case .remoteuserField:
-                newdata.updateglobalchangedconfigurations()
-                showingAlert = true
-            case .remoteserverField:
-                newdata.updateglobalchangedconfigurations()
-                showingAlert = true
-            case .synchronizeIDField:
-                newdata.updateglobalchangedconfigurations()
-                showingAlert = true
-            default:
-                return
-            }
-        }
+        .navigationTitle("Global changes")
     }
 
     var localandremotecatalog: some View {

@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum AddTaskDestinationView: String, Identifiable {
-    case homecatalogs, verify, global, URL_view
+    case homecatalogs, verify, URL_view
     var id: String { rawValue }
 }
 
@@ -29,13 +29,13 @@ enum AddConfigurationField: Hashable {
 
 struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @State private var newdata = ObservableAddConfigurations()
     @Binding var selectedprofile: String?
     @Binding var addtasknavigation: [AddTasks]
+    @Binding var useglobalchanges: Bool
 
+    @State private var newdata = ObservableAddConfigurations()
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
-
     // Enable change snapshotnum
     @State private var changesnapshotnum: Bool = false
 
@@ -48,18 +48,16 @@ struct AddTaskView: View {
             HStack {
                 // Column 1
                 VStack(alignment: .leading) {
-                    
                     HStack {
                         pickerselecttypeoftask
                             .disabled(selectedconfig != nil)
-                        
+
                         VStack(alignment: .leading) {
                             ToggleViewDefault(text: NSLocalizedString("Don´t add /", comment: ""),
                                               binding: $newdata.donotaddtrailingslash)
                         }
                     }
-                    
-                    
+
                     if newdata.selectedrsynccommand == .syncremote {
                         VStack(alignment: .leading) { localandremotecatalogsyncremote }
 
@@ -78,6 +76,9 @@ struct AddTaskView: View {
                     }
 
                     Spacer()
+
+                    ToggleViewDefault(text: NSLocalizedString("Flip global", comment: ""),
+                                      binding: $useglobalchanges)
                 }
                 // Column 2
                 VStack(alignment: .leading) {
@@ -210,15 +211,6 @@ struct AddTaskView: View {
 
             ToolbarItem {
                 Button {
-                    addtasknavigation.append(AddTasks(task: .global))
-                } label: {
-                    Image(systemName: "globe")
-                }
-                .help("Global change and update")
-            }
-
-            ToolbarItem {
-                Button {
                     addtasknavigation.append(AddTasks(task: .homecatalogs))
                 } label: {
                     Image(systemName: "house.fill")
@@ -283,8 +275,6 @@ struct AddTaskView: View {
             if let config = selectedconfig {
                 OutputRsyncVerifyView(config: config)
             }
-        case .global:
-            GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
         case .URL_view:
             URLView(rsyncUIdata: rsyncUIdata)
         }

@@ -48,6 +48,8 @@ struct SidebarMainView: View {
     // .doubleColumn
     // .detailOnly
     @State private var mountingvolumenow: Bool = false
+    // Add tasks or global changes
+    @State private var useglobalchanges: Bool = false
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
@@ -159,8 +161,14 @@ struct SidebarMainView: View {
     func selectView(_ view: Sidebaritems) -> some View {
         switch view {
         case .tasks:
-            AddTaskView(rsyncUIdata: rsyncUIdata,
-                        selectedprofile: $selectedprofile, addtasknavigation: $addtasknavigation)
+            if useglobalchanges {
+                GlobalChangeTaskView(rsyncUIdata: rsyncUIdata, useglobalchanges: $useglobalchanges)
+            } else {
+                AddTaskView(rsyncUIdata: rsyncUIdata,
+                            selectedprofile: $selectedprofile,
+                            addtasknavigation: $addtasknavigation,
+                            useglobalchanges: $useglobalchanges)
+            }
         case .log_listings:
             LogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
         case .rsync_parameters:
