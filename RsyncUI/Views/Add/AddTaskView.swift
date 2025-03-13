@@ -77,7 +77,7 @@ struct AddTaskView: View {
 
                     Spacer()
 
-                    ToggleViewDefault(text: NSLocalizedString("Flip global", comment: ""),
+                    ToggleViewDefault(text: NSLocalizedString("Toggle global changes", comment: ""),
                                       binding: $useglobalchanges)
                 }
                 // Column 2

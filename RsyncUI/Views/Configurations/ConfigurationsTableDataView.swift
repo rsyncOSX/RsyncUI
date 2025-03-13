@@ -49,25 +49,6 @@ struct ConfigurationsTableDataView: View {
                 }
             }
             .width(min: 50, max: 90)
-            /*
-             TableColumn("Days") { data in
-                 var seconds: Double {
-                     if let date = data.dateRun {
-                         let lastbackup = date.en_us_date_from_string()
-                         return lastbackup.timeIntervalSinceNow * -1
-                     } else {
-                         return 0
-                     }
-                 }
-                 Text(String(format: "%.2f", seconds / (60 * 60 * 24)))
-                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
-             }
-             .width(max: 50)
-             TableColumn("Last") { data in
-                 Text(data.dateRun ?? "")
-             }
-             .width(max: 120)
-              */
         }
     }
 }
