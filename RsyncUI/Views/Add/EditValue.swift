@@ -37,10 +37,17 @@ struct EditValueTwoLines: View {
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .frame(width: mywidth, alignment: .trailing)
             .lineLimit(2)
-                                .frame(height: 30)
-                                .overlay {
-                                    TextEditor(text: myvalue)
-                                }
+            .frame(height: 40)
+            .overlay {
+                TextEditor(text: myvalue)
+                    .padding(4)
+                    .overlay(RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.secondary).opacity(0.5))
+                    .colorMultiply(.gray)
+            }
+            .disabled(true)
+            
+                                
     }
 
     init(_ width: CGFloat, _ str: String?, _ value: Binding<String>) {
