@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum AddTaskDestinationView: String, Identifiable {
-    case homecatalogs, verify, URL_view
+    case homecatalogs, verify
     var id: String { rawValue }
 }
 
@@ -42,6 +42,12 @@ struct AddTaskView: View {
     @FocusState private var focusField: AddConfigurationField?
     // Reload and show table data
     @State private var confirmcopyandpaste: Bool = false
+
+    // URL strings
+    @State private var urlverify: URL?
+    @State private var urlestimate: URL?
+    @State private var stringverify: String = ""
+    @State private var stringestimate: String = ""
 
     var body: some View {
         NavigationStack(path: $addtasknavigation) {
@@ -77,6 +83,36 @@ struct AddTaskView: View {
 
                     Spacer()
 
+                    Spacer()
+
+                    VStack(alignment: .leading) {
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text("URL for Estimate & Synchronize")
+
+                                Button("Save") {
+                                    let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
+                                    WriteWidgetsURLStringsJSON(data, .estimate)
+                                }
+                                .disabled(stringestimate.isEmpty)
+                            }
+
+                            EditValue(300, "Select a task to save an URL for Estimate & Synchronize", $stringestimate)
+
+                            HStack {
+                                Text("URL for Verify")
+
+                                Button("Save") {
+                                    let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
+                                    WriteWidgetsURLStringsJSON(data, .verify)
+                                }
+                                .disabled(stringverify.isEmpty)
+                            }
+
+                            EditValue(300, "Select a task to save an URL for Verify", $stringverify)
+                        }
+                    }
+
                     ToggleViewDefault(text: NSLocalizedString("Toggle global changes", comment: ""),
                                       binding: $useglobalchanges)
                 }
@@ -89,9 +125,32 @@ struct AddTaskView: View {
                                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                     selectedconfig = configurations[index]
                                     newdata.updateview(configurations[index])
+
+                                    // URLs
+                                    if selectedconfig?.offsiteServer.isEmpty == false,
+                                       selectedconfig?.task == SharedReference.shared.synchronize
+                                    {
+                                        let deeplinkurl = DeeplinkURL()
+                                        // Create verifyremote URL
+                                        urlverify = deeplinkurl.createURLloadandverify(valueprofile: rsyncUIdata.profile ?? "default", valueid: selectedconfig?.backupID ?? "Synchronize ID")
+                                        stringverify = urlverify?.absoluteString ?? ""
+                                        // Create estimate and synchronize URL
+                                        urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: rsyncUIdata.profile ?? "default")
+                                        stringestimate = urlestimate?.absoluteString ?? ""
+
+                                    } else {
+                                        stringverify = ""
+                                        stringestimate = ""
+                                    }
+
                                 } else {
                                     selectedconfig = nil
                                     newdata.updateview(nil)
+                                    // URLs
+                                    urlverify = nil
+                                    urlestimate = nil
+                                    stringverify = ""
+                                    stringestimate = ""
                                 }
                             }
                         }
@@ -201,16 +260,6 @@ struct AddTaskView: View {
 
             ToolbarItem {
                 Button {
-                    addtasknavigation.append(AddTasks(task: .URL_view))
-                } label: {
-                    Image(systemName: "curlybraces.square.fill")
-                        .foregroundColor(Color(.yellow))
-                }
-                .help("View URLs")
-            }
-
-            ToolbarItem {
-                Button {
                     addtasknavigation.append(AddTasks(task: .homecatalogs))
                 } label: {
                     Image(systemName: "house.fill")
@@ -275,8 +324,6 @@ struct AddTaskView: View {
             if let config = selectedconfig {
                 OutputRsyncVerifyView(config: config)
             }
-        case .URL_view:
-            URLView(rsyncUIdata: rsyncUIdata)
         }
     }
 
