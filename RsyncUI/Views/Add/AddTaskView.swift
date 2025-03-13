@@ -81,38 +81,45 @@ struct AddTaskView: View {
                         VStack(alignment: .leading) { snapshotnum }
                     }
 
-                    Spacer()
-
-                    Spacer()
-
                     VStack(alignment: .leading) {
                         VStack(alignment: .leading) {
+                            
+                            Text("URL for Estimate & Synchronize")
+                            
                             HStack {
-                                Text("URL for Estimate & Synchronize")
+                                
+                                EditValue(300, "Select a task to save an URL for Estimate & Synchronize", $stringestimate)
 
-                                Button("Save") {
+                                Button {
                                     let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
                                     WriteWidgetsURLStringsJSON(data, .estimate)
+                                } label: {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundColor(Color(.blue))
                                 }
                                 .disabled(stringestimate.isEmpty)
                             }
 
-                            EditValue(300, "Select a task to save an URL for Estimate & Synchronize", $stringestimate)
+                            Text("URL for Verify")
 
                             HStack {
-                                Text("URL for Verify")
+                                
+                                EditValue(300, "Select a task to save an URL for Verify", $stringverify)
 
-                                Button("Save") {
+                                Button {
                                     let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
                                     WriteWidgetsURLStringsJSON(data, .verify)
+                                } label: {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundColor(Color(.blue))
                                 }
                                 .disabled(stringverify.isEmpty)
                             }
-
-                            EditValue(300, "Select a task to save an URL for Verify", $stringverify)
                         }
                     }
 
+                    Spacer()
+                    
                     ToggleViewDefault(text: NSLocalizedString("Toggle global changes", comment: ""),
                                       binding: $useglobalchanges)
                 }
