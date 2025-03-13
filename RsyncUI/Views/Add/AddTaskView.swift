@@ -81,13 +81,14 @@ struct AddTaskView: View {
                         VStack(alignment: .leading) { snapshotnum }
                     }
 
-                    VStack(alignment: .leading) {
+                    if let selectedconfig,
+                       selectedconfig.offsiteServer.isEmpty == false,
+                       selectedconfig.task == SharedReference.shared.synchronize
+                    {
                         VStack(alignment: .leading) {
-                            
                             Text("URL for Estimate & Synchronize")
-                            
+
                             HStack {
-                                
                                 EditValue(300, "Select a task to save an URL for Estimate & Synchronize", $stringestimate)
 
                                 Button {
@@ -103,7 +104,6 @@ struct AddTaskView: View {
                             Text("URL for Verify")
 
                             HStack {
-                                
                                 EditValue(300, "Select a task to save an URL for Verify", $stringverify)
 
                                 Button {
@@ -119,7 +119,7 @@ struct AddTaskView: View {
                     }
 
                     Spacer()
-                    
+
                     ToggleViewDefault(text: NSLocalizedString("Toggle global changes", comment: ""),
                                       binding: $useglobalchanges)
                 }
