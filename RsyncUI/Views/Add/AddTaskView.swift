@@ -99,6 +99,7 @@ struct AddTaskView: View {
                                         .foregroundColor(Color(.blue))
                                 }
                                 .disabled(stringestimate.isEmpty)
+                                .help(stringestimate)
                             }
 
                             Text("URL for Verify")
@@ -114,6 +115,7 @@ struct AddTaskView: View {
                                         .foregroundColor(Color(.blue))
                                 }
                                 .disabled(stringverify.isEmpty)
+                                .help(stringverify)
                             }
                         }
                     }
