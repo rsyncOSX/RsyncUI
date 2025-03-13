@@ -26,7 +26,6 @@ struct EditValue: View {
     }
 }
 
-
 struct EditValueTwoLines: View {
     var myvalue: Binding<String>
     var mywidth: CGFloat?
@@ -46,8 +45,6 @@ struct EditValueTwoLines: View {
                     .colorMultiply(.gray)
             }
             .disabled(true)
-            
-                                
     }
 
     init(_ width: CGFloat, _ str: String?, _ value: Binding<String>) {

@@ -82,7 +82,7 @@ struct AddTaskView: View {
                     }
 
                     Spacer()
-                    
+
                     if let selectedconfig,
                        selectedconfig.offsiteServer.isEmpty == false,
                        selectedconfig.task == SharedReference.shared.synchronize
