@@ -81,6 +81,8 @@ struct AddTaskView: View {
                         VStack(alignment: .leading) { snapshotnum }
                     }
 
+                    Spacer()
+                    
                     if let selectedconfig,
                        selectedconfig.offsiteServer.isEmpty == false,
                        selectedconfig.task == SharedReference.shared.synchronize
@@ -89,7 +91,7 @@ struct AddTaskView: View {
                             Text("URL for Estimate & Synchronize")
 
                             HStack {
-                                EditValue(300, "Select a task to save an URL for Estimate & Synchronize", $stringestimate)
+                                EditValueTwoLines(300, "Select a task to save an URL for Estimate & Synchronize", $stringestimate)
 
                                 Button {
                                     let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
@@ -105,7 +107,7 @@ struct AddTaskView: View {
                             Text("URL for Verify")
 
                             HStack {
-                                EditValue(300, "Select a task to save an URL for Verify", $stringverify)
+                                EditValueTwoLines(300, "Select a task to save an URL for Verify", $stringverify)
 
                                 Button {
                                     let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
