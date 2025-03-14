@@ -84,9 +84,7 @@ struct AddTaskView: View {
                     Spacer()
 
                     if let selectedconfig,
-                       selectedconfig.offsiteServer.isEmpty == false,
-                       selectedconfig.task == SharedReference.shared.synchronize
-                    {
+                       selectedconfig.task == SharedReference.shared.synchronize {
                         VStack(alignment: .leading) {
                             Text("URL for Estimate & Synchronize")
 
@@ -104,21 +102,25 @@ struct AddTaskView: View {
                                 .help(stringestimate)
                             }
 
-                            Text("URL for Verify")
+                            if selectedconfig.offsiteServer.isEmpty == false {
+                                
+                                Text("URL for Verify")
 
-                            HStack {
-                                EditValueTwoLines(300, "Select a task to save an URL for Verify", $stringverify)
+                                HStack {
+                                    EditValueTwoLines(300, "Select a task to save an URL for Verify", $stringverify)
 
-                                Button {
-                                    let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
-                                    WriteWidgetsURLStringsJSON(data, .verify)
-                                } label: {
-                                    Image(systemName: "checkmark.circle.fill")
-                                        .foregroundColor(Color(.blue))
+                                    Button {
+                                        let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
+                                        WriteWidgetsURLStringsJSON(data, .verify)
+                                    } label: {
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .foregroundColor(Color(.blue))
+                                    }
+                                    .disabled(stringverify.isEmpty)
+                                    .help(stringverify)
                                 }
-                                .disabled(stringverify.isEmpty)
-                                .help(stringverify)
                             }
+                            
                         }
                     }
 
