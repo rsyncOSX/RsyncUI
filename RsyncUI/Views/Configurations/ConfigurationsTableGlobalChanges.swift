@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ConfigurationsTableGlobalChanges: View {
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var newdata: ObservableGlobalchangeConfigurations
 
     var body: some View {

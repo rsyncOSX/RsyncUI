@@ -41,7 +41,7 @@ struct GlobalChangeTaskView: View {
 
                 // Column 2
                 VStack(alignment: .leading) {
-                    ConfigurationsTableGlobalChanges(rsyncUIdata: rsyncUIdata, newdata: $newdata)
+                    ConfigurationsTableGlobalChanges(newdata: $newdata)
                 }
             }
             .alert(isPresented: $showingAlert) {

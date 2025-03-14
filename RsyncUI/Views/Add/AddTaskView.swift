@@ -82,7 +82,8 @@ struct AddTaskView: View {
                     Spacer()
 
                     if let selectedconfig,
-                       selectedconfig.task == SharedReference.shared.synchronize {
+                       selectedconfig.task == SharedReference.shared.synchronize
+                    {
                         VStack(alignment: .leading) {
                             Text("URL for Estimate & Synchronize")
 
@@ -101,7 +102,6 @@ struct AddTaskView: View {
                             }
 
                             if selectedconfig.offsiteServer.isEmpty == false {
-                                
                                 Text("URL for Verify")
 
                                 HStack {
@@ -118,7 +118,6 @@ struct AddTaskView: View {
                                     .help(stringverify)
                                 }
                             }
-                            
                         }
                     }
 
@@ -140,7 +139,7 @@ struct AddTaskView: View {
                                     // URLs
                                     if selectedconfig?.task == SharedReference.shared.synchronize {
                                         let deeplinkurl = DeeplinkURL()
-                                        
+
                                         if selectedconfig?.offsiteServer.isEmpty == false {
                                             // Create verifyremote URL
                                             let urlverify = deeplinkurl.createURLloadandverify(valueprofile: rsyncUIdata.profile ?? "default", valueid: selectedconfig?.backupID ?? "Synchronize ID")
