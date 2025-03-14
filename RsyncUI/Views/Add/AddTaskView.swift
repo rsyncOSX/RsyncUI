@@ -44,8 +44,6 @@ struct AddTaskView: View {
     @State private var confirmcopyandpaste: Bool = false
 
     // URL strings
-    @State private var urlverify: URL?
-    @State private var urlestimate: URL?
     @State private var stringverify: String = ""
     @State private var stringestimate: String = ""
 
@@ -145,11 +143,11 @@ struct AddTaskView: View {
                                         
                                         if selectedconfig?.offsiteServer.isEmpty == false {
                                             // Create verifyremote URL
-                                            urlverify = deeplinkurl.createURLloadandverify(valueprofile: rsyncUIdata.profile ?? "default", valueid: selectedconfig?.backupID ?? "Synchronize ID")
+                                            let urlverify = deeplinkurl.createURLloadandverify(valueprofile: rsyncUIdata.profile ?? "default", valueid: selectedconfig?.backupID ?? "Synchronize ID")
                                             stringverify = urlverify?.absoluteString ?? ""
                                         }
                                         // Create estimate and synchronize URL
-                                        urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: rsyncUIdata.profile ?? "default")
+                                        let urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: rsyncUIdata.profile ?? "default")
                                         stringestimate = urlestimate?.absoluteString ?? ""
 
                                     } else {
@@ -160,9 +158,7 @@ struct AddTaskView: View {
                                 } else {
                                     selectedconfig = nil
                                     newdata.updateview(nil)
-                                    // URLs
-                                    urlverify = nil
-                                    urlestimate = nil
+                                    // URL Strings
                                     stringverify = ""
                                     stringestimate = ""
                                 }
