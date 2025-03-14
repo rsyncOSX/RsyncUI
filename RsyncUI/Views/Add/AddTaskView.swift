@@ -88,13 +88,13 @@ struct AddTaskView: View {
                             Text("URL for Estimate & Synchronize")
 
                             HStack {
-                                EditValueTwoLines(300, "Select a task to save an URL for Estimate & Synchronize", $stringestimate)
+                                URLValues(300, "Select a task to save an URL for Estimate & Synchronize", $stringestimate)
 
                                 Button {
                                     let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
                                     WriteWidgetsURLStringsJSON(data, .estimate)
                                 } label: {
-                                    Image(systemName: "checkmark.circle.fill")
+                                    Image(systemName: "checkmark.circle")
                                         .foregroundColor(Color(.blue))
                                 }
                                 .disabled(stringestimate.isEmpty)
@@ -105,13 +105,13 @@ struct AddTaskView: View {
                                 Text("URL for Verify")
 
                                 HStack {
-                                    EditValueTwoLines(300, "Select a task to save an URL for Verify", $stringverify)
+                                    URLValues(300, "Select a task to save an URL for Verify", $stringverify)
 
                                     Button {
                                         let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
                                         WriteWidgetsURLStringsJSON(data, .verify)
                                     } label: {
-                                        Image(systemName: "checkmark.circle.fill")
+                                        Image(systemName: "checkmark.circle")
                                             .foregroundColor(Color(.blue))
                                     }
                                     .disabled(stringverify.isEmpty)
