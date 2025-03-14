@@ -140,13 +140,14 @@ struct AddTaskView: View {
                                     newdata.updateview(configurations[index])
 
                                     // URLs
-                                    if selectedconfig?.offsiteServer.isEmpty == false,
-                                       selectedconfig?.task == SharedReference.shared.synchronize
-                                    {
+                                    if selectedconfig?.task == SharedReference.shared.synchronize {
                                         let deeplinkurl = DeeplinkURL()
-                                        // Create verifyremote URL
-                                        urlverify = deeplinkurl.createURLloadandverify(valueprofile: rsyncUIdata.profile ?? "default", valueid: selectedconfig?.backupID ?? "Synchronize ID")
-                                        stringverify = urlverify?.absoluteString ?? ""
+                                        
+                                        if selectedconfig?.offsiteServer.isEmpty == false {
+                                            // Create verifyremote URL
+                                            urlverify = deeplinkurl.createURLloadandverify(valueprofile: rsyncUIdata.profile ?? "default", valueid: selectedconfig?.backupID ?? "Synchronize ID")
+                                            stringverify = urlverify?.absoluteString ?? ""
+                                        }
                                         // Create estimate and synchronize URL
                                         urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: rsyncUIdata.profile ?? "default")
                                         stringestimate = urlestimate?.absoluteString ?? ""
