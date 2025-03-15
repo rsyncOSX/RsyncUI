@@ -29,6 +29,8 @@ struct GlobalChangeTaskView: View {
                 VStack(alignment: .leading) { synchronizeID }
 
                 VStack(alignment: .leading) { remoteuserandserver }
+                
+                Spacer()
             }
             .padding()
 

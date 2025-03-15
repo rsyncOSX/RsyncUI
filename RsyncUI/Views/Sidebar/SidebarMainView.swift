@@ -48,8 +48,6 @@ struct SidebarMainView: View {
     // .doubleColumn
     // .detailOnly
     @State private var mountingvolumenow: Bool = false
-    // Add tasks or global changes
-    @State private var useglobalchanges: Bool = false
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
