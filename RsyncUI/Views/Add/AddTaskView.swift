@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum AddTaskDestinationView: String, Identifiable {
-    case homecatalogs, verify
+    case homecatalogs, verify, globalchanges
     var id: String { rawValue }
 }
 
@@ -31,7 +31,6 @@ struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedprofile: String?
     @Binding var addtasknavigation: [AddTasks]
-    @Binding var useglobalchanges: Bool
 
     @State private var newdata = ObservableAddConfigurations()
     @State private var selectedconfig: SynchronizeConfiguration?
@@ -120,11 +119,6 @@ struct AddTaskView: View {
                             }
                         }
                     }
-
-                    Spacer()
-
-                    ToggleViewDefault(text: NSLocalizedString("Toggle global changes", comment: ""),
-                                      binding: $useglobalchanges)
                 }
                 // Column 2
                 VStack(alignment: .leading) {
@@ -269,6 +263,15 @@ struct AddTaskView: View {
 
             ToolbarItem {
                 Button {
+                    addtasknavigation.append(AddTasks(task: .globalchanges))
+                } label: {
+                    Image(systemName: "globe")
+                }
+                .help("Global change and update")
+            }
+
+            ToolbarItem {
+                Button {
                     addtasknavigation.append(AddTasks(task: .homecatalogs))
                 } label: {
                     Image(systemName: "house.fill")
@@ -333,6 +336,8 @@ struct AddTaskView: View {
             if let config = selectedconfig {
                 OutputRsyncVerifyView(config: config)
             }
+        case .globalchanges:
+            GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
         }
     }
 

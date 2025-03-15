@@ -161,14 +161,9 @@ struct SidebarMainView: View {
     func selectView(_ view: Sidebaritems) -> some View {
         switch view {
         case .tasks:
-            if useglobalchanges {
-                GlobalChangeTaskView(rsyncUIdata: rsyncUIdata, useglobalchanges: $useglobalchanges)
-            } else {
-                AddTaskView(rsyncUIdata: rsyncUIdata,
-                            selectedprofile: $selectedprofile,
-                            addtasknavigation: $addtasknavigation,
-                            useglobalchanges: $useglobalchanges)
-            }
+            AddTaskView(rsyncUIdata: rsyncUIdata,
+                        selectedprofile: $selectedprofile,
+                        addtasknavigation: $addtasknavigation)
         case .log_listings:
             LogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
         case .rsync_parameters:

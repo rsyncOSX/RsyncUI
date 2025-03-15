@@ -9,7 +9,6 @@ import SwiftUI
 
 struct GlobalChangeTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var useglobalchanges: Bool
 
     @State private var newdata = ObservableGlobalchangeConfigurations()
     // Alert button
@@ -18,100 +17,90 @@ struct GlobalChangeTaskView: View {
     @FocusState private var focusField: AddConfigurationField?
 
     var body: some View {
-        NavigationStack {
-            HStack {
-                // Column 1
+        HStack {
+            // Column 1
 
-                VStack(alignment: .leading) {
-                    Text("Use $ as split character")
-                        .padding(.vertical, 2)
+            VStack(alignment: .leading) {
+                Text("Use $ as split character")
+                    .padding(.vertical, 2)
 
-                    VStack(alignment: .leading) { localandremotecatalog }
+                VStack(alignment: .leading) { localandremotecatalog }
 
-                    VStack(alignment: .leading) { synchronizeID }
+                VStack(alignment: .leading) { synchronizeID }
 
-                    VStack(alignment: .leading) { remoteuserandserver }
-
-                    Spacer()
-
-                    ToggleViewDefault(text: NSLocalizedString("Return to Add and update tasks", comment: ""),
-                                      binding: $useglobalchanges)
-                }
-                .padding()
-
-                // Column 2
-                VStack(alignment: .leading) {
-                    ConfigurationsTableGlobalChanges(newdata: $newdata)
-                }
+                VStack(alignment: .leading) { remoteuserandserver }
             }
-            .alert(isPresented: $showingAlert) {
-                Alert(
-                    title: Text("Update all configurations?"),
-                    primaryButton: .default(Text("Update")) {
-                        // any snapshotstasks
-                        if let snapshotstask = newdata.notchangedsnapshotconfigurations,
-                           let globalupdate = newdata.globalchangedconfigurations
-                        {
-                            rsyncUIdata.configurations = globalupdate + snapshotstask
-                        } else {
-                            rsyncUIdata.configurations = newdata.globalchangedconfigurations
-                        }
-                        WriteSynchronizeConfigurationJSON(rsyncUIdata.profile, rsyncUIdata.configurations)
-                    },
-                    secondaryButton: .cancel {
-                        newdata.globalchangedconfigurations = rsyncUIdata.configurations
-                    }
-                )
-            }
-            .toolbar(content: {
-                ToolbarItem {
-                    Button {
-                        guard newdata.whatischanged.isEmpty == false else { return }
-                        newdata.updateglobalchangedconfigurations()
-                        showingAlert = true
-                    } label: {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(Color(.blue))
-                    }
-                    .help("Update task")
-                    .disabled(configurations.isEmpty)
-                }
-            })
             .padding()
-            .onAppear {
-                // Synchronize and syncremote tasks
-                newdata.globalchangedconfigurations = rsyncUIdata.configurations?.compactMap { task in
-                    (task.task != SharedReference.shared.snapshot) ? task : nil
-                }
-                // Snapshot tasks
-                newdata.notchangedsnapshotconfigurations = rsyncUIdata.configurations?.compactMap { task in
-                    (task.task == SharedReference.shared.snapshot) ? task : nil
-                }
-            }
-            .onSubmit {
-                switch focusField {
-                case .localcatalogField:
-                    newdata.updateglobalchangedconfigurations()
-                    showingAlert = true
-                case .remotecatalogField:
-                    newdata.updateglobalchangedconfigurations()
-                    showingAlert = true
-                case .remoteuserField:
-                    newdata.updateglobalchangedconfigurations()
-                    showingAlert = true
-                case .remoteserverField:
-                    newdata.updateglobalchangedconfigurations()
-                    showingAlert = true
-                case .synchronizeIDField:
-                    newdata.updateglobalchangedconfigurations()
-                    showingAlert = true
-                default:
-                    return
-                }
+
+            // Column 2
+            VStack(alignment: .leading) {
+                ConfigurationsTableGlobalChanges(newdata: $newdata)
             }
         }
-        .navigationTitle("Global changes")
-        .padding(-16)
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("Update all configurations?"),
+                primaryButton: .default(Text("Update")) {
+                    // any snapshotstasks
+                    if let snapshotstask = newdata.notchangedsnapshotconfigurations,
+                       let globalupdate = newdata.globalchangedconfigurations
+                    {
+                        rsyncUIdata.configurations = globalupdate + snapshotstask
+                    } else {
+                        rsyncUIdata.configurations = newdata.globalchangedconfigurations
+                    }
+                    WriteSynchronizeConfigurationJSON(rsyncUIdata.profile, rsyncUIdata.configurations)
+                },
+                secondaryButton: .cancel {
+                    newdata.globalchangedconfigurations = rsyncUIdata.configurations
+                }
+            )
+        }
+        .toolbar(content: {
+            ToolbarItem {
+                Button {
+                    guard newdata.whatischanged.isEmpty == false else { return }
+                    newdata.updateglobalchangedconfigurations()
+                    showingAlert = true
+                } label: {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(Color(.blue))
+                }
+                .help("Update task")
+                .disabled(configurations.isEmpty)
+            }
+        })
+        .onAppear {
+            // Synchronize and syncremote tasks
+            newdata.globalchangedconfigurations = rsyncUIdata.configurations?.compactMap { task in
+                (task.task != SharedReference.shared.snapshot) ? task : nil
+            }
+            // Snapshot tasks
+            newdata.notchangedsnapshotconfigurations = rsyncUIdata.configurations?.compactMap { task in
+                (task.task == SharedReference.shared.snapshot) ? task : nil
+            }
+        }
+        .onSubmit {
+            switch focusField {
+            case .localcatalogField:
+                newdata.updateglobalchangedconfigurations()
+                showingAlert = true
+            case .remotecatalogField:
+                newdata.updateglobalchangedconfigurations()
+                showingAlert = true
+            case .remoteuserField:
+                newdata.updateglobalchangedconfigurations()
+                showingAlert = true
+            case .remoteserverField:
+                newdata.updateglobalchangedconfigurations()
+                showingAlert = true
+            case .synchronizeIDField:
+                newdata.updateglobalchangedconfigurations()
+                showingAlert = true
+            default:
+                return
+            }
+        }
     }
 
     var localandremotecatalog: some View {
