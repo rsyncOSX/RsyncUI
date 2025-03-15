@@ -21,8 +21,8 @@ struct GlobalChangeTaskView: View {
             // Column 1
 
             VStack(alignment: .leading) {
-                Text("Use $ as split character, ALL or\nSELECTED configurations will be updated\n")
-                    .padding(.vertical, 2)
+                Text("Use $ as split character, ALL or\nSELECTED configurations will be updated")
+                    .padding(.bottom, 10)
 
                 VStack(alignment: .leading) { synchronizeID }
 

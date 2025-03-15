@@ -60,6 +60,9 @@ struct AddTaskView: View {
                                               binding: $newdata.donotaddtrailingslash)
                         }
                     }
+                    .padding(.bottom, 10)
+                    
+                    VStack(alignment: .leading) { synchronizeID }
 
                     if newdata.selectedrsynccommand == .syncremote {
                         VStack(alignment: .leading) { localandremotecatalogsyncremote }
@@ -68,8 +71,6 @@ struct AddTaskView: View {
                         VStack(alignment: .leading) { localandremotecatalog }
                             .disabled(selectedconfig?.task == SharedReference.shared.snapshot)
                     }
-
-                    VStack(alignment: .leading) { synchronizeID }
 
                     VStack(alignment: .leading) { remoteuserandserver }
                         .disabled(selectedconfig?.task == SharedReference.shared.snapshot)
