@@ -85,6 +85,10 @@ struct LogsbyConfigurationView: View {
                     } description: {
                         Text("Try to search for other filter in Date or Result")
                     }
+                } else if showindebounce  {
+                    ContentUnavailableView {
+                        Label("Sorting logs", systemImage: "doc.richtext.fill")
+                    } description: {}
                 }
                 }
             }
