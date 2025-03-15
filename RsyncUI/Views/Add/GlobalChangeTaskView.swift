@@ -24,12 +24,12 @@ struct GlobalChangeTaskView: View {
                 Text("Use $ as split character")
                     .padding(.vertical, 2)
 
-                VStack(alignment: .leading) { localandremotecatalog }
-
                 VStack(alignment: .leading) { synchronizeID }
 
+                VStack(alignment: .leading) { localandremotecatalog }
+
                 VStack(alignment: .leading) { remoteuserandserver }
-                
+
                 Spacer()
             }
             .padding()
