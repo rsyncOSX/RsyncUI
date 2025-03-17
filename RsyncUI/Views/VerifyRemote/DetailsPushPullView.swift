@@ -177,8 +177,15 @@ struct DetailsPushPullView: View {
             return
         }
         progress = false
-        pushremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
-                                                  config: config)
+        if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
+            let suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
+            pushremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
+                                                      config: config)
+        } else {
+            pushremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
+                                                      config: config)
+        }
+        
         // Rsync output push
         pushorpull.rsyncpush = stringoutputfromrsync
         // Adjust both outputs
