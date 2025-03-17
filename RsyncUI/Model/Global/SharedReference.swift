@@ -82,4 +82,6 @@ final class SharedReference {
     @ObservationIgnored var sidebarishidden: Bool = false
     @ObservationIgnored var observemountedvolumes: Bool = false
     @ObservationIgnored var alwaysshowestimateddetailsview: Bool = true
+    // Value for alert tagging
+    let alerttagginglines = 20
 }

@@ -52,7 +52,7 @@ final class EstimateTasks {
     }
 
     func validatetagging(_ lines: Int, _ tagged: Bool) throws {
-        if lines > 20, tagged == false {
+        if lines > SharedReference.shared.alerttagginglines, tagged == false {
             throw ErrorDatatoSynchronize.thereisdatatosynchronize
         }
     }
