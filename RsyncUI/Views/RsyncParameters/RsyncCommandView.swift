@@ -13,7 +13,7 @@ struct RsyncCommandView: View {
     @Binding var selectedrsynccommand: RsyncCommand
 
     var body: some View {
-        HStack (alignment: .bottom) {
+        HStack(alignment: .bottom) {
             pickerselectcommand
 
             Spacer()

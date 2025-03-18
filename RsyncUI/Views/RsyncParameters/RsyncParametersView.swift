@@ -98,8 +98,6 @@ struct RsyncParametersView: View {
                         }
                     }
 
-                    Spacer()
-
                     Section(header: Text("Add or remove parameters to rsync")) {
                         VStack(alignment: .leading) {
                             ToggleViewDefault(text: "--delete", binding: $parameters.removedelete)
@@ -120,6 +118,8 @@ struct RsyncParametersView: View {
                         }
                     }
                 }
+
+                Spacer()
 
                 VStack(alignment: .leading) {
                     Text("Select a task")
@@ -149,6 +149,7 @@ struct RsyncParametersView: View {
             Spacer()
 
             VStack(alignment: .leading) {
+
                 Text("Action")
 
                 RsyncCommandView(config: $parameters.configuration,
