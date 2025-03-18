@@ -72,7 +72,7 @@ struct ConfigurationsTableDataMainView: View {
                         }
                 }
             }
-            TableColumn("Task") { data in
+            TableColumn("Action") { data in
                 if data.task == SharedReference.shared.halted {
                     Image(systemName: "stop.fill")
                         .foregroundColor(Color(.red))

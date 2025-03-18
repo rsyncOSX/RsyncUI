@@ -123,6 +123,8 @@ struct AddTaskView: View {
                 }
                 // Column 2
                 VStack(alignment: .leading) {
+                    Text("Tasks for Synchronize actions")
+                        .padding(.bottom, 10)
                     ListofTasksAddView(rsyncUIdata: rsyncUIdata,
                                        selecteduuids: $selecteduuids)
                         .onChange(of: selecteduuids) {
@@ -552,7 +554,7 @@ struct AddTaskView: View {
     }
 
     var pickerselecttypeoftask: some View {
-        Picker(NSLocalizedString("Task", comment: "") + ":",
+        Picker(NSLocalizedString("Action", comment: "") + ":",
                selection: $newdata.selectedrsynccommand)
         {
             ForEach(TypeofTask.allCases) { Text($0.description)
@@ -563,7 +565,7 @@ struct AddTaskView: View {
             }
         }
         .pickerStyle(DefaultPickerStyle())
-        .frame(width: 140)
+        .frame(width: 160)
     }
 
     var copyitems: [CopyItem] {

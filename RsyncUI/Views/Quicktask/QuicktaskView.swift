@@ -206,7 +206,7 @@ struct QuicktaskView: View {
     }
 
     var pickerselecttypeoftask: some View {
-        Picker(NSLocalizedString("Task", comment: "") + ":",
+        Picker(NSLocalizedString("Action", comment: "") + ":",
                selection: $selectedrsynccommand)
         {
             ForEach(TypeofTaskQuictask.allCases) { Text($0.description)
