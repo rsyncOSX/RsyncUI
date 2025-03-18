@@ -80,7 +80,7 @@ struct RsyncParametersView: View {
                             setsshport
                                 .disabled(selectedconfig == nil)
 
-                            Toggle("Backup", isOn: $backup)
+                            Toggle("", isOn: $backup)
                                 .toggleStyle(.switch)
                                 .onChange(of: backup) {
                                     guard selectedconfig != nil else {
@@ -117,6 +117,8 @@ struct RsyncParametersView: View {
                               */
                         }
                     }
+                    
+                    Spacer()
                 }
 
                 Spacer()
@@ -127,7 +129,7 @@ struct RsyncParametersView: View {
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                                 profile: rsyncUIdata.profile,
                                                 configurations: rsyncUIdata.configurations)
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity, maxHeight: 330)
                         .onChange(of: selecteduuids) {
                             if let configurations = rsyncUIdata.configurations {
                                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
@@ -143,6 +145,8 @@ struct RsyncParametersView: View {
                                 }
                             }
                         }
+                    
+                    Spacer()
                 }
             }
 
@@ -178,7 +182,7 @@ struct RsyncParametersView: View {
                         Image(systemName: "play.fill")
                             .foregroundColor(.blue)
                     }
-                    .help("Verify task")
+                    .help("Verify task, by Synchronize")
                 }
             }
 
