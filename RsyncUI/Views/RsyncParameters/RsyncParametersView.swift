@@ -98,7 +98,7 @@ struct RsyncParametersView: View {
                         }
                     }
 
-                    Section(header: Text("Add or remove parameters to rsync")) {
+                    Section(header: Text("Remove parameters to rsync")) {
                         VStack(alignment: .leading) {
                             ToggleViewDefault(text: "--delete", binding: $parameters.removedelete)
                                 .onChange(of: parameters.removedelete) {
