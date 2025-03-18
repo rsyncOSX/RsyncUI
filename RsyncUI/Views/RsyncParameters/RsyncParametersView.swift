@@ -32,12 +32,9 @@ struct RsyncParametersView: View {
 
     var body: some View {
         NavigationStack(path: $rsyncnavigation) {
-            
-            
             HStack {
                 VStack(alignment: .leading) {
-                    
-                    Section(header: Text("User selected parameters")) {
+                    Section(header: Text("Task spesific parameters for rsync")) {
                         EditRsyncParameter(450, $parameters.parameter8)
                             .onChange(of: parameters.parameter8) {
                                 parameters.configuration?.parameter8 = parameters.parameter8
@@ -74,9 +71,8 @@ struct RsyncParametersView: View {
                             }
                             .disabled(selectedconfig == nil)
                     }
-                    
-                    
-                    Section(header: Text("Local SSH parameter & backup")) {
+
+                    Section(header: Text("Task specific SSH parameter & Backup switch")) {
                         HStack {
                             setsshpath
                                 .disabled(selectedconfig == nil)
@@ -101,63 +97,66 @@ struct RsyncParametersView: View {
                                 .disabled(selectedconfig == nil)
                         }
                     }
-                    
+
                     Spacer()
 
-                        Section(header: Text("Remove or add parameters to rsync")) {
-                            VStack(alignment: .leading) {
-                                ToggleViewDefault(text: "--delete", binding: $parameters.removedelete)
-                                    .onChange(of: parameters.removedelete) {
-                                        parameters.deletedelete(parameters.removedelete)
-                                    }
-                                    .disabled(selecteduuids.isEmpty == true)
+                    Section(header: Text("Add or remove parameters to rsync")) {
+                        VStack(alignment: .leading) {
+                            ToggleViewDefault(text: "--delete", binding: $parameters.removedelete)
+                                .onChange(of: parameters.removedelete) {
+                                    parameters.deletedelete(parameters.removedelete)
+                                }
+                                .disabled(selecteduuids.isEmpty == true)
 
-                                ToggleViewDefault(text: "--compress", binding: $parameters.removecompress)
-                                    .onChange(of: parameters.removecompress) {
-                                        parameters.deletecompress(parameters.removecompress)
+                            ToggleViewDefault(text: "--compress", binding: $parameters.removecompress)
+                                .onChange(of: parameters.removecompress) {
+                                    parameters.deletecompress(parameters.removecompress)
+                                }
+                                .disabled(selecteduuids.isEmpty == true)
+                            /*
+                             ToggleViewDefault(text: "Enable rsync daemon", binding: $parameters.daemon)
+                                 .disabled(selecteduuids.isEmpty == true)
+                              */
+                        }
+                    }
+                }
+
+                VStack(alignment: .leading) {
+                    Text("Select a task")
+
+                    ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                                profile: rsyncUIdata.profile,
+                                                configurations: rsyncUIdata.configurations)
+                        .frame(maxWidth: .infinity)
+                        .onChange(of: selecteduuids) {
+                            if let configurations = rsyncUIdata.configurations {
+                                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                                    selectedconfig = configurations[index]
+                                    parameters.setvalues(configurations[index])
+                                    if configurations[index].parameter12 != "--backup" {
+                                        backup = false
                                     }
-                                    .disabled(selecteduuids.isEmpty == true)
-                                /*
-                                 ToggleViewDefault(text: "Enable rsync daemon", binding: $parameters.daemon)
-                                     .disabled(selecteduuids.isEmpty == true)
-                                  */
+                                } else {
+                                    selectedconfig = nil
+                                    parameters.setvalues(selectedconfig)
+                                    backup = false
+                                }
                             }
                         }
                 }
-
-                ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                            profile: rsyncUIdata.profile,
-                                            configurations: rsyncUIdata.configurations)
-                    .frame(maxWidth: .infinity)
-                    .onChange(of: selecteduuids) {
-                        if let configurations = rsyncUIdata.configurations {
-                            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                                selectedconfig = configurations[index]
-                                parameters.setvalues(configurations[index])
-                                if configurations[index].parameter12 != "--backup" {
-                                    backup = false
-                                }
-                            } else {
-                                selectedconfig = nil
-                                parameters.setvalues(selectedconfig)
-                                backup = false
-                            }
-                        }
-                    }
-
-                if focusaborttask { labelaborttask }
             }
 
             Spacer()
-            
-    
+
             VStack(alignment: .leading) {
-                Text("Select a task")
+                Text("Action")
 
                 RsyncCommandView(config: $parameters.configuration,
                                  selectedrsynccommand: $selectedrsynccommand)
                     .disabled(parameters.configuration == nil)
             }
+
+            if focusaborttask { labelaborttask }
         }
         .onChange(of: rsyncUIdata.profile) {
             selectedconfig = nil
