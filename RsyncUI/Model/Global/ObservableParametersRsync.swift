@@ -27,7 +27,6 @@ final class ObservableParametersRsync {
     // Selected configuration
     var configuration: SynchronizeConfiguration?
     var sshcreatekey: SSHCreateKey?
-
     // Remove parameters
     var removecompress: Bool = false
     var removedelete: Bool = false

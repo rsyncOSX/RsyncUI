@@ -93,7 +93,7 @@ final class VerifyConfiguration: Connected {
     let archive: String = "--archive"
     let verbose: String = "--verbose"
     let compress: String = "--compress"
-    let delete: String = "--delete"
+    // let delete: String = "--delete"
 
     // Verify parameters for new config.
     func verify(_ data: AppendTask) -> SynchronizeConfiguration? {
@@ -107,7 +107,10 @@ final class VerifyConfiguration: Connected {
         newconfig.parameter1 = archive
         newconfig.parameter2 = verbose
         newconfig.parameter3 = compress
-        newconfig.parameter4 = delete
+        // newconfig.parameter4 = delete
+        // The default delete parameter is removed
+        // If want to use delete, set it in userparams
+        newconfig.parameter4 = ""
         newconfig.dateRun = ""
         newconfig.hiddenID = data.hiddenID ?? -1
 

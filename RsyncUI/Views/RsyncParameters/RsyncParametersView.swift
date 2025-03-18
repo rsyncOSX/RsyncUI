@@ -34,30 +34,7 @@ struct RsyncParametersView: View {
         NavigationStack(path: $rsyncnavigation) {
             HStack {
                 VStack(alignment: .leading) {
-                    HStack {
-                        setsshpath
-                            .disabled(selectedconfig == nil)
-
-                        setsshport
-                            .disabled(selectedconfig == nil)
-
-                        Toggle("Backup", isOn: $backup)
-                            .toggleStyle(.switch)
-                            .onChange(of: backup) {
-                                guard selectedconfig != nil else {
-                                    backup = false
-                                    return
-                                }
-                                parameters.setbackup()
-                            }
-                            .onTapGesture {
-                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                    backup.toggle()
-                                }
-                            }
-                            .disabled(selectedconfig == nil)
-                    }
-
+                    
                     EditRsyncParameter(450, $parameters.parameter8)
                         .onChange(of: parameters.parameter8) {
                             parameters.configuration?.parameter8 = parameters.parameter8
@@ -93,11 +70,35 @@ struct RsyncParametersView: View {
                             parameters.configuration?.parameter14 = parameters.parameter14
                         }
                         .disabled(selectedconfig == nil)
+                    
+                    HStack {
+                        setsshpath
+                            .disabled(selectedconfig == nil)
+
+                        setsshport
+                            .disabled(selectedconfig == nil)
+
+                        Toggle("Backup", isOn: $backup)
+                            .toggleStyle(.switch)
+                            .onChange(of: backup) {
+                                guard selectedconfig != nil else {
+                                    backup = false
+                                    return
+                                }
+                                parameters.setbackup()
+                            }
+                            .onTapGesture {
+                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                    backup.toggle()
+                                }
+                            }
+                            .disabled(selectedconfig == nil)
+                    }
+
 
                     Spacer()
 
-                    VStack(alignment: .leading) {
-                        Section(header: headerremove) {
+                        Section(header: Text("Remove or add parameters to rsync")) {
                             VStack(alignment: .leading) {
                                 ToggleViewDefault(text: "--delete", binding: $parameters.removedelete)
                                     .onChange(of: parameters.removedelete) {
@@ -116,7 +117,6 @@ struct RsyncParametersView: View {
                                   */
                             }
                         }
-                    }
                 }
 
                 ConfigurationsTableDataView(selecteduuids: $selecteduuids,
@@ -143,7 +143,8 @@ struct RsyncParametersView: View {
             }
 
             Spacer()
-
+            
+    
             VStack(alignment: .leading) {
                 Text("Select a task")
 
@@ -269,7 +270,7 @@ struct RsyncParametersView: View {
 
     // Header remove
     var headerremove: some View {
-        Text("Remove default rsync parameters")
+        Text("Remove or add parameters to rsync")
     }
 }
 
