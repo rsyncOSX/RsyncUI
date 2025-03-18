@@ -40,8 +40,8 @@ struct PushPullCommandView: View {
             .frame(maxWidth: .infinity)
             .padding()
             .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(.blue, lineWidth: 4)
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(.blue, lineWidth: 1)
             )
     }
 
