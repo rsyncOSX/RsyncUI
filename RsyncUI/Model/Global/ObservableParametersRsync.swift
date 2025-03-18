@@ -43,7 +43,6 @@ final class ObservableParametersRsync {
             parameter13 = configuration?.parameter13 ?? ""
             parameter14 = configuration?.parameter14 ?? ""
             sshport = String(configuration?.sshport ?? -1)
-            if sshport == "-1" { sshport = "" }
             sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
             // --compress parameter3
             // --delete parameter4
