@@ -32,70 +32,76 @@ struct RsyncParametersView: View {
 
     var body: some View {
         NavigationStack(path: $rsyncnavigation) {
+            
+            
             HStack {
                 VStack(alignment: .leading) {
                     
-                    EditRsyncParameter(450, $parameters.parameter8)
-                        .onChange(of: parameters.parameter8) {
-                            parameters.configuration?.parameter8 = parameters.parameter8
-                        }
-                        .disabled(selectedconfig == nil)
-                    EditRsyncParameter(450, $parameters.parameter9)
-                        .onChange(of: parameters.parameter9) {
-                            parameters.configuration?.parameter9 = parameters.parameter9
-                        }
-                        .disabled(selectedconfig == nil)
-                    EditRsyncParameter(450, $parameters.parameter10)
-                        .onChange(of: parameters.parameter10) {
-                            parameters.configuration?.parameter10 = parameters.parameter10
-                        }
-                        .disabled(selectedconfig == nil)
-                    EditRsyncParameter(450, $parameters.parameter11)
-                        .onChange(of: parameters.parameter11) {
-                            parameters.configuration?.parameter11 = parameters.parameter11
-                        }
-                        .disabled(selectedconfig == nil)
-                    EditRsyncParameter(450, $parameters.parameter12)
-                        .onChange(of: parameters.parameter12) {
-                            parameters.configuration?.parameter12 = parameters.parameter12
-                        }
-                        .disabled(selectedconfig == nil)
-                    EditRsyncParameter(450, $parameters.parameter13)
-                        .onChange(of: parameters.parameter13) {
-                            parameters.configuration?.parameter13 = parameters.parameter13
-                        }
-                        .disabled(selectedconfig == nil)
-                    EditRsyncParameter(450, $parameters.parameter14)
-                        .onChange(of: parameters.parameter14) {
-                            parameters.configuration?.parameter14 = parameters.parameter14
-                        }
-                        .disabled(selectedconfig == nil)
-                    
-                    HStack {
-                        setsshpath
-                            .disabled(selectedconfig == nil)
-
-                        setsshport
-                            .disabled(selectedconfig == nil)
-
-                        Toggle("Backup", isOn: $backup)
-                            .toggleStyle(.switch)
-                            .onChange(of: backup) {
-                                guard selectedconfig != nil else {
-                                    backup = false
-                                    return
-                                }
-                                parameters.setbackup()
+                    Section(header: Text("User selected parameters")) {
+                        EditRsyncParameter(450, $parameters.parameter8)
+                            .onChange(of: parameters.parameter8) {
+                                parameters.configuration?.parameter8 = parameters.parameter8
                             }
-                            .onTapGesture {
-                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                    backup.toggle()
-                                }
+                            .disabled(selectedconfig == nil)
+                        EditRsyncParameter(450, $parameters.parameter9)
+                            .onChange(of: parameters.parameter9) {
+                                parameters.configuration?.parameter9 = parameters.parameter9
+                            }
+                            .disabled(selectedconfig == nil)
+                        EditRsyncParameter(450, $parameters.parameter10)
+                            .onChange(of: parameters.parameter10) {
+                                parameters.configuration?.parameter10 = parameters.parameter10
+                            }
+                            .disabled(selectedconfig == nil)
+                        EditRsyncParameter(450, $parameters.parameter11)
+                            .onChange(of: parameters.parameter11) {
+                                parameters.configuration?.parameter11 = parameters.parameter11
+                            }
+                            .disabled(selectedconfig == nil)
+                        EditRsyncParameter(450, $parameters.parameter12)
+                            .onChange(of: parameters.parameter12) {
+                                parameters.configuration?.parameter12 = parameters.parameter12
+                            }
+                            .disabled(selectedconfig == nil)
+                        EditRsyncParameter(450, $parameters.parameter13)
+                            .onChange(of: parameters.parameter13) {
+                                parameters.configuration?.parameter13 = parameters.parameter13
+                            }
+                            .disabled(selectedconfig == nil)
+                        EditRsyncParameter(450, $parameters.parameter14)
+                            .onChange(of: parameters.parameter14) {
+                                parameters.configuration?.parameter14 = parameters.parameter14
                             }
                             .disabled(selectedconfig == nil)
                     }
+                    
+                    
+                    Section(header: Text("Local SSH parameter & backup")) {
+                        HStack {
+                            setsshpath
+                                .disabled(selectedconfig == nil)
 
+                            setsshport
+                                .disabled(selectedconfig == nil)
 
+                            Toggle("Backup", isOn: $backup)
+                                .toggleStyle(.switch)
+                                .onChange(of: backup) {
+                                    guard selectedconfig != nil else {
+                                        backup = false
+                                        return
+                                    }
+                                    parameters.setbackup()
+                                }
+                                .onTapGesture {
+                                    withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                        backup.toggle()
+                                    }
+                                }
+                                .disabled(selectedconfig == nil)
+                        }
+                    }
+                    
                     Spacer()
 
                         Section(header: Text("Remove or add parameters to rsync")) {
