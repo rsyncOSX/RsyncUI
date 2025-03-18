@@ -13,7 +13,7 @@ struct RsyncCommandView: View {
     @Binding var selectedrsynccommand: RsyncCommand
 
     var body: some View {
-        HStack {
+        HStack (alignment: .bottom) {
             pickerselectcommand
 
             Spacer()
@@ -41,8 +41,8 @@ struct RsyncCommandView: View {
             .frame(maxWidth: .infinity)
             .padding()
             .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(.blue, lineWidth: 4)
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(.blue, lineWidth: 1)
             )
     }
 

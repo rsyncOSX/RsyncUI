@@ -207,7 +207,7 @@ struct RsyncParametersView: View {
                 .help("Show arguments")
             }
         })
-        .navigationTitle("Rsync parameters")
+        .navigationTitle("Parameters for rsync")
         .navigationDestination(for: ParametersTasks.self) { which in
             makeView(view: which.task)
         }
@@ -271,11 +271,6 @@ struct RsyncParametersView: View {
             return true
         }
         return false
-    }
-
-    // Header remove
-    var headerremove: some View {
-        Text("Remove or add parameters to rsync")
     }
 }
 
