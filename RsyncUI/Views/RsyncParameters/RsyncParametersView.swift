@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum ParametersDestinationView: String, Identifiable {
-    case defaultparameters, verify, arguments
+    case verify, arguments
     var id: String { rawValue }
 }
 
@@ -39,6 +39,22 @@ struct RsyncParametersView: View {
                             .disabled(selectedconfig == nil)
 
                         setsshport
+                            .disabled(selectedconfig == nil)
+
+                        Toggle("Backup", isOn: $backup)
+                            .toggleStyle(.switch)
+                            .onChange(of: backup) {
+                                guard selectedconfig != nil else {
+                                    backup = false
+                                    return
+                                }
+                                parameters.setbackup()
+                            }
+                            .onTapGesture {
+                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                    backup.toggle()
+                                }
+                            }
                             .disabled(selectedconfig == nil)
                     }
 
@@ -78,23 +94,29 @@ struct RsyncParametersView: View {
                         }
                         .disabled(selectedconfig == nil)
 
-                    Toggle("Backup", isOn: $backup)
-                        .toggleStyle(.switch)
-                        .onChange(of: backup) {
-                            guard selectedconfig != nil else {
-                                backup = false
-                                return
-                            }
-                            parameters.setbackup()
-                        }
-                        .onTapGesture {
-                            withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                backup.toggle()
-                            }
-                        }
-                        .disabled(selectedconfig == nil)
-
                     Spacer()
+
+                    VStack(alignment: .leading) {
+                        Section(header: headerremove) {
+                            VStack(alignment: .leading) {
+                                ToggleViewDefault(text: "--delete", binding: $parameters.removedelete)
+                                    .onChange(of: parameters.removedelete) {
+                                        parameters.deletedelete(parameters.removedelete)
+                                    }
+                                    .disabled(selecteduuids.isEmpty == true)
+
+                                ToggleViewDefault(text: "--compress", binding: $parameters.removecompress)
+                                    .onChange(of: parameters.removecompress) {
+                                        parameters.deletecompress(parameters.removecompress)
+                                    }
+                                    .disabled(selecteduuids.isEmpty == true)
+                                /*
+                                 ToggleViewDefault(text: "Enable rsync daemon", binding: $parameters.daemon)
+                                     .disabled(selecteduuids.isEmpty == true)
+                                  */
+                            }
+                        }
+                    }
                 }
 
                 ConfigurationsTableDataView(selecteduuids: $selecteduuids,
@@ -119,6 +141,9 @@ struct RsyncParametersView: View {
 
                 if focusaborttask { labelaborttask }
             }
+
+            Spacer()
+
             VStack(alignment: .leading) {
                 Text("Select a task")
 
@@ -169,15 +194,6 @@ struct RsyncParametersView: View {
 
             ToolbarItem {
                 Button {
-                    rsyncnavigation.append(ParametersTasks(task: .defaultparameters))
-                } label: {
-                    Image(systemName: "house.fill")
-                }
-                .help("Default rsync parameters")
-            }
-
-            ToolbarItem {
-                Button {
                     rsyncnavigation.append(ParametersTasks(task: .arguments))
                 } label: {
                     Image(systemName: "command")
@@ -195,8 +211,6 @@ struct RsyncParametersView: View {
     @MainActor @ViewBuilder
     func makeView(view: ParametersDestinationView) -> some View {
         switch view {
-        case .defaultparameters:
-            RsyncDefaultParametersView(rsyncUIdata: rsyncUIdata, path: $rsyncnavigation)
         case .verify:
             if let config = parameters.configuration {
                 OutputRsyncVerifyView(config: config)
@@ -251,6 +265,11 @@ struct RsyncParametersView: View {
             return true
         }
         return false
+    }
+
+    // Header remove
+    var headerremove: some View {
+        Text("Remove default rsync parameters")
     }
 }
 

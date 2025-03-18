@@ -37,8 +37,9 @@ struct ConfigurationsTableDataMainView: View {
             .defaultVisibility(visible_not_progress)
             TableColumn("Est") { data in
                 if let index = executeprogressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id }) {
-                    if  executeprogressdetails.estimatedlist?[index].datatosynchronize == false &&
-                            executeprogressdetails.estimatedlist?[index].preparedoutputfromrsync?.count ?? 0 > SharedReference.shared.alerttagginglines {
+                    if executeprogressdetails.estimatedlist?[index].datatosynchronize == false,
+                       executeprogressdetails.estimatedlist?[index].preparedoutputfromrsync?.count ?? 0 > SharedReference.shared.alerttagginglines
+                    {
                         Text(Image(systemName: "questionmark"))
                             .foregroundColor(.yellow)
                     } else {

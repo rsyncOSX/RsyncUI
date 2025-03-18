@@ -185,7 +185,7 @@ struct DetailsPushPullView: View {
             pushremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
                                                       config: config)
         }
-        
+
         // Rsync output push
         pushorpull.rsyncpush = stringoutputfromrsync
         // Adjust both outputs

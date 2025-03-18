@@ -82,18 +82,17 @@ extension ExecuteTasksNOEstimation {
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
         // When creating the logrecord, decrease the snapshotum by 1
-        
+
         var suboutput: [String]?
-        
+
         configrecords.append((hiddenID ?? -1, Date().en_us_string_from_date()))
         if let config = getconfig(hiddenID ?? -1) {
-            
             if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
                 suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
             } else {
                 suboutput = stringoutputfromrsync
             }
-            
+
             let record = RemoteDataNumbers(stringoutputfromrsync: suboutput,
                                            config: config)
             if let stats = record.stats {

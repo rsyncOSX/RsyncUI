@@ -61,7 +61,7 @@ struct AddTaskView: View {
                         }
                     }
                     .padding(.bottom, 10)
-                    
+
                     VStack(alignment: .leading) { synchronizeID }
 
                     if newdata.selectedrsynccommand == .syncremote {
