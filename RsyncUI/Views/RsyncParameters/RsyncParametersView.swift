@@ -154,8 +154,6 @@ struct RsyncParametersView: View {
 
             VStack(alignment: .leading) {
 
-                Text("Action")
-
                 RsyncCommandView(config: $parameters.configuration,
                                  selectedrsynccommand: $selectedrsynccommand)
                     .disabled(parameters.configuration == nil)
