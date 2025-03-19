@@ -20,6 +20,7 @@ struct ExecutePushPullView: View {
 
     let config: SynchronizeConfiguration
     let profile: String?
+    let pushorpullremotednumbers: RemoteDataNumbers
 
     var body: some View {
         HStack {
@@ -28,13 +29,8 @@ struct ExecutePushPullView: View {
             } else {
                 ZStack {
                     VStack {
-                        ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                                    profile: profile,
-                                                    configurations: configurations)
-                            .frame(maxWidth: .infinity)
-
-                        Spacer()
-
+                        DetailsViewHeading(remotedatanumbers: pushorpullremotednumbers)
+                        
                         VStack {
                             HStack {
                                 if pushpullcommand == .push_local {

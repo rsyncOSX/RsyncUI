@@ -119,7 +119,15 @@ struct DetailsPushPullView: View {
         }
         .navigationTitle("Verify remote")
         .navigationDestination(isPresented: $verifynavigationispresented) {
-            ExecutePushPullView(config: config, profile: rsyncUIdata.profile)
+            if let pushremotedatanumbers {
+                ExecutePushPullView(config: config,
+                                    profile: rsyncUIdata.profile,
+                                    pushorpullremotednumbers: pushremotedatanumbers)
+            } else if let pullremotedatanumbers {
+                ExecutePushPullView(config: config,
+                                    profile: rsyncUIdata.profile,
+                                    pushorpullremotednumbers: pullremotedatanumbers)
+            }
         }
     }
 
