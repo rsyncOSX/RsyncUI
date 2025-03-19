@@ -51,10 +51,10 @@ struct PushPullView: View {
                         if let pullremotedatanumbers, let pushremotedatanumbers {
                             HStack {
                                 DetailsVerifyView(remotedatanumbers: pushremotedatanumbers,
-                                                  text: "PUSH local (Synchronize)")
+                                                  push: true)
 
                                 DetailsVerifyView(remotedatanumbers: pullremotedatanumbers,
-                                                  text: "PULL remote")
+                                                  push: false)
                             }
                         }
                     }
