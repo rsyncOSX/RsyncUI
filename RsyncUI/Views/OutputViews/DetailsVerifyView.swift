@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DetailsPullPushView: View {
+struct DetailsVerifyView: View {
     let remotedatanumbers: RemoteDataNumbers
     let text: String
 

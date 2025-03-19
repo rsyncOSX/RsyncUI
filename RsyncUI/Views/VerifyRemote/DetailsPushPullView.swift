@@ -62,17 +62,17 @@ struct DetailsPushPullView: View {
                         if let pullremotedatanumbers, let pushremotedatanumbers {
                             if switchview == .both {
                                 HStack {
-                                    DetailsPullPushView(remotedatanumbers: pushremotedatanumbers,
+                                    DetailsVerifyView(remotedatanumbers: pushremotedatanumbers,
                                                         text: "PUSH local (Synchronize)")
 
-                                    DetailsPullPushView(remotedatanumbers: pullremotedatanumbers,
+                                    DetailsVerifyView(remotedatanumbers: pullremotedatanumbers,
                                                         text: "PULL remote")
                                 }
                             } else if switchview == .push {
-                                DetailsPullPushView(remotedatanumbers: pushremotedatanumbers,
+                                DetailsVerifyView(remotedatanumbers: pushremotedatanumbers,
                                                     text: "PUSH local (Synchronize)")
                             } else {
-                                DetailsPullPushView(remotedatanumbers: pullremotedatanumbers,
+                                DetailsVerifyView(remotedatanumbers: pullremotedatanumbers,
                                                     text: "PULL remote")
                             }
                         }
