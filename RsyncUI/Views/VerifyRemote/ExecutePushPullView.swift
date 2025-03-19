@@ -12,14 +12,12 @@ struct ExecutePushPullView: View {
     @State private var remotedatanumbers: RemoteDataNumbers?
 
     @State private var pushpullcommand = PushPullCommand.none
-    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
     // Alert button
     @State private var showingAlert = false
     @State private var dryrun: Bool = true
 
     let config: SynchronizeConfiguration
-    let profile: String?
     let pushorpullremotednumbers: RemoteDataNumbers
 
     var body: some View {
@@ -30,7 +28,9 @@ struct ExecutePushPullView: View {
                 ZStack {
                     VStack {
                         DetailsViewHeading(remotedatanumbers: pushorpullremotednumbers)
-                        
+
+                        Spacer()
+
                         VStack {
                             HStack {
                                 if pushpullcommand == .push_local {

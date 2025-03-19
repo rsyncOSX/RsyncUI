@@ -117,7 +117,7 @@ struct RsyncParametersView: View {
                               */
                         }
                     }
-                    
+
                     Spacer()
                 }
 
@@ -145,7 +145,7 @@ struct RsyncParametersView: View {
                                 }
                             }
                         }
-                    
+
                     Spacer()
                 }
             }
@@ -153,7 +153,6 @@ struct RsyncParametersView: View {
             Spacer()
 
             VStack(alignment: .leading) {
-
                 RsyncCommandView(config: $parameters.configuration,
                                  selectedrsynccommand: $selectedrsynccommand)
                     .disabled(parameters.configuration == nil)
@@ -272,7 +271,7 @@ struct RsyncParametersView: View {
             parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
             parameters.removedelete == (selectedconfig.parameter4.isEmpty == false) ||
             parameters.removecompress == (selectedconfig.parameter3.isEmpty == false) ||
-            parameters.sshport != String((selectedconfig.sshport ?? -1 ) ) ||
+            parameters.sshport != String(selectedconfig.sshport ?? -1) ||
             parameters.sshkeypathandidentityfile != (selectedconfig.sshkeypathandidentityfile ?? "")
         {
             return true

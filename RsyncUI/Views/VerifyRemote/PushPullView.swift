@@ -1,5 +1,5 @@
 //
-//  DetailsPushPullView.swift
+//  PushPullView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 23/04/2024.
@@ -7,16 +7,7 @@
 
 import SwiftUI
 
-enum SwiftPushPullView: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case pull
-    case push
-    case both
-
-    var id: String { rawValue }
-    var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
-}
-
-struct DetailsPushPullView: View {
+struct PushPullView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var verifynavigationispresented: Bool
     // URL code
@@ -29,8 +20,6 @@ struct DetailsPushPullView: View {
     @State private var pushremotedatanumbers: RemoteDataNumbers?
     // Decide push or pull
     @State private var pushorpull = ObservablePushPull()
-    // Switch view
-    @State private var switchview: SwiftPushPullView = .both
     // If aborted
     @State private var isaborted: Bool = false
 
@@ -60,20 +49,12 @@ struct DetailsPushPullView: View {
 
                     } else {
                         if let pullremotedatanumbers, let pushremotedatanumbers {
-                            if switchview == .both {
-                                HStack {
-                                    DetailsVerifyView(remotedatanumbers: pushremotedatanumbers,
-                                                        text: "PUSH local (Synchronize)")
-
-                                    DetailsVerifyView(remotedatanumbers: pullremotedatanumbers,
-                                                        text: "PULL remote")
-                                }
-                            } else if switchview == .push {
+                            HStack {
                                 DetailsVerifyView(remotedatanumbers: pushremotedatanumbers,
-                                                    text: "PUSH local (Synchronize)")
-                            } else {
+                                                  text: "PUSH local (Synchronize)")
+
                                 DetailsVerifyView(remotedatanumbers: pullremotedatanumbers,
-                                                    text: "PULL remote")
+                                                  text: "PULL remote")
                             }
                         }
                     }
@@ -100,10 +81,6 @@ struct DetailsPushPullView: View {
             .toolbar(content: {
                 if progress == false {
                     ToolbarItem {
-                        pickerselectview
-                    }
-
-                    ToolbarItem {
                         Button {
                             // verifynavigation.removeAll()
                             // verifynavigation.append(VerifyTasks(task: .executepushpull))
@@ -121,20 +98,10 @@ struct DetailsPushPullView: View {
         .navigationDestination(isPresented: $verifynavigationispresented) {
             if let pushremotedatanumbers {
                 ExecutePushPullView(config: config,
-                                    profile: rsyncUIdata.profile,
                                     pushorpullremotednumbers: pushremotedatanumbers)
             } else if let pullremotedatanumbers {
                 ExecutePushPullView(config: config,
-                                    profile: rsyncUIdata.profile,
                                     pushorpullremotednumbers: pullremotedatanumbers)
-            }
-        }
-    }
-
-    var pickerselectview: some View {
-        Picker("", selection: $switchview) {
-            ForEach(SwiftPushPullView.allCases) { Text($0.description)
-                .tag($0)
             }
         }
     }
