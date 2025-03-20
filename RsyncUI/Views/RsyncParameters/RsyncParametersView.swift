@@ -124,8 +124,13 @@ struct RsyncParametersView: View {
                 Spacer()
 
                 VStack(alignment: .leading) {
-                    Text("Select a task, \(Text("red color").foregroundColor(.red)) Synchronize ID indicates --delete parameter is enabled")
-
+                    
+                    if deleteparameterpresent {
+                        Text("Select a task, \(Text("red Synchronize ID").foregroundColor(.red)) indicates --delete parameter is enabled")
+                    } else {
+                        Text("Select a task")
+                    }
+                    
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                                 profile: rsyncUIdata.profile,
                                                 configurations: rsyncUIdata.configurations)
@@ -277,6 +282,11 @@ struct RsyncParametersView: View {
             return true
         }
         return false
+    }
+    
+    var deleteparameterpresent: Bool {
+        let parameter = rsyncUIdata.configurations?.filter({ $0.parameter4.isEmpty == false })
+        return parameter?.count ?? 0 > 0
     }
 }
 

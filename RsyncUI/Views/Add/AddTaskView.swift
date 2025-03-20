@@ -123,8 +123,14 @@ struct AddTaskView: View {
                 }
                 // Column 2
                 VStack(alignment: .leading) {
-                    Text("Tasks for Synchronize actions, \(Text("red color").foregroundColor(.red)) Synchronize ID indicates --delete parameter is enabled")
-                        .padding(.bottom, 10)
+                    if deleteparameterpresent {
+                        Text("Tasks for Synchronize actions, \(Text("red Synchronize ID").foregroundColor(.red)) indicates --delete parameter is enabled")
+                            .padding(.bottom, 10)
+                    } else {
+                        Text("Tasks for Synchronize actions")
+                            .padding(.bottom, 10)
+                    }
+                    
                     ListofTasksAddView(rsyncUIdata: rsyncUIdata,
                                        selecteduuids: $selecteduuids)
                         .onChange(of: selecteduuids) {
@@ -590,6 +596,11 @@ struct AddTaskView: View {
             return true
         }
         return false
+    }
+    
+    var deleteparameterpresent: Bool {
+        let parameter = rsyncUIdata.configurations?.filter({ $0.parameter4.isEmpty == false })
+        return parameter?.count ?? 0 > 0
     }
 }
 
