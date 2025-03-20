@@ -12,7 +12,7 @@ import SSHCreateKey
 @Observable @MainActor
 final class ObservableParametersRsync {
     // Set the current value as placeholder text
-    var sshport: String = "-1"
+    var sshport: String = ""
     // SSH keypath and identityfile, the settings View is picking up the current value
     // Set the current value as placeholder text
     var sshkeypathandidentityfile: String = ""
