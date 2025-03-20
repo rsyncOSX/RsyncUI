@@ -20,11 +20,22 @@ struct ConfigurationsTableDataView: View {
             }
             .width(min: 50, max: 200)
             TableColumn("Synchronize ID") { data in
-                if data.backupID.isEmpty == true {
-                    Text("Synchronize ID")
+                if data.parameter4.isEmpty == false {
+                    if data.backupID.isEmpty == true {
+                        Text("Synchronize ID")
+                            .foregroundColor(.red)
 
+                    } else {
+                        Text(data.backupID)
+                            .foregroundColor(.red)
+                    }
                 } else {
-                    Text(data.backupID)
+                    if data.backupID.isEmpty == true {
+                        Text("Synchronize ID")
+
+                    } else {
+                        Text(data.backupID)
+                    }
                 }
             }
             .width(min: 50, max: 200)

@@ -123,7 +123,7 @@ struct AddTaskView: View {
                 }
                 // Column 2
                 VStack(alignment: .leading) {
-                    Text("Tasks for Synchronize actions")
+                    Text("Tasks for Synchronize actions, \(Text("red color").foregroundColor(.red)) Synchronize ID indicates --delete parameter is enabled")
                         .padding(.bottom, 10)
                     ListofTasksAddView(rsyncUIdata: rsyncUIdata,
                                        selecteduuids: $selecteduuids)

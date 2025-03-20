@@ -124,7 +124,7 @@ struct RsyncParametersView: View {
                 Spacer()
 
                 VStack(alignment: .leading) {
-                    Text("Select a task")
+                    Text("Select a task, \(Text("red color").foregroundColor(.red)) Synchronize ID indicates --delete parameter is enabled")
 
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                                 profile: rsyncUIdata.profile,
