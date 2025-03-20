@@ -12,33 +12,31 @@ struct DetailsVerifyView: View {
     let push: Bool
 
     var body: some View {
-        
         VStack(alignment: .leading) {
-            
-        if push {
-            HStack {
-                Image(systemName: "arrow.right")
-                    .font(.title)
-                    .imageScale(.large)
-                    .foregroundColor(.yellow)
-                Text("PUSH local")
-                    .foregroundColor(.yellow)
-                    .font(.title2)
+            if push {
+                HStack {
+                    Image(systemName: "arrow.right")
+                        .font(.title)
+                        .imageScale(.large)
+                        .foregroundColor(.yellow)
+                    Text("PUSH local")
+                        .foregroundColor(.yellow)
+                        .font(.title2)
+                }
+                .padding()
+            } else {
+                HStack {
+                    Image(systemName: "arrow.left")
+                        .font(.title)
+                        .imageScale(.large)
+                        .foregroundColor(.yellow)
+                    Text("PULL remote")
+                        .foregroundColor(.yellow)
+                        .font(.title2)
+                }
+                .padding()
             }
-            .padding()
-        } else {
-            HStack {
-                Image(systemName: "arrow.left")
-                    .font(.title)
-                    .imageScale(.large)
-                    .foregroundColor(.yellow)
-                Text("PULL remote")
-                    .foregroundColor(.yellow)
-                    .font(.title2)
-            }
-            .padding()
-        }
-        
+
             Table(remotedatanumbers.outputfromrsync ?? []) {
                 TableColumn("Output from rsync" + ": \(remotedatanumbers.outputfromrsync?.count ?? 0) rows") { data in
                     Text(data.record)

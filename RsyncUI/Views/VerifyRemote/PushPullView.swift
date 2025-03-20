@@ -99,9 +99,6 @@ struct PushPullView: View {
             if let pushremotedatanumbers {
                 ExecutePushPullView(config: config,
                                     pushorpullremotednumbers: pushremotedatanumbers)
-            } else if let pullremotedatanumbers {
-                ExecutePushPullView(config: config,
-                                    pushorpullremotednumbers: pullremotedatanumbers)
             }
         }
     }

@@ -10,9 +10,7 @@ import SwiftUI
 struct ExecutePushPullView: View {
     @State private var progress = false
     @State private var remotedatanumbers: RemoteDataNumbers?
-
     @State private var pushpullcommand = PushPullCommand.none
-
     // Alert button
     @State private var showingAlert = false
     @State private var dryrun: Bool = true
