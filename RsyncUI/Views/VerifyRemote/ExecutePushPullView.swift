@@ -97,12 +97,6 @@ struct ExecutePushPullView: View {
         }
     }
 
-    var configurations: [SynchronizeConfiguration] {
-        var configurations = [SynchronizeConfiguration]()
-        configurations.append(config)
-        return configurations
-    }
-
     // For a verify run, --dry-run
     func push(config: SynchronizeConfiguration) {
         let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: dryrun,

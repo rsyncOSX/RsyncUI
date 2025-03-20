@@ -43,8 +43,7 @@ struct VerifyRemote: View {
                 handlequeryitem()
             }
         } else if let selectedconfig {
-            PushPullView(rsyncUIdata: rsyncUIdata,
-                         verifynavigationispresented: $verifynavigationispresented,
+            PushPullView(verifynavigationispresented: $verifynavigationispresented,
                          queryitem: $queryitem,
                          config: selectedconfig)
         }

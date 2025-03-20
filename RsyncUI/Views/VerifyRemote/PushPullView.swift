@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PushPullView: View {
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
+    
     @Binding var verifynavigationispresented: Bool
     // URL code
     @Binding var queryitem: URLQueryItem?
