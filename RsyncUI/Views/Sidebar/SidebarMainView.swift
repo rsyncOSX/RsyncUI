@@ -107,7 +107,7 @@ struct SidebarMainView: View {
         })
         .onAppear {
             Task {
-                newversion.notifynewversion = await Getversionofrsync().getversionsofrsyncui()
+                newversion.notifynewversion = await GetversionofRsyncUI().getversionsofrsyncui()
                 SharedReference.shared.newversion = newversion.notifynewversion
                 if SharedReference.shared.sidebarishidden {
                     columnVisibility = .detailOnly

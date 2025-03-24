@@ -11,8 +11,7 @@ struct AboutView: View {
     @State private var urlstring = ""
 
     let iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "")
-    let norwegianstring: String = NSLocalizedString("Norwegian translation by: Thomas Evensen", comment: "")
-    let germanstring: String = NSLocalizedString("German translation by: Andre Voigtmann", comment: "")
+    
     var changelog: String {
         Resources().getResource(resource: .changelog)
     }
@@ -51,11 +50,12 @@ struct AboutView: View {
 
                         appicon
                     }
-
-                    translations
+                    
+                    rsyncversionshortstring
+                    
                 }
-
-                rsyncversionshortstring
+                
+                rsyncuiconfigpathpath
             }
 
             Section {
@@ -86,7 +86,7 @@ struct AboutView: View {
             }
         }
         .task {
-            urlstring = await Getversionofrsync().downloadlinkofrsyncui() ?? ""
+            urlstring = await GetversionofRsyncUI().downloadlinkofrsyncui() ?? ""
         }
         .formStyle(.grouped)
     }
@@ -94,20 +94,16 @@ struct AboutView: View {
     var rsyncversionshortstring: some View {
         VStack {
             Text(SharedReference.shared.rsyncversionshort ?? "")
-            Text("RsyncUI configpath: " + configpath)
-                .padding([.top])
         }
         .font(.caption)
         .padding(3)
     }
-
-    var translations: some View {
-        VStack(alignment: .leading) {
-            Text(germanstring)
-                .font(.caption)
-            Text(norwegianstring)
-                .font(.caption)
+    
+    var rsyncuiconfigpathpath: some View {
+        VStack {
+            Text("RsyncUI configpath: " + configpath)
         }
+        .font(.caption)
         .padding(3)
     }
 

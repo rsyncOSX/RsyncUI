@@ -32,10 +32,10 @@ final class CheckfornewversionofRsyncUI {
     var downloadavaliable: Bool = false
 }
 
-actor Getversionofrsync {
+actor GetversionofRsyncUI {
     nonisolated func getversionsofrsyncui() async -> Bool {
         do {
-            Logger.process.info("Getversionofrsync: getversionsofrsyncui() MAIN THREAD \(Thread.isMain)")
+            Logger.process.info("GetversionofRsyncUI: getversionsofrsyncui() MAIN THREAD \(Thread.isMain)")
             let versions = await DecodeGeneric()
             if let versionsofrsyncui =
                 try await versions.decodearraydata(VersionsofRsyncUI.self,
@@ -59,7 +59,7 @@ actor Getversionofrsync {
 
     func downloadlinkofrsyncui() async -> String? {
         do {
-            Logger.process.info("Getversionofrsync: downloadlinkofrsyncui() MAIN THREAD \(Thread.isMain)")
+            Logger.process.info("GetversionofRsyncUI: downloadlinkofrsyncui() MAIN THREAD \(Thread.isMain)")
             let versions = await DecodeGeneric()
             if let versionsofrsyncui =
                 try await versions.decodearraydata(VersionsofRsyncUI.self,

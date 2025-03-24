@@ -10,6 +10,7 @@ import SwiftUI
 
 struct RsyncUIView: View {
     @State private var selectedprofile: String? = SharedReference.shared.defaultprofile
+    // Set version of rsync to use
     @State private var rsyncversion = Rsyncversion()
     @State private var start: Bool = true
 
