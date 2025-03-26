@@ -56,6 +56,8 @@ final class SharedReference {
     let logname: String = "rsyncui.txt"
     // Userconfiguration json file
     let userconfigjson: String = "rsyncuiconfig.json"
+    // Caldenarfile
+    let caldenarfilejson: String = "calendar.json"
     // String tasks
     let synchronize: String = "synchronize"
     let snapshot: String = "snapshot"
