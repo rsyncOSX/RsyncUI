@@ -108,7 +108,7 @@ struct LogsbyConfigurationView: View {
             Task {
                 let actorreadlogs = ActorReadLogRecordsJSON()
                 await logrecords =
-                    actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
+                actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }
@@ -139,7 +139,7 @@ struct LogsbyConfigurationView: View {
                 selectedloguuids.removeAll()
                 let actorreadlogs = ActorReadLogRecordsJSON()
                 await logrecords =
-                    actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
+                    actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }
@@ -219,7 +219,7 @@ struct LogsbyConfigurationView: View {
             Task {
                 let actorreadlogs = ActorReadLogRecordsJSON()
                 await logrecords =
-                    actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs, SharedReference.shared.filenamelogrecordsjson)
+                    actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }

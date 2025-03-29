@@ -11,19 +11,18 @@ import OSLog
 
 actor ActorReadLogRecordsJSON {
     nonisolated func readjsonfilelogrecords(_ profile: String?,
-                                            _ validhiddenIDs: Set<Int>,
-                                            _ filenamelogrecords: String) async -> [LogRecords]?
+                                            _ validhiddenIDs: Set<Int>) async -> [LogRecords]?
     {
         let path = await Homepath()
         var filename = ""
 
         Logger.process.info("ActorReadLogRecordsJSON: readjsonfilelogrecords() MAIN THREAD \(Thread.isMain)")
 
-        if let profile, profile != "Default profile", let path = path.fullpathmacserial {
-            filename = path + "/" + profile + "/" + filenamelogrecords
+        if let profile, profile != SharedConstants().defaultprofile, let path = path.fullpathmacserial {
+            filename = path + "/" + profile + "/" + SharedConstants().filenamelogrecordsjson
         } else {
             if let path = path.fullpathmacserial {
-                filename = path + "/" + filenamelogrecords
+                filename = path + "/" + SharedConstants().filenamelogrecordsjson
             }
         }
         let decodeimport = await DecodeGeneric()

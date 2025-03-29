@@ -16,10 +16,10 @@ final class ReadLogRecordsJSON {
         let path = Homepath()
 
         if let profile, let path = path.fullpathmacserial {
-            filename = path + "/" + profile + "/" + SharedReference.shared.filenamelogrecordsjson
+            filename = path + "/" + profile + "/" + SharedConstants().filenamelogrecordsjson
         } else {
             if let path = path.fullpathmacserial {
-                filename = path + "/" + SharedReference.shared.filenamelogrecordsjson
+                filename = path + "/" + SharedConstants().filenamelogrecordsjson
             }
         }
         let decodeimport = DecodeGeneric()

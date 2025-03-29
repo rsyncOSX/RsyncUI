@@ -25,9 +25,9 @@ final class WriteLogRecordsJSON {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             if let localprofile {
                 let tempURL = fullpathmacserialURL.appendingPathComponent(localprofile)
-                logrecordfileURL = tempURL.appendingPathComponent(SharedReference.shared.filenamelogrecordsjson)
+                logrecordfileURL = tempURL.appendingPathComponent(SharedConstants().filenamelogrecordsjson)
             } else {
-                logrecordfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.filenamelogrecordsjson)
+                logrecordfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().filenamelogrecordsjson)
             }
             if let jsonData, let logrecordfileURL {
                 do {
