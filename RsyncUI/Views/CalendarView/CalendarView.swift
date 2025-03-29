@@ -37,7 +37,7 @@ struct CalendarView: View {
     var body: some View {
         HStack {
             VStack {
-                Text("\(date.localized_month_from_date())")
+                Text("\(date.en_us_string_from_date())")
                     .font(.title)
                     .padding()
 
