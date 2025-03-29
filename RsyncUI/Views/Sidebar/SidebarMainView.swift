@@ -418,8 +418,7 @@ extension SidebarMainView {
         rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
             .readjsonfilesynchronizeconfigurations(selectedprofile,
                                                    SharedReference.shared.monitornetworkconnection,
-                                                   SharedReference.shared.sshport,
-                                                   SharedReference.shared.fileconfigurationsjson)
+                                                   SharedReference.shared.sshport)
     }
 }
 

@@ -25,8 +25,7 @@ struct ReadAllTasks {
             let configurations = await ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profilename,
                                                        SharedReference.shared.monitornetworkconnection,
-                                                       SharedReference.shared.sshport,
-                                                       SharedReference.shared.fileconfigurationsjson)
+                                                       SharedReference.shared.sshport)
 
             let profileold = configurations?.filter { element in
                 var seconds: Double {
@@ -90,8 +89,7 @@ struct ReadAllTasks {
             let configurations = await ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profilename,
                                                        SharedReference.shared.monitornetworkconnection,
-                                                       SharedReference.shared.sshport,
-                                                       SharedReference.shared.fileconfigurationsjson)
+                                                       SharedReference.shared.sshport)
 
             let adjustedconfigurations = configurations?.map { element in
                 var newelement = element

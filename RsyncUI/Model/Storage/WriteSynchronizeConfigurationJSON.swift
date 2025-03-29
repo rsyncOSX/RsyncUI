@@ -25,10 +25,10 @@ final class WriteSynchronizeConfigurationJSON {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             if let localprofile {
                 let tempURL = fullpathmacserialURL.appendingPathComponent(localprofile)
-                configurationfileURL = tempURL.appendingPathComponent(SharedReference.shared.fileconfigurationsjson)
+                configurationfileURL = tempURL.appendingPathComponent(SharedConstants().fileconfigurationsjson)
 
             } else {
-                configurationfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.fileconfigurationsjson)
+                configurationfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().fileconfigurationsjson)
             }
             if let jsonData, let configurationfileURL {
                 do {

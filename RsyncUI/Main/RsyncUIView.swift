@@ -47,8 +47,7 @@ struct RsyncUIView: View {
             rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(selectedprofile,
                                                        SharedReference.shared.monitornetworkconnection,
-                                                       SharedReference.shared.sshport,
-                                                       SharedReference.shared.fileconfigurationsjson)
+                                                       SharedReference.shared.sshport)
             let catalognames = Homepath().getfullpathmacserialcatalogsasstringnames()
             rsyncUIdata.validprofiles = catalognames.map { catalog in
                 ProfilesnamesRecord(catalog)
@@ -66,8 +65,7 @@ struct RsyncUIView: View {
                 rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
                     .readjsonfilesynchronizeconfigurations(selectedprofile,
                                                            SharedReference.shared.monitornetworkconnection,
-                                                           SharedReference.shared.sshport,
-                                                           SharedReference.shared.fileconfigurationsjson)
+                                                           SharedReference.shared.sshport)
             }
         }
     }

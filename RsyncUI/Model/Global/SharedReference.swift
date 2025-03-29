@@ -74,7 +74,7 @@ final class SharedReference {
     var process: Process?
     // JSON names
     // let filenamelogrecordsjson = "logrecords.json"
-    let fileconfigurationsjson = "configurations.json"
+    // let fileconfigurationsjson = "configurations.json"
     // Object for propogate errors to views
     @ObservationIgnored var errorobject: AlertError?
     // Used when starting up RsyncUI
