@@ -18,9 +18,9 @@ actor ActorReadSchedule {
         Logger.process.info("ActorReadSchedule: readjsonfilecalendar() MAIN THREAD \(Thread.isMain)")
 
         if let path = path.fullpathmacserial {
-            filename = path + "/" + "calendar.json"
+            filename = path + "/" + SharedConstants().caldenarfilejson
         }
-
+        
         let decodeimport = await DecodeGeneric()
         do {
             if let data = try

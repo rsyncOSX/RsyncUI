@@ -15,9 +15,7 @@ actor ActorWriteSchedule {
         if let fullpathmacserial = path.fullpathmacserial {
             var calendarfileURL: URL?
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            // "calendar.json"
-            // calendarfileURL = await fullpathmacserialURL.appendingPathComponent(SharedReference.shared.caldenarfilejson)
-            calendarfileURL = fullpathmacserialURL.appendingPathComponent("calendar.json")
+            calendarfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().caldenarfilejson)
             if let jsonData, let calendarfileURL {
                 do {
                     try jsonData.write(to: calendarfileURL)
