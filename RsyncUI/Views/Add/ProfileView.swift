@@ -61,7 +61,7 @@ struct ProfileView: View {
 
             ToolbarItem {
                 Button {
-                    isPresentingConfirm = (localselectedprofile?.isEmpty == false && localselectedprofile != SharedReference.shared.defaultprofile)
+                    isPresentingConfirm = (localselectedprofile?.isEmpty == false && localselectedprofile != SharedConstants().defaultprofile)
                 } label: {
                     Image(systemName: "trash.fill")
                         .foregroundColor(Color(.blue))
@@ -93,8 +93,8 @@ extension ProfileView {
     func deleteprofile() {
         if let deleteprofile = localselectedprofile {
             if newdata.deleteprofile(deleteprofile) {
-                selectedprofile = SharedReference.shared.defaultprofile
-                rsyncUIdata.profile = SharedReference.shared.defaultprofile
+                selectedprofile = SharedConstants().defaultprofile
+                rsyncUIdata.profile = SharedConstants().defaultprofile
                 // Remove the profile record
                 if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == uuidprofile }) {
                     rsyncUIdata.validprofiles.remove(at: index)

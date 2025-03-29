@@ -409,8 +409,8 @@ extension SidebarMainView {
         Logger.process.info("SidebarMainView: loadprofileforexternalurllink executed")
         rsyncUIdata.externalurlrequestinprogress = true
         if profile == "default" {
-            rsyncUIdata.profile = SharedReference.shared.defaultprofile
-            selectedprofile = SharedReference.shared.defaultprofile
+            rsyncUIdata.profile = SharedConstants().defaultprofile
+            selectedprofile = SharedConstants().defaultprofile
         } else {
             rsyncUIdata.profile = profile
             selectedprofile = profile

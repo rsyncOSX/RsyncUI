@@ -15,7 +15,7 @@ final class WriteLogRecordsJSON {
     let path = Homepath()
 
     private func writeJSONToPersistentStore(jsonData: Data?, _ profile: String?) {
-        let localprofile: String? = if profile == SharedReference.shared.defaultprofile {
+        let localprofile: String? = if profile == SharedConstants().defaultprofile {
             nil
         } else {
             profile
@@ -32,7 +32,7 @@ final class WriteLogRecordsJSON {
             if let jsonData, let logrecordfileURL {
                 do {
                     try jsonData.write(to: logrecordfileURL)
-                    let myprofile = profile ?? SharedReference.shared.defaultprofile
+                    let myprofile = profile ?? SharedConstants().defaultprofile
                     Logger.process.info("WriteLogRecordsJSON - \(myprofile), privacy: .public): write logrecords to permanent storage")
                 } catch let e {
                     Logger.process.error("WriteLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR writing logrecords to permanent storage")

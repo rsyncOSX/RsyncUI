@@ -391,14 +391,14 @@ extension TasksView {
             doubleclick = false
             path.append(Tasks(task: .onetaskdetailsview))
         } else if selectedconfig.config != nil,
-                  estimateprogressdetails.executeanotherdryrun(rsyncUIdata.profile ?? SharedReference.shared.defaultprofile) == true
+                  estimateprogressdetails.executeanotherdryrun(rsyncUIdata.profile ?? SharedConstants().defaultprofile) == true
         {
             Logger.process.info("DryRun: new task same profile selected, execute a dryrun")
             doubleclick = false
             path.append(Tasks(task: .onetaskdetailsview))
 
         } else if selectedconfig.config != nil,
-                  estimateprogressdetails.alltasksestimated(rsyncUIdata.profile ?? SharedReference.shared.defaultprofile) == false
+                  estimateprogressdetails.alltasksestimated(rsyncUIdata.profile ?? SharedConstants().defaultprofile) == false
         {
             Logger.process.info("DryRun: profile is changed, new task selected, execute a dryrun")
             doubleclick = false
@@ -409,7 +409,7 @@ extension TasksView {
     func execute() {
         // All tasks are estimated and ready for execution.
         if selecteduuids.count == 0,
-           estimateprogressdetails.alltasksestimated(rsyncUIdata.profile ?? SharedReference.shared.defaultprofile) == true
+           estimateprogressdetails.alltasksestimated(rsyncUIdata.profile ?? SharedConstants().defaultprofile) == true
 
         {
             Logger.process.info("Execute() all estimated tasks")

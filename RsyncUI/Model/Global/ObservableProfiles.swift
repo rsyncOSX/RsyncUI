@@ -21,7 +21,7 @@ final class ObservableProfiles {
     }
 
     func deleteprofile(_ profile: String) -> Bool {
-        guard profile != SharedReference.shared.defaultprofile else { return false }
+        guard profile != SharedConstants().defaultprofile else { return false }
         if CatalogForProfile().deleteprofilecatalog(profile) {
             return true
         } else {

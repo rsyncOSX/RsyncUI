@@ -272,7 +272,7 @@ extension SnapshotsView {
             }
             snapshotdata.snapshotlist = true
             var profile: String? = rsyncUIdata.profile ?? ""
-            if profile == SharedReference.shared.defaultprofile || profile == nil {
+            if profile == SharedConstants().defaultprofile || profile == nil {
                 profile = nil
             }
 

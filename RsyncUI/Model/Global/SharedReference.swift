@@ -79,7 +79,7 @@ final class SharedReference {
     @ObservationIgnored var errorobject: AlertError?
     // Used when starting up RsyncUI
     // Default profile
-    let defaultprofile = "Default profile"
+    // let defaultprofile = "Default profile"
     // let bundleIdentifier: String = "no.blogspot.RsyncUI"
     @ObservationIgnored var sidebarishidden: Bool = false
     @ObservationIgnored var observemountedvolumes: Bool = false

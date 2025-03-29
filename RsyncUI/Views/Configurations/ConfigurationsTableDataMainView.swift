@@ -31,7 +31,7 @@ struct ConfigurationsTableDataMainView: View {
             .width(min: 70, ideal: 70)
             .defaultVisibility(visible_progress)
             TableColumn("Profile") { _ in
-                Text(rsyncUIdata.profile ?? SharedReference.shared.defaultprofile)
+                Text(rsyncUIdata.profile ?? SharedConstants().defaultprofile)
             }
             .width(min: 50, max: 100)
             .defaultVisibility(visible_not_progress)

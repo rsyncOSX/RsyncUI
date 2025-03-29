@@ -15,7 +15,7 @@ final class WriteSynchronizeConfigurationJSON {
     let path = Homepath()
 
     private func writeJSONToPersistentStore(jsonData: Data?, _ profile: String?) {
-        let localprofile: String? = if profile == SharedReference.shared.defaultprofile {
+        let localprofile: String? = if profile == SharedConstants().defaultprofile {
             nil
         } else {
             profile
@@ -33,7 +33,7 @@ final class WriteSynchronizeConfigurationJSON {
             if let jsonData, let configurationfileURL {
                 do {
                     try jsonData.write(to: configurationfileURL)
-                    let myprofile = profile ?? SharedReference.shared.defaultprofile
+                    let myprofile = profile ?? SharedConstants().defaultprofile
                     Logger.process.info("WriteSynchronizeConfigurationJSON - \(myprofile), privacy: .public): write configurations to permanent storage")
                 } catch let e {
                     let error = e

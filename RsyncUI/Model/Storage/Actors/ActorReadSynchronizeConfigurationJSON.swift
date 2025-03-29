@@ -57,7 +57,7 @@ actor ActorReadSynchronizeConfigurationJSON {
 
         Logger.process.info("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations() MAIN THREAD \(Thread.isMain)")
 
-        if let profile, profile != "Default profile", let path = path.fullpathmacserial {
+        if let profile, profile != SharedConstants().defaultprofile, let path = path.fullpathmacserial {
             filename = path + "/" + profile + "/" + SharedConstants().fileconfigurationsjson
         } else {
             if let path = path.fullpathmacserial {

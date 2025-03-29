@@ -22,7 +22,7 @@ struct CalendarView: View {
     @State private var days: [Date] = []
 
     // @State private var validprofiles: [ProfilesnamesRecord] = []
-    @State private var selectedprofile: String = SharedReference.shared.defaultprofile
+    @State private var selectedprofile: String = SharedConstants().defaultprofile
     @State private var selecteduuids: Set<SchedulesConfigurations.ID> = []
 
     @State private var dateAdded: String = Date.now.en_us_string_from_date()

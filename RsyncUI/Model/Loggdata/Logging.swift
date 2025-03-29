@@ -122,7 +122,7 @@ final class Logging {
     {
         localeprofile = profile
         structconfigurations = configurations
-        if localeprofile == SharedReference.shared.defaultprofile || localeprofile == nil {
+        if localeprofile == SharedConstants().defaultprofile || localeprofile == nil {
             logrecords = ReadLogRecordsJSON().readjsonfilelogrecords(nil, validhiddenIDs)
         } else {
             logrecords = ReadLogRecordsJSON().readjsonfilelogrecords(localeprofile, validhiddenIDs)
