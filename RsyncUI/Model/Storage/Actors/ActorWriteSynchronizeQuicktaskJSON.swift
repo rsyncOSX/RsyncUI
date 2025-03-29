@@ -19,7 +19,7 @@ actor ActorWriteSynchronizeQuicktaskJSON {
         if let fullpathmacserial = path.fullpathmacserial {
             var configurationfileURL: URL?
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            configurationfileURL = fullpathmacserialURL.appendingPathComponent("quicktask.json")
+            configurationfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().filenamequicktaskjson)
             if let jsonData, let configurationfileURL {
                 do {
                     try jsonData.write(to: configurationfileURL)

@@ -66,7 +66,7 @@ struct CatalogForProfile {
     func deletefile() {
         let fm = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial {
-            let fullpathString = fullpathmacserial + "/" + "quicktask.json"
+            let fullpathString = fullpathmacserial + "/" + SharedConstants().filenamequicktaskjson
             let fullpathStringlURL = URL(fileURLWithPath: fullpathString)
 
             guard fm.locationExists(at: fullpathString, kind: .file) == true else {

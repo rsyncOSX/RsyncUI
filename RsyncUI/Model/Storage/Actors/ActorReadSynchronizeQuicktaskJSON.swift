@@ -18,7 +18,7 @@ actor ActorReadSynchronizeQuicktaskJSON {
         Logger.process.info("ActorReadSynchronizeQuicktaskJSON: readjsonfilequicktask() MAIN THREAD \(Thread.isMain)")
 
         if let path = path.fullpathmacserial {
-            filename = path + "/" + "quicktask.json"
+            filename = path + "/" + SharedConstants().filenamequicktaskjson
         }
 
         let decodeimport = await DecodeGeneric()

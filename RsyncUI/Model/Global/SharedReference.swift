@@ -56,8 +56,6 @@ final class SharedReference {
     let logname: String = "rsyncui.txt"
     // Userconfiguration json file
     let userconfigjson: String = "rsyncuiconfig.json"
-    // Caldenarfile
-    let caldenarfilejson: String = "calendar.json"
     // String tasks
     let synchronize: String = "synchronize"
     let snapshot: String = "snapshot"
@@ -77,9 +75,6 @@ final class SharedReference {
     // let fileconfigurationsjson = "configurations.json"
     // Object for propogate errors to views
     @ObservationIgnored var errorobject: AlertError?
-    // Used when starting up RsyncUI
-    // Default profile
-    // let defaultprofile = "Default profile"
     // let bundleIdentifier: String = "no.blogspot.RsyncUI"
     @ObservationIgnored var sidebarishidden: Bool = false
     @ObservationIgnored var observemountedvolumes: Bool = false
