@@ -39,6 +39,12 @@ struct AddSchedule: View {
                                                        schedule: schedule)
 
                     scheduledata.scheduledata.append(item)
+                    
+                    // If more than one schedule, sort by dateRun
+                    if scheduledata.scheduledata.count > 1 {
+                        scheduledata.scheduledata.sort { $0.dateRun?.en_us_date_from_string() ?? Date() < $1.dateRun?.en_us_date_from_string()  ?? Date()}
+                    }
+                    
                     futuredates.scheduledata = scheduledata.scheduledata
                     futuredates.recomputeschedules()
 

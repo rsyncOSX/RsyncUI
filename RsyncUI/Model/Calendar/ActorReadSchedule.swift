@@ -20,7 +20,7 @@ actor ActorReadSchedule {
         if let path = path.fullpathmacserial {
             filename = path + "/" + SharedConstants().caldenarfilejson
         }
-        
+
         let decodeimport = await DecodeGeneric()
         do {
             if let data = try

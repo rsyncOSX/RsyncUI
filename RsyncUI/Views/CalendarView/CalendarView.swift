@@ -54,7 +54,7 @@ struct CalendarView: View {
                         if day.monthInt != date.monthInt {
                             Text("")
                         } else {
-                            if thereisaschedule(day) {
+                            if thereisaschedule(day) && day >= Date() {
                                 Text(day.formatted(.dateTime.day()))
                                     .fontWeight(.bold)
                                     .foregroundStyle(.secondary)
