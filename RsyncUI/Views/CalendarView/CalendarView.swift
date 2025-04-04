@@ -5,12 +5,11 @@
 //  Created by Thomas Evensen on 25/03/2025.
 //
 
-
 import SwiftUI
 
 struct CalendarView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    
+
     @State private var scheduledata = ObservableScheduleData()
     @State private var futuredates = ObservableFutureSchedules()
 
@@ -18,7 +17,7 @@ struct CalendarView: View {
 
     let daysOfWeek = Date.capitalizedFirstLettersOfWeekdays
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
-    
+
     @State private var days: [Date] = []
 
     // @State private var validprofiles: [ProfilesnamesRecord] = []
@@ -101,7 +100,7 @@ struct CalendarView: View {
 
             VStack(alignment: .leading) {
                 AddSchedule(rsyncUIdata: rsyncUIdata,
-                    scheduledata: scheduledata,
+                            scheduledata: scheduledata,
                             futuredates: futuredates,
                             selectedprofile: $selectedprofile,
                             dateAdded: $dateAdded,
@@ -155,7 +154,7 @@ struct CalendarView: View {
             ToolbarItem {
                 Button {
                     date = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date.now
-                    futuredates.lastdateinpresentmont = date
+                    futuredates.lastdateinpresentmont = date.endOfMonth
                     futuredates.recomputeschedules()
 
                 } label: {
@@ -168,7 +167,7 @@ struct CalendarView: View {
             ToolbarItem {
                 Button {
                     date = Date.now
-                    futuredates.lastdateinpresentmont = Date.now
+                    futuredates.lastdateinpresentmont = Date.now.endOfMonth
                     futuredates.recomputeschedules()
                 } label: {
                     Image(systemName: "clock")
@@ -180,7 +179,7 @@ struct CalendarView: View {
             ToolbarItem {
                 Button {
                     date = Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date.now
-                    futuredates.lastdateinpresentmont = date
+                    futuredates.lastdateinpresentmont = date.endOfMonth
                     futuredates.recomputeschedules()
                 } label: {
                     Image(systemName: "arrow.right")
