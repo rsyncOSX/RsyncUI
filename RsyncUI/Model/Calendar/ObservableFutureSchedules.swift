@@ -15,7 +15,7 @@ final class ObservableFutureSchedules {
     @ObservationIgnored var lastdateinpresentmont: Date?
     @ObservationIgnored var scheduledata: [SchedulesConfigurations]?
 
-    private func computefuturedates(profile: String, schedule: String, dateRun: Date, dateStop _: Date?) {
+    private func computefuturedates(profile: String, schedule: String, dateRun: Date, dateStop: Date?) {
         var dateComponents = DateComponents()
 
         switch schedule {
@@ -62,7 +62,6 @@ final class ObservableFutureSchedules {
             default:
                 break
             }
-
             // Loops only for daily and weekly
             for _ in 0 ..< index {
                 if let futureDate = Calendar.current.date(byAdding: dateComponents, to: computedDateRun) {
@@ -70,10 +69,17 @@ final class ObservableFutureSchedules {
                     // Set computedDateRun to next futureDate, adding dateComponents will compute
                     // the next futureDate again.
                     computedDateRun = futureDate
-                    // Only add futuredates in month presented.
-                    if futureDate.monthInt == lastdateinpresentmont.monthInt {
-                        appendfutureschedule(profile: profile, dateRun: futureDateString)
+                    // Only add futuredates in month presented, also chech if there is a datStop
+                    if let dateStop {
+                        if futureDate.monthInt == lastdateinpresentmont.monthInt && futureDate <= dateStop {
+                            appendfutureschedule(profile: profile, dateRun: futureDateString)
+                        }
+                    } else {
+                        if futureDate.monthInt == lastdateinpresentmont.monthInt {
+                            appendfutureschedule(profile: profile, dateRun: futureDateString)
+                        }
                     }
+                   
                 } else {
                     Logger.process.warning("ObservableFutureSchedules: Failed to calculate future dates")
                 }
@@ -102,8 +108,9 @@ final class ObservableFutureSchedules {
                 let profile = scheduledata[i].profile ?? ""
                 let schedule = scheduledata[i].schedule ?? ScheduleType.stopped.rawValue
                 let dateRun = scheduledata[i].dateRun?.en_us_date_from_string() ?? Date()
+                let dateStop = scheduledata[i].dateStop?.en_us_date_from_string() ?? Date()
 
-                computefuturedates(profile: profile, schedule: schedule, dateRun: dateRun, dateStop: nil)
+                computefuturedates(profile: profile, schedule: schedule, dateRun: dateRun, dateStop: dateStop)
             }
         }
     }
