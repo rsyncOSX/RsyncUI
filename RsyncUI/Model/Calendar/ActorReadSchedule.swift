@@ -26,6 +26,10 @@ actor ActorReadSchedule {
             if let data = try
                 await decodeimport.decodearraydatafileURL(DecodeSchedules.self,
                                                           fromwhere: filename) {
+                
+                // Dont need to sort when reading, the schedules are sorted by runDate when
+                // new schedules are added and saved
+                
                 Logger.process.info("ActorReadSchedule - read Calendar from permanent storage")
 
                 return data.compactMap { element in

@@ -26,6 +26,7 @@ struct CalendarView: View {
 
     @State private var dateAdded: String = Date.now.en_us_string_from_date()
     @State private var dateRun: String = Date.now.en_us_string_from_date()
+    
     @State private var dateStop: String = Date.now.en_us_string_from_date()
 
     @State private var confirmdelete: Bool = false
@@ -133,6 +134,14 @@ struct CalendarView: View {
         .padding()
         .onAppear {
             days = date.calendarDisplayDays
+            // Set dateSTop to default three months ahead
+            var dateComponents = DateComponents()
+            dateComponents.month = 3
+            let futuredateStop = Calendar.current.date(byAdding: dateComponents, to: Date.now)
+            print(Date.now.monthInt)
+            print(futuredateStop?.monthInt ?? 0)
+            dateStop = futuredateStop?.en_us_string_from_date() ?? Date().en_us_string_from_date()
+            
 
             if let last = days.last {
                 futuredates.lastdateinpresentmont = last.startOfDay
