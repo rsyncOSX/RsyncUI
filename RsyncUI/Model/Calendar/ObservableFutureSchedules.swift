@@ -11,6 +11,7 @@ import OSLog
 
 @Observable @MainActor
 final class ObservableFutureSchedules {
+    
     @ObservationIgnored var futureschedules = Set<SchedulesConfigurations>()
     @ObservationIgnored var lastdateinpresentmont: Date?
     @ObservationIgnored var scheduledata: [SchedulesConfigurations]?
@@ -81,6 +82,7 @@ final class ObservableFutureSchedules {
                     }
                    
                 } else {
+                    
                     Logger.process.warning("ObservableFutureSchedules: Failed to calculate future dates")
                 }
             }

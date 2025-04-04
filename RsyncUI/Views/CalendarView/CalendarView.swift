@@ -9,9 +9,8 @@ import SwiftUI
 
 struct CalendarView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-
-    @State private var scheduledata = ObservableScheduleData()
-    @State private var futuredates = ObservableFutureSchedules()
+    @Bindable var scheduledata: ObservableScheduleData
+    @Bindable var futuredates: ObservableFutureSchedules
 
     @State private var date = Date.now
 
@@ -37,9 +36,18 @@ struct CalendarView: View {
     var body: some View {
         HStack {
             VStack {
-                Text("\(date.en_us_string_from_date())")
-                    .font(.title)
-                    .padding()
+                
+                if date.endOfMonth == Date.now.endOfMonth {
+                    Text("\(date.en_us_string_from_date())")
+                        .font(.title)
+                        .padding()
+                } else {
+                    Text("\(Date.fullMonthNames[date.monthInt - 1])")
+                        .font(.title)
+                        .padding()
+                }
+                
+                
 
                 HStack {
                     ForEach(daysOfWeek.indices, id: \.self) { index in
@@ -138,23 +146,15 @@ struct CalendarView: View {
             var dateComponents = DateComponents()
             dateComponents.month = 3
             let futuredateStop = Calendar.current.date(byAdding: dateComponents, to: Date.now)
-            print(Date.now.monthInt)
-            print(futuredateStop?.monthInt ?? 0)
             dateStop = futuredateStop?.en_us_string_from_date() ?? Date().en_us_string_from_date()
             
-
             if let last = days.last {
                 futuredates.lastdateinpresentmont = last.startOfDay
             }
-
-            Task {
-                if let data = await ActorReadSchedule().readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) {
-                    scheduledata.scheduledata = data
-                }
-
-                futuredates.scheduledata = scheduledata.scheduledata
-                futuredates.recomputeschedules()
-            }
+            
+            date = Date.now
+            futuredates.lastdateinpresentmont = Date.now.endOfMonth
+            futuredates.recomputeschedules()
         }
         .onChange(of: date) {
             days = date.calendarDisplayDays

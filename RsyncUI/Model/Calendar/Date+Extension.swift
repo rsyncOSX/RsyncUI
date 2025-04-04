@@ -45,7 +45,7 @@ extension Date {
             return date.map { dateFormatter.string(from: $0) }
         }
     }
-
+    
     var startOfMonth: Date {
         Calendar.current.dateInterval(of: .month, for: self)!.start
     }

@@ -48,6 +48,9 @@ struct SidebarMainView: View {
     // .doubleColumn
     // .detailOnly
     @State private var mountingvolumenow: Bool = false
+    // Calendar
+    @State private var scheduledata = ObservableScheduleData()
+    @State private var futuredates = ObservableFutureSchedules()
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
@@ -118,6 +121,12 @@ struct SidebarMainView: View {
                 if SharedReference.shared.observemountedvolumes, rsyncUIdata.validprofiles.count > 1 {
                     // Observer for mounting volumes
                     observerdidMountNotification()
+                }
+                // Load calendardata
+                if let data = await ActorReadSchedule().readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) {
+                    scheduledata.scheduledata = data
+                    futuredates.scheduledata = scheduledata.scheduledata
+                    futuredates.recomputeschedules()
                 }
             }
         }
@@ -195,7 +204,9 @@ struct SidebarMainView: View {
             }
         case .calendar:
             NavigationStack {
-                CalendarView(rsyncUIdata: rsyncUIdata)
+                CalendarView(rsyncUIdata: rsyncUIdata,
+                             scheduledata: scheduledata,
+                             futuredates: futuredates)
             }
         }
     }
