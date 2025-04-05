@@ -108,7 +108,7 @@ struct LogsbyConfigurationView: View {
             Task {
                 let actorreadlogs = ActorReadLogRecordsJSON()
                 await logrecords =
-                actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+                    actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }

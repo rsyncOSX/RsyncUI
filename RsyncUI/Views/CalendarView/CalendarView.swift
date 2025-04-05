@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CalendarView: View {
-    
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var scheduledata: ObservableScheduleData
     @Bindable var futuredates: ObservableFutureSchedules
@@ -102,7 +101,7 @@ struct CalendarView: View {
                         }
                     }
                 }
-                
+
                 Spacer()
             }
 

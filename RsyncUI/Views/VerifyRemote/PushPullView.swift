@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct PushPullView: View {
-    
     @Binding var verifynavigationispresented: Bool
     // URL code
     @Binding var queryitem: URLQueryItem?

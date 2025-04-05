@@ -130,7 +130,7 @@ struct AddTaskView: View {
                         Text("Tasks for Synchronize actions")
                             .padding(.bottom, 10)
                     }
-                    
+
                     ListofTasksAddView(rsyncUIdata: rsyncUIdata,
                                        selecteduuids: $selecteduuids)
                         .onChange(of: selecteduuids) {
@@ -597,9 +597,9 @@ struct AddTaskView: View {
         }
         return false
     }
-    
+
     var deleteparameterpresent: Bool {
-        let parameter = rsyncUIdata.configurations?.filter({ $0.parameter4.isEmpty == false })
+        let parameter = rsyncUIdata.configurations?.filter { $0.parameter4.isEmpty == false }
         return parameter?.count ?? 0 > 0
     }
 }

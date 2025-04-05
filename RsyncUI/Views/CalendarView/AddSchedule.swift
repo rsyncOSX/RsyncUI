@@ -62,7 +62,8 @@ struct AddSchedule: View {
 
     var pickerselecttypeoftask: some View {
         Picker(NSLocalizedString("", comment: ""),
-               selection: $schedule) {
+               selection: $schedule)
+        {
             ForEach(ScheduleType.allCases) { Text($0.description)
                 .tag($0)
             }
