@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CalendarView: View {
+    
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var scheduledata: ObservableScheduleData
     @Bindable var futuredates: ObservableFutureSchedules
@@ -25,7 +26,6 @@ struct CalendarView: View {
 
     @State private var dateAdded: String = Date.now.en_us_string_from_date()
     @State private var dateRun: String = Date.now.en_us_string_from_date()
-    
     @State private var dateStop: String = Date.now.en_us_string_from_date()
 
     @State private var confirmdelete: Bool = false
@@ -36,7 +36,6 @@ struct CalendarView: View {
     var body: some View {
         HStack {
             VStack {
-                
                 if date.endOfMonth == Date.now.endOfMonth {
                     Text("\(date.en_us_string_from_date())")
                         .font(.title)
@@ -46,8 +45,6 @@ struct CalendarView: View {
                         .font(.title)
                         .padding()
                 }
-                
-                
 
                 HStack {
                     ForEach(daysOfWeek.indices, id: \.self) { index in
@@ -63,7 +60,7 @@ struct CalendarView: View {
                         if day.monthInt != date.monthInt {
                             Text("")
                         } else {
-                            if thereisaschedule(day) && day >= Date() {
+                            if thereisaschedule(day), day >= Date() {
                                 Text(day.formatted(.dateTime.day()))
                                     .fontWeight(.bold)
                                     .foregroundStyle(.secondary)
@@ -105,6 +102,8 @@ struct CalendarView: View {
                         }
                     }
                 }
+                
+                Spacer()
             }
 
             VStack(alignment: .leading) {
@@ -147,11 +146,11 @@ struct CalendarView: View {
             dateComponents.month = 3
             let futuredateStop = Calendar.current.date(byAdding: dateComponents, to: Date.now)
             dateStop = futuredateStop?.en_us_string_from_date() ?? Date().en_us_string_from_date()
-            
+
             if let last = days.last {
                 futuredates.lastdateinpresentmont = last.startOfDay
             }
-            
+
             date = Date.now
             futuredates.lastdateinpresentmont = Date.now.endOfMonth
             futuredates.recomputeschedules()

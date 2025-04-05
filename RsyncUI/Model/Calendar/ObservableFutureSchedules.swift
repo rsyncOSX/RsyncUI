@@ -11,7 +11,6 @@ import OSLog
 
 @Observable @MainActor
 final class ObservableFutureSchedules {
-    
     @ObservationIgnored var futureschedules = Set<SchedulesConfigurations>()
     @ObservationIgnored var lastdateinpresentmont: Date?
     @ObservationIgnored var scheduledata: [SchedulesConfigurations]?
@@ -72,7 +71,7 @@ final class ObservableFutureSchedules {
                     computedDateRun = futureDate
                     // Only add futuredates in month presented, also chech if there is a datStop
                     if let dateStop {
-                        if futureDate.monthInt == lastdateinpresentmont.monthInt && futureDate <= dateStop {
+                        if futureDate.monthInt == lastdateinpresentmont.monthInt, futureDate <= dateStop {
                             appendfutureschedule(profile: profile, dateRun: futureDateString)
                         }
                     } else {
@@ -80,9 +79,8 @@ final class ObservableFutureSchedules {
                             appendfutureschedule(profile: profile, dateRun: futureDateString)
                         }
                     }
-                   
+
                 } else {
-                    
                     Logger.process.warning("ObservableFutureSchedules: Failed to calculate future dates")
                 }
             }
