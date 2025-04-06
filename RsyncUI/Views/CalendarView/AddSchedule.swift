@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 25/03/2025.
 //
 
+import OSLog
 import SwiftUI
 
 struct AddSchedule: View {
@@ -32,24 +33,41 @@ struct AddSchedule: View {
                     .frame(width: 130)
 
                 Button {
-                    let item = SchedulesConfigurations(profile: selectedprofile,
-                                                       dateAdded: dateAdded,
-                                                       dateRun: dateRun,
-                                                       dateStop: dateStop,
-                                                       schedule: schedule)
+                    do {
+                        try scheduledata.validatedate(date: dateRun)
+                        try scheduledata.validatedate(date: dateStop)
 
-                    scheduledata.scheduledata.append(item)
+                        let item = SchedulesConfigurations(profile: selectedprofile,
+                                                           dateAdded: dateAdded,
+                                                           dateRun: dateRun,
+                                                           dateStop: dateStop,
+                                                           schedule: schedule)
 
-                    // If more than one schedule, sort by dateRun
-                    if scheduledata.scheduledata.count > 1 {
-                        scheduledata.scheduledata.sort { $0.dateRun?.en_us_date_from_string() ?? Date() < $1.dateRun?.en_us_date_from_string() ?? Date() }
-                    }
+                        scheduledata.scheduledata.append(item)
 
-                    futuredates.scheduledata = scheduledata.scheduledata
-                    futuredates.recomputeschedules()
+                        // If more than one schedule, sort by dateRun
+                        if scheduledata.scheduledata.count > 1 {
+                            scheduledata.scheduledata.sort { item1, item2 in
+                                if let date1 = item1.dateRun?.validate_en_us_date_from_string(),
+                                   let date2 = item2.dateRun?.validate_en_us_date_from_string() {
+                                    return date1 < date2
+                                }
+                                return false
+                            }
+                        }
 
-                    Task {
-                        await ActorWriteSchedule(scheduledata.scheduledata)
+                        futuredates.scheduledata = scheduledata.scheduledata
+                        futuredates.recomputeschedules()
+
+                        Task {
+                            await ActorWriteSchedule(scheduledata.scheduledata)
+                        }
+
+                    } catch let e {
+                        Logger.process.info("AddSchedule: some ERROR adding schedule")
+
+                        let error = e
+                        SharedReference.shared.errorobject?.alert(error: error)
                     }
 
                 } label: {
@@ -62,8 +80,7 @@ struct AddSchedule: View {
 
     var pickerselecttypeoftask: some View {
         Picker(NSLocalizedString("", comment: ""),
-               selection: $schedule)
-        {
+               selection: $schedule) {
             ForEach(ScheduleType.allCases) { Text($0.description)
                 .tag($0)
             }

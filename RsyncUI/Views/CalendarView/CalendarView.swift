@@ -25,6 +25,7 @@ struct CalendarView: View {
 
     @State private var dateAdded: String = Date.now.en_us_string_from_date()
     @State private var dateRun: String = Date.now.en_us_string_from_date()
+
     @State private var dateStop: String = Date.now.en_us_string_from_date()
 
     @State private var confirmdelete: Bool = false

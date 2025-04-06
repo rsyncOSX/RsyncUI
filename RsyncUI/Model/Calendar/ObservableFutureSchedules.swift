@@ -105,12 +105,12 @@ final class ObservableFutureSchedules {
 
         if let scheduledata {
             for i in 0 ..< scheduledata.count {
-                let profile = scheduledata[i].profile ?? ""
-                let schedule = scheduledata[i].schedule ?? ScheduleType.stopped.rawValue
-                let dateRun = scheduledata[i].dateRun?.en_us_date_from_string() ?? Date()
-                let dateStop = scheduledata[i].dateStop?.en_us_date_from_string() ?? Date()
-
-                computefuturedates(profile: profile, schedule: schedule, dateRun: dateRun, dateStop: dateStop)
+                if let profile = scheduledata[i].profile,
+                   let schedule = scheduledata[i].schedule,
+                   let dateRun = scheduledata[i].dateRun?.validate_en_us_date_from_string(),
+                   let dateStop = scheduledata[i].dateStop?.validate_en_us_date_from_string() {
+                    computefuturedates(profile: profile, schedule: schedule, dateRun: dateRun, dateStop: dateStop)
+                }
             }
         }
     }
