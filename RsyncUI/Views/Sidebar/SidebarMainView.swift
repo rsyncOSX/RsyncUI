@@ -76,7 +76,7 @@ struct SidebarMainView: View {
                     item.menuitem == .log_listings ||
                     item.menuitem == .restore ||
                     item.menuitem == .verify_remote
-                
+
                 { Divider() }
             }
             .listStyle(.sidebar)

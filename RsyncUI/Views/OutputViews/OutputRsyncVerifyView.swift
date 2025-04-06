@@ -74,4 +74,3 @@ struct OutputRsyncVerifyView: View {
         InterruptProcess()
     }
 }
-
