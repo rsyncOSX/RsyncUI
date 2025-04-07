@@ -106,7 +106,7 @@ extension String {
         dateformatter.dateFormat = "dd MMM yyyy HH:mm"
         return dateformatter.date(from: self) ?? Date()
     }
-    
+
     func validate_en_us_date_from_string() -> Date? {
         let dateformatter = DateFormatter()
         dateformatter.locale = Locale(identifier: "en_US")

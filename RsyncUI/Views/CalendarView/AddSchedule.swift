@@ -23,31 +23,28 @@ struct AddSchedule: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                VStack (alignment: .leading) {
+                VStack(alignment: .leading) {
                     profiles
 
                     pickerselecttypeoftask
                 }
-                
 
-                VStack (alignment: .trailing) {
+                VStack(alignment: .trailing) {
                     HStack {
-                        
                         Text("Date run: ")
-                        
+
                         TextField("Date run", text: $dateRun)
                             .frame(width: 130)
                     }
-                    
+
                     HStack {
                         Text("Date stop: ")
-                        
+
                         TextField("Date stop", text: $dateStop)
                             .frame(width: 130)
                     }
-                    
                 }
-                
+
                 Spacer()
 
                 Button {
@@ -67,7 +64,8 @@ struct AddSchedule: View {
                         if scheduledata.scheduledata.count > 1 {
                             scheduledata.scheduledata.sort { item1, item2 in
                                 if let date1 = item1.dateRun?.validate_en_us_date_from_string(),
-                                   let date2 = item2.dateRun?.validate_en_us_date_from_string() {
+                                   let date2 = item2.dateRun?.validate_en_us_date_from_string()
+                                {
                                     return date1 < date2
                                 }
                                 return false
@@ -99,7 +97,8 @@ struct AddSchedule: View {
 
     var pickerselecttypeoftask: some View {
         Picker(NSLocalizedString("", comment: ""),
-               selection: $schedule) {
+               selection: $schedule)
+        {
             ForEach(ScheduleType.allCases) { Text($0.description)
                 .tag($0)
             }

@@ -25,7 +25,8 @@ actor ActorReadSchedule {
         do {
             if let data = try
                 await decodeimport.decodearraydatafileURL(DecodeSchedules.self,
-                                                          fromwhere: filename) {
+                                                          fromwhere: filename)
+            {
                 // Dont need to sort when reading, the schedules are sorted by runDate when
                 // new schedules are added and saved
 

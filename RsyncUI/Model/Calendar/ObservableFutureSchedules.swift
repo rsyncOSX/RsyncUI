@@ -108,7 +108,8 @@ final class ObservableFutureSchedules {
                 if let profile = scheduledata[i].profile,
                    let schedule = scheduledata[i].schedule,
                    let dateRun = scheduledata[i].dateRun?.validate_en_us_date_from_string(),
-                   let dateStop = scheduledata[i].dateStop?.validate_en_us_date_from_string() {
+                   let dateStop = scheduledata[i].dateStop?.validate_en_us_date_from_string()
+                {
                     computefuturedates(profile: profile, schedule: schedule, dateRun: dateRun, dateStop: dateStop)
                 }
             }
