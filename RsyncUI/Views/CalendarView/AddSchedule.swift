@@ -23,14 +23,32 @@ struct AddSchedule: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                profiles
+                VStack (alignment: .leading) {
+                    profiles
 
-                pickerselecttypeoftask
+                    pickerselecttypeoftask
+                }
+                
 
-                TextField("Date Run", text: $dateRun)
-                    .frame(width: 130)
-                TextField("Date Stop", text: $dateStop)
-                    .frame(width: 130)
+                VStack (alignment: .trailing) {
+                    HStack {
+                        
+                        Text("Date run: ")
+                        
+                        TextField("Date run", text: $dateRun)
+                            .frame(width: 130)
+                    }
+                    
+                    HStack {
+                        Text("Date stop: ")
+                        
+                        TextField("Date stop", text: $dateStop)
+                            .frame(width: 130)
+                    }
+                    
+                }
+                
+                Spacer()
 
                 Button {
                     do {
@@ -73,6 +91,7 @@ struct AddSchedule: View {
                 } label: {
                     Label("", systemImage: "plus")
                 }
+                .buttonStyle(ColorfulButtonStyle())
             }
         }
         .padding([.bottom, .top], 7)
@@ -86,7 +105,7 @@ struct AddSchedule: View {
             }
         }
         .pickerStyle(DefaultPickerStyle())
-        .frame(width: 100)
+        .frame(width: 150)
     }
 
     var profiles: some View {
