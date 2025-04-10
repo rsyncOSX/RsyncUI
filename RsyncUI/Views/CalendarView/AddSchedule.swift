@@ -35,6 +35,10 @@ struct AddSchedule: View {
 
                         TextField("Date run", text: $dateRun)
                             .frame(width: 130)
+
+                        Button("Reset") {
+                            dateRun = Date.now.en_us_string_from_date()
+                        }
                     }
 
                     HStack {
@@ -42,6 +46,13 @@ struct AddSchedule: View {
 
                         TextField("Date stop", text: $dateStop)
                             .frame(width: 130)
+
+                        Button("Reset") {
+                            var dateComponents = DateComponents()
+                            dateComponents.month = 3
+                            let futuredateStop = Calendar.current.date(byAdding: dateComponents, to: Date.now)
+                            dateStop = futuredateStop?.en_us_string_from_date() ?? Date().en_us_string_from_date()
+                        }
                     }
                 }
 
@@ -64,8 +75,7 @@ struct AddSchedule: View {
                         if scheduledata.scheduledata.count > 1 {
                             scheduledata.scheduledata.sort { item1, item2 in
                                 if let date1 = item1.dateRun?.validate_en_us_date_from_string(),
-                                   let date2 = item2.dateRun?.validate_en_us_date_from_string()
-                                {
+                                   let date2 = item2.dateRun?.validate_en_us_date_from_string() {
                                     return date1 < date2
                                 }
                                 return false
@@ -87,7 +97,7 @@ struct AddSchedule: View {
                     }
 
                 } label: {
-                    Label("", systemImage: "plus")
+                    Label("Add", systemImage: "plus")
                 }
                 .buttonStyle(ColorfulButtonStyle())
             }
@@ -97,8 +107,7 @@ struct AddSchedule: View {
 
     var pickerselecttypeoftask: some View {
         Picker(NSLocalizedString("", comment: ""),
-               selection: $schedule)
-        {
+               selection: $schedule) {
             ForEach(ScheduleType.allCases) { Text($0.description)
                 .tag($0)
             }

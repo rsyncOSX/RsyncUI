@@ -30,8 +30,11 @@ struct CalendarView: View {
 
     @State private var confirmdelete: Bool = false
 
+    @State private var istapped: Int = 0
+
     let defaultcolor: Color = .blue
     let schedulecolor: Color = .yellow
+    let istappedecolor: Color = .green
 
     var body: some View {
         HStack {
@@ -68,15 +71,31 @@ struct CalendarView: View {
                                     .background(
                                         Circle()
                                             .foregroundStyle(
-                                                schedulecolor.opacity(0.3)
+                                                istapped == day.dayInt ? istappedecolor.opacity(0.3) : schedulecolor.opacity(0.3)
                                             )
                                     )
-                                    .contextMenu {
-                                        Button("Select \(day.formatted(.dateTime.day()))") {
-                                            date = day
-                                            dateRun = day.en_us_string_from_date()
-                                            dateAdded = Date.now.en_us_string_from_date()
-                                        }
+                                    .onTapGesture {
+                                        date = day
+                                        dateRun = day.en_us_string_from_date()
+                                        dateAdded = Date.now.en_us_string_from_date()
+                                        istapped = day.dayInt
+                                    }
+                            } else if istappednoschedule(day) {
+                                Text(day.formatted(.dateTime.day()))
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(.secondary)
+                                    .frame(maxWidth: .infinity, minHeight: 40)
+                                    .background(
+                                        Circle()
+                                            .foregroundStyle(
+                                                istappedecolor.opacity(0.3)
+                                            )
+                                    )
+                                    .onTapGesture {
+                                        date = day
+                                        dateRun = day.en_us_string_from_date()
+                                        dateAdded = Date.now.en_us_string_from_date()
+                                        istapped = day.dayInt
                                     }
                             } else {
                                 Text(day.formatted(.dateTime.day()))
@@ -91,12 +110,11 @@ struct CalendarView: View {
                                                     : defaultcolor.opacity(0.3)
                                             )
                                     )
-                                    .contextMenu {
-                                        Button("Select \(day.formatted(.dateTime.day()))") {
-                                            date = day
-                                            dateRun = day.en_us_string_from_date()
-                                            dateAdded = Date.now.en_us_string_from_date()
-                                        }
+                                    .onTapGesture {
+                                        date = day
+                                        dateRun = day.en_us_string_from_date()
+                                        dateAdded = Date.now.en_us_string_from_date()
+                                        istapped = day.dayInt
                                     }
                             }
                         }
@@ -203,5 +221,9 @@ struct CalendarView: View {
             schedule.dateRun?.en_us_date_from_string().startOfDay == date ? true : nil
         }
         return verifyaschedule.count > 0
+    }
+
+    func istappednoschedule(_ date: Date) -> Bool {
+        date.dayInt == istapped
     }
 }
