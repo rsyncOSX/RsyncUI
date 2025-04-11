@@ -1,5 +1,5 @@
 //
-//  CalendarView.swift
+//  CalendarMonthView.swift
 //  Calendar
 //
 //  Created by Thomas Evensen on 25/03/2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CalendarView: View {
+struct CalendarMonthView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var scheduledata: ObservableScheduleData
     @Bindable var futuredates: ObservableFutureSchedules
@@ -18,23 +18,16 @@ struct CalendarView: View {
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
 
     @State private var days: [Date] = []
-
     // @State private var validprofiles: [ProfilesnamesRecord] = []
     @State private var selectedprofile: String = SharedConstants().defaultprofile
     @State private var selecteduuids: Set<SchedulesConfigurations.ID> = []
-
     @State private var dateAdded: String = Date.now.en_us_string_from_date()
     @State private var dateRun: String = Date.now.en_us_string_from_date()
-
     @State private var dateStop: String = Date.now.en_us_string_from_date()
-
     @State private var confirmdelete: Bool = false
-
     @State private var istappeddayint: Int = 0
-
+    
     let defaultcolor: Color = .blue
-    let schedulecolor: Color = .yellow
-    let istappedecolor: Color = .green
 
     var body: some View {
         HStack {
@@ -64,61 +57,24 @@ struct CalendarView: View {
                             Text("")
                         } else {
                             if thereisaschedule(day), day >= Date() {
-                                Text(day.formatted(.dateTime.day()))
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(.secondary)
-                                    .frame(maxWidth: .infinity, minHeight: 40)
-                                    .background(
-                                        Circle()
-                                            .foregroundStyle(
-                                                istappeddayint == day.dayInt ? istappedecolor.opacity(0.3) : schedulecolor.opacity(0.3)
-                                            )
-                                    )
-                                    .onTapGesture {
-                                        if let date = settappeddate(day) {
-                                            dateRun = date.en_us_string_from_date()
-                                            dateAdded = Date.now.en_us_string_from_date()
-                                            istappeddayint = day.dayInt
-                                        }
-                                    }
+                                CalendarDayView(dateRun: $dateRun,
+                                                dateAdded: $dateAdded,
+                                                istappeddayint: $istappeddayint,
+                                                day: day,
+                                                style: .thereisaschedule)
+                                
                             } else if istappednoschedule(day) {
-                                Text(day.formatted(.dateTime.day()))
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(.secondary)
-                                    .frame(maxWidth: .infinity, minHeight: 40)
-                                    .background(
-                                        Circle()
-                                            .foregroundStyle(
-                                                istappedecolor.opacity(0.3)
-                                            )
-                                    )
-                                    .onTapGesture {
-                                        if let date = settappeddate(day) {
-                                            dateRun = date.en_us_string_from_date()
-                                            dateAdded = Date.now.en_us_string_from_date()
-                                            istappeddayint = day.dayInt
-                                        }
-                                    }
+                                CalendarDayView(dateRun: $dateRun,
+                                                dateAdded: $dateAdded,
+                                                istappeddayint: $istappeddayint,
+                                                day: day,
+                                                style: .istappednoschedule)
                             } else {
-                                Text(day.formatted(.dateTime.day()))
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(.secondary)
-                                    .frame(maxWidth: .infinity, minHeight: 40)
-                                    .background(
-                                        Circle()
-                                            .foregroundStyle(
-                                                Date.now.startOfDay == day.startOfDay
-                                                    ? .red.opacity(0.3)
-                                                    : defaultcolor.opacity(0.3)
-                                            )
-                                    )
-                                    .onTapGesture {
-                                        if let date = settappeddate(day) {
-                                            dateRun = date.en_us_string_from_date()
-                                            dateAdded = Date.now.en_us_string_from_date()
-                                            istappeddayint = day.dayInt
-                                        }
-                                    }
+                                CalendarDayView(dateRun: $dateRun,
+                                                dateAdded: $dateAdded,
+                                                istappeddayint: $istappeddayint,
+                                                day: day,
+                                                style: .normalday)
                             }
                         }
                     }
@@ -228,21 +184,7 @@ struct CalendarView: View {
     func istappednoschedule(_ date: Date) -> Bool {
         date.dayInt == istappeddayint
     }
-    
-    func settappeddate(_ date: Date) -> Date? {
-        if date >= Date.now {
-            var datecomponents = DateComponents()
-            datecomponents.hour = 8
-            datecomponents.day = date.dayInt
-            datecomponents.year = date.yearInt
-            datecomponents.month = date.monthInt
-            let calendar = Calendar.current
-            return calendar.date(from: datecomponents)
-        } else {
-            return nil
-        }
-    }
-    
+
     func setstopdate(_ date: Date) -> Date {
         var datecomponents = DateComponents()
         datecomponents.hour = 8

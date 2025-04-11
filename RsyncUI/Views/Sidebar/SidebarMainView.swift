@@ -204,7 +204,7 @@ struct SidebarMainView: View {
             }
         case .calendar:
             NavigationStack {
-                CalendarView(rsyncUIdata: rsyncUIdata,
+                CalendarMonthView(rsyncUIdata: rsyncUIdata,
                              scheduledata: scheduledata,
                              futuredates: futuredates)
             }
