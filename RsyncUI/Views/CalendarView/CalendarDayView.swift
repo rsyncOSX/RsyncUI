@@ -91,16 +91,12 @@ struct CalendarDayView: View {
     }
 
     func settappeddate(_ date: Date) -> Date? {
-        if date >= Date.now {
-            var datecomponents = DateComponents()
-            datecomponents.hour = 8
-            datecomponents.day = date.dayInt
-            datecomponents.year = date.yearInt
-            datecomponents.month = date.monthInt
-            let calendar = Calendar.current
-            return calendar.date(from: datecomponents)
-        } else {
-            return nil
-        }
+        var datecomponents = DateComponents()
+        datecomponents.hour = 8
+        datecomponents.day = date.dayInt
+        datecomponents.year = date.yearInt
+        datecomponents.month = date.monthInt
+        let calendar = Calendar.current
+        return calendar.date(from: datecomponents)
     }
 }
