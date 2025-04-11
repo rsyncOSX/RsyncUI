@@ -30,7 +30,7 @@ struct CalendarView: View {
 
     @State private var confirmdelete: Bool = false
 
-    @State private var istapped: Int = 0
+    @State private var istappeddayint: Int = 0
 
     let defaultcolor: Color = .blue
     let schedulecolor: Color = .yellow
@@ -71,14 +71,15 @@ struct CalendarView: View {
                                     .background(
                                         Circle()
                                             .foregroundStyle(
-                                                istapped == day.dayInt ? istappedecolor.opacity(0.3) : schedulecolor.opacity(0.3)
+                                                istappeddayint == day.dayInt ? istappedecolor.opacity(0.3) : schedulecolor.opacity(0.3)
                                             )
                                     )
                                     .onTapGesture {
-                                        date = day
-                                        dateRun = day.en_us_string_from_date()
-                                        dateAdded = Date.now.en_us_string_from_date()
-                                        istapped = day.dayInt
+                                        if let date = settappeddate(day) {
+                                            dateRun = date.en_us_string_from_date()
+                                            dateAdded = Date.now.en_us_string_from_date()
+                                            istappeddayint = day.dayInt
+                                        }
                                     }
                             } else if istappednoschedule(day) {
                                 Text(day.formatted(.dateTime.day()))
@@ -92,10 +93,11 @@ struct CalendarView: View {
                                             )
                                     )
                                     .onTapGesture {
-                                        date = day
-                                        dateRun = day.en_us_string_from_date()
-                                        dateAdded = Date.now.en_us_string_from_date()
-                                        istapped = day.dayInt
+                                        if let date = settappeddate(day) {
+                                            dateRun = date.en_us_string_from_date()
+                                            dateAdded = Date.now.en_us_string_from_date()
+                                            istappeddayint = day.dayInt
+                                        }
                                     }
                             } else {
                                 Text(day.formatted(.dateTime.day()))
@@ -111,10 +113,11 @@ struct CalendarView: View {
                                             )
                                     )
                                     .onTapGesture {
-                                        date = day
-                                        dateRun = day.en_us_string_from_date()
-                                        dateAdded = Date.now.en_us_string_from_date()
-                                        istapped = day.dayInt
+                                        if let date = settappeddate(day) {
+                                            dateRun = date.en_us_string_from_date()
+                                            dateAdded = Date.now.en_us_string_from_date()
+                                            istappeddayint = day.dayInt
+                                        }
                                     }
                             }
                         }
@@ -131,7 +134,8 @@ struct CalendarView: View {
                             selectedprofile: $selectedprofile,
                             dateAdded: $dateAdded,
                             dateRun: $dateRun,
-                            dateStop: $dateStop)
+                            dateStop: $dateStop,
+                            istappeddayint: $istappeddayint)
 
                 TableofSchedules(selecteduuids: $selecteduuids,
                                  schedules: scheduledata.scheduledata)
@@ -159,16 +163,11 @@ struct CalendarView: View {
         .padding()
         .onAppear {
             days = date.calendarDisplayDays
-            // Set dateSTop to default three months ahead
-            var dateComponents = DateComponents()
-            dateComponents.month = 3
-            let futuredateStop = Calendar.current.date(byAdding: dateComponents, to: Date.now)
-            dateStop = futuredateStop?.en_us_string_from_date() ?? Date().en_us_string_from_date()
-
+            // Set dateSTop to default three months ahead at 08:00
+            dateStop = setstopdate(Date.now).en_us_string_from_date()
             if let last = days.last {
                 futuredates.lastdateinpresentmont = last.startOfDay
             }
-
             date = Date.now
             futuredates.lastdateinpresentmont = Date.now.endOfMonth
             futuredates.recomputeschedules()
@@ -182,6 +181,7 @@ struct CalendarView: View {
                     date = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date.now
                     futuredates.lastdateinpresentmont = date.endOfMonth
                     futuredates.recomputeschedules()
+                    istappeddayint = 0
 
                 } label: {
                     Image(systemName: "arrow.left")
@@ -195,6 +195,7 @@ struct CalendarView: View {
                     date = Date.now
                     futuredates.lastdateinpresentmont = Date.now.endOfMonth
                     futuredates.recomputeschedules()
+                    istappeddayint = 0
                 } label: {
                     Image(systemName: "clock")
                         .foregroundColor(.blue)
@@ -207,6 +208,7 @@ struct CalendarView: View {
                     date = Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date.now
                     futuredates.lastdateinpresentmont = date.endOfMonth
                     futuredates.recomputeschedules()
+                    istappeddayint = 0
                 } label: {
                     Image(systemName: "arrow.right")
                         .foregroundColor(.blue)
@@ -224,6 +226,30 @@ struct CalendarView: View {
     }
 
     func istappednoschedule(_ date: Date) -> Bool {
-        date.dayInt == istapped
+        date.dayInt == istappeddayint
+    }
+    
+    func settappeddate(_ date: Date) -> Date? {
+        if date >= Date.now {
+            var datecomponents = DateComponents()
+            datecomponents.hour = 8
+            datecomponents.day = date.dayInt
+            datecomponents.year = date.yearInt
+            datecomponents.month = date.monthInt
+            let calendar = Calendar.current
+            return calendar.date(from: datecomponents)
+        } else {
+            return nil
+        }
+    }
+    
+    func setstopdate(_ date: Date) -> Date {
+        var datecomponents = DateComponents()
+        datecomponents.hour = 8
+        datecomponents.day = date.dayInt
+        datecomponents.year = date.yearInt
+        datecomponents.month = date.monthInt + 3
+        let calendar = Calendar.current
+        return calendar.date(from: datecomponents) ?? Date()
     }
 }

@@ -17,6 +17,7 @@ struct AddSchedule: View {
     @Binding var dateAdded: String
     @Binding var dateRun: String
     @Binding var dateStop: String
+    @Binding var istappeddayint: Int
 
     @State private var schedule: String = ScheduleType.once.rawValue
 
@@ -38,6 +39,7 @@ struct AddSchedule: View {
 
                         Button("Reset") {
                             dateRun = Date.now.en_us_string_from_date()
+                            istappeddayint = 0
                         }
                     }
 
