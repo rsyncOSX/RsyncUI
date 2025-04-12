@@ -116,7 +116,6 @@ struct CalendarMonthView: View {
                     }
             }
         }
-        .padding()
         .onAppear {
             days = date.calendarDisplayDays
             // Set dateSTop to default three months ahead at 08:00
@@ -131,6 +130,7 @@ struct CalendarMonthView: View {
         .onChange(of: date) {
             days = date.calendarDisplayDays
         }
+        .padding()
         .toolbar {
             ToolbarItem {
                 Button {

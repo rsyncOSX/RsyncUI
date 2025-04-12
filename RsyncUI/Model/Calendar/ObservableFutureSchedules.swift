@@ -31,8 +31,6 @@ final class ObservableFutureSchedules {
                 }
             }
             return
-        case ScheduleType.stopped.rawValue:
-            return
         default:
             return
         }

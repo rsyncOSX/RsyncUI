@@ -16,7 +16,6 @@ enum ScheduleType: String, CaseIterable, Identifiable, CustomStringConvertible {
     case once
     case daily
     case weekly
-    case stopped
 
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized }

@@ -21,7 +21,7 @@ struct TableofSchedules: View {
             TableColumn("Schedule") { data in
                 Text(data.schedule ?? "")
             }
-            .width(min: 50, max: 200)
+            .width(min: 50, max: 70)
 
             TableColumn("Date run") { data in
                 Text(data.dateRun ?? "")

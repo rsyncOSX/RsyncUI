@@ -76,7 +76,7 @@ struct CalendarDayView: View {
                     Circle()
                         .foregroundStyle(
                             Date.now.startOfDay == day.startOfDay
-                                ? .red.opacity(0.3)
+                                ? todaycolor.opacity(0.3)
                                 : defaultcolor.opacity(0.3)
                         )
                 )

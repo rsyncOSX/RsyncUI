@@ -32,10 +32,39 @@ struct AddSchedule: View {
 
                 VStack(alignment: .trailing) {
                     HStack {
-                        Text("Date run: ")
+                        Text("Run: ")
 
-                        TextField("Date run", text: $dateRun)
+                        TextField("Run", text: $dateRun)
                             .frame(width: 130)
+                        
+                        Button {
+                            let date = dateRun.en_us_date_from_string()
+                            var datecomponents = DateComponents()
+                            datecomponents.hour = date.hourInt + 1
+                            datecomponents.day = date.dayInt
+                            datecomponents.year = date.yearInt
+                            datecomponents.month = date.monthInt
+                            let calendar = Calendar.current
+                            dateRun = calendar.date(from: datecomponents)?.en_us_string_from_date() ?? ""
+                            
+                        } label: {
+                            Image(systemName: "plus")
+                                .foregroundColor(.blue)
+                        }
+                        
+                        Button {
+                            let date = dateRun.en_us_date_from_string()
+                            var datecomponents = DateComponents()
+                            datecomponents.hour = date.hourInt - 1
+                            datecomponents.day = date.dayInt
+                            datecomponents.year = date.yearInt
+                            datecomponents.month = date.monthInt
+                            let calendar = Calendar.current
+                            dateRun = calendar.date(from: datecomponents)?.en_us_string_from_date() ?? ""
+                        } label: {
+                            Image(systemName: "minus")
+                                .foregroundColor(.blue)
+                        }
 
                         Button("Reset") {
                             dateRun = Date.now.en_us_string_from_date()
@@ -44,11 +73,11 @@ struct AddSchedule: View {
                     }
 
                     HStack {
-                        Text("Date stop: ")
+                        Text("Stop: ")
 
-                        TextField("Date stop", text: $dateStop)
+                        TextField("Stop", text: $dateStop)
                             .frame(width: 130)
-
+                        
                         Button("Reset") {
                             var dateComponents = DateComponents()
                             dateComponents.month = 3
