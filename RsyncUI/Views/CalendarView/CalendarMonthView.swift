@@ -50,6 +50,7 @@ struct CalendarMonthView: View {
                             .frame(maxWidth: .infinity)
                     }
                 }
+                .frame(width: 400)
 
                 LazyVGrid(columns: columns) {
                     ForEach(days, id: \.self) { day in
@@ -79,6 +80,7 @@ struct CalendarMonthView: View {
                         }
                     }
                 }
+                .frame(width: 400)
 
                 Spacer()
             }

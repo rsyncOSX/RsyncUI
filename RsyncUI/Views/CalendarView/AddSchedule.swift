@@ -142,7 +142,7 @@ struct AddSchedule: View {
             }
         }
         .pickerStyle(DefaultPickerStyle())
-        .frame(width: 150)
+        .frame(width: 100)
     }
 
     var profiles: some View {
@@ -153,6 +153,6 @@ struct AddSchedule: View {
             }
         }
         .pickerStyle(DefaultPickerStyle())
-        .frame(width: 150)
+        .frame(width: 100)
     }
 }
