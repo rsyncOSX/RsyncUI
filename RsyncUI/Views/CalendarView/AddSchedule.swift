@@ -30,9 +30,9 @@ struct AddSchedule: View {
                     pickerselecttypeoftask
                 }
 
-                VStack(alignment: .trailing) {
+                VStack(alignment: .leading) {
                     HStack {
-                        Text("Run: ")
+                        Text("Run:  ")
 
                         TextField("Run", text: $dateRun)
                             .frame(width: 130)
@@ -51,6 +51,7 @@ struct AddSchedule: View {
                             Image(systemName: "plus")
                                 .foregroundColor(.blue)
                         }
+                        .buttonBorderShape(.circle)
                         
                         Button {
                             let date = dateRun.en_us_date_from_string()
@@ -65,10 +66,53 @@ struct AddSchedule: View {
                             Image(systemName: "minus")
                                 .foregroundColor(.blue)
                         }
+                        .buttonBorderShape(.circle)
 
                         Button("Reset") {
                             dateRun = Date.now.en_us_string_from_date()
                             istappeddayint = 0
+                        }
+                        
+                        Button {
+                            do {
+                                try scheduledata.validatedate(date: dateRun)
+                                try scheduledata.validatedate(date: dateStop)
+
+                                let item = SchedulesConfigurations(profile: selectedprofile,
+                                                                   dateAdded: dateAdded,
+                                                                   dateRun: dateRun,
+                                                                   dateStop: dateStop,
+                                                                   schedule: schedule)
+
+                                scheduledata.scheduledata.append(item)
+
+                                // If more than one schedule, sort by dateRun
+                                if scheduledata.scheduledata.count > 1 {
+                                    scheduledata.scheduledata.sort { item1, item2 in
+                                        if let date1 = item1.dateRun?.validate_en_us_date_from_string(),
+                                           let date2 = item2.dateRun?.validate_en_us_date_from_string() {
+                                            return date1 < date2
+                                        }
+                                        return false
+                                    }
+                                }
+
+                                futuredates.scheduledata = scheduledata.scheduledata
+                                futuredates.recomputeschedules()
+
+                                Task {
+                                    await ActorWriteSchedule(scheduledata.scheduledata)
+                                }
+
+                            } catch let e {
+                                Logger.process.info("AddSchedule: some ERROR adding schedule")
+
+                                let error = e
+                                SharedReference.shared.errorobject?.alert(error: error)
+                            }
+
+                        } label: {
+                            Label("Add", systemImage: "plus")
                         }
                     }
 
@@ -86,54 +130,8 @@ struct AddSchedule: View {
                         }
                     }
                 }
-
-                Spacer()
-
-                Button {
-                    do {
-                        try scheduledata.validatedate(date: dateRun)
-                        try scheduledata.validatedate(date: dateStop)
-
-                        let item = SchedulesConfigurations(profile: selectedprofile,
-                                                           dateAdded: dateAdded,
-                                                           dateRun: dateRun,
-                                                           dateStop: dateStop,
-                                                           schedule: schedule)
-
-                        scheduledata.scheduledata.append(item)
-
-                        // If more than one schedule, sort by dateRun
-                        if scheduledata.scheduledata.count > 1 {
-                            scheduledata.scheduledata.sort { item1, item2 in
-                                if let date1 = item1.dateRun?.validate_en_us_date_from_string(),
-                                   let date2 = item2.dateRun?.validate_en_us_date_from_string() {
-                                    return date1 < date2
-                                }
-                                return false
-                            }
-                        }
-
-                        futuredates.scheduledata = scheduledata.scheduledata
-                        futuredates.recomputeschedules()
-
-                        Task {
-                            await ActorWriteSchedule(scheduledata.scheduledata)
-                        }
-
-                    } catch let e {
-                        Logger.process.info("AddSchedule: some ERROR adding schedule")
-
-                        let error = e
-                        SharedReference.shared.errorobject?.alert(error: error)
-                    }
-
-                } label: {
-                    Label("Add", systemImage: "plus")
-                }
-                .buttonStyle(ColorfulButtonStyle())
             }
         }
-        .padding([.bottom, .top], 7)
     }
 
     var pickerselecttypeoftask: some View {
