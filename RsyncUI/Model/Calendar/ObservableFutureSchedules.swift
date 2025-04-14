@@ -38,6 +38,10 @@ final class ObservableFutureSchedules {
         }
         // This date is incrementet by schedule
         var computedDateRun: Date = dateRun
+        // Last date in month is NOT set when loading data at startup
+        if lastdateinpresentmont == nil {
+            lastdateinpresentmont = Date.now.endOfMonth
+        }
 
         if let lastdateinpresentmont {
             let timeInterval: TimeInterval = lastdateinpresentmont.timeIntervalSince(computedDateRun)

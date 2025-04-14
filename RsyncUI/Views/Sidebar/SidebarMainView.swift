@@ -21,6 +21,7 @@ struct MenuItem: Identifiable, Hashable {
 
 struct SidebarMainView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Bindable var scheduledata: ObservableScheduleData
     @Binding var selectedprofile: String?
     @Bindable var errorhandling: AlertError
 
@@ -49,7 +50,6 @@ struct SidebarMainView: View {
     // .detailOnly
     @State private var mountingvolumenow: Bool = false
     // Calendar
-    @State private var scheduledata = ObservableScheduleData()
     @State private var futuredates = ObservableFutureSchedules()
 
     var body: some View {
@@ -122,11 +122,13 @@ struct SidebarMainView: View {
                     // Observer for mounting volumes
                     observerdidMountNotification()
                 }
-                // Load calendardata
-                scheduledata.scheduledata = await ActorReadSchedule().readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) ?? []
+                // Compute schedules
                 futuredates.scheduledata = scheduledata.scheduledata
                 futuredates.recomputeschedules()
+                // Set first schedule to execute
+                futuredates.setfirsscheduledate()
             }
+            
         }
         .onOpenURL { incomingURL in
             // URL code
