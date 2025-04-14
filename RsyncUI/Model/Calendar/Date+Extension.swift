@@ -98,13 +98,4 @@ extension Date {
     var startOfDay: Date {
         Calendar.current.startOfDay(for: self)
     }
-
-    // Used to generate the mock data for previews
-    // Computed property courtesy of ChatGPT
-    var randomDateWithinLastThreeMonths: Date {
-        let threeMonthsAgo = Calendar.current.date(byAdding: .month, value: -3, to: self)!
-        let randomTimeInterval = TimeInterval.random(in: 0.0 ..< timeIntervalSince(threeMonthsAgo))
-        let randomDate = threeMonthsAgo.addingTimeInterval(randomTimeInterval)
-        return randomDate
-    }
 }

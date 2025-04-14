@@ -68,11 +68,18 @@ struct AddSchedule: View {
                         }
                         .buttonBorderShape(.circle)
 
-                        Button("Reset") {
+                        Button {
                             dateRun = Date.now.en_us_string_from_date()
                             istappeddayint = 0
+                        } label: {
+                            Image(systemName: "arrow.trianglehead.clockwise")
+                                .foregroundColor(.blue)
                         }
+                        .buttonBorderShape(.circle)
+                        .help("Reset to current date")
                         
+                        Spacer()
+                                                
                         Button {
                             do {
                                 try scheduledata.validatedate(date: dateRun)
@@ -122,12 +129,17 @@ struct AddSchedule: View {
                         TextField("Stop", text: $dateStop)
                             .frame(width: 130)
                         
-                        Button("Reset") {
+                        Button {
                             var dateComponents = DateComponents()
                             dateComponents.month = 3
                             let futuredateStop = Calendar.current.date(byAdding: dateComponents, to: Date.now)
                             dateStop = futuredateStop?.en_us_string_from_date() ?? Date().en_us_string_from_date()
+                        } label: {
+                            Image(systemName: "arrow.trianglehead.clockwise")
+                                .foregroundColor(.blue)
                         }
+                        .buttonBorderShape(.circle)
+                        .help("Reset to current date")
                     }
                 }
             }

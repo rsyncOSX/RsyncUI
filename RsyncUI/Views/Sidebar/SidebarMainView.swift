@@ -123,11 +123,9 @@ struct SidebarMainView: View {
                     observerdidMountNotification()
                 }
                 // Load calendardata
-                if let data = await ActorReadSchedule().readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) {
-                    scheduledata.scheduledata = data
-                    futuredates.scheduledata = scheduledata.scheduledata
-                    futuredates.recomputeschedules()
-                }
+                scheduledata.scheduledata = await ActorReadSchedule().readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) ?? []
+                futuredates.scheduledata = scheduledata.scheduledata
+                futuredates.recomputeschedules()
             }
         }
         .onOpenURL { incomingURL in

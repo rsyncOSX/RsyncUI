@@ -14,6 +14,8 @@ final class ObservableFutureSchedules {
     @ObservationIgnored var futureschedules = Set<SchedulesConfigurations>()
     @ObservationIgnored var lastdateinpresentmont: Date?
     @ObservationIgnored var scheduledata: [SchedulesConfigurations]?
+    
+    @ObservationIgnored var firstscheduledate: Date?
 
     private func computefuturedates(profile: String, schedule: String, dateRun: Date, dateStop: Date?) {
         var dateComponents = DateComponents()
@@ -88,6 +90,8 @@ final class ObservableFutureSchedules {
     }
 
     private func appendfutureschedule(profile: String, dateRun: String) {
+        // Only add futuredates, dateStop is taken care off in computefuturedates
+        guard dateRun.en_us_date_from_string() >= Date.now else { return }
         let schedule = SchedulesConfigurations(profile: profile,
                                                dateAdded: nil,
                                                dateRun: dateRun,
@@ -97,6 +101,7 @@ final class ObservableFutureSchedules {
     }
 
     func recomputeschedules() {
+        
         Logger.process.info("ObservableFutureSchedules: recomputeschedules()")
 
         futureschedules.removeAll()
@@ -109,6 +114,21 @@ final class ObservableFutureSchedules {
                    let dateStop = scheduledata[i].dateStop?.validate_en_us_date_from_string() {
                     computefuturedates(profile: profile, schedule: schedule, dateRun: dateRun, dateStop: dateStop)
                 }
+            }
+        }
+    }
+    
+    // Only set when loading data, when new schedules added or deleted
+    func setfirsscheduledate() {
+        let dates = Array(futureschedules).sorted { s1, s2 in
+            if let id1 = s1.dateRun?.en_us_date_from_string(), let id2 = s2.dateRun?.en_us_date_from_string() {
+                return id1 < id2
+            }
+            return false
+        }
+        if dates.count > 0 {
+            if let firstdate = dates.first?.dateRun?.en_us_date_from_string() {
+                firstscheduledate = firstdate
             }
         }
     }

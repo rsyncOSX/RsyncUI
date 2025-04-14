@@ -16,6 +16,7 @@ enum ForegroundStyle {
 
 struct CalendarDayView: View {
    
+    @Bindable var futuredates: ObservableFutureSchedules
     @Binding var dateRun: String
     @Binding var dateAdded: String
     @Binding var istappeddayint: Int
@@ -47,6 +48,16 @@ struct CalendarDayView: View {
                         dateRun = date.en_us_string_from_date()
                         dateAdded = Date.now.en_us_string_from_date()
                         istappeddayint = day.dayInt
+                    }
+                }
+                .contextMenu {
+                    ForEach(Array(futuredates.futureschedules), id: \.self) { schedule in
+                        if istoday(runDate: schedule.dateRun, day: day) {
+                            VStack {
+                                Text(schedule.profile ?? "")
+                                Text(schedule.dateRun ?? "")
+                            }
+                        }
                     }
                 }
         case .istappednoschedule:
@@ -87,6 +98,16 @@ struct CalendarDayView: View {
                         istappeddayint = day.dayInt
                     }
                 }
+                .contextMenu {
+                    ForEach(Array(futuredates.futureschedules), id: \.self) { schedule in
+                        if istoday(runDate: schedule.dateRun, day: day) {
+                            VStack {
+                                Text(schedule.profile ?? "")
+                                Text(schedule.dateRun ?? "")
+                            }
+                        }
+                    }
+                }
         }
     }
 
@@ -98,5 +119,28 @@ struct CalendarDayView: View {
         datecomponents.month = date.monthInt
         let calendar = Calendar.current
         return calendar.date(from: datecomponents)
+    }
+    
+    func istoday(runDate: String?, day: Date) -> Bool {
+        if let runDate  {
+            let run = runDate.en_us_date_from_string()
+            var rundatecomponents = DateComponents()
+            rundatecomponents.day = run.dayInt
+            rundatecomponents.year = run.yearInt
+            rundatecomponents.month = run.monthInt
+            
+            var daydatecomponents = DateComponents()
+            daydatecomponents.day = day.dayInt
+            daydatecomponents.year = day.yearInt
+            daydatecomponents.month = day.monthInt
+            
+            let calendar = Calendar.current
+            
+            if let calendarrun = calendar.date(from: rundatecomponents), let calendarday = calendar.date(from: daydatecomponents) {
+                return calendarrun == calendarday
+            }
+            return false
+        }
+        return false
     }
 }

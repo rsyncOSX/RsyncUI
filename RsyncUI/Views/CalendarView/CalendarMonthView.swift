@@ -41,7 +41,7 @@ struct CalendarMonthView: View {
                         .font(.title)
                         .padding()
                 }
-
+                
                 HStack {
                     ForEach(daysOfWeek.indices, id: \.self) { index in
                         Text(daysOfWeek[index])
@@ -58,20 +58,23 @@ struct CalendarMonthView: View {
                             Text("")
                         } else {
                             if thereisaschedule(day), day >= Date() {
-                                CalendarDayView(dateRun: $dateRun,
+                                CalendarDayView(futuredates: futuredates,
+                                                dateRun: $dateRun,
                                                 dateAdded: $dateAdded,
                                                 istappeddayint: $istappeddayint,
                                                 day: day,
                                                 style: .thereisaschedule)
                                 
                             } else if istappednoschedule(day) {
-                                CalendarDayView(dateRun: $dateRun,
+                                CalendarDayView(futuredates: futuredates,
+                                                dateRun: $dateRun,
                                                 dateAdded: $dateAdded,
                                                 istappeddayint: $istappeddayint,
                                                 day: day,
                                                 style: .istappednoschedule)
                             } else {
-                                CalendarDayView(dateRun: $dateRun,
+                                CalendarDayView(futuredates: futuredates,
+                                                dateRun: $dateRun,
                                                 dateAdded: $dateAdded,
                                                 istappeddayint: $istappeddayint,
                                                 day: day,
@@ -83,6 +86,10 @@ struct CalendarMonthView: View {
                 .frame(width: 400)
 
                 Spacer()
+                
+                if let first = futuredates.firstscheduledate {
+                    Text(first.en_us_string_from_date())
+                }
             }
 
             VStack(alignment: .leading) {
