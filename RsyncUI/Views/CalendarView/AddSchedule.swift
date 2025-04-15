@@ -32,7 +32,7 @@ struct AddSchedule: View {
 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text("Run:  ")
+                        Text("Run  ")
 
                         TextField("Run", text: $dateRun)
                             .frame(width: 130)
@@ -125,7 +125,7 @@ struct AddSchedule: View {
                     }
 
                     HStack {
-                        Text("Stop: ")
+                        Text("Stop ")
 
                         TextField("Stop", text: $dateStop)
                             .frame(width: 130)
