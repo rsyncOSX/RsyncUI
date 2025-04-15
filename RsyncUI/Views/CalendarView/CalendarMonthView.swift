@@ -103,7 +103,8 @@ struct CalendarMonthView: View {
                             dateAdded: $dateAdded,
                             dateRun: $dateRun,
                             dateStop: $dateStop,
-                            istappeddayint: $istappeddayint)
+                            istappeddayint: $istappeddayint,
+                            date: $date)
 
                 TableofSchedules(selecteduuids: $selecteduuids,
                                  schedules: scheduledata.scheduledata)
@@ -118,8 +119,13 @@ struct CalendarMonthView: View {
                             istappeddayint = 0
                             futuredates.lastdateinpresentmont = Date.now.endOfMonth
                             futuredates.scheduledata = scheduledata.scheduledata
-                            futuredates.recomputeschedules()
-                            futuredates.setfirsscheduledate()
+                            
+                            if scheduledata.scheduledata.isEmpty {
+                                futuredates.firstscheduledate = nil
+                            } else {
+                                futuredates.recomputeschedules()
+                                futuredates.setfirsscheduledate()
+                            }
                             
                             confirmdelete = false
 

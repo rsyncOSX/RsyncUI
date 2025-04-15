@@ -18,6 +18,7 @@ struct AddSchedule: View {
     @Binding var dateRun: String
     @Binding var dateStop: String
     @Binding var istappeddayint: Int
+    @Binding var date: Date
 
     @State private var schedule: String = ScheduleType.once.rawValue
 
@@ -105,6 +106,7 @@ struct AddSchedule: View {
                                     }
                                 }
 
+                                date = Date.now
                                 futuredates.scheduledata = scheduledata.scheduledata
                                 istappeddayint = 0
                                 futuredates.lastdateinpresentmont = Date.now.endOfMonth
