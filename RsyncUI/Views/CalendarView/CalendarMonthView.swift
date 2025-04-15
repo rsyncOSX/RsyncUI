@@ -26,7 +26,7 @@ struct CalendarMonthView: View {
     @State private var dateStop: String = Date.now.en_us_string_from_date()
     @State private var confirmdelete: Bool = false
     @State private var istappeddayint: Int = 0
-    
+
     let defaultcolor: Color = .blue
 
     var body: some View {
@@ -41,7 +41,7 @@ struct CalendarMonthView: View {
                         .font(.title)
                         .padding()
                 }
-                
+
                 HStack {
                     ForEach(daysOfWeek.indices, id: \.self) { index in
                         Text(daysOfWeek[index])
@@ -64,7 +64,7 @@ struct CalendarMonthView: View {
                                                 istappeddayint: $istappeddayint,
                                                 day: day,
                                                 style: .thereisaschedule)
-                                
+
                             } else if istappednoschedule(day) {
                                 CalendarDayView(futuredates: futuredates,
                                                 dateRun: $dateRun,
@@ -86,9 +86,12 @@ struct CalendarMonthView: View {
                 .frame(width: 400)
 
                 Spacer()
-                
+
                 if let first = futuredates.firstscheduledate {
-                    Text(first.en_us_string_from_date())
+                    HStack {
+                        Text(first.profile ?? "")
+                        Text(first.dateRun ?? "")
+                    }
                 }
             }
 

@@ -128,7 +128,6 @@ struct SidebarMainView: View {
                 // Set first schedule to execute
                 futuredates.setfirsscheduledate()
             }
-            
         }
         .onOpenURL { incomingURL in
             // URL code
@@ -205,8 +204,8 @@ struct SidebarMainView: View {
         case .calendar:
             NavigationStack {
                 CalendarMonthView(rsyncUIdata: rsyncUIdata,
-                             scheduledata: scheduledata,
-                             futuredates: futuredates)
+                                  scheduledata: scheduledata,
+                                  futuredates: futuredates)
             }
         }
     }

@@ -90,7 +90,7 @@ extension Date {
     var dayInt: Int {
         Calendar.current.component(.day, from: self)
     }
-    
+
     var hourInt: Int {
         Calendar.current.component(.hour, from: self)
     }

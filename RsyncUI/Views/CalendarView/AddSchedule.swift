@@ -36,7 +36,7 @@ struct AddSchedule: View {
 
                         TextField("Run", text: $dateRun)
                             .frame(width: 130)
-                        
+
                         Button {
                             let date = dateRun.en_us_date_from_string()
                             var datecomponents = DateComponents()
@@ -46,13 +46,13 @@ struct AddSchedule: View {
                             datecomponents.month = date.monthInt
                             let calendar = Calendar.current
                             dateRun = calendar.date(from: datecomponents)?.en_us_string_from_date() ?? ""
-                            
+
                         } label: {
                             Image(systemName: "plus")
                                 .foregroundColor(.blue)
                         }
                         .buttonBorderShape(.circle)
-                        
+
                         Button {
                             let date = dateRun.en_us_date_from_string()
                             var datecomponents = DateComponents()
@@ -77,9 +77,9 @@ struct AddSchedule: View {
                         }
                         .buttonBorderShape(.circle)
                         .help("Reset to current date")
-                        
+
                         Spacer()
-                                                
+
                         Button {
                             do {
                                 try scheduledata.validatedate(date: dateRun)
@@ -97,7 +97,8 @@ struct AddSchedule: View {
                                 if scheduledata.scheduledata.count > 1 {
                                     scheduledata.scheduledata.sort { item1, item2 in
                                         if let date1 = item1.dateRun?.validate_en_us_date_from_string(),
-                                           let date2 = item2.dateRun?.validate_en_us_date_from_string() {
+                                           let date2 = item2.dateRun?.validate_en_us_date_from_string()
+                                        {
                                             return date1 < date2
                                         }
                                         return false
@@ -128,7 +129,7 @@ struct AddSchedule: View {
 
                         TextField("Stop", text: $dateStop)
                             .frame(width: 130)
-                        
+
                         Button {
                             var dateComponents = DateComponents()
                             dateComponents.month = 3
@@ -148,7 +149,8 @@ struct AddSchedule: View {
 
     var pickerselecttypeoftask: some View {
         Picker(NSLocalizedString("", comment: ""),
-               selection: $schedule) {
+               selection: $schedule)
+        {
             ForEach(ScheduleType.allCases) { Text($0.description)
                 .tag($0)
             }
