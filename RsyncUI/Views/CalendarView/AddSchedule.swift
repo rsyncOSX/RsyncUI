@@ -112,7 +112,7 @@ struct AddSchedule: View {
                                 futuredates.lastdateinpresentmont = Date.now.endOfMonth
                                 futuredates.recomputeschedules()
                                 futuredates.setfirsscheduledate()
-                                
+
                                 Task {
                                     await ActorWriteSchedule(scheduledata.scheduledata)
                                 }
