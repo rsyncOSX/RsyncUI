@@ -68,6 +68,24 @@ extension Date {
         return dateformatter.string(from: self)
     }
 
+    func en_string_month_from_date() -> String {
+        let dateformatter = DateFormatter()
+        dateformatter.locale = Locale(identifier: "en")
+        dateformatter.dateStyle = .medium
+        dateformatter.timeStyle = .short
+        dateformatter.dateFormat = "dd MMM yyyy"
+        return dateformatter.string(from: self)
+    }
+    
+    func en_string_hour_from_date() -> String {
+        let dateformatter = DateFormatter()
+        dateformatter.locale = Locale(identifier: "en")
+        dateformatter.dateStyle = .medium
+        dateformatter.timeStyle = .short
+        dateformatter.dateFormat = "HH:mm"
+        return dateformatter.string(from: self)
+    }
+    
     func shortlocalized_string_from_date() -> String {
         // MM-dd-yyyy HH:mm
         let dateformatter = DateFormatter()

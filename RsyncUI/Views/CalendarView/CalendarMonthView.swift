@@ -114,19 +114,19 @@ struct CalendarMonthView: View {
                     ) {
                         Button("Delete") {
                             scheduledata.delete(selecteduuids)
-
+                            
                             date = Date.now
                             istappeddayint = 0
                             futuredates.lastdateinpresentmont = Date.now.endOfMonth
                             futuredates.scheduledata = scheduledata.scheduledata
-
+                            
                             if scheduledata.scheduledata.isEmpty {
                                 futuredates.firstscheduledate = nil
                             } else {
                                 futuredates.recomputeschedules()
                                 futuredates.setfirsscheduledate()
                             }
-
+                            
                             confirmdelete = false
 
                             Task {

@@ -94,6 +94,10 @@ extension Date {
     var hourInt: Int {
         Calendar.current.component(.hour, from: self)
     }
+    
+    var minuteInt: Int {
+        Calendar.current.component(.minute, from: self)
+    }
 
     var startOfDay: Date {
         Calendar.current.startOfDay(for: self)

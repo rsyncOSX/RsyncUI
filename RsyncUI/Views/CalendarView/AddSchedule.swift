@@ -21,6 +21,9 @@ struct AddSchedule: View {
     @Binding var date: Date
 
     @State private var schedule: String = ScheduleType.once.rawValue
+    
+    @State private var dateRunMonth: String = Date.now.en_string_month_from_date()
+    @State private var dateRunHour: String = Date.now.en_string_hour_from_date()
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -35,18 +38,17 @@ struct AddSchedule: View {
                     HStack {
                         Text("Run  ")
 
-                        TextField("Run", text: $dateRun)
-                            .frame(width: 130)
+                        TextField("Run", text: $dateRunMonth)
+                            .frame(width: 80)
+                        
+                        TextField("", text: $dateRunHour)
+                            .frame(width: 50)
 
                         Button {
-                            let date = dateRun.en_date_from_string()
-                            var datecomponents = DateComponents()
-                            datecomponents.hour = date.hourInt + 1
-                            datecomponents.day = date.dayInt
-                            datecomponents.year = date.yearInt
-                            datecomponents.month = date.monthInt
-                            let calendar = Calendar.current
-                            dateRun = calendar.date(from: datecomponents)?.en_string_from_date() ?? ""
+                            
+                            var stringhour = Double(dateRunHour.replacingOccurrences(of: ":", with: ".")) ?? 0
+                            stringhour += 1
+                            dateRunHour = String(stringhour).replacingOccurrences(of: ".", with: ":")
 
                         } label: {
                             Image(systemName: "plus")
@@ -55,14 +57,11 @@ struct AddSchedule: View {
                         .buttonBorderShape(.circle)
 
                         Button {
-                            let date = dateRun.en_date_from_string()
-                            var datecomponents = DateComponents()
-                            datecomponents.hour = date.hourInt - 1
-                            datecomponents.day = date.dayInt
-                            datecomponents.year = date.yearInt
-                            datecomponents.month = date.monthInt
-                            let calendar = Calendar.current
-                            dateRun = calendar.date(from: datecomponents)?.en_string_from_date() ?? ""
+                            
+                            var stringhour = Double(dateRunHour.replacingOccurrences(of: ":", with: ".")) ?? 0
+                            stringhour -= 1
+                            dateRunHour = String(stringhour).replacingOccurrences(of: ".", with: ":")
+                            
                         } label: {
                             Image(systemName: "minus")
                                 .foregroundColor(.blue)
@@ -70,8 +69,11 @@ struct AddSchedule: View {
                         .buttonBorderShape(.circle)
 
                         Button {
-                            dateRun = Date.now.en_string_from_date()
+                            
+                            dateRunMonth = Date.now.en_string_month_from_date()
+                            dateRunHour = Date.now.en_string_hour_from_date()
                             istappeddayint = 0
+                            
                         } label: {
                             Image(systemName: "arrow.trianglehead.clockwise")
                                 .foregroundColor(.blue)
@@ -83,12 +85,15 @@ struct AddSchedule: View {
 
                         Button {
                             do {
-                                try scheduledata.validatedate(date: dateRun)
+                                // Just concatenate month + minnutes string
+                                let run = dateRunMonth + " " + dateRunHour
+                                
+                                try scheduledata.validatedate(date: run)
                                 try scheduledata.validatedate(date: dateStop)
 
                                 let item = SchedulesConfigurations(profile: selectedprofile,
                                                                    dateAdded: dateAdded,
-                                                                   dateRun: dateRun,
+                                                                   dateRun: run,
                                                                    dateStop: dateStop,
                                                                    schedule: schedule)
 
@@ -112,11 +117,11 @@ struct AddSchedule: View {
                                 futuredates.lastdateinpresentmont = Date.now.endOfMonth
                                 futuredates.recomputeschedules()
                                 futuredates.setfirsscheduledate()
-
+                                
                                 Task {
                                     await ActorWriteSchedule(scheduledata.scheduledata)
                                 }
-
+                                 
                             } catch let e {
                                 Logger.process.info("AddSchedule: some ERROR adding schedule")
 
@@ -136,10 +141,12 @@ struct AddSchedule: View {
                             .frame(width: 130)
 
                         Button {
+                            
                             var dateComponents = DateComponents()
                             dateComponents.month = 3
                             let futuredateStop = Calendar.current.date(byAdding: dateComponents, to: Date.now)
                             dateStop = futuredateStop?.en_string_from_date() ?? Date().en_string_from_date()
+                            
                         } label: {
                             Image(systemName: "arrow.trianglehead.clockwise")
                                 .foregroundColor(.blue)
@@ -149,6 +156,12 @@ struct AddSchedule: View {
                     }
                 }
             }
+        }
+        .onChange(of: dateRun) {
+            
+            let date = dateRun.en_date_from_string()
+            dateRunMonth = date.en_string_month_from_date()
+            dateRunHour = date.en_string_hour_from_date()
         }
     }
 
