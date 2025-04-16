@@ -33,7 +33,13 @@ actor ActorReadSchedule {
 
                 return data.compactMap { element in
                     let item = SchedulesConfigurations(element)
-                    return validprofiles.contains(item.profile ?? "") ? item : nil
+                    if item.schedule == ScheduleType.once.rawValue,
+                        let daterun = item.dateRun, daterun.en_date_from_string()  < Date.now
+                    {
+                        return nil
+                    } else {
+                        return validprofiles.contains(item.profile ?? "") ? item : nil
+                    }
                 }
             }
 

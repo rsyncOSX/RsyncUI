@@ -44,7 +44,6 @@ final class ObservableFutureSchedules {
         // This date is incrementet by schedule
         var computedDateRun: Date = dateRun
         
-
         if let lastdateinpresentmont {
             let timeInterval: TimeInterval = lastdateinpresentmont.timeIntervalSince(computedDateRun)
 

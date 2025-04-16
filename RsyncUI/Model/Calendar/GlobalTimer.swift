@@ -25,7 +25,8 @@ final class GlobalTimer {
     func removeSchedule(name: String) {
         schedules.removeValue(forKey: name)
         if schedules.isEmpty {
-            stop()
+            timer?.invalidate()
+            timer = nil
         }
     }
 
@@ -35,13 +36,8 @@ final class GlobalTimer {
                                          target: self,
                                          selector: #selector(checkSchedules),
                                          userInfo: nil,
-                                         repeats: true)
+                                         repeats: false)
         }
-    }
-
-    private func stop() {
-        timer?.invalidate()
-        timer = nil
     }
 
     @objc private func checkSchedules() {
@@ -77,34 +73,4 @@ final class GlobalTimer {
 // To remove a schedule
 // globalTimer.removeSchedule(name: "Lunch")
 
-/*
- import Foundation
 
- class GlobalTimer {
-     static let shared = GlobalTimer()
-     private var timer: DispatchSourceTimer?
-
-     private init() {}
-
-     func startTimer(interval: TimeInterval, action: @escaping () -> Void) {
-         let queue = DispatchQueue.global(qos: .background)
-         timer = DispatchSource.makeTimerSource(queue: queue)
-         timer?.schedule(deadline: .now(), repeating: interval)
-         timer?.setEventHandler {
-             action()
-         }
-         timer?.resume()
-     }
-
-     func stopTimer() {
-         timer?.cancel()
-         timer = nil
-     }
- }
-
- // Usage:
- GlobalTimer.shared.startTimer(interval: 1.0) {
-     print("Timer fired!")
- }
-
- */

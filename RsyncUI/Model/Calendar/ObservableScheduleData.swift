@@ -10,11 +10,15 @@ import Observation
 
 enum ValidateDate: LocalizedError {
     case novaliddate
+    case previousdate
+    
 
     var errorDescription: String? {
         switch self {
         case .novaliddate:
             "Date is not valid"
+        case .previousdate:
+            "Date is not a future date"
         }
     }
 }
@@ -42,6 +46,9 @@ final class ObservableScheduleData {
     func validatedate(date: String) throws {
         guard date.isEmpty == false else {
             throw ValidateDate.novaliddate
+        }
+        guard date.en_date_from_string() > Date.now else {
+            throw ValidateDate.previousdate
         }
         if let _ = date.validate_en_date_from_string() {
             return
