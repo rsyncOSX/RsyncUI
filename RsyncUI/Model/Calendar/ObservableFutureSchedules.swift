@@ -19,6 +19,11 @@ final class ObservableFutureSchedules {
 
     private func computefuturedates(profile: String, schedule: String, dateRun: Date) {
         var dateComponents = DateComponents()
+        
+        // Last date in month is NOT set when loading data at startup
+        if lastdateinpresentmont == nil {
+            lastdateinpresentmont = Date.now.endOfMonth
+        }
 
         switch schedule {
         case ScheduleType.daily.rawValue:
@@ -26,7 +31,7 @@ final class ObservableFutureSchedules {
         case ScheduleType.weekly.rawValue:
             dateComponents.day = 7
         case ScheduleType.once.rawValue:
-            // Handle once as a specail case, only daily and weekly needs repeat
+            // Handle once as a special case, only daily and weekly needs repeat
             if let lastdateinpresentmont {
                 if dateRun.monthInt == lastdateinpresentmont.monthInt {
                     appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: "")
@@ -38,10 +43,7 @@ final class ObservableFutureSchedules {
         }
         // This date is incrementet by schedule
         var computedDateRun: Date = dateRun
-        // Last date in month is NOT set when loading data at startup
-        if lastdateinpresentmont == nil {
-            lastdateinpresentmont = Date.now.endOfMonth
-        }
+        
 
         if let lastdateinpresentmont {
             let timeInterval: TimeInterval = lastdateinpresentmont.timeIntervalSince(computedDateRun)
