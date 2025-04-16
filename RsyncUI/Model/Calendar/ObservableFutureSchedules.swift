@@ -17,7 +17,7 @@ final class ObservableFutureSchedules {
     // First schedule to execute
     @ObservationIgnored var firstscheduledate: SchedulesConfigurations?
 
-    private func computefuturedates(profile: String, schedule: String, dateRun: Date, dateStop: Date?) {
+    private func computefuturedates(profile: String, schedule: String, dateRun: Date) {
         var dateComponents = DateComponents()
 
         switch schedule {
@@ -73,15 +73,9 @@ final class ObservableFutureSchedules {
                     // Set computedDateRun to next futureDate, adding dateComponents will compute
                     // the next futureDate again.
                     computedDateRun = futureDate
-                    // Only add futuredates in month presented, also chech if there is a datStop
-                    if let dateStop {
-                        if futureDate.monthInt == lastdateinpresentmont.monthInt, futureDate <= dateStop {
-                            appendfutureschedule(profile: profile, dateRun: futureDateString, schedule: "")
-                        }
-                    } else {
-                        if futureDate.monthInt == lastdateinpresentmont.monthInt {
-                            appendfutureschedule(profile: profile, dateRun: futureDateString, schedule: "")
-                        }
+                    // Only add futuredates in month presented
+                    if futureDate.monthInt == lastdateinpresentmont.monthInt {
+                        appendfutureschedule(profile: profile, dateRun: futureDateString, schedule: "")
                     }
 
                 } else {
@@ -94,12 +88,11 @@ final class ObservableFutureSchedules {
     }
 
     private func appendfutureschedule(profile: String, dateRun: String, schedule: String) {
-        // Only add futuredates, dateStop is taken care off in computefuturedates
+        // Only add futuredates
         guard dateRun.en_date_from_string() >= Date.now else { return }
         let futureschedule = SchedulesConfigurations(profile: profile,
                                                      dateAdded: nil,
                                                      dateRun: dateRun,
-                                                     dateStop: nil,
                                                      schedule: schedule)
         futureschedules.insert(futureschedule)
     }
@@ -113,10 +106,8 @@ final class ObservableFutureSchedules {
             for i in 0 ..< scheduledata.count {
                 if let profile = scheduledata[i].profile,
                    let schedule = scheduledata[i].schedule,
-                   let dateRun = scheduledata[i].dateRun?.validate_en_date_from_string(),
-                   let dateStop = scheduledata[i].dateStop?.validate_en_date_from_string()
-                {
-                    computefuturedates(profile: profile, schedule: schedule, dateRun: dateRun, dateStop: dateStop)
+                   let dateRun = scheduledata[i].dateRun?.validate_en_date_from_string() {
+                    computefuturedates(profile: profile, schedule: schedule, dateRun: dateRun)
                 }
             }
         }
@@ -134,7 +125,6 @@ final class ObservableFutureSchedules {
             let first = SchedulesConfigurations(profile: dates.first?.profile,
                                                 dateAdded: nil,
                                                 dateRun: dates.first?.dateRun,
-                                                dateStop: nil,
                                                 schedule: "")
 
             firstscheduledate = first

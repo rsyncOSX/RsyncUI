@@ -16,24 +16,19 @@ struct TableofSchedules: View {
             TableColumn("Profile") { data in
                 Text(data.profile ?? SharedConstants().defaultprofile)
             }
-            .width(min: 50, max: 200)
+            .width(min: 100, max: 150)
 
             TableColumn("Schedule") { data in
                 Text(data.schedule ?? "")
             }
             .width(min: 50, max: 70)
 
-            TableColumn("Date run") { data in
+            TableColumn("Run") { data in
                 Text(data.dateRun ?? "")
             }
             .width(max: 120)
 
-            TableColumn("Date stop") { data in
-                Text(data.dateStop ?? "")
-            }
-            .width(max: 120)
-
-            TableColumn("Date added") { data in
+            TableColumn("Added") { data in
                 Text(data.dateAdded ?? "")
             }
             .width(max: 120)

@@ -23,7 +23,6 @@ struct CalendarMonthView: View {
     @State private var selecteduuids: Set<SchedulesConfigurations.ID> = []
     @State private var dateAdded: String = Date.now.en_string_from_date()
     @State private var dateRun: String = Date.now.en_string_from_date()
-    @State private var dateStop: String = Date.now.en_string_from_date()
     @State private var confirmdelete: Bool = false
     @State private var istappeddayint: Int = 0
 
@@ -50,7 +49,7 @@ struct CalendarMonthView: View {
                             .frame(maxWidth: .infinity)
                     }
                 }
-                .frame(width: 400)
+                .frame(width: 450)
 
                 LazyVGrid(columns: columns) {
                     ForEach(days, id: \.self) { day in
@@ -102,7 +101,6 @@ struct CalendarMonthView: View {
                             selectedprofile: $selectedprofile,
                             dateAdded: $dateAdded,
                             dateRun: $dateRun,
-                            dateStop: $dateStop,
                             istappeddayint: $istappeddayint,
                             date: $date)
 
@@ -114,19 +112,19 @@ struct CalendarMonthView: View {
                     ) {
                         Button("Delete") {
                             scheduledata.delete(selecteduuids)
-                            
+
                             date = Date.now
                             istappeddayint = 0
                             futuredates.lastdateinpresentmont = Date.now.endOfMonth
                             futuredates.scheduledata = scheduledata.scheduledata
-                            
+
                             if scheduledata.scheduledata.isEmpty {
                                 futuredates.firstscheduledate = nil
                             } else {
                                 futuredates.recomputeschedules()
                                 futuredates.setfirsscheduledate()
                             }
-                            
+
                             confirmdelete = false
 
                             Task {
@@ -141,8 +139,6 @@ struct CalendarMonthView: View {
         }
         .onAppear {
             days = date.calendarDisplayDays
-            // Set dateSTop to default three months ahead at 08:00
-            dateStop = setstopdate(Date.now).en_string_from_date()
             if let last = days.last {
                 futuredates.lastdateinpresentmont = last.startOfDay
             }
