@@ -44,8 +44,8 @@ struct CalendarDayView: View {
                 )
                 .onTapGesture {
                     if let date = settappeddate(day) {
-                        dateRun = date.en_us_string_from_date()
-                        dateAdded = Date.now.en_us_string_from_date()
+                        dateRun = date.en_string_from_date()
+                        dateAdded = Date.now.en_string_from_date()
                         istappeddayint = day.dayInt
                     }
                 }
@@ -72,8 +72,8 @@ struct CalendarDayView: View {
                 )
                 .onTapGesture {
                     if let date = settappeddate(day) {
-                        dateRun = date.en_us_string_from_date()
-                        dateAdded = Date.now.en_us_string_from_date()
+                        dateRun = date.en_string_from_date()
+                        dateAdded = Date.now.en_string_from_date()
                         istappeddayint = day.dayInt
                     }
                 }
@@ -92,8 +92,8 @@ struct CalendarDayView: View {
                 )
                 .onTapGesture {
                     if let date = settappeddate(day) {
-                        dateRun = date.en_us_string_from_date()
-                        dateAdded = Date.now.en_us_string_from_date()
+                        dateRun = date.en_string_from_date()
+                        dateAdded = Date.now.en_string_from_date()
                         istappeddayint = day.dayInt
                     }
                 }
@@ -122,7 +122,7 @@ struct CalendarDayView: View {
 
     func istoday(runDate: String?, day: Date) -> Bool {
         if let runDate {
-            let run = runDate.en_us_date_from_string()
+            let run = runDate.en_date_from_string()
             var rundatecomponents = DateComponents()
             rundatecomponents.day = run.dayInt
             rundatecomponents.year = run.yearInt

@@ -27,7 +27,7 @@ struct ProfilesToUpdataView: View {
             TableColumn("Days") { data in
                 var seconds: Double {
                     if let date = data.dateRun {
-                        let lastbackup = date.en_us_date_from_string()
+                        let lastbackup = date.en_date_from_string()
                         return lastbackup.timeIntervalSinceNow * -1
                     } else {
                         return 0

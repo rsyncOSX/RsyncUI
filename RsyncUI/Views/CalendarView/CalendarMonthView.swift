@@ -21,9 +21,9 @@ struct CalendarMonthView: View {
     // @State private var validprofiles: [ProfilesnamesRecord] = []
     @State private var selectedprofile: String = SharedConstants().defaultprofile
     @State private var selecteduuids: Set<SchedulesConfigurations.ID> = []
-    @State private var dateAdded: String = Date.now.en_us_string_from_date()
-    @State private var dateRun: String = Date.now.en_us_string_from_date()
-    @State private var dateStop: String = Date.now.en_us_string_from_date()
+    @State private var dateAdded: String = Date.now.en_string_from_date()
+    @State private var dateRun: String = Date.now.en_string_from_date()
+    @State private var dateStop: String = Date.now.en_string_from_date()
     @State private var confirmdelete: Bool = false
     @State private var istappeddayint: Int = 0
 
@@ -33,7 +33,7 @@ struct CalendarMonthView: View {
         HStack {
             VStack {
                 if date.endOfMonth == Date.now.endOfMonth {
-                    Text("\(date.en_us_string_from_date())")
+                    Text("\(date.en_string_from_date())")
                         .font(.title)
                         .padding()
                 } else {
@@ -142,7 +142,7 @@ struct CalendarMonthView: View {
         .onAppear {
             days = date.calendarDisplayDays
             // Set dateSTop to default three months ahead at 08:00
-            dateStop = setstopdate(Date.now).en_us_string_from_date()
+            dateStop = setstopdate(Date.now).en_string_from_date()
             if let last = days.last {
                 futuredates.lastdateinpresentmont = last.startOfDay
             }
@@ -199,7 +199,7 @@ struct CalendarMonthView: View {
 
     func thereisaschedule(_ date: Date) -> Bool {
         let verifyaschedule = futuredates.futureschedules.compactMap { schedule in
-            schedule.dateRun?.en_us_date_from_string().startOfDay == date ? true : nil
+            schedule.dateRun?.en_date_from_string().startOfDay == date ? true : nil
         }
         return verifyaschedule.count > 0
     }

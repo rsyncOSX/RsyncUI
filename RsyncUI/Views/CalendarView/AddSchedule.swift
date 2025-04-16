@@ -39,14 +39,14 @@ struct AddSchedule: View {
                             .frame(width: 130)
 
                         Button {
-                            let date = dateRun.en_us_date_from_string()
+                            let date = dateRun.en_date_from_string()
                             var datecomponents = DateComponents()
                             datecomponents.hour = date.hourInt + 1
                             datecomponents.day = date.dayInt
                             datecomponents.year = date.yearInt
                             datecomponents.month = date.monthInt
                             let calendar = Calendar.current
-                            dateRun = calendar.date(from: datecomponents)?.en_us_string_from_date() ?? ""
+                            dateRun = calendar.date(from: datecomponents)?.en_string_from_date() ?? ""
 
                         } label: {
                             Image(systemName: "plus")
@@ -55,14 +55,14 @@ struct AddSchedule: View {
                         .buttonBorderShape(.circle)
 
                         Button {
-                            let date = dateRun.en_us_date_from_string()
+                            let date = dateRun.en_date_from_string()
                             var datecomponents = DateComponents()
                             datecomponents.hour = date.hourInt - 1
                             datecomponents.day = date.dayInt
                             datecomponents.year = date.yearInt
                             datecomponents.month = date.monthInt
                             let calendar = Calendar.current
-                            dateRun = calendar.date(from: datecomponents)?.en_us_string_from_date() ?? ""
+                            dateRun = calendar.date(from: datecomponents)?.en_string_from_date() ?? ""
                         } label: {
                             Image(systemName: "minus")
                                 .foregroundColor(.blue)
@@ -70,7 +70,7 @@ struct AddSchedule: View {
                         .buttonBorderShape(.circle)
 
                         Button {
-                            dateRun = Date.now.en_us_string_from_date()
+                            dateRun = Date.now.en_string_from_date()
                             istappeddayint = 0
                         } label: {
                             Image(systemName: "arrow.trianglehead.clockwise")
@@ -97,8 +97,8 @@ struct AddSchedule: View {
                                 // If more than one schedule, sort by dateRun
                                 if scheduledata.scheduledata.count > 1 {
                                     scheduledata.scheduledata.sort { item1, item2 in
-                                        if let date1 = item1.dateRun?.validate_en_us_date_from_string(),
-                                           let date2 = item2.dateRun?.validate_en_us_date_from_string()
+                                        if let date1 = item1.dateRun?.validate_en_date_from_string(),
+                                           let date2 = item2.dateRun?.validate_en_date_from_string()
                                         {
                                             return date1 < date2
                                         }
@@ -139,7 +139,7 @@ struct AddSchedule: View {
                             var dateComponents = DateComponents()
                             dateComponents.month = 3
                             let futuredateStop = Calendar.current.date(byAdding: dateComponents, to: Date.now)
-                            dateStop = futuredateStop?.en_us_string_from_date() ?? Date().en_us_string_from_date()
+                            dateStop = futuredateStop?.en_string_from_date() ?? Date().en_string_from_date()
                         } label: {
                             Image(systemName: "arrow.trianglehead.clockwise")
                                 .foregroundColor(.blue)

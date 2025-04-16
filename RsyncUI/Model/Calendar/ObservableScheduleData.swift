@@ -43,7 +43,7 @@ final class ObservableScheduleData {
         guard date.isEmpty == false else {
             throw ValidateDate.novaliddate
         }
-        if let _ = date.validate_en_us_date_from_string() {
+        if let _ = date.validate_en_date_from_string() {
             return
         } else {
             throw ValidateDate.novaliddate

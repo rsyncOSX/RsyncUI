@@ -89,7 +89,7 @@ extension ExecuteMultipleTasks {
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
         // When creating the logrecord, decrease the snapshotum by 1
-        configrecords.append((hiddenID ?? -1, Date().en_us_string_from_date()))
+        configrecords.append((hiddenID ?? -1, Date().en_string_from_date()))
 
         // Prepareoutput prepares output from rsync for extracting the numbers only.
         // It removes all lines except the last 20 lines where summarized numbers are put

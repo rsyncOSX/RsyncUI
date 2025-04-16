@@ -29,7 +29,7 @@ final class ObservableFutureSchedules {
             // Handle once as a specail case, only daily and weekly needs repeat
             if let lastdateinpresentmont {
                 if dateRun.monthInt == lastdateinpresentmont.monthInt {
-                    appendfutureschedule(profile: profile, dateRun: dateRun.en_us_string_from_date(), schedule: "")
+                    appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: "")
                 }
             }
             return
@@ -55,13 +55,13 @@ final class ObservableFutureSchedules {
                 index = Int(timeInterval / (60 * 60 * 24))
                 // Must add the first registered date as well
                 if dateRun.monthInt == lastdateinpresentmont.monthInt {
-                    appendfutureschedule(profile: profile, dateRun: dateRun.en_us_string_from_date(), schedule: "")
+                    appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: "")
                 }
             case 7:
                 index = Int(timeInterval / (60 * 60 * 24 * 7))
                 // Must add the first registered date as well
                 if dateRun.monthInt == lastdateinpresentmont.monthInt {
-                    appendfutureschedule(profile: profile, dateRun: dateRun.en_us_string_from_date(), schedule: "")
+                    appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: "")
                 }
             default:
                 break
@@ -69,7 +69,7 @@ final class ObservableFutureSchedules {
             // Loops only for daily and weekly
             for _ in 0 ..< index {
                 if let futureDate = Calendar.current.date(byAdding: dateComponents, to: computedDateRun) {
-                    let futureDateString = futureDate.en_us_string_from_date()
+                    let futureDateString = futureDate.en_string_from_date()
                     // Set computedDateRun to next futureDate, adding dateComponents will compute
                     // the next futureDate again.
                     computedDateRun = futureDate
@@ -95,7 +95,7 @@ final class ObservableFutureSchedules {
 
     private func appendfutureschedule(profile: String, dateRun: String, schedule: String) {
         // Only add futuredates, dateStop is taken care off in computefuturedates
-        guard dateRun.en_us_date_from_string() >= Date.now else { return }
+        guard dateRun.en_date_from_string() >= Date.now else { return }
         let futureschedule = SchedulesConfigurations(profile: profile,
                                                      dateAdded: nil,
                                                      dateRun: dateRun,
@@ -113,8 +113,8 @@ final class ObservableFutureSchedules {
             for i in 0 ..< scheduledata.count {
                 if let profile = scheduledata[i].profile,
                    let schedule = scheduledata[i].schedule,
-                   let dateRun = scheduledata[i].dateRun?.validate_en_us_date_from_string(),
-                   let dateStop = scheduledata[i].dateStop?.validate_en_us_date_from_string()
+                   let dateRun = scheduledata[i].dateRun?.validate_en_date_from_string(),
+                   let dateStop = scheduledata[i].dateStop?.validate_en_date_from_string()
                 {
                     computefuturedates(profile: profile, schedule: schedule, dateRun: dateRun, dateStop: dateStop)
                 }
@@ -125,7 +125,7 @@ final class ObservableFutureSchedules {
     // Only set when loading data, when new schedules added or deleted
     func setfirsscheduledate() {
         let dates = Array(futureschedules).sorted { s1, s2 in
-            if let id1 = s1.dateRun?.en_us_date_from_string(), let id2 = s2.dateRun?.en_us_date_from_string() {
+            if let id1 = s1.dateRun?.en_date_from_string(), let id2 = s2.dateRun?.en_date_from_string() {
                 return id1 < id2
             }
             return false
