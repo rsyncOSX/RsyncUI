@@ -163,6 +163,14 @@ struct SidebarMainView: View {
         .onChange(of: selectedprofile) {
             selecteduuids.removeAll()
         }
+        .onChange(of: futuredates.firstscheduledate) {
+            scheduledata.removeexecutedonce()
+
+            if scheduledata.scheduledata.isEmpty {
+                let globalTimer = GlobalTimer.shared
+                globalTimer.clearSchedules()
+            }
+        }
     }
 
     @MainActor @ViewBuilder
