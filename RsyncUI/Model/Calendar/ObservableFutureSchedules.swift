@@ -148,10 +148,19 @@ final class ObservableFutureSchedules {
 
         // Then add new schedule
         if let schedultime = schedule.dateRun?.en_date_from_string(), let profile = schedule.profile {
+            // The time callback
             globalTimer.addSchedule(profile: profile, time: schedultime) {
                 Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED!")
                 self.recomputeschedules()
                 self.setfirsscheduledate()
+                // And here initiate the URL command, the SidebarMainView to iniate the command.
+                // Maybe make a new URL function as extensin in the SidebarMainView
+                // Set urlcommandestimateandsynchronize true and external URL for true
+                /*
+                 // URL code: rsyncuiapp://loadprofileandestimate?profile=default
+                 // Deep link triggered RsyncUI from outside
+                 handleURLsidebarmainView(incomingURL, true)
+                 */
             }
         }
 
