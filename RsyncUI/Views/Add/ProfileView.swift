@@ -34,7 +34,7 @@ struct ProfileView: View {
                     localselectedprofile = record[0].profilename
                 }
 
-                ProfilesToUpdataView(allconfigurations: allconfigurations)
+                ProfilesToUpdateView(allconfigurations: allconfigurations)
             }
 
             EditValue(150, NSLocalizedString("Create profile", comment: ""),

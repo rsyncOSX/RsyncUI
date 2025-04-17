@@ -131,18 +131,16 @@ final class ObservableFutureSchedules {
 
             firstscheduledate = first
 
-            initiatetimer(first)
+            startatimer(first)
         } else {
             let globalTimer = GlobalTimer.shared
             globalTimer.clearSchedules()
         }
     }
 
-    private func initiatetimer(_ schedule: SchedulesConfigurations) {
+    private func startatimer(_ schedule: SchedulesConfigurations) {
+        
         let globalTimer = GlobalTimer.shared
-
-        Logger.process.info("ObservableFutureSchedules: initiatetimer()")
-
         // Remove and cancel any schedules
         globalTimer.clearSchedules()
 
@@ -150,9 +148,16 @@ final class ObservableFutureSchedules {
         if let schedultime = schedule.dateRun?.en_date_from_string(), let profile = schedule.profile {
             // The time callback
             globalTimer.addSchedule(profile: profile, time: schedultime) {
-                Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED!")
                 self.recomputeschedules()
                 self.setfirsscheduledate()
+                let url = self.createURLRequest(profile)
+                if let url {
+                    Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED \(url.absoluteString)")
+                } else {
+                    Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED NO URL")
+                }
+               
+                
                 // And here initiate the URL command, the SidebarMainView to iniate the command.
                 // Maybe make a new URL function as extensin in the SidebarMainView
                 // Set urlcommandestimateandsynchronize true and external URL for true
@@ -160,11 +165,22 @@ final class ObservableFutureSchedules {
                  // URL code: rsyncuiapp://loadprofileandestimate?profile=default
                  // Deep link triggered RsyncUI from outside
                  handleURLsidebarmainView(incomingURL, true)
+                 
+                 // Create estimate and synchronize URL
+                 let deeplinkurl = DeeplinkURL()
+                 let urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: rsyncUIdata.profile ?? "default")
+                 stringestimate = urlestimate?.absoluteString ?? ""
                  */
             }
         }
 
         // To remove a schedule
         // globalTimer.removeSchedule(name: "Lunch")
+    }
+    
+    private func createURLRequest(_ profile: String) -> URL? {
+        // Create estimate and synchronize URL
+        let deeplinkurl = DeeplinkURL()
+        return deeplinkurl.createURLestimateandsynchronize(valueprofile: profile)
     }
 }

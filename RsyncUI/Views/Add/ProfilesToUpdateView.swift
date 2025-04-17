@@ -8,7 +8,7 @@
 import OSLog
 import SwiftUI
 
-struct ProfilesToUpdataView: View {
+struct ProfilesToUpdateView: View {
     let allconfigurations: [SynchronizeConfiguration]
 
     var body: some View {
