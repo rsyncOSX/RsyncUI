@@ -11,7 +11,6 @@ import Observation
 enum ValidateDate: LocalizedError {
     case novaliddate
     case previousdate
-    
 
     var errorDescription: String? {
         switch self {
@@ -56,18 +55,18 @@ final class ObservableScheduleData {
             throw ValidateDate.novaliddate
         }
     }
-    
+
     func removeexecutedonce() {
-        
         scheduledata = scheduledata.compactMap { schedule in
-            
+
             if let daterun = schedule.dateRun,
-                let schedule = schedule.schedule,
-                daterun.en_date_from_string() < Date.now,
-                schedule == ScheduleType.once.rawValue {
-                    return nil
+               let schedule = schedule.schedule,
+               daterun.en_date_from_string() < Date.now,
+               schedule == ScheduleType.once.rawValue
+            {
+                nil
             } else {
-                return schedule
+                schedule
             }
         }
     }

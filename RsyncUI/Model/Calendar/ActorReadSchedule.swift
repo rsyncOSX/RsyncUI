@@ -25,7 +25,8 @@ actor ActorReadSchedule {
         do {
             if let data = try
                 await decodeimport.decodearraydatafileURL(DecodeSchedules.self,
-                                                          fromwhere: filename) {
+                                                          fromwhere: filename)
+            {
                 // Dont need to sort when reading, the schedules are sorted by runDate when
                 // new schedules are added and saved
 
@@ -34,7 +35,7 @@ actor ActorReadSchedule {
                 return data.compactMap { element in
                     let item = SchedulesConfigurations(element)
                     if item.schedule == ScheduleType.once.rawValue,
-                        let daterun = item.dateRun, daterun.en_date_from_string()  < Date.now
+                       let daterun = item.dateRun, daterun.en_date_from_string() < Date.now
                     {
                         return nil
                     } else {

@@ -19,7 +19,7 @@ final class ObservableFutureSchedules {
 
     private func computefuturedates(profile: String, schedule: String, dateRun: Date) {
         var dateComponents = DateComponents()
-        
+
         // Last date in month is NOT set when loading data at startup
         if lastdateinpresentmont == nil {
             lastdateinpresentmont = Date.now.endOfMonth
@@ -43,7 +43,7 @@ final class ObservableFutureSchedules {
         }
         // This date is incrementet by schedule
         var computedDateRun: Date = dateRun
-        
+
         if let lastdateinpresentmont {
             let timeInterval: TimeInterval = lastdateinpresentmont.timeIntervalSince(computedDateRun)
 
@@ -107,7 +107,8 @@ final class ObservableFutureSchedules {
             for i in 0 ..< scheduledata.count {
                 if let profile = scheduledata[i].profile,
                    let schedule = scheduledata[i].schedule,
-                   let dateRun = scheduledata[i].dateRun?.validate_en_date_from_string() {
+                   let dateRun = scheduledata[i].dateRun?.validate_en_date_from_string()
+                {
                     computefuturedates(profile: profile, schedule: schedule, dateRun: dateRun)
                 }
             }
@@ -129,35 +130,31 @@ final class ObservableFutureSchedules {
                                                 schedule: "")
 
             firstscheduledate = first
-            
+
             initiatetimer(first)
         } else {
-            
             let globalTimer = GlobalTimer.shared
             globalTimer.clearSchedules()
-            
         }
     }
-    
+
     private func initiatetimer(_ schedule: SchedulesConfigurations) {
-        
         let globalTimer = GlobalTimer.shared
-        
+
         Logger.process.info("ObservableFutureSchedules: initiatetimer()")
-        
+
         // Remove and cancel any schedules
         globalTimer.clearSchedules()
-        
+
         // Then add new schedule
-        if let schedultime =  schedule.dateRun?.en_date_from_string(), let profile = schedule.profile {
+        if let schedultime = schedule.dateRun?.en_date_from_string(), let profile = schedule.profile {
             globalTimer.addSchedule(profile: profile, time: schedultime) {
-                
                 Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED!")
                 self.recomputeschedules()
                 self.setfirsscheduledate()
             }
         }
-        
+
         // To remove a schedule
         // globalTimer.removeSchedule(name: "Lunch")
     }

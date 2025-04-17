@@ -150,9 +150,8 @@ struct CalendarMonthView: View {
             days = date.calendarDisplayDays
         }
         .onChange(of: futuredates.firstscheduledate) {
-            
             scheduledata.removeexecutedonce()
-            
+
             if scheduledata.scheduledata.isEmpty {
                 let globalTimer = GlobalTimer.shared
                 globalTimer.clearSchedules()

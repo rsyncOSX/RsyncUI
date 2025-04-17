@@ -93,7 +93,8 @@ struct AddSchedule: View {
                         if scheduledata.scheduledata.count > 1 {
                             scheduledata.scheduledata.sort { item1, item2 in
                                 if let date1 = item1.dateRun?.validate_en_date_from_string(),
-                                   let date2 = item2.dateRun?.validate_en_date_from_string() {
+                                   let date2 = item2.dateRun?.validate_en_date_from_string()
+                                {
                                     return date1 < date2
                                 }
                                 return false
@@ -133,7 +134,8 @@ struct AddSchedule: View {
 
     var pickerselecttypeoftask: some View {
         Picker(NSLocalizedString("", comment: ""),
-               selection: $schedule) {
+               selection: $schedule)
+        {
             ForEach(ScheduleType.allCases) { Text($0.description)
                 .tag($0)
             }
