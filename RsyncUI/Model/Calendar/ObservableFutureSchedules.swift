@@ -133,6 +133,8 @@ final class ObservableFutureSchedules {
 
             startatimer(first)
         } else {
+            
+            firstscheduledate = nil
             let globalTimer = GlobalTimer.shared
             globalTimer.clearSchedules()
         }
