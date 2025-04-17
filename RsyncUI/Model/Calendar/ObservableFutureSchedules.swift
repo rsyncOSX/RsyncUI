@@ -15,7 +15,7 @@ final class ObservableFutureSchedules {
     @ObservationIgnored var lastdateinpresentmont: Date?
     @ObservationIgnored var scheduledata: [SchedulesConfigurations]?
     // First schedule to execute
-    @ObservationIgnored var firstscheduledate: SchedulesConfigurations?
+    var firstscheduledate: SchedulesConfigurations?
 
     private func computefuturedates(profile: String, schedule: String, dateRun: Date) {
         var dateComponents = DateComponents()
@@ -129,6 +129,31 @@ final class ObservableFutureSchedules {
                                                 schedule: "")
 
             firstscheduledate = first
+            
+            initiatetimer(first)
         }
+    }
+    
+    private func initiatetimer(_ schedule: SchedulesConfigurations) {
+        
+        let globalTimer = GlobalTimer.shared
+        
+        Logger.process.info("ObservableFutureSchedules: initiatetimer()")
+        
+        // Remove and cancel any schedules
+        globalTimer.clearSchedules()
+        
+        // Then add new schedule
+        if let schedultime =  schedule.dateRun?.en_date_from_string(), let profile = schedule.profile {
+            globalTimer.addSchedule(profile: profile, time: schedultime) {
+                
+                Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED!")
+                self.recomputeschedules()
+                self.setfirsscheduledate()
+            }
+        }
+        
+        // To remove a schedule
+        // globalTimer.removeSchedule(name: "Lunch")
     }
 }

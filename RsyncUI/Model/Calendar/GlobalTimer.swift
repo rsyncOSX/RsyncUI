@@ -7,6 +7,7 @@
 
 import Foundation
 import Observation
+import OSLog
 
 @Observable
 final class GlobalTimer {
@@ -17,8 +18,11 @@ final class GlobalTimer {
     private var timer: Timer?
     private var schedules: [String: (time: Date, callback: () -> Void)] = [:]
 
-    func addSchedule(name: String, time: Date, callback: @escaping () -> Void) {
-        schedules[name] = (time, callback)
+    func addSchedule(profile: String, time: Date, callback: @escaping () -> Void) {
+        
+        Logger.process.info("GlobalTimer: addSchedule() - profile \(profile) at time \(time)")
+        
+        schedules[profile] = (time, callback)
         start()
     }
 
@@ -29,48 +33,46 @@ final class GlobalTimer {
             timer = nil
         }
     }
+    
+    func clearSchedules() {
+        
+        guard schedules.count > 0 else {
+            timer?.invalidate()
+            timer = nil
+            return
+        }
+        
+        Logger.process.info("GlobalTimer: clearSchedules()")
+        
+        schedules.removeAll()
+        timer?.invalidate()
+        timer = nil
+    }
 
     private func start() {
         if timer == nil {
-            timer = Timer.scheduledTimer(timeInterval: 1.0,
+            timer = Timer.scheduledTimer(timeInterval: 60.0,
                                          target: self,
                                          selector: #selector(checkSchedules),
                                          userInfo: nil,
-                                         repeats: false)
+                                         repeats: true)
         }
     }
 
     @objc private func checkSchedules() {
-        let now = Date()
+        
         for (name, schedule) in schedules {
-            if now >= schedule.time {
+            
+            Logger.process.info("GlobalTimer: checkSchedules() - timer \(name) check")
+            Logger.process.info("GlobalTimer: checkSchedules() - Date.now \(Date.now) check")
+            Logger.process.info("GlobalTimer: checkSchedules() - schedule.time \(schedule.time) check")
+            
+            if Date.now >= schedule.time {
+                
+                Logger.process.info("GlobalTimer: checkSchedules() - timer \(name) fired")
+                
                 schedule.callback()
-                removeSchedule(name: name)
             }
         }
     }
 }
-
-/*
- // Usage example
- let globalTimer = GlobalTimer.shared
-
- let dateFormatter = DateFormatter()
- dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
- if let meetingTime = dateFormatter.date(from: "2025-03-31 15:00:00") {
-     globalTimer.addSchedule(name: "Meeting", time: meetingTime) {
-         print("Meeting time!")
-     }
- }
-
- if let lunchTime = dateFormatter.date(from: "2025-03-31 12:00:00") {
-     globalTimer.addSchedule(name: "Lunch", time: lunchTime) {
-         print("Lunch time!")
-     }
- }
- */
-// To remove a schedule
-// globalTimer.removeSchedule(name: "Lunch")
-
-
