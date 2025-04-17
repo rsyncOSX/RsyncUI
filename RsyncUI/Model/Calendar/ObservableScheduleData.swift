@@ -56,6 +56,21 @@ final class ObservableScheduleData {
             throw ValidateDate.novaliddate
         }
     }
+    
+    func removeexecutedonce() {
+        
+        scheduledata = scheduledata.compactMap { schedule in
+            
+            if let daterun = schedule.dateRun,
+                let schedule = schedule.schedule,
+                daterun.en_date_from_string() < Date.now,
+                schedule == ScheduleType.once.rawValue {
+                    return nil
+            } else {
+                return schedule
+            }
+        }
+    }
 
     init() {}
 }

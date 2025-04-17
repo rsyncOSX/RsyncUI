@@ -149,6 +149,9 @@ struct CalendarMonthView: View {
         .onChange(of: date) {
             days = date.calendarDisplayDays
         }
+        .onChange(of: futuredates.firstscheduledate) {
+            scheduledata.removeexecutedonce()
+        }
         .padding()
         .toolbar {
             ToolbarItem {
