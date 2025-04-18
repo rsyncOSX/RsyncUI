@@ -43,9 +43,13 @@ struct AddSchedule: View {
                     .frame(width: 50, alignment: .center)
 
                 Button {
-                    var stringhour = Double(dateRunHour.replacingOccurrences(of: ":", with: ".")) ?? 0
-                    stringhour += 1
-                    dateRunHour = String(stringhour).replacingOccurrences(of: ".", with: ":")
+                    var datecomponents = DateComponents()
+                    datecomponents.hour = dateRunHour.en_date_from_string().hourInt + 1
+                    datecomponents.minute = dateRunHour.en_date_from_string().minuteInt
+                    date = dateRunHour.en_date_from_string()
+                    let calendar = Calendar.current
+                    dateRunHour = calendar.date(from: datecomponents)?.en_string_hour_from_date() ?? "00:00"
+                    
 
                 } label: {
                     Image(systemName: "plus")
@@ -54,9 +58,12 @@ struct AddSchedule: View {
                 .buttonBorderShape(.circle)
 
                 Button {
-                    var stringhour = Double(dateRunHour.replacingOccurrences(of: ":", with: ".")) ?? 0
-                    stringhour -= 1
-                    dateRunHour = String(stringhour).replacingOccurrences(of: ".", with: ":")
+                    var datecomponents = DateComponents()
+                    datecomponents.hour = dateRunHour.en_date_from_string().hourInt - 1
+                    datecomponents.minute = dateRunHour.en_date_from_string().minuteInt
+                    date = dateRunHour.en_date_from_string()
+                    let calendar = Calendar.current
+                    dateRunHour = calendar.date(from: datecomponents)?.en_string_hour_from_date() ?? "00:00"
 
                 } label: {
                     Image(systemName: "minus")

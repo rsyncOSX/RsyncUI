@@ -8,6 +8,7 @@
 import Foundation
 import Observation
 import OSLog
+import SwiftUI
 
 @Observable @MainActor
 final class ObservableFutureSchedules {
@@ -155,6 +156,7 @@ final class ObservableFutureSchedules {
                 let url = self.createURLRequest(profile)
                 if let url {
                     Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED \(url.absoluteString)")
+                    // NSWorkspace.shared.open(URL(string: url.absoluteString)!)
                 } else {
                     Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED NO URL")
                 }

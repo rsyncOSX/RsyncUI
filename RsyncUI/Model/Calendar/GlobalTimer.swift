@@ -65,8 +65,7 @@ final class GlobalTimer {
 
     @objc private func checkSchedules() {
         for (name, schedule) in schedules {
-            Logger.process.info("GlobalTimer: checkSchedules() - Date.now \(Date.now)")
-            Logger.process.info("GlobalTimer: checkSchedules() - schedule.time \(schedule.time)")
+            Logger.process.info("GlobalTimer: checkSchedules(): Date.now \(Date.now) and schedule.time \(schedule.time)")
 
             if Date.now >= schedule.time {
                 Logger.process.info("GlobalTimer: checkSchedules() - timer \(name) fired")
