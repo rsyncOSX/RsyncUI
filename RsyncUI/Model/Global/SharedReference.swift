@@ -81,4 +81,5 @@ final class SharedReference {
     @ObservationIgnored var alwaysshowestimateddetailsview: Bool = true
     // Value for alert tagging
     let alerttagginglines = 20
+    @ObservationIgnored var standalonecalendar: Bool = false
 }

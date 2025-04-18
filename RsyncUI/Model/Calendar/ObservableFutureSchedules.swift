@@ -156,25 +156,12 @@ final class ObservableFutureSchedules {
                 let url = self.createURLRequest(profile)
                 if let url {
                     Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED \(url.absoluteString)")
-                    // NSWorkspace.shared.open(URL(string: url.absoluteString)!)
+                    if SharedReference.shared.standalonecalendar {
+                        NSWorkspace.shared.open(URL(string: url.absoluteString)!)
+                    }
                 } else {
                     Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED NO URL")
                 }
-               
-                
-                // And here initiate the URL command, the SidebarMainView to iniate the command.
-                // Maybe make a new URL function as extensin in the SidebarMainView
-                // Set urlcommandestimateandsynchronize true and external URL for true
-                /*
-                 // URL code: rsyncuiapp://loadprofileandestimate?profile=default
-                 // Deep link triggered RsyncUI from outside
-                 handleURLsidebarmainView(incomingURL, true)
-                 
-                 // Create estimate and synchronize URL
-                 let deeplinkurl = DeeplinkURL()
-                 let urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: rsyncUIdata.profile ?? "default")
-                 stringestimate = urlestimate?.absoluteString ?? ""
-                 */
             }
         }
 
