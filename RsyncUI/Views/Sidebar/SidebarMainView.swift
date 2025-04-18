@@ -164,8 +164,11 @@ struct SidebarMainView: View {
             selecteduuids.removeAll()
         }
         .onChange(of: futuredates.firstscheduledate) {
-            scheduledata.removeexecutedonce()
-
+            if futuredates.firstscheduledate == nil {
+                scheduledata.scheduledata.removeAll()
+            } else {
+                scheduledata.removeexecutedonce()
+            }
             if scheduledata.scheduledata.isEmpty {
                 let globalTimer = GlobalTimer.shared
                 globalTimer.clearSchedules()
