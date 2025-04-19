@@ -164,9 +164,6 @@ final class ObservableFutureSchedules {
                 }
             }
         }
-
-        // To remove a schedule
-        // globalTimer.removeSchedule(name: "Lunch")
     }
     
     private func createURLRequest(_ profile: String) -> URL? {

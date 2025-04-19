@@ -43,35 +43,6 @@ struct AddSchedule: View {
                     .frame(width: 50, alignment: .center)
 
                 Button {
-                    var datecomponents = DateComponents()
-                    datecomponents.hour = dateRunHour.en_date_from_string().hourInt + 1
-                    datecomponents.minute = dateRunHour.en_date_from_string().minuteInt
-                    date = dateRunHour.en_date_from_string()
-                    let calendar = Calendar.current
-                    dateRunHour = calendar.date(from: datecomponents)?.en_string_hour_from_date() ?? "00:00"
-                    
-
-                } label: {
-                    Image(systemName: "plus")
-                        .foregroundColor(.blue)
-                }
-                .buttonBorderShape(.circle)
-
-                Button {
-                    var datecomponents = DateComponents()
-                    datecomponents.hour = dateRunHour.en_date_from_string().hourInt - 1
-                    datecomponents.minute = dateRunHour.en_date_from_string().minuteInt
-                    date = dateRunHour.en_date_from_string()
-                    let calendar = Calendar.current
-                    dateRunHour = calendar.date(from: datecomponents)?.en_string_hour_from_date() ?? "00:00"
-
-                } label: {
-                    Image(systemName: "minus")
-                        .foregroundColor(.blue)
-                }
-                .buttonBorderShape(.circle)
-
-                Button {
                     dateRunMonth = Date.now.en_string_month_from_date()
                     dateRunHour = Date.now.en_string_hour_from_date()
                     istappeddayint = 0
@@ -83,6 +54,9 @@ struct AddSchedule: View {
                 .buttonBorderShape(.circle)
                 .help("Reset to current date")
 
+                Spacer()
+                
+                
                 Button {
                     do {
                         // Just concatenate month + minnutes string
