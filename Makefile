@@ -11,7 +11,7 @@ build: clean archive notarize sign prepare-dmg open
 # --- MAIN WORLFLOW FUNCTIONS --- #
 
 archive: clean
-	osascript -e 'display notification "Exporting application archive..." with title "Build the Stats"'
+	osascript -e 'display notification "Exporting application archive..." with title "Build the RsyncUI"'
 	echo "Exporting application archive..."
 
 	xcodebuild \
@@ -32,22 +32,22 @@ archive: clean
 	echo "Project archived successfully"
 
 notarize:
-	osascript -e 'display notification "Submitting app for notarization..." with title "Build the Stats"'
+	osascript -e 'display notification "Submitting app for notarization..." with title "Build the RsyncUI"'
 	echo "Submitting app for notarization..."
 
 	xcrun notarytool submit --keychain-profile "RsyncUI" --wait $(ZIP_PATH)
 
-	echo "Stats successfully notarized"
+	echo "RsyncUI successfully notarized"
 
 sign:
-	osascript -e 'display notification "Stampling the Stats..." with title "Build the Stats"'
+	osascript -e 'display notification "Stampling the RsyncU..." with title "Build the RsyncUI"'
 	echo "Going to staple an application..."
 
 	xcrun stapler staple $(APP_PATH)
 	spctl -a -t exec -vvv $(APP_PATH)
 
-	osascript -e 'display notification "Stats successfully stapled" with title "Build the Stats"'
-	echo "Stats successfully stapled"
+	osascript -e 'display notification "RsyncUI successfully stapled" with title "Build the RsyncUI"'
+	echo "RsyncUI successfully stapled"
 
 prepare-dmg:
 
@@ -78,6 +78,6 @@ history:
 	xcrun notarytool history --keychain-profile "RsyncUI"
 
 open:
-	osascript -e 'display notification "Stats signed and ready for distribution" with title "Build the Stats"'
+	osascript -e 'display notification "RsyncUI signed and ready for distribution" with title "Build the RsyncUI"'
 	echo "Opening working folder..."
 	open $(PWD)
