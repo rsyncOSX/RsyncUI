@@ -22,7 +22,7 @@ struct AddSchedule: View {
     @State private var schedule: String = ScheduleType.once.rawValue
 
     @State private var dateRunMonth: String = Date.now.en_string_month_from_date()
-    @State private var dateRunHour: String = Date.now.en_string_hour_from_date()
+    @State private var dateRunHour: String = ""
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -44,7 +44,7 @@ struct AddSchedule: View {
 
                 Button {
                     dateRunMonth = Date.now.en_string_month_from_date()
-                    dateRunHour = Date.now.en_string_hour_from_date()
+                    dateRunHour = hournow
                     istappeddayint = 0
 
                 } label: {
@@ -111,6 +111,9 @@ struct AddSchedule: View {
             dateRunMonth = date.en_string_month_from_date()
             dateRunHour = date.en_string_hour_from_date()
         }
+        .onAppear() {
+            dateRunHour = hournow
+        }
     }
 
     var pickerselecttypeoftask: some View {
@@ -134,5 +137,16 @@ struct AddSchedule: View {
         }
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 120)
+    }
+    
+    var hournow: String {
+        var datecomponents = DateComponents()
+        datecomponents.minute = Date.now.minuteInt + 5
+        datecomponents.hour = Date.now.hourInt
+        datecomponents.day = Date.now.dayInt
+        datecomponents.year = Date.now.yearInt
+        datecomponents.month = Date.now.monthInt
+        let calendar = Calendar.current
+        return calendar.date(from: datecomponents)?.en_string_hour_from_date() ?? "08:00"
     }
 }
