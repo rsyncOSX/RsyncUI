@@ -10,6 +10,7 @@ import SwiftUI
 struct PushPullCommandView: View {
     @Binding var pushpullcommand: PushPullCommand
     @Binding var dryrun: Bool
+    @Binding var removedelete: Bool
 
     let config: SynchronizeConfiguration
 
@@ -47,6 +48,6 @@ struct PushPullCommandView: View {
 
     var commandstring: String? {
         PushPullCommandtoDisplay(display: pushpullcommand,
-                                 config: config, dryRun: dryrun).command
+                                 config: config, dryRun: dryrun, removedelete: removedelete).command
     }
 }
