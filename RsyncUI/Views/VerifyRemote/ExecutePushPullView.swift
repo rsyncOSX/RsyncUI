@@ -60,14 +60,14 @@ struct ExecutePushPullView: View {
                                 }
                                 
                                 if pushpullcommand != .none {
-                                    Toggle("disable --delete", isOn: $removedelete)
+                                    Toggle("Remove --delete", isOn: $removedelete)
                                         .toggleStyle(.switch)
                                         .onTapGesture {
                                             withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
                                                 removedelete.toggle()
                                             }
                                         }
-                                        .help("Disable the delete parameter, default is true?")
+                                        .help("Remove the delete parameter, default is true?")
                                 }
                             }
 
