@@ -19,7 +19,7 @@ final class ArgumentsSynchronize {
             if let parameters = PrepareParameters(config: config).parameters {
                 let rsyncparameterssynchronize =
                     RsyncParametersSynchronize(parameters: parameters)
-                rsyncparameterssynchronize.argumentsforpushlocaltoremote(forDisplay: forDisplay, verify: false, dryrun: dryRun)
+                rsyncparameterssynchronize.argumentsforpushlocaltoremote(forDisplay: forDisplay, verify: false, dryrun: dryRun, removedelete: true)
                 return rsyncparameterssynchronize.computedarguments
             }
         }
