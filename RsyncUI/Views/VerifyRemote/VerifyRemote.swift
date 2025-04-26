@@ -11,12 +11,12 @@ import SwiftUI
 struct VerifyRemote: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var verifynavigationispresented: Bool
-    // For supporting URL links
-    @Binding var queryitem: URLQueryItem?
     @Binding var urlcommandverify: Bool
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @State private var selectedconfig: SynchronizeConfiguration?
-    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    
+    
     // Selected task is halted
     @State private var selectedtaskishalted: Bool = false
 
@@ -65,13 +65,8 @@ struct VerifyRemote: View {
             .navigationDestination(isPresented: $urlcommandverify) {
                 if let selectedconfig {
                     PushPullView(verifynavigationispresented: $verifynavigationispresented,
-                                 queryitem: $queryitem,
                                  config: selectedconfig)
                 }
-            }
-            .onChange(of: queryitem) {
-                // URL code
-                handlequeryitem()
             }
             .toolbar(content: {
                 if remoteconfigurations, alltasksarehalted() == false {
@@ -112,6 +107,7 @@ struct VerifyRemote: View {
         return haltedtasks?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0
     }
 
+/*
     // URL code
     func handlequeryitem() {
         Logger.process.info("VerifyRemote: Change on queryitem discovered")
@@ -128,4 +124,5 @@ struct VerifyRemote: View {
             queryitem = nil
         }
     }
+ */
 }

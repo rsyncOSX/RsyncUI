@@ -9,9 +9,7 @@ import SwiftUI
 
 struct PushPullView: View {
     @Binding var verifynavigationispresented: Bool
-    // URL code
-    @Binding var queryitem: URLQueryItem?
-
+    
     @State private var progress = true
     // Pull data from remote
     @State private var pullremotedatanumbers: RemoteDataNumbers?
