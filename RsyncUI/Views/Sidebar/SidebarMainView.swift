@@ -333,6 +333,7 @@ extension SidebarMainView {
                 return
             }
         case .loadprofileandverify:
+
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Verify - \(url)")
 
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 2 {

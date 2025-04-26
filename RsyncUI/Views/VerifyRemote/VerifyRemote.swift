@@ -15,8 +15,7 @@ struct VerifyRemote: View {
     @Binding var queryitem: URLQueryItem?
 
     @State private var selectedconfig: SynchronizeConfiguration?
-    
-    
+
     // Selected task is halted
     @State private var selectedtaskishalted: Bool = false
 
@@ -27,6 +26,7 @@ struct VerifyRemote: View {
                                             profile: rsyncUIdata.profile,
                                             configurations: rsyncUIdata.configurations)
                     .onChange(of: selecteduuids) {
+                        // Must set queryitem nil before selecting
                         queryitem = nil
                         if let configurations = rsyncUIdata.configurations {
                             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
@@ -87,6 +87,10 @@ struct VerifyRemote: View {
                 }
             })
         }
+        .onChange(of: queryitem) {
+            guard queryitem != nil else { return }
+            handlequeryitem()
+        }
     }
 
     var remoteconfigurations: Bool {
@@ -107,7 +111,6 @@ struct VerifyRemote: View {
         return haltedtasks?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0
     }
 
-/*
     // URL code
     func handlequeryitem() {
         Logger.process.info("VerifyRemote: Change on queryitem discovered")
@@ -121,8 +124,7 @@ struct VerifyRemote: View {
             selectedconfig = config
             guard selectedconfig?.task != SharedReference.shared.halted else { return }
             // Set config and execute a Verify
-            queryitem = nil
+            urlcommandverify = true
         }
     }
- */
 }
