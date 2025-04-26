@@ -31,7 +31,6 @@ struct SidebarTasksView: View {
     // URL code
     @Binding var queryitem: URLQueryItem?
     @Binding var urlcommandestimateandsynchronize: Bool
-    // @Binding var urlcommandverify: Bool
     // Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
 

@@ -209,9 +209,9 @@ struct SidebarMainView: View {
             ProfileView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
         case .verify_remote:
             VerifyRemote(rsyncUIdata: rsyncUIdata,
-                         // verifynavigationispresented: $verifynavigationispresented,
                          urlcommandverify: $urlcommandverify,
-                         selecteduuids: $selecteduuids)
+                         selecteduuids: $selecteduuids,
+                         queryitem: $queryitem)
         case .calendar:
             NavigationStack {
                 CalendarMonthView(rsyncUIdata: rsyncUIdata,
@@ -301,7 +301,8 @@ extension SidebarMainView {
                     Task {
                         if externalurl {
                             // Load profile for external URL
-                            await loadprofileforexternalurllink(profile)
+                            async let test = loadprofileforexternalurllink(profile)
+                            guard await test else { return }
                         }
                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
                             selectedview = .synchronize
@@ -315,7 +316,8 @@ extension SidebarMainView {
                         Task {
                             if externalurl {
                                 // Load profile for external URL
-                                await loadprofileforexternalurllink(profile)
+                                async let test = loadprofileforexternalurllink(profile)
+                                guard await test else { return }
                             }
                             guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
                                 selectedview = .synchronize
@@ -342,7 +344,8 @@ extension SidebarMainView {
                     Task {
                         if externalurl {
                             // Load profile for external URL
-                            await loadprofileforexternalurllink(profile)
+                            async let test = loadprofileforexternalurllink(profile)
+                            guard await test else { return }
                         }
                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
                             selectedview = .synchronize
@@ -356,7 +359,8 @@ extension SidebarMainView {
                         Task {
                             if externalurl {
                                 // Load profile for external URL
-                                await loadprofileforexternalurllink(profile)
+                                async let test = loadprofileforexternalurllink(profile)
+                                guard await test else { return }
                             }
                             guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
                                 selectedview = .synchronize
@@ -426,7 +430,7 @@ extension SidebarMainView {
     // Must load profile for URL-link async to make sure profile is
     // loaded ahead of start requested action.
     // Only for external URL requests
-    func loadprofileforexternalurllink(_ profile: String) async {
+    func loadprofileforexternalurllink(_ profile: String) async -> Bool {
         Logger.process.info("SidebarMainView: loadprofileforexternalurllink executed")
         rsyncUIdata.externalurlrequestinprogress = true
         if profile == "default" {
@@ -440,6 +444,11 @@ extension SidebarMainView {
             .readjsonfilesynchronizeconfigurations(selectedprofile,
                                                    SharedReference.shared.monitornetworkconnection,
                                                    SharedReference.shared.sshport)
+        if rsyncUIdata.configurations == nil {
+            return false
+        } else {
+            return true
+        }
     }
 }
 

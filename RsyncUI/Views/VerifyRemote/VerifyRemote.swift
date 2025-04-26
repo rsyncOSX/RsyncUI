@@ -10,9 +10,9 @@ import SwiftUI
 
 struct VerifyRemote: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    // @Binding var verifynavigationispresented: Bool
     @Binding var urlcommandverify: Bool
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
+    @Binding var queryitem: URLQueryItem?
 
     @State private var selectedconfig: SynchronizeConfiguration?
     
@@ -27,6 +27,7 @@ struct VerifyRemote: View {
                                             profile: rsyncUIdata.profile,
                                             configurations: rsyncUIdata.configurations)
                     .onChange(of: selecteduuids) {
+                        queryitem = nil
                         if let configurations = rsyncUIdata.configurations {
                             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                 selectedconfig = configurations[index]
