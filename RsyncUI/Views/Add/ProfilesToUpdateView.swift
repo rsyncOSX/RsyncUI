@@ -1,5 +1,5 @@
 //
-//  ProfilesToUpdataView.swift
+//  ProfilesToUpdateView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 11/10/2024.

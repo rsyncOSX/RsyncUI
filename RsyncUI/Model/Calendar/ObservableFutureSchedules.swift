@@ -134,7 +134,6 @@ final class ObservableFutureSchedules {
 
             startatimer(first)
         } else {
-            
             firstscheduledate = nil
             let globalTimer = GlobalTimer.shared
             globalTimer.clearSchedules()
@@ -142,7 +141,6 @@ final class ObservableFutureSchedules {
     }
 
     private func startatimer(_ schedule: SchedulesConfigurations) {
-        
         let globalTimer = GlobalTimer.shared
         // Remove and cancel any schedules
         globalTimer.clearSchedules()
@@ -165,7 +163,7 @@ final class ObservableFutureSchedules {
             }
         }
     }
-    
+
     private func createURLRequest(_ profile: String) -> URL? {
         // Create estimate and synchronize URL
         let deeplinkurl = DeeplinkURL()

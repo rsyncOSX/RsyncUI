@@ -13,10 +13,10 @@ struct ExecutePushPullView: View {
     @State private var pushpullcommand = PushPullCommand.none
     // Alert button
     @State private var showingAlert = false
-    
+
     @State private var dryrun: Bool = true
     @State private var removedelete: Bool = true
-    
+
     let config: SynchronizeConfiguration
     let pushorpullremotednumbers: RemoteDataNumbers
 
@@ -58,7 +58,7 @@ struct ExecutePushPullView: View {
                                             }
                                         }
                                 }
-                                
+
                                 if pushpullcommand != .none {
                                     Toggle("Remove --delete", isOn: $removedelete)
                                         .toggleStyle(.switch)

@@ -126,7 +126,7 @@ struct CalendarMonthView: View {
                             }
 
                             futuredates.recomputeschedules()
-                            
+
                             confirmdelete = false
 
                             Task {

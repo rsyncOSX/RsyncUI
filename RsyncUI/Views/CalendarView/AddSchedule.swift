@@ -55,8 +55,7 @@ struct AddSchedule: View {
                 .help("Reset to current date")
 
                 Spacer()
-                
-                
+
                 Button {
                     do {
                         // Just concatenate month + minnutes string
@@ -111,7 +110,7 @@ struct AddSchedule: View {
             dateRunMonth = date.en_string_month_from_date()
             dateRunHour = date.en_string_hour_from_date()
         }
-        .onAppear() {
+        .onAppear {
             dateRunHour = hournow
         }
     }
@@ -138,7 +137,7 @@ struct AddSchedule: View {
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 120)
     }
-    
+
     var hournow: String {
         var datecomponents = DateComponents()
         datecomponents.minute = Date.now.minuteInt + 5

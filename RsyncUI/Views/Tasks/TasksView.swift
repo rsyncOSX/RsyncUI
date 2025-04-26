@@ -43,7 +43,7 @@ struct TasksView: View {
     @Binding var path: [Tasks]
     // For URL commands within RsyncUI
     @Binding var urlcommandestimateandsynchronize: Bool
-    @Binding var urlcommandverify: Bool
+    // @Binding var urlcommandverify: Bool
     // Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
     @Binding var selectedprofile: String?
@@ -257,23 +257,24 @@ struct TasksView: View {
                 .help("Quick synchronize")
             }
 
-            if remoteconfigurations, alltasksarehalted() == false {
-                ToolbarItem {
-                    Button {
-                        guard selectedtaskishalted == false else { return }
-                        if urlcommandverify {
-                            urlcommandverify = false
-                        } else {
-                            urlcommandverify = true
-                        }
-                    } label: {
-                        Image(systemName: "bolt.shield")
-                            .foregroundColor(Color(.yellow))
-                    }
-                    .help("Verify Selected")
-                }
-            }
-
+            /*
+             if remoteconfigurations, alltasksarehalted() == false {
+                 ToolbarItem {
+                     Button {
+                         guard selectedtaskishalted == false else { return }
+                         if urlcommandverify {
+                             urlcommandverify = false
+                         } else {
+                             urlcommandverify = true
+                         }
+                     } label: {
+                         Image(systemName: "bolt.shield")
+                             .foregroundColor(Color(.yellow))
+                     }
+                     .help("Verify Selected")
+                 }
+             }
+             */
             if alltasksarehalted() == false {
                 ToolbarItem {
                     Button {

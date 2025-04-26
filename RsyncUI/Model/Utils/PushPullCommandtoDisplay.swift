@@ -24,7 +24,7 @@ struct PushPullCommandtoDisplay {
     init(display: PushPullCommand,
          config: SynchronizeConfiguration,
          dryRun: Bool,
-         removedelete : Bool)
+         removedelete: Bool)
     {
         var str = ""
         switch display {

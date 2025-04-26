@@ -36,9 +36,8 @@ final class GlobalTimer {
      */
     func clearSchedules() {
         guard schedules.count > 0 else {
-            
             Logger.process.info("GlobalTimer: clearSchedules() NO timer to invalidate")
-            
+
             timer?.invalidate()
             timer = nil
             return

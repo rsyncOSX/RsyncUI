@@ -202,16 +202,15 @@ struct SidebarMainView: View {
                              executetasknavigation: $executetasknavigation,
                              queryitem: $queryitem,
                              urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
-                             urlcommandverify: $urlcommandverify,
+                             // urlcommandverify: $urlcommandverify,
                              columnVisibility: $columnVisibility)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
         case .verify_remote:
-            NavigationStack {
-                VerifyRemote(rsyncUIdata: rsyncUIdata,
-                             verifynavigationispresented: $verifynavigationispresented,
-                             queryitem: $queryitem)
-            }
+            VerifyRemote(rsyncUIdata: rsyncUIdata,
+                         verifynavigationispresented: $verifynavigationispresented,
+                         queryitem: $queryitem,
+                         urlcommandverify: $urlcommandverify)
         case .calendar:
             NavigationStack {
                 CalendarMonthView(rsyncUIdata: rsyncUIdata,
