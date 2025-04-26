@@ -147,6 +147,7 @@ struct SidebarMainView: View {
             // URL code
             // Binding to listen for initiating deep link execute estimate and synchronize from
             // toolbar in Verify View
+            guard urlcommandverify == true else { return }
             let valueprofile = rsyncUIdata.profile ?? ""
             var valueid = ""
             if let configurations = rsyncUIdata.configurations {
@@ -208,7 +209,7 @@ struct SidebarMainView: View {
             ProfileView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
         case .verify_remote:
             VerifyRemote(rsyncUIdata: rsyncUIdata,
-                         verifynavigationispresented: $verifynavigationispresented,
+                         // verifynavigationispresented: $verifynavigationispresented,
                          urlcommandverify: $urlcommandverify,
                          selecteduuids: $selecteduuids)
         case .calendar:

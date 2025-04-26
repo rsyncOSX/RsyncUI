@@ -10,7 +10,7 @@ import SwiftUI
 
 struct VerifyRemote: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var verifynavigationispresented: Bool
+    // @Binding var verifynavigationispresented: Bool
     @Binding var urlcommandverify: Bool
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
@@ -64,8 +64,7 @@ struct VerifyRemote: View {
             .navigationTitle("Verify remote select")
             .navigationDestination(isPresented: $urlcommandverify) {
                 if let selectedconfig {
-                    PushPullView(verifynavigationispresented: $verifynavigationispresented,
-                                 config: selectedconfig)
+                    PushPullView(config: selectedconfig)
                 }
             }
             .toolbar(content: {

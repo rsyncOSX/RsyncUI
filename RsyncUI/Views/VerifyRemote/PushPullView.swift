@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct PushPullView: View {
-    @Binding var verifynavigationispresented: Bool
     
+    @State private var verifynavigationispresented: Bool = false
     @State private var progress = true
     // Pull data from remote
     @State private var pullremotedatanumbers: RemoteDataNumbers?
