@@ -277,7 +277,9 @@ extension SidebarMainView {
 
         switch deeplinkurl.handleURL(url)?.host {
         case .quicktask:
+            
             Logger.process.info("handleURLsidebarmainView: URL Quicktask - \(url)")
+            
             selectedview = .synchronize
             executetasknavigation.append(Tasks(task: .quick_synchronize))
         case .loadprofile:
@@ -291,7 +293,9 @@ extension SidebarMainView {
                 return
             }
         case .loadprofileandestimate:
+            
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Estimate - \(url)")
+            
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
                 let profile = queryitems[0].value ?? ""
 
@@ -334,6 +338,7 @@ extension SidebarMainView {
             }
         case .loadprofileandverify:
 
+            // Only by external URL load and verify
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Verify - \(url)")
 
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 2 {
@@ -347,13 +352,14 @@ extension SidebarMainView {
                             // Load profile for external URL
                             async let test = loadprofileforexternalurllink(profile)
                             guard await test else { return }
+                            
+                            guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
+                                selectedview = .synchronize
+                                return
+                            }
+                            // Observe queryitem
+                            queryitem = queryitems[1]
                         }
-                        guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                            selectedview = .synchronize
-                            return
-                        }
-                        // Observe queryitem
-                        queryitem = queryitems[1]
                     }
                 } else {
                     if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
@@ -362,13 +368,14 @@ extension SidebarMainView {
                                 // Load profile for external URL
                                 async let test = loadprofileforexternalurllink(profile)
                                 guard await test else { return }
+                                
+                                guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
+                                    selectedview = .synchronize
+                                    return
+                                }
+                                // Observe queryitem
+                                queryitem = queryitems[1]
                             }
-                            guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                                selectedview = .synchronize
-                                return
-                            }
-                            // Observe queryitem
-                            queryitem = queryitems[1]
                         }
                     }
                 }
