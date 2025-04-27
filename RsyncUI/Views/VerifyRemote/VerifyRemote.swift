@@ -43,23 +43,27 @@ struct VerifyRemote: View {
                     }
 
                 VStack {
-                    Text("**Warning:** The Verify function is advisory only.")
+                    Text("**Warning**")
                         .foregroundColor(.blue)
                         .font(.title)
+
+                    Text("The Verify function is advisory only.")
+                        .foregroundColor(.blue)
+                        .font(.title2)
 
                     HStack {
                         Text("Select a task and select the ")
                             .foregroundColor(.blue)
-                            .font(.title)
+                            .font(.title2)
 
                         Text(Image(systemName: "bolt.shield"))
                             .foregroundColor(.yellow)
-                            .font(.title)
-
-                        Text(" on the toolbar to verify.")
-                            .foregroundColor(.blue)
-                            .font(.title)
+                            .font(.title2)
                     }
+
+                    Text(" on the toolbar to verify.")
+                        .foregroundColor(.blue)
+                        .font(.title2)
                 }
             }
             .navigationTitle("Verify remote select")
