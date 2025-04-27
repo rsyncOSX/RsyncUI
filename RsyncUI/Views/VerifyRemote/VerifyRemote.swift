@@ -66,7 +66,7 @@ struct VerifyRemote: View {
                         .font(.title2)
                 }
             }
-            .navigationTitle("Verify remote select")
+            .navigationTitle("Verify remote")
             .navigationDestination(isPresented: $urlcommandverify) {
                 if let selectedconfig {
                     PushPullView(config: selectedconfig)
