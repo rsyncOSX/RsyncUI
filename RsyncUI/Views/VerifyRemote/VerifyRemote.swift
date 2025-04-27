@@ -12,10 +12,10 @@ struct VerifyRemote: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var urlcommandverify: Bool
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
+    // Queryitem binding is requiered for external URL only
     @Binding var queryitem: URLQueryItem?
 
     @State private var selectedconfig: SynchronizeConfiguration?
-
     // Selected task is halted
     @State private var selectedtaskishalted: Bool = false
 

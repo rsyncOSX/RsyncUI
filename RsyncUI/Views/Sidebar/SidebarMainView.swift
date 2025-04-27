@@ -277,9 +277,9 @@ extension SidebarMainView {
 
         switch deeplinkurl.handleURL(url)?.host {
         case .quicktask:
-            
+
             Logger.process.info("handleURLsidebarmainView: URL Quicktask - \(url)")
-            
+
             selectedview = .synchronize
             executetasknavigation.append(Tasks(task: .quick_synchronize))
         case .loadprofile:
@@ -293,9 +293,9 @@ extension SidebarMainView {
                 return
             }
         case .loadprofileandestimate:
-            
+
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Estimate - \(url)")
-            
+
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
                 let profile = queryitems[0].value ?? ""
 
@@ -304,9 +304,9 @@ extension SidebarMainView {
                 if profile == "default" {
                     Task {
                         if externalurl {
-                            // Load profile for external URL
-                            async let test = loadprofileforexternalurllink(profile)
-                            guard await test else { return }
+                            // Load profile for external URL, this make the call strctured concurrency
+                            async let loadprofile = loadprofileforexternalurllink(profile)
+                            guard await loadprofile else { return }
                         }
                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
                             selectedview = .synchronize
@@ -320,8 +320,8 @@ extension SidebarMainView {
                         Task {
                             if externalurl {
                                 // Load profile for external URL
-                                async let test = loadprofileforexternalurllink(profile)
-                                guard await test else { return }
+                                async let loadprofile = loadprofileforexternalurllink(profile)
+                                guard await loadprofile else { return }
                             }
                             guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
                                 selectedview = .synchronize
@@ -350,9 +350,9 @@ extension SidebarMainView {
                     Task {
                         if externalurl {
                             // Load profile for external URL
-                            async let test = loadprofileforexternalurllink(profile)
-                            guard await test else { return }
-                            
+                            async let loadprofile = loadprofileforexternalurllink(profile)
+                            guard await loadprofile else { return }
+
                             guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
                                 selectedview = .synchronize
                                 return
@@ -366,9 +366,9 @@ extension SidebarMainView {
                         Task {
                             if externalurl {
                                 // Load profile for external URL
-                                async let test = loadprofileforexternalurllink(profile)
-                                guard await test else { return }
-                                
+                                async let loadprofile = loadprofileforexternalurllink(profile)
+                                guard await loadprofile else { return }
+
                                 guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
                                     selectedview = .synchronize
                                     return
@@ -436,8 +436,7 @@ extension SidebarMainView {
     }
 
     // Must load profile for URL-link async to make sure profile is
-    // loaded ahead of start requested action.
-    // Only for external URL requests
+    // loaded ahead of start requested action. Only for external URL requests
     func loadprofileforexternalurllink(_ profile: String) async -> Bool {
         Logger.process.info("SidebarMainView: loadprofileforexternalurllink executed")
         rsyncUIdata.externalurlrequestinprogress = true

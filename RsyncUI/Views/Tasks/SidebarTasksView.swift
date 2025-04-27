@@ -44,7 +44,6 @@ struct SidebarTasksView: View {
                       selecteduuids: $selecteduuids,
                       path: $executetasknavigation,
                       urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
-                      // urlcommandverify: $urlcommandverify,
                       columnVisibility: $columnVisibility,
                       selectedprofile: $selectedprofile)
                 .navigationDestination(for: Tasks.self) { which in

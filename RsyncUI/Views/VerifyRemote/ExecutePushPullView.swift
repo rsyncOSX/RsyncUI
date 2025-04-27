@@ -11,11 +11,14 @@ struct ExecutePushPullView: View {
     @State private var progress = false
     @State private var remotedatanumbers: RemoteDataNumbers?
     @State private var pushpullcommand = PushPullCommand.none
-    // Alert button
-    @State private var showingAlert = false
 
     @State private var dryrun: Bool = true
     @State private var removedelete: Bool = true
+
+    /*
+     // Alert button
+     @State private var showingAlert = false
+      */
 
     let config: SynchronizeConfiguration
     let pushorpullremotednumbers: RemoteDataNumbers
@@ -96,18 +99,20 @@ struct ExecutePushPullView: View {
                 .help("Abort (⌘K)")
             }
         })
-        .alert(isPresented: $showingAlert) {
-            Alert(
-                title: Text("Switch dry-run mode?"),
-                primaryButton: .default(Text("Off")) {},
-                secondaryButton: .cancel {
-                    dryrun = true
-                }
-            )
-        }
-        .onChange(of: dryrun) {
-            showingAlert = !dryrun
-        }
+        /*
+         .alert(isPresented: $showingAlert) {
+             Alert(
+                 title: Text("Switch dry-run mode?"),
+                 primaryButton: .default(Text("Off")) {},
+                 secondaryButton: .cancel {
+                     dryrun = true
+                 }
+             )
+         }
+         .onChange(of: dryrun) {
+             showingAlert = !dryrun
+         }
+          */
     }
 
     // For a verify run, --dry-run

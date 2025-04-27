@@ -257,24 +257,6 @@ struct TasksView: View {
                 .help("Quick synchronize")
             }
 
-            /*
-             if remoteconfigurations, alltasksarehalted() == false {
-                 ToolbarItem {
-                     Button {
-                         guard selectedtaskishalted == false else { return }
-                         if urlcommandverify {
-                             urlcommandverify = false
-                         } else {
-                             urlcommandverify = true
-                         }
-                     } label: {
-                         Image(systemName: "bolt.shield")
-                             .foregroundColor(Color(.yellow))
-                     }
-                     .help("Verify Selected")
-                 }
-             }
-             */
             if alltasksarehalted() == false {
                 ToolbarItem {
                     Button {
