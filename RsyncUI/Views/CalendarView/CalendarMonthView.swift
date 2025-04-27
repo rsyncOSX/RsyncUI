@@ -216,14 +216,4 @@ struct CalendarMonthView: View {
     func istappednoschedule(_ date: Date) -> Bool {
         date.dayInt == istappeddayint
     }
-
-    func setstopdate(_ date: Date) -> Date {
-        var datecomponents = DateComponents()
-        datecomponents.hour = 8
-        datecomponents.day = date.dayInt
-        datecomponents.year = date.yearInt
-        datecomponents.month = date.monthInt + 3
-        let calendar = Calendar.current
-        return calendar.date(from: datecomponents) ?? Date()
-    }
 }

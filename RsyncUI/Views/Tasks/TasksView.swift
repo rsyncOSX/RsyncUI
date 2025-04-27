@@ -328,19 +328,6 @@ struct TasksView: View {
                 focusstartexecution = false
             })
     }
-
-    var remoteconfigurations: Bool {
-        let remotes = rsyncUIdata.configurations?.filter { configuration in
-            configuration.offsiteServer.isEmpty == false &&
-                configuration.task == SharedReference.shared.synchronize &&
-                SharedReference.shared.rsyncversion3 == true
-        } ?? []
-        if remotes.count > 0 {
-            return true
-        } else {
-            return false
-        }
-    }
 }
 
 extension TasksView {
