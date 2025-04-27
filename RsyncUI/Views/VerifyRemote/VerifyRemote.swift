@@ -47,7 +47,7 @@ struct VerifyRemote: View {
                         .foregroundColor(.blue)
                         .font(.title)
 
-                    Text("The Verify function is advisory only.")
+                    Text("Verify remote is **advisory** only.")
                         .foregroundColor(.blue)
                         .font(.title2)
 

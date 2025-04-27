@@ -55,21 +55,6 @@ struct PushPullView: View {
                         }
                     }
                 }
-
-                if progress == false, isaborted == false {
-                    switch pushorpull.decideremoteVSlocal(pullremotedatanumbers: pullremotedatanumbers,
-                                                          pushremotedatanumbers: pushremotedatanumbers)
-                    {
-                    case .remotemoredata:
-                        MessageView(mytext: NSLocalizedString("It seems that REMOTE is more updated than LOCAL.", comment: ""), size: .title3)
-                    case .localmoredata:
-                        MessageView(mytext: NSLocalizedString("It seems that LOCAL is more updated than REMOTE", comment: ""), size: .title3)
-                    case .evenamountadata:
-                        MessageView(mytext: NSLocalizedString("There is an equal amount of data.", comment: ""), size: .title3)
-                    case .noevaluation:
-                        MessageView(mytext: NSLocalizedString("I couldn’t decide between LOCAL and REMOTE.", comment: ""), size: .title3)
-                    }
-                }
             }
             .onAppear {
                 pullremote(config: config)
