@@ -283,7 +283,9 @@ extension SidebarMainView {
             selectedview = .synchronize
             executetasknavigation.append(Tasks(task: .quick_synchronize))
         case .loadprofile:
+            
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile - \(url)")
+            
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
                 let profile = queryitems[0].value ?? ""
                 if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
@@ -388,7 +390,9 @@ extension SidebarMainView {
     }
 
     func observerdidMountNotification() {
+        
         Logger.process.info("SidebarMainView: observerdidMountNotification added")
+        
         let notificationCenter = NSWorkspace.shared.notificationCenter
         notificationCenter.addObserver(forName: NSWorkspace.didMountNotification,
                                        object: nil, queue: .main)
