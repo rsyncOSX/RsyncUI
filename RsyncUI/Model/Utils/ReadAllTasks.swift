@@ -22,8 +22,9 @@ struct ReadAllTasks {
 
         for i in 0 ..< allprofiles.count {
             let profilename = allprofiles[i]
-            let configurations = await ActorReadSynchronizeConfigurationJSON()
-                .readjsonfilesynchronizeconfigurations(profilename,
+            
+            async let readconfigurations = ActorReadSynchronizeConfigurationJSON()
+            let configurations = await readconfigurations.readjsonfilesynchronizeconfigurations(profilename,
                                                        SharedReference.shared.monitornetworkconnection,
                                                        SharedReference.shared.sshport)
 
@@ -86,6 +87,7 @@ struct ReadAllTasks {
 
         for i in 0 ..< allprofiles.count {
             let profilename = allprofiles[i]
+            
             async let readconfigurations = ActorReadSynchronizeConfigurationJSON()
             let configurations = await readconfigurations.readjsonfilesynchronizeconfigurations(profilename,
                                                        SharedReference.shared.monitornetworkconnection,
