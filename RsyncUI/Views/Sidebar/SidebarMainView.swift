@@ -409,7 +409,10 @@ extension SidebarMainView {
 
     private func verifyandloadprofilemountedvolume(_ mountedvolume: URL) async {
         mountingvolumenow = true
-        let allconfigurations = await ReadAllTasks().readalltasks(rsyncUIdata.validprofiles)
+        
+        async let readallconfigurations = ReadAllTasks()
+        let allconfigurations = await readallconfigurations.readalltasks(rsyncUIdata.validprofiles)
+        
         let volume = mountedvolume.lastPathComponent
         let mappedallconfigurations = allconfigurations.compactMap { configuration in
             (configuration.offsiteServer.isEmpty == true &&
