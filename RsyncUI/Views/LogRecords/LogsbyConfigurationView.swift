@@ -137,10 +137,12 @@ struct LogsbyConfigurationView: View {
                 showindebounce = false
                 selecteduuids.removeAll()
                 selectedloguuids.removeAll()
-                let actorreadlogs = ActorReadLogRecordsJSON()
-                await logrecords =
-                    actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+                
+                // Structured Concurrency
+                async let actorreadlogs = ActorReadLogRecordsJSON()
+                logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+    
             }
         }
         .toolbar(content: {
@@ -217,9 +219,9 @@ struct LogsbyConfigurationView: View {
             selectedloguuids.removeAll()
             logrecords = nil
             Task {
-                let actorreadlogs = ActorReadLogRecordsJSON()
-                await logrecords =
-                    actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+                // Structured Concurrency
+                async let actorreadlogs = ActorReadLogRecordsJSON()
+                logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }
