@@ -346,7 +346,11 @@ extension SidebarMainView {
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 2 {
                 let profile = queryitems[0].value ?? ""
 
-                selectedview = .verify_remote
+                // Internal verify remote is triggered from within the verify_remote view
+                // and external == false, the view itself handles push and pull dryrun
+                if selectedview != .verify_remote {
+                    selectedview = .verify_remote
+                }
 
                 if profile == "default" {
                     Task {
