@@ -19,9 +19,13 @@ struct ReadAllTasks {
         }
 
         let allprofiles = validprofiles.map(\.profilename)
+        
+        Logger.process.info("ReadAllTasks: readallmarkedtasks() START of async CALLs")
 
         for i in 0 ..< allprofiles.count {
             let profilename = allprofiles[i]
+            
+            // Logger.process.info("ReadAllTasks: readallmarkedtasks() LET ASYNC")
             
             async let readconfigurations = ActorReadSynchronizeConfigurationJSON()
             let configurations = await readconfigurations.readjsonfilesynchronizeconfigurations(profilename,
@@ -63,6 +67,9 @@ struct ReadAllTasks {
                 }
             }
         }
+        
+        Logger.process.info("ReadAllTasks: readallmarkedtasks() COMPLETED async CALLs")
+        
         if old?.count == 0 {
             return []
         } else {
@@ -84,9 +91,13 @@ struct ReadAllTasks {
         }
 
         let allprofiles = validprofiles.map(\.profilename)
+        
+        Logger.process.info("ReadAllTasks: readalltasks() START of async CALLs")
 
         for i in 0 ..< allprofiles.count {
             let profilename = allprofiles[i]
+            
+            // Logger.process.info("ReadAllTasks: readalltasks() LET ASYNC")
             
             async let readconfigurations = ActorReadSynchronizeConfigurationJSON()
             let configurations = await readconfigurations.readjsonfilesynchronizeconfigurations(profilename,
@@ -103,6 +114,9 @@ struct ReadAllTasks {
                 allconfigurations.append(contentsOf: adjustedconfigurations)
             }
         }
+        
+        Logger.process.info("ReadAllTasks: readalltasks() COMPLETED async CALLs")
+        
         return allconfigurations
     }
 }
