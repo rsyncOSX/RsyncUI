@@ -454,10 +454,17 @@ extension SidebarMainView {
             rsyncUIdata.profile = profile
             selectedprofile = profile
         }
+        
+        async let readconfigurations = ActorReadSynchronizeConfigurationJSON()
+        rsyncUIdata.configurations = await readconfigurations.readjsonfilesynchronizeconfigurations(selectedprofile,
+                                                   SharedReference.shared.monitornetworkconnection,
+                                                   SharedReference.shared.sshport)
+        /*
         rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
             .readjsonfilesynchronizeconfigurations(selectedprofile,
                                                    SharedReference.shared.monitornetworkconnection,
                                                    SharedReference.shared.sshport)
+         */
         if rsyncUIdata.configurations == nil {
             return false
         } else {
