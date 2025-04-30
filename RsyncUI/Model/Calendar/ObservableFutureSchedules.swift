@@ -163,9 +163,9 @@ final class ObservableFutureSchedules {
                         NSWorkspace.shared.open(URL(string: url.absoluteString)!)
                     }
                 } else {
+                    Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED INTERNALLY")
                     self.scheduledprofile = profile
-                    self.urlcommandestimateandsynchronize = true
-
+                    // self.urlcommandestimateandsynchronize = true
                 }
             }
         }
