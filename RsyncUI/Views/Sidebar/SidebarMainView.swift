@@ -175,6 +175,18 @@ struct SidebarMainView: View {
                 globalTimer.clearSchedules()
             }
         }
+        .onChange(of: futuredates.scheduledprofile) {
+            
+            Logger.process.info("SidebarMainView: got TRIGGER from Timer")
+            
+            queryitem = nil
+            selectedview = .synchronize
+            selectedprofile = futuredates.scheduledprofile
+            /*
+            rsyncUIdata.profile = futuredates.scheduledprofile
+            urlcommandestimateandsynchronize = true
+             */
+        }
     }
 
     @MainActor @ViewBuilder

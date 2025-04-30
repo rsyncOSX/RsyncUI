@@ -8,7 +8,6 @@
 import Foundation
 import Observation
 import OSLog
-import RsyncUIDeepLinks
 import SwiftUI
 
 @Observable @MainActor
@@ -20,8 +19,6 @@ final class ObservableFutureSchedules {
     var firstscheduledate: SchedulesConfigurations?
     // Trigger execution
     var scheduledprofile: String = ""
-    var urlcommandestimateandsynchronize: Bool = false
-    let deeplinks = RsyncUIDeepLinks()
 
     private func computefuturedates(profile: String, schedule: String, dateRun: Date) {
         var dateComponents = DateComponents()
@@ -165,7 +162,6 @@ final class ObservableFutureSchedules {
                 } else {
                     Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED INTERNALLY")
                     self.scheduledprofile = profile
-                    // self.urlcommandestimateandsynchronize = true
                 }
             }
         }

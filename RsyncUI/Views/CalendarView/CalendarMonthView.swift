@@ -165,10 +165,6 @@ struct CalendarMonthView: View {
                 globalTimer.clearSchedules()
             }
         }
-        .onChange(of: futuredates.urlcommandestimateandsynchronize) {
-            rsyncUIdata.profile = futuredates.scheduledprofile
-            urlcommandestimateandsynchronize = true
-        }
         .padding()
         .toolbar {
             ToolbarItem {
