@@ -11,6 +11,10 @@ struct CalendarMonthView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var scheduledata: ObservableScheduleData
     @Bindable var futuredates: ObservableFutureSchedules
+    
+    // Trigger scheduled task by queryitem
+    @Binding var queryitem: URLQueryItem?
+    @Binding var urlcommandestimateandsynchronize: Bool
 
     @State private var date = Date.now
 

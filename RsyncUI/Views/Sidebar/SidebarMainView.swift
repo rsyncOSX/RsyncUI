@@ -216,7 +216,9 @@ struct SidebarMainView: View {
             NavigationStack {
                 CalendarMonthView(rsyncUIdata: rsyncUIdata,
                                   scheduledata: scheduledata,
-                                  futuredates: futuredates)
+                                  futuredates: futuredates,
+                                  queryitem: $queryitem,
+                                  urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize)
             }
         }
     }
