@@ -121,6 +121,7 @@ struct SidebarTasksView: View {
         executeprogressdetails.estimatedlist = nil
         estimateprogressdetails.resetcounts()
         rsyncUIdata.executetasksinprogress = false
+        queryitem = nil
     }
 }
 
