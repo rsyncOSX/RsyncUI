@@ -8,6 +8,7 @@
 import Foundation
 import Observation
 import OSLog
+import RsyncUIDeepLinks
 import SwiftUI
 
 @Observable @MainActor
@@ -17,6 +18,10 @@ final class ObservableFutureSchedules {
     @ObservationIgnored var scheduledata: [SchedulesConfigurations]?
     // First schedule to execute
     var firstscheduledate: SchedulesConfigurations?
+    // Trigger execution
+    var scheduledprofile: String = ""
+    var urlcommandestimateandsynchronize: Bool = false
+    let deeplinks = RsyncUIDeepLinks()
 
     private func computefuturedates(profile: String, schedule: String, dateRun: Date) {
         var dateComponents = DateComponents()
@@ -151,14 +156,16 @@ final class ObservableFutureSchedules {
             globalTimer.addSchedule(profile: profile, time: schedultime) {
                 self.recomputeschedules()
                 self.setfirsscheduledate()
-                let url = self.createURLRequest(profile)
-                if let url {
-                    Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED \(url.absoluteString)")
-                    if SharedReference.shared.standalonecalendar {
+                if SharedReference.shared.standalonecalendar {
+                    let url = self.createURLRequest(profile)
+                    if let url {
+                        Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED \(url.absoluteString)")
                         NSWorkspace.shared.open(URL(string: url.absoluteString)!)
                     }
                 } else {
-                    Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED NO URL")
+                    self.scheduledprofile = profile
+                    self.urlcommandestimateandsynchronize = true
+
                 }
             }
         }

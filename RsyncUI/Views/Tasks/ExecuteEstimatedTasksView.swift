@@ -119,7 +119,7 @@ extension ExecuteEstimatedTasksView {
     }
 
     func updateconfigurations(_ configurations: [SynchronizeConfiguration]) {
-        Logger.process.info("ExecuteEstimatedTasksView: updateconfigurations() in memory\nReset data and return to MAIN THREADtask view")
+        Logger.process.info("ExecuteEstimatedTasksView: updateconfigurations() in memory\nReset data and return to MAIN THREAD task view")
         rsyncUIdata.configurations = configurations
         executeprogressdetails.hiddenIDatwork = -1
         executeprogressdetails.estimatedlist = nil

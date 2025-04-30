@@ -11,9 +11,8 @@ struct CalendarMonthView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var scheduledata: ObservableScheduleData
     @Bindable var futuredates: ObservableFutureSchedules
-    
+
     // Trigger scheduled task by queryitem
-    @Binding var queryitem: URLQueryItem?
     @Binding var urlcommandestimateandsynchronize: Bool
 
     @State private var date = Date.now
@@ -165,6 +164,10 @@ struct CalendarMonthView: View {
                 let globalTimer = GlobalTimer.shared
                 globalTimer.clearSchedules()
             }
+        }
+        .onChange(of: futuredates.urlcommandestimateandsynchronize) {
+            rsyncUIdata.profile = futuredates.scheduledprofile
+            urlcommandestimateandsynchronize = true
         }
         .padding()
         .toolbar {

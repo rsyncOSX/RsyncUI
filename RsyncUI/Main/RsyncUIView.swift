@@ -46,12 +46,12 @@ struct RsyncUIView: View {
             // Get version of rsync
             rsyncversion.getrsyncversion()
             rsyncUIdata.profile = selectedprofile
-            
+
             rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(selectedprofile,
                                                        SharedReference.shared.monitornetworkconnection,
                                                        SharedReference.shared.sshport)
-            
+
             let catalognames = Homepath().getfullpathmacserialcatalogsasstringnames()
             rsyncUIdata.validprofiles = catalognames.map { catalog in
                 ProfilesnamesRecord(catalog)
@@ -69,7 +69,7 @@ struct RsyncUIView: View {
             }
             Task {
                 rsyncUIdata.profile = selectedprofile
-                
+
                 rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
                     .readjsonfilesynchronizeconfigurations(selectedprofile,
                                                            SharedReference.shared.monitornetworkconnection,

@@ -146,7 +146,7 @@ struct LogsbyConfigurationView: View {
                 showindebounce = false
                 selecteduuids.removeAll()
                 selectedloguuids.removeAll()
-    
+
                 // Structured Concurrency, also read new records from store
                 async let actorreadlogs = ActorReadLogRecordsJSON()
                 logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
@@ -227,7 +227,6 @@ struct LogsbyConfigurationView: View {
             selectedloguuids.removeAll()
             logrecords = nil
             Task {
-                
                 // Structured Concurrency, also read new records from store
                 async let actorreadlogs = ActorReadLogRecordsJSON()
                 logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)

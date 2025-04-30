@@ -217,7 +217,6 @@ struct SidebarMainView: View {
                 CalendarMonthView(rsyncUIdata: rsyncUIdata,
                                   scheduledata: scheduledata,
                                   futuredates: futuredates,
-                                  queryitem: $queryitem,
                                   urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize)
             }
         }
@@ -285,9 +284,9 @@ extension SidebarMainView {
             selectedview = .synchronize
             executetasknavigation.append(Tasks(task: .quick_synchronize))
         case .loadprofile:
-            
+
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile - \(url)")
-            
+
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
                 let profile = queryitems[0].value ?? ""
                 if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
@@ -396,9 +395,8 @@ extension SidebarMainView {
     }
 
     func observerdidMountNotification() {
-        
         Logger.process.info("SidebarMainView: observerdidMountNotification added")
-        
+
         let notificationCenter = NSWorkspace.shared.notificationCenter
         notificationCenter.addObserver(forName: NSWorkspace.didMountNotification,
                                        object: nil, queue: .main)
@@ -415,10 +413,10 @@ extension SidebarMainView {
 
     private func verifyandloadprofilemountedvolume(_ mountedvolume: URL) async {
         mountingvolumenow = true
-        
+
         async let readallconfigurations = ReadAllTasks()
         let allconfigurations = await readallconfigurations.readalltasks(rsyncUIdata.validprofiles)
-        
+
         let volume = mountedvolume.lastPathComponent
         let mappedallconfigurations = allconfigurations.compactMap { configuration in
             (configuration.offsiteServer.isEmpty == true &&
@@ -460,12 +458,12 @@ extension SidebarMainView {
             rsyncUIdata.profile = profile
             selectedprofile = profile
         }
-        
+
         rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
             .readjsonfilesynchronizeconfigurations(selectedprofile,
                                                    SharedReference.shared.monitornetworkconnection,
                                                    SharedReference.shared.sshport)
-        
+
         if rsyncUIdata.configurations == nil {
             return false
         } else {
