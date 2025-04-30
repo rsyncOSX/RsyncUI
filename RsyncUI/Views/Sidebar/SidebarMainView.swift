@@ -25,7 +25,6 @@ struct SidebarMainView: View {
     @Binding var selectedprofile: String?
     @Bindable var errorhandling: AlertError
 
-    @State private var estimateprogressdetails = EstimateProgressDetails()
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedview: Sidebaritems = .synchronize
     // Navigation rsyncparameters
@@ -213,11 +212,9 @@ struct SidebarMainView: View {
             SidebarTasksView(rsyncUIdata: rsyncUIdata,
                              selectedprofile: $selectedprofile,
                              selecteduuids: $selecteduuids,
-                             estimateprogressdetails: estimateprogressdetails,
                              executetasknavigation: $executetasknavigation,
                              queryitem: $queryitem,
                              urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
-                             // urlcommandverify: $urlcommandverify,
                              columnVisibility: $columnVisibility)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
@@ -289,8 +286,8 @@ extension SidebarMainView {
         guard SharedReference.shared.process == nil else { return }
         // Also veriy that no other query item is processed
         guard queryitem == nil else { return }
-        // And no estimation is ongoing
-        guard estimateprogressdetails.estimatealltasksinprogress == false else { return }
+        // And no xecution is in progress
+        guard rsyncUIdata.executetasksinprogress == false else { return }
 
         switch deeplinkurl.handleURL(url)?.host {
         case .quicktask:
@@ -450,12 +447,9 @@ extension SidebarMainView {
 
     // Must check that no tasks are running
     private func tasksareinprogress() async -> Bool {
-        guard SharedReference.shared.process == nil else {
-            return true
-        }
-        guard estimateprogressdetails.estimatealltasksinprogress == false else {
-            return true
-        }
+        guard SharedReference.shared.process == nil else { return true }
+        // And no execution is in progress
+        guard rsyncUIdata.executetasksinprogress == false else { return true }
         guard executetasknavigation.isEmpty == true else {
             return true
         }

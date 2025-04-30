@@ -46,6 +46,7 @@ struct RsyncUIView: View {
             // Get version of rsync
             rsyncversion.getrsyncversion()
             rsyncUIdata.profile = selectedprofile
+            rsyncUIdata.executetasksinprogress = false
 
             rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(selectedprofile,
@@ -69,6 +70,7 @@ struct RsyncUIView: View {
             }
             Task {
                 rsyncUIdata.profile = selectedprofile
+                rsyncUIdata.executetasksinprogress = false
 
                 rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
                     .readjsonfilesynchronizeconfigurations(selectedprofile,

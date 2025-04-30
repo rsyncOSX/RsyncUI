@@ -45,6 +45,7 @@ struct ExecuteEstimatedTasksView: View {
         })
         .onDisappear(perform: {
             executeprogressdetails.estimatedlist = nil
+            rsyncUIdata.executetasksinprogress = false
             if SharedReference.shared.process != nil {
                 InterruptProcess()
             }
@@ -100,6 +101,7 @@ extension ExecuteEstimatedTasksView {
         }
         guard (adjustedselecteduuids?.count ?? 0) > 0 else {
             executeprogressdetails.estimatedlist = nil
+            rsyncUIdata.executetasksinprogress = false
             path.removeAll()
             return
         }
@@ -123,6 +125,7 @@ extension ExecuteEstimatedTasksView {
         rsyncUIdata.configurations = configurations
         executeprogressdetails.hiddenIDatwork = -1
         executeprogressdetails.estimatedlist = nil
+        rsyncUIdata.executetasksinprogress = false
         executestate.updateexecutestate(state: .start)
         selecteduuids.removeAll()
         path.append(Tasks(task: .completedview))

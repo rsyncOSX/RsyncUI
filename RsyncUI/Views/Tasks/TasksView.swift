@@ -378,6 +378,7 @@ extension TasksView {
 
     func execute() {
         // All tasks are estimated and ready for execution.
+        rsyncUIdata.executetasksinprogress = true
         if selecteduuids.count == 0,
            estimateprogressdetails.alltasksestimated(rsyncUIdata.profile ?? SharedConstants().defaultprofile) == true
 
@@ -415,5 +416,6 @@ extension TasksView {
         estimatestate.updateestimatestate(state: .start)
         selectedconfig.config = nil
         thereareestimates = false
+        rsyncUIdata.executetasksinprogress = false
     }
 }
