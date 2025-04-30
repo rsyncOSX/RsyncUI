@@ -180,7 +180,9 @@ struct SidebarMainView: View {
             Logger.process.info("SidebarMainView: got TRIGGER from Timer")
             
             queryitem = nil
-            selectedview = .synchronize
+            if selectedview != .synchronize {
+                selectedview = .synchronize
+            }
             selectedprofile = futuredates.scheduledprofile
             /*
             rsyncUIdata.profile = futuredates.scheduledprofile
