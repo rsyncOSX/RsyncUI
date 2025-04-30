@@ -289,6 +289,8 @@ extension SidebarMainView {
         guard SharedReference.shared.process == nil else { return }
         // Also veriy that no other query item is processed
         guard queryitem == nil else { return }
+        // And no estimation is ongoing
+        guard estimateprogressdetails.estimatealltasksinprogress == false else { return }
 
         switch deeplinkurl.handleURL(url)?.host {
         case .quicktask:
