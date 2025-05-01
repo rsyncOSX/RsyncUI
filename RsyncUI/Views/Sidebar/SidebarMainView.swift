@@ -111,6 +111,12 @@ struct SidebarMainView: View {
         })
         .onAppear {
             Task {
+                
+                /*
+                 async let newversionofrsyncui = GetversionofRsyncUI().getversionsofrsyncui()
+                newversion.notifynewversion = await newversionofrsyncui
+                 */
+                
                 newversion.notifynewversion = await GetversionofRsyncUI().getversionsofrsyncui()
                 SharedReference.shared.newversion = newversion.notifynewversion
                 if SharedReference.shared.sidebarishidden {
