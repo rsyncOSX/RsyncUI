@@ -126,6 +126,7 @@ struct SidebarMainView: View {
                 futuredates.recomputeschedules()
                 // Set first schedule to execute
                 futuredates.setfirsscheduledate()
+                Logger.process.info("SidebarMainView: ONAPPEAR completed")
             }
         }
         .onOpenURL { incomingURL in
