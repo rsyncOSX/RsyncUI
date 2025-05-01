@@ -13,7 +13,7 @@ struct InterruptProcess {
     @discardableResult
     init() {
         let string: [String] = ["Interrupted: " + Date().long_localized_string_from_date()]
-        _ = Logfile(string, error: true)
+        _ = LogToFile(string, error: true)
         SharedReference.shared.process?.interrupt()
         SharedReference.shared.process = nil
     }

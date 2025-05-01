@@ -21,7 +21,7 @@ enum FilesizeError: LocalizedError {
 }
 
 @MainActor
-final class Logfile {
+final class LogToFile {
     private var logfile: String?
     let path = Homepath()
 

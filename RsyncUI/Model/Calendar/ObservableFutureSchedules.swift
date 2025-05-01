@@ -165,7 +165,8 @@ final class ObservableFutureSchedules {
                     self.scheduledprofile = profile
                 }
                  */
-                Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED INTERNALLY")
+                // Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED INTERNALLY")
+                LogToFile(["ObservableFutureSchedules: schedule FIRED for \(profile)"], error: true)
                 self.scheduledprofile = profile
             }
         }
