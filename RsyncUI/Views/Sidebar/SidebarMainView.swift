@@ -144,7 +144,7 @@ struct SidebarMainView: View {
         .onOpenURL { incomingURL in
             // URL code
             // Deep link triggered RsyncUI from outside
-            handleURLsidebarmainView(incomingURL, true)
+            handleURLsidebarmainView(incomingURL, externalurl: true)
         }
         .onChange(of: urlcommandestimateandsynchronize) {
             // URL code
@@ -152,7 +152,7 @@ struct SidebarMainView: View {
             // toolbar in TasksView
             let valueprofile = rsyncUIdata.profile ?? ""
             if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: valueprofile) {
-                handleURLsidebarmainView(url, false)
+                handleURLsidebarmainView(url, externalurl: false)
             }
         }
         .onChange(of: urlcommandverify) {
@@ -168,7 +168,7 @@ struct SidebarMainView: View {
                     if let url = DeeplinkURL().createURLloadandverify(valueprofile: valueprofile,
                                                                       valueid: valueid)
                     {
-                        handleURLsidebarmainView(url, false)
+                        handleURLsidebarmainView(url, externalurl: false)
                     }
                 }
             }
@@ -195,10 +195,9 @@ struct SidebarMainView: View {
             if selectedview != .synchronize {
                 selectedview = .synchronize
             }
-            selectedprofile = futuredates.scheduledprofile
-            if let selectedprofile,
-                let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: selectedprofile) {
-                 handleURLsidebarmainView(url, false)
+            // Trigger as external URL, makes it load profile before execute
+            if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: futuredates.scheduledprofile) {
+                handleURLsidebarmainView(url, externalurl: true)
              }
         }
     }
@@ -291,7 +290,7 @@ struct SidebarMainView: View {
 
 extension SidebarMainView {
     // URL code
-    private func handleURLsidebarmainView(_ url: URL, _ externalurl: Bool) {
+    private func handleURLsidebarmainView(_ url: URL, externalurl: Bool) {
         let deeplinkurl = DeeplinkURL()
         // Verify URL action is valid
         guard deeplinkurl.validatenoaction(queryitem) else { return }
