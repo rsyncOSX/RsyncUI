@@ -196,10 +196,10 @@ struct SidebarMainView: View {
                 selectedview = .synchronize
             }
             selectedprofile = futuredates.scheduledprofile
-            /*
-            rsyncUIdata.profile = futuredates.scheduledprofile
-            urlcommandestimateandsynchronize = true
-             */
+            if let selectedprofile,
+                let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: selectedprofile) {
+                 handleURLsidebarmainView(url, false)
+             }
         }
     }
 
