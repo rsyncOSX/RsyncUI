@@ -15,7 +15,10 @@ final class GlobalTimer {
 
     private init() {}
 
-    private var timer: Timer?
+    var timer: Timer?
+    // Only used for message in SidebarMainView
+    @ObservationIgnored var schedule: String?
+    
     private var schedules: [String: (time: Date, callback: () -> Void)] = [:]
 
     func addSchedule(profile: String, time: Date, callback: @escaping () -> Void) {
@@ -52,6 +55,7 @@ final class GlobalTimer {
 
     private func start() {
         if timer == nil {
+            
             Logger.process.info("GlobalTimer: start() new timer")
 
             timer = Timer.scheduledTimer(timeInterval: 60.0,
@@ -64,6 +68,7 @@ final class GlobalTimer {
 
     @objc private func checkSchedules() {
         for (name, schedule) in schedules {
+            
             Logger.process.info("GlobalTimer: checkSchedules(): Date.now \(Date.now) and schedule.time \(schedule.time)")
 
             if Date.now >= schedule.time {

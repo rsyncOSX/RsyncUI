@@ -96,6 +96,12 @@ struct SidebarMainView: View {
                         }
                     }
             }
+            
+            // Next scheduled action
+            if GlobalTimer.shared.timer != nil {
+                MessageView(mytext: GlobalTimer.shared.schedule ?? "", size: .caption2)
+                    .padding([.bottom], -30)
+            }
 
             MessageView(mytext: SharedReference.shared.rsyncversionshort ?? "", size: .caption2)
 
