@@ -96,7 +96,7 @@ struct SidebarMainView: View {
                         }
                     }
             }
-            
+
             // Next scheduled action
             if GlobalTimer.shared.timer != nil {
                 MessageView(mytext: GlobalTimer.shared.schedule ?? "", size: .caption2)
@@ -117,12 +117,11 @@ struct SidebarMainView: View {
         })
         .onAppear {
             Task {
-                
                 /*
-                 async let newversionofrsyncui = GetversionofRsyncUI().getversionsofrsyncui()
-                newversion.notifynewversion = await newversionofrsyncui
-                 */
-                
+                  async let newversionofrsyncui = GetversionofRsyncUI().getversionsofrsyncui()
+                 newversion.notifynewversion = await newversionofrsyncui
+                  */
+
                 newversion.notifynewversion = await GetversionofRsyncUI().getversionsofrsyncui()
                 SharedReference.shared.newversion = newversion.notifynewversion
                 if SharedReference.shared.sidebarishidden {
@@ -188,9 +187,8 @@ struct SidebarMainView: View {
             }
         }
         .onChange(of: futuredates.scheduledprofile) {
-            
             Logger.process.info("SidebarMainView: got TRIGGER from Timer")
-            
+
             queryitem = nil
             if selectedview != .synchronize {
                 selectedview = .synchronize
@@ -198,7 +196,7 @@ struct SidebarMainView: View {
             // Trigger as external URL, makes it load profile before execute
             if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: futuredates.scheduledprofile) {
                 handleURLsidebarmainView(url, externalurl: true)
-             }
+            }
         }
     }
 

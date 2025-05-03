@@ -1,5 +1,5 @@
 //
-//  Logfile.swift
+//  LogToFile.swift
 //  rcloneosx
 //
 //  Created by Thomas Evensen on 20.11.2017.

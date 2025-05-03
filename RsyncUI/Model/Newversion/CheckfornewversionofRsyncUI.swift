@@ -51,7 +51,6 @@ actor GetversionofRsyncUI {
                     Logger.process.info("CheckfornewversionofRsyncUI: COMPLETED NO NEW VERSION")
                     return false
                 }
-                
             }
         } catch {
             Logger.process.warning("CheckfornewversionofRsyncUI: loading data failed)")

@@ -188,7 +188,7 @@ extension ProcessRsyncObserving {
         // Log error in rsync output to file
         if errordiscovered, let config {
             LogToFile(command: config.backupID,
-                    stringoutputfromrsync: output)
+                      stringoutputfromrsync: output)
         }
         SharedReference.shared.process = nil
         NotificationCenter.default.removeObserver(notificationsfilehandle as Any,

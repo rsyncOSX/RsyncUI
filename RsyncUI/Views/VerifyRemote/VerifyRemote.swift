@@ -129,7 +129,7 @@ struct VerifyRemote: View {
             guard selectedconfig?.task != SharedReference.shared.halted else { return }
             // Set config and execute a Verify
             urlcommandverify = true
-            
+
             queryitem = nil
         }
     }

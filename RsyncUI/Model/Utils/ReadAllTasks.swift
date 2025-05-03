@@ -24,11 +24,11 @@ struct ReadAllTasks {
 
         for i in 0 ..< allprofiles.count {
             let profilename = allprofiles[i]
-            
+
             let configurations = await ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profilename,
-                                                    SharedReference.shared.monitornetworkconnection,
-                                                    SharedReference.shared.sshport)
+                                                       SharedReference.shared.monitornetworkconnection,
+                                                       SharedReference.shared.sshport)
 
             let profileold = configurations?.filter { element in
                 var seconds: Double {
@@ -96,11 +96,11 @@ struct ReadAllTasks {
             let profilename = allprofiles[i]
 
             // Logger.process.info("ReadAllTasks: readalltasks() LET ASYNC")
-            
+
             let configurations = await ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profilename,
-                                                    SharedReference.shared.monitornetworkconnection,
-                                                    SharedReference.shared.sshport)
+                                                       SharedReference.shared.monitornetworkconnection,
+                                                       SharedReference.shared.sshport)
 
             let adjustedconfigurations = configurations?.map { element in
                 var newelement = element

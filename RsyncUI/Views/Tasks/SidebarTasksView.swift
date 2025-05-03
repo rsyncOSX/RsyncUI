@@ -34,7 +34,7 @@ struct SidebarTasksView: View {
     @Binding var columnVisibility: NavigationSplitViewVisibility
 
     @State private var executeprogressdetails = ExecuteProgressDetails()
-    @State private var  estimateprogressdetails = EstimateProgressDetails()
+    @State private var estimateprogressdetails = EstimateProgressDetails()
 
     var body: some View {
         NavigationStack(path: $executetasknavigation) {

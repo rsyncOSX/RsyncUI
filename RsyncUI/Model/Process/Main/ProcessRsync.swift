@@ -87,7 +87,7 @@ final class ProcessRsync {
                 // Log error in rsync output to file
                 if errordiscovered, let config {
                     LogToFile(command: config.backupID,
-                            stringoutputfromrsync: output)
+                              stringoutputfromrsync: output)
                 }
                 SharedReference.shared.process = nil
                 Logger.process.info("ProcessRsync: process = nil and termination discovered")

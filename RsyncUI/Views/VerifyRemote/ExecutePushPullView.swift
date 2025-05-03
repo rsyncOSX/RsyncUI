@@ -47,7 +47,7 @@ struct ExecutePushPullView: View {
                                     .buttonStyle(ColorfulButtonStyle())
                                 }
 
-                                VStack (alignment: .trailing) {
+                                VStack(alignment: .trailing) {
                                     if pushpullcommand != .none {
                                         Toggle("--dry-run", isOn: $dryrun)
                                             .toggleStyle(.switch)
@@ -69,8 +69,6 @@ struct ExecutePushPullView: View {
                                             .help("Remove the delete parameter, default is true?")
                                     }
                                 }
-                                
-                                
                             }
 
                             PushPullCommandView(pushpullcommand: $pushpullcommand, dryrun: $dryrun, removedelete: $removedelete, config: config)
