@@ -20,8 +20,11 @@ struct ReadAllTasks {
 
         let allprofiles = validprofiles.map(\.profilename)
 
+        Logger.process.info("ReadAllTasks: readallmarkedtasks() START of async CALLs")
+
         for i in 0 ..< allprofiles.count {
             let profilename = allprofiles[i]
+
             let configurations = await ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profilename,
                                                        SharedReference.shared.monitornetworkconnection,
@@ -30,7 +33,7 @@ struct ReadAllTasks {
             let profileold = configurations?.filter { element in
                 var seconds: Double {
                     if let date = element.dateRun {
-                        let lastbackup = date.en_us_date_from_string()
+                        let lastbackup = date.en_date_from_string()
                         return lastbackup.timeIntervalSinceNow * -1
                     } else {
                         return 0
@@ -62,6 +65,9 @@ struct ReadAllTasks {
                 }
             }
         }
+
+        Logger.process.info("ReadAllTasks: readallmarkedtasks() COMPLETED async CALLs")
+
         if old?.count == 0 {
             return []
         } else {
@@ -84,8 +90,13 @@ struct ReadAllTasks {
 
         let allprofiles = validprofiles.map(\.profilename)
 
+        Logger.process.info("ReadAllTasks: readalltasks() START of async CALLs")
+
         for i in 0 ..< allprofiles.count {
             let profilename = allprofiles[i]
+
+            // Logger.process.info("ReadAllTasks: readalltasks() LET ASYNC")
+
             let configurations = await ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profilename,
                                                        SharedReference.shared.monitornetworkconnection,
@@ -101,6 +112,9 @@ struct ReadAllTasks {
                 allconfigurations.append(contentsOf: adjustedconfigurations)
             }
         }
+
+        Logger.process.info("ReadAllTasks: readalltasks() COMPLETED async CALLs")
+
         return allconfigurations
     }
 }

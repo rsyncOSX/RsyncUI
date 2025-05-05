@@ -45,6 +45,7 @@ struct ExecuteEstimatedTasksView: View {
         })
         .onDisappear(perform: {
             executeprogressdetails.estimatedlist = nil
+            rsyncUIdata.executetasksinprogress = false
             if SharedReference.shared.process != nil {
                 InterruptProcess()
             }
@@ -100,6 +101,7 @@ extension ExecuteEstimatedTasksView {
         }
         guard (adjustedselecteduuids?.count ?? 0) > 0 else {
             executeprogressdetails.estimatedlist = nil
+            rsyncUIdata.executetasksinprogress = false
             path.removeAll()
             return
         }
@@ -119,10 +121,11 @@ extension ExecuteEstimatedTasksView {
     }
 
     func updateconfigurations(_ configurations: [SynchronizeConfiguration]) {
-        Logger.process.info("ExecuteEstimatedTasksView: updateconfigurations() in memory\nReset data and return to MAIN THREADtask view")
+        Logger.process.info("ExecuteEstimatedTasksView: updateconfigurations() in memory\nReset data and return to MAIN THREAD task view")
         rsyncUIdata.configurations = configurations
         executeprogressdetails.hiddenIDatwork = -1
         executeprogressdetails.estimatedlist = nil
+        rsyncUIdata.executetasksinprogress = false
         executestate.updateexecutestate(state: .start)
         selecteduuids.removeAll()
         path.append(Tasks(task: .completedview))

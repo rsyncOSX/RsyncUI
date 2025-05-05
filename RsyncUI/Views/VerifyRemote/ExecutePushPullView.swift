@@ -11,9 +11,9 @@ struct ExecutePushPullView: View {
     @State private var progress = false
     @State private var remotedatanumbers: RemoteDataNumbers?
     @State private var pushpullcommand = PushPullCommand.none
-    // Alert button
-    @State private var showingAlert = false
+
     @State private var dryrun: Bool = true
+    @State private var removedelete: Bool = true
 
     let config: SynchronizeConfiguration
     let pushorpullremotednumbers: RemoteDataNumbers
@@ -47,18 +47,31 @@ struct ExecutePushPullView: View {
                                     .buttonStyle(ColorfulButtonStyle())
                                 }
 
-                                if pushpullcommand != .none {
-                                    Toggle("--dry-run", isOn: $dryrun)
-                                        .toggleStyle(.switch)
-                                        .onTapGesture {
-                                            withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                                dryrun.toggle()
+                                VStack(alignment: .trailing) {
+                                    if pushpullcommand != .none {
+                                        Toggle("--dry-run", isOn: $dryrun)
+                                            .toggleStyle(.switch)
+                                            .onTapGesture {
+                                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                                    dryrun.toggle()
+                                                }
                                             }
-                                        }
+                                    }
+
+                                    if pushpullcommand != .none {
+                                        Toggle("--delete, ON removed", isOn: $removedelete)
+                                            .toggleStyle(.switch)
+                                            .onTapGesture {
+                                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                                    removedelete.toggle()
+                                                }
+                                            }
+                                            .help("Remove the delete parameter, default is true?")
+                                    }
                                 }
                             }
 
-                            PushPullCommandView(pushpullcommand: $pushpullcommand, dryrun: $dryrun, config: config)
+                            PushPullCommandView(pushpullcommand: $pushpullcommand, dryrun: $dryrun, removedelete: $removedelete, config: config)
                                 .padding()
                         }
                     }
@@ -83,24 +96,13 @@ struct ExecutePushPullView: View {
                 .help("Abort (⌘K)")
             }
         })
-        .alert(isPresented: $showingAlert) {
-            Alert(
-                title: Text("Switch dry-run mode?"),
-                primaryButton: .default(Text("Off")) {},
-                secondaryButton: .cancel {
-                    dryrun = true
-                }
-            )
-        }
-        .onChange(of: dryrun) {
-            showingAlert = !dryrun
-        }
     }
 
     // For a verify run, --dry-run
     func push(config: SynchronizeConfiguration) {
         let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: dryrun,
-                                                                                           forDisplay: false)
+                                                                                           forDisplay: false,
+                                                                                           removedelete: removedelete)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
                                    processtermination: processtermination)
@@ -109,7 +111,8 @@ struct ExecutePushPullView: View {
 
     func pull(config: SynchronizeConfiguration) {
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryrun,
-                                                                                              forDisplay: false)
+                                                                                              forDisplay: false,
+                                                                                              removedelete: removedelete)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
                                    processtermination: processtermination)

@@ -82,14 +82,14 @@ actor ActorReadLogRecordsJSON {
                     }
                 }
                 let records = merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
-                return records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filterstring)) ?? false || ($0.resultExecuted?.contains(filterstring) ?? false)
+                return records.filter { ($0.dateExecuted?.en_date_from_string().long_localized_string_from_date().contains(filterstring)) ?? false || ($0.resultExecuted?.contains(filterstring) ?? false)
                 }
             } else {
                 if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }),
                    let logrecords = logrecords[index].logrecords
                 {
                     let records = logrecords.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
-                    return records.filter { ($0.dateExecuted?.en_us_date_from_string().long_localized_string_from_date().contains(filterstring)) ?? false || ($0.resultExecuted?.contains(filterstring) ?? false)
+                    return records.filter { ($0.dateExecuted?.en_date_from_string().long_localized_string_from_date().contains(filterstring)) ?? false || ($0.resultExecuted?.contains(filterstring) ?? false)
                     }
                 }
             }

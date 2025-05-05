@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct PushPullView: View {
-    
-    @Binding var verifynavigationispresented: Bool
-    // URL code
-    @Binding var queryitem: URLQueryItem?
-
+    @State private var verifynavigationispresented: Bool = false
     @State private var progress = true
     // Pull data from remote
     @State private var pullremotedatanumbers: RemoteDataNumbers?
@@ -59,21 +55,6 @@ struct PushPullView: View {
                         }
                     }
                 }
-
-                if progress == false, isaborted == false {
-                    switch pushorpull.decideremoteVSlocal(pullremotedatanumbers: pullremotedatanumbers,
-                                                          pushremotedatanumbers: pushremotedatanumbers)
-                    {
-                    case .remotemoredata:
-                        MessageView(mytext: NSLocalizedString("It seems that REMOTE is more updated than LOCAL. A PULL may be next.", comment: ""), size: .title3)
-                    case .localmoredata:
-                        MessageView(mytext: NSLocalizedString("It seems that LOCAL is more updated than REMOTE. A SYNCHRONIZE may be next.", comment: ""), size: .title3)
-                    case .evenamountadata:
-                        MessageView(mytext: NSLocalizedString("There is an equal amount of data. You can either perform a SYNCHRONIZE or a PULL operation.\n Alternatively, you can choose to do nothing.", comment: ""), size: .title3)
-                    case .noevaluation:
-                        MessageView(mytext: NSLocalizedString("I couldn’t decide between LOCAL and REMOTE.", comment: ""), size: .title3)
-                    }
-                }
             }
             .onAppear {
                 pullremote(config: config)
@@ -106,7 +87,8 @@ struct PushPullView: View {
     // For check remote, pull remote data
     func pullremote(config: SynchronizeConfiguration) {
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: true,
-                                                                                              forDisplay: false)
+                                                                                              forDisplay: false,
+                                                                                              removedelete: true)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
                                    processtermination: pullprocesstermination)
@@ -116,7 +98,8 @@ struct PushPullView: View {
     // For check remote, pull remote data
     func pushremote(config: SynchronizeConfiguration) {
         let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: true,
-                                                                                           forDisplay: false)
+                                                                                           forDisplay: false,
+                                                                                           removedelete: true)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
                                    processtermination: pushprocesstermination)

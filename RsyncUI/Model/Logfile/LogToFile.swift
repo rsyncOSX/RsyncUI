@@ -1,5 +1,5 @@
 //
-//  Logfile.swift
+//  LogToFile.swift
 //  rcloneosx
 //
 //  Created by Thomas Evensen on 20.11.2017.
@@ -21,7 +21,7 @@ enum FilesizeError: LocalizedError {
 }
 
 @MainActor
-final class Logfile {
+final class LogToFile {
     private var logfile: String?
     let path = Homepath()
 

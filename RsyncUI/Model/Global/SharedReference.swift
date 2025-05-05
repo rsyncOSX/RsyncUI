@@ -82,5 +82,3 @@ final class SharedReference {
     // Value for alert tagging
     let alerttagginglines = 20
 }
-
-

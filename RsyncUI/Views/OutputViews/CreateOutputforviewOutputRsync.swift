@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 20/03/2025.
 //
 
-
 import OSLog
 
 actor CreateOutputforviewOutputRsync {

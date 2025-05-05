@@ -44,7 +44,7 @@ struct NavigationLogfileView: View {
 
     func reset() {
         resetloggfile = true
-        _ = Logfile(true)
+        _ = LogToFile(true)
         Task {
             logfilerecords = await GenerateLogfileforview().generatedata()
         }
@@ -70,7 +70,7 @@ import OSLog
 actor GenerateLogfileforview {
     nonisolated func generatedata() async -> [LogfileRecords] {
         Logger.process.info("GenerateLogfileforview: generatedata() MAIN THREAD \(Thread.isMain)")
-        let data = await Logfile(false).getlogfile()
+        let data = await LogToFile(false).getlogfile()
         return data.map { record in
             LogfileRecords(line: record)
         }

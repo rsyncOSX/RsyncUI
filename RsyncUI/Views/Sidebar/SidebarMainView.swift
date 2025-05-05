@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
-    case synchronize, tasks, rsync_parameters, snapshots, log_listings, restore, profiles, verify_remote
+    case synchronize, tasks, rsync_parameters, snapshots, log_listings, restore, profiles, verify_remote, calendar
     var id: String { rawValue }
 }
 
@@ -21,10 +21,10 @@ struct MenuItem: Identifiable, Hashable {
 
 struct SidebarMainView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Bindable var scheduledata: ObservableScheduleData
     @Binding var selectedprofile: String?
     @Bindable var errorhandling: AlertError
 
-    @State private var estimateprogressdetails = EstimateProgressDetails()
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedview: Sidebaritems = .synchronize
     // Navigation rsyncparameters
@@ -48,6 +48,8 @@ struct SidebarMainView: View {
     // .doubleColumn
     // .detailOnly
     @State private var mountingvolumenow: Bool = false
+    // Calendar
+    @State private var futuredates = ObservableFutureSchedules()
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
@@ -71,8 +73,9 @@ struct SidebarMainView: View {
                 if item.menuitem == .tasks ||
                     item.menuitem == .snapshots ||
                     item.menuitem == .log_listings ||
-                    item.menuitem == .restore
-                
+                    item.menuitem == .restore ||
+                    item.menuitem == .verify_remote
+
                 { Divider() }
             }
             .listStyle(.sidebar)
@@ -94,6 +97,12 @@ struct SidebarMainView: View {
                     }
             }
 
+            // Next scheduled action
+            if GlobalTimer.shared.timer != nil {
+                MessageView(mytext: GlobalTimer.shared.schedule ?? "", size: .caption2)
+                    .padding([.bottom], -30)
+            }
+
             MessageView(mytext: SharedReference.shared.rsyncversionshort ?? "", size: .caption2)
 
         } detail: {
@@ -108,6 +117,11 @@ struct SidebarMainView: View {
         })
         .onAppear {
             Task {
+                /*
+                  async let newversionofrsyncui = GetversionofRsyncUI().getversionsofrsyncui()
+                 newversion.notifynewversion = await newversionofrsyncui
+                  */
+
                 newversion.notifynewversion = await GetversionofRsyncUI().getversionsofrsyncui()
                 SharedReference.shared.newversion = newversion.notifynewversion
                 if SharedReference.shared.sidebarishidden {
@@ -118,12 +132,18 @@ struct SidebarMainView: View {
                     // Observer for mounting volumes
                     observerdidMountNotification()
                 }
+                // Compute schedules
+                futuredates.scheduledata = scheduledata.scheduledata
+                futuredates.recomputeschedules()
+                // Set first schedule to execute
+                futuredates.setfirsscheduledate()
+                Logger.process.info("SidebarMainView: ONAPPEAR completed")
             }
         }
         .onOpenURL { incomingURL in
             // URL code
             // Deep link triggered RsyncUI from outside
-            handleURLsidebarmainView(incomingURL, true)
+            handleURLsidebarmainView(incomingURL, externalurl: true)
         }
         .onChange(of: urlcommandestimateandsynchronize) {
             // URL code
@@ -131,13 +151,14 @@ struct SidebarMainView: View {
             // toolbar in TasksView
             let valueprofile = rsyncUIdata.profile ?? ""
             if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: valueprofile) {
-                handleURLsidebarmainView(url, false)
+                handleURLsidebarmainView(url, externalurl: false)
             }
         }
         .onChange(of: urlcommandverify) {
             // URL code
             // Binding to listen for initiating deep link execute estimate and synchronize from
-            // toolbar in TasksView
+            // toolbar in Verify View
+            guard urlcommandverify == true else { return }
             let valueprofile = rsyncUIdata.profile ?? ""
             var valueid = ""
             if let configurations = rsyncUIdata.configurations {
@@ -146,13 +167,36 @@ struct SidebarMainView: View {
                     if let url = DeeplinkURL().createURLloadandverify(valueprofile: valueprofile,
                                                                       valueid: valueid)
                     {
-                        handleURLsidebarmainView(url, false)
+                        handleURLsidebarmainView(url, externalurl: false)
                     }
                 }
             }
         }
         .onChange(of: selectedprofile) {
             selecteduuids.removeAll()
+        }
+        .onChange(of: futuredates.firstscheduledate) {
+            if futuredates.firstscheduledate == nil {
+                scheduledata.scheduledata.removeAll()
+            } else {
+                scheduledata.removeexecutedonce()
+            }
+            if scheduledata.scheduledata.isEmpty {
+                let globalTimer = GlobalTimer.shared
+                globalTimer.clearSchedules()
+            }
+        }
+        .onChange(of: futuredates.scheduledprofile) {
+            Logger.process.info("SidebarMainView: got TRIGGER from Timer")
+
+            queryitem = nil
+            if selectedview != .synchronize {
+                selectedview = .synchronize
+            }
+            // Trigger as external URL, makes it load profile before execute
+            if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: futuredates.scheduledprofile) {
+                handleURLsidebarmainView(url, externalurl: true)
+            }
         }
     }
 
@@ -178,19 +222,23 @@ struct SidebarMainView: View {
             SidebarTasksView(rsyncUIdata: rsyncUIdata,
                              selectedprofile: $selectedprofile,
                              selecteduuids: $selecteduuids,
-                             estimateprogressdetails: estimateprogressdetails,
                              executetasknavigation: $executetasknavigation,
                              queryitem: $queryitem,
                              urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
-                             urlcommandverify: $urlcommandverify,
                              columnVisibility: $columnVisibility)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
         case .verify_remote:
+            VerifyRemote(rsyncUIdata: rsyncUIdata,
+                         urlcommandverify: $urlcommandverify,
+                         selecteduuids: $selecteduuids,
+                         queryitem: $queryitem)
+        case .calendar:
             NavigationStack {
-                VerifyRemote(rsyncUIdata: rsyncUIdata,
-                             verifynavigationispresented: $verifynavigationispresented,
-                             queryitem: $queryitem)
+                CalendarMonthView(rsyncUIdata: rsyncUIdata,
+                                  scheduledata: scheduledata,
+                                  futuredates: futuredates,
+                                  urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize)
             }
         }
     }
@@ -240,7 +288,7 @@ struct SidebarMainView: View {
 
 extension SidebarMainView {
     // URL code
-    private func handleURLsidebarmainView(_ url: URL, _ externalurl: Bool) {
+    private func handleURLsidebarmainView(_ url: URL, externalurl: Bool) {
         let deeplinkurl = DeeplinkURL()
         // Verify URL action is valid
         guard deeplinkurl.validatenoaction(queryitem) else { return }
@@ -248,14 +296,20 @@ extension SidebarMainView {
         guard SharedReference.shared.process == nil else { return }
         // Also veriy that no other query item is processed
         guard queryitem == nil else { return }
+        // And no xecution is in progress
+        guard rsyncUIdata.executetasksinprogress == false else { return }
 
         switch deeplinkurl.handleURL(url)?.host {
         case .quicktask:
+
             Logger.process.info("handleURLsidebarmainView: URL Quicktask - \(url)")
+
             selectedview = .synchronize
             executetasknavigation.append(Tasks(task: .quick_synchronize))
         case .loadprofile:
+
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile - \(url)")
+
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
                 let profile = queryitems[0].value ?? ""
                 if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
@@ -265,7 +319,9 @@ extension SidebarMainView {
                 return
             }
         case .loadprofileandestimate:
+
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Estimate - \(url)")
+
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
                 let profile = queryitems[0].value ?? ""
 
@@ -274,8 +330,9 @@ extension SidebarMainView {
                 if profile == "default" {
                     Task {
                         if externalurl {
-                            // Load profile for external URL
-                            await loadprofileforexternalurllink(profile)
+                            // Load profile for external URL, this make the call strctured concurrency
+                            async let loadprofile = loadprofileforexternalurllink(profile)
+                            guard await loadprofile else { return }
                         }
                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
                             selectedview = .synchronize
@@ -289,7 +346,8 @@ extension SidebarMainView {
                         Task {
                             if externalurl {
                                 // Load profile for external URL
-                                await loadprofileforexternalurllink(profile)
+                                async let loadprofile = loadprofileforexternalurllink(profile)
+                                guard await loadprofile else { return }
                             }
                             guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
                                 selectedview = .synchronize
@@ -305,39 +363,49 @@ extension SidebarMainView {
                 return
             }
         case .loadprofileandverify:
+
+            // Only by external URL load and verify
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Verify - \(url)")
 
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 2 {
                 let profile = queryitems[0].value ?? ""
 
-                selectedview = .verify_remote
+                // Internal verify remote is triggered from within the verify_remote view
+                // and external == false, the view itself handles push and pull dryrun
+                if selectedview != .verify_remote {
+                    selectedview = .verify_remote
+                }
 
                 if profile == "default" {
                     Task {
                         if externalurl {
                             // Load profile for external URL
-                            await loadprofileforexternalurllink(profile)
-                        }
-                        guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                            selectedview = .synchronize
-                            return
-                        }
-                        // Observe queryitem
-                        queryitem = queryitems[1]
-                    }
-                } else {
-                    if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
-                        Task {
-                            if externalurl {
-                                // Load profile for external URL
-                                await loadprofileforexternalurllink(profile)
-                            }
+                            async let loadprofile = loadprofileforexternalurllink(profile)
+                            guard await loadprofile else { return }
+
                             guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
                                 selectedview = .synchronize
                                 return
                             }
                             // Observe queryitem
                             queryitem = queryitems[1]
+                        }
+                    }
+                } else {
+                    if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
+                        Task {
+                            if externalurl {
+                                // Load profile for external URL
+                                async let loadprofile = loadprofileforexternalurllink(profile)
+                                guard await loadprofile else { return }
+
+                                guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
+                                    selectedview = .synchronize
+                                    return
+                                }
+                                // Observe queryitem
+                                queryitem = queryitems[1]
+                            }
                         }
                     }
                 }
@@ -351,6 +419,7 @@ extension SidebarMainView {
 
     func observerdidMountNotification() {
         Logger.process.info("SidebarMainView: observerdidMountNotification added")
+
         let notificationCenter = NSWorkspace.shared.notificationCenter
         notificationCenter.addObserver(forName: NSWorkspace.didMountNotification,
                                        object: nil, queue: .main)
@@ -367,7 +436,9 @@ extension SidebarMainView {
 
     private func verifyandloadprofilemountedvolume(_ mountedvolume: URL) async {
         mountingvolumenow = true
+
         let allconfigurations = await ReadAllTasks().readalltasks(rsyncUIdata.validprofiles)
+
         let volume = mountedvolume.lastPathComponent
         let mappedallconfigurations = allconfigurations.compactMap { configuration in
             (configuration.offsiteServer.isEmpty == true &&
@@ -385,12 +456,9 @@ extension SidebarMainView {
 
     // Must check that no tasks are running
     private func tasksareinprogress() async -> Bool {
-        guard SharedReference.shared.process == nil else {
-            return true
-        }
-        guard estimateprogressdetails.estimatealltasksinprogress == false else {
-            return true
-        }
+        guard SharedReference.shared.process == nil else { return true }
+        // And no execution is in progress
+        guard rsyncUIdata.executetasksinprogress == false else { return true }
         guard executetasknavigation.isEmpty == true else {
             return true
         }
@@ -398,9 +466,8 @@ extension SidebarMainView {
     }
 
     // Must load profile for URL-link async to make sure profile is
-    // loaded ahead of start requested action.
-    // Only for external URL requests
-    func loadprofileforexternalurllink(_ profile: String) async {
+    // loaded ahead of start requested action. Only for external URL requests
+    func loadprofileforexternalurllink(_ profile: String) async -> Bool {
         Logger.process.info("SidebarMainView: loadprofileforexternalurllink executed")
         rsyncUIdata.externalurlrequestinprogress = true
         if profile == "default" {
@@ -410,10 +477,17 @@ extension SidebarMainView {
             rsyncUIdata.profile = profile
             selectedprofile = profile
         }
+
         rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
             .readjsonfilesynchronizeconfigurations(selectedprofile,
                                                    SharedReference.shared.monitornetworkconnection,
                                                    SharedReference.shared.sshport)
+
+        if rsyncUIdata.configurations == nil {
+            return false
+        } else {
+            return true
+        }
     }
 }
 
@@ -443,6 +517,8 @@ struct SidebarRow: View {
             "arrow.triangle.branch"
         case .verify_remote:
             "arrow.down.circle.fill"
+        case .calendar:
+            "calendar.circle.fill"
         }
     }
 }

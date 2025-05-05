@@ -13,7 +13,7 @@ struct Log: Identifiable, Codable {
     var dateExecuted: String?
     var resultExecuted: String?
     var date: Date {
-        dateExecuted?.en_us_date_from_string() ?? Date()
+        dateExecuted?.en_date_from_string() ?? Date()
     }
 }
 

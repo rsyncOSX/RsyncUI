@@ -85,7 +85,7 @@ extension ExecuteTasksNOEstimation {
 
         var suboutput: [String]?
 
-        configrecords.append((hiddenID ?? -1, Date().en_us_string_from_date()))
+        configrecords.append((hiddenID ?? -1, Date().en_string_from_date()))
         if let config = getconfig(hiddenID ?? -1) {
             if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
                 suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)

@@ -26,16 +26,15 @@ struct SidebarTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var executetasknavigation: [Tasks]
     // URL code
     @Binding var queryitem: URLQueryItem?
     @Binding var urlcommandestimateandsynchronize: Bool
-    @Binding var urlcommandverify: Bool
     // Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
 
     @State private var executeprogressdetails = ExecuteProgressDetails()
+    @State private var estimateprogressdetails = EstimateProgressDetails()
 
     var body: some View {
         NavigationStack(path: $executetasknavigation) {
@@ -45,7 +44,6 @@ struct SidebarTasksView: View {
                       selecteduuids: $selecteduuids,
                       path: $executetasknavigation,
                       urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
-                      urlcommandverify: $urlcommandverify,
                       columnVisibility: $columnVisibility,
                       selectedprofile: $selectedprofile)
                 .navigationDestination(for: Tasks.self) { which in
@@ -122,6 +120,8 @@ struct SidebarTasksView: View {
     func reset() {
         executeprogressdetails.estimatedlist = nil
         estimateprogressdetails.resetcounts()
+        rsyncUIdata.executetasksinprogress = false
+        queryitem = nil
     }
 }
 

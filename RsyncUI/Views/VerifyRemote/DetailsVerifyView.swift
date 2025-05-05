@@ -16,7 +16,7 @@ struct DetailsVerifyView: View {
             if push {
                 HStack {
                     Image(systemName: "arrow.right")
-                        .font(.title)
+                        .font(.title2)
                         .imageScale(.large)
                         .foregroundColor(.yellow)
                     Text("PUSH local")
@@ -27,7 +27,7 @@ struct DetailsVerifyView: View {
             } else {
                 HStack {
                     Image(systemName: "arrow.left")
-                        .font(.title)
+                        .font(.title2)
                         .imageScale(.large)
                         .foregroundColor(.yellow)
                     Text("PULL remote")

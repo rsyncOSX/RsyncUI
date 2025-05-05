@@ -1,5 +1,5 @@
 //
-//  ProfilesToUpdataView.swift
+//  ProfilesToUpdateView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 11/10/2024.
@@ -8,7 +8,7 @@
 import OSLog
 import SwiftUI
 
-struct ProfilesToUpdataView: View {
+struct ProfilesToUpdateView: View {
     let allconfigurations: [SynchronizeConfiguration]
 
     var body: some View {
@@ -27,7 +27,7 @@ struct ProfilesToUpdataView: View {
             TableColumn("Days") { data in
                 var seconds: Double {
                     if let date = data.dateRun {
-                        let lastbackup = date.en_us_date_from_string()
+                        let lastbackup = date.en_date_from_string()
                         return lastbackup.timeIntervalSinceNow * -1
                     } else {
                         return 0

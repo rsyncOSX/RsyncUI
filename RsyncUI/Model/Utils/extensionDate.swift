@@ -59,12 +59,30 @@ extension Date {
         return dateformatter.string(from: self)
     }
 
-    func en_us_string_from_date() -> String {
+    func en_string_from_date() -> String {
         let dateformatter = DateFormatter()
-        dateformatter.locale = Locale(identifier: "en_US")
+        dateformatter.locale = Locale(identifier: "en")
         dateformatter.dateStyle = .medium
         dateformatter.timeStyle = .short
         dateformatter.dateFormat = "dd MMM yyyy HH:mm"
+        return dateformatter.string(from: self)
+    }
+
+    func en_string_month_from_date() -> String {
+        let dateformatter = DateFormatter()
+        dateformatter.locale = Locale(identifier: "en")
+        dateformatter.dateStyle = .medium
+        dateformatter.timeStyle = .short
+        dateformatter.dateFormat = "dd MMM yyyy"
+        return dateformatter.string(from: self)
+    }
+
+    func en_string_hour_from_date() -> String {
+        let dateformatter = DateFormatter()
+        dateformatter.locale = Locale(identifier: "en")
+        dateformatter.dateStyle = .medium
+        dateformatter.timeStyle = .short
+        dateformatter.dateFormat = "HH:mm"
         return dateformatter.string(from: self)
     }
 
@@ -98,13 +116,22 @@ extension Date {
 }
 
 extension String {
-    func en_us_date_from_string() -> Date {
+    func en_date_from_string() -> Date {
         let dateformatter = DateFormatter()
-        dateformatter.locale = Locale(identifier: "en_US")
+        dateformatter.locale = Locale(identifier: "en")
         dateformatter.dateStyle = .medium
         dateformatter.timeStyle = .short
         dateformatter.dateFormat = "dd MMM yyyy HH:mm"
         return dateformatter.date(from: self) ?? Date()
+    }
+
+    func validate_en_date_from_string() -> Date? {
+        let dateformatter = DateFormatter()
+        dateformatter.locale = Locale(identifier: "en")
+        dateformatter.dateStyle = .medium
+        dateformatter.timeStyle = .short
+        dateformatter.dateFormat = "dd MMM yyyy HH:mm"
+        return dateformatter.date(from: self)
     }
 
     func localized_date_from_string() -> Date {

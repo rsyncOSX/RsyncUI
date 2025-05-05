@@ -22,8 +22,8 @@ final class RecordsSnapshot {
                 var date: Date?
                 if let stringdate = record.dateExecuted {
                     if stringdate.isEmpty == false {
-                        datestring = stringdate.en_us_date_from_string().localized_string_from_date()
-                        date = stringdate.en_us_date_from_string()
+                        datestring = stringdate.en_date_from_string().localized_string_from_date()
+                        date = stringdate.en_date_from_string()
                     }
                 }
                 return LogRecordSnapshot(

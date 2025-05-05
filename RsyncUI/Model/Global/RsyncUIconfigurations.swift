@@ -46,6 +46,7 @@ final class RsyncUIconfigurations {
     }
 
     @ObservationIgnored var externalurlrequestinprogress: Bool = false
+    @ObservationIgnored var executetasksinprogress: Bool = false
 
     init() {}
 }

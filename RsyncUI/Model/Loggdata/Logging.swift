@@ -50,7 +50,7 @@ final class Logging {
         var newrecord = LogRecords()
         newrecord.hiddenID = hiddenID
         let currendate = Date()
-        newrecord.dateStart = currendate.en_us_string_from_date()
+        newrecord.dateStart = currendate.en_string_from_date()
         var log = Log()
         log.dateExecuted = date
         log.resultExecuted = result
@@ -93,7 +93,7 @@ final class Logging {
                 let hiddenID = logdata.0
                 let stats = logdata.1
                 let currendate = Date()
-                let date = currendate.en_us_string_from_date()
+                let date = currendate.en_string_from_date()
                 if let config = getconfig(hiddenID: hiddenID) {
                     let resultannotaded: String? = if config.task == SharedReference.shared.snapshot {
                         if let snapshotnum = config.snapshotnum {

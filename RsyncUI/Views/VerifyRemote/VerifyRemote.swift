@@ -10,43 +10,109 @@ import SwiftUI
 
 struct VerifyRemote: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var verifynavigationispresented: Bool
-    // For supporting URL links
+    @Binding var urlcommandverify: Bool
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
+    // Queryitem binding is requiered for external URL only
     @Binding var queryitem: URLQueryItem?
 
     @State private var selectedconfig: SynchronizeConfiguration?
+    // Selected task is halted
+    @State private var selectedtaskishalted: Bool = false
 
     var body: some View {
-        // NavigationStack(path: $verifynavigation) {
-        if selectedconfig == nil {
-            VStack {
-                Text("**Warning:** The Verify function is advisory only.")
-                    .foregroundColor(.blue)
-                    .font(.title)
+        NavigationStack {
+            HStack {
+                ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                            profile: rsyncUIdata.profile,
+                                            configurations: rsyncUIdata.configurations)
+                    .onChange(of: selecteduuids) {
+                        // Must set queryitem nil before selecting
+                        queryitem = nil
+                        if let configurations = rsyncUIdata.configurations {
+                            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                                selectedconfig = configurations[index]
+                                if selectedconfig?.task == SharedReference.shared.halted {
+                                    selectedtaskishalted = true
+                                } else {
+                                    selectedtaskishalted = false
+                                }
+                            } else {
+                                selectedconfig = nil
+                            }
+                        }
+                    }
 
-                HStack {
-                    Text("Select a task in Synchronize view and select the ")
+                VStack {
+                    Text("**Warning**")
                         .foregroundColor(.blue)
                         .font(.title)
 
-                    Text(Image(systemName: "bolt.shield"))
-                        .foregroundColor(.yellow)
-                        .font(.title)
+                    Text("Verify remote is **advisory** only.")
+                        .foregroundColor(.blue)
+                        .font(.title2)
+
+                    HStack {
+                        Text("Select a task and select the ")
+                            .foregroundColor(.blue)
+                            .font(.title2)
+
+                        Text(Image(systemName: "bolt.shield"))
+                            .foregroundColor(.yellow)
+                            .font(.title2)
+                    }
 
                     Text(" on the toolbar to verify.")
                         .foregroundColor(.blue)
-                        .font(.title)
+                        .font(.title2)
                 }
             }
-            .onChange(of: queryitem) {
-                // URL code
-                handlequeryitem()
+            .navigationTitle("Verify remote")
+            .navigationDestination(isPresented: $urlcommandverify) {
+                if let selectedconfig {
+                    PushPullView(config: selectedconfig)
+                }
             }
-        } else if let selectedconfig {
-            PushPullView(verifynavigationispresented: $verifynavigationispresented,
-                         queryitem: $queryitem,
-                         config: selectedconfig)
+            .toolbar(content: {
+                if remoteconfigurations, alltasksarehalted() == false {
+                    ToolbarItem {
+                        Button {
+                            guard selectedtaskishalted == false else { return }
+                            if urlcommandverify {
+                                urlcommandverify = false
+                            } else {
+                                urlcommandverify = true
+                            }
+                        } label: {
+                            Image(systemName: "bolt.shield")
+                                .foregroundColor(Color(.yellow))
+                        }
+                        .help("Verify Selected")
+                    }
+                }
+            })
         }
+        .onChange(of: queryitem) {
+            guard queryitem != nil else { return }
+            handlequeryitem()
+        }
+    }
+
+    var remoteconfigurations: Bool {
+        let remotes = rsyncUIdata.configurations?.filter { configuration in
+            configuration.offsiteServer.isEmpty == false &&
+                configuration.task == SharedReference.shared.synchronize &&
+                SharedReference.shared.rsyncversion3 == true
+        } ?? []
+        if remotes.count > 0 {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    func alltasksarehalted() -> Bool {
+        let haltedtasks = rsyncUIdata.configurations?.filter { $0.task == SharedReference.shared.halted }
+        return haltedtasks?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0
     }
 
     // URL code
@@ -62,6 +128,8 @@ struct VerifyRemote: View {
             selectedconfig = config
             guard selectedconfig?.task != SharedReference.shared.halted else { return }
             // Set config and execute a Verify
+            urlcommandverify = true
+
             queryitem = nil
         }
     }

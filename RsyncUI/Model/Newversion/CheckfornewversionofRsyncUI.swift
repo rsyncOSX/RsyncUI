@@ -45,8 +45,10 @@ actor GetversionofRsyncUI {
                 let runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
                 let check = versionsofrsyncui.filter { runningversion.isEmpty ? true : $0.version == runningversion }
                 if check.count > 0 {
+                    Logger.process.info("CheckfornewversionofRsyncUI: COMPLETED NEW VERSION FOUND")
                     return true
                 } else {
+                    Logger.process.info("CheckfornewversionofRsyncUI: COMPLETED NO NEW VERSION")
                     return false
                 }
             }

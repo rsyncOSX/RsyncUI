@@ -11,7 +11,7 @@ struct AboutView: View {
     @State private var urlstring = ""
 
     let iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "")
-    
+
     var changelog: String {
         Resources().getResource(resource: .changelog)
     }
@@ -50,11 +50,10 @@ struct AboutView: View {
 
                         appicon
                     }
-                    
+
                     rsyncversionshortstring
-                    
                 }
-                
+
                 rsyncuiconfigpathpath
             }
 
@@ -98,7 +97,7 @@ struct AboutView: View {
         .font(.caption)
         .padding(3)
     }
-    
+
     var rsyncuiconfigpathpath: some View {
         VStack {
             Text("RsyncUI configpath: " + configpath)
