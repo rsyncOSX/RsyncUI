@@ -28,15 +28,14 @@ final class GlobalTimer {
         start()
     }
 
-    
-     func removeSchedule(name: String) {
-         schedules.removeValue(forKey: name)
-         if schedules.isEmpty {
-             timer?.invalidate()
-             timer = nil
-         }
-     }
-     
+    func removeSchedule(name: String) {
+        schedules.removeValue(forKey: name)
+        if schedules.isEmpty {
+            timer?.invalidate()
+            timer = nil
+        }
+    }
+
     func clearSchedules() {
         guard schedules.count > 0 else {
             Logger.process.info("GlobalTimer: clearSchedules() NO timer to invalidate")
