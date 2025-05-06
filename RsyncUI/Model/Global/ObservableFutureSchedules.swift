@@ -156,30 +156,10 @@ final class ObservableFutureSchedules {
             globalTimer.addSchedule(profile: profile, time: schedultime) {
                 self.recomputeschedules()
                 self.setfirsscheduledate()
-                /*
-                 if SharedReference.shared.standalonecalendar {
-                     let url = self.createURLRequest(profile)
-                     if let url {
-                         Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED \(url.absoluteString)")
-                         NSWorkspace.shared.open(URL(string: url.absoluteString)!)
-                     }
-                 } else {
-                     Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED INTERNALLY")
-                     self.scheduledprofile = profile
-                 }
-                  */
                 // Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED INTERNALLY")
                 LogToFile(["ObservableFutureSchedules: schedule FIRED for \(profile)"], error: true)
                 self.scheduledprofile = profile
             }
         }
     }
-
-    /*
-     private func createURLRequest(_ profile: String) -> URL? {
-         // Create estimate and synchronize URL
-         let deeplinkurl = DeeplinkURL()
-         return deeplinkurl.createURLestimateandsynchronize(valueprofile: profile)
-     }
-     */
 }
