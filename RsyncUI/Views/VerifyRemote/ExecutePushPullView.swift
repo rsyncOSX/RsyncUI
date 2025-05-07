@@ -16,7 +16,7 @@ struct ExecutePushPullView: View {
     @State private var removedelete: Bool = true
 
     let config: SynchronizeConfiguration
-    let pushorpullremotednumbers: RemoteDataNumbers
+    // let pushorpullremotednumbers: RemoteDataNumbers
 
     var body: some View {
         HStack {
@@ -25,7 +25,7 @@ struct ExecutePushPullView: View {
             } else {
                 ZStack {
                     VStack {
-                        DetailsViewHeading(remotedatanumbers: pushorpullremotednumbers)
+                        // DetailsViewHeading(remotedatanumbers: pushorpullremotednumbers)
 
                         Spacer()
 

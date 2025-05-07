@@ -22,7 +22,7 @@ struct PushPullView: View {
     let config: SynchronizeConfiguration
 
     var body: some View {
-        NavigationStack {
+        // NavigationStack {
             VStack {
                 HStack {
                     if progress {
@@ -59,6 +59,7 @@ struct PushPullView: View {
             .onAppear {
                 pullremote(config: config)
             }
+        /*
             .toolbar(content: {
                 if progress == false {
                     ToolbarItem {
@@ -80,6 +81,7 @@ struct PushPullView: View {
                                     pushorpullremotednumbers: pushremotedatanumbers)
             }
         }
+         */
     }
 
     // For check remote, pull remote data
