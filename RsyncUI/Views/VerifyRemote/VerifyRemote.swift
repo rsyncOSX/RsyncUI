@@ -8,6 +8,17 @@
 import OSLog
 import SwiftUI
 
+enum DestinationVerifyView: String, Identifiable {
+    case pushpullview, executenpushpullview
+    
+    var id: String { rawValue }
+}
+
+struct VerifyTasks: Hashable, Identifiable {
+    let id = UUID()
+    var task: DestinationVerifyView
+}
+
 struct VerifyRemote: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var urlcommandverify: Bool
@@ -18,10 +29,11 @@ struct VerifyRemote: View {
     @State private var selectedconfig: SynchronizeConfiguration?
     // Selected task is halted
     @State private var selectedtaskishalted: Bool = false
+    @State private var executeverifynavigation: [VerifyTasks]
 
     var body: some View {
-        NavigationStack {
-            HStack {
+        NavigationStack(path: $executeverifynavigation) {
+            VStack {
                 ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                             profile: rsyncUIdata.profile,
                                             configurations: rsyncUIdata.configurations)
@@ -65,12 +77,11 @@ struct VerifyRemote: View {
                         .foregroundColor(.blue)
                         .font(.title2)
                 }
+                
             }
             .navigationTitle("Verify remote")
-            .navigationDestination(isPresented: $urlcommandverify) {
-                if let selectedconfig {
-                    PushPullView(config: selectedconfig)
-                }
+            .navigationDestination(for: VerifyTasks.self) { which in
+                makeView(view: which.task)
             }
             .toolbar(content: {
                 if remoteconfigurations, alltasksarehalted() == false {
@@ -94,6 +105,21 @@ struct VerifyRemote: View {
         .onChange(of: queryitem) {
             guard queryitem != nil else { return }
             handlequeryitem()
+        }
+        
+        @MainActor @ViewBuilder
+        func makeView(view: DestinationVerifyView) -> some View {
+            switch view {
+            case .executenpushpullview:
+                if let pushremotedatanumbers, let selectedconfig {
+                    return ExecutePushPullView(config: selectedconfig,
+                                        pushorpullremotednumbers: pushremotedatanumbers)
+                }
+            case .pushpullview:
+                if let selectedconfig {
+                                    return PushPullView(config: selectedconfig)
+                                }
+            }
         }
     }
 

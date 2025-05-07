@@ -63,8 +63,6 @@ struct PushPullView: View {
                 if progress == false {
                     ToolbarItem {
                         Button {
-                            // verifynavigation.removeAll()
-                            // verifynavigation.append(VerifyTasks(task: .executepushpull))
                             verifynavigationispresented = true
                         } label: {
                             Image(systemName: "arrow.left.arrow.right.circle.fill")
