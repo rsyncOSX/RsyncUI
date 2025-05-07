@@ -22,7 +22,9 @@ struct TimerView: View {
 
     var body: some View {
         if SharedReference.shared.synchronizewithouttimedelay {
-            Text("Synchronizing now")
+            Image(systemName: "figure.run")
+                .font(.title)
+                .imageScale(.small)
                 .foregroundColor(.blue)
                 .onReceive(timer) { firedDate in
                     timetosynchronize = 1
