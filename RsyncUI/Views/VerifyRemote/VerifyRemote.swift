@@ -10,7 +10,7 @@ import SwiftUI
 
 enum DestinationVerifyView: String, Identifiable {
     case pushpullview, executenpushpullview
-    
+
     var id: String { rawValue }
 }
 
@@ -37,6 +37,22 @@ struct VerifyRemote: View {
                 ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                             profile: rsyncUIdata.profile,
                                             configurations: rsyncUIdata.configurations)
+                    .onChange(of: selecteduuids) {
+                        queryitem = nil
+                        if let configurations = rsyncUIdata.configurations {
+                            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                                selectedconfig = configurations[index]
+                                if selectedconfig?.task == SharedReference.shared.halted {
+                                    selectedtaskishalted = true
+                                    selectedconfig = nil
+                                } else {
+                                    selectedtaskishalted = false
+                                }
+                            } else {
+                                selectedconfig = nil
+                            }
+                        }
+                    }
 
                 VStack {
                     Text("**Warning**: Verify remote is **advisory** only.")
@@ -51,13 +67,12 @@ struct VerifyRemote: View {
                         Text(Image(systemName: "bolt.shield"))
                             .foregroundColor(.yellow)
                             .font(.title2)
-                        
+
                         Text(" on the toolbar to verify.")
                             .foregroundColor(.blue)
                             .font(.title2)
                     }
                 }
-                
             }
             .navigationTitle("Verify remote")
             .navigationDestination(for: VerifyTasks.self) { which in
@@ -67,23 +82,11 @@ struct VerifyRemote: View {
                 if remoteconfigurations, alltasksarehalted() == false {
                     ToolbarItem {
                         Button {
-                            queryitem = nil
-                            if let configurations = rsyncUIdata.configurations {
-                                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                                    selectedconfig = configurations[index]
-                                    if selectedconfig?.task == SharedReference.shared.halted {
-                                        selectedtaskishalted = true
-                                    } else {
-                                        selectedtaskishalted = false
-                                    }
-                                } else {
-                                    selectedconfig = nil
-                                }
-                            }
+                            guard selectedconfig != nil else { return }
                             guard selectedtaskishalted == false else { return }
-                            
+
                             executeverifynavigation.append(VerifyTasks(task: .pushpullview))
-                            
+
                         } label: {
                             Image(systemName: "bolt.shield")
                                 .foregroundColor(Color(.yellow))
@@ -91,12 +94,13 @@ struct VerifyRemote: View {
                         .help("Verify Selected")
                     }
                 }
-                
+
                 ToolbarItem {
                     Button {
-                        
+                        guard selectedconfig != nil else { return }
+
                         executeverifynavigation.append(VerifyTasks(task: .executenpushpullview))
-                        
+
                     } label: {
                         Image(systemName: "arrow.left.arrow.right.circle.fill")
                             .foregroundColor(.blue)
@@ -118,14 +122,14 @@ struct VerifyRemote: View {
             if let selectedconfig {
                 ExecutePushPullView(config: selectedconfig)
             }
-            
+
         case .pushpullview:
             if let selectedconfig {
                 PushPullView(config: selectedconfig)
             }
         }
     }
-    
+
     var remoteconfigurations: Bool {
         let remotes = rsyncUIdata.configurations?.filter { configuration in
             configuration.offsiteServer.isEmpty == false &&
