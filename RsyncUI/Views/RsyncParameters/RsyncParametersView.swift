@@ -37,6 +37,7 @@ struct RsyncParametersView: View {
                     if notifydataisupdated {
                         Button("Update") {
                             saversyncparameters()
+                            selecteduuids.removeAll()
                         }
                         .buttonStyle(ColorfulButtonStyle())
                         .help("Update parameters")
@@ -117,13 +118,15 @@ struct RsyncParametersView: View {
                         }
                     }
 
-                    Section(header: Text("Remove parameters to rsync")) {
+                    Section(header: Text("Remove parameters to rsync")
+                                    .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))) {
                         VStack(alignment: .leading) {
                             ToggleViewDefault(text: "--delete", binding: $parameters.removedelete)
                                 .onChange(of: parameters.removedelete) {
                                     parameters.deletedelete(parameters.removedelete)
                                 }
                                 .disabled(selecteduuids.isEmpty == true)
+                                
 
                             ToggleViewDefault(text: "--compress", binding: $parameters.removecompress)
                                 .onChange(of: parameters.removecompress) {
@@ -140,9 +143,18 @@ struct RsyncParametersView: View {
 
                 VStack(alignment: .leading) {
                     if deleteparameterpresent {
-                        Text("Select a task, \(Text("red Synchronize ID").foregroundColor(.red)) indicates --delete parameter is enabled")
+                        VStack(alignment: .leading) {
+                            Text("Select a task, \(Text("red Synchronize ID").foregroundColor(.red)) --delete parameter is enabled")
+                                .padding(.bottom, 10)
+                            Text("To DISABLE --delete parameter, toggle *Remove parameters to rsync --delete switch*")
+                                .padding(.top, -10)
+                        }
+                        
                     } else {
                         Text("Select a task")
+                            .padding(.bottom, 10)
+                        Text("To ENABLE --delete parameter toggle *Remove parameters to rsync --delete switch*")
+                            .padding(.top, -10)
                     }
 
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,

@@ -139,11 +139,18 @@ struct AddTaskView: View {
                 // Column 2
                 VStack(alignment: .leading) {
                     if deleteparameterpresent {
-                        Text("Tasks for Synchronize actions, \(Text("red Synchronize ID").foregroundColor(.red)) indicates --delete parameter is enabled")
-                            .padding(.bottom, 10)
+                        VStack (alignment: .leading) {
+                            Text("Tasks for Synchronize actions, \(Text("red Synchronize ID").foregroundColor(.red)) --delete parameter is enabled")
+                                .padding(.bottom, 10)
+                            Text("To DISABLE --delete parameter, select *Rsync parameters* view")
+                                .padding(.top, -10)
+                        }
+                        
                     } else {
                         Text("Tasks for Synchronize actions")
                             .padding(.bottom, 10)
+                        Text("To ENABLE --delete parameter, select *Rsync parameters* view")
+                            .padding(.top, -10)
                     }
 
                     ListofTasksAddView(rsyncUIdata: rsyncUIdata,
@@ -257,34 +264,7 @@ struct AddTaskView: View {
                     .help("Verify task")
                 }
             }
-            /*
-             if newdata.selectedconfig != nil {
-                 ToolbarItem {
-                     Button {
-                         validateandupdate()
-                     } label: {
-                         if notifydataisupdated {
-                             Image(systemName: "checkmark.circle.fill")
-                                 .foregroundColor(Color(.red))
-                         } else {
-                             Image(systemName: "checkmark.circle")
-                                 .foregroundColor(Color(.blue))
-                         }
-                     }
-                     .help("Update task")
-                 }
-             } else {
-                 ToolbarItem {
-                     Button {
-                         addconfig()
-                     } label: {
-                         Image(systemName: "checkmark.circle.fill")
-                             .foregroundColor(Color(.blue))
-                     }
-                     .help("Add task")
-                 }
-             }
-             */
+            
             ToolbarItem {
                 Button {
                     addtasknavigation.append(AddTasks(task: .globalchanges))
