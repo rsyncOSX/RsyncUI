@@ -16,7 +16,6 @@ struct ExecutePushPullView: View {
     @State private var removedelete: Bool = true
 
     let config: SynchronizeConfiguration
-    // let pushorpullremotednumbers: RemoteDataNumbers
 
     var body: some View {
         HStack {
@@ -24,25 +23,9 @@ struct ExecutePushPullView: View {
                 DetailsView(remotedatanumbers: remotedatanumbers)
             } else {
                 ZStack {
-                    HStack {
-                        if pushpullcommand == .push_local {
-                            Button("Push") {
-                                progress = true
-                                push(config: config)
-                            }
-                            .padding()
-                            .buttonStyle(ColorfulButtonStyle())
-                        } else if pushpullcommand == .pull_remote {
-                            Button("Pull") {
-                                progress = true
-                                pull(config: config)
-                            }
-                            .padding()
-                            .buttonStyle(ColorfulButtonStyle())
-                        }
-
-                        VStack(alignment: .trailing) {
-                            if pushpullcommand != .none {
+                    VStack {
+                        HStack {
+                            VStack(alignment: .trailing) {
                                 Toggle("--dry-run", isOn: $dryrun)
                                     .toggleStyle(.switch)
                                     .onTapGesture {
@@ -50,9 +33,7 @@ struct ExecutePushPullView: View {
                                             dryrun.toggle()
                                         }
                                     }
-                            }
 
-                            if pushpullcommand != .none {
                                 Toggle("--delete, ON removed", isOn: $removedelete)
                                     .toggleStyle(.switch)
                                     .onTapGesture {
@@ -61,6 +42,26 @@ struct ExecutePushPullView: View {
                                         }
                                     }
                                     .help("Remove the delete parameter, default is true?")
+                            }
+
+                            if pushpullcommand == .push_local {
+                                Button("Push") {
+                                    progress = true
+                                    push(config: config)
+                                }
+                                .padding()
+                                .buttonStyle(ColorfulButtonStyle())
+                            } else if pushpullcommand == .pull_remote {
+                                Button("Pull") {
+                                    progress = true
+                                    pull(config: config)
+                                }
+                                .padding()
+                                .buttonStyle(ColorfulButtonStyle())
+                            } else {
+                                Button("Select") {}
+                                    .padding()
+                                    .buttonStyle(ColorfulButtonStyle())
                             }
                         }
 

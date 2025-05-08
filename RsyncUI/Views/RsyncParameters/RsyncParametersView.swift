@@ -33,28 +33,26 @@ struct RsyncParametersView: View {
     var body: some View {
         NavigationStack(path: $rsyncnavigation) {
             HStack {
-                
                 VStack(alignment: .leading) {
-                    
-                        if notifydataisupdated {
-                            Button("Update") {
-                                saversyncparameters()
-                            }
-                            .buttonStyle(ColorfulButtonStyle())
-                            .help("Update parameters")
-                            .disabled(selectedconfig == nil)
-                            .padding(.bottom, 10)
-                            
-                        } else {
-                            Button("Add") {
-                                saversyncparameters()
-                            }
-                            .buttonStyle(ColorfulButtonStyle())
-                            .help("Save parameters")
-                            .disabled(selectedconfig == nil)
-                            .padding(.bottom, 10)
+                    if notifydataisupdated {
+                        Button("Update") {
+                            saversyncparameters()
                         }
-                    
+                        .buttonStyle(ColorfulButtonStyle())
+                        .help("Update parameters")
+                        .disabled(selectedconfig == nil)
+                        .padding(.bottom, 10)
+
+                    } else {
+                        Button("Add") {
+                            saversyncparameters()
+                        }
+                        .buttonStyle(ColorfulButtonStyle())
+                        .help("Save parameters")
+                        .disabled(selectedconfig == nil)
+                        .padding(.bottom, 10)
+                    }
+
                     Section(header: Text("Task spesific parameters for rsync")) {
                         EditRsyncParameter(450, $parameters.parameter8)
                             .onChange(of: parameters.parameter8) {
