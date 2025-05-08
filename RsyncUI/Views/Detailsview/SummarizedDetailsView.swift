@@ -183,9 +183,9 @@ struct SummarizedDetailsView: View {
             .width(min: 40, max: 80)
             TableColumn("Task", value: \.task)
                 .width(max: 60)
-            TableColumn("Local catalog", value: \.localCatalog)
+            TableColumn("Local folder", value: \.localCatalog)
                 .width(min: 100, max: 300)
-            TableColumn("Remote catalog", value: \.offsiteCatalog)
+            TableColumn("Remote folder", value: \.offsiteCatalog)
                 .width(min: 100, max: 300)
             TableColumn("Server") { data in
                 if data.offsiteServer.count > 0 {

@@ -8,6 +8,17 @@
 import OSLog
 import SwiftUI
 
+enum DestinationVerifyView: String, Identifiable {
+    case pushpullview, executenpushpullview
+
+    var id: String { rawValue }
+}
+
+struct VerifyTasks: Hashable, Identifiable {
+    let id = UUID()
+    var task: DestinationVerifyView
+}
+
 struct VerifyRemote: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var urlcommandverify: Bool
@@ -18,21 +29,22 @@ struct VerifyRemote: View {
     @State private var selectedconfig: SynchronizeConfiguration?
     // Selected task is halted
     @State private var selectedtaskishalted: Bool = false
+    @State private var executeverifynavigation: [VerifyTasks] = []
 
     var body: some View {
-        NavigationStack {
-            HStack {
+        NavigationStack(path: $executeverifynavigation) {
+            VStack {
                 ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                             profile: rsyncUIdata.profile,
                                             configurations: rsyncUIdata.configurations)
                     .onChange(of: selecteduuids) {
-                        // Must set queryitem nil before selecting
                         queryitem = nil
                         if let configurations = rsyncUIdata.configurations {
                             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                 selectedconfig = configurations[index]
                                 if selectedconfig?.task == SharedReference.shared.halted {
                                     selectedtaskishalted = true
+                                    selectedconfig = nil
                                 } else {
                                     selectedtaskishalted = false
                                 }
@@ -43,13 +55,9 @@ struct VerifyRemote: View {
                     }
 
                 VStack {
-                    Text("**Warning**")
+                    Text("**Warning**: Verify remote is **advisory** only.")
                         .foregroundColor(.blue)
                         .font(.title)
-
-                    Text("Verify remote is **advisory** only.")
-                        .foregroundColor(.blue)
-                        .font(.title2)
 
                     HStack {
                         Text("Select a task and select the ")
@@ -59,29 +67,26 @@ struct VerifyRemote: View {
                         Text(Image(systemName: "bolt.shield"))
                             .foregroundColor(.yellow)
                             .font(.title2)
-                    }
 
-                    Text(" on the toolbar to verify.")
-                        .foregroundColor(.blue)
-                        .font(.title2)
+                        Text(" on the toolbar to verify.")
+                            .foregroundColor(.blue)
+                            .font(.title2)
+                    }
                 }
             }
             .navigationTitle("Verify remote")
-            .navigationDestination(isPresented: $urlcommandverify) {
-                if let selectedconfig {
-                    PushPullView(config: selectedconfig)
-                }
+            .navigationDestination(for: VerifyTasks.self) { which in
+                makeView(view: which.task)
             }
             .toolbar(content: {
                 if remoteconfigurations, alltasksarehalted() == false {
                     ToolbarItem {
                         Button {
+                            guard selectedconfig != nil else { return }
                             guard selectedtaskishalted == false else { return }
-                            if urlcommandverify {
-                                urlcommandverify = false
-                            } else {
-                                urlcommandverify = true
-                            }
+
+                            executeverifynavigation.append(VerifyTasks(task: .pushpullview))
+
                         } label: {
                             Image(systemName: "bolt.shield")
                                 .foregroundColor(Color(.yellow))
@@ -89,11 +94,39 @@ struct VerifyRemote: View {
                         .help("Verify Selected")
                     }
                 }
+
+                ToolbarItem {
+                    Button {
+                        guard selectedconfig != nil else { return }
+
+                        executeverifynavigation.append(VerifyTasks(task: .executenpushpullview))
+
+                    } label: {
+                        Image(systemName: "arrow.left.arrow.right.circle.fill")
+                            .foregroundColor(.blue)
+                    }
+                    .help("Pull or push")
+                }
             })
         }
         .onChange(of: queryitem) {
             guard queryitem != nil else { return }
             handlequeryitem()
+        }
+    }
+
+    @MainActor @ViewBuilder
+    func makeView(view: DestinationVerifyView) -> some View {
+        switch view {
+        case .executenpushpullview:
+            if let selectedconfig {
+                ExecutePushPullView(config: selectedconfig)
+            }
+
+        case .pushpullview:
+            if let selectedconfig {
+                PushPullView(config: selectedconfig)
+            }
         }
     }
 

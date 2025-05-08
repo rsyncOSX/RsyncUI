@@ -219,7 +219,7 @@ struct QuicktaskView: View {
 
     // Headers (in sections)
     var headerlocalremote: some View {
-        Text("Catalog parameters")
+        Text("Folder parameters")
             .modifier(FixedTag(200, .leading))
     }
 
@@ -227,7 +227,7 @@ struct QuicktaskView: View {
         Section(header: headerlocalremote) {
             // localcatalog
             HStack {
-                EditValue(300, NSLocalizedString("Add local catalog - required", comment: ""), $localcatalog)
+                EditValue(300, NSLocalizedString("Add Local folder - required", comment: ""), $localcatalog)
                     .focused($focusField, equals: .localcatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
@@ -237,7 +237,7 @@ struct QuicktaskView: View {
 
             // remotecatalog
             HStack {
-                EditValue(300, NSLocalizedString("Add remote catalog - required", comment: ""), $remotecatalog)
+                EditValue(300, NSLocalizedString("Add Remote folder - required", comment: ""), $remotecatalog)
                     .focused($focusField, equals: .remotecatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
@@ -251,7 +251,7 @@ struct QuicktaskView: View {
         Section(header: headerlocalremote) {
             // localcatalog
             HStack {
-                EditValue(300, NSLocalizedString("Add remote as local catalog - required", comment: ""), $localcatalog)
+                EditValue(300, NSLocalizedString("Add remote as Local folder - required", comment: ""), $localcatalog)
                     .focused($focusField, equals: .localcatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
@@ -261,7 +261,7 @@ struct QuicktaskView: View {
 
             // remotecatalog
             HStack {
-                EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: ""), $remotecatalog)
+                EditValue(300, NSLocalizedString("Add local as Remote folder - required", comment: ""), $remotecatalog)
                     .focused($focusField, equals: .remotecatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)

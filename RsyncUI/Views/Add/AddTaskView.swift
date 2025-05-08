@@ -50,8 +50,23 @@ struct AddTaskView: View {
         NavigationStack(path: $addtasknavigation) {
             HStack {
                 // Column 1
+
                 VStack(alignment: .leading) {
                     HStack {
+                        if newdata.selectedconfig != nil {
+                            Button("Update") {
+                                validateandupdate()
+                            }
+                            .buttonStyle(ColorfulButtonStyle())
+                            .help("Update task")
+                        } else {
+                            Button("Add") {
+                                addconfig()
+                            }
+                            .buttonStyle(ColorfulButtonStyle())
+                            .help("Add task")
+                        }
+
                         pickerselecttypeoftask
                             .disabled(selectedconfig != nil)
 
@@ -124,11 +139,18 @@ struct AddTaskView: View {
                 // Column 2
                 VStack(alignment: .leading) {
                     if deleteparameterpresent {
-                        Text("Tasks for Synchronize actions, \(Text("red Synchronize ID").foregroundColor(.red)) indicates --delete parameter is enabled")
-                            .padding(.bottom, 10)
+                        VStack (alignment: .leading) {
+                            Text("Tasks for Synchronize actions, \(Text("red Synchronize ID").foregroundColor(.red)) --delete parameter is enabled")
+                                .padding(.bottom, 10)
+                            Text("To DISABLE --delete parameter, select *Rsync parameters* view")
+                                .padding(.top, -10)
+                        }
+                        
                     } else {
                         Text("Tasks for Synchronize actions")
                             .padding(.bottom, 10)
+                        Text("To ENABLE --delete parameter, select *Rsync parameters* view")
+                            .padding(.top, -10)
                     }
 
                     ListofTasksAddView(rsyncUIdata: rsyncUIdata,
@@ -242,34 +264,7 @@ struct AddTaskView: View {
                     .help("Verify task")
                 }
             }
-
-            if newdata.selectedconfig != nil {
-                ToolbarItem {
-                    Button {
-                        validateandupdate()
-                    } label: {
-                        if notifydataisupdated {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(Color(.red))
-                        } else {
-                            Image(systemName: "checkmark.circle")
-                                .foregroundColor(Color(.blue))
-                        }
-                    }
-                    .help("Update task")
-                }
-            } else {
-                ToolbarItem {
-                    Button {
-                        addconfig()
-                    } label: {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(Color(.blue))
-                    }
-                    .help("Add task")
-                }
-            }
-
+            
             ToolbarItem {
                 Button {
                     addtasknavigation.append(AddTasks(task: .globalchanges))
@@ -352,17 +347,17 @@ struct AddTaskView: View {
 
     // Add and edit text values
     var setlocalcatalogsyncremote: some View {
-        EditValue(300, NSLocalizedString("Add remote as local catalog - required", comment: ""),
+        EditValue(300, NSLocalizedString("Add remote as Local folder - required", comment: ""),
                   $newdata.localcatalog)
     }
 
     var setremotecatalogsyncremote: some View {
-        EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: ""),
+        EditValue(300, NSLocalizedString("Add local as Remote folder - required", comment: ""),
                   $newdata.remotecatalog)
     }
 
     var setlocalcatalog: some View {
-        EditValue(300, NSLocalizedString("Add local catalog - required", comment: ""),
+        EditValue(300, NSLocalizedString("Add Local folder - required", comment: ""),
                   $newdata.localcatalog)
             .focused($focusField, equals: .localcatalogField)
             .textContentType(.none)
@@ -370,7 +365,7 @@ struct AddTaskView: View {
     }
 
     var setremotecatalog: some View {
-        EditValue(300, NSLocalizedString("Add remote catalog - required", comment: ""),
+        EditValue(300, NSLocalizedString("Add Remote folder - required", comment: ""),
                   $newdata.remotecatalog)
             .focused($focusField, equals: .remotecatalogField)
             .textContentType(.none)
@@ -379,7 +374,7 @@ struct AddTaskView: View {
 
     // Headers (in sections)
     var headerlocalremote: some View {
-        Text("Catalog parameters")
+        Text("Folder parameters")
             .modifier(FixedTag(200, .leading))
     }
 

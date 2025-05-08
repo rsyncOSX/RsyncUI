@@ -203,7 +203,7 @@ final class VerifyConfiguration: Connected {
                 Logger.process.warning("VerifyConfiguration: snapshotnum not set.")
                 throw ValidateInputError.snapshotnum
             }
-            // also check if connected because creating base remote catalog if remote server
+            // also check if connected because creating base Remote folder if remote server
             // must be connected to create remote base catalog
             guard connected(server: config.offsiteServer) else {
                 Logger.process.warning("VerifyConfiguration: not connected to remote server.")

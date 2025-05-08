@@ -30,7 +30,7 @@ final class ObservableParametersRsync {
     // Remove parameters
     var removecompress: Bool = false
     var removedelete: Bool = false
-    var daemon: Bool = false
+    // var daemon: Bool = false
 
     func setvalues(_ config: SynchronizeConfiguration?) {
         if let config {
@@ -51,7 +51,7 @@ final class ObservableParametersRsync {
             if (configuration?.parameter4 ?? "").isEmpty { removedelete = true } else { removedelete = false }
             // Rsync daemon
             // configuration?.rsyncdaemon = config.rsyncdaemon
-            if (configuration?.rsyncdaemon ?? 0) == 0 { daemon = false } else { daemon = true }
+            // if (configuration?.rsyncdaemon ?? 0) == 0 { daemon = false } else { daemon = true }
         } else {
             reset()
         }
@@ -125,7 +125,7 @@ final class ObservableParametersRsync {
         sshkeypathandidentityfile = ""
         removecompress = false
         removedelete = false
-        daemon = false
+        // daemon = false
     }
 
     func sshkeypath(_ keypath: String) {

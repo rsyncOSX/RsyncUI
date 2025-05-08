@@ -108,7 +108,7 @@ struct GlobalChangeTaskView: View {
     var localandremotecatalog: some View {
         Section(header: headerlocalremote) {
             // localcatalog
-            EditValue(300, NSLocalizedString("Local catalog", comment: ""), $newdata.occurence_localcatalog)
+            EditValue(300, NSLocalizedString("Local folder", comment: ""), $newdata.occurence_localcatalog)
                 .onChange(of: newdata.occurence_localcatalog) {
                     Task {
                         try await Task.sleep(seconds: 2)
@@ -126,7 +126,7 @@ struct GlobalChangeTaskView: View {
                 .disabled(configurations.isEmpty)
                 .focused($focusField, equals: .localcatalogField)
 
-            EditValue(300, NSLocalizedString("Remote catalog", comment: ""), $newdata.occurence_remotecatalog)
+            EditValue(300, NSLocalizedString("Remote folder", comment: ""), $newdata.occurence_remotecatalog)
                 .onChange(of: newdata.occurence_remotecatalog) {
                     Task {
                         try await Task.sleep(seconds: 2)
@@ -213,7 +213,7 @@ struct GlobalChangeTaskView: View {
 
     // Headers (in sections)
     var headerlocalremote: some View {
-        Text("Catalog parameters - split character $")
+        Text("Folder parameters - split character $")
             .modifier(FixedTag(300, .leading))
     }
 

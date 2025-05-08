@@ -16,7 +16,6 @@ struct ExecutePushPullView: View {
     @State private var removedelete: Bool = true
 
     let config: SynchronizeConfiguration
-    let pushorpullremotednumbers: RemoteDataNumbers
 
     var body: some View {
         HStack {
@@ -25,55 +24,49 @@ struct ExecutePushPullView: View {
             } else {
                 ZStack {
                     VStack {
-                        DetailsViewHeading(remotedatanumbers: pushorpullremotednumbers)
-
-                        Spacer()
-
-                        VStack {
-                            HStack {
-                                if pushpullcommand == .push_local {
-                                    Button("Push") {
-                                        progress = true
-                                        push(config: config)
-                                    }
-                                    .padding()
-                                    .buttonStyle(ColorfulButtonStyle())
-                                } else if pushpullcommand == .pull_remote {
-                                    Button("Pull") {
-                                        progress = true
-                                        pull(config: config)
-                                    }
-                                    .padding()
-                                    .buttonStyle(ColorfulButtonStyle())
-                                }
-
-                                VStack(alignment: .trailing) {
-                                    if pushpullcommand != .none {
-                                        Toggle("--dry-run", isOn: $dryrun)
-                                            .toggleStyle(.switch)
-                                            .onTapGesture {
-                                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                                    dryrun.toggle()
-                                                }
-                                            }
+                        HStack {
+                            VStack(alignment: .trailing) {
+                                Toggle("--dry-run", isOn: $dryrun)
+                                    .toggleStyle(.switch)
+                                    .onTapGesture {
+                                        withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                            dryrun.toggle()
+                                        }
                                     }
 
-                                    if pushpullcommand != .none {
-                                        Toggle("--delete, ON removed", isOn: $removedelete)
-                                            .toggleStyle(.switch)
-                                            .onTapGesture {
-                                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                                    removedelete.toggle()
-                                                }
-                                            }
-                                            .help("Remove the delete parameter, default is true?")
+                                Toggle("--delete, ON removed", isOn: $removedelete)
+                                    .toggleStyle(.switch)
+                                    .onTapGesture {
+                                        withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                            removedelete.toggle()
+                                        }
                                     }
-                                }
+                                    .help("Remove the delete parameter, default is true?")
                             }
 
-                            PushPullCommandView(pushpullcommand: $pushpullcommand, dryrun: $dryrun, removedelete: $removedelete, config: config)
+                            if pushpullcommand == .push_local {
+                                Button("Push") {
+                                    progress = true
+                                    push(config: config)
+                                }
                                 .padding()
+                                .buttonStyle(ColorfulButtonStyle())
+                            } else if pushpullcommand == .pull_remote {
+                                Button("Pull") {
+                                    progress = true
+                                    pull(config: config)
+                                }
+                                .padding()
+                                .buttonStyle(ColorfulButtonStyle())
+                            } else {
+                                Button("Select") {}
+                                    .padding()
+                                    .buttonStyle(ColorfulButtonStyle())
+                            }
                         }
+
+                        PushPullCommandView(pushpullcommand: $pushpullcommand, dryrun: $dryrun, removedelete: $removedelete, config: config)
+                            .padding()
                     }
 
                     if progress {

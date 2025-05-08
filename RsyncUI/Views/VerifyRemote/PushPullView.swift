@@ -22,65 +22,39 @@ struct PushPullView: View {
     let config: SynchronizeConfiguration
 
     var body: some View {
-        NavigationStack {
-            VStack {
-                HStack {
-                    if progress {
-                        Spacer()
+        VStack {
+            if progress {
+                Spacer()
 
-                        ProgressView()
-                            .toolbar(content: {
-                                ToolbarItem {
-                                    Button {
-                                        isaborted = true
-                                        abort()
-                                    } label: {
-                                        Image(systemName: "stop.fill")
-                                    }
-                                    .help("Abort (⌘K)")
-                                }
-                            })
-
-                        Spacer()
-
-                    } else {
-                        if let pullremotedatanumbers, let pushremotedatanumbers {
-                            HStack {
-                                DetailsVerifyView(remotedatanumbers: pushremotedatanumbers,
-                                                  push: true)
-
-                                DetailsVerifyView(remotedatanumbers: pullremotedatanumbers,
-                                                  push: false)
+                ProgressView()
+                    .toolbar(content: {
+                        ToolbarItem {
+                            Button {
+                                isaborted = true
+                                abort()
+                            } label: {
+                                Image(systemName: "stop.fill")
                             }
+                            .help("Abort (⌘K)")
                         }
+                    })
+
+                Spacer()
+
+            } else {
+                if let pullremotedatanumbers, let pushremotedatanumbers {
+                    HStack {
+                        DetailsVerifyView(remotedatanumbers: pushremotedatanumbers,
+                                          push: true)
+
+                        DetailsVerifyView(remotedatanumbers: pullremotedatanumbers,
+                                          push: false)
                     }
                 }
             }
-            .onAppear {
-                pullremote(config: config)
-            }
-            .toolbar(content: {
-                if progress == false {
-                    ToolbarItem {
-                        Button {
-                            // verifynavigation.removeAll()
-                            // verifynavigation.append(VerifyTasks(task: .executepushpull))
-                            verifynavigationispresented = true
-                        } label: {
-                            Image(systemName: "arrow.left.arrow.right.circle.fill")
-                                .foregroundColor(.blue)
-                        }
-                        .help("Pull or push")
-                    }
-                }
-            })
         }
-        .navigationTitle("Verify remote")
-        .navigationDestination(isPresented: $verifynavigationispresented) {
-            if let pushremotedatanumbers {
-                ExecutePushPullView(config: config,
-                                    pushorpullremotednumbers: pushremotedatanumbers)
-            }
+        .onAppear {
+            pullremote(config: config)
         }
     }
 
