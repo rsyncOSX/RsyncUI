@@ -78,7 +78,7 @@ struct AddTaskView: View {
                     .padding(.bottom, 10)
 
                     VStack(alignment: .leading) { synchronizeID }
-
+                    
                     if newdata.selectedrsynccommand == .syncremote {
                         VStack(alignment: .leading) { localandremotecatalogsyncremote }
 
@@ -347,12 +347,12 @@ struct AddTaskView: View {
 
     // Add and edit text values
     var setlocalcatalogsyncremote: some View {
-        EditValue(300, NSLocalizedString("Add remote as Local folder - required", comment: ""),
+        EditValue(300, NSLocalizedString("Add Remote folder - required", comment: ""),
                   $newdata.localcatalog)
     }
 
     var setremotecatalogsyncremote: some View {
-        EditValue(300, NSLocalizedString("Add local as Remote folder - required", comment: ""),
+        EditValue(300, NSLocalizedString("Add Local folder - required", comment: ""),
                   $newdata.remotecatalog)
     }
 
@@ -416,18 +416,6 @@ struct AddTaskView: View {
     var localandremotecatalogsyncremote: some View {
         Section(header: headerlocalremote) {
             HStack {
-                // localcatalog
-                if newdata.selectedconfig == nil { setlocalcatalogsyncremote } else {
-                    EditValue(300, nil, $newdata.localcatalog)
-                        .onAppear(perform: {
-                            if let catalog = newdata.selectedconfig?.localCatalog {
-                                newdata.localcatalog = catalog
-                            }
-                        })
-                }
-                OpencatalogView(selecteditem: $newdata.localcatalog, catalogs: true)
-            }
-            HStack {
                 // remotecatalog
                 if newdata.selectedconfig == nil { setremotecatalogsyncremote } else {
                     EditValue(300, nil, $newdata.remotecatalog)
@@ -438,6 +426,19 @@ struct AddTaskView: View {
                         })
                 }
                 OpencatalogView(selecteditem: $newdata.remotecatalog, catalogs: true)
+            }
+            
+            HStack {
+                // localcatalog
+                if newdata.selectedconfig == nil { setlocalcatalogsyncremote } else {
+                    EditValue(300, nil, $newdata.localcatalog)
+                        .onAppear(perform: {
+                            if let catalog = newdata.selectedconfig?.localCatalog {
+                                newdata.localcatalog = catalog
+                            }
+                        })
+                }
+                OpencatalogView(selecteditem: $newdata.localcatalog, catalogs: true)
             }
         }
     }
