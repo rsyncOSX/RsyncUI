@@ -50,8 +50,23 @@ struct AddTaskView: View {
         NavigationStack(path: $addtasknavigation) {
             HStack {
                 // Column 1
+
                 VStack(alignment: .leading) {
                     HStack {
+                        if newdata.selectedconfig != nil {
+                            Button("Update") {
+                                validateandupdate()
+                            }
+                            .buttonStyle(ColorfulButtonStyle())
+                            .help("Update task")
+                        } else {
+                            Button("Add") {
+                                addconfig()
+                            }
+                            .buttonStyle(ColorfulButtonStyle())
+                            .help("Add task")
+                        }
+
                         pickerselecttypeoftask
                             .disabled(selectedconfig != nil)
 
@@ -242,34 +257,34 @@ struct AddTaskView: View {
                     .help("Verify task")
                 }
             }
-
-            if newdata.selectedconfig != nil {
-                ToolbarItem {
-                    Button {
-                        validateandupdate()
-                    } label: {
-                        if notifydataisupdated {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(Color(.red))
-                        } else {
-                            Image(systemName: "checkmark.circle")
-                                .foregroundColor(Color(.blue))
-                        }
-                    }
-                    .help("Update task")
-                }
-            } else {
-                ToolbarItem {
-                    Button {
-                        addconfig()
-                    } label: {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(Color(.blue))
-                    }
-                    .help("Add task")
-                }
-            }
-
+            /*
+             if newdata.selectedconfig != nil {
+                 ToolbarItem {
+                     Button {
+                         validateandupdate()
+                     } label: {
+                         if notifydataisupdated {
+                             Image(systemName: "checkmark.circle.fill")
+                                 .foregroundColor(Color(.red))
+                         } else {
+                             Image(systemName: "checkmark.circle")
+                                 .foregroundColor(Color(.blue))
+                         }
+                     }
+                     .help("Update task")
+                 }
+             } else {
+                 ToolbarItem {
+                     Button {
+                         addconfig()
+                     } label: {
+                         Image(systemName: "checkmark.circle.fill")
+                             .foregroundColor(Color(.blue))
+                     }
+                     .help("Add task")
+                 }
+             }
+             */
             ToolbarItem {
                 Button {
                     addtasknavigation.append(AddTasks(task: .globalchanges))

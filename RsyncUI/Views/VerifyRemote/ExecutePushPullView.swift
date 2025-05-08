@@ -67,9 +67,8 @@ struct ExecutePushPullView: View {
                         PushPullCommandView(pushpullcommand: $pushpullcommand, dryrun: $dryrun, removedelete: $removedelete, config: config)
                             .padding()
                     }
-                    
+
                     if progress {
-                        
                         Spacer()
 
                         ProgressView()
