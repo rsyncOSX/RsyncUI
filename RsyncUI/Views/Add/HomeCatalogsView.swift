@@ -53,7 +53,7 @@ struct HomeCatalogsView: View {
     var body: some View {
         HStack {
             Table(homecatalogs, selection: $selecteduuid) {
-                TableColumn("Catalogs") { catalog in
+                TableColumn("Folder") { catalog in
                     Text(catalog.catalogname ?? "")
                 }
             }

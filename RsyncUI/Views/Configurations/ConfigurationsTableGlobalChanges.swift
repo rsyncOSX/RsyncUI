@@ -32,7 +32,7 @@ struct ConfigurationsTableGlobalChanges: View {
                 }
             }
             .width(min: 50, max: 150)
-            TableColumn("Local catalog") { data in
+            TableColumn("Local folder") { data in
                 if selecteduuids.count == 0 {
                     if newdata.occurence_localcatalog.isEmpty == false, newdata.occurence_localcatalog.contains("$") {
                         Text(newdata.splitinput(input: newdata.occurence_localcatalog, original: data.localCatalog))
@@ -51,7 +51,7 @@ struct ConfigurationsTableGlobalChanges: View {
                 }
             }
             .width(min: 180, max: 300)
-            TableColumn("Remote catalog") { data in
+            TableColumn("Remote folder") { data in
                 if selecteduuids.count == 0 {
                     if newdata.occurence_remotecatalog.isEmpty == false, newdata.occurence_remotecatalog.contains("$") {
                         Text(newdata.splitinput(input: newdata.occurence_remotecatalog, original: data.offsiteCatalog))

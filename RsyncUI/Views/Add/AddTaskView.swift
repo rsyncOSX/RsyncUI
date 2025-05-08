@@ -352,17 +352,17 @@ struct AddTaskView: View {
 
     // Add and edit text values
     var setlocalcatalogsyncremote: some View {
-        EditValue(300, NSLocalizedString("Add remote as local catalog - required", comment: ""),
+        EditValue(300, NSLocalizedString("Add remote as Local folder - required", comment: ""),
                   $newdata.localcatalog)
     }
 
     var setremotecatalogsyncremote: some View {
-        EditValue(300, NSLocalizedString("Add local as remote catalog - required", comment: ""),
+        EditValue(300, NSLocalizedString("Add local as Remote folder - required", comment: ""),
                   $newdata.remotecatalog)
     }
 
     var setlocalcatalog: some View {
-        EditValue(300, NSLocalizedString("Add local catalog - required", comment: ""),
+        EditValue(300, NSLocalizedString("Add Local folder - required", comment: ""),
                   $newdata.localcatalog)
             .focused($focusField, equals: .localcatalogField)
             .textContentType(.none)
@@ -370,7 +370,7 @@ struct AddTaskView: View {
     }
 
     var setremotecatalog: some View {
-        EditValue(300, NSLocalizedString("Add remote catalog - required", comment: ""),
+        EditValue(300, NSLocalizedString("Add Remote folder - required", comment: ""),
                   $newdata.remotecatalog)
             .focused($focusField, equals: .remotecatalogField)
             .textContentType(.none)
@@ -379,7 +379,7 @@ struct AddTaskView: View {
 
     // Headers (in sections)
     var headerlocalremote: some View {
-        Text("Catalog parameters")
+        Text("Folder parameters")
             .modifier(FixedTag(200, .leading))
     }
 
