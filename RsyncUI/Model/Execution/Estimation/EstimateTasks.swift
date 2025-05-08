@@ -8,13 +8,14 @@
 
 import Foundation
 
+
 enum ErrorDatatoSynchronize: LocalizedError {
-    case thereisdatatosynchronize
+    case thereisdatatosynchronize(idwitherror: String)
 
     var errorDescription: String? {
         switch self {
-        case .thereisdatatosynchronize:
-            "There are errors in tagging data\n for synchronize, please check"
+        case .thereisdatatosynchronize(let idwitherror):
+            "There are errors in tagging data\n for synchronize ID \(idwitherror)\nMost likely number of rows\n> 20 lines and no data to synchronize"
         }
     }
 }
@@ -25,6 +26,7 @@ final class EstimateTasks {
     var localconfigurations: [SynchronizeConfiguration]
     var stackoftasktobeestimated: [Int]?
     weak var localestimateprogressdetails: EstimateProgressDetails?
+    var synchronizeIDwitherror: String = ""
 
     func getconfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
         if let index = localconfigurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
@@ -53,7 +55,7 @@ final class EstimateTasks {
 
     func validatetagging(_ lines: Int, _ tagged: Bool) throws {
         if lines > SharedReference.shared.alerttagginglines, tagged == false {
-            throw ErrorDatatoSynchronize.thereisdatatosynchronize
+            throw ErrorDatatoSynchronize.thereisdatatosynchronize(idwitherror: synchronizeIDwitherror)
         }
     }
 
@@ -108,8 +110,11 @@ extension EstimateTasks {
 
                 // Validate that tagging is correct
                 do {
+                    // In case of throwing an error to identify which task
+                    synchronizeIDwitherror = record.backupID
                     try validatetagging(stringoutputfromrsync?.count ?? 0, record.datatosynchronize)
                 } catch let e {
+                    
                     let error = e
                     SharedReference.shared.errorobject?.alert(error: error)
                 }
