@@ -31,12 +31,11 @@ final class ObservableParametersRsync {
     var removecompress: Bool = false
     var removedelete: Bool = false
     // var daemon: Bool = false
-    
+
     let helptext1 = "Red Synchronize ID means --delete parameter is enabled\nTo DISABLE --delete parameter, toggle *Remove parameters to rsync --delete switch*"
     let helptext2 = "To ENABLE --delete parameter toggle *Remove parameters to rsync --delete switch*"
-    
+
     @ObservationIgnored var whichhelptext: Int = 1
-    
 
     func setvalues(_ config: SynchronizeConfiguration?) {
         if let config {

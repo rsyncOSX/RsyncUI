@@ -121,14 +121,14 @@ struct RsyncParametersView: View {
                     }
 
                     Section(header: Text("Remove parameters to rsync")
-                                    .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))) {
+                        .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue)))
+                    {
                         VStack(alignment: .leading) {
                             ToggleViewDefault(text: "--delete", binding: $parameters.removedelete)
                                 .onChange(of: parameters.removedelete) {
                                     parameters.deletedelete(parameters.removedelete)
                                 }
                                 .disabled(selecteduuids.isEmpty == true)
-                                
 
                             ToggleViewDefault(text: "--compress", binding: $parameters.removecompress)
                                 .onChange(of: parameters.removecompress) {
@@ -146,29 +146,35 @@ struct RsyncParametersView: View {
                 VStack(alignment: .leading) {
                     if deleteparameterpresent {
                         HStack {
-                            Text("Select a task")
-                            
-                            Button("Help") {
+                            Text("Select a task.")
+
+                            Text("If \(Text("red Synchronize ID").foregroundColor(.red)) see")
+
+                            Button {
                                 parameters.whichhelptext = 1
                                 showhelp = true
+                            } label: {
+                                Image(systemName: "questionmark.circle")
                             }
-                            Text("If")
-                            Text("red Synchronize ID").foregroundColor(.red)
-                            Text("see help for more information.")
+
+                            Text("for more information.")
                         }
                         .padding(.bottom, 10)
-                        
+
                     } else {
                         HStack {
-                            Text("Select a task")
-                            
-                            Button("Help") {
+                            Text("Select a task.")
+
+                            Text("To enable --delete see")
+
+                            Button {
                                 parameters.whichhelptext = 2
                                 showhelp = true
+                            } label: {
+                                Image(systemName: "questionmark.circle")
                             }
-                            
-                            Text("To enable --delete")
-                            Text("see help for more information.")
+
+                            Text("for more information.")
                         }
                         .padding(.bottom, 10)
                     }
@@ -222,8 +228,6 @@ struct RsyncParametersView: View {
             default:
                 HelpView(text: parameters.helptext1)
             }
-            
-            
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
@@ -345,5 +349,3 @@ extension RsyncParametersView {
         }
     }
 }
-
-
