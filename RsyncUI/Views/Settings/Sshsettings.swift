@@ -29,7 +29,7 @@ struct Sshsettings: View {
                         .disabled(true)
                 }
             } header: {
-                Text("ssh-keys")
+                Text("Global ssh-keys")
             }
 
             Section {
@@ -38,7 +38,7 @@ struct Sshsettings: View {
                 setsshport
 
             } header: {
-                Text("ssh-keypath and ssh-port")
+                Text("Global ssh-keypath and ssh-port")
             }
 
             Section {
@@ -101,15 +101,8 @@ struct Sshsettings: View {
                     sshsettings.sshkeypathandidentityfile = sshkeypath
                 }
             })
-            .onChange(of: sshsettings.sshkeypathandidentityfile) {
-                if isstarting == false {
-                    Task {
-                        try await Task.sleep(seconds: 2)
-                        sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile)
-                        settingsischanged = true
-                    }
-                }
-            }
+            .foregroundColor(
+                sshsettings.sshkeypath(SharedReference.shared.sshkeypathandidentityfile ?? "") ? Color.white : Color.red )
     }
 
     var setsshport: some View {
@@ -120,15 +113,8 @@ struct Sshsettings: View {
                     sshsettings.sshportnumber = String(sshport)
                 }
             })
-            .onChange(of: sshsettings.sshportnumber) {
-                if isstarting == false {
-                    Task {
-                        try await Task.sleep(seconds: 2)
-                        sshsettings.sshport(sshsettings.sshportnumber)
-                        settingsischanged = true
-                    }
-                }
-            }
+            .foregroundColor (
+                sshsettings.sshport(String(SharedReference.shared.sshport ?? 22)) ? Color.white : Color.red )
     }
 }
 
