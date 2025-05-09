@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum AddTaskDestinationView: String, Identifiable {
-    case homecatalogs, verify, globalchanges
+    case homecatalogs, globalchanges
     var id: String { rawValue }
 }
 
@@ -288,20 +288,6 @@ struct AddTaskView: View {
             selectedconfig = nil
         }
         .toolbar {
-            if newdata.selectedconfig != nil,
-               newdata.selectedconfig?.task != SharedReference.shared.halted
-            {
-                ToolbarItem {
-                    Button {
-                        addtasknavigation.append(AddTasks(task: .verify))
-                    } label: {
-                        Image(systemName: "play.fill")
-                            .foregroundColor(.blue)
-                    }
-                    .help("Verify task")
-                }
-            }
-
             ToolbarItem {
                 Button {
                     addtasknavigation.append(AddTasks(task: .globalchanges))
@@ -373,10 +359,6 @@ struct AddTaskView: View {
                                      return []
                                  }
                              }())
-        case .verify:
-            if let config = selectedconfig {
-                OutputRsyncVerifyView(config: config)
-            }
         case .globalchanges:
             GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
         }

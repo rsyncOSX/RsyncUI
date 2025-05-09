@@ -31,7 +31,7 @@ final class ObservableSSH {
                 SharedReference.shared.sshkeypathandidentityfile = keypath
             }
             return true
-        } catch  {
+        } catch {
             return false
         }
     }

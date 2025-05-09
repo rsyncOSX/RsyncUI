@@ -40,7 +40,7 @@ struct UserConfiguration: Codable {
     // Always show the summarized estimate view
     var alwaysshowestimateddetailsview: Int = -1
     // Hide Verify View
-    var hideverifyremotefunction : Int = -1
+    var hideverifyremotefunction: Int = -1
 
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {

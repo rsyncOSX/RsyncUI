@@ -7,19 +7,8 @@
 
 import SwiftUI
 
-enum ParametersDestinationView: String, Identifiable {
-    case verify, arguments
-    var id: String { rawValue }
-}
-
-struct ParametersTasks: Hashable, Identifiable {
-    let id = UUID()
-    var task: ParametersDestinationView
-}
-
 struct RsyncParametersView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var rsyncnavigation: [ParametersTasks]
 
     @State private var parameters = ObservableParametersRsync()
     @State private var selectedconfig: SynchronizeConfiguration?
@@ -31,9 +20,11 @@ struct RsyncParametersView: View {
     @State var backup: Bool = false
     // Present a help sheet
     @State private var showhelp: Bool = false
+    // Present arguments view
+    @State private var presentarguments: Bool = false
 
     var body: some View {
-        NavigationStack(path: $rsyncnavigation) {
+        NavigationStack {
             HStack {
                 VStack(alignment: .leading) {
                     if notifydataisupdated {
@@ -235,24 +226,9 @@ struct RsyncParametersView: View {
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
-            if selectedconfig != nil,
-               selectedconfig?.task != SharedReference.shared.halted
-            {
-                ToolbarItem {
-                    Button {
-                        guard selecteduuids.isEmpty == false else { return }
-                        rsyncnavigation.append(ParametersTasks(task: .verify))
-                    } label: {
-                        Image(systemName: "play.fill")
-                            .foregroundColor(.blue)
-                    }
-                    .help("Verify task, by Synchronize")
-                }
-            }
-
             ToolbarItem {
                 Button {
-                    rsyncnavigation.append(ParametersTasks(task: .arguments))
+                    presentarguments = true
                 } label: {
                     Image(systemName: "command")
                 }
@@ -260,22 +236,10 @@ struct RsyncParametersView: View {
             }
         })
         .navigationTitle("Parameters for rsync")
-        .navigationDestination(for: ParametersTasks.self) { which in
-            makeView(view: which.task)
-        }
-        .padding()
-    }
-
-    @MainActor @ViewBuilder
-    func makeView(view: ParametersDestinationView) -> some View {
-        switch view {
-        case .verify:
-            if let config = parameters.configuration {
-                OutputRsyncVerifyView(config: config)
-            }
-        case .arguments:
+        .navigationDestination(isPresented: $presentarguments) {
             ArgumentsView(rsyncUIdata: rsyncUIdata)
         }
+        .padding()
     }
 
     var labelaborttask: some View {
@@ -289,8 +253,7 @@ struct RsyncParametersView: View {
     var setsshpath: some View {
         EditValue(300, "ssh-keypath and identityfile",
                   $parameters.sshkeypathandidentityfile)
-            .foregroundColor(parameters.sshkeypath(parameters.sshkeypathandidentityfile) ? Color.white : Color.red )
-            
+            .foregroundColor(parameters.sshkeypath(parameters.sshkeypathandidentityfile) ? Color.white : Color.red)
     }
 
     var setsshport: some View {

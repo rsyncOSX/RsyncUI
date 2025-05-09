@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
-    case synchronize, tasks, rsync_parameters, snapshots, log_listings, restore, profiles, verify_remote, calendar
+    case synchronize, tasks, verify_task, rsync_parameters, snapshots, log_listings, restore, profiles, verify_remote, calendar
     var id: String { rawValue }
 }
 
@@ -27,8 +27,6 @@ struct SidebarMainView: View {
 
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedview: Sidebaritems = .synchronize
-    // Navigation rsyncparameters
-    @State var rsyncnavigation: [ParametersTasks] = []
     // Navigation executetasks
     @State var executetasknavigation: [Tasks] = []
     // Navigation addtasks and verify
@@ -205,7 +203,9 @@ struct SidebarMainView: View {
         case .log_listings:
             LogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
         case .rsync_parameters:
-            RsyncParametersView(rsyncUIdata: rsyncUIdata, rsyncnavigation: $rsyncnavigation)
+            NavigationStack {
+                RsyncParametersView(rsyncUIdata: rsyncUIdata)
+            }
         case .restore:
             NavigationStack {
                 RestoreTableView(profile: $rsyncUIdata.profile,
@@ -234,12 +234,15 @@ struct SidebarMainView: View {
                                   futuredates: futuredates,
                                   urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize)
             }
+        case .verify_task:
+            NavigationStack {
+                VerifyTasks(rsyncUIdata: rsyncUIdata)
+            }
         }
     }
 
     var disablesidebarmeny: Bool {
-        rsyncnavigation.isEmpty == false ||
-            executetasknavigation.isEmpty == false ||
+        executetasknavigation.isEmpty == false ||
             addtasknavigation.isEmpty == false ||
             verifynavigationispresented == true ||
             SharedReference.shared.process != nil
@@ -516,6 +519,8 @@ struct SidebarRow: View {
             "arrow.down.circle.fill"
         case .calendar:
             "calendar.circle.fill"
+        case .verify_task:
+            "arrow.down.circle.fill"
         }
     }
 }

@@ -14,7 +14,7 @@ enum DestinationVerifyView: String, Identifiable {
     var id: String { rawValue }
 }
 
-struct VerifyTasks: Hashable, Identifiable {
+struct Verify: Hashable, Identifiable {
     let id = UUID()
     var task: DestinationVerifyView
 }
@@ -29,7 +29,7 @@ struct VerifyRemote: View {
     @State private var selectedconfig: SynchronizeConfiguration?
     // Selected task is halted
     @State private var selectedtaskishalted: Bool = false
-    @State private var executeverifynavigation: [VerifyTasks] = []
+    @State private var executeverifynavigation: [Verify] = []
 
     var body: some View {
         NavigationStack(path: $executeverifynavigation) {
@@ -75,7 +75,7 @@ struct VerifyRemote: View {
                 }
             }
             .navigationTitle("Verify remote")
-            .navigationDestination(for: VerifyTasks.self) { which in
+            .navigationDestination(for: Verify.self) { which in
                 makeView(view: which.task)
             }
             .toolbar(content: {
@@ -85,7 +85,7 @@ struct VerifyRemote: View {
                             guard selectedconfig != nil else { return }
                             guard selectedtaskishalted == false else { return }
 
-                            executeverifynavigation.append(VerifyTasks(task: .pushpullview))
+                            executeverifynavigation.append(Verify(task: .pushpullview))
 
                         } label: {
                             Image(systemName: "bolt.shield")
@@ -99,7 +99,7 @@ struct VerifyRemote: View {
                     Button {
                         guard selectedconfig != nil else { return }
 
-                        executeverifynavigation.append(VerifyTasks(task: .executenpushpullview))
+                        executeverifynavigation.append(Verify(task: .executenpushpullview))
 
                     } label: {
                         Image(systemName: "arrow.left.arrow.right.circle.fill")

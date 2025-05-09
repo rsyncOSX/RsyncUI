@@ -102,7 +102,7 @@ struct Sshsettings: View {
                 }
             })
             .foregroundColor(
-                sshsettings.sshkeypath(SharedReference.shared.sshkeypathandidentityfile ?? "") ? Color.white : Color.red )
+                sshsettings.sshkeypath(SharedReference.shared.sshkeypathandidentityfile ?? "") ? Color.white : Color.red)
     }
 
     var setsshport: some View {
@@ -113,8 +113,8 @@ struct Sshsettings: View {
                     sshsettings.sshportnumber = String(sshport)
                 }
             })
-            .foregroundColor (
-                sshsettings.sshport(String(SharedReference.shared.sshport ?? 22)) ? Color.white : Color.red )
+            .foregroundColor(
+                sshsettings.sshport(String(SharedReference.shared.sshport ?? 22)) ? Color.white : Color.red)
     }
 }
 
