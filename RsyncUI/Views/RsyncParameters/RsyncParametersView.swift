@@ -144,7 +144,6 @@ struct RsyncParametersView: View {
                 Spacer()
 
                 VStack(alignment: .leading) {
-                    
                     if deleteparameterpresent {
                         HStack {
                             Text("Select a task.")
@@ -179,7 +178,7 @@ struct RsyncParametersView: View {
                         }
                         .padding(.bottom, 10)
                     }
-                    
+
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                                 profile: rsyncUIdata.profile,
                                                 configurations: rsyncUIdata.configurations)
