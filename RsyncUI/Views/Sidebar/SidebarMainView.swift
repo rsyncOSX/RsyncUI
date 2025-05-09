@@ -226,7 +226,6 @@ struct SidebarMainView: View {
         case .verify_remote:
             VerifyRemote(rsyncUIdata: rsyncUIdata,
                          urlcommandverify: $urlcommandverify,
-                         selecteduuids: $selecteduuids,
                          queryitem: $queryitem)
         case .calendar:
             NavigationStack {
