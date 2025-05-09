@@ -34,8 +34,8 @@ final class ObservableAddConfigurations {
 
     func addconfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
         let getdata = AppendTask(selectedrsynccommand.rawValue,
-                                 localcatalog,
-                                 remotecatalog,
+                                 localcatalog.replacingOccurrences(of: "\"", with: ""),
+                                 remotecatalog.replacingOccurrences(of: "\"", with: ""),
                                  donotaddtrailingslash,
                                  remoteuser,
                                  remoteserver,
@@ -63,8 +63,8 @@ final class ObservableAddConfigurations {
         }
 
         let updateddata = AppendTask(selectedrsynccommand.rawValue,
-                                     localcatalog,
-                                     remotecatalog,
+                                     localcatalog.replacingOccurrences(of: "\"", with: ""),
+                                     remotecatalog.replacingOccurrences(of: "\"", with: ""),
                                      donotaddtrailingslash,
                                      remoteuser,
                                      remoteserver,
