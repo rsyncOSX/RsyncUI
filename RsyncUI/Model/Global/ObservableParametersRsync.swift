@@ -133,21 +133,22 @@ final class ObservableParametersRsync {
         // daemon = false
     }
 
-    func sshkeypath(_ keypath: String) {
-        guard configuration != nil else { return }
+    func sshkeypath(_ keypath: String) -> Bool {
+        guard configuration != nil else { return false }
         guard keypath.isEmpty == false else {
             configuration?.sshkeypathandidentityfile = nil
-            return
+            return false
         }
         do {
             let verified = try sshcreatekey?.verifysshkeypath(keypath)
             if verified == true {
                 configuration?.sshkeypathandidentityfile = keypath
+                return true
             }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
+        } catch {
+            return false
         }
+        return false
     }
 
     func setsshport(_ port: String) {
