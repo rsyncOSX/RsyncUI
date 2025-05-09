@@ -29,7 +29,7 @@ struct Sshsettings: View {
                         .disabled(true)
                 }
             } header: {
-                Text("ssh-keys")
+                Text("Global ssh-keys")
             }
 
             Section {
@@ -38,7 +38,7 @@ struct Sshsettings: View {
                 setsshport
 
             } header: {
-                Text("ssh-keypath and ssh-port")
+                Text("Global ssh-keypath and ssh-port")
             }
 
             Section {
@@ -101,6 +101,7 @@ struct Sshsettings: View {
                     sshsettings.sshkeypathandidentityfile = sshkeypath
                 }
             })
+        /*
             .onChange(of: sshsettings.sshkeypathandidentityfile) {
                 if isstarting == false {
                     Task {
@@ -110,6 +111,7 @@ struct Sshsettings: View {
                     }
                 }
             }
+         */
     }
 
     var setsshport: some View {
