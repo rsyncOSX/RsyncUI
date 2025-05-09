@@ -20,45 +20,36 @@ final class ObservableSSH {
     var sshkeypathandidentityfile: String = ""
     var sshcreatekey: SSHCreateKey?
 
-    func sshkeypath(_ keypath: String) {
+    func sshkeypath(_ keypath: String) -> Bool {
         guard keypath.isEmpty == false else {
             SharedReference.shared.sshkeypathandidentityfile = nil
-            return
+            return false
         }
         do {
             let verified = try sshcreatekey?.verifysshkeypath(keypath)
             if verified == true {
                 SharedReference.shared.sshkeypathandidentityfile = keypath
-                // Save port number also
-                if let port = Int(sshportnumber) {
-                    SharedReference.shared.sshport = port
-                }
             }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
+            return true
+        } catch  {
+            return false
         }
     }
 
-    func sshport(_ port: String) {
+    func sshport(_ port: String) -> Bool {
         guard port.isEmpty == false else {
             SharedReference.shared.sshport = nil
-            return
+            return false
         }
         do {
             let verified = try sshcreatekey?.verifysshport(port)
             if verified == true {
                 SharedReference.shared.sshport = Int(port)
-                SharedReference.shared.sshkeypathandidentityfile = sshkeypathandidentityfile
             }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
+            return true
+        } catch {
+            return false
         }
-    }
-
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
     }
 
     init() {
