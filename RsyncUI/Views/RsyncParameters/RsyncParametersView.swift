@@ -144,35 +144,42 @@ struct RsyncParametersView: View {
                 Spacer()
 
                 VStack(alignment: .leading) {
+                    
                     if deleteparameterpresent {
                         HStack {
-                            Text("Select a task")
+                            Text("Select a task.")
 
-                            Button("Help") {
+                            Text("If \(Text("red Synchronize ID").foregroundColor(.red)) see")
+
+                            Button {
                                 parameters.whichhelptext = 1
                                 showhelp = true
+                            } label: {
+                                Image(systemName: "questionmark.circle")
                             }
-                            Text("If")
-                            Text("red Synchronize ID").foregroundColor(.red)
-                            Text("see help for more information.")
+
+                            Text("for more information.")
                         }
                         .padding(.bottom, 10)
 
                     } else {
                         HStack {
-                            Text("Select a task")
+                            Text("Select a task.")
 
-                            Button("Help") {
+                            Text("To enable --delete see")
+
+                            Button {
                                 parameters.whichhelptext = 2
                                 showhelp = true
+                            } label: {
+                                Image(systemName: "questionmark.circle")
                             }
 
-                            Text("To enable --delete")
-                            Text("see help for more information.")
+                            Text("for more information.")
                         }
                         .padding(.bottom, 10)
                     }
-
+                    
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                                 profile: rsyncUIdata.profile,
                                                 configurations: rsyncUIdata.configurations)
