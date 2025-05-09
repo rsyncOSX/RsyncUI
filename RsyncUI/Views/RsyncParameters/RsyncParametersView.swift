@@ -289,13 +289,8 @@ struct RsyncParametersView: View {
     var setsshpath: some View {
         EditValue(300, "ssh-keypath and identityfile",
                   $parameters.sshkeypathandidentityfile)
-            .onChange(of: parameters.sshkeypathandidentityfile) {
-                Task {
-                    try await Task.sleep(seconds: 1)
-                    guard selectedconfig != nil else { return }
-                    parameters.sshkeypath(parameters.sshkeypathandidentityfile)
-                }
-            }
+            .foregroundColor(parameters.sshkeypath(parameters.sshkeypathandidentityfile) ? Color.white : Color.red )
+            
     }
 
     var setsshport: some View {
