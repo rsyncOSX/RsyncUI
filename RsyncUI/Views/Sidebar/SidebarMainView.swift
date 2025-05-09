@@ -117,11 +117,7 @@ struct SidebarMainView: View {
         })
         .onAppear {
             Task {
-                /*
-                  async let newversionofrsyncui = GetversionofRsyncUI().getversionsofrsyncui()
-                 newversion.notifynewversion = await newversionofrsyncui
-                  */
-
+                
                 newversion.notifynewversion = await GetversionofRsyncUI().getversionsofrsyncui()
                 SharedReference.shared.newversion = newversion.notifynewversion
                 if SharedReference.shared.sidebarishidden {
@@ -257,17 +253,21 @@ struct SidebarMainView: View {
     // - Verify remote
     // - Restore
     var menuitems: [MenuItem] {
+        
         Sidebaritems.allCases.compactMap { item in
             // Return nil if there is one or more snapshot tasks
             // Do not show the Snapshot sidebar meny
             if rsyncUIdata.oneormoretasksissnapshot == false,
                item == .snapshots { return nil }
+            
+            if SharedReference.shared.hideverifyremotefunction == true,
+               item == .verify_remote { return nil }
 
             // Return nil if there is one or more remote tasks
             // and only remote task is snapshot
             // Do not show the Verify remote sidebar meny
             if rsyncUIdata.oneormoretasksissnapshot == true,
-               rsyncUIdata.oneormoresynchronizetasksisremote == false,
+               SharedReference.shared.hideverifyremotefunction == false,
                item == .verify_remote { return nil }
 
             // Return nil if there is no remote tasks, only local attached discs
@@ -280,7 +280,7 @@ struct SidebarMainView: View {
             if rsyncUIdata.oneormoresynchronizetasksisremote == false,
                rsyncUIdata.oneormoresnapshottasksisremote == false,
                item == .restore { return nil }
-
+            
             return MenuItem(menuitem: item)
         }
     }
