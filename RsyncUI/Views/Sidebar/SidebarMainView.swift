@@ -117,7 +117,6 @@ struct SidebarMainView: View {
         })
         .onAppear {
             Task {
-                
                 newversion.notifynewversion = await GetversionofRsyncUI().getversionsofrsyncui()
                 SharedReference.shared.newversion = newversion.notifynewversion
                 if SharedReference.shared.sidebarishidden {
@@ -253,13 +252,12 @@ struct SidebarMainView: View {
     // - Verify remote
     // - Restore
     var menuitems: [MenuItem] {
-        
         Sidebaritems.allCases.compactMap { item in
             // Return nil if there is one or more snapshot tasks
             // Do not show the Snapshot sidebar meny
             if rsyncUIdata.oneormoretasksissnapshot == false,
                item == .snapshots { return nil }
-            
+
             if SharedReference.shared.hideverifyremotefunction == true,
                item == .verify_remote { return nil }
 
@@ -280,7 +278,7 @@ struct SidebarMainView: View {
             if rsyncUIdata.oneormoresynchronizetasksisremote == false,
                rsyncUIdata.oneormoresnapshottasksisremote == false,
                item == .restore { return nil }
-            
+
             return MenuItem(menuitem: item)
         }
     }

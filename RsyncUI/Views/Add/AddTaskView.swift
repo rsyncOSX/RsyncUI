@@ -45,7 +45,7 @@ struct AddTaskView: View {
     // URL strings
     @State private var stringverify: String = ""
     @State private var stringestimate: String = ""
-    
+
     // Present a help sheet
     @State private var showhelp: Bool = false
 
@@ -81,7 +81,7 @@ struct AddTaskView: View {
                     .padding(.bottom, 10)
 
                     VStack(alignment: .leading) { synchronizeID }
-                    
+
                     if newdata.selectedrsynccommand == .syncremote {
                         VStack(alignment: .leading) { localandremotecatalogsyncremote }
 
@@ -143,29 +143,35 @@ struct AddTaskView: View {
                 VStack(alignment: .leading) {
                     if deleteparameterpresent {
                         HStack {
-                            Text("Tasks for Synchronize actions")
-                            
-                            Button("Help") {
+                            Text("Tasks for Synchronize actions.")
+
+                            Text("If \(Text("red Synchronize ID").foregroundColor(.red)) see")
+
+                            Button {
                                 newdata.whichhelptext = 1
                                 showhelp = true
+                            } label: {
+                                Image(systemName: "questionmark.circle")
                             }
-                            Text("If")
-                            Text("red Synchronize ID").foregroundColor(.red)
-                            Text("see help for more information.")
+
+                            Text("for more information.")
                         }
                         .padding(.bottom, 10)
-                        
+
                     } else {
                         HStack {
-                            Text("Tasks for Synchronize actions")
-                            
-                            Button("Help") {
+                            Text("Tasks for Synchronize actions.")
+
+                            Text("To enable --delete see")
+
+                            Button {
                                 newdata.whichhelptext = 2
                                 showhelp = true
+                            } label: {
+                                Image(systemName: "questionmark.circle")
                             }
-                            
-                            Text("To enable --delete")
-                            Text("see help for more information.")
+
+                            Text("for more information.")
                         }
                         .padding(.bottom, 10)
                     }
@@ -242,8 +248,6 @@ struct AddTaskView: View {
             default:
                 HelpView(text: newdata.helptext1)
             }
-            
-            
         }
         .onSubmit {
             switch focusField {
@@ -293,7 +297,7 @@ struct AddTaskView: View {
                     .help("Verify task")
                 }
             }
-            
+
             ToolbarItem {
                 Button {
                     addtasknavigation.append(AddTasks(task: .globalchanges))
@@ -456,7 +460,7 @@ struct AddTaskView: View {
                 }
                 OpencatalogView(selecteditem: $newdata.remotecatalog, catalogs: true)
             }
-            
+
             HStack {
                 // localcatalog
                 if newdata.selectedconfig == nil { setlocalcatalogsyncremote } else {

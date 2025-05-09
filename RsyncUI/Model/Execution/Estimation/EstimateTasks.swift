@@ -8,13 +8,12 @@
 
 import Foundation
 
-
 enum ErrorDatatoSynchronize: LocalizedError {
     case thereisdatatosynchronize(idwitherror: String)
 
     var errorDescription: String? {
         switch self {
-        case .thereisdatatosynchronize(let idwitherror):
+        case let .thereisdatatosynchronize(idwitherror):
             "There are errors in tagging data\n for synchronize ID \(idwitherror)\nMost likely number of rows\n> 20 lines and no data to synchronize"
         }
     }
@@ -114,7 +113,6 @@ extension EstimateTasks {
                     synchronizeIDwitherror = record.backupID
                     try validatetagging(stringoutputfromrsync?.count ?? 0, record.datatosynchronize)
                 } catch let e {
-                    
                     let error = e
                     SharedReference.shared.errorobject?.alert(error: error)
                 }
