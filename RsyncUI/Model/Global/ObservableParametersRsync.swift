@@ -31,6 +31,9 @@ final class ObservableParametersRsync {
     var removecompress: Bool = false
     var removedelete: Bool = false
     // var daemon: Bool = false
+    
+    let helptext1 = "This is a placeholder text\nand another line."
+    let helptext2 = "This is another placeholder text\nand another line.."
 
     func setvalues(_ config: SynchronizeConfiguration?) {
         if let config {

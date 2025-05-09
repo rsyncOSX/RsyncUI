@@ -29,6 +29,8 @@ struct RsyncParametersView: View {
     @State private var focusaborttask: Bool = false
     // Backup switch
     @State var backup: Bool = false
+    // Present a help sheet
+    @State private var showhelp: Bool = false
 
     var body: some View {
         NavigationStack(path: $rsyncnavigation) {
@@ -148,6 +150,10 @@ struct RsyncParametersView: View {
                                 .padding(.bottom, 10)
                             Text("To DISABLE --delete parameter, toggle *Remove parameters to rsync --delete switch*")
                                 .padding(.top, -10)
+                            
+                            Button("help") {
+                                showhelp = true
+                            }
                         }
                         
                     } else {
@@ -155,6 +161,10 @@ struct RsyncParametersView: View {
                             .padding(.bottom, 10)
                         Text("To ENABLE --delete parameter toggle *Remove parameters to rsync --delete switch*")
                             .padding(.top, -10)
+                        
+                        Button("help") {
+                            showhelp = true
+                        }
                     }
 
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,
@@ -196,6 +206,10 @@ struct RsyncParametersView: View {
             selecteduuids.removeAll()
             parameters.setvalues(selectedconfig)
             backup = false
+        }
+        .sheet(isPresented: $showhelp) {
+            HelpView(text: parameters.helptext1)
+            
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
@@ -317,3 +331,29 @@ extension RsyncParametersView {
         }
     }
 }
+
+
+struct HelpView: View {
+    @Environment(\.dismiss) var dismiss
+    
+    let text: String
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Text(text)
+                .font(.title2)
+                .multilineTextAlignment(.center)
+                .padding()
+
+            Button("Dismiss") {
+                dismiss()
+            }
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(8)
+        }
+        .padding()
+    }
+}
+
