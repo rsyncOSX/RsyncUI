@@ -600,19 +600,6 @@ struct AddTaskView: View {
         return []
     }
 
-    var notifydataisupdated: Bool {
-        guard let selectedconfig else { return false }
-        if newdata.localcatalog != selectedconfig.localCatalog ||
-            newdata.remotecatalog != selectedconfig.offsiteCatalog ||
-            newdata.backupID != selectedconfig.backupID ||
-            newdata.remoteuser != selectedconfig.offsiteUsername ||
-            newdata.remoteserver != selectedconfig.offsiteServer
-        {
-            return true
-        }
-        return false
-    }
-
     var deleteparameterpresent: Bool {
         let parameter = rsyncUIdata.configurations?.filter { $0.parameter4.isEmpty == false }
         return parameter?.count ?? 0 > 0

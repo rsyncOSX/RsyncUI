@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
-    case synchronize, tasks, verify_task, rsync_parameters, snapshots, log_listings, restore, profiles, verify_remote, calendar
+    case synchronize, tasks, rsync_parameters, verify_task, snapshots, log_listings, restore, profiles, verify_remote, calendar
     var id: String { rawValue }
 }
 
@@ -69,6 +69,7 @@ struct SidebarMainView: View {
                 }
 
                 if item.menuitem == .tasks ||
+                    item.menuitem == .verify_task ||
                     item.menuitem == .snapshots ||
                     item.menuitem == .log_listings ||
                     item.menuitem == .restore ||

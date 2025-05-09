@@ -7,13 +7,6 @@
 
 import OSLog
 
-enum RemoteVSlocal {
-    case remotemoredata
-    case localmoredata
-    case evenamountadata
-    case noevaluation
-}
-
 @Observable
 final class ObservablePushPull {
     @ObservationIgnored var adjustedpull: Set<String>?

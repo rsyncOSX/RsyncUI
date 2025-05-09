@@ -21,18 +21,40 @@ struct VerifyTasks: View {
             DetailsView(remotedatanumbers: remotedatanumbers)
         } else {
             ZStack {
-                ListofTasksAddView(rsyncUIdata: rsyncUIdata,
-                                   selecteduuids: $selecteduuids)
-                    .onChange(of: selecteduuids) {
-                        if let configurations = rsyncUIdata.configurations {
-                            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                                selectedconfig = configurations[index]
+                VStack {
+                    
+                    ListofTasksAddView(rsyncUIdata: rsyncUIdata,
+                                       selecteduuids: $selecteduuids)
+                        .onChange(of: selecteduuids) {
+                            if let configurations = rsyncUIdata.configurations {
+                                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                                    selectedconfig = configurations[index]
 
-                            } else {
-                                selectedconfig = nil
+                                } else {
+                                    selectedconfig = nil
+                                }
                             }
                         }
+                    
+                    Text("Verify task always include the --dry-run parameter.")
+                        .foregroundColor(.blue)
+                        .font(.title)
+
+                    HStack {
+                        Text("Select a task and select the ")
+                            .foregroundColor(.blue)
+                            .font(.title2)
+
+                        Text(Image(systemName: "play.fill"))
+                            .foregroundColor(.blue)
+                            .font(.title2)
+
+                        Text(" on the toolbar to verify a task.")
+                            .foregroundColor(.blue)
+                            .font(.title2)
                     }
+                }
+                
 
                 if progress {
                     Spacer()
