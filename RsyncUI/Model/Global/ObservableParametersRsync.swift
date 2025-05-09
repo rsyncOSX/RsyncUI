@@ -32,8 +32,8 @@ final class ObservableParametersRsync {
     var removedelete: Bool = false
     // var daemon: Bool = false
 
-    let helptext1 = "Red Synchronize ID means --delete parameter is enabled\nTo DISABLE --delete parameter, toggle *Remove parameters to rsync --delete switch*"
-    let helptext2 = "To ENABLE --delete parameter toggle *Remove parameters to rsync --delete switch*"
+    let helptext1 = "Red Synchronize ID means\n--delete parameter is ENABLED\nTo DISABLE --delete parameter check,\nRemove parameters to rsync --delete\ncheckbox"
+    let helptext2 = "To ENABLE --delete parameter uncheck\nRemove parameters to rsync --delete \ncheckbox"
 
     @ObservationIgnored var whichhelptext: Int = 1
 
