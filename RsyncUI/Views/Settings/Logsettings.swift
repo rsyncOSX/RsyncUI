@@ -15,6 +15,7 @@ struct Logsettings: View {
     @State private var settingsischanged: Bool = false
     @State private var toggleobservemountedvolumes: Bool = false
     @State private var togglealwaysshowestimateddetailsview: Bool = false
+    @State private var togglehideverifyremotefunction: Bool = false
 
     var body: some View {
         Form {
@@ -57,6 +58,13 @@ struct Logsettings: View {
                         settingsischanged = true
                     }
 
+                ToggleViewDefault(text: NSLocalizedString("Hide Verify remote", comment: ""), binding: $logsettings.hideverifyremotefunction)
+                    .onChange(of: logsettings.hideverifyremotefunction) {
+                        SharedReference.shared.hideverifyremotefunction = logsettings.hideverifyremotefunction
+                        togglehideverifyremotefunction = logsettings.hideverifyremotefunction
+                        settingsischanged = true
+                    }
+                
                 if SharedReference.shared.rsyncversion3 {
                     ToggleViewDefault(text: NSLocalizedString("Confirm execute", comment: ""), binding: $logsettings.confirmexecute)
                         .onChange(of: logsettings.confirmexecute) {

@@ -37,8 +37,10 @@ struct UserConfiguration: Codable {
     var sidebarishidden: Int = -1
     // Observe mounting local atteched discs
     var observemountedvolumes: Int = -1
-    // Alwasy show the summarized estimate view
+    // Always show the summarized estimate view
     var alwaysshowestimateddetailsview: Int = -1
+    // Hide Verify View
+    var hideverifyremotefunction : Int = -1
 
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
@@ -111,6 +113,11 @@ struct UserConfiguration: Codable {
         } else {
             SharedReference.shared.alwaysshowestimateddetailsview = false
         }
+        if hideverifyremotefunction == 1 {
+            SharedReference.shared.hideverifyremotefunction = true
+        } else {
+            SharedReference.shared.hideverifyremotefunction = false
+        }
     }
 
     // Used when reading JSON data from store
@@ -132,6 +139,7 @@ struct UserConfiguration: Codable {
         sidebarishidden = data.sidebarishidden ?? -1
         observemountedvolumes = data.observemountedvolumes ?? -1
         alwaysshowestimateddetailsview = data.alwaysshowestimateddetailsview ?? -1
+        hideverifyremotefunction = data.hideverifyremotefunction ?? -1
         // Set data read from JSON in SharedReference.
         setuserconfigdata()
     }
@@ -206,6 +214,11 @@ struct UserConfiguration: Codable {
             alwaysshowestimateddetailsview = 1
         } else {
             alwaysshowestimateddetailsview = -1
+        }
+        if SharedReference.shared.hideverifyremotefunction == true {
+            hideverifyremotefunction = 1
+        } else {
+            hideverifyremotefunction = -1
         }
     }
 }
