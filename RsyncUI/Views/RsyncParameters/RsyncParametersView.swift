@@ -145,26 +145,32 @@ struct RsyncParametersView: View {
 
                 VStack(alignment: .leading) {
                     if deleteparameterpresent {
-                        VStack(alignment: .leading) {
-                            Text("Select a task, \(Text("red Synchronize ID").foregroundColor(.red)) --delete parameter is enabled")
-                                .padding(.bottom, 10)
-                            Text("To DISABLE --delete parameter, toggle *Remove parameters to rsync --delete switch*")
-                                .padding(.top, -10)
+                        HStack {
+                            Text("Select a task")
                             
-                            Button("help") {
+                            Button("Help") {
+                                parameters.whichhelptext = 1
                                 showhelp = true
                             }
+                            Text("If")
+                            Text("red Synchronize ID").foregroundColor(.red)
+                            Text("see help for more information.")
                         }
+                        .padding(.bottom, 10)
                         
                     } else {
-                        Text("Select a task")
-                            .padding(.bottom, 10)
-                        Text("To ENABLE --delete parameter toggle *Remove parameters to rsync --delete switch*")
-                            .padding(.top, -10)
-                        
-                        Button("help") {
-                            showhelp = true
+                        HStack {
+                            Text("Select a task")
+                            
+                            Button("Help") {
+                                parameters.whichhelptext = 2
+                                showhelp = true
+                            }
+                            
+                            Text("To enable --delete")
+                            Text("see help for more information.")
                         }
+                        .padding(.bottom, 10)
                     }
 
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,
@@ -208,7 +214,15 @@ struct RsyncParametersView: View {
             backup = false
         }
         .sheet(isPresented: $showhelp) {
-            HelpView(text: parameters.helptext1)
+            switch parameters.whichhelptext {
+            case 1:
+                HelpView(text: parameters.helptext1)
+            case 2:
+                HelpView(text: parameters.helptext2)
+            default:
+                HelpView(text: parameters.helptext1)
+            }
+            
             
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
