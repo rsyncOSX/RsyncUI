@@ -31,6 +31,11 @@ final class ObservableAddConfigurations {
     var snapshotnum: String = ""
 
     var copyandpasteconfigurations: [SynchronizeConfiguration]?
+    
+    let helptext1 = "Red Synchronize ID means --delete parameter is enabled\nTo DISABLE --delete parameter, select Rsync parameters view"
+    let helptext2 = "To ENABLE --delete parameter select *Rsync parameters* view"
+    
+    @ObservationIgnored var whichhelptext: Int = 1
 
     func addconfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
         let getdata = AppendTask(selectedrsynccommand.rawValue,

@@ -45,6 +45,9 @@ struct AddTaskView: View {
     // URL strings
     @State private var stringverify: String = ""
     @State private var stringestimate: String = ""
+    
+    // Present a help sheet
+    @State private var showhelp: Bool = false
 
     var body: some View {
         NavigationStack(path: $addtasknavigation) {
@@ -139,18 +142,32 @@ struct AddTaskView: View {
                 // Column 2
                 VStack(alignment: .leading) {
                     if deleteparameterpresent {
-                        VStack (alignment: .leading) {
-                            Text("Tasks for Synchronize actions, \(Text("red Synchronize ID").foregroundColor(.red)) --delete parameter is enabled")
-                                .padding(.bottom, 10)
-                            Text("To DISABLE --delete parameter, select *Rsync parameters* view")
-                                .padding(.top, -10)
+                        HStack {
+                            Text("Tasks for Synchronize actions")
+                            
+                            Button("Help") {
+                                newdata.whichhelptext = 1
+                                showhelp = true
+                            }
+                            Text("If")
+                            Text("red Synchronize ID").foregroundColor(.red)
+                            Text("see help for more information.")
                         }
+                        .padding(.bottom, 10)
                         
                     } else {
-                        Text("Tasks for Synchronize actions")
-                            .padding(.bottom, 10)
-                        Text("To ENABLE --delete parameter, select *Rsync parameters* view")
-                            .padding(.top, -10)
+                        HStack {
+                            Text("Tasks for Synchronize actions")
+                            
+                            Button("Help") {
+                                newdata.whichhelptext = 2
+                                showhelp = true
+                            }
+                            
+                            Text("To enable --delete")
+                            Text("see help for more information.")
+                        }
+                        .padding(.bottom, 10)
                     }
 
                     ListofTasksAddView(rsyncUIdata: rsyncUIdata,
@@ -215,6 +232,18 @@ struct AddTaskView: View {
                         }
                 }
             }
+        }
+        .sheet(isPresented: $showhelp) {
+            switch newdata.whichhelptext {
+            case 1:
+                HelpView(text: newdata.helptext1)
+            case 2:
+                HelpView(text: newdata.helptext2)
+            default:
+                HelpView(text: newdata.helptext1)
+            }
+            
+            
         }
         .onSubmit {
             switch focusField {
