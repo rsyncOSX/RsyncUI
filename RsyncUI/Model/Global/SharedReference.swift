@@ -82,5 +82,5 @@ final class SharedReference {
     // Value for alert tagging
     let alerttagginglines = 20
     // Hide Verify Remote function in main Sidebar
-    @ObservationIgnored var hideverifyremotefunction: Bool = false
+    @ObservationIgnored var hideverifyremotefunction: Bool = true
 }
