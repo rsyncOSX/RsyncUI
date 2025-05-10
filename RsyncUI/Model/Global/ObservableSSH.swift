@@ -14,10 +14,10 @@ final class ObservableSSH {
     // Global SSH parameters
     // Have to convert String -> Int before saving
     // Set the current value as placeholder text
-    var sshportnumber: String = ""
+    var sshportnumber: String = String(SharedReference.shared.sshport ?? 22)
     // SSH keypath and identityfile, the settings View is picking up the current value
     // Set the current value as placeholder text
-    var sshkeypathandidentityfile: String = ""
+    var sshkeypathandidentityfile: String = SharedReference.shared.sshkeypathandidentityfile ?? ""
     var sshcreatekey: SSHCreateKey?
 
     func sshkeypath(_ keypath: String) -> Bool {
@@ -29,14 +29,15 @@ final class ObservableSSH {
             let verified = try sshcreatekey?.verifysshkeypath(keypath)
             if verified == true {
                 SharedReference.shared.sshkeypathandidentityfile = keypath
+                return true
             }
-            return true
+            return false
         } catch {
             return false
         }
     }
 
-    func sshport(_ port: String) -> Bool {
+    func setsshport(_ port: String) -> Bool {
         guard port.isEmpty == false else {
             SharedReference.shared.sshport = nil
             return false
@@ -45,8 +46,9 @@ final class ObservableSSH {
             let verified = try sshcreatekey?.verifysshport(port)
             if verified == true {
                 SharedReference.shared.sshport = Int(port)
+                return true
             }
-            return true
+            return false
         } catch {
             return false
         }

@@ -16,9 +16,7 @@ struct Sshsettings: View {
     @State private var showsshkeyiscreated: Bool = false
     // Settings are changed
     @State private var showthumbsup: Bool = false
-    @State private var settingsischanged: Bool = false
-    // Startup
-    @State private var isstarting: Bool = false
+    
 
     var body: some View {
         Form {
@@ -42,7 +40,16 @@ struct Sshsettings: View {
             }
 
             Section {
-                if settingsischanged { thumbsupgreen }
+                Button {
+                    _ = WriteUserConfigurationJSON(UserConfiguration())
+                    Logger.process.info("USER CONFIGURATION is SAVED")
+                } label: {
+                    Image(systemName: "square.and.arrow.down")
+                }
+                .help("Save")
+                .buttonStyle(ColorfulButtonStyle())
+            } header: {
+                Text("Save userconfiguration")
             }
 
             if localsshkeys == false {
@@ -65,42 +72,10 @@ struct Sshsettings: View {
             if showsshkeyiscreated { DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("ssh-key is created, see logfile.", comment: "")) }
         }
         .formStyle(.grouped)
-        .onChange(of: settingsischanged) {
-            guard settingsischanged == true else { return }
-            _ = WriteUserConfigurationJSON(UserConfiguration())
-            Logger.process.info("Usersettings is SAVED")
-        }
-        .onAppear {
-            isstarting = true
-            Logger.process.info("SSH seetingsview isstarting = TRUE")
-            Task {
-                try await Task.sleep(seconds: 3)
-                isstarting = false
-                Logger.process.info("SSH seetingsview isstarting = FALSE")
-            }
-        }
-    }
-
-    var thumbsupgreen: some View {
-        Label("", systemImage: "hand.thumbsup.fill")
-            .foregroundColor(Color(.green))
-            .imageScale(.large)
-            .onAppear {
-                Task {
-                    try await Task.sleep(seconds: 2)
-                    showthumbsup = false
-                    settingsischanged = false
-                }
-            }
     }
 
     var setsshpath: some View {
         EditValue(400, NSLocalizedString("Global ssh-keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile)
-            .onAppear(perform: {
-                if let sshkeypath = SharedReference.shared.sshkeypathandidentityfile {
-                    sshsettings.sshkeypathandidentityfile = sshkeypath
-                }
-            })
             .foregroundColor(
                 sshsettings.sshkeypath(SharedReference.shared.sshkeypathandidentityfile ?? "") ? Color.white : Color.red)
     }
@@ -108,13 +83,8 @@ struct Sshsettings: View {
     var setsshport: some View {
         EditValue(400, NSLocalizedString("Global ssh-port", comment: ""),
                   $sshsettings.sshportnumber)
-            .onAppear(perform: {
-                if let sshport = SharedReference.shared.sshport {
-                    sshsettings.sshportnumber = String(sshport)
-                }
-            })
             .foregroundColor(
-                sshsettings.sshport(String(SharedReference.shared.sshport ?? 22)) ? Color.white : Color.red)
+                sshsettings.setsshport(String(SharedReference.shared.sshport ?? 0)) ? Color.white : Color.red)
     }
 }
 

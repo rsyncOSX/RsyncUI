@@ -10,11 +10,7 @@ import SwiftUI
 
 struct RsyncandPathsettings: View {
     @State private var rsyncpathsettings = ObservableRsyncPathSetting()
-    @State private var showthumbsup: Bool = false
-    @State private var settingsischanged: Bool = false
-    // Startup
-    @State private var isstarting: Bool = false
-
+    
     var body: some View {
         Form {
             Section {
@@ -33,7 +29,6 @@ struct RsyncandPathsettings: View {
                                     SharedReference.shared.localrsyncpath = nil
                                 }
                                 Rsyncversion().getrsyncversion()
-                                settingsischanged = true
                             }
                         }
                         .onChange(of: rsyncpathsettings.localrsyncpath) {
@@ -42,7 +37,6 @@ struct RsyncandPathsettings: View {
                                 SharedReference.shared.localrsyncpath = rsyncpathsettings.localrsyncpath
                                 rsyncpathsettings.setandvalidatepathforrsync(rsyncpathsettings.localrsyncpath)
                                 Rsyncversion().getrsyncversion()
-                                settingsischanged = true
                             }
                         }
 
@@ -85,56 +79,32 @@ struct RsyncandPathsettings: View {
 
             Section {
                 HStack {
+                    
+                    Button {
+                        _ = WriteUserConfigurationJSON(UserConfiguration())
+                        Logger.process.info("USER CONFIGURATION is SAVED")
+                    } label: {
+                        Image(systemName: "square.and.arrow.down")
+                    }
+                    .help("Save")
+                    .buttonStyle(ColorfulButtonStyle())
+                    
                     Button {
                         _ = Backupconfigfiles()
-                        showthumbsup = true
 
                     } label: {
                         Image(systemName: "wrench.adjustable.fill")
                     }
                     .buttonStyle(ColorfulButtonStyle())
-
-                    if showthumbsup { thumbsupgreen }
                 }
 
             } header: {
-                Text("Backup configurations")
+                Text("Save userconfiguration & Backup configurations")
             }
         }
         .formStyle(.grouped)
-        .onAppear {
-            isstarting = true
-            Logger.process.info("RsyncAndPath seetingsview isstarting = TRUE")
-            Task {
-                try await Task.sleep(seconds: 3)
-                isstarting = false
-                Logger.process.info("RsyncAndPath seetingsview isstarting = FALSE")
-            }
-        }
-        .onChange(of: settingsischanged) {
-            guard settingsischanged == true else { return }
-            Task {
-                try await Task.sleep(seconds: 1)
-                _ = WriteUserConfigurationJSON(UserConfiguration())
-                Logger.process.info("RsyncAndPath is SAVED")
-                showthumbsup = true
-            }
-        }
     }
-
-    var thumbsupgreen: some View {
-        Label("", systemImage: "hand.thumbsup.fill")
-            .foregroundColor(Color(.green))
-            .imageScale(.large)
-            .onAppear {
-                Task {
-                    try await Task.sleep(seconds: 2)
-                    showthumbsup = false
-                    settingsischanged = false
-                }
-            }
-    }
-
+    
     var setrsyncpathlocalpath: some View {
         EditValue(400, nil, $rsyncpathsettings.localrsyncpath)
     }
@@ -152,14 +122,12 @@ struct RsyncandPathsettings: View {
                 }
             })
             .onChange(of: rsyncpathsettings.temporarypathforrestore) {
-                guard isstarting == false else { return }
                 Task {
                     try await Task.sleep(seconds: 1)
                     if rsyncpathsettings.temporarypathforrestore.hasSuffix("/") == false {
                         rsyncpathsettings.temporarypathforrestore.append("/")
                     }
                     rsyncpathsettings.setandvalidapathforrestore(rsyncpathsettings.temporarypathforrestore)
-                    settingsischanged = true
                 }
             }
     }
@@ -168,11 +136,9 @@ struct RsyncandPathsettings: View {
         EditValue(400, NSLocalizedString("", comment: ""),
                   $rsyncpathsettings.marknumberofdayssince)
             .onChange(of: rsyncpathsettings.marknumberofdayssince) {
-                guard isstarting == false else { return }
                 Task {
                     try await Task.sleep(seconds: 1)
                     rsyncpathsettings.markdays(days: rsyncpathsettings.marknumberofdayssince)
-                    settingsischanged = true
                 }
             }
     }

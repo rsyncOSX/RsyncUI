@@ -11,10 +11,7 @@ import SwiftUI
 struct Environmentsettings: View {
     @State private var environmentvalue: String = ""
     @State private var environment: String = ""
-    // Settings are changed
-    @State private var showthumbsup: Bool = false
-    @State private var settingsischanged: Bool = false
-
+    
     var body: some View {
         Form {
             Section {
@@ -25,34 +22,21 @@ struct Environmentsettings: View {
             } header: {
                 Text("Rsync environment")
             }
-
+            
             Section {
-                if settingsischanged { thumbsupgreen }
+                Button {
+                    _ = WriteUserConfigurationJSON(UserConfiguration())
+                    Logger.process.info("USER CONFIGURATION is SAVED")
+                } label: {
+                    Image(systemName: "square.and.arrow.down")
+                }
+                .help("Save")
+                .buttonStyle(ColorfulButtonStyle())
+            } header: {
+                Text("Save userconfiguration")
             }
         }
         .formStyle(.grouped)
-        .onChange(of: settingsischanged) {
-            guard settingsischanged == true else { return }
-            Task {
-                try await Task.sleep(seconds: 1)
-                _ = WriteUserConfigurationJSON(UserConfiguration())
-                Logger.process.info("Environmentsettings is SAVED")
-                showthumbsup = true
-            }
-        }
-    }
-
-    var thumbsupgreen: some View {
-        Label("", systemImage: "hand.thumbsup.fill")
-            .foregroundColor(Color(.green))
-            .imageScale(.large)
-            .onAppear {
-                Task {
-                    try await Task.sleep(seconds: 2)
-                    showthumbsup = false
-                    settingsischanged = false
-                }
-            }
     }
 
     var setenvironment: some View {
