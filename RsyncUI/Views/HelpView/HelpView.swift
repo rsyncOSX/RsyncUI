@@ -23,9 +23,7 @@ struct HelpView: View {
                 dismiss()
             }
             .padding()
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .cornerRadius(8)
+            .buttonStyle(ColorfulButtonStyle())
         }
         .padding()
     }
