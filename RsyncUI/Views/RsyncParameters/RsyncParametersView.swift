@@ -115,7 +115,7 @@ struct RsyncParametersView: View {
                                 .disabled(selectedconfig == nil)
                     }
                     
-                    Section(header: Text("Add parameters to rsync")
+                    Section(header: Text("Add --delete parameter to rsync")
                         .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue)))
                     {
                         VStack(alignment: .leading) {
@@ -157,7 +157,7 @@ struct RsyncParametersView: View {
                         HStack {
                             Text("Select a task.")
 
-                            Text("To enable --delete see")
+                            Text("To add --delete see")
 
                             Button {
                                 parameters.whichhelptext = 2
@@ -271,7 +271,7 @@ struct RsyncParametersView: View {
             parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
             parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
             parameters.adddelete == (selectedconfig.parameter4.isEmpty == true) ||
-            // parameters.sshport != String(selectedconfig.sshport ?? -1) ||
+            parameters.sshport != String(selectedconfig.sshport ?? -1) ||
             parameters.sshkeypathandidentityfile != (selectedconfig.sshkeypathandidentityfile ?? "")
         {
             return true

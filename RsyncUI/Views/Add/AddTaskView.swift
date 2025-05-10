@@ -164,7 +164,7 @@ struct AddTaskView: View {
                         HStack {
                             Text("Tasks for Synchronize actions.")
 
-                            Text("To enable --delete see")
+                            Text("To add --delete see")
 
                             Button {
                                 newdata.whichhelptext = 2

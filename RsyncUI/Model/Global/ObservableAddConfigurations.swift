@@ -32,8 +32,8 @@ final class ObservableAddConfigurations {
 
     var copyandpasteconfigurations: [SynchronizeConfiguration]?
 
-    let helptext1 = "Red Synchronize ID means\n--delete parameter is ENABLED\nTo DISABLE --delete parameter,\nselect Rsync parameters view"
-    let helptext2 = "To ENABLE --delete parameter\nselect Rsync parameters view"
+    let helptext1 = "Red Synchronize ID means\n--delete parameter is ADDED\nTo REMOVE --delete parameter,\nselect Rsync parameters view"
+    let helptext2 = "To ADD --delete parameter\nselect Rsync parameters view"
 
     @ObservationIgnored var whichhelptext: Int = 1
 
