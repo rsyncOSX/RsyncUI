@@ -119,9 +119,9 @@ struct RsyncParametersView: View {
                         .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue)))
                     {
                         VStack(alignment: .leading) {
-                            ToggleViewDefault(text: "--delete", binding: $parameters.removedelete)
-                                .onChange(of: parameters.removedelete) {
-                                    parameters.deletedelete(parameters.removedelete)
+                            ToggleViewDefault(text: "--delete", binding: $parameters.adddelete)
+                                .onChange(of: parameters.adddelete) {
+                                    parameters.adddelete(parameters.adddelete)
                                 }
                                 .disabled(selecteduuids.isEmpty == true)
 
@@ -270,7 +270,7 @@ struct RsyncParametersView: View {
             parameters.parameter13 != (selectedconfig.parameter13 ?? "") ||
             parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
             parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
-            parameters.removedelete == (selectedconfig.parameter4.isEmpty == false) ||
+            parameters.adddelete == (selectedconfig.parameter4.isEmpty == true) ||
             // parameters.sshport != String(selectedconfig.sshport ?? -1) ||
             parameters.sshkeypathandidentityfile != (selectedconfig.sshkeypathandidentityfile ?? "")
         {

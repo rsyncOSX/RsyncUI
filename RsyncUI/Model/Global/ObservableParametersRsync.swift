@@ -27,9 +27,8 @@ final class ObservableParametersRsync {
     // Selected configuration
     var configuration: SynchronizeConfiguration?
     var sshcreatekey: SSHCreateKey?
-    // Remove parameters
-    var removedelete: Bool = false
-    // var daemon: Bool = false
+    // Add parameters
+    var adddelete: Bool = false
 
     let helptext1 = "Red Synchronize ID means\n--delete parameter is ENABLED\nTo DISABLE --delete parameter check,\nRemove parameters to rsync --delete\ncheckbox"
     let helptext2 = "To ENABLE --delete parameter uncheck\nRemove parameters to rsync --delete \ncheckbox"
@@ -50,7 +49,7 @@ final class ObservableParametersRsync {
             if sshport == "-1" { sshport = "" }
             sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
             // --delete parameter4
-            if (configuration?.parameter4 ?? "").isEmpty { removedelete = true } else { removedelete = false }
+            if (configuration?.parameter4 ?? "").isEmpty { adddelete = false } else { adddelete = true }
             
         } else {
             reset()
@@ -123,9 +122,7 @@ final class ObservableParametersRsync {
         parameter14 = ""
         sshport = ""
         sshkeypathandidentityfile = ""
-        // removecompress = false
-        removedelete = false
-        // daemon = false
+        adddelete = false
     }
 
     func sshkeypath(_ keypath: String) -> Bool {
@@ -165,12 +162,12 @@ final class ObservableParametersRsync {
     }
 
     // parameter4 --delete
-    func deletedelete(_ delete: Bool) {
+    func adddelete(_ adddelete: Bool) {
         guard configuration != nil else { return }
-        if delete {
-            configuration?.parameter4 = ""
-        } else {
+        if adddelete {
             configuration?.parameter4 = "--delete"
+        } else {
+            configuration?.parameter4 = ""
         }
     }
 
