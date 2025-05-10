@@ -76,14 +76,14 @@ struct Sshsettings: View {
     var setsshpath: some View {
         EditValue(400, NSLocalizedString("Global ssh-keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile)
             .foregroundColor(
-                sshsettings.sshkeypath(SharedReference.shared.sshkeypathandidentityfile ?? "") ? Color.white : Color.red)
+                sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile) ? Color.white : Color.red)
     }
 
     var setsshport: some View {
         EditValue(400, NSLocalizedString("Global ssh-port", comment: ""),
                   $sshsettings.sshportnumber)
             .foregroundColor(
-                sshsettings.setsshport(String(SharedReference.shared.sshport ?? 0)) ? Color.white : Color.red)
+                sshsettings.setsshport(sshsettings.sshportnumber) ? Color.white : Color.red)
     }
 }
 
