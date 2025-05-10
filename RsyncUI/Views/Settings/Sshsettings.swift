@@ -14,8 +14,6 @@ struct Sshsettings: View {
     @State private var localsshkeys: Bool = SshKeys().validatepublickeypresent()
     // Show keys are created
     @State private var showsshkeyiscreated: Bool = false
-    // Settings are changed
-    @State private var showthumbsup: Bool = false
 
     var body: some View {
         Form {
