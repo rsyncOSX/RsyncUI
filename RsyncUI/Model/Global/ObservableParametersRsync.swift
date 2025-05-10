@@ -28,7 +28,6 @@ final class ObservableParametersRsync {
     var configuration: SynchronizeConfiguration?
     var sshcreatekey: SSHCreateKey?
     // Remove parameters
-    var removecompress: Bool = false
     var removedelete: Bool = false
     // var daemon: Bool = false
 
@@ -50,13 +49,9 @@ final class ObservableParametersRsync {
             sshport = String(configuration?.sshport ?? -1)
             if sshport == "-1" { sshport = "" }
             sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
-            // --compress parameter3
             // --delete parameter4
-            if (configuration?.parameter3 ?? "").isEmpty { removecompress = true } else { removecompress = false }
             if (configuration?.parameter4 ?? "").isEmpty { removedelete = true } else { removedelete = false }
-            // Rsync daemon
-            // configuration?.rsyncdaemon = config.rsyncdaemon
-            // if (configuration?.rsyncdaemon ?? 0) == 0 { daemon = false } else { daemon = true }
+            
         } else {
             reset()
         }
@@ -128,7 +123,7 @@ final class ObservableParametersRsync {
         parameter14 = ""
         sshport = ""
         sshkeypathandidentityfile = ""
-        removecompress = false
+        // removecompress = false
         removedelete = false
         // daemon = false
     }
@@ -145,26 +140,27 @@ final class ObservableParametersRsync {
                 configuration?.sshkeypathandidentityfile = keypath
                 return true
             }
+            return false
         } catch {
             return false
         }
-        return false
     }
 
-    func setsshport(_ port: String) {
-        guard configuration != nil else { return }
+    func setsshport(_ port: String) -> Bool {
+        guard configuration != nil else { return false}
         guard port.isEmpty == false else {
             configuration?.sshport = nil
-            return
+            return false
         }
         do {
             let verified = try sshcreatekey?.verifysshport(port)
             if verified == true {
                 configuration?.sshport = Int(port)
+                return true
             }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
+            return false
+        } catch  {
+            return false
         }
     }
 
@@ -176,20 +172,6 @@ final class ObservableParametersRsync {
         } else {
             configuration?.parameter4 = "--delete"
         }
-    }
-
-    // parameter3 --compress
-    func deletecompress(_ delete: Bool) {
-        guard configuration != nil else { return }
-        if delete {
-            configuration?.parameter3 = ""
-        } else {
-            configuration?.parameter3 = "--compress"
-        }
-    }
-
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
     }
 
     init() {

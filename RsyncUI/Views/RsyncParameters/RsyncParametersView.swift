@@ -85,7 +85,7 @@ struct RsyncParametersView: View {
                             .disabled(selectedconfig == nil)
                     }
 
-                    Section(header: Text("Task specific SSH parameter & Backup switch")) {
+                    Section(header: Text("Task specific SSH parameter")) {
                         HStack {
                             setsshpath
                                 .disabled(selectedconfig == nil)
@@ -93,6 +93,11 @@ struct RsyncParametersView: View {
                             setsshport
                                 .disabled(selectedconfig == nil)
 
+                        }
+                    }
+
+                    Section(header: Text("Backup switch")) {
+                           
                             Toggle("", isOn: $backup)
                                 .toggleStyle(.switch)
                                 .onChange(of: backup) {
@@ -108,10 +113,9 @@ struct RsyncParametersView: View {
                                     }
                                 }
                                 .disabled(selectedconfig == nil)
-                        }
                     }
-
-                    Section(header: Text("Remove parameters to rsync")
+                    
+                    Section(header: Text("Add parameters to rsync")
                         .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue)))
                     {
                         VStack(alignment: .leading) {
@@ -121,11 +125,6 @@ struct RsyncParametersView: View {
                                 }
                                 .disabled(selecteduuids.isEmpty == true)
 
-                            ToggleViewDefault(text: "--compress", binding: $parameters.removecompress)
-                                .onChange(of: parameters.removecompress) {
-                                    parameters.deletecompress(parameters.removecompress)
-                                }
-                                .disabled(selecteduuids.isEmpty == true)
                         }
                     }
 
@@ -258,13 +257,7 @@ struct RsyncParametersView: View {
 
     var setsshport: some View {
         EditValue(150, "ssh-port", $parameters.sshport)
-            .onChange(of: parameters.sshport) {
-                Task {
-                    try await Task.sleep(seconds: 1)
-                    guard selectedconfig != nil else { return }
-                    parameters.setsshport(parameters.sshport)
-                }
-            }
+            .foregroundColor(parameters.setsshport(parameters.sshport) ? Color.white : Color.red)
     }
 
     var notifydataisupdated: Bool {
@@ -278,7 +271,6 @@ struct RsyncParametersView: View {
             parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
             parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
             parameters.removedelete == (selectedconfig.parameter4.isEmpty == false) ||
-            parameters.removecompress == (selectedconfig.parameter3.isEmpty == false) ||
             // parameters.sshport != String(selectedconfig.sshport ?? -1) ||
             parameters.sshkeypathandidentityfile != (selectedconfig.sshkeypathandidentityfile ?? "")
         {
