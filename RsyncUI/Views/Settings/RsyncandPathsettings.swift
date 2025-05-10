@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RsyncandPathsettings: View {
     @State private var rsyncpathsettings = ObservableRsyncPathSetting()
-    
+
     var body: some View {
         Form {
             Section {
@@ -79,7 +79,6 @@ struct RsyncandPathsettings: View {
 
             Section {
                 HStack {
-                    
                     Button {
                         _ = WriteUserConfigurationJSON(UserConfiguration())
                         Logger.process.info("USER CONFIGURATION is SAVED")
@@ -88,7 +87,7 @@ struct RsyncandPathsettings: View {
                     }
                     .help("Save")
                     .buttonStyle(ColorfulButtonStyle())
-                    
+
                     Button {
                         _ = Backupconfigfiles()
 
@@ -104,7 +103,7 @@ struct RsyncandPathsettings: View {
         }
         .formStyle(.grouped)
     }
-    
+
     var setrsyncpathlocalpath: some View {
         EditValue(400, nil, $rsyncpathsettings.localrsyncpath)
     }

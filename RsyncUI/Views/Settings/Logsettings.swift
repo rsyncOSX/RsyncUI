@@ -69,7 +69,7 @@ struct Logsettings: View {
             } header: {
                 Text("Monitor network, error and log settings")
             }
-            
+
             Section {
                 Button {
                     _ = WriteUserConfigurationJSON(UserConfiguration())

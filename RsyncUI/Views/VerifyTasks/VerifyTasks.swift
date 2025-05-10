@@ -10,19 +10,19 @@ import SwiftUI
 struct VerifyTasks: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
 
-    @State private var progress = false
     @State private var remotedatanumbers: RemoteDataNumbers?
-
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
+    // Present arguments view
+    @State private var presentestimates: Bool = false
+    // Estimating
+    @State private var estimating: Bool = false
+
     var body: some View {
-        if let remotedatanumbers {
-            DetailsView(remotedatanumbers: remotedatanumbers)
-        } else {
-            ZStack {
-                VStack {
-                    
+        NavigationStack {
+            VStack {
+                ZStack {
                     ListofTasksAddView(rsyncUIdata: rsyncUIdata,
                                        selecteduuids: $selecteduuids)
                         .onChange(of: selecteduuids) {
@@ -35,33 +35,28 @@ struct VerifyTasks: View {
                                 }
                             }
                         }
-                    
-                    Text("Verify task always include the --dry-run parameter.")
-                        .foregroundColor(.blue)
-                        .font(.title)
 
-                    HStack {
-                        Text("Select a task and select the ")
-                            .foregroundColor(.blue)
-                            .font(.title2)
-
-                        Text(Image(systemName: "play.fill"))
-                            .foregroundColor(.blue)
-                            .font(.title2)
-
-                        Text(" on the toolbar to verify a task.")
-                            .foregroundColor(.blue)
-                            .font(.title2)
+                    if estimating {
+                        ProgressView()
                     }
                 }
-                
 
-                if progress {
-                    Spacer()
+                Text("Verify task always include the --dry-run parameter.")
+                    .foregroundColor(.blue)
+                    .font(.title)
 
-                    ProgressView()
+                HStack {
+                    Text("Select a task and select the ")
+                        .foregroundColor(.blue)
+                        .font(.title2)
 
-                    Spacer()
+                    Text(Image(systemName: "play.fill"))
+                        .foregroundColor(.blue)
+                        .font(.title2)
+
+                    Text(" on the toolbar to verify a task.")
+                        .foregroundColor(.blue)
+                        .font(.title2)
                 }
             }
             .toolbar(content: {
@@ -71,7 +66,7 @@ struct VerifyTasks: View {
                     ToolbarItem {
                         Button {
                             if let selectedconfig {
-                                progress = true
+                                estimating = true
                                 verify(config: selectedconfig)
                             }
                         } label: {
@@ -96,6 +91,12 @@ struct VerifyTasks: View {
                 }
 
             })
+            .navigationTitle("Verify tasks - dry-run parameter is enabled")
+            .navigationDestination(isPresented: $presentestimates) {
+                if let remotedatanumbers {
+                    DetailsView(remotedatanumbers: remotedatanumbers)
+                }
+            }
         }
     }
 
@@ -110,7 +111,7 @@ struct VerifyTasks: View {
     }
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        progress = false
+        estimating = false
 
         if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
             let suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
@@ -123,6 +124,7 @@ struct VerifyTasks: View {
 
         Task {
             remotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
+            presentestimates = true
         }
     }
 

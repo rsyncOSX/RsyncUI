@@ -16,7 +16,6 @@ struct Sshsettings: View {
     @State private var showsshkeyiscreated: Bool = false
     // Settings are changed
     @State private var showthumbsup: Bool = false
-    
 
     var body: some View {
         Form {

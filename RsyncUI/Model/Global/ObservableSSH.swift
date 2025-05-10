@@ -14,7 +14,7 @@ final class ObservableSSH {
     // Global SSH parameters
     // Have to convert String -> Int before saving
     // Set the current value as placeholder text
-    var sshportnumber: String = String(SharedReference.shared.sshport ?? 22)
+    var sshportnumber: String = .init(SharedReference.shared.sshport ?? 22)
     // SSH keypath and identityfile, the settings View is picking up the current value
     // Set the current value as placeholder text
     var sshkeypathandidentityfile: String = SharedReference.shared.sshkeypathandidentityfile ?? ""

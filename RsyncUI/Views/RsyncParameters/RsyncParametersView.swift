@@ -92,29 +92,27 @@ struct RsyncParametersView: View {
 
                             setsshport
                                 .disabled(selectedconfig == nil)
-
                         }
                     }
 
                     Section(header: Text("Backup switch")) {
-                           
-                            Toggle("", isOn: $backup)
-                                .toggleStyle(.switch)
-                                .onChange(of: backup) {
-                                    guard selectedconfig != nil else {
-                                        backup = false
-                                        return
-                                    }
-                                    parameters.setbackup()
+                        Toggle("", isOn: $backup)
+                            .toggleStyle(.switch)
+                            .onChange(of: backup) {
+                                guard selectedconfig != nil else {
+                                    backup = false
+                                    return
                                 }
-                                .onTapGesture {
-                                    withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                        backup.toggle()
-                                    }
+                                parameters.setbackup()
+                            }
+                            .onTapGesture {
+                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                    backup.toggle()
                                 }
-                                .disabled(selectedconfig == nil)
+                            }
+                            .disabled(selectedconfig == nil)
                     }
-                    
+
                     Section(header: Text("Add --delete parameter to rsync")
                         .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue)))
                     {
@@ -124,7 +122,6 @@ struct RsyncParametersView: View {
                                     parameters.adddelete(parameters.adddelete)
                                 }
                                 .disabled(selecteduuids.isEmpty == true)
-
                         }
                     }
 

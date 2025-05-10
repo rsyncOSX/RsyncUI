@@ -50,7 +50,7 @@ final class ObservableParametersRsync {
             sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
             // --delete parameter4
             if (configuration?.parameter4 ?? "").isEmpty { adddelete = false } else { adddelete = true }
-            
+
         } else {
             reset()
         }
@@ -144,7 +144,7 @@ final class ObservableParametersRsync {
     }
 
     func setsshport(_ port: String) -> Bool {
-        guard configuration != nil else { return false}
+        guard configuration != nil else { return false }
         guard port.isEmpty == false else {
             configuration?.sshport = nil
             return false
@@ -156,7 +156,7 @@ final class ObservableParametersRsync {
                 return true
             }
             return false
-        } catch  {
+        } catch {
             return false
         }
     }

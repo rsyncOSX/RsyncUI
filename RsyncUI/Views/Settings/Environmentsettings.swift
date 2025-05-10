@@ -11,7 +11,7 @@ import SwiftUI
 struct Environmentsettings: View {
     @State private var environmentvalue: String = ""
     @State private var environment: String = ""
-    
+
     var body: some View {
         Form {
             Section {
@@ -22,7 +22,7 @@ struct Environmentsettings: View {
             } header: {
                 Text("Rsync environment")
             }
-            
+
             Section {
                 Button {
                     _ = WriteUserConfigurationJSON(UserConfiguration())
