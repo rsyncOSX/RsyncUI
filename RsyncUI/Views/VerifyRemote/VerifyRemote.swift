@@ -161,7 +161,7 @@ struct VerifyRemote: View {
             selectedconfig = config
             guard selectedconfig?.task != SharedReference.shared.halted else { return }
             // Set config and execute a Verify
-            urlcommandverify = true
+            executeverifynavigation.append(Verify(task: .pushpullview))
 
             queryitem = nil
         }
