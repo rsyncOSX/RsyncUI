@@ -153,8 +153,7 @@ struct AddTaskView: View {
                             } label: {
                                 Image(systemName: "questionmark.circle")
                             }
-                            .foregroundStyle(.white)
-                            .background(deleteparameterpresent == true ? .red : .blue)
+                            .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
 
                             Text("for more information.")
                         }
@@ -172,8 +171,7 @@ struct AddTaskView: View {
                             } label: {
                                 Image(systemName: "questionmark.circle")
                             }
-                            .foregroundStyle(.white)
-                            .background(deleteparameterpresent == true ? .red : .blue)
+                            .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
 
                             Text("for more information.")
                         }

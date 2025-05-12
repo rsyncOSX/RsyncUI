@@ -143,8 +143,7 @@ struct RsyncParametersView: View {
                             } label: {
                                 Image(systemName: "questionmark.circle")
                             }
-                            .foregroundStyle(.white)
-                            .background(deleteparameterpresent == true ? .red : .blue)
+                            .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
 
                             Text("for more information.")
                         }
@@ -162,8 +161,7 @@ struct RsyncParametersView: View {
                             } label: {
                                 Image(systemName: "questionmark.circle")
                             }
-                            .foregroundStyle(.white)
-                            .background(deleteparameterpresent == true ? .red : .blue)
+                            .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
 
                             Text("for more information.")
                         }

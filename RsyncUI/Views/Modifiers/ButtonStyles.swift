@@ -52,6 +52,7 @@ struct ColorfulBackground<S: Shape>: View {
 }
 
 struct ColorfulButtonStyle: ButtonStyle {
+    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .foregroundColor(.white)
@@ -60,6 +61,18 @@ struct ColorfulButtonStyle: ButtonStyle {
             .background(
                 ColorfulBackground(isHighlighted: configuration.isPressed, shape: Capsule())
             )
+    }
+}
+
+struct HelpButtonStyle: ButtonStyle {
+    
+    let redorwhitebutton: Bool
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(redorwhitebutton ? .red : .blue)
+            .contentShape(Capsule())
+            // Image(systemName: "questionmark.circle")
     }
 }
 
