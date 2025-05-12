@@ -187,7 +187,6 @@ struct AddTaskView: View {
                                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                     selectedconfig = configurations[index]
                                     newdata.updateview(configurations[index])
-
                                     // URLs
                                     if selectedconfig?.task == SharedReference.shared.synchronize {
                                         let deeplinkurl = DeeplinkURL()
