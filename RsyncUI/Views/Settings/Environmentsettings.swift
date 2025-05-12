@@ -11,6 +11,7 @@ import SwiftUI
 struct Environmentsettings: View {
     @State private var environmentvalue: String = ""
     @State private var environment: String = ""
+    @State private var dataischanged: Bool = false
 
     var body: some View {
         Form {
@@ -23,17 +24,20 @@ struct Environmentsettings: View {
                 Text("Rsync environment")
             }
 
-            Section {
-                Button {
-                    _ = WriteUserConfigurationJSON(UserConfiguration())
-                    Logger.process.info("USER CONFIGURATION is SAVED")
-                } label: {
-                    Image(systemName: "square.and.arrow.down")
+            if dataischanged {
+                Section {
+                    Button {
+                        _ = WriteUserConfigurationJSON(UserConfiguration())
+                        Logger.process.info("USER CONFIGURATION is SAVED")
+                        dataischanged = false
+                    } label: {
+                        Image(systemName: "square.and.arrow.down")
+                    }
+                    .help("Save")
+                    .buttonStyle(ColorfulButtonStyle())
+                } header: {
+                    Text("Save userconfiguration")
                 }
-                .help("Save")
-                .buttonStyle(ColorfulButtonStyle())
-            } header: {
-                Text("Save userconfiguration")
             }
         }
         .formStyle(.grouped)
@@ -48,6 +52,7 @@ struct Environmentsettings: View {
             })
             .onChange(of: environment) {
                 SharedReference.shared.environment = environment
+                dataischanged = true
             }
     }
 
@@ -60,6 +65,7 @@ struct Environmentsettings: View {
             })
             .onChange(of: environmentvalue) {
                 SharedReference.shared.environmentvalue = environmentvalue
+                dataischanged = true
             }
     }
 }

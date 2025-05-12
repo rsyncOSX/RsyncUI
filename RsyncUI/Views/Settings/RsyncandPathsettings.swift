@@ -10,6 +10,7 @@ import SwiftUI
 
 struct RsyncandPathsettings: View {
     @State private var rsyncpathsettings = ObservableRsyncPathSetting()
+    @State private var dataischanged: Bool = false
 
     var body: some View {
         Form {
@@ -29,16 +30,20 @@ struct RsyncandPathsettings: View {
                                     SharedReference.shared.localrsyncpath = nil
                                 }
                                 Rsyncversion().getrsyncversion()
+                                dataischanged = true
                             }
                         }
                         .onChange(of: rsyncpathsettings.localrsyncpath) {
                             Task {
                                 try await Task.sleep(seconds: 2)
                                 SharedReference.shared.localrsyncpath = rsyncpathsettings.localrsyncpath
-                                rsyncpathsettings.setandvalidatepathforrsync(rsyncpathsettings.localrsyncpath)
-                                Rsyncversion().getrsyncversion()
+                                if rsyncpathsettings.setandvalidatepathforrsync(rsyncpathsettings.localrsyncpath) {
+                                    Rsyncversion().getrsyncversion()
+                                    dataischanged = true
+                                }
                             }
                         }
+                        .foregroundColor(rsyncpathsettings.setandvalidatepathforrsync(rsyncpathsettings.localrsyncpath) ? Color.red :  Color.white)
 
                     ToggleViewDefault(text: NSLocalizedString("Apple Silicon", comment: ""),
                                       binding: $rsyncpathsettings.macosarm)
@@ -79,15 +84,7 @@ struct RsyncandPathsettings: View {
 
             Section {
                 HStack {
-                    Button {
-                        _ = WriteUserConfigurationJSON(UserConfiguration())
-                        Logger.process.info("USER CONFIGURATION is SAVED")
-                    } label: {
-                        Image(systemName: "square.and.arrow.down")
-                    }
-                    .help("Save")
-                    .buttonStyle(ColorfulButtonStyle())
-
+                    
                     Button {
                         _ = Backupconfigfiles()
 
@@ -95,6 +92,22 @@ struct RsyncandPathsettings: View {
                         Image(systemName: "wrench.adjustable.fill")
                     }
                     .buttonStyle(ColorfulButtonStyle())
+                    
+                    if dataischanged {
+                        Section {
+                            Button {
+                                _ = WriteUserConfigurationJSON(UserConfiguration())
+                                Logger.process.info("USER CONFIGURATION is SAVED")
+                                dataischanged = false
+                            } label: {
+                                Image(systemName: "square.and.arrow.down")
+                            }
+                            .help("Save")
+                            .buttonStyle(ColorfulButtonStyle())
+                        } header: {
+                            Text("Save userconfiguration")
+                        }
+                    }
                 }
 
             } header: {
@@ -127,6 +140,7 @@ struct RsyncandPathsettings: View {
                         rsyncpathsettings.temporarypathforrestore.append("/")
                     }
                     rsyncpathsettings.setandvalidapathforrestore(rsyncpathsettings.temporarypathforrestore)
+                    dataischanged = true
                 }
             }
     }
@@ -138,6 +152,7 @@ struct RsyncandPathsettings: View {
                 Task {
                     try await Task.sleep(seconds: 1)
                     rsyncpathsettings.markdays(days: rsyncpathsettings.marknumberofdayssince)
+                    dataischanged = true
                 }
             }
     }

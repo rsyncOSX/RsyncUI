@@ -24,23 +24,24 @@ final class ObservableRsyncPathSetting {
     var marknumberofdayssince = String(SharedReference.shared.marknumberofdayssince)
     // True if on ARM based Mac
     var macosarm: Bool = SharedReference.shared.macosarm
+    
 
     // Only validate path if rsyncver3 is true
-    func setandvalidatepathforrsync(_ path: String) {
+    func setandvalidatepathforrsync(_ path: String) -> Bool {
         guard path.isEmpty == false, rsyncversion3 == true else {
             // Set rsync path = nil
             let validate = SetandValidatepathforrsync()
             validate.setlocalrsyncpath("")
-            return
+            return false
         }
         let validate = SetandValidatepathforrsync()
         validate.setlocalrsyncpath(path)
         do {
             try validate.validateandrsyncpath()
-        } catch let e {
+            return true
+        } catch {
             SharedReference.shared.rsyncversionshort = "No valid rsync detected"
-            let error = e
-            propogateerror(error: error)
+            return false
         }
     }
 
