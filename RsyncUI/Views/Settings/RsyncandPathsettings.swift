@@ -20,7 +20,7 @@ struct RsyncandPathsettings: View {
                                       binding: $rsyncpathsettings.rsyncversion3)
                         .onChange(of: rsyncpathsettings.rsyncversion3) {
                             Task {
-                                try await Task.sleep(seconds: 2)
+                                try await Task.sleep(seconds: 1)
                                 if SharedReference.shared.norsync {
                                     SharedReference.shared.localrsyncpath = nil
                                     SharedReference.shared.rsyncversion3 = false
@@ -28,6 +28,7 @@ struct RsyncandPathsettings: View {
                                 } else {
                                     SharedReference.shared.rsyncversion3 = rsyncpathsettings.rsyncversion3
                                     SharedReference.shared.localrsyncpath = nil
+                                    rsyncpathsettings.localrsyncpath = ""
                                 }
                                 Rsyncversion().getrsyncversion()
                                 dataischanged = true
