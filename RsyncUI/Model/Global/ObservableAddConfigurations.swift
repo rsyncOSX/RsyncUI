@@ -66,18 +66,18 @@ final class ObservableAddConfigurations {
                 mysnapshotnum = Int(snapshotnum) ?? 1
             }
         }
-        
+
         // If toggled ON remove trailing /
         if donotaddtrailingslash {
             if localcatalog.hasSuffix("/") {
                 localcatalog.removeLast()
             }
-            if remotecatalog.hasSuffix( "/") {
+            if remotecatalog.hasSuffix("/") {
                 remotecatalog.removeLast()
             }
         }
-        
-        if localcatalog.hasSuffix("/") == false && remotecatalog.hasSuffix("/") == false {
+
+        if localcatalog.hasSuffix("/") == false, remotecatalog.hasSuffix("/") == false {
             donotaddtrailingslash = true
         }
 

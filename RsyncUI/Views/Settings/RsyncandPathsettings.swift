@@ -74,7 +74,6 @@ struct RsyncandPathsettings: View {
 
             Section {
                 HStack {
-                    
                     Button {
                         _ = Backupconfigfiles()
 
@@ -82,7 +81,7 @@ struct RsyncandPathsettings: View {
                         Image(systemName: "wrench.adjustable.fill")
                     }
                     .buttonStyle(ColorfulButtonStyle())
-                    
+
                     if dataischanged {
                         Section {
                             Button {
@@ -109,14 +108,15 @@ struct RsyncandPathsettings: View {
 
     var setrsyncpathlocalpath: some View {
         EditValue(400, nil, $rsyncpathsettings.localrsyncpath)
-            .foregroundColor(rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath) ? Color.white :  Color.red)
+            .foregroundColor(rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath) ? Color.white : Color.red)
             .onChange(of: rsyncpathsettings.localrsyncpath) {
-                guard  rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath) else {
+                guard rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath) else {
                     return
                 }
                 SharedReference.shared.localrsyncpath = rsyncpathsettings.localrsyncpath
                 if rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath),
-                   rsyncpathsettings.setandvalidatepathforrsync(rsyncpathsettings.localrsyncpath) {
+                   rsyncpathsettings.setandvalidatepathforrsync(rsyncpathsettings.localrsyncpath)
+                {
                     Rsyncversion().getrsyncversion()
                     dataischanged = true
                 }
@@ -128,25 +128,32 @@ struct RsyncandPathsettings: View {
             .onAppear {
                 dataischanged = false
             }
-        
     }
 
     var setpathforrestore: some View {
         EditValue(400, NSLocalizedString("Path for restore", comment: ""),
                   $rsyncpathsettings.temporarypathforrestore)
+            .foregroundColor(rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore) ? Color.white : Color.red)
             .onAppear(perform: {
                 if let pathforrestore = SharedReference.shared.pathforrestore {
                     rsyncpathsettings.temporarypathforrestore = pathforrestore
                 }
+                Task {
+                    try await Task.sleep(seconds: 2)
+                    dataischanged = false
+                }
             })
             .onChange(of: rsyncpathsettings.temporarypathforrestore) {
                 Task {
+                    guard rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore) else {
+                        return
+                    }
                     try await Task.sleep(seconds: 1)
                     if rsyncpathsettings.temporarypathforrestore.hasSuffix("/") == false {
                         rsyncpathsettings.temporarypathforrestore.append("/")
                     }
                     rsyncpathsettings.setandvalidapathforrestore(rsyncpathsettings.temporarypathforrestore)
-                    // dataischanged = true
+                    dataischanged = true
                 }
             }
     }

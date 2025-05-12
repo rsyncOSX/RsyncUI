@@ -14,7 +14,7 @@ struct Logsettings: View {
     @State private var toggleobservemountedvolumes: Bool = false
     @State private var togglealwaysshowestimateddetailsview: Bool = false
     @State private var togglehideverifyremotefunction: Bool = false
-    
+
     @State private var dataischanged: Bool = false
 
     var body: some View {

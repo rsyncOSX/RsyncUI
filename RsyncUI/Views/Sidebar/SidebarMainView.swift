@@ -396,8 +396,7 @@ extension SidebarMainView {
                             queryitem = queryitems[1]
                         }
                     }
-                }
-                else {
+                } else {
                     if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
                         Task {
                             if externalurl {
