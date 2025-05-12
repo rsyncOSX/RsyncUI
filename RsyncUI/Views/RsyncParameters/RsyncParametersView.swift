@@ -113,7 +113,7 @@ struct RsyncParametersView: View {
                             .disabled(selectedconfig == nil)
                     }
 
-                    Section(header: Text("Add --delete parameter to rsync")
+                    Section(header: Text("Add --delete parameter, ON is added")
                         .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue)))
                     {
                         VStack(alignment: .leading) {
@@ -135,7 +135,7 @@ struct RsyncParametersView: View {
                         HStack {
                             Text("Select a task.")
 
-                            Text("If \(Text("red Synchronize ID").foregroundColor(.red)) see")
+                            Text("If \(Text("red Synchronize ID").foregroundColor(.red)) click")
 
                             Button {
                                 parameters.whichhelptext = 1
@@ -153,7 +153,7 @@ struct RsyncParametersView: View {
                         HStack {
                             Text("Select a task.")
 
-                            Text("To add --delete see")
+                            Text("To add --delete click")
 
                             Button {
                                 parameters.whichhelptext = 2

@@ -145,7 +145,7 @@ struct AddTaskView: View {
                         HStack {
                             Text("Tasks for Synchronize actions.")
 
-                            Text("If \(Text("red Synchronize ID").foregroundColor(.red)) see")
+                            Text("If \(Text("red Synchronize ID").foregroundColor(.red)) click")
 
                             Button {
                                 newdata.whichhelptext = 1
@@ -163,7 +163,7 @@ struct AddTaskView: View {
                         HStack {
                             Text("Tasks for Synchronize actions.")
 
-                            Text("To add --delete see")
+                            Text("To add --delete click")
 
                             Button {
                                 newdata.whichhelptext = 2
