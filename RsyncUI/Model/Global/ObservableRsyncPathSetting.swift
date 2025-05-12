@@ -25,6 +25,23 @@ final class ObservableRsyncPathSetting {
     // True if on ARM based Mac
     var macosarm: Bool = SharedReference.shared.macosarm
     
+    // Used for mark local path red or white
+    func verifypathforrsync(_ path: String) -> Bool {
+        
+        let fm = FileManager.default
+            switch SharedReference.shared.rsyncversion3 {
+            case true:
+                let rsyncpath = path.appending("/") + SharedReference.shared.rsync
+                if fm.isExecutableFile(atPath: rsyncpath) == false {
+                    return false
+                } else {
+                    return true
+                }
+            case false:
+                return false
+            }
+    }
+    
 
     // Only validate path if rsyncver3 is true
     func setandvalidatepathforrsync(_ path: String) -> Bool {
@@ -37,7 +54,7 @@ final class ObservableRsyncPathSetting {
         let validate = SetandValidatepathforrsync()
         validate.setlocalrsyncpath(path)
         do {
-            try validate.validateandrsyncpath()
+            try validate.validatelocalpathforrsync()
             return true
         } catch {
             SharedReference.shared.rsyncversionshort = "No valid rsync detected"

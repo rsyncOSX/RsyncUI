@@ -33,17 +33,6 @@ struct RsyncandPathsettings: View {
                                 dataischanged = true
                             }
                         }
-                        .onChange(of: rsyncpathsettings.localrsyncpath) {
-                            Task {
-                                try await Task.sleep(seconds: 2)
-                                SharedReference.shared.localrsyncpath = rsyncpathsettings.localrsyncpath
-                                if rsyncpathsettings.setandvalidatepathforrsync(rsyncpathsettings.localrsyncpath) {
-                                    Rsyncversion().getrsyncversion()
-                                    dataischanged = true
-                                }
-                            }
-                        }
-                        .foregroundColor(rsyncpathsettings.setandvalidatepathforrsync(rsyncpathsettings.localrsyncpath) ? Color.red :  Color.white)
 
                     ToggleViewDefault(text: NSLocalizedString("Apple Silicon", comment: ""),
                                       binding: $rsyncpathsettings.macosarm)
@@ -119,10 +108,26 @@ struct RsyncandPathsettings: View {
 
     var setrsyncpathlocalpath: some View {
         EditValue(400, nil, $rsyncpathsettings.localrsyncpath)
+            .foregroundColor(rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath) ? Color.white :  Color.red)
+            .onChange(of: rsyncpathsettings.localrsyncpath) {
+                guard  rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath) else {
+                    return
+                }
+                SharedReference.shared.localrsyncpath = rsyncpathsettings.localrsyncpath
+                if rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath),
+                   rsyncpathsettings.setandvalidatepathforrsync(rsyncpathsettings.localrsyncpath) {
+                    Rsyncversion().getrsyncversion()
+                    dataischanged = true
+                }
+            }
     }
 
     var setrsyncpathdefault: some View {
         EditValue(400, SetandValidatepathforrsync().getpathforrsync(), $rsyncpathsettings.localrsyncpath)
+            .onAppear {
+                dataischanged = false
+            }
+        
     }
 
     var setpathforrestore: some View {
@@ -140,7 +145,7 @@ struct RsyncandPathsettings: View {
                         rsyncpathsettings.temporarypathforrestore.append("/")
                     }
                     rsyncpathsettings.setandvalidapathforrestore(rsyncpathsettings.temporarypathforrestore)
-                    dataischanged = true
+                    // dataischanged = true
                 }
             }
     }

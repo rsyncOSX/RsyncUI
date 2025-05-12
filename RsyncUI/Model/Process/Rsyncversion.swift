@@ -12,7 +12,7 @@ import Observation
 final class Rsyncversion {
     func getrsyncversion() {
         do {
-            try SetandValidatepathforrsync().validateandrsyncpath()
+            try SetandValidatepathforrsync().validatelocalpathforrsync()
         } catch {
             SharedReference.shared.norsync = true
             SharedReference.shared.rsyncversionshort = "No valid rsync deteced"

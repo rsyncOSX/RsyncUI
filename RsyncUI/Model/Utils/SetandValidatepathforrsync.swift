@@ -24,7 +24,9 @@ enum Validatedrsync: LocalizedError {
 
 @MainActor
 struct SetandValidatepathforrsync {
-    func validateandrsyncpath() throws {
+    
+    // Validate if LOCAL path for rsync is set
+    func validatelocalpathforrsync() throws {
         let fm = FileManager.default
         SharedReference.shared.norsync = false
         var rsyncpath: String?
@@ -51,7 +53,7 @@ struct SetandValidatepathforrsync {
             return
         }
     }
-
+    
     func setlocalrsyncpath(_ path: String) {
         var path = path
         if path.isEmpty == false {
