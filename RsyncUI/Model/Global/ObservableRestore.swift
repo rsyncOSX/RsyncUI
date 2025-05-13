@@ -41,7 +41,7 @@ final class ObservableRestore {
             return false
         }
     }
-    
+
     private func validatepath(_ path: String) throws -> Bool {
         let fm = FileManager.default
         if fm.fileExists(atPath: path, isDirectory: nil) == false {
