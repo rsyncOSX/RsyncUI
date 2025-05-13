@@ -72,23 +72,6 @@ final class ObservableRsyncPathSetting {
         }
     }
 
-    func setandvalidapathforrestore(_ atpath: String) {
-        guard atpath.isEmpty == false else {
-            // Delete path
-            SharedReference.shared.pathforrestore = nil
-            return
-        }
-        do {
-            let ok = try validatepath(atpath)
-            if ok {
-                SharedReference.shared.pathforrestore = atpath
-            }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
-        }
-    }
-
     private func validatepath(_ path: String) throws -> Bool {
         let fm = FileManager.default
         if fm.fileExists(atPath: path, isDirectory: nil) == false {
@@ -97,7 +80,6 @@ final class ObservableRsyncPathSetting {
         return true
     }
 
-    // Automatic execute time
     private func verifystringtoint(_ seconds: String) throws -> Bool {
         guard seconds.isEmpty == false else { return false }
         if Int(seconds) != nil {

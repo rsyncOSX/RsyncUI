@@ -30,20 +30,18 @@ final class ObservableRestore {
         presentrestorelist = true
     }
 
-    // Validate path for restore
-    func validatepathforrestore(_ atpath: String) {
-        guard atpath.isEmpty == false else { return }
+    func verifypathforrestore(_ atpath: String) -> Bool {
         do {
             let ok = try validatepath(atpath)
             if ok {
-                SharedReference.shared.pathforrestore = atpath
+                return true
             }
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
+            return false
+        } catch {
+            return false
         }
     }
-
+    
     private func validatepath(_ path: String) throws -> Bool {
         let fm = FileManager.default
         if fm.fileExists(atPath: path, isDirectory: nil) == false {

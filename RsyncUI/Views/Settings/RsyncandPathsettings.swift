@@ -111,6 +111,7 @@ struct RsyncandPathsettings: View {
             .foregroundColor(rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath) ? Color.white : Color.red)
             .onChange(of: rsyncpathsettings.localrsyncpath) {
                 guard rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath) else {
+                    dataischanged = false
                     return
                 }
                 SharedReference.shared.localrsyncpath = rsyncpathsettings.localrsyncpath
@@ -139,6 +140,7 @@ struct RsyncandPathsettings: View {
                     rsyncpathsettings.temporarypathforrestore = pathforrestore
                 }
                 Task {
+                    // Must do this to remove Save changes when view appears
                     try await Task.sleep(seconds: 2)
                     dataischanged = false
                 }
@@ -146,13 +148,13 @@ struct RsyncandPathsettings: View {
             .onChange(of: rsyncpathsettings.temporarypathforrestore) {
                 Task {
                     guard rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore) else {
+                        dataischanged = false
                         return
                     }
-                    try await Task.sleep(seconds: 1)
                     if rsyncpathsettings.temporarypathforrestore.hasSuffix("/") == false {
                         rsyncpathsettings.temporarypathforrestore.append("/")
                     }
-                    rsyncpathsettings.setandvalidapathforrestore(rsyncpathsettings.temporarypathforrestore)
+                    SharedReference.shared.pathforrestore = rsyncpathsettings.temporarypathforrestore
                     dataischanged = true
                 }
             }

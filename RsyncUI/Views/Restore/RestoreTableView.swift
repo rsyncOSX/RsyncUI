@@ -190,13 +190,20 @@ struct RestoreTableView: View {
 
     var setpathforrestore: some View {
         EditValue(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore)
+            .foregroundColor(restore.verifypathforrestore(restore.pathforrestore) ? Color.white : Color.red)
             .onAppear(perform: {
                 if let pathforrestore = SharedReference.shared.pathforrestore {
                     restore.pathforrestore = pathforrestore
                 }
             })
             .onChange(of: restore.pathforrestore) {
-                restore.validatepathforrestore(restore.pathforrestore)
+                guard restore.verifypathforrestore(restore.pathforrestore) else {
+                    return
+                }
+                if restore.pathforrestore.hasSuffix("/") == false {
+                    restore.pathforrestore.append("/")
+                }
+                SharedReference.shared.pathforrestore = restore.pathforrestore
             }
     }
 
