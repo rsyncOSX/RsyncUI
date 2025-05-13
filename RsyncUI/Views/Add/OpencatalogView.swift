@@ -28,7 +28,6 @@ struct OpencatalogView: View {
         .fileImporter(isPresented: $isImporting,
                       allowedContentTypes: [uutype],
                       onCompletion: { result in
-
                           switch result {
                           case let .success(url):
                               selecteditem = url.relativePath

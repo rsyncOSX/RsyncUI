@@ -29,7 +29,7 @@ enum AddConfigurationField: Hashable {
 
 struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    
+
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var selectedprofile: String?
     @Binding var addtasknavigation: [AddTasks]

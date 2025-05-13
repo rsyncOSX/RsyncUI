@@ -58,7 +58,6 @@ final class ObservableScheduleData {
 
     func removeexecutedonce() {
         scheduledata = scheduledata.compactMap { schedule in
-
             if let daterun = schedule.dateRun,
                let schedule = schedule.schedule,
                daterun.en_date_from_string() < Date.now,

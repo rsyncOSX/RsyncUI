@@ -303,13 +303,11 @@ extension SidebarMainView {
 
         switch deeplinkurl.handleURL(url)?.host {
         case .quicktask:
-
             Logger.process.info("handleURLsidebarmainView: URL Quicktask - \(url)")
 
             selectedview = .synchronize
             executetasknavigation.append(Tasks(task: .quick_synchronize))
         case .loadprofile:
-
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile - \(url)")
 
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
@@ -321,7 +319,6 @@ extension SidebarMainView {
                 return
             }
         case .loadprofileandestimate:
-
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Estimate - \(url)")
 
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
@@ -365,7 +362,6 @@ extension SidebarMainView {
                 return
             }
         case .loadprofileandverify:
-
             // Only by external URL load and verify
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Verify - \(url)")
 

@@ -53,22 +53,22 @@ final class ProcessRsyncObserving {
         notificationsfilehandle =
             NotificationCenter.default.addObserver(forName: NSNotification.Name.NSFileHandleDataAvailable,
                                                    object: nil, queue: .main)
-        { _ in
-            Task {
-                await self.datahandle(pipe)
+            { _ in
+                Task {
+                    await self.datahandle(pipe)
+                }
             }
-        }
 
         notificationstermination =
             NotificationCenter.default.addObserver(forName: Process.didTerminateNotification,
                                                    object: task, queue: .main)
-        { _ in
-            Task {
-                // Debounce termination for 500 ms
-                try await Task.sleep(seconds: 0.5)
-                await self.termination()
+            { _ in
+                Task {
+                    // Debounce termination for 500 ms
+                    try await Task.sleep(seconds: 0.5)
+                    await self.termination()
+                }
             }
-        }
 
         SharedReference.shared.process = task
         do {
