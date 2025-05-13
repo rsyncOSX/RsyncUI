@@ -29,12 +29,13 @@ enum AddConfigurationField: Hashable {
 
 struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var selectedprofile: String?
     @Binding var addtasknavigation: [AddTasks]
 
     @State private var newdata = ObservableAddConfigurations()
     @State private var selectedconfig: SynchronizeConfiguration?
-    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     // Enable change snapshotnum
     @State private var changesnapshotnum: Bool = false
 

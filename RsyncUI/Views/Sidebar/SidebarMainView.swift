@@ -199,13 +199,14 @@ struct SidebarMainView: View {
         switch view {
         case .tasks:
             AddTaskView(rsyncUIdata: rsyncUIdata,
+                        selecteduuids: $selecteduuids,
                         selectedprofile: $selectedprofile,
                         addtasknavigation: $addtasknavigation)
         case .log_listings:
             LogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
         case .rsync_parameters:
             NavigationStack {
-                RsyncParametersView(rsyncUIdata: rsyncUIdata)
+                RsyncParametersView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
             }
         case .restore:
             NavigationStack {

@@ -9,10 +9,11 @@ import SwiftUI
 
 struct RsyncParametersView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @State private var parameters = ObservableParametersRsync()
     @State private var selectedconfig: SynchronizeConfiguration?
-    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    // @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedrsynccommand = RsyncCommand.synchronize_data
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
@@ -204,7 +205,8 @@ struct RsyncParametersView: View {
         }
         .onChange(of: rsyncUIdata.profile) {
             selectedconfig = nil
-            selecteduuids.removeAll()
+            // selecteduuids.removeAll()
+            // done on Sidebar Main view
             parameters.setvalues(selectedconfig)
             backup = false
         }
