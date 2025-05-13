@@ -110,15 +110,10 @@ final class ObservableRsyncPathSetting {
 
 enum Validatedpath: LocalizedError {
     case nopath
-    case notemporaryrestorepath
-    // case noerror
-
     var errorDescription: String? {
         switch self {
         case .nopath:
             "No such path"
-        case .notemporaryrestorepath:
-            "No temporary restore path\nSet temporary restore path in Settings"
         }
     }
 }
