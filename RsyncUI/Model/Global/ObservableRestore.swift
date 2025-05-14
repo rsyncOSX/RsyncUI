@@ -30,24 +30,9 @@ final class ObservableRestore {
         presentrestorelist = true
     }
 
-    func verifypathforrestore(_ atpath: String) -> Bool {
-        do {
-            let ok = try validatepath(atpath)
-            if ok {
-                return true
-            }
-            return false
-        } catch {
-            return false
-        }
-    }
-
-    private func validatepath(_ path: String) throws -> Bool {
+    func verifypathforrestore(_ path: String) -> Bool {
         let fm = FileManager.default
-        if fm.fileExists(atPath: path, isDirectory: nil) == false {
-            throw Validatedpath.nopath
-        }
-        return true
+        return fm.fileExists(atPath: path, isDirectory: nil)
     }
 
     func executerestore() {
