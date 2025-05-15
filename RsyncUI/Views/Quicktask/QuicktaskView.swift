@@ -61,7 +61,7 @@ struct QuicktaskView: View {
                                 }
                             }
 
-                        Toggle("File(off) or Catalog(on)", isOn: $catalogorfile)
+                        Toggle("File(off) or Folder(on)", isOn: $catalogorfile)
                             .toggleStyle(.switch)
                             .onChange(of: catalogorfile) {
                                 if catalogorfile {
@@ -231,8 +231,6 @@ struct QuicktaskView: View {
                     .focused($focusField, equals: .localcatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
-
-                OpencatalogView(selecteditem: $localcatalog, catalogs: catalogorfile)
             }
 
             // remotecatalog
@@ -241,32 +239,27 @@ struct QuicktaskView: View {
                     .focused($focusField, equals: .remotecatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
-
-                OpencatalogView(selecteditem: $remotecatalog, catalogs: catalogorfile)
             }
         }
     }
 
     var localandremotecatalogsyncremote: some View {
         Section(header: headerlocalremote) {
+            // remotecatalog
+            HStack {
+                EditValue(300, NSLocalizedString("Add Local folder - required", comment: ""), $remotecatalog)
+                    .focused($focusField, equals: .remotecatalogField)
+                    .textContentType(.none)
+                    .submitLabel(.continue)
+            }
+            
             // localcatalog
             HStack {
-                EditValue(300, NSLocalizedString("Add remote as Local folder - required", comment: ""), $localcatalog)
+                EditValue(300, NSLocalizedString("Add Remote folder - required", comment: ""), $localcatalog)
                     .focused($focusField, equals: .localcatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
 
-                OpencatalogView(selecteditem: $localcatalog, catalogs: catalogorfile)
-            }
-
-            // remotecatalog
-            HStack {
-                EditValue(300, NSLocalizedString("Add local as Remote folder - required", comment: ""), $remotecatalog)
-                    .focused($focusField, equals: .remotecatalogField)
-                    .textContentType(.none)
-                    .submitLabel(.continue)
-
-                OpencatalogView(selecteditem: $localcatalog, catalogs: catalogorfile)
             }
         }
     }
