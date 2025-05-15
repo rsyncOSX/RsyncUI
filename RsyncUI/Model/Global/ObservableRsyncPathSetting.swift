@@ -40,12 +40,11 @@ final class ObservableRsyncPathSetting {
             return false
         }
     }
-    
+
     func verifypathforrestore(_ path: String) -> Bool {
         let fm = FileManager.default
         return fm.fileExists(atPath: path, isDirectory: nil)
     }
-
 
     // Only validate path if rsyncver3 is true
     func setandvalidatepathforrsync(_ path: String) -> Bool {
@@ -66,7 +65,6 @@ final class ObservableRsyncPathSetting {
         }
     }
 
-    
     private func verifystringtoint(_ seconds: String) throws -> Bool {
         guard seconds.isEmpty == false else { return false }
         if Int(seconds) != nil {
