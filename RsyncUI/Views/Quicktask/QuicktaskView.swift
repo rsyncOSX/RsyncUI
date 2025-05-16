@@ -15,6 +15,25 @@ enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvert
     var description: String { rawValue.localizedLowercase }
 }
 
+enum ValidateInputQuicktask: LocalizedError {
+    case localcatalog
+    case remotecatalog
+    case offsiteusername
+    case offsiteserver
+
+    var errorDescription: String? {
+        switch self {
+        case .localcatalog:
+            "Source folder cannot be empty"
+        case .offsiteusername:
+            "Remote username cannot be empty"
+        case .remotecatalog:
+            "Destination folder cannot be empty"
+        case .offsiteserver:
+            "Remote servername cannot be empty"
+        }
+    }
+}
 struct QuicktaskView: View {
     @State private var localcatalog: String = ""
     @State private var remotecatalog: String = ""
@@ -320,11 +339,19 @@ extension QuicktaskView {
                                  donotaddtrailingslash,
                                  remoteuser,
                                  remoteserver,
-                                 "")
-        // If newconfig is verified add it
-        if let newconfig = VerifyConfiguration().verify(getdata) {
-            execute(config: newconfig, dryrun: dryrun)
-            updatesavedtask(newconfig)
+                                "")
+        if let config = VerifyConfiguration().verify(getdata) {
+            do {
+                
+                let ok = try validateinput(config)
+                if ok {
+                    execute(config: config, dryrun: dryrun)
+                    updatesavedtask(config)
+                }
+            } catch let e {
+                let error = e
+                propogateerror(error: error)
+            }
         }
     }
 
@@ -348,5 +375,25 @@ extension QuicktaskView {
             rsyncoutput.output = await CreateOutputforview().createaoutputforview(stringoutputfromrsync)
             completed = true
         }
+    }
+    
+    func propogateerror(error: Error) {
+        SharedReference.shared.errorobject?.alert(error: error)
+    }
+    
+    private func validateinput(_ config: SynchronizeConfiguration) throws -> Bool {
+        if config.localCatalog.isEmpty {
+            throw ValidateInputQuicktask.localcatalog
+        }
+        if config.offsiteCatalog.isEmpty {
+            throw ValidateInputQuicktask.remotecatalog
+        }
+        if config.offsiteServer.isEmpty {
+            throw ValidateInputQuicktask.offsiteserver
+        }
+        if config.offsiteUsername.isEmpty {
+            throw ValidateInputQuicktask.offsiteusername
+        }
+        return true
     }
 }
