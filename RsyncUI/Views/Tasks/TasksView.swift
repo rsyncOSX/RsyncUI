@@ -248,18 +248,16 @@ struct TasksView: View {
                 .help("View logfile")
             }
             
-            if rsyncUIdata.oneormoresynchronizetasksisremote == true {
-                ToolbarItem {
-                    Button {
-                        guard selectedtaskishalted == false  else { return }
-                        path.append(Tasks(task: .quick_synchronize))
-                    } label: {
-                        Image(systemName: "hare")
-                    }
-                    .help("Quick synchronize")
+            ToolbarItem {
+                Button {
+                    guard selectedtaskishalted == false  else { return }
+                    path.append(Tasks(task: .quick_synchronize))
+                } label: {
+                    Image(systemName: "hare")
                 }
+                .help("Quick synchronize")
             }
-
+            
             if alltasksarehalted() == false {
                 ToolbarItem {
                     Button {
