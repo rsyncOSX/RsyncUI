@@ -250,7 +250,6 @@ struct TasksView: View {
             
             ToolbarItem {
                 Button {
-                    guard selectedtaskishalted == false  else { return }
                     path.append(Tasks(task: .quick_synchronize))
                 } label: {
                     Image(systemName: "hare")
