@@ -253,12 +253,16 @@ struct AddTaskView: View {
         }
         .onSubmit {
             switch focusField {
+            case .synchronizeIDField:
+                focusField = .localcatalogField
             case .localcatalogField:
                 focusField = .remotecatalogField
             case .remotecatalogField:
-                focusField = .synchronizeIDField
+                focusField = .remoteuserField
             case .remoteuserField:
                 focusField = .remoteserverField
+            case .snapshotnumField:
+                validateandupdate()
             case .remoteserverField:
                 if newdata.selectedconfig == nil {
                     addconfig()
@@ -266,16 +270,6 @@ struct AddTaskView: View {
                     validateandupdate()
                 }
                 focusField = nil
-            case .synchronizeIDField:
-                if newdata.verifyremotestorageislocal() == true,
-                   newdata.selectedconfig == nil
-                {
-                    addconfig()
-                } else {
-                    focusField = .remoteuserField
-                }
-            case .snapshotnumField:
-                validateandupdate()
             default:
                 return
             }
@@ -366,11 +360,17 @@ struct AddTaskView: View {
     var setlocalcatalogsyncremote: some View {
         EditValue(300, NSLocalizedString("Add Remote folder - required", comment: ""),
                   $newdata.localcatalog)
+        .focused($focusField, equals: .localcatalogField)
+        .textContentType(.none)
+        .submitLabel(.continue)
     }
 
     var setremotecatalogsyncremote: some View {
         EditValue(300, NSLocalizedString("Add Local folder - required", comment: ""),
                   $newdata.remotecatalog)
+        .focused($focusField, equals: .remotecatalogField)
+        .textContentType(.none)
+        .submitLabel(.continue)
     }
 
     var setlocalcatalog: some View {
@@ -436,6 +436,9 @@ struct AddTaskView: View {
                 // remotecatalog
                 if newdata.selectedconfig == nil { setremotecatalogsyncremote } else {
                     EditValue(300, nil, $newdata.remotecatalog)
+                        .focused($focusField, equals: .remotecatalogField)
+                        .textContentType(.none)
+                        .submitLabel(.continue)
                         .onAppear(perform: {
                             if let catalog = newdata.selectedconfig?.offsiteCatalog {
                                 newdata.remotecatalog = catalog
@@ -449,6 +452,9 @@ struct AddTaskView: View {
                 // localcatalog
                 if newdata.selectedconfig == nil { setlocalcatalogsyncremote } else {
                     EditValue(300, nil, $newdata.localcatalog)
+                        .focused($focusField, equals: .localcatalogField)
+                        .textContentType(.none)
+                        .submitLabel(.continue)
                         .onAppear(perform: {
                             if let catalog = newdata.selectedconfig?.localCatalog {
                                 newdata.localcatalog = catalog
