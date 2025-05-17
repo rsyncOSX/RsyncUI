@@ -247,7 +247,7 @@ struct TasksView: View {
                 }
                 .help("View logfile")
             }
-            
+
             ToolbarItem {
                 Button {
                     path.append(Tasks(task: .quick_synchronize))
@@ -256,7 +256,7 @@ struct TasksView: View {
                 }
                 .help("Quick synchronize")
             }
-            
+
             if alltasksarehalted() == false {
                 ToolbarItem {
                     Button {

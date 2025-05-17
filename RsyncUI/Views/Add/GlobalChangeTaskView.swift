@@ -30,11 +30,11 @@ struct GlobalChangeTaskView: View {
                     .help("Update task")
                     .disabled(configurations.isEmpty)
                     .buttonStyle(ColorfulButtonStyle())
-                    
+
                     Text("Use $ as split character, ALL or\nSELECTED configurations will be updated")
                         .padding(.bottom, 10)
                 }
-                
+
                 VStack(alignment: .leading) { synchronizeID }
 
                 VStack(alignment: .leading) { localandremotecatalog }

@@ -360,17 +360,17 @@ struct AddTaskView: View {
     var setlocalcatalogsyncremote: some View {
         EditValue(300, NSLocalizedString("Add Remote folder - required", comment: ""),
                   $newdata.localcatalog)
-        .focused($focusField, equals: .localcatalogField)
-        .textContentType(.none)
-        .submitLabel(.continue)
+            .focused($focusField, equals: .localcatalogField)
+            .textContentType(.none)
+            .submitLabel(.continue)
     }
 
     var setremotecatalogsyncremote: some View {
         EditValue(300, NSLocalizedString("Add Local folder - required", comment: ""),
                   $newdata.remotecatalog)
-        .focused($focusField, equals: .remotecatalogField)
-        .textContentType(.none)
-        .submitLabel(.continue)
+            .focused($focusField, equals: .remotecatalogField)
+            .textContentType(.none)
+            .submitLabel(.continue)
     }
 
     var setlocalcatalog: some View {

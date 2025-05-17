@@ -34,6 +34,7 @@ enum ValidateInputQuicktask: LocalizedError {
         }
     }
 }
+
 struct QuicktaskView: View {
     @State private var localcatalog: String = ""
     @State private var remotecatalog: String = ""
@@ -271,14 +272,13 @@ struct QuicktaskView: View {
                     .textContentType(.none)
                     .submitLabel(.continue)
             }
-            
+
             // localcatalog
             HStack {
                 EditValue(300, NSLocalizedString("Add Remote folder - required", comment: ""), $localcatalog)
                     .focused($focusField, equals: .localcatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
-
             }
         }
     }
@@ -339,10 +339,9 @@ extension QuicktaskView {
                                  donotaddtrailingslash,
                                  remoteuser,
                                  remoteserver,
-                                "")
+                                 "")
         if let config = VerifyConfiguration().verify(getdata) {
             do {
-                
                 let ok = try validateinput(config)
                 if ok {
                     execute(config: config, dryrun: dryrun)
@@ -376,11 +375,11 @@ extension QuicktaskView {
             completed = true
         }
     }
-    
+
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
-    
+
     private func validateinput(_ config: SynchronizeConfiguration) throws -> Bool {
         if config.localCatalog.isEmpty {
             throw ValidateInputQuicktask.localcatalog

@@ -9,6 +9,10 @@
 import Foundation
 import Observation
 
+extension Thread {
+    static var isMain: Bool { isMainThread }
+}
+
 @Observable
 final class SharedReference {
     @MainActor static let shared = SharedReference()

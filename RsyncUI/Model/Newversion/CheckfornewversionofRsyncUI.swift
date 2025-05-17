@@ -59,7 +59,7 @@ actor GetversionofRsyncUI {
         return false
     }
 
-    func downloadlinkofrsyncui() async -> String? {
+    nonisolated func downloadlinkofrsyncui() async -> String? {
         do {
             Logger.process.info("GetversionofRsyncUI: downloadlinkofrsyncui() MAIN THREAD \(Thread.isMain)")
             let versions = await DecodeGeneric()

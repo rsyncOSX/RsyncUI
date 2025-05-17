@@ -47,7 +47,3 @@ struct TCPconnections: Sendable {
         }
     }
 }
-
-extension Thread {
-    static var isMain: Bool { isMainThread }
-}
