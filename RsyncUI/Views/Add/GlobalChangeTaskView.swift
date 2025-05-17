@@ -44,7 +44,7 @@ struct GlobalChangeTaskView: View {
                     .disabled(configurations.isEmpty)
                     .buttonStyle(ColorfulButtonStyle())
 
-                    Text("Use $ as split character, ALL or\nSELECTED configurations will be updated")
+                    Text("ALL or SELECTED configurations\nwill be updated")
                         .padding(.bottom, 10)
                 }
 
@@ -115,44 +115,130 @@ struct GlobalChangeTaskView: View {
         }
     }
 
+    var synchronizeID: some View {
+        Section(header: headerID) {
+            HStack {
+                // Synchronize ID
+                EditValue(140, NSLocalizedString("Synchronize ID", comment: ""), $newdata.occurence_backupID)
+                    .onChange(of: newdata.occurence_backupID) {
+                        Task {
+                            try await Task.sleep(seconds: 2)
+                            if newdata.occurence_backupID.isEmpty {
+                                if newdata.whatischanged.contains(.backupID) {
+                                    newdata.whatischanged.remove(.backupID)
+                                }
+                            } else {
+                                if newdata.whatischanged.contains(.backupID) == false {
+                                    newdata.whatischanged.insert(.backupID)
+                                }
+                            }
+                        }
+                    }
+                    .disabled(configurations.isEmpty)
+                    .focused($focusField, equals: .synchronizeIDField)
+                
+                EditValue(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_backupID)
+                    .onChange(of: newdata.replace_backupID) {
+                        Task {
+                            try await Task.sleep(seconds: 2)
+                            if newdata.replace_backupID.isEmpty {
+                                if newdata.whatischanged.contains(.backupID) {
+                                    newdata.whatischanged.remove(.backupID)
+                                }
+                            } else {
+                                if newdata.whatischanged.contains(.backupID) == false {
+                                    newdata.whatischanged.insert(.backupID)
+                                }
+                            }
+                        }
+                    }
+                    .disabled(configurations.isEmpty)
+                    .focused($focusField, equals: .synchronizeIDField)
+            }
+        }
+    }
+
     var localandremotecatalog: some View {
         Section(header: headerlocalremote) {
-            // localcatalog
-            EditValue(300, NSLocalizedString("Local folder", comment: ""), $newdata.occurence_localcatalog)
-                .onChange(of: newdata.occurence_localcatalog) {
-                    Task {
-                        try await Task.sleep(seconds: 2)
-                        if newdata.occurence_localcatalog.isEmpty {
-                            if newdata.whatischanged.contains(.localcatalog) {
-                                newdata.whatischanged.remove(.localcatalog)
-                            }
-                        } else {
-                            if newdata.whatischanged.contains(.localcatalog) == false {
-                                newdata.whatischanged.insert(.localcatalog)
+            HStack {
+                // localcatalog
+                EditValue(140, NSLocalizedString("Local folder", comment: ""), $newdata.occurence_localcatalog)
+                    .onChange(of: newdata.occurence_localcatalog) {
+                        Task {
+                            try await Task.sleep(seconds: 2)
+                            if newdata.occurence_localcatalog.isEmpty {
+                                if newdata.whatischanged.contains(.localcatalog) {
+                                    newdata.whatischanged.remove(.localcatalog)
+                                }
+                            } else {
+                                if newdata.whatischanged.contains(.localcatalog) == false {
+                                    newdata.whatischanged.insert(.localcatalog)
+                                }
                             }
                         }
                     }
-                }
-                .disabled(configurations.isEmpty)
-                .focused($focusField, equals: .localcatalogField)
+                    .disabled(configurations.isEmpty)
+                    .focused($focusField, equals: .localcatalogField)
+                
+                // localcatalog
+                EditValue(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_localcatalog)
+                    .onChange(of: newdata.replace_localcatalog) {
+                        Task {
+                            try await Task.sleep(seconds: 2)
+                            if newdata.replace_localcatalog.isEmpty {
+                                if newdata.whatischanged.contains(.localcatalog) {
+                                    newdata.whatischanged.remove(.localcatalog)
+                                }
+                            } else {
+                                if newdata.whatischanged.contains(.localcatalog) == false {
+                                    newdata.whatischanged.insert(.localcatalog)
+                                }
+                            }
+                        }
+                    }
+                    .disabled(configurations.isEmpty)
+                    .focused($focusField, equals: .localcatalogField)
 
-            EditValue(300, NSLocalizedString("Remote folder", comment: ""), $newdata.occurence_remotecatalog)
-                .onChange(of: newdata.occurence_remotecatalog) {
-                    Task {
-                        try await Task.sleep(seconds: 2)
-                        if newdata.occurence_remotecatalog.isEmpty {
-                            if newdata.whatischanged.contains(.remotecatalog) {
-                                newdata.whatischanged.remove(.remotecatalog)
-                            }
-                        } else {
-                            if newdata.whatischanged.contains(.remotecatalog) == false {
-                                newdata.whatischanged.insert(.remotecatalog)
+            }
+            
+            HStack {
+                EditValue(140, NSLocalizedString("Remote folder", comment: ""), $newdata.occurence_remotecatalog)
+                    .onChange(of: newdata.occurence_remotecatalog) {
+                        Task {
+                            try await Task.sleep(seconds: 2)
+                            if newdata.occurence_remotecatalog.isEmpty {
+                                if newdata.whatischanged.contains(.remotecatalog) {
+                                    newdata.whatischanged.remove(.remotecatalog)
+                                }
+                            } else {
+                                if newdata.whatischanged.contains(.remotecatalog) == false {
+                                    newdata.whatischanged.insert(.remotecatalog)
+                                }
                             }
                         }
                     }
-                }
-                .disabled(configurations.isEmpty)
-                .focused($focusField, equals: .remotecatalogField)
+                    .disabled(configurations.isEmpty)
+                    .focused($focusField, equals: .remotecatalogField)
+                
+                EditValue(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_remotecatalog)
+                    .onChange(of: newdata.replace_remotecatalog) {
+                        Task {
+                            try await Task.sleep(seconds: 2)
+                            if newdata.replace_remotecatalog.isEmpty {
+                                if newdata.whatischanged.contains(.remotecatalog) {
+                                    newdata.whatischanged.remove(.remotecatalog)
+                                }
+                            } else {
+                                if newdata.whatischanged.contains(.remotecatalog) == false {
+                                    newdata.whatischanged.insert(.remotecatalog)
+                                }
+                            }
+                        }
+                    }
+                    .disabled(configurations.isEmpty)
+                    .focused($focusField, equals: .remotecatalogField)
+            }
+            
         }
     }
 
@@ -198,52 +284,10 @@ struct GlobalChangeTaskView: View {
         }
     }
 
-    var synchronizeID: some View {
-        Section(header: headerID) {
-            HStack {
-                // Synchronize ID
-                EditValue(140, NSLocalizedString("Synchronize ID", comment: ""), $newdata.occurence_backupID)
-                    .onChange(of: newdata.occurence_backupID) {
-                        Task {
-                            try await Task.sleep(seconds: 2)
-                            if newdata.occurence_backupID.isEmpty {
-                                if newdata.whatischanged.contains(.backupID) {
-                                    newdata.whatischanged.remove(.backupID)
-                                }
-                            } else {
-                                if newdata.whatischanged.contains(.backupID) == false {
-                                    newdata.whatischanged.insert(.backupID)
-                                }
-                            }
-                        }
-                    }
-                    .disabled(configurations.isEmpty)
-                    .focused($focusField, equals: .synchronizeIDField)
-                
-                EditValue(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_backupID)
-                    .onChange(of: newdata.replace_backupID) {
-                        Task {
-                            try await Task.sleep(seconds: 2)
-                            if newdata.replace_backupID.isEmpty {
-                                if newdata.whatischanged.contains(.backupID) {
-                                    newdata.whatischanged.remove(.backupID)
-                                }
-                            } else {
-                                if newdata.whatischanged.contains(.backupID) == false {
-                                    newdata.whatischanged.insert(.backupID)
-                                }
-                            }
-                        }
-                    }
-                    .disabled(configurations.isEmpty)
-                    .focused($focusField, equals: .synchronizeIDField)
-            }
-        }
-    }
-
+    
     // Headers (in sections)
     var headerlocalremote: some View {
-        Text("Folder parameters - split character $")
+        Text("Folder parameters")
             .modifier(FixedTag(300, .leading))
     }
 
@@ -253,7 +297,7 @@ struct GlobalChangeTaskView: View {
     }
 
     var headerID: some View {
-        Text("Synchronize ID - split character $")
+        Text("Synchronize ID")
             .modifier(FixedTag(300, .leading))
     }
 

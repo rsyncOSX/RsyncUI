@@ -21,39 +21,13 @@ struct ConfigurationsTableGlobalChanges: View {
             .width(min: 50, max: 150)
             TableColumn("Local folder") { data in
                 if selecteduuids.count == 0 {
-                    if newdata.occurence_localcatalog.isEmpty == false, newdata.occurence_localcatalog.contains("$") {
-                        Text(newdata.splitinput(input: newdata.occurence_localcatalog, original: data.localCatalog))
-                    } else {
-                        Text(data.localCatalog)
-                    }
-                } else {
-                    if newdata.occurence_localcatalog.isEmpty == false,
-                       newdata.occurence_localcatalog.contains("$"),
-                       selecteduuids.contains(data.id)
-                    {
-                        Text(newdata.splitinput(input: newdata.occurence_localcatalog, original: data.localCatalog))
-                    } else {
-                        Text(data.localCatalog)
-                    }
+                    Text(newdata.updatestring(update: newdata.replace_localcatalog, replace: newdata.occurence_localcatalog, original: data.localCatalog))
                 }
             }
             .width(min: 180, max: 300)
             TableColumn("Remote folder") { data in
                 if selecteduuids.count == 0 {
-                    if newdata.occurence_remotecatalog.isEmpty == false, newdata.occurence_remotecatalog.contains("$") {
-                        Text(newdata.splitinput(input: newdata.occurence_remotecatalog, original: data.offsiteCatalog))
-                    } else {
-                        Text(data.offsiteCatalog)
-                    }
-                } else {
-                    if newdata.occurence_remotecatalog.isEmpty == false,
-                       newdata.occurence_remotecatalog.contains("$"),
-                       selecteduuids.contains(data.id)
-                    {
-                        Text(newdata.splitinput(input: newdata.occurence_remotecatalog, original: data.offsiteCatalog))
-                    } else {
-                        Text(data.offsiteCatalog)
-                    }
+                    Text(newdata.updatestring(update: newdata.replace_remotecatalog, replace: newdata.occurence_remotecatalog, original: data.offsiteCatalog))
                 }
             }
             .width(min: 180, max: 300)
