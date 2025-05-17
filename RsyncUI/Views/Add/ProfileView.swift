@@ -30,7 +30,10 @@ struct ProfileView: View {
                 }
                 .onChange(of: uuidprofile) {
                     let record = rsyncUIdata.validprofiles.filter { $0.id == uuidprofile }
-                    guard record.count > 0 else { return }
+                    guard record.count > 0 else {
+                        localselectedprofile = nil
+                        return
+                    }
                     localselectedprofile = record[0].profilename
                 }
 
