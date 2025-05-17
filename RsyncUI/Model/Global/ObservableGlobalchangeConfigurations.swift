@@ -19,11 +19,15 @@ enum GlobalchangeConfiguration: String, Codable {
 
 @Observable @MainActor
 final class ObservableGlobalchangeConfigurations {
+    var occurence_backupID: String = ""
+    var replace_backupID: String = ""
     var occurence_localcatalog: String = ""
+    var replace_localcatalog: String = ""
     var occurence_remotecatalog: String = ""
+    var replace_remotecatalog: String = ""
     var occurence_remoteuser: String = ""
     var occurence_remoteserver: String = ""
-    var occurence_backupID: String = ""
+    
 
     var showAlertforupdate: Bool = false
 
@@ -35,15 +39,18 @@ final class ObservableGlobalchangeConfigurations {
 
     func resetform() {
         occurence_localcatalog = ""
+        replace_localcatalog = ""
         occurence_remotecatalog = ""
+        replace_remotecatalog = ""
         occurence_remoteuser = ""
         occurence_remoteserver = ""
         occurence_backupID = ""
+        replace_backupID = ""
         whatischanged.removeAll()
     }
 
     func splitinput(input: String, original: String) -> String {
-        guard input.contains("$") else { return original }
+        guard input.isEmpty == false else { return original }
         let trimmed = input.replacingOccurrences(of: " ", with: "")
         let split = trimmed.split(separator: "$")
         guard split.count == 2 else { return original }

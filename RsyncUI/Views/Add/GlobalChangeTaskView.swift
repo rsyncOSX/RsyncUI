@@ -7,6 +7,19 @@
 
 import SwiftUI
 
+enum ReplaceConfigurationField: Hashable {
+    case synchronizeIDField
+    case synchronizeIDField_replace
+    case localcatalogField
+    case localcatalogField_replace
+    case remotecatalogField
+    case remotecatalogField_replace
+    case remoteuserField
+    case remoteserverField
+    
+}
+
+
 struct GlobalChangeTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
 
@@ -14,7 +27,7 @@ struct GlobalChangeTaskView: View {
     // Alert button
     @State private var showingAlert = false
     // Focusfield
-    @FocusState private var focusField: AddConfigurationField?
+    @FocusState private var focusField: ReplaceConfigurationField?
 
     var body: some View {
         HStack {
@@ -187,24 +200,44 @@ struct GlobalChangeTaskView: View {
 
     var synchronizeID: some View {
         Section(header: headerID) {
-            // Synchronize ID
-            EditValue(300, NSLocalizedString("Synchronize ID", comment: ""), $newdata.occurence_backupID)
-                .onChange(of: newdata.occurence_backupID) {
-                    Task {
-                        try await Task.sleep(seconds: 2)
-                        if newdata.occurence_backupID.isEmpty {
-                            if newdata.whatischanged.contains(.backupID) {
-                                newdata.whatischanged.remove(.backupID)
-                            }
-                        } else {
-                            if newdata.whatischanged.contains(.backupID) == false {
-                                newdata.whatischanged.insert(.backupID)
+            HStack {
+                // Synchronize ID
+                EditValue(140, NSLocalizedString("Synchronize ID", comment: ""), $newdata.occurence_backupID)
+                    .onChange(of: newdata.occurence_backupID) {
+                        Task {
+                            try await Task.sleep(seconds: 2)
+                            if newdata.occurence_backupID.isEmpty {
+                                if newdata.whatischanged.contains(.backupID) {
+                                    newdata.whatischanged.remove(.backupID)
+                                }
+                            } else {
+                                if newdata.whatischanged.contains(.backupID) == false {
+                                    newdata.whatischanged.insert(.backupID)
+                                }
                             }
                         }
                     }
-                }
-                .disabled(configurations.isEmpty)
-                .focused($focusField, equals: .synchronizeIDField)
+                    .disabled(configurations.isEmpty)
+                    .focused($focusField, equals: .synchronizeIDField)
+                
+                EditValue(140, NSLocalizedString("Synchronize ID", comment: ""), $newdata.replace_backupID)
+                    .onChange(of: newdata.replace_backupID) {
+                        Task {
+                            try await Task.sleep(seconds: 2)
+                            if newdata.replace_backupID.isEmpty {
+                                if newdata.whatischanged.contains(.backupID) {
+                                    newdata.whatischanged.remove(.backupID)
+                                }
+                            } else {
+                                if newdata.whatischanged.contains(.backupID) == false {
+                                    newdata.whatischanged.insert(.backupID)
+                                }
+                            }
+                        }
+                    }
+                    .disabled(configurations.isEmpty)
+                    .focused($focusField, equals: .synchronizeIDField)
+            }
         }
     }
 
