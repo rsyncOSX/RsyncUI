@@ -15,20 +15,7 @@ struct ConfigurationsTableGlobalChanges: View {
         Table(configurations, selection: $selecteduuids) {
             TableColumn("Synchronize ID") { data in
                 if selecteduuids.count == 0 {
-                    if newdata.occurence_backupID.isEmpty == false, newdata.occurence_backupID.contains("$") {
-                        Text(newdata.splitinput(input: newdata.occurence_backupID, original: data.backupID))
-                    } else {
-                        Text(data.backupID)
-                    }
-                } else {
-                    if newdata.occurence_backupID.isEmpty == false,
-                       newdata.occurence_backupID.contains("$"),
-                       selecteduuids.contains(data.id)
-                    {
-                        Text(newdata.splitinput(input: newdata.occurence_backupID, original: data.backupID))
-                    } else {
-                        Text(data.backupID)
-                    }
+                    Text(newdata.updatestring(update: newdata.replace_backupID, replace: newdata.occurence_backupID, original: data.backupID))
                 }
             }
             .width(min: 50, max: 150)

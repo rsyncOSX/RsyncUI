@@ -56,6 +56,12 @@ final class ObservableGlobalchangeConfigurations {
         guard split.count == 2 else { return original }
         return original.replacingOccurrences(of: String(split[0]), with: String(split[1]))
     }
+    
+    func updatestring(update: String, replace: String, original: String) -> String {
+        guard update.isEmpty == false else { return original }
+        guard replace.isEmpty == false else { return original }
+        return original.replacingOccurrences(of: replace, with: update)
+    }
 
     func updateglobalchangedconfigurations() {
         guard whatischanged.isEmpty == false else { return }

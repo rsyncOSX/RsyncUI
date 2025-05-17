@@ -220,7 +220,7 @@ struct GlobalChangeTaskView: View {
                     .disabled(configurations.isEmpty)
                     .focused($focusField, equals: .synchronizeIDField)
                 
-                EditValue(140, NSLocalizedString("Synchronize ID", comment: ""), $newdata.replace_backupID)
+                EditValue(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_backupID)
                     .onChange(of: newdata.replace_backupID) {
                         Task {
                             try await Task.sleep(seconds: 2)
