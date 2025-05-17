@@ -21,9 +21,20 @@ struct GlobalChangeTaskView: View {
             // Column 1
 
             VStack(alignment: .leading) {
-                Text("Use $ as split character, ALL or\nSELECTED configurations will be updated")
-                    .padding(.bottom, 10)
-
+                HStack {
+                    Button("Update") {
+                        guard newdata.whatischanged.isEmpty == false else { return }
+                        newdata.updateglobalchangedconfigurations()
+                        showingAlert = true
+                    }
+                    .help("Update task")
+                    .disabled(configurations.isEmpty)
+                    .buttonStyle(ColorfulButtonStyle())
+                    
+                    Text("Use $ as split character, ALL or\nSELECTED configurations will be updated")
+                        .padding(.bottom, 10)
+                }
+                
                 VStack(alignment: .leading) { synchronizeID }
 
                 VStack(alignment: .leading) { localandremotecatalog }
@@ -58,20 +69,6 @@ struct GlobalChangeTaskView: View {
                 }
             )
         }
-        .toolbar(content: {
-            ToolbarItem {
-                Button {
-                    guard newdata.whatischanged.isEmpty == false else { return }
-                    newdata.updateglobalchangedconfigurations()
-                    showingAlert = true
-                } label: {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(Color(.blue))
-                }
-                .help("Update task")
-                .disabled(configurations.isEmpty)
-            }
-        })
         .onAppear {
             // Synchronize and syncremote tasks
             newdata.globalchangedconfigurations = rsyncUIdata.configurations?.compactMap { task in
