@@ -60,41 +60,29 @@ final class ObservableGlobalchangeConfigurations {
 
         for element in whatischanged {
             switch element {
+            case .backupID:
+                globalchangedconfigurations = globalchangedconfigurations?.map { task in
+                    var newtask = task
+                    newtask.backupID = updatestring(update: replace_backupID,
+                                                        replace: occurence_backupID,
+                                                        original: task.backupID)
+                    return newtask
+                }
             case .localcatalog:
                 globalchangedconfigurations = globalchangedconfigurations?.map { task in
-                    let oldsstring = task.localCatalog
-                    if occurence_localcatalog.contains("$") {
-                        let trimmed = occurence_localcatalog.replacingOccurrences(of: " ", with: "")
-                        let split = trimmed.split(separator: "$")
-                        guard split.count == 2 else { return task }
-                        let newstring = oldsstring.replacingOccurrences(of: split[0], with: split[1])
-                        var newtask = task
-                        newtask.localCatalog = newstring
-                        return newtask
-                    } else {
-                        let newstring = oldsstring.replacingOccurrences(of: oldsstring, with: occurence_localcatalog)
-                        var newtask = task
-                        newtask.localCatalog = newstring
-                        return newtask
-                    }
+                    var newtask = task
+                    newtask.localCatalog = updatestring(update: replace_localcatalog,
+                                                        replace: occurence_localcatalog,
+                                                        original: task.localCatalog)
+                    return newtask
                 }
             case .remotecatalog:
                 globalchangedconfigurations = globalchangedconfigurations?.map { task in
-                    let oldsstring = task.offsiteCatalog
-                    if occurence_remotecatalog.contains("$") {
-                        let trimmed = occurence_remotecatalog.replacingOccurrences(of: " ", with: "")
-                        let split = trimmed.split(separator: "$")
-                        guard split.count == 2 else { return task }
-                        let newstring = oldsstring.replacingOccurrences(of: split[0], with: split[1])
-                        var newtask = task
-                        newtask.offsiteCatalog = newstring
-                        return newtask
-                    } else {
-                        let newstring = oldsstring.replacingOccurrences(of: oldsstring, with: occurence_remotecatalog)
-                        var newtask = task
-                        newtask.offsiteCatalog = newstring
-                        return newtask
-                    }
+                    var newtask = task
+                    newtask.offsiteCatalog = updatestring(update: replace_remotecatalog,
+                                                        replace: occurence_remotecatalog,
+                                                        original: task.offsiteCatalog)
+                    return newtask
                 }
             case .remoteuser:
                 globalchangedconfigurations = globalchangedconfigurations?.map { task in
@@ -111,24 +99,6 @@ final class ObservableGlobalchangeConfigurations {
                     var newtask = task
                     newtask.offsiteServer = newstring
                     return newtask
-                }
-            case .backupID:
-                globalchangedconfigurations = globalchangedconfigurations?.map { task in
-                    let oldsstring = task.backupID
-                    if occurence_backupID.contains("$") {
-                        let trimmed = occurence_backupID.replacingOccurrences(of: " ", with: "")
-                        let split = trimmed.split(separator: "$")
-                        guard split.count == 2 else { return task }
-                        let newstring = oldsstring.replacingOccurrences(of: split[0], with: split[1])
-                        var newtask = task
-                        newtask.backupID = newstring
-                        return newtask
-                    } else {
-                        let newstring = oldsstring.replacingOccurrences(of: oldsstring, with: occurence_backupID)
-                        var newtask = task
-                        newtask.backupID = newstring
-                        return newtask
-                    }
                 }
             }
         }
