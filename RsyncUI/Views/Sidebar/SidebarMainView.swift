@@ -52,6 +52,8 @@ struct SidebarMainView: View {
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             Picker("", selection: $selectedprofile) {
+                Text("Default")
+                        .tag(nil as ProfilesnamesRecord.ID?)
                 ForEach(rsyncUIdata.validprofiles, id: \.self) { profile in
                     Text(profile.profilename)
                         .tag(profile.profilename)
