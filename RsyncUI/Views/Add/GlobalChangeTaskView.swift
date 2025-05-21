@@ -9,11 +9,8 @@ import SwiftUI
 
 enum ReplaceConfigurationField: Hashable {
     case synchronizeIDField
-    case synchronizeIDField_replace
     case localcatalogField
-    case localcatalogField_replace
     case remotecatalogField
-    case remotecatalogField_replace
     case remoteuserField
     case remoteserverField
     

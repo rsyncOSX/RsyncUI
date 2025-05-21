@@ -136,11 +136,6 @@ final class ObservableAddConfigurations {
         }
     }
 
-    func verifyremotestorageislocal() -> Bool {
-        let fm = FileManager.default
-        return fm.locationExists(at: remotecatalog, kind: .folder)
-    }
-
     // Prepare for Copy and Paste tasks
     func preparecopyandpastetasks(_ items: [CopyItem], _ configurations: [SynchronizeConfiguration]) {
         copyandpasteconfigurations = nil

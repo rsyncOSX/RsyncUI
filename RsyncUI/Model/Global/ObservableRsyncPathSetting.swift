@@ -93,16 +93,6 @@ final class ObservableRsyncPathSetting {
     }
 }
 
-enum Validatedpath: LocalizedError {
-    case nopath
-    var errorDescription: String? {
-        switch self {
-        case .nopath:
-            "No such path"
-        }
-    }
-}
-
 enum InputError: LocalizedError {
     case notvalidInt
 
