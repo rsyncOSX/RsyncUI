@@ -274,6 +274,16 @@ struct AddTaskView: View {
                 return
             }
         }
+        .onAppear {
+            if selecteduuids.count > 0  {
+                // Reset preselected tasks, must do a few seconds timout
+                // before clearing it out
+                Task {
+                    try await Task.sleep(seconds: 2)
+                    selecteduuids.removeAll()
+                }
+            }
+        }
         .onChange(of: rsyncUIdata.profile) {
             newdata.resetform()
             selecteduuids.removeAll()
