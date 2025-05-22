@@ -126,7 +126,8 @@ struct SidebarMainView: View {
                     columnVisibility = .detailOnly
                 }
                 // Only addObserver if there are more than the default profile
-                if SharedReference.shared.observemountedvolumes, rsyncUIdata.validprofiles.count > 1 {
+                if SharedReference.shared.observemountedvolumes,
+                    rsyncUIdata.validprofiles.isEmpty == false {
                     // Observer for mounting volumes
                     observerdidMountNotification()
                     observerdiddidUnmountNotification()
