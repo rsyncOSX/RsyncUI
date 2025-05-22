@@ -76,7 +76,7 @@ struct DeeplinkURL {
         let adjustedvalueid = valueid.replacingOccurrences(of: " ", with: "_")
         var adjustedvalueprofile = valueprofile
         if valueprofile == nil {
-            adjustedvalueprofile = "default"
+            adjustedvalueprofile = "Default"
         }
         let queryitems: [URLQueryItem] = [URLQueryItem(name: "profile", value: adjustedvalueprofile),
                                           URLQueryItem(name: "id", value: adjustedvalueid)]
@@ -91,7 +91,7 @@ struct DeeplinkURL {
         let host = Deeplinknavigation.loadprofileandestimate.rawValue
         var adjustedvalueprofile = valueprofile
         if valueprofile == nil {
-            adjustedvalueprofile = "default"
+            adjustedvalueprofile = "Default"
         }
         let queryitems: [URLQueryItem] = [URLQueryItem(name: "profile", value: adjustedvalueprofile)]
         if let url = deeplinks.createURL(host, queryitems) {

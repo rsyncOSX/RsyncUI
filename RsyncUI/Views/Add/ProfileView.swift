@@ -54,6 +54,8 @@ struct ProfileView: View {
             ToolbarItem {
                 Button {
                     guard newprofile.isEmpty == false else { return }
+                    guard newprofile != "Default" else { return }
+                    guard newprofile != "default" else { return }
                     createprofile()
                 } label: {
                     Image(systemName: "checkmark.circle.fill")

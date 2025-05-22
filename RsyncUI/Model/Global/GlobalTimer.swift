@@ -26,7 +26,7 @@ final class GlobalTimer {
         if profile == nil {
             
             Logger.process.info("GlobalTimer: addSchedule() - profile default at time \(time)")
-            schedules["default"] = (time, callback)
+            schedules["Default"] = (time, callback)
             
             
         } else if let profile {

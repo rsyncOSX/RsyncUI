@@ -14,7 +14,6 @@ struct CalendarMonthView: View {
 
     // Trigger scheduled task by queryitem
     @Binding var urlcommandestimateandsynchronize: Bool
-    
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
 
     @State private var date = Date.now

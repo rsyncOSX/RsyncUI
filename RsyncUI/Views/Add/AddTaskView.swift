@@ -192,11 +192,11 @@ struct AddTaskView: View {
 
                                         if selectedconfig?.offsiteServer.isEmpty == false {
                                             // Create verifyremote URL
-                                            let urlverify = deeplinkurl.createURLloadandverify(valueprofile: rsyncUIdata.profile ?? "default", valueid: selectedconfig?.backupID ?? "Synchronize ID")
+                                            let urlverify = deeplinkurl.createURLloadandverify(valueprofile: rsyncUIdata.profile ?? "Default", valueid: selectedconfig?.backupID ?? "Synchronize ID")
                                             stringverify = urlverify?.absoluteString ?? ""
                                         }
                                         // Create estimate and synchronize URL
-                                        let urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: rsyncUIdata.profile ?? "default")
+                                        let urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: rsyncUIdata.profile ?? "Default")
                                         stringestimate = urlestimate?.absoluteString ?? ""
 
                                     } else {

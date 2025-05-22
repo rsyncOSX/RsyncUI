@@ -338,7 +338,7 @@ extension SidebarMainView {
 
                 selectedview = .synchronize
 
-                if profile == "default" {
+                if profile == "Default" || profile == "default" {
                     Task {
                         if externalurl {
                             // Load profile for external URL, this make the call strctured concurrency
@@ -390,7 +390,7 @@ extension SidebarMainView {
                     selectedview = .verify_remote
                 }
 
-                if profile == "default" {
+                if profile == "Default" || profile == "default" {
                     Task {
                         if externalurl {
                             // Load profile for external URL
