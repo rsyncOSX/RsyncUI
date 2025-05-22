@@ -20,10 +20,8 @@ struct AddSchedule: View {
     @Binding var date: Date
 
     @State private var schedule: String = ScheduleType.once.rawValue
-
     @State private var dateRunMonth: String = Date.now.en_string_month_from_date()
     @State private var dateRunHour: String = ""
-    @State private var selectedprofile: String?
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -62,8 +60,16 @@ struct AddSchedule: View {
                         // Just concatenate month + minnutes string
                         let run = dateRunMonth + " " + dateRunHour
                         try scheduledata.validatedate(date: run)
+                        
+                        var profile: String?
+                        
+                        if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
+                            profile = rsyncUIdata.validprofiles[index].profilename
+                        } else {
+                            profile = nil
+                        }
 
-                        let item = SchedulesConfigurations(profile: selectedprofile,
+                        let item = SchedulesConfigurations(profile: profile,
                                                            dateAdded: dateAdded,
                                                            dateRun: run,
                                                            schedule: schedule)
@@ -105,15 +111,6 @@ struct AddSchedule: View {
                 }
             }
             .padding()
-        }
-        .onChange(of: selectedprofileID) {
-            if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
-                rsyncUIdata.profile = rsyncUIdata.validprofiles[index].profilename
-                selectedprofile = rsyncUIdata.validprofiles[index].profilename
-            } else {
-                rsyncUIdata.profile = nil
-                selectedprofile = nil
-            }
         }
         .onChange(of: dateRun) {
             let date = dateRun.en_date_from_string()

@@ -21,10 +21,19 @@ final class GlobalTimer {
 
     private var schedules: [String: (time: Date, callback: () -> Void)] = [:]
 
-    func addSchedule(profile: String, time: Date, callback: @escaping () -> Void) {
-        Logger.process.info("GlobalTimer: addSchedule() - profile \(profile) at time \(time)")
-
-        schedules[profile] = (time, callback)
+    func addSchedule(profile: String?, time: Date, callback: @escaping () -> Void) {
+        
+        if profile == nil {
+            
+            Logger.process.info("GlobalTimer: addSchedule() - profile default at time \(time)")
+            schedules["default"] = (time, callback)
+            
+            
+        } else if let profile {
+            Logger.process.info("GlobalTimer: addSchedule() - profile \(profile) at time \(time)")
+            schedules[profile] = (time, callback)
+        }
+        
         start()
     }
 

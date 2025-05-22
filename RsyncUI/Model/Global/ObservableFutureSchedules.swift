@@ -18,9 +18,9 @@ final class ObservableFutureSchedules {
     // First schedule to execute
     var firstscheduledate: SchedulesConfigurations?
     // Trigger execution
-    var scheduledprofile: String = ""
+    var scheduledprofile: String?
 
-    private func computefuturedates(profile: String, schedule: String, dateRun: Date) {
+    private func computefuturedates(profile: String?, schedule: String, dateRun: Date) {
         var dateComponents = DateComponents()
 
         // Last date in month is NOT set when loading data at startup
@@ -91,7 +91,7 @@ final class ObservableFutureSchedules {
         }
     }
 
-    private func appendfutureschedule(profile: String, dateRun: String, schedule: String) {
+    private func appendfutureschedule(profile: String?, dateRun: String, schedule: String) {
         // Only add futuredates
         guard dateRun.en_date_from_string() >= Date.now else { return }
         let futureschedule = SchedulesConfigurations(profile: profile,
@@ -108,11 +108,10 @@ final class ObservableFutureSchedules {
 
         if let scheduledata {
             for i in 0 ..< scheduledata.count {
-                if let profile = scheduledata[i].profile,
-                   let schedule = scheduledata[i].schedule,
+                if let schedule = scheduledata[i].schedule,
                    let dateRun = scheduledata[i].dateRun?.validate_en_date_from_string()
                 {
-                    computefuturedates(profile: profile, schedule: schedule, dateRun: dateRun)
+                    computefuturedates(profile: scheduledata[i].profile, schedule: schedule, dateRun: dateRun)
                 }
             }
         }
@@ -151,14 +150,14 @@ final class ObservableFutureSchedules {
         globalTimer.clearSchedules()
 
         // Then add new schedule
-        if let schedultime = schedule.dateRun?.en_date_from_string(), let profile = schedule.profile {
+        if let schedultime = schedule.dateRun?.en_date_from_string() {
             // The time callback
-            globalTimer.addSchedule(profile: profile, time: schedultime) {
+            globalTimer.addSchedule(profile: schedule.profile, time: schedultime) {
                 self.recomputeschedules()
                 self.setfirsscheduledate()
                 // Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED INTERNALLY")
-                LogToFile(["ObservableFutureSchedules: schedule FIRED for \(profile)"], error: true)
-                self.scheduledprofile = profile
+                LogToFile(["ObservableFutureSchedules: schedule FIRED for \(schedule.profile ?? "default")"], error: true)
+                self.scheduledprofile = schedule.profile
             }
         }
     }
