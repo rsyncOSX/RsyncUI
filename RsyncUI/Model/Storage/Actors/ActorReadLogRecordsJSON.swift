@@ -18,7 +18,7 @@ actor ActorReadLogRecordsJSON {
 
         Logger.process.info("ActorReadLogRecordsJSON: readjsonfilelogrecords() MAIN THREAD \(Thread.isMain)")
 
-        if let profile, profile != SharedConstants().defaultprofile, let path = path.fullpathmacserial {
+        if let profile, let path = path.fullpathmacserial {
             filename = path + "/" + profile + "/" + SharedConstants().filenamelogrecordsjson
         } else {
             if let path = path.fullpathmacserial {

@@ -57,7 +57,6 @@ struct Homepath {
         let fm = FileManager.default
         if let fullpathmacserial {
             var array = [String]()
-            array.append(SharedConstants().defaultprofile)
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             do {
                 for filesandfolders in try fm.contentsOfDirectory(at: fullpathmacserialURL,

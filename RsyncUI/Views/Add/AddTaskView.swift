@@ -275,7 +275,7 @@ struct AddTaskView: View {
             }
         }
         .onAppear {
-            if selecteduuids.count > 0  {
+            if selecteduuids.count > 0 {
                 // Reset preselected tasks, must do a few seconds timout
                 // before clearing it out
                 Task {

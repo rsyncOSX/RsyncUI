@@ -13,9 +13,7 @@ enum ReplaceConfigurationField: Hashable {
     case remotecatalogField
     case remoteuserField
     case remoteserverField
-    
 }
-
 
 struct GlobalChangeTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
@@ -133,7 +131,7 @@ struct GlobalChangeTaskView: View {
                     }
                     .disabled(configurations.isEmpty)
                     .focused($focusField, equals: .synchronizeIDField)
-                
+
                 EditValue(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_backupID)
                     .onChange(of: newdata.replace_backupID) {
                         Task {
@@ -176,7 +174,7 @@ struct GlobalChangeTaskView: View {
                     }
                     .disabled(configurations.isEmpty)
                     .focused($focusField, equals: .localcatalogField)
-                
+
                 // localcatalog
                 EditValue(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_localcatalog)
                     .onChange(of: newdata.replace_localcatalog) {
@@ -195,9 +193,8 @@ struct GlobalChangeTaskView: View {
                     }
                     .disabled(configurations.isEmpty)
                     .focused($focusField, equals: .localcatalogField)
-
             }
-            
+
             HStack {
                 EditValue(140, NSLocalizedString("Remote folder", comment: ""), $newdata.occurence_remotecatalog)
                     .onChange(of: newdata.occurence_remotecatalog) {
@@ -216,7 +213,7 @@ struct GlobalChangeTaskView: View {
                     }
                     .disabled(configurations.isEmpty)
                     .focused($focusField, equals: .remotecatalogField)
-                
+
                 EditValue(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_remotecatalog)
                     .onChange(of: newdata.replace_remotecatalog) {
                         Task {
@@ -235,7 +232,6 @@ struct GlobalChangeTaskView: View {
                     .disabled(configurations.isEmpty)
                     .focused($focusField, equals: .remotecatalogField)
             }
-            
         }
     }
 
@@ -281,7 +277,6 @@ struct GlobalChangeTaskView: View {
         }
     }
 
-    
     // Headers (in sections)
     var headerlocalremote: some View {
         Text("Folder parameters")

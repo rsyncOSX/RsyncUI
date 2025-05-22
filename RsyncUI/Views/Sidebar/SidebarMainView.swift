@@ -49,14 +49,16 @@ struct SidebarMainView: View {
     // Calendar
     @State private var futuredates = ObservableFutureSchedules()
 
+    @State private var selectedprofileID: ProfilesnamesRecord.ID?
+
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
-            Picker("", selection: $selectedprofile) {
+            Picker("", selection: $selectedprofileID) {
                 Text("Default")
-                        .tag(nil as ProfilesnamesRecord.ID?)
+                    .tag(nil as ProfilesnamesRecord.ID?)
                 ForEach(rsyncUIdata.validprofiles, id: \.self) { profile in
                     Text(profile.profilename)
-                        .tag(profile.profilename)
+                        .tag(profile.id)
                 }
             }
             .frame(width: 180)
@@ -168,7 +170,14 @@ struct SidebarMainView: View {
                 }
             }
         }
-        .onChange(of: selectedprofile) {
+        .onChange(of: selectedprofileID) {
+            if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
+                rsyncUIdata.profile = rsyncUIdata.validprofiles[index].profilename
+                selectedprofile = rsyncUIdata.validprofiles[index].profilename
+            } else {
+                rsyncUIdata.profile = nil
+                selectedprofile = nil
+            }
             selecteduuids.removeAll()
         }
         .onChange(of: futuredates.firstscheduledate) {
@@ -471,12 +480,12 @@ extension SidebarMainView {
 
     // Must load profile for URL-link async to make sure profile is
     // loaded ahead of start requested action. Only for external URL requests
-    func loadprofileforexternalurllink(_ profile: String) async -> Bool {
+    func loadprofileforexternalurllink(_ profile: String?) async -> Bool {
         Logger.process.info("SidebarMainView: loadprofileforexternalurllink executed")
         rsyncUIdata.externalurlrequestinprogress = true
-        if profile == "default" {
-            rsyncUIdata.profile = SharedConstants().defaultprofile
-            selectedprofile = SharedConstants().defaultprofile
+        if profile == nil {
+            rsyncUIdata.profile = nil
+            selectedprofile = nil
         } else {
             rsyncUIdata.profile = profile
             selectedprofile = profile

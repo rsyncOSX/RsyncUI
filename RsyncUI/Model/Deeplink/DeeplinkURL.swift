@@ -65,11 +65,11 @@ struct DeeplinkURL {
         }
     }
 
-    func createURLloadandverify(valueprofile: String, valueid: String) -> URL? {
+    func createURLloadandverify(valueprofile: String?, valueid: String) -> URL? {
         let host = Deeplinknavigation.loadprofileandverify.rawValue
         let adjustedvalueid = valueid.replacingOccurrences(of: " ", with: "_")
         var adjustedvalueprofile = valueprofile
-        if valueprofile == SharedConstants().defaultprofile {
+        if valueprofile == nil {
             adjustedvalueprofile = "default"
         }
         let queryitems: [URLQueryItem] = [URLQueryItem(name: "profile", value: adjustedvalueprofile),
@@ -81,10 +81,10 @@ struct DeeplinkURL {
         }
     }
 
-    func createURLestimateandsynchronize(valueprofile: String) -> URL? {
+    func createURLestimateandsynchronize(valueprofile: String?) -> URL? {
         let host = Deeplinknavigation.loadprofileandestimate.rawValue
         var adjustedvalueprofile = valueprofile
-        if valueprofile == SharedConstants().defaultprofile {
+        if valueprofile == nil {
             adjustedvalueprofile = "default"
         }
         let queryitems: [URLQueryItem] = [URLQueryItem(name: "profile", value: adjustedvalueprofile)]

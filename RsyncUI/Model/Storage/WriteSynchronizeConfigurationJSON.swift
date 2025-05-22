@@ -15,16 +15,11 @@ final class WriteSynchronizeConfigurationJSON {
     let path = Homepath()
 
     private func writeJSONToPersistentStore(jsonData: Data?, _ profile: String?) {
-        let localprofile: String? = if profile == SharedConstants().defaultprofile {
-            nil
-        } else {
-            profile
-        }
         if let fullpathmacserial = path.fullpathmacserial {
             var configurationfileURL: URL?
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            if let localprofile {
-                let tempURL = fullpathmacserialURL.appendingPathComponent(localprofile)
+            if let profile {
+                let tempURL = fullpathmacserialURL.appendingPathComponent(profile)
                 configurationfileURL = tempURL.appendingPathComponent(SharedConstants().fileconfigurationsjson)
 
             } else {
@@ -33,7 +28,7 @@ final class WriteSynchronizeConfigurationJSON {
             if let jsonData, let configurationfileURL {
                 do {
                     try jsonData.write(to: configurationfileURL)
-                    let myprofile = profile ?? SharedConstants().defaultprofile
+                    let myprofile = profile ?? "Default"
                     Logger.process.info("WriteSynchronizeConfigurationJSON - \(myprofile), privacy: .public): write configurations to permanent storage")
                 } catch let e {
                     let error = e

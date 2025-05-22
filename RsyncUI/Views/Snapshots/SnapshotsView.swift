@@ -271,10 +271,6 @@ extension SnapshotsView {
                 self.snapdayofweek = snapdayofweek
             }
             snapshotdata.snapshotlist = true
-            var profile: String? = rsyncUIdata.profile ?? ""
-            if profile == SharedConstants().defaultprofile || profile == nil {
-                profile = nil
-            }
 
             if let config = selectedconfig {
                 Task {

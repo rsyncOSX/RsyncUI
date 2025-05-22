@@ -14,7 +14,7 @@ struct TableofSchedules: View {
     var body: some View {
         Table(schedules, selection: $selecteduuids) {
             TableColumn("Profile") { data in
-                Text(data.profile ?? SharedConstants().defaultprofile)
+                Text(data.profile ?? "Default")
             }
             .width(min: 100, max: 150)
 

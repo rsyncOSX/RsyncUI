@@ -20,8 +20,8 @@ final class ObservableProfiles {
         }
     }
 
-    func deleteprofile(_ profile: String) -> Bool {
-        guard profile != SharedConstants().defaultprofile else { return false }
+    func deleteprofile(_ profile: String?) -> Bool {
+        guard profile != nil else { return false }
         if CatalogForProfile().deleteprofilecatalog(profile) {
             return true
         } else {

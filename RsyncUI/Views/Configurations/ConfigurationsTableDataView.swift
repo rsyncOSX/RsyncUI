@@ -16,7 +16,7 @@ struct ConfigurationsTableDataView: View {
     var body: some View {
         Table(configurations ?? [], selection: $selecteduuids) {
             TableColumn("Profile") { _ in
-                Text(profile ?? SharedConstants().defaultprofile)
+                Text(profile ?? "Default")
             }
             .width(min: 50, max: 200)
             TableColumn("Synchronize ID") { data in

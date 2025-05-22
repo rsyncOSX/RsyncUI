@@ -42,19 +42,19 @@ final class EstimateProgressDetails {
         return (answer?.count ?? 0 == 1) && (estimatedlist?.count ?? 0 == 1)
     }
 
-    func setprofileandnumberofconfigurations(_ profilename: String, _ num: Int) {
+    func setprofileandnumberofconfigurations(_ profilename: String?, _ num: Int) {
         profile = profilename
         numberofconfigurations = num
     }
 
-    func executeanotherdryrun(_ profilename: String) -> Bool {
+    func executeanotherdryrun(_ profilename: String?) -> Bool {
         estimatealltasksinprogress == false &&
             onetaskisestimated == true &&
             estimatedlist?.count != numberofconfigurations &&
             profile == profilename
     }
 
-    func alltasksestimated(_ profilename: String) -> Bool {
+    func alltasksestimated(_ profilename: String?) -> Bool {
         estimatealltasksinprogress == false &&
             estimatedlist?.count == numberofconfigurations &&
             profile == profilename

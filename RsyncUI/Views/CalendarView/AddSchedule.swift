@@ -13,7 +13,7 @@ struct AddSchedule: View {
     @Bindable var scheduledata: ObservableScheduleData
     @Bindable var futuredates: ObservableFutureSchedules
 
-    @Binding var selectedprofile: String
+    @Binding var selectedprofile: String?
     @Binding var dateAdded: String
     @Binding var dateRun: String
     @Binding var istappeddayint: Int

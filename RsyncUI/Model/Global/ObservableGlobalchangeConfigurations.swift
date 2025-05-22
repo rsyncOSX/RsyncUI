@@ -27,7 +27,6 @@ final class ObservableGlobalchangeConfigurations {
     var replace_remotecatalog: String = ""
     var occurence_remoteuser: String = ""
     var occurence_remoteserver: String = ""
-    
 
     var showAlertforupdate: Bool = false
 
@@ -48,7 +47,7 @@ final class ObservableGlobalchangeConfigurations {
         replace_backupID = ""
         whatischanged.removeAll()
     }
-    
+
     func updatestring(update: String, replace: String, original: String) -> String {
         guard update.isEmpty == false else { return original }
         guard replace.isEmpty == false else { return original }
@@ -64,8 +63,8 @@ final class ObservableGlobalchangeConfigurations {
                 globalchangedconfigurations = globalchangedconfigurations?.map { task in
                     var newtask = task
                     newtask.backupID = updatestring(update: replace_backupID,
-                                                        replace: occurence_backupID,
-                                                        original: task.backupID)
+                                                    replace: occurence_backupID,
+                                                    original: task.backupID)
                     return newtask
                 }
             case .localcatalog:
@@ -80,8 +79,8 @@ final class ObservableGlobalchangeConfigurations {
                 globalchangedconfigurations = globalchangedconfigurations?.map { task in
                     var newtask = task
                     newtask.offsiteCatalog = updatestring(update: replace_remotecatalog,
-                                                        replace: occurence_remotecatalog,
-                                                        original: task.offsiteCatalog)
+                                                          replace: occurence_remotecatalog,
+                                                          original: task.offsiteCatalog)
                     return newtask
                 }
             case .remoteuser:

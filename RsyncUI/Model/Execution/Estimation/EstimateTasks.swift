@@ -77,7 +77,7 @@ final class EstimateTasks {
             let configurations = filteredconfigurations.filter { $0.task != SharedReference.shared.halted }
             stackoftasktobeestimated = configurations.map(\.hiddenID)
         }
-        localestimateprogressdetails?.setprofileandnumberofconfigurations(structprofile ?? SharedConstants().defaultprofile, localconfigurations.count)
+        localestimateprogressdetails?.setprofileandnumberofconfigurations(structprofile, localconfigurations.count)
     }
 }
 

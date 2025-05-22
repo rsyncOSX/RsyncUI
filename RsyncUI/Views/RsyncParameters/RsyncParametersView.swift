@@ -47,7 +47,7 @@ struct RsyncParametersView: View {
                         .disabled(selectedconfig == nil)
                         .padding(.bottom, 10)
                     }
-                    
+
                     Section(header: Text("Task spesific parameters for rsync")) {
                         EditRsyncParameter(450, $parameters.parameter8)
                             .onChange(of: parameters.parameter8) {
@@ -204,7 +204,7 @@ struct RsyncParametersView: View {
             if focusaborttask { labelaborttask }
         }
         .onAppear {
-            if selecteduuids.count > 0  {
+            if selecteduuids.count > 0 {
                 // Reset preselected tasks, must do a few seconds timout
                 // before clearing it out
                 Task {
