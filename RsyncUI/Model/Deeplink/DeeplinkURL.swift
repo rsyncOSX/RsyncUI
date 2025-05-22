@@ -39,19 +39,25 @@ struct DeeplinkURL {
         return nil
     }
 
-    func validateprofile(_ profile: String, _ validprofiles: [ProfilesnamesRecord]) -> Bool {
-        let profiles: [String] = validprofiles.map { record in
-            record.profilename
-        }
+    func validateprofile(_ profile: String?, _ validprofiles: [ProfilesnamesRecord]) -> Bool {
+        if let profile {
+            let profiles: [String] = validprofiles.map { record in
+                record.profilename
+            }
 
-        do {
-            try deeplinks.validateprofile(profile, profiles)
+            do {
+                try deeplinks.validateprofile(profile, profiles)
+                return true
+            } catch let e {
+                let error = e
+                propogateerror(error: error)
+                return false
+            }
+        } else {
+            // Default profile
             return true
-        } catch let e {
-            let error = e
-            propogateerror(error: error)
-            return false
         }
+        
     }
 
     func validatenoaction(_ queryItem: URLQueryItem?) -> Bool {

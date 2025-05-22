@@ -322,7 +322,7 @@ extension SidebarMainView {
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile - \(url)")
 
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
-                let profile = queryitems[0].value ?? ""
+                let profile = queryitems[0].value
                 if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
                     selectedprofile = profile
                 }
@@ -333,7 +333,7 @@ extension SidebarMainView {
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Estimate - \(url)")
 
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
-                let profile = queryitems[0].value ?? ""
+                let profile = queryitems[0].value
 
                 selectedview = .synchronize
 
@@ -341,7 +341,7 @@ extension SidebarMainView {
                     Task {
                         if externalurl {
                             // Load profile for external URL, this make the call strctured concurrency
-                            async let loadprofile = loadprofileforexternalurllink(profile)
+                            async let loadprofile = loadprofileforexternalurllink(nil)
                             guard await loadprofile else { return }
                         }
                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
