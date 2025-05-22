@@ -342,7 +342,7 @@ extension SidebarMainView {
                 if profile == "Default" || profile == "default" {
                     Task {
                         if externalurl {
-                            // Load profile for external URL, this make the call strctured concurrency
+                            // Load profile for external URL, this make the call structured concurrency
                             async let loadprofile = loadprofileforexternalurllink(nil)
                             guard await loadprofile else { return }
                         }
