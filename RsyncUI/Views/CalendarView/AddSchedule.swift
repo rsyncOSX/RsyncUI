@@ -13,7 +13,7 @@ struct AddSchedule: View {
     @Bindable var scheduledata: ObservableScheduleData
     @Bindable var futuredates: ObservableFutureSchedules
 
-    @Binding var selectedprofile: String?
+    @Binding var selectedprofileID: ProfilesnamesRecord.ID?
     @Binding var dateAdded: String
     @Binding var dateRun: String
     @Binding var istappeddayint: Int
@@ -23,9 +23,8 @@ struct AddSchedule: View {
 
     @State private var dateRunMonth: String = Date.now.en_string_month_from_date()
     @State private var dateRunHour: String = ""
+    @State private var selectedprofile: String?
     
-    @State private var selectedprofileID: ProfilesnamesRecord.ID?
-
     var body: some View {
         VStack(alignment: .leading) {
             HStack {

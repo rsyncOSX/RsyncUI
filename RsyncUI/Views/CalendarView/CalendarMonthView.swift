@@ -14,6 +14,8 @@ struct CalendarMonthView: View {
 
     // Trigger scheduled task by queryitem
     @Binding var urlcommandestimateandsynchronize: Bool
+    
+    @Binding var selectedprofileID: ProfilesnamesRecord.ID?
 
     @State private var date = Date.now
 
@@ -101,7 +103,7 @@ struct CalendarMonthView: View {
                 AddSchedule(rsyncUIdata: rsyncUIdata,
                             scheduledata: scheduledata,
                             futuredates: futuredates,
-                            selectedprofile: $selectedprofile,
+                            selectedprofileID: $selectedprofileID,
                             dateAdded: $dateAdded,
                             dateRun: $dateRun,
                             istappeddayint: $istappeddayint,

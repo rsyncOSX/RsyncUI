@@ -245,7 +245,8 @@ struct SidebarMainView: View {
                 CalendarMonthView(rsyncUIdata: rsyncUIdata,
                                   scheduledata: scheduledata,
                                   futuredates: futuredates,
-                                  urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize)
+                                  urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
+                                  selectedprofileID: $selectedprofileID)
             }
         case .verify_tasks:
             NavigationStack {
