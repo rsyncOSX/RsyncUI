@@ -23,6 +23,8 @@ struct AddSchedule: View {
 
     @State private var dateRunMonth: String = Date.now.en_string_month_from_date()
     @State private var dateRunHour: String = ""
+    
+    @State private var selectedprofileID: ProfilesnamesRecord.ID?
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -105,6 +107,15 @@ struct AddSchedule: View {
             }
             .padding()
         }
+        .onChange(of: selectedprofileID) {
+            if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
+                rsyncUIdata.profile = rsyncUIdata.validprofiles[index].profilename
+                selectedprofile = rsyncUIdata.validprofiles[index].profilename
+            } else {
+                rsyncUIdata.profile = nil
+                selectedprofile = nil
+            }
+        }
         .onChange(of: dateRun) {
             let date = dateRun.en_date_from_string()
             dateRunMonth = date.en_string_month_from_date()
@@ -128,10 +139,12 @@ struct AddSchedule: View {
     }
 
     var profiles: some View {
-        Picker("", selection: $selectedprofile) {
-            ForEach(rsyncUIdata.validprofiles) { profile in
+        Picker("", selection: $selectedprofileID) {
+            Text("Default")
+                .tag(nil as ProfilesnamesRecord.ID?)
+            ForEach(rsyncUIdata.validprofiles, id: \.self) { profile in
                 Text(profile.profilename)
-                    .tag(profile.profilename)
+                    .tag(profile.id)
             }
         }
         .pickerStyle(DefaultPickerStyle())
