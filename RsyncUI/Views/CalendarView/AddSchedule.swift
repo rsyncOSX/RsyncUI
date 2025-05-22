@@ -22,7 +22,7 @@ struct AddSchedule: View {
     @State private var schedule: String = ScheduleType.once.rawValue
     @State private var dateRunMonth: String = Date.now.en_string_month_from_date()
     @State private var dateRunHour: String = ""
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -60,13 +60,11 @@ struct AddSchedule: View {
                         // Just concatenate month + minnutes string
                         let run = dateRunMonth + " " + dateRunHour
                         try scheduledata.validatedate(date: run)
-                        
-                        var profile: String?
-                        
-                        if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
-                            profile = rsyncUIdata.validprofiles[index].profilename
+
+                        var profile: String? = if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
+                            rsyncUIdata.validprofiles[index].profilename
                         } else {
-                            profile = nil
+                            nil
                         }
 
                         let item = SchedulesConfigurations(profile: profile,

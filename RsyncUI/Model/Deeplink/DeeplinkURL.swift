@@ -57,7 +57,6 @@ struct DeeplinkURL {
             // Default profile
             return true
         }
-        
     }
 
     func validatenoaction(_ queryItem: URLQueryItem?) -> Bool {
