@@ -18,7 +18,7 @@ final class ObservableFutureSchedules {
     // First schedule to execute
     var firstscheduledate: SchedulesConfigurations?
     // Trigger execution
-    var scheduledprofile: String?
+    var scheduledprofile: String = ""
 
     private func computefuturedates(profile: String?, schedule: String, dateRun: Date) {
         var dateComponents = DateComponents()
@@ -157,7 +157,8 @@ final class ObservableFutureSchedules {
                 self.setfirsscheduledate()
                 // Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED INTERNALLY")
                 LogToFile(["ObservableFutureSchedules: schedule FIRED for \(schedule.profile ?? "Default")"], error: true)
-                self.scheduledprofile = schedule.profile
+                // Setting profile name will trigger execution
+                self.scheduledprofile = schedule.profile ?? "Default"
             }
         }
     }
