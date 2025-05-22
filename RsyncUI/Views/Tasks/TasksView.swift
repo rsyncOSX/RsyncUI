@@ -142,6 +142,15 @@ struct TasksView: View {
         .focusedSceneValue(\.exporttasks, $focusexport)
         .focusedSceneValue(\.importtasks, $focusimport)
         .toolbar(content: {
+            
+            ToolbarItem {
+                if GlobalTimer.shared.timer != nil &&
+                    columnVisibility == .detailOnly {
+                    MessageView(mytext: GlobalTimer.shared.schedule ?? "", size: .caption2)
+                }
+
+            }
+            
             ToolbarItem {
                 if columnVisibility == .detailOnly {
                     VStack {
