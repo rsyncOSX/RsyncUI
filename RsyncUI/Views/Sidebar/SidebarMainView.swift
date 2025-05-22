@@ -147,7 +147,7 @@ struct SidebarMainView: View {
             // URL code
             // Binding to listen for initiating deep link execute estimate and synchronize from
             // toolbar in TasksView
-            let valueprofile = rsyncUIdata.profile ?? ""
+            let valueprofile = rsyncUIdata.profile
             if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: valueprofile) {
                 handleURLsidebarmainView(url, externalurl: false)
             }
@@ -157,7 +157,7 @@ struct SidebarMainView: View {
             // Binding to listen for initiating deep link execute estimate and synchronize from
             // toolbar in Verify View
             guard urlcommandverify == true else { return }
-            let valueprofile = rsyncUIdata.profile ?? ""
+            let valueprofile = rsyncUIdata.profile
             var valueid = ""
             if let configurations = rsyncUIdata.configurations {
                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
