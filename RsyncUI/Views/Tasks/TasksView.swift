@@ -47,6 +47,8 @@ struct TasksView: View {
     // Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
     @Binding var selectedprofile: String?
+    // View profiles on left
+    @Binding var selectedprofileID: ProfilesnamesRecord.ID?
 
     @State private var estimatestate = EstimateState()
     // Focus buttons from the menu
@@ -71,14 +73,36 @@ struct TasksView: View {
     @State private var thereareestimates: Bool = false
 
     @State var isOpen: Bool = false
-    // View profiles on left
-    @State private var uuidprofile: ProfilesnamesRecord.ID?
+    
     // Selected task is halted
     @State private var selectedtaskishalted: Bool = false
 
     var body: some View {
         ZStack {
             HStack {
+                if columnVisibility == .detailOnly {
+                    VStack {
+                        Picker("", selection: $selectedprofileID) {
+                            Text("Default")
+                                .tag(nil as ProfilesnamesRecord.ID?)
+                            ForEach(rsyncUIdata.validprofiles, id: \.self) { profile in
+                                Text(profile.profilename)
+                                    .tag(profile.id)
+                            }
+                        }
+                        .frame(width: 180)
+                        .padding([.bottom, .top, .trailing], 7)
+
+                        if SharedReference.shared.newversion {
+                            MessageView(mytext: "Update available", size: .caption2)
+                                .padding()
+                                .frame(width: 180)
+                        }
+                        
+                        Spacer()
+                    }
+                }
+                
                 ListofTasksMainView(
                     rsyncUIdata: rsyncUIdata,
                     selecteduuids: $selecteduuids,
@@ -132,28 +156,6 @@ struct TasksView: View {
                     if focusstartestimation { labelstartestimation }
                     if focusstartexecution { labelstartexecution }
                     if doubleclick { doubleclickaction }
-                }
-
-                if columnVisibility == .detailOnly {
-                    VStack {
-                        Table(rsyncUIdata.validprofiles, selection: $uuidprofile) {
-                            TableColumn("Profiles") { name in
-                                Text(name.profilename)
-                            }
-                        }
-                        .onChange(of: uuidprofile) {
-                            let record = rsyncUIdata.validprofiles.filter { $0.id == uuidprofile }
-                            guard record.count > 0 else { return }
-                            selectedprofile = record[0].profilename
-                        }
-                        .frame(width: 180)
-
-                        if SharedReference.shared.newversion {
-                            MessageView(mytext: "Update available", size: .caption2)
-                                .padding()
-                                .frame(width: 180)
-                        }
-                    }
                 }
             }
         }

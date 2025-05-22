@@ -235,7 +235,8 @@ struct SidebarMainView: View {
                              executetasknavigation: $executetasknavigation,
                              queryitem: $queryitem,
                              urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
-                             columnVisibility: $columnVisibility)
+                             columnVisibility: $columnVisibility,
+                             selectedprofileID: $selectedprofileID)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
         case .verify_remote:
