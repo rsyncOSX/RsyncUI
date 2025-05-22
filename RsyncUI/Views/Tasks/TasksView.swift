@@ -80,29 +80,6 @@ struct TasksView: View {
     var body: some View {
         ZStack {
             HStack {
-                if columnVisibility == .detailOnly {
-                    VStack {
-                        Picker("", selection: $selectedprofileID) {
-                            Text("Default")
-                                .tag(nil as ProfilesnamesRecord.ID?)
-                            ForEach(rsyncUIdata.validprofiles, id: \.self) { profile in
-                                Text(profile.profilename)
-                                    .tag(profile.id)
-                            }
-                        }
-                        .frame(width: 180)
-                        .padding([.bottom, .top, .trailing], 7)
-
-                        if SharedReference.shared.newversion {
-                            MessageView(mytext: "Update available", size: .caption2)
-                                .padding()
-                                .frame(width: 180)
-                        }
-                        
-                        Spacer()
-                    }
-                }
-                
                 ListofTasksMainView(
                     rsyncUIdata: rsyncUIdata,
                     selecteduuids: $selecteduuids,
@@ -165,6 +142,29 @@ struct TasksView: View {
         .focusedSceneValue(\.exporttasks, $focusexport)
         .focusedSceneValue(\.importtasks, $focusimport)
         .toolbar(content: {
+            ToolbarItem {
+                if columnVisibility == .detailOnly {
+                    VStack {
+                        Picker("", selection: $selectedprofileID) {
+                            Text("Default")
+                                .tag(nil as ProfilesnamesRecord.ID?)
+                            ForEach(rsyncUIdata.validprofiles, id: \.self) { profile in
+                                Text(profile.profilename)
+                                    .tag(profile.id)
+                            }
+                        }
+                        .frame(width: 180)
+                        .padding([.bottom, .top, .trailing], 7)
+
+                        if SharedReference.shared.newversion {
+                            MessageView(mytext: "Update available", size: .caption2)
+                                .padding()
+                                .frame(width: 180)
+                        }
+                    }
+                }
+            }
+            
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
