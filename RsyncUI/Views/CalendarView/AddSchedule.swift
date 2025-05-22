@@ -61,7 +61,7 @@ struct AddSchedule: View {
                         let run = dateRunMonth + " " + dateRunHour
                         try scheduledata.validatedate(date: run)
 
-                        var profile: String? = if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
+                        let profile: String? = if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
                             rsyncUIdata.validprofiles[index].profilename
                         } else {
                             nil

@@ -129,6 +129,7 @@ struct SidebarMainView: View {
                 if SharedReference.shared.observemountedvolumes, rsyncUIdata.validprofiles.count > 1 {
                     // Observer for mounting volumes
                     observerdidMountNotification()
+                    observerdiddidUnmountNotification()
                 }
                 // Compute schedules
                 futuredates.scheduledata = scheduledata.scheduledata
@@ -447,24 +448,47 @@ extension SidebarMainView {
         }
     }
 
-    private func verifyandloadprofilemountedvolume(_ mountedvolume: URL) async {
-        mountingvolumenow = true
+    
+    func observerdiddidUnmountNotification() {
+        Logger.process.info("SidebarMainView: observerdidUnmountNotification added")
 
-        let allconfigurations = await ReadAllTasks().readalltasks(rsyncUIdata.validprofiles)
+        let notificationCenter = NSWorkspace.shared.notificationCenter
+        notificationCenter.addObserver(forName: NSWorkspace.didUnmountNotification,
+                                       object: nil, queue: .main)
+        { notification in
+            
+                Logger.process.info("SidebarMainView: observerdidUnmountNotification")
+                Task {
+                    guard await tasksareinprogress() == false else { return }
+                    await verifyandloadprofilemountedvolume(nil)
+                }
+            }
+    }
 
-        let volume = mountedvolume.lastPathComponent
-        let mappedallconfigurations = allconfigurations.compactMap { configuration in
-            (configuration.offsiteServer.isEmpty == true &&
-                configuration.offsiteCatalog.contains(volume) == true &&
-                configuration.task != SharedReference.shared.halted) ? configuration : nil
+    
+    private func verifyandloadprofilemountedvolume(_ mountedvolume: URL?) async {
+        if let mountedvolume {
+            mountingvolumenow = true
+
+            let allconfigurations = await ReadAllTasks().readalltasks(rsyncUIdata.validprofiles)
+
+            let volume = mountedvolume.lastPathComponent
+            let mappedallconfigurations = allconfigurations.compactMap { configuration in
+                (configuration.offsiteServer.isEmpty == true &&
+                    configuration.offsiteCatalog.contains(volume) == true &&
+                    configuration.task != SharedReference.shared.halted) ? configuration : nil
+            }
+            let profile = mappedallconfigurations.compactMap(\.backupID)
+            guard profile.count > 0 else {
+                mountingvolumenow = false
+                return
+            }
+            let uniqprofiles = Set(profile)
+            selectedprofile = uniqprofiles.first
+        } else {
+            // Load default profile
+            selectedprofile = nil
         }
-        let profile = mappedallconfigurations.compactMap(\.backupID)
-        guard profile.count > 0 else {
-            mountingvolumenow = false
-            return
-        }
-        let uniqprofiles = Set(profile)
-        selectedprofile = uniqprofiles.first
     }
 
     // Must check that no tasks are running
