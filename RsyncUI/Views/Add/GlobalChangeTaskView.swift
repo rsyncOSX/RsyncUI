@@ -39,8 +39,7 @@ struct GlobalChangeTaskView: View {
                     .disabled(configurations.isEmpty)
                     .buttonStyle(ColorfulButtonStyle())
 
-                    Text("ALL or SELECTED configurations\nwill be updated")
-                        .padding(.bottom, 10)
+                    
                 }
 
                 VStack(alignment: .leading) { synchronizeID }
@@ -50,6 +49,9 @@ struct GlobalChangeTaskView: View {
                 VStack(alignment: .leading) { remoteuserandserver }
 
                 Spacer()
+                
+                Text("ALL or SELECTED to be updated")
+                    .padding(.bottom, 10)
             }
             .padding()
 

@@ -104,8 +104,16 @@ struct LogsbyConfigurationView: View {
                 if showindebounce {
                     indebounce
                 } else {
-                    Text("Counting ^[\(logs.count) log](inflect: true)")
+                    
+                    if selecteduuids.isEmpty  {
+                        
+                        Text("ALL logrecords, select task for logrecords by task: ^[\(logs.count) log](inflect: true)")
+                        
+                    } else {
+                        Text("Logrecords by selected task: ^[\(logs.count) log](inflect: true)")
+                    }
                 }
+                
                 Spacer()
             }
         }
