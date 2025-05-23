@@ -73,7 +73,7 @@ struct TasksView: View {
     @State private var thereareestimates: Bool = false
 
     @State var isOpen: Bool = false
-    
+
     // Selected task is halted
     @State private var selectedtaskishalted: Bool = false
 
@@ -142,15 +142,14 @@ struct TasksView: View {
         .focusedSceneValue(\.exporttasks, $focusexport)
         .focusedSceneValue(\.importtasks, $focusimport)
         .toolbar(content: {
-            
             ToolbarItem {
-                if GlobalTimer.shared.timer != nil &&
-                    columnVisibility == .detailOnly {
+                if GlobalTimer.shared.timer != nil,
+                   columnVisibility == .detailOnly
+                {
                     MessageView(mytext: GlobalTimer.shared.schedule ?? "", size: .caption2)
                 }
-
             }
-            
+
             ToolbarItem {
                 if columnVisibility == .detailOnly {
                     VStack {
@@ -173,7 +172,7 @@ struct TasksView: View {
                     }
                 }
             }
-            
+
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }

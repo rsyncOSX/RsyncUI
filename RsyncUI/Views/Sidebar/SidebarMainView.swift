@@ -127,7 +127,8 @@ struct SidebarMainView: View {
                 }
                 // Only addObserver if there are more than the default profile
                 if SharedReference.shared.observemountedvolumes,
-                    rsyncUIdata.validprofiles.isEmpty == false {
+                   rsyncUIdata.validprofiles.isEmpty == false
+                {
                     // Observer for mounting volumes
                     observerdidMountNotification()
                     observerdiddidUnmountNotification()
@@ -450,24 +451,21 @@ extension SidebarMainView {
         }
     }
 
-    
     func observerdiddidUnmountNotification() {
         Logger.process.info("SidebarMainView: observerdidUnmountNotification added")
 
         let notificationCenter = NSWorkspace.shared.notificationCenter
         notificationCenter.addObserver(forName: NSWorkspace.didUnmountNotification,
                                        object: nil, queue: .main)
-        { notification in
-            
-                Logger.process.info("SidebarMainView: observerdidUnmountNotification")
-                Task {
-                    guard await tasksareinprogress() == false else { return }
-                    await verifyandloadprofilemountedvolume(nil)
-                }
+        { _ in
+            Logger.process.info("SidebarMainView: observerdidUnmountNotification")
+            Task {
+                guard await tasksareinprogress() == false else { return }
+                await verifyandloadprofilemountedvolume(nil)
             }
+        }
     }
 
-    
     private func verifyandloadprofilemountedvolume(_ mountedvolume: URL?) async {
         if let mountedvolume {
             mountingvolumenow = true

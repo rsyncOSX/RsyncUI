@@ -11,7 +11,7 @@ import OSLog
 
 @MainActor
 final class Snapshotlogsandcatalogs {
-    var catalogsanddates: [Catalogsanddates]?
+    var catalogsanddates: [SnapshotFolder]?
     var mysnapshotdata: ObservableSnapshotData?
     var config: SynchronizeConfiguration
     var logrecords: [LogRecords]
@@ -35,7 +35,7 @@ final class Snapshotlogsandcatalogs {
             return item
         }
         adjustedlogrecords = mycatalogs?.map { record in
-            let realsnapshotcatalog = "(" + record.catalog.dropFirst(2) + ")"
+            let realsnapshotcatalog = "(" + record.folder.dropFirst(2) + ")"
             if let record = mylogrecords?.filter({ $0.resultExecuted.contains(realsnapshotcatalog) }), record.count == 1 {
                 let catalogelementlog = record[0].resultExecuted.split(separator: " ")[0]
                 let snapshotcatalogfromschedulelog = "./" + catalogelementlog.dropFirst().dropLast()
@@ -104,16 +104,16 @@ final class Snapshotlogsandcatalogs {
         if let stringoutputfromrsync {
             let catalogs = TrimOutputForRestore(stringoutputfromrsync).trimmeddata
             catalogsanddates = catalogs?.compactMap { line in
-                let item = Catalogsanddates(catalog: line)
+                let item = SnapshotFolder(folder: line)
                 return (line.contains("done") == false && line.contains("receiving") == false &&
                     line.contains("sent") == false && line.contains("total") == false &&
                     line.contains("./.") == false && line.isEmpty == false &&
                     line.contains("speedup") == false && line.contains("bytes") == false) ? item : nil
             }.sorted { cat1, cat2 in
-                (Int(cat1.catalog.dropFirst(2)) ?? 0) > (Int(cat2.catalog.dropFirst(2)) ?? 0)
+                (Int(cat1.folder.dropFirst(2)) ?? 0) > (Int(cat2.folder.dropFirst(2)) ?? 0)
             }
         }
-        mysnapshotdata?.catalogsanddates = catalogsanddates ?? []
+        mysnapshotdata?.snapshotfolders = catalogsanddates ?? []
         mergeremotecatalogsandlogs()
         // Getting data is completed
         mysnapshotdata?.snapshotlist = false

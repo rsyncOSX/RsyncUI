@@ -20,7 +20,7 @@ final class ObservableSnapshotData {
     var snapshotlist: Bool = false
     // UUIDs for DELETE snapshots
     var snapshotuuidsfordelete = Set<LogRecordSnapshot.ID>()
-    var catalogsanddates: [Catalogsanddates] = []
+    var snapshotfolders: [SnapshotFolder] = []
     var logrecordssnapshot: [LogRecordSnapshot]?
     // Originally loaded logrecords, to be used if cleaning up logrecords
     // with no snapshot catalogs
@@ -56,7 +56,7 @@ final class ObservableSnapshotData {
     }
 }
 
-struct Catalogsanddates: Identifiable, Equatable {
+struct SnapshotFolder: Identifiable, Equatable {
     let id = UUID()
-    var catalog: String
+    var folder: String
 }

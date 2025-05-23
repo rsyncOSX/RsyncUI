@@ -38,8 +38,6 @@ struct GlobalChangeTaskView: View {
                     .help("Update task")
                     .disabled(configurations.isEmpty)
                     .buttonStyle(ColorfulButtonStyle())
-
-                    
                 }
 
                 VStack(alignment: .leading) { synchronizeID }
@@ -49,7 +47,7 @@ struct GlobalChangeTaskView: View {
                 VStack(alignment: .leading) { remoteuserandserver }
 
                 Spacer()
-                
+
                 Text("ALL or SELECTED to be updated")
                     .padding(.bottom, 10)
             }

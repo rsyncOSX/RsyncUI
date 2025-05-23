@@ -15,7 +15,8 @@ struct RestoreTableView: View {
     @State private var focusaborttask: Bool = false
     // Restore snapshot
     @State var snapshotdata = ObservableSnapshotData()
-    @State private var snapshotcatalog: String = ""
+    @State private var snapshotfolder: String = ""
+    @State private var snapshotFolderID: SnapshotFolder.ID?
     // Filterstring
     @State private var filterstring: String = ""
     @Binding var profile: String?
@@ -41,7 +42,7 @@ struct RestoreTableView: View {
                                     restore.selectedconfig = nil
                                     restore.filestorestore = ""
                                     restore.restorefilelist.removeAll()
-                                    snapshotdata.catalogsanddates.removeAll()
+                                    snapshotdata.snapshotfolders.removeAll()
                                     filterstring = ""
                                 }
                             }
@@ -55,17 +56,23 @@ struct RestoreTableView: View {
                                 }
                             }
 
-                        RestoreFilesTableView(filestorestore: $restore.filestorestore,
-                                              datalist: restore.restorefilelist)
-                            .onChange(of: profile) {
-                                restore.restorefilelist.removeAll()
-                            }
-                            .overlay { if filterstring.count > 0,
-                                          restore.restorefilelist.count == 0
-                                {
-                                    ContentUnavailableView.search
+                        VStack(alignment: .leading) {
+                            RestoreFilesTableView(filestorestore: $restore.filestorestore,
+                                                  datalist: restore.restorefilelist)
+                                .onChange(of: profile) {
+                                    restore.restorefilelist.removeAll()
                                 }
-                            }
+                                .overlay { if filterstring.count > 0,
+                                              restore.restorefilelist.count == 0
+                                    {
+                                        ContentUnavailableView.search
+                                    }
+                                }
+
+                            Spacer()
+
+                            Text("Number of records: \(restore.restorefilelist.count)")
+                        }
                     }
 
                     if gettingfilelist { ProgressView() }
@@ -128,7 +135,7 @@ struct RestoreTableView: View {
 
                 ToolbarItem {
                     if restore.selectedconfig?.task == SharedReference.shared.snapshot {
-                        snapshotcatalogpicker
+                        snapshotfolderpicker
                     }
                 }
 
@@ -212,28 +219,31 @@ struct RestoreTableView: View {
                   $restore.filestorestore)
     }
 
-    var snapshotcatalogpicker: some View {
-        Picker("", selection: $snapshotcatalog) {
-            Text("")
-                .tag("")
-            ForEach(snapshotdata.catalogsanddates) { catalog in
-                Text(catalog.catalog)
-                    .tag(catalog.catalog)
+    var snapshotfolderpicker: some View {
+        Picker("", selection: $snapshotFolderID) {
+            Text("Select a folder")
+                .tag(nil as SnapshotFolder.ID?)
+            ForEach(snapshotdata.snapshotfolders) { catalog in
+                Text(catalog.folder)
+                    .tag(catalog.id)
             }
         }
         .frame(width: 150)
         .accentColor(.blue)
-        .onChange(of: snapshotdata.catalogsanddates) {
-            guard snapshotdata.catalogsanddates.count > 0 else { return }
-            snapshotcatalog = snapshotdata.catalogsanddates[0].catalog
+        .onChange(of: snapshotFolderID) {
+            if let index = snapshotdata.snapshotfolders.firstIndex(where: { $0.id == snapshotFolderID }) {
+                snapshotfolder = snapshotdata.snapshotfolders[index].folder
+            } else {
+                restore.restorefilelist.removeAll()
+            }
         }
         .onChange(of: profile) {
-            snapshotdata.catalogsanddates.removeAll()
+            snapshotdata.snapshotfolders.removeAll()
         }
         .onAppear {
-            snapshotdata.catalogsanddates.removeAll()
+            snapshotdata.snapshotfolders.removeAll()
         }
-        .onChange(of: snapshotcatalog) {
+        .onChange(of: snapshotfolder) {
             restore.restorefilelist.removeAll()
             restore.filestorestore = ""
         }
@@ -267,10 +277,10 @@ extension RestoreTableView {
         if let config = restore.selectedconfig {
             var arguments: [String]?
             let snapshot: Bool = (config.snapshotnum != nil) ? true : false
-            if snapshot, snapshotcatalog.isEmpty == false {
+            if snapshot, snapshotfolder.isEmpty == false {
                 // Snapshot and other than last snapshot is selected
                 var tempconfig = config
-                if let snapshotnum = Int(snapshotcatalog.dropFirst(2)) {
+                if let snapshotnum = Int(snapshotfolder.dropFirst(2)) {
                     // Must increase the snapshotnum by 1 because the
                     // config stores next to use snapshotnum and the comnpute
                     // arguments for restore reduce the snapshotnum by 1
@@ -290,9 +300,9 @@ extension RestoreTableView {
     func executerestore() {
         if let config = restore.selectedconfig, restore.filestorestore.isEmpty == false {
             let snapshot: Bool = (config.snapshotnum != nil) ? true : false
-            if snapshot, snapshotcatalog.isEmpty == false {
+            if snapshot, snapshotfolder.isEmpty == false {
                 var tempconfig = config
-                if let snapshotnum = Int(snapshotcatalog.dropFirst(2)) {
+                if let snapshotnum = Int(snapshotfolder.dropFirst(2)) {
                     // Must increase the snapshotnum by 1 because the
                     // config stores next to use snapshotnum and the comnpute
                     // arguments for restore reduce the snapshotnum by 1
