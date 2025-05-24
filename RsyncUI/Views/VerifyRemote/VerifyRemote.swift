@@ -21,6 +21,7 @@ struct Verify: Hashable, Identifiable {
 
 struct VerifyRemote: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var executeverifynavigation: [Verify]
     @Binding var urlcommandverify: Bool
     // Queryitem binding is requiered for external URL only
     @Binding var queryitem: URLQueryItem?
@@ -29,7 +30,6 @@ struct VerifyRemote: View {
     @State private var selectedconfig: SynchronizeConfiguration?
     // Selected task is halted
     @State private var selectedtaskishalted: Bool = false
-    @State private var executeverifynavigation: [Verify] = []
 
     var body: some View {
         NavigationStack(path: $executeverifynavigation) {
