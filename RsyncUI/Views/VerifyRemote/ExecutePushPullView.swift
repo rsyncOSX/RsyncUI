@@ -34,7 +34,7 @@ struct ExecutePushPullView: View {
                                         }
                                     }
 
-                                Toggle("--delete, ON removed", isOn: $removedelete)
+                                Toggle("--delete", isOn: $removedelete)
                                     .toggleStyle(.switch)
                                     .onTapGesture {
                                         withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
