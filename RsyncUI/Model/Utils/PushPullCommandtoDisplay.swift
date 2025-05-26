@@ -24,13 +24,13 @@ struct PushPullCommandtoDisplay {
     init(display: PushPullCommand,
          config: SynchronizeConfiguration,
          dryRun: Bool,
-         removedelete: Bool)
+         keepdelete: Bool)
     {
         var str = ""
         switch display {
         case .pull_remote:
             if config.offsiteServer.isEmpty == false, config.task == SharedReference.shared.synchronize {
-                if let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryRun, forDisplay: true, removedelete: removedelete) {
+                if let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryRun, forDisplay: true, keepdelete: keepdelete) {
                     str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
                 }
             } else {
@@ -38,7 +38,7 @@ struct PushPullCommandtoDisplay {
             }
         case .push_local:
             if config.offsiteServer.isEmpty == false, config.task == SharedReference.shared.synchronize {
-                if let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: dryRun, forDisplay: true, removedelete: removedelete) {
+                if let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: dryRun, forDisplay: true, keepdelete: keepdelete) {
                     str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
                 }
             } else {

@@ -14,14 +14,14 @@ import RsyncArguments
 final class ArgumentsPullRemote {
     var config: SynchronizeConfiguration?
 
-    func argumentspullremotewithparameters(dryRun: Bool, forDisplay: Bool, removedelete: Bool) -> [String]? {
+    func argumentspullremotewithparameters(dryRun: Bool, forDisplay: Bool, keepdelete: Bool) -> [String]? {
         if let config {
             // Logger.process.info("ArgumentsPullRemote: using argumentspullremotewithparameters() --delete is removed")
             if let parameters = PrepareParameters(config: config).parameters {
                 let rsyncparameterspull =
                     RsyncParametersPullRemote(parameters: parameters)
                 rsyncparameterspull.argumentspullremotewithparameters(forDisplay: forDisplay,
-                                                                      verify: false, dryrun: dryRun, removedelete: removedelete)
+                                                                      verify: false, dryrun: dryRun, keepdelete: keepdelete)
                 return rsyncparameterspull.computedarguments
             }
         }

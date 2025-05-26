@@ -13,7 +13,7 @@ struct ExecutePushPullView: View {
     @State private var pushpullcommand = PushPullCommand.none
 
     @State private var dryrun: Bool = true
-    @State private var removedelete: Bool = true
+    @State private var keepdelete: Bool = true
 
     let config: SynchronizeConfiguration
 
@@ -34,11 +34,11 @@ struct ExecutePushPullView: View {
                                         }
                                     }
 
-                                Toggle("--delete", isOn: $removedelete)
+                                Toggle("--delete", isOn: $keepdelete)
                                     .toggleStyle(.switch)
                                     .onTapGesture {
                                         withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                            removedelete.toggle()
+                                            keepdelete.toggle()
                                         }
                                     }
                                     .help("Remove the delete parameter, default is true?")
@@ -65,7 +65,7 @@ struct ExecutePushPullView: View {
                             }
                         }
 
-                        PushPullCommandView(pushpullcommand: $pushpullcommand, dryrun: $dryrun, removedelete: $removedelete, config: config)
+                        PushPullCommandView(pushpullcommand: $pushpullcommand, dryrun: $dryrun, keepdelete: $keepdelete, config: config)
                             .padding()
                     }
 
@@ -95,7 +95,7 @@ struct ExecutePushPullView: View {
     func push(config: SynchronizeConfiguration) {
         let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: dryrun,
                                                                                            forDisplay: false,
-                                                                                           removedelete: removedelete)
+                                                                                           keepdelete: keepdelete)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
                                    processtermination: processtermination)
@@ -105,7 +105,7 @@ struct ExecutePushPullView: View {
     func pull(config: SynchronizeConfiguration) {
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryrun,
                                                                                               forDisplay: false,
-                                                                                              removedelete: removedelete)
+                                                                                              keepdelete: keepdelete)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
                                    processtermination: processtermination)
