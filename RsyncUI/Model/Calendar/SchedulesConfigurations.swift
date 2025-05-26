@@ -15,7 +15,7 @@ import Foundation
 enum ScheduleType: String, CaseIterable, Identifiable, CustomStringConvertible {
     case once
     case daily
-    case weekly
+    // case weekly
 
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized }

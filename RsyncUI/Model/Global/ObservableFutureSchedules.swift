@@ -31,8 +31,10 @@ final class ObservableFutureSchedules {
         switch schedule {
         case ScheduleType.daily.rawValue:
             dateComponents.day = 1
+        /*
         case ScheduleType.weekly.rawValue:
             dateComponents.day = 7
+         */
         case ScheduleType.once.rawValue:
             // Handle once as a special case, only daily and weekly needs repeat
             if let lastdateinpresentmont {
@@ -61,12 +63,14 @@ final class ObservableFutureSchedules {
                 if dateRun.monthInt == lastdateinpresentmont.monthInt {
                     appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: "")
                 }
+            /*
             case 7:
                 index = Int(timeInterval / (60 * 60 * 24 * 7))
                 // Must add the first registered date as well
                 if dateRun.monthInt == lastdateinpresentmont.monthInt {
                     appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: "")
                 }
+             */
             default:
                 break
             }
