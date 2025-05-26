@@ -486,10 +486,14 @@ extension SidebarMainView {
                 return
             }
             let uniqprofiles = Set(profile)
-            selectedprofile = uniqprofiles.first
+            // selectedprofile = uniqprofiles.first
+            if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.profilename == uniqprofiles.first }) {
+                // Set the profile picker and let the picker do the job
+                selectedprofileID = rsyncUIdata.validprofiles[index].id
+            }
         } else {
             // Load default profile
-            selectedprofile = nil
+            selectedprofileID = nil
         }
     }
 
