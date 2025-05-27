@@ -136,7 +136,7 @@ struct TasksView: View {
                 }
             }
         }
-        .navigationTitle("Synchronize tasks")
+        .navigationTitle("Synchronize tasks: profile \(rsyncUIdata.profile ?? "Default")")
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.exporttasks, $focusexport)

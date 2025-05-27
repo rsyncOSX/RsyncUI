@@ -308,7 +308,7 @@ struct AddTaskView: View {
                 .help("Home catalogs")
             }
         }
-        .navigationTitle("Add and update tasks")
+        .navigationTitle("Add and update tasks: profile \(rsyncUIdata.profile ?? "Default")")
         .navigationDestination(for: AddTasks.self) { which in
             makeView(view: which.task)
         }

@@ -241,7 +241,7 @@ struct RsyncParametersView: View {
                 .help("Show arguments")
             }
         })
-        .navigationTitle("Parameters for rsync")
+        .navigationTitle("Parameters for rsync: profile \(rsyncUIdata.profile ?? "Default")")
         .navigationDestination(isPresented: $presentarguments) {
             ArgumentsView(rsyncUIdata: rsyncUIdata)
         }

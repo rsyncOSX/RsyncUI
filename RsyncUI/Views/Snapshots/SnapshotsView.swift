@@ -102,7 +102,7 @@ struct SnapshotsView: View {
                 Spacer()
             }
         }
-        .navigationTitle("Snapshot tasks")
+        .navigationTitle("Snapshot tasks: profile \(rsyncUIdata.profile ?? "Default")")
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
