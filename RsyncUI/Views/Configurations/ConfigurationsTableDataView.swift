@@ -15,10 +15,12 @@ struct ConfigurationsTableDataView: View {
 
     var body: some View {
         Table(configurations ?? [], selection: $selecteduuids) {
+            /*
             TableColumn("Profile") { _ in
                 Text(profile ?? "Default")
             }
             .width(min: 50, max: 200)
+             */
             TableColumn("Synchronize ID") { data in
                 if data.parameter4.isEmpty == false {
                     if data.backupID.isEmpty == true {
@@ -38,7 +40,7 @@ struct ConfigurationsTableDataView: View {
                     }
                 }
             }
-            .width(min: 50, max: 200)
+            .width(min: 50, max: 150)
             TableColumn("Action") { data in
                 if data.task == SharedReference.shared.halted {
                     Image(systemName: "stop.fill")
