@@ -57,11 +57,11 @@ actor ActorReadSynchronizeConfigurationJSON {
 
         Logger.process.info("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations() MAIN THREAD \(Thread.isMain)")
 
-        if let profile, let path = path.fullpathmacserial {
-            filename = path + "/" + profile + "/" + SharedConstants().fileconfigurationsjson
+        if let profile, let fullpathmacserial = path.fullpathmacserial {
+            filename = fullpathmacserial.appending("/") + profile.appending("/") + SharedConstants().fileconfigurationsjson
         } else {
-            if let path = path.fullpathmacserial {
-                filename = path + "/" + SharedConstants().fileconfigurationsjson
+            if let fullpathmacserial = path.fullpathmacserial {
+                filename = fullpathmacserial.appending("/") + SharedConstants().fileconfigurationsjson
             }
         }
         let decodeimport = await DecodeGeneric()
