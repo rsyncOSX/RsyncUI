@@ -19,17 +19,17 @@ struct GetfullpathforRsync {
                 if localrsyncpath.hasPrefix("/") {
                     return localrsyncpath + SharedReference.shared.rsync
                 } else {
-                    return localrsyncpath + "/" + SharedReference.shared.rsync
+                    return localrsyncpath.appending("/") + SharedReference.shared.rsync
                 }
             } else {
                 if SharedReference.shared.macosarm {
-                    return SharedReference.shared.usrlocalbinarm + "/" + SharedReference.shared.rsync
+                    return SharedReference.shared.usrlocalbinarm.appending("/") + SharedReference.shared.rsync
                 } else {
-                    return SharedReference.shared.usrlocalbin + "/" + SharedReference.shared.rsync
+                    return SharedReference.shared.usrlocalbin.appending("/") + SharedReference.shared.rsync
                 }
             }
         } else {
-            return SharedReference.shared.usrbin + "/" + SharedReference.shared.rsync
+            return SharedReference.shared.usrbin.appending("/") + SharedReference.shared.rsync
         }
     }
 }

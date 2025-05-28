@@ -17,7 +17,7 @@ struct CatalogForProfile {
         let fm = FileManager.default
         // First check if profilecatalog exists, if yes bail out
         if let fullpathmacserial = path.fullpathmacserial, let profile {
-            let fullpathprofileString = fullpathmacserial + "/" + profile
+            let fullpathprofileString = fullpathmacserial.appending("/") + profile
             guard fm.locationExists(at: fullpathprofileString, kind: .folder) == false else {
                 Logger.process.info("CatalogProfile: profile catalog exist")
                 return false
@@ -42,7 +42,7 @@ struct CatalogForProfile {
     func deleteprofilecatalog(_ profile: String?) -> Bool {
         let fm = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial, let profile {
-            let fullpathprofileString = fullpathmacserial + "/" + profile
+            let fullpathprofileString = fullpathmacserial.appending("/") + profile
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let profileURL = fullpathmacserialURL.appendingPathComponent(profile)
 
@@ -66,7 +66,7 @@ struct CatalogForProfile {
     func deletefile() {
         let fm = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial {
-            let fullpathString = fullpathmacserial + "/" + SharedConstants().filenamequicktaskjson
+            let fullpathString = fullpathmacserial.appending("/") + SharedConstants().filenamequicktaskjson
             let fullpathStringlURL = URL(fileURLWithPath: fullpathString)
 
             guard fm.locationExists(at: fullpathString, kind: .file) == true else {

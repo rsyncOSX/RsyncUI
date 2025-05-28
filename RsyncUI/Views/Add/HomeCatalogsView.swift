@@ -83,7 +83,7 @@ struct HomeCatalogsView: View {
         .onDisappear(perform: {
             if let index = homecatalogs.firstIndex(where: { $0.id == selecteduuid }) {
                 if let selectedcatalog = homecatalogs[index].catalogname {
-                    newdata.localcatalog = newdata.localhome + "/" + selectedcatalog
+                    newdata.localcatalog = newdata.localhome.appending("/") + selectedcatalog
                     newdata.backupID = "Backup of: " + selectedcatalog
                 }
             }
@@ -93,7 +93,7 @@ struct HomeCatalogsView: View {
             if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
                 let attachedvolume = attachedVolumes[index].volumename
                 if let index = attachedVolumesCatalogs.firstIndex(where: { $0.catalogname == selectedAttachedVolumeCatalogs }) {
-                    let selectedvolume = (attachedvolume?.relativePath ?? "") + "/" + attachedVolumesCatalogs[index].catalogname
+                    let selectedvolume = (attachedvolume?.relativePath ?? "").appending("/") + attachedVolumesCatalogs[index].catalogname
                     newdata.remotecatalog = selectedvolume
                 }
             }

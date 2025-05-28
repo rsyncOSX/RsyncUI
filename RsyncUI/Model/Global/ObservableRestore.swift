@@ -64,7 +64,7 @@ final class ObservableRestore {
     private func verifyrestorefile(_ config: SynchronizeConfiguration, _: String) -> String {
         // Restore file or catalog
         // drop "./" in filetorestore
-        // verify there is a "/" between config.offsiteCatalog + "/" + filestorestore.dropFirst(2)
+        // verify there is a "/" between config.offsiteCatalog.appending("/") + filestorestore.dropFirst(2)
         // normal is to append a "/" to config.offsiteCatalog but must verify
         // This is a hack for restore of files from last snapshot. Only files from the
         // last snapshot is allowed. The other fix is within the ArgumentsRestore class.
@@ -72,27 +72,27 @@ final class ObservableRestore {
         if config.offsiteCatalog.hasSuffix("/") {
             config.offsiteCatalog + filestorestore.dropFirst(2) // drop first "./"
         } else {
-            config.offsiteCatalog + "/" + filestorestore.dropFirst(2) // drop first "./"
+            config.offsiteCatalog.appending("/") + filestorestore.dropFirst(2) // drop first "./"
         }
     }
 
     private func verifyrestorefilesnapshot(_ config: SynchronizeConfiguration, _: String) -> String? {
         // Restore file or catalog
         // drop "./" in filetorestore
-        // verify there is a "/" between config.offsiteCatalog + "/" + filestorestore.dropFirst(2)
+        // verify there is a "/" between config.offsiteCatalog.appending("/") + filestorestore.dropFirst(2)
         // normal is to append a "/" to config.offsiteCatalog but must verify
         // This is a hack for restore of files from last snapshot. Only files from the
         // last snapshot is allowed. The other fix is within the ArgumentsRestore class.
         // Restore arguments
         if config.offsiteCatalog.hasSuffix("/") {
             if let snapshotnum = selectedconfig?.snapshotnum {
-                config.offsiteCatalog + String(snapshotnum - 1) + "/" + filestorestore.dropFirst(2)
+                config.offsiteCatalog + String(snapshotnum - 1).appending("/") + filestorestore.dropFirst(2)
             } else {
                 ""
             }
         } else {
             if let snapshotnum = selectedconfig?.snapshotnum {
-                config.offsiteCatalog + String(snapshotnum - 1) + "/" + filestorestore.dropFirst(2) // drop first "./"
+                config.offsiteCatalog + String(snapshotnum - 1).appending("/") + filestorestore.dropFirst(2) // drop first "./"
             } else {
                 ""
             }

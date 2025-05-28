@@ -17,8 +17,8 @@ struct ReadUserConfigurationJSON {
     func readuserconfiguration() {
         let decodeuserconfiguration = DecodeGeneric()
         var userconfigurationfile = ""
-        if let path = path.fullpathmacserial {
-            userconfigurationfile = path + "/" + SharedReference.shared.userconfigjson
+        if let fullpathmacserial = path.fullpathmacserial {
+            userconfigurationfile = fullpathmacserial.appending("/") + SharedReference.shared.userconfigjson
         }
         do {
             if let importeddata = try

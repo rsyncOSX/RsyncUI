@@ -36,7 +36,7 @@ struct SetandValidatepathforrsync {
             case true:
                 rsyncpath = pathforrsync + SharedReference.shared.rsync
                 // Check that version rsync 3 is not set to /usr/bin - throw if true
-                guard SharedReference.shared.localrsyncpath != (SharedReference.shared.usrbin + "/") else {
+                guard SharedReference.shared.localrsyncpath != (SharedReference.shared.usrbin.appending("/")) else {
                     throw Validatedrsync.noversion3inusrbin
                 }
                 if fm.isExecutableFile(atPath: rsyncpath ?? "") == false {

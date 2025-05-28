@@ -66,7 +66,7 @@ final class LogToFile {
     func filesize(then handler: @escaping (Result<NSNumber, Error>) throws -> Void) {
         let fm = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial {
-            let logfileString = fullpathmacserial + "/" + SharedReference.shared.logname
+            let logfileString = fullpathmacserial.appending("/") + SharedReference.shared.logname
             guard fm.locationExists(at: logfileString, kind: .file) == true else { return }
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -87,7 +87,7 @@ final class LogToFile {
     func readloggfile() {
         let fm = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial {
-            let logfileString = fullpathmacserial + "/" + SharedReference.shared.logname
+            let logfileString = fullpathmacserial.appending("/") + SharedReference.shared.logname
             guard fm.locationExists(at: logfileString, kind: .file) == true else { return }
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)

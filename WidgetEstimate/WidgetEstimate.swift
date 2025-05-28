@@ -50,7 +50,7 @@ struct RsyncUIEstimateProvider: @preconcurrency TimelineProvider {
         let decodeuserconfiguration = DecodeGeneric()
         var userconfigurationfile = ""
         if let path = documentscatalog {
-            userconfigurationfile = path + "/" + userconfigjson
+            userconfigurationfile = path.appending("/") + userconfigjson
         } else {
             return nil
         }
