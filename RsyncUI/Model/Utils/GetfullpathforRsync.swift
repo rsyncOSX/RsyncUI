@@ -17,24 +17,27 @@ struct GetfullpathforRsync {
             if let localrsyncpath = SharedReference.shared.localrsyncpath,
                localrsyncpath.isEmpty == false
             {
+                Logger.process.info("GetfullpathforRsync OPTIONAL path: \(localrsyncpath, privacy: .public)")
+                
                 if localrsyncpath.hasPrefix("/") {
-                    Logger.process.info("GetfullpathforRsync localrsyncpath: \(localrsyncpath, privacy: .public)")
                     return localrsyncpath + SharedReference.shared.rsync
                 } else {
-                    Logger.process.info("GetfullpathforRsync localrsyncpath: \(localrsyncpath.appending("/"), privacy: .public)")
                     return localrsyncpath.appending("/") + SharedReference.shared.rsync
                 }
             } else {
                 if SharedReference.shared.macosarm {
-                    Logger.process.info("GetfullpathforRsync macosArm usrlocalbinarm: \(SharedReference.shared.usrlocalbinarm.appending("/"), privacy: .public)")
+                    Logger.process.info("GetfullpathforRsync HOMEBREW path ARM: \(SharedReference.shared.usrlocalbinarm.appending("/"), privacy: .public)")
+                } else {
+                    Logger.process.info("GetfullpathforRsync HOMEBREW path INTEL: \(SharedReference.shared.usrlocalbin.appending("/"), privacy: .public)")
+                }
+                if SharedReference.shared.macosarm {
                     return SharedReference.shared.usrlocalbinarm.appending("/") + SharedReference.shared.rsync
                 } else {
-                    Logger.process.info("GetfullpathforRsync usrlocalbin: \(SharedReference.shared.usrlocalbin.appending("/"), privacy: .public)")
                     return SharedReference.shared.usrlocalbin.appending("/") + SharedReference.shared.rsync
                 }
             }
         } else {
-            Logger.process.info("GetfullpathforRsync usrbin: \(SharedReference.shared.usrbin.appending("/"), privacy: .public)")
+            Logger.process.info("GetfullpathforRsync DEFAULT path: \(SharedReference.shared.usrbin.appending("/"), privacy: .public)")
             return SharedReference.shared.usrbin.appending("/") + SharedReference.shared.rsync
         }
     }
