@@ -19,7 +19,7 @@ struct CatalogForProfile {
         if let fullpathmacserial = path.fullpathmacserial, let profile {
             let fullpathprofileString = fullpathmacserial.appending("/") + profile
             guard fm.locationExists(at: fullpathprofileString, kind: .folder) == false else {
-                Logger.process.info("CatalogProfile: profile catalog exist")
+                Logger.process.info("CatalogProfile: profile catalog exist: \(fullpathprofileString, privacy: .public)")
                 return false
             }
 
@@ -27,7 +27,7 @@ struct CatalogForProfile {
             let profileURL = fullpathmacserialURL.appendingPathComponent(profile)
 
             do {
-                Logger.process.info("CatalogProfile: creating \(profileURL) catalog")
+                Logger.process.info("CatalogProfile creating: \(profileURL, privacy: .public)")
                 try fm.createDirectory(at: profileURL, withIntermediateDirectories: true, attributes: nil)
             } catch let e {
                 let error = e
@@ -47,7 +47,7 @@ struct CatalogForProfile {
             let profileURL = fullpathmacserialURL.appendingPathComponent(profile)
 
             guard fm.locationExists(at: fullpathprofileString, kind: .folder) == true else {
-                Logger.process.info("CatalogProfile: profile catalog does not exist")
+                Logger.process.info("CatalogProfile: profile catalog does not exist \(fullpathprofileString, privacy: .public)")
                 return false
             }
             do {
@@ -70,12 +70,12 @@ struct CatalogForProfile {
             let fullpathStringlURL = URL(fileURLWithPath: fullpathString)
 
             guard fm.locationExists(at: fullpathString, kind: .file) == true else {
-                Logger.process.info("CatalogProfile: quicktask.json file does not exist")
+                Logger.process.info("CatalogProfile: quicktask.json file does not exist \(fullpathString, privacy: .public)")
                 return
             }
             do {
                 try fm.removeItem(at: fullpathStringlURL)
-                Logger.process.info("CatalogProfile: deleted quicktask.json file")
+                Logger.process.info("CatalogProfile: deleted quicktask.json file \(fullpathString, privacy: .public)")
             } catch let e {
                 let error = e as NSError
                 path.propogateerror(error: error)

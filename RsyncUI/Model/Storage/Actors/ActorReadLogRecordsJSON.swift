@@ -26,6 +26,8 @@ actor ActorReadLogRecordsJSON {
             }
         }
 
+        Logger.process.info("ActorReadLogRecordsJSON: readjsonfilelogrecords() from \(filename, privacy: .public)")
+        
         let decodeimport = await DecodeGeneric()
         do {
             if let data = try

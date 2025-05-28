@@ -7,6 +7,7 @@
 
 import Foundation
 import Observation
+import OSLog
 
 @Observable @MainActor
 final class ObservableRsyncPathSetting {
@@ -31,6 +32,7 @@ final class ObservableRsyncPathSetting {
         switch SharedReference.shared.rsyncversion3 {
         case true:
             let rsyncpath = path.appending("/") + SharedReference.shared.rsync
+            Logger.process.info("Verifying rsync ver3 path \(rsyncpath, privacy: .public)")
             if fm.isExecutableFile(atPath: rsyncpath) == false {
                 return false
             } else {

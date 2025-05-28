@@ -30,7 +30,7 @@ actor ActorReadSchedule {
                 // Dont need to sort when reading, the schedules are sorted by runDate when
                 // new schedules are added and saved
 
-                Logger.process.info("ActorReadSchedule - read Calendar from permanent storage")
+                Logger.process.info("ActorReadSchedule - read Calendar from permanent storage \(filename, privacy: .public)")
 
                 return data.compactMap { element in
                     let item = SchedulesConfigurations(element)

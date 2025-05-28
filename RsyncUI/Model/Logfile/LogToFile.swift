@@ -8,6 +8,7 @@
 // swiftlint:disable non_optional_string_data_conversion
 
 import Foundation
+import OSLog
 
 enum FilesizeError: LocalizedError {
     case toobig
@@ -35,7 +36,9 @@ final class LogToFile {
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.logname)
-
+            
+            Logger.process.info("Write logfile to \(logfileURL.path, privacy: .public)")
+            
             if let logfiledata = logfile {
                 if let data = logfiledata.data(using: .utf8) {
                     do {
@@ -75,6 +78,7 @@ final class LogToFile {
             do {
                 // Return filesize
                 if let filesize = try fm.attributesOfItem(atPath: logfileURL.path)[FileAttributeKey.size] as? NSNumber {
+                    Logger.process.info("Filesize of logfile \(filesize, privacy: .public)")
                     try handler(.success(filesize))
                 }
             } catch let e {
@@ -92,6 +96,8 @@ final class LogToFile {
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.logname)
+            
+            Logger.process.info("Read logfile \(logfileURL.path, privacy: .public)")
 
             do {
                 let data = try Data(contentsOf: logfileURL)
