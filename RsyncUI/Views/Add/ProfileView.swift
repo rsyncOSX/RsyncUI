@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selectedprofile: String?
+    @Binding var selectedprofileID: ProfilesnamesRecord.ID?
 
     @State private var newdata = ObservableProfiles()
     @State private var uuidprofile: ProfilesnamesRecord.ID?
@@ -89,8 +89,10 @@ extension ProfileView {
         if newdata.createprofile(newprofile) {
             // Add a profile record
             rsyncUIdata.validprofiles.append(ProfilesnamesRecord(newprofile))
-            selectedprofile = newprofile
-            rsyncUIdata.profile = newprofile
+            if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.profilename == newprofile }) {
+                // Set the profile picker and let the picker do the job
+                selectedprofileID = rsyncUIdata.validprofiles[index].id
+            }
             newprofile = ""
         }
     }
@@ -98,8 +100,7 @@ extension ProfileView {
     func deleteprofile() {
         if let deleteprofile = localselectedprofile {
             if newdata.deleteprofile(deleteprofile) {
-                selectedprofile = nil
-                rsyncUIdata.profile = nil
+                selectedprofileID = nil
                 // Remove the profile record
                 if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == uuidprofile }) {
                     rsyncUIdata.validprofiles.remove(at: index)

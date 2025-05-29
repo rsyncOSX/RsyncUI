@@ -240,7 +240,7 @@ struct SidebarMainView: View {
                              columnVisibility: $columnVisibility,
                              selectedprofileID: $selectedprofileID)
         case .profiles:
-            ProfileView(rsyncUIdata: rsyncUIdata, selectedprofile: $selectedprofile)
+            ProfileView(rsyncUIdata: rsyncUIdata, selectedprofileID: $selectedprofileID)
         case .verify_remote:
             VerifyRemote(rsyncUIdata: rsyncUIdata,
                          executeverifynavigation: $executeverifynavigation,
