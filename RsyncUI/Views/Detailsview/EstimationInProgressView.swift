@@ -25,7 +25,11 @@ struct EstimationInProgressView: View {
                                   configurations: configurations)
             }
 
-            progressviewestimation
+            if configurations.count == 1 || selecteduuids.count == 1 {
+                progressviewonetaskonly
+            } else {
+                progressviewestimation
+            }
 
             if focusaborttask { labelaborttask }
         }
@@ -53,6 +57,20 @@ struct EstimationInProgressView: View {
                 estimate.startestimation()
             }
             .progressViewStyle(.circular)
+    }
+    
+    var progressviewonetaskonly: some View {
+        ProgressView()
+            .onAppear {
+                // Either is there some selceted tasks or if not
+                // the EstimateTasks selects all tasks to be estimated
+                let estimate = EstimateTasks(profile: profile,
+                                             configurations: configurations,
+                                             selecteduuids: selecteduuids,
+                                             estimateprogressdetails: estimateprogressdetails,
+                                             filter: "")
+                estimate.startestimation()
+            }
     }
 
     var labelaborttask: some View {
