@@ -19,8 +19,6 @@ struct CalendarMonthView: View {
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
 
     @State private var days: [Date] = []
-    // @State private var validprofiles: [ProfilesnamesRecord] = []
-    @State private var selectedprofile: String?
     @State private var selecteduuids: Set<SchedulesConfigurations.ID> = []
     @State private var dateAdded: String = Date.now.en_string_from_date()
     @State private var dateRun: String = Date.now.en_string_from_date()

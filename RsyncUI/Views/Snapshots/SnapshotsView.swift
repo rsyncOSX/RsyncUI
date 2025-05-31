@@ -37,7 +37,6 @@ struct SnapshotsView: View {
                 HStack {
                     ZStack {
                         ConfigurationsTableDataView(selecteduuids: $selectedconfiguuid,
-                                                    profile: rsyncUIdata.profile,
                                                     configurations: rsyncUIdata.configurations)
                             .onChange(of: selectedconfiguuid) {
                                 guard SharedReference.shared.rsyncversion3 == true else { return }

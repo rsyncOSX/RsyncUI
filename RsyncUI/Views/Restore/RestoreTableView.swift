@@ -29,7 +29,6 @@ struct RestoreTableView: View {
                 ZStack {
                     HStack {
                         ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                                    profile: profile,
                                                     configurations: configurations)
                             .onChange(of: selecteduuids) {
                                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {

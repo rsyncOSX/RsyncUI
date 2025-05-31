@@ -30,7 +30,6 @@ struct LogsbyConfigurationView: View {
             HStack {
                 ZStack {
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                                profile: rsyncUIdata.profile,
                                                 configurations: configurations)
                         .onChange(of: selecteduuids) {
                             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {

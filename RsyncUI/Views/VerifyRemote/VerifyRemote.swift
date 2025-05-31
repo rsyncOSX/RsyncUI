@@ -35,7 +35,6 @@ struct VerifyRemote: View {
         NavigationStack(path: $executeverifynavigation) {
             VStack {
                 ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                            profile: rsyncUIdata.profile,
                                             configurations: rsyncUIdata.configurations)
                     .onChange(of: selecteduuids) {
                         queryitem = nil

@@ -10,17 +10,10 @@ import SwiftUI
 struct ConfigurationsTableDataView: View {
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
-    let profile: String?
     let configurations: [SynchronizeConfiguration]?
 
     var body: some View {
         Table(configurations ?? [], selection: $selecteduuids) {
-            /*
-             TableColumn("Profile") { _ in
-                 Text(profile ?? "Default")
-             }
-             .width(min: 50, max: 200)
-              */
             TableColumn("Synchronize ID") { data in
                 if data.parameter4.isEmpty == false {
                     if data.backupID.isEmpty == true {

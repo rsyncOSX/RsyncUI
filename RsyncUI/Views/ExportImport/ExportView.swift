@@ -22,7 +22,6 @@ struct ExportView: View {
     var body: some View {
         VStack {
             ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                        profile: profile,
                                         configurations: configurations)
                 .onChange(of: selecteduuids) {
                     let snapshottasks = configurations.filter { $0.task == SharedReference.shared.snapshot }

@@ -17,7 +17,6 @@ struct ArgumentsView: View {
     var body: some View {
         VStack {
             ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                        profile: rsyncUIdata.profile,
                                         configurations: rsyncUIdata.configurations)
                 .frame(maxWidth: .infinity)
                 .onChange(of: selecteduuids) {

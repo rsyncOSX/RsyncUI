@@ -170,7 +170,6 @@ struct RsyncParametersView: View {
                     }
 
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                                profile: rsyncUIdata.profile,
                                                 configurations: rsyncUIdata.configurations)
                         .frame(maxWidth: .infinity, maxHeight: 330)
                         .onChange(of: selecteduuids) {

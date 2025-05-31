@@ -22,7 +22,6 @@ struct ImportView: View {
         VStack {
             if configurations.isEmpty == false {
                 ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                            profile: nil,
                                             configurations: configurations)
             } else {
                 HStack {
