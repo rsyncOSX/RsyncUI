@@ -58,7 +58,7 @@ struct EstimationInProgressView: View {
             }
             .progressViewStyle(.circular)
     }
-    
+
     var progressviewonetaskonly: some View {
         ProgressView()
             .onAppear {

@@ -16,11 +16,11 @@ struct ConfigurationsTableDataView: View {
     var body: some View {
         Table(configurations ?? [], selection: $selecteduuids) {
             /*
-            TableColumn("Profile") { _ in
-                Text(profile ?? "Default")
-            }
-            .width(min: 50, max: 200)
-             */
+             TableColumn("Profile") { _ in
+                 Text(profile ?? "Default")
+             }
+             .width(min: 50, max: 200)
+              */
             TableColumn("Synchronize ID") { data in
                 if data.parameter4.isEmpty == false {
                     if data.backupID.isEmpty == true {

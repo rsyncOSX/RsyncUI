@@ -17,7 +17,7 @@ actor ActorReadLogRecordsJSON {
         var filename = ""
 
         Logger.process.info("ActorReadLogRecordsJSON: readjsonfilelogrecords() MAIN THREAD \(Thread.isMain)")
-        
+
         if let profile, let fullpathmacserial = path.fullpathmacserial {
             filename = fullpathmacserial.appending("/") + profile.appending("/") + SharedConstants().filenamelogrecordsjson
         } else {
@@ -27,7 +27,7 @@ actor ActorReadLogRecordsJSON {
         }
 
         Logger.process.info("ActorReadLogRecordsJSON: readjsonfilelogrecords() from \(filename, privacy: .public)")
-        
+
         let decodeimport = await DecodeGeneric()
         do {
             if let data = try

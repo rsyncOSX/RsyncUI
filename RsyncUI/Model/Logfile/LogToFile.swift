@@ -36,9 +36,9 @@ final class LogToFile {
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.logname)
-            
+
             Logger.process.info("Write logfile to \(logfileURL.path, privacy: .public)")
-            
+
             if let logfiledata = logfile {
                 if let data = logfiledata.data(using: .utf8) {
                     do {
@@ -96,7 +96,7 @@ final class LogToFile {
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.logname)
-            
+
             Logger.process.info("Read logfile \(logfileURL.path, privacy: .public)")
 
             do {

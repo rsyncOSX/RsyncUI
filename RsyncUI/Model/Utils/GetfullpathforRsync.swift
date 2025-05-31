@@ -18,7 +18,7 @@ struct GetfullpathforRsync {
                localrsyncpath.isEmpty == false
             {
                 Logger.process.info("GetfullpathforRsync OPTIONAL path: \(localrsyncpath, privacy: .public)")
-                
+
                 if localrsyncpath.hasPrefix("/") {
                     return localrsyncpath + SharedReference.shared.rsync
                 } else {
