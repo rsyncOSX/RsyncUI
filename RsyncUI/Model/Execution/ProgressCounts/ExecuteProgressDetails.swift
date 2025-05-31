@@ -24,4 +24,8 @@ final class ExecuteProgressDetails {
             return 0
         }
     }
+    
+    init() {
+        Logger.process.info("ExecuteProgressDetails INIT")
+    }
 }
