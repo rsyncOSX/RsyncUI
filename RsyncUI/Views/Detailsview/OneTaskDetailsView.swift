@@ -97,11 +97,12 @@ struct OneTaskDetailsView: View {
 
         Task {
             remotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
-        }
-        if let remotedatanumbers {
-            estimateprogressdetails.appendrecordestimatedlist(remotedatanumbers)
-        }
+            
+            if let remotedatanumbers {
+                estimateprogressdetails.appendrecordestimatedlist(remotedatanumbers)
+            }
 
-        estimateiscompleted = true
+            estimateiscompleted = true
+        }
     }
 }
