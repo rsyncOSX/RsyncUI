@@ -355,7 +355,7 @@ extension TasksView {
         } else if estimateprogressdetails.onlyselectedtaskisestimated(selecteduuids) {
             // Only execute task if this task only is estimated
             Logger.process.info("Doubleclick: execute a real run for one task only")
-            executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+            // executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
             execute()
         } else {
             dryrun()
@@ -407,12 +407,15 @@ extension TasksView {
             // One or some tasks are selected and estimated
             Logger.process.info("Execute() estimated tasks only")
             // Execute estimated tasks only
-            // Execute all estimated tasks
             selecteduuids = estimateprogressdetails.getuuidswithdatatosynchronize()
+            executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
             estimatestate.updateestimatestate(state: .start)
             // Change view, see SidebarTasksView
             path.append(Tasks(task: .executestimatedview))
+            
         } else {
+            
+            //
             // Execute all tasks, no estimate
             Logger.process.info("Execute() selected or all tasks NO estimate")
             // Execute tasks, no estimate
