@@ -24,6 +24,9 @@ struct Tasks: Hashable, Identifiable {
 
 struct SidebarTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Bindable var executeprogressdetails: ExecuteProgressDetails
+    @Bindable var estimateprogressdetails: EstimateProgressDetails
+    
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var executetasknavigation: [Tasks]
@@ -34,9 +37,6 @@ struct SidebarTasksView: View {
     @Binding var columnVisibility: NavigationSplitViewVisibility
     // View profiles on left
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
-
-    @State private var executeprogressdetails = ExecuteProgressDetails()
-    @State private var estimateprogressdetails = EstimateProgressDetails()
 
     var body: some View {
         NavigationStack(path: $executetasknavigation) {
