@@ -413,8 +413,6 @@ extension TasksView {
             path.append(Tasks(task: .executestimatedview))
             
         } else {
-            
-            //
             // Execute all tasks, no estimate
             Logger.process.info("Execute() selected or all tasks NO estimate")
             // Execute tasks, no estimate
