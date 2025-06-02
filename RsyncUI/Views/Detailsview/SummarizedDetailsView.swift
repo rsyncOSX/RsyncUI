@@ -196,6 +196,16 @@ struct SummarizedDetailsView: View {
             }
             .width(max: 60)
         }
+        .onAppear {
+            if selecteduuids.count > 0 {
+                // Reset preselected tasks, must do a few seconds timout
+                // before clearing it out
+                Task {
+                    try await Task.sleep(seconds: 2)
+                    selecteduuids.removeAll()
+                }
+            }
+        }
     }
 
     var rightcolumndetails: some View {
