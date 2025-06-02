@@ -113,7 +113,6 @@ struct SummarizedDetailsView: View {
                     Logger.process.warning("SummarizedDetailsView: estimate already in progress")
                     return
                 }
-                selecteduuids.removeAll()
                 estimateprogressdetails.resetcounts()
                 executeprogressdetails.estimatedlist = nil
                 estimateprogressdetails.startestimation()
