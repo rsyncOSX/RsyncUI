@@ -24,7 +24,7 @@ final class EstimateTasks {
     var structprofile: String?
     var localconfigurations: [SynchronizeConfiguration]
     var stackoftasktobeestimated: [Int]?
-    weak var localestimateprogressdetails: ProgressDetails?
+    weak var localprogressdetails: ProgressDetails?
     var synchronizeIDwitherror: String = ""
 
     func getconfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
@@ -43,7 +43,7 @@ final class EstimateTasks {
             {
                 guard arguments.count > 0 else { return }
                 // Used to display details of configuration in estimation
-                localestimateprogressdetails?.configurationtobestimated = config.id
+                localprogressdetails?.configurationtobestimated = config.id
                 let process = ProcessRsync(arguments: arguments,
                                            config: config,
                                            processtermination: processtermination)
@@ -61,12 +61,12 @@ final class EstimateTasks {
     init(profile: String?,
          configurations: [SynchronizeConfiguration],
          selecteduuids: Set<UUID>,
-         estimateprogressdetails: ProgressDetails?,
+         progressdetails: ProgressDetails?,
          filter: String)
     {
         structprofile = profile
         localconfigurations = configurations
-        localestimateprogressdetails = estimateprogressdetails
+        localprogressdetails = progressdetails
         let filteredconfigurations = localconfigurations.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
         // Estimate selected configurations
         if selecteduuids.count > 0 {
@@ -77,7 +77,7 @@ final class EstimateTasks {
             let configurations = filteredconfigurations.filter { $0.task != SharedReference.shared.halted }
             stackoftasktobeestimated = configurations.map(\.hiddenID)
         }
-        localestimateprogressdetails?.setprofileandnumberofconfigurations(structprofile, localconfigurations.count)
+        localprogressdetails?.setprofileandnumberofconfigurations(structprofile, localconfigurations.count)
     }
 }
 
@@ -99,11 +99,11 @@ extension EstimateTasks {
                 // Create data for output rsync for view
                 record.outputfromrsync =
                     await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
-                localestimateprogressdetails?.appendrecordestimatedlist(record)
+                localprogressdetails?.appendrecordestimatedlist(record)
 
                 if record.datatosynchronize {
                     if let config = getconfig(hiddenID ?? -1) {
-                        localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
+                        localprogressdetails?.appenduuidwithdatatosynchronize(config.id)
                     }
                 }
 
@@ -121,7 +121,7 @@ extension EstimateTasks {
                 if stackoftasktobeestimated?.count ?? 0 > 0 {
                     startestimation()
                 } else {
-                    localestimateprogressdetails?.estimationiscomplete()
+                    localprogressdetails?.estimationiscomplete()
                 }
             }
         } else {
@@ -131,11 +131,11 @@ extension EstimateTasks {
                 // Create data for output rsync for view
                 record.outputfromrsync =
                     await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
-                localestimateprogressdetails?.appendrecordestimatedlist(record)
+                localprogressdetails?.appendrecordestimatedlist(record)
 
                 if record.datatosynchronize {
                     if let config = getconfig(hiddenID ?? -1) {
-                        localestimateprogressdetails?.appenduuidwithdatatosynchronize(config.id)
+                        localprogressdetails?.appenduuidwithdatatosynchronize(config.id)
                     }
                 }
 
@@ -151,7 +151,7 @@ extension EstimateTasks {
                 if stackoftasktobeestimated?.count ?? 0 > 0 {
                     startestimation()
                 } else {
-                    localestimateprogressdetails?.estimationiscomplete()
+                    localprogressdetails?.estimationiscomplete()
                 }
             }
         }

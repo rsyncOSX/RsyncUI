@@ -20,7 +20,7 @@ final class ExecuteMultipleTasks {
     private var setabort = false
 
     weak var executestate: ExecuteState?
-    weak var estimateprogressdetails: ProgressDetails?
+    weak var progressdetails: ProgressDetails?
     // Collect loggdata for later save to permanent storage (hiddenID, log)
     private var configrecords = [Typelogdata]()
     private var schedulerecords = [Typelogdata]()
@@ -38,7 +38,7 @@ final class ExecuteMultipleTasks {
     private func startexecution() {
         guard (stackoftasktobeexecuted?.count ?? 0) > 0 else { return }
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
-            estimateprogressdetails?.hiddenIDatwork = hiddenID
+            progressdetails?.hiddenIDatwork = hiddenID
             let execute = ExecuteOneTask(hiddenID: hiddenID,
                                          configurations: localconfigurations,
                                          processtermination: processtermination,
@@ -52,14 +52,14 @@ final class ExecuteMultipleTasks {
          rsyncuiconfigurations: [SynchronizeConfiguration],
          selecteduuids: Set<UUID>,
          executestateDelegate: ExecuteState?,
-         estimateprogressdetailsDelegate: ProgressDetails?,
+         progressdetailsDelegate: ProgressDetails?,
          filehandler: @escaping (Int) -> Void,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
         structprofile = profile
         localconfigurations = rsyncuiconfigurations
         executestate = executestateDelegate
-        estimateprogressdetails = estimateprogressdetailsDelegate
+        progressdetails = progressdetailsDelegate
         localfilehandler = filehandler
         localupdateconfigurations = updateconfigurations
         guard selecteduuids.count > 0 else {
@@ -111,7 +111,7 @@ extension ExecuteMultipleTasks {
             return
         }
         if let hiddenID = stackoftasktobeexecuted?.remove(at: 0) {
-            estimateprogressdetails?.hiddenIDatwork = hiddenID
+            progressdetails?.hiddenIDatwork = hiddenID
             let execution = ExecuteOneTask(hiddenID: hiddenID,
                                            configurations: localconfigurations,
                                            processtermination: processtermination,

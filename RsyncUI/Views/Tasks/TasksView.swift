@@ -36,7 +36,7 @@ struct TasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
-    @Bindable var estimateprogressdetails: ProgressDetails
+    @Bindable var progressdetails: ProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     // Navigation path
     @Binding var path: [Tasks]
@@ -85,7 +85,7 @@ struct TasksView: View {
                     filterstring: $filterstring,
                     doubleclick: $doubleclick,
                     progress: $progress,
-                    estimateprogressdetails: estimateprogressdetails,
+                    progressdetails: progressdetails,
                     max: maxcount
                 )
                 .frame(maxWidth: .infinity)
@@ -109,13 +109,13 @@ struct TasksView: View {
                             selectedtaskishalted = false
                         }
                     }
-                    estimateprogressdetails.uuidswithdatatosynchronize = selecteduuids
+                    progressdetails.uuidswithdatatosynchronize = selecteduuids
                 }
                 .onChange(of: rsyncUIdata.profile) {
                     reset()
                 }
-                .onChange(of: estimateprogressdetails.estimatedlist) {
-                    if estimateprogressdetails.estimatedlist == nil {
+                .onChange(of: progressdetails.estimatedlist) {
+                    if progressdetails.estimatedlist == nil {
                         thereareestimates = false
                     } else {
                         thereareestimates = true
@@ -237,7 +237,7 @@ struct TasksView: View {
                         path.append(Tasks(task: .summarizeddetailsview))
                         return
                     }
-                    if estimateprogressdetails.tasksareestimated(selecteduuids) {
+                    if progressdetails.tasksareestimated(selecteduuids) {
                         path.append(Tasks(task: .dryrunonetaskalreadyestimated))
                     } else {
                         path.append(Tasks(task: .onetaskdetailsview))
@@ -348,12 +348,12 @@ extension TasksView {
         guard SharedReference.shared.norsync == false else { return }
         guard selectedtaskishalted == false else { return }
 
-        if estimateprogressdetails.estimatedlist == nil {
+        if progressdetails.estimatedlist == nil {
             dryrun()
-        } else if estimateprogressdetails.onlyselectedtaskisestimated(selecteduuids) {
+        } else if progressdetails.onlyselectedtaskisestimated(selecteduuids) {
             // Only execute task if this task only is estimated
             Logger.process.info("Doubleclick: execute a real run for one task only")
-            // estimateprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+            // progressdetails.estimatedlist = progressdetails.estimatedlist
             execute()
         } else {
             dryrun()
@@ -362,21 +362,21 @@ extension TasksView {
 
     func dryrun() {
         if selectedconfig.config != nil,
-           estimateprogressdetails.estimatedlist?.count ?? 0 == 0,
+           progressdetails.estimatedlist?.count ?? 0 == 0,
            selectedtaskishalted == false
         {
             Logger.process.info("DryRun: execute a dryrun for one task only")
             doubleclick = false
             path.append(Tasks(task: .onetaskdetailsview))
         } else if selectedconfig.config != nil,
-                  estimateprogressdetails.executeanotherdryrun(rsyncUIdata.profile) == true
+                  progressdetails.executeanotherdryrun(rsyncUIdata.profile) == true
         {
             Logger.process.info("DryRun: new task same profile selected, execute a dryrun")
             doubleclick = false
             path.append(Tasks(task: .onetaskdetailsview))
 
         } else if selectedconfig.config != nil,
-                  estimateprogressdetails.alltasksestimated(rsyncUIdata.profile) == false
+                  progressdetails.alltasksestimated(rsyncUIdata.profile) == false
         {
             Logger.process.info("DryRun: profile is changed, new task selected, execute a dryrun")
             doubleclick = false
@@ -388,24 +388,24 @@ extension TasksView {
         // All tasks are estimated and ready for execution.
         rsyncUIdata.executetasksinprogress = true
         if selecteduuids.count == 0,
-           estimateprogressdetails.alltasksestimated(rsyncUIdata.profile) == true
+           progressdetails.alltasksestimated(rsyncUIdata.profile) == true
 
         {
             Logger.process.info("Execute() all estimated tasks")
             // Execute all estimated tasks
-            selecteduuids = estimateprogressdetails.getuuidswithdatatosynchronize()
+            selecteduuids = progressdetails.getuuidswithdatatosynchronize()
             estimatestate.updateestimatestate(state: .start)
             // Change view, see SidebarTasksView
             path.append(Tasks(task: .executestimatedview))
 
         } else if selecteduuids.count >= 1,
-                  estimateprogressdetails.tasksareestimated(selecteduuids) == true
+                  progressdetails.tasksareestimated(selecteduuids) == true
 
         {
             // One or some tasks are selected and estimated
             Logger.process.info("Execute() estimated tasks only")
             // Execute estimated tasks only
-            selecteduuids = estimateprogressdetails.getuuidswithdatatosynchronize()
+            selecteduuids = progressdetails.getuuidswithdatatosynchronize()
             estimatestate.updateestimatestate(state: .start)
             // Change view, see SidebarTasksView
             path.append(Tasks(task: .executestimatedview))
@@ -419,7 +419,7 @@ extension TasksView {
     }
 
     func reset() {
-        estimateprogressdetails.resetcounts()
+        progressdetails.resetcounts()
         estimatestate.updateestimatestate(state: .start)
         selectedconfig.config = nil
         thereareestimates = false

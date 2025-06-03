@@ -10,7 +10,7 @@ import Observation
 import SwiftUI
 
 struct OneTaskDetailsView: View {
-    @Bindable var estimateprogressdetails: ProgressDetails
+    @Bindable var progressdetails: ProgressDetails
     @State private var estimateiscompleted = false
     @State private var remotedatanumbers: RemoteDataNumbers?
 
@@ -99,7 +99,7 @@ struct OneTaskDetailsView: View {
             remotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
 
             if let remotedatanumbers {
-                estimateprogressdetails.appendrecordestimatedlist(remotedatanumbers)
+                progressdetails.appendrecordestimatedlist(remotedatanumbers)
             }
 
             estimateiscompleted = true

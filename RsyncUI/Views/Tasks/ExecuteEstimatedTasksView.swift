@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ExecuteEstimatedTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Bindable var estimateprogressdetails: ProgressDetails
+    @Bindable var progressdetails: ProgressDetails
     @Binding var selecteduuids: Set<UUID>
     @Binding var path: [Tasks]
 
@@ -30,11 +30,11 @@ struct ExecuteEstimatedTasksView: View {
                 filterstring: $filterstring,
                 doubleclick: $doubleclick,
                 progress: $progress,
-                estimateprogressdetails: estimateprogressdetails,
+                progressdetails: progressdetails,
                 max: maxcount
             )
-            .onChange(of: estimateprogressdetails.hiddenIDatwork) {
-                maxcount = estimateprogressdetails.getmaxcountbytask()
+            .onChange(of: progressdetails.hiddenIDatwork) {
+                maxcount = progressdetails.getmaxcountbytask()
             }
 
             if executestate.executestate == .execute { ProgressView() }
@@ -44,7 +44,7 @@ struct ExecuteEstimatedTasksView: View {
             executemultipleestimatedtasks()
         })
         .onDisappear(perform: {
-            estimateprogressdetails.estimatedlist = nil
+            progressdetails.estimatedlist = nil
             rsyncUIdata.executetasksinprogress = false
             if SharedReference.shared.process != nil {
                 InterruptProcess()
@@ -78,7 +78,7 @@ extension ExecuteEstimatedTasksView {
     }
 
     func abort() {
-        estimateprogressdetails.hiddenIDatwork = -1
+        progressdetails.hiddenIDatwork = -1
         executestate.updateexecutestate(state: .start)
         selecteduuids.removeAll()
         InterruptProcess()
@@ -90,7 +90,7 @@ extension ExecuteEstimatedTasksView {
         if selecteduuids.count > 0 {
             adjustedselecteduuids = selecteduuids
         } else {
-            if let estimatedlist = estimateprogressdetails.estimatedlist {
+            if let estimatedlist = progressdetails.estimatedlist {
                 adjustedselecteduuids = Set<SynchronizeConfiguration.ID>()
                 _ = estimatedlist.map { estimate in
                     if estimate.datatosynchronize == true {
@@ -100,7 +100,7 @@ extension ExecuteEstimatedTasksView {
             }
         }
         guard (adjustedselecteduuids?.count ?? 0) > 0 else {
-            estimateprogressdetails.estimatedlist = nil
+            progressdetails.estimatedlist = nil
             rsyncUIdata.executetasksinprogress = false
             path.removeAll()
             return
@@ -113,7 +113,7 @@ extension ExecuteEstimatedTasksView {
                                      rsyncuiconfigurations: configurations,
                                      selecteduuids: adjustedselecteduuids,
                                      executestateDelegate: executestate,
-                                     estimateprogressdetailsDelegate: estimateprogressdetails,
+                                     progressdetailsDelegate: progressdetails,
                                      filehandler: filehandler,
                                      updateconfigurations: updateconfigurations)
             }
@@ -123,8 +123,8 @@ extension ExecuteEstimatedTasksView {
     func updateconfigurations(_ configurations: [SynchronizeConfiguration]) {
         Logger.process.info("ExecuteEstimatedTasksView: updateconfigurations() in memory\nReset data and return to MAIN THREAD task view")
         rsyncUIdata.configurations = configurations
-        estimateprogressdetails.hiddenIDatwork = -1
-        estimateprogressdetails.estimatedlist = nil
+        progressdetails.hiddenIDatwork = -1
+        progressdetails.estimatedlist = nil
         rsyncUIdata.executetasksinprogress = false
         executestate.updateexecutestate(state: .start)
         selecteduuids.removeAll()

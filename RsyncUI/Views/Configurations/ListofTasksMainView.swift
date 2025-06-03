@@ -17,7 +17,7 @@ struct ListofTasksMainView: View {
 
     @State private var confirmdelete: Bool = false
 
-    let estimateprogressdetails: ProgressDetails
+    let progressdetails: ProgressDetails
     let max: Double
 
     var body: some View {
@@ -25,7 +25,7 @@ struct ListofTasksMainView: View {
                                         selecteduuids: $selecteduuids,
                                         filterstring: $filterstring,
                                         progress: $progress,
-                                        estimateprogressdetails: estimateprogressdetails,
+                                        progressdetails: progressdetails,
                                         max: max)
             .overlay {
                 if (rsyncUIdata.configurations ?? []).filter(

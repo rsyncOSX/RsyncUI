@@ -24,7 +24,7 @@ struct Tasks: Hashable, Identifiable {
 
 struct SidebarTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Bindable var estimateprogressdetails: ProgressDetails
+    @Bindable var progressdetails: ProgressDetails
 
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
@@ -40,7 +40,7 @@ struct SidebarTasksView: View {
     var body: some View {
         NavigationStack(path: $executetasknavigation) {
             TasksView(rsyncUIdata: rsyncUIdata,
-                      estimateprogressdetails: estimateprogressdetails,
+                      progressdetails: progressdetails,
                       selecteduuids: $selecteduuids,
                       path: $executetasknavigation,
                       urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
@@ -65,7 +65,7 @@ struct SidebarTasksView: View {
         switch view {
         case .executestimatedview:
             ExecuteEstimatedTasksView(rsyncUIdata: rsyncUIdata,
-                                      estimateprogressdetails: estimateprogressdetails,
+                                      progressdetails: progressdetails,
                                       selecteduuids: $selecteduuids,
                                       path: $executetasknavigation)
         case .executenoestimatetasksview:
@@ -75,29 +75,29 @@ struct SidebarTasksView: View {
         case .summarizeddetailsview:
             // After a complete estimation all tasks
             if let configurations = rsyncUIdata.configurations {
-                SummarizedDetailsView(estimateprogressdetails: estimateprogressdetails,
+                SummarizedDetailsView(progressdetails: progressdetails,
                                       selecteduuids: $selecteduuids,
                                       path: $executetasknavigation,
                                       configurations: configurations,
                                       profile: rsyncUIdata.profile,
                                       queryitem: queryitem)
                     .onDisappear {
-                        // estimateprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                        // progressdetails.estimatedlist = progressdetails.estimatedlist
                         queryitem = nil
                     }
             }
         case .onetaskdetailsview:
             // After dry-run one task
             if let configurations = rsyncUIdata.configurations {
-                OneTaskDetailsView(estimateprogressdetails: estimateprogressdetails,
+                OneTaskDetailsView(progressdetails: progressdetails,
                                    selecteduuids: selecteduuids,
                                    configurations: configurations)
                     .onDisappear {
-                        // estimateprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                        // progressdetails.estimatedlist = progressdetails.estimatedlist
                     }
             }
         case .dryrunonetaskalreadyestimated:
-            if let estimates = estimateprogressdetails.estimatedlist?.filter({ $0.id == selecteduuids.first }) {
+            if let estimates = progressdetails.estimatedlist?.filter({ $0.id == selecteduuids.first }) {
                 if estimates.count == 1 {
                     DetailsView(remotedatanumbers: estimates[0])
                         .onDisappear(perform: {
@@ -118,7 +118,7 @@ struct SidebarTasksView: View {
     }
 
     func reset() {
-        estimateprogressdetails.resetcounts()
+        progressdetails.resetcounts()
         rsyncUIdata.executetasksinprogress = false
         queryitem = nil
     }

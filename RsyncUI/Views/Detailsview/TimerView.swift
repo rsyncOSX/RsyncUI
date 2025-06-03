@@ -10,7 +10,7 @@ import SwiftUI
 struct TimerView: View {
     @Environment(\.dismiss) var dismiss
 
-    @Bindable var estimateprogressdetails: ProgressDetails
+    @Bindable var progressdetails: ProgressDetails
     @Binding var path: [Tasks]
 
     @State var startDate = Date.now
@@ -29,7 +29,7 @@ struct TimerView: View {
                     timetosynchronize = 1
                     timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))
                     if timetosynchronize < 0 {
-                        estimateprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                        progressdetails.estimatedlist = progressdetails.estimatedlist
                         path.removeAll()
                         path.append(Tasks(task: .executestimatedview))
                     }
@@ -46,7 +46,7 @@ struct TimerView: View {
                     timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))
                     timeosynchronizestring = String(timetosynchronize)
                     if timetosynchronize < 0 {
-                        estimateprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                        progressdetails.estimatedlist = progressdetails.estimatedlist
                         path.removeAll()
                         path.append(Tasks(task: .executestimatedview))
                     }

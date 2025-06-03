@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EstimationInProgressView: View {
-    @Bindable var estimateprogressdetails: ProgressDetails
+    @Bindable var progressdetails: ProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
@@ -18,8 +18,8 @@ struct EstimationInProgressView: View {
 
     var body: some View {
         VStack {
-            if let uuid = getuuid(uuid: estimateprogressdetails.configurationtobestimated) {
-                EstimateTableView(estimateprogressdetails: estimateprogressdetails,
+            if let uuid = getuuid(uuid: progressdetails.configurationtobestimated) {
+                EstimateTableView(progressdetails: progressdetails,
                                   estimatinguuid: uuid,
                                   configurations: configurations)
             }
@@ -33,8 +33,8 @@ struct EstimationInProgressView: View {
             if focusaborttask { labelaborttask }
         }
         .onAppear {
-            estimateprogressdetails.resetcounts()
-            estimateprogressdetails.startestimation()
+            progressdetails.resetcounts()
+            progressdetails.startestimation()
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .frame(maxWidth: .infinity)
@@ -42,7 +42,7 @@ struct EstimationInProgressView: View {
 
     var progressviewestimation: some View {
         ProgressView("",
-                     value: estimateprogressdetails.numberofconfigurationsestimated,
+                     value: progressdetails.numberofconfigurationsestimated,
                      total: Double(configurations.count))
             .onAppear {
                 // Either is there some selceted tasks or if not
@@ -50,7 +50,7 @@ struct EstimationInProgressView: View {
                 let estimate = EstimateTasks(profile: profile,
                                              configurations: configurations,
                                              selecteduuids: selecteduuids,
-                                             estimateprogressdetails: estimateprogressdetails,
+                                             progressdetails: progressdetails,
                                              filter: "")
                 estimate.startestimation()
             }
@@ -65,7 +65,7 @@ struct EstimationInProgressView: View {
                 let estimate = EstimateTasks(profile: profile,
                                              configurations: configurations,
                                              selecteduuids: selecteduuids,
-                                             estimateprogressdetails: estimateprogressdetails,
+                                             progressdetails: progressdetails,
                                              filter: "")
                 estimate.startestimation()
             }
@@ -88,6 +88,6 @@ struct EstimationInProgressView: View {
 
     func abort() {
         InterruptProcess()
-        estimateprogressdetails.resetcounts()
+        progressdetails.resetcounts()
     }
 }

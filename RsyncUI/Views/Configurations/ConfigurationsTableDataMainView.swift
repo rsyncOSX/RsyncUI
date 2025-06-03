@@ -13,7 +13,7 @@ struct ConfigurationsTableDataMainView: View {
     @Binding var filterstring: String
     @Binding var progress: Double
 
-    let estimateprogressdetails: ProgressDetails
+    let progressdetails: ProgressDetails
     let max: Double
 
     var body: some View {
@@ -21,7 +21,7 @@ struct ConfigurationsTableDataMainView: View {
             filterstring.isEmpty ? true : $0.backupID.contains(filterstring)
         }, selection: $selecteduuids) {
             TableColumn("%") { data in
-                if data.hiddenID == estimateprogressdetails.hiddenIDatwork, max > 0, progress <= max {
+                if data.hiddenID == progressdetails.hiddenIDatwork, max > 0, progress <= max {
                     ProgressView("",
                                  value: progress,
                                  total: max)
@@ -36,21 +36,21 @@ struct ConfigurationsTableDataMainView: View {
             .width(min: 50, max: 100)
             .defaultVisibility(visible_not_progress)
             TableColumn("Est") { data in
-                if let index = estimateprogressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id }) {
-                    if estimateprogressdetails.estimatedlist?[index].datatosynchronize == false,
-                       estimateprogressdetails.estimatedlist?[index].preparedoutputfromrsync?.count ?? 0 > SharedReference.shared.alerttagginglines
+                if let index = progressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id }) {
+                    if progressdetails.estimatedlist?[index].datatosynchronize == false,
+                       progressdetails.estimatedlist?[index].preparedoutputfromrsync?.count ?? 0 > SharedReference.shared.alerttagginglines
                     {
                         Text(Image(systemName: "questionmark"))
                             .foregroundColor(.yellow)
                     } else {
-                        let color: Color = estimateprogressdetails.estimatedlist?[index].datatosynchronize == true ? .blue : .red
+                        let color: Color = progressdetails.estimatedlist?[index].datatosynchronize == true ? .blue : .red
                         Text(Image(systemName: "checkmark"))
                             .foregroundColor(color)
                     }
                 }
             }
             .width(max: 25)
-            .defaultVisibility(estimateprogressdetails.estimatedlist == nil ? .hidden : .visible)
+            .defaultVisibility(progressdetails.estimatedlist == nil ? .hidden : .visible)
             TableColumn("Synchronize ID") { data in
                 if data.backupID.isEmpty == true {
                     Text("Synchronize ID")

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EstimateTableView: View {
-    @Bindable var estimateprogressdetails: ProgressDetails
+    @Bindable var progressdetails: ProgressDetails
     let estimatinguuid: SynchronizeConfiguration.ID
     let configurations: [SynchronizeConfiguration]
 
@@ -57,7 +57,7 @@ struct EstimateTableView: View {
     }
 
     func color(uuid: UUID) -> Color {
-        let filter = estimateprogressdetails.estimatedlist?.filter {
+        let filter = progressdetails.estimatedlist?.filter {
             $0.id == uuid
         }
         return filter?.isEmpty == false ? .blue : .white

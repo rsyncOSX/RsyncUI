@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 struct SummarizedDetailsView: View {
-    @Bindable var estimateprogressdetails: ProgressDetails
+    @Bindable var progressdetails: ProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var path: [Tasks]
 
@@ -24,13 +24,13 @@ struct SummarizedDetailsView: View {
     var body: some View {
         VStack {
             HStack {
-                if estimateprogressdetails.estimatealltasksinprogress {
-                    EstimationInProgressView(estimateprogressdetails: estimateprogressdetails,
+                if progressdetails.estimatealltasksinprogress {
+                    EstimationInProgressView(progressdetails: progressdetails,
                                              selecteduuids: $selecteduuids,
                                              profile: profile,
                                              configurations: configurations)
                         .onDisappear {
-                            let datatosynchronize = estimateprogressdetails.estimatedlist?.compactMap { element in
+                            let datatosynchronize = progressdetails.estimatedlist?.compactMap { element in
                                 element.datatosynchronize ? true : nil
                             }
                             if let datatosynchronize {
@@ -50,7 +50,7 @@ struct SummarizedDetailsView: View {
             .toolbar(content: {
                 if datatosynchronizeURL {
                     ToolbarItem {
-                        TimerView(estimateprogressdetails: estimateprogressdetails,
+                        TimerView(progressdetails: progressdetails,
                                   path: $path)
                     }
 
@@ -63,9 +63,9 @@ struct SummarizedDetailsView: View {
                     if SharedReference.shared.confirmexecute {
                         ToolbarItem {
                             Button {
-                                isPresentingConfirm = estimateprogressdetails.confirmexecutetasks()
+                                isPresentingConfirm = progressdetails.confirmexecutetasks()
                                 if isPresentingConfirm == false {
-                                    // estimateprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                                    // progressdetails.estimatedlist = progressdetails.estimatedlist
                                     path.removeAll()
                                     path.append(Tasks(task: .executestimatedview))
                                 }
@@ -78,7 +78,7 @@ struct SummarizedDetailsView: View {
                                                 isPresented: $isPresentingConfirm)
                             {
                                 Button("Synchronize", role: .destructive) {
-                                    // estimateprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                                    // progressdetails.estimatedlist = progressdetails.estimatedlist
                                     path.removeAll()
                                     path.append(Tasks(task: .executestimatedview))
                                 }
@@ -87,7 +87,7 @@ struct SummarizedDetailsView: View {
                     } else {
                         ToolbarItem {
                             Button {
-                                // estimateprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                                // progressdetails.estimatedlist = progressdetails.estimatedlist
                                 path.removeAll()
                                 path.append(Tasks(task: .executestimatedview))
                             } label: {
@@ -106,12 +106,12 @@ struct SummarizedDetailsView: View {
             .frame(maxWidth: .infinity)
             .focusedSceneValue(\.startexecution, $focusstartexecution)
             .onAppear {
-                guard estimateprogressdetails.estimatealltasksinprogress == false else {
+                guard progressdetails.estimatealltasksinprogress == false else {
                     Logger.process.warning("SummarizedDetailsView: estimate already in progress")
                     return
                 }
-                estimateprogressdetails.resetcounts()
-                estimateprogressdetails.startestimation()
+                progressdetails.resetcounts()
+                progressdetails.startestimation()
             }
         }
 
@@ -132,8 +132,8 @@ struct SummarizedDetailsView: View {
 
     // URL code
     var datatosynchronizeURL: Bool {
-        if queryitem != nil, estimateprogressdetails.estimatealltasksinprogress == false {
-            let datatosynchronize = estimateprogressdetails.estimatedlist?.filter { $0.datatosynchronize == true }
+        if queryitem != nil, progressdetails.estimatealltasksinprogress == false {
+            let datatosynchronize = progressdetails.estimatedlist?.filter { $0.datatosynchronize == true }
             if (datatosynchronize?.count ?? 0) > 0 {
                 return true
             } else {
@@ -144,8 +144,8 @@ struct SummarizedDetailsView: View {
     }
 
     var datatosynchronize: Bool {
-        if queryitem == nil, estimateprogressdetails.estimatealltasksinprogress == false {
-            let datatosynchronize = estimateprogressdetails.estimatedlist?.filter { $0.datatosynchronize == true }
+        if queryitem == nil, progressdetails.estimatealltasksinprogress == false {
+            let datatosynchronize = progressdetails.estimatedlist?.filter { $0.datatosynchronize == true }
             if (datatosynchronize?.count ?? 0) > 0 {
                 return true
             } else {
@@ -156,7 +156,7 @@ struct SummarizedDetailsView: View {
     }
 
     var leftcolumndetails: some View {
-        Table(estimateprogressdetails.estimatedlist ?? [],
+        Table(progressdetails.estimatedlist ?? [],
               selection: $selecteduuids)
         {
             TableColumn("Synchronize ID") { data in
@@ -205,7 +205,7 @@ struct SummarizedDetailsView: View {
     }
 
     var rightcolumndetails: some View {
-        Table(estimateprogressdetails.estimatedlist ?? [],
+        Table(progressdetails.estimatedlist ?? [],
               selection: $selecteduuids)
         {
             TableColumn("New") { files in
