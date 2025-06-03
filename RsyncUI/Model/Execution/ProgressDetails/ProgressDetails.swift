@@ -29,20 +29,18 @@ final class ProgressDetails {
     var configurationtobestimated: UUID?
 
     // For execution
-
     var hiddenIDatwork: Int = -1
 
     func getmaxcountbytask() -> Double {
         let max = estimatedlist?.filter { $0.hiddenID == hiddenIDatwork }
         if (max?.count ?? 0) == 1 {
             let num = Double(max?[0].outputfromrsync?.count ?? 0) + 3
-            Logger.process.info("EstimateProgressDetails (getmaxcount): \(num, privacy: .public)")
+            Logger.process.info("ProgressDetails: EXECUTING getmaxcountbytask() : \(num, privacy: .public) ")
             return Double(max?[0].outputfromrsync?.count ?? 0) + 3
         } else {
             return 0
         }
     }
-
     // For execution
 
     func tasksareestimated(_ uuids: Set<UUID>) -> Bool {
@@ -82,12 +80,12 @@ final class ProgressDetails {
     }
 
     func appenduuidwithdatatosynchronize(_ id: UUID) {
-        Logger.process.info("EstimateProgressDetails: appending uuid \(id) to uuidswithdatatosynchronize")
+        Logger.process.info("ProgressDetails: ESTIMATION appending uuid \(id) to uuidswithdatatosynchronize")
         uuidswithdatatosynchronize.insert(id)
     }
 
     func resetcounts() {
-        Logger.process.info("EstimateProgressDetails: RESET all properties")
+        Logger.process.info("ProgressDetails: RESET all properties")
         numberofconfigurations = -1
         uuidswithdatatosynchronize.removeAll()
         estimatedlist = nil
@@ -107,18 +105,18 @@ final class ProgressDetails {
         numberofconfigurationsestimated = Double(estimatedlist?.count ?? 0)
         onetaskisestimated = true
         let numbers = estimatedlist?.count ?? 0
-        Logger.process.info("EstimateProgressDetails: appendrecordestimatedlist - count: \(numbers)")
+        Logger.process.info("ProgressDetails: ESTIMATION appendrecordestimatedlist - count: \(numbers)")
     }
 
     func estimationiscomplete() {
         estimatealltasksinprogress = false
         let numbers = estimatedlist?.count ?? 0
-        Logger.process.info("EstimateProgressDetails: estimation COMPLETED: \(numbers)")
+        Logger.process.info("ProgressDetails: ESTIMATION completed: \(numbers)")
     }
 
     func startestimation() {
         estimatealltasksinprogress = true
-        Logger.process.info("EstimateProgressDetails: estimation STARTED")
+        Logger.process.info("ProgressDetails: ESTIMATION started")
     }
 
     func confirmexecutetasks() -> Bool {
@@ -127,6 +125,6 @@ final class ProgressDetails {
     }
 
     init() {
-        Logger.process.info("EstimateProgressDetails INIT")
+        Logger.process.info("ProgressDetails INIT")
     }
 }

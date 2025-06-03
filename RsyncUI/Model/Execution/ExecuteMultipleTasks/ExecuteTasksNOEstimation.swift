@@ -13,7 +13,7 @@ final class ExecuteTasksNOEstimation {
     var structprofile: String?
     var localconfigurations: [SynchronizeConfiguration]
     var stackoftasktobeestimated: [Int]?
-    weak var localexecutenoestimationprogressdetails: ExecuteNoEstimationProgressDetails?
+    weak var localnoestimationprogressdetails: NoEstimationProgressDetails?
     // Collect loggdata for later save to permanent storage
     // (hiddenID, log)
     private var configrecords = [Typelogdata]()
@@ -37,7 +37,7 @@ final class ExecuteTasksNOEstimation {
             localupdateconfigurations(updateconfigurations)
             // Update logrecords
             update.addlogpermanentstore(schedulerecords: schedulerecords)
-            localexecutenoestimationprogressdetails?.executealltasksnoestiamtioncomplete()
+            localnoestimationprogressdetails?.executealltasksnoestiamtioncomplete()
             Logger.process.info("class ExecuteTasks: execution is completed")
             return
         }
@@ -58,13 +58,13 @@ final class ExecuteTasksNOEstimation {
 
     init(profile: String?,
          rsyncuiconfigurations: [SynchronizeConfiguration],
-         executenoestimationprogressdetails: ExecuteNoEstimationProgressDetails?,
+         noestimationprogressdetails: NoEstimationProgressDetails?,
          selecteduuids: Set<UUID>,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
         structprofile = profile
         localconfigurations = rsyncuiconfigurations
-        localexecutenoestimationprogressdetails = executenoestimationprogressdetails
+        localnoestimationprogressdetails = noestimationprogressdetails
         localupdateconfigurations = updateconfigurations
         // Estimate selected configurations
         if selecteduuids.count > 0 {
@@ -97,8 +97,8 @@ extension ExecuteTasksNOEstimation {
                                            config: config)
             if let stats = record.stats {
                 schedulerecords.append((hiddenID ?? -1, stats))
-                localexecutenoestimationprogressdetails?.appendrecordexecutedlist(record)
-                localexecutenoestimationprogressdetails?.appenduuidwithdatatosynchronize(config.id)
+                localnoestimationprogressdetails?.appendrecordexecutedlist(record)
+                localnoestimationprogressdetails?.appenduuidwithdatatosynchronize(config.id)
                 startexecution()
             }
         }
