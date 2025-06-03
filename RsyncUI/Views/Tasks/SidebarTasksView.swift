@@ -82,7 +82,6 @@ struct SidebarTasksView: View {
                                       profile: rsyncUIdata.profile,
                                       queryitem: queryitem)
                     .onDisappear {
-                        // progressdetails.estimatedlist = progressdetails.estimatedlist
                         queryitem = nil
                     }
             }
@@ -92,9 +91,6 @@ struct SidebarTasksView: View {
                 OneTaskDetailsView(progressdetails: progressdetails,
                                    selecteduuids: selecteduuids,
                                    configurations: configurations)
-                    .onDisappear {
-                        // progressdetails.estimatedlist = progressdetails.estimatedlist
-                    }
             }
         case .dryrunonetaskalreadyestimated:
             if let estimates = progressdetails.estimatedlist?.filter({ $0.id == selecteduuids.first }) {

@@ -353,7 +353,6 @@ extension TasksView {
         } else if progressdetails.onlyselectedtaskisestimated(selecteduuids) {
             // Only execute task if this task only is estimated
             Logger.process.info("Doubleclick: execute a real run for one task only")
-            // progressdetails.estimatedlist = progressdetails.estimatedlist
             execute()
         } else {
             dryrun()

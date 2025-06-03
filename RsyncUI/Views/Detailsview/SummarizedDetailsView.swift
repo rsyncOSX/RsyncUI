@@ -50,8 +50,7 @@ struct SummarizedDetailsView: View {
             .toolbar(content: {
                 if datatosynchronizeURL {
                     ToolbarItem {
-                        TimerView(progressdetails: progressdetails,
-                                  path: $path)
+                        TimerView(path: $path)
                     }
 
                     ToolbarItem {
@@ -65,7 +64,6 @@ struct SummarizedDetailsView: View {
                             Button {
                                 isPresentingConfirm = progressdetails.confirmexecutetasks()
                                 if isPresentingConfirm == false {
-                                    // progressdetails.estimatedlist = progressdetails.estimatedlist
                                     path.removeAll()
                                     path.append(Tasks(task: .executestimatedview))
                                 }
@@ -78,7 +76,6 @@ struct SummarizedDetailsView: View {
                                                 isPresented: $isPresentingConfirm)
                             {
                                 Button("Synchronize", role: .destructive) {
-                                    // progressdetails.estimatedlist = progressdetails.estimatedlist
                                     path.removeAll()
                                     path.append(Tasks(task: .executestimatedview))
                                 }
@@ -87,7 +84,6 @@ struct SummarizedDetailsView: View {
                     } else {
                         ToolbarItem {
                             Button {
-                                // progressdetails.estimatedlist = progressdetails.estimatedlist
                                 path.removeAll()
                                 path.append(Tasks(task: .executestimatedview))
                             } label: {
