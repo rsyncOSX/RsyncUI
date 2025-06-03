@@ -26,7 +26,7 @@ struct SidebarTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Bindable var estimateprogressdetails: EstimateProgressDetails
-    
+
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var executetasknavigation: [Tasks]

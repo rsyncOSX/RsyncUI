@@ -297,7 +297,6 @@ struct TasksView: View {
                 if let configurations = rsyncUIdata.configurations {
                     ExportView(focusexport: $focusexport,
                                configurations: configurations,
-                               profile: rsyncUIdata.profile,
                                preselectedtasks: selecteduuids)
                         .onDisappear {
                             selecteduuids.removeAll()
@@ -411,7 +410,7 @@ extension TasksView {
             estimatestate.updateestimatestate(state: .start)
             // Change view, see SidebarTasksView
             path.append(Tasks(task: .executestimatedview))
-            
+
         } else {
             // Execute all tasks, no estimate
             Logger.process.info("Execute() selected or all tasks NO estimate")

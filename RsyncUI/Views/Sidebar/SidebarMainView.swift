@@ -24,7 +24,7 @@ struct SidebarMainView: View {
     @Bindable var scheduledata: ObservableScheduleData
     @Binding var selectedprofile: String?
     @Bindable var errorhandling: AlertError
-    
+
     @State private var executeprogressdetails = ExecuteProgressDetails()
     @State private var estimateprogressdetails = EstimateProgressDetails()
 

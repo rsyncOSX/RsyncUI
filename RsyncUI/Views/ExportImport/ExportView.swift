@@ -16,7 +16,6 @@ struct ExportView: View {
     @State var somesnapshottask: Bool = false
 
     let configurations: [SynchronizeConfiguration]
-    let profile: String?
     let preselectedtasks: Set<SynchronizeConfiguration.ID>
 
     var body: some View {
