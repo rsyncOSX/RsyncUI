@@ -24,7 +24,7 @@ struct Tasks: Hashable, Identifiable {
 
 struct SidebarTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Bindable var estimateprogressdetails: EstimateProgressDetails
+    @Bindable var estimateprogressdetails: ProgressDetails
 
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>

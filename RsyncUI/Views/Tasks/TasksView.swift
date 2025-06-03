@@ -36,7 +36,7 @@ struct TasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
-    @Bindable var estimateprogressdetails: EstimateProgressDetails
+    @Bindable var estimateprogressdetails: ProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     // Navigation path
     @Binding var path: [Tasks]

@@ -10,7 +10,7 @@ import Observation
 import OSLog
 
 @Observable
-final class EstimateProgressDetails {
+final class ProgressDetails {
     var estimatedlist: [RemoteDataNumbers]?
     // UUIDs with data to be transferred
     var uuidswithdatatosynchronize = Set<UUID>()

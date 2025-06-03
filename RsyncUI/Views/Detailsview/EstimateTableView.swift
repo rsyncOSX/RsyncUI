@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EstimateTableView: View {
-    @Bindable var estimateprogressdetails: EstimateProgressDetails
+    @Bindable var estimateprogressdetails: ProgressDetails
     let estimatinguuid: SynchronizeConfiguration.ID
     let configurations: [SynchronizeConfiguration]
 

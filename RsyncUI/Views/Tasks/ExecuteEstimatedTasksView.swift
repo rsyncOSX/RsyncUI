@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ExecuteEstimatedTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Bindable var estimateprogressdetails: EstimateProgressDetails
+    @Bindable var estimateprogressdetails: ProgressDetails
     @Binding var selecteduuids: Set<UUID>
     @Binding var path: [Tasks]
 

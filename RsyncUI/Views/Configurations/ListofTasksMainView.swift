@@ -17,7 +17,7 @@ struct ListofTasksMainView: View {
 
     @State private var confirmdelete: Bool = false
 
-    let estimateprogressdetails: EstimateProgressDetails
+    let estimateprogressdetails: ProgressDetails
     let max: Double
 
     var body: some View {

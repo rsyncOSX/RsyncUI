@@ -24,7 +24,7 @@ final class EstimateTasks {
     var structprofile: String?
     var localconfigurations: [SynchronizeConfiguration]
     var stackoftasktobeestimated: [Int]?
-    weak var localestimateprogressdetails: EstimateProgressDetails?
+    weak var localestimateprogressdetails: ProgressDetails?
     var synchronizeIDwitherror: String = ""
 
     func getconfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
@@ -61,7 +61,7 @@ final class EstimateTasks {
     init(profile: String?,
          configurations: [SynchronizeConfiguration],
          selecteduuids: Set<UUID>,
-         estimateprogressdetails: EstimateProgressDetails?,
+         estimateprogressdetails: ProgressDetails?,
          filter: String)
     {
         structprofile = profile

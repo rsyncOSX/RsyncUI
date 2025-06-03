@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 struct SummarizedDetailsView: View {
-    @Bindable var estimateprogressdetails: EstimateProgressDetails
+    @Bindable var estimateprogressdetails: ProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var path: [Tasks]
 

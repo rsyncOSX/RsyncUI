@@ -25,7 +25,7 @@ struct SidebarMainView: View {
     @Binding var selectedprofile: String?
     @Bindable var errorhandling: AlertError
 
-    @State private var estimateprogressdetails = EstimateProgressDetails()
+    @State private var estimateprogressdetails = ProgressDetails()
 
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedview: Sidebaritems = .synchronize

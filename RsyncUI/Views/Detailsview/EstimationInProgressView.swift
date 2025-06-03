@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EstimationInProgressView: View {
-    @Bindable var estimateprogressdetails: EstimateProgressDetails
+    @Bindable var estimateprogressdetails: ProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false

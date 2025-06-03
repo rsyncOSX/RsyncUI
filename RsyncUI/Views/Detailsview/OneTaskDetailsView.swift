@@ -10,7 +10,7 @@ import Observation
 import SwiftUI
 
 struct OneTaskDetailsView: View {
-    @Bindable var estimateprogressdetails: EstimateProgressDetails
+    @Bindable var estimateprogressdetails: ProgressDetails
     @State private var estimateiscompleted = false
     @State private var remotedatanumbers: RemoteDataNumbers?
 

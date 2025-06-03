@@ -20,7 +20,7 @@ final class ExecuteMultipleTasks {
     private var setabort = false
 
     weak var executestate: ExecuteState?
-    weak var estimateprogressdetails: EstimateProgressDetails?
+    weak var estimateprogressdetails: ProgressDetails?
     // Collect loggdata for later save to permanent storage (hiddenID, log)
     private var configrecords = [Typelogdata]()
     private var schedulerecords = [Typelogdata]()
@@ -52,7 +52,7 @@ final class ExecuteMultipleTasks {
          rsyncuiconfigurations: [SynchronizeConfiguration],
          selecteduuids: Set<UUID>,
          executestateDelegate: ExecuteState?,
-         estimateprogressdetailsDelegate: EstimateProgressDetails?,
+         estimateprogressdetailsDelegate: ProgressDetails?,
          filehandler: @escaping (Int) -> Void,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
