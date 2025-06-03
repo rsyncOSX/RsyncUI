@@ -1,5 +1,5 @@
 //
-//  EstimateProgressDetails.swift
+//  ProgressDetails.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 20/01/2021.
@@ -28,9 +28,8 @@ final class ProgressDetails {
     // UUID for configuration to be estimated
     var configurationtobestimated: UUID?
 
-    
     // For execution
-    
+
     var hiddenIDatwork: Int = -1
 
     func getmaxcountbytask() -> Double {
@@ -43,7 +42,7 @@ final class ProgressDetails {
             return 0
         }
     }
-    
+
     // For execution
 
     func tasksareestimated(_ uuids: Set<UUID>) -> Bool {
