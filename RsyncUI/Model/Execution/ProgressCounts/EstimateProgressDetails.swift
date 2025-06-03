@@ -37,7 +37,7 @@ final class EstimateProgressDetails {
         let max = estimatedlist?.filter { $0.hiddenID == hiddenIDatwork }
         if (max?.count ?? 0) == 1 {
             let num = Double(max?[0].outputfromrsync?.count ?? 0) + 3
-            Logger.process.info("ExecuteProgressDetails (getmaxcount): \(num, privacy: .public)")
+            Logger.process.info("EstimateProgressDetails (getmaxcount): \(num, privacy: .public)")
             return Double(max?[0].outputfromrsync?.count ?? 0) + 3
         } else {
             return 0
@@ -88,6 +88,7 @@ final class EstimateProgressDetails {
     }
 
     func resetcounts() {
+        Logger.process.info("EstimateProgressDetails: RESET all properties")
         numberofconfigurations = -1
         uuidswithdatatosynchronize.removeAll()
         estimatedlist = nil
