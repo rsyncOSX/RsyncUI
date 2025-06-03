@@ -10,7 +10,6 @@ import SwiftUI
 struct TimerView: View {
     @Environment(\.dismiss) var dismiss
 
-    @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var path: [Tasks]
 

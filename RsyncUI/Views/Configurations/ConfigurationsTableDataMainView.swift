@@ -13,7 +13,7 @@ struct ConfigurationsTableDataMainView: View {
     @Binding var filterstring: String
     @Binding var progress: Double
 
-    let executeprogressdetails: ExecuteProgressDetails
+    let estimateprogressdetails: EstimateProgressDetails
     let max: Double
 
     var body: some View {

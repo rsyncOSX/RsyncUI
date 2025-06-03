@@ -9,7 +9,6 @@ import OSLog
 import SwiftUI
 
 struct SummarizedDetailsView: View {
-    @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Bindable var estimateprogressdetails: EstimateProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var path: [Tasks]
@@ -26,7 +25,7 @@ struct SummarizedDetailsView: View {
         VStack {
             HStack {
                 if estimateprogressdetails.estimatealltasksinprogress {
-                    EstimationInProgressView(executeprogressdetails: executeprogressdetails,
+                    EstimationInProgressView(estimateprogressdetails: executeprogressdetails,
                                              estimateprogressdetails: estimateprogressdetails,
                                              selecteduuids: $selecteduuids,
                                              profile: profile,
@@ -52,7 +51,7 @@ struct SummarizedDetailsView: View {
             .toolbar(content: {
                 if datatosynchronizeURL {
                     ToolbarItem {
-                        TimerView(executeprogressdetails: executeprogressdetails,
+                        TimerView(estimateprogressdetails: executeprogressdetails,
                                   estimateprogressdetails: estimateprogressdetails,
                                   path: $path)
                     }

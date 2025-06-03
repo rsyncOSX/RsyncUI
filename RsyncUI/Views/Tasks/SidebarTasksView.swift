@@ -24,7 +24,6 @@ struct Tasks: Hashable, Identifiable {
 
 struct SidebarTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Bindable var executeprogressdetails: ExecuteProgressDetails
     @Bindable var estimateprogressdetails: EstimateProgressDetails
 
     @Binding var selectedprofile: String?
@@ -41,7 +40,6 @@ struct SidebarTasksView: View {
     var body: some View {
         NavigationStack(path: $executetasknavigation) {
             TasksView(rsyncUIdata: rsyncUIdata,
-                      executeprogressdetails: executeprogressdetails,
                       estimateprogressdetails: estimateprogressdetails,
                       selecteduuids: $selecteduuids,
                       path: $executetasknavigation,
@@ -67,7 +65,7 @@ struct SidebarTasksView: View {
         switch view {
         case .executestimatedview:
             ExecuteEstimatedTasksView(rsyncUIdata: rsyncUIdata,
-                                      executeprogressdetails: executeprogressdetails,
+                                      estimateprogressdetails: estimateprogressdetails,
                                       selecteduuids: $selecteduuids,
                                       path: $executetasknavigation)
         case .executenoestimatetasksview:
@@ -77,15 +75,14 @@ struct SidebarTasksView: View {
         case .summarizeddetailsview:
             // After a complete estimation all tasks
             if let configurations = rsyncUIdata.configurations {
-                SummarizedDetailsView(executeprogressdetails: executeprogressdetails,
-                                      estimateprogressdetails: estimateprogressdetails,
+                SummarizedDetailsView(estimateprogressdetails: estimateprogressdetails,
                                       selecteduuids: $selecteduuids,
                                       path: $executetasknavigation,
                                       configurations: configurations,
                                       profile: rsyncUIdata.profile,
                                       queryitem: queryitem)
                     .onDisappear {
-                        executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                        // executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                         queryitem = nil
                     }
             }
@@ -96,7 +93,7 @@ struct SidebarTasksView: View {
                                    selecteduuids: selecteduuids,
                                    configurations: configurations)
                     .onDisappear {
-                        executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                        // executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                     }
             }
         case .dryrunonetaskalreadyestimated:

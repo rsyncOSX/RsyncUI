@@ -25,7 +25,6 @@ struct SidebarMainView: View {
     @Binding var selectedprofile: String?
     @Bindable var errorhandling: AlertError
 
-    @State private var executeprogressdetails = ExecuteProgressDetails()
     @State private var estimateprogressdetails = EstimateProgressDetails()
 
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
@@ -235,7 +234,6 @@ struct SidebarMainView: View {
             SnapshotsView(rsyncUIdata: rsyncUIdata)
         case .synchronize:
             SidebarTasksView(rsyncUIdata: rsyncUIdata,
-                             executeprogressdetails: executeprogressdetails,
                              estimateprogressdetails: estimateprogressdetails,
                              selectedprofile: $selectedprofile,
                              selecteduuids: $selecteduuids,
