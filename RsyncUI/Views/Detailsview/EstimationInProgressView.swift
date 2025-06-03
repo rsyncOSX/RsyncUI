@@ -34,7 +34,6 @@ struct EstimationInProgressView: View {
         }
         .onAppear {
             estimateprogressdetails.resetcounts()
-            executeprogressdetails.estimatedlist = nil
             estimateprogressdetails.startestimation()
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
@@ -90,6 +89,5 @@ struct EstimationInProgressView: View {
     func abort() {
         InterruptProcess()
         estimateprogressdetails.resetcounts()
-        executeprogressdetails.estimatedlist = nil
     }
 }

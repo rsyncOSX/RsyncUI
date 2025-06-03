@@ -29,7 +29,7 @@ struct TimerView: View {
                     timetosynchronize = 1
                     timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))
                     if timetosynchronize < 0 {
-                        executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                        estimateprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                         path.removeAll()
                         path.append(Tasks(task: .executestimatedview))
                     }
@@ -46,7 +46,7 @@ struct TimerView: View {
                     timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))
                     timeosynchronizestring = String(timetosynchronize)
                     if timetosynchronize < 0 {
-                        executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                        estimateprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                         path.removeAll()
                         path.append(Tasks(task: .executestimatedview))
                     }

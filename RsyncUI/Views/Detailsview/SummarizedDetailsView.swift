@@ -25,8 +25,7 @@ struct SummarizedDetailsView: View {
         VStack {
             HStack {
                 if estimateprogressdetails.estimatealltasksinprogress {
-                    EstimationInProgressView(estimateprogressdetails: executeprogressdetails,
-                                             estimateprogressdetails: estimateprogressdetails,
+                    EstimationInProgressView(estimateprogressdetails: estimateprogressdetails,
                                              selecteduuids: $selecteduuids,
                                              profile: profile,
                                              configurations: configurations)
@@ -51,8 +50,7 @@ struct SummarizedDetailsView: View {
             .toolbar(content: {
                 if datatosynchronizeURL {
                     ToolbarItem {
-                        TimerView(estimateprogressdetails: executeprogressdetails,
-                                  estimateprogressdetails: estimateprogressdetails,
+                        TimerView(estimateprogressdetails: estimateprogressdetails,
                                   path: $path)
                     }
 
@@ -67,7 +65,7 @@ struct SummarizedDetailsView: View {
                             Button {
                                 isPresentingConfirm = estimateprogressdetails.confirmexecutetasks()
                                 if isPresentingConfirm == false {
-                                    executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                                    // estimateprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                                     path.removeAll()
                                     path.append(Tasks(task: .executestimatedview))
                                 }
@@ -80,7 +78,7 @@ struct SummarizedDetailsView: View {
                                                 isPresented: $isPresentingConfirm)
                             {
                                 Button("Synchronize", role: .destructive) {
-                                    executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                                    // estimateprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                                     path.removeAll()
                                     path.append(Tasks(task: .executestimatedview))
                                 }
@@ -89,7 +87,7 @@ struct SummarizedDetailsView: View {
                     } else {
                         ToolbarItem {
                             Button {
-                                executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                                // estimateprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                                 path.removeAll()
                                 path.append(Tasks(task: .executestimatedview))
                             } label: {
@@ -113,7 +111,6 @@ struct SummarizedDetailsView: View {
                     return
                 }
                 estimateprogressdetails.resetcounts()
-                executeprogressdetails.estimatedlist = nil
                 estimateprogressdetails.startestimation()
             }
         }

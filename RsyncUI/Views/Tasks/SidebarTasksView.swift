@@ -82,7 +82,7 @@ struct SidebarTasksView: View {
                                       profile: rsyncUIdata.profile,
                                       queryitem: queryitem)
                     .onDisappear {
-                        // executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                        // estimateprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                         queryitem = nil
                     }
             }
@@ -93,7 +93,7 @@ struct SidebarTasksView: View {
                                    selecteduuids: selecteduuids,
                                    configurations: configurations)
                     .onDisappear {
-                        // executeprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
+                        // estimateprogressdetails.estimatedlist = estimateprogressdetails.estimatedlist
                     }
             }
         case .dryrunonetaskalreadyestimated:
@@ -118,7 +118,6 @@ struct SidebarTasksView: View {
     }
 
     func reset() {
-        executeprogressdetails.estimatedlist = nil
         estimateprogressdetails.resetcounts()
         rsyncUIdata.executetasksinprogress = false
         queryitem = nil

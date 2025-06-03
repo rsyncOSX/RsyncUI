@@ -25,7 +25,7 @@ struct ListofTasksMainView: View {
                                         selecteduuids: $selecteduuids,
                                         filterstring: $filterstring,
                                         progress: $progress,
-                                        estimateprogressdetails: executeprogressdetails,
+                                        estimateprogressdetails: estimateprogressdetails,
                                         max: max)
             .overlay {
                 if (rsyncUIdata.configurations ?? []).filter(
