@@ -113,12 +113,10 @@ struct AboutView: View {
     }
 
     var appnamestring: some View {
-        HStack {
-            Text("\(appName)")
-            Text("version \(appVersion)")
-            Text("build \(appBuild)" )
+        HStack(alignment: .center) {
+            Text("\(appName) version \(appVersion) build \(appBuild)")
         }
-        .font(.caption)
+        //.font(.caption)
         .padding(3)
     }
     

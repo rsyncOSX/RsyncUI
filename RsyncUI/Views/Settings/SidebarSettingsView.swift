@@ -9,7 +9,7 @@ import Observation
 import SwiftUI
 
 enum SideSettingsbaritems: String, Identifiable, CaseIterable {
-    case rsync_and_path, monitor_and_log, ssh, environment, info
+    case rsync_and_path, monitor_and_log, ssh, environment, about
     var id: String { rawValue }
 }
 
@@ -30,7 +30,7 @@ struct SidebarSettingsView: View {
         } detail: {
             settingsView(selectedsetting)
         }
-        .frame(minWidth: 600, minHeight: 500)
+        .frame(minWidth: 300, minHeight: 500)
         .navigationTitle("RsyncUI settings")
     }
 
@@ -45,7 +45,7 @@ struct SidebarSettingsView: View {
             Sshsettings()
         case .environment:
             Environmentsettings()
-        case .info:
+        case .about:
             AboutView()
         }
     }
@@ -69,7 +69,7 @@ struct SidebarSettingsRow: View {
             "terminal"
         case .environment:
             "gear"
-        case .info:
+        case .about:
             "info.circle.fill"
         }
     }
