@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AboutView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @State private var urlstring = ""
 
     let iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "")
@@ -16,7 +18,6 @@ struct AboutView: View {
         Resources().getResource(resource: .changelog)
     }
 
-    /*
      var appName: String {
          (Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String) ?? "RsyncUI"
      }
@@ -31,9 +32,9 @@ struct AboutView: View {
 
      var copyright: String {
          let copyright = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as? String
-         return copyright ?? NSLocalizedString("Copyright ©2023 Thomas Evensen", comment: "")
+         return copyright ?? NSLocalizedString("Copyright ©2025 Thomas Evensen", comment: "")
      }
-     */
+     
     var configpath: String {
         Homepath().fullpathmacserial ?? ""
     }
@@ -41,6 +42,9 @@ struct AboutView: View {
     var body: some View {
         Form {
             Section {
+                
+                appnamestring
+                
                 HStack {
                     VStack(alignment: .leading) {
                         Image(nsImage: NSImage(named: NSImage.applicationIconName)!)
@@ -50,37 +54,55 @@ struct AboutView: View {
 
                         appicon
                     }
-
+                    
                     rsyncversionshortstring
+                    
                 }
 
                 rsyncuiconfigpathpath
             }
-
+            
             Section {
-                Button {
-                    openchangelog()
-                } label: {
-                    Image(systemName: "doc.plaintext")
-                }
-                .buttonStyle(ColorfulButtonStyle())
-
-            } header: {
-                Text("Changelog")
-            }
-
-            if SharedReference.shared.newversion {
-                Section {
+                
+                HStack {
+                    
                     Button {
-                        opendownload()
+                        openchangelog()
+                        dismiss()
                     } label: {
-                        Image(systemName: "square.and.arrow.down.fill")
+                        Image(systemName: "doc.plaintext")
                     }
-                    .help("Download")
                     .buttonStyle(ColorfulButtonStyle())
+                    
+                    if SharedReference.shared.newversion {
+                  
+                            Button {
+                                opendownload()
+                            } label: {
+                                Image(systemName: "square.and.arrow.down.fill")
+                            }
+                            .help("Download")
+                            .buttonStyle(ColorfulButtonStyle())
 
-                } header: {
+                    }
+                    
+                    Spacer()
+                    
+                    Button("Dismiss") {
+                        dismiss()
+                    }
+                    .buttonStyle(ColorfulButtonStyle())
+                    
+                }
+                
+            } header: {
+                
+                if SharedReference.shared.newversion {
+                    
                     Text("There is a new version available for download")
+                    
+                } else {
+                    Text("Changelog")
                 }
             }
         }
@@ -90,6 +112,16 @@ struct AboutView: View {
         .formStyle(.grouped)
     }
 
+    var appnamestring: some View {
+        HStack {
+            Text("\(appName)")
+            Text("version \(appVersion)")
+            Text("build \(appBuild)" )
+        }
+        .font(.caption)
+        .padding(3)
+    }
+    
     var rsyncversionshortstring: some View {
         VStack {
             Text(SharedReference.shared.rsyncversionshort ?? "")

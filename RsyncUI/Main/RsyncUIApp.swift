@@ -11,6 +11,9 @@ import UserNotifications
 
 @main
 struct RsyncUIApp: App {
+    
+    @State private var showabout: Bool = false
+    
     var body: some Scene {
         Window("RsyncUI", id: "main") {
             RsyncUIView()
@@ -18,6 +21,9 @@ struct RsyncUIApp: App {
                     Homepath().createrootprofilecatalog()
                 }
                 .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
+                .sheet(isPresented: $showabout) {
+                    AboutView()
+                }
         }
         .commands {
             SidebarCommands()
@@ -36,8 +42,16 @@ struct RsyncUIApp: App {
                     Text("RsyncUI documentation")
                 }
             }
+            
+            CommandGroup(replacing: .appInfo) {
+                Button(action: {
+                    showabout = true
+                }) {
+                    Text("About RsyncUI")
+                }
+            }
         }
-
+        
         Settings {
             SidebarSettingsView()
         }
