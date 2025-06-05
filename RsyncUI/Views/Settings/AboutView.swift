@@ -98,7 +98,9 @@ struct AboutView: View {
             }
         }
         .task {
-            urlstring = await GetversionofRsyncUI().downloadlinkofrsyncui() ?? ""
+            if SharedReference.shared.newversion {
+                urlstring = await GetversionofRsyncUI().downloadlinkofrsyncui() ?? ""
+            }
         }
         .formStyle(.grouped)
     }
