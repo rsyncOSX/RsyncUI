@@ -1,5 +1,5 @@
 //
-//  ExecuteNoEstimationProgressDetails.swift
+//  NoEstimationProgressDetails.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 06/01/2024.

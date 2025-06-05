@@ -41,6 +41,7 @@ final class ProgressDetails {
             return 0
         }
     }
+
     // For execution
 
     func tasksareestimated(_ uuids: Set<UUID>) -> Bool {
