@@ -304,8 +304,5 @@ extension RsyncParametersView {
             parameters.reset()
             selectedconfig = nil
         }
-        Task {
-            try await Task.sleep(seconds: 2)
-        }
     }
 }
