@@ -12,6 +12,14 @@ enum CoinInserted {}
 enum Fetching {}
 enum Serving {}
 
+
+enum NoTaskIsSelected {}
+enum TaskisReSelected {}
+enum OneTaskIsSelected {}
+enum NewTaskIsSelected {}
+enum DoubleClickDiscovered {}
+enum TasksAreEstimated {}
+
 struct Transition<From, To> {}
 
 struct Machine<State> {
@@ -22,7 +30,11 @@ struct Machine<State> {
 
 final class StateMachine {
     
-    var m1: Machine<Waiting>?
+    let readyfordryrun = Transition<NoTaskIsSelected, OneTaskIsSelected>()
+    let readyfornewdryrun = Transition<TaskisReSelected, NewTaskIsSelected>()
+    
+    
+    
     
     let start = Transition<Waiting, CoinInserted>()
     let selectionMade = Transition<CoinInserted, Fetching>()
@@ -31,6 +43,10 @@ final class StateMachine {
     
     
     init () {
+        let ready = Machine<NoTaskIsSelected>()
+        
+        
+        
         let m1 = Machine<Waiting>()
         let m2 = m1.transition(with: start)
         let m3 = m2.transition(with: selectionMade)
