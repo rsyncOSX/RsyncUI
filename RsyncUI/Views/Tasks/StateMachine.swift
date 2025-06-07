@@ -16,9 +16,9 @@ enum Serving {}
 enum NoTaskIsSelected {}
 enum TaskisReSelected {}
 enum OneTaskIsSelected {}
-enum NewTaskIsSelected {}
 enum DoubleClickDiscovered {}
 enum TasksAreEstimated {}
+enum NoTasksAreEstimated {}
 
 struct Transition<From, To> {}
 
@@ -31,7 +31,7 @@ struct Machine<State> {
 final class StateMachine {
     
     let readyfordryrun = Transition<NoTaskIsSelected, OneTaskIsSelected>()
-    let readyfornewdryrun = Transition<TaskisReSelected, NewTaskIsSelected>()
+    let readyfornewdryrun = Transition<TaskisReSelected, OneTaskIsSelected>()
     
     
     
