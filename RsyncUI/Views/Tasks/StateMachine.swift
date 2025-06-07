@@ -7,56 +7,21 @@
 
 import Foundation
 
-enum TrafficLightState {
-    case red
-    case yellow
-    case green
-}
-
-enum TrafficLightEvent {
-    case timer
-}
-
-class TrafficLightStateMachine {
-    private(set) var state: TrafficLightState
-
-    init(initialState: TrafficLightState) {
-        self.state = initialState
-    }
-
-    func handle(event: TrafficLightEvent) {
-        switch (state, event) {
-        case (.red, .timer):
-            state = .green
-            print("Transitioning from RED to GREEN")
-        case (.green, .timer):
-            state = .yellow
-            print("Transitioning from GREEN to YELLOW")
-        case (.yellow, .timer):
-            state = .red
-            print("Transitioning from YELLOW to RED")
-        default:
-            print("No transition available for state \(state) with event \(event)")
-        }
-    }
-}
-/*
-// Example Usage
-let trafficLight = TrafficLightStateMachine(initialState: .red)
-trafficLight.handle(event: .timer) // RED -> GREEN
-trafficLight.handle(event: .timer) // GREEN -> YELLOW
-trafficLight.handle(event: .timer) // YELLOW -> RED
-*/
-
-
-import Foundation
-
 enum State {
     case noselecteduuid
+
     case oneselecteduuid
     case changedselecteduuid
     case severalselecteduuid
-    case tasksisestimated
+
+    case dryrunONEtaskready
+    case dryrunNOtaskready
+    case dryrynSEVERALtasksready
+
+    case doubleclick
+    case doubleclicknewtask
+
+    case readyforexecute
 }
 
 enum Event {
@@ -71,19 +36,45 @@ class StateMachine {
     private(set) var state: State = .noselecteduuid
 
     func handle(event: Event) {
+        
         switch (state, event) {
+            
+        case (.oneselecteduuid, .start), (.doubleclick, .start):
+            state = .dryrunONEtaskready
+            print("One task selected FIRST DOUBLE CLICK, ready for dryrun")
+        case (.doubleclicknewtask, .start):
+            state = .dryrunONEtaskready
+            print("One task selected FIRST DOUBLE CLICK, NEW task selected, ready for dryrun")
+        case (.doubleclick, .dryrun):
+            state = .readyforexecute
+            print("One task selected SECOND DOUBLE CLICK , ready for execute")
+            
+        case (.severalselecteduuid, .start):
+            state = .dryrynSEVERALtasksready
+            print("SEVERAL (but not all) tasks selected, ready for dryrun")
+        case (.severalselecteduuid, .dryrun):
+            state = .readyforexecute
+            print("SEVERAL (but not all) tasks selected, dryrun completed, ready for execute")
+        
         case (.noselecteduuid, .start):
-            state = .oneselecteduuid
-            print("Transition: idle -> loading")
-        case (.oneselecteduuid, .dryrun):
-            state = .severalselecteduuid
-            print("Transition: loading -> success")
-        case (.oneselecteduuid, .execute):
-            state = .changedselecteduuid
-            print("Transition: loading -> failure")
-        case (.severalselecteduuid, .resetestimates), (.changedselecteduuid, .resetestimates):
+            state = .dryrynSEVERALtasksready
+            print("Several tasks selected, ready for dryrun")
+        case (.noselecteduuid, .dryrun):
+            state = .dryrynSEVERALtasksready
+            print("ALL tasks selected, dryrun completed, ready for execute")
+        
+            /*
+             Må også ha alle former for selected, ikke dry ryn men direkte execute
+             */
+        
+        
+        case (.severalselecteduuid, .resetestimates),
+            (.oneselecteduuid, .resetestimates),
+            (.noselecteduuid, .resetestimates):
             state = .noselecteduuid
-            print("Transition: \(state) -> idle")
+            print("RESET")
+        
+        
         default:
             print("No transition for (\(state), \(event))")
         }
