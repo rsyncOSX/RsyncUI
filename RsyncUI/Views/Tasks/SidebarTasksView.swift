@@ -28,7 +28,8 @@ struct SidebarTasksView: View {
 
     @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    @Binding var executetasknavigation: [Tasks]
+    // Navigation path for executetasks
+    @Binding var path: [Tasks]
     // URL code
     @Binding var queryitem: URLQueryItem?
     @Binding var urlcommandestimateandsynchronize: Bool
@@ -38,11 +39,11 @@ struct SidebarTasksView: View {
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
 
     var body: some View {
-        NavigationStack(path: $executetasknavigation) {
+        NavigationStack(path: $path) {
             TasksView(rsyncUIdata: rsyncUIdata,
                       progressdetails: progressdetails,
                       selecteduuids: $selecteduuids,
-                      path: $executetasknavigation,
+                      path: $path,
                       urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
                       columnVisibility: $columnVisibility,
                       selectedprofile: $selectedprofile,
@@ -51,8 +52,8 @@ struct SidebarTasksView: View {
                     makeView(view: which.task)
                 }
         }
-        .onChange(of: executetasknavigation) {
-            Logger.process.info("Path : \(executetasknavigation, privacy: .public)")
+        .onChange(of: path) {
+            Logger.process.info("Path : \(path, privacy: .public)")
         }
         .onChange(of: queryitem) {
             // URL code
@@ -67,17 +68,17 @@ struct SidebarTasksView: View {
             ExecuteEstimatedTasksView(rsyncUIdata: rsyncUIdata,
                                       progressdetails: progressdetails,
                                       selecteduuids: $selecteduuids,
-                                      path: $executetasknavigation)
+                                      path: $path)
         case .executenoestimatetasksview:
             ExecuteNoestimatedTasksView(rsyncUIdata: rsyncUIdata,
                                         selecteduuids: $selecteduuids,
-                                        path: $executetasknavigation)
+                                        path: $path)
         case .summarizeddetailsview:
             // After a complete estimation all tasks
             if let configurations = rsyncUIdata.configurations {
                 SummarizedDetailsView(progressdetails: progressdetails,
                                       selecteduuids: $selecteduuids,
-                                      path: $executetasknavigation,
+                                      path: $path,
                                       configurations: configurations,
                                       profile: rsyncUIdata.profile,
                                       queryitem: queryitem)
@@ -104,7 +105,7 @@ struct SidebarTasksView: View {
         case .quick_synchronize:
             QuicktaskView()
         case .completedview:
-            CompletedView(path: $executetasknavigation)
+            CompletedView(path: $path)
                 .onAppear {
                     reset()
                 }
@@ -125,7 +126,7 @@ extension SidebarTasksView {
     private func handlequeryitem() {
         Logger.process.info("SidebarTasksView: Change on queryitem discovered")
         if queryitem != nil {
-            executetasknavigation.append(Tasks(task: .summarizeddetailsview))
+            path.append(Tasks(task: .summarizeddetailsview))
         }
     }
 }

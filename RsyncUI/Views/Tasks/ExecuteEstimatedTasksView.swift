@@ -12,6 +12,7 @@ struct ExecuteEstimatedTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var progressdetails: ProgressDetails
     @Binding var selecteduuids: Set<UUID>
+    // Navigation path for executetasks
     @Binding var path: [Tasks]
 
     @State private var executestate = ExecuteState()

@@ -11,6 +11,7 @@ import SwiftUI
 struct ExecuteNoestimatedTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<UUID>
+    // Navigation path for executetasks
     @Binding var path: [Tasks]
 
     // Must be stateobject

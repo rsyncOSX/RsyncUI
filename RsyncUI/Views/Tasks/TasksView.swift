@@ -38,7 +38,7 @@ struct TasksView: View {
     // which is executed. Data for progressview.
     @Bindable var progressdetails: ProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    // Navigation path
+    // Navigation path for executetasks
     @Binding var path: [Tasks]
     // For URL commands within RsyncUI
     @Binding var urlcommandestimateandsynchronize: Bool

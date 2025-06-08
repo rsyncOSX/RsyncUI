@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CompletedView: View {
+    // Navigation path for executetasks
     @Binding var path: [Tasks]
     @State var showtext: Bool = true
 

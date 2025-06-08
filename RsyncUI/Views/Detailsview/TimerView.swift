@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TimerView: View {
     @Environment(\.dismiss) var dismiss
+    // Navigation path for executetasks
     @Binding var path: [Tasks]
 
     @State var startDate = Date.now

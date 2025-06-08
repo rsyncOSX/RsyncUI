@@ -11,6 +11,7 @@ import SwiftUI
 struct SummarizedDetailsView: View {
     @Bindable var progressdetails: ProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
+    // Navigation path for executetasks
     @Binding var path: [Tasks]
 
     @State private var focusstartexecution: Bool = false
