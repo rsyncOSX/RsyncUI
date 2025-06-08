@@ -18,7 +18,6 @@ final class ObservableAddConfigurations {
     var remoteserver: String = ""
     var backupID: String = ""
     var selectedrsynccommand = TypeofTask.synchronize
-    var selectedprofile: String?
 
     var deleted: Bool = false
     var created: Bool = false
