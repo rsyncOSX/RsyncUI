@@ -22,6 +22,9 @@ struct MenuItem: Identifiable, Hashable {
 struct SidebarMainView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var scheduledata: ObservableScheduleData
+    // The selectedprofile is updated by the profile picker
+    // The selecteprofile is monitored by the RsyncUIView and when changed
+    // a new profile is loaded
     @Binding var selectedprofile: String?
     @Bindable var errorhandling: AlertError
 
@@ -29,6 +32,9 @@ struct SidebarMainView: View {
 
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedview: Sidebaritems = .synchronize
+    
+    // paths used in NavigationStack, there are three parts where
+    // NavigationStack is utilized
     // Navigation path for executetasks
     @State var executetaskpath: [Tasks] = []
     // Navigation addtasks and verify
@@ -36,6 +42,7 @@ struct SidebarMainView: View {
     @State private var addtaskpath: [AddTasks] = []
     // Verify navigation
     @State private var verifypath: [Verify] = []
+    
     // Check if new version
     @State private var newversion = CheckfornewversionofRsyncUI()
     // URL code
@@ -51,7 +58,7 @@ struct SidebarMainView: View {
     @State private var mountingvolumenow: Bool = false
     // Calendar
     @State private var futuredates = ObservableFutureSchedules()
-
+    // Used when selecting a new profile
     @State private var selectedprofileID: ProfilesnamesRecord.ID?
 
     var body: some View {
