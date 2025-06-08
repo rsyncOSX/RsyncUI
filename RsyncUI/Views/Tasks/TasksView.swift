@@ -27,11 +27,6 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
     var description: String { rawValue.localizedLowercase }
 }
 
-@Observable
-final class Selectedconfig {
-    var config: SynchronizeConfiguration?
-}
-
 struct TasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
@@ -42,7 +37,6 @@ struct TasksView: View {
     @Binding var executetaskpath: [Tasks]
     // For URL commands within RsyncUI
     @Binding var urlcommandestimateandsynchronize: Bool
-    // @Binding var urlcommandverify: Bool
     // Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
     // View profiles on left
@@ -59,7 +53,7 @@ struct TasksView: View {
     // Filterstring
     @State private var filterstring: String = ""
     // Local data for present local and remote info about task
-    @State var selectedconfig = Selectedconfig()
+    @State var selectedconfig: SynchronizeConfiguration?
     @State private var doubleclick: Bool = false
     // Alert button
     @State private var showingAlert = false
@@ -88,7 +82,7 @@ struct TasksView: View {
                 .onChange(of: selecteduuids) {
                     if let configurations = rsyncUIdata.configurations {
                         if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                            selectedconfig.config = configurations[index]
+                            selectedconfig = configurations[index]
                             // Must check if rsync version and snapshot
                             if configurations[index].task == SharedReference.shared.snapshot,
                                SharedReference.shared.rsyncversion3 == false
@@ -96,7 +90,7 @@ struct TasksView: View {
                                 selecteduuids.removeAll()
                             }
                         } else {
-                            selectedconfig.config = nil
+                            selectedconfig = nil
                         }
                     }
                     progressdetails.uuidswithdatatosynchronize = selecteduuids
@@ -168,7 +162,7 @@ struct TasksView: View {
                     guard alltasksarehalted() == false else { return }
                     // This only applies if one task is selected and that task is halted
                     // If more than one task is selected, any halted tasks are ruled out
-                    guard selectedconfig.config?.task != SharedReference.shared.halted else { return }
+                    guard selectedconfig?.task != SharedReference.shared.halted else { return }
 
                     guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
                         Logger.process.info("Estimate() no tasks selected, no configurations, bailing out")
@@ -187,7 +181,7 @@ struct TasksView: View {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
                     guard alltasksarehalted() == false else { return }
-                    guard selectedconfig.config?.task != SharedReference.shared.halted else { return }
+                    guard selectedconfig?.task != SharedReference.shared.halted else { return }
 
                     guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
                         Logger.process.info("Estimate() no tasks selected, no configurations, bailing out")
@@ -345,7 +339,7 @@ extension TasksView {
     func doubleclickactionfunction() {
         guard SharedReference.shared.norsync == false else { return }
         // Must check if task is halted
-        guard selectedconfig.config?.task != SharedReference.shared.halted  else {
+        guard selectedconfig?.task != SharedReference.shared.halted  else {
             Logger.process.info("Doubleclick: task is halted")
             return
         }
@@ -362,20 +356,20 @@ extension TasksView {
     }
 
     func dryrun() {
-        if selectedconfig.config != nil,
+        if selectedconfig != nil,
            progressdetails.estimatedlist?.count ?? 0 == 0
         {
             Logger.process.info("DryRun: execute a dryrun for one task only")
             doubleclick = false
             executetaskpath.append(Tasks(task: .onetaskdetailsview))
-        } else if selectedconfig.config != nil,
+        } else if selectedconfig != nil,
                   progressdetails.executeanotherdryrun(rsyncUIdata.profile) == true
         {
             Logger.process.info("DryRun: new task same profile selected, execute a dryrun")
             doubleclick = false
             executetaskpath.append(Tasks(task: .onetaskdetailsview))
 
-        } else if selectedconfig.config != nil,
+        } else if selectedconfig != nil,
                   progressdetails.alltasksestimated(rsyncUIdata.profile) == false
         {
             Logger.process.info("DryRun: profile is changed, new task selected, execute a dryrun")
@@ -421,7 +415,7 @@ extension TasksView {
     func reset() {
         progressdetails.resetcounts()
         estimatestate.updateestimatestate(state: .start)
-        selectedconfig.config = nil
+        selectedconfig = nil
         thereareestimates = false
         rsyncUIdata.executetasksinprogress = false
     }
