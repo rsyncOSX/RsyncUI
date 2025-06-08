@@ -9,18 +9,14 @@ import OSLog
 import SwiftUI
 
 struct RsyncUIView: View {
-    @State private var selectedprofile: String?
+    // Used when selecting a new profile
+    @State private var selectedprofileID: ProfilesnamesRecord.ID?
     // Set version of rsync to use
     @State private var rsyncversion = Rsyncversion()
     @State private var start: Bool = true
-
     @State private var rsyncUIdata = RsyncUIconfigurations()
     @State private var scheduledata = ObservableScheduleData()
     
-    // Used when selecting a new profile
-    @State private var selectedprofileID: ProfilesnamesRecord.ID?
-
-
     var body: some View {
         VStack {
             if start {
@@ -41,7 +37,6 @@ struct RsyncUIView: View {
                 SidebarMainView(rsyncUIdata: rsyncUIdata,
                                 scheduledata: scheduledata,
                                 selectedprofileID: $selectedprofileID,
-                                selectedprofile: $selectedprofile,
                                 errorhandling: errorhandling)
             }
         }
@@ -50,11 +45,10 @@ struct RsyncUIView: View {
             ReadUserConfigurationJSON().readuserconfiguration()
             // Get version of rsync
             rsyncversion.getrsyncversion()
-            rsyncUIdata.profile = selectedprofile
             rsyncUIdata.executetasksinprogress = false
 
             rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
-                .readjsonfilesynchronizeconfigurations(selectedprofile,
+                .readjsonfilesynchronizeconfigurations(nil,
                                                        SharedReference.shared.monitornetworkconnection,
                                                        SharedReference.shared.sshport)
 

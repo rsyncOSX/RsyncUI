@@ -26,7 +26,6 @@ struct SidebarTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var progressdetails: ProgressDetails
 
-    @Binding var selectedprofile: String?
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     // Navigation path for executetasks
     @Binding var executetaskpath: [Tasks]
@@ -46,7 +45,6 @@ struct SidebarTasksView: View {
                       executetaskpath: $executetaskpath,
                       urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
                       columnVisibility: $columnVisibility,
-                      selectedprofile: $selectedprofile,
                       selectedprofileID: $selectedprofileID)
                 .navigationDestination(for: Tasks.self) { which in
                     makeView(view: which.task)

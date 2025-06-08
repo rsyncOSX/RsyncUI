@@ -45,7 +45,6 @@ struct TasksView: View {
     // @Binding var urlcommandverify: Bool
     // Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
-    @Binding var selectedprofile: String?
     // View profiles on left
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
 

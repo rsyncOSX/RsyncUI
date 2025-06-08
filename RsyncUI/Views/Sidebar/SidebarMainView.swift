@@ -22,18 +22,15 @@ struct MenuItem: Identifiable, Hashable {
 struct SidebarMainView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var scheduledata: ObservableScheduleData
-    // The selectedprofile is updated by the profile picker
-    // The selecteprofile is monitored by the RsyncUIView and when changed
+    // The selectedprofileID is updated by the profile picker
+    // The selectedprofileID is monitored by the RsyncUIView and when changed
     // a new profile is loaded
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
-    @Binding var selectedprofile: String?
     @Bindable var errorhandling: AlertError
 
     @State private var progressdetails = ProgressDetails()
-
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedview: Sidebaritems = .synchronize
-    
     // paths used in NavigationStack, there are three parts where
     // NavigationStack is utilized
     // Navigation path for executetasks
@@ -43,7 +40,6 @@ struct SidebarMainView: View {
     @State private var addtaskpath: [AddTasks] = []
     // Verify navigation
     @State private var verifypath: [Verify] = []
-    
     // Check if new version
     @State private var newversion = CheckfornewversionofRsyncUI()
     // URL code
@@ -217,7 +213,6 @@ struct SidebarMainView: View {
         case .tasks:
             AddTaskView(rsyncUIdata: rsyncUIdata,
                         selecteduuids: $selecteduuids,
-                        selectedprofile: $selectedprofile,
                         addtaskpath: $addtaskpath)
         case .log_listings:
             LogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
@@ -235,7 +230,6 @@ struct SidebarMainView: View {
         case .synchronize:
             SidebarTasksView(rsyncUIdata: rsyncUIdata,
                              progressdetails: progressdetails,
-                             selectedprofile: $selectedprofile,
                              selecteduuids: $selecteduuids,
                              executetaskpath: $executetaskpath,
                              queryitem: $queryitem,
@@ -333,7 +327,10 @@ extension SidebarMainView {
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
                 let profile = queryitems[0].value
                 if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
-                    selectedprofile = profile
+                    if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.profilename == profile }) {
+                        // Set the profile picker and let the picker do the job
+                        selectedprofileID = rsyncUIdata.validprofiles[index].id
+                    }
                 }
             } else {
                 return
@@ -483,13 +480,12 @@ extension SidebarMainView {
                     configuration.offsiteCatalog.contains(volume) == true &&
                     configuration.task != SharedReference.shared.halted) ? configuration : nil
             }
-            let profile = mappedallconfigurations.compactMap(\.backupID)
-            guard profile.count > 0 else {
+            let profiles = mappedallconfigurations.compactMap(\.backupID)
+            guard profiles.count > 0 else {
                 mountingvolumenow = false
                 return
             }
-            let uniqprofiles = Set(profile)
-            // selectedprofile = uniqprofiles.first
+            let uniqprofiles = Set(profiles)
             if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.profilename == uniqprofiles.first }) {
                 // Set the profile picker and let the picker do the job
                 selectedprofileID = rsyncUIdata.validprofiles[index].id
@@ -518,14 +514,17 @@ extension SidebarMainView {
         rsyncUIdata.externalurlrequestinprogress = true
         if profile == nil {
             rsyncUIdata.profile = nil
-            selectedprofile = nil
+            selectedprofileID = nil
         } else {
             rsyncUIdata.profile = profile
-            selectedprofile = profile
+            if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.profilename == profile }) {
+                // Set the profile picker and let the picker do the job
+                selectedprofileID = rsyncUIdata.validprofiles[index].id
+            }
         }
 
         rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
-            .readjsonfilesynchronizeconfigurations(selectedprofile,
+            .readjsonfilesynchronizeconfigurations(profile,
                                                    SharedReference.shared.monitornetworkconnection,
                                                    SharedReference.shared.sshport)
 

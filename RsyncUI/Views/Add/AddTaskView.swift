@@ -31,7 +31,6 @@ struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
 
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    @Binding var selectedprofile: String?
     @Binding var addtaskpath: [AddTasks]
 
     @State private var newdata = ObservableAddConfigurations()
@@ -622,7 +621,8 @@ struct AddTaskView: View {
 
 extension AddTaskView {
     func addconfig() {
-        rsyncUIdata.configurations = newdata.addconfig(selectedprofile, rsyncUIdata.configurations)
+        let profile = rsyncUIdata.profile
+        rsyncUIdata.configurations = newdata.addconfig(profile, rsyncUIdata.configurations)
         if SharedReference.shared.duplicatecheck {
             if let configurations = rsyncUIdata.configurations {
                 VerifyDuplicates(configurations)
@@ -631,7 +631,8 @@ extension AddTaskView {
     }
 
     func validateandupdate() {
-        rsyncUIdata.configurations = newdata.updateconfig(selectedprofile, rsyncUIdata.configurations)
+        let profile = rsyncUIdata.profile
+        rsyncUIdata.configurations = newdata.updateconfig(profile, rsyncUIdata.configurations)
         selecteduuids.removeAll()
     }
 }
