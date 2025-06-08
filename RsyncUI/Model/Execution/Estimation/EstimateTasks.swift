@@ -35,19 +35,19 @@ final class EstimateTasks {
     }
 
     func startestimation() {
-        let localhiddenID = stackoftasktobeestimated?.removeFirst()
-        guard localhiddenID != nil else { return }
-        if let config = getconfig(localhiddenID ?? -1) {
-            if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
-                                                                                         forDisplay: false)
-            {
-                guard arguments.count > 0 else { return }
-                // Used to display details of configuration in estimation
-                localprogressdetails?.configurationtobestimated = config.id
-                let process = ProcessRsync(arguments: arguments,
-                                           config: config,
-                                           processtermination: processtermination)
-                process.executeProcess()
+        if let localhiddenID = stackoftasktobeestimated?.removeFirst() {
+            if let config = getconfig(localhiddenID) {
+                if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
+                                                                                             forDisplay: false)
+                {
+                    guard arguments.count > 0 else { return }
+                    // Used to display details of configuration in estimation
+                    localprogressdetails?.configurationtobestimated = config.id
+                    let process = ProcessRsync(arguments: arguments,
+                                               config: config,
+                                               processtermination: processtermination)
+                    process.executeProcess()
+                }
             }
         }
     }

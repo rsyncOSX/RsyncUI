@@ -167,6 +167,8 @@ struct TasksView: View {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
                     guard alltasksarehalted() == false else { return }
+                    // This only applies if one task is selected and that task is halted
+                    // If more than one task is selected, any halted tasks are ruled out
                     guard selectedconfig.config?.task != SharedReference.shared.halted else { return }
 
                     guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
@@ -342,7 +344,11 @@ extension TasksView {
             Logger.process.info("Doubleclick: task is halted")
             return
         }
-
+        guard selecteduuids.count == 1 else {
+            Logger.process.info("Doubleclick: more than ONE task selected")
+            return
+        }
+       
         if progressdetails.estimatedlist == nil {
             dryrun()
         } else if progressdetails.onlyselectedtaskisestimated(selecteduuids) {
