@@ -33,7 +33,7 @@ struct SidebarMainView: View {
     @State var executetaskpath: [Tasks] = []
     // Navigation addtasks and verify
     // Needed here because if not empty sidebar is disabled
-    @State private var addtasknavigation: [AddTasks] = []
+    @State private var addtaskpath: [AddTasks] = []
     // Verify navigation
     @State private var executeverifynavigation: [Verify] = []
     // Check if new version
@@ -218,7 +218,7 @@ struct SidebarMainView: View {
             AddTaskView(rsyncUIdata: rsyncUIdata,
                         selecteduuids: $selecteduuids,
                         selectedprofile: $selectedprofile,
-                        addtasknavigation: $addtasknavigation)
+                        addtaskpath: $addtaskpath)
         case .log_listings:
             LogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
         case .rsync_parameters:
@@ -265,7 +265,7 @@ struct SidebarMainView: View {
 
     var disablesidebarmeny: Bool {
         executetaskpath.isEmpty == false ||
-            addtasknavigation.isEmpty == false ||
+            addtaskpath.isEmpty == false ||
             executeverifynavigation.isEmpty == false ||
             SharedReference.shared.process != nil
     }

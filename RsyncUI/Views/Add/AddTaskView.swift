@@ -32,7 +32,7 @@ struct AddTaskView: View {
 
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var selectedprofile: String?
-    @Binding var addtasknavigation: [AddTasks]
+    @Binding var addtaskpath: [AddTasks]
 
     @State private var newdata = ObservableAddConfigurations()
     @State private var selectedconfig: SynchronizeConfiguration?
@@ -51,7 +51,7 @@ struct AddTaskView: View {
     @State private var showhelp: Bool = false
 
     var body: some View {
-        NavigationStack(path: $addtasknavigation) {
+        NavigationStack(path: $addtaskpath) {
             HStack {
                 // Column 1
 
@@ -292,7 +292,7 @@ struct AddTaskView: View {
         .toolbar {
             ToolbarItem {
                 Button {
-                    addtasknavigation.append(AddTasks(task: .globalchanges))
+                    addtaskpath.append(AddTasks(task: .globalchanges))
                 } label: {
                     Image(systemName: "globe")
                 }
@@ -301,7 +301,7 @@ struct AddTaskView: View {
 
             ToolbarItem {
                 Button {
-                    addtasknavigation.append(AddTasks(task: .homecatalogs))
+                    addtaskpath.append(AddTasks(task: .homecatalogs))
                 } label: {
                     Image(systemName: "house.fill")
                 }
@@ -320,7 +320,7 @@ struct AddTaskView: View {
         switch view {
         case .homecatalogs:
             HomeCatalogsView(newdata: newdata,
-                             path: $addtasknavigation,
+                             path: $addtaskpath,
                              homecatalogs: {
                                  let fm = FileManager.default
                                  if let atpathURL = Homepath().userHomeDirectoryURLPath {
