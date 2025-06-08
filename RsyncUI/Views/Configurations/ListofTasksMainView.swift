@@ -50,6 +50,8 @@ struct ListofTasksMainView: View {
             }
             .contextMenu(forSelectionType: SynchronizeConfiguration.ID.self) { _ in
             } primaryAction: { _ in
+                // Only allow double click if one task is selected
+                guard selecteduuids.count == 1 else { return }
                 doubleclick = true
             }
             .onDeleteCommand {

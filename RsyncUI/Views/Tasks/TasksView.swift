@@ -350,11 +350,7 @@ extension TasksView {
             Logger.process.info("Doubleclick: task is halted")
             return
         }
-        guard selecteduuids.count == 1 else {
-            Logger.process.info("Doubleclick: more than ONE task selected")
-            return
-        }
-       
+        
         if progressdetails.estimatedlist == nil {
             dryrun()
         } else if progressdetails.onlyselectedtaskisestimated(selecteduuids) {
