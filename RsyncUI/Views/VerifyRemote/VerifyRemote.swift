@@ -21,7 +21,7 @@ struct Verify: Hashable, Identifiable {
 
 struct VerifyRemote: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var executeverifynavigation: [Verify]
+    @Binding var verifypath: [Verify]
     @Binding var urlcommandverify: Bool
     // Queryitem binding is requiered for external URL only
     @Binding var queryitem: URLQueryItem?
@@ -32,7 +32,7 @@ struct VerifyRemote: View {
     @State private var selectedtaskishalted: Bool = false
 
     var body: some View {
-        NavigationStack(path: $executeverifynavigation) {
+        NavigationStack(path: $verifypath) {
             VStack {
                 ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                             configurations: rsyncUIdata.configurations)
@@ -84,7 +84,7 @@ struct VerifyRemote: View {
                             guard selectedconfig != nil else { return }
                             guard selectedtaskishalted == false else { return }
 
-                            executeverifynavigation.append(Verify(task: .pushpullview))
+                            verifypath.append(Verify(task: .pushpullview))
 
                         } label: {
                             Image(systemName: "bolt.shield")
@@ -98,7 +98,7 @@ struct VerifyRemote: View {
                     Button {
                         guard selectedconfig != nil else { return }
 
-                        executeverifynavigation.append(Verify(task: .executenpushpullview))
+                        verifypath.append(Verify(task: .executenpushpullview))
 
                     } label: {
                         Image(systemName: "arrow.left.arrow.right.circle.fill")
@@ -160,7 +160,7 @@ struct VerifyRemote: View {
             selectedconfig = config
             guard selectedconfig?.task != SharedReference.shared.halted else { return }
             // Set config and execute a Verify
-            executeverifynavigation.append(Verify(task: .pushpullview))
+            verifypath.append(Verify(task: .pushpullview))
 
             queryitem = nil
         }
