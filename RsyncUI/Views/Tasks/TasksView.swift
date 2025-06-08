@@ -39,7 +39,7 @@ struct TasksView: View {
     @Bindable var progressdetails: ProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     // Navigation path for executetasks
-    @Binding var path: [Tasks]
+    @Binding var executetaskpath: [Tasks]
     // For URL commands within RsyncUI
     @Binding var urlcommandestimateandsynchronize: Bool
     // @Binding var urlcommandverify: Bool
@@ -176,7 +176,7 @@ struct TasksView: View {
                         return
                     }
 
-                    path.append(Tasks(task: .summarizeddetailsview))
+                    executetaskpath.append(Tasks(task: .summarizeddetailsview))
                 } label: {
                     Image(systemName: "wand.and.stars")
                         .foregroundColor(Color(.blue))
@@ -197,7 +197,7 @@ struct TasksView: View {
                     // Check if there are estimated tasks, if true execute the
                     // estimated tasks view
                     if progressdetails.estimatedlist?.count ?? 0 > 0 {
-                        path.append(Tasks(task: .executestimatedview))
+                        executetaskpath.append(Tasks(task: .executestimatedview))
                     } else {
                         execute()
                     }
@@ -233,13 +233,13 @@ struct TasksView: View {
                     guard alltasksarehalted() == false else { return }
 
                     guard selecteduuids.count == 1 else {
-                        path.append(Tasks(task: .summarizeddetailsview))
+                        executetaskpath.append(Tasks(task: .summarizeddetailsview))
                         return
                     }
                     if progressdetails.tasksareestimated(selecteduuids) {
-                        path.append(Tasks(task: .dryrunonetaskalreadyestimated))
+                        executetaskpath.append(Tasks(task: .dryrunonetaskalreadyestimated))
                     } else {
-                        path.append(Tasks(task: .onetaskdetailsview))
+                        executetaskpath.append(Tasks(task: .onetaskdetailsview))
                     }
                 } label: {
                     Image(systemName: "text.magnifyingglass")
@@ -249,7 +249,7 @@ struct TasksView: View {
 
             ToolbarItem {
                 Button {
-                    path.append(Tasks(task: .viewlogfile))
+                    executetaskpath.append(Tasks(task: .viewlogfile))
                 } label: {
                     Image(systemName: "doc.plaintext")
                 }
@@ -258,7 +258,7 @@ struct TasksView: View {
 
             ToolbarItem {
                 Button {
-                    path.append(Tasks(task: .quick_synchronize))
+                    executetaskpath.append(Tasks(task: .quick_synchronize))
                 } label: {
                     Image(systemName: "hare")
                 }
@@ -285,7 +285,7 @@ struct TasksView: View {
             Alert(
                 title: Text("Synchronize all tasks with NO estimating first?"),
                 primaryButton: .default(Text("Synchronize")) {
-                    path.append(Tasks(task: .executenoestimatetasksview))
+                    executetaskpath.append(Tasks(task: .executenoestimatetasksview))
                 },
                 secondaryButton: .cancel()
             )
@@ -322,7 +322,7 @@ struct TasksView: View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
             .onAppear(perform: {
-                path.append(Tasks(task: .summarizeddetailsview))
+                executetaskpath.append(Tasks(task: .summarizeddetailsview))
                 focusstartestimation = false
             })
     }
@@ -368,20 +368,20 @@ extension TasksView {
         {
             Logger.process.info("DryRun: execute a dryrun for one task only")
             doubleclick = false
-            path.append(Tasks(task: .onetaskdetailsview))
+            executetaskpath.append(Tasks(task: .onetaskdetailsview))
         } else if selectedconfig.config != nil,
                   progressdetails.executeanotherdryrun(rsyncUIdata.profile) == true
         {
             Logger.process.info("DryRun: new task same profile selected, execute a dryrun")
             doubleclick = false
-            path.append(Tasks(task: .onetaskdetailsview))
+            executetaskpath.append(Tasks(task: .onetaskdetailsview))
 
         } else if selectedconfig.config != nil,
                   progressdetails.alltasksestimated(rsyncUIdata.profile) == false
         {
             Logger.process.info("DryRun: profile is changed, new task selected, execute a dryrun")
             doubleclick = false
-            path.append(Tasks(task: .onetaskdetailsview))
+            executetaskpath.append(Tasks(task: .onetaskdetailsview))
         }
     }
 
@@ -397,7 +397,7 @@ extension TasksView {
             selecteduuids = progressdetails.getuuidswithdatatosynchronize()
             estimatestate.updateestimatestate(state: .start)
             // Change view, see SidebarTasksView
-            path.append(Tasks(task: .executestimatedview))
+            executetaskpath.append(Tasks(task: .executestimatedview))
 
         } else if selecteduuids.count >= 1,
                   progressdetails.tasksareestimated(selecteduuids) == true
@@ -409,7 +409,7 @@ extension TasksView {
             selecteduuids = progressdetails.getuuidswithdatatosynchronize()
             estimatestate.updateestimatestate(state: .start)
             // Change view, see SidebarTasksView
-            path.append(Tasks(task: .executestimatedview))
+            executetaskpath.append(Tasks(task: .executestimatedview))
 
         } else {
             // Execute all tasks, no estimate

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CompletedView: View {
     // Navigation path for executetasks
-    @Binding var path: [Tasks]
+    @Binding var executetaskpath: [Tasks]
     @State var showtext: Bool = true
 
     var body: some View {
@@ -31,7 +31,7 @@ struct CompletedView: View {
                     }
                 })
                 .onDisappear {
-                    path.removeAll()
+                    executetaskpath.removeAll()
                 }
             }
         }

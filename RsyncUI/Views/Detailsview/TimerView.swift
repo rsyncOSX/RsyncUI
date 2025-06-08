@@ -10,7 +10,7 @@ import SwiftUI
 struct TimerView: View {
     @Environment(\.dismiss) var dismiss
     // Navigation path for executetasks
-    @Binding var path: [Tasks]
+    @Binding var executetaskpath: [Tasks]
 
     @State var startDate = Date.now
     @State var timetosynchronize: Int = 6
@@ -28,8 +28,8 @@ struct TimerView: View {
                     timetosynchronize = 1
                     timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))
                     if timetosynchronize < 0 {
-                        path.removeAll()
-                        path.append(Tasks(task: .executestimatedview))
+                        executetaskpath.removeAll()
+                        executetaskpath.append(Tasks(task: .executestimatedview))
                     }
                 }
                 .onTapGesture {
@@ -44,8 +44,8 @@ struct TimerView: View {
                     timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))
                     timeosynchronizestring = String(timetosynchronize)
                     if timetosynchronize < 0 {
-                        path.removeAll()
-                        path.append(Tasks(task: .executestimatedview))
+                        executetaskpath.removeAll()
+                        executetaskpath.append(Tasks(task: .executestimatedview))
                     }
                 }
                 .onTapGesture {

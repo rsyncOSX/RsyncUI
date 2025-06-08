@@ -30,7 +30,7 @@ struct SidebarMainView: View {
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedview: Sidebaritems = .synchronize
     // Navigation path for executetasks
-    @State var path: [Tasks] = []
+    @State var executetaskpath: [Tasks] = []
     // Navigation addtasks and verify
     // Needed here because if not empty sidebar is disabled
     @State private var addtasknavigation: [AddTasks] = []
@@ -237,7 +237,7 @@ struct SidebarMainView: View {
                              progressdetails: progressdetails,
                              selectedprofile: $selectedprofile,
                              selecteduuids: $selecteduuids,
-                             path: $path,
+                             executetaskpath: $executetaskpath,
                              queryitem: $queryitem,
                              urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
                              columnVisibility: $columnVisibility,
@@ -264,7 +264,7 @@ struct SidebarMainView: View {
     }
 
     var disablesidebarmeny: Bool {
-        path.isEmpty == false ||
+        executetaskpath.isEmpty == false ||
             addtasknavigation.isEmpty == false ||
             executeverifynavigation.isEmpty == false ||
             SharedReference.shared.process != nil
@@ -326,7 +326,7 @@ extension SidebarMainView {
             Logger.process.info("handleURLsidebarmainView: URL Quicktask - \(url)")
 
             selectedview = .synchronize
-            path.append(Tasks(task: .quick_synchronize))
+            executetaskpath.append(Tasks(task: .quick_synchronize))
         case .loadprofile:
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile - \(url)")
 
@@ -505,7 +505,7 @@ extension SidebarMainView {
         guard SharedReference.shared.process == nil else { return true }
         // And no execution is in progress
         guard rsyncUIdata.executetasksinprogress == false else { return true }
-        guard path.isEmpty == true else {
+        guard executetaskpath.isEmpty == true else {
             return true
         }
         return false

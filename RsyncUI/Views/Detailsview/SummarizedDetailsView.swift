@@ -12,7 +12,7 @@ struct SummarizedDetailsView: View {
     @Bindable var progressdetails: ProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     // Navigation path for executetasks
-    @Binding var path: [Tasks]
+    @Binding var executetaskpath: [Tasks]
 
     @State private var focusstartexecution: Bool = false
     @State private var isPresentingConfirm: Bool = false
@@ -38,7 +38,7 @@ struct SummarizedDetailsView: View {
                                 if datatosynchronize.count == 0,
                                    SharedReference.shared.alwaysshowestimateddetailsview == false
                                 {
-                                    path.removeAll()
+                                    executetaskpath.removeAll()
                                 }
                             }
                         }
@@ -51,7 +51,7 @@ struct SummarizedDetailsView: View {
             .toolbar(content: {
                 if datatosynchronizeURL {
                     ToolbarItem {
-                        TimerView(path: $path)
+                        TimerView(executetaskpath: $executetaskpath)
                     }
 
                     ToolbarItem {
@@ -65,8 +65,8 @@ struct SummarizedDetailsView: View {
                             Button {
                                 isPresentingConfirm = progressdetails.confirmexecutetasks()
                                 if isPresentingConfirm == false {
-                                    path.removeAll()
-                                    path.append(Tasks(task: .executestimatedview))
+                                    executetaskpath.removeAll()
+                                    executetaskpath.append(Tasks(task: .executestimatedview))
                                 }
                             } label: {
                                 Image(systemName: "play")
@@ -77,16 +77,16 @@ struct SummarizedDetailsView: View {
                                                 isPresented: $isPresentingConfirm)
                             {
                                 Button("Synchronize", role: .destructive) {
-                                    path.removeAll()
-                                    path.append(Tasks(task: .executestimatedview))
+                                    executetaskpath.removeAll()
+                                    executetaskpath.append(Tasks(task: .executestimatedview))
                                 }
                             }
                         }
                     } else {
                         ToolbarItem {
                             Button {
-                                path.removeAll()
-                                path.append(Tasks(task: .executestimatedview))
+                                executetaskpath.removeAll()
+                                executetaskpath.append(Tasks(task: .executestimatedview))
                             } label: {
                                 Image(systemName: "play.fill")
                                     .foregroundColor(Color(.blue))
@@ -121,8 +121,8 @@ struct SummarizedDetailsView: View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
             .onAppear(perform: {
-                path.removeAll()
-                path.append(Tasks(task: .executestimatedview))
+                executetaskpath.removeAll()
+                executetaskpath.append(Tasks(task: .executestimatedview))
                 focusstartexecution = false
             })
     }
@@ -267,7 +267,7 @@ struct SummarizedDetailsView: View {
         }
         .onChange(of: selecteduuids) {
             guard selecteduuids.count > 0 else { return }
-            path.append(Tasks(task: .dryrunonetaskalreadyestimated))
+            executetaskpath.append(Tasks(task: .dryrunonetaskalreadyestimated))
         }
     }
 }

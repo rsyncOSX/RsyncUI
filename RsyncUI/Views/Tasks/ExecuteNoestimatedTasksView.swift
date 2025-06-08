@@ -12,7 +12,7 @@ struct ExecuteNoestimatedTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<UUID>
     // Navigation path for executetasks
-    @Binding var path: [Tasks]
+    @Binding var executetaskpath: [Tasks]
 
     // Must be stateobject
     @State private var noestimationprogressdetails = NoEstimationProgressDetails()
@@ -85,6 +85,6 @@ extension ExecuteNoestimatedTasksView {
         rsyncUIdata.configurations = configurations
         progressviewshowinfo = false
         noestimationprogressdetails.reset()
-        path.append(Tasks(task: .completedview))
+        executetaskpath.append(Tasks(task: .completedview))
     }
 }

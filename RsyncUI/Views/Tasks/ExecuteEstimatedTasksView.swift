@@ -13,7 +13,7 @@ struct ExecuteEstimatedTasksView: View {
     @Bindable var progressdetails: ProgressDetails
     @Binding var selecteduuids: Set<UUID>
     // Navigation path for executetasks
-    @Binding var path: [Tasks]
+    @Binding var executetaskpath: [Tasks]
 
     @State private var executestate = ExecuteState()
     @State private var filterstring: String = ""
@@ -83,7 +83,7 @@ extension ExecuteEstimatedTasksView {
         executestate.updateexecutestate(state: .start)
         selecteduuids.removeAll()
         InterruptProcess()
-        path.removeAll()
+        executetaskpath.removeAll()
     }
 
     func executemultipleestimatedtasks() {
@@ -103,7 +103,7 @@ extension ExecuteEstimatedTasksView {
         guard (adjustedselecteduuids?.count ?? 0) > 0 else {
             progressdetails.estimatedlist = nil
             rsyncUIdata.executetasksinprogress = false
-            path.removeAll()
+            executetaskpath.removeAll()
             return
         }
         if let adjustedselecteduuids {
@@ -129,6 +129,6 @@ extension ExecuteEstimatedTasksView {
         rsyncUIdata.executetasksinprogress = false
         executestate.updateexecutestate(state: .start)
         selecteduuids.removeAll()
-        path.append(Tasks(task: .completedview))
+        executetaskpath.append(Tasks(task: .completedview))
     }
 }
