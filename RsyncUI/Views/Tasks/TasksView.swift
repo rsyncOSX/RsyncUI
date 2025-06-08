@@ -73,9 +73,6 @@ struct TasksView: View {
 
     @State var isOpen: Bool = false
 
-    // Selected task is halted
-    @State private var selectedtaskishalted: Bool = false
-
     var body: some View {
         ZStack {
             HStack {
@@ -93,11 +90,6 @@ struct TasksView: View {
                     if let configurations = rsyncUIdata.configurations {
                         if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                             selectedconfig.config = configurations[index]
-                            if selectedconfig.config?.task == SharedReference.shared.halted {
-                                selectedtaskishalted = true
-                            } else {
-                                selectedtaskishalted = false
-                            }
                             // Must check if rsync version and snapshot
                             if configurations[index].task == SharedReference.shared.snapshot,
                                SharedReference.shared.rsyncversion3 == false
@@ -106,7 +98,6 @@ struct TasksView: View {
                             }
                         } else {
                             selectedconfig.config = nil
-                            selectedtaskishalted = false
                         }
                     }
                     progressdetails.uuidswithdatatosynchronize = selecteduuids
@@ -176,7 +167,7 @@ struct TasksView: View {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
                     guard alltasksarehalted() == false else { return }
-                    guard selectedtaskishalted == false else { return }
+                    guard selectedconfig.config?.task != SharedReference.shared.halted else { return }
 
                     guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
                         Logger.process.info("Estimate() no tasks selected, no configurations, bailing out")
@@ -195,7 +186,7 @@ struct TasksView: View {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
                     guard alltasksarehalted() == false else { return }
-                    guard selectedtaskishalted == false else { return }
+                    guard selectedconfig.config?.task != SharedReference.shared.halted else { return }
 
                     guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
                         Logger.process.info("Estimate() no tasks selected, no configurations, bailing out")
@@ -346,7 +337,11 @@ extension TasksView {
 
     func doubleclickactionfunction() {
         guard SharedReference.shared.norsync == false else { return }
-        guard selectedtaskishalted == false else { return }
+        // Must check if task is halted
+        guard selectedconfig.config?.task != SharedReference.shared.halted  else {
+            Logger.process.info("Doubleclick: task is halted")
+            return
+        }
 
         if progressdetails.estimatedlist == nil {
             dryrun()
@@ -361,8 +356,7 @@ extension TasksView {
 
     func dryrun() {
         if selectedconfig.config != nil,
-           progressdetails.estimatedlist?.count ?? 0 == 0,
-           selectedtaskishalted == false
+           progressdetails.estimatedlist?.count ?? 0 == 0
         {
             Logger.process.info("DryRun: execute a dryrun for one task only")
             doubleclick = false
