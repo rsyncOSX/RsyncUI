@@ -16,6 +16,10 @@ struct RsyncUIView: View {
 
     @State private var rsyncUIdata = RsyncUIconfigurations()
     @State private var scheduledata = ObservableScheduleData()
+    
+    // Used when selecting a new profile
+    @State private var selectedprofileID: ProfilesnamesRecord.ID?
+
 
     var body: some View {
         VStack {
@@ -36,6 +40,7 @@ struct RsyncUIView: View {
             } else {
                 SidebarMainView(rsyncUIdata: rsyncUIdata,
                                 scheduledata: scheduledata,
+                                selectedprofileID: $selectedprofileID,
                                 selectedprofile: $selectedprofile,
                                 errorhandling: errorhandling)
             }
@@ -61,19 +66,30 @@ struct RsyncUIView: View {
             scheduledata.scheduledata = await ActorReadSchedule()
                 .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) ?? []
         }
-        .onChange(of: selectedprofile) {
+        .onChange(of: selectedprofileID) {
+            var profile: String?
+            
             // Only for external URL
             guard rsyncUIdata.externalurlrequestinprogress == false else {
                 Logger.process.info("RsyncUIView: external URL loaded")
                 rsyncUIdata.externalurlrequestinprogress = false
                 return
             }
+            
+            if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
+                rsyncUIdata.profile = rsyncUIdata.validprofiles[index].profilename
+                profile = rsyncUIdata.validprofiles[index].profilename
+            } else {
+                rsyncUIdata.profile = nil
+                profile = nil
+            }
+             
             Task {
-                rsyncUIdata.profile = selectedprofile
+                rsyncUIdata.profile = profile
                 rsyncUIdata.executetasksinprogress = false
 
                 rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
-                    .readjsonfilesynchronizeconfigurations(selectedprofile,
+                    .readjsonfilesynchronizeconfigurations(profile,
                                                            SharedReference.shared.monitornetworkconnection,
                                                            SharedReference.shared.sshport)
             }

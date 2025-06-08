@@ -25,6 +25,7 @@ struct SidebarMainView: View {
     // The selectedprofile is updated by the profile picker
     // The selecteprofile is monitored by the RsyncUIView and when changed
     // a new profile is loaded
+    @Binding var selectedprofileID: ProfilesnamesRecord.ID?
     @Binding var selectedprofile: String?
     @Bindable var errorhandling: AlertError
 
@@ -58,9 +59,7 @@ struct SidebarMainView: View {
     @State private var mountingvolumenow: Bool = false
     // Calendar
     @State private var futuredates = ObservableFutureSchedules()
-    // Used when selecting a new profile
-    @State private var selectedprofileID: ProfilesnamesRecord.ID?
-
+    
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             Picker("", selection: $selectedprofileID) {
@@ -182,15 +181,9 @@ struct SidebarMainView: View {
                     }
                 }
             }
-        }
-        .onChange(of: selectedprofileID) {
-            if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
-                rsyncUIdata.profile = rsyncUIdata.validprofiles[index].profilename
-                selectedprofile = rsyncUIdata.validprofiles[index].profilename
-            } else {
-                rsyncUIdata.profile = nil
-                selectedprofile = nil
-            }
+        }.onChange(of: selectedprofileID) {
+            // Only clean selecteuuids, new profile is loaded
+            // in RsyncUIView
             selecteduuids.removeAll()
         }
         .onChange(of: futuredates.firstscheduledate) {
