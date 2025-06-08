@@ -31,7 +31,8 @@ enum Event {
     case resetestimates
 }
 
-class StateMachine {
+@MainActor
+final class StateMachine {
     
     private(set) var state: StateTask = .noselecteduuid
 
@@ -39,6 +40,9 @@ class StateMachine {
         
         switch (state, event) {
             
+        // Dry run by double click, first double click executes dry-run
+        // second double click the real synchronization of data.
+        // If user select another task, by double clik, a new dry-run
         case (.oneselecteduuid, .start), (.doubleclick, .start):
             state = .dryrunONEtaskready
             print("One task selected FIRST DOUBLE CLICK, ready for dryrun")
@@ -48,26 +52,33 @@ class StateMachine {
         case (.doubleclick, .dryrun):
             state = .readyforexecute
             print("One task selected SECOND DOUBLE CLICK , ready for execute")
-            
+        
+        // Selected some tasks, execute dry-run by Magic Wand on toolbar
+        // Only pick seleected tasks for dry-run.
+        // When dry-run completed ready for the real synchronization of data for estimated tasks
         case (.severalselecteduuid, .start):
             state = .dryrynSEVERALtasksready
             print("SEVERAL (but not all) tasks selected, ready for dryrun")
         case (.severalselecteduuid, .dryrun):
             state = .readyforexecute
             print("SEVERAL (but not all) tasks selected, dryrun completed, ready for execute")
+        case (.severalselecteduuid, .execute):
+            state = .readyforexecute
+            print("SEVERAL (but not all) tasks selected, NO dryrun ready for execute")
         
+        // No tasks selected, execute dry-run for all tasks
+        // When dry-run completed ready for the real synchronization of data for all estimated tasks
         case (.noselecteduuid, .start):
             state = .dryrynSEVERALtasksready
             print("Several tasks selected, ready for dryrun")
         case (.noselecteduuid, .dryrun):
-            state = .dryrynSEVERALtasksready
+            state = .readyforexecute
             print("ALL tasks selected, dryrun completed, ready for execute")
+        case (.noselecteduuid, .execute):
+            state = .readyforexecute
+            print("ALL tasks selected, NO dryrun ready for execute ")
         
-            /*
-             Må også ha alle former for selected, ikke dry ryn men direkte execute
-             */
-        
-        
+    
         case (.severalselecteduuid, .resetestimates),
             (.oneselecteduuid, .resetestimates),
             (.noselecteduuid, .resetestimates):
