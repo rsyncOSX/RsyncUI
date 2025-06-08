@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum State {
+enum StateTask {
     case noselecteduuid
 
     case oneselecteduuid
@@ -33,7 +33,7 @@ enum Event {
 
 class StateMachine {
     
-    private(set) var state: State = .noselecteduuid
+    private(set) var state: StateTask = .noselecteduuid
 
     func handle(event: Event) {
         
