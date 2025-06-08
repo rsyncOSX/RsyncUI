@@ -194,7 +194,13 @@ struct TasksView: View {
                         Logger.process.info("Estimate() no tasks selected, no configurations, bailing out")
                         return
                     }
-                    execute()
+                    // Check if there are estimated tasks, if true execute the
+                    // estimated tasks view
+                    if progressdetails.estimatedlist?.count ?? 0 > 0 {
+                        path.append(Tasks(task: .executestimatedview))
+                    } else {
+                        execute()
+                    }
                 } label: {
                     Image(systemName: "play.fill")
                         .foregroundColor(Color(.blue))
