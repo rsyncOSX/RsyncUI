@@ -88,7 +88,7 @@ struct SidebarMainView: View {
             .disabled(disablesidebarmeny)
 
             if newversion.notifynewversion {
-                MessageView(mytext: "Update available", size: .caption2)
+                MessageView(mytext: "New version available\nsee About RsyncUI", size: .caption2)
                     .padding([.bottom], -30)
             }
 
