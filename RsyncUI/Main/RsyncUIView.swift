@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 struct RsyncUIView: View {
-    // Used when selecting a new profile
+    // Selected profile
     @State private var selectedprofileID: ProfilesnamesRecord.ID?
     // Set version of rsync to use
     @State private var rsyncversion = Rsyncversion()
@@ -52,6 +52,7 @@ struct RsyncUIView: View {
                                                        SharedReference.shared.monitornetworkconnection,
                                                        SharedReference.shared.sshport)
 
+            // Load valid profilenames
             let catalognames = Homepath().getfullpathmacserialcatalogsasstringnames()
             rsyncUIdata.validprofiles = catalognames.map { catalog in
                 ProfilesnamesRecord(catalog)
@@ -61,6 +62,7 @@ struct RsyncUIView: View {
                 .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) ?? []
         }
         .onChange(of: selectedprofileID) {
+            
             var profile: String?
 
             // Only for external URL
