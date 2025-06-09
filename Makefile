@@ -1,6 +1,6 @@
 APP = RsyncUI
 BUNDLE_ID = no.blogspot.$(APP)
-VERSION = 2.5.8
+VERSION = 2.5.9
 
 BUILD_PATH = $(PWD)/build
 APP_PATH = "$(BUILD_PATH)/$(APP).app"
