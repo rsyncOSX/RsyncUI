@@ -65,7 +65,10 @@ struct ExecutePushPullView: View {
                             }
                         }
 
-                        PushPullCommandView(pushpullcommand: $pushpullcommand, dryrun: $dryrun, keepdelete: $keepdelete, config: config)
+                        PushPullCommandView(pushpullcommand: $pushpullcommand,
+                                            dryrun: $dryrun,
+                                            keepdelete: $keepdelete,
+                                            config: config)
                             .padding()
                     }
 
