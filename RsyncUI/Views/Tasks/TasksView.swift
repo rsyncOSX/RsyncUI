@@ -162,10 +162,14 @@ struct TasksView: View {
                     guard alltasksarehalted() == false else { return }
                     // This only applies if one task is selected and that task is halted
                     // If more than one task is selected, any halted tasks are ruled out
-                    guard selectedconfig?.task != SharedReference.shared.halted else { return }
-
+                    if let selectedconfig {
+                        guard selectedconfig.task != SharedReference.shared.halted else {
+                            Logger.process.info("TasksView: MAGIC WAND button selected task is halted, bailing out")
+                            return
+                        }
+                    }
                     guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                        Logger.process.info("Estimate() no tasks selected, no configurations, bailing out")
+                        Logger.process.info("TasksView: MAGIC WAND button no tasks selected, no configurations, bailing out")
                         return
                     }
 
@@ -181,10 +185,17 @@ struct TasksView: View {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
                     guard alltasksarehalted() == false else { return }
-                    guard selectedconfig?.task != SharedReference.shared.halted else { return }
+                    // This only applies if one task is selected and that task is halted
+                    // If more than one task is selected, any halted tasks are ruled out
+                    if let selectedconfig {
+                        guard selectedconfig.task != SharedReference.shared.halted else {
+                            Logger.process.info("TasksView: PLAY button selected task is halted, bailing out")
+                            return
+                        }
+                    }
 
                     guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                        Logger.process.info("Estimate() no tasks selected, no configurations, bailing out")
+                        Logger.process.info("TasksView: PLAY button selected, no configurations, bailing out")
                         return
                     }
                     // Check if there are estimated tasks, if true execute the
@@ -407,7 +418,7 @@ extension TasksView {
         } else {
             // Execute all tasks, no estimate
             Logger.process.info("Execute() selected or all tasks NO estimate")
-            // Execute tasks, no estimate
+            // Execute tasks, no estimate, ask to execute
             showingAlert = true
         }
     }

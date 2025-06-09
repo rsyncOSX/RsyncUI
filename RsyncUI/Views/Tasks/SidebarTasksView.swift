@@ -51,7 +51,7 @@ struct SidebarTasksView: View {
                 }
         }
         .onChange(of: executetaskpath) {
-            Logger.process.info("Path : \(executetaskpath, privacy: .public)")
+            Logger.process.info("SidebarTasksView: executetaskpath \(executetaskpath, privacy: .public)")
         }
         .onChange(of: queryitem) {
             // URL code
