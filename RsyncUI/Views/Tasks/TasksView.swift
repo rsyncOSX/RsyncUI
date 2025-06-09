@@ -39,7 +39,7 @@ struct TasksView: View {
     @Binding var urlcommandestimateandsynchronize: Bool
     // Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
-    // View profiles on left
+    // Selected profile
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
 
     @State private var estimatestate = EstimateState()
@@ -339,11 +339,11 @@ extension TasksView {
     func doubleclickactionfunction() {
         guard SharedReference.shared.norsync == false else { return }
         // Must check if task is halted
-        guard selectedconfig?.task != SharedReference.shared.halted  else {
+        guard selectedconfig?.task != SharedReference.shared.halted else {
             Logger.process.info("Doubleclick: task is halted")
             return
         }
-        
+
         if progressdetails.estimatedlist == nil {
             dryrun()
         } else if progressdetails.onlyselectedtaskisestimated(selecteduuids) {

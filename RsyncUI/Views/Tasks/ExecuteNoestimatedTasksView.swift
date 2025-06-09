@@ -5,8 +5,8 @@
 //  Created by Thomas Evensen on 11/11/2023.
 //
 
-import SwiftUI
 import OSLog
+import SwiftUI
 
 struct ExecuteNoestimatedTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations

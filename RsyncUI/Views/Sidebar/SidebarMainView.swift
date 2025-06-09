@@ -55,7 +55,7 @@ struct SidebarMainView: View {
     @State private var mountingvolumenow: Bool = false
     // Calendar
     @State private var futuredates = ObservableFutureSchedules()
-    
+
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             Picker("", selection: $selectedprofileID) {

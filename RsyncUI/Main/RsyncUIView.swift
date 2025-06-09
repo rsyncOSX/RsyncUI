@@ -16,7 +16,7 @@ struct RsyncUIView: View {
     @State private var start: Bool = true
     @State private var rsyncUIdata = RsyncUIconfigurations()
     @State private var scheduledata = ObservableScheduleData()
-    
+
     var body: some View {
         VStack {
             if start {
@@ -62,14 +62,14 @@ struct RsyncUIView: View {
         }
         .onChange(of: selectedprofileID) {
             var profile: String?
-            
+
             // Only for external URL
             guard rsyncUIdata.externalurlrequestinprogress == false else {
                 Logger.process.info("RsyncUIView: external URL loaded")
                 rsyncUIdata.externalurlrequestinprogress = false
                 return
             }
-            
+
             if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
                 rsyncUIdata.profile = rsyncUIdata.validprofiles[index].profilename
                 profile = rsyncUIdata.validprofiles[index].profilename
@@ -77,7 +77,7 @@ struct RsyncUIView: View {
                 rsyncUIdata.profile = nil
                 profile = nil
             }
-             
+
             Task {
                 rsyncUIdata.profile = profile
                 rsyncUIdata.executetasksinprogress = false

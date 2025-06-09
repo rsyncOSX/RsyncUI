@@ -34,7 +34,7 @@ struct SidebarTasksView: View {
     @Binding var urlcommandestimateandsynchronize: Bool
     // Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
-    // View profiles on left
+    // Selected profile
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
 
     var body: some View {
