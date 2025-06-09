@@ -5,8 +5,8 @@
 //  Created by Thomas Evensen on 11/11/2023.
 //
 
-import OSLog
 import SwiftUI
+import OSLog
 
 struct ExecuteNoestimatedTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
@@ -14,7 +14,6 @@ struct ExecuteNoestimatedTasksView: View {
     // Navigation path for executetasks
     @Binding var executetaskpath: [Tasks]
 
-    // Must be stateobject
     @State private var noestimationprogressdetails = NoEstimationProgressDetails()
     @State private var progressviewshowinfo: Bool = true
     @State private var executetasks: ExecuteTasksNOEstimation?

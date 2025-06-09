@@ -10,7 +10,7 @@ import OSLog
 
 @MainActor
 final class ExecuteTasksNOEstimation {
-    var structprofile: String?
+    var localeprofile: String?
     var localconfigurations: [SynchronizeConfiguration]
     var stackoftasktobeestimated: [Int]?
     weak var localnoestimationprogressdetails: NoEstimationProgressDetails?
@@ -30,7 +30,7 @@ final class ExecuteTasksNOEstimation {
 
     func startexecution() {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
-            let update = Logging(profile: structprofile,
+            let update = Logging(profile: localeprofile,
                                  configurations: localconfigurations)
             let updateconfigurations = update.setCurrentDateonConfiguration(configrecords: configrecords)
             // Send date stamped configurations back to caller
@@ -62,7 +62,7 @@ final class ExecuteTasksNOEstimation {
          selecteduuids: Set<UUID>,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
-        structprofile = profile
+        localeprofile = profile
         localconfigurations = rsyncuiconfigurations
         localnoestimationprogressdetails = noestimationprogressdetails
         localupdateconfigurations = updateconfigurations
