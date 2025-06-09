@@ -31,6 +31,8 @@ struct OneTaskDetailsView: View {
                         // that is why (uuid: selecteduuids.first)
                         if let config = getconfig(uuid: selecteduuids.first) {
                             Text("Estimating now: " + "\(config.backupID)")
+                                .foregroundColor(.yellow)
+                                .font(.title)
                         }
 
                         ProgressView()
