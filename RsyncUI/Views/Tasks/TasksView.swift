@@ -347,6 +347,9 @@ extension TasksView {
         return haltedtasks?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0
     }
 
+    
+    // Double click action is discovered in the ListofTasksMainView
+    // Must do some checks her as well
     func doubleclickactionfunction() {
         guard SharedReference.shared.norsync == false else { return }
         // Must check if task is halted
@@ -370,20 +373,20 @@ extension TasksView {
         if selectedconfig != nil,
            progressdetails.estimatedlist?.count ?? 0 == 0
         {
-            Logger.process.info("DryRun: execute a dryrun for one task only")
+            Logger.process.info("TasksView: DryRun() execute a dryrun for one task only")
             doubleclick = false
             executetaskpath.append(Tasks(task: .onetaskdetailsview))
         } else if selectedconfig != nil,
                   progressdetails.executeanotherdryrun(rsyncUIdata.profile) == true
         {
-            Logger.process.info("DryRun: new task same profile selected, execute a dryrun")
+            Logger.process.info("TasksView: DryRun() new task same profile selected, execute a dryrun")
             doubleclick = false
             executetaskpath.append(Tasks(task: .onetaskdetailsview))
 
         } else if selectedconfig != nil,
                   progressdetails.alltasksestimated(rsyncUIdata.profile) == false
         {
-            Logger.process.info("DryRun: profile is changed, new task selected, execute a dryrun")
+            Logger.process.info("TasksView: DryRun() profile is changed, new task selected, execute a dryrun")
             doubleclick = false
             executetaskpath.append(Tasks(task: .onetaskdetailsview))
         }
@@ -396,7 +399,7 @@ extension TasksView {
            progressdetails.alltasksestimated(rsyncUIdata.profile) == true
 
         {
-            Logger.process.info("Execute() all estimated tasks")
+            Logger.process.info("TasksView: Execute() all estimated tasks")
             // Execute all estimated tasks
             selecteduuids = progressdetails.getuuidswithdatatosynchronize()
             estimatestate.updateestimatestate(state: .start)
@@ -408,7 +411,7 @@ extension TasksView {
 
         {
             // One or some tasks are selected and estimated
-            Logger.process.info("Execute() estimated tasks only")
+            Logger.process.info("TasksView: Execute() estimated tasks only")
             // Execute estimated tasks only
             selecteduuids = progressdetails.getuuidswithdatatosynchronize()
             estimatestate.updateestimatestate(state: .start)
@@ -417,7 +420,7 @@ extension TasksView {
 
         } else {
             // Execute all tasks, no estimate
-            Logger.process.info("Execute() selected or all tasks NO estimate")
+            Logger.process.info("TasksView: Execute() selected or all tasks NO estimate")
             // Execute tasks, no estimate, ask to execute
             showingAlert = true
         }
