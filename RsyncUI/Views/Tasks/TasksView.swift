@@ -399,7 +399,7 @@ extension TasksView {
            progressdetails.alltasksestimated(rsyncUIdata.profile) == true
 
         {
-            Logger.process.info("TasksView: Execute() all estimated tasks")
+            Logger.process.info("TasksView: Execute() ALL estimated tasks")
             // Execute all estimated tasks
             selecteduuids = progressdetails.getuuidswithdatatosynchronize()
             estimatestate.updateestimatestate(state: .start)
@@ -411,7 +411,7 @@ extension TasksView {
 
         {
             // One or some tasks are selected and estimated
-            Logger.process.info("TasksView: Execute() estimated tasks only")
+            Logger.process.info("TasksView: Execute() ESTIMATED tasks only")
             // Execute estimated tasks only
             selecteduuids = progressdetails.getuuidswithdatatosynchronize()
             estimatestate.updateestimatestate(state: .start)
@@ -420,7 +420,7 @@ extension TasksView {
 
         } else {
             // Execute all tasks, no estimate
-            Logger.process.info("TasksView: Execute() selected or all tasks NO estimate")
+            Logger.process.info("TasksView: Execute() selected or all tasks NO ESTIMATE")
             // Execute tasks, no estimate, ask to execute
             showingAlert = true
         }
