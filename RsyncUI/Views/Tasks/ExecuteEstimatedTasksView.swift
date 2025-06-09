@@ -16,7 +16,6 @@ struct ExecuteEstimatedTasksView: View {
     @Binding var executetaskpath: [Tasks]
 
     @State private var executestate = ExecuteState()
-    @State private var filterstring: String = ""
     @State private var focusaborttask: Bool = false
     @State private var doubleclick: Bool = false
     // Progress of synchronization
@@ -28,7 +27,6 @@ struct ExecuteEstimatedTasksView: View {
             ListofTasksMainView(
                 rsyncUIdata: rsyncUIdata,
                 selecteduuids: $selecteduuids,
-                filterstring: $filterstring,
                 doubleclick: $doubleclick,
                 progress: $progress,
                 progressdetails: progressdetails,

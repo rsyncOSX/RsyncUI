@@ -10,12 +10,13 @@ import SwiftUI
 struct ListofTasksMainView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    @Binding var filterstring: String
     @Binding var doubleclick: Bool
     // Progress of synchronization
     @Binding var progress: Double
 
     @State private var confirmdelete: Bool = false
+    // Filterstring
+    @State private var filterstring: String = ""
 
     let progressdetails: ProgressDetails
     let max: Double
@@ -28,7 +29,7 @@ struct ListofTasksMainView: View {
                                         progressdetails: progressdetails,
                                         max: max)
             .overlay {
-                if (rsyncUIdata.configurations ?? []).filter(
+                if (rsyncUIdata.configurations ?? []).filter (
                     { filterstring.isEmpty ? true : $0.backupID.contains(filterstring) }).isEmpty
                 {
                     ContentUnavailableView {
@@ -56,6 +57,22 @@ struct ListofTasksMainView: View {
             }
             .onDeleteCommand {
                 confirmdelete = true
+            }
+            .onChange(of: filterstring) {
+                Task {
+                    try await Task.sleep(seconds: 2)
+                    if let filteredconfigurations = rsyncUIdata.configurations?.filter({ filterstring.isEmpty ? true : $0.backupID.contains(filterstring) }) {
+                        
+                        guard filterstring.isEmpty == false else {
+                            // selecteduuids.removeAll()
+                            return
+                        }
+                        
+                        _ = filteredconfigurations.map({ configuration in
+                            selecteduuids.insert(configuration.id) })
+                        
+                    }
+                }
             }
     }
 

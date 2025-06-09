@@ -34,7 +34,7 @@ final class EstimateTasks {
         return nil
     }
 
-    func startestimation() {
+    private func startestimation() {
         if let localhiddenID = stackoftasktobeestimated?.removeFirst() {
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
@@ -58,26 +58,28 @@ final class EstimateTasks {
         }
     }
 
+    @discardableResult
     init(profile: String?,
          configurations: [SynchronizeConfiguration],
          selecteduuids: Set<UUID>,
-         progressdetails: ProgressDetails?,
-         filter: String)
+         progressdetails: ProgressDetails?)
     {
         structprofile = profile
         localconfigurations = configurations
         localprogressdetails = progressdetails
-        let filteredconfigurations = localconfigurations.filter { filter.isEmpty ? true : $0.backupID.contains(filter) }
+        
         // Estimate selected configurations
         if selecteduuids.count > 0 {
-            let configurations = filteredconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
+            let configurations = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
             stackoftasktobeestimated = configurations.map(\.hiddenID)
         } else {
             // Or estimate all tasks
-            let configurations = filteredconfigurations.filter { $0.task != SharedReference.shared.halted }
+            let configurations = localconfigurations.filter { $0.task != SharedReference.shared.halted }
             stackoftasktobeestimated = configurations.map(\.hiddenID)
         }
+        
         localprogressdetails?.setprofileandnumberofconfigurations(structprofile, localconfigurations.count)
+        startestimation()
     }
 }
 

@@ -50,8 +50,6 @@ struct TasksView: View {
     @State private var focusexport: Bool = false
     @State private var focusimport: Bool = false
     @State private var importorexport: Bool = false
-    // Filterstring
-    @State private var filterstring: String = ""
     // Local data for present local and remote info about task
     @State var selectedconfig: SynchronizeConfiguration?
     @State private var doubleclick: Bool = false
@@ -72,7 +70,6 @@ struct TasksView: View {
                 ListofTasksMainView(
                     rsyncUIdata: rsyncUIdata,
                     selecteduuids: $selecteduuids,
-                    filterstring: $filterstring,
                     doubleclick: $doubleclick,
                     progress: $progress,
                     progressdetails: progressdetails,
