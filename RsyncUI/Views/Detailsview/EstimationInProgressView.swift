@@ -43,7 +43,7 @@ struct EstimationInProgressView: View {
     var progressviewestimation: some View {
         ProgressView("",
                      value: progressdetails.numberofconfigurationsestimated,
-                     total: Double(configurations.count))
+                     total: Double(progressdetails.numberofconfigurations))
             .onAppear {
                 // Either is there some selceted tasks or if not
                 // the EstimateTasks selects all tasks to be estimated

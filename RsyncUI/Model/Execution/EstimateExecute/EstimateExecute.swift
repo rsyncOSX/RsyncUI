@@ -58,7 +58,6 @@ final class EstimateExecute {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
                                                                                              forDisplay: false)
                 {
-                    guard arguments.count > 0 else { return }
                     // Used to display details of configuration in estimation
                     localprogressdetails?.configurationtobestimated = config.id
                     let process = ProcessRsync(arguments: arguments,
@@ -73,6 +72,7 @@ final class EstimateExecute {
     private func startexecution() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
         if let localhiddenID = stackoftasks?.removeFirst() {
+            // For display progress of synchronization of correct task
             localprogressdetails?.hiddenIDatwork = localhiddenID
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
@@ -89,6 +89,7 @@ final class EstimateExecute {
     }
     
     private func startexecution_noestimate() {
+        guard (stackoftasks?.count ?? 0) > 0 else { return }
         if let localhiddenID = stackoftasks?.removeLast() {
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
@@ -156,15 +157,9 @@ final class EstimateExecute {
             let configurations = localconfigurations.filter { $0.task != SharedReference.shared.halted }
             stackoftasks = configurations.map(\.hiddenID)
         }
-
-        localprogressdetails?.setprofileandnumberofconfigurations(structprofile, localconfigurations.count)
+        // Add the number of configurations to estimate, used for progress status in estimate
+        localprogressdetails?.setprofileandnumberofconfigurations(structprofile, stackoftasks?.count ?? 0)
         startestimation()
-    }
-
-    private func prepareandstartexecutetasks(configurations: [SynchronizeConfiguration]?) {
-        if let configurations {
-            stackoftasks = configurations.map(\.hiddenID)
-        }
     }
 
     // Execute init
@@ -197,8 +192,7 @@ final class EstimateExecute {
             localexecutestate?.updateexecutestate(state: .completed)
             return
         }
-
-        prepareandstartexecutetasks(configurations: taskstosynchronize)
+        stackoftasks = configurations.map(\.hiddenID)
         startexecution()
     }
     
@@ -249,6 +243,7 @@ final class EstimateExecute {
         
 
     deinit {
+        Logger.process.info("EstimateExecute: DEINIT")
         self.stackoftasks = nil
     }
 }
