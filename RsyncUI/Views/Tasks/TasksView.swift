@@ -335,7 +335,6 @@ extension TasksView {
         return haltedtasks?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0
     }
 
-    
     // Double click action is discovered in the ListofTasksMainView
     // Must do some checks her as well
     func doubleclickactionfunction() {

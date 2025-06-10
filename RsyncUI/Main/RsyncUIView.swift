@@ -62,7 +62,6 @@ struct RsyncUIView: View {
                 .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) ?? []
         }
         .onChange(of: selectedprofileID) {
-            
             var profile: String?
 
             // Only for external URL

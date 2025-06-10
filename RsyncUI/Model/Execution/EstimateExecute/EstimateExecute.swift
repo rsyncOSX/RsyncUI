@@ -1,5 +1,5 @@
 //
-//  Combined.swift
+//  EstimateExecute.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 10/06/2025.
@@ -20,9 +20,10 @@ enum ErrorDatatoSynchronize: LocalizedError {
     }
 }
 
+typealias Typelogdata = (Int, String)
+
 @MainActor
 final class EstimateExecute {
-    
     // Execute
     private var localconfigurations: [SynchronizeConfiguration]
     private var structprofile: String?
@@ -48,7 +49,7 @@ final class EstimateExecute {
         }
         return nil
     }
-    
+
     private func startestimation() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
         if let localhiddenID = stackoftasks?.removeFirst() {
@@ -67,14 +68,15 @@ final class EstimateExecute {
             }
         }
     }
-    
+
     private func startexecution() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
         if let localhiddenID = stackoftasks?.removeFirst() {
             localprogressdetails?.hiddenIDatwork = localhiddenID
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
-                                                                                             forDisplay: false) {
+                                                                                             forDisplay: false)
+                {
                     let process = ProcessRsync(arguments: arguments,
                                                config: config,
                                                processtermination: processtermination_excute)
@@ -90,7 +92,7 @@ final class EstimateExecute {
             throw ErrorDatatoSynchronize.thereisdatatosynchronize(idwitherror: synchronizeIDwitherror)
         }
     }
-    
+
     // convenience init Estimate
     @discardableResult
     convenience init(profile: String?,
@@ -105,7 +107,7 @@ final class EstimateExecute {
         let updateconfigurations: ([SynchronizeConfiguration]) -> Void = { _ in
             Logger.process.info("Combined: You should not SEE this message")
         }
-        
+
         self.init(profile: profile,
                   configurations: configurations,
                   selecteduuids: selecteduuids,
@@ -121,7 +123,7 @@ final class EstimateExecute {
          configurations: [SynchronizeConfiguration],
          selecteduuids: Set<UUID>,
          progressdetails: ProgressDetails?,
-         
+
          filehandler: @escaping (Int) -> Void,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
@@ -131,7 +133,7 @@ final class EstimateExecute {
         // Not neede in Estimate - handled in convenience init
         localfilehandler = filehandler
         localupdateconfigurations = updateconfigurations
-        
+
         // Estimate selected configurations
         if selecteduuids.count > 0 {
             let configurations = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
@@ -141,11 +143,11 @@ final class EstimateExecute {
             let configurations = localconfigurations.filter { $0.task != SharedReference.shared.halted }
             stackoftasks = configurations.map(\.hiddenID)
         }
-        
+
         localprogressdetails?.setprofileandnumberofconfigurations(structprofile, localconfigurations.count)
         startestimation()
     }
-    
+
     private func prepareandstartexecutetasks(configurations: [SynchronizeConfiguration]?) {
         if let configurations {
             stackoftasks = configurations.map(\.hiddenID)
@@ -159,7 +161,7 @@ final class EstimateExecute {
          selecteduuids: Set<UUID>,
          executestate: ExecuteState?,
          progressdetails: ProgressDetails?,
-         
+
          filehandler: @escaping (Int) -> Void,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
@@ -169,15 +171,15 @@ final class EstimateExecute {
         localprogressdetails = progressdetails
         localfilehandler = filehandler
         localupdateconfigurations = updateconfigurations
-        
+
         guard selecteduuids.count > 0 else {
             Logger.process.warning("Combined: guard uuids.count > 0: \(selecteduuids.count, privacy: .public)")
             localexecutestate?.updateexecutestate(state: .completed)
             return
         }
-        
+
         let taskstosynchronize = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
-        
+
         guard taskstosynchronize.count > 0 else {
             Logger.process.warning("Combined: guard uuids.contains($0.id): \(selecteduuids.count, privacy: .public)")
             localexecutestate?.updateexecutestate(state: .completed)
@@ -268,7 +270,7 @@ extension EstimateExecute {
             }
         }
     }
-    
+
     func processtermination_excute(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
         guard setabort == false else { return }
         // Log records
@@ -295,12 +297,13 @@ extension EstimateExecute {
             localexecutestate?.updateexecutestate(state: .completed)
             return
         }
-        
+
         if let localhiddenID = stackoftasks?.removeFirst() {
             localprogressdetails?.hiddenIDatwork = localhiddenID
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
-                                                                                             forDisplay: false) {
+                                                                                             forDisplay: false)
+                {
                     let process = ProcessRsync(arguments: arguments,
                                                config: config,
                                                processtermination: processtermination_excute)

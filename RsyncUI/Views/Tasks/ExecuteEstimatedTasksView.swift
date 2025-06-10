@@ -108,13 +108,13 @@ extension ExecuteEstimatedTasksView {
             Logger.process.info("ExecuteEstimatedTasksView: executemultipleestimatedtasks(): \(adjustedselecteduuids, privacy: .public)")
             if let configurations = rsyncUIdata.configurations {
                 executestate.updateexecutestate(state: .execute)
-                ExecuteMultipleTasks(profile: rsyncUIdata.profile,
-                                     rsyncuiconfigurations: configurations,
-                                     selecteduuids: adjustedselecteduuids,
-                                     executestateDelegate: executestate,
-                                     progressdetailsDelegate: progressdetails,
-                                     filehandler: filehandler,
-                                     updateconfigurations: updateconfigurations)
+                EstimateExecute(profile: rsyncUIdata.profile,
+                                configurations: configurations,
+                                selecteduuids: adjustedselecteduuids,
+                                executestate: executestate,
+                                progressdetails: progressdetails,
+                                filehandler: filehandler,
+                                updateconfigurations: updateconfigurations)
             }
         }
     }

@@ -29,7 +29,7 @@ struct ListofTasksMainView: View {
                                         progressdetails: progressdetails,
                                         max: max)
             .overlay {
-                if (rsyncUIdata.configurations ?? []).filter (
+                if (rsyncUIdata.configurations ?? []).filter(
                     { filterstring.isEmpty ? true : $0.backupID.contains(filterstring) }).isEmpty
                 {
                     ContentUnavailableView {
@@ -62,15 +62,14 @@ struct ListofTasksMainView: View {
                 Task {
                     try await Task.sleep(seconds: 2)
                     if let filteredconfigurations = rsyncUIdata.configurations?.filter({ filterstring.isEmpty ? true : $0.backupID.contains(filterstring) }) {
-                        
                         guard filterstring.isEmpty == false else {
                             // selecteduuids.removeAll()
                             return
                         }
-                        
-                        _ = filteredconfigurations.map({ configuration in
-                            selecteduuids.insert(configuration.id) })
-                        
+
+                        _ = filteredconfigurations.map { configuration in
+                            selecteduuids.insert(configuration.id)
+                        }
                     }
                 }
             }
