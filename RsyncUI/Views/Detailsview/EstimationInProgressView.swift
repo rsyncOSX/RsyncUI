@@ -47,7 +47,7 @@ struct EstimationInProgressView: View {
             .onAppear {
                 // Either is there some selceted tasks or if not
                 // the EstimateTasks selects all tasks to be estimated
-                EstimateTasks(profile: profile,
+                EstimateExecute(profile: profile,
                                              configurations: configurations,
                                              selecteduuids: selecteduuids,
                                              progressdetails: progressdetails)
@@ -60,7 +60,7 @@ struct EstimationInProgressView: View {
             .onAppear {
                 // Either is there some selceted tasks or if not
                 // the EstimateTasks selects all tasks to be estimated
-                EstimateTasks(profile: profile,
+                EstimateExecute(profile: profile,
                                              configurations: configurations,
                                              selecteduuids: selecteduuids,
                                              progressdetails: progressdetails)
