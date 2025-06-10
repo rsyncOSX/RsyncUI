@@ -1,5 +1,5 @@
 //
-//  NoEstimationProgressDetails.swift
+//  NoEstProgressDetails.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 06/01/2024.
@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable
-final class NoEstimationProgressDetails {
+final class NoEstProgressDetails {
     var executenoestimationcompleted: Bool = false
     var executelist: [RemoteDataNumbers]?
     // UUIDs with data to be transferred

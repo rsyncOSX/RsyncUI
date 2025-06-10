@@ -63,14 +63,14 @@ struct SidebarTasksView: View {
     func makeView(view: DestinationView) -> some View {
         switch view {
         case .executestimatedview:
-            ExecuteEstimatedTasksView(rsyncUIdata: rsyncUIdata,
-                                      progressdetails: progressdetails,
-                                      selecteduuids: $selecteduuids,
-                                      executetaskpath: $executetaskpath)
+            ExecuteEstTasksView(rsyncUIdata: rsyncUIdata,
+                                progressdetails: progressdetails,
+                                selecteduuids: $selecteduuids,
+                                executetaskpath: $executetaskpath)
         case .executenoestimatetasksview:
-            ExecuteNoestimatedTasksView(rsyncUIdata: rsyncUIdata,
-                                        selecteduuids: $selecteduuids,
-                                        executetaskpath: $executetaskpath)
+            ExecuteNoEstTasksView(rsyncUIdata: rsyncUIdata,
+                                  selecteduuids: $selecteduuids,
+                                  executetaskpath: $executetaskpath)
         case .summarizeddetailsview:
             // After a complete estimation all tasks
             if let configurations = rsyncUIdata.configurations {

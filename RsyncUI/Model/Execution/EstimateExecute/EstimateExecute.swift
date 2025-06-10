@@ -24,15 +24,14 @@ typealias Typelogdata = (Int, String)
 
 @MainActor
 final class EstimateExecute {
-   
     private var localconfigurations: [SynchronizeConfiguration]
     private var structprofile: String?
     private var setabort = false
 
     weak var localprogressdetails: ProgressDetails?
     weak var localexecutestate: ExecuteState?
-    weak var localnoestimationprogressdetails: NoEstimationProgressDetails?
-    
+    weak var localnoestprogressdetails: NoEstProgressDetails?
+
     // Collect loggdata for later save to permanent storage (hiddenID, log)
     private var configrecords = [Typelogdata]()
     private var schedulerecords = [Typelogdata]()
@@ -43,7 +42,7 @@ final class EstimateExecute {
 
     var stackoftasks: [Int]?
     var synchronizeIDwitherror: String = ""
-    
+
     func getconfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
         if let index = localconfigurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
             return localconfigurations[index]
@@ -76,7 +75,7 @@ final class EstimateExecute {
             localprogressdetails?.hiddenIDatwork = localhiddenID
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
-                                                                                                 forDisplay: false)
+                                                                                             forDisplay: false)
                 {
                     let process = ProcessRsync(arguments: arguments,
                                                config: config,
@@ -87,7 +86,7 @@ final class EstimateExecute {
             }
         }
     }
-    
+
     private func startexecution_noestimate() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
         if let localhiddenID = stackoftasks?.removeFirst() {
@@ -195,19 +194,19 @@ final class EstimateExecute {
         }
         startexecution()
     }
-    
+
     // Init execute NO estimation
     @discardableResult
     init(profile: String?,
          configurations: [SynchronizeConfiguration],
          selecteduuids: Set<UUID>,
-         noestimationprogressdetails: NoEstimationProgressDetails?,
+         noestprogressdetails: NoEstProgressDetails?,
          filehandler: @escaping (Int) -> Void,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
         structprofile = profile
         localconfigurations = configurations
-        localnoestimationprogressdetails = noestimationprogressdetails
+        localnoestprogressdetails = noestprogressdetails
         localfilehandler = filehandler
         localupdateconfigurations = updateconfigurations
         // Estimate selected configurations
@@ -220,27 +219,26 @@ final class EstimateExecute {
         }
         startexecution_noestimate()
     }
-    
+
     // convenience init execute NO estimation
     @discardableResult
     convenience init(profile: String?,
-         configurations: [SynchronizeConfiguration],
-         selecteduuids: Set<UUID>,
-         noestimationprogressdetails: NoEstimationProgressDetails?,
-         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
+                     configurations: [SynchronizeConfiguration],
+                     selecteduuids: Set<UUID>,
+                     noestprogressdetails: NoEstProgressDetails?,
+                     updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
         let filehandler: (Int) -> Void = { _ in
             Logger.process.info("EstimateExecute: You should not SEE this message")
         }
-    
+
         self.init(profile: profile,
                   configurations: configurations,
                   selecteduuids: selecteduuids,
-                  noestimationprogressdetails: noestimationprogressdetails,
+                  noestprogressdetails: noestprogressdetails,
                   filehandler: filehandler,
                   updateconfigurations: updateconfigurations)
     }
-        
 
     deinit {
         Logger.process.info("EstimateExecute: DEINIT")
@@ -249,9 +247,7 @@ final class EstimateExecute {
 }
 
 extension EstimateExecute {
-    
     func processtermination_estimation(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
-        
         var adjustedoutputfromrsync = false
         var suboutput: [String]?
 
@@ -329,7 +325,6 @@ extension EstimateExecute {
     }
 
     func processtermination_excute(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
-        
         guard setabort == false else { return }
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
@@ -358,9 +353,8 @@ extension EstimateExecute {
         // Execute next task
         startexecution()
     }
-    
+
     func processtermination_noestimation(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
-        
         // If snahost task the snapshotnum is increased when updating the configuration.
         // When creating the logrecord, decrease the snapshotum by 1
 
@@ -378,10 +372,10 @@ extension EstimateExecute {
                                            config: config)
             if let stats = record.stats {
                 schedulerecords.append((hiddenID ?? -1, stats))
-                localnoestimationprogressdetails?.appendrecordexecutedlist(record)
-                localnoestimationprogressdetails?.appenduuidwithdatatosynchronize(config.id)
+                localnoestprogressdetails?.appendrecordexecutedlist(record)
+                localnoestprogressdetails?.appenduuidwithdatatosynchronize(config.id)
             }
-            
+
             guard stackoftasks?.count ?? 0 > 0 else {
                 let update = Logging(profile: structprofile,
                                      configurations: localconfigurations)
@@ -390,7 +384,7 @@ extension EstimateExecute {
                 localupdateconfigurations(updateconfigurations)
                 // Update logrecords
                 update.addlogpermanentstore(schedulerecords: schedulerecords)
-                localnoestimationprogressdetails?.executealltasksnoestiamtioncomplete()
+                localnoestprogressdetails?.executealltasksnoestiamtioncomplete()
                 Logger.process.info("EstimateExecute: execution is completed")
                 return
             }

@@ -1,5 +1,5 @@
 //
-//  ExecuteEstimatedTasksView.swift
+//  ExecuteEstTasksView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 11/11/2023.
@@ -8,7 +8,7 @@
 import OSLog
 import SwiftUI
 
-struct ExecuteEstimatedTasksView: View {
+struct ExecuteEstTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var progressdetails: ProgressDetails
     @Binding var selecteduuids: Set<UUID>
@@ -71,7 +71,7 @@ struct ExecuteEstimatedTasksView: View {
     }
 }
 
-extension ExecuteEstimatedTasksView {
+extension ExecuteEstTasksView {
     func filehandler(count: Int) {
         progress = Double(count)
     }
