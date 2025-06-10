@@ -27,6 +27,15 @@ enum AddConfigurationField: Hashable {
     case snapshotnumField
 }
 
+enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
+    case synchronize
+    case snapshot
+    case syncremote
+
+    var id: String { rawValue }
+    var description: String { rawValue.localizedLowercase }
+}
+
 struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
 

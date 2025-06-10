@@ -18,15 +18,6 @@ struct CopyItem: Identifiable, Codable, Transferable {
     }
 }
 
-enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case synchronize
-    case snapshot
-    case syncremote
-
-    var id: String { rawValue }
-    var description: String { rawValue.localizedLowercase }
-}
-
 struct TasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
