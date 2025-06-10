@@ -38,7 +38,7 @@ final class ExecuteTasksNOEstimation {
             // Update logrecords
             update.addlogpermanentstore(schedulerecords: schedulerecords)
             localnoestimationprogressdetails?.executealltasksnoestiamtioncomplete()
-            Logger.process.info("class ExecuteTasks: execution is completed")
+            Logger.process.info("ExecuteTasksNOEstimation: execution is completed")
             return
         }
         if let localhiddenID = stackoftasktobeestimated?.removeLast() {
