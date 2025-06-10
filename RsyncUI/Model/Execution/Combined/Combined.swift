@@ -12,15 +12,12 @@ import ParseRsyncOutput
 @MainActor
 final class Combined {
     
-// Execute
-    
+    // Execute
     private var localconfigurations: [SynchronizeConfiguration]
     private var structprofile: String?
-    // private var stackoftasktobeexecuted: [Int]?
     private var setabort = false
 
     weak var localexecutestate: ExecuteState?
-    // weak var progressdetails: ProgressDetails?
     // Collect loggdata for later save to permanent storage (hiddenID, log)
     private var configrecords = [Typelogdata]()
     private var schedulerecords = [Typelogdata]()
@@ -29,10 +26,7 @@ final class Combined {
     // Update configigurations
     var localupdateconfigurations: ([SynchronizeConfiguration]) -> Void
 
-// Estimate
-    
-    // var structprofile: String?
-    // var localconfigurations: [SynchronizeConfiguration]
+    // Estimate
     var stackoftasks: [Int]?
     weak var localprogressdetails: ProgressDetails?
     var synchronizeIDwitherror: String = ""
@@ -43,8 +37,9 @@ final class Combined {
         }
         return nil
     }
-
+    
     private func startestimation() {
+        guard (stackoftasks?.count ?? 0) > 0 else { return }
         if let localhiddenID = stackoftasks?.removeFirst() {
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
@@ -61,7 +56,24 @@ final class Combined {
             }
         }
     }
+    
+    private func startexecution() {
+        guard (stackoftasks?.count ?? 0) > 0 else { return }
+        if let localhiddenID = stackoftasks?.removeFirst() {
+            localprogressdetails?.hiddenIDatwork = localhiddenID
+            if let config = getconfig(localhiddenID) {
+                if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
+                                                                                             forDisplay: false) {
+                    let process = ProcessRsync(arguments: arguments,
+                                               config: config,
+                                               processtermination: processtermination_excute)
+                    process.executeProcess()
+                }
+            }
+        }
+    }
 
+    // Used in Estimate
     func validatetagging(_ lines: Int, _ tagged: Bool) throws {
         if lines > SharedReference.shared.alerttagginglines, tagged == false {
             throw ErrorDatatoSynchronize.thereisdatatosynchronize(idwitherror: synchronizeIDwitherror)
@@ -129,18 +141,6 @@ final class Combined {
         }
     }
 
-    private func startexecution() {
-        guard (stackoftasks?.count ?? 0) > 0 else { return }
-        if let hiddenID = stackoftasks?.remove(at: 0) {
-            localprogressdetails?.hiddenIDatwork = hiddenID
-            let execute = ExecuteOneTask(hiddenID: hiddenID,
-                                         configurations: localconfigurations,
-                                         processtermination: processtermination_excute,
-                                         filehandler: localfilehandler)
-            execute.startexecution()
-        }
-    }
-
     // Execute init
     @discardableResult
     init(profile: String?,
@@ -158,14 +158,17 @@ final class Combined {
         localprogressdetails = progressdetails
         localfilehandler = filehandler
         localupdateconfigurations = updateconfigurations
+        
         guard selecteduuids.count > 0 else {
-            Logger.process.warning("class ExecuteMultipleTasks, guard uuids.count > 0: \(selecteduuids.count, privacy: .public)")
+            Logger.process.warning("Combined: guard uuids.count > 0: \(selecteduuids.count, privacy: .public)")
             localexecutestate?.updateexecutestate(state: .completed)
             return
         }
+        
         let taskstosynchronize = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
+        
         guard taskstosynchronize.count > 0 else {
-            Logger.process.warning("class ExecuteMultipleTasks, guard uuids.contains($0.id): \(selecteduuids.count, privacy: .public)")
+            Logger.process.warning("Combined: guard uuids.contains($0.id): \(selecteduuids.count, privacy: .public)")
             localexecutestate?.updateexecutestate(state: .completed)
             return
         }
