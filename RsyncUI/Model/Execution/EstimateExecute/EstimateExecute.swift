@@ -90,7 +90,7 @@ final class EstimateExecute {
     
     private func startexecution_noestimate() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
-        if let localhiddenID = stackoftasks?.removeLast() {
+        if let localhiddenID = stackoftasks?.removeFirst() {
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
                                                                                              forDisplay: false)
