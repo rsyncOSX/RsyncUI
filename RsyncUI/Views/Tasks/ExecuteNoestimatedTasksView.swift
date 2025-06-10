@@ -16,7 +16,7 @@ struct ExecuteNoestimatedTasksView: View {
 
     @State private var noestimationprogressdetails = NoEstimationProgressDetails()
     @State private var progressviewshowinfo: Bool = true
-    @State private var executetasks: ExecuteTasksNOEstimation?
+    @State private var executetasks: EstimateExecute?
     @State private var focusaborttask: Bool = false
 
     var body: some View {
@@ -69,10 +69,10 @@ extension ExecuteNoestimatedTasksView {
         Logger.process.info("executeallnoestimationtasks(): \(selecteduuids, privacy: .public)")
         noestimationprogressdetails.startexecutealltasksnoestimation()
         if let configurations = rsyncUIdata.configurations {
-            ExecuteTasksNOEstimation(profile: rsyncUIdata.profile,
-                                     rsyncuiconfigurations: configurations,
-                                     noestimationprogressdetails: noestimationprogressdetails,
-                                     selecteduuids: selecteduuids,
+            EstimateExecute(profile: rsyncUIdata.profile,
+                            configurations: configurations,
+                            selecteduuids: selecteduuids,
+                            noestimationprogressdetails: noestimationprogressdetails,
                                      updateconfigurations: updateconfigurations)
         }
     }
