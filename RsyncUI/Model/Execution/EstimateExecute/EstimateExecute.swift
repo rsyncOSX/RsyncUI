@@ -42,6 +42,9 @@ final class EstimateExecute {
     var stackoftasks: [Int]?
     weak var localprogressdetails: ProgressDetails?
     var synchronizeIDwitherror: String = ""
+    
+    // Excute no estimation
+    weak var localnoestimationprogressdetails: NoEstimationProgressDetails?
 
     func getconfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
         if let index = localconfigurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
@@ -80,6 +83,21 @@ final class EstimateExecute {
                     let process = ProcessRsync(arguments: arguments,
                                                config: config,
                                                processtermination: processtermination_excute)
+                    process.executeProcess()
+                }
+            }
+        }
+    }
+    
+    private func startexecution_noestimate() {
+        if let localhiddenID = stackoftasks?.removeLast() {
+            if let config = getconfig(localhiddenID) {
+                if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
+                                                                                             forDisplay: false)
+                {
+                    let process = ProcessRsync(arguments: arguments,
+                                               config: config,
+                                               processtermination: processtermination_noestimation)
                     process.executeProcess()
                 }
             }
@@ -189,6 +207,53 @@ final class EstimateExecute {
         prepareandstartexecutetasks(configurations: taskstosynchronize)
         startexecution()
     }
+    
+    // Init execute NO estimation
+    @discardableResult
+    init(profile: String?,
+         configurations: [SynchronizeConfiguration],
+         selecteduuids: Set<UUID>,
+         noestimationprogressdetails: NoEstimationProgressDetails?,
+         filehandler: @escaping (Int) -> Void,
+         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
+    {
+        structprofile = profile
+        localconfigurations = configurations
+        localnoestimationprogressdetails = noestimationprogressdetails
+        localfilehandler = filehandler
+        localupdateconfigurations = updateconfigurations
+        // Estimate selected configurations
+        if selecteduuids.count > 0 {
+            let configurations = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
+            stackoftasks = configurations.map(\.hiddenID)
+        } else {
+            let configurations = localconfigurations.filter { $0.task != SharedReference.shared.halted }
+            stackoftasks = configurations.map(\.hiddenID)
+        }
+        startexecution_noestimate()
+    }
+    
+    // convenience init execute NO estimation
+    @discardableResult
+    convenience init(profile: String?,
+         configurations: [SynchronizeConfiguration],
+         selecteduuids: Set<UUID>,
+         noestimationprogressdetails: NoEstimationProgressDetails?,
+         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
+    {
+        // To satisfy arguments
+        let filehandler: (Int) -> Void = { _ in
+            Logger.process.info("Combined: You should not SEE this message")
+        }
+    
+        self.init(profile: profile,
+                  configurations: configurations,
+                  selecteduuids: selecteduuids,
+                  noestimationprogressdetails: noestimationprogressdetails,
+                  filehandler: filehandler,
+                  updateconfigurations: updateconfigurations)
+    }
+        
 
     deinit {
         self.stackoftasks = nil
@@ -196,7 +261,9 @@ final class EstimateExecute {
 }
 
 extension EstimateExecute {
+    
     func processtermination_estimation(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
+        
         var adjustedoutputfromrsync = false
         var suboutput: [String]?
 
@@ -231,12 +298,12 @@ extension EstimateExecute {
                     SharedReference.shared.errorobject?.alert(error: error)
                 }
 
-                // Must check inside Task AFTER async task
-                if stackoftasks?.count ?? 0 > 0 {
-                    startestimation()
-                } else {
+                guard stackoftasks?.count ?? 0 > 0 else {
                     localprogressdetails?.estimationiscomplete()
+                    return
                 }
+                // Estimate next task
+                startestimation()
             }
         } else {
             var record = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
@@ -261,17 +328,18 @@ extension EstimateExecute {
                     SharedReference.shared.errorobject?.alert(error: error)
                 }
 
-                // Must check inside Task AFTER async task
-                if stackoftasks?.count ?? 0 > 0 {
-                    startestimation()
-                } else {
+                guard stackoftasks?.count ?? 0 > 0 else {
                     localprogressdetails?.estimationiscomplete()
+                    return
                 }
+                // Estimate next task
+                startestimation()
             }
         }
     }
 
     func processtermination_excute(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
+        
         guard setabort == false else { return }
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
@@ -297,19 +365,48 @@ extension EstimateExecute {
             localexecutestate?.updateexecutestate(state: .completed)
             return
         }
+        // Execute next task
+        startexecution()
+    }
+    
+    func processtermination_noestimation(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
+        
+        // If snahost task the snapshotnum is increased when updating the configuration.
+        // When creating the logrecord, decrease the snapshotum by 1
 
-        if let localhiddenID = stackoftasks?.removeFirst() {
-            localprogressdetails?.hiddenIDatwork = localhiddenID
-            if let config = getconfig(localhiddenID) {
-                if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
-                                                                                             forDisplay: false)
-                {
-                    let process = ProcessRsync(arguments: arguments,
-                                               config: config,
-                                               processtermination: processtermination_excute)
-                    process.executeProcess()
-                }
+        var suboutput: [String]?
+
+        configrecords.append((hiddenID ?? -1, Date().en_string_from_date()))
+        if let config = getconfig(hiddenID ?? -1) {
+            if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
+                suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
+            } else {
+                suboutput = stringoutputfromrsync
             }
+
+            let record = RemoteDataNumbers(stringoutputfromrsync: suboutput,
+                                           config: config)
+            if let stats = record.stats {
+                schedulerecords.append((hiddenID ?? -1, stats))
+                localnoestimationprogressdetails?.appendrecordexecutedlist(record)
+                localnoestimationprogressdetails?.appenduuidwithdatatosynchronize(config.id)
+                
+            }
+            
+            guard stackoftasks?.count ?? 0 > 0 else {
+                let update = Logging(profile: structprofile,
+                                     configurations: localconfigurations)
+                let updateconfigurations = update.setCurrentDateonConfiguration(configrecords: configrecords)
+                // Send date stamped configurations back to caller
+                localupdateconfigurations(updateconfigurations)
+                // Update logrecords
+                update.addlogpermanentstore(schedulerecords: schedulerecords)
+                localnoestimationprogressdetails?.executealltasksnoestiamtioncomplete()
+                Logger.process.info("Combined: execution is completed")
+                return
+            }
+            // Execute next task
+            startexecution_noestimate()
         }
     }
 }
