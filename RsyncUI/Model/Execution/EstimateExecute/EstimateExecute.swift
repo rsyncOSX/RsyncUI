@@ -186,13 +186,13 @@ final class EstimateExecute {
         }
 
         let taskstosynchronize = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
+        stackoftasks = taskstosynchronize.map(\.hiddenID)
 
-        guard taskstosynchronize.count > 0 else {
+        guard stackoftasks?.count ?? 0 > 0 else {
             Logger.process.warning("EstimateExecute: guard uuids.contains($0.id): \(selecteduuids.count, privacy: .public)")
             localexecutestate?.updateexecutestate(state: .completed)
             return
         }
-        stackoftasks = configurations.map(\.hiddenID)
         startexecution()
     }
     
