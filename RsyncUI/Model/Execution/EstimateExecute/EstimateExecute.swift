@@ -24,6 +24,7 @@ typealias Typelogdata = (Int, String)
 
 @MainActor
 final class EstimateExecute {
+    
     private var localconfigurations: [SynchronizeConfiguration]
     private var structprofile: String?
     private var setabort = false
@@ -110,58 +111,9 @@ final class EstimateExecute {
         }
     }
 
-    // convenience init Estimate
-    @discardableResult
-    convenience init(profile: String?,
-                     configurations: [SynchronizeConfiguration],
-                     selecteduuids: Set<UUID>,
-                     progressdetails: ProgressDetails?)
-    {
-        let filehandler: (Int) -> Void = { _ in
-            Logger.process.info("EstimateExecute: You should not SEE this message")
-        }
-        let updateconfigurations: ([SynchronizeConfiguration]) -> Void = { _ in
-            Logger.process.info("EstimateExecute: You should not SEE this message")
-        }
-        self.init(profile: profile,
-                  configurations: configurations,
-                  selecteduuids: selecteduuids,
-                  progressdetails: progressdetails,
-                  filehandler: filehandler,
-                  updateconfigurations: updateconfigurations)
-    }
-
-    // Estimate init, filehandler and updateconfigurations are
-    // handled in convenience init for Estimate
-    @discardableResult
-    init(profile: String?,
-         configurations: [SynchronizeConfiguration],
-         selecteduuids: Set<UUID>,
-         progressdetails: ProgressDetails?,
-         filehandler: @escaping (Int) -> Void,
-         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
-    {
-        structprofile = profile
-        localconfigurations = configurations
-        localprogressdetails = progressdetails
-        localfilehandler = filehandler
-        localupdateconfigurations = updateconfigurations
-
-        // Estimate selected configurations
-        if selecteduuids.count > 0 {
-            let configurations = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
-            stackoftasks = configurations.map(\.hiddenID)
-        } else {
-            // Or estimate all tasks
-            let configurations = localconfigurations.filter { $0.task != SharedReference.shared.halted }
-            stackoftasks = configurations.map(\.hiddenID)
-        }
-        // Add the number of configurations to estimate, used for progress status in estimate
-        localprogressdetails?.setprofileandnumberofconfigurations(structprofile, stackoftasks?.count ?? 0)
-        startestimation()
-    }
-
-    // Execute init
+    // EXECUTE init, dont need a Convenience init
+    // only real init
+    
     @discardableResult
     init(profile: String?,
          configurations: [SynchronizeConfiguration],
@@ -195,6 +147,80 @@ final class EstimateExecute {
         startexecution()
     }
 
+    // Convenience init and init for ESTIMATE
+    // filehandler and updateconfigurations are not used
+    // handled in convenience init for Estimate
+    
+    @discardableResult
+    convenience init(profile: String?,
+                     configurations: [SynchronizeConfiguration],
+                     selecteduuids: Set<UUID>,
+                     progressdetails: ProgressDetails?)
+    {
+        let filehandler: (Int) -> Void = { _ in
+            Logger.process.info("EstimateExecute: You should not SEE this message")
+        }
+        let updateconfigurations: ([SynchronizeConfiguration]) -> Void = { _ in
+            Logger.process.info("EstimateExecute: You should not SEE this message")
+        }
+        self.init(profile: profile,
+                  configurations: configurations,
+                  selecteduuids: selecteduuids,
+                  progressdetails: progressdetails,
+                  filehandler: filehandler,
+                  updateconfigurations: updateconfigurations)
+    }
+
+    
+    @discardableResult
+    init(profile: String?,
+         configurations: [SynchronizeConfiguration],
+         selecteduuids: Set<UUID>,
+         progressdetails: ProgressDetails?,
+         filehandler: @escaping (Int) -> Void,
+         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
+    {
+        structprofile = profile
+        localconfigurations = configurations
+        localprogressdetails = progressdetails
+        localfilehandler = filehandler
+        localupdateconfigurations = updateconfigurations
+
+        // Estimate selected configurations
+        if selecteduuids.count > 0 {
+            let configurations = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
+            stackoftasks = configurations.map(\.hiddenID)
+        } else {
+            // Or estimate all tasks
+            let configurations = localconfigurations.filter { $0.task != SharedReference.shared.halted }
+            stackoftasks = configurations.map(\.hiddenID)
+        }
+        // Add the number of configurations to estimate, used for progress status in estimate
+        localprogressdetails?.setprofileandnumberofconfigurations(structprofile, stackoftasks?.count ?? 0)
+        startestimation()
+    }
+    
+    // Convenience init and init for execute NO ESTIMATION
+    // Real init below
+    @discardableResult
+    convenience init(profile: String?,
+                     configurations: [SynchronizeConfiguration],
+                     selecteduuids: Set<UUID>,
+                     noestprogressdetails: NoEstProgressDetails?,
+                     updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
+    {
+        let filehandler: (Int) -> Void = { _ in
+            Logger.process.info("EstimateExecute: You should not SEE this message")
+        }
+
+        self.init(profile: profile,
+                  configurations: configurations,
+                  selecteduuids: selecteduuids,
+                  noestprogressdetails: noestprogressdetails,
+                  filehandler: filehandler,
+                  updateconfigurations: updateconfigurations)
+    }
+    
     // Init execute NO estimation
     @discardableResult
     init(profile: String?,
@@ -214,31 +240,14 @@ final class EstimateExecute {
             let configurations = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
             stackoftasks = configurations.map(\.hiddenID)
         } else {
+        // Or go for all
             let configurations = localconfigurations.filter { $0.task != SharedReference.shared.halted }
             stackoftasks = configurations.map(\.hiddenID)
         }
         startexecution_noestimate()
     }
 
-    // convenience init execute NO estimation
-    @discardableResult
-    convenience init(profile: String?,
-                     configurations: [SynchronizeConfiguration],
-                     selecteduuids: Set<UUID>,
-                     noestprogressdetails: NoEstProgressDetails?,
-                     updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
-    {
-        let filehandler: (Int) -> Void = { _ in
-            Logger.process.info("EstimateExecute: You should not SEE this message")
-        }
-
-        self.init(profile: profile,
-                  configurations: configurations,
-                  selecteduuids: selecteduuids,
-                  noestprogressdetails: noestprogressdetails,
-                  filehandler: filehandler,
-                  updateconfigurations: updateconfigurations)
-    }
+   
 
     deinit {
         Logger.process.info("EstimateExecute: DEINIT")
