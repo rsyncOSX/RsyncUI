@@ -9,8 +9,19 @@ import Foundation
 import OSLog
 import ParseRsyncOutput
 
+enum ErrorDatatoSynchronize: LocalizedError {
+    case thereisdatatosynchronize(idwitherror: String)
+
+    var errorDescription: String? {
+        switch self {
+        case let .thereisdatatosynchronize(idwitherror):
+            "There are errors in tagging data\n for synchronize ID \(idwitherror)\nMost likely number of rows\n> 20 lines and no data to synchronize"
+        }
+    }
+}
+
 @MainActor
-final class Combined {
+final class EstimateExecute {
     
     // Execute
     private var localconfigurations: [SynchronizeConfiguration]
@@ -182,7 +193,7 @@ final class Combined {
     }
 }
 
-extension Combined {
+extension EstimateExecute {
     func processtermination_estimation(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
         var adjustedoutputfromrsync = false
         var suboutput: [String]?
@@ -284,13 +295,18 @@ extension Combined {
             localexecutestate?.updateexecutestate(state: .completed)
             return
         }
-        if let hiddenID = stackoftasks?.remove(at: 0) {
-            localprogressdetails?.hiddenIDatwork = hiddenID
-            let execution = ExecuteOneTask(hiddenID: hiddenID,
-                                           configurations: localconfigurations,
-                                           processtermination: processtermination_excute,
-                                           filehandler: localfilehandler)
-            execution.startexecution()
+        
+        if let localhiddenID = stackoftasks?.removeFirst() {
+            localprogressdetails?.hiddenIDatwork = localhiddenID
+            if let config = getconfig(localhiddenID) {
+                if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
+                                                                                             forDisplay: false) {
+                    let process = ProcessRsync(arguments: arguments,
+                                               config: config,
+                                               processtermination: processtermination_excute)
+                    process.executeProcess()
+                }
+            }
         }
     }
 }
