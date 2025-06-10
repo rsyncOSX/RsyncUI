@@ -69,13 +69,11 @@ extension ExecuteNoestimatedTasksView {
         Logger.process.info("executeallnoestimationtasks(): \(selecteduuids, privacy: .public)")
         noestimationprogressdetails.startexecutealltasksnoestimation()
         if let configurations = rsyncUIdata.configurations {
-            executetasks =
-                ExecuteTasksNOEstimation(profile: rsyncUIdata.profile,
-                                         rsyncuiconfigurations: configurations,
-                                         noestimationprogressdetails: noestimationprogressdetails,
-                                         selecteduuids: selecteduuids,
-                                         updateconfigurations: updateconfigurations)
-            executetasks?.startexecution()
+            ExecuteTasksNOEstimation(profile: rsyncUIdata.profile,
+                                     rsyncuiconfigurations: configurations,
+                                     noestimationprogressdetails: noestimationprogressdetails,
+                                     selecteduuids: selecteduuids,
+                                     updateconfigurations: updateconfigurations)
         }
     }
 

@@ -28,7 +28,7 @@ final class ExecuteTasksNOEstimation {
         return nil
     }
 
-    func startexecution() {
+    private func startexecution() {
         guard stackoftasktobeestimated?.count ?? 0 > 0 else {
             let update = Logging(profile: localeprofile,
                                  configurations: localconfigurations)
@@ -56,6 +56,7 @@ final class ExecuteTasksNOEstimation {
         }
     }
 
+    @discardableResult
     init(profile: String?,
          rsyncuiconfigurations: [SynchronizeConfiguration],
          noestimationprogressdetails: NoEstimationProgressDetails?,
@@ -74,6 +75,7 @@ final class ExecuteTasksNOEstimation {
             let configurations = localconfigurations.filter { $0.task != SharedReference.shared.halted }
             stackoftasktobeestimated = configurations.map(\.hiddenID)
         }
+        startexecution()
     }
 }
 
