@@ -16,7 +16,6 @@ struct ExecuteNoEstTasksView: View {
 
     @State private var noestprogressdetails = NoEstProgressDetails()
     @State private var progressviewshowinfo: Bool = true
-    @State private var executetasks: EstimateExecute?
     @State private var focusaborttask: Bool = false
 
     var body: some View {

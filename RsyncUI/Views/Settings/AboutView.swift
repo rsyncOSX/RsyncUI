@@ -43,6 +43,7 @@ struct AboutView: View {
         Form {
             Section {
                 appnamestring
+                copyrightstring
 
                 HStack {
                     VStack(alignment: .leading) {
@@ -106,27 +107,27 @@ struct AboutView: View {
     }
 
     var appnamestring: some View {
-        HStack(alignment: .center) {
-            Text("\(appName) version \(appVersion) build \(appBuild)")
-        }
-        // .font(.caption)
-        .padding(3)
+        Text("\(appName) version \(appVersion) build \(appBuild)")
+            // .font(.caption)
+            .padding(3)
+    }
+    
+    var copyrightstring: some View {
+        Text(copyright)
+            .font(.caption)
+            .padding(3)
     }
 
     var rsyncversionshortstring: some View {
-        VStack {
-            Text(SharedReference.shared.rsyncversionshort ?? "")
-        }
-        .font(.caption)
-        .padding(3)
+        Text(SharedReference.shared.rsyncversionshort ?? "")
+            .font(.caption)
+            .padding(3)
     }
 
     var rsyncuiconfigpathpath: some View {
-        VStack {
-            Text("RsyncUI configpath: " + configpath)
-        }
-        .font(.caption)
-        .padding(3)
+        Text("RsyncUI configpath: " + configpath)
+            .font(.caption)
+            .padding(3)
     }
 
     var appicon: some View {
