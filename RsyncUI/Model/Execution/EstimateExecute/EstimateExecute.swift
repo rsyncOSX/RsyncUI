@@ -24,28 +24,26 @@ typealias Typelogdata = (Int, String)
 
 @MainActor
 final class EstimateExecute {
-    // Execute
+   
     private var localconfigurations: [SynchronizeConfiguration]
     private var structprofile: String?
     private var setabort = false
 
+    weak var localprogressdetails: ProgressDetails?
     weak var localexecutestate: ExecuteState?
+    weak var localnoestimationprogressdetails: NoEstimationProgressDetails?
+    
     // Collect loggdata for later save to permanent storage (hiddenID, log)
     private var configrecords = [Typelogdata]()
     private var schedulerecords = [Typelogdata]()
     // Report progress to caller
     var localfilehandler: (Int) -> Void
-    // Update configigurations
+    // Update configurations
     var localupdateconfigurations: ([SynchronizeConfiguration]) -> Void
 
-    // Estimate
     var stackoftasks: [Int]?
-    weak var localprogressdetails: ProgressDetails?
     var synchronizeIDwitherror: String = ""
     
-    // Excute no estimation
-    weak var localnoestimationprogressdetails: NoEstimationProgressDetails?
-
     func getconfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
         if let index = localconfigurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
             return localconfigurations[index]
@@ -77,11 +75,7 @@ final class EstimateExecute {
         if let localhiddenID = stackoftasks?.removeFirst() {
             localprogressdetails?.hiddenIDatwork = localhiddenID
             if let config = getconfig(localhiddenID) {
-                /*
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
-                                                                                             forDisplay: false)
-                 */
-                if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
                                                                                                  forDisplay: false)
                 {
                     let process = ProcessRsync(arguments: arguments,
@@ -123,14 +117,12 @@ final class EstimateExecute {
                      selecteduuids: Set<UUID>,
                      progressdetails: ProgressDetails?)
     {
-        // To satisfy arguments
         let filehandler: (Int) -> Void = { _ in
-            Logger.process.info("Combined: You should not SEE this message")
+            Logger.process.info("EstimateExecute: You should not SEE this message")
         }
         let updateconfigurations: ([SynchronizeConfiguration]) -> Void = { _ in
-            Logger.process.info("Combined: You should not SEE this message")
+            Logger.process.info("EstimateExecute: You should not SEE this message")
         }
-
         self.init(profile: profile,
                   configurations: configurations,
                   selecteduuids: selecteduuids,
@@ -146,14 +138,12 @@ final class EstimateExecute {
          configurations: [SynchronizeConfiguration],
          selecteduuids: Set<UUID>,
          progressdetails: ProgressDetails?,
-
          filehandler: @escaping (Int) -> Void,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
         structprofile = profile
         localconfigurations = configurations
         localprogressdetails = progressdetails
-        // Not neede in Estimate - handled in convenience init
         localfilehandler = filehandler
         localupdateconfigurations = updateconfigurations
 
@@ -184,7 +174,6 @@ final class EstimateExecute {
          selecteduuids: Set<UUID>,
          executestate: ExecuteState?,
          progressdetails: ProgressDetails?,
-
          filehandler: @escaping (Int) -> Void,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
@@ -196,7 +185,7 @@ final class EstimateExecute {
         localupdateconfigurations = updateconfigurations
 
         guard selecteduuids.count > 0 else {
-            Logger.process.warning("Combined: guard uuids.count > 0: \(selecteduuids.count, privacy: .public)")
+            Logger.process.warning("EstimateExecute: guard uuids.count > 0: \(selecteduuids.count, privacy: .public)")
             localexecutestate?.updateexecutestate(state: .completed)
             return
         }
@@ -204,7 +193,7 @@ final class EstimateExecute {
         let taskstosynchronize = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
 
         guard taskstosynchronize.count > 0 else {
-            Logger.process.warning("Combined: guard uuids.contains($0.id): \(selecteduuids.count, privacy: .public)")
+            Logger.process.warning("EstimateExecute: guard uuids.contains($0.id): \(selecteduuids.count, privacy: .public)")
             localexecutestate?.updateexecutestate(state: .completed)
             return
         }
@@ -246,9 +235,8 @@ final class EstimateExecute {
          noestimationprogressdetails: NoEstimationProgressDetails?,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
-        // To satisfy arguments
         let filehandler: (Int) -> Void = { _ in
-            Logger.process.info("Combined: You should not SEE this message")
+            Logger.process.info("EstimateExecute: You should not SEE this message")
         }
     
         self.init(profile: profile,
@@ -305,6 +293,7 @@ extension EstimateExecute {
 
                 guard stackoftasks?.count ?? 0 > 0 else {
                     localprogressdetails?.estimationiscomplete()
+                    Logger.process.info("EstimateExecute: estimation is completed")
                     return
                 }
                 // Estimate next task
@@ -335,6 +324,7 @@ extension EstimateExecute {
 
                 guard stackoftasks?.count ?? 0 > 0 else {
                     localprogressdetails?.estimationiscomplete()
+                    Logger.process.info("EstimateExecute: estimation is completed")
                     return
                 }
                 // Estimate next task
@@ -367,6 +357,7 @@ extension EstimateExecute {
             // Update logrecords
             update.addlogpermanentstore(schedulerecords: schedulerecords)
             localexecutestate?.updateexecutestate(state: .completed)
+            Logger.process.info("EstimateExecute: execution is completed")
             return
         }
         // Execute next task
@@ -394,7 +385,6 @@ extension EstimateExecute {
                 schedulerecords.append((hiddenID ?? -1, stats))
                 localnoestimationprogressdetails?.appendrecordexecutedlist(record)
                 localnoestimationprogressdetails?.appenduuidwithdatatosynchronize(config.id)
-                
             }
             
             guard stackoftasks?.count ?? 0 > 0 else {
@@ -406,7 +396,7 @@ extension EstimateExecute {
                 // Update logrecords
                 update.addlogpermanentstore(schedulerecords: schedulerecords)
                 localnoestimationprogressdetails?.executealltasksnoestiamtioncomplete()
-                Logger.process.info("Combined: execution is completed")
+                Logger.process.info("EstimateExecute: execution is completed")
                 return
             }
             // Execute next task
