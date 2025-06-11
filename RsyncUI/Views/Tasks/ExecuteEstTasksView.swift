@@ -15,7 +15,7 @@ struct ExecuteEstTasksView: View {
     // Navigation path for executetasks
     @Binding var executetaskpath: [Tasks]
 
-    @State private var executestate = ExecuteState()
+    @State private var executestate = WorkState()
     @State private var focusaborttask: Bool = false
     @State private var doubleclick: Bool = false
     // Progress of synchronization
@@ -78,7 +78,7 @@ extension ExecuteEstTasksView {
 
     func abort() {
         progressdetails.hiddenIDatwork = -1
-        executestate.updateexecutestate(state: .start)
+        executestate.updatestate( .start)
         selecteduuids.removeAll()
         InterruptProcess()
         executetaskpath.removeAll()
@@ -107,7 +107,7 @@ extension ExecuteEstTasksView {
         if let adjustedselecteduuids {
             Logger.process.info("ExecuteEstimatedTasksView: executemultipleestimatedtasks(): \(adjustedselecteduuids, privacy: .public)")
             if let configurations = rsyncUIdata.configurations {
-                executestate.updateexecutestate(state: .execute)
+                executestate.updatestate( .execute)
                 EstimateExecute(profile: rsyncUIdata.profile,
                                 configurations: configurations,
                                 selecteduuids: adjustedselecteduuids,
@@ -125,7 +125,7 @@ extension ExecuteEstTasksView {
         progressdetails.hiddenIDatwork = -1
         progressdetails.estimatedlist = nil
         rsyncUIdata.executetasksinprogress = false
-        executestate.updateexecutestate(state: .start)
+        executestate.updatestate( .start)
         selecteduuids.removeAll()
         executetaskpath.append(Tasks(task: .completedview))
     }

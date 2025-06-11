@@ -30,7 +30,7 @@ final class EstimateExecute {
     private var setabort = false
 
     weak var localprogressdetails: ProgressDetails?
-    weak var localexecutestate: ExecuteState?
+    weak var localexecutestate: WorkState?
     weak var localnoestprogressdetails: NoEstProgressDetails?
 
     // Collect loggdata for later save to permanent storage (hiddenID, log)
@@ -118,7 +118,7 @@ final class EstimateExecute {
     init(profile: String?,
          configurations: [SynchronizeConfiguration],
          selecteduuids: Set<UUID>,
-         executestate: ExecuteState?,
+         executestate: WorkState?,
          progressdetails: ProgressDetails?,
          filehandler: @escaping (Int) -> Void,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
@@ -132,7 +132,7 @@ final class EstimateExecute {
 
         guard selecteduuids.count > 0 else {
             Logger.process.warning("EstimateExecute: guard uuids.count > 0: \(selecteduuids.count, privacy: .public)")
-            localexecutestate?.updateexecutestate(state: .completed)
+            localexecutestate?.updatestate( .completed)
             return
         }
 
@@ -141,7 +141,7 @@ final class EstimateExecute {
 
         guard stackoftasks?.count ?? 0 > 0 else {
             Logger.process.warning("EstimateExecute: guard uuids.contains($0.id): \(selecteduuids.count, privacy: .public)")
-            localexecutestate?.updateexecutestate(state: .completed)
+            localexecutestate?.updatestate( .completed)
             return
         }
         startexecution()
@@ -355,7 +355,7 @@ extension EstimateExecute {
             localupdateconfigurations(updateconfigurations)
             // Update logrecords
             update.addlogpermanentstore(schedulerecords: schedulerecords)
-            localexecutestate?.updateexecutestate(state: .completed)
+            localexecutestate?.updatestate( .completed)
             Logger.process.info("EstimateExecute: execution is completed")
             return
         }

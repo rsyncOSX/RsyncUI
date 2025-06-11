@@ -8,7 +8,7 @@
 import Foundation
 import Observation
 
-enum ExecuteWorkState: String, CaseIterable, Identifiable, CustomStringConvertible {
+enum EnumWorkState: String, CaseIterable, Identifiable, CustomStringConvertible {
     case start
     case execute
     case completed
@@ -18,10 +18,10 @@ enum ExecuteWorkState: String, CaseIterable, Identifiable, CustomStringConvertib
 }
 
 @Observable
-final class ExecuteState {
-    var executestate: ExecuteWorkState = .start
+final class WorkState {
+    var executestate: EnumWorkState = .start
 
-    func updateexecutestate(state: ExecuteWorkState) {
+    func updatestate(_ state: EnumWorkState) {
         executestate = state
     }
 }
