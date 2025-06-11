@@ -61,7 +61,7 @@ final class Logging {
         return true
     }
 
-    func getconfig(hiddenID: Int) -> SynchronizeConfiguration? {
+    private func getconfig(hiddenID: Int) -> SynchronizeConfiguration? {
         if let index = structconfigurations?.firstIndex(where: { $0.hiddenID == hiddenID }) {
             return structconfigurations?[index]
         }

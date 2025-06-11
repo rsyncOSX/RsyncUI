@@ -58,7 +58,7 @@ struct OneTaskDetailsView: View {
         })
     }
 
-    func getconfig(uuid: UUID?) -> SynchronizeConfiguration? {
+    private func getconfig(uuid: UUID?) -> SynchronizeConfiguration? {
         if let index = configurations.firstIndex(where: { $0.id == uuid }) {
             return configurations[index]
         }

@@ -104,6 +104,6 @@ final class ProcessCommand {
     }
 
     deinit {
-        Logger.process.info("CommandProcess: DEINIT")
+        Logger.process.info("ProcessCommand: DEINIT")
     }
 }

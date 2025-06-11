@@ -44,7 +44,7 @@ final class EstimateExecute {
     var stackoftasks: [Int]?
     var synchronizeIDwitherror: String = ""
 
-    func getconfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
+    private func getconfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
         if let index = localconfigurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
             return localconfigurations[index]
         }
