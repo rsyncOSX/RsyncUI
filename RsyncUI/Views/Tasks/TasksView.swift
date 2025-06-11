@@ -33,7 +33,6 @@ struct TasksView: View {
     // Selected profile
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
 
-    @State private var estimatestate = EstimateState()
     // Focus buttons from the menu
     @State private var focusstartestimation: Bool = false
     @State private var focusstartexecution: Bool = false
@@ -389,7 +388,6 @@ extension TasksView {
             Logger.process.info("TasksView: Execute() ALL estimated tasks")
             // Execute all estimated tasks
             selecteduuids = progressdetails.getuuidswithdatatosynchronize()
-            estimatestate.updateestimatestate(state: .start)
             // Change view, see SidebarTasksView
             executetaskpath.append(Tasks(task: .executestimatedview))
 
@@ -401,7 +399,6 @@ extension TasksView {
             Logger.process.info("TasksView: Execute() ESTIMATED tasks only")
             // Execute estimated tasks only
             selecteduuids = progressdetails.getuuidswithdatatosynchronize()
-            estimatestate.updateestimatestate(state: .start)
             // Change view, see SidebarTasksView
             executetaskpath.append(Tasks(task: .executestimatedview))
 
@@ -415,7 +412,6 @@ extension TasksView {
 
     func reset() {
         progressdetails.resetcounts()
-        estimatestate.updateestimatestate(state: .start)
         selectedconfig = nil
         thereareestimates = false
         rsyncUIdata.executetasksinprogress = false
