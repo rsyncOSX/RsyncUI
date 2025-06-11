@@ -30,7 +30,6 @@ final class EstimateExecute {
     private var setabort = false
 
     weak var localprogressdetails: ProgressDetails?
-    weak var localexecutestate: WorkState?
     weak var localnoestprogressdetails: NoEstProgressDetails?
 
     // Collect loggdata for later save to permanent storage (hiddenID, log)
@@ -118,33 +117,33 @@ final class EstimateExecute {
     init(profile: String?,
          configurations: [SynchronizeConfiguration],
          selecteduuids: Set<UUID>,
-         executestate: WorkState?,
          progressdetails: ProgressDetails?,
          filehandler: @escaping (Int) -> Void,
-         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
+         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void,
+         excutetasks: Bool?)
     {
         structprofile = profile
         localconfigurations = configurations
-        localexecutestate = executestate
         localprogressdetails = progressdetails
         localfilehandler = filehandler
         localupdateconfigurations = updateconfigurations
+        
+        if excutetasks != nil {
+            // Execute tasks
+            guard selecteduuids.count > 0 else {
+                Logger.process.warning("EstimateExecute: guard uuids.count > 0: \(selecteduuids.count, privacy: .public)")
+                return
+            }
 
-        guard selecteduuids.count > 0 else {
-            Logger.process.warning("EstimateExecute: guard uuids.count > 0: \(selecteduuids.count, privacy: .public)")
-            localexecutestate?.updatestate( .completed)
-            return
+            let taskstosynchronize = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
+            stackoftasks = taskstosynchronize.map(\.hiddenID)
+
+            guard stackoftasks?.count ?? 0 > 0 else {
+                Logger.process.warning("EstimateExecute: guard uuids.contains($0.id): \(selecteduuids.count, privacy: .public)")
+                return
+            }
+            startexecution()
         }
-
-        let taskstosynchronize = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
-        stackoftasks = taskstosynchronize.map(\.hiddenID)
-
-        guard stackoftasks?.count ?? 0 > 0 else {
-            Logger.process.warning("EstimateExecute: guard uuids.contains($0.id): \(selecteduuids.count, privacy: .public)")
-            localexecutestate?.updatestate( .completed)
-            return
-        }
-        startexecution()
     }
 
     // Convenience init and init for ESTIMATE
@@ -355,7 +354,6 @@ extension EstimateExecute {
             localupdateconfigurations(updateconfigurations)
             // Update logrecords
             update.addlogpermanentstore(schedulerecords: schedulerecords)
-            localexecutestate?.updatestate( .completed)
             Logger.process.info("EstimateExecute: execution is completed")
             return
         }

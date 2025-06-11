@@ -15,7 +15,6 @@ struct ExecuteEstTasksView: View {
     // Navigation path for executetasks
     @Binding var executetaskpath: [Tasks]
 
-    @State private var executestate = WorkState()
     @State private var focusaborttask: Bool = false
     @State private var doubleclick: Bool = false
     // Progress of synchronization
@@ -36,7 +35,7 @@ struct ExecuteEstTasksView: View {
                 maxcount = progressdetails.getmaxcountbytask()
             }
 
-            if executestate.executestate == .execute { ProgressView() }
+            // if executestate.executestate == .execute { ProgressView() }
             if focusaborttask { labelaborttask }
         }
         .onAppear(perform: {
@@ -78,7 +77,6 @@ extension ExecuteEstTasksView {
 
     func abort() {
         progressdetails.hiddenIDatwork = -1
-        executestate.updatestate( .start)
         selecteduuids.removeAll()
         InterruptProcess()
         executetaskpath.removeAll()
@@ -107,14 +105,13 @@ extension ExecuteEstTasksView {
         if let adjustedselecteduuids {
             Logger.process.info("ExecuteEstimatedTasksView: executemultipleestimatedtasks(): \(adjustedselecteduuids, privacy: .public)")
             if let configurations = rsyncUIdata.configurations {
-                executestate.updatestate( .execute)
                 EstimateExecute(profile: rsyncUIdata.profile,
                                 configurations: configurations,
                                 selecteduuids: adjustedselecteduuids,
-                                executestate: executestate,
                                 progressdetails: progressdetails,
                                 filehandler: filehandler,
-                                updateconfigurations: updateconfigurations)
+                                updateconfigurations: updateconfigurations,
+                                excutetasks: true)
             }
         }
     }
@@ -125,7 +122,6 @@ extension ExecuteEstTasksView {
         progressdetails.hiddenIDatwork = -1
         progressdetails.estimatedlist = nil
         rsyncUIdata.executetasksinprogress = false
-        executestate.updatestate( .start)
         selecteduuids.removeAll()
         executetaskpath.append(Tasks(task: .completedview))
     }

@@ -50,7 +50,8 @@ struct EstimationInProgressView: View {
                 EstimateExecute(profile: profile,
                                 configurations: configurations,
                                 selecteduuids: selecteduuids,
-                                progressdetails: progressdetails)
+                                progressdetails: progressdetails,
+                )
             }
             .progressViewStyle(.circular)
     }
