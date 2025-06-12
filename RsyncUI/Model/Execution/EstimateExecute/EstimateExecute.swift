@@ -131,7 +131,7 @@ final class EstimateExecute {
         if excutetasks != nil {
             // Execute tasks
             guard selecteduuids.count > 0 else {
-                Logger.process.warning("EstimateExecute: guard uuids.count > 0: \(selecteduuids.count, privacy: .public)")
+                Logger.process.warning("EstimateExecute: guard uuids.count == 0: \(selecteduuids.count, privacy: .public)")
                 return
             }
 
@@ -185,15 +185,7 @@ final class EstimateExecute {
         localfilehandler = filehandler
         localupdateconfigurations = updateconfigurations
 
-        // Estimate selected configurations
-        if selecteduuids.count > 0 {
-            let configurations = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
-            stackoftasks = configurations.map(\.hiddenID)
-        } else {
-            // Or estimate all tasks
-            let configurations = localconfigurations.filter { $0.task != SharedReference.shared.halted }
-            stackoftasks = configurations.map(\.hiddenID)
-        }
+        stackoftasks = computestackoftasks(selecteduuids)
         // Add the number of configurations to estimate, used for progress status in estimate
         localprogressdetails?.setprofileandnumberofconfigurations(structprofile, stackoftasks?.count ?? 0)
         startestimation()
@@ -234,19 +226,22 @@ final class EstimateExecute {
         localnoestprogressdetails = noestprogressdetails
         localfilehandler = filehandler
         localupdateconfigurations = updateconfigurations
-        // Estimate selected configurations
-        if selecteduuids.count > 0 {
-            let configurations = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
-            stackoftasks = configurations.map(\.hiddenID)
-        } else {
-        // Or go for all
-            let configurations = localconfigurations.filter { $0.task != SharedReference.shared.halted }
-            stackoftasks = configurations.map(\.hiddenID)
-        }
+        
+        stackoftasks = computestackoftasks(selecteduuids)
         startexecution_noestimate()
     }
 
    
+    private func computestackoftasks(_ selecteduuids: Set<UUID>) -> [Int] {
+        if selecteduuids.count > 0 {
+            let configurations = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
+            return configurations.map(\.hiddenID)
+        } else {
+        // Or go for all
+            let configurations = localconfigurations.filter { $0.task != SharedReference.shared.halted }
+            return configurations.map(\.hiddenID)
+        }
+    }
 
     deinit {
         Logger.process.info("EstimateExecute: DEINIT")
