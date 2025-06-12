@@ -223,4 +223,24 @@ final class VerifyConfiguration: Connected {
     }
 }
 
+protocol Connected {
+    func connected(server: String?) -> Bool
+}
+
+extension Connected {
+    func connected(server: String?) -> Bool {
+        if let server {
+            let port = 22
+            if server.isEmpty == false {
+                let tcpconnection = TCPconnections()
+                let success = tcpconnection.verifyTCPconnection(server, port: port, timeout: 1)
+                return success
+            } else {
+                return true
+            }
+        }
+        return false
+    }
+}
+
 // swiftlint:enable cyclomatic_complexity function_body_length

@@ -34,7 +34,9 @@ final class RecordsSnapshot {
                     resultExecuted: record.resultExecuted ?? ""
                 )
             }
-            loggrecordssnapshots = data?.sorted(by: \.date, using: >)
+            loggrecordssnapshots = data?.sorted { d1, d2 in
+                return d1.dateExecuted.en_date_from_string() < d2.dateExecuted.en_date_from_string()
+            }
         }
     }
 
