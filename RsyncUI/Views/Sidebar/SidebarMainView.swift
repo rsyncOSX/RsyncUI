@@ -239,7 +239,7 @@ struct SidebarMainView: View {
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, selectedprofileID: $selectedprofileID)
         case .verify_remote:
-            VerifyRemote(rsyncUIdata: rsyncUIdata,
+            VerifyRemoteView(rsyncUIdata: rsyncUIdata,
                          verifypath: $verifypath,
                          urlcommandverify: $urlcommandverify,
                          queryitem: $queryitem)

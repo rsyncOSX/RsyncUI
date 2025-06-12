@@ -19,7 +19,7 @@ struct Verify: Hashable, Identifiable {
     var task: DestinationVerifyView
 }
 
-struct VerifyRemote: View {
+struct VerifyRemoteView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var verifypath: [Verify]
     @Binding var urlcommandverify: Bool
