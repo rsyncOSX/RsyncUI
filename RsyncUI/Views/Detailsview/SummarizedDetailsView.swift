@@ -62,8 +62,9 @@ struct SummarizedDetailsView: View {
                                         executetaskpath.append(Tasks(task: .executestimatedview))
                                     }
                                 } label: {
-                                    Image(systemName: "play")
-                                        .foregroundColor(Color(.blue))
+                                    Text(Image(systemName: "play"))
+                                        .foregroundColor(.blue)
+                                        .font(.title2)
                                 }
                                 .help("Synchronize (⌘R)")
                                 .buttonStyle(ColorfulButtonStyle())
@@ -81,9 +82,9 @@ struct SummarizedDetailsView: View {
                                     executetaskpath.removeAll()
                                     executetaskpath.append(Tasks(task: .executestimatedview))
                                 } label: {
-                                    Image(systemName: "play.fill")
-                                        .foregroundColor(Color(.blue))
-                                        .imageScale(.large)
+                                    Text(Image(systemName: "play.fill"))
+                                        .foregroundColor(.blue)
+                                        .font(.title2)
                                 }
                                 .help("Synchronize (⌘R)")
                                 .buttonStyle(ColorfulButtonStyle())
