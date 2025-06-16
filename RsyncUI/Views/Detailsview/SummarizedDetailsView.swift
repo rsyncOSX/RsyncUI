@@ -43,56 +43,61 @@ struct SummarizedDetailsView: View {
                             }
                         }
                 } else {
-                    leftcolumndetails
+                    
+                    
+                    ZStack {
+                        HStack {
+                            leftcolumndetails
 
-                    rightcolumndetails
+                            rightcolumndetails
+                        }
+                        
+                        if datatosynchronize {
+                            
+                            if SharedReference.shared.confirmexecute {
+                                Button {
+                                    isPresentingConfirm = progressdetails.confirmexecutetasks()
+                                    if isPresentingConfirm == false {
+                                        executetaskpath.removeAll()
+                                        executetaskpath.append(Tasks(task: .executestimatedview))
+                                    }
+                                } label: {
+                                    Image(systemName: "play")
+                                        .foregroundColor(Color(.blue))
+                                }
+                                .help("Synchronize (⌘R)")
+                                .buttonStyle(ColorfulButtonStyle())
+                                .confirmationDialog("Synchronize tasks?",
+                                                    isPresented: $isPresentingConfirm)
+                                {
+                                    Button("Synchronize", role: .destructive) {
+                                        executetaskpath.removeAll()
+                                        executetaskpath.append(Tasks(task: .executestimatedview))
+                                    }
+                                }
+                                
+                            } else {
+                                Button {
+                                    executetaskpath.removeAll()
+                                    executetaskpath.append(Tasks(task: .executestimatedview))
+                                } label: {
+                                    Image(systemName: "play.fill")
+                                        .foregroundColor(Color(.blue))
+                                        .imageScale(.large)
+                                }
+                                .help("Synchronize (⌘R)")
+                                .buttonStyle(ColorfulButtonStyle())
+                            }
+                            
+                        }
+                    }
+                    
                 }
             }
             .toolbar(content: {
                 if datatosynchronizeURL {
                     ToolbarItem {
                         TimerView(executetaskpath: $executetaskpath)
-                    }
-
-                    ToolbarItem {
-                        Spacer()
-                    }
-                }
-
-                if datatosynchronize {
-                    if SharedReference.shared.confirmexecute {
-                        ToolbarItem {
-                            Button {
-                                isPresentingConfirm = progressdetails.confirmexecutetasks()
-                                if isPresentingConfirm == false {
-                                    executetaskpath.removeAll()
-                                    executetaskpath.append(Tasks(task: .executestimatedview))
-                                }
-                            } label: {
-                                Image(systemName: "play")
-                                    .foregroundColor(Color(.blue))
-                            }
-                            .help("Synchronize (⌘R)")
-                            .confirmationDialog("Synchronize tasks?",
-                                                isPresented: $isPresentingConfirm)
-                            {
-                                Button("Synchronize", role: .destructive) {
-                                    executetaskpath.removeAll()
-                                    executetaskpath.append(Tasks(task: .executestimatedview))
-                                }
-                            }
-                        }
-                    } else {
-                        ToolbarItem {
-                            Button {
-                                executetaskpath.removeAll()
-                                executetaskpath.append(Tasks(task: .executestimatedview))
-                            } label: {
-                                Image(systemName: "play.fill")
-                                    .foregroundColor(Color(.blue))
-                            }
-                            .help("Synchronize (⌘R)")
-                        }
                     }
 
                     ToolbarItem {
