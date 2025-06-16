@@ -40,7 +40,7 @@ struct ProfileView: View {
                 ProfilesToUpdateView(allconfigurations: allconfigurations)
             }
 
-            EditValue(150, NSLocalizedString("Create profile", comment: ""),
+            EditValue(300, NSLocalizedString("Create profile - press Enter when added", comment: ""),
                       $newprofile)
         }
         .onSubmit {
@@ -51,19 +51,6 @@ struct ProfileView: View {
         }
         .navigationTitle("Profile create or delete")
         .toolbar {
-            ToolbarItem {
-                Button {
-                    guard newprofile.isEmpty == false else { return }
-                    guard newprofile != "Default" else { return }
-                    guard newprofile != "default" else { return }
-                    createprofile()
-                } label: {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(Color(.blue))
-                }
-                .help("Add profile")
-            }
-
             ToolbarItem {
                 Button {
                     isPresentingConfirm = (localselectedprofile?.isEmpty == false && localselectedprofile != nil)

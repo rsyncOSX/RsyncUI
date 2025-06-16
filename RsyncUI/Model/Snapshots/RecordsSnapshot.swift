@@ -35,7 +35,7 @@ final class RecordsSnapshot {
                 )
             }
             loggrecordssnapshots = data?.sorted { d1, d2 in
-                return d1.dateExecuted.en_date_from_string() < d2.dateExecuted.en_date_from_string()
+                d1.dateExecuted.en_date_from_string() < d2.dateExecuted.en_date_from_string()
             }
         }
     }

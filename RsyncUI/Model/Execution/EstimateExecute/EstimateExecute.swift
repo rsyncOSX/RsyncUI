@@ -24,7 +24,6 @@ typealias Typelogdata = (Int, String)
 
 @MainActor
 final class EstimateExecute {
-    
     private var localconfigurations: [SynchronizeConfiguration]
     private var structprofile: String?
     private var setabort = false
@@ -112,7 +111,7 @@ final class EstimateExecute {
 
     // EXECUTE init, dont need a Convenience init
     // only real init
-    
+
     @discardableResult
     init(profile: String?,
          configurations: [SynchronizeConfiguration],
@@ -127,7 +126,7 @@ final class EstimateExecute {
         localprogressdetails = progressdetails
         localfilehandler = filehandler
         localupdateconfigurations = updateconfigurations
-        
+
         if excutetasks != nil {
             // Execute tasks
             guard selecteduuids.count > 0 else {
@@ -149,7 +148,7 @@ final class EstimateExecute {
     // Convenience init and init for ESTIMATE
     // filehandler and updateconfigurations are not used
     // handled in convenience init for Estimate
-    
+
     @discardableResult
     convenience init(profile: String?,
                      configurations: [SynchronizeConfiguration],
@@ -170,7 +169,6 @@ final class EstimateExecute {
                   updateconfigurations: updateconfigurations)
     }
 
-    
     @discardableResult
     init(profile: String?,
          configurations: [SynchronizeConfiguration],
@@ -190,7 +188,7 @@ final class EstimateExecute {
         localprogressdetails?.setprofileandnumberofconfigurations(structprofile, stackoftasks?.count ?? 0)
         startestimation()
     }
-    
+
     // Convenience init and init for execute NO ESTIMATION
     // Real init below
     @discardableResult
@@ -211,7 +209,7 @@ final class EstimateExecute {
                   filehandler: filehandler,
                   updateconfigurations: updateconfigurations)
     }
-    
+
     // Init execute NO estimation
     @discardableResult
     init(profile: String?,
@@ -226,18 +224,17 @@ final class EstimateExecute {
         localnoestprogressdetails = noestprogressdetails
         localfilehandler = filehandler
         localupdateconfigurations = updateconfigurations
-        
+
         stackoftasks = computestackoftasks(selecteduuids)
         startexecution_noestimate()
     }
 
-   
     private func computestackoftasks(_ selecteduuids: Set<UUID>) -> [Int] {
         if selecteduuids.count > 0 {
             let configurations = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
             return configurations.map(\.hiddenID)
         } else {
-        // Or go for all
+            // Or go for all
             let configurations = localconfigurations.filter { $0.task != SharedReference.shared.halted }
             return configurations.map(\.hiddenID)
         }

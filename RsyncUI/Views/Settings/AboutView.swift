@@ -111,7 +111,7 @@ struct AboutView: View {
             // .font(.caption)
             .padding(3)
     }
-    
+
     var copyrightstring: some View {
         Text(copyright)
             .font(.caption)

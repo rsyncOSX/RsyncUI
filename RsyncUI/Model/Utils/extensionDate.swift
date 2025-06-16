@@ -113,9 +113,9 @@ extension Date {
         dateformatter.dateFormat = "MMMM"
         return dateformatter.string(from: self)
     }
-    
+
     static let firstDayOfWeek = Calendar.current.firstWeekday
-    
+
     static var capitalizedFirstLettersOfWeekdays: [String] {
         let calendar = Calendar.current
         // Adjusted for the different weekday starts

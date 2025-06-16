@@ -1,5 +1,5 @@
 //
-//  VerifyRemote.swift
+//  VerifyRemoteView.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 23/02/2021.
