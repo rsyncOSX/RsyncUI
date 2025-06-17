@@ -22,15 +22,6 @@ enum FilesizeError: LocalizedError {
 }
 
 actor LogToFile {
-    private var logfile: String?
-    
-
-    // @concurrent nonisolated
-    func getlogfile() async -> [String] {
-        logfile.map { _ in
-            logfile?.components(separatedBy: .newlines) ?? [""]
-        } ?? [""]
-    }
 
     @concurrent
     nonisolated func writeloggfile() async {
@@ -42,10 +33,10 @@ actor LogToFile {
             Logger.process.info("LogToFile: write logfile to \(logfileURL.path, privacy: .public)")
             Logger.process.info("LogToFile: writeloggfile() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
 
-            if let logfiledata = await logfile {
-                if let data = logfiledata.data(using: .utf8) {
+            if let logfiledata = await readloggfileData() {
+                //if let data = logfiledata.data(using: .utf8) {
                     do {
-                        try data.write(to: logfileURL)
+                        try logfiledata.write(to: logfileURL)
                         /*
                         filesize { [weak self] result in
                             switch result {
@@ -66,18 +57,18 @@ actor LogToFile {
                         let error = e
                         await path.propogateerror(error: error)
                     }
-                }
+                //}
             }
         }
     }
 
-    // @concurrent nonisolated
-     func readloggfile() async {
+    @concurrent
+    nonisolated func readloggfile() async -> [String]? {
         let path = await Homepath()
         let fm = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial {
             let logfileString = fullpathmacserial.appending("/") + SharedConstants().logname
-            guard fm.locationExists(at: logfileString, kind: .file) == true else { return }
+            guard fm.locationExists(at: logfileString, kind: .file) == true else { return nil }
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
@@ -87,17 +78,43 @@ actor LogToFile {
             
             do {
                 let data = try Data(contentsOf: logfileURL)
-                logfile = String(data: data, encoding: .utf8)
+                let logfile = String(data: data, encoding: .utf8)
+                return logfile.map { line in
+                    line.components(separatedBy: .newlines)
+                }
             } catch let e {
                 let error = e
                 await path.propogateerror(error: error)
             }
         }
+         
+         return nil
     }
     
-    private func update () {
+    private func readloggfileData() async -> Data? {
+       let path = await Homepath()
+       let fm = FileManager.default
+       if let fullpathmacserial = path.fullpathmacserial {
+           let logfileString = fullpathmacserial.appending("/") + SharedConstants().logname
+           guard fm.locationExists(at: logfileString, kind: .file) == true else { return nil }
+
+           let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+           let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
+
+           Logger.process.info("LogToFile: read logfile \(logfileURL.path, privacy: .public)")
+           Logger.process.info("LogToFile: readloggfile() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+           
+           do {
+               let data = try Data(contentsOf: logfileURL)
+               return data
+           } catch let e {
+               let error = e
+               await path.propogateerror(error: error)
+           }
+       }
         
-    }
+        return nil
+   }
     
     private func filesize(then handler: @escaping (Result<NSNumber, Error>) throws -> Void) async {
         let path = await Homepath()
@@ -126,7 +143,7 @@ actor LogToFile {
 
     private func minimumloggingwithcommand(command: String, stringoutputfromrsync: [String]) async {
         let date = Date().localized_string_from_date()
-        await readloggfile()
+        // await readloggfile()
         var tmplogg = [String]()
 
         var startindex = stringoutputfromrsync.count - 20
@@ -141,6 +158,8 @@ actor LogToFile {
             count += 1
             return startindex >= count ? nil : line
         }
+/*
+        var logfile = await readloggfile()
 
         if logfile == nil {
             logfile = tmplogg.joined(separator: "\n") + tmploggrsync.joined(separator: "\n")
@@ -148,11 +167,15 @@ actor LogToFile {
             logfile! += tmplogg.joined(separator: "\n") + tmploggrsync.joined(separator: "\n")
         }
         await writeloggfile()
+ */
     }
 
     private func fulllogging(_ stringoutputfromrsync: [String]) async {
         let date = Date().localized_string_from_date()
-        await readloggfile()
+        
+        /*
+        var logfile = await readloggfile()
+        
         let tmplogg = "\n" + date + ": "
         if logfile == nil {
             logfile = tmplogg + stringoutputfromrsync.joined(separator: "\n")
@@ -160,6 +183,7 @@ actor LogToFile {
             logfile! += tmplogg + stringoutputfromrsync.joined(separator: "\n")
         }
         await writeloggfile()
+         */
     }
 
     @discardableResult
@@ -167,11 +191,8 @@ actor LogToFile {
         if reset {
             // Reset loggfile
             let date = Date().localized_string_from_date()
-            logfile = date + ": " + "logfile is reset..." + "\n"
-            await writeloggfile()
-        } else {
-            // Read the logfile
-            await readloggfile()
+            // logfile = date + ": " + "logfile is reset..." + "\n"
+            // await writeloggfile()
         }
     }
 
