@@ -66,7 +66,7 @@ final class LogToFile {
         }
     }
 
-    func filesize(then handler: @escaping (Result<NSNumber, Error>) throws -> Void) {
+    private func filesize(then handler: @escaping (Result<NSNumber, Error>) throws -> Void) {
         let fm = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial {
             let logfileString = fullpathmacserial.appending("/") + SharedReference.shared.logname
