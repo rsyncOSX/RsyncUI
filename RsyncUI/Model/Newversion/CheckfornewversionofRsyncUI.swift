@@ -33,6 +33,7 @@ final class CheckfornewversionofRsyncUI {
 }
 
 actor GetversionofRsyncUI {
+    @concurrent
     nonisolated func getversionsofrsyncui() async -> Bool {
         do {
             Logger.process.info("GetversionofRsyncUI: getversionsofrsyncui() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
@@ -59,6 +60,7 @@ actor GetversionofRsyncUI {
         return false
     }
 
+    @concurrent
     nonisolated func downloadlinkofrsyncui() async -> String? {
         do {
             Logger.process.info("GetversionofRsyncUI: downloadlinkofrsyncui() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")

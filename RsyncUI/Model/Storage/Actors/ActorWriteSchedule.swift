@@ -7,6 +7,7 @@ import Foundation
 import OSLog
 
 actor ActorWriteSchedule {
+    @concurrent
     private nonisolated func writeJSONToPersistentStore(jsonData: Data?) async {
         let path = await Homepath()
 
@@ -29,6 +30,7 @@ actor ActorWriteSchedule {
         }
     }
 
+    @concurrent
     private nonisolated func encodeJSONData(_ calendar: [SchedulesConfigurations]) async {
         let encodejsondata = await EncodeGeneric()
         do {
