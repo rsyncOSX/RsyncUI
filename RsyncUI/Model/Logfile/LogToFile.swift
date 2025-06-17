@@ -24,7 +24,7 @@ enum FilesizeError: LocalizedError {
 actor LogToFile {
 
     @concurrent
-    nonisolated func writeloggfile() async {
+    nonisolated func writeloggfile(_ newlogadata: String) async {
         let path = await Homepath()
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -33,7 +33,7 @@ actor LogToFile {
             Logger.process.info("LogToFile: write logfile to \(logfileURL.path, privacy: .public)")
             Logger.process.info("LogToFile: writeloggfile() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
 
-            if let logfiledata = await readloggfileData() {
+            if let logfiledata = await readandappendloggfileData(newlogadata) {
                 //if let data = logfiledata.data(using: .utf8) {
                     do {
                         try logfiledata.write(to: logfileURL)
@@ -91,7 +91,7 @@ actor LogToFile {
          return nil
     }
     
-    private func readloggfileData() async -> Data? {
+    private func readandappendloggfileData(_ newlogadata: String) async -> Data? {
        let path = await Homepath()
        let fm = FileManager.default
        if let fullpathmacserial = path.fullpathmacserial {
@@ -102,14 +102,20 @@ actor LogToFile {
            let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
 
            Logger.process.info("LogToFile: read logfile \(logfileURL.path, privacy: .public)")
-           Logger.process.info("LogToFile: readloggfile() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+           Logger.process.info("LogToFile: readandappendloggfileData() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
            
-           do {
-               let data = try Data(contentsOf: logfileURL)
-               return data
-           } catch let e {
-               let error = e
-               await path.propogateerror(error: error)
+           let encoder = JSONEncoder()
+           if let newdata = try? encoder.encode(newlogadata) {
+               
+               do {
+                   let data = try Data(contentsOf: logfileURL)
+                   var returneddata = data
+                   returneddata.append(newdata)
+                   return returneddata
+               } catch let e {
+                   let error = e
+                   await path.propogateerror(error: error)
+               }
            }
        }
         
@@ -143,7 +149,6 @@ actor LogToFile {
 
     private func minimumloggingwithcommand(command: String, stringoutputfromrsync: [String]) async {
         let date = Date().localized_string_from_date()
-        // await readloggfile()
         var tmplogg = [String]()
 
         var startindex = stringoutputfromrsync.count - 20
@@ -156,8 +161,9 @@ actor LogToFile {
         var count = 0
         let tmploggrsync = stringoutputfromrsync.compactMap { line in
             count += 1
-            return startindex >= count ? nil : line
+            return startindex >= count ? nil : line + "\n"
         }
+        await writeloggfile(tmploggrsync.joined(separator: "\n"))
 /*
         var logfile = await readloggfile()
 
@@ -191,8 +197,8 @@ actor LogToFile {
         if reset {
             // Reset loggfile
             let date = Date().localized_string_from_date()
-            // logfile = date + ": " + "logfile is reset..." + "\n"
-            // await writeloggfile()
+            let logfile = date + ": " + "logfile is reset..." + "\n"
+            await writeloggfile(logfile)
         }
     }
 
