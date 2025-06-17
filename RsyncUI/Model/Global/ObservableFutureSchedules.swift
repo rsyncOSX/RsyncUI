@@ -160,9 +160,12 @@ final class ObservableFutureSchedules {
                 self.recomputeschedules()
                 self.setfirsscheduledate()
                 // Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED INTERNALLY")
-                LogToFile(["ObservableFutureSchedules: schedule FIRED for \(schedule.profile ?? "Default")"], error: true)
+                
                 // Setting profile name will trigger execution
                 self.scheduledprofile = schedule.profile ?? "Default"
+                Task {
+                    await LogToFile(["ObservableFutureSchedules: schedule FIRED for \(schedule.profile ?? "Default")"], error: true)
+                }
             }
         }
     }

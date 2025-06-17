@@ -58,7 +58,6 @@ final class SharedReference {
     @ObservationIgnored var macosarm: Bool = false
     // RsyncUI config files and path
     let configpath: String = "/.rsyncosx/"
-    let logname: String = "rsyncui.txt"
     // Userconfiguration json file
     let userconfigjson: String = "rsyncuiconfig.json"
     // String tasks

@@ -44,8 +44,9 @@ struct NavigationLogfileView: View {
 
     func reset() {
         resetloggfile = true
-        _ = LogToFile(true)
+        
         Task {
+            await LogToFile(true)
             logfilerecords = await GenerateLogfileforview().generatedata()
         }
     }

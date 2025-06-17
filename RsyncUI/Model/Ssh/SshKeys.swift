@@ -48,7 +48,10 @@ final class SshKeys {
     }
 
     func processtermination(stringoutputfromrsync: [String]?) {
-        LogToFile(TrimOutputFromRsync(stringoutputfromrsync ?? []).trimmeddata, error: true)
+        Task {
+            await LogToFile(TrimOutputFromRsync(stringoutputfromrsync ?? []).trimmeddata, error: true)
+        }
+        
     }
 
     init() {

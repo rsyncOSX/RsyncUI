@@ -12,9 +12,12 @@ import Foundation
 struct InterruptProcess {
     @discardableResult
     init() {
-        let string: [String] = ["Interrupted: " + Date().long_localized_string_from_date()]
-        _ = LogToFile(string, error: true)
-        SharedReference.shared.process?.interrupt()
-        SharedReference.shared.process = nil
+        Task {
+            let string: [String] = ["Interrupted: " + Date().long_localized_string_from_date()]
+            await LogToFile(string, error: true)
+            SharedReference.shared.process?.interrupt()
+            SharedReference.shared.process = nil
+        }
+        
     }
 }

@@ -21,10 +21,9 @@ enum FilesizeError: LocalizedError {
     }
 }
 
-@MainActor
-final class LogToFile {
+actor LogToFile {
     private var logfile: String?
-    let path = Homepath()
+    
 
     func getlogfile() -> [String] {
         logfile.map { _ in
@@ -32,10 +31,11 @@ final class LogToFile {
         } ?? [""]
     }
 
-    func writeloggfile() {
+    func writeloggfile() async {
+        let path = await Homepath()
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.logname)
+            let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
 
             Logger.process.info("Write logfile to \(logfileURL.path, privacy: .public)")
 
@@ -43,6 +43,7 @@ final class LogToFile {
                 if let data = logfiledata.data(using: .utf8) {
                     do {
                         try data.write(to: logfileURL)
+                        /*
                         filesize { [weak self] result in
                             switch result {
                             case let .success(size):
@@ -54,26 +55,28 @@ final class LogToFile {
                                 }
                                 return
                             case let .failure(error):
-                                self?.path.propogateerror(error: error)
+                                await path.propogateerror(error: error)
                             }
                         }
+                         */
                     } catch let e {
                         let error = e
-                        path.propogateerror(error: error)
+                        await path.propogateerror(error: error)
                     }
                 }
             }
         }
     }
 
-    private func filesize(then handler: @escaping (Result<NSNumber, Error>) throws -> Void) {
+    private func filesize(then handler: @escaping (Result<NSNumber, Error>) throws -> Void) async {
+        let path = await Homepath()
         let fm = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial {
-            let logfileString = fullpathmacserial.appending("/") + SharedReference.shared.logname
+            let logfileString = fullpathmacserial.appending("/") + SharedConstants().logname
             guard fm.locationExists(at: logfileString, kind: .file) == true else { return }
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.logname)
+            let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
 
             do {
                 // Return filesize
@@ -83,19 +86,20 @@ final class LogToFile {
                 }
             } catch let e {
                 let error = e
-                path.propogateerror(error: error)
+                await path.propogateerror(error: error)
             }
         }
     }
 
-    func readloggfile() {
+    func readloggfile() async {
+        let path = await Homepath()
         let fm = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial {
-            let logfileString = fullpathmacserial.appending("/") + SharedReference.shared.logname
+            let logfileString = fullpathmacserial.appending("/") + SharedConstants().logname
             guard fm.locationExists(at: logfileString, kind: .file) == true else { return }
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedReference.shared.logname)
+            let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
 
             Logger.process.info("Read logfile \(logfileURL.path, privacy: .public)")
 
@@ -104,14 +108,14 @@ final class LogToFile {
                 logfile = String(data: data, encoding: .utf8)
             } catch let e {
                 let error = e
-                path.propogateerror(error: error)
+                await path.propogateerror(error: error)
             }
         }
     }
 
-    private func minimumloggingwithcommand(command: String, stringoutputfromrsync: [String]) {
+    private func minimumloggingwithcommand(command: String, stringoutputfromrsync: [String]) async {
         let date = Date().localized_string_from_date()
-        readloggfile()
+        await readloggfile()
         var tmplogg = [String]()
 
         var startindex = stringoutputfromrsync.count - 20
@@ -132,46 +136,47 @@ final class LogToFile {
         } else {
             logfile! += tmplogg.joined(separator: "\n") + tmploggrsync.joined(separator: "\n")
         }
-        writeloggfile()
+        await writeloggfile()
     }
 
-    private func fulllogging(_ stringoutputfromrsync: [String]) {
+    private func fulllogging(_ stringoutputfromrsync: [String]) async {
         let date = Date().localized_string_from_date()
-        readloggfile()
+        await readloggfile()
         let tmplogg = "\n" + date + ": "
         if logfile == nil {
             logfile = tmplogg + stringoutputfromrsync.joined(separator: "\n")
         } else {
             logfile! += tmplogg + stringoutputfromrsync.joined(separator: "\n")
         }
-        writeloggfile()
+        await writeloggfile()
     }
 
-    init(_ reset: Bool) {
+    @discardableResult
+    init(_ reset: Bool) async {
         if reset {
             // Reset loggfile
             let date = Date().localized_string_from_date()
             logfile = date + ": " + "logfile is reset..." + "\n"
-            writeloggfile()
+            await writeloggfile()
         } else {
             // Read the logfile
-            readloggfile()
+            await readloggfile()
         }
     }
 
     @discardableResult
-    init(_ stringoutputfromrsync: [String]?, error: Bool) {
+    init(_ stringoutputfromrsync: [String]?, error: Bool) async  {
         if error {
             if let stringoutputfromrsync {
-                fulllogging(stringoutputfromrsync)
+                await fulllogging(stringoutputfromrsync)
             }
         }
     }
 
     @discardableResult
-    init(command: String, stringoutputfromrsync: [String]?) {
+    init(command: String, stringoutputfromrsync: [String]?) async {
         if let stringoutputfromrsync {
-            minimumloggingwithcommand(command: command, stringoutputfromrsync: stringoutputfromrsync)
+            await minimumloggingwithcommand(command: command, stringoutputfromrsync: stringoutputfromrsync)
         }
     }
 }
