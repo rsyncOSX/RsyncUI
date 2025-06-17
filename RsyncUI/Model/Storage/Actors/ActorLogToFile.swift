@@ -24,7 +24,7 @@ enum FilesizeError: LocalizedError {
 actor ActorLogToFile {
 
     @concurrent
-    nonisolated func writeloggfile(_ newlogadata: [String]) async {
+    nonisolated func writeloggfile(_ newlogadata: String) async {
         let path = await Homepath()
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -91,7 +91,35 @@ actor ActorLogToFile {
          return nil
     }
     
-    private func appendloggfileData(_ newlogadata: [String]) async -> Data? {
+    @concurrent
+    nonisolated private func readloggfileasline() async -> String? {
+        let path = await Homepath()
+        let fm = FileManager.default
+        if let fullpathmacserial = path.fullpathmacserial {
+            let logfileString = fullpathmacserial.appending("/") + SharedConstants().logname
+            guard fm.locationExists(at: logfileString, kind: .file) == true else { return nil }
+
+            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+            let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
+
+            Logger.process.info("LogToFile: read logfile \(logfileURL.path, privacy: .public)")
+            Logger.process.info("LogToFile: readloggfile() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+            
+            do {
+                let data = try Data(contentsOf: logfileURL)
+                return String(data: data, encoding: .utf8)
+                
+            } catch let e {
+                let error = e
+                await path.propogateerror(error: error)
+            }
+        }
+         
+         return nil
+    }
+    
+    @concurrent
+    nonisolated private func appendloggfileData(_ newlogadata: String) async -> Data? {
        let path = await Homepath()
        let fm = FileManager.default
        if let fullpathmacserial = path.fullpathmacserial {
@@ -103,10 +131,8 @@ actor ActorLogToFile {
 
            Logger.process.info("LogToFile: read logfile \(logfileURL.path, privacy: .public)")
            Logger.process.info("LogToFile: readandappendloggfileData() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
-           
-           let encoder = JSONEncoder()
-           
-           if let newdata = try? encoder.encode(newlogadata.joined(separator: "\n")) {
+                      
+           if let newdata = newlogadata.data(using: .utf8) {
                
                do {
                    let data = try Data(contentsOf: logfileURL)
@@ -149,6 +175,7 @@ actor ActorLogToFile {
     
 
     private func minimumloggingwithcommand(command: String, stringoutputfromrsync: [String]) async {
+        
         let date = Date().localized_string_from_date()
         var tmplogg = [String]()
 
@@ -162,19 +189,20 @@ actor ActorLogToFile {
         var count = 0
         let tmploggrsync = stringoutputfromrsync.compactMap { line in
             count += 1
-            return startindex >= count ? nil : line + "\n"
+            return startindex >= count ? nil : line
         }
-        await writeloggfile(tmploggrsync)
-/*
-        var logfile = await readloggfile()
+        
+        var logfile = await readloggfileasline()
 
         if logfile == nil {
             logfile = tmplogg.joined(separator: "\n") + tmploggrsync.joined(separator: "\n")
         } else {
             logfile! += tmplogg.joined(separator: "\n") + tmploggrsync.joined(separator: "\n")
         }
-        await writeloggfile()
- */
+        if let logfile {
+            await writeloggfile(logfile)
+        }
+        
     }
 
     private func fulllogging(_ stringoutputfromrsync: [String]) async {
@@ -198,10 +226,8 @@ actor ActorLogToFile {
         if reset {
             // Reset loggfile
             let date = Date().localized_string_from_date()
-            var logfile = [String]()
-            let reset = date + ": " + "logfile is reset..."
-            logfile.append(reset.appending("\n"))
-            await writeloggfile(logfile)
+            let reset = date + ": " + "logfile is reset..." + "\n"
+            await writeloggfile(reset)
         }
     }
 
