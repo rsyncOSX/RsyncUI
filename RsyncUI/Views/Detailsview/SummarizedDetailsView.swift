@@ -43,17 +43,14 @@ struct SummarizedDetailsView: View {
                             }
                         }
                 } else {
-                    
-                    
                     ZStack {
                         HStack {
                             leftcolumndetails
 
                             rightcolumndetails
                         }
-                        
+
                         if datatosynchronize {
-                            
                             if SharedReference.shared.confirmexecute {
                                 Button {
                                     isPresentingConfirm = progressdetails.confirmexecutetasks()
@@ -76,7 +73,7 @@ struct SummarizedDetailsView: View {
                                         executetaskpath.append(Tasks(task: .executestimatedview))
                                     }
                                 }
-                                
+
                             } else {
                                 Button {
                                     executetaskpath.removeAll()
@@ -89,10 +86,8 @@ struct SummarizedDetailsView: View {
                                 .help("Synchronize (⌘R)")
                                 .buttonStyle(ColorfulButtonStyle())
                             }
-                            
                         }
                     }
-                    
                 }
             }
             .toolbar(content: {

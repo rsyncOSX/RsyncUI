@@ -30,27 +30,43 @@ struct ConfigurationsTableDataMainView: View {
             }
             .width(min: 70, ideal: 70)
             .defaultVisibility(visible_progress)
-            TableColumn("Profile") { _ in
-                Text(rsyncUIdata.profile ?? "Default")
-            }
-            .width(min: 50, max: 100)
-            .defaultVisibility(visible_not_progress)
-            TableColumn("Est") { data in
+            TableColumn("Profile") { data in
                 if let index = progressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id }) {
                     if progressdetails.estimatedlist?[index].datatosynchronize == false,
                        progressdetails.estimatedlist?[index].preparedoutputfromrsync?.count ?? 0 > SharedReference.shared.alerttagginglines
                     {
-                        Text(Image(systemName: "questionmark"))
+                        // If tagging is kind of suspicious and need attention
+                        Text(rsyncUIdata.profile ?? "Default")
                             .foregroundColor(.yellow)
                     } else {
                         let color: Color = progressdetails.estimatedlist?[index].datatosynchronize == true ? .blue : .red
-                        Text(Image(systemName: "checkmark"))
+                        Text(rsyncUIdata.profile ?? "Default")
                             .foregroundColor(color)
                     }
+                } else {
+                    Text(rsyncUIdata.profile ?? "Default")
                 }
             }
-            .width(max: 25)
-            .defaultVisibility(progressdetails.estimatedlist == nil ? .hidden : .visible)
+            .width(min: 50, max: 100)
+            .defaultVisibility(visible_not_progress)
+            /*
+             TableColumn("Est") { data in
+                 if let index = progressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id }) {
+                     if progressdetails.estimatedlist?[index].datatosynchronize == false,
+                        progressdetails.estimatedlist?[index].preparedoutputfromrsync?.count ?? 0 > SharedReference.shared.alerttagginglines
+                     {
+                         Text(Image(systemName: "questionmark"))
+                             .foregroundColor(.yellow)
+                     } else {
+                         let color: Color = progressdetails.estimatedlist?[index].datatosynchronize == true ? .blue : .red
+                         Text(Image(systemName: "checkmark"))
+                             .foregroundColor(color)
+                     }
+                 }
+             }
+             .width(max: 25)
+             .defaultVisibility(progressdetails.estimatedlist == nil ? .hidden : .visible)
+              */
             TableColumn("Synchronize ID") { data in
                 if data.backupID.isEmpty == true {
                     Text("Synchronize ID")
