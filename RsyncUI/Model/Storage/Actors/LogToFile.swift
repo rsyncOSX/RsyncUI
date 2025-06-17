@@ -24,7 +24,7 @@ enum FilesizeError: LocalizedError {
 actor LogToFile {
 
     @concurrent
-    nonisolated func writeloggfile(_ newlogadata: String) async {
+    nonisolated func writeloggfile(_ newlogadata: [String]) async {
         let path = await Homepath()
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -33,7 +33,7 @@ actor LogToFile {
             Logger.process.info("LogToFile: write logfile to \(logfileURL.path, privacy: .public)")
             Logger.process.info("LogToFile: writeloggfile() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
 
-            if let logfiledata = await readandappendloggfileData(newlogadata) {
+            if let logfiledata = await appendloggfileData(newlogadata) {
                 //if let data = logfiledata.data(using: .utf8) {
                     do {
                         try logfiledata.write(to: logfileURL)
@@ -91,7 +91,7 @@ actor LogToFile {
          return nil
     }
     
-    private func readandappendloggfileData(_ newlogadata: String) async -> Data? {
+    private func appendloggfileData(_ newlogadata: [String]) async -> Data? {
        let path = await Homepath()
        let fm = FileManager.default
        if let fullpathmacserial = path.fullpathmacserial {
@@ -105,7 +105,8 @@ actor LogToFile {
            Logger.process.info("LogToFile: readandappendloggfileData() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
            
            let encoder = JSONEncoder()
-           if let newdata = try? encoder.encode(newlogadata) {
+           
+           if let newdata = try? encoder.encode(newlogadata.joined(separator: "\n")) {
                
                do {
                    let data = try Data(contentsOf: logfileURL)
@@ -163,7 +164,7 @@ actor LogToFile {
             count += 1
             return startindex >= count ? nil : line + "\n"
         }
-        await writeloggfile(tmploggrsync.joined(separator: "\n"))
+        await writeloggfile(tmploggrsync)
 /*
         var logfile = await readloggfile()
 
@@ -197,7 +198,9 @@ actor LogToFile {
         if reset {
             // Reset loggfile
             let date = Date().localized_string_from_date()
-            let logfile = date + ": " + "logfile is reset..." + "\n"
+            var logfile = [String]()
+            let reset = date + ": " + "logfile is reset..."
+            logfile.append(reset.appending("\n"))
             await writeloggfile(logfile)
         }
     }
