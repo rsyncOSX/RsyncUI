@@ -46,7 +46,7 @@ struct NavigationLogfileView: View {
         resetloggfile = true
         
         Task {
-            await LogToFile(true)
+            await ActorLogToFile(true)
             logfilerecords = await GenerateLogfileforview().generatedata()
         }
     }
@@ -72,7 +72,7 @@ actor GenerateLogfileforview {
     @concurrent
     nonisolated func generatedata() async -> [LogfileRecords] {
         Logger.process.info("GenerateLogfileforview: generatedata() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
-        if let data = await LogToFile(false).readloggfile() {
+        if let data = await ActorLogToFile(false).readloggfile() {
             return data.map { record in
                 LogfileRecords(line: record)
             }

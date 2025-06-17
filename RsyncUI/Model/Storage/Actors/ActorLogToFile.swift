@@ -21,7 +21,7 @@ enum FilesizeError: LocalizedError {
     }
 }
 
-actor LogToFile {
+actor ActorLogToFile {
 
     @concurrent
     nonisolated func writeloggfile(_ newlogadata: [String]) async {

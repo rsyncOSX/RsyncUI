@@ -49,7 +49,7 @@ final class SshKeys {
 
     func processtermination(stringoutputfromrsync: [String]?) {
         Task {
-            await LogToFile(TrimOutputFromRsync(stringoutputfromrsync ?? []).trimmeddata, error: true)
+            await ActorLogToFile(TrimOutputFromRsync(stringoutputfromrsync ?? []).trimmeddata, error: true)
         }
         
     }

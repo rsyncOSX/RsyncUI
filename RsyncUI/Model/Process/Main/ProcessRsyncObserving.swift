@@ -188,7 +188,7 @@ extension ProcessRsyncObserving {
         // Log error in rsync output to file
         if errordiscovered, let config {
             Task {
-                await LogToFile(command: config.backupID,
+                await ActorLogToFile(command: config.backupID,
                                 stringoutputfromrsync: output)
             }
         }
