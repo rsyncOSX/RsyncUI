@@ -25,21 +25,24 @@ actor LogToFile {
     private var logfile: String?
     
 
-    func getlogfile() -> [String] {
+    // @concurrent nonisolated
+    func getlogfile() async -> [String] {
         logfile.map { _ in
             logfile?.components(separatedBy: .newlines) ?? [""]
         } ?? [""]
     }
 
-    func writeloggfile() async {
+    @concurrent
+    nonisolated func writeloggfile() async {
         let path = await Homepath()
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
 
-            Logger.process.info("Write logfile to \(logfileURL.path, privacy: .public)")
+            Logger.process.info("LogToFile: write logfile to \(logfileURL.path, privacy: .public)")
+            Logger.process.info("LogToFile: writeloggfile() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
 
-            if let logfiledata = logfile {
+            if let logfiledata = await logfile {
                 if let data = logfiledata.data(using: .utf8) {
                     do {
                         try data.write(to: logfileURL)
@@ -68,6 +71,34 @@ actor LogToFile {
         }
     }
 
+    // @concurrent nonisolated
+     func readloggfile() async {
+        let path = await Homepath()
+        let fm = FileManager.default
+        if let fullpathmacserial = path.fullpathmacserial {
+            let logfileString = fullpathmacserial.appending("/") + SharedConstants().logname
+            guard fm.locationExists(at: logfileString, kind: .file) == true else { return }
+
+            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+            let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
+
+            Logger.process.info("LogToFile: read logfile \(logfileURL.path, privacy: .public)")
+            Logger.process.info("LogToFile: readloggfile() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+            
+            do {
+                let data = try Data(contentsOf: logfileURL)
+                logfile = String(data: data, encoding: .utf8)
+            } catch let e {
+                let error = e
+                await path.propogateerror(error: error)
+            }
+        }
+    }
+    
+    private func update () {
+        
+    }
+    
     private func filesize(then handler: @escaping (Result<NSNumber, Error>) throws -> Void) async {
         let path = await Homepath()
         let fm = FileManager.default
@@ -91,27 +122,7 @@ actor LogToFile {
         }
     }
 
-    func readloggfile() async {
-        let path = await Homepath()
-        let fm = FileManager.default
-        if let fullpathmacserial = path.fullpathmacserial {
-            let logfileString = fullpathmacserial.appending("/") + SharedConstants().logname
-            guard fm.locationExists(at: logfileString, kind: .file) == true else { return }
-
-            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-
-            Logger.process.info("Read logfile \(logfileURL.path, privacy: .public)")
-
-            do {
-                let data = try Data(contentsOf: logfileURL)
-                logfile = String(data: data, encoding: .utf8)
-            } catch let e {
-                let error = e
-                await path.propogateerror(error: error)
-            }
-        }
-    }
+    
 
     private func minimumloggingwithcommand(command: String, stringoutputfromrsync: [String]) async {
         let date = Date().localized_string_from_date()
