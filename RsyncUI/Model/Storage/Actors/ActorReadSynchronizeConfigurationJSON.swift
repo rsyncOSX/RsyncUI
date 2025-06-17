@@ -55,7 +55,7 @@ actor ActorReadSynchronizeConfigurationJSON {
         var filename = ""
         let path = await Homepath()
 
-        Logger.process.info("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations() MAIN THREAD \(Thread.isMain)")
+        Logger.process.info("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
 
         if let profile, let fullpathmacserial = path.fullpathmacserial {
             filename = fullpathmacserial.appending("/") + profile.appending("/") + SharedConstants().fileconfigurationsjson

@@ -10,7 +10,7 @@ actor ActorWriteSchedule {
     private nonisolated func writeJSONToPersistentStore(jsonData: Data?) async {
         let path = await Homepath()
 
-        Logger.process.info("ActorWriteSchedule: writeJSONToPersistentStore() MAIN THREAD \(Thread.isMain)")
+        Logger.process.info("ActorWriteSchedule: writeJSONToPersistentStore() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
 
         if let fullpathmacserial = path.fullpathmacserial {
             var calendarfileURL: URL?

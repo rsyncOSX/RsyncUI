@@ -10,7 +10,8 @@ import Foundation
 import Observation
 
 extension Thread {
-    static var isMain: Bool { isMainThread }
+    public static var isMain: Bool { isMainThread }
+    public static var currentThread: Thread { return Thread.current }
 }
 
 @Observable
