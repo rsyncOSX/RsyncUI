@@ -24,7 +24,7 @@ enum FilesizeError: LocalizedError {
 actor ActorLogToFile {
 
     @concurrent
-    nonisolated func writeloggfile(_ newlogadata: String) async {
+    nonisolated func writeloggfile(_ newlogadata: String, _ reset: Bool) async {
         let path = await Homepath()
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
@@ -33,7 +33,7 @@ actor ActorLogToFile {
             Logger.process.info("LogToFile: write logfile to \(logfileURL.path, privacy: .public)")
             Logger.process.info("LogToFile: writeloggfile() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
 
-            if let logfiledata = await appendloggfileData(newlogadata) {
+            if let logfiledata = await appendloggfileData(newlogadata, reset) {
                 //if let data = logfiledata.data(using: .utf8) {
                     do {
                         try logfiledata.write(to: logfileURL)
@@ -119,7 +119,7 @@ actor ActorLogToFile {
     }
     
     @concurrent
-    nonisolated private func appendloggfileData(_ newlogadata: String) async -> Data? {
+    nonisolated private func appendloggfileData(_ newlogadata: String, _ reset: Bool) async -> Data? {
        let path = await Homepath()
        let fm = FileManager.default
        if let fullpathmacserial = path.fullpathmacserial {
@@ -133,12 +133,17 @@ actor ActorLogToFile {
            Logger.process.info("LogToFile: readandappendloggfileData() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
                       
            if let newdata = newlogadata.data(using: .utf8) {
-               
                do {
-                   let data = try Data(contentsOf: logfileURL)
-                   var returneddata = data
-                   returneddata.append(newdata)
-                   return returneddata
+                   if reset {
+                       // Only return reset string
+                       return newdata
+                   } else {
+                       // Or append any new log data
+                       let data = try Data(contentsOf: logfileURL)
+                       var returneddata = data
+                       returneddata.append(newdata)
+                       return returneddata
+                   }
                } catch let e {
                    let error = e
                    await path.propogateerror(error: error)
@@ -200,7 +205,7 @@ actor ActorLogToFile {
             logfile! += tmplogg.joined(separator: "\n") + tmploggrsync.joined(separator: "\n")
         }
         if let logfile {
-            await writeloggfile(logfile)
+            await writeloggfile(logfile, false)
         }
         
     }
@@ -208,8 +213,7 @@ actor ActorLogToFile {
     private func fulllogging(_ stringoutputfromrsync: [String]) async {
         let date = Date().localized_string_from_date()
         
-        /*
-        var logfile = await readloggfile()
+        var logfile = await readloggfileasline()
         
         let tmplogg = "\n" + date + ": "
         if logfile == nil {
@@ -217,8 +221,10 @@ actor ActorLogToFile {
         } else {
             logfile! += tmplogg + stringoutputfromrsync.joined(separator: "\n")
         }
-        await writeloggfile()
-         */
+        
+        if let logfile {
+            await writeloggfile(logfile, false)
+        }
     }
 
     @discardableResult
@@ -227,7 +233,7 @@ actor ActorLogToFile {
             // Reset loggfile
             let date = Date().localized_string_from_date()
             let reset = date + ": " + "logfile is reset..." + "\n"
-            await writeloggfile(reset)
+            await writeloggfile(reset, true)
         }
     }
 

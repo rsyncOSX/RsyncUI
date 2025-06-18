@@ -155,6 +155,7 @@ final class ProcessRsyncObserving {
 }
 
 extension ProcessRsyncObserving {
+    
     func datahandle(_ pipe: Pipe) async {
         let outHandle = pipe.fileHandleForReading
         let data = outHandle.availableData
