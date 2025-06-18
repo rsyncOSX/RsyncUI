@@ -18,6 +18,5 @@ struct InterruptProcess {
             SharedReference.shared.process?.interrupt()
             SharedReference.shared.process = nil
         }
-        
     }
 }

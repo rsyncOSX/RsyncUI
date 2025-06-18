@@ -16,4 +16,7 @@ struct SharedConstants: Sendable {
     let caldenarfilejson: String = "calendar.json"
     // Filename logfile
     let logname: String = "rsyncui.txt"
+    // filsize logfile warning
+    // 1_000_000 Bytes = 1 MB
+    let logfilesize: Int = 1_000_000
 }

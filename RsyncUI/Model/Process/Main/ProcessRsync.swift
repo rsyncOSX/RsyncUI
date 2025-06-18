@@ -88,7 +88,7 @@ final class ProcessRsync {
                 if errordiscovered, let config {
                     Task {
                         await ActorLogToFile(command: config.backupID,
-                                        stringoutputfromrsync: output)
+                                             stringoutputfromrsync: output)
                     }
                 }
                 SharedReference.shared.process = nil

@@ -155,7 +155,6 @@ final class ProcessRsyncObserving {
 }
 
 extension ProcessRsyncObserving {
-    
     func datahandle(_ pipe: Pipe) async {
         let outHandle = pipe.fileHandleForReading
         let data = outHandle.availableData
@@ -190,7 +189,7 @@ extension ProcessRsyncObserving {
         if errordiscovered, let config {
             Task {
                 await ActorLogToFile(command: config.backupID,
-                                stringoutputfromrsync: output)
+                                     stringoutputfromrsync: output)
             }
         }
         SharedReference.shared.process = nil

@@ -51,7 +51,6 @@ final class SshKeys {
         Task {
             await ActorLogToFile(command: command ?? "", stringoutputfromrsync: TrimOutputFromRsync(stringoutputfromrsync ?? []).trimmeddata)
         }
-        
     }
 
     init() {
