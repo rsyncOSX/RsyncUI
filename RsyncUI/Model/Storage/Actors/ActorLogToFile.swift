@@ -34,7 +34,6 @@ actor ActorLogToFile {
             Logger.process.info("LogToFile: writeloggfile() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
 
             if let logfiledata = await appendloggfileData(newlogadata, reset) {
-                //if let data = logfiledata.data(using: .utf8) {
                     do {
                         try logfiledata.write(to: logfileURL)
                         /*
@@ -57,7 +56,6 @@ actor ActorLogToFile {
                         let error = e
                         await path.propogateerror(error: error)
                     }
-                //}
             }
         }
     }
@@ -103,7 +101,7 @@ actor ActorLogToFile {
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
 
             Logger.process.info("LogToFile: read logfile \(logfileURL.path, privacy: .public)")
-            Logger.process.info("LogToFile: readloggfile() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+            Logger.process.info("LogToFile: readloggfileasline() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
             
             do {
                 let data = try Data(contentsOf: logfileURL)
@@ -130,7 +128,7 @@ actor ActorLogToFile {
            let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
 
            Logger.process.info("LogToFile: read logfile \(logfileURL.path, privacy: .public)")
-           Logger.process.info("LogToFile: readandappendloggfileData() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+           Logger.process.info("LogToFile: appendloggfileData() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
                       
            if let newdata = newlogadata.data(using: .utf8) {
                do {
@@ -189,8 +187,7 @@ actor ActorLogToFile {
 
         tmplogg.append("\n" + date)
         tmplogg.append(command)
-        tmplogg.append("\n")
-
+       
         var count = 0
         let tmploggrsync = stringoutputfromrsync.compactMap { line in
             count += 1
