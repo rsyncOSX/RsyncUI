@@ -164,7 +164,7 @@ final class ObservableFutureSchedules {
                 // Setting profile name will trigger execution
                 self.scheduledprofile = schedule.profile ?? "Default"
                 Task {
-                    await ActorLogToFile(["ObservableFutureSchedules: schedule FIRED for \(schedule.profile ?? "Default")"], error: true)
+                    await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for \(schedule.profile ?? "Default")"])
                 }
             }
         }

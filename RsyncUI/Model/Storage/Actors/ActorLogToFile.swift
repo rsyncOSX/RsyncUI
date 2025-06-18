@@ -179,7 +179,7 @@ actor ActorLogToFile {
 
     
 
-    private func minimumloggingwithcommand(command: String, stringoutputfromrsync: [String]) async {
+    private func minimumlogging(command: String, stringoutputfromrsync: [String]) async {
         
         let date = Date().localized_string_from_date()
         var tmplogg = [String]()
@@ -189,7 +189,7 @@ actor ActorLogToFile {
 
         tmplogg.append("\n" + date)
         tmplogg.append(command)
-        tmplogg.append("Last twenty records from rsync output\n")
+        tmplogg.append("\n")
 
         var count = 0
         let tmploggrsync = stringoutputfromrsync.compactMap { line in
@@ -210,23 +210,6 @@ actor ActorLogToFile {
         
     }
 
-    private func fulllogging(_ stringoutputfromrsync: [String]) async {
-        let date = Date().localized_string_from_date()
-        
-        var logfile = await readloggfileasline()
-        
-        let tmplogg = "\n" + date + ": "
-        if logfile == nil {
-            logfile = tmplogg + stringoutputfromrsync.joined(separator: "\n")
-        } else {
-            logfile! += tmplogg + stringoutputfromrsync.joined(separator: "\n")
-        }
-        
-        if let logfile {
-            await writeloggfile(logfile, false)
-        }
-    }
-
     @discardableResult
     init(_ reset: Bool) async {
         if reset {
@@ -238,18 +221,9 @@ actor ActorLogToFile {
     }
 
     @discardableResult
-    init(_ stringoutputfromrsync: [String]?, error: Bool) async  {
-        if error {
-            if let stringoutputfromrsync {
-                await fulllogging(stringoutputfromrsync)
-            }
-        }
-    }
-
-    @discardableResult
     init(command: String, stringoutputfromrsync: [String]?) async {
         if let stringoutputfromrsync {
-            await minimumloggingwithcommand(command: command, stringoutputfromrsync: stringoutputfromrsync)
+            await minimumlogging(command: command, stringoutputfromrsync: stringoutputfromrsync)
         }
     }
 }
