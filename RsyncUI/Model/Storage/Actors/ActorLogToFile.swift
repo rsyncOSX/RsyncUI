@@ -16,7 +16,7 @@ enum FilesizeError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .toobig:
-            "Big logfile\n Please reset file"
+            "Logfile is too big\n Please reset file"
         }
     }
 }
@@ -36,15 +36,12 @@ actor ActorLogToFile {
             if let logfiledata = await appendloggfileData(newlogadata, reset) {
                 do {
                     try logfiledata.write(to: logfileURL)
-                    let checker = FileChecker()
+                    let checker = ActorFileSize()
                     Task {
                         do {
                             if let size = try await checker.filesize() {
                                 if Int(truncating: size) > SharedConstants().logfilesize {
-                                    let size = Int(truncating: size)
-                                    if size > SharedConstants().logfilesize {
-                                        throw FilesizeError.toobig
-                                    }
+                                    throw FilesizeError.toobig
                                 }
                             }
                         } catch let e {
@@ -195,33 +192,6 @@ actor ActorLogToFile {
         if let stringoutputfromrsync {
             await minimumlogging(command: command, stringoutputfromrsync: stringoutputfromrsync)
         }
-    }
-}
-
-actor FileChecker {
-    
-    @concurrent
-    nonisolated func filesize() async throws -> NSNumber? {
-        let path = await Homepath()
-        let fm = FileManager.default
-        if let fullpathmacserial = path.fullpathmacserial {
-            let logfileString = fullpathmacserial.appending("/") + SharedConstants().logname
-            guard fm.locationExists(at: logfileString, kind: .file) == true else { return nil }
-
-            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-
-            do {
-                // Return filesize
-                if let filesize = try fm.attributesOfItem(atPath: logfileURL.path)[FileAttributeKey.size] as? NSNumber {
-                    Logger.process.info("FileChecker: Filesize of logfile \(filesize, privacy: .public)")
-                    return filesize
-                }
-            } catch {
-                return nil
-            }
-        }
-        return nil
     }
 }
 
