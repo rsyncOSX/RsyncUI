@@ -30,65 +30,50 @@ struct ConfigurationsTableDataMainView: View {
             }
             .width(min: 70, ideal: 70)
             .defaultVisibility(visible_progress)
-            TableColumn("Profile") { data in
+            TableColumn("Profile") { _ in
+                Text(rsyncUIdata.profile ?? "Default")
+            }
+            .width(min: 50, max: 100)
+            .defaultVisibility(visible_not_progress)
+            TableColumn("Synchronize ID") { data in
                 if let index = progressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id }) {
                     if progressdetails.estimatedlist?[index].datatosynchronize == false,
                        progressdetails.estimatedlist?[index].preparedoutputfromrsync?.count ?? 0 > SharedReference.shared.alerttagginglines
                     {
                         // If tagging is kind of suspicious and need attention
+
+                        if data.backupID.isEmpty == true {
+                            Text("Synchronize ID")
+                                .foregroundColor(.yellow)
+
+                        } else {
+                            Text(data.backupID)
+                                .foregroundColor(.yellow)
+                        }
+
                         Text(rsyncUIdata.profile ?? "Default")
                             .foregroundColor(.yellow)
                     } else {
                         let color: Color = progressdetails.estimatedlist?[index].datatosynchronize == true ? .blue : .red
-                        Text(rsyncUIdata.profile ?? "Default")
-                            .foregroundColor(color)
+                        if data.backupID.isEmpty == true {
+                            Text("Synchronize ID")
+                                .foregroundColor(color)
+
+                        } else {
+                            Text(data.backupID)
+                                .foregroundColor(color)
+                        }
                     }
                 } else {
-                    Text(rsyncUIdata.profile ?? "Default")
-                }
-            }
-            .width(min: 50, max: 100)
-            .defaultVisibility(visible_not_progress)
-            /*
-             TableColumn("Est") { data in
-                 if let index = progressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id }) {
-                     if progressdetails.estimatedlist?[index].datatosynchronize == false,
-                        progressdetails.estimatedlist?[index].preparedoutputfromrsync?.count ?? 0 > SharedReference.shared.alerttagginglines
-                     {
-                         Text(Image(systemName: "questionmark"))
-                             .foregroundColor(.yellow)
-                     } else {
-                         let color: Color = progressdetails.estimatedlist?[index].datatosynchronize == true ? .blue : .red
-                         Text(Image(systemName: "checkmark"))
-                             .foregroundColor(color)
-                     }
-                 }
-             }
-             .width(max: 25)
-             .defaultVisibility(progressdetails.estimatedlist == nil ? .hidden : .visible)
-              */
-            TableColumn("Synchronize ID") { data in
-                if data.backupID.isEmpty == true {
-                    Text("Synchronize ID")
-                        .contextMenu {
-                            Button("Toggle halt task") {
-                                let index = getindex(selecteduuids)
-                                guard index != -1 else { return }
-                                updatehalted(index)
-                            }
-                        }
+                    if data.backupID.isEmpty == true {
+                        Text("Synchronize ID")
 
-                } else {
-                    Text(data.backupID)
-                        .contextMenu {
-                            Button("Toggle halt task") {
-                                let index = getindex(selecteduuids)
-                                guard index != -1 else { return }
-                                updatehalted(index)
-                            }
-                        }
+                    } else {
+                        Text(data.backupID)
+                    }
                 }
             }
+
             TableColumn("Action") { data in
                 if data.task == SharedReference.shared.halted {
                     Image(systemName: "stop.fill")

@@ -22,7 +22,6 @@ enum FilesizeError: LocalizedError {
 }
 
 actor ActorLogToFile {
-    
     @concurrent
     nonisolated func writeloggfile(_ newlogadata: String, _ reset: Bool) async {
         let path = await Homepath()
@@ -156,8 +155,7 @@ actor ActorLogToFile {
         var startindex = stringoutputfromrsync.count - 20
         if startindex < 0 { startindex = 0 }
 
-        tmplogg.append("\n" + date)
-        tmplogg.append(command)
+        tmplogg.append("\n" + date + ": " + command + "\n")
 
         var count = 0
         let tmploggrsync = stringoutputfromrsync.compactMap { line in
