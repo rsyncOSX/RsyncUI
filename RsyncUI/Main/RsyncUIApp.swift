@@ -7,7 +7,6 @@
 
 import OSLog
 import SwiftUI
-import UserNotifications
 
 @main
 struct RsyncUIApp: App {
