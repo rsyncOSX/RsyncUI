@@ -11,10 +11,10 @@ import UniformTypeIdentifiers
 
 struct ImportView: View {
     @Environment(\.dismiss) var dismiss
-    
+
     @Binding var focusimport: Bool
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    
+
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var filenameimport: String = ""
     @State private var configurations = [SynchronizeConfiguration]()
@@ -26,12 +26,50 @@ struct ImportView: View {
     var body: some View {
         VStack {
             if configurations.isEmpty == false {
-                ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                            configurations: configurations)
+                VStack {
+                    ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                                configurations: configurations)
+
+                    HStack {
+                        Button("Import tasks") {
+                            isShowingDialog = true
+                        }
+                        .buttonStyle(ColorfulButtonStyle())
+                        .confirmationDialog(
+                            Text("Import selected or all tasks?"),
+                            isPresented: $isShowingDialog
+                        ) {
+                            Button("Import", role: .none) {
+                                let updateconfigurations =
+                                    UpdateConfigurations(profile: rsyncUIdata.profile,
+                                                         configurations: rsyncUIdata.configurations)
+                                if selecteduuids.isEmpty == true {
+                                    rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations)
+                                } else {
+                                    rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
+                                }
+                                if SharedReference.shared.duplicatecheck {
+                                    if let configurations = rsyncUIdata.configurations {
+                                        VerifyDuplicates(configurations)
+                                    }
+                                }
+                                focusimport = false
+                                dismiss()
+                            }
+                            .buttonStyle(ColorfulButtonStyle())
+                        }
+
+                        Button("Dismiss") {
+                            focusimport = false
+                        }
+                        .buttonStyle(ColorfulButtonStyle())
+                    }
+                }
+                .frame(minWidth: 600, minHeight: 500)
+
             } else {
                 HStack {
-                    
-                    Button("Select a file") {
+                    Button("Select a file for import") {
                         showimportdialog = true
                     }
                     .buttonStyle(ColorfulButtonStyle())
@@ -41,11 +79,17 @@ struct ImportView: View {
                                       switch result {
                                       case let .success(url):
                                           filenameimport = url.relativePath
+                                          guard filenameimport.isEmpty == false else { return }
+                                          if let importconfigurations = ReadImportConfigurationsJSON(filenameimport,
+                                                                                                     maxhiddenId: maxhiddenID).importconfigurations
+                                          {
+                                              configurations = importconfigurations
+                                          }
                                       case let .failure(error):
                                           SharedReference.shared.errorobject?.alert(error: error)
                                       }
                                   })
-                    
+
                     Button("Dismiss") {
                         focusimport = false
                         dismiss()
@@ -53,54 +97,10 @@ struct ImportView: View {
                     .buttonStyle(ColorfulButtonStyle())
                 }
             }
-            /*
-                HStack {
-                    Button("Import tasks") {
-                        isShowingDialog = true
-                    }
-                    .buttonStyle(ColorfulButtonStyle())
-                    .confirmationDialog(
-                        Text("Import selected or all tasks?"),
-                        isPresented: $isShowingDialog
-                    ) {
-                        Button("Import", role: .none) {
-                            let updateconfigurations =
-                                UpdateConfigurations(profile: rsyncUIdata.profile,
-                                                     configurations: rsyncUIdata.configurations)
-                            if selecteduuids.isEmpty == true {
-                                rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations)
-                            } else {
-                                rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
-                            }
-                            if SharedReference.shared.duplicatecheck {
-                                if let configurations = rsyncUIdata.configurations {
-                                    VerifyDuplicates(configurations)
-                                }
-                            }
-                            focusimport = false
-                        }
-                        .buttonStyle(ColorfulButtonStyle())
-                    }
-
-                    Button("Dismiss") {
-                        focusimport = false
-                    }
-                    .buttonStyle(ColorfulButtonStyle())
-                }
-             */
         }
         .padding()
-        //.frame(minWidth: 600, minHeight: 500)
-        .onChange(of: filenameimport) {
-            guard filenameimport.isEmpty == false else { return }
-            if let importconfigurations = ReadImportConfigurationsJSON(filenameimport,
-                                                                       maxhiddenId: maxhiddenID).importconfigurations
-            {
-                configurations = importconfigurations
-            }
-        }
     }
-    
+
     var uutype: UTType {
         .item
     }
