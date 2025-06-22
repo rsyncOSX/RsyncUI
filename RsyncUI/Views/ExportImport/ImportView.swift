@@ -7,14 +7,19 @@
 // swiftlint:disable line_length
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct ImportView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @Binding var focusimport: Bool
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var filenameimport: String = ""
     @State private var configurations = [SynchronizeConfiguration]()
     @State private var isShowingDialog: Bool = false
+    @State private var showimportdialog: Bool = false
 
     let maxhiddenID: Int
 
@@ -25,49 +30,67 @@ struct ImportView: View {
                                             configurations: configurations)
             } else {
                 HStack {
-                    Text("Select a file for import")
-                    OpencatalogView(selecteditem: $filenameimport, catalogs: false)
+                    
+                    Button("Select a file") {
+                        showimportdialog = true
+                    }
+                    .buttonStyle(ColorfulButtonStyle())
+                    .fileImporter(isPresented: $showimportdialog,
+                                  allowedContentTypes: [uutype],
+                                  onCompletion: { result in
+                                      switch result {
+                                      case let .success(url):
+                                          filenameimport = url.relativePath
+                                      case let .failure(error):
+                                          SharedReference.shared.errorobject?.alert(error: error)
+                                      }
+                                  })
+                    
+                    Button("Dismiss") {
+                        focusimport = false
+                        dismiss()
+                    }
+                    .buttonStyle(ColorfulButtonStyle())
                 }
             }
-
-            Spacer()
-
-            HStack {
-                Button("Import tasks") {
-                    isShowingDialog = true
-                }
-                .buttonStyle(ColorfulButtonStyle())
-                .confirmationDialog(
-                    Text("Import selected or all tasks?"),
-                    isPresented: $isShowingDialog
-                ) {
-                    Button("Import", role: .none) {
-                        let updateconfigurations =
-                            UpdateConfigurations(profile: rsyncUIdata.profile,
-                                                 configurations: rsyncUIdata.configurations)
-                        if selecteduuids.isEmpty == true {
-                            rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations)
-                        } else {
-                            rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
-                        }
-                        if SharedReference.shared.duplicatecheck {
-                            if let configurations = rsyncUIdata.configurations {
-                                VerifyDuplicates(configurations)
+            /*
+                HStack {
+                    Button("Import tasks") {
+                        isShowingDialog = true
+                    }
+                    .buttonStyle(ColorfulButtonStyle())
+                    .confirmationDialog(
+                        Text("Import selected or all tasks?"),
+                        isPresented: $isShowingDialog
+                    ) {
+                        Button("Import", role: .none) {
+                            let updateconfigurations =
+                                UpdateConfigurations(profile: rsyncUIdata.profile,
+                                                     configurations: rsyncUIdata.configurations)
+                            if selecteduuids.isEmpty == true {
+                                rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations)
+                            } else {
+                                rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
                             }
+                            if SharedReference.shared.duplicatecheck {
+                                if let configurations = rsyncUIdata.configurations {
+                                    VerifyDuplicates(configurations)
+                                }
+                            }
+                            focusimport = false
                         }
+                        .buttonStyle(ColorfulButtonStyle())
+                    }
+
+                    Button("Dismiss") {
                         focusimport = false
                     }
                     .buttonStyle(ColorfulButtonStyle())
                 }
-
-                Button("Dismiss") {
-                    focusimport = false
-                }
-                .buttonStyle(ColorfulButtonStyle())
-            }
+             */
         }
         .padding()
-        .frame(minWidth: 600, minHeight: 500)
+        //.frame(minWidth: 600, minHeight: 500)
         .onChange(of: filenameimport) {
             guard filenameimport.isEmpty == false else { return }
             if let importconfigurations = ReadImportConfigurationsJSON(filenameimport,
@@ -76,6 +99,10 @@ struct ImportView: View {
                 configurations = importconfigurations
             }
         }
+    }
+    
+    var uutype: UTType {
+        .item
     }
 }
 
