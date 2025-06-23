@@ -11,7 +11,7 @@ import OSLog
 actor ActorFileSize {
     // Only logfile is checked for size, URL-file for logfile is evaluated within function
 
-    @concurrent
+    
     nonisolated func filesize() async throws -> NSNumber? {
         let path = await Homepath()
         let fm = FileManager.default

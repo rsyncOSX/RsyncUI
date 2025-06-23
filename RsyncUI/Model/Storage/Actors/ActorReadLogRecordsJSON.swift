@@ -10,7 +10,7 @@ import Foundation
 import OSLog
 
 actor ActorReadLogRecordsJSON {
-    @concurrent
+    
     nonisolated func readjsonfilelogrecords(_ profile: String?,
                                             _ validhiddenIDs: Set<Int>) async -> [LogRecords]?
     {
@@ -49,7 +49,7 @@ actor ActorReadLogRecordsJSON {
         return nil
     }
 
-    @concurrent
+    
     nonisolated func updatelogsbyhiddenID(_ logrecords: [LogRecords]?, _ hiddenID: Int) async -> [Log]? {
         Logger.process.info("ActorReadLogRecordsJSON: updatelogsbyhiddenID() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         if let logrecords {
@@ -75,7 +75,7 @@ actor ActorReadLogRecordsJSON {
         return nil
     }
 
-    @concurrent
+    
     nonisolated func updatelogsbyfilter(_ logrecords: [LogRecords]?, _ filterstring: String, _ hiddenID: Int) async -> [Log]? {
         Logger.process.info("ActorReadLogRecordsJSON: updatelogsbyfilter() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         guard filterstring != "" else { return nil }

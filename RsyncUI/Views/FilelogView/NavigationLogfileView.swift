@@ -69,7 +69,7 @@ final class Logfileview {
 import OSLog
 
 actor GenerateLogfileforview {
-    @concurrent
+    
     nonisolated func generatedata() async -> [LogfileRecords] {
         Logger.process.info("GenerateLogfileforview: generatedata() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         if let data = await ActorLogToFile(false).readloggfile() {

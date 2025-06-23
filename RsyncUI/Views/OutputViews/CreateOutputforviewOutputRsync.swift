@@ -9,7 +9,7 @@ import OSLog
 
 actor CreateOutputforviewOutputRsync {
     // From Array[String]
-    @concurrent
+    
     nonisolated func createoutputforviewoutputrsync(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.info("CreateOutputforviewOutputRsync: createoutputforviewoutputrsync() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
 
@@ -22,7 +22,7 @@ actor CreateOutputforviewOutputRsync {
     }
 
     // From Set<String>
-    @concurrent
+    
     nonisolated func createoutputforviewoutputrsync(_ setoutputfromrsync: Set<String>?) async -> [RsyncOutputData] {
         Logger.process.info("CreateOutputforviewOutputRsync: createoutputforviewoutputrsync() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
 

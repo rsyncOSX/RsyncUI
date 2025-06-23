@@ -11,7 +11,7 @@ import Foundation
 import OSLog
 
 actor ActorReadSchedule {
-    @concurrent
+    
     nonisolated func readjsonfilecalendar(_ validprofiles: [String]) async -> [SchedulesConfigurations]? {
         var filename = ""
         let path = await Homepath()

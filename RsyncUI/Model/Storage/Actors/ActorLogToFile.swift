@@ -22,7 +22,7 @@ enum FilesizeError: LocalizedError {
 }
 
 actor ActorLogToFile {
-    @concurrent
+    
     nonisolated func writeloggfile(_ newlogadata: String, _ reset: Bool) async {
         let path = await Homepath()
         if let fullpathmacserial = path.fullpathmacserial {
@@ -56,7 +56,7 @@ actor ActorLogToFile {
         }
     }
 
-    @concurrent
+    
     nonisolated func readloggfile() async -> [String]? {
         let path = await Homepath()
         let fm = FileManager.default
@@ -85,7 +85,7 @@ actor ActorLogToFile {
         return nil
     }
 
-    @concurrent
+    
     private nonisolated func readloggfileasline() async -> String? {
         let path = await Homepath()
         let fm = FileManager.default
@@ -112,7 +112,7 @@ actor ActorLogToFile {
         return nil
     }
 
-    @concurrent
+    
     private nonisolated func appendloggfileData(_ newlogadata: String, _ reset: Bool) async -> Data? {
         let path = await Homepath()
         let fm = FileManager.default

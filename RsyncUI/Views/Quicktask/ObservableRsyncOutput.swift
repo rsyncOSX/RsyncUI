@@ -14,7 +14,7 @@ final class ObservableRsyncOutput {
 }
 
 actor CreateOutputforview {
-    @concurrent
+    
     nonisolated func createaoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.info("CreateOutputforview: createaoutputforview() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         if let stringoutputfromrsync {
