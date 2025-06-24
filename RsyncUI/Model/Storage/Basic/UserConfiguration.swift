@@ -9,7 +9,7 @@
 import Foundation
 
 @MainActor
-struct UserConfiguration: Codable {
+struct UserConfiguration: @MainActor Codable {
     var rsyncversion3: Int = -1
     // Detailed logging
     var addsummarylogrecord: Int = 1

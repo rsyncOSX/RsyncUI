@@ -86,4 +86,3 @@ actor GetversionofRsyncUI {
     }
 }
 
-// return  check[0].url

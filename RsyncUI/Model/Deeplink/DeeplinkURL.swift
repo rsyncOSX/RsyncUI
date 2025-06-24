@@ -27,14 +27,14 @@ struct DeeplinkURL {
                         try deeplinks.thrownoaction()
                     } catch let e {
                         let error = e
-                        propogateerror(error: error)
+                        SharedReference.shared.errorobject?.alert(error: error)
                     }
                 }
             }
 
         } catch let e {
             let error = e
-            propogateerror(error: error)
+            SharedReference.shared.errorobject?.alert(error: error)
         }
         return nil
     }
@@ -50,7 +50,7 @@ struct DeeplinkURL {
                 return true
             } catch let e {
                 let error = e
-                propogateerror(error: error)
+                SharedReference.shared.errorobject?.alert(error: error)
                 return false
             }
         } else {
@@ -65,7 +65,7 @@ struct DeeplinkURL {
             return true
         } catch let e {
             let error = e
-            propogateerror(error: error)
+            SharedReference.shared.errorobject?.alert(error: error)
             return false
         }
     }
@@ -98,9 +98,5 @@ struct DeeplinkURL {
         } else {
             return nil
         }
-    }
-
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
     }
 }
