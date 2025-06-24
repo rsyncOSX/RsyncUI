@@ -8,7 +8,7 @@
 import OSLog
 
 @Observable
-final class ObservablePushPull {
+final class ObservableVerifyRemotePushPull {
     @ObservationIgnored var adjustedpull: Set<String>?
     @ObservationIgnored var adjustedpush: Set<String>?
 

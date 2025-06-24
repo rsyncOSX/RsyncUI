@@ -124,7 +124,7 @@ struct VerifyRemoteView: View {
 
         case .pushpullview:
             if let selectedconfig {
-                PushPullView(config: selectedconfig)
+                PushPullView(config: selectedconfig, isadjusted: false)
             }
         }
     }

@@ -9,16 +9,17 @@ import SwiftUI
 
 struct PushPullView: View {
     @State private var progress = true
-    // Pull data from remote
+    // Pull data from remote, adjusted
     @State private var pullremotedatanumbers: RemoteDataNumbers?
-    // Push data to remote
+    // Push data to remote, adjusted
     @State private var pushremotedatanumbers: RemoteDataNumbers?
     // Decide push or pull
-    @State private var pushorpull = ObservablePushPull()
+    @State private var pushorpull = ObservableVerifyRemotePushPull()
     // If aborted
     @State private var isaborted: Bool = false
 
     let config: SynchronizeConfiguration
+    let isadjusted: Bool
 
     var body: some View {
         VStack {
@@ -94,6 +95,12 @@ struct PushPullView: View {
         }
         // Rsync output pull
         pushorpull.rsyncpull = stringoutputfromrsync
+        
+        if isadjusted == false {
+            Task {
+                pullremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
+            }
+        }
         // Then do a synchronize task, adjusted for push vs pull
         pushremote(config: config)
     }
@@ -116,12 +123,18 @@ struct PushPullView: View {
 
         // Rsync output push
         pushorpull.rsyncpush = stringoutputfromrsync
-        // Adjust both outputs
-        pushorpull.adjustoutput()
-
-        Task {
-            pullremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(pushorpull.adjustedpull)
-            pushremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(pushorpull.adjustedpush)
+        
+        if isadjusted {
+            // Adjust both outputs
+            pushorpull.adjustoutput()
+            Task {
+                pullremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(pushorpull.adjustedpull)
+                pushremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(pushorpull.adjustedpush)
+            }
+        } else {
+            Task {
+                pushremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
+            }
         }
     }
 
