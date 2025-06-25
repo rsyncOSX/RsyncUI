@@ -39,7 +39,12 @@ struct DetailsVerifyView: View {
 
             Table(remotedatanumbers.outputfromrsync ?? []) {
                 TableColumn("Output from rsync" + ": \(remotedatanumbers.outputfromrsync?.count ?? 0) rows") { data in
-                    Text(data.record)
+                    if data.record.contains("*deleting") {
+                        Text(data.record).foregroundColor(.red)
+                    } else {
+                        Text(data.record)
+                    }
+                    
                 }
             }
         }
