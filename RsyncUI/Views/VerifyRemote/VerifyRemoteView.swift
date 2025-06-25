@@ -30,6 +30,8 @@ struct VerifyRemoteView: View {
     @State private var selectedconfig: SynchronizeConfiguration?
     // Selected task is halted
     @State private var selectedtaskishalted: Bool = false
+    // Adjusted output rsync
+    @State private var isadjusted: Bool = false
 
     var body: some View {
         NavigationStack(path: $verifypath) {
@@ -52,6 +54,8 @@ struct VerifyRemoteView: View {
                             }
                         }
                     }
+                
+                ToggleViewDefault(text: "Adjusted output", binding: $isadjusted)
 
                 VStack {
                     Text("**Warning**: Verify remote is **advisory** only.")
@@ -124,7 +128,7 @@ struct VerifyRemoteView: View {
 
         case .pushpullview:
             if let selectedconfig {
-                PushPullView(config: selectedconfig)
+                PushPullView(config: selectedconfig, isadjusted: isadjusted)
             }
         }
     }
