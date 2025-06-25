@@ -40,11 +40,22 @@ struct DetailsVerifyView: View {
             Table(remotedatanumbers.outputfromrsync ?? []) {
                 TableColumn("Output from rsync" + ": \(remotedatanumbers.outputfromrsync?.count ?? 0) rows") { data in
                     if data.record.contains("*deleting") {
-                        Text(data.record).foregroundColor(.red)
+                        HStack {
+                            Text("delete").foregroundColor(.red)
+                            Text(data.record)
+                        }
+                        
                     } else if data.record.contains("<"){
-                        Text(data.record).foregroundColor(.blue)
+                        HStack {
+                            Text("push").foregroundColor(.blue)
+                            Text(data.record)
+                        }
+                        
                     } else if data.record.contains(">"){
-                        Text(data.record).foregroundColor(.green)
+                        HStack {
+                            Text("pull").foregroundColor(.green)
+                            Text(data.record)
+                        }
                     } else {
                         Text(data.record)
                     }
