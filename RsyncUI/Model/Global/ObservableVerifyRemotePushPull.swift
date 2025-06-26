@@ -1,5 +1,5 @@
 //
-//  ObservablePushPull.swift
+//  ObservableVerifyRemotePushPull.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 16/12/2024.
@@ -14,7 +14,7 @@ final class ObservableVerifyRemotePushPull {
 
     @ObservationIgnored var rsyncpull: [String]?
     @ObservationIgnored var rsyncpush: [String]?
-    
+
     @ObservationIgnored var rsyncpullmax: Int = 0
     @ObservationIgnored var rsyncpushmax: Int = 0
 

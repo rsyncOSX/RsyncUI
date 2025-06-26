@@ -8,18 +8,16 @@
 import SwiftUI
 
 struct ExecutePushPullView: View {
-    
     @Binding var pushorpull: ObservableVerifyRemotePushPull
-    
+
     @State private var showprogressview = false
     @State private var remotedatanumbers: RemoteDataNumbers?
     @State private var pushpullcommand = PushPullCommand.none
 
     @State private var dryrun: Bool = true
     @State private var keepdelete: Bool = true
-    
+
     @State private var progress: Double = 0
-    
 
     let config: SynchronizeConfiguration
 
@@ -28,7 +26,7 @@ struct ExecutePushPullView: View {
             if let remotedatanumbers {
                 DetailsView(remotedatanumbers: remotedatanumbers)
             } else {
-                ZStack {
+                if showprogressview == false {
                     VStack {
                         HStack {
                             VStack(alignment: .trailing) {
@@ -78,30 +76,29 @@ struct ExecutePushPullView: View {
                             .padding()
                     }
 
-                    if showprogressview {
-                        
-                        Spacer()
-                        
-                        if pushorpull.rsyncpullmax > 0, pushpullcommand == .pull_remote {
-                            
-                            ProgressView("",
-                                         value: progress,
-                                         total: Double(pushorpull.rsyncpullmax))
-                                .frame(alignment: .center)
-                            
-                        } else if pushorpull.rsyncpushmax > 0, pushpullcommand == .push_local {
-                            
-                            ProgressView("",
-                                         value: progress,
-                                         total: Double(pushorpull.rsyncpushmax))
-                                .frame(alignment: .center)
-                            
-                        } else {
-                            
-                            ProgressView()
+                } else {
+                    
+                    Spacer()
+                    
+                    if pushorpull.rsyncpullmax > 0, pushpullcommand == .pull_remote {
+                        ProgressView("",
+                                     value: progress,
+                                     total: Double(pushorpull.rsyncpullmax))
+                            .frame(alignment: .center)
+                            .frame(width: 180)
 
-                        }
+                    } else if pushorpull.rsyncpushmax > 0, pushpullcommand == .push_local {
+                        ProgressView("",
+                                     value: progress,
+                                     total: Double(pushorpull.rsyncpushmax))
+                            .frame(alignment: .center)
+                            .frame(width: 180)
+
+                    } else {
+                        ProgressView()
                     }
+                    
+                    Spacer()
                 }
             }
         }
@@ -156,7 +153,7 @@ struct ExecutePushPullView: View {
             remotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
         }
     }
-    
+
     func filehandler(count: Int) {
         progress = Double(count)
     }

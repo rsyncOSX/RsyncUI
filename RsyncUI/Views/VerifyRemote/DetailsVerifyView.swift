@@ -44,14 +44,14 @@ struct DetailsVerifyView: View {
                             Text("delete").foregroundColor(.red)
                             Text(data.record)
                         }
-                        
-                    } else if data.record.contains("<"){
+
+                    } else if data.record.contains("<") {
                         HStack {
                             Text("push").foregroundColor(.blue)
                             Text(data.record)
                         }
-                        
-                    } else if data.record.contains(">"){
+
+                    } else if data.record.contains(">") {
                         HStack {
                             Text("pull").foregroundColor(.green)
                             Text(data.record)

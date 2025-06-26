@@ -56,7 +56,7 @@ struct VerifyRemoteView: View {
                             }
                         }
                     }
-                
+
                 ToggleViewDefault(text: "Adjusted output", binding: $isadjusted)
 
                 VStack {
