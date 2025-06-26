@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PushPullView: View {
     @Binding var pushorpull: ObservableVerifyRemotePushPull
+    @Binding var verifypath: [Verify]
 
     @State private var progress = true
     // Pull data from remote, adjusted
@@ -27,17 +28,6 @@ struct PushPullView: View {
                 Spacer()
 
                 ProgressView()
-                    .toolbar(content: {
-                        ToolbarItem {
-                            Button {
-                                isaborted = true
-                                abort()
-                            } label: {
-                                Image(systemName: "stop.fill")
-                            }
-                            .help("Abort (⌘K)")
-                        }
-                    })
 
                 Spacer()
 
@@ -56,6 +46,32 @@ struct PushPullView: View {
         .onAppear {
             pullremote(config: config)
         }
+        .toolbar(content: {
+            
+            ToolbarItem {
+                Button {
+                    verifypath.removeAll()
+                    verifypath.append(Verify(task: .executenpushpullview))
+                    
+
+                } label: {
+                    Image(systemName: "arrow.left.arrow.right.circle.fill")
+                        .foregroundColor(.blue)
+                }
+                .help("Pull or push")
+            }
+            
+            ToolbarItem {
+                Button {
+                    isaborted = true
+                    abort()
+                } label: {
+                    Image(systemName: "stop.fill")
+                }
+                .help("Abort (⌘K)")
+            }
+            
+        })
     }
 
     // For check remote, pull remote data
