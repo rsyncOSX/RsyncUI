@@ -77,9 +77,8 @@ struct ExecutePushPullView: View {
                     }
 
                 } else {
-                    
                     Spacer()
-                    
+
                     if pushorpull.rsyncpullmax > 0, pushpullcommand == .pull_remote {
                         ProgressView("",
                                      value: progress,
@@ -97,7 +96,7 @@ struct ExecutePushPullView: View {
                     } else {
                         ProgressView()
                     }
-                    
+
                     Spacer()
                 }
             }

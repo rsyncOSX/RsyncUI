@@ -35,11 +35,39 @@ struct PushPullView: View {
             } else {
                 if let pullremotedatanumbers, let pushremotedatanumbers {
                     HStack {
-                        DetailsVerifyView(remotedatanumbers: pushremotedatanumbers,
-                                          push: true)
+                        VStack {
+                            Button {
+                                pushpullcommand = .push_local
+                                verifypath.removeAll()
+                                verifypath.append(Verify(task: .executenpushpullview))
+                            } label: {
+                                Image(systemName: "arrow.right")
+                                    .font(.title2)
+                                    .imageScale(.large)
+                                    .foregroundColor(.yellow)
+                            }
+                            .help("Push local")
+                            .buttonStyle(ColorfulButtonStyle())
 
-                        DetailsVerifyView(remotedatanumbers: pullremotedatanumbers,
-                                          push: false)
+                            DetailsVerifyView(remotedatanumbers: pushremotedatanumbers)
+                        }
+
+                        VStack {
+                            Button {
+                                pushpullcommand = .pull_remote
+                                verifypath.removeAll()
+                                verifypath.append(Verify(task: .executenpushpullview))
+                            } label: {
+                                Image(systemName: "arrow.left")
+                                    .font(.title2)
+                                    .imageScale(.large)
+                                    .foregroundColor(.yellow)
+                            }
+                            .help("Pull remote")
+                            .buttonStyle(ColorfulButtonStyle())
+
+                            DetailsVerifyView(remotedatanumbers: pullremotedatanumbers)
+                        }
                     }
                 }
             }
@@ -48,35 +76,6 @@ struct PushPullView: View {
             pullremote(config: config)
         }
         .toolbar(content: {
-            
-            ToolbarItem {
-                Button {
-                    pushpullcommand = .push_local
-                    verifypath.removeAll()
-                    verifypath.append(Verify(task: .executenpushpullview))
-                    
-
-                } label: {
-                    Image(systemName: "arrow.right.circle.fill")
-                        .foregroundColor(.blue)
-                }
-                .help("Push")
-            }
-            
-            ToolbarItem {
-                Button {
-                    pushpullcommand = .pull_remote
-                    verifypath.removeAll()
-                    verifypath.append(Verify(task: .executenpushpullview))
-                    
-
-                } label: {
-                    Image(systemName: "arrow.left.circle.fill")
-                        .foregroundColor(.blue)
-                }
-                .help("Pull")
-            }
-            
             ToolbarItem {
                 Button {
                     isaborted = true
@@ -86,7 +85,6 @@ struct PushPullView: View {
                 }
                 .help("Abort (⌘K)")
             }
-            
         })
     }
 
