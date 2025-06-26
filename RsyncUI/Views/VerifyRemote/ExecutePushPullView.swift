@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ExecutePushPullView: View {
+    
+    @Binding var pushorpull: ObservableVerifyRemotePushPull
+    
     @State private var progress = false
     @State private var remotedatanumbers: RemoteDataNumbers?
     @State private var pushpullcommand = PushPullCommand.none
@@ -101,7 +104,8 @@ struct ExecutePushPullView: View {
                                                                                            keepdelete: keepdelete)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
-                                   processtermination: processtermination)
+                                   processtermination: processtermination,
+                                   filehandler: filehandler)
         process.executeProcess()
     }
 
@@ -111,7 +115,8 @@ struct ExecutePushPullView: View {
                                                                                               keepdelete: keepdelete)
         let process = ProcessRsync(arguments: arguments,
                                    config: config,
-                                   processtermination: processtermination)
+                                   processtermination: processtermination,
+                                   filehandler: filehandler)
         process.executeProcess()
     }
 
@@ -130,6 +135,10 @@ struct ExecutePushPullView: View {
         Task {
             remotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
         }
+    }
+    
+    func filehandler(count: Int) {
+        // progress = Double(count)
     }
 
     func abort() {

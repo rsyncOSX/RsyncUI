@@ -32,6 +32,8 @@ struct VerifyRemoteView: View {
     @State private var selectedtaskishalted: Bool = false
     // Adjusted output rsync
     @State private var isadjusted: Bool = false
+    // Decide push or pull
+    @State private var pushorpull = ObservableVerifyRemotePushPull()
 
     var body: some View {
         NavigationStack(path: $verifypath) {
@@ -123,12 +125,12 @@ struct VerifyRemoteView: View {
         switch view {
         case .executenpushpullview:
             if let selectedconfig {
-                ExecutePushPullView(config: selectedconfig)
+                ExecutePushPullView(pushorpull: $pushorpull, config: selectedconfig)
             }
 
         case .pushpullview:
             if let selectedconfig {
-                PushPullView(config: selectedconfig, isadjusted: isadjusted)
+                PushPullView(pushorpull: $pushorpull, config: selectedconfig, isadjusted: isadjusted)
             }
         }
     }
