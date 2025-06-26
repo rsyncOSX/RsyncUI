@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct PushPullView: View {
+    @Binding var pushorpull: ObservableVerifyRemotePushPull
+
     @State private var progress = true
     // Pull data from remote, adjusted
     @State private var pullremotedatanumbers: RemoteDataNumbers?
     // Push data to remote, adjusted
     @State private var pushremotedatanumbers: RemoteDataNumbers?
-    // Decide push or pull
-    @State private var pushorpull = ObservableVerifyRemotePushPull()
     // If aborted
     @State private var isaborted: Bool = false
 
@@ -95,7 +95,8 @@ struct PushPullView: View {
         }
         // Rsync output pull
         pushorpull.rsyncpull = stringoutputfromrsync
-        
+        pushorpull.rsyncpullmax = stringoutputfromrsync?.count ?? 0
+
         if isadjusted == false {
             Task {
                 pullremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
@@ -123,7 +124,8 @@ struct PushPullView: View {
 
         // Rsync output push
         pushorpull.rsyncpush = stringoutputfromrsync
-        
+        pushorpull.rsyncpushmax = stringoutputfromrsync?.count ?? 0
+
         if isadjusted {
             // Adjust both outputs
             pushorpull.adjustoutput()
