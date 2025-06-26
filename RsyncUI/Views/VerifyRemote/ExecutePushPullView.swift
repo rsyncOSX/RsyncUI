@@ -12,7 +12,7 @@ struct ExecutePushPullView: View {
 
     @State private var showprogressview = false
     @State private var remotedatanumbers: RemoteDataNumbers?
-    @State private var pushpullcommand = PushPullCommand.none
+    @Binding var pushpullcommand: PushPullCommand
 
     @State private var dryrun: Bool = true
     @State private var keepdelete: Bool = true
