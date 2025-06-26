@@ -14,6 +14,9 @@ final class ObservableVerifyRemotePushPull {
 
     @ObservationIgnored var rsyncpull: [String]?
     @ObservationIgnored var rsyncpush: [String]?
+    
+    @ObservationIgnored var rsyncpullmax: Int = 0
+    @ObservationIgnored var rsyncpushmax: Int = 0
 
     func adjustoutput() {
         if var pullremote = rsyncpull,

@@ -96,6 +96,7 @@ struct PushPullView: View {
         }
         // Rsync output pull
         pushorpull.rsyncpull = stringoutputfromrsync
+        pushorpull.rsyncpullmax = stringoutputfromrsync?.count ?? 0
         
         if isadjusted == false {
             Task {
@@ -124,6 +125,7 @@ struct PushPullView: View {
 
         // Rsync output push
         pushorpull.rsyncpush = stringoutputfromrsync
+        pushorpull.rsyncpushmax = stringoutputfromrsync?.count ?? 0
         
         if isadjusted {
             // Adjust both outputs

@@ -11,12 +11,15 @@ struct ExecutePushPullView: View {
     
     @Binding var pushorpull: ObservableVerifyRemotePushPull
     
-    @State private var progress = false
+    @State private var showprogressview = false
     @State private var remotedatanumbers: RemoteDataNumbers?
     @State private var pushpullcommand = PushPullCommand.none
 
     @State private var dryrun: Bool = true
     @State private var keepdelete: Bool = true
+    
+    @State private var progress: Double = 0
+    
 
     let config: SynchronizeConfiguration
 
@@ -49,14 +52,14 @@ struct ExecutePushPullView: View {
 
                             if pushpullcommand == .push_local {
                                 Button("Push") {
-                                    progress = true
+                                    showprogressview = true
                                     push(config: config)
                                 }
                                 .padding()
                                 .buttonStyle(ColorfulButtonStyle())
                             } else if pushpullcommand == .pull_remote {
                                 Button("Pull") {
-                                    progress = true
+                                    showprogressview = true
                                     pull(config: config)
                                 }
                                 .padding()
@@ -75,12 +78,29 @@ struct ExecutePushPullView: View {
                             .padding()
                     }
 
-                    if progress {
+                    if showprogressview {
+                        
                         Spacer()
+                        
+                        if pushorpull.rsyncpullmax > 0, pushpullcommand == .pull_remote {
+                            
+                            ProgressView("",
+                                         value: progress,
+                                         total: Double(pushorpull.rsyncpullmax))
+                                .frame(alignment: .center)
+                            
+                        } else if pushorpull.rsyncpushmax > 0, pushpullcommand == .push_local {
+                            
+                            ProgressView("",
+                                         value: progress,
+                                         total: Double(pushorpull.rsyncpushmax))
+                                .frame(alignment: .center)
+                            
+                        } else {
+                            
+                            ProgressView()
 
-                        ProgressView()
-
-                        Spacer()
+                        }
                     }
                 }
             }
@@ -121,7 +141,7 @@ struct ExecutePushPullView: View {
     }
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        progress = false
+        showprogressview = false
 
         if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
             let suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
@@ -138,7 +158,7 @@ struct ExecutePushPullView: View {
     }
     
     func filehandler(count: Int) {
-        // progress = Double(count)
+        progress = Double(count)
     }
 
     func abort() {
