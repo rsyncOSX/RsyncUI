@@ -34,6 +34,7 @@ struct VerifyRemoteView: View {
     @State private var isadjusted: Bool = false
     // Decide push or pull
     @State private var pushorpull = ObservableVerifyRemotePushPull()
+    @State private var pushpullcommand = PushPullCommand.none
 
     var body: some View {
         NavigationStack(path: $verifypath) {
@@ -126,6 +127,7 @@ struct VerifyRemoteView: View {
         case .executenpushpullview:
             if let selectedconfig {
                 ExecutePushPullView(pushorpull: $pushorpull,
+                                    pushpullcommand: $pushpullcommand,
                                     config: selectedconfig)
             }
 
@@ -133,6 +135,7 @@ struct VerifyRemoteView: View {
             if let selectedconfig {
                 PushPullView(pushorpull: $pushorpull,
                              verifypath: $verifypath,
+                             pushpullcommand: $pushpullcommand,
                              config: selectedconfig,
                              isadjusted: isadjusted)
             }

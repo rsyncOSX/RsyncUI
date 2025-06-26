@@ -10,6 +10,7 @@ import SwiftUI
 struct PushPullView: View {
     @Binding var pushorpull: ObservableVerifyRemotePushPull
     @Binding var verifypath: [Verify]
+    @Binding var pushpullcommand: PushPullCommand
 
     @State private var progress = true
     // Pull data from remote, adjusted
@@ -50,15 +51,30 @@ struct PushPullView: View {
             
             ToolbarItem {
                 Button {
+                    pushpullcommand = .push_local
                     verifypath.removeAll()
                     verifypath.append(Verify(task: .executenpushpullview))
                     
 
                 } label: {
-                    Image(systemName: "arrow.left.arrow.right.circle.fill")
+                    Image(systemName: "arrow.right.circle.fill")
                         .foregroundColor(.blue)
                 }
-                .help("Pull or push")
+                .help("Push")
+            }
+            
+            ToolbarItem {
+                Button {
+                    pushpullcommand = .pull_remote
+                    verifypath.removeAll()
+                    verifypath.append(Verify(task: .executenpushpullview))
+                    
+
+                } label: {
+                    Image(systemName: "arrow.left.circle.fill")
+                        .foregroundColor(.blue)
+                }
+                .help("Pull")
             }
             
             ToolbarItem {
