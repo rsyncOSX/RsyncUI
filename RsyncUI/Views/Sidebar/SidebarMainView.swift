@@ -278,6 +278,9 @@ struct SidebarMainView: View {
 
             if SharedReference.shared.hideverifyremotefunction == true,
                item == .verify_remote { return nil }
+            
+            if SharedReference.shared.hidecalendar == true,
+               item == .calendar { return nil }
 
             // Return nil if there is one or more remote tasks
             // and only remote task is snapshot
