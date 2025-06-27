@@ -41,6 +41,8 @@ struct UserConfiguration: @MainActor Codable {
     var alwaysshowestimateddetailsview: Int = -1
     // Hide Verify View
     var hideverifyremotefunction: Int = -1
+    // Hide Calendar
+    var hidecalendar: Int = -1
 
     private func setuserconfigdata() {
         if rsyncversion3 == 1 {
@@ -118,6 +120,11 @@ struct UserConfiguration: @MainActor Codable {
         } else {
             SharedReference.shared.hideverifyremotefunction = false
         }
+        if hidecalendar == 1 {
+            SharedReference.shared.hidecalendar = true
+        } else {
+            SharedReference.shared.hidecalendar = false
+        }
     }
 
     // Used when reading JSON data from store
@@ -140,6 +147,7 @@ struct UserConfiguration: @MainActor Codable {
         observemountedvolumes = data.observemountedvolumes ?? -1
         alwaysshowestimateddetailsview = data.alwaysshowestimateddetailsview ?? -1
         hideverifyremotefunction = data.hideverifyremotefunction ?? -1
+        hidecalendar = data.hidecalendar ?? -1
         // Set data read from JSON in SharedReference.
         setuserconfigdata()
     }
@@ -219,6 +227,11 @@ struct UserConfiguration: @MainActor Codable {
             hideverifyremotefunction = 1
         } else {
             hideverifyremotefunction = -1
+        }
+        if SharedReference.shared.hidecalendar == true {
+            hidecalendar = 1
+        } else {
+            hidecalendar = -1
         }
     }
 }
