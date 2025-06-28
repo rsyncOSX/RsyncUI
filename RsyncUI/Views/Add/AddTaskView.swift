@@ -112,11 +112,9 @@ struct AddTaskView: View {
                        selectedconfig.task == SharedReference.shared.synchronize
                     {
                         VStack(alignment: .leading) {
-                            
-
                             HStack {
                                 // URLValues(300, "Select a task to save an URL for Estimate & Synchronize", $stringestimate)
-                                
+
                                 Button {
                                     let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
                                     WriteWidgetsURLStringsJSON(data, .estimate)
@@ -126,13 +124,11 @@ struct AddTaskView: View {
                                 .disabled(stringestimate.isEmpty)
                                 .help(stringestimate)
                                 .buttonStyle(ColorfulButtonStyle())
-                                
+
                                 Text("URL Estimate & Synchronize")
                             }
 
                             if selectedconfig.offsiteServer.isEmpty == false {
-                                
-
                                 HStack {
                                     // URLValues(300, "Select a task to save an URL for Verify", $stringverify)
 
@@ -145,14 +141,14 @@ struct AddTaskView: View {
                                     .disabled(stringverify.isEmpty)
                                     .help(stringverify)
                                     .buttonStyle(ColorfulButtonStyle())
-                                    
+
                                     Text("URL Verify")
                                 }
                             }
                         }
                     }
                 }
-                
+
                 // Column 2
                 VStack(alignment: .leading) {
                     if deleteparameterpresent {

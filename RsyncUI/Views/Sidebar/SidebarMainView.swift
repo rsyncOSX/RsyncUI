@@ -58,12 +58,10 @@ struct SidebarMainView: View {
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
-            
             // Only show profile picker if there are other profiles
             // Id default only, do not show profile picker
-            
+
             if rsyncUIdata.validprofiles.isEmpty == false {
-                
                 Picker("", selection: $selectedprofileID) {
                     Text("Default")
                         .tag(nil as ProfilesnamesRecord.ID?)
@@ -75,11 +73,10 @@ struct SidebarMainView: View {
                 .frame(width: 180)
                 .padding([.bottom, .top, .trailing], 7)
                 .disabled(disablesidebarmeny)
-                
             }
-            
+
             Divider()
-            
+
             List(menuitems, selection: $selectedview) { item in
                 NavigationLink(value: item.menuitem) {
                     SidebarRow(sidebaritem: item.menuitem)
@@ -286,7 +283,7 @@ struct SidebarMainView: View {
 
             if SharedReference.shared.hideverifyremotefunction == true,
                item == .verify_remote { return nil }
-            
+
             if SharedReference.shared.hidecalendar == true,
                item == .calendar { return nil }
 
