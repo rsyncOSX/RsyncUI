@@ -18,7 +18,6 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
     case remote_disk_usage
     case URL_verify
     case URL_estimate
-    
 
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
@@ -105,4 +104,3 @@ struct OtherRsyncCommandtoDisplay {
 }
 
 // swiftlint:enable line_length opening_brace
-

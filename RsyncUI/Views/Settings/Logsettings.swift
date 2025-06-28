@@ -66,7 +66,7 @@ struct Logsettings: View {
                         togglehideverifyremotefunction = logsettings.hideverifyremotefunction
                         dataischanged = true
                     }
-                
+
                 ToggleViewDefault(text: NSLocalizedString("Hide Calendar", comment: ""),
                                   binding: $logsettings.hidecalendar)
                     .onChange(of: logsettings.hidecalendar) {
