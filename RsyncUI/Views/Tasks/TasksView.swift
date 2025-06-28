@@ -123,17 +123,19 @@ struct TasksView: View {
             ToolbarItem {
                 if columnVisibility == .detailOnly {
                     VStack {
-                        Picker("", selection: $selectedprofileID) {
-                            Text("Default")
-                                .tag(nil as ProfilesnamesRecord.ID?)
-                            ForEach(rsyncUIdata.validprofiles, id: \.self) { profile in
-                                Text(profile.profilename)
-                                    .tag(profile.id)
+                        if rsyncUIdata.validprofiles.isEmpty == false {
+                            Picker("", selection: $selectedprofileID) {
+                                Text("Default")
+                                    .tag(nil as ProfilesnamesRecord.ID?)
+                                ForEach(rsyncUIdata.validprofiles, id: \.self) { profile in
+                                    Text(profile.profilename)
+                                        .tag(profile.id)
+                                }
                             }
+                            // .frame(width: 180)
+                            // .padding([.bottom, .top, .trailing], 7)
                         }
-                        .frame(width: 180)
-                        .padding([.bottom, .top, .trailing], 7)
-
+                        
                         if SharedReference.shared.newversion {
                             MessageView(mytext: "Update available", size: .caption2)
                                 .padding()
@@ -143,6 +145,10 @@ struct TasksView: View {
                 }
             }
 
+            ToolbarItem {
+                Spacer()
+            }
+            
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
@@ -203,74 +209,77 @@ struct TasksView: View {
                 Spacer()
             }
 
-            ToolbarItem {
-                Button {
-                    selecteduuids.removeAll()
-                    reset()
-                } label: {
-                    if thereareestimates == true {
-                        Image(systemName: "clear")
-                            .foregroundColor(Color(.red))
-                    } else {
-                        Image(systemName: "clear")
-                    }
-                }
-                .help("Reset estimates")
-            }
-
-            ToolbarItem {
-                Button {
-                    guard selecteduuids.count > 0 else { return }
-                    guard alltasksarehalted() == false else { return }
-
-                    guard selecteduuids.count == 1 else {
-                        executetaskpath.append(Tasks(task: .summarizeddetailsview))
-                        return
-                    }
-                    if progressdetails.tasksareestimated(selecteduuids) {
-                        executetaskpath.append(Tasks(task: .dryrunonetaskalreadyestimated))
-                    } else {
-                        executetaskpath.append(Tasks(task: .onetaskdetailsview))
-                    }
-                } label: {
-                    Image(systemName: "text.magnifyingglass")
-                }
-                .help("Rsync output estimated task")
-            }
-
-            ToolbarItem {
-                Button {
-                    executetaskpath.append(Tasks(task: .viewlogfile))
-                } label: {
-                    Image(systemName: "doc.plaintext")
-                }
-                .help("View logfile")
-            }
-
-            ToolbarItem {
-                Button {
-                    executetaskpath.append(Tasks(task: .quick_synchronize))
-                } label: {
-                    Image(systemName: "hare")
-                }
-                .help("Quick synchronize")
-            }
-
-            if alltasksarehalted() == false {
+            Group {
                 ToolbarItem {
                     Button {
-                        if urlcommandestimateandsynchronize {
-                            urlcommandestimateandsynchronize = false
+                        selecteduuids.removeAll()
+                        reset()
+                    } label: {
+                        if thereareestimates == true {
+                            Image(systemName: "clear")
+                                .foregroundColor(Color(.red))
                         } else {
-                            urlcommandestimateandsynchronize = true
+                            Image(systemName: "clear")
+                        }
+                    }
+                    .help("Reset estimates")
+                }
+
+                ToolbarItem {
+                    Button {
+                        guard selecteduuids.count > 0 else { return }
+                        guard alltasksarehalted() == false else { return }
+
+                        guard selecteduuids.count == 1 else {
+                            executetaskpath.append(Tasks(task: .summarizeddetailsview))
+                            return
+                        }
+                        if progressdetails.tasksareestimated(selecteduuids) {
+                            executetaskpath.append(Tasks(task: .dryrunonetaskalreadyestimated))
+                        } else {
+                            executetaskpath.append(Tasks(task: .onetaskdetailsview))
                         }
                     } label: {
-                        Image(systemName: "bolt.shield.fill")
-                            .foregroundColor(Color(.yellow))
+                        Image(systemName: "text.magnifyingglass")
                     }
-                    .help("Estimate & Synchronize")
+                    .help("Rsync output estimated task")
+                }
+
+                ToolbarItem {
+                    Button {
+                        executetaskpath.append(Tasks(task: .viewlogfile))
+                    } label: {
+                        Image(systemName: "doc.plaintext")
+                    }
+                    .help("View logfile")
+                }
+
+                ToolbarItem {
+                    Button {
+                        executetaskpath.append(Tasks(task: .quick_synchronize))
+                    } label: {
+                        Image(systemName: "hare")
+                    }
+                    .help("Quick synchronize")
+                }
+
+                if alltasksarehalted() == false {
+                    ToolbarItem {
+                        Button {
+                            if urlcommandestimateandsynchronize {
+                                urlcommandestimateandsynchronize = false
+                            } else {
+                                urlcommandestimateandsynchronize = true
+                            }
+                        } label: {
+                            Image(systemName: "bolt.shield.fill")
+                                .foregroundColor(Color(.yellow))
+                        }
+                        .help("Estimate & Synchronize")
+                    }
                 }
             }
+            
         })
         .alert(isPresented: $showingAlert) {
             Alert(
