@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OtherRsyncCommandsView: View {
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var config: SynchronizeConfiguration?
     @Binding var otherselectedrsynccommand: OtherRsyncCommand
 
@@ -48,7 +49,8 @@ struct OtherRsyncCommandsView: View {
     var commandstring: String? {
         if let config {
             return OtherRsyncCommandtoDisplay(display: otherselectedrsynccommand,
-                                              config: config).command
+                                              config: config,
+                                              profile: rsyncUIdata.profile).command
         }
         return nil
     }

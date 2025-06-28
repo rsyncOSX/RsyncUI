@@ -112,42 +112,47 @@ struct AddTaskView: View {
                        selectedconfig.task == SharedReference.shared.synchronize
                     {
                         VStack(alignment: .leading) {
-                            Text("URL for Estimate & Synchronize")
+                            
 
                             HStack {
-                                URLValues(300, "Select a task to save an URL for Estimate & Synchronize", $stringestimate)
-
+                                // URLValues(300, "Select a task to save an URL for Estimate & Synchronize", $stringestimate)
+                                
                                 Button {
                                     let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
                                     WriteWidgetsURLStringsJSON(data, .estimate)
                                 } label: {
-                                    Image(systemName: "checkmark.circle")
-                                        .foregroundColor(Color(.blue))
+                                    Image(systemName: "square.and.arrow.down")
                                 }
                                 .disabled(stringestimate.isEmpty)
                                 .help(stringestimate)
+                                .buttonStyle(ColorfulButtonStyle())
+                                
+                                Text("URL Estimate & Synchronize")
                             }
 
                             if selectedconfig.offsiteServer.isEmpty == false {
-                                Text("URL for Verify")
+                                
 
                                 HStack {
-                                    URLValues(300, "Select a task to save an URL for Verify", $stringverify)
+                                    // URLValues(300, "Select a task to save an URL for Verify", $stringverify)
 
                                     Button {
                                         let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
                                         WriteWidgetsURLStringsJSON(data, .verify)
                                     } label: {
-                                        Image(systemName: "checkmark.circle")
-                                            .foregroundColor(Color(.blue))
+                                        Image(systemName: "square.and.arrow.down")
                                     }
                                     .disabled(stringverify.isEmpty)
                                     .help(stringverify)
+                                    .buttonStyle(ColorfulButtonStyle())
+                                    
+                                    Text("URL Verify")
                                 }
                             }
                         }
                     }
                 }
+                
                 // Column 2
                 VStack(alignment: .leading) {
                     if deleteparameterpresent {

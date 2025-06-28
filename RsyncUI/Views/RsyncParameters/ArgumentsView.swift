@@ -36,7 +36,9 @@ struct ArgumentsView: View {
             VStack(alignment: .leading) {
                 Text("Select a task")
 
-                OtherRsyncCommandsView(config: $selectedconfig, otherselectedrsynccommand: $otherselectedrsynccommand)
+                OtherRsyncCommandsView(rsyncUIdata: rsyncUIdata,
+                                       config: $selectedconfig,
+                                       otherselectedrsynccommand: $otherselectedrsynccommand)
                     .disabled(selectedconfig == nil)
             }
         }

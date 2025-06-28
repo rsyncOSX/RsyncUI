@@ -16,6 +16,9 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
     case copy_public_SSHkey
     case verify_public_SSHkey
     case remote_disk_usage
+    case URL_verify
+    case URL_estimate
+    
 
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
@@ -24,11 +27,16 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
 @MainActor
 struct OtherRsyncCommandtoDisplay {
     var command: String
+    var profile: String = "Default"
 
     init(display: OtherRsyncCommand,
-         config: SynchronizeConfiguration)
+         config: SynchronizeConfiguration,
+         profile: String?)
     {
         var str = ""
+        if let profile {
+            self.profile = profile
+        }
         switch display {
         case .list_remote_files:
             if config.offsiteServer.isEmpty == false {
@@ -74,9 +82,27 @@ struct OtherRsyncCommandtoDisplay {
             } else {
                 str = NSLocalizedString("Use macOS Finder", comment: "")
             }
+        case .URL_verify:
+            if config.task == SharedReference.shared.synchronize {
+                let deeplinkurl = DeeplinkURL()
+
+                if config.offsiteServer.isEmpty == false {
+                    // Create verifyremote URL
+                    let urlverify = deeplinkurl.createURLloadandverify(valueprofile: profile, valueid: config.backupID)
+                    str = urlverify?.absoluteString ?? ""
+                }
+            } else {
+                str = ""
+            }
+        case .URL_estimate:
+            let deeplinkurl = DeeplinkURL()
+            // Create estimate and synchronize URL
+            let urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: profile)
+            str = urlestimate?.absoluteString ?? ""
         }
         command = str
     }
 }
 
 // swiftlint:enable line_length opening_brace
+
