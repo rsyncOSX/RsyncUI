@@ -14,13 +14,34 @@ struct EstimateTableView: View {
 
     var body: some View {
         Table(configurations) {
-            TableColumn("") { data in
+            TableColumn("Synchronize ID") { data in
                 if data.id == estimatinguuid {
-                    Image(systemName: "arrowshape.right.fill")
-                        .foregroundColor(Color(.blue))
+                    HStack {
+                        Image(systemName: "arrowshape.right.fill")
+                            .foregroundColor(Color(.blue))
+                        
+                        if data.backupID.isEmpty == true {
+                            Text("Synchronize ID")
+                                .foregroundColor(color(uuid: data.id))
+
+                        } else {
+                            Text(data.backupID)
+                                .foregroundColor(color(uuid: data.id))
+                        }
+                    }
+                } else {
+                    if data.backupID.isEmpty == true {
+                        Text("Synchronize ID")
+                            .foregroundColor(color(uuid: data.id))
+
+                    } else {
+                        Text(data.backupID)
+                            .foregroundColor(color(uuid: data.id))
+                    }
                 }
             }
-            .width(min: 25, max: 25)
+            .width(min: 50, max: 200)
+            /*
             TableColumn("Synchronize ID") { data in
                 if data.backupID.isEmpty == true {
                     Text("Synchronize ID")
@@ -32,6 +53,7 @@ struct EstimateTableView: View {
                 }
             }
             .width(min: 50, max: 200)
+             */
             TableColumn("Action") { data in
                 if data.task == SharedReference.shared.halted {
                     Image(systemName: "stop.fill")
