@@ -25,14 +25,11 @@ final class ObservableSSH {
             SharedReference.shared.sshkeypathandidentityfile = nil
             return false
         }
-        do {
-            let verified = try sshcreatekey?.verifysshkeypath(keypath)
-            if verified == true {
-                SharedReference.shared.sshkeypathandidentityfile = keypath
-                return true
-            }
-            return false
-        } catch {
+        let verified = verifysshkeypath(keypath)
+        if verified == true {
+            SharedReference.shared.sshkeypathandidentityfile = keypath
+            return true
+        } else {
             return false
         }
     }
@@ -42,16 +39,29 @@ final class ObservableSSH {
             SharedReference.shared.sshport = nil
             return false
         }
-        do {
-            let verified = try sshcreatekey?.verifysshport(port)
-            if verified == true {
-                SharedReference.shared.sshport = Int(port)
-                return true
-            }
-            return false
-        } catch {
+        let verified = verifysshport(port)
+        if verified == true {
+            SharedReference.shared.sshport = Int(port)
+            return true
+        } else {
             return false
         }
+    }
+    
+    // Verify SSH keypathidentityfile
+    func verifysshkeypath(_ keypath: String) -> Bool {
+        guard keypath.isEmpty == false else { return false }
+        if keypath.first != "~" { return false }
+        let number = keypath.filter{ $0 == "/" }.count
+        guard number == 2 else { return false }
+        return true
+    }
+    
+    // Verify SSH port is a valid INT
+    func verifysshport(_ port: String) -> Bool {
+        guard port.isEmpty == false else { return false }
+        if Int(port) != nil { return true }
+        return false
     }
 
     init() {
