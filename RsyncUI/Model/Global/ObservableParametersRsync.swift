@@ -131,16 +131,12 @@ final class ObservableParametersRsync {
             configuration?.sshkeypathandidentityfile = nil
             return false
         }
-        do {
-            let verified = try sshcreatekey?.verifysshkeypath(keypath)
-            if verified == true {
-                configuration?.sshkeypathandidentityfile = keypath
-                return true
-            }
-            return false
-        } catch {
-            return false
+        let verified = verifysshkeypath(keypath)
+        if verified {
+            configuration?.sshkeypathandidentityfile = keypath
+            return true
         }
+        return false
     }
 
     func setsshport(_ port: String) -> Bool {
@@ -149,16 +145,28 @@ final class ObservableParametersRsync {
             configuration?.sshport = nil
             return false
         }
-        do {
-            let verified = try sshcreatekey?.verifysshport(port)
-            if verified == true {
-                configuration?.sshport = Int(port)
-                return true
-            }
-            return false
-        } catch {
-            return false
+        let verified = verifysshport(port)
+        if verified {
+            configuration?.sshport = Int(port)
+            return true
         }
+        return false
+    }
+    
+    // Verify SSH keypathidentityfile
+    func verifysshkeypath(_ keypath: String) -> Bool {
+        guard keypath.isEmpty == false else { return false }
+        if keypath.first != "~" { return false }
+        let number = keypath.filter{ $0 == "/" }.count
+        guard number == 2 else { return false }
+        return true
+    }
+    
+    // Verify SSH port is a valid INT
+    func verifysshport(_ port: String) -> Bool {
+        guard port.isEmpty == false else { return false }
+        if Int(port) != nil { return true }
+        return false
     }
 
     // parameter4 --delete
