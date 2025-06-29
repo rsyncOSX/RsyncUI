@@ -85,5 +85,5 @@ final class SharedReference {
     // Hide Verify Remote function in main Sidebar
     @ObservationIgnored var hideverifyremotefunction: Bool = true
     // Hide Calendar function in main Sidebar
-    @ObservationIgnored var hidecalendar: Bool = false
+    @ObservationIgnored var hidecalendar: Bool = true
 }
