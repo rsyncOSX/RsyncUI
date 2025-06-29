@@ -28,3 +28,22 @@ struct EditValue: View {
         myprompt = Text(str ?? "")
     }
 }
+
+struct EditValueError: View {
+   
+    var myvalue: Binding<String>
+    var mywidth: CGFloat?
+
+    var body: some View {
+        TextField("", text: myvalue)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .frame(width: mywidth, alignment: .trailing)
+            .lineLimit(1)
+            .foregroundColor(Color.red)
+    }
+
+    init(_ width: CGFloat, _ value: Binding<String>) {
+        mywidth = width
+        myvalue = value
+    }
+}

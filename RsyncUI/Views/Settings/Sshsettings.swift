@@ -28,10 +28,20 @@ struct Sshsettings: View {
             }
 
             Section {
-                setsshpath
-
-                setsshport
-
+                
+                if sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile) {
+                    EditValue(400, NSLocalizedString("Global ssh-keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile)
+                } else {
+                    EditValueError(400,$sshsettings.sshkeypathandidentityfile)
+                }
+                
+                if sshsettings.setsshport(sshsettings.sshportnumber) {
+                    EditValue(400, NSLocalizedString("Global ssh-port", comment: ""),
+                              $sshsettings.sshportnumber)
+                } else {
+                    EditValueError(400, $sshsettings.sshportnumber)
+                }
+                
             } header: {
                 Text("Global ssh-keypath and ssh-port")
             }
@@ -70,7 +80,7 @@ struct Sshsettings: View {
         }
         .formStyle(.grouped)
     }
-
+/*
     var setsshpath: some View {
         EditValue(400, NSLocalizedString("Global ssh-keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile)
             .foregroundColor(Color(sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile) ? Color.white : Color.red))
@@ -82,6 +92,7 @@ struct Sshsettings: View {
                   $sshsettings.sshportnumber)
         .foregroundColor(Color(sshsettings.setsshport(sshsettings.sshportnumber) ? Color.white : Color.red))
     }
+ */
 }
 
 extension Sshsettings {
