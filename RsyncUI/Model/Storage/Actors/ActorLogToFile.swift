@@ -118,7 +118,7 @@ actor ActorLogToFile {
         let fm = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial {
             let logfileString = fullpathmacserial.appending("/") + SharedConstants().logname
-            guard fm.locationExists(at: logfileString, kind: .file) == true else { return nil }
+            // guard fm.locationExists(at: logfileString, kind: .file) == true else { return nil }
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
@@ -133,10 +133,14 @@ actor ActorLogToFile {
                         return newdata
                     } else {
                         // Or append any new log data
-                        let data = try Data(contentsOf: logfileURL)
-                        var returneddata = data
-                        returneddata.append(newdata)
-                        return returneddata
+                        if fm.locationExists(at: logfileString, kind: .file) == true {
+                            let data = try Data(contentsOf: logfileURL)
+                            var returneddata = data
+                            returneddata.append(newdata)
+                            return returneddata
+                        } else {
+                            return newdata
+                        }
                     }
                 } catch let e {
                     let error = e
