@@ -28,13 +28,11 @@ actor ActorLogToFile {
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-
-            Logger.process.info("LogToFile: write logfile to \(logfileURL.path, privacy: .public)")
             Logger.process.info("LogToFile: writeloggfile() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
-
             if let logfiledata = await appendloggfileData(newlogadata, reset) {
                 do {
                     try logfiledata.write(to: logfileURL)
+                    Logger.process.info("LogToFile: writeloggfile() logfile \(logfileURL.path, privacy: .public)")
                     let checker = ActorFileSize()
                     Task {
                         do {
@@ -66,12 +64,11 @@ actor ActorLogToFile {
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-
-            Logger.process.info("LogToFile: read logfile \(logfileURL.path, privacy: .public)")
             Logger.process.info("LogToFile: readloggfile() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
 
             do {
                 let data = try Data(contentsOf: logfileURL)
+                Logger.process.info("LogToFile: read logfile \(logfileURL.path, privacy: .public)")
                 let logfile = String(data: data, encoding: .utf8)
                 return logfile.map { line in
                     line.components(separatedBy: .newlines)
@@ -95,12 +92,11 @@ actor ActorLogToFile {
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-
-            Logger.process.info("LogToFile: read logfile \(logfileURL.path, privacy: .public)")
             Logger.process.info("LogToFile: readloggfileasline() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
 
             do {
                 let data = try Data(contentsOf: logfileURL)
+                Logger.process.info("LogToFile: read logfile \(logfileURL.path, privacy: .public)")
                 return String(data: data, encoding: .utf8)
 
             } catch let e {
@@ -122,8 +118,6 @@ actor ActorLogToFile {
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-
-            Logger.process.info("LogToFile: read logfile \(logfileURL.path, privacy: .public)")
             Logger.process.info("LogToFile: appendloggfileData() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
 
             if let newdata = newlogadata.data(using: .utf8) {
@@ -134,12 +128,14 @@ actor ActorLogToFile {
                     } else {
                         // Or append any new log data
                         if fm.locationExists(at: logfileString, kind: .file) == true {
+                            Logger.process.info("LogToFile: append existing logfile \(logfileURL.path, privacy: .public)")
                             let data = try Data(contentsOf: logfileURL)
                             var returneddata = data
                             returneddata.append(newdata)
                             return returneddata
                         } else {
                             // Or if first time write logfile ony return new log data
+                            Logger.process.info("LogToFile: create new logfile \(logfileURL.path, privacy: .public)")
                             return newdata
                         }
                     }
