@@ -30,13 +30,13 @@ struct Sshsettings: View {
             Section {
                 
                 if sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile) {
-                    EditValue(400, NSLocalizedString("Global ssh-keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile)
+                    EditValueScheme(400, NSLocalizedString("Global ssh-keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile)
                 } else {
                     EditValueError(400,$sshsettings.sshkeypathandidentityfile)
                 }
                 
                 if sshsettings.setsshport(sshsettings.sshportnumber) {
-                    EditValue(400, NSLocalizedString("Global ssh-port", comment: ""),
+                    EditValueScheme(400, NSLocalizedString("Global ssh-port", comment: ""),
                               $sshsettings.sshportnumber)
                 } else {
                     EditValueError(400, $sshsettings.sshportnumber)

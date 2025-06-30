@@ -195,7 +195,7 @@ struct RestoreTableView: View {
     }
 
     var setpathforrestore: some View {
-        EditValue(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore)
+        EditValueNoScheme(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore)
             .foregroundColor(restore.verifypathforrestore(restore.pathforrestore) ? Color.white : Color.red)
             .onAppear(perform: {
                 if let pathforrestore = SharedReference.shared.pathforrestore {
@@ -214,7 +214,7 @@ struct RestoreTableView: View {
     }
 
     var setfilestorestore: some View {
-        EditValue(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""),
+        EditValueScheme(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""),
                   $restore.filestorestore)
     }
 

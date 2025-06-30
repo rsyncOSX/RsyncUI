@@ -107,7 +107,7 @@ struct RsyncandPathsettings: View {
     }
 
     var setrsyncpathlocalpath: some View {
-        EditValue(400, nil, $rsyncpathsettings.localrsyncpath)
+        EditValueNoScheme(400, nil, $rsyncpathsettings.localrsyncpath)
             .foregroundColor(rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath) ? Color.white : Color.red)
             .onChange(of: rsyncpathsettings.localrsyncpath) {
                 guard rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath) else {
@@ -125,14 +125,14 @@ struct RsyncandPathsettings: View {
     }
 
     var setrsyncpathdefault: some View {
-        EditValue(400, SetandValidatepathforrsync().getpathforrsync(), $rsyncpathsettings.localrsyncpath)
+        EditValueScheme(400, SetandValidatepathforrsync().getpathforrsync(), $rsyncpathsettings.localrsyncpath)
             .onAppear {
                 dataischanged = false
             }
     }
 
     var setpathforrestore: some View {
-        EditValue(400, NSLocalizedString("Path for restore", comment: ""),
+        EditValueNoScheme(400, NSLocalizedString("Path for restore", comment: ""),
                   $rsyncpathsettings.temporarypathforrestore)
             .foregroundColor(rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore) ? Color.white : Color.red)
             .onAppear(perform: {
@@ -161,7 +161,7 @@ struct RsyncandPathsettings: View {
     }
 
     var setmarkdays: some View {
-        EditValue(400, NSLocalizedString("", comment: ""),
+        EditValueScheme(400, NSLocalizedString("", comment: ""),
                   $rsyncpathsettings.marknumberofdayssince)
             .onChange(of: rsyncpathsettings.marknumberofdayssince) {
                 Task {
