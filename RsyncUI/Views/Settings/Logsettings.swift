@@ -96,6 +96,10 @@ struct Logsettings: View {
                     Button {
                         _ = WriteUserConfigurationJSON(UserConfiguration())
                         Logger.process.info("USER CONFIGURATION is SAVED")
+                        if logsettings.hideschedule {
+                            // Schedule is off, delete any schedules
+                            GlobalTimer.shared.clearSchedules()
+                        }
                         dataischanged = false
                     } label: {
                         Image(systemName: "square.and.arrow.down")
