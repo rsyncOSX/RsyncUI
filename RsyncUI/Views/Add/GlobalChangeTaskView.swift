@@ -114,7 +114,7 @@ struct GlobalChangeTaskView: View {
         Section(header: headerID) {
             HStack {
                 // Synchronize ID
-                EditValue(140, NSLocalizedString("Synchronize ID", comment: ""), $newdata.occurence_backupID)
+                EditValueScheme(140, NSLocalizedString("Synchronize ID", comment: ""), $newdata.occurence_backupID)
                     .onChange(of: newdata.occurence_backupID) {
                         Task {
                             try await Task.sleep(seconds: 2)
@@ -132,7 +132,7 @@ struct GlobalChangeTaskView: View {
                     .disabled(configurations.isEmpty)
                     .focused($focusField, equals: .synchronizeIDField)
 
-                EditValue(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_backupID)
+                EditValueScheme(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_backupID)
                     .onChange(of: newdata.replace_backupID) {
                         Task {
                             try await Task.sleep(seconds: 2)
@@ -157,7 +157,7 @@ struct GlobalChangeTaskView: View {
         Section(header: headerlocalremote) {
             HStack {
                 // localcatalog
-                EditValue(140, NSLocalizedString("Local folder", comment: ""), $newdata.occurence_localcatalog)
+                EditValueScheme(140, NSLocalizedString("Local folder", comment: ""), $newdata.occurence_localcatalog)
                     .onChange(of: newdata.occurence_localcatalog) {
                         Task {
                             try await Task.sleep(seconds: 2)
@@ -176,7 +176,7 @@ struct GlobalChangeTaskView: View {
                     .focused($focusField, equals: .localcatalogField)
 
                 // localcatalog
-                EditValue(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_localcatalog)
+                EditValueScheme(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_localcatalog)
                     .onChange(of: newdata.replace_localcatalog) {
                         Task {
                             try await Task.sleep(seconds: 2)
@@ -196,7 +196,7 @@ struct GlobalChangeTaskView: View {
             }
 
             HStack {
-                EditValue(140, NSLocalizedString("Remote folder", comment: ""), $newdata.occurence_remotecatalog)
+                EditValueScheme(140, NSLocalizedString("Remote folder", comment: ""), $newdata.occurence_remotecatalog)
                     .onChange(of: newdata.occurence_remotecatalog) {
                         Task {
                             try await Task.sleep(seconds: 2)
@@ -214,7 +214,7 @@ struct GlobalChangeTaskView: View {
                     .disabled(configurations.isEmpty)
                     .focused($focusField, equals: .remotecatalogField)
 
-                EditValue(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_remotecatalog)
+                EditValueScheme(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_remotecatalog)
                     .onChange(of: newdata.replace_remotecatalog) {
                         Task {
                             try await Task.sleep(seconds: 2)
@@ -238,7 +238,7 @@ struct GlobalChangeTaskView: View {
     var remoteuserandserver: some View {
         Section(header: headerremote) {
             // Remote user
-            EditValue(300, NSLocalizedString("Remote user", comment: ""), $newdata.occurence_remoteuser)
+            EditValueScheme(300, NSLocalizedString("Remote user", comment: ""), $newdata.occurence_remoteuser)
                 .onChange(of: newdata.occurence_remoteuser) {
                     Task {
                         try await Task.sleep(seconds: 2)
@@ -257,7 +257,7 @@ struct GlobalChangeTaskView: View {
                 .focused($focusField, equals: .remoteuserField)
 
             // Remote server
-            EditValue(300, NSLocalizedString("Remote server", comment: ""), $newdata.occurence_remoteserver)
+            EditValueScheme(300, NSLocalizedString("Remote server", comment: ""), $newdata.occurence_remoteserver)
                 .onChange(of: newdata.occurence_remoteserver) {
                     Task {
                         try await Task.sleep(seconds: 2)
