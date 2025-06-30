@@ -139,6 +139,7 @@ actor ActorLogToFile {
                             returneddata.append(newdata)
                             return returneddata
                         } else {
+                            // Or if first time write logfile ony return new log data
                             return newdata
                         }
                     }
