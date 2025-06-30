@@ -14,7 +14,7 @@ struct Logsettings: View {
     @State private var toggleobservemountedvolumes: Bool = false
     @State private var togglealwaysshowestimateddetailsview: Bool = false
     @State private var togglehideverifyremotefunction: Bool = false
-    @State private var togglehidecalendar: Bool = false
+    @State private var togglehideschedule: Bool = false
 
     @State private var dataischanged: Bool = false
 
@@ -67,11 +67,11 @@ struct Logsettings: View {
                         dataischanged = true
                     }
 
-                ToggleViewDefault(text: NSLocalizedString("Hide Calendar", comment: ""),
-                                  binding: $logsettings.hidecalendar)
-                    .onChange(of: logsettings.hidecalendar) {
-                        SharedReference.shared.hidecalendar = logsettings.hidecalendar
-                        togglehidecalendar = logsettings.hidecalendar
+                ToggleViewDefault(text: NSLocalizedString("Hide Schedule", comment: ""),
+                                  binding: $logsettings.hideschedule)
+                    .onChange(of: logsettings.hideschedule) {
+                        SharedReference.shared.hideschedule = logsettings.hideschedule
+                        togglehideschedule = logsettings.hideschedule
                         dataischanged = true
                     }
 

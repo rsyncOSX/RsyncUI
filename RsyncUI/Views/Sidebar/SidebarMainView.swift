@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
-    case synchronize, tasks, rsync_parameters, verify_tasks, snapshots, log_listings, restore, profiles, verify_remote, calendar
+    case synchronize, tasks, rsync_parameters, verify_tasks, snapshots, log_listings, restore, profiles, verify_remote, schedule
     var id: String { rawValue }
 }
 
@@ -262,7 +262,7 @@ struct SidebarMainView: View {
                              verifypath: $verifypath,
                              urlcommandverify: $urlcommandverify,
                              queryitem: $queryitem)
-        case .calendar:
+        case .schedule:
             NavigationStack {
                 CalendarMonthView(rsyncUIdata: rsyncUIdata,
                                   scheduledata: scheduledata,
@@ -298,8 +298,8 @@ struct SidebarMainView: View {
             if SharedReference.shared.hideverifyremotefunction == true,
                item == .verify_remote { return nil }
 
-            if SharedReference.shared.hidecalendar == true,
-               item == .calendar { return nil }
+            if SharedReference.shared.hideschedule == true,
+               item == .schedule { return nil }
 
             // Return nil if there is one or more remote tasks
             // and only remote task is snapshot
@@ -584,7 +584,7 @@ struct SidebarRow: View {
             "arrow.triangle.branch"
         case .verify_remote:
             "arrow.down.circle.fill"
-        case .calendar:
+        case .schedule:
             "calendar.circle.fill"
         case .verify_tasks:
             "arrow.down.circle.fill"

@@ -29,5 +29,5 @@ final class ObservableLogSettings {
     // Hide Verify Remote view
     var hideverifyremotefunction: Bool = SharedReference.shared.hideverifyremotefunction
     // Hide Calendar
-    var hidecalendar: Bool = SharedReference.shared.hidecalendar
+    var hideschedule: Bool = SharedReference.shared.hideschedule
 }
