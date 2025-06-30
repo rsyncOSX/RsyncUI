@@ -39,7 +39,7 @@ struct DecodeUserConfiguration: Codable {
     // Hide Verify function
     let hideverifyremotefunction: Int?
     // Hide Calendar
-    let hidecalendar: Int?
+    let hideschedule: Int?
 
     enum CodingKeys: String, CodingKey {
         case rsyncversion3
@@ -59,7 +59,7 @@ struct DecodeUserConfiguration: Codable {
         case observemountedvolumes
         case alwaysshowestimateddetailsview
         case hideverifyremotefunction
-        case hidecalendar
+        case hideschedule
     }
 
     init(from decoder: Decoder) throws {
@@ -81,6 +81,6 @@ struct DecodeUserConfiguration: Codable {
         observemountedvolumes = try values.decodeIfPresent(Int.self, forKey: .observemountedvolumes)
         alwaysshowestimateddetailsview = try values.decodeIfPresent(Int.self, forKey: .alwaysshowestimateddetailsview)
         hideverifyremotefunction = try values.decodeIfPresent(Int.self, forKey: .hideverifyremotefunction)
-        hidecalendar = try values.decodeIfPresent(Int.self, forKey: .hidecalendar)
+        hideschedule = try values.decodeIfPresent(Int.self, forKey: .hideschedule)
     }
 }
