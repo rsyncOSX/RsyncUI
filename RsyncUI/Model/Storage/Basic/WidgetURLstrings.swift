@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-struct WidgetURLstrings: Codable {
+struct WidgetURLstrings: @MainActor Codable {
     var urlstringestimate: String?
     var urlstringverify: String?
 
