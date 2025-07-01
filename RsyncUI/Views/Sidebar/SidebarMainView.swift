@@ -587,7 +587,7 @@ struct SidebarRow: View {
         case .schedule:
             "calendar.circle.fill"
         case .verify_tasks:
-            "arrow.down.circle.fill"
+            "hand.thumbsup.fill"
         }
     }
 }
