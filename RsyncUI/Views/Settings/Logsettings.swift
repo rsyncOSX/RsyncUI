@@ -16,47 +16,38 @@ struct Logsettings: View {
     @State private var togglehideverifyremotefunction: Bool = false
     @State private var togglehideschedule: Bool = false
 
-    @State private var dataischanged: Bool = false
-
     var body: some View {
         Form {
             Section {
                 ToggleViewDefault(text: NSLocalizedString("Monitor network", comment: ""), binding: $logsettings.monitornetworkconnection)
                     .onChange(of: logsettings.monitornetworkconnection) {
                         SharedReference.shared.monitornetworkconnection = logsettings.monitornetworkconnection
-                        dataischanged = true
                     }
                 ToggleViewDefault(text: NSLocalizedString("Check for error in output", comment: ""), binding: $logsettings.checkforerrorinrsyncoutput)
                     .onChange(of: logsettings.checkforerrorinrsyncoutput) {
                         SharedReference.shared.checkforerrorinrsyncoutput = logsettings.checkforerrorinrsyncoutput
-                        dataischanged = true
                     }
                 ToggleViewDefault(text: NSLocalizedString("Add summary logrecord", comment: ""), binding: $logsettings.addsummarylogrecord)
                     .onChange(of: logsettings.addsummarylogrecord) {
                         SharedReference.shared.addsummarylogrecord = logsettings.addsummarylogrecord
-                        dataischanged = true
                     }
                 ToggleViewDefault(text: NSLocalizedString("No time delay Synchronize URL-actions", comment: ""), binding: $logsettings.synchronizewithouttimedelay)
                     .onChange(of: logsettings.synchronizewithouttimedelay) {
                         SharedReference.shared.synchronizewithouttimedelay = logsettings.synchronizewithouttimedelay
-                        dataischanged = true
                     }
                 ToggleViewDefault(text: NSLocalizedString("Hide the Sidebar on startup", comment: ""), binding: $logsettings.sidebarishidden)
                     .onChange(of: logsettings.sidebarishidden) {
                         SharedReference.shared.sidebarishidden = logsettings.sidebarishidden
-                        dataischanged = true
                     }
                 ToggleViewDefault(text: NSLocalizedString("Observe mounting of external drives", comment: ""), binding: $logsettings.observemountedvolumes)
                     .onChange(of: logsettings.observemountedvolumes) {
                         SharedReference.shared.observemountedvolumes = logsettings.observemountedvolumes
                         toggleobservemountedvolumes = logsettings.observemountedvolumes
-                        dataischanged = true
                     }
                 ToggleViewDefault(text: NSLocalizedString("Always present the summarized estimate view", comment: ""), binding: $logsettings.alwaysshowestimateddetailsview)
                     .onChange(of: logsettings.alwaysshowestimateddetailsview) {
                         SharedReference.shared.alwaysshowestimateddetailsview = logsettings.alwaysshowestimateddetailsview
                         togglealwaysshowestimateddetailsview = logsettings.alwaysshowestimateddetailsview
-                        dataischanged = true
                     }
 
                 ToggleViewDefault(text: NSLocalizedString("Hide Verify remote", comment: ""),
@@ -64,7 +55,6 @@ struct Logsettings: View {
                     .onChange(of: logsettings.hideverifyremotefunction) {
                         SharedReference.shared.hideverifyremotefunction = logsettings.hideverifyremotefunction
                         togglehideverifyremotefunction = logsettings.hideverifyremotefunction
-                        dataischanged = true
                     }
 
                 ToggleViewDefault(text: NSLocalizedString("Hide Schedule", comment: ""),
@@ -72,14 +62,12 @@ struct Logsettings: View {
                     .onChange(of: logsettings.hideschedule) {
                         SharedReference.shared.hideschedule = logsettings.hideschedule
                         togglehideschedule = logsettings.hideschedule
-                        dataischanged = true
                     }
 
                 if SharedReference.shared.rsyncversion3 {
                     ToggleViewDefault(text: NSLocalizedString("Confirm execute", comment: ""), binding: $logsettings.confirmexecute)
                         .onChange(of: logsettings.confirmexecute) {
                             SharedReference.shared.confirmexecute = logsettings.confirmexecute
-                            dataischanged = true
                         }
                 }
 
@@ -91,24 +79,21 @@ struct Logsettings: View {
                 Text("Monitor network, error and log settings")
             }
 
-            if dataischanged {
-                Section {
-                    Button {
-                        _ = WriteUserConfigurationJSON(UserConfiguration())
-                        Logger.process.info("USER CONFIGURATION is SAVED")
-                        if logsettings.hideschedule {
-                            // Schedule is off, delete any schedules
-                            GlobalTimer.shared.clearSchedules()
-                        }
-                        dataischanged = false
-                    } label: {
-                        Image(systemName: "square.and.arrow.down")
+            Section {
+                Button {
+                    _ = WriteUserConfigurationJSON(UserConfiguration())
+                    Logger.process.info("USER CONFIGURATION is SAVED")
+                    if logsettings.hideschedule {
+                        // Schedule is off, delete any schedules
+                        GlobalTimer.shared.clearSchedules()
                     }
-                    .help("Save")
-                    .buttonStyle(ColorfulButtonStyle())
-                } header: {
-                    Text("Save userconfiguration")
+                } label: {
+                    Image(systemName: "square.and.arrow.down")
                 }
+                .help("Save userconfiguration")
+                .buttonStyle(ColorfulButtonStyle())
+            } header: {
+                Text("Save userconfiguration")
             }
         }
         .formStyle(.grouped)

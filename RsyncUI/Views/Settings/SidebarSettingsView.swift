@@ -30,7 +30,7 @@ struct SidebarSettingsView: View {
         } detail: {
             settingsView(selectedsetting)
         }
-        .frame(minWidth: 300, minHeight: 500)
+        .frame(minWidth: 300, minHeight: 600)
         .navigationTitle("RsyncUI settings")
     }
 
