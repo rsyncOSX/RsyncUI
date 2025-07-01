@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ConfigurationsTableDataMainView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var filterstring: String
@@ -118,7 +120,7 @@ struct ConfigurationsTableDataMainView: View {
                         return 0
                     }
                 }
-                let color: Color = markconfig(seconds) == true ? .red : .white
+                let color: Color = markconfig(seconds) == true ? .red : (colorScheme == .dark ? .white : .black)
 
                 Text(String(format: "%.2f", seconds / (60 * 60 * 24)))
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)

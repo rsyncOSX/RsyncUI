@@ -583,7 +583,7 @@ struct SidebarRow: View {
         case .profiles:
             "arrow.triangle.branch"
         case .verify_remote:
-            "arrow.down.circle.fill"
+            "arrow.left.arrow.right.circle.fill"
         case .schedule:
             "calendar.circle.fill"
         case .verify_tasks:
