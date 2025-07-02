@@ -24,7 +24,7 @@ final class ObservableRestore {
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         Task {
             restorefilelist = await
-                CreateOutputforviewRestorefiles().createrestoredfilesoutputforview(stringoutputfromrsync)
+                ActorCreateOutputforviewRestorefiles().createrestoredfilesoutputforview(stringoutputfromrsync)
         }
         restorefilesinprogress = false
         presentrestorelist = true

@@ -268,7 +268,7 @@ extension RestoreTableView {
         restore.restorefilelist.removeAll()
         Task {
             restore.restorefilelist = await
-                CreateOutputforviewRestorefiles().createoutputforview(stringoutputfromrsync)
+                ActorCreateOutputforviewRestorefiles().createoutputforview(stringoutputfromrsync)
         }
     }
 
@@ -329,32 +329,3 @@ extension RestoreTableView {
 
 // swiftlint:enable line_length
 
-import OSLog
-
-actor CreateOutputforviewRestorefiles {
-    // Show filelist for Restore, the TrimOutputForRestore prepares list
-    @concurrent
-    nonisolated func createoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
-        Logger.process.info("CreateOutputforviewRestorefiles: createoutputforview()  MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
-        if let stringoutputfromrsync {
-            if let trimmeddata = await TrimOutputForRestore(stringoutputfromrsync).trimmeddata {
-                return trimmeddata.map { filename in
-                    RsyncOutputData(record: filename)
-                }
-            }
-        }
-        return []
-    }
-
-    // After a restore, present files
-    @concurrent
-    nonisolated func createrestoredfilesoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
-        Logger.process.info("CreateOutputforviewRestorefiles: createrestoredfilesoutputforview() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
-        if let stringoutputfromrsync {
-            return stringoutputfromrsync.map { filename in
-                RsyncOutputData(record: filename)
-            }
-        }
-        return []
-    }
-}
