@@ -72,7 +72,7 @@ struct SidebarMainView: View {
                         }
                     }
                     .disabled(disablesidebarmeny)
-                    .glassEffect(in: .rect(cornerRadius: 16.0))
+                    .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 16))
                     
                 } else {
                     Picker("", selection: $selectedprofileID) {
