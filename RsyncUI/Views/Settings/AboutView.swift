@@ -100,7 +100,7 @@ struct AboutView: View {
         }
         .task {
             if SharedReference.shared.newversion {
-                urlstring = await GetversionofRsyncUI().downloadlinkofrsyncui() ?? ""
+                urlstring = await ActorGetversionofRsyncUI().downloadlinkofrsyncui() ?? ""
             }
         }
         .formStyle(.grouped)
