@@ -257,7 +257,7 @@ struct RsyncParametersView: View {
 
     var setsshpath: some View {
         EditValueNoScheme(300, "ssh-keypath and identityfile",
-                  $parameters.sshkeypathandidentityfile)
+                          $parameters.sshkeypathandidentityfile)
             .foregroundColor(parameters.sshkeypath(parameters.sshkeypathandidentityfile) ? Color.white : Color.red)
     }
 

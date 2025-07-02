@@ -1,5 +1,5 @@
 //
-//  EditValue.swift
+//  EditValueScheme.swift
 //  RsyncSwiftUI
 //
 //  Created by Thomas Evensen on 25/02/2021.
@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditValueScheme: View {
     @Environment(\.colorScheme) var colorScheme
-    
+
     var myvalue: Binding<String>
     var mywidth: CGFloat?
     var myprompt: Text?
@@ -31,7 +31,7 @@ struct EditValueScheme: View {
 
 struct EditValueNoScheme: View {
     @Environment(\.colorScheme) var colorScheme
-    
+
     var myvalue: Binding<String>
     var mywidth: CGFloat?
     var myprompt: Text?
@@ -51,7 +51,6 @@ struct EditValueNoScheme: View {
 }
 
 struct EditValueError: View {
-   
     var myvalue: Binding<String>
     var mywidth: CGFloat?
 

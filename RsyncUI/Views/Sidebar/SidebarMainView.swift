@@ -73,7 +73,7 @@ struct SidebarMainView: View {
                     }
                     .disabled(disablesidebarmeny)
                     .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 16))
-                    
+
                 } else {
                     Picker("", selection: $selectedprofileID) {
                         Text("Default")

@@ -35,7 +35,7 @@ struct ToggleViewDefault: View {
             Toggle(mytext ?? "", isOn: mybinding)
                 .labelsHidden()
                 .toggleStyle(CheckboxToggleStyle())
-            
+
             Text(mytext ?? "")
                 .foregroundColor(mybinding.wrappedValue ? .blue : (colorScheme == .dark ? .white : .black))
                 .toggleStyle(CheckboxToggleStyle())

@@ -9,7 +9,6 @@ import OSLog
 import SwiftUI
 
 struct RsyncandPathsettings: View {
-    
     @State private var rsyncpathsettings = ObservableRsyncPathSetting()
 
     var body: some View {
@@ -121,7 +120,7 @@ struct RsyncandPathsettings: View {
 
     var setpathforrestore: some View {
         EditValueNoScheme(400, NSLocalizedString("Path for restore", comment: ""),
-                  $rsyncpathsettings.temporarypathforrestore)
+                          $rsyncpathsettings.temporarypathforrestore)
             .foregroundColor(rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore) ? Color.white : Color.red)
             .onAppear(perform: {
                 if let pathforrestore = SharedReference.shared.pathforrestore {
@@ -143,7 +142,7 @@ struct RsyncandPathsettings: View {
 
     var setmarkdays: some View {
         EditValueScheme(400, NSLocalizedString("", comment: ""),
-                  $rsyncpathsettings.marknumberofdayssince)
+                        $rsyncpathsettings.marknumberofdayssince)
             .onChange(of: rsyncpathsettings.marknumberofdayssince) {
                 Task {
                     try await Task.sleep(seconds: 1)

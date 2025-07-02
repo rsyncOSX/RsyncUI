@@ -47,16 +47,16 @@ final class ObservableSSH {
             return false
         }
     }
-    
+
     // Verify SSH keypathidentityfile
     func verifysshkeypath(_ keypath: String) -> Bool {
         guard keypath.isEmpty == false else { return false }
         if keypath.first != "~" { return false }
-        let number = keypath.filter{ $0 == "/" }.count
+        let number = keypath.filter { $0 == "/" }.count
         guard number == 2 else { return false }
         return true
     }
-    
+
     // Verify SSH port is a valid INT
     func verifysshport(_ port: String) -> Bool {
         guard port.isEmpty == false else { return false }

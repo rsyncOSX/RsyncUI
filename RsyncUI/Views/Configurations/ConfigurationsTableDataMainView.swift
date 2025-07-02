@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ConfigurationsTableDataMainView: View {
     @Environment(\.colorScheme) var colorScheme
-    
+
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var filterstring: String

@@ -135,7 +135,7 @@ struct TasksView: View {
                             // .frame(width: 180)
                             // .padding([.bottom, .top, .trailing], 7)
                         }
-                        
+
                         if SharedReference.shared.newversion {
                             MessageView(mytext: "Update available", size: .caption2)
                                 .padding()
@@ -148,7 +148,7 @@ struct TasksView: View {
             ToolbarItem {
                 Spacer()
             }
-            
+
             ToolbarItem {
                 Button {
                     guard SharedReference.shared.norsync == false else { return }
@@ -279,7 +279,7 @@ struct TasksView: View {
                     }
                 }
             }
-            
+
         })
         .alert(isPresented: $showingAlert) {
             Alert(

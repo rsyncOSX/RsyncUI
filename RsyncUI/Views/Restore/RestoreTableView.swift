@@ -215,7 +215,7 @@ struct RestoreTableView: View {
 
     var setfilestorestore: some View {
         EditValueScheme(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""),
-                  $restore.filestorestore)
+                        $restore.filestorestore)
     }
 
     var snapshotfolderpicker: some View {
@@ -328,4 +328,3 @@ extension RestoreTableView {
 }
 
 // swiftlint:enable line_length
-

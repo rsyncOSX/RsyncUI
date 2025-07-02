@@ -98,7 +98,7 @@ struct ExportView: View {
 
     var setfilename: some View {
         EditValueScheme(150, NSLocalizedString("Filename export", comment: ""),
-                  $filenameexport)
+                        $filenameexport)
             .textContentType(.none)
     }
 

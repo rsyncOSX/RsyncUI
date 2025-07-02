@@ -378,7 +378,7 @@ struct AddTaskView: View {
     // Add and edit text values
     var setlocalcatalogsyncremote: some View {
         EditValueScheme(300, NSLocalizedString("Add Remote folder - required", comment: ""),
-                  $newdata.localcatalog)
+                        $newdata.localcatalog)
             .focused($focusField, equals: .localcatalogField)
             .textContentType(.none)
             .submitLabel(.continue)
@@ -386,7 +386,7 @@ struct AddTaskView: View {
 
     var setremotecatalogsyncremote: some View {
         EditValueScheme(300, NSLocalizedString("Add Local folder - required", comment: ""),
-                  $newdata.remotecatalog)
+                        $newdata.remotecatalog)
             .focused($focusField, equals: .remotecatalogField)
             .textContentType(.none)
             .submitLabel(.continue)
@@ -394,7 +394,7 @@ struct AddTaskView: View {
 
     var setlocalcatalog: some View {
         EditValueScheme(300, NSLocalizedString("Add Local folder - required", comment: ""),
-                  $newdata.localcatalog)
+                        $newdata.localcatalog)
             .focused($focusField, equals: .localcatalogField)
             .textContentType(.none)
             .submitLabel(.continue)
@@ -402,7 +402,7 @@ struct AddTaskView: View {
 
     var setremotecatalog: some View {
         EditValueScheme(300, NSLocalizedString("Add Remote folder - required", comment: ""),
-                  $newdata.remotecatalog)
+                        $newdata.remotecatalog)
             .focused($focusField, equals: .remotecatalogField)
             .textContentType(.none)
             .submitLabel(.continue)
@@ -487,7 +487,7 @@ struct AddTaskView: View {
 
     var setID: some View {
         EditValueScheme(300, NSLocalizedString("Add synchronize ID", comment: ""),
-                  $newdata.backupID)
+                        $newdata.backupID)
             .focused($focusField, equals: .synchronizeIDField)
             .textContentType(.none)
             .submitLabel(.continue)
@@ -536,7 +536,7 @@ struct AddTaskView: View {
 
     var setremoteuser: some View {
         EditValueScheme(300, NSLocalizedString("Add remote user", comment: ""),
-                  $newdata.remoteuser)
+                        $newdata.remoteuser)
             .focused($focusField, equals: .remoteuserField)
             .textContentType(.none)
             .submitLabel(.continue)
@@ -544,7 +544,7 @@ struct AddTaskView: View {
 
     var setremoteserver: some View {
         EditValueScheme(300, NSLocalizedString("Add remote server", comment: ""),
-                  $newdata.remoteserver)
+                        $newdata.remoteserver)
             .focused($focusField, equals: .remoteserverField)
             .textContentType(.none)
             .submitLabel(.return)
