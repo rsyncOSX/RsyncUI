@@ -1,13 +1,13 @@
 //
-//  CreateOutputforviewOutputRsync.swift
+//  ActorCreateOutputforviewOutputRsync.swift
 //  RsyncUI
 //
-//  Created by Thomas Evensen on 20/03/2025.
+//  Created by Thomas Evensen on 02/07/2025.
 //
 
 import OSLog
 
-actor CreateOutputforviewOutputRsync {
+actor ActorCreateOutputforviewOutputRsync {
     // From Array[String]
     @concurrent
     nonisolated func createoutputforviewoutputrsync(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {

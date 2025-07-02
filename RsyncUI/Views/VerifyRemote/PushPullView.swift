@@ -129,7 +129,7 @@ struct PushPullView: View {
 
         if isadjusted == false {
             Task {
-                pullremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
+                pullremotedatanumbers?.outputfromrsync = await ActorCreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
             }
         }
         // Then do a synchronize task, adjusted for push vs pull
@@ -160,12 +160,12 @@ struct PushPullView: View {
             // Adjust both outputs
             pushorpull.adjustoutput()
             Task {
-                pullremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(pushorpull.adjustedpull)
-                pushremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(pushorpull.adjustedpush)
+                pullremotedatanumbers?.outputfromrsync = await ActorCreateOutputforviewOutputRsync().createoutputforviewoutputrsync(pushorpull.adjustedpull)
+                pushremotedatanumbers?.outputfromrsync = await ActorCreateOutputforviewOutputRsync().createoutputforviewoutputrsync(pushorpull.adjustedpush)
             }
         } else {
             Task {
-                pushremotedatanumbers?.outputfromrsync = await CreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
+                pushremotedatanumbers?.outputfromrsync = await ActorCreateOutputforviewOutputRsync().createoutputforviewoutputrsync(stringoutputfromrsync)
             }
         }
     }
