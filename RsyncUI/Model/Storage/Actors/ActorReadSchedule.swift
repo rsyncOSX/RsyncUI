@@ -40,7 +40,11 @@ actor ActorReadSchedule {
                     {
                         return nil
                     } else {
-                        return validprofiles.contains(item.profile ?? "") ? item : nil
+                        if let profile = item.profile {
+                            return validprofiles.contains(profile) ? item : nil
+                        } else {
+                            return item
+                        }
                     }
                 }
             }
