@@ -13,7 +13,7 @@ struct SharedConstants: Sendable {
     // File quickfile
     let filenamequicktaskjson = "quicktask.json"
     // Caldenarfile
-    let caldenarfilejson: String = "calendar.json"
+    let caldenarfilejson: String = "schedule.json"
     // Filename logfile
     let logname: String = "rsyncui.txt"
     // filsize logfile warning
