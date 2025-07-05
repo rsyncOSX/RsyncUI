@@ -30,7 +30,6 @@ struct EditValueScheme: View {
 }
 
 struct EditValueNoScheme: View {
-    @Environment(\.colorScheme) var colorScheme
 
     var myvalue: Binding<String>
     var mywidth: CGFloat?
