@@ -28,18 +28,11 @@ struct Sshsettings: View {
             }
 
             Section {
-                if sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile) {
-                    EditValueScheme(400, NSLocalizedString("Global ssh-keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile)
-                } else {
-                    EditValueError(400, $sshsettings.sshkeypathandidentityfile)
-                }
+                EditValueErrorScheme(400, NSLocalizedString("Global ssh-keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile,
+                                      sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile))
 
-                if sshsettings.setsshport(sshsettings.sshportnumber) {
-                    EditValueScheme(400, NSLocalizedString("Global ssh-port", comment: ""),
-                                    $sshsettings.sshportnumber)
-                } else {
-                    EditValueError(400, $sshsettings.sshportnumber)
-                }
+                EditValueErrorScheme(400, NSLocalizedString("Global ssh-port", comment: ""),
+                                     $sshsettings.sshportnumber, sshsettings.setsshport(sshsettings.sshportnumber))
 
             } header: {
                 Text("Global ssh-keypath and ssh-port")

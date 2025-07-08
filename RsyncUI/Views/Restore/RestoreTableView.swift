@@ -195,7 +195,7 @@ struct RestoreTableView: View {
     }
 
     var setpathforrestore: some View {
-        EditValueNoScheme(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore,
+        EditValueErrorScheme(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore,
                           restore.verifypathforrestore(restore.pathforrestore))
             .foregroundColor(restore.verifypathforrestore(restore.pathforrestore) ? Color.white : Color.red)
             .onAppear(perform: {

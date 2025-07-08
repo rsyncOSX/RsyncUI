@@ -99,7 +99,7 @@ struct RsyncandPathsettings: View {
     }
 
     var setrsyncpathlocalpath: some View {
-        EditValueNoScheme(400, nil, $rsyncpathsettings.localrsyncpath,
+        EditValueErrorScheme(400, nil, $rsyncpathsettings.localrsyncpath,
                           rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath))
             .foregroundColor(rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath) ? Color.white : Color.red)
             .onChange(of: rsyncpathsettings.localrsyncpath) {
@@ -120,7 +120,7 @@ struct RsyncandPathsettings: View {
     }
 
     var setpathforrestore: some View {
-        EditValueNoScheme(400, NSLocalizedString("Path for restore", comment: ""),
+        EditValueErrorScheme(400, NSLocalizedString("Path for restore", comment: ""),
                           $rsyncpathsettings.temporarypathforrestore,
                           rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore))
             .foregroundColor(rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore) ? Color.white : Color.red)
