@@ -99,7 +99,8 @@ struct RsyncandPathsettings: View {
     }
 
     var setrsyncpathlocalpath: some View {
-        EditValueNoScheme(400, nil, $rsyncpathsettings.localrsyncpath)
+        EditValueNoScheme(400, nil, $rsyncpathsettings.localrsyncpath,
+                          rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath))
             .foregroundColor(rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath) ? Color.white : Color.red)
             .onChange(of: rsyncpathsettings.localrsyncpath) {
                 guard rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath) else {
@@ -120,7 +121,8 @@ struct RsyncandPathsettings: View {
 
     var setpathforrestore: some View {
         EditValueNoScheme(400, NSLocalizedString("Path for restore", comment: ""),
-                          $rsyncpathsettings.temporarypathforrestore)
+                          $rsyncpathsettings.temporarypathforrestore,
+                          rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore))
             .foregroundColor(rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore) ? Color.white : Color.red)
             .onAppear(perform: {
                 if let pathforrestore = SharedReference.shared.pathforrestore {
