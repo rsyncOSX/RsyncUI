@@ -62,6 +62,9 @@ struct Logsettings: View {
                     .onChange(of: logsettings.hideschedule) {
                         SharedReference.shared.hideschedule = logsettings.hideschedule
                         togglehideschedule = logsettings.hideschedule
+                        if logsettings.hideschedule {
+                            deleteschedulefile()
+                        }
                     }
 
                 if SharedReference.shared.rsyncversion3 {
@@ -72,7 +75,11 @@ struct Logsettings: View {
                 }
 
                 if toggleobservemountedvolumes {
-                    Text("If switched ON, please restart RsyncUI to take effect")
+                    DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Please restart RsyncUI to take effect", comment: ""))
+                }
+                
+                if togglehideschedule {
+                    DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Please restart RsyncUI to take effect", comment: ""))
                 }
 
             } header: {
@@ -97,6 +104,28 @@ struct Logsettings: View {
             }
         }
         .formStyle(.grouped)
+    }
+    
+    private func deleteschedulefile() {
+        let path = Homepath()
+        let fm = FileManager.default
+        if let fullpathmacserial = path.fullpathmacserial {
+            let fullpathscheduleString = fullpathmacserial.appending("/") + SharedConstants().caldenarfilejson
+            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+            let profileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().caldenarfilejson)
+
+            guard fm.locationExists(at: fullpathscheduleString, kind: .file) == true else {
+                Logger.process.info("Logsettings: schedule file does not exist \(fullpathscheduleString, privacy: .public)")
+                return
+            }
+            do {
+                Logger.process.info("Logsettings: deleted \(profileURL) file")
+                try fm.removeItem(at: profileURL)
+            } catch let e {
+                let error = e as NSError
+                path.propogateerror(error: error)
+            }
+        }
     }
 }
 
