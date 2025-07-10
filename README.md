@@ -1,6 +1,7 @@
 ## Hi there 👋
 
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD)
+![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.6.1/total)
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.5.9/total)
 [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
@@ -16,8 +17,7 @@ The [user documentation](https://github.com/rsyncOSX/rysyncuidocs) is based upon
 
 | App     | UI                  | Latest version                                                                                      |
 |---------|---------------------|-----------------------------------------------------------------------------------------------------|
-| RsyncUI | SwiftUI, declarativ | v2.5.9 - [June 16, 2025](https://github.com/rsyncOSX/RsyncUI/releases) - in *active development* |
-| |  | v2.6.0 rc - [July 3, 2025](https://github.com/rsyncOSX/RsyncUI/releases) - to be released as next version when Xcode 26 and macOS 26 Tahoe are release candidates |
+| RsyncUI | SwiftUI, declarativ | v2.6.1 - [July 10, 2025](https://github.com/rsyncOSX/RsyncUI/releases) - in *active development* |
 |  |  | [user guide](https://rsyncui.netlify.app/docs/) and [changelog](https://rsyncui.netlify.app/blog/) |
 
 ### Install by Homebrew
