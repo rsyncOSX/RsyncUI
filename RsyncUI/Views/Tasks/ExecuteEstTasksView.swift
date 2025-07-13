@@ -40,7 +40,7 @@ struct ExecuteEstTasksView: View {
             
             Spacer()
             
-            Text(" Progress \(progress): \(maxcount)")
+            Text("Files completed \(Int(progress)) of \(Int(maxcount))")
             
         }
         .onAppear(perform: {
