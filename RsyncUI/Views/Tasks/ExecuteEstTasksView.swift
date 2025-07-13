@@ -22,7 +22,7 @@ struct ExecuteEstTasksView: View {
     @State private var maxcount: Double = 0
 
     var body: some View {
-        VStack (alignment: .leading) {
+        ZStack {
             ListofTasksMainView(
                 rsyncUIdata: rsyncUIdata,
                 selecteduuids: $selecteduuids,
@@ -42,6 +42,7 @@ struct ExecuteEstTasksView: View {
             
             Text("Files completed \(Int(progress)) of \(Int(maxcount))")
                 .padding()
+                .font(.title2)
             
         }
         .onAppear(perform: {

@@ -26,10 +26,11 @@ struct ExecuteNoEstTasksView: View {
                                         configurations: rsyncUIdata.configurations)
             
             if progressviewshowinfo {
-                HStack {
+                VStack {
                     ProgressView()
                     
                     Text(" Files completed: \(Int(progress))")
+                        .font(.title2)
                 }
             }
             if focusaborttask { labelaborttask }
