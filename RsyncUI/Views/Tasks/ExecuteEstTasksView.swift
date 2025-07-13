@@ -41,6 +41,7 @@ struct ExecuteEstTasksView: View {
             Spacer()
             
             Text("Files completed \(Int(progress)) of \(Int(maxcount))")
+                .padding()
             
         }
         .onAppear(perform: {
