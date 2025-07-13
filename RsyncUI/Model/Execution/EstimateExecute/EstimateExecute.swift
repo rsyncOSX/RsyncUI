@@ -153,6 +153,25 @@ final class EstimateExecute {
     convenience init(profile: String?,
                      configurations: [SynchronizeConfiguration],
                      selecteduuids: Set<UUID>,
+                     filehandler: @escaping (Int) -> Void,
+                     progressdetails: ProgressDetails?)
+    {
+        
+        let updateconfigurations: ([SynchronizeConfiguration]) -> Void = { _ in
+            Logger.process.info("EstimateExecute: You should not SEE this message")
+        }
+        self.init(profile: profile,
+                  configurations: configurations,
+                  selecteduuids: selecteduuids,
+                  progressdetails: progressdetails,
+                  filehandler: filehandler,
+                  updateconfigurations: updateconfigurations)
+    }
+    
+    @discardableResult
+    convenience init(profile: String?,
+                     configurations: [SynchronizeConfiguration],
+                     selecteduuids: Set<UUID>,
                      progressdetails: ProgressDetails?)
     {
         let filehandler: (Int) -> Void = { _ in

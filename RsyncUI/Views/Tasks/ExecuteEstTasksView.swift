@@ -22,7 +22,7 @@ struct ExecuteEstTasksView: View {
     @State private var maxcount: Double = 0
 
     var body: some View {
-        ZStack {
+        VStack (alignment: .leading) {
             ListofTasksMainView(
                 rsyncUIdata: rsyncUIdata,
                 selecteduuids: $selecteduuids,
@@ -37,6 +37,11 @@ struct ExecuteEstTasksView: View {
 
             // if executestate.executestate == .execute { ProgressView() }
             if focusaborttask { labelaborttask }
+            
+            Spacer()
+            
+            Text(" Progress \(progress): \(maxcount)")
+            
         }
         .onAppear(perform: {
             executemultipleestimatedtasks()
