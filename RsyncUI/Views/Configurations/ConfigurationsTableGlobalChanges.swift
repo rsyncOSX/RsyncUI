@@ -19,13 +19,13 @@ struct ConfigurationsTableGlobalChanges: View {
                 }
             }
             .width(min: 50, max: 150)
-            TableColumn("Local folder") { data in
+            TableColumn("Source folder") { data in
                 if selecteduuids.count == 0 {
                     Text(newdata.updatestring(update: newdata.replace_localcatalog, replace: newdata.occurence_localcatalog, original: data.localCatalog))
                 }
             }
             .width(min: 180, max: 300)
-            TableColumn("Remote folder") { data in
+            TableColumn("Destination folder") { data in
                 if selecteduuids.count == 0 {
                     Text(newdata.updatestring(update: newdata.replace_remotecatalog, replace: newdata.occurence_remotecatalog, original: data.offsiteCatalog))
                 }

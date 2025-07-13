@@ -385,7 +385,7 @@ struct AddTaskView: View {
     }
 
     var setremotecatalogsyncremote: some View {
-        EditValueScheme(300, NSLocalizedString("Add Local folder - required", comment: ""),
+        EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""),
                         $newdata.remotecatalog)
             .focused($focusField, equals: .remotecatalogField)
             .textContentType(.none)
@@ -393,7 +393,7 @@ struct AddTaskView: View {
     }
 
     var setlocalcatalog: some View {
-        EditValueScheme(300, NSLocalizedString("Add Local folder - required", comment: ""),
+        EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""),
                         $newdata.localcatalog)
             .focused($focusField, equals: .localcatalogField)
             .textContentType(.none)
@@ -401,7 +401,7 @@ struct AddTaskView: View {
     }
 
     var setremotecatalog: some View {
-        EditValueScheme(300, NSLocalizedString("Add Remote folder - required", comment: ""),
+        EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""),
                         $newdata.remotecatalog)
             .focused($focusField, equals: .remotecatalogField)
             .textContentType(.none)

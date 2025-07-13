@@ -19,7 +19,7 @@ struct Sshsettings: View {
         Form {
             Section {
                 VStack(alignment: .leading) {
-                    ToggleViewDefault(text: NSLocalizedString("Local ssh-key is present", comment: ""),
+                    ToggleViewDefault(text: NSLocalizedString("Source ssh-key is present", comment: ""),
                                       binding: $localsshkeys)
                         .disabled(true)
                 }

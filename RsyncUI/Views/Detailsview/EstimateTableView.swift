@@ -65,9 +65,9 @@ struct EstimateTableView: View {
                 }
             }
             .width(max: 80)
-            TableColumn("Local folder", value: \.localCatalog)
+            TableColumn("Source folder", value: \.localCatalog)
                 .width(min: 80, max: 300)
-            TableColumn("Remote folder", value: \.offsiteCatalog)
+            TableColumn("Destination folder", value: \.offsiteCatalog)
                 .width(min: 80, max: 300)
             TableColumn("Server") { data in
                 if data.offsiteServer.count > 0 {

@@ -99,9 +99,9 @@ struct ConfigurationsTableDataMainView: View {
                 }
             }
             .width(max: 80)
-            TableColumn("Local folder", value: \.localCatalog)
+            TableColumn("Source folder", value: \.localCatalog)
                 .width(min: 120, max: 400)
-            TableColumn("Remote folder", value: \.offsiteCatalog)
+            TableColumn("Destination folder", value: \.offsiteCatalog)
                 .width(min: 120, max: 400)
             TableColumn("Server") { data in
                 if data.offsiteServer.count > 0 {

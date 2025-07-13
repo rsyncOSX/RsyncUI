@@ -31,13 +31,13 @@ struct DetailsViewHeading: View {
                     }
                     .padding(-3)
 
-                    LabeledContent("Local folder: ") {
+                    LabeledContent("Source folder: ") {
                         Text(remotedatanumbers.localCatalog)
                             .foregroundColor(.blue)
                     }
                     .padding(-3)
 
-                    LabeledContent("Remote folder: ") {
+                    LabeledContent("Destination folder: ") {
                         Text(remotedatanumbers.offsiteCatalog)
                             .foregroundColor(.blue)
                     }

@@ -247,7 +247,7 @@ struct QuicktaskView: View {
         Section(header: headerlocalremote) {
             // localcatalog
             HStack {
-                EditValueScheme(300, NSLocalizedString("Add Local folder - required", comment: ""), $localcatalog)
+                EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""), $localcatalog)
                     .focused($focusField, equals: .localcatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
@@ -255,7 +255,7 @@ struct QuicktaskView: View {
 
             // remotecatalog
             HStack {
-                EditValueScheme(300, NSLocalizedString("Add Remote folder - required", comment: ""), $remotecatalog)
+                EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $remotecatalog)
                     .focused($focusField, equals: .remotecatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
@@ -267,7 +267,7 @@ struct QuicktaskView: View {
         Section(header: headerlocalremote) {
             // remotecatalog
             HStack {
-                EditValueScheme(300, NSLocalizedString("Add Local folder - required", comment: ""), $remotecatalog)
+                EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""), $remotecatalog)
                     .focused($focusField, equals: .remotecatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
@@ -275,7 +275,7 @@ struct QuicktaskView: View {
 
             // localcatalog
             HStack {
-                EditValueScheme(300, NSLocalizedString("Add Remote folder - required", comment: ""), $localcatalog)
+                EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $localcatalog)
                     .focused($focusField, equals: .localcatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)

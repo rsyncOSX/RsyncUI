@@ -157,7 +157,7 @@ struct GlobalChangeTaskView: View {
         Section(header: headerlocalremote) {
             HStack {
                 // localcatalog
-                EditValueScheme(140, NSLocalizedString("Local folder", comment: ""), $newdata.occurence_localcatalog)
+                EditValueScheme(140, NSLocalizedString("Source folder", comment: ""), $newdata.occurence_localcatalog)
                     .onChange(of: newdata.occurence_localcatalog) {
                         Task {
                             try await Task.sleep(seconds: 2)
@@ -196,7 +196,7 @@ struct GlobalChangeTaskView: View {
             }
 
             HStack {
-                EditValueScheme(140, NSLocalizedString("Remote folder", comment: ""), $newdata.occurence_remotecatalog)
+                EditValueScheme(140, NSLocalizedString("Destination folder", comment: ""), $newdata.occurence_remotecatalog)
                     .onChange(of: newdata.occurence_remotecatalog) {
                         Task {
                             try await Task.sleep(seconds: 2)
