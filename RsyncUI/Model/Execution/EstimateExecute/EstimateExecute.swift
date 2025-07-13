@@ -95,7 +95,8 @@ final class EstimateExecute {
                 {
                     let process = ProcessRsync(arguments: arguments,
                                                config: config,
-                                               processtermination: processtermination_noestimation)
+                                               processtermination: processtermination_noestimation,
+                                               filehandler: localfilehandler)
                     process.executeProcess()
                 }
             }

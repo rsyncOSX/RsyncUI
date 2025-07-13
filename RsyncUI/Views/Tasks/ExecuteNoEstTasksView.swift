@@ -29,7 +29,7 @@ struct ExecuteNoEstTasksView: View {
                 HStack {
                     ProgressView()
                     
-                    Text(" Progress \(progress)")
+                    Text(" Files completed: \(Int(progress))")
                 }
             }
             if focusaborttask { labelaborttask }
