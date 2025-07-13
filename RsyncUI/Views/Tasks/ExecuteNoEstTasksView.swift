@@ -18,7 +18,7 @@ struct ExecuteNoEstTasksView: View {
     @State private var progressviewshowinfo: Bool = true
     @State private var focusaborttask: Bool = false
     
-    @State private var progress: Double = 0
+    @State private var progress: Int = 0
 
     var body: some View {
         ZStack {
@@ -67,7 +67,7 @@ struct ExecuteNoEstTasksView: View {
 
 extension ExecuteNoEstTasksView {
     func filehandler(count: Int) {
-        progress = Double(count)
+        progress = count
     }
     
     func abort() {
