@@ -35,7 +35,7 @@ struct ConfigurationsTableDataMainView: View {
                     }
                 }
             }
-            .width(min: 100, ideal: 100)
+            .width(min: 150, max: 250)
             .defaultVisibility(visible_progress)
             TableColumn("Profile") { _ in
                 Text(rsyncUIdata.profile ?? "Default")
