@@ -89,6 +89,7 @@ struct ExecutePushPullView: View {
 
                             Text("\(Int(pushorpull.rsyncpullmax)): \(Int(progress))")
                                 .padding()
+                                .font(.title2)
                         }
 
                     } else if pushorpull.rsyncpushmax > 0, pushpullcommand == .push_local {
@@ -101,13 +102,14 @@ struct ExecutePushPullView: View {
 
                             Text("\(Int(pushorpull.rsyncpullmax)): \(Int(progress))")
                                 .padding()
+                                .font(.title2)
                         }
 
                     } else {
                         VStack {
                             ProgressView()
 
-                            Text(" Files completed: \(Int(progress))")
+                            Text("Completed: \(Int(progress))")
                                 .font(.title2)
                         }
                     }
