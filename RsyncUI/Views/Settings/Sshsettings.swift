@@ -29,7 +29,7 @@ struct Sshsettings: View {
 
             Section {
                 EditValueErrorScheme(400, NSLocalizedString("Global ssh-keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile,
-                                      sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile))
+                                     sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile))
 
                 EditValueErrorScheme(400, NSLocalizedString("Global ssh-port", comment: ""),
                                      $sshsettings.sshportnumber, sshsettings.setsshport(sshsettings.sshportnumber))

@@ -86,12 +86,11 @@ struct DismissafterMessageView: View {
 
 struct MessageView: View {
     @Environment(\.colorScheme) var colorScheme
-    
+
     private var mytext: String
     private var textsize: Font
 
     var body: some View {
-        
         if colorScheme == .dark {
             ZStack {
                 RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.3))

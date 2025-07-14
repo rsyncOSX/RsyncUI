@@ -196,7 +196,7 @@ struct RestoreTableView: View {
 
     var setpathforrestore: some View {
         EditValueErrorScheme(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore,
-                          restore.verifypathforrestore(restore.pathforrestore))
+                             restore.verifypathforrestore(restore.pathforrestore))
             .foregroundColor(restore.verifypathforrestore(restore.pathforrestore) ? Color.white : Color.red)
             .onAppear(perform: {
                 if let pathforrestore = SharedReference.shared.pathforrestore {

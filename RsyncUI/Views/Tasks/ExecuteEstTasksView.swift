@@ -23,7 +23,6 @@ struct ExecuteEstTasksView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            
             ListofTasksMainView(
                 rsyncUIdata: rsyncUIdata,
                 selecteduuids: $selecteduuids,
@@ -38,9 +37,9 @@ struct ExecuteEstTasksView: View {
 
             // if executestate.executestate == .execute { ProgressView() }
             if focusaborttask { labelaborttask }
-            
+
             Spacer()
-            
+
             Text("\(Int(maxcount)): \(Int(progress))")
                 .padding()
         }

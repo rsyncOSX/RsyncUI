@@ -257,13 +257,13 @@ struct RsyncParametersView: View {
 
     var setsshpath: some View {
         EditValueErrorScheme(300, "ssh-keypath and identityfile",
-                          $parameters.sshkeypathandidentityfile,
-                          parameters.sshkeypath(parameters.sshkeypathandidentityfile))
+                             $parameters.sshkeypathandidentityfile,
+                             parameters.sshkeypath(parameters.sshkeypathandidentityfile))
     }
 
     var setsshport: some View {
         EditValueErrorScheme(150, "ssh-port", $parameters.sshport,
-                          parameters.setsshport(parameters.sshport))
+                             parameters.setsshport(parameters.sshport))
     }
 
     var notifydataisupdated: Bool {

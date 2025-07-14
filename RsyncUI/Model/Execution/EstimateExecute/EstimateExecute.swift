@@ -157,7 +157,6 @@ final class EstimateExecute {
                      filehandler: @escaping (Int) -> Void,
                      progressdetails: ProgressDetails?)
     {
-        
         let updateconfigurations: ([SynchronizeConfiguration]) -> Void = { _ in
             Logger.process.info("EstimateExecute: You should not SEE this message")
         }
@@ -168,7 +167,7 @@ final class EstimateExecute {
                   filehandler: filehandler,
                   updateconfigurations: updateconfigurations)
     }
-    
+
     @discardableResult
     convenience init(profile: String?,
                      configurations: [SynchronizeConfiguration],

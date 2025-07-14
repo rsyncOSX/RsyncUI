@@ -28,6 +28,3 @@ struct EditValueScheme: View {
         myprompt = Text(str ?? "")
     }
 }
-
-
-

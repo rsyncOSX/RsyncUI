@@ -1,5 +1,5 @@
 //
-//  Edit.swift
+//  EditValueErrorScheme.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 08/07/2025.
@@ -29,7 +29,7 @@ struct EditValueErrorScheme: View {
         myprompt = Text(str ?? "")
         myerror = error
     }
-    
+
     func color(error: Bool) -> Color {
         error == false ? .red : (colorScheme == .dark ? .white : .black)
     }

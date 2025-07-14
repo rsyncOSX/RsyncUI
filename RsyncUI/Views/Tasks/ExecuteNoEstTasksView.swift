@@ -17,24 +17,23 @@ struct ExecuteNoEstTasksView: View {
     @State private var noestprogressdetails = NoEstProgressDetails()
     @State private var progressviewshowinfo: Bool = true
     @State private var focusaborttask: Bool = false
-    
+
     @State private var progress: Int = 0
 
     var body: some View {
         ZStack {
             ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                         configurations: rsyncUIdata.configurations)
-            
+
             if progressviewshowinfo {
                 VStack {
                     ProgressView()
-                    
+
                     Text(" Files completed: \(Int(progress))")
                         .font(.title2)
                 }
             }
             if focusaborttask { labelaborttask }
-           
         }
         .onAppear(perform: {
             executeallnoestimationtasks()
@@ -70,7 +69,7 @@ extension ExecuteNoEstTasksView {
     func filehandler(count: Int) {
         progress = count
     }
-    
+
     func abort() {
         selecteduuids.removeAll()
         InterruptProcess()

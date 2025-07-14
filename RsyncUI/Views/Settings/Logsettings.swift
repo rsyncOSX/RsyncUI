@@ -77,7 +77,7 @@ struct Logsettings: View {
                 if toggleobservemountedvolumes {
                     DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Please restart RsyncUI to take effect", comment: ""))
                 }
-                
+
                 if togglehideschedule {
                     DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Please restart RsyncUI to take effect", comment: ""))
                 }
@@ -105,7 +105,7 @@ struct Logsettings: View {
         }
         .formStyle(.grouped)
     }
-    
+
     private func deleteschedulefile() {
         let path = Homepath()
         let fm = FileManager.default
