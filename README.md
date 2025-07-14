@@ -2,7 +2,6 @@
 
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD)
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.6.1/total)
-![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.5.9/total)
 [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
 Version 2.6.1 of RsyncUI require Xcode 26 and Swift 6.2 to compile.
