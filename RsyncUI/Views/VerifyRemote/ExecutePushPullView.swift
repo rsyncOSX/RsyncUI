@@ -80,21 +80,40 @@ struct ExecutePushPullView: View {
                     Spacer()
 
                     if pushorpull.rsyncpullmax > 0, pushpullcommand == .pull_remote {
-                        ProgressView("",
-                                     value: progress,
-                                     total: Double(pushorpull.rsyncpullmax))
-                            .frame(alignment: .center)
-                            .frame(width: 180)
+                        VStack {
+                            ProgressView("",
+                                         value: progress,
+                                         total: Double(pushorpull.rsyncpullmax))
+                                .frame(alignment: .center)
+                                .frame(width: 180)
+                            
+                            Text("\(Int(pushorpull.rsyncpullmax)): \(Int(progress))")
+                                .padding()
+                            
+                        }
+                        
 
                     } else if pushorpull.rsyncpushmax > 0, pushpullcommand == .push_local {
-                        ProgressView("",
-                                     value: progress,
-                                     total: Double(pushorpull.rsyncpushmax))
-                            .frame(alignment: .center)
-                            .frame(width: 180)
-
+                        VStack {
+                            ProgressView("",
+                                         value: progress,
+                                         total: Double(pushorpull.rsyncpushmax))
+                                .frame(alignment: .center)
+                                .frame(width: 180)
+                            
+                            Text("\(Int(pushorpull.rsyncpullmax)): \(Int(progress))")
+                                .padding()
+                        }
+                        
                     } else {
-                        ProgressView()
+                        VStack {
+                            
+                            ProgressView()
+                            
+                            Text(" Files completed: \(Int(progress))")
+                                .font(.title2)
+                        }
+                        
                     }
 
                     Spacer()
