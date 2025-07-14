@@ -38,10 +38,6 @@ struct ExecuteEstTasksView: View {
             // if executestate.executestate == .execute { ProgressView() }
             if focusaborttask { labelaborttask }
 
-            Spacer()
-
-            Text("\(Int(maxcount)): \(Int(progress))")
-                .padding()
         }
         .onAppear(perform: {
             executemultipleestimatedtasks()

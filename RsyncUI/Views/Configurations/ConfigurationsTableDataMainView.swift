@@ -24,13 +24,18 @@ struct ConfigurationsTableDataMainView: View {
         }, selection: $selecteduuids) {
             TableColumn("%") { data in
                 if data.hiddenID == progressdetails.hiddenIDatwork, max > 0, progress <= max {
-                    ProgressView("",
-                                 value: progress,
-                                 total: max)
-                        .frame(alignment: .center)
+                    HStack {
+                        ProgressView("",
+                                     value: progress,
+                                     total: max)
+                            .frame(alignment: .center)
+
+                        Text("\(Int(max)) : \(Int(progress))")
+                            .padding([.top, .trailing], 10)
+                    }
                 }
             }
-            .width(min: 70, ideal: 70)
+            .width(min: 100, ideal: 100)
             .defaultVisibility(visible_progress)
             TableColumn("Profile") { _ in
                 Text(rsyncUIdata.profile ?? "Default")
