@@ -87,9 +87,18 @@ struct ExecutePushPullView: View {
                                 .frame(alignment: .center)
                                 .frame(width: 180)
 
-                            Text("\(Int(pushorpull.rsyncpullmax)): \(Int(progress))")
-                                .padding()
-                                .font(.title2)
+                            HStack {
+                                
+                                Text("\(Int(pushorpull.rsyncpullmax)): ")
+                                    .padding()
+                                    .font(.title2)
+                                
+                                Text("\(Int(progress))")
+                                    .padding()
+                                    .font(.title2)
+                                    .contentTransition(.numericText(countsDown: false))
+                                    .animation(.default, value: progress)
+                            }
                         }
 
                     } else if pushorpull.rsyncpushmax > 0, pushpullcommand == .push_local {
@@ -100,17 +109,28 @@ struct ExecutePushPullView: View {
                                 .frame(alignment: .center)
                                 .frame(width: 180)
 
-                            Text("\(Int(pushorpull.rsyncpullmax)): \(Int(progress))")
-                                .padding()
-                                .font(.title2)
+                            HStack {
+                                
+                                Text("\(Int(pushorpull.rsyncpushmax)): ")
+                                    .padding()
+                                    .font(.title2)
+                                
+                                Text("\(Int(progress))")
+                                    .padding()
+                                    .font(.title2)
+                                    .contentTransition(.numericText(countsDown: false))
+                                    .animation(.default, value: progress)
+                            }
                         }
 
                     } else {
                         VStack {
                             ProgressView()
 
-                            Text("Completed: \(Int(progress))")
+                            Text("\(Int(progress))")
                                 .font(.title2)
+                                .contentTransition(.numericText(countsDown: false))
+                                .animation(.default, value: progress)
                         }
                     }
 

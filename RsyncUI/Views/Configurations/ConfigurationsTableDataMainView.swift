@@ -30,8 +30,13 @@ struct ConfigurationsTableDataMainView: View {
                                      total: max)
                             .frame(alignment: .center)
 
-                        Text("\(Int(max)) : \(Int(progress))")
+                        Text("\(Int(max)): ")
                             .padding([.top, .trailing], 10)
+                        
+                        Text("\(Int(progress))")
+                            .padding([.top, .trailing], 10)
+                            .contentTransition(.numericText(countsDown: false))
+                            .animation(.default, value: progress)
                     }
                 }
             }

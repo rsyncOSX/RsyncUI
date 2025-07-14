@@ -29,8 +29,10 @@ struct ExecuteNoEstTasksView: View {
                 VStack {
                     ProgressView()
 
-                    Text(" Files completed: \(Int(progress))")
+                    Text("\(Int(progress))")
                         .font(.title2)
+                        .contentTransition(.numericText(countsDown: false))
+                        .animation(.default, value: progress)
                 }
             }
             if focusaborttask { labelaborttask }
