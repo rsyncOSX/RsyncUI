@@ -18,6 +18,7 @@ The [user documentation](https://rsyncui.netlify.app/docs/)([repo](https://githu
 |---------|---------------------|-----------------------------------------------------------------------------------------------------|
 | RsyncUI | SwiftUI, declarativ | v2.6.1 - [July 10, 2025](https://github.com/rsyncOSX/RsyncUI/releases) - in *active development* |
 |  |  | [documentation](https://rsyncui.netlify.app/docs/) and [changelog](https://rsyncui.netlify.app/blog/) |
+|  |  | v2.6.2b1 - [July 14, 2025](https://github.com/rsyncOSX/RsyncUI/releases) - dev build |
 
 ### Install by Homebrew
 
