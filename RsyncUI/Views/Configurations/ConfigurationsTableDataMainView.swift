@@ -28,7 +28,7 @@ struct ConfigurationsTableDataMainView: View {
                         ProgressView("",
                                      value: progress,
                                      total: max)
-                            .frame(alignment: .center)
+                        .frame(width: 50, alignment: .center)
 
                         Text("\(Int(max)): ")
                             .padding([.top, .trailing], 10)
