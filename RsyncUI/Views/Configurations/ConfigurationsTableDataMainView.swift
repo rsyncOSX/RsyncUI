@@ -30,7 +30,7 @@ struct ConfigurationsTableDataMainView: View {
                                      total: max)
                         .frame(width: 50, alignment: .center)
 
-                        Text("\(Int(max)): ")
+                        Text("\(Int(max)) : ")
                             .padding([.top, .trailing], 10)
                         
                         Text("\(Int(progress))")
