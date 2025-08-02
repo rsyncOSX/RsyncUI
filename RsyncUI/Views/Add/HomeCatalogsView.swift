@@ -27,16 +27,6 @@ struct AttachedVolumes: Identifiable, Hashable {
     }
 }
 
-struct AttachedVolumeCatalogs {
-    var volumename: String
-    init(_ name: String) {
-        volumename = name
-    }
-}
-
-extension AttachedVolumeCatalogs: Identifiable, Hashable {
-    var id: String { volumename }
-}
 
 struct HomeCatalogsView: View {
     @Bindable var newdata: ObservableAddConfigurations
@@ -73,26 +63,18 @@ struct HomeCatalogsView: View {
             }
             .frame(width: 500)
 
-            Table(attachedVolumesCatalogs, selection: $selectedAttachedVolumeCatalogs) {
-                TableColumn("Attached Volume Catalogs") { catalog in
-                    Text(catalog.volumename)
+            Picker("Step three: select a Folder in Attached Volume", selection: $selectedAttachedVolumeCatalogs) {
+                Text("Select")
+                    .tag(nil as String?)
+                ForEach(attachedVolumesCatalogs, id: \.self) { volumename in
+                    Text(volumename)
+                        .tag(volumename)
                 }
             }
             .frame(width: 500)
-
-            /*
-
-                 Picker("Step three: select a Folder in Attached Volume", selection: $selectedAttachedVolumeCatalogs) {
-                     Text("Select")
-                         .tag(nil as String?)
-                     ForEach(selectedAttachedVolumeCatalogs, id: \.self) { catalog in
-                         Text(catalog)
-                             .tag(catalog)
-                     }
-                 }
-                 .frame(width: 500)
-                 .disabled(selectedAttachedVolume == nil)
-             */
+            .disabled(selectedAttachedVolume == nil)
+            
+            
             Spacer()
         }
         .padding()
@@ -107,24 +89,24 @@ struct HomeCatalogsView: View {
 
             if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
                 let attachedvolume = attachedVolumes[index].volumename
-                if let index = attachedVolumesCatalogs.firstIndex(where: { $0.volumename == selectedAttachedVolumeCatalogs }) {
-                    let selectedvolume = (attachedvolume.relativePath).appending("/") + attachedVolumesCatalogs[index].volumename
+                if let index = attachedVolumesCatalogs.firstIndex(where: { $0 == selectedAttachedVolumeCatalogs }) {
+                    let selectedvolume = (attachedvolume.relativePath).appending("/") + attachedVolumesCatalogs[index]
                     newdata.remotecatalog = selectedvolume
                 }
             }
         })
 
-        var attachedVolumesCatalogs: [AttachedVolumeCatalogs] {
+        var attachedVolumesCatalogs: [String] {
             if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
                 let fm = FileManager.default
                 let atpathURL = attachedVolumes[index].volumename
-                var catalogs = [AttachedVolumeCatalogs]()
+                var catalogs = [String]()
                 do {
                     for filesandfolders in try
                         fm.contentsOfDirectory(at: atpathURL, includingPropertiesForKeys: nil)
                         where filesandfolders.hasDirectoryPath
                     {
-                        catalogs.append(AttachedVolumeCatalogs(filesandfolders.lastPathComponent))
+                        catalogs.append(filesandfolders.lastPathComponent)
                     }
                     return catalogs
                 } catch {
