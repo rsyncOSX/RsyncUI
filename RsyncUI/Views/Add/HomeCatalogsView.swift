@@ -25,60 +25,58 @@ struct AttachedVolumes: Identifiable, Hashable {
     }
 }
 
-struct AttachedVolumeCatalogs: Identifiable, Hashable {
-    let id = UUID()
-    var catalogname: String
-
-    init(_ name: String) {
-        catalogname = name
-    }
-}
-
 struct HomeCatalogsView: View {
     @Bindable var newdata: ObservableAddConfigurations
     @Binding var path: [AddTasks]
 
-    @State private var selecteduuid: Catalognames.ID?
+    @State private var selectedhomecatalog: Catalognames.ID?
     @State private var selectedAttachedVolume: AttachedVolumes.ID?
-    @State private var selectedAttachedVolumeCatalogs: AttachedVolumeCatalogs.ID?
+    @State private var selectedAttachedVolumeCatalogs: Catalognames.ID?
 
     let homecatalogs: [Catalognames]
     let attachedVolumes: [AttachedVolumes]
 
     var body: some View {
         VStack(alignment: .leading) {
-            Picker("", selection: $selecteduuid) {
-                Text("Select a Folder")
+            
+            Spacer()
+            
+            Picker("Step one: select a Folder in home directory", selection: $selectedhomecatalog) {
+                Text("Select")
                     .tag(nil as Catalognames.ID?)
                 ForEach(homecatalogs, id: \.self) { catalog in
                     Text(catalog.catalogname)
                         .tag(catalog.id)
                 }
             }
-            .frame(width: 300)
+            .frame(width: 500)
 
-            Picker("", selection: $selectedAttachedVolume) {
-                Text("Select a Attached Volume")
+            Picker("Step two: select an Attached Volume", selection: $selectedAttachedVolume) {
+                Text("Select")
                     .tag(nil as AttachedVolumes.ID?)
                 ForEach(attachedVolumes, id: \.self) { volume in
                     Text(volume.volumename.absoluteString)
                         .tag(volume.id)
                 }
             }
-            .frame(width: 300)
+            .frame(width: 500)
 
-            Picker("", selection: $selectedAttachedVolumeCatalogs) {
-                Text("Select a Catalog")
-                    .tag(nil as AttachedVolumeCatalogs.ID?)
+            Picker("Step three: select a Folder in Attached Volume", selection: $selectedAttachedVolumeCatalogs) {
+                Text("Select")
+                    .tag(nil as Catalognames.ID?)
                 ForEach(attachedVolumesCatalogs, id: \.self) { catalog in
                     Text(catalog.catalogname)
                         .tag(catalog.id)
                 }
             }
             .frame(width: 300)
+            .disabled(selectedAttachedVolume == nil)
+            
+            Spacer()
+            
         }
         .onDisappear(perform: {
-            if let index = homecatalogs.firstIndex(where: { $0.id == selecteduuid }) {
+            if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
                 let selectedcatalog = homecatalogs[index].catalogname
                 newdata.localcatalog = newdata.localhome.appending("/") + selectedcatalog
                 newdata.backupID = "Backup of: " + selectedcatalog
@@ -95,17 +93,17 @@ struct HomeCatalogsView: View {
             }
         })
 
-        var attachedVolumesCatalogs: [AttachedVolumeCatalogs] {
+        var attachedVolumesCatalogs: [Catalognames] {
             if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
                 let fm = FileManager.default
                 let atpathURL = attachedVolumes[index].volumename
-                var catalogs = [AttachedVolumeCatalogs]()
+                var catalogs = [Catalognames]()
                 do {
                     for filesandfolders in try
                         fm.contentsOfDirectory(at: atpathURL, includingPropertiesForKeys: nil)
                         where filesandfolders.hasDirectoryPath
                     {
-                        catalogs.append(AttachedVolumeCatalogs(filesandfolders.lastPathComponent))
+                        catalogs.append(Catalognames(filesandfolders.lastPathComponent))
                     }
                     return catalogs
                 } catch {
