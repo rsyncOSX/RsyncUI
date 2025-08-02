@@ -58,7 +58,9 @@ struct VerifyRemoteView: View {
                         }
                     }
 
-                ToggleViewDefault(text: "Adjusted output", binding: $isadjusted)
+                
+                Toggle("Adjusted output", isOn: $isadjusted)
+                    .toggleStyle(.switch)
 
                 VStack {
                     Text("**Warning**: Verify remote is **advisory** only.")
