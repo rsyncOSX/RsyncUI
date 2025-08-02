@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		E911E85E2C6BCD9D00152CD6 /* SSHCreateKey in Frameworks */ = {isa = PBXBuildFile; productRef = E911E85D2C6BCD9D00152CD6 /* SSHCreateKey */; };
+		E93FBF6C2E3DE674005225E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E93FBEBE2E3DE674005225E2 /* Assets.xcassets */; };
+		E93FBFF12E3DE6A3005225E2 /* RsyncUIicon.icon in Resources */ = {isa = PBXBuildFile; fileRef = E93FBFF02E3DE6A3005225E2 /* RsyncUIicon.icon */; };
 		E95CA3E42C73230800966D69 /* DecodeEncodeGeneric in Frameworks */ = {isa = PBXBuildFile; productRef = E95CA3E32C73230800966D69 /* DecodeEncodeGeneric */; };
 		E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E99DE0F826A32F8B00A08A69 /* Credits.rtf */; };
 		E9BAB99D2C60A611008A1707 /* RsyncArguments in Frameworks */ = {isa = PBXBuildFile; productRef = E9BAB99C2C60A611008A1707 /* RsyncArguments */; };
@@ -58,6 +60,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E93FBEBE2E3DE674005225E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E93FBFF02E3DE6A3005225E2 /* RsyncUIicon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = RsyncUIicon.icon; sourceTree = "<group>"; };
 		E961CC042D33B3C400A5F5A5 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E961CC062D33B3C400A5F5A5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E985C5C325F3AC0700CB895C /* RsyncUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RsyncUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,6 +150,8 @@
 		E985C5BA25F3AC0700CB895C = {
 			isa = PBXGroup;
 			children = (
+				E93FBFF02E3DE6A3005225E2 /* RsyncUIicon.icon */,
+				E93FBEBE2E3DE674005225E2 /* Assets.xcassets */,
 				E99DE0F826A32F8B00A08A69 /* Credits.rtf */,
 				E9EF75A62D2D6DC70039D1D4 /* RsyncUI */,
 				E9C9E3762D379F7000E907AB /* WidgetVerify */,
@@ -300,6 +306,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */,
+				E93FBFF12E3DE6A3005225E2 /* RsyncUIicon.icon in Resources */,
+				E93FBF6C2E3DE674005225E2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,8 +497,9 @@
 		E985C5ED25F3AC0800CB895C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = RsyncUIicon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = RsyncUI/RsyncUI.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
@@ -521,8 +530,9 @@
 		E985C5EE25F3AC0800CB895C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = RsyncUIicon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = RsyncUI/RsyncUI.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
