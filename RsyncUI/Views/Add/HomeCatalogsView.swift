@@ -74,6 +74,18 @@ struct HomeCatalogsView: View {
             .frame(width: 500)
             .disabled(selectedAttachedVolume == nil)
             
+            HStack {
+                Text("Step four ")
+                
+                Button("Return") {
+                    path.removeAll()
+                }
+                .buttonStyle(ColorfulButtonStyle())
+                
+            }
+            
+            
+            
             
             Spacer()
         }
