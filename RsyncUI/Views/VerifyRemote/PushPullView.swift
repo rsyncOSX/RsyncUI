@@ -41,13 +41,11 @@ struct PushPullView: View {
                                 verifypath.removeAll()
                                 verifypath.append(Verify(task: .executenpushpullview))
                             } label: {
-                                Image(systemName: "arrow.right")
+                                Image(systemName: "arrowshape.right.fill")
                                     .font(.title2)
                                     .imageScale(.large)
-                                    .foregroundColor(.yellow)
                             }
                             .help("Push local")
-                            .buttonStyle(ColorfulButtonStyle())
 
                             DetailsVerifyView(remotedatanumbers: pushremotedatanumbers)
                         }
@@ -58,13 +56,11 @@ struct PushPullView: View {
                                 verifypath.removeAll()
                                 verifypath.append(Verify(task: .executenpushpullview))
                             } label: {
-                                Image(systemName: "arrow.left")
+                                Image(systemName: "arrowshape.left.fill")
                                     .font(.title2)
                                     .imageScale(.large)
-                                    .foregroundColor(.yellow)
                             }
                             .help("Pull remote")
-                            .buttonStyle(ColorfulButtonStyle())
 
                             DetailsVerifyView(remotedatanumbers: pullremotedatanumbers)
                         }
