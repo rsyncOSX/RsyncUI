@@ -69,8 +69,6 @@ struct RestoreTableView: View {
                                 }
 
                             Spacer()
-
-                            Text("Number of records: \(restore.restorefilelist.count)")
                         }
                     }
 
