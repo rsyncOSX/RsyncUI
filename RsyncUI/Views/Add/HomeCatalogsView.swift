@@ -5,6 +5,8 @@
 //  Created by Thomas Evensen on 27/12/2023.
 //
 
+import Foundation
+import Observation
 import SwiftUI
 
 struct Catalognames: Identifiable, Hashable {
@@ -25,22 +27,32 @@ struct AttachedVolumes: Identifiable, Hashable {
     }
 }
 
+struct AttachedVolumeCatalogs {
+    var volumename: String
+    init(_ name: String) {
+        volumename = name
+    }
+}
+
+extension AttachedVolumeCatalogs: Identifiable, Hashable {
+    var id: String { volumename }
+}
+
 struct HomeCatalogsView: View {
     @Bindable var newdata: ObservableAddConfigurations
     @Binding var path: [AddTasks]
 
     @State private var selectedhomecatalog: Catalognames.ID?
     @State private var selectedAttachedVolume: AttachedVolumes.ID?
-    @State private var selectedAttachedVolumeCatalogs: Catalognames.ID?
+    @State private var selectedAttachedVolumeCatalogs: String?
 
     let homecatalogs: [Catalognames]
     let attachedVolumes: [AttachedVolumes]
 
     var body: some View {
         VStack(alignment: .leading) {
-            
             Spacer()
-            
+
             Picker("Step one: select a Folder in home directory", selection: $selectedhomecatalog) {
                 Text("Select")
                     .tag(nil as Catalognames.ID?)
@@ -55,26 +67,35 @@ struct HomeCatalogsView: View {
                 Text("Select")
                     .tag(nil as AttachedVolumes.ID?)
                 ForEach(attachedVolumes, id: \.self) { volume in
-                    Text(volume.volumename.absoluteString)
+                    Text(volume.volumename.lastPathComponent)
                         .tag(volume.id)
                 }
             }
             .frame(width: 500)
 
-            Picker("Step three: select a Folder in Attached Volume", selection: $selectedAttachedVolumeCatalogs) {
-                Text("Select")
-                    .tag(nil as Catalognames.ID?)
-                ForEach(attachedVolumesCatalogs, id: \.self) { catalog in
-                    Text(catalog.catalogname)
-                        .tag(catalog.id)
+            Table(attachedVolumesCatalogs, selection: $selectedAttachedVolumeCatalogs) {
+                TableColumn("Attached Volume Catalogs") { catalog in
+                    Text(catalog.volumename)
                 }
             }
-            .frame(width: 300)
-            .disabled(selectedAttachedVolume == nil)
-            
+            .frame(width: 500)
+
+            /*
+
+                 Picker("Step three: select a Folder in Attached Volume", selection: $selectedAttachedVolumeCatalogs) {
+                     Text("Select")
+                         .tag(nil as String?)
+                     ForEach(selectedAttachedVolumeCatalogs, id: \.self) { catalog in
+                         Text(catalog)
+                             .tag(catalog)
+                     }
+                 }
+                 .frame(width: 500)
+                 .disabled(selectedAttachedVolume == nil)
+             */
             Spacer()
-            
         }
+        .padding()
         .onDisappear(perform: {
             if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
                 let selectedcatalog = homecatalogs[index].catalogname
@@ -86,24 +107,24 @@ struct HomeCatalogsView: View {
 
             if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
                 let attachedvolume = attachedVolumes[index].volumename
-                if let index = attachedVolumesCatalogs.firstIndex(where: { $0.id == selectedAttachedVolumeCatalogs }) {
-                    let selectedvolume = (attachedvolume.relativePath).appending("/") + attachedVolumesCatalogs[index].catalogname
+                if let index = attachedVolumesCatalogs.firstIndex(where: { $0.volumename == selectedAttachedVolumeCatalogs }) {
+                    let selectedvolume = (attachedvolume.relativePath).appending("/") + attachedVolumesCatalogs[index].volumename
                     newdata.remotecatalog = selectedvolume
                 }
             }
         })
 
-        var attachedVolumesCatalogs: [Catalognames] {
+        var attachedVolumesCatalogs: [AttachedVolumeCatalogs] {
             if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
                 let fm = FileManager.default
                 let atpathURL = attachedVolumes[index].volumename
-                var catalogs = [Catalognames]()
+                var catalogs = [AttachedVolumeCatalogs]()
                 do {
                     for filesandfolders in try
                         fm.contentsOfDirectory(at: atpathURL, includingPropertiesForKeys: nil)
                         where filesandfolders.hasDirectoryPath
                     {
-                        catalogs.append(Catalognames(filesandfolders.lastPathComponent))
+                        catalogs.append(AttachedVolumeCatalogs(filesandfolders.lastPathComponent))
                     }
                     return catalogs
                 } catch {

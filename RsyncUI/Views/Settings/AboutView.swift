@@ -49,7 +49,6 @@ struct AboutView: View {
                             .resizable()
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(width: 64, height: 64)
-
                     }
 
                     rsyncversionshortstring
@@ -126,7 +125,6 @@ struct AboutView: View {
             .font(.caption)
             .padding(3)
     }
-
 }
 
 extension AboutView {
