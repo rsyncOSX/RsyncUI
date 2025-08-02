@@ -28,11 +28,11 @@ struct ConfigurationsTableDataMainView: View {
                         ProgressView("",
                                      value: progress,
                                      total: max)
-                        .frame(width: 50, alignment: .center)
+                            .frame(width: 50, alignment: .center)
 
                         Text("\(Int(max)) : ")
                             .padding([.top, .trailing], 10)
-                        
+
                         Text("\(Int(progress))")
                             .padding([.top, .trailing], 10)
                             .contentTransition(.numericText(countsDown: false))

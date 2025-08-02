@@ -330,6 +330,7 @@ struct AddTaskView: View {
         case .homecatalogs:
             HomeCatalogsView(newdata: newdata,
                              path: $addtaskpath,
+
                              homecatalogs: {
                                  let fm = FileManager.default
                                  if let atpathURL = Homepath().userHomeDirectoryURLPath {
@@ -348,6 +349,7 @@ struct AddTaskView: View {
                                  }
                                  return []
                              }(),
+
                              attachedVolumes: {
                                  let keys: [URLResourceKey] = [.volumeNameKey,
                                                                .volumeIsRemovableKey,

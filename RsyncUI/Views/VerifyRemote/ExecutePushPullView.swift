@@ -88,11 +88,10 @@ struct ExecutePushPullView: View {
                                 .frame(width: 180)
 
                             HStack {
-                                
                                 Text("\(Int(pushorpull.rsyncpullmax)): ")
                                     .padding()
                                     .font(.title2)
-                                
+
                                 Text("\(Int(progress))")
                                     .padding()
                                     .font(.title2)
@@ -110,11 +109,10 @@ struct ExecutePushPullView: View {
                                 .frame(width: 180)
 
                             HStack {
-                                
                                 Text("\(Int(pushorpull.rsyncpushmax)): ")
                                     .padding()
                                     .font(.title2)
-                                
+
                                 Text("\(Int(progress))")
                                     .padding()
                                     .font(.title2)

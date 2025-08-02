@@ -37,7 +37,6 @@ struct ExecuteEstTasksView: View {
 
             // if executestate.executestate == .execute { ProgressView() }
             if focusaborttask { labelaborttask }
-
         }
         .onAppear(perform: {
             executemultipleestimatedtasks()
