@@ -12,7 +12,7 @@ struct AboutView: View {
 
     @State private var urlstring = ""
 
-    let iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "")
+    // let iconbystring: String = NSLocalizedString("Icon by: Zsolt Sándor", comment: "")
 
     var changelog: String {
         Resources().getResource(resource: .changelog)
@@ -52,7 +52,7 @@ struct AboutView: View {
                             .aspectRatio(1.0, contentMode: .fit)
                             .frame(width: 64, height: 64)
 
-                        appicon
+                        // appicon
                     }
 
                     rsyncversionshortstring
@@ -130,11 +130,13 @@ struct AboutView: View {
             .padding(3)
     }
 
+    /*
     var appicon: some View {
         Text(iconbystring)
             .font(.caption)
             .padding(3)
     }
+     */
 }
 
 extension AboutView {
