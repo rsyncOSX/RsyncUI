@@ -43,6 +43,6 @@ final class ReadLogRecordsJSON {
     }
 
     deinit {
-        Logger.process.info("ReadLogRecordsJSON: deinit")
+        Logger.process.info("ReadLogRecordsJSON: DEINIT")
     }
 }

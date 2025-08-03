@@ -97,7 +97,7 @@ final class Snapshotlogsandcatalogs {
     }
 
     deinit {
-        Logger.process.info("Snapshotlogsandcatalogs: deinit")
+        Logger.process.info("Snapshotlogsandcatalogs: DEINIT")
     }
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {

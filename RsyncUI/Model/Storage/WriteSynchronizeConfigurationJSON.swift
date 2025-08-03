@@ -58,7 +58,7 @@ final class WriteSynchronizeConfigurationJSON {
     }
 
     deinit {
-        Logger.process.info("WriteSynchronizeConfigurationJSON deinit")
+        Logger.process.info("WriteSynchronizeConfigurationJSON DEINIT")
     }
 }
 

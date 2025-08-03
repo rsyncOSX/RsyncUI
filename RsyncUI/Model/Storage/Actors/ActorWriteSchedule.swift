@@ -49,7 +49,7 @@ actor ActorWriteSchedule {
     }
 
     deinit {
-        Logger.process.info("ActorWriteSchedule deinit")
+        Logger.process.info("ActorWriteSchedule DEINIT")
     }
 }
 

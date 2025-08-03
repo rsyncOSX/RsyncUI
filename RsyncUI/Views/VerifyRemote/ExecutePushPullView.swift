@@ -153,7 +153,13 @@ struct ExecutePushPullView: View {
         let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: dryrun,
                                                                                            forDisplay: false,
                                                                                            keepdelete: keepdelete)
-        let process = ProcessRsync(arguments: arguments,
+        /*
+         let process = ProcessRsync(arguments: arguments,
+                                    config: config,
+                                    processtermination: processtermination,
+                                    filehandler: filehandler)
+         */
+        let process = ProcessRsyncAsyncSequence(arguments: arguments,
                                    config: config,
                                    processtermination: processtermination,
                                    filehandler: filehandler)
@@ -164,7 +170,13 @@ struct ExecutePushPullView: View {
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryrun,
                                                                                               forDisplay: false,
                                                                                               keepdelete: keepdelete)
-        let process = ProcessRsync(arguments: arguments,
+        /*
+         let process = ProcessRsync(arguments: arguments,
+                                    config: config,
+                                    processtermination: processtermination,
+                                    filehandler: filehandler)
+         */
+        let process = ProcessRsyncAsyncSequence(arguments: arguments,
                                    config: config,
                                    processtermination: processtermination,
                                    filehandler: filehandler)

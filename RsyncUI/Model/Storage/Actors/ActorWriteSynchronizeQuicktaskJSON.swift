@@ -53,7 +53,7 @@ actor ActorWriteSynchronizeQuicktaskJSON {
     }
 
     deinit {
-        Logger.process.info("ActorWriteSynchronizeQuicktaskJSON deinit")
+        Logger.process.info("ActorWriteSynchronizeQuicktaskJSON DEINIT")
     }
 }
 

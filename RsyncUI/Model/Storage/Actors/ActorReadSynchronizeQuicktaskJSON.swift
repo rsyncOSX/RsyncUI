@@ -42,7 +42,7 @@ actor ActorReadSynchronizeQuicktaskJSON {
     }
 
     deinit {
-        Logger.process.info("ReadSynchronizeQuicktaskJSON: deinit")
+        Logger.process.info("ReadSynchronizeQuicktaskJSON: DEINIT")
     }
 }
 

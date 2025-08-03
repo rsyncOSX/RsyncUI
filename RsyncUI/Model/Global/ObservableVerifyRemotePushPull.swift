@@ -53,6 +53,6 @@ final class ObservableVerifyRemotePushPull {
     }
 
     deinit {
-        Logger.process.info("ObservablePushPull: deinit")
+        Logger.process.info("ObservablePushPull: DEINIT")
     }
 }

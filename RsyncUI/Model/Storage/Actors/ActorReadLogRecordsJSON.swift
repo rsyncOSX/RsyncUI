@@ -104,6 +104,6 @@ actor ActorReadLogRecordsJSON {
     }
 
     deinit {
-        Logger.process.info("ActorReadLogRecordsJSON: deinit")
+        Logger.process.info("ActorReadLogRecordsJSON: DEINIT")
     }
 }

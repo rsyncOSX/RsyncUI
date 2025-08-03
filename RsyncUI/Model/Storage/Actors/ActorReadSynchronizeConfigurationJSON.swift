@@ -94,7 +94,7 @@ actor ActorReadSynchronizeConfigurationJSON {
     }
 
     deinit {
-        Logger.process.info("ActorReadSynchronizeConfigurationJSON: deinit")
+        Logger.process.info("ActorReadSynchronizeConfigurationJSON: DEINIT")
     }
 }
 
