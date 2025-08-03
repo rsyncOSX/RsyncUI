@@ -23,9 +23,10 @@ final class ProcessRsyncAsyncSequence {
     // Check for error
     var checklineforerror: TrimOutputFromRsync?
     var errordiscovered: Bool = false
-    // Observers
+    // AsyncSequence
     let sequencefilehandler = NotificationCenter.default.notifications(named: NSNotification.Name.NSFileHandleDataAvailable, object: nil)
     let sequencetermination = NotificationCenter.default.notifications(named: Process.didTerminateNotification, object: nil)
+    // Tasks
     var sequenceFileHandlerTask: Task<Void, Never>?
     var sequenceTerminationTask: Task<Void, Never>?
 
