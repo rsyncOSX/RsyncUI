@@ -358,7 +358,7 @@ extension QuicktaskView {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: dryrun, forDisplay: false)
         // Start progressview
         showprogressview = true
-        let process = ProcessRsync(arguments: arguments,
+        let process = ProcessRsyncAsyncSequence(arguments: arguments,
                                    config: config,
                                    processtermination: processtermination)
         process.executeProcess()

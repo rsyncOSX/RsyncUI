@@ -290,7 +290,7 @@ extension RestoreTableView {
             }
             guard arguments?.isEmpty == false else { return }
             /*
-             let command = ProcessRsync(arguments: arguments,
+             let command = ProcessRsyncAsyncSequence(arguments: arguments,
                                         processtermination: processtermination)
              */
             let command = ProcessRsyncAsyncSequence(arguments: arguments,
