@@ -169,7 +169,7 @@ final class VerifyConfiguration: Connected {
     private func snapshotcreateremotecatalog(config: SynchronizeConfiguration) {
         guard config.offsiteServer.isEmpty == false else { return }
         let args = ArgumentsSnapshotCreateCatalog(config: config)
-        let updatecurrent = ProcessCommand(command: args.getCommand(),
+        let updatecurrent = ProcessCommandAsyncSequence(command: args.getCommand(),
                                            arguments: args.getArguments())
         updatecurrent.executeProcess()
     }
