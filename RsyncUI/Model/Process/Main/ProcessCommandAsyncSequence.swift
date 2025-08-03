@@ -42,7 +42,6 @@ final class ProcessCommandAsyncSequence {
             task.standardError = pipe
             let outHandle = pipe.fileHandleForReading
             outHandle.waitForDataInBackgroundAndNotify()
-            // Combine, subscribe to NSNotification.Name.NSFileHandleDataAvailable
 
             sequenceFileHandlerTask = Task {
                 for await _ in sequencefilehandler {
