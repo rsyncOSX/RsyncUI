@@ -30,7 +30,6 @@ final class ProcessRsyncAsyncSequence {
     var sequenceFileHandlerTask: Task<Void, Never>?
     var sequenceTerminationTask: Task<Void, Never>?
 
-
     func executeProcess() {
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
@@ -58,7 +57,7 @@ final class ProcessRsyncAsyncSequence {
                 await self.datahandle(pipe)
             }
         }
-        
+
         sequenceTerminationTask = Task {
             for await _ in sequencetermination {
                 Task {
@@ -104,35 +103,33 @@ final class ProcessRsyncAsyncSequence {
         }
     }
 
-    
-     convenience init(arguments: [String]?,
-                      config: SynchronizeConfiguration?,
-                      processtermination: @escaping ([String]?, Int?) -> Void,
-                      filehandler: @escaping (Int) -> Void)
-     {
-         self.init(arguments: arguments,
-                   config: config,
-                   processtermination: processtermination,
-                   filehandler: filehandler,
-                   usefilehandler: true)
-     }
+    convenience init(arguments: [String]?,
+                     config: SynchronizeConfiguration?,
+                     processtermination: @escaping ([String]?, Int?) -> Void,
+                     filehandler: @escaping (Int) -> Void)
+    {
+        self.init(arguments: arguments,
+                  config: config,
+                  processtermination: processtermination,
+                  filehandler: filehandler,
+                  usefilehandler: true)
+    }
 
-     convenience init(arguments: [String]?,
-                      config: SynchronizeConfiguration?,
-                      processtermination: @escaping ([String]?, Int?) -> Void)
-     {
-         // To satisfy arguments
-         let filehandler: (Int) -> Void = { _ in
-             Logger.process.info("ProcessRsyncAsyncSequence: You should NOT SEE this message")
-         }
-         self.init(arguments: arguments,
-                   config: config,
-                   processtermination: processtermination,
-                   filehandler: filehandler,
-                   usefilehandler: false)
-     }
+    convenience init(arguments: [String]?,
+                     config: SynchronizeConfiguration?,
+                     processtermination: @escaping ([String]?, Int?) -> Void)
+    {
+        // To satisfy arguments
+        let filehandler: (Int) -> Void = { _ in
+            Logger.process.info("ProcessRsyncAsyncSequence: You should NOT SEE this message")
+        }
+        self.init(arguments: arguments,
+                  config: config,
+                  processtermination: processtermination,
+                  filehandler: filehandler,
+                  usefilehandler: false)
+    }
 
-     
     convenience init(arguments: [String]?,
                      processtermination: @escaping ([String]?, Int?) -> Void)
     {
@@ -201,7 +198,7 @@ extension ProcessRsyncAsyncSequence {
         // Cancel Tasks
         sequenceFileHandlerTask?.cancel()
         sequenceTerminationTask?.cancel()
-        
+
         Logger.process.info("ProcessRsyncAsyncSequence: process = nil and termination discovered")
     }
 }

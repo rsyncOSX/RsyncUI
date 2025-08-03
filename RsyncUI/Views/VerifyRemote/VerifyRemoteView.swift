@@ -58,7 +58,6 @@ struct VerifyRemoteView: View {
                         }
                     }
 
-                
                 Toggle("Adjusted output", isOn: $isadjusted)
                     .toggleStyle(.switch)
 

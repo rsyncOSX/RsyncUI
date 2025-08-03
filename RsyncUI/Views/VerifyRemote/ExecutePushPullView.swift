@@ -154,9 +154,9 @@ struct ExecutePushPullView: View {
                                                                                            forDisplay: false,
                                                                                            keepdelete: keepdelete)
         let process = ProcessRsyncAsyncSequence(arguments: arguments,
-                                   config: config,
-                                   processtermination: processtermination,
-                                   filehandler: filehandler)
+                                                config: config,
+                                                processtermination: processtermination,
+                                                filehandler: filehandler)
         process.executeProcess()
     }
 
@@ -165,9 +165,9 @@ struct ExecutePushPullView: View {
                                                                                               forDisplay: false,
                                                                                               keepdelete: keepdelete)
         let process = ProcessRsyncAsyncSequence(arguments: arguments,
-                                   config: config,
-                                   processtermination: processtermination,
-                                   filehandler: filehandler)
+                                                config: config,
+                                                processtermination: processtermination,
+                                                filehandler: filehandler)
         process.executeProcess()
     }
 

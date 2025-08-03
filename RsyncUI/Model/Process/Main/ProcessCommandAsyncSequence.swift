@@ -18,7 +18,7 @@ final class ProcessCommandAsyncSequence {
     var command: String?
     // Arguments to command
     var arguments: [String]?
-    
+
     // AsyncSequence
     let sequencefilehandler = NotificationCenter.default.notifications(named: NSNotification.Name.NSFileHandleDataAvailable, object: nil)
     let sequencetermination = NotificationCenter.default.notifications(named: Process.didTerminateNotification, object: nil)
@@ -43,13 +43,13 @@ final class ProcessCommandAsyncSequence {
             let outHandle = pipe.fileHandleForReading
             outHandle.waitForDataInBackgroundAndNotify()
             // Combine, subscribe to NSNotification.Name.NSFileHandleDataAvailable
-            
+
             sequenceFileHandlerTask = Task {
                 for await _ in sequencefilehandler {
                     await self.datahandle(pipe)
                 }
             }
-            
+
             sequenceTerminationTask = Task {
                 for await _ in sequencetermination {
                     Task {
@@ -58,9 +58,9 @@ final class ProcessCommandAsyncSequence {
                     }
                 }
             }
-            
+
             SharedReference.shared.process = task
-            
+
             do {
                 try task.run()
             } catch let e {
@@ -122,7 +122,7 @@ extension ProcessCommandAsyncSequence {
     func termination() async {
         processtermination(output)
         SharedReference.shared.process = nil
-        
+
         // Remove observers
         NotificationCenter.default.removeObserver(sequencefilehandler as Any,
                                                   name: NSNotification.Name.NSFileHandleDataAvailable,
@@ -133,7 +133,7 @@ extension ProcessCommandAsyncSequence {
         // Cancel Tasks
         sequenceFileHandlerTask?.cancel()
         sequenceTerminationTask?.cancel()
-        
+
         Logger.process.info("ProcessCommandAsyncSequence: process = nil and termination discovered")
     }
 }

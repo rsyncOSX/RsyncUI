@@ -27,7 +27,6 @@ struct AttachedVolumes: Identifiable, Hashable {
     }
 }
 
-
 struct HomeCatalogsView: View {
     @Bindable var newdata: ObservableAddConfigurations
     @Binding var path: [AddTasks]
@@ -73,20 +72,16 @@ struct HomeCatalogsView: View {
             }
             .frame(width: 500)
             .disabled(selectedAttachedVolume == nil)
-            
+
             HStack {
                 Text("Step four ")
-                
+
                 Button("Return") {
                     path.removeAll()
                 }
                 .buttonStyle(ColorfulButtonStyle())
-                
             }
-            
-            
-            
-            
+
             Spacer()
         }
         .padding()

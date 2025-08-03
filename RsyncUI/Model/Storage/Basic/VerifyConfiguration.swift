@@ -170,7 +170,7 @@ final class VerifyConfiguration: Connected {
         guard config.offsiteServer.isEmpty == false else { return }
         let args = ArgumentsSnapshotCreateCatalog(config: config)
         let updatecurrent = ProcessCommandAsyncSequence(command: args.getCommand(),
-                                           arguments: args.getArguments())
+                                                        arguments: args.getArguments())
         updatecurrent.executeProcess()
     }
 

@@ -19,7 +19,7 @@ final class Rsyncversion {
         }
         if SharedReference.shared.norsync == false {
             let command = ProcessRsyncAsyncSequence(arguments: ["--version"],
-                                                processtermination: processtermination)
+                                                    processtermination: processtermination)
             command.executeProcess()
         }
     }
