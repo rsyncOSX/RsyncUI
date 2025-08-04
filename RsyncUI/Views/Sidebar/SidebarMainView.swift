@@ -71,8 +71,10 @@ struct SidebarMainView: View {
                                 .tag(profile.id)
                         }
                     }
+                    .frame(width: 180)
+                    .padding([.bottom, .top, .trailing], 7)
                     .disabled(disablesidebarmeny)
-                    .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 16))
+                    .glassEffect()
 
                 } else {
                     Picker("", selection: $selectedprofileID) {
