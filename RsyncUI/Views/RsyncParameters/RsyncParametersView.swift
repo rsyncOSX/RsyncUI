@@ -48,7 +48,7 @@ struct RsyncParametersView: View {
                         .padding(.bottom, 10)
                     }
 
-                    Section(header: Text("Task spesific parameters for rsync")) {
+                    Section(header: Text("Task specific parameters for rsync")) {
                         EditRsyncParameter(400, $parameters.parameter8)
                             .onChange(of: parameters.parameter8) {
                                 parameters.configuration?.parameter8 = parameters.parameter8
