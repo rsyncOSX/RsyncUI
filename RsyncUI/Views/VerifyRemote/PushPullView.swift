@@ -46,8 +46,10 @@ struct PushPullView: View {
                                     .imageScale(.large)
                             }
                             .help("Push local")
+                            .padding(10)
 
                             DetailsVerifyView(remotedatanumbers: pushremotedatanumbers)
+                                .padding(10)
                         }
 
                         VStack {
@@ -61,8 +63,10 @@ struct PushPullView: View {
                                     .imageScale(.large)
                             }
                             .help("Pull remote")
+                            .padding(10)
 
                             DetailsVerifyView(remotedatanumbers: pullremotedatanumbers)
+                                .padding(10)
                         }
                     }
                 }
