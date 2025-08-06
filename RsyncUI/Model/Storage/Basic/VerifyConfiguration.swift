@@ -143,7 +143,7 @@ final class VerifyConfiguration: Connected {
         switch data.newtrailingslashoptions {
         // Remove any trailing slashes
         // If no trailing slash added, accept data
-        case .dont_add:
+        case .do_not_add:
             if data.newlocalCatalog.hasSuffix("/") == true {
                 let catalog = data.newlocalCatalog.dropLast()
                 newconfig.localCatalog = String(catalog)

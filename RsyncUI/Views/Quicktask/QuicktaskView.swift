@@ -85,7 +85,7 @@ struct QuicktaskView: View {
                             .toggleStyle(.switch)
                             .onChange(of: catalogorfile) {
                                 if catalogorfile {
-                                    trailingslashoptions = .dont_add
+                                    trailingslashoptions = .do_not_add
                                 } else {
                                     trailingslashoptions = .add
                                 }
@@ -149,11 +149,11 @@ struct QuicktaskView: View {
                         catalogorfile = false
                     } else if configfile.backupID == "3" {
                         selectedrsynccommand = .synchronize
-                        trailingslashoptions = .dont_add
+                        trailingslashoptions = .do_not_add
                         catalogorfile = true
                     } else if configfile.backupID == "4" {
                         selectedrsynccommand = .syncremote
-                        trailingslashoptions = .dont_add
+                        trailingslashoptions = .do_not_add
                         catalogorfile = true
                     }
                 }
@@ -328,9 +328,9 @@ extension QuicktaskView {
             newconfig.backupID = "1"
         } else if selectedrsynccommand == .syncremote, trailingslashoptions == .add  {
             newconfig.backupID = "2"
-        } else if selectedrsynccommand == .synchronize, trailingslashoptions == .dont_add {
+        } else if selectedrsynccommand == .synchronize, trailingslashoptions == .do_not_add {
             newconfig.backupID = "3"
-        } else if selectedrsynccommand == .syncremote, trailingslashoptions == .dont_add {
+        } else if selectedrsynccommand == .syncremote, trailingslashoptions == .do_not_add {
             newconfig.backupID = "4"
         }
         Task {

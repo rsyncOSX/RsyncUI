@@ -10,7 +10,7 @@ import Foundation
 import Observation
 
 enum TrailingSlash: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case dont_add, add, do_not_check
+    case add, do_not_add, do_not_check
     
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
@@ -76,7 +76,7 @@ final class ObservableAddConfigurations {
         }
         
         // If toggled ON remove trailing /
-        if trailingslashoptions == .dont_add {
+        if trailingslashoptions == .do_not_add {
             if localcatalog.hasSuffix("/") {
                 localcatalog.removeLast()
             }
@@ -86,7 +86,7 @@ final class ObservableAddConfigurations {
         }
 
         if localcatalog.hasSuffix("/") == false, remotecatalog.hasSuffix("/") == false {
-            trailingslashoptions = .dont_add
+            trailingslashoptions = .do_not_add
         }
 
         let updateddata = AppendTask(selectedrsynccommand.rawValue,

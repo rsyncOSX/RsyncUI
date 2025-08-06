@@ -64,22 +64,22 @@ struct AddTaskView: View {
                 // Column 1
 
                 VStack(alignment: .leading) {
-                    HStack {
-                        if newdata.selectedconfig != nil {
-                            Button("Update") {
-                                validateandupdate()
-                            }
-                            .buttonStyle(ColorfulButtonStyle())
-                            .help("Update task")
-                        } else {
-                            Button("Add") {
-                                addconfig()
-                            }
-                            .buttonStyle(ColorfulButtonStyle())
-                            .help("Add task")
+                    
+                    if newdata.selectedconfig != nil {
+                        Button("Update") {
+                            validateandupdate()
                         }
-
-                        
+                        .buttonStyle(ColorfulButtonStyle())
+                        .help("Update task")
+                    } else {
+                        Button("Add") {
+                            addconfig()
+                        }
+                        .buttonStyle(ColorfulButtonStyle())
+                        .help("Add task")
+                    }
+                    
+                    VStack(alignment: .trailing) {
                         
                         pickerselecttypeoftask
                             .disabled(selectedconfig != nil)
@@ -608,7 +608,7 @@ struct AddTaskView: View {
             }
         }
         .pickerStyle(DefaultPickerStyle())
-        .frame(width: 170)
+        .frame(width: 180)
     }
 
     var pickerselecttypeoftask: some View {
@@ -623,7 +623,7 @@ struct AddTaskView: View {
             }
         }
         .pickerStyle(DefaultPickerStyle())
-        .frame(width: 150)
+        .frame(width: 180)
     }
 
     var copyitems: [CopyItem] {
