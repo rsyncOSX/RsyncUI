@@ -10,9 +10,10 @@ import SwiftUI
 enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvertible {
     case synchronize
     case syncremote
+    case not_selected
 
     var id: String { rawValue }
-    var description: String { rawValue.localizedLowercase }
+    var description: String { rawValue.localizedLowercase.replacingOccurrences(of: "_", with: " ") }
 }
 
 enum ValidateInputQuicktask: LocalizedError {
@@ -155,6 +156,10 @@ struct QuicktaskView: View {
                         selectedrsynccommand = .syncremote
                         trailingslashoptions = .do_not_add
                         catalogorfile = true
+                    } else if configfile.backupID == "5" {
+                        selectedrsynccommand = .not_selected
+                        trailingslashoptions = .do_not_check
+                        catalogorfile = true
                     }
                 }
             }
@@ -185,6 +190,7 @@ struct QuicktaskView: View {
                         .foregroundColor(Color(.blue))
                 }
                 .help("Synchronize (⌘R)")
+                .disabled(selectedrsynccommand == .not_selected)
             }
 
             ToolbarItem {
@@ -306,7 +312,7 @@ struct QuicktaskView: View {
             }
         }
         .pickerStyle(DefaultPickerStyle())
-        .frame(width: 170)
+        .frame(width: 180)
     }
 }
 
@@ -332,6 +338,8 @@ extension QuicktaskView {
             newconfig.backupID = "3"
         } else if selectedrsynccommand == .syncremote, trailingslashoptions == .do_not_add {
             newconfig.backupID = "4"
+        } else if trailingslashoptions == .do_not_check {
+            newconfig.backupID = "5"
         }
         Task {
             await ActorWriteSynchronizeQuicktaskJSON(newconfig)
@@ -346,6 +354,9 @@ extension QuicktaskView {
                                  remoteuser,
                                  remoteserver,
                                  "")
+        
+        guard selectedrsynccommand != .not_selected else { return }
+        
         if let config = VerifyConfiguration().verify(getdata) {
             do {
                 let ok = try validateinput(config)
