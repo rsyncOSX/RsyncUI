@@ -79,13 +79,13 @@ struct AddTaskView: View {
                             .help("Add task")
                         }
 
+                        
+                        
                         pickerselecttypeoftask
                             .disabled(selectedconfig != nil)
+                        
+                        trailingslash
 
-                        VStack(alignment: .leading) {
-                            ToggleViewDefault(text: NSLocalizedString("Don´t add /", comment: ""),
-                                              binding: $newdata.donotaddtrailingslash)
-                        }
                     }
                     .padding(.bottom, 10)
 
@@ -598,9 +598,21 @@ struct AddTaskView: View {
             .synchronize
         }
     }
+    
+    var trailingslash: some View {
+        Picker(NSLocalizedString("Trailing /", comment: ""),
+               selection: $newdata.trailingslashoptions)
+        {
+            ForEach(TrailingSlash.allCases) { Text($0.description)
+                .tag($0)
+            }
+        }
+        .pickerStyle(DefaultPickerStyle())
+        .frame(width: 170)
+    }
 
     var pickerselecttypeoftask: some View {
-        Picker(NSLocalizedString("Action", comment: "") + ":",
+        Picker(NSLocalizedString("Action", comment: ""),
                selection: $newdata.selectedrsynccommand)
         {
             ForEach(TypeofTask.allCases) { Text($0.description)
@@ -611,7 +623,7 @@ struct AddTaskView: View {
             }
         }
         .pickerStyle(DefaultPickerStyle())
-        .frame(width: 160)
+        .frame(width: 150)
     }
 
     var copyitems: [CopyItem] {

@@ -39,7 +39,7 @@ struct AppendTask {
     var newtask: String
     var newlocalCatalog: String
     var newoffsiteCatalog: String
-    var newdontaddtrailingbackslash: Bool = false
+    var newtrailingslashoptions: TrailingSlash
     // Can be nil
     var newoffsiteUsername: String?
     var newoffsiteServer: String?
@@ -52,7 +52,7 @@ struct AppendTask {
     init(_ task: String,
          _ localCatalog: String,
          _ offsiteCatalog: String,
-         _ trailingbackslash: Bool,
+         _ trailingslashoptions: TrailingSlash,
          _ offsiteUsername: String?,
          _ offsiteServer: String?,
          _ backupID: String?)
@@ -60,7 +60,7 @@ struct AppendTask {
         newtask = task
         newlocalCatalog = localCatalog
         newoffsiteCatalog = offsiteCatalog
-        newdontaddtrailingbackslash = trailingbackslash
+        newtrailingslashoptions = trailingslashoptions
         newoffsiteUsername = offsiteUsername
         newoffsiteServer = offsiteServer
         newbackupID = backupID
@@ -69,7 +69,7 @@ struct AppendTask {
     init(_ task: String,
          _ localCatalog: String,
          _ offsiteCatalog: String,
-         _ trailingbackslash: Bool,
+         _ trailingslashoptions: TrailingSlash,
          _ offsiteUsername: String?,
          _ offsiteServer: String?,
          _ backupID: String?,
@@ -79,7 +79,7 @@ struct AppendTask {
         newtask = task
         newlocalCatalog = localCatalog
         newoffsiteCatalog = offsiteCatalog
-        newdontaddtrailingbackslash = trailingbackslash
+        newtrailingslashoptions = trailingslashoptions
         newoffsiteUsername = offsiteUsername
         newoffsiteServer = offsiteServer
         newbackupID = backupID
@@ -114,32 +114,71 @@ final class VerifyConfiguration: Connected {
         newconfig.dateRun = ""
         newconfig.hiddenID = data.hiddenID ?? -1
 
+        // First od all verify that either source or destination is empty
+        // If one is empty bail out
+        
+        guard data.newlocalCatalog.isEmpty == false else {
+            let error = ValidateInputError.localcatalog
+            propogateerror(error: error)
+            return nil
+        }
+        
+        guard data.newoffsiteCatalog.isEmpty == false else {
+            let error = ValidateInputError.localcatalog
+            propogateerror(error: error)
+            return nil
+        }
+        
+        
         if (data.snapshotnum ?? 0) > 0 {
             newconfig.snapshotnum = data.snapshotnum
         } else {
             newconfig.snapshotnum = nil
         }
-
-        if data.newlocalCatalog.hasSuffix("/") == false, data.newdontaddtrailingbackslash == false {
-            var catalog = data.newlocalCatalog
-            guard catalog.isEmpty == false else {
-                let error = ValidateInputError.localcatalog
-                propogateerror(error: error)
-                return nil
+        
+        
+        
+        
+        // Check what to do with trailing slash
+        switch data.newtrailingslashoptions {
+        // Remove any trailing slashes
+        // If no trailing slash added, accept data
+        case .dont_add:
+            if data.newlocalCatalog.hasSuffix("/") == true {
+                let catalog = data.newlocalCatalog.dropLast()
+                newconfig.localCatalog = String(catalog)
+            } else {
+                newconfig.localCatalog = data.newlocalCatalog
             }
-            catalog += "/"
-            newconfig.localCatalog = catalog
-        }
-        if data.newoffsiteCatalog.hasSuffix("/") == false, data.newdontaddtrailingbackslash == false {
-            var catalog = data.newoffsiteCatalog
-            guard catalog.isEmpty == false else {
-                let error = ValidateInputError.localcatalog
-                propogateerror(error: error)
-                return nil
+            if data.newoffsiteCatalog.hasSuffix("/") == true {
+                let catalog = data.newoffsiteCatalog.dropLast()
+                newconfig.offsiteCatalog = String(catalog)
+            } else {
+                newconfig.offsiteCatalog = data.newoffsiteCatalog
             }
-            catalog += "/"
-            newconfig.offsiteCatalog = catalog
+            // Check for adding trailing slash
+            // If trailing slash is already added, accept the data
+        case .add:
+            if data.newlocalCatalog.hasSuffix("/") == false {
+                var catalog = data.newlocalCatalog
+                catalog += "/"
+                newconfig.localCatalog = catalog
+            } else {
+                newconfig.localCatalog = data.newlocalCatalog
+            }
+            if data.newoffsiteCatalog.hasSuffix("/") == false {
+                var catalog = data.newoffsiteCatalog
+                catalog += "/"
+                newconfig.offsiteCatalog = catalog
+            } else {
+                newconfig.offsiteCatalog = data.newoffsiteCatalog
+            }
+        // Do not check for trailing slash or not
+        case .do_not_check:
+            newconfig.localCatalog = data.newlocalCatalog
+            newconfig.offsiteCatalog = data.newoffsiteCatalog
         }
+        
         // New snapshot task
         if data.newtask == SharedReference.shared.snapshot, newconfig.snapshotnum == nil {
             newconfig.task = SharedReference.shared.snapshot

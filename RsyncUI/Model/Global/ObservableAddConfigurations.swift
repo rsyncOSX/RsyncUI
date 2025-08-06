@@ -9,11 +9,20 @@
 import Foundation
 import Observation
 
+enum TrailingSlash: String, CaseIterable, Identifiable, CustomStringConvertible {
+    case dont_add, add, do_not_check
+    
+    var id: String { rawValue }
+    var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
+}
+
 @Observable @MainActor
 final class ObservableAddConfigurations {
+    
+    var trailingslashoptions: TrailingSlash = .add
+    
     var localcatalog: String = ""
     var remotecatalog: String = ""
-    var donotaddtrailingslash: Bool = false
     var remoteuser: String = ""
     var remoteserver: String = ""
     var backupID: String = ""
@@ -40,7 +49,7 @@ final class ObservableAddConfigurations {
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog.replacingOccurrences(of: "\"", with: ""),
                                  remotecatalog.replacingOccurrences(of: "\"", with: ""),
-                                 donotaddtrailingslash,
+                                 trailingslashoptions,
                                  remoteuser,
                                  remoteserver,
                                  backupID)
@@ -65,9 +74,9 @@ final class ObservableAddConfigurations {
                 mysnapshotnum = Int(snapshotnum) ?? 1
             }
         }
-
+        
         // If toggled ON remove trailing /
-        if donotaddtrailingslash {
+        if trailingslashoptions == .dont_add {
             if localcatalog.hasSuffix("/") {
                 localcatalog.removeLast()
             }
@@ -77,13 +86,13 @@ final class ObservableAddConfigurations {
         }
 
         if localcatalog.hasSuffix("/") == false, remotecatalog.hasSuffix("/") == false {
-            donotaddtrailingslash = true
+            trailingslashoptions = .dont_add
         }
 
         let updateddata = AppendTask(selectedrsynccommand.rawValue,
                                      localcatalog.replacingOccurrences(of: "\"", with: ""),
                                      remotecatalog.replacingOccurrences(of: "\"", with: ""),
-                                     donotaddtrailingslash,
+                                     trailingslashoptions,
                                      remoteuser,
                                      remoteserver,
                                      backupID,
@@ -103,7 +112,7 @@ final class ObservableAddConfigurations {
     func resetform() {
         localcatalog = ""
         remotecatalog = ""
-        donotaddtrailingslash = false
+        trailingslashoptions = .add
         remoteuser = ""
         remoteserver = ""
         backupID = ""

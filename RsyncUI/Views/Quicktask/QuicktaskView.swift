@@ -41,7 +41,7 @@ struct QuicktaskView: View {
     @State private var selectedrsynccommand = TypeofTaskQuictask.synchronize
     @State private var remoteuser: String = ""
     @State private var remoteserver: String = ""
-    @State private var donotaddtrailingslash: Bool = false
+    @State private var trailingslashoptions: TrailingSlash = .add
     @State private var dryrun: Bool = true
     @State private var catalogorfile: Bool = true
 
@@ -85,9 +85,9 @@ struct QuicktaskView: View {
                             .toggleStyle(.switch)
                             .onChange(of: catalogorfile) {
                                 if catalogorfile {
-                                    donotaddtrailingslash = false
+                                    trailingslashoptions = .dont_add
                                 } else {
-                                    donotaddtrailingslash = true
+                                    trailingslashoptions = .add
                                 }
                             }
                             .onTapGesture {
@@ -96,13 +96,7 @@ struct QuicktaskView: View {
                                 }
                             }
 
-                        Toggle("Don´t add /", isOn: $donotaddtrailingslash)
-                            .toggleStyle(.switch)
-                            .onTapGesture {
-                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                    donotaddtrailingslash.toggle()
-                                }
-                            }
+                        trailingslash
                     }
                     .padding()
                 }
@@ -147,19 +141,19 @@ struct QuicktaskView: View {
                     remoteserver = configfile.offsiteServer
                     if configfile.backupID == "1" {
                         selectedrsynccommand = .synchronize
-                        donotaddtrailingslash = true
+                        trailingslashoptions = .add
                         catalogorfile = false
                     } else if configfile.backupID == "2" {
                         selectedrsynccommand = .syncremote
-                        donotaddtrailingslash = true
+                        trailingslashoptions = .add
                         catalogorfile = false
                     } else if configfile.backupID == "3" {
                         selectedrsynccommand = .synchronize
-                        donotaddtrailingslash = false
+                        trailingslashoptions = .dont_add
                         catalogorfile = true
                     } else if configfile.backupID == "4" {
                         selectedrsynccommand = .syncremote
-                        donotaddtrailingslash = false
+                        trailingslashoptions = .dont_add
                         catalogorfile = true
                     }
                 }
@@ -302,12 +296,24 @@ struct QuicktaskView: View {
                 .submitLabel(.return)
         }
     }
+    
+    var trailingslash: some View {
+        Picker(NSLocalizedString("Trailing /", comment: ""),
+               selection: $trailingslashoptions)
+        {
+            ForEach(TrailingSlash.allCases) { Text($0.description)
+                .tag($0)
+            }
+        }
+        .pickerStyle(DefaultPickerStyle())
+        .frame(width: 170)
+    }
 }
 
 extension QuicktaskView {
     func resetform() {
         selectedrsynccommand = .synchronize
-        donotaddtrailingslash = false
+        trailingslashoptions = .add
         dryrun = true
         catalogorfile = true
         localcatalog = ""
@@ -318,13 +324,13 @@ extension QuicktaskView {
 
     func updatesavedtask(_ config: SynchronizeConfiguration) {
         var newconfig = config
-        if selectedrsynccommand == .synchronize, donotaddtrailingslash == true {
+        if selectedrsynccommand == .synchronize, trailingslashoptions == .add {
             newconfig.backupID = "1"
-        } else if selectedrsynccommand == .syncremote, donotaddtrailingslash == true {
+        } else if selectedrsynccommand == .syncremote, trailingslashoptions == .add  {
             newconfig.backupID = "2"
-        } else if selectedrsynccommand == .synchronize, donotaddtrailingslash == false {
+        } else if selectedrsynccommand == .synchronize, trailingslashoptions == .dont_add {
             newconfig.backupID = "3"
-        } else if selectedrsynccommand == .syncremote, donotaddtrailingslash == false {
+        } else if selectedrsynccommand == .syncremote, trailingslashoptions == .dont_add {
             newconfig.backupID = "4"
         }
         Task {
@@ -336,7 +342,7 @@ extension QuicktaskView {
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog,
                                  remotecatalog,
-                                 donotaddtrailingslash,
+                                 trailingslashoptions,
                                  remoteuser,
                                  remoteserver,
                                  "")
