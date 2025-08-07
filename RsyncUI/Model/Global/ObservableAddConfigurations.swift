@@ -8,6 +8,7 @@
 
 import Foundation
 import Observation
+import OSLog
 
 enum TrailingSlash: String, CaseIterable, Identifiable, CustomStringConvertible {
     case add, do_not_add, do_not_check
@@ -19,15 +20,15 @@ enum TrailingSlash: String, CaseIterable, Identifiable, CustomStringConvertible 
 @Observable @MainActor
 final class ObservableAddConfigurations {
     
-    var trailingslashoptions: TrailingSlash = .add
+    var trailingslashoptions = TrailingSlash.add
+    var selectedrsynccommand = TypeofTask.synchronize
     
     var localcatalog: String = ""
     var remotecatalog: String = ""
     var remoteuser: String = ""
     var remoteserver: String = ""
     var backupID: String = ""
-    var selectedrsynccommand = TypeofTask.synchronize
-
+   
     var deleted: Bool = false
     var created: Bool = false
     var showAlertfordelete: Bool = false
@@ -37,7 +38,6 @@ final class ObservableAddConfigurations {
     }
 
     var snapshotnum: String = ""
-
     var copyandpasteconfigurations: [SynchronizeConfiguration]?
 
     let helptext1 = "Red Synchronize ID means\n--delete parameter is ADDED\nTo REMOVE --delete parameter,\nselect Rsync parameters view\nto remove"
@@ -112,7 +112,6 @@ final class ObservableAddConfigurations {
     func resetform() {
         localcatalog = ""
         remotecatalog = ""
-        trailingslashoptions = .add
         remoteuser = ""
         remoteserver = ""
         backupID = ""

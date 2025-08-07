@@ -166,6 +166,9 @@ struct SidebarMainView: View {
                 futuredates.setfirsscheduledate()
                 Logger.process.info("SidebarMainView: ONAPPEAR completed")
             }
+            // Delete any default UserSetttings applied within AddTask
+            UserDefaults.standard.removeObject(forKey: "trailingslashoptions")
+            UserDefaults.standard.removeObject(forKey: "selectedrsynccommand")
         }
         .onOpenURL { incomingURL in
             // URL code

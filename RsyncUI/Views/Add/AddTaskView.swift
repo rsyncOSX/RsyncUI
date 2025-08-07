@@ -58,6 +58,9 @@ struct AddTaskView: View {
 
     // Present a help sheet
     @State private var showhelp: Bool = false
+    
+    @AppStorage("trailingslashoptions") var trailingslashoptions: String = ""
+    @AppStorage("selectedrsynccommand") var selectedrsynccommand: String = ""
 
     var body: some View {
         NavigationStack(path: $addtaskpath) {
@@ -251,7 +254,6 @@ struct AddTaskView: View {
                 }
             }
         }
-        .defaultAppStorage(.appGroup)
         .sheet(isPresented: $showhelp) {
             switch newdata.whichhelptext {
             case 1:
@@ -587,19 +589,6 @@ struct AddTaskView: View {
             }
         }
     }
-
-    var selectpickervalue: TypeofTask {
-        switch newdata.selectedconfig?.task {
-        case SharedReference.shared.synchronize:
-            .synchronize
-        case SharedReference.shared.syncremote:
-            .syncremote
-        case SharedReference.shared.snapshot:
-            .snapshot
-        default:
-            .synchronize
-        }
-    }
     
     var trailingslash: some View {
         Picker(NSLocalizedString("Trailing /", comment: ""),
@@ -613,8 +602,26 @@ struct AddTaskView: View {
         .frame(width: 180)
         .onChange(of: newdata.trailingslashoptions) {
             // Saving selected trailing slash as default value in UserDefaults
+            UserDefaults.standard.set(newdata.trailingslashoptions.rawValue, forKey: "trailingslashoptions")
             Logger.process.info("AddTaskView: saving trailingslashoptions to UserDefaults")
-            @AppStorage("trailingslashoptions") var trailingslashoptions: TrailingSlash = newdata.trailingslashoptions
+        }
+        .onAppear {
+            
+            if let trailingslashoptions = UserDefaults.standard.value(forKey: "trailingslashoptions") {
+                
+                Logger.process.info("AddTaskView: set default settings for trailingslashoptions: \(trailingslashoptions as! NSObject)")
+                
+                switch trailingslashoptions as! String {
+                case "do_not_check":
+                    newdata.trailingslashoptions = TrailingSlash.do_not_check
+                case "do_not_add":
+                    newdata.trailingslashoptions = TrailingSlash.do_not_add
+                case "add":
+                    newdata.trailingslashoptions = TrailingSlash.add
+                default:
+                    newdata.trailingslashoptions = TrailingSlash.add
+                }
+            }
         }
     }
 
@@ -625,15 +632,31 @@ struct AddTaskView: View {
             ForEach(TypeofTask.allCases) { Text($0.description)
                 .tag($0)
             }
-            .onChange(of: newdata.selectedconfig) {
-                newdata.selectedrsynccommand = selectpickervalue
-            }
         }
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 180)
         .onChange(of: newdata.selectedrsynccommand) {
+            // Saving selected rsync command slash as default value in UserDefaults
+            UserDefaults.standard.set(newdata.selectedrsynccommand.rawValue, forKey: "selectedrsynccommand")
             Logger.process.info("AddTaskView: saving selectedrsynccommand to UserDefaults")
-            @AppStorage("selectedrsynccommand") var selectedrsynccommand: TypeofTask = newdata.selectedrsynccommand
+        }
+        .onAppear {
+            
+            if let selectedrsynccommand = UserDefaults.standard.value(forKey: "selectedrsynccommand") {
+                
+                Logger.process.info("AddTaskView: set default settings for selectedrsynccommand: \(selectedrsynccommand as! NSObject)")
+                
+                switch selectedrsynccommand as! String {
+                case "synchronize":
+                    newdata.selectedrsynccommand = TypeofTask.synchronize
+                case "snapshot":
+                    newdata.selectedrsynccommand = TypeofTask.snapshot
+                case "syncremote":
+                    newdata.selectedrsynccommand = TypeofTask.syncremote
+                default:
+                    newdata.selectedrsynccommand = TypeofTask.synchronize
+                }
+            }
         }
     }
 
