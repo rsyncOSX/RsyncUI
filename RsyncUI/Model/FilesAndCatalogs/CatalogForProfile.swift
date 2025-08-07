@@ -61,25 +61,4 @@ struct CatalogForProfile {
         }
         return true
     }
-
-    // Function for delete file, used in QuickTask
-    func deletefile() {
-        let fm = FileManager.default
-        if let fullpathmacserial = path.fullpathmacserial {
-            let fullpathString = fullpathmacserial.appending("/") + SharedConstants().filenamequicktaskjson
-            let fullpathStringlURL = URL(fileURLWithPath: fullpathString)
-
-            guard fm.locationExists(at: fullpathString, kind: .file) == true else {
-                Logger.process.info("CatalogProfile: quicktask.json file does not exist \(fullpathString, privacy: .public)")
-                return
-            }
-            do {
-                try fm.removeItem(at: fullpathStringlURL)
-                Logger.process.info("CatalogProfile: deleted quicktask.json file \(fullpathString, privacy: .public)")
-            } catch let e {
-                let error = e as NSError
-                path.propogateerror(error: error)
-            }
-        }
-    }
 }

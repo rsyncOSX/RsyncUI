@@ -157,7 +157,6 @@ struct QuicktaskView: View {
             ToolbarItem {
                 Button {
                     resetform()
-                    CatalogForProfile().deletefile()
                 } label: {
                     if localcatalog.isEmpty == false {
                         Image(systemName: "clear")
@@ -223,10 +222,10 @@ struct QuicktaskView: View {
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 180)
         .onChange(of: selectedrsynccommand) {
-            UserDefaults.standard.set(selectedrsynccommand, forKey: "quickselectedrsynccommand")
+            UserDefaults.standard.set(selectedrsynccommand.rawValue, forKey: "quickselectedrsynccommand")
         }
         .onAppear {
-            if let selectedrsynccommand = UserDefaults.standard.value(forKey: "selectedrsynccommand") {
+            if let selectedrsynccommand = UserDefaults.standard.value(forKey: "quickselectedrsynccommand") {
                 
                 Logger.process.info("QuicktaskView: set default settings for selectedrsynccommand: \(selectedrsynccommand as! NSObject)")
                 
@@ -235,6 +234,8 @@ struct QuicktaskView: View {
                     self.selectedrsynccommand = TypeofTaskQuictask.synchronize
                 case "syncremote":
                     self.selectedrsynccommand = TypeofTaskQuictask.syncremote
+                case "not_selected":
+                    self.selectedrsynccommand = TypeofTaskQuictask.not_selected
                 default:
                     self.selectedrsynccommand = TypeofTaskQuictask.synchronize
                 }
@@ -383,8 +384,8 @@ struct QuicktaskView: View {
 
 extension QuicktaskView {
     func resetform() {
-        // selectedrsynccommand = .synchronize
-        // trailingslashoptions = .add
+        selectedrsynccommand = .synchronize
+        trailingslashoptions = .add
         dryrun = true
         catalogorfile = true
         localcatalog = ""
