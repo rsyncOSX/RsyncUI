@@ -7,6 +7,7 @@
 // swiftlint:disable file_length type_body_length line_length
 
 import SwiftUI
+import OSLog
 
 enum AddTaskDestinationView: String, Identifiable {
     case homecatalogs, globalchanges
@@ -250,6 +251,7 @@ struct AddTaskView: View {
                 }
             }
         }
+        .defaultAppStorage(.appGroup)
         .sheet(isPresented: $showhelp) {
             switch newdata.whichhelptext {
             case 1:
@@ -609,6 +611,11 @@ struct AddTaskView: View {
         }
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 180)
+        .onChange(of: newdata.trailingslashoptions) {
+            // Saving selected trailing slash as default value in UserDefaults
+            Logger.process.info("AddTaskView: saving trailingslashoptions to UserDefaults")
+            @AppStorage("trailingslashoptions") var trailingslashoptions: TrailingSlash = newdata.trailingslashoptions
+        }
     }
 
     var pickerselecttypeoftask: some View {
@@ -624,6 +631,10 @@ struct AddTaskView: View {
         }
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 180)
+        .onChange(of: newdata.selectedrsynccommand) {
+            Logger.process.info("AddTaskView: saving selectedrsynccommand to UserDefaults")
+            @AppStorage("selectedrsynccommand") var selectedrsynccommand: TypeofTask = newdata.selectedrsynccommand
+        }
     }
 
     var copyitems: [CopyItem] {

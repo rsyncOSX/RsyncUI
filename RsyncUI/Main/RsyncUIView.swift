@@ -103,3 +103,8 @@ extension Task where Success == Never, Failure == Never {
         try await Task.sleep(nanoseconds: duration)
     }
 }
+
+public extension UserDefaults {
+    @MainActor static let appGroup = UserDefaults(suiteName: "group.no.blogspot.RsyncUI")!
+}
+
