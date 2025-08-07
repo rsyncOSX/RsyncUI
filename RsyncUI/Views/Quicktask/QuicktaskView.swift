@@ -112,6 +112,12 @@ struct QuicktaskView: View {
                             .onChange(of: catalogorfile) {
                                 UserDefaults.standard.set(catalogorfile, forKey: "quickcatalogorfile")
                             }
+                            .onAppear {
+                                if let quickcatalogorfile = UserDefaults.standard.value(forKey: "quickcatalogorfile") {
+                                    
+                                    catalogorfile = quickcatalogorfile as! Bool
+                                }
+                            }
                         
                         trailingslash
                     }
