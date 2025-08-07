@@ -606,9 +606,7 @@ struct AddTaskView: View {
             Logger.process.info("AddTaskView: saving trailingslashoptions to UserDefaults")
         }
         .onAppear {
-            
             if let trailingslashoptions = UserDefaults.standard.value(forKey: "trailingslashoptions") {
-                
                 Logger.process.info("AddTaskView: set default settings for trailingslashoptions: \(trailingslashoptions as! NSObject)")
                 
                 switch trailingslashoptions as! String {

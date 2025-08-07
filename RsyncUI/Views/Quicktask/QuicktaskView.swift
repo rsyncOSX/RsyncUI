@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvertible {
     case synchronize
@@ -45,7 +46,19 @@ struct QuicktaskView: View {
     @State private var trailingslashoptions: TrailingSlash = .add
     @State private var dryrun: Bool = true
     @State private var catalogorfile: Bool = true
-
+    
+    
+    @AppStorage("quicklocalcatalog") var quicklocalcatalog: String = ""
+    @AppStorage("quickremotecatalog") var quickremotecatalog: String = ""
+    @AppStorage("quickselectedrsynccommand") var quickselectedrsynccommand: String = ""
+    
+    @AppStorage("quickremoteuser") var quickremoteuser: String = ""
+    @AppStorage("quickremoteserver") var quickremoteserver: String = ""
+    
+    @AppStorage("quicktrailingslashoptions") var quicktrailingslashoptions: String = ""
+    @AppStorage("quickcatalogorfile") var quickcatalogorfile: Bool = true
+    
+    
     // Executed labels
     @State private var showprogressview = false
     @State private var rsyncoutput = ObservableRsyncOutput()
@@ -54,25 +67,25 @@ struct QuicktaskView: View {
     @State private var focusstartexecution: Bool = false
     // Completed task
     @State private var completed: Bool = false
-
+    
     enum QuicktaskField: Hashable {
         case localcatalogField
         case remotecatalogField
         case remoteuserField
         case remoteserverField
     }
-
+    
     @FocusState private var focusField: QuicktaskField?
-
+    
     var body: some View {
         ZStack {
             Spacer()
-
+            
             // Column 1
             VStack(alignment: .leading) {
                 HStack {
                     pickerselecttypeoftask
-
+                    
                     VStack(alignment: .trailing) {
                         Toggle("--dry-run", isOn: $dryrun)
                             .toggleStyle(.switch)
@@ -81,7 +94,7 @@ struct QuicktaskView: View {
                                     dryrun.toggle()
                                 }
                             }
-
+                        
                         Toggle("File(off) or Folder(on)", isOn: $catalogorfile)
                             .toggleStyle(.switch)
                             .onChange(of: catalogorfile) {
@@ -96,23 +109,26 @@ struct QuicktaskView: View {
                                     catalogorfile.toggle()
                                 }
                             }
-
+                            .onChange(of: catalogorfile) {
+                                UserDefaults.standard.set(catalogorfile, forKey: "quickcatalogorfile")
+                            }
+                        
                         trailingslash
                     }
                     .padding()
                 }
-
+                
                 VStack(alignment: .leading) {
                     if selectedrsynccommand == .synchronize {
                         localandremotecatalog
                     } else {
                         localandremotecatalogsyncremote
                     }
-
+                    
                     remoteuserandserver
                 }
             }
-
+            
             if showprogressview { ProgressView() }
             if focusaborttask { labelaborttask }
             if focusstartexecution { labelstartexecution }
@@ -134,35 +150,6 @@ struct QuicktaskView: View {
         }
         .onAppear {
             focusField = .localcatalogField
-            Task {
-                if let configfile = await ActorReadSynchronizeQuicktaskJSON().readjsonfilequicktask() {
-                    localcatalog = configfile.localCatalog
-                    remotecatalog = configfile.offsiteCatalog
-                    remoteuser = configfile.offsiteUsername
-                    remoteserver = configfile.offsiteServer
-                    if configfile.backupID == "1" {
-                        selectedrsynccommand = .synchronize
-                        trailingslashoptions = .add
-                        catalogorfile = false
-                    } else if configfile.backupID == "2" {
-                        selectedrsynccommand = .syncremote
-                        trailingslashoptions = .add
-                        catalogorfile = false
-                    } else if configfile.backupID == "3" {
-                        selectedrsynccommand = .synchronize
-                        trailingslashoptions = .do_not_add
-                        catalogorfile = true
-                    } else if configfile.backupID == "4" {
-                        selectedrsynccommand = .syncremote
-                        trailingslashoptions = .do_not_add
-                        catalogorfile = true
-                    } else if configfile.backupID == "5" {
-                        selectedrsynccommand = .not_selected
-                        trailingslashoptions = .do_not_check
-                        catalogorfile = true
-                    }
-                }
-            }
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
@@ -181,7 +168,7 @@ struct QuicktaskView: View {
                 }
                 .help("Clear saved quicktask")
             }
-
+            
             ToolbarItem {
                 Button {
                     getconfigandexecute()
@@ -192,7 +179,7 @@ struct QuicktaskView: View {
                 .help("Synchronize (⌘R)")
                 .disabled(selectedrsynccommand == .not_selected)
             }
-
+            
             ToolbarItem {
                 Button {
                     abort()
@@ -208,7 +195,7 @@ struct QuicktaskView: View {
             OutputRsyncView(output: rsyncoutput.output ?? [])
         }
     }
-
+    
     var labelaborttask: some View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
@@ -216,7 +203,7 @@ struct QuicktaskView: View {
                 abort()
             })
     }
-
+    
     var labelstartexecution: some View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
@@ -224,25 +211,43 @@ struct QuicktaskView: View {
                 getconfigandexecute()
             })
     }
-
+    
     var pickerselecttypeoftask: some View {
         Picker(NSLocalizedString("Action", comment: "") + ":",
                selection: $selectedrsynccommand)
         {
             ForEach(TypeofTaskQuictask.allCases) { Text($0.description)
-                .tag($0)
+                    .tag($0)
             }
         }
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 180)
+        .onChange(of: selectedrsynccommand) {
+            UserDefaults.standard.set(selectedrsynccommand, forKey: "quickselectedrsynccommand")
+        }
+        .onAppear {
+            if let selectedrsynccommand = UserDefaults.standard.value(forKey: "selectedrsynccommand") {
+                
+                Logger.process.info("QuicktaskView: set default settings for selectedrsynccommand: \(selectedrsynccommand as! NSObject)")
+                
+                switch selectedrsynccommand as! String {
+                case "synchronize":
+                    self.selectedrsynccommand = TypeofTaskQuictask.synchronize
+                case "syncremote":
+                    self.selectedrsynccommand = TypeofTaskQuictask.syncremote
+                default:
+                    self.selectedrsynccommand = TypeofTaskQuictask.synchronize
+                }
+            }
+        }
     }
-
+    
     // Headers (in sections)
     var headerlocalremote: some View {
         Text("Folder parameters")
             .modifier(FixedTag(200, .leading))
     }
-
+    
     var localandremotecatalog: some View {
         Section(header: headerlocalremote) {
             // localcatalog
@@ -252,7 +257,18 @@ struct QuicktaskView: View {
                     .textContentType(.none)
                     .submitLabel(.continue)
             }
-
+            .onChange(of: localcatalog) {
+                UserDefaults.standard.set(localcatalog, forKey: "quicklocalcatalog")
+            }
+            .onAppear {
+                if let quicklocalcatalog = UserDefaults.standard.value(forKey: "quicklocalcatalog") {
+                    
+                    Logger.process.info("QuicktaskView: set default settings for localcatalog: \(quicklocalcatalog as! NSObject)")
+                    localcatalog = quicklocalcatalog as! String
+                    
+                }
+            }
+            
             // remotecatalog
             HStack {
                 EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $remotecatalog)
@@ -260,9 +276,21 @@ struct QuicktaskView: View {
                     .textContentType(.none)
                     .submitLabel(.continue)
             }
+            .onChange(of: remotecatalog) {
+                UserDefaults.standard.set(remotecatalog, forKey: "quickremotecatalog")
+            }
+            .onAppear {
+                if let quickremotecatalog = UserDefaults.standard.value(forKey: "quickremotecatalog") {
+                    
+                    Logger.process.info("QuicktaskView: set default settings for remotecatalog: \(quickremotecatalog as! NSObject)")
+                    
+                    remotecatalog = quickremotecatalog as! String
+                    
+                }
+            }
         }
     }
-
+    
     var localandremotecatalogsyncremote: some View {
         Section(header: headerlocalremote) {
             // remotecatalog
@@ -272,7 +300,7 @@ struct QuicktaskView: View {
                     .textContentType(.none)
                     .submitLabel(.continue)
             }
-
+            
             // localcatalog
             HStack {
                 EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $localcatalog)
@@ -282,12 +310,12 @@ struct QuicktaskView: View {
             }
         }
     }
-
+    
     var headerremote: some View {
         Text("Remote parameters")
             .modifier(FixedTag(200, .leading))
     }
-
+    
     var remoteuserandserver: some View {
         Section(header: headerremote) {
             // Remote user
@@ -295,11 +323,27 @@ struct QuicktaskView: View {
                 .focused($focusField, equals: .remoteuserField)
                 .textContentType(.none)
                 .submitLabel(.continue)
+                .onChange(of: remoteuser) { oldValue, newValue in
+                    UserDefaults.standard.set(remoteuser, forKey: "quickremoteuser")
+                }
+                .onAppear {
+                    if let  quickremoteuser = UserDefaults.standard.string(forKey: "quickremoteuser") {
+                        remoteuser = quickremoteuser
+                    }
+                }
             // Remote server
             EditValueScheme(300, NSLocalizedString("Add remote server", comment: ""), $remoteserver)
                 .focused($focusField, equals: .remoteserverField)
                 .textContentType(.none)
                 .submitLabel(.return)
+                .onChange(of: remoteserver) {
+                    UserDefaults.standard.set(remoteserver, forKey: "quickremoteserver")
+                }
+                .onAppear {
+                    if let  quickremoteserver = UserDefaults.standard.string(forKey: "quickremoteserver") {
+                        remoteserver = quickremoteserver
+                    }
+                }
         }
     }
     
@@ -308,42 +352,45 @@ struct QuicktaskView: View {
                selection: $trailingslashoptions)
         {
             ForEach(TrailingSlash.allCases) { Text($0.description)
-                .tag($0)
+                    .tag($0)
             }
         }
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 180)
+        .onChange(of: trailingslashoptions) {
+                UserDefaults.standard.set(trailingslashoptions.rawValue, forKey: "quicktrailingslash")
+        }
+        .onAppear {
+            if let trailingslashoptions = UserDefaults.standard.value(forKey: "quicktrailingslash") {
+                
+                Logger.process.info("QuicktaskView: set default settings for trailingslashoptions: \(trailingslashoptions as! NSObject)")
+                
+                switch trailingslashoptions as! String {
+                case "do_not_check":
+                    self.trailingslashoptions = TrailingSlash.do_not_check
+                case "do_not_add":
+                    self.trailingslashoptions = TrailingSlash.do_not_add
+                case "add":
+                    self.trailingslashoptions = TrailingSlash.add
+                default:
+                    self.trailingslashoptions = TrailingSlash.add
+                }
+            }
+        }
     }
+        
 }
 
 extension QuicktaskView {
     func resetform() {
-        selectedrsynccommand = .synchronize
-        trailingslashoptions = .add
+        // selectedrsynccommand = .synchronize
+        // trailingslashoptions = .add
         dryrun = true
         catalogorfile = true
         localcatalog = ""
         remotecatalog = ""
         remoteuser = ""
         remoteserver = ""
-    }
-
-    func updatesavedtask(_ config: SynchronizeConfiguration) {
-        var newconfig = config
-        if selectedrsynccommand == .synchronize, trailingslashoptions == .add {
-            newconfig.backupID = "1"
-        } else if selectedrsynccommand == .syncremote, trailingslashoptions == .add  {
-            newconfig.backupID = "2"
-        } else if selectedrsynccommand == .synchronize, trailingslashoptions == .do_not_add {
-            newconfig.backupID = "3"
-        } else if selectedrsynccommand == .syncremote, trailingslashoptions == .do_not_add {
-            newconfig.backupID = "4"
-        } else if trailingslashoptions == .do_not_check {
-            newconfig.backupID = "5"
-        }
-        Task {
-            await ActorWriteSynchronizeQuicktaskJSON(newconfig)
-        }
     }
 
     func getconfigandexecute() {
@@ -362,7 +409,6 @@ extension QuicktaskView {
                 let ok = try validateinput(config)
                 if ok {
                     execute(config: config, dryrun: dryrun)
-                    updatesavedtask(config)
                 }
             } catch let e {
                 let error = e
