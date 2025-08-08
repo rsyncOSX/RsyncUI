@@ -270,9 +270,20 @@ struct QuicktaskView: View {
                     .focused($focusField, equals: .localcatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
+                    .onChange(of: localcatalog) {
+                        UserDefaults.standard.set(localcatalog, forKey: "quicklocalcatalog")
+                    }
+                    .onAppear {
+                        if let quicklocalcatalog = UserDefaults.standard.value(forKey: "quicklocalcatalog") {
+                            
+                            Logger.process.info("QuicktaskView: set default settings for localcatalog: \(quicklocalcatalog as! NSObject)")
+                            localcatalog = quicklocalcatalog as! String
+                            
+                        }
+                    }
                 
                 Picker("", selection: $selectedhomecatalog) {
-                    Text("Select")
+                    Text("Home Catalogs")
                         .tag(nil as Catalognames.ID?)
                     ForEach(homecatalogs, id: \.self) { catalog in
                         Text(catalog.catalogname)
@@ -287,17 +298,6 @@ struct QuicktaskView: View {
                     }
                 }
             }
-            .onChange(of: localcatalog) {
-                UserDefaults.standard.set(localcatalog, forKey: "quicklocalcatalog")
-            }
-            .onAppear {
-                if let quicklocalcatalog = UserDefaults.standard.value(forKey: "quicklocalcatalog") {
-                    
-                    Logger.process.info("QuicktaskView: set default settings for localcatalog: \(quicklocalcatalog as! NSObject)")
-                    localcatalog = quicklocalcatalog as! String
-                    
-                }
-            }
             
             // remotecatalog
             HStack {
@@ -305,10 +305,22 @@ struct QuicktaskView: View {
                     .focused($focusField, equals: .remotecatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
+                    .onChange(of: remotecatalog) {
+                        UserDefaults.standard.set(remotecatalog, forKey: "quickremotecatalog")
+                    }
+                    .onAppear {
+                        if let quickremotecatalog = UserDefaults.standard.value(forKey: "quickremotecatalog") {
+                            
+                            Logger.process.info("QuicktaskView: set default settings for remotecatalog: \(quickremotecatalog as! NSObject)")
+                            
+                            remotecatalog = quickremotecatalog as! String
+                            
+                        }
+                    }
                 
                 VStack(alignment: .trailing) {
                     Picker("", selection: $selectedAttachedVolume) {
-                        Text("Select Attached Volume")
+                        Text("Attached Volume")
                             .tag(nil as AttachedVolumes.ID?)
                         ForEach(attachedVolumes, id: \.self) { volume in
                             Text(volume.volumename.lastPathComponent)
@@ -337,18 +349,6 @@ struct QuicktaskView: View {
                     }
                 }
             }
-            .onChange(of: remotecatalog) {
-                UserDefaults.standard.set(remotecatalog, forKey: "quickremotecatalog")
-            }
-            .onAppear {
-                if let quickremotecatalog = UserDefaults.standard.value(forKey: "quickremotecatalog") {
-                    
-                    Logger.process.info("QuicktaskView: set default settings for remotecatalog: \(quickremotecatalog as! NSObject)")
-                    
-                    remotecatalog = quickremotecatalog as! String
-                    
-                }
-            }
         }
     }
     
@@ -360,6 +360,18 @@ struct QuicktaskView: View {
                     .focused($focusField, equals: .remotecatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
+                    .onChange(of: remotecatalog) {
+                        UserDefaults.standard.set(remotecatalog, forKey: "quickremotecatalog")
+                    }
+                    .onAppear {
+                        if let quickremotecatalog = UserDefaults.standard.value(forKey: "quickremotecatalog") {
+                            
+                            Logger.process.info("QuicktaskView: set default settings for remotecatalog: \(quickremotecatalog as! NSObject)")
+                            
+                            remotecatalog = quickremotecatalog as! String
+                            
+                        }
+                    }
             }
             
             // localcatalog
@@ -368,6 +380,17 @@ struct QuicktaskView: View {
                     .focused($focusField, equals: .localcatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
+                    .onChange(of: localcatalog) {
+                        UserDefaults.standard.set(localcatalog, forKey: "quicklocalcatalog")
+                    }
+                    .onAppear {
+                        if let quicklocalcatalog = UserDefaults.standard.value(forKey: "quicklocalcatalog") {
+                            
+                            Logger.process.info("QuicktaskView: set default settings for localcatalog: \(quicklocalcatalog as! NSObject)")
+                            localcatalog = quicklocalcatalog as! String
+                            
+                        }
+                    }
                 
                 Picker("", selection: $selectedhomecatalog) {
                     Text("Select")
