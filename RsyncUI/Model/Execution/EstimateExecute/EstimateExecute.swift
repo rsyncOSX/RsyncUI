@@ -58,7 +58,7 @@ final class EstimateExecute {
                 {
                     // Used to display details of configuration in estimation
                     localprogressdetails?.configurationtobestimated = config.id
-                    let process = ProcessRsyncAsyncSequence(arguments: arguments,
+                    let process = ProcessRsync(arguments: arguments,
                                                             config: config,
                                                             processtermination: processtermination_estimation)
                     process.executeProcess()
@@ -76,7 +76,7 @@ final class EstimateExecute {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
                                                                                              forDisplay: false)
                 {
-                    let process = ProcessRsyncAsyncSequence(arguments: arguments,
+                    let process = ProcessRsync(arguments: arguments,
                                                             config: config,
                                                             processtermination: processtermination_excute,
                                                             filehandler: localfilehandler)
@@ -93,7 +93,7 @@ final class EstimateExecute {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
                                                                                              forDisplay: false)
                 {
-                    let process = ProcessRsyncAsyncSequence(arguments: arguments,
+                    let process = ProcessRsync(arguments: arguments,
                                                             config: config,
                                                             processtermination: processtermination_noestimation,
                                                             filehandler: localfilehandler)

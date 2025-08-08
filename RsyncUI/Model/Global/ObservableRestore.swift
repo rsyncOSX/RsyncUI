@@ -43,7 +43,7 @@ final class ObservableRestore {
                 arguments = computerestorearguments(forDisplay: false)
                 if let arguments {
                     restorefilesinprogress = true
-                    let command = ProcessRsyncAsyncSequence(arguments: arguments,
+                    let command = ProcessRsync(arguments: arguments,
                                                             processtermination: processtermination)
                     command.executeProcess()
                 }

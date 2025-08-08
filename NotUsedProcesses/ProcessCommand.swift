@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 15/03/2021.
 //
-/*
+
  import Combine
  import Foundation
  import OSLog
@@ -107,4 +107,4 @@
          Logger.process.info("ProcessCommand: DEINIT")
      }
  }
- */
+ 

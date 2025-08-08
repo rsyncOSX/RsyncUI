@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 15/03/2021.
 //
 // swiftlint:disable function_body_length cyclomatic_complexity line_length
-/*
+
  import Foundation
  import OSLog
 
@@ -202,4 +202,4 @@
          Logger.process.info("ProcessRsyncObserving: process = nil and termination discovered")
      }
  }
- */
+ 

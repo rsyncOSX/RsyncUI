@@ -41,7 +41,7 @@ final class SshKeys {
     // Execute command
     func executesshcreatekeys() {
         guard arguments != nil else { return }
-        let process = ProcessCommandAsyncSequence(command: command,
+        let process = ProcessCommand(command: command,
                                                   arguments: arguments,
                                                   processtermination: processtermination)
         process.executeProcess()

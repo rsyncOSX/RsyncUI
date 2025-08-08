@@ -1,5 +1,5 @@
 //
-//  ProcessRsyncAsyncSequence.swift
+//  ProcessRsync.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 03/08/2025.
@@ -9,7 +9,7 @@ import Foundation
 import OSLog
 
 @MainActor
-final class ProcessRsyncAsyncSequence {
+final class ProcessRsync {
     // Process termination and filehandler closures
     var processtermination: ([String]?, Int?) -> Void
     var filehandler: (Int) -> Void
@@ -149,7 +149,7 @@ final class ProcessRsyncAsyncSequence {
     }
 }
 
-extension ProcessRsyncAsyncSequence {
+extension ProcessRsync {
     func datahandle(_ pipe: Pipe) async {
         let outHandle = pipe.fileHandleForReading
         let data = outHandle.availableData
