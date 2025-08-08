@@ -77,6 +77,13 @@ struct QuicktaskView: View {
     
     @FocusState private var focusField: QuicktaskField?
     
+    @State private var selectedhomecatalog: Catalognames.ID?
+    @State private var selectedAttachedVolume: AttachedVolumes.ID?
+    @State private var selectedAttachedVolumeCatalogs: String?
+
+    let homecatalogs: [Catalognames]
+    let attachedVolumes: [AttachedVolumes]
+    
     var body: some View {
         ZStack {
             Spacer()
@@ -124,15 +131,15 @@ struct QuicktaskView: View {
                     .padding()
                 }
                 
-                VStack(alignment: .leading) {
-                    if selectedrsynccommand == .synchronize {
-                        localandremotecatalog
-                    } else {
-                        localandremotecatalogsyncremote
+                    VStack(alignment: .leading) {
+                        if selectedrsynccommand == .synchronize {
+                            localandremotecatalog
+                        } else {
+                            localandremotecatalogsyncremote
+                        }
+                        
+                        remoteuserandserver
                     }
-                    
-                    remoteuserandserver
-                }
             }
             
             if showprogressview { ProgressView() }
@@ -263,6 +270,16 @@ struct QuicktaskView: View {
                     .focused($focusField, equals: .localcatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
+                
+                Picker("", selection: $selectedhomecatalog) {
+                    Text("Select")
+                        .tag(nil as Catalognames.ID?)
+                    ForEach(homecatalogs, id: \.self) { catalog in
+                        Text(catalog.catalogname)
+                            .tag(catalog.id)
+                    }
+                }
+                .frame(width: 300)
             }
             .onChange(of: localcatalog) {
                 UserDefaults.standard.set(localcatalog, forKey: "quicklocalcatalog")
@@ -282,6 +299,29 @@ struct QuicktaskView: View {
                     .focused($focusField, equals: .remotecatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
+                
+                VStack(alignment: .trailing) {
+                    Picker("", selection: $selectedAttachedVolume) {
+                        Text("Select Attached Volume")
+                            .tag(nil as AttachedVolumes.ID?)
+                        ForEach(attachedVolumes, id: \.self) { volume in
+                            Text(volume.volumename.lastPathComponent)
+                                .tag(volume.id)
+                        }
+                    }
+                    .frame(width: 300)
+
+                    Picker("", selection: $selectedAttachedVolumeCatalogs) {
+                        Text("Select")
+                            .tag(nil as String?)
+                        ForEach(attachedVolumesCatalogs, id: \.self) { volumename in
+                            Text(volumename)
+                                .tag(volumename)
+                        }
+                    }
+                    .frame(width: 300)
+                    .disabled(selectedAttachedVolume == nil)
+                }
             }
             .onChange(of: remotecatalog) {
                 UserDefaults.standard.set(remotecatalog, forKey: "quickremotecatalog")
@@ -384,6 +424,26 @@ struct QuicktaskView: View {
                 }
             }
         }
+    }
+    
+    var attachedVolumesCatalogs: [String] {
+        if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
+            let fm = FileManager.default
+            let atpathURL = attachedVolumes[index].volumename
+            var catalogs = [String]()
+            do {
+                for filesandfolders in try
+                    fm.contentsOfDirectory(at: atpathURL, includingPropertiesForKeys: nil)
+                    where filesandfolders.hasDirectoryPath
+                {
+                    catalogs.append(filesandfolders.lastPathComponent)
+                }
+                return catalogs
+            } catch {
+                return []
+            }
+        }
+        return []
     }
         
 }
