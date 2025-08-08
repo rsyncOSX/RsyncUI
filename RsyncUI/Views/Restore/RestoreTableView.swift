@@ -294,7 +294,7 @@ extension RestoreTableView {
                                         processtermination: processtermination)
              */
             let command = ProcessRsync(arguments: arguments,
-                                                    processtermination: processtermination)
+                                       processtermination: processtermination)
             command.executeProcess()
         }
     }

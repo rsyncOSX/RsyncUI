@@ -44,7 +44,7 @@ final class ObservableRestore {
                 if let arguments {
                     restorefilesinprogress = true
                     let command = ProcessRsync(arguments: arguments,
-                                                            processtermination: processtermination)
+                                               processtermination: processtermination)
                     command.executeProcess()
                 }
             }

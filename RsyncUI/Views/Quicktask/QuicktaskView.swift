@@ -5,8 +5,8 @@
 //  Created by Thomas Evensen on 21/11/2023.
 //
 
-import SwiftUI
 import OSLog
+import SwiftUI
 
 enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvertible {
     case synchronize
@@ -46,19 +46,17 @@ struct QuicktaskView: View {
     @State private var trailingslashoptions: TrailingSlash = .add
     @State private var dryrun: Bool = true
     @State private var catalogorfile: Bool = true
-    
-    
+
     @AppStorage("quicklocalcatalog") var quicklocalcatalog: String = ""
     @AppStorage("quickremotecatalog") var quickremotecatalog: String = ""
     @AppStorage("quickselectedrsynccommand") var quickselectedrsynccommand: String = ""
-    
+
     @AppStorage("quickremoteuser") var quickremoteuser: String = ""
     @AppStorage("quickremoteserver") var quickremoteserver: String = ""
-    
+
     @AppStorage("quicktrailingslashoptions") var quicktrailingslashoptions: String = ""
     @AppStorage("quickcatalogorfile") var quickcatalogorfile: Bool = true
-    
-    
+
     // Executed labels
     @State private var showprogressview = false
     @State private var rsyncoutput = ObservableRsyncOutput()
@@ -67,32 +65,32 @@ struct QuicktaskView: View {
     @State private var focusstartexecution: Bool = false
     // Completed task
     @State private var completed: Bool = false
-    
+
     enum QuicktaskField: Hashable {
         case localcatalogField
         case remotecatalogField
         case remoteuserField
         case remoteserverField
     }
-    
+
     @FocusState private var focusField: QuicktaskField?
-    
+
     @State private var selectedhomecatalog: Catalognames.ID?
     @State private var selectedAttachedVolume: AttachedVolumes.ID?
     @State private var selectedAttachedVolumeCatalogs: String?
 
     let homecatalogs: [Catalognames]
     let attachedVolumes: [AttachedVolumes]
-    
+
     var body: some View {
         ZStack {
             Spacer()
-            
+
             // Column 1
             VStack(alignment: .leading) {
                 HStack {
                     pickerselecttypeoftask
-                    
+
                     VStack(alignment: .trailing) {
                         Toggle("--dry-run", isOn: $dryrun)
                             .toggleStyle(.switch)
@@ -101,7 +99,7 @@ struct QuicktaskView: View {
                                     dryrun.toggle()
                                 }
                             }
-                        
+
                         Toggle("File(off) or Folder(on)", isOn: $catalogorfile)
                             .toggleStyle(.switch)
                             .onChange(of: catalogorfile) {
@@ -121,27 +119,26 @@ struct QuicktaskView: View {
                             }
                             .onAppear {
                                 if let quickcatalogorfile = UserDefaults.standard.value(forKey: "quickcatalogorfile") {
-                                    
                                     catalogorfile = quickcatalogorfile as! Bool
                                 }
                             }
-                        
+
                         trailingslash
                     }
                     .padding()
                 }
-                
-                    VStack(alignment: .leading) {
-                        if selectedrsynccommand == .synchronize {
-                            localandremotecatalog
-                        } else {
-                            localandremotecatalogsyncremote
-                        }
-                        
-                        remoteuserandserver
+
+                VStack(alignment: .leading) {
+                    if selectedrsynccommand == .synchronize {
+                        localandremotecatalog
+                    } else {
+                        localandremotecatalogsyncremote
                     }
+
+                    remoteuserandserver
+                }
             }
-            
+
             if showprogressview { ProgressView() }
             if focusaborttask { labelaborttask }
             if focusstartexecution { labelstartexecution }
@@ -180,7 +177,7 @@ struct QuicktaskView: View {
                 }
                 .help("Clear saved quicktask")
             }
-            
+
             ToolbarItem {
                 Button {
                     getconfigandexecute()
@@ -191,7 +188,7 @@ struct QuicktaskView: View {
                 .help("Synchronize (⌘R)")
                 .disabled(selectedrsynccommand == .not_selected)
             }
-            
+
             ToolbarItem {
                 Button {
                     abort()
@@ -207,7 +204,7 @@ struct QuicktaskView: View {
             OutputRsyncView(output: rsyncoutput.output ?? [])
         }
     }
-    
+
     var labelaborttask: some View {
         Label("", systemImage: "play.fill")
             .onAppear(perform: {
@@ -215,7 +212,7 @@ struct QuicktaskView: View {
                 abort()
             })
     }
-    
+
     var labelstartexecution: some View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
@@ -223,13 +220,13 @@ struct QuicktaskView: View {
                 getconfigandexecute()
             })
     }
-    
+
     var pickerselecttypeoftask: some View {
         Picker(NSLocalizedString("Action", comment: "") + ":",
                selection: $selectedrsynccommand)
         {
             ForEach(TypeofTaskQuictask.allCases) { Text($0.description)
-                    .tag($0)
+                .tag($0)
             }
         }
         .pickerStyle(DefaultPickerStyle())
@@ -239,9 +236,8 @@ struct QuicktaskView: View {
         }
         .onAppear {
             if let selectedrsynccommand = UserDefaults.standard.value(forKey: "quickselectedrsynccommand") {
-                
                 Logger.process.info("QuicktaskView: set default settings for selectedrsynccommand: \(selectedrsynccommand as! NSObject)")
-                
+
                 switch selectedrsynccommand as! String {
                 case "synchronize":
                     self.selectedrsynccommand = TypeofTaskQuictask.synchronize
@@ -255,13 +251,13 @@ struct QuicktaskView: View {
             }
         }
     }
-    
+
     // Headers (in sections)
     var headerlocalremote: some View {
         Text("Folder parameters")
             .modifier(FixedTag(200, .leading))
     }
-    
+
     var localandremotecatalog: some View {
         Section(header: headerlocalremote) {
             // localcatalog
@@ -275,13 +271,11 @@ struct QuicktaskView: View {
                     }
                     .onAppear {
                         if let quicklocalcatalog = UserDefaults.standard.value(forKey: "quicklocalcatalog") {
-                            
                             Logger.process.info("QuicktaskView: set default settings for localcatalog: \(quicklocalcatalog as! NSObject)")
                             localcatalog = quicklocalcatalog as! String
-                            
                         }
                     }
-                
+
                 Picker("", selection: $selectedhomecatalog) {
                     Text("Home Catalogs")
                         .tag(nil as Catalognames.ID?)
@@ -294,11 +288,10 @@ struct QuicktaskView: View {
                 .onChange(of: selectedhomecatalog) {
                     if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
                         localcatalog = homecatalogs[index].catalogname
-                        
                     }
                 }
             }
-            
+
             // remotecatalog
             HStack {
                 EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $remotecatalog)
@@ -310,14 +303,12 @@ struct QuicktaskView: View {
                     }
                     .onAppear {
                         if let quickremotecatalog = UserDefaults.standard.value(forKey: "quickremotecatalog") {
-                            
                             Logger.process.info("QuicktaskView: set default settings for remotecatalog: \(quickremotecatalog as! NSObject)")
-                            
+
                             remotecatalog = quickremotecatalog as! String
-                            
                         }
                     }
-                
+
                 VStack(alignment: .trailing) {
                     Picker("", selection: $selectedAttachedVolume) {
                         Text("Attached Volume")
@@ -351,7 +342,7 @@ struct QuicktaskView: View {
             }
         }
     }
-    
+
     var localandremotecatalogsyncremote: some View {
         Section(header: headerlocalremote) {
             // remotecatalog
@@ -365,15 +356,13 @@ struct QuicktaskView: View {
                     }
                     .onAppear {
                         if let quickremotecatalog = UserDefaults.standard.value(forKey: "quickremotecatalog") {
-                            
                             Logger.process.info("QuicktaskView: set default settings for remotecatalog: \(quickremotecatalog as! NSObject)")
-                            
+
                             remotecatalog = quickremotecatalog as! String
-                            
                         }
                     }
             }
-            
+
             // localcatalog
             HStack {
                 EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $localcatalog)
@@ -385,13 +374,11 @@ struct QuicktaskView: View {
                     }
                     .onAppear {
                         if let quicklocalcatalog = UserDefaults.standard.value(forKey: "quicklocalcatalog") {
-                            
                             Logger.process.info("QuicktaskView: set default settings for localcatalog: \(quicklocalcatalog as! NSObject)")
                             localcatalog = quicklocalcatalog as! String
-                            
                         }
                     }
-                
+
                 Picker("", selection: $selectedhomecatalog) {
                     Text("Select")
                         .tag(nil as Catalognames.ID?)
@@ -404,18 +391,17 @@ struct QuicktaskView: View {
                 .onChange(of: selectedhomecatalog) {
                     if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
                         localcatalog = homecatalogs[index].catalogname
-                        
                     }
                 }
             }
         }
     }
-    
+
     var headerremote: some View {
         Text("Remote parameters")
             .modifier(FixedTag(200, .leading))
     }
-    
+
     var remoteuserandserver: some View {
         Section(header: headerremote) {
             // Remote user
@@ -423,11 +409,11 @@ struct QuicktaskView: View {
                 .focused($focusField, equals: .remoteuserField)
                 .textContentType(.none)
                 .submitLabel(.continue)
-                .onChange(of: remoteuser) { oldValue, newValue in
+                .onChange(of: remoteuser) { _, _ in
                     UserDefaults.standard.set(remoteuser, forKey: "quickremoteuser")
                 }
                 .onAppear {
-                    if let  quickremoteuser = UserDefaults.standard.string(forKey: "quickremoteuser") {
+                    if let quickremoteuser = UserDefaults.standard.string(forKey: "quickremoteuser") {
                         remoteuser = quickremoteuser
                     }
                 }
@@ -440,31 +426,30 @@ struct QuicktaskView: View {
                     UserDefaults.standard.set(remoteserver, forKey: "quickremoteserver")
                 }
                 .onAppear {
-                    if let  quickremoteserver = UserDefaults.standard.string(forKey: "quickremoteserver") {
+                    if let quickremoteserver = UserDefaults.standard.string(forKey: "quickremoteserver") {
                         remoteserver = quickremoteserver
                     }
                 }
         }
     }
-    
+
     var trailingslash: some View {
         Picker(NSLocalizedString("Trailing /", comment: ""),
                selection: $trailingslashoptions)
         {
             ForEach(TrailingSlash.allCases) { Text($0.description)
-                    .tag($0)
+                .tag($0)
             }
         }
         .pickerStyle(DefaultPickerStyle())
         .frame(width: 180)
         .onChange(of: trailingslashoptions) {
-                UserDefaults.standard.set(trailingslashoptions.rawValue, forKey: "quicktrailingslash")
+            UserDefaults.standard.set(trailingslashoptions.rawValue, forKey: "quicktrailingslash")
         }
         .onAppear {
             if let trailingslashoptions = UserDefaults.standard.value(forKey: "quicktrailingslash") {
-                
                 Logger.process.info("QuicktaskView: set default settings for trailingslashoptions: \(trailingslashoptions as! NSObject)")
-                
+
                 switch trailingslashoptions as! String {
                 case "do_not_check":
                     self.trailingslashoptions = TrailingSlash.do_not_check
@@ -478,7 +463,7 @@ struct QuicktaskView: View {
             }
         }
     }
-    
+
     var attachedVolumesCatalogs: [String] {
         if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
             let fm = FileManager.default
@@ -498,7 +483,6 @@ struct QuicktaskView: View {
         }
         return []
     }
-        
 }
 
 extension QuicktaskView {
@@ -521,9 +505,9 @@ extension QuicktaskView {
                                  remoteuser,
                                  remoteserver,
                                  "")
-        
+
         guard selectedrsynccommand != .not_selected else { return }
-        
+
         if let config = VerifyConfiguration().verify(getdata) {
             do {
                 let ok = try validateinput(config)
@@ -542,8 +526,8 @@ extension QuicktaskView {
         // Start progressview
         showprogressview = true
         let process = ProcessRsync(arguments: arguments,
-                                                config: config,
-                                                processtermination: processtermination)
+                                   config: config,
+                                   processtermination: processtermination)
         process.executeProcess()
     }
 

@@ -94,8 +94,8 @@ struct PushPullView: View {
                                                                                               forDisplay: false,
                                                                                               keepdelete: true)
         let process = ProcessRsync(arguments: arguments,
-                                                config: config,
-                                                processtermination: pullprocesstermination)
+                                   config: config,
+                                   processtermination: pullprocesstermination)
         process.executeProcess()
     }
 
@@ -105,8 +105,8 @@ struct PushPullView: View {
                                                                                            forDisplay: false,
                                                                                            keepdelete: true)
         let process = ProcessRsync(arguments: arguments,
-                                                config: config,
-                                                processtermination: pushprocesstermination)
+                                   config: config,
+                                   processtermination: pushprocesstermination)
         process.executeProcess()
     }
 

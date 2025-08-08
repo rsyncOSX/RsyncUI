@@ -6,8 +6,8 @@
 //
 // swiftlint:disable file_length type_body_length line_length
 
-import SwiftUI
 import OSLog
+import SwiftUI
 
 enum AddTaskDestinationView: String, Identifiable {
     case homecatalogs, globalchanges
@@ -58,7 +58,7 @@ struct AddTaskView: View {
 
     // Present a help sheet
     @State private var showhelp: Bool = false
-    
+
     @AppStorage("trailingslashoptions") var trailingslashoptions: String = ""
     @AppStorage("selectedrsynccommand") var selectedrsynccommand: String = ""
 
@@ -68,7 +68,6 @@ struct AddTaskView: View {
                 // Column 1
 
                 VStack(alignment: .leading) {
-                    
                     if newdata.selectedconfig != nil {
                         Button("Update") {
                             validateandupdate()
@@ -82,14 +81,12 @@ struct AddTaskView: View {
                         .buttonStyle(ColorfulButtonStyle())
                         .help("Add task")
                     }
-                    
+
                     VStack(alignment: .trailing) {
-                        
                         pickerselecttypeoftask
                             .disabled(selectedconfig != nil)
-                        
-                        trailingslash
 
+                        trailingslash
                     }
                     .padding(.bottom, 10)
 
@@ -589,7 +586,7 @@ struct AddTaskView: View {
             }
         }
     }
-    
+
     var trailingslash: some View {
         Picker(NSLocalizedString("Trailing /", comment: ""),
                selection: $newdata.trailingslashoptions)
@@ -608,7 +605,7 @@ struct AddTaskView: View {
         .onAppear {
             if let trailingslashoptions = UserDefaults.standard.value(forKey: "trailingslashoptions") {
                 Logger.process.info("AddTaskView: set default settings for trailingslashoptions: \(trailingslashoptions as! NSObject)")
-                
+
                 switch trailingslashoptions as! String {
                 case "do_not_check":
                     newdata.trailingslashoptions = TrailingSlash.do_not_check
@@ -639,11 +636,9 @@ struct AddTaskView: View {
             Logger.process.info("AddTaskView: saving selectedrsynccommand to UserDefaults")
         }
         .onAppear {
-            
             if let selectedrsynccommand = UserDefaults.standard.value(forKey: "selectedrsynccommand") {
-                
                 Logger.process.info("AddTaskView: set default settings for selectedrsynccommand: \(selectedrsynccommand as! NSObject)")
-                
+
                 switch selectedrsynccommand as! String {
                 case "synchronize":
                     newdata.selectedrsynccommand = TypeofTask.synchronize

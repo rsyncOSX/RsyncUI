@@ -12,23 +12,22 @@ import OSLog
 
 enum TrailingSlash: String, CaseIterable, Identifiable, CustomStringConvertible {
     case add, do_not_add, do_not_check
-    
+
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
 }
 
 @Observable @MainActor
 final class ObservableAddConfigurations {
-    
     var trailingslashoptions = TrailingSlash.add
     var selectedrsynccommand = TypeofTask.synchronize
-    
+
     var localcatalog: String = ""
     var remotecatalog: String = ""
     var remoteuser: String = ""
     var remoteserver: String = ""
     var backupID: String = ""
-   
+
     var deleted: Bool = false
     var created: Bool = false
     var showAlertfordelete: Bool = false
@@ -74,7 +73,7 @@ final class ObservableAddConfigurations {
                 mysnapshotnum = Int(snapshotnum) ?? 1
             }
         }
-        
+
         // If toggled ON remove trailing /
         if trailingslashoptions == .do_not_add {
             if localcatalog.hasSuffix("/") {

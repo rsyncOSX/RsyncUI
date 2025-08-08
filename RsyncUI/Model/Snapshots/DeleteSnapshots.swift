@@ -45,8 +45,8 @@ final class DeleteSnapshots {
             if let config = localeconfig {
                 let arguments = ArgumentsSnapshotDeleteCatalogs(config: config, remotecatalog: remotecatalog)
                 let command = ProcessCommand(command: arguments.getCommand(),
-                                                          arguments: arguments.getArguments(),
-                                                          processtermination: processtermination)
+                                             arguments: arguments.getArguments(),
+                                             processtermination: processtermination)
                 command.executeProcess()
             }
         }

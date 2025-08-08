@@ -116,29 +116,25 @@ final class VerifyConfiguration: Connected {
 
         // First od all verify that either source or destination is empty
         // If one is empty bail out
-        
+
         guard data.newlocalCatalog.isEmpty == false else {
             let error = ValidateInputError.localcatalog
             propogateerror(error: error)
             return nil
         }
-        
+
         guard data.newoffsiteCatalog.isEmpty == false else {
             let error = ValidateInputError.localcatalog
             propogateerror(error: error)
             return nil
         }
-        
-        
+
         if (data.snapshotnum ?? 0) > 0 {
             newconfig.snapshotnum = data.snapshotnum
         } else {
             newconfig.snapshotnum = nil
         }
-        
-        
-        
-        
+
         // Check what to do with trailing slash
         switch data.newtrailingslashoptions {
         // Remove any trailing slashes
@@ -156,8 +152,8 @@ final class VerifyConfiguration: Connected {
             } else {
                 newconfig.offsiteCatalog = data.newoffsiteCatalog
             }
-            // Check for adding trailing slash
-            // If trailing slash is already added, accept the data
+        // Check for adding trailing slash
+        // If trailing slash is already added, accept the data
         case .add:
             if data.newlocalCatalog.hasSuffix("/") == false {
                 var catalog = data.newlocalCatalog
@@ -178,7 +174,7 @@ final class VerifyConfiguration: Connected {
             newconfig.localCatalog = data.newlocalCatalog
             newconfig.offsiteCatalog = data.newoffsiteCatalog
         }
-        
+
         // New snapshot task
         if data.newtask == SharedReference.shared.snapshot, newconfig.snapshotnum == nil {
             newconfig.task = SharedReference.shared.snapshot
@@ -210,7 +206,7 @@ final class VerifyConfiguration: Connected {
         guard config.offsiteServer.isEmpty == false else { return }
         let args = ArgumentsSnapshotCreateCatalog(config: config)
         let updatecurrent = ProcessCommand(command: args.getCommand(),
-                                                        arguments: args.getArguments())
+                                           arguments: args.getArguments())
         updatecurrent.executeProcess()
     }
 

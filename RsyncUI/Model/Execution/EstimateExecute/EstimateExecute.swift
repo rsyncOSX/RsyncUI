@@ -59,8 +59,8 @@ final class EstimateExecute {
                     // Used to display details of configuration in estimation
                     localprogressdetails?.configurationtobestimated = config.id
                     let process = ProcessRsync(arguments: arguments,
-                                                            config: config,
-                                                            processtermination: processtermination_estimation)
+                                               config: config,
+                                               processtermination: processtermination_estimation)
                     process.executeProcess()
                 }
             }
@@ -77,9 +77,9 @@ final class EstimateExecute {
                                                                                              forDisplay: false)
                 {
                     let process = ProcessRsync(arguments: arguments,
-                                                            config: config,
-                                                            processtermination: processtermination_excute,
-                                                            filehandler: localfilehandler)
+                                               config: config,
+                                               processtermination: processtermination_excute,
+                                               filehandler: localfilehandler)
                     process.executeProcess()
                 }
             }
@@ -94,9 +94,9 @@ final class EstimateExecute {
                                                                                              forDisplay: false)
                 {
                     let process = ProcessRsync(arguments: arguments,
-                                                            config: config,
-                                                            processtermination: processtermination_noestimation,
-                                                            filehandler: localfilehandler)
+                                               config: config,
+                                               processtermination: processtermination_noestimation,
+                                               filehandler: localfilehandler)
                     process.executeProcess()
                 }
             }
