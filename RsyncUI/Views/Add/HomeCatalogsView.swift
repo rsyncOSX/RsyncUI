@@ -39,52 +39,51 @@ struct HomeCatalogsView: View {
     let attachedVolumes: [AttachedVolumes]
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Spacer()
-
-            Picker("Step one: select a Folder in home directory", selection: $selectedhomecatalog) {
-                Text("Select")
-                    .tag(nil as Catalognames.ID?)
-                ForEach(homecatalogs, id: \.self) { catalog in
-                    Text(catalog.catalogname)
-                        .tag(catalog.id)
+        
+        Form {
+            Section(header: Text("Step one")) {
+                Picker("Select a Folder in home directory", selection: $selectedhomecatalog) {
+                    Text("Select")
+                        .tag(nil as Catalognames.ID?)
+                    ForEach(homecatalogs, id: \.self) { catalog in
+                        Text(catalog.catalogname)
+                            .tag(catalog.id)
+                    }
                 }
+                .frame(width: 500)
             }
-            .frame(width: 500)
-
-            Picker("Step two: select an Attached Volume", selection: $selectedAttachedVolume) {
-                Text("Select")
-                    .tag(nil as AttachedVolumes.ID?)
-                ForEach(attachedVolumes, id: \.self) { volume in
-                    Text(volume.volumename.lastPathComponent)
-                        .tag(volume.id)
+            
+            Section(header: Text("Step two and three")) {
+                Picker("Select an Attached Volume", selection: $selectedAttachedVolume) {
+                    Text("Select")
+                        .tag(nil as AttachedVolumes.ID?)
+                    ForEach(attachedVolumes, id: \.self) { volume in
+                        Text(volume.volumename.lastPathComponent)
+                            .tag(volume.id)
+                    }
                 }
-            }
-            .frame(width: 500)
+                .frame(width: 500)
 
-            Picker("Step three: select a Folder in Attached Volume", selection: $selectedAttachedVolumeCatalogs) {
-                Text("Select")
-                    .tag(nil as String?)
-                ForEach(attachedVolumesCatalogs, id: \.self) { volumename in
-                    Text(volumename)
-                        .tag(volumename)
+                Picker("Select a Folder in Attached Volume", selection: $selectedAttachedVolumeCatalogs) {
+                    Text("Select")
+                        .tag(nil as String?)
+                    ForEach(attachedVolumesCatalogs, id: \.self) { volumename in
+                        Text(volumename)
+                            .tag(volumename)
+                    }
                 }
+                .frame(width: 500)
+                .disabled(selectedAttachedVolume == nil)
             }
-            .frame(width: 500)
-            .disabled(selectedAttachedVolume == nil)
-
-            HStack {
-                Text("Step four ")
-
+            
+            Section(header: Text("Step four")) {
                 Button("Return") {
                     path.removeAll()
                 }
                 .buttonStyle(ColorfulButtonStyle())
             }
-
-            Spacer()
         }
-        .padding()
+        .formStyle(.grouped)
         .onDisappear(perform: {
             if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
                 let selectedcatalog = homecatalogs[index].catalogname
@@ -102,6 +101,8 @@ struct HomeCatalogsView: View {
                 }
             }
         })
+        .padding()
+        
 
         var attachedVolumesCatalogs: [String] {
             if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
