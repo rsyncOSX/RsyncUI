@@ -280,6 +280,12 @@ struct QuicktaskView: View {
                     }
                 }
                 .frame(width: 300)
+                .onChange(of: selectedhomecatalog) {
+                    if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
+                        localcatalog = homecatalogs[index].catalogname
+                        
+                    }
+                }
             }
             .onChange(of: localcatalog) {
                 UserDefaults.standard.set(localcatalog, forKey: "quicklocalcatalog")
@@ -321,6 +327,14 @@ struct QuicktaskView: View {
                     }
                     .frame(width: 300)
                     .disabled(selectedAttachedVolume == nil)
+                    .onChange(of: attachedVolumesCatalogs) {
+                        if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
+                            let attachedvolume = attachedVolumes[index].volumename
+                            if let index = attachedVolumesCatalogs.firstIndex(where: { $0 == selectedAttachedVolumeCatalogs }) {
+                                remotecatalog = (attachedvolume.relativePath).appending("/") + attachedVolumesCatalogs[index]
+                            }
+                        }
+                    }
                 }
             }
             .onChange(of: remotecatalog) {
@@ -354,6 +368,22 @@ struct QuicktaskView: View {
                     .focused($focusField, equals: .localcatalogField)
                     .textContentType(.none)
                     .submitLabel(.continue)
+                
+                Picker("", selection: $selectedhomecatalog) {
+                    Text("Select")
+                        .tag(nil as Catalognames.ID?)
+                    ForEach(homecatalogs, id: \.self) { catalog in
+                        Text(catalog.catalogname)
+                            .tag(catalog.id)
+                    }
+                }
+                .frame(width: 300)
+                .onChange(of: selectedhomecatalog) {
+                    if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
+                        localcatalog = homecatalogs[index].catalogname
+                        
+                    }
+                }
             }
         }
     }
