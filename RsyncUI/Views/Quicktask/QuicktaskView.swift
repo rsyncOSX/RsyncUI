@@ -84,60 +84,215 @@ struct QuicktaskView: View {
 
     var body: some View {
         ZStack {
-            Spacer()
-
-            // Column 1
-            VStack(alignment: .leading) {
-                HStack {
+           
+            Form {
+                
+                Section(header: Text("Quick Task")) {
+                    
                     pickerselecttypeoftask
+                    
+                    Toggle("--dry-run", isOn: $dryrun)
+                        .toggleStyle(.switch)
+                        .onTapGesture {
+                            withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                dryrun.toggle()
+                            }
+                        }
 
-                    VStack(alignment: .trailing) {
-                        Toggle("--dry-run", isOn: $dryrun)
-                            .toggleStyle(.switch)
-                            .onTapGesture {
-                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                    dryrun.toggle()
-                                }
+                    Toggle("File(off) or Folder(on)", isOn: $catalogorfile)
+                        .toggleStyle(.switch)
+                        .onChange(of: catalogorfile) {
+                            if catalogorfile {
+                                trailingslashoptions = .do_not_add
+                            } else {
+                                trailingslashoptions = .add
                             }
+                        }
+                        .onTapGesture {
+                            withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                catalogorfile.toggle()
+                            }
+                        }
+                        .onChange(of: catalogorfile) {
+                            UserDefaults.standard.set(catalogorfile, forKey: "quickcatalogorfile")
+                        }
+                        .onAppear {
+                            if let quickcatalogorfile = UserDefaults.standard.value(forKey: "quickcatalogorfile") {
+                                catalogorfile = quickcatalogorfile as! Bool
+                            }
+                        }
 
-                        Toggle("File(off) or Folder(on)", isOn: $catalogorfile)
-                            .toggleStyle(.switch)
-                            .onChange(of: catalogorfile) {
-                                if catalogorfile {
-                                    trailingslashoptions = .do_not_add
-                                } else {
-                                    trailingslashoptions = .add
-                                }
-                            }
-                            .onTapGesture {
-                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                    catalogorfile.toggle()
-                                }
-                            }
-                            .onChange(of: catalogorfile) {
-                                UserDefaults.standard.set(catalogorfile, forKey: "quickcatalogorfile")
-                            }
-                            .onAppear {
-                                if let quickcatalogorfile = UserDefaults.standard.value(forKey: "quickcatalogorfile") {
-                                    catalogorfile = quickcatalogorfile as! Bool
-                                }
-                            }
-
-                        trailingslash
-                    }
-                    .padding()
+                    trailingslash
+                    
                 }
+                if selectedrsynccommand == .synchronize {
+                    Section(header: Text("Source and destination")) {
+                        HStack {
+                            EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""), $localcatalog)
+                                .focused($focusField, equals: .localcatalogField)
+                                .textContentType(.none)
+                                .submitLabel(.continue)
+                                .onChange(of: localcatalog) {
+                                    UserDefaults.standard.set(localcatalog, forKey: "quicklocalcatalog")
+                                }
+                                .onAppear {
+                                    if let quicklocalcatalog = UserDefaults.standard.value(forKey: "quicklocalcatalog") {
+                                        Logger.process.info("QuicktaskView: set default settings for localcatalog: \(quicklocalcatalog as! NSObject)")
+                                        localcatalog = quicklocalcatalog as! String
+                                    }
+                                }
 
-                VStack(alignment: .leading) {
-                    if selectedrsynccommand == .synchronize {
-                        localandremotecatalog
-                    } else {
-                        localandremotecatalogsyncremote
+                            Picker("", selection: $selectedhomecatalog) {
+                                Text("Home Catalogs")
+                                    .tag(nil as Catalognames.ID?)
+                                ForEach(homecatalogs, id: \.self) { catalog in
+                                    Text(catalog.catalogname)
+                                        .tag(catalog.id)
+                                }
+                            }
+                            .frame(width: 300)
+                            .onChange(of: selectedhomecatalog) {
+                                if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
+                                    localcatalog = homecatalogs[index].catalogname
+                                }
+                            }
+                        }
+
+                        // remotecatalog
+                        HStack {
+                            EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $remotecatalog)
+                                .focused($focusField, equals: .remotecatalogField)
+                                .textContentType(.none)
+                                .submitLabel(.continue)
+                                .onChange(of: remotecatalog) {
+                                    UserDefaults.standard.set(remotecatalog, forKey: "quickremotecatalog")
+                                }
+                                .onAppear {
+                                    if let quickremotecatalog = UserDefaults.standard.value(forKey: "quickremotecatalog") {
+                                        Logger.process.info("QuicktaskView: set default settings for remotecatalog: \(quickremotecatalog as! NSObject)")
+
+                                        remotecatalog = quickremotecatalog as! String
+                                    }
+                                }
+
+                            VStack(alignment: .trailing) {
+                                Picker("", selection: $selectedAttachedVolume) {
+                                    Text("Attached Volume")
+                                        .tag(nil as AttachedVolumes.ID?)
+                                    ForEach(attachedVolumes, id: \.self) { volume in
+                                        Text(volume.volumename.lastPathComponent)
+                                            .tag(volume.id)
+                                    }
+                                }
+                                .frame(width: 300)
+
+                                Picker("", selection: $selectedAttachedVolumeCatalogs) {
+                                    Text("Select")
+                                        .tag(nil as String?)
+                                    ForEach(attachedVolumesCatalogs, id: \.self) { volumename in
+                                        Text(volumename)
+                                            .tag(volumename)
+                                    }
+                                }
+                                .frame(width: 300)
+                                .disabled(selectedAttachedVolume == nil)
+                                .onChange(of: attachedVolumesCatalogs) {
+                                    if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
+                                        let attachedvolume = attachedVolumes[index].volumename
+                                        if let index = attachedVolumesCatalogs.firstIndex(where: { $0 == selectedAttachedVolumeCatalogs }) {
+                                            remotecatalog = (attachedvolume.relativePath).appending("/") + attachedVolumesCatalogs[index]
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
+                } else {
+                    Section(header: Text("Source and destination")) {
+                        // remotecatalog
+                        HStack {
+                            EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""), $remotecatalog)
+                                .focused($focusField, equals: .remotecatalogField)
+                                .textContentType(.none)
+                                .submitLabel(.continue)
+                                .onChange(of: remotecatalog) {
+                                    UserDefaults.standard.set(remotecatalog, forKey: "quickremotecatalog")
+                                }
+                                .onAppear {
+                                    if let quickremotecatalog = UserDefaults.standard.value(forKey: "quickremotecatalog") {
+                                        Logger.process.info("QuicktaskView: set default settings for remotecatalog: \(quickremotecatalog as! NSObject)")
 
-                    remoteuserandserver
+                                        remotecatalog = quickremotecatalog as! String
+                                    }
+                                }
+                        }
+
+                        // localcatalog
+                        HStack {
+                            EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $localcatalog)
+                                .focused($focusField, equals: .localcatalogField)
+                                .textContentType(.none)
+                                .submitLabel(.continue)
+                                .onChange(of: localcatalog) {
+                                    UserDefaults.standard.set(localcatalog, forKey: "quicklocalcatalog")
+                                }
+                                .onAppear {
+                                    if let quicklocalcatalog = UserDefaults.standard.value(forKey: "quicklocalcatalog") {
+                                        Logger.process.info("QuicktaskView: set default settings for localcatalog: \(quicklocalcatalog as! NSObject)")
+                                        localcatalog = quicklocalcatalog as! String
+                                    }
+                                }
+
+                            Picker("", selection: $selectedhomecatalog) {
+                                Text("Select")
+                                    .tag(nil as Catalognames.ID?)
+                                ForEach(homecatalogs, id: \.self) { catalog in
+                                    Text(catalog.catalogname)
+                                        .tag(catalog.id)
+                                }
+                            }
+                            .frame(width: 300)
+                            .onChange(of: selectedhomecatalog) {
+                                if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
+                                    localcatalog = homecatalogs[index].catalogname
+                                }
+                            }
+                        }
+                    }
                 }
+                
+                Section(header: Text("Remote user and server")) {
+                    // Remote user
+                    EditValueScheme(300, NSLocalizedString("Add remote user", comment: ""), $remoteuser)
+                        .focused($focusField, equals: .remoteuserField)
+                        .textContentType(.none)
+                        .submitLabel(.continue)
+                        .onChange(of: remoteuser) { _, _ in
+                            UserDefaults.standard.set(remoteuser, forKey: "quickremoteuser")
+                        }
+                        .onAppear {
+                            if let quickremoteuser = UserDefaults.standard.string(forKey: "quickremoteuser") {
+                                remoteuser = quickremoteuser
+                            }
+                        }
+                    // Remote server
+                    EditValueScheme(300, NSLocalizedString("Add remote server", comment: ""), $remoteserver)
+                        .focused($focusField, equals: .remoteserverField)
+                        .textContentType(.none)
+                        .submitLabel(.return)
+                        .onChange(of: remoteserver) {
+                            UserDefaults.standard.set(remoteserver, forKey: "quickremoteserver")
+                        }
+                        .onAppear {
+                            if let quickremoteserver = UserDefaults.standard.string(forKey: "quickremoteserver") {
+                                remoteserver = quickremoteserver
+                            }
+                        }
+                }
+                
             }
+            .formStyle(.grouped)
+            
 
             if showprogressview { ProgressView() }
             if focusaborttask { labelaborttask }
@@ -249,187 +404,6 @@ struct QuicktaskView: View {
                     self.selectedrsynccommand = TypeofTaskQuictask.synchronize
                 }
             }
-        }
-    }
-
-    // Headers (in sections)
-    var headerlocalremote: some View {
-        Text("Folder parameters")
-            .modifier(FixedTag(200, .leading))
-    }
-
-    var localandremotecatalog: some View {
-        Section(header: headerlocalremote) {
-            // localcatalog
-            HStack {
-                EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""), $localcatalog)
-                    .focused($focusField, equals: .localcatalogField)
-                    .textContentType(.none)
-                    .submitLabel(.continue)
-                    .onChange(of: localcatalog) {
-                        UserDefaults.standard.set(localcatalog, forKey: "quicklocalcatalog")
-                    }
-                    .onAppear {
-                        if let quicklocalcatalog = UserDefaults.standard.value(forKey: "quicklocalcatalog") {
-                            Logger.process.info("QuicktaskView: set default settings for localcatalog: \(quicklocalcatalog as! NSObject)")
-                            localcatalog = quicklocalcatalog as! String
-                        }
-                    }
-
-                Picker("", selection: $selectedhomecatalog) {
-                    Text("Home Catalogs")
-                        .tag(nil as Catalognames.ID?)
-                    ForEach(homecatalogs, id: \.self) { catalog in
-                        Text(catalog.catalogname)
-                            .tag(catalog.id)
-                    }
-                }
-                .frame(width: 300)
-                .onChange(of: selectedhomecatalog) {
-                    if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
-                        localcatalog = homecatalogs[index].catalogname
-                    }
-                }
-            }
-
-            // remotecatalog
-            HStack {
-                EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $remotecatalog)
-                    .focused($focusField, equals: .remotecatalogField)
-                    .textContentType(.none)
-                    .submitLabel(.continue)
-                    .onChange(of: remotecatalog) {
-                        UserDefaults.standard.set(remotecatalog, forKey: "quickremotecatalog")
-                    }
-                    .onAppear {
-                        if let quickremotecatalog = UserDefaults.standard.value(forKey: "quickremotecatalog") {
-                            Logger.process.info("QuicktaskView: set default settings for remotecatalog: \(quickremotecatalog as! NSObject)")
-
-                            remotecatalog = quickremotecatalog as! String
-                        }
-                    }
-
-                VStack(alignment: .trailing) {
-                    Picker("", selection: $selectedAttachedVolume) {
-                        Text("Attached Volume")
-                            .tag(nil as AttachedVolumes.ID?)
-                        ForEach(attachedVolumes, id: \.self) { volume in
-                            Text(volume.volumename.lastPathComponent)
-                                .tag(volume.id)
-                        }
-                    }
-                    .frame(width: 300)
-
-                    Picker("", selection: $selectedAttachedVolumeCatalogs) {
-                        Text("Select")
-                            .tag(nil as String?)
-                        ForEach(attachedVolumesCatalogs, id: \.self) { volumename in
-                            Text(volumename)
-                                .tag(volumename)
-                        }
-                    }
-                    .frame(width: 300)
-                    .disabled(selectedAttachedVolume == nil)
-                    .onChange(of: attachedVolumesCatalogs) {
-                        if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
-                            let attachedvolume = attachedVolumes[index].volumename
-                            if let index = attachedVolumesCatalogs.firstIndex(where: { $0 == selectedAttachedVolumeCatalogs }) {
-                                remotecatalog = (attachedvolume.relativePath).appending("/") + attachedVolumesCatalogs[index]
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    var localandremotecatalogsyncremote: some View {
-        Section(header: headerlocalremote) {
-            // remotecatalog
-            HStack {
-                EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""), $remotecatalog)
-                    .focused($focusField, equals: .remotecatalogField)
-                    .textContentType(.none)
-                    .submitLabel(.continue)
-                    .onChange(of: remotecatalog) {
-                        UserDefaults.standard.set(remotecatalog, forKey: "quickremotecatalog")
-                    }
-                    .onAppear {
-                        if let quickremotecatalog = UserDefaults.standard.value(forKey: "quickremotecatalog") {
-                            Logger.process.info("QuicktaskView: set default settings for remotecatalog: \(quickremotecatalog as! NSObject)")
-
-                            remotecatalog = quickremotecatalog as! String
-                        }
-                    }
-            }
-
-            // localcatalog
-            HStack {
-                EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $localcatalog)
-                    .focused($focusField, equals: .localcatalogField)
-                    .textContentType(.none)
-                    .submitLabel(.continue)
-                    .onChange(of: localcatalog) {
-                        UserDefaults.standard.set(localcatalog, forKey: "quicklocalcatalog")
-                    }
-                    .onAppear {
-                        if let quicklocalcatalog = UserDefaults.standard.value(forKey: "quicklocalcatalog") {
-                            Logger.process.info("QuicktaskView: set default settings for localcatalog: \(quicklocalcatalog as! NSObject)")
-                            localcatalog = quicklocalcatalog as! String
-                        }
-                    }
-
-                Picker("", selection: $selectedhomecatalog) {
-                    Text("Select")
-                        .tag(nil as Catalognames.ID?)
-                    ForEach(homecatalogs, id: \.self) { catalog in
-                        Text(catalog.catalogname)
-                            .tag(catalog.id)
-                    }
-                }
-                .frame(width: 300)
-                .onChange(of: selectedhomecatalog) {
-                    if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
-                        localcatalog = homecatalogs[index].catalogname
-                    }
-                }
-            }
-        }
-    }
-
-    var headerremote: some View {
-        Text("Remote parameters")
-            .modifier(FixedTag(200, .leading))
-    }
-
-    var remoteuserandserver: some View {
-        Section(header: headerremote) {
-            // Remote user
-            EditValueScheme(300, NSLocalizedString("Add remote user", comment: ""), $remoteuser)
-                .focused($focusField, equals: .remoteuserField)
-                .textContentType(.none)
-                .submitLabel(.continue)
-                .onChange(of: remoteuser) { _, _ in
-                    UserDefaults.standard.set(remoteuser, forKey: "quickremoteuser")
-                }
-                .onAppear {
-                    if let quickremoteuser = UserDefaults.standard.string(forKey: "quickremoteuser") {
-                        remoteuser = quickremoteuser
-                    }
-                }
-            // Remote server
-            EditValueScheme(300, NSLocalizedString("Add remote server", comment: ""), $remoteserver)
-                .focused($focusField, equals: .remoteserverField)
-                .textContentType(.none)
-                .submitLabel(.return)
-                .onChange(of: remoteserver) {
-                    UserDefaults.standard.set(remoteserver, forKey: "quickremoteserver")
-                }
-                .onAppear {
-                    if let quickremoteserver = UserDefaults.standard.string(forKey: "quickremoteserver") {
-                        remoteserver = quickremoteserver
-                    }
-                }
         }
     }
 
