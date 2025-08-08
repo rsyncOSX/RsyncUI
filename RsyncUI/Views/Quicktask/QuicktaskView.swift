@@ -87,9 +87,36 @@ struct QuicktaskView: View {
            
             Form {
                 
-                Section(header: Text("Quick Task")) {
+                Section(header: Text("Parameters to Task")) {
                     
-                    pickerselecttypeoftask
+                    Picker(NSLocalizedString("Action", comment: "") + ":",
+                           selection: $selectedrsynccommand)
+                    {
+                        ForEach(TypeofTaskQuictask.allCases) { Text($0.description)
+                            .tag($0)
+                        }
+                    }
+                    .pickerStyle(DefaultPickerStyle())
+                    .frame(width: 180)
+                    .onChange(of: selectedrsynccommand) {
+                        UserDefaults.standard.set(selectedrsynccommand.rawValue, forKey: "quickselectedrsynccommand")
+                    }
+                    .onAppear {
+                        if let selectedrsynccommand = UserDefaults.standard.value(forKey: "quickselectedrsynccommand") {
+                            Logger.process.info("QuicktaskView: set default settings for selectedrsynccommand: \(selectedrsynccommand as! NSObject)")
+
+                            switch selectedrsynccommand as! String {
+                            case "synchronize":
+                                self.selectedrsynccommand = TypeofTaskQuictask.synchronize
+                            case "syncremote":
+                                self.selectedrsynccommand = TypeofTaskQuictask.syncremote
+                            case "not_selected":
+                                self.selectedrsynccommand = TypeofTaskQuictask.not_selected
+                            default:
+                                self.selectedrsynccommand = TypeofTaskQuictask.synchronize
+                            }
+                        }
+                    }
                     
                     Toggle("--dry-run", isOn: $dryrun)
                         .toggleStyle(.switch)
@@ -122,7 +149,34 @@ struct QuicktaskView: View {
                             }
                         }
 
-                    trailingslash
+                    Picker(NSLocalizedString("Trailing /", comment: ""),
+                           selection: $trailingslashoptions)
+                    {
+                        ForEach(TrailingSlash.allCases) { Text($0.description)
+                            .tag($0)
+                        }
+                    }
+                    .pickerStyle(DefaultPickerStyle())
+                    .frame(width: 180)
+                    .onChange(of: trailingslashoptions) {
+                        UserDefaults.standard.set(trailingslashoptions.rawValue, forKey: "quicktrailingslash")
+                    }
+                    .onAppear {
+                        if let trailingslashoptions = UserDefaults.standard.value(forKey: "quicktrailingslash") {
+                            Logger.process.info("QuicktaskView: set default settings for trailingslashoptions: \(trailingslashoptions as! NSObject)")
+
+                            switch trailingslashoptions as! String {
+                            case "do_not_check":
+                                self.trailingslashoptions = TrailingSlash.do_not_check
+                            case "do_not_add":
+                                self.trailingslashoptions = TrailingSlash.do_not_add
+                            case "add":
+                                self.trailingslashoptions = TrailingSlash.add
+                            default:
+                                self.trailingslashoptions = TrailingSlash.add
+                            }
+                        }
+                    }
                     
                 }
                 if selectedrsynccommand == .synchronize {
@@ -374,68 +428,6 @@ struct QuicktaskView: View {
             .onAppear(perform: {
                 getconfigandexecute()
             })
-    }
-
-    var pickerselecttypeoftask: some View {
-        Picker(NSLocalizedString("Action", comment: "") + ":",
-               selection: $selectedrsynccommand)
-        {
-            ForEach(TypeofTaskQuictask.allCases) { Text($0.description)
-                .tag($0)
-            }
-        }
-        .pickerStyle(DefaultPickerStyle())
-        .frame(width: 180)
-        .onChange(of: selectedrsynccommand) {
-            UserDefaults.standard.set(selectedrsynccommand.rawValue, forKey: "quickselectedrsynccommand")
-        }
-        .onAppear {
-            if let selectedrsynccommand = UserDefaults.standard.value(forKey: "quickselectedrsynccommand") {
-                Logger.process.info("QuicktaskView: set default settings for selectedrsynccommand: \(selectedrsynccommand as! NSObject)")
-
-                switch selectedrsynccommand as! String {
-                case "synchronize":
-                    self.selectedrsynccommand = TypeofTaskQuictask.synchronize
-                case "syncremote":
-                    self.selectedrsynccommand = TypeofTaskQuictask.syncremote
-                case "not_selected":
-                    self.selectedrsynccommand = TypeofTaskQuictask.not_selected
-                default:
-                    self.selectedrsynccommand = TypeofTaskQuictask.synchronize
-                }
-            }
-        }
-    }
-
-    var trailingslash: some View {
-        Picker(NSLocalizedString("Trailing /", comment: ""),
-               selection: $trailingslashoptions)
-        {
-            ForEach(TrailingSlash.allCases) { Text($0.description)
-                .tag($0)
-            }
-        }
-        .pickerStyle(DefaultPickerStyle())
-        .frame(width: 180)
-        .onChange(of: trailingslashoptions) {
-            UserDefaults.standard.set(trailingslashoptions.rawValue, forKey: "quicktrailingslash")
-        }
-        .onAppear {
-            if let trailingslashoptions = UserDefaults.standard.value(forKey: "quicktrailingslash") {
-                Logger.process.info("QuicktaskView: set default settings for trailingslashoptions: \(trailingslashoptions as! NSObject)")
-
-                switch trailingslashoptions as! String {
-                case "do_not_check":
-                    self.trailingslashoptions = TrailingSlash.do_not_check
-                case "do_not_add":
-                    self.trailingslashoptions = TrailingSlash.do_not_add
-                case "add":
-                    self.trailingslashoptions = TrailingSlash.add
-                default:
-                    self.trailingslashoptions = TrailingSlash.add
-                }
-            }
-        }
     }
 
     var attachedVolumesCatalogs: [String] {
