@@ -153,7 +153,7 @@ struct QuicktaskView: View {
                             .frame(width: 300)
                             .onChange(of: selectedhomecatalog) {
                                 if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
-                                    localcatalog = homecatalogs[index].catalogname
+                                    localcatalog = localhome.appending("/") + homecatalogs[index].catalogname
                                 }
                             }
                         }
@@ -254,7 +254,7 @@ struct QuicktaskView: View {
                             .frame(width: 300)
                             .onChange(of: selectedhomecatalog) {
                                 if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
-                                    localcatalog = homecatalogs[index].catalogname
+                                    localcatalog = localhome.appending("/") + homecatalogs[index].catalogname
                                 }
                             }
                         }
@@ -456,6 +456,10 @@ struct QuicktaskView: View {
             }
         }
         return []
+    }
+    
+    var localhome: String {
+        Homepath().userHomeDirectoryPath ?? ""
     }
 }
 
