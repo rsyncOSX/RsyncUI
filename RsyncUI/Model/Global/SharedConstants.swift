@@ -10,8 +10,6 @@ struct SharedConstants: Sendable {
     // JSON names
     let filenamelogrecordsjson = "logrecords.json"
     let fileconfigurationsjson = "configurations.json"
-    // File quickfile
-    let filenamequicktaskjson = "quicktask.json"
     // Caldenarfile
     let caldenarfilejson: String = "schedule.json"
     // Filename logfile

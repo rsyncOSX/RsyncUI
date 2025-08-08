@@ -59,9 +59,6 @@ struct AddTaskView: View {
     // Present a help sheet
     @State private var showhelp: Bool = false
 
-    @AppStorage("trailingslashoptions") var trailingslashoptions: String = ""
-    @AppStorage("selectedrsynccommand") var selectedrsynccommand: String = ""
-
     var body: some View {
         NavigationStack(path: $addtaskpath) {
             HStack {
