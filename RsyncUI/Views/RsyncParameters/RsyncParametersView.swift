@@ -48,7 +48,9 @@ struct RsyncParametersView: View {
                         .padding(.bottom, 10)
                     }
 
-                    Section(header: Text("Task specific parameters for rsync")) {
+                    Section(header: Text("Task specific parameters for rsync")
+                        .font(.title3)
+                        .foregroundColor(.blue)) {
                         EditRsyncParameter(400, $parameters.parameter8)
                             .onChange(of: parameters.parameter8) {
                                 parameters.configuration?.parameter8 = parameters.parameter8
@@ -86,7 +88,9 @@ struct RsyncParametersView: View {
                             .disabled(selectedconfig == nil)
                     }
 
-                    Section(header: Text("Task specific SSH parameter")) {
+                    Section(header: Text("Task specific SSH parameter")
+                        .font(.title3)
+                        .foregroundColor(.blue)) {
                         HStack {
                             setsshpath
                                 .disabled(selectedconfig == nil)
@@ -96,7 +100,10 @@ struct RsyncParametersView: View {
                         }
                     }
 
-                    Section(header: Text("Backup switch")) {
+                    Section(header: Text("Backup switch")
+                        .font(.title3)
+                        .foregroundColor(.blue)
+                    ) {
                         Toggle("", isOn: $backup)
                             .toggleStyle(.switch)
                             .onChange(of: backup) {
