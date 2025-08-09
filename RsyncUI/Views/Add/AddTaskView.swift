@@ -120,11 +120,13 @@ struct AddTaskView: View {
                                     Image(systemName: "square.and.arrow.down")
                                 }
                                 .disabled(stringestimate.isEmpty)
+                                .imageScale(.large)
                                 .help(stringestimate)
-                                .buttonStyle(ColorfulButtonStyle())
+                                // .buttonStyle(ColorfulButtonStyle())
 
                                 Text("URL Estimate & Synchronize")
                             }
+                            .padding(5)
 
                             if selectedconfig.offsiteServer.isEmpty == false {
                                 HStack {
@@ -137,11 +139,13 @@ struct AddTaskView: View {
                                         Image(systemName: "square.and.arrow.down")
                                     }
                                     .disabled(stringverify.isEmpty)
+                                    .imageScale(.large)
                                     .help(stringverify)
-                                    .buttonStyle(ColorfulButtonStyle())
+                                    // .buttonStyle(ColorfulButtonStyle())
 
                                     Text("URL Verify")
                                 }
+                                .padding(5)
                             }
                         }
                     }
@@ -412,6 +416,8 @@ struct AddTaskView: View {
     var headerlocalremote: some View {
         Text("Folder parameters")
             .modifier(FixedTag(200, .leading))
+            .font(.title3)
+            .foregroundColor(.blue)
     }
 
     var localandremotecatalog: some View {
@@ -496,6 +502,8 @@ struct AddTaskView: View {
     var headerID: some View {
         Text("Synchronize ID")
             .modifier(FixedTag(200, .leading))
+            .font(.title3)
+            .foregroundColor(.blue)
     }
 
     var synchronizeID: some View {
@@ -553,6 +561,8 @@ struct AddTaskView: View {
     var headerremote: some View {
         Text("Remote parameters")
             .modifier(FixedTag(200, .leading))
+            .font(.title3)
+            .foregroundColor(.blue)
     }
 
     var remoteuserandserver: some View {
