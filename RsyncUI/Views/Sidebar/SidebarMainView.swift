@@ -62,33 +62,17 @@ struct SidebarMainView: View {
             // Id default only, do not show profile picker
 
             if rsyncUIdata.validprofiles.isEmpty == false {
-                if #available(macOS 26.0, *) {
-                    Picker("", selection: $selectedprofileID) {
-                        Text("Default")
-                            .tag(nil as ProfilesnamesRecord.ID?)
-                        ForEach(rsyncUIdata.validprofiles, id: \.self) { profile in
-                            Text(profile.profilename)
-                                .tag(profile.id)
-                        }
+                Picker("", selection: $selectedprofileID) {
+                    Text("Default")
+                        .tag(nil as ProfilesnamesRecord.ID?)
+                    ForEach(rsyncUIdata.validprofiles, id: \.self) { profile in
+                        Text(profile.profilename)
+                            .tag(profile.id)
                     }
-                    .frame(width: 180)
-                    .padding([.bottom, .top, .trailing], 7)
-                    .disabled(disablesidebarmeny)
-                    .glassEffect()
-
-                } else {
-                    Picker("", selection: $selectedprofileID) {
-                        Text("Default")
-                            .tag(nil as ProfilesnamesRecord.ID?)
-                        ForEach(rsyncUIdata.validprofiles, id: \.self) { profile in
-                            Text(profile.profilename)
-                                .tag(profile.id)
-                        }
-                    }
-                    .frame(width: 180)
-                    .padding([.bottom, .top, .trailing], 7)
-                    .disabled(disablesidebarmeny)
                 }
+                .frame(width: 180)
+                .padding([.bottom, .top, .trailing], 7)
+                .disabled(disablesidebarmeny)
             }
 
             Divider()
