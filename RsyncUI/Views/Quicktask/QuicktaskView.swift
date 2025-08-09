@@ -84,11 +84,8 @@ struct QuicktaskView: View {
 
     var body: some View {
         ZStack {
-           
             Form {
-                
                 Section(header: Text("Parameters to Task")) {
-                    
                     Picker(NSLocalizedString("Action", comment: "") + ":",
                            selection: $selectedrsynccommand)
                     {
@@ -117,7 +114,7 @@ struct QuicktaskView: View {
                             }
                         }
                     }
-                    
+
                     Toggle("--dry-run", isOn: $dryrun)
                         .toggleStyle(.switch)
                         .onTapGesture {
@@ -177,7 +174,6 @@ struct QuicktaskView: View {
                             }
                         }
                     }
-                    
                 }
                 if selectedrsynccommand == .synchronize {
                     Section(header: Text("Source and destination")) {
@@ -314,7 +310,7 @@ struct QuicktaskView: View {
                         }
                     }
                 }
-                
+
                 Section(header: Text("Remote user and server")) {
                     // Remote user
                     EditValueScheme(300, NSLocalizedString("Add remote user", comment: ""), $remoteuser)
@@ -343,10 +339,8 @@ struct QuicktaskView: View {
                             }
                         }
                 }
-                
             }
             .formStyle(.grouped)
-            
 
             if showprogressview { ProgressView() }
             if focusaborttask { labelaborttask }
@@ -449,7 +443,7 @@ struct QuicktaskView: View {
         }
         return []
     }
-    
+
     var localhome: String {
         Homepath().userHomeDirectoryPath ?? ""
     }

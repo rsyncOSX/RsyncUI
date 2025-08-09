@@ -9,24 +9,6 @@ import Foundation
 import Observation
 import SwiftUI
 
-struct Catalognames: Identifiable, Hashable {
-    let id = UUID()
-    var catalogname: String
-
-    init(_ name: String) {
-        catalogname = name
-    }
-}
-
-struct AttachedVolumes: Identifiable, Hashable {
-    let id = UUID()
-    var volumename: URL
-
-    init(_ name: URL) {
-        volumename = name
-    }
-}
-
 struct HomeCatalogsView: View {
     @Bindable var newdata: ObservableAddConfigurations
     @Binding var path: [AddTasks]
@@ -39,7 +21,6 @@ struct HomeCatalogsView: View {
     let attachedVolumes: [AttachedVolumes]
 
     var body: some View {
-        
         Form {
             Section(header: Text("Step one")) {
                 Picker("Select a Folder in home directory", selection: $selectedhomecatalog) {
@@ -52,7 +33,7 @@ struct HomeCatalogsView: View {
                 }
                 .frame(width: 500)
             }
-            
+
             Section(header: Text("Step two and three")) {
                 Picker("Select an Attached Volume", selection: $selectedAttachedVolume) {
                     Text("Select")
@@ -75,7 +56,7 @@ struct HomeCatalogsView: View {
                 .frame(width: 500)
                 .disabled(selectedAttachedVolume == nil)
             }
-            
+
             Section(header: Text("Step four")) {
                 Button("Return") {
                     path.removeAll()
@@ -102,7 +83,6 @@ struct HomeCatalogsView: View {
             }
         })
         .padding()
-        
 
         var attachedVolumesCatalogs: [String] {
             if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
