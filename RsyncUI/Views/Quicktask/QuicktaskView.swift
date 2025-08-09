@@ -250,7 +250,7 @@ struct QuicktaskView: View {
                                 }
                                 .frame(width: 300)
                                 .disabled(selectedAttachedVolume == nil)
-                                .onChange(of: attachedVolumesCatalogs) {
+                                .onChange(of: selectedAttachedVolumeCatalogs) {
                                     if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
                                         let attachedvolume = attachedVolumes[index].volumename
                                         if let index = attachedVolumesCatalogs.firstIndex(where: { $0 == selectedAttachedVolumeCatalogs }) {
