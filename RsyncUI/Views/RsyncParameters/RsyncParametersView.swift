@@ -50,7 +50,7 @@ struct RsyncParametersView: View {
 
                     Section(header: Text("Task specific parameters for rsync")
                         .font(.title3)
-                        .fontWeight(.bold)
+                        .fontWeight(.bold)) {
                         // .foregroundColor(.blue)) {
                         EditRsyncParameter(400, $parameters.parameter8)
                             .onChange(of: parameters.parameter8) {
