@@ -29,9 +29,7 @@ final class ObservableGlobalchangeConfigurations {
     var occurence_remoteserver: String = ""
 
     var showAlertforupdate: Bool = false
-
     var whatischanged: Set<GlobalchangeConfiguration> = []
-
     var globalchangedconfigurations: [SynchronizeConfiguration]?
     // Not changed snapshots, but if snapshots then merge with globalchangedconfigurations
     var notchangedsnapshotconfigurations: [SynchronizeConfiguration]?

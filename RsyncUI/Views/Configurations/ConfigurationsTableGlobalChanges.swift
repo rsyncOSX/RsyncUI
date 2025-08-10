@@ -14,56 +14,65 @@ struct ConfigurationsTableGlobalChanges: View {
     var body: some View {
         Table(configurations, selection: $selecteduuids) {
             TableColumn("Synchronize ID") { data in
-                if selecteduuids.count == 0 {
-                    Text(newdata.updatestring(update: newdata.replace_backupID, replace: newdata.occurence_backupID, original: data.backupID))
+                if selecteduuids.contains(data.id) {
+                    Text(newdata.updatestring(update: newdata.replace_backupID,
+                                              replace: newdata.occurence_backupID,
+                                              original: data.backupID))
+                } else if selecteduuids.isEmpty {
+                    Text(newdata.updatestring(update: newdata.replace_backupID,
+                                              replace: newdata.occurence_backupID,
+                                              original: data.backupID))
+                } else {
+                    Text(data.backupID)
                 }
+                
             }
             .width(min: 50, max: 150)
             TableColumn("Source folder") { data in
-                if selecteduuids.count == 0 {
-                    Text(newdata.updatestring(update: newdata.replace_localcatalog, replace: newdata.occurence_localcatalog, original: data.localCatalog))
+                if selecteduuids.contains(data.id) {
+                    Text(newdata.updatestring(update: newdata.replace_localcatalog,
+                                              replace: newdata.occurence_localcatalog,
+                                              original: data.localCatalog))
+                } else if selecteduuids.isEmpty {
+                    Text(newdata.updatestring(update: newdata.replace_localcatalog,
+                                              replace: newdata.occurence_localcatalog,
+                                              original: data.localCatalog))
+                } else {
+                    Text(data.localCatalog)
                 }
             }
             .width(min: 180, max: 300)
             TableColumn("Destination folder") { data in
-                if selecteduuids.count == 0 {
-                    Text(newdata.updatestring(update: newdata.replace_remotecatalog, replace: newdata.occurence_remotecatalog, original: data.offsiteCatalog))
+                if selecteduuids.contains(data.id) {
+                    Text(newdata.updatestring(update: newdata.replace_remotecatalog,
+                                              replace: newdata.occurence_remotecatalog,
+                                              original: data.offsiteCatalog))
+                } else if selecteduuids.isEmpty {
+                    Text(newdata.updatestring(update: newdata.replace_remotecatalog,
+                                              replace: newdata.occurence_remotecatalog,
+                                              original: data.offsiteCatalog))
+                } else {
+                    Text(data.offsiteCatalog)
                 }
             }
             .width(min: 180, max: 300)
             TableColumn("Remote user") { data in
-                if selecteduuids.count == 0 {
-                    if newdata.occurence_remoteuser.isEmpty == false {
-                        Text(newdata.occurence_remoteuser)
-                    } else {
-                        Text(data.offsiteUsername)
-                    }
+                if newdata.occurence_remoteuser.isEmpty == false,
+                   selecteduuids.contains(data.id)
+                {
+                    Text(newdata.occurence_remoteuser)
                 } else {
-                    if newdata.occurence_remoteuser.isEmpty == false,
-                       selecteduuids.contains(data.id)
-                    {
-                        Text(newdata.occurence_remoteuser)
-                    } else {
-                        Text(data.offsiteUsername)
-                    }
+                    Text(data.offsiteUsername)
                 }
             }
             .width(min: 100, max: 150)
             TableColumn("Remote server") { data in
-                if selecteduuids.count == 0 {
-                    if newdata.occurence_remoteserver.isEmpty == false {
-                        Text(newdata.occurence_remoteserver)
-                    } else {
-                        Text(data.offsiteServer)
-                    }
+                if newdata.occurence_remoteserver.isEmpty == false,
+                   selecteduuids.contains(data.id)
+                {
+                    Text(newdata.occurence_remoteserver)
                 } else {
-                    if newdata.occurence_remoteserver.isEmpty == false,
-                       selecteduuids.contains(data.id)
-                    {
-                        Text(newdata.occurence_remoteserver)
-                    } else {
-                        Text(data.offsiteServer)
-                    }
+                    Text(data.offsiteServer)
                 }
             }
             .width(min: 100, max: 150)
