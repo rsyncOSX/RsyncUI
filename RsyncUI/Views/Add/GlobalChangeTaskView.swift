@@ -281,16 +281,22 @@ struct GlobalChangeTaskView: View {
     var headerlocalremote: some View {
         Text("Folder parameters")
             .modifier(FixedTag(300, .leading))
+            .font(.title3)
+            .foregroundColor(.blue)
     }
 
     var headerremote: some View {
         Text("Remote parameters - replace string")
             .modifier(FixedTag(300, .leading))
+            .font(.title3)
+            .foregroundColor(.blue)
     }
 
     var headerID: some View {
         Text("Synchronize ID")
             .modifier(FixedTag(300, .leading))
+            .font(.title3)
+            .foregroundColor(.blue)
     }
 
     var configurations: [SynchronizeConfiguration] {
