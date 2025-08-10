@@ -62,9 +62,10 @@ struct SummarizedDetailsView: View {
                                     Text(Image(systemName: "play"))
                                         .foregroundColor(.blue)
                                         .font(.title2)
+                                        .imageScale(.large)
                                 }
                                 .help("Synchronize (⌘R)")
-                                .buttonStyle(ColorfulButtonStyle())
+                                // .buttonStyle(ColorfulButtonStyle())
                                 .confirmationDialog("Synchronize tasks?",
                                                     isPresented: $isPresentingConfirm)
                                 {
@@ -80,11 +81,12 @@ struct SummarizedDetailsView: View {
                                     executetaskpath.append(Tasks(task: .executestimatedview))
                                 } label: {
                                     Text(Image(systemName: "play.fill"))
+                                        .imageScale(.large)
                                         .foregroundColor(.blue)
                                         .font(.title2)
                                 }
                                 .help("Synchronize (⌘R)")
-                                .buttonStyle(ColorfulButtonStyle())
+                                // .buttonStyle(ColorfulButtonStyle())
                             }
                         }
                     }
