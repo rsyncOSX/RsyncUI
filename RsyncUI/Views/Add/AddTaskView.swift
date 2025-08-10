@@ -378,7 +378,8 @@ struct AddTaskView: View {
         Text("Folder parameters")
             .modifier(FixedTag(200, .leading))
             .font(.title3)
-            .foregroundColor(.blue)
+            //.foregroundColor(.blue)
+            .fontWeight(.bold)
     }
 
     var localandremotecatalog: some View {
@@ -464,7 +465,8 @@ struct AddTaskView: View {
         Text("Synchronize ID")
             .modifier(FixedTag(200, .leading))
             .font(.title3)
-            .foregroundColor(.blue)
+            // .foregroundColor(.blue)
+            .fontWeight(.bold)
     }
 
     var synchronizeID: some View {
@@ -523,7 +525,8 @@ struct AddTaskView: View {
         Text("Remote parameters")
             .modifier(FixedTag(200, .leading))
             .font(.title3)
-            .foregroundColor(.blue)
+            //.foregroundColor(.blue)
+            .fontWeight(.bold)
     }
 
     var remoteuserandserver: some View {

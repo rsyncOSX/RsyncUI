@@ -50,7 +50,8 @@ struct RsyncParametersView: View {
 
                     Section(header: Text("Task specific parameters for rsync")
                         .font(.title3)
-                        .foregroundColor(.blue)) {
+                        .fontWeight(.bold)
+                        // .foregroundColor(.blue)) {
                         EditRsyncParameter(400, $parameters.parameter8)
                             .onChange(of: parameters.parameter8) {
                                 parameters.configuration?.parameter8 = parameters.parameter8
@@ -90,7 +91,9 @@ struct RsyncParametersView: View {
 
                     Section(header: Text("Task specific SSH parameter")
                         .font(.title3)
-                        .foregroundColor(.blue)) {
+                        .fontWeight(.bold)
+                    // .foregroundColor(.blue)
+                        ) {
                         HStack {
                             setsshpath
                                 .disabled(selectedconfig == nil)
@@ -102,7 +105,8 @@ struct RsyncParametersView: View {
 
                     Section(header: Text("Backup switch")
                         .font(.title3)
-                        .foregroundColor(.blue)
+                        // .foregroundColor(.blue)
+                        .fontWeight(.bold)
                     ) {
                         Toggle("", isOn: $backup)
                             .toggleStyle(.switch)
@@ -123,7 +127,8 @@ struct RsyncParametersView: View {
 
                     Section(header: Text("Add --delete parameter, ON is added")
                         .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
-                        .font(.title3))
+                        .fontWeight(.bold)
+                        .font(.title3) )
                     {
                         VStack(alignment: .leading) {
                             ToggleViewDefault(text: "--delete", binding: $parameters.adddelete)
