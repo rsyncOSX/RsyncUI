@@ -122,7 +122,8 @@ struct RsyncParametersView: View {
                     }
 
                     Section(header: Text("Add --delete parameter, ON is added")
-                        .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue)))
+                        .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
+                        .font(.title3))
                     {
                         VStack(alignment: .leading) {
                             ToggleViewDefault(text: "--delete", binding: $parameters.adddelete)
