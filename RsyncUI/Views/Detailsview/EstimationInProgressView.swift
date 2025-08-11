@@ -24,18 +24,16 @@ struct EstimationInProgressView: View {
                                   configurations: configurations)
             }
 
-            
             VStack {
-                
                 Spacer()
-                
+
                 if configurations.count == 1 || selecteduuids.count == 1 {
                     progressviewonetaskonly
                 } else {
                     progressviewestimation
                 }
             }
-            
+
             if focusaborttask { labelaborttask }
         }
         .onAppear {

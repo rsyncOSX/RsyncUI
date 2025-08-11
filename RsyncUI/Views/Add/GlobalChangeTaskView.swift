@@ -32,7 +32,6 @@ struct GlobalChangeTaskView: View {
                 HStack {
                     Button("Update") {
                         guard newdata.whatischanged.isEmpty == false else { return }
-                        newdata.updateglobalchangedconfigurations()
                         showingAlert = true
                     }
                     .help("Update task")
@@ -62,6 +61,7 @@ struct GlobalChangeTaskView: View {
             Alert(
                 title: Text("Update all configurations?"),
                 primaryButton: .default(Text("Update")) {
+                    newdata.updateglobalchangedconfigurations()
                     // any snapshotstasks
                     if let snapshotstask = newdata.notchangedsnapshotconfigurations,
                        let globalupdate = newdata.globalchangedconfigurations
@@ -282,7 +282,7 @@ struct GlobalChangeTaskView: View {
         Text("Folder parameters")
             .modifier(FixedTag(300, .leading))
             .font(.title3)
-            //.foregroundColor(.blue)
+            // .foregroundColor(.blue)
             .fontWeight(.bold)
     }
 

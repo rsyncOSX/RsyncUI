@@ -303,20 +303,20 @@ struct AddTaskView: View {
         .toolbar {
             ToolbarItem {
                 Button {
-                    addtaskpath.append(AddTasks(task: .globalchanges))
-                } label: {
-                    Image(systemName: "globe")
-                }
-                .help("Global change and update")
-            }
-
-            ToolbarItem {
-                Button {
                     addtaskpath.append(AddTasks(task: .homecatalogs))
                 } label: {
                     Image(systemName: "house.fill")
                 }
                 .help("Home catalogs")
+            }
+            
+            ToolbarItem {
+                Button {
+                    addtaskpath.append(AddTasks(task: .globalchanges))
+                } label: {
+                    Image(systemName: "globe")
+                }
+                .help("Global change and update")
             }
         }
         .navigationTitle("Add and update tasks: profile \(rsyncUIdata.profile ?? "Default")")
@@ -378,7 +378,7 @@ struct AddTaskView: View {
         Text("Folder parameters")
             .modifier(FixedTag(200, .leading))
             .font(.title3)
-            //.foregroundColor(.blue)
+            // .foregroundColor(.blue)
             .fontWeight(.bold)
     }
 
@@ -525,7 +525,7 @@ struct AddTaskView: View {
         Text("Remote parameters")
             .modifier(FixedTag(200, .leading))
             .font(.title3)
-            //.foregroundColor(.blue)
+            // .foregroundColor(.blue)
             .fontWeight(.bold)
     }
 

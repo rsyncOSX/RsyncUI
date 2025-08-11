@@ -61,17 +61,17 @@ final class ObservableGlobalchangeConfigurations {
         for element in whatischanged {
             switch element {
             case .backupID:
-                    globalchangedconfigurations = globalchangedconfigurations?.map { task in
-                        if selecteduuids.contains(task.id) || selecteduuids.isEmpty {
-                            var newtask = task
-                            newtask.backupID = updatestring(update: replace_backupID,
-                                                            replace: occurence_backupID,
-                                                            original: task.backupID)
-                            return newtask
-                        } else {
-                            return task
-                        }
+                globalchangedconfigurations = globalchangedconfigurations?.map { task in
+                    if selecteduuids.contains(task.id) || selecteduuids.isEmpty {
+                        var newtask = task
+                        newtask.backupID = updatestring(update: replace_backupID,
+                                                        replace: occurence_backupID,
+                                                        original: task.backupID)
+                        return newtask
+                    } else {
+                        return task
                     }
+                }
             case .localcatalog:
                 globalchangedconfigurations = globalchangedconfigurations?.map { task in
                     if selecteduuids.contains(task.id) || selecteduuids.isEmpty {

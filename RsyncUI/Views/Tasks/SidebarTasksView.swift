@@ -103,7 +103,8 @@ struct SidebarTasksView: View {
         case .quick_synchronize:
             QuicktaskView(
                 homecatalogs: Homecatalogs().homecatalogs(),
-                attachedVolumes: Attachedvolumes().attachedVolumes())
+                attachedVolumes: Attachedvolumes().attachedVolumes()
+            )
         case .completedview:
             CompletedView(executetaskpath: $executetaskpath)
                 .onAppear {
