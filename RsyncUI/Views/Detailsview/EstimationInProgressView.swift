@@ -17,19 +17,25 @@ struct EstimationInProgressView: View {
     let configurations: [SynchronizeConfiguration]
 
     var body: some View {
-        VStack {
+        ZStack {
             if let uuid = getuuid(uuid: progressdetails.configurationtobestimated) {
                 EstimateTableView(progressdetails: progressdetails,
                                   estimatinguuid: uuid,
                                   configurations: configurations)
             }
 
-            if configurations.count == 1 || selecteduuids.count == 1 {
-                progressviewonetaskonly
-            } else {
-                progressviewestimation
+            
+            VStack {
+                
+                Spacer()
+                
+                if configurations.count == 1 || selecteduuids.count == 1 {
+                    progressviewonetaskonly
+                } else {
+                    progressviewestimation
+                }
             }
-
+            
             if focusaborttask { labelaborttask }
         }
         .onAppear {
