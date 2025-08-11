@@ -33,8 +33,8 @@ final class ObservableGlobalchangeConfigurations {
     var globalchangedconfigurations: [SynchronizeConfiguration]?
     // Not changed snapshots, but if snapshots then merge with globalchangedconfigurations
     var notchangedsnapshotconfigurations: [SynchronizeConfiguration]?
-    
-    @ObservationIgnored var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    // Selecte UUIDS for change
+    var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
     func resetform() {
         occurence_localcatalog = ""

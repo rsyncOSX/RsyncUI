@@ -17,6 +17,7 @@ struct ConfigurationsTableGlobalChanges: View {
                     Text(newdata.updatestring(update: newdata.replace_backupID,
                                               replace: newdata.occurence_backupID,
                                               original: data.backupID))
+                    .foregroundColor(.red)
                 } else if newdata.selecteduuids.isEmpty {
                     Text(newdata.updatestring(update: newdata.replace_backupID,
                                               replace: newdata.occurence_backupID,
@@ -32,6 +33,7 @@ struct ConfigurationsTableGlobalChanges: View {
                     Text(newdata.updatestring(update: newdata.replace_localcatalog,
                                               replace: newdata.occurence_localcatalog,
                                               original: data.localCatalog))
+                    .foregroundColor(.red)
                 } else if newdata.selecteduuids.isEmpty {
                     Text(newdata.updatestring(update: newdata.replace_localcatalog,
                                               replace: newdata.occurence_localcatalog,
@@ -46,6 +48,7 @@ struct ConfigurationsTableGlobalChanges: View {
                     Text(newdata.updatestring(update: newdata.replace_remotecatalog,
                                               replace: newdata.occurence_remotecatalog,
                                               original: data.offsiteCatalog))
+                    .foregroundColor(.red)
                 } else if newdata.selecteduuids.isEmpty {
                     Text(newdata.updatestring(update: newdata.replace_remotecatalog,
                                               replace: newdata.occurence_remotecatalog,
@@ -60,6 +63,7 @@ struct ConfigurationsTableGlobalChanges: View {
                    newdata.selecteduuids.contains(data.id)
                 {
                     Text(newdata.occurence_remoteuser)
+                        .foregroundColor(.red)
                 } else {
                     Text(data.offsiteUsername)
                 }
@@ -70,6 +74,7 @@ struct ConfigurationsTableGlobalChanges: View {
                    newdata.selecteduuids.contains(data.id)
                 {
                     Text(newdata.occurence_remoteserver)
+                        .foregroundColor(.red)
                 } else {
                     Text(data.offsiteServer)
                 }
