@@ -287,7 +287,7 @@ struct GlobalChangeTaskView: View {
     }
 
     var headerremote: some View {
-        Text("Remote parameters - replace string")
+        Text("Remote parameters")
             .modifier(FixedTag(300, .leading))
             .font(.title3)
             // .foregroundColor(.blue)

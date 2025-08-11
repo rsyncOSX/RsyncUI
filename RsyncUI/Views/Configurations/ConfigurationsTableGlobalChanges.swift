@@ -59,10 +59,12 @@ struct ConfigurationsTableGlobalChanges: View {
             }
             .width(min: 180, max: 300)
             TableColumn("Remote user") { data in
-                if newdata.occurence_remoteuser.isEmpty == false,
-                   newdata.selecteduuids.contains(data.id)
+                if newdata.selecteduuids.contains(data.id) && newdata.occurence_remoteuser.isEmpty == false
                 {
                     Text(newdata.occurence_remoteuser)
+                        .foregroundColor(.red)
+                } else if newdata.selecteduuids.contains(data.id) {
+                    Text(data.offsiteUsername)
                         .foregroundColor(.red)
                 } else {
                     Text(data.offsiteUsername)
@@ -70,13 +72,15 @@ struct ConfigurationsTableGlobalChanges: View {
             }
             .width(min: 100, max: 150)
             TableColumn("Remote server") { data in
-                if newdata.occurence_remoteserver.isEmpty == false,
-                   newdata.selecteduuids.contains(data.id)
+                if newdata.selecteduuids.contains(data.id) && newdata.occurence_remoteserver.isEmpty == false
                 {
                     Text(newdata.occurence_remoteserver)
                         .foregroundColor(.red)
+                } else if newdata.selecteduuids.contains(data.id) {
+                    Text(data.offsiteUsername)
+                        .foregroundColor(.red)
                 } else {
-                    Text(data.offsiteServer)
+                    Text(data.offsiteUsername)
                 }
             }
             .width(min: 100, max: 150)
