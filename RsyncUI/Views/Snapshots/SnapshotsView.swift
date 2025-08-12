@@ -273,9 +273,9 @@ extension SnapshotsView {
 
             if let config = selectedconfig {
                 Task {
-                    let logrecords = await
-                        ActorReadLogRecordsJSON().readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
-                    _ = Snapshotlogsandcatalogs(config: config,
+                    let actorreadlogs = ActorReadLogRecordsJSON()
+                    async let logrecords = actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+                    _ = await Snapshotlogsandcatalogs(config: config,
                                                 logrecords: logrecords ?? [],
                                                 snapshotdata: snapshotdata)
                 }

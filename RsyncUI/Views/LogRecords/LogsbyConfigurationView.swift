@@ -41,13 +41,15 @@ struct LogsbyConfigurationView: View {
                                 if filterstring.isEmpty == false {
                                     Task {
                                         // Structured Concurrency
-                                        async let actorreadlogs = ActorReadLogRecordsJSON()
+                                        let actorreadlogs = ActorReadLogRecordsJSON()
+                                        async let logrecords = actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                                         logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
                                     }
                                 } else {
                                     Task {
                                         // Structured Concurrency
-                                        async let actorreadlogs = ActorReadLogRecordsJSON()
+                                        let actorreadlogs = ActorReadLogRecordsJSON()
+                                        async let logrecords = actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                                         logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
                                     }
                                 }
@@ -119,8 +121,8 @@ struct LogsbyConfigurationView: View {
         .onAppear {
             Task {
                 // Structured Concurrency, also read new records from store
-                async let actorreadlogs = ActorReadLogRecordsJSON()
-                logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+                let actorreadlogs = ActorReadLogRecordsJSON()
+                async let logrecords = actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }
@@ -132,13 +134,15 @@ struct LogsbyConfigurationView: View {
                 if filterstring.isEmpty == false {
                     Task {
                         // Structured Concurrency
-                        async let actorreadlogs = ActorReadLogRecordsJSON()
+                        let actorreadlogs = ActorReadLogRecordsJSON()
+                        async let logrecords = actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                         logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
                     }
                 } else {
                     Task {
                         // Structured Concurrency
-                        async let actorreadlogs = ActorReadLogRecordsJSON()
+                        let actorreadlogs = ActorReadLogRecordsJSON()
+                        async let logrecords = actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                         logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
                     }
                 }
@@ -153,8 +157,8 @@ struct LogsbyConfigurationView: View {
                 selectedloguuids.removeAll()
 
                 // Structured Concurrency, also read new records from store
-                async let actorreadlogs = ActorReadLogRecordsJSON()
-                logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+                let actorreadlogs = ActorReadLogRecordsJSON()
+                async let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }
@@ -233,8 +237,8 @@ struct LogsbyConfigurationView: View {
             logrecords = nil
             Task {
                 // Structured Concurrency, also read new records from store
-                async let actorreadlogs = ActorReadLogRecordsJSON()
-                logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+                let actorreadlogs = ActorReadLogRecordsJSON()
+                async let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }

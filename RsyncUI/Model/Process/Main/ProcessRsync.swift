@@ -75,8 +75,8 @@ final class ProcessRsync {
             propogateerror(error: error)
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
-            Logger.process.info("ProcessRsyncAsyncSequence: \(launchPath, privacy: .public)")
-            Logger.process.info("ProcessRsyncAsyncSequence: \(arguments.joined(separator: "\n"), privacy: .public)")
+            Logger.process.info("ProcessRsync: \(launchPath, privacy: .public)")
+            Logger.process.info("ProcessRsync: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
     }
 
@@ -121,7 +121,7 @@ final class ProcessRsync {
     {
         // To satisfy arguments
         let filehandler: (Int) -> Void = { _ in
-            Logger.process.info("ProcessRsyncAsyncSequence: You should NOT SEE this message")
+            Logger.process.info("ProcessRsync: You should NOT SEE this message")
         }
         self.init(arguments: arguments,
                   config: config,
@@ -135,7 +135,7 @@ final class ProcessRsync {
     {
         // To satisfy arguments
         let filehandler: (Int) -> Void = { _ in
-            Logger.process.info("ProcessRsyncAsyncSequence: You should not SEE this message")
+            Logger.process.info("ProcessRsync: You should not SEE this message")
         }
         self.init(arguments: arguments,
                   config: nil,
@@ -145,7 +145,7 @@ final class ProcessRsync {
     }
 
     deinit {
-        Logger.process.info("ProcessRsyncAsyncSequence: DEINIT")
+        Logger.process.info("ProcessRsync: DEINIT")
     }
 }
 
@@ -199,6 +199,6 @@ extension ProcessRsync {
         sequenceFileHandlerTask?.cancel()
         sequenceTerminationTask?.cancel()
 
-        Logger.process.info("ProcessRsyncAsyncSequence: process = nil and termination discovered")
+        Logger.process.info("ProcessRsync: process = nil and termination discovered")
     }
 }
