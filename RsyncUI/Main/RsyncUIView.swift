@@ -58,7 +58,7 @@ struct RsyncUIView: View {
                 ProfilesnamesRecord(catalog)
             }
             // Load calendardata from store
-            scheduledata.scheduledata = await ActorReadSchedule()
+            scheduledata.scheduledata = ReadSchedule()
                 .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) ?? []
         }
         .onChange(of: selectedprofileID) {

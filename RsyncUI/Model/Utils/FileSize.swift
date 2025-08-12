@@ -1,5 +1,5 @@
 //
-//  ActorFileSize.swift
+//  FileSize.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 19/06/2025.

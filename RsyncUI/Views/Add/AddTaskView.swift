@@ -309,7 +309,7 @@ struct AddTaskView: View {
                 }
                 .help("Home catalogs")
             }
-            
+
             ToolbarItem {
                 Button {
                     addtaskpath.append(AddTasks(task: .globalchanges))
