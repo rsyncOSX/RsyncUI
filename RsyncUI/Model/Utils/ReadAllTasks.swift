@@ -10,6 +10,7 @@ import OSLog
 
 @MainActor
 struct ReadAllTasks {
+    
     func readallmarkedtasks(_ validprofiles: [ProfilesnamesRecord]) async -> [SynchronizeConfiguration] {
         var old: [SynchronizeConfiguration]?
         // Important: we must temporarly disable monitor network connection
@@ -21,16 +22,19 @@ struct ReadAllTasks {
         let allprofiles = validprofiles.map(\.profilename)
 
         Logger.process.info("ReadAllTasks: readallmarkedtasks() START of async CALLs")
+        
+        let monitornetworkconnection = SharedReference.shared.monitornetworkconnection
+        let sshport = SharedReference.shared.sshport
 
         for i in 0 ..< allprofiles.count {
             let profilename = allprofiles[i]
 
-            let configurations = await ActorReadSynchronizeConfigurationJSON()
+            async let configurations = ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profilename,
-                                                       SharedReference.shared.monitornetworkconnection,
-                                                       SharedReference.shared.sshport)
+                                                       monitornetworkconnection,
+                                                       sshport)
 
-            let profileold = configurations?.filter { element in
+            let profileold = await configurations?.filter { element in
                 var seconds: Double {
                     if let date = element.dateRun {
                         let lastbackup = date.en_date_from_string()
