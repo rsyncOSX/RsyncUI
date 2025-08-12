@@ -86,7 +86,7 @@ struct QuicktaskView: View {
         ZStack {
             Form {
                 Section(header: Text("Parameters to Task")) {
-                    Picker(NSLocalizedString("Action", comment: "") + ":",
+                    Picker(NSLocalizedString("Action", comment: ""),
                            selection: $selectedrsynccommand)
                     {
                         ForEach(TypeofTaskQuictask.allCases) { Text($0.description)
@@ -115,36 +115,38 @@ struct QuicktaskView: View {
                         }
                     }
 
-                    Toggle("--dry-run", isOn: $dryrun)
-                        .toggleStyle(.switch)
-                        .onTapGesture {
-                            withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                dryrun.toggle()
+                    VStack {
+                        Toggle("--dry-run", isOn: $dryrun)
+                            .toggleStyle(.switch)
+                            .onTapGesture {
+                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                    dryrun.toggle()
+                                }
                             }
-                        }
 
-                    Toggle("File(off) or Folder(on)", isOn: $catalogorfile)
-                        .toggleStyle(.switch)
-                        .onChange(of: catalogorfile) {
-                            if catalogorfile {
-                                trailingslashoptions = .do_not_add
-                            } else {
-                                trailingslashoptions = .add
+                        Toggle("File(off) or Folder(on)", isOn: $catalogorfile)
+                            .toggleStyle(.switch)
+                            .onChange(of: catalogorfile) {
+                                if catalogorfile {
+                                    trailingslashoptions = .do_not_add
+                                } else {
+                                    trailingslashoptions = .add
+                                }
                             }
-                        }
-                        .onTapGesture {
-                            withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                catalogorfile.toggle()
+                            .onTapGesture {
+                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                    catalogorfile.toggle()
+                                }
                             }
-                        }
-                        .onChange(of: catalogorfile) {
-                            UserDefaults.standard.set(catalogorfile, forKey: "quickcatalogorfile")
-                        }
-                        .onAppear {
-                            if let quickcatalogorfile = UserDefaults.standard.value(forKey: "quickcatalogorfile") {
-                                catalogorfile = quickcatalogorfile as! Bool
+                            .onChange(of: catalogorfile) {
+                                UserDefaults.standard.set(catalogorfile, forKey: "quickcatalogorfile")
                             }
-                        }
+                            .onAppear {
+                                if let quickcatalogorfile = UserDefaults.standard.value(forKey: "quickcatalogorfile") {
+                                    catalogorfile = quickcatalogorfile as! Bool
+                                }
+                            }
+                    }
 
                     Picker(NSLocalizedString("Trailing /", comment: ""),
                            selection: $trailingslashoptions)
