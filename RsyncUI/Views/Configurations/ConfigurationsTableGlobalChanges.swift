@@ -43,18 +43,26 @@ struct ConfigurationsTableGlobalChanges: View {
             }
             .width(min: 180, max: 300)
             TableColumn("Remote user") { data in
-                if newdata.selecteduuids.contains(data.id) || newdata.occurence_remoteuser.isEmpty == false {
-                    Text(newdata.occurence_remoteuser)
+                if newdata.selecteduuids.contains(data.id) || newdata.occurence_remoteuser.isEmpty {
+                    if newdata.occurence_remoteuser.isEmpty == false {
+                        Text(newdata.occurence_remoteuser)
+                    } else {
+                        Text(data.offsiteUsername)
+                    }
                 } else {
                     Text(data.offsiteUsername)
                 }
             }
             .width(min: 100, max: 150)
             TableColumn("Remote server") { data in
-                if newdata.selecteduuids.contains(data.id) || newdata.occurence_remoteserver.isEmpty == false {
-                    Text(newdata.occurence_remoteserver)
+                if newdata.selecteduuids.contains(data.id) || newdata.occurence_remoteserver.isEmpty {
+                    if newdata.occurence_remoteserver.isEmpty == false {
+                        Text(newdata.occurence_remoteserver)
+                    } else {
+                        Text(data.offsiteServer)
+                    }
                 } else {
-                    Text(data.offsiteUsername)
+                    Text(data.offsiteServer)
                 }
             }
             .width(min: 100, max: 150)
