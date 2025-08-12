@@ -33,8 +33,8 @@ actor ActorLogToFile {
                 do {
                     try logfiledata.write(to: logfileURL)
                     Logger.process.info("LogToFile: writeloggfile() logfile \(logfileURL.path, privacy: .public)")
-                    let checker = ActorFileSize()
-                    Task {
+                    let checker = FileSize()
+                    // Task {
                         do {
                             if let size = try await checker.filesize() {
                                 if Int(truncating: size) > SharedConstants().logfilesize {
@@ -45,7 +45,7 @@ actor ActorLogToFile {
                             let error = e
                             await path.propogateerror(error: error)
                         }
-                    }
+                    //}
                 } catch let e {
                     let error = e
                     await path.propogateerror(error: error)

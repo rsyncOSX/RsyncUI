@@ -8,12 +8,12 @@
 import Foundation
 import OSLog
 
-actor ActorFileSize {
+@MainActor
+struct FileSize {
     // Only logfile is checked for size, URL-file for logfile is evaluated within function
 
-    @concurrent
-    nonisolated func filesize() async throws -> NSNumber? {
-        let path = await Homepath()
+    func filesize() throws -> NSNumber? {
+        let path = Homepath()
         let fm = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial {
             let logfileString = fullpathmacserial.appending("/") + SharedConstants().logname
