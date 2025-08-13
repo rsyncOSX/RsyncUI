@@ -199,6 +199,6 @@ extension ProcessRsync {
         sequenceFileHandlerTask?.cancel()
         sequenceTerminationTask?.cancel()
 
-        Logger.process.info("ProcessRsync: process = nil and termination discovered")
+        Logger.process.info("ProcessRsync: process = nil and termination discovered \(Thread.isMain) but on \(Thread.current)")
     }
 }

@@ -67,11 +67,11 @@ final class ProcessCommand {
                 propogateerror(error: error)
             }
             if let launchPath = task.launchPath, let arguments = task.arguments {
-                Logger.process.info("ProcessCommandAsyncSequence: \(launchPath, privacy: .public)")
-                Logger.process.info("ProcessCommandAsyncSequence: \(arguments.joined(separator: "\n"), privacy: .public)")
+                Logger.process.info("ProcessCommand: \(launchPath, privacy: .public)")
+                Logger.process.info("ProcessCommand: \(arguments.joined(separator: "\n"), privacy: .public)")
             }
         } else {
-            Logger.process.warning("ProcessCommandAsyncSequence: no command to executed or arguments = 0")
+            Logger.process.warning("ProcessCommand: no command to executed or arguments = 0")
         }
     }
 
@@ -92,7 +92,7 @@ final class ProcessCommand {
                      arguments: [String]?)
     {
         let processtermination: ([String]?) -> Void = { _ in
-            Logger.process.info("ProcessCommandAsyncSequence: You SEE this message only when Process() is terminated")
+            Logger.process.info("ProcessCommand: You SEE this message only when Process() is terminated")
         }
         self.init(command: command,
                   arguments: arguments,
@@ -100,7 +100,7 @@ final class ProcessCommand {
     }
 
     deinit {
-        Logger.process.info("ProcessCommandAsyncSequence: DEINIT")
+        Logger.process.info("ProcessCommand: DEINIT")
     }
 }
 
@@ -133,6 +133,6 @@ extension ProcessCommand {
         sequenceFileHandlerTask?.cancel()
         sequenceTerminationTask?.cancel()
 
-        Logger.process.info("ProcessCommandAsyncSequence: process = nil and termination discovered")
+        Logger.process.info("ProcessCommand: process = nil and termination discovered \(Thread.isMain) but on \(Thread.current)")
     }
 }
