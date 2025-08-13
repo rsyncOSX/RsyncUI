@@ -40,16 +40,12 @@ struct LogsbyConfigurationView: View {
                             Task {
                                 if filterstring.isEmpty == false {
                                     Task {
-                                        // Structured Concurrency
                                         let actorreadlogs = ActorReadLogRecordsJSON()
-                                        async let logrecords = actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                                         logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
                                     }
                                 } else {
                                     Task {
-                                        // Structured Concurrency
                                         let actorreadlogs = ActorReadLogRecordsJSON()
-                                        async let logrecords = actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                                         logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
                                     }
                                 }
@@ -120,9 +116,8 @@ struct LogsbyConfigurationView: View {
         .searchable(text: $filterstring)
         .onAppear {
             Task {
-                // Structured Concurrency, also read new records from store
                 let actorreadlogs = ActorReadLogRecordsJSON()
-                async let logrecords = actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+                logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }
@@ -133,16 +128,12 @@ struct LogsbyConfigurationView: View {
                 showindebounce = false
                 if filterstring.isEmpty == false {
                     Task {
-                        // Structured Concurrency
                         let actorreadlogs = ActorReadLogRecordsJSON()
-                        async let logrecords = actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                         logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
                     }
                 } else {
                     Task {
-                        // Structured Concurrency
                         let actorreadlogs = ActorReadLogRecordsJSON()
-                        async let logrecords = actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                         logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
                     }
                 }
@@ -156,9 +147,8 @@ struct LogsbyConfigurationView: View {
                 selecteduuids.removeAll()
                 selectedloguuids.removeAll()
 
-                // Structured Concurrency, also read new records from store
                 let actorreadlogs = ActorReadLogRecordsJSON()
-                async let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+                logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }
@@ -237,8 +227,8 @@ struct LogsbyConfigurationView: View {
             logrecords = nil
             Task {
                 // Structured Concurrency, also read new records from store
-                let actorreadlogs = ActorReadLogRecordsJSON()
-                async let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+                async let actorreadlogs = ActorReadLogRecordsJSON()
+                logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
         }
