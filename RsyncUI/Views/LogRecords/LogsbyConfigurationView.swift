@@ -227,7 +227,7 @@ struct LogsbyConfigurationView: View {
             logrecords = nil
             Task {
                 // Structured Concurrency, also read new records from store
-                async let actorreadlogs = ActorReadLogRecordsJSON()
+                let actorreadlogs = ActorReadLogRecordsJSON()
                 logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
             }
