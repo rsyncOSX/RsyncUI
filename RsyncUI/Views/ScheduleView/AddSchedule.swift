@@ -94,7 +94,7 @@ struct AddSchedule: View {
                         futuredates.setfirsscheduledate()
 
                         Task {
-                            await ActorWriteSchedule(scheduledata.scheduledata)
+                            await WriteSchedule(scheduledata.scheduledata)
                         }
 
                     } catch let e {
