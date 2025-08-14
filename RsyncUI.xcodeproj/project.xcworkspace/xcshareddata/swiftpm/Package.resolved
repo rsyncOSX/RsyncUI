@@ -16,7 +16,7 @@
       "location" : "https://github.com/rsyncOSX/ParseRsyncOutput",
       "state" : {
         "branch" : "main",
-        "revision" : "daf9b8d04f363f1a63117a130dcb651e2653b019"
+        "revision" : "21171ac4851f8e518c72d2854be248497422fccc"
       }
     },
     {
@@ -34,7 +34,7 @@
       "location" : "https://github.com/rsyncOSX/RsyncUIDeepLinks",
       "state" : {
         "branch" : "main",
-        "revision" : "48aab70bc75c4efc35f83d0180bdea4b8b488351"
+        "revision" : "e791261dc0027a53150bad7db939b7a218d26385"
       }
     },
     {
@@ -43,7 +43,7 @@
       "location" : "https://github.com/rsyncOSX/SSHCreateKey.git",
       "state" : {
         "branch" : "main",
-        "revision" : "678d4ac542e6afd69da797bfd233d515d1a507d5"
+        "revision" : "dac2606c78df9663e22824c527748deefab61e19"
       }
     }
   ],
