@@ -93,9 +93,7 @@ struct AddSchedule: View {
                         futuredates.recomputeschedules()
                         futuredates.setfirsscheduledate()
 
-                        Task {
-                            await WriteSchedule(scheduledata.scheduledata)
-                        }
+                        WriteSchedule(scheduledata.scheduledata)
 
                     } catch let e {
                         Logger.process.info("AddSchedule: some ERROR adding schedule")

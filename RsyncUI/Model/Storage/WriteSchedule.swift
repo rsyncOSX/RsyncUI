@@ -8,10 +8,8 @@ import OSLog
 
 @MainActor
 struct  WriteSchedule {
-    private func writeJSONToPersistentStore(jsonData: Data?) async {
+    private func writeJSONToPersistentStore(jsonData: Data?) {
         let path = Homepath()
-
-        Logger.process.info("WriteSchedule: writeJSONToPersistentStore() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
 
         if let fullpathmacserial = path.fullpathmacserial {
             var calendarfileURL: URL?
@@ -30,12 +28,12 @@ struct  WriteSchedule {
         }
     }
 
-    private func encodeJSONData(_ calendar: [SchedulesConfigurations]) async {
+    private func encodeJSONData(_ calendar: [SchedulesConfigurations])  {
         let encodejsondata = EncodeGeneric()
         do {
-            Logger.process.info("WriteSchedule: encodeJSONData() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+
             if let encodeddata = try encodejsondata.encodedata(data: calendar) {
-                await writeJSONToPersistentStore(jsonData: encodeddata)
+                writeJSONToPersistentStore(jsonData: encodeddata)
             }
         } catch {
             Logger.process.error("WriteSchedule some ERROR writing")
@@ -44,8 +42,8 @@ struct  WriteSchedule {
     }
 
     @discardableResult
-    init(_ calendar: [SchedulesConfigurations]) async {
-        await encodeJSONData(calendar)
+    init(_ calendar: [SchedulesConfigurations]) {
+        encodeJSONData(calendar)
     }
 }
 

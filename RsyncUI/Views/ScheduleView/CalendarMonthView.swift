@@ -128,9 +128,7 @@ struct CalendarMonthView: View {
 
                             confirmdelete = false
 
-                            Task {
-                                await WriteSchedule(scheduledata.scheduledata)
-                            }
+                            WriteSchedule(scheduledata.scheduledata)
                         }
                     }
                     .onDeleteCommand {
