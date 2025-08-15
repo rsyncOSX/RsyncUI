@@ -15,7 +15,7 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
     case create_public_SSHkey
     case copy_public_SSHkey
     case verify_public_SSHkey
-    case remote_disk_usage
+    // case remote_disk_usage
     case URL_verify
     case URL_estimate
 
@@ -71,6 +71,7 @@ struct OtherRsyncCommandtoDisplay {
             } else {
                 str = NSLocalizedString("No remote server on task", comment: "")
             }
+/*
         case .remote_disk_usage:
             if config.offsiteServer.isEmpty == false {
                 let diskusage = ArgumentsRemoteDiskUsage(config: config,
@@ -81,6 +82,7 @@ struct OtherRsyncCommandtoDisplay {
             } else {
                 str = NSLocalizedString("Use macOS Finder", comment: "")
             }
+*/
         case .URL_verify:
             if config.task == SharedReference.shared.synchronize {
                 let deeplinkurl = DeeplinkURL()

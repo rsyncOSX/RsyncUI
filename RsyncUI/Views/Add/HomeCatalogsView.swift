@@ -22,7 +22,10 @@ struct HomeCatalogsView: View {
 
     var body: some View {
         Form {
-            Section(header: Text("Step one")) {
+            Section(header: Text("Step one")
+                .font(.title3)
+                .fontWeight(.bold))
+            {
                 Picker("Select a Folder in home directory", selection: $selectedhomecatalog) {
                     Text("Select")
                         .tag(nil as Catalognames.ID?)
@@ -34,7 +37,10 @@ struct HomeCatalogsView: View {
                 .frame(width: 500)
             }
 
-            Section(header: Text("Step two and three")) {
+            Section(header: Text("Step two and three")
+                .font(.title3)
+                .fontWeight(.bold))
+            {
                 Picker("Select an Attached Volume", selection: $selectedAttachedVolume) {
                     Text("Select")
                         .tag(nil as AttachedVolumes.ID?)
@@ -57,7 +63,10 @@ struct HomeCatalogsView: View {
                 .disabled(selectedAttachedVolume == nil)
             }
 
-            Section(header: Text("Step four")) {
+            Section(header: Text("Step four")
+                .font(.title3)
+                .fontWeight(.bold))
+            {
                 Button("Return") {
                     path.removeAll()
                 }

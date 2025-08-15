@@ -85,7 +85,10 @@ struct QuicktaskView: View {
     var body: some View {
         ZStack {
             Form {
-                Section(header: Text("Parameters to Task")) {
+                Section(header: Text("Parameters to Task")
+                    .font(.title3)
+                    .fontWeight(.bold))
+                {
                     Picker(NSLocalizedString("Action", comment: ""),
                            selection: $selectedrsynccommand)
                     {
@@ -178,7 +181,10 @@ struct QuicktaskView: View {
                     }
                 }
                 if selectedrsynccommand == .synchronize {
-                    Section(header: Text("Source and destination")) {
+                    Section(header: Text("Source and destination")
+                        .font(.title3)
+                        .fontWeight(.bold))
+                    {
                         HStack {
                             EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""), $localcatalog)
                                 .focused($focusField, equals: .localcatalogField)
@@ -260,7 +266,10 @@ struct QuicktaskView: View {
                         }
                     }
                 } else {
-                    Section(header: Text("Source and destination")) {
+                    Section(header: Text("Source and destination")
+                        .font(.title3)
+                        .fontWeight(.bold))
+                    {
                         // remotecatalog
                         HStack {
                             EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""), $remotecatalog)
@@ -313,7 +322,10 @@ struct QuicktaskView: View {
                     }
                 }
 
-                Section(header: Text("Remote user and server")) {
+                Section(header: Text("Remote user and server")
+                    .font(.title3)
+                    .fontWeight(.bold))
+                {
                     // Remote user
                     EditValueScheme(300, NSLocalizedString("Add remote user", comment: ""), $remoteuser)
                         .focused($focusField, equals: .remoteuserField)

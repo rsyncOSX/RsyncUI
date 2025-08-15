@@ -111,7 +111,6 @@ struct AddTaskView: View {
                     {
                         VStack(alignment: .leading) {
                             HStack {
-                                // URLValues(300, "Select a task to save an URL for Estimate & Synchronize", $stringestimate)
 
                                 Button {
                                     let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
@@ -122,7 +121,6 @@ struct AddTaskView: View {
                                 .disabled(stringestimate.isEmpty)
                                 .imageScale(.large)
                                 .help(stringestimate)
-                                // .buttonStyle(ColorfulButtonStyle())
 
                                 Text("URL Estimate & Synchronize")
                             }
@@ -130,8 +128,6 @@ struct AddTaskView: View {
 
                             if selectedconfig.offsiteServer.isEmpty == false {
                                 HStack {
-                                    // URLValues(300, "Select a task to save an URL for Verify", $stringverify)
-
                                     Button {
                                         let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
                                         WriteWidgetsURLStringsJSON(data, .verify)
@@ -141,7 +137,6 @@ struct AddTaskView: View {
                                     .disabled(stringverify.isEmpty)
                                     .imageScale(.large)
                                     .help(stringverify)
-                                    // .buttonStyle(ColorfulButtonStyle())
 
                                     Text("URL Verify")
                                 }

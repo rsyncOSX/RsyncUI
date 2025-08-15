@@ -7,7 +7,7 @@ import Foundation
 import OSLog
 
 @MainActor
-struct  WriteSchedule {
+struct WriteSchedule {
     private func writeJSONToPersistentStore(jsonData: Data?) {
         let path = Homepath()
 
@@ -28,10 +28,9 @@ struct  WriteSchedule {
         }
     }
 
-    private func encodeJSONData(_ calendar: [SchedulesConfigurations])  {
+    private func encodeJSONData(_ calendar: [SchedulesConfigurations]) {
         let encodejsondata = EncodeGeneric()
         do {
-
             if let encodeddata = try encodejsondata.encodedata(data: calendar) {
                 writeJSONToPersistentStore(jsonData: encodeddata)
             }

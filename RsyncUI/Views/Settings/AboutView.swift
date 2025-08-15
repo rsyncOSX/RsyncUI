@@ -39,8 +39,12 @@ struct AboutView: View {
 
     var body: some View {
         Form {
-            Section (header: Text("")) {
+            Section(header: Text("RsyncUI")
+                .font(.title3)
+                .fontWeight(.bold))
+            {
                 appnamestring
+
                 copyrightstring
 
                 HStack {
@@ -57,7 +61,7 @@ struct AboutView: View {
                 rsyncuiconfigpathpath
             }
 
-            Section  {
+            Section {
                 HStack {
                     Button {
                         openchangelog()
@@ -88,9 +92,13 @@ struct AboutView: View {
             } header: {
                 if SharedReference.shared.newversion {
                     Text("There is a new version available for download")
+                        .font(.title3)
+                        .fontWeight(.bold)
 
                 } else {
                     Text("Changelog")
+                        .font(.title3)
+                        .fontWeight(.bold)
                 }
             }
         }
@@ -103,27 +111,19 @@ struct AboutView: View {
     }
 
     var appnamestring: some View {
-        Text("\(appName) version \(appVersion) build \(appBuild)")
-            // .font(.caption)
-            .padding(3)
+        Text("Version \(appVersion) build \(appBuild)")
     }
 
     var copyrightstring: some View {
         Text(copyright)
-            .font(.caption)
-            .padding(3)
     }
 
     var rsyncversionshortstring: some View {
         Text(SharedReference.shared.rsyncversionshort ?? "")
-            .font(.caption)
-            .padding(3)
     }
 
     var rsyncuiconfigpathpath: some View {
         Text("RsyncUI configpath: " + configpath)
-            .font(.caption)
-            .padding(3)
     }
 }
 

@@ -14,14 +14,19 @@ struct Environmentsettings: View {
 
     var body: some View {
         Form {
-            Section (header: Text("Rsync environment")) {
+            Section(header: Text("Rsync environment")
+                .font(.title3)
+                .fontWeight(.bold))
+            {
                 setenvironment
 
                 setenvironmenvariable
-
             }
 
-            Section (header: Text("Save userconfiguration")) {
+            Section(header: Text("Save userconfiguration")
+                .font(.title3)
+                .fontWeight(.bold))
+            {
                 Button {
                     _ = WriteUserConfigurationJSON(UserConfiguration())
                     Logger.process.info("USER CONFIGURATION is SAVED")

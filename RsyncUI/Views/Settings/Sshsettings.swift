@@ -17,7 +17,10 @@ struct Sshsettings: View {
 
     var body: some View {
         Form {
-            Section (header: Text("Global ssh-keys")) {
+            Section(header: Text("Global ssh-keys")
+                .font(.title3)
+                .fontWeight(.bold))
+            {
                 VStack(alignment: .leading) {
                     ToggleViewDefault(text: NSLocalizedString("Source ssh-key is present", comment: ""),
                                       binding: $localsshkeys)
@@ -25,16 +28,21 @@ struct Sshsettings: View {
                 }
             }
 
-            Section (header: Text("Global ssh-keypath and ssh-port")) {
+            Section(header: Text("Global ssh-keypath and ssh-port")
+                .font(.title3)
+                .fontWeight(.bold))
+            {
                 EditValueErrorScheme(400, NSLocalizedString("Global ssh-keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile,
                                      sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile))
 
                 EditValueErrorScheme(400, NSLocalizedString("Global ssh-port", comment: ""),
                                      $sshsettings.sshportnumber, sshsettings.setsshport(sshsettings.sshportnumber))
-
             }
 
-            Section (header: Text("Save userconfiguration")) {
+            Section(header: Text("Save userconfiguration")
+                .font(.title3)
+                .fontWeight(.bold))
+            {
                 Button {
                     _ = WriteUserConfigurationJSON(UserConfiguration())
                     Logger.process.info("USER CONFIGURATION is SAVED")
@@ -44,9 +52,12 @@ struct Sshsettings: View {
                 .help("Save userconfiguration")
                 .buttonStyle(ColorfulButtonStyle())
             }
-            
+
             if localsshkeys == false {
-                Section (header: Text("SSH keys")) {
+                Section(header: Text("SSH keys")
+                    .font(.title3)
+                    .fontWeight(.bold))
+                {
                     HStack {
                         Button {
                             createkeys()
@@ -56,7 +67,6 @@ struct Sshsettings: View {
                         .help("Create keys")
                         .buttonStyle(ColorfulButtonStyle())
                     }
-
                 }
             }
 

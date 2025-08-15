@@ -18,7 +18,10 @@ struct Logsettings: View {
 
     var body: some View {
         Form {
-            Section (header: Text("Monitor network, error and log settings")) {
+            Section(header: Text("Monitor network, error and log settings")
+                .font(.title3)
+                .fontWeight(.bold))
+            {
                 ToggleViewDefault(text: NSLocalizedString("Monitor network", comment: ""), binding: $logsettings.monitornetworkconnection)
                     .onChange(of: logsettings.monitornetworkconnection) {
                         SharedReference.shared.monitornetworkconnection = logsettings.monitornetworkconnection
@@ -81,10 +84,12 @@ struct Logsettings: View {
                 if togglehideschedule {
                     DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Please restart RsyncUI to take effect", comment: ""))
                 }
-
             }
 
-            Section (header: Text("Save userconfiguration")) {
+            Section(header: Text("Save userconfiguration")
+                .font(.title3)
+                .fontWeight(.bold))
+            {
                 Button {
                     _ = WriteUserConfigurationJSON(UserConfiguration())
                     Logger.process.info("USER CONFIGURATION is SAVED")

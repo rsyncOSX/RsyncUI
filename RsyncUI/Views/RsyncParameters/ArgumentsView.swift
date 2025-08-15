@@ -35,11 +35,15 @@ struct ArgumentsView: View {
 
             VStack(alignment: .leading) {
                 Text("Select a task")
+                    .font(.title3)
+                    .fontWeight(.bold)
+                
 
                 OtherRsyncCommandsView(rsyncUIdata: rsyncUIdata,
                                        config: $selectedconfig,
                                        otherselectedrsynccommand: $otherselectedrsynccommand)
                     .disabled(selectedconfig == nil)
+                    .padding()
             }
         }
         .padding()

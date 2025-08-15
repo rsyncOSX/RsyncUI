@@ -13,7 +13,10 @@ struct RsyncandPathsettings: View {
 
     var body: some View {
         Form {
-            Section (header: Text("Version rsync")){
+            Section(header: Text("Version rsync")
+                .font(.title3)
+                .fontWeight(.bold))
+            {
                 HStack {
                     ToggleViewDefault(text: NSLocalizedString("Rsync v3.x", comment: ""),
                                       binding: $rsyncpathsettings.rsyncversion3)
@@ -42,7 +45,10 @@ struct RsyncandPathsettings: View {
                 }
             }
 
-            Section (header: Text("Path rsync")){
+            Section(header: Text("Path rsync")
+                .font(.title3)
+                .fontWeight(.bold))
+            {
                 if rsyncpathsettings.localrsyncpath.isEmpty == true {
                     setrsyncpathdefault
                 } else {
@@ -50,7 +56,10 @@ struct RsyncandPathsettings: View {
                 }
             }
 
-            Section (header: Text("Path for restore")) {
+            Section(header: Text("Path for restore")
+                .font(.title3)
+                .fontWeight(.bold))
+            {
                 HStack {
                     setpathforrestore
 
@@ -58,11 +67,17 @@ struct RsyncandPathsettings: View {
                 }
             }
 
-            Section (header: Text("Mark days after")) {
+            Section(header: Text("Mark days after")
+                .font(.title3)
+                .fontWeight(.bold))
+            {
                 setmarkdays
             }
 
-            Section (header: Text("Backup configurations & Save userconfiguration")) {
+            Section(header: Text("Backup configurations & Save userconfiguration")
+                .font(.title3)
+                .fontWeight(.bold))
+            {
                 HStack {
                     Button {
                         _ = Backupconfigfiles()
@@ -82,7 +97,6 @@ struct RsyncandPathsettings: View {
                     .help("Save userconfiguration")
                     .buttonStyle(ColorfulButtonStyle())
                 }
-
             }
         }
         .formStyle(.grouped)
