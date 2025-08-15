@@ -14,16 +14,14 @@ struct Environmentsettings: View {
 
     var body: some View {
         Form {
-            Section {
+            Section (header: Text("Rsync environment")) {
                 setenvironment
 
                 setenvironmenvariable
 
-            } header: {
-                Text("Rsync environment")
             }
 
-            Section {
+            Section (header: Text("Save userconfiguration")) {
                 Button {
                     _ = WriteUserConfigurationJSON(UserConfiguration())
                     Logger.process.info("USER CONFIGURATION is SAVED")
@@ -32,8 +30,6 @@ struct Environmentsettings: View {
                 }
                 .help("Save userconfiguration")
                 .buttonStyle(ColorfulButtonStyle())
-            } header: {
-                Text("Save userconfiguration")
             }
         }
         .formStyle(.grouped)

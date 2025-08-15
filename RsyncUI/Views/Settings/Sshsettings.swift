@@ -17,28 +17,24 @@ struct Sshsettings: View {
 
     var body: some View {
         Form {
-            Section {
+            Section (header: Text("Global ssh-keys")) {
                 VStack(alignment: .leading) {
                     ToggleViewDefault(text: NSLocalizedString("Source ssh-key is present", comment: ""),
                                       binding: $localsshkeys)
                         .disabled(true)
                 }
-            } header: {
-                Text("Global ssh-keys")
             }
 
-            Section {
+            Section (header: Text("Global ssh-keypath and ssh-port")) {
                 EditValueErrorScheme(400, NSLocalizedString("Global ssh-keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile,
                                      sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile))
 
                 EditValueErrorScheme(400, NSLocalizedString("Global ssh-port", comment: ""),
                                      $sshsettings.sshportnumber, sshsettings.setsshport(sshsettings.sshportnumber))
 
-            } header: {
-                Text("Global ssh-keypath and ssh-port")
             }
 
-            Section {
+            Section (header: Text("Save userconfiguration")) {
                 Button {
                     _ = WriteUserConfigurationJSON(UserConfiguration())
                     Logger.process.info("USER CONFIGURATION is SAVED")
@@ -47,12 +43,10 @@ struct Sshsettings: View {
                 }
                 .help("Save userconfiguration")
                 .buttonStyle(ColorfulButtonStyle())
-            } header: {
-                Text("Save userconfiguration")
             }
-
+            
             if localsshkeys == false {
-                Section {
+                Section (header: Text("SSH keys")) {
                     HStack {
                         Button {
                             createkeys()
@@ -63,8 +57,6 @@ struct Sshsettings: View {
                         .buttonStyle(ColorfulButtonStyle())
                     }
 
-                } header: {
-                    Text("SSH keys")
                 }
             }
 

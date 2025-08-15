@@ -39,7 +39,7 @@ struct AboutView: View {
 
     var body: some View {
         Form {
-            Section {
+            Section (header: Text("")) {
                 appnamestring
                 copyrightstring
 
@@ -57,7 +57,7 @@ struct AboutView: View {
                 rsyncuiconfigpathpath
             }
 
-            Section {
+            Section  {
                 HStack {
                     Button {
                         openchangelog()

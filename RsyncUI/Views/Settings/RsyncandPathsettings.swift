@@ -13,7 +13,7 @@ struct RsyncandPathsettings: View {
 
     var body: some View {
         Form {
-            Section {
+            Section (header: Text("Version rsync")){
                 HStack {
                     ToggleViewDefault(text: NSLocalizedString("Rsync v3.x", comment: ""),
                                       binding: $rsyncpathsettings.rsyncversion3)
@@ -40,37 +40,29 @@ struct RsyncandPathsettings: View {
                         }
                         .disabled(true)
                 }
-            } header: {
-                Text("Version rsync")
             }
 
-            Section {
+            Section (header: Text("Path rsync")){
                 if rsyncpathsettings.localrsyncpath.isEmpty == true {
                     setrsyncpathdefault
                 } else {
                     setrsyncpathlocalpath
                 }
-            } header: {
-                Text("Path rsync")
             }
 
-            Section {
+            Section (header: Text("Path for restore")) {
                 HStack {
                     setpathforrestore
 
                     OpencatalogView(selecteditem: $rsyncpathsettings.temporarypathforrestore, catalogs: true)
                 }
-            } header: {
-                Text("Path for restore")
             }
 
-            Section {
+            Section (header: Text("Mark days after")) {
                 setmarkdays
-            } header: {
-                Text("Mark days after")
             }
 
-            Section {
+            Section (header: Text("Backup configurations & Save userconfiguration")) {
                 HStack {
                     Button {
                         _ = Backupconfigfiles()
@@ -91,8 +83,6 @@ struct RsyncandPathsettings: View {
                     .buttonStyle(ColorfulButtonStyle())
                 }
 
-            } header: {
-                Text("Backup configurations & Save userconfiguration")
             }
         }
         .formStyle(.grouped)
