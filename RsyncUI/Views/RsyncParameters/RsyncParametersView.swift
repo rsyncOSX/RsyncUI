@@ -132,11 +132,17 @@ struct RsyncParametersView: View {
                         .font(.title3))
                     {
                         VStack(alignment: .leading) {
-                            ToggleViewDefault(text: "--delete", binding: $parameters.adddelete)
+                            Toggle("", isOn: $parameters.adddelete)
+                                .toggleStyle(.switch)
                                 .onChange(of: parameters.adddelete) {
                                     parameters.adddelete(parameters.adddelete)
                                 }
                                 .disabled(selecteduuids.isEmpty == true)
+                                .onTapGesture {
+                                    withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                        backup.toggle()
+                                    }
+                                }
                         }
                     }
 
