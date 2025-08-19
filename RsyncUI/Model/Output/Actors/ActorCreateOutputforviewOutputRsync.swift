@@ -10,11 +10,10 @@ import OSLog
 actor ActorCreateOutputforviewOutputRsync {
     // From Array[String]
     @concurrent
-    nonisolated func createoutputforviewoutputrsync(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
-        Logger.process.info("CreateOutputforviewOutputRsync: createoutputforviewoutputrsync() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
-
-        if let data = stringoutputfromrsync {
-            return data.map { line in
+    nonisolated func createaoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
+        Logger.process.info("ActorCreateOutputforviewOutputRsync: createaoutputforview() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        if let stringoutputfromrsync {
+            return stringoutputfromrsync.map { line in
                 RsyncOutputData(record: line)
             }
         }
@@ -23,11 +22,10 @@ actor ActorCreateOutputforviewOutputRsync {
 
     // From Set<String>
     @concurrent
-    nonisolated func createoutputforviewoutputrsync(_ setoutputfromrsync: Set<String>?) async -> [RsyncOutputData] {
-        Logger.process.info("CreateOutputforviewOutputRsync: createoutputforviewoutputrsync() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
-
-        if let data = setoutputfromrsync {
-            return data.map { line in
+    nonisolated func createaoutputforview(_ setoutputfromrsync: Set<String>?) async -> [RsyncOutputData] {
+        Logger.process.info("ActorCreateOutputforviewOutputRsync: createaoutputforview() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        if let setoutputfromrsync {
+            return setoutputfromrsync.map { line in
                 RsyncOutputData(record: line)
             }
         }

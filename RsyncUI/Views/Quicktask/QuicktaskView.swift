@@ -519,7 +519,7 @@ extension QuicktaskView {
     func processtermination(_ stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         showprogressview = false
         Task {
-            rsyncoutput.output = await ActorCreateOutputforviewQuicktask().createaoutputforview(stringoutputfromrsync)
+            rsyncoutput.output = await ActorCreateOutputforviewOutputRsync().createaoutputforview(stringoutputfromrsync)
             completed = true
         }
     }
