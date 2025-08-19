@@ -1,5 +1,5 @@
 //
-//  ActorCreateOutputforviewOutputRsync.swift
+//  ActorCreateOutputforView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 02/07/2025.
@@ -11,7 +11,7 @@ actor ActorCreateOutputforView {
     // From Array[String]
     @concurrent
     nonisolated func createaoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
-        Logger.process.info("ActorCreateOutputforviewOutputRsync: createaoutputforview() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ActorCreateOutputforView: createaoutputforview() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         if let stringoutputfromrsync {
             return stringoutputfromrsync.map { line in
                 RsyncOutputData(record: line)
@@ -23,7 +23,7 @@ actor ActorCreateOutputforView {
     // From Set<String>
     @concurrent
     nonisolated func createaoutputforview(_ setoutputfromrsync: Set<String>?) async -> [RsyncOutputData] {
-        Logger.process.info("ActorCreateOutputforviewOutputRsync: createaoutputforview() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ActorCreateOutputforView: createaoutputforview() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         if let setoutputfromrsync {
             return setoutputfromrsync.map { line in
                 RsyncOutputData(record: line)
@@ -35,7 +35,7 @@ actor ActorCreateOutputforView {
     // Show filelist for Restore, the TrimOutputForRestore prepares list
     @concurrent
     nonisolated func createoutputforrestore(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
-        Logger.process.info("CreateOutputforviewRestorefiles: createoutputforview()  MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ActorCreateOutputforView: createoutputforrestore()  MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         if let stringoutputfromrsync {
             if let trimmeddata = await TrimOutputForRestore(stringoutputfromrsync).trimmeddata {
                 return trimmeddata.map { filename in
@@ -49,7 +49,7 @@ actor ActorCreateOutputforView {
     // After a restore, present files
     @concurrent
     nonisolated func createoutputafterrestore(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
-        Logger.process.info("CreateOutputforviewRestorefiles: createrestoredfilesoutputforview() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ActorCreateOutputforView: createoutputafterrestore() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         if let stringoutputfromrsync {
             return stringoutputfromrsync.map { filename in
                 RsyncOutputData(record: filename)
@@ -61,7 +61,7 @@ actor ActorCreateOutputforView {
     // Logfile
     @concurrent
     nonisolated func createaoutputlogfileforview() async -> [LogfileRecords] {
-        Logger.process.info("GenerateLogfileforview: generatedata() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ActorCreateOutputforView: createaoutputlogfileforview() generatedata() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         if let data = await ActorLogToFile(false).readloggfile() {
             return data.map { record in
                 LogfileRecords(line: record)

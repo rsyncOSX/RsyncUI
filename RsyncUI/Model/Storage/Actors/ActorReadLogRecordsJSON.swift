@@ -34,7 +34,7 @@ actor ActorReadLogRecordsJSON {
             if let data = try
                  decodeimport.decodearraydatafileURL(DecodeLogRecords.self, fromwhere: filename)
             {
-                Logger.process.info("ActorReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): read logrecords from permanent storage")
+                Logger.process.info("ActorReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): DECODE MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
                 return data.compactMap { element in
                     let item = LogRecords(element)
                     return validhiddenIDs.contains(item.hiddenID) ? item : nil
