@@ -29,10 +29,10 @@ actor ActorReadLogRecordsJSON {
 
         Logger.process.info("ActorReadLogRecordsJSON: readjsonfilelogrecords() from \(filename, privacy: .public)")
 
-        let decodeimport = await DecodeGeneric()
+        let decodeimport = DecodeGeneric()
         do {
             if let data = try
-                await decodeimport.decodearraydatafileURL(DecodeLogRecords.self, fromwhere: filename)
+                 decodeimport.decodearraydatafileURL(DecodeLogRecords.self, fromwhere: filename)
             {
                 Logger.process.info("ActorReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): read logrecords from permanent storage")
                 return data.compactMap { element in
