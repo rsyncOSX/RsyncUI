@@ -266,8 +266,7 @@ extension RestoreTableView {
         gettingfilelist = false
         restore.restorefilelist.removeAll()
         Task {
-            restore.restorefilelist = await
-                ActorCreateOutputforviewRestorefiles().createoutputforview(stringoutputfromrsync)
+            restore.restorefilelist = await ActorCreateOutputforView().createoutputforrestore(stringoutputfromrsync)
         }
     }
 

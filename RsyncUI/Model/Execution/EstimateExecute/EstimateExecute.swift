@@ -282,7 +282,7 @@ extension EstimateExecute {
             Task {
                 // Create data for output rsync for view
                 record.outputfromrsync =
-                    await ActorCreateOutputforviewOutputRsync().createaoutputforview(stringoutputfromrsync)
+                    await ActorCreateOutputforView().createaoutputforview(stringoutputfromrsync)
                 localprogressdetails?.appendrecordestimatedlist(record)
 
                 if record.datatosynchronize {
@@ -315,7 +315,7 @@ extension EstimateExecute {
             Task {
                 // Create data for output rsync for view
                 record.outputfromrsync =
-                    await ActorCreateOutputforviewOutputRsync().createaoutputforview(stringoutputfromrsync)
+                    await ActorCreateOutputforView().createaoutputforview(stringoutputfromrsync)
                 localprogressdetails?.appendrecordestimatedlist(record)
 
                 if record.datatosynchronize {

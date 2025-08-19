@@ -98,7 +98,7 @@ struct OneTaskDetailsView: View {
         }
 
         Task {
-            remotedatanumbers?.outputfromrsync = await ActorCreateOutputforviewOutputRsync().createaoutputforview(stringoutputfromrsync)
+            remotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createaoutputforview(stringoutputfromrsync)
 
             if let remotedatanumbers {
                 progressdetails.appendrecordestimatedlist(remotedatanumbers)

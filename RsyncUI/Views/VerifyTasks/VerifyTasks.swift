@@ -123,7 +123,7 @@ struct VerifyTasks: View {
         }
 
         Task {
-            remotedatanumbers?.outputfromrsync = await ActorCreateOutputforviewOutputRsync().createaoutputforview(stringoutputfromrsync)
+            remotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createaoutputforview(stringoutputfromrsync)
             presentestimates = true
         }
     }
