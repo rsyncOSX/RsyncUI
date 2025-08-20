@@ -201,7 +201,7 @@ struct QuicktaskView: View {
                                 }
 
                             Picker("", selection: $selectedhomecatalog) {
-                                Text("Home Catalogs")
+                                Text("Home Catalogs (source)")
                                     .tag(nil as Catalognames.ID?)
                                 ForEach(homecatalogs, id: \.self) { catalog in
                                     Text(catalog.catalogname)
@@ -232,37 +232,6 @@ struct QuicktaskView: View {
                                         remotecatalog = quickremotecatalog as! String
                                     }
                                 }
-
-                            VStack(alignment: .trailing) {
-                                Picker("", selection: $selectedAttachedVolume) {
-                                    Text("Attached Volume")
-                                        .tag(nil as AttachedVolumes.ID?)
-                                    ForEach(attachedVolumes, id: \.self) { volume in
-                                        Text(volume.volumename.lastPathComponent)
-                                            .tag(volume.id)
-                                    }
-                                }
-                                .frame(width: 300)
-
-                                Picker("", selection: $selectedAttachedVolumeCatalogs) {
-                                    Text("Select")
-                                        .tag(nil as String?)
-                                    ForEach(attachedVolumesCatalogs, id: \.self) { volumename in
-                                        Text(volumename)
-                                            .tag(volumename)
-                                    }
-                                }
-                                .frame(width: 300)
-                                .disabled(selectedAttachedVolume == nil)
-                                .onChange(of: selectedAttachedVolumeCatalogs) {
-                                    if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
-                                        let attachedvolume = attachedVolumes[index].volumename
-                                        if let index = attachedVolumesCatalogs.firstIndex(where: { $0 == selectedAttachedVolumeCatalogs }) {
-                                            remotecatalog = (attachedvolume.relativePath).appending("/") + attachedVolumesCatalogs[index]
-                                        }
-                                    }
-                                }
-                            }
                         }
                     }
                 } else {
@@ -282,10 +251,24 @@ struct QuicktaskView: View {
                                 .onAppear {
                                     if let quickremotecatalog = UserDefaults.standard.value(forKey: "quickremotecatalog") {
                                         Logger.process.info("QuicktaskView: set default settings for remotecatalog: \(quickremotecatalog as! NSObject)")
-
                                         remotecatalog = quickremotecatalog as! String
                                     }
                                 }
+                            
+                            Picker("", selection: $selectedhomecatalog) {
+                                Text("Home Catalogs (destination)")
+                                    .tag(nil as Catalognames.ID?)
+                                ForEach(homecatalogs, id: \.self) { catalog in
+                                    Text(catalog.catalogname)
+                                        .tag(catalog.id)
+                                }
+                            }
+                            .frame(width: 300)
+                            .onChange(of: selectedhomecatalog) {
+                                if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
+                                    remotecatalog = localhome.appending("/") + homecatalogs[index].catalogname
+                                }
+                            }
                         }
 
                         // localcatalog
@@ -303,21 +286,6 @@ struct QuicktaskView: View {
                                         localcatalog = quicklocalcatalog as! String
                                     }
                                 }
-
-                            Picker("", selection: $selectedhomecatalog) {
-                                Text("Select")
-                                    .tag(nil as Catalognames.ID?)
-                                ForEach(homecatalogs, id: \.self) { catalog in
-                                    Text(catalog.catalogname)
-                                        .tag(catalog.id)
-                                }
-                            }
-                            .frame(width: 300)
-                            .onChange(of: selectedhomecatalog) {
-                                if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
-                                    localcatalog = localhome.appending("/") + homecatalogs[index].catalogname
-                                }
-                            }
                         }
                     }
                 }
