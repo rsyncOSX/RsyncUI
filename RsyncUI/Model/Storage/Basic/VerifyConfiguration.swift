@@ -22,11 +22,11 @@ enum ValidateInputError: LocalizedError {
         case .localcatalog:
             "Either local or remote cannot be empty"
         case .offsiteusername:
-            "Remote username cannot be empty"
+            "Username cannot be empty"
         case .notconnected:
             "Not connected, cannot create task"
         case .offsiteserver:
-            "Remote servername cannot be empty"
+            "Servername cannot be empty"
         case .snapshotnum:
             "Snapshotnum must be 1"
         case .rsyncversion2:

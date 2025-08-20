@@ -28,11 +28,11 @@ enum ValidateInputQuicktask: LocalizedError {
         case .localcatalog:
             "Source folder cannot be empty"
         case .offsiteusername:
-            "Remote username cannot be empty"
+            "Username cannot be empty"
         case .remotecatalog:
             "Destination folder cannot be empty"
         case .offsiteserver:
-            "Remote servername cannot be empty"
+            "Servername cannot be empty"
         }
     }
 }
@@ -187,7 +187,7 @@ struct QuicktaskView: View {
                         }
                     }
                 }
-                if selectedrsynccommand == .synchronize {
+                if selectedrsynccommand == .synchronize || selectedrsynccommand == .not_selected {
                     Section(header: Text("Source and destination")
                         .font(.title3)
                         .fontWeight(.bold))
@@ -248,7 +248,7 @@ struct QuicktaskView: View {
                     {
                         // remotecatalog
                         HStack {
-                            EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""), $remotecatalog)
+                            EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $remotecatalog)
                                 .focused($focusField, equals: .remotecatalogField)
                                 .textContentType(.none)
                                 .submitLabel(.continue)
@@ -280,7 +280,7 @@ struct QuicktaskView: View {
 
                         // localcatalog
                         HStack {
-                            EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $localcatalog)
+                            EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""), $localcatalog)
                                 .focused($focusField, equals: .localcatalogField)
                                 .textContentType(.none)
                                 .submitLabel(.continue)
@@ -302,7 +302,7 @@ struct QuicktaskView: View {
                     .fontWeight(.bold))
                 {
                     // Remote user
-                    EditValueScheme(300, NSLocalizedString("Add remote user", comment: ""), $remoteuser)
+                    EditValueScheme(300, NSLocalizedString("Add remote user - required", comment: ""), $remoteuser)
                         .focused($focusField, equals: .remoteuserField)
                         .textContentType(.none)
                         .submitLabel(.continue)
@@ -315,7 +315,7 @@ struct QuicktaskView: View {
                             }
                         }
                     // Remote server
-                    EditValueScheme(300, NSLocalizedString("Add remote server", comment: ""), $remoteserver)
+                    EditValueScheme(300, NSLocalizedString("Add remote server - required", comment: ""), $remoteserver)
                         .focused($focusField, equals: .remoteserverField)
                         .textContentType(.none)
                         .submitLabel(.return)
@@ -391,7 +391,7 @@ struct QuicktaskView: View {
             }
         })
         .padding()
-        .navigationTitle("Quicktask")
+        .navigationTitle("Quicktask - only for remote server")
         .navigationDestination(isPresented: $completed) {
             OutputRsyncView(output: rsyncoutput.output ?? [])
         }
@@ -510,11 +510,11 @@ extension QuicktaskView {
         if config.offsiteCatalog.isEmpty {
             throw ValidateInputQuicktask.remotecatalog
         }
-        if config.offsiteServer.isEmpty {
-            throw ValidateInputQuicktask.offsiteserver
-        }
         if config.offsiteUsername.isEmpty {
             throw ValidateInputQuicktask.offsiteusername
+        }
+        if config.offsiteServer.isEmpty {
+            throw ValidateInputQuicktask.offsiteserver
         }
         return true
     }
