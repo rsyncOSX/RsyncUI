@@ -100,6 +100,13 @@ struct QuicktaskView: View {
                     .frame(width: 180)
                     .onChange(of: selectedrsynccommand) {
                         UserDefaults.standard.set(selectedrsynccommand.rawValue, forKey: "quickselectedrsynccommand")
+                        Task {
+                            // Sleep for a second, then clear catalog valuse
+                            try await Task.sleep(seconds: 1)
+                            localcatalog = ""
+                            remotecatalog = ""
+                            selectedhomecatalog = nil
+                        }
                     }
                     .onAppear {
                         if let selectedrsynccommand = UserDefaults.standard.value(forKey: "quickselectedrsynccommand") {
