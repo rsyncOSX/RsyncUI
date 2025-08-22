@@ -42,20 +42,7 @@ struct EstimateTableView: View {
                     }
                 }
             }
-            .width(min: 50, max: 200)
-            /*
-             TableColumn("Synchronize ID") { data in
-                 if data.backupID.isEmpty == true {
-                     Text("Synchronize ID")
-                         .foregroundColor(color(uuid: data.id))
-
-                 } else {
-                     Text(data.backupID)
-                         .foregroundColor(color(uuid: data.id))
-                 }
-             }
-             .width(min: 50, max: 200)
-              */
+            .width(min: 50, max: 150)
             TableColumn("Action") { data in
                 if data.task == SharedReference.shared.halted {
                     Image(systemName: "stop.fill")

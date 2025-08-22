@@ -42,11 +42,6 @@ struct ConfigurationsTableDataMainView: View {
             }
             .width(min: 150, max: 250)
             .defaultVisibility(visible_progress)
-            TableColumn("Profile") { _ in
-                Text(rsyncUIdata.profile ?? "Default")
-            }
-            .width(min: 50, max: 100)
-            .defaultVisibility(visible_not_progress)
             TableColumn("Synchronize ID") { data in
                 if let index = progressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id }) {
                     if progressdetails.estimatedlist?[index].datatosynchronize == false,
@@ -85,7 +80,7 @@ struct ConfigurationsTableDataMainView: View {
                     }
                 }
             }
-
+            .width(min: 50, max: 150)
             TableColumn("Action") { data in
                 if data.task == SharedReference.shared.halted {
                     Image(systemName: "stop.fill")
