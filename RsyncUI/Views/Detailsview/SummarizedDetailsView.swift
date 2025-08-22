@@ -59,7 +59,7 @@ struct SummarizedDetailsView: View {
                                         executetaskpath.append(Tasks(task: .executestimatedview))
                                     }
                                 } label: {
-                                    Text(Image(systemName: "play"))
+                                    Text(Image(systemName: "play.fill"))
                                         .foregroundColor(.blue)
                                         .font(.title2)
                                         .imageScale(.large)
