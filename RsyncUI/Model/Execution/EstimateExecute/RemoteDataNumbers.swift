@@ -43,7 +43,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     // is true or not. If not either yes,
     // new task or no if like server is not
     // online.
-    var confirmsynchronize: Bool = false
+    var confirmexecute: Bool = false
     // Summarized stats
     var stats: String?
     // A reduced number of output
@@ -97,7 +97,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
                filestransferred_Int + totaldirectories_Int == newfiles_Int,
                datatosynchronize
             {
-                confirmsynchronize = true
+                confirmexecute = true
             }
         }
     }

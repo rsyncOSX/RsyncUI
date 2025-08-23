@@ -121,7 +121,7 @@ final class ProgressDetails {
     }
 
     func confirmexecutetasks() -> Bool {
-        let filterconfirm = estimatedlist?.filter { $0.confirmsynchronize == true }
+        let filterconfirm = estimatedlist?.filter { $0.confirmexecute == true }
         return filterconfirm?.count ?? 0 > 0
     }
 
