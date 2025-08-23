@@ -10,7 +10,6 @@ import OSLog
 
 @MainActor
 struct ReadAllTasks {
-    
     func readallmarkedtasks(_ validprofiles: [ProfilesnamesRecord]) async -> [SynchronizeConfiguration] {
         var old: [SynchronizeConfiguration]?
         // Important: we must temporarly disable monitor network connection

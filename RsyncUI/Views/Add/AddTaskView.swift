@@ -111,7 +111,6 @@ struct AddTaskView: View {
                     {
                         VStack(alignment: .leading) {
                             HStack {
-
                                 Button {
                                     let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
                                     WriteWidgetsURLStringsJSON(data, .estimate)

@@ -37,7 +37,6 @@ struct ArgumentsView: View {
                 Text("Select a task")
                     .font(.title3)
                     .fontWeight(.bold)
-                
 
                 OtherRsyncCommandsView(rsyncUIdata: rsyncUIdata,
                                        config: $selectedconfig,

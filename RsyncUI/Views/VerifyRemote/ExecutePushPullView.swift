@@ -49,19 +49,28 @@ struct ExecutePushPullView: View {
                             }
 
                             if pushpullcommand == .push_local {
-                                Button("Push") {
+                                Button {
                                     showprogressview = true
                                     push(config: config)
+
+                                } label: {
+                                    Image(systemName: "arrowshape.right.fill")
+                                        .imageScale(.large)
                                 }
                                 .padding()
-                                .buttonStyle(ColorfulButtonStyle())
+                                .buttonStyle(.borderedProminent)
+
                             } else if pushpullcommand == .pull_remote {
-                                Button("Pull") {
+                                Button {
                                     showprogressview = true
                                     pull(config: config)
+                                } label: {
+                                    Image(systemName: "arrowshape.left.fill")
+                                        .imageScale(.large)
                                 }
                                 .padding()
-                                .buttonStyle(ColorfulButtonStyle())
+                                .buttonStyle(.borderedProminent)
+
                             } else {
                                 Button("Select") {}
                                     .padding()

@@ -69,7 +69,7 @@ actor ActorReadSynchronizeConfigurationJSON {
         let decodeimport = DecodeGeneric()
         do {
             if let data = try
-                 decodeimport.decodearraydatafileURL(DecodeSynchronizeConfiguration.self, fromwhere: filename)
+                decodeimport.decodearraydatafileURL(DecodeSynchronizeConfiguration.self, fromwhere: filename)
             {
                 Logger.process.info("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): DECODE MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
                 let tasks = data.map { element in

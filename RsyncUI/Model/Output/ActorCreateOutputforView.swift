@@ -31,7 +31,7 @@ actor ActorCreateOutputforView {
         }
         return []
     }
-    
+
     // Show filelist for Restore, the TrimOutputForRestore prepares list
     @concurrent
     nonisolated func createoutputforrestore(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
@@ -57,7 +57,7 @@ actor ActorCreateOutputforView {
         }
         return []
     }
-    
+
     // Logfile
     @concurrent
     nonisolated func createaoutputlogfileforview() async -> [LogfileRecords] {

@@ -89,9 +89,7 @@ struct QuicktaskView: View {
                     .font(.title3)
                     .fontWeight(.bold))
                 {
-                    
                     HStack {
-                        
                         Picker(NSLocalizedString("Action", comment: ""),
                                selection: $selectedrsynccommand)
                         {
@@ -127,9 +125,9 @@ struct QuicktaskView: View {
                                 }
                             }
                         }
-                        
+
                         Spacer()
-                        
+
                         Picker(NSLocalizedString("Trailing /", comment: ""),
                                selection: $trailingslashoptions)
                         {
@@ -159,7 +157,7 @@ struct QuicktaskView: View {
                             }
                         }
                     }
-                    
+
                     VStack {
                         Toggle("--dry-run", isOn: $dryrun)
                             .toggleStyle(.switch)
@@ -192,8 +190,6 @@ struct QuicktaskView: View {
                                 }
                             }
                     }
-
-                    
                 }
                 if selectedrsynccommand == .synchronize || selectedrsynccommand == .not_selected {
                     Section(header: Text("Source and destination")
@@ -269,7 +265,7 @@ struct QuicktaskView: View {
                                         remotecatalog = quickremotecatalog as! String
                                     }
                                 }
-                            
+
                             Picker("", selection: $selectedhomecatalog) {
                                 Text("Home Catalogs (destination)")
                                     .tag(nil as Catalognames.ID?)

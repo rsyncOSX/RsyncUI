@@ -13,7 +13,7 @@ actor ActorGetversionofRsyncUI {
     nonisolated func getversionsofrsyncui() async -> Bool {
         do {
             Logger.process.info("GetversionofRsyncUI: getversionsofrsyncui() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
-            let versions =  DecodeGeneric()
+            let versions = DecodeGeneric()
             if let versionsofrsyncui =
                 try await versions.decodearraydata(VersionsofRsyncUI.self,
                                                    fromwhere: Resources().getResource(resource: .urlJSON))
@@ -40,7 +40,7 @@ actor ActorGetversionofRsyncUI {
     nonisolated func downloadlinkofrsyncui() async -> String? {
         do {
             Logger.process.info("GetversionofRsyncUI: downloadlinkofrsyncui() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
-            let versions =  DecodeGeneric()
+            let versions = DecodeGeneric()
             if let versionsofrsyncui =
                 try await versions.decodearraydata(VersionsofRsyncUI.self,
                                                    fromwhere: Resources().getResource(resource: .urlJSON))

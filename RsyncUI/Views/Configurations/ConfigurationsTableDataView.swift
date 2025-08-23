@@ -34,7 +34,7 @@ struct ConfigurationsTableDataView: View {
                 }
             }
             .width(min: 50, max: 150)
-            
+
             TableColumn("Action") { data in
                 if data.task == SharedReference.shared.halted {
                     Image(systemName: "stop.fill")

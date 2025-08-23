@@ -71,18 +71,18 @@ struct OtherRsyncCommandtoDisplay {
             } else {
                 str = NSLocalizedString("No remote server on task", comment: "")
             }
-/*
-        case .remote_disk_usage:
-            if config.offsiteServer.isEmpty == false {
-                let diskusage = ArgumentsRemoteDiskUsage(config: config,
-                                                         remotecatalog: config.offsiteCatalog)
-                if let arguments = diskusage.argumentsremotediskusage() {
-                    str = (diskusage.getCommand() ?? "") + " " + arguments.joined(separator: " ")
-                }
-            } else {
-                str = NSLocalizedString("Use macOS Finder", comment: "")
-            }
-*/
+        /*
+         case .remote_disk_usage:
+             if config.offsiteServer.isEmpty == false {
+                 let diskusage = ArgumentsRemoteDiskUsage(config: config,
+                                                          remotecatalog: config.offsiteCatalog)
+                 if let arguments = diskusage.argumentsremotediskusage() {
+                     str = (diskusage.getCommand() ?? "") + " " + arguments.joined(separator: " ")
+                 }
+             } else {
+                 str = NSLocalizedString("Use macOS Finder", comment: "")
+             }
+         */
         case .URL_verify:
             if config.task == SharedReference.shared.synchronize {
                 let deeplinkurl = DeeplinkURL()

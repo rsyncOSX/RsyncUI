@@ -60,10 +60,11 @@ struct SummarizedDetailsView: View {
                                     }
                                 } label: {
                                     Text(Image(systemName: "play.fill"))
-                                        .foregroundColor(.blue)
+                                        // .foregroundColor(.blue)
                                         .font(.title2)
                                         .imageScale(.large)
                                 }
+                                .buttonStyle(.borderedProminent)
                                 .help("Synchronize (⌘R)")
                                 // .buttonStyle(ColorfulButtonStyle())
                                 .confirmationDialog("Synchronize tasks?",
@@ -82,10 +83,11 @@ struct SummarizedDetailsView: View {
                                 } label: {
                                     Text(Image(systemName: "play.fill"))
                                         .imageScale(.large)
-                                        .foregroundColor(.blue)
+                                        // .foregroundColor(.blue)
                                         .font(.title2)
                                 }
                                 .help("Synchronize (⌘R)")
+                                .buttonStyle(.borderedProminent)
                                 // .buttonStyle(ColorfulButtonStyle())
                             }
                         }

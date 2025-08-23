@@ -47,6 +47,7 @@ struct PushPullView: View {
                             }
                             .help("Push local")
                             .padding(10)
+                            .buttonStyle(.borderedProminent)
 
                             DetailsVerifyView(remotedatanumbers: pushremotedatanumbers)
                                 .padding(10)
@@ -64,6 +65,7 @@ struct PushPullView: View {
                             }
                             .help("Pull remote")
                             .padding(10)
+                            .buttonStyle(.borderedProminent)
 
                             DetailsVerifyView(remotedatanumbers: pullremotedatanumbers)
                                 .padding(10)
