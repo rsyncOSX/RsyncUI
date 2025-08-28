@@ -11,15 +11,15 @@ The [user documentation](https://rsyncui.netlify.app/docs/)([repo](https://githu
 
 ![](images/rsyncui.png)
 
-| App     | UI                  | Latest version                                                                                      |
-|---------|---------------------|-----------------------------------------------------------------------------------------------------|
-| RsyncUI | SwiftUI, declarativ | v2.6.6 - [August 28, 2025](https://github.com/rsyncOSX/RsyncUI/releases) - in *active development* |
-|  |  | [documentation](https://rsyncui.netlify.app/docs/) and [changelog](https://rsyncui.netlify.app/blog/) |
+ | UI                  | Latest version                                                                                      |
+|---------------------|-----------------------------------------------------------------------------------------------------|
+| SwiftUI, declarativ | v2.6.6 - [August 28, 2025](https://github.com/rsyncOSX/RsyncUI/releases) - in *active development* |
+|  | [documentation](https://rsyncui.netlify.app/docs/) and [changelog](https://rsyncui.netlify.app/blog/) |
 
 ### Install by Homebrew
 
 RsyncUI might be installed by Homebrew or by direct download. It is signed and notarized by Apple.
 
-| App      | Homebrew | macOS |
-| ----------- | ----------- |   ----------- |
-| RsyncUI   | `brew install --cask rsyncui`    | macOS Sonoma and later |
+| Homebrew | macOS versions|
+| ----------- |   ----------- |
+| `brew install --cask rsyncui`    | macOS Sonoma and later |
