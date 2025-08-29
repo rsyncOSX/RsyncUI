@@ -80,11 +80,12 @@ struct LogStatsChartView: View {
         .padding()
         .onAppear {
             Task {
-                let actorreadlogs = ActorLogChartsData()
+                let actorreadlogs = ActorReadLogRecordsJSON()
+                let actorreadchartsdata = ActorLogChartsData()
                 let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 let logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-                let logs2 = await actorreadlogs.parselogrecords(from: logs)
-                logentries = await actorreadlogs.strip(from: logs2)
+                let logs2 = await actorreadchartsdata.parselogrecords(from: logs)
+                logentries = await actorreadchartsdata.selectlargestbydate(from: logs2)
             }
         }
     }

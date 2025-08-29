@@ -20,75 +20,13 @@ struct LogEntry: Identifiable {
 }
 
 actor ActorLogChartsData {
-    @concurrent
-    nonisolated func readjsonfilelogrecords(_ profile: String?,
-                                            _ validhiddenIDs: Set<Int>) async -> [LogRecords]?
-    {
-        let path = await Homepath()
-        var filename = ""
-
-        Logger.process.info("ActorLogCharts: readjsonfilelogrecords() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
-
-        if let profile, let fullpathmacserial = path.fullpathmacserial {
-            filename = fullpathmacserial.appending("/") + profile.appending("/") + SharedConstants().filenamelogrecordsjson
-        } else {
-            if let fullpathmacserial = path.fullpathmacserial {
-                filename = fullpathmacserial.appending("/") + SharedConstants().filenamelogrecordsjson
-            }
-        }
-
-        Logger.process.info("ActorLogCharts: readjsonfilelogrecords() from \(filename, privacy: .public)")
-
-        let decodeimport = DecodeGeneric()
-        do {
-            if let data = try
-                decodeimport.decodearraydatafileURL(DecodeLogRecords.self, fromwhere: filename)
-            {
-                Logger.process.info("ActorLogCharts - \(profile ?? "default profile", privacy: .public): DECODE MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
-                return data.compactMap { element in
-                    let item = LogRecords(element)
-                    return validhiddenIDs.contains(item.hiddenID) ? item : nil
-                }
-            }
-
-        } catch let e {
-            Logger.process.error("ActorLogCharts - \(profile ?? "default profile", privacy: .public): some ERROR reading logrecords from permanent storage")
-            let error = e
-            await path.propogateerror(error: error)
-        }
-        return nil
-    }
-
-    @concurrent
-    nonisolated func updatelogsbyhiddenID(_ logrecords: [LogRecords]?, _ hiddenID: Int) async -> [Log]? {
-        Logger.process.info("ActorLogCharts: updatelogsbyhiddenID() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
-        if let logrecords {
-            // hiddenID == -1, merge logrecords for all tasks.
-            // if validhiddenID, merge logrecords for a specific task
-            if hiddenID == -1 {
-                var merged = [Log]()
-                _ = logrecords.map { logrecord in
-                    if let logrecords = logrecord.logrecords {
-                        merged += [logrecords].flatMap(\.self)
-                    }
-                }
-                // return merged.sorted(by: \.date, using: >)
-                return merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
-            } else {
-                if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }),
-                   let logrecords = logrecords[index].logrecords
-                {
-                    return logrecords.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
-                }
-            }
-        }
-        return nil
-    }
 
     @concurrent
     nonisolated func parselogrecords(from logrecords: [Log]) async -> [LogEntry] {
         // "resultExecuted": "43 files : 0.73 MB in 0.49 seconds"
-        logrecords.compactMap { logrecord in
+        Logger.process.info("ActorLogChartsData: parselogrecords() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ActorLogChartsData: number of records \(logrecords.count, privacy: .public)")
+        return logrecords.compactMap { logrecord in
             let intfiles = returnIntNumber(logrecord.resultExecuted ?? "")
 
             var files = 0
@@ -112,24 +50,21 @@ actor ActorLogChartsData {
                                                        transferredMB: size,
                                                        seconds: seconds) : nil
             }
+        
         }
         
     @concurrent
-    nonisolated func strip(from records: [LogEntry]) async -> [LogEntry] {
+    nonisolated func selectlargestbydate(from records: [LogEntry]) async -> [LogEntry] {
+        Logger.process.info("ActorLogChartsData: selectlargestbydate() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ActorLogChartsData: number of records IN \(records.count, privacy: .public)")
         // Group by date
-        let grouped = Dictionary(grouping: records, by: { $0.date })
-
+        let grouped = Dictionary(grouping: records, by: { $0.date }).sorted(by: { $0.key > $1.key })
         // For each date, keep only the LogEntry with the greatest files value
-        let filtered = grouped.flatMap { (_, entries) in
-            guard let maxFiles = entries.max(by: { $0.files < $1.files })?.files else {
-                return []
-            }
-            // If multiple entries have the same max files, keep them all
-            return entries.filter { $0.files == maxFiles }
+        let filtered = grouped.compactMap { (_, entries) in
+            entries.max(by: { $0.files < $1.files })
         }
-        
-        let temp = filtered as! [LogEntry]
-        return temp.sorted(using: [KeyPathComparator(\LogEntry.date, order: .forward)])
+        Logger.process.info("ActorLogChartsData: number of records OUT \(filtered.count, privacy: .public)")
+        return filtered.sorted(using: [KeyPathComparator(\LogEntry.date, order: .forward)])
     }
     
 
