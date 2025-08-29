@@ -19,7 +19,7 @@ struct LogEntry: Identifiable {
     let seconds: Int
 }
 
-actor ActorLogCharts {
+actor ActorLogChartsData {
     @concurrent
     nonisolated func readjsonfilelogrecords(_ profile: String?,
                                             _ validhiddenIDs: Set<Int>) async -> [LogRecords]?
@@ -86,7 +86,7 @@ actor ActorLogCharts {
     }
 
     @concurrent
-    nonisolated func parseLogData(from logrecords: [Log]) async -> [LogEntry] {
+    nonisolated func parselogrecords(from logrecords: [Log]) async -> [LogEntry] {
         // "resultExecuted": "43 files : 0.73 MB in 0.49 seconds"
         logrecords.compactMap { logrecord in
             let intfiles = returnIntNumber(logrecord.resultExecuted ?? "")
@@ -107,7 +107,7 @@ actor ActorLogCharts {
                 }
             }
 
-            return (seconds > 1  && size > 1 && files > 1) ? LogEntry(date: logrecord.date,
+            return (seconds > 1  || size > 1 || files > 1) ? LogEntry(date: logrecord.date,
                                                        files: files,
                                                        transferredMB: size,
                                                        seconds: seconds) : nil
@@ -129,7 +129,7 @@ actor ActorLogCharts {
         }
         
         let temp = filtered as! [LogEntry]
-        return temp.sorted(using: [KeyPathComparator(\LogEntry.date, order: .reverse)])
+        return temp.sorted(using: [KeyPathComparator(\LogEntry.date, order: .forward)])
     }
     
 

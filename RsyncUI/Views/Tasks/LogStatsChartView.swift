@@ -8,57 +8,83 @@
 import Charts
 import SwiftUI
 
-// MARK: - SwiftUI Chart View
+enum TypeofChart: String, CaseIterable, Identifiable, CustomStringConvertible {
+    case files
+    case seconds
+    case numbers
+
+    var id: String { rawValue }
+    var description: String { rawValue.localizedLowercase }
+}
 
 struct LogStatsChartView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
-    @State private var logEntries: [LogEntry]?
+    @State private var logentries: [LogEntry]?
+    @State private var selectedtypechart: TypeofChart = .files
 
     var body: some View {
         VStack {
-            Text("Rsync Log Statistics")
-                .font(.title)
-                .padding(.bottom, 10)
-
+            
+            HStack {
+                
+                Text("Rsync Log Statistics")
+                    .font(.title)
+                    .padding(.bottom, 10)
+                
+                Picker(NSLocalizedString("Chart", comment: ""),
+                       selection: $selectedtypechart)
+                {
+                    ForEach(TypeofChart.allCases) { Text($0.description)
+                        .tag($0)
+                    }
+                }
+                .pickerStyle(DefaultPickerStyle())
+                .frame(width: 180)
+            }
+            
             Chart {
-                ForEach(logEntries ?? []) { entry in
-                    LineMark(
-                        x: .value("Date", entry.date),
-                        y: .value("Number of Files", entry.files)
-                    )
-                    .foregroundStyle(.blue)
-                    .symbol(by: .value("Type", "Files"))
-/*
-                    LineMark(
-                        x: .value("Date", entry.date),
-                        y: .value("Data Transferred (MB)", entry.transferredMB)
-                    )
-                    .foregroundStyle(.green)
-                    .symbol(by: .value("Type", "Data"))
- */
-                    LineMark(
-                        x: .value("Date", entry.date),
-                        y: .value("Seconds", entry.seconds)
-                    )
-                    .foregroundStyle(.red)
-                    .symbol(by: .value("Type", "Seconds"))
+                ForEach(logentries ?? []) { entry in
+                    
+                    switch selectedtypechart {
+                    case .files:
+                        LineMark(
+                            x: .value("Date", entry.date),
+                            y: .value("Number of Files", entry.files)
+                        )
+                        .foregroundStyle(.blue)
+                        .symbol(by: .value("Type", "Files"))
+                    case .seconds:
+                        LineMark(
+                            x: .value("Date", entry.date),
+                            y: .value("Seconds", entry.seconds)
+                        )
+                        .foregroundStyle(.red)
+                        .symbol(by: .value("Type", "Seconds"))
+                    case .numbers:
+                        LineMark(
+                            x: .value("Date", entry.date),
+                            y: .value("Data Transferred (MB)", entry.transferredMB)
+                        )
+                        .foregroundStyle(.green)
+                        .symbol(by: .value("Type", "Data"))
+                    }
                 }
             }
             .chartXAxis {
                 AxisMarks(values: .stride(by: .day))
             }
-            .frame(height: 300)
+            .chartLegend(.automatic)
         }
         .padding()
         .onAppear {
             Task {
-                let actorreadlogs = ActorLogCharts()
+                let actorreadlogs = ActorLogChartsData()
                 let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 let logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-                let logs2 = await actorreadlogs.parseLogData(from: logs)
-                logEntries = await actorreadlogs.strip(from: logs2)
+                let logs2 = await actorreadlogs.parselogrecords(from: logs)
+                logentries = await actorreadlogs.strip(from: logs2)
             }
         }
     }
