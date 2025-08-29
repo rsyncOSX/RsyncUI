@@ -113,7 +113,7 @@ struct SidebarTasksView: View {
         case .viewlogfile:
             NavigationLogfileView()
         case .charts:
-            LogStatsChartView(logEntries: sampleLogData)
+            LogStatsChartView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
         }
     }
 

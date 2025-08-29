@@ -5,48 +5,35 @@
 //  Created by Thomas Evensen on 29/08/2025.
 //
 
-import SwiftUI
 import Charts
-
-// MARK: - Model for log data
-struct LogEntry: Identifiable {
-    let id = UUID()
-    let date: Date
-    let numFiles: Int
-    let dataTransferredMB: Double
-}
-
-// MARK: - Sample data
-let sampleLogData: [LogEntry] = [
-    LogEntry(date: Date(timeIntervalSinceNow: -86400*5), numFiles: 120, dataTransferredMB: 500),
-    LogEntry(date: Date(timeIntervalSinceNow: -86400*4), numFiles: 200, dataTransferredMB: 1100),
-    LogEntry(date: Date(timeIntervalSinceNow: -86400*3), numFiles: 150, dataTransferredMB: 700),
-    LogEntry(date: Date(timeIntervalSinceNow: -86400*2), numFiles: 300, dataTransferredMB: 1300),
-    LogEntry(date: Date(timeIntervalSinceNow: -86400*1), numFiles: 170, dataTransferredMB: 850)
-]
+import SwiftUI
 
 // MARK: - SwiftUI Chart View
+
 struct LogStatsChartView: View {
-    let logEntries: [LogEntry]
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
+
+    @State private var logEntries: [LogEntry]?
 
     var body: some View {
         VStack {
             Text("Rsync Log Statistics")
                 .font(.title)
                 .padding(.bottom, 10)
-            
+
             Chart {
-                ForEach(logEntries) { entry in
+                ForEach(logEntries ?? []) { entry in
                     LineMark(
                         x: .value("Date", entry.date),
-                        y: .value("Number of Files", entry.numFiles)
+                        y: .value("Number of Files", entry.files)
                     )
                     .foregroundStyle(.blue)
                     .symbol(by: .value("Type", "Files"))
-                    
+
                     LineMark(
                         x: .value("Date", entry.date),
-                        y: .value("Data Transferred (MB)", entry.dataTransferredMB)
+                        y: .value("Data Transferred (MB)", entry.transferredMB)
                     )
                     .foregroundStyle(.green)
                     .symbol(by: .value("Type", "Data"))
@@ -58,6 +45,34 @@ struct LogStatsChartView: View {
             .frame(height: 300)
         }
         .padding()
+        .onAppear {
+            Task {
+                let actorreadlogs = ActorLogCharts()
+                let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+                let logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+                logEntries = await actorreadlogs.parseLogData(from: logs)
+            }
+        }
+    }
+
+    var validhiddenIDs: Set<Int> {
+        var temp = Set<Int>()
+        if let configurations = rsyncUIdata.configurations {
+            _ = configurations.map { record in
+                temp.insert(record.hiddenID)
+            }
+        }
+        return temp
+    }
+
+    var hiddenID: Int {
+        if let configurations = rsyncUIdata.configurations {
+            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                return configurations[index].hiddenID
+            } else {
+                return 0
+            }
+        }
+        return -1
     }
 }
-

@@ -262,7 +262,7 @@ struct TasksView: View {
                     }
                     .help("Quick synchronize")
                 }
-                
+
                 ToolbarItem {
                     Button {
                         executetaskpath.append(Tasks(task: .charts))
