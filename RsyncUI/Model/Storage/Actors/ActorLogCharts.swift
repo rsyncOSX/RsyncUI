@@ -107,12 +107,31 @@ actor ActorLogCharts {
                 }
             }
 
-            return (files > 10 && size > 5) ? LogEntry(date: logrecord.date,
+            return (seconds > 1  && size > 1 && files > 1) ? LogEntry(date: logrecord.date,
                                                        files: files,
                                                        transferredMB: size,
                                                        seconds: seconds) : nil
+            }
         }
+        
+    @concurrent
+    nonisolated func strip(from records: [LogEntry]) async -> [LogEntry] {
+        // Group by date
+        let grouped = Dictionary(grouping: records, by: { $0.date })
+
+        // For each date, keep only the LogEntry with the greatest files value
+        let filtered = grouped.flatMap { (_, entries) in
+            guard let maxFiles = entries.max(by: { $0.files < $1.files })?.files else {
+                return []
+            }
+            // If multiple entries have the same max files, keep them all
+            return entries.filter { $0.files == maxFiles }
+        }
+        
+        let temp = filtered as! [LogEntry]
+        return temp.sorted(using: [KeyPathComparator(\LogEntry.date, order: .reverse)])
     }
+    
 
     private nonisolated func returnIntNumber(_ input: String) -> [Int] {
         var numbers: [Int] = []
@@ -131,22 +150,3 @@ actor ActorLogCharts {
         }
     }
 }
-
-/*
- let date: Date
- let numFiles: Int
- let dataTransferredMB: Double
- let seconds: Int
-
- struct Log: Identifiable, Codable {
-     var id = UUID()
-     var dateExecuted: String?
-     var resultExecuted: String?
-     var date: Date {
-         dateExecuted?.en_date_from_string() ?? Date()
-     }
- }
-
- "resultExecuted":"43 files : 0.73 MB in 0.49 seconds"
-
- */

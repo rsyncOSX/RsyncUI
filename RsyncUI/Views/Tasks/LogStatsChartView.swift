@@ -50,7 +50,8 @@ struct LogStatsChartView: View {
                 let actorreadlogs = ActorLogCharts()
                 let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 let logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-                logEntries = await actorreadlogs.parseLogData(from: logs)
+                let logs2 = await actorreadlogs.parseLogData(from: logs)
+                logEntries = await actorreadlogs.strip(from: logs2)
             }
         }
     }
