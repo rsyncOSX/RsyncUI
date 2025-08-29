@@ -30,13 +30,20 @@ struct LogStatsChartView: View {
                     )
                     .foregroundStyle(.blue)
                     .symbol(by: .value("Type", "Files"))
-
+/*
                     LineMark(
                         x: .value("Date", entry.date),
                         y: .value("Data Transferred (MB)", entry.transferredMB)
                     )
                     .foregroundStyle(.green)
                     .symbol(by: .value("Type", "Data"))
+ */
+                    LineMark(
+                        x: .value("Date", entry.date),
+                        y: .value("Seconds", entry.seconds)
+                    )
+                    .foregroundStyle(.red)
+                    .symbol(by: .value("Type", "Seconds"))
                 }
             }
             .chartXAxis {
