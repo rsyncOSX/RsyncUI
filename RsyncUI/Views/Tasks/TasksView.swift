@@ -262,6 +262,15 @@ struct TasksView: View {
                     }
                     .help("Quick synchronize")
                 }
+                
+                ToolbarItem {
+                    Button {
+                        executetaskpath.append(Tasks(task: .charts))
+                    } label: {
+                        Image(systemName: "chart.bar.fill")
+                    }
+                    .help("Charts")
+                }
 
                 if alltasksarehalted() == false {
                     ToolbarItem {
