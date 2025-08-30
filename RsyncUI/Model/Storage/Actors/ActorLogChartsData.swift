@@ -105,8 +105,9 @@ actor ActorLogChartsData {
     }
 
     // Alternative approach using reduce for more control
-    nonisolated func selectMaxValueDatesAdvanced(from records: [LogEntry]) async -> [LogEntry] {
-        Logger.process.info("ActorLogChartsData: selectMaxValueDatesAdvanced() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+    // Select max value by files
+    nonisolated func selectMaxValueFilesDates(from records: [LogEntry]) async -> [LogEntry] {
+        Logger.process.info("ActorLogChartsData: selectMaxValueFilesDates() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         Logger.process.info("ActorLogChartsData: number of records IN \(records.count, privacy: .public)")
         let calendar = Calendar.current
 
@@ -116,6 +117,27 @@ actor ActorLogChartsData {
             if let existingRecord = result[dayKey] {
                 // Keep the record with higher value
                 if record.files > existingRecord.files {
+                    result[dayKey] = record
+                }
+            } else {
+                result[dayKey] = record
+            }
+        }.values.sorted { $0.date < $1.date }
+    }
+    
+    // Alternative approach using reduce for more control
+    // Select max value by files
+    nonisolated func selectMaxValueMBDates(from records: [LogEntry]) async -> [LogEntry] {
+        Logger.process.info("ActorLogChartsData: selectMaxValueMBDates() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ActorLogChartsData: number of records IN \(records.count, privacy: .public)")
+        let calendar = Calendar.current
+
+        return records.reduce(into: [Date: LogEntry]()) { result, record in
+            let dayKey = calendar.startOfDay(for: record.date)
+
+            if let existingRecord = result[dayKey] {
+                // Keep the record with higher value
+                if record.transferredMB > existingRecord.transferredMB {
                     result[dayKey] = record
                 }
             } else {

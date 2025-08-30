@@ -26,6 +26,14 @@ enum TypeofChart: String, CaseIterable, Identifiable, CustomStringConvertible {
     var description: String { rawValue.localizedLowercase }
 }
 
+enum FilesOrMB: String, CaseIterable, Identifiable, CustomStringConvertible {
+    case files
+    case sizeinmb
+
+    var id: String { rawValue }
+    var description: String { rawValue.localizedLowercase }
+}
+
 
 struct LogStatsChartView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
@@ -34,6 +42,7 @@ struct LogStatsChartView: View {
     @State private var logentries: [LogEntry]?
     @State private var selectedatainchart: DataInChart = .files
     @State private var typeofchart: TypeofChart = .linemarkchart
+    @State private var filesormb: FilesOrMB = .files
 
     var body: some View {
         VStack {
@@ -56,6 +65,16 @@ struct LogStatsChartView: View {
                        selection: $typeofchart)
                 {
                     ForEach(TypeofChart.allCases) { Text($0.description)
+                            .tag($0)
+                    }
+                }
+                .pickerStyle(DefaultPickerStyle())
+                .frame(width: 180)
+                
+                Picker(NSLocalizedString("Files or MB", comment: ""),
+                       selection: $filesormb)
+                {
+                    ForEach(FilesOrMB.allCases) { Text($0.description)
                             .tag($0)
                     }
                 }
@@ -135,10 +154,23 @@ struct LogStatsChartView: View {
                 let actorreadlogs = ActorReadLogRecordsJSON()
                 let actorreadchartsdata = ActorLogChartsData()
                 let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
-                let logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-                let logs2 = await actorreadchartsdata.parselogrecords(from: logs)
-                logentries = await actorreadchartsdata.selectMaxValueDatesAdvanced(from: logs2)
-                // print(logentries?.count)
+                let alllogs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+                let parsedlogs = await actorreadchartsdata.parselogrecords(from: alllogs)
+                logentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
+            }
+        }
+        .onChange(of: filesormb) {
+            Task {
+                let actorreadlogs = ActorReadLogRecordsJSON()
+                let actorreadchartsdata = ActorLogChartsData()
+                let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+                let alllogs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+                let parsedlogs = await actorreadchartsdata.parselogrecords(from: alllogs)
+                if filesormb == .files {
+                    logentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
+                } else {
+                    logentries = await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
+                }
             }
         }
         
