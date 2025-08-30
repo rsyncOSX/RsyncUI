@@ -41,7 +41,9 @@ struct LogStatsChartView: View {
 
     @State private var logentries: [LogEntry]?
     @State private var selectedatainchart: DataInChart = .files
-    @State private var typeofchart: TypeofChart = .linemarkchart
+    @State private var typeofchartbool: Bool = true // True Barchart
+    @State private var typeofchart: TypeofChart = .barchart
+    @State private var filesormbbool: Bool = true // True files
     @State private var filesormb: FilesOrMB = .files
 
     var body: some View {
@@ -61,25 +63,25 @@ struct LogStatsChartView: View {
                 .pickerStyle(DefaultPickerStyle())
                 .frame(width: 180)
                 
-                Picker(NSLocalizedString("Type", comment: ""),
-                       selection: $typeofchart)
-                {
-                    ForEach(TypeofChart.allCases) { Text($0.description)
-                            .tag($0)
+                Toggle("Line of bar", isOn: $typeofchartbool)
+                    .toggleStyle(.switch)
+                    .onChange(of: typeofchartbool) {
+                        if typeofchartbool {
+                            typeofchart = .barchart
+                        } else {
+                            typeofchart = .linemarkchart
+                        }
                     }
-                }
-                .pickerStyle(DefaultPickerStyle())
-                .frame(width: 180)
                 
-                Picker(NSLocalizedString("Files or MB", comment: ""),
-                       selection: $filesormb)
-                {
-                    ForEach(FilesOrMB.allCases) { Text($0.description)
-                            .tag($0)
+                Toggle("MB or files", isOn: $filesormbbool)
+                    .toggleStyle(.switch)
+                    .onChange(of: filesormbbool) {
+                        if filesormbbool {
+                            filesormb  = .files
+                        } else {
+                            filesormb  = .sizeinmb
+                        }
                     }
-                }
-                .pickerStyle(DefaultPickerStyle())
-                .frame(width: 180)
             }
             
             if typeofchart == .linemarkchart {
