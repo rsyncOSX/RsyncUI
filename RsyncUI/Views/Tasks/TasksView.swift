@@ -270,7 +270,7 @@ struct TasksView: View {
                         Image(systemName: "chart.bar.fill")
                     }
                     .help("Charts")
-                    .disabled(selecteduuids.count != 1 || selectedconfig?.task != SharedReference.shared.synchronize)
+                    .disabled(selecteduuids.count != 1 || selectedconfig?.task == SharedReference.shared.syncremote)
                 }
 
                 if alltasksarehalted() == false {

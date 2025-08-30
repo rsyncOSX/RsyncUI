@@ -27,15 +27,29 @@ actor ActorLogChartsData {
         Logger.process.info("ActorLogChartsData: parselogrecords() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         Logger.process.info("ActorLogChartsData: number of records \(logrecords.count, privacy: .public)")
         return logrecords.compactMap { logrecord in
+            
             let numbers = extractNumbersAsDoubles(from: logrecord.resultExecuted ?? "")
-            let files = numbers[0]
-            let size = numbers[1]
-            let seconds = numbers[2]
+            
+            // Snapshots
+            if numbers.count == 4 {
+                let files = numbers[1]
+                let size = numbers[2]
+                let seconds = numbers[3]
 
-            return (seconds > 1 || size > 1 || files > 1) ? LogEntry(date: logrecord.date,
-                                                                     files: Int(files),
-                                                                     transferredMB: size,
-                                                                     seconds: seconds) : nil
+                return (seconds > 1 || size > 1 || files > 1) ? LogEntry(date: logrecord.date,
+                                                                         files: Int(files),
+                                                                         transferredMB: size,
+                                                                         seconds: seconds) : nil
+            } else {
+                let files = numbers[0]
+                let size = numbers[1]
+                let seconds = numbers[2]
+
+                return (seconds > 1 || size > 1 || files > 1) ? LogEntry(date: logrecord.date,
+                                                                         files: Int(files),
+                                                                         transferredMB: size,
+                                                                         seconds: seconds) : nil
+            }
         }
     }
 
