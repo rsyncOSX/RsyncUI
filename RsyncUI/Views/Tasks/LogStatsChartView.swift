@@ -6,6 +6,7 @@
 //
 
 import Charts
+import OSLog
 import SwiftUI
 
 enum TypeofChart: String, CaseIterable, Identifiable, CustomStringConvertible {
@@ -26,13 +27,11 @@ struct LogStatsChartView: View {
 
     var body: some View {
         VStack {
-            
             HStack {
-                
-                Text("Rsync Log Statistics")
+                Text("Log Statistics: rows \(logentries?.count ?? 0)")
                     .font(.title)
                     .padding(.bottom, 10)
-                
+
                 Picker(NSLocalizedString("Chart", comment: ""),
                        selection: $selectedtypechart)
                 {
@@ -43,10 +42,9 @@ struct LogStatsChartView: View {
                 .pickerStyle(DefaultPickerStyle())
                 .frame(width: 180)
             }
-            
+
             Chart {
                 ForEach(logentries ?? []) { entry in
-                    
                     switch selectedtypechart {
                     case .files:
                         LineMark(
@@ -85,7 +83,8 @@ struct LogStatsChartView: View {
                 let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
                 let logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
                 let logs2 = await actorreadchartsdata.parselogrecords(from: logs)
-                logentries = await actorreadchartsdata.selectlargestbydate(from: logs2)
+                logentries = await actorreadchartsdata.selectMaxValueDatesAdvanced(from: logs2)
+                // print(logentries?.count)
             }
         }
     }
