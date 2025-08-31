@@ -45,11 +45,12 @@ struct LogStatsChartView: View {
     @State private var typeofchart: TypeofChart = .barchart
     @State private var filesormbbool: Bool = true // True files
     @State private var filesormb: FilesOrMB = .files
+    @State private var numberofdata: String = ""
 
     var body: some View {
         VStack {
             HStack {
-                Text("Log Statistics: rows \(logentries?.count ?? 0)")
+                Text("Statistics: rows \(logentries?.count ?? 0)")
                     .font(.title)
                     .padding(.bottom, 10)
                 
@@ -63,7 +64,7 @@ struct LogStatsChartView: View {
                 .pickerStyle(DefaultPickerStyle())
                 .frame(width: 180)
                 
-                Toggle("Line of bar", isOn: $typeofchartbool)
+                Toggle("Line or Bar", isOn: $typeofchartbool)
                     .toggleStyle(.switch)
                     .onChange(of: typeofchartbool) {
                         if typeofchartbool {
@@ -73,7 +74,7 @@ struct LogStatsChartView: View {
                         }
                     }
                 
-                Toggle("MB or files", isOn: $filesormbbool)
+                Toggle("MB or Files", isOn: $filesormbbool)
                     .toggleStyle(.switch)
                     .onChange(of: filesormbbool) {
                         if filesormbbool {
@@ -82,6 +83,8 @@ struct LogStatsChartView: View {
                             filesormb  = .sizeinmb
                         }
                     }
+                
+                EditValueErrorScheme(50, "Num", $numberofdata, setnumber(numberofdata))
             }
             
             if typeofchart == .linemarkchart {
@@ -119,7 +122,6 @@ struct LogStatsChartView: View {
             } else {
                 Chart {
                     ForEach(logentries ?? []) { entry in
-                        
                         switch selectedatainchart {
                         case .files:
                             BarMark(
@@ -147,8 +149,6 @@ struct LogStatsChartView: View {
                 }
                 
             }
-            
-            
         }
         .padding()
         .onAppear {
@@ -169,9 +169,20 @@ struct LogStatsChartView: View {
                 let alllogs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
                 let parsedlogs = await actorreadchartsdata.parselogrecords(from: alllogs)
                 if filesormb == .files {
-                    logentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
+                    if numberofdata.isEmpty {
+                        logentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
+                    } else {
+                        let allmaxlogentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
+                        logentries = await actorreadchartsdata.getTopNMaxPerDaybyfiles(from: allmaxlogentries, count: Int(numberofdata) ?? 10)
+                    }
+                    
                 } else {
-                    logentries = await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
+                    if numberofdata.isEmpty {
+                        logentries = await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
+                    } else {
+                        let allmaxlogentries = await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
+                        logentries = await actorreadchartsdata.getTopNMaxPerDaybyMB(from: allmaxlogentries, count: Int(numberofdata) ?? 10)
+                    }
                 }
             }
         }
@@ -196,5 +207,24 @@ struct LogStatsChartView: View {
             }
             return -1
         }
+    }
+    
+    func setnumber(_ number: String) -> Bool {
+        guard number.isEmpty == false else {
+            return false
+        }
+        let verified = verifynumbers(number)
+        if verified == true {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    // Verify number
+    func verifynumbers(_ number: String) -> Bool {
+        guard number.isEmpty == false else { return false }
+        if Int(number) != nil { return true }
+        return false
     }
 }
