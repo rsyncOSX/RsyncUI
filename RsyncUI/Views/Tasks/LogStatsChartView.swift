@@ -193,9 +193,9 @@ struct LogStatsChartView: View {
             var presentbyfilesormb = ""
             
             if datainchart == .numberoffiles  {
-                readdatabyfilesormb = "Read logrecords by max files,"
+                readdatabyfilesormb = "Set single dates by max files,"
             } else {
-                readdatabyfilesormb = "Read logrecords by max data (MB),"
+                readdatabyfilesormb = "Set single dates by max data (MB),"
             }
             
             if filesormb == .files {
