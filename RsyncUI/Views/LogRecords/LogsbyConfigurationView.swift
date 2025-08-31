@@ -141,6 +141,8 @@ struct LogsbyConfigurationView: View {
         }
         .onChange(of: rsyncUIdata.profile) {
             Task {
+                logs = []
+                logrecords = nil
                 showindebounce = true
                 try await Task.sleep(seconds: 1)
                 showindebounce = false
