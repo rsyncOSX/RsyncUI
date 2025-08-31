@@ -65,17 +65,7 @@ struct LogStatsChartView: View {
             
             HStack {
                 
-                Toggle("MB or Files", isOn: $datainchartbool)
-                    .toggleStyle(.switch)
-                    .onChange(of: datainchartbool) {
-                        if datainchartbool {
-                            datainchart = .numberoffiles
-                        } else {
-                            datainchart = .transferreddata
-                        }
-                    }
-                
-                Toggle("Line or Bar", isOn: $typeofchartbool)
+                Toggle("Line or Bar chart", isOn: $typeofchartbool)
                     .toggleStyle(.switch)
                     .onChange(of: typeofchartbool) {
                         if typeofchartbool {
@@ -85,7 +75,17 @@ struct LogStatsChartView: View {
                         }
                     }
                 
-                Toggle("Present by MB or Files", isOn: $filesormbbool)
+                Toggle("Size or Files", isOn: $datainchartbool)
+                    .toggleStyle(.switch)
+                    .onChange(of: datainchartbool) {
+                        if datainchartbool {
+                            datainchart = .numberoffiles
+                        } else {
+                            datainchart = .transferreddata
+                        }
+                    }
+                
+                Toggle("Present by Size or Files", isOn: $filesormbbool)
                     .toggleStyle(.switch)
                     .onChange(of: filesormbbool) {
                         if filesormbbool {
@@ -105,6 +105,7 @@ struct LogStatsChartView: View {
                 Chart {
                     ForEach(logentries ?? []) { entry in
                         switch datainchart {
+                        
                         case .numberoffiles:
                             LineMark(
                                 x: .value("Date", entry.date),
@@ -112,6 +113,7 @@ struct LogStatsChartView: View {
                             )
                             .foregroundStyle(.blue)
                             .symbol(by: .value("Type", "Files"))
+                            
                         case .transferreddata:
                             LineMark(
                                 x: .value("Date", entry.date),
@@ -130,6 +132,7 @@ struct LogStatsChartView: View {
                 Chart {
                     ForEach(logentries ?? []) { entry in
                         switch datainchart {
+                            
                         case .numberoffiles:
                             BarMark(
                                 x: .value("Date", entry.date),
@@ -137,6 +140,7 @@ struct LogStatsChartView: View {
                             )
                             .foregroundStyle(.blue)
                             .symbol(by: .value("Type", "Files"))
+                        
                         case .transferreddata:
                             BarMark(
                                 x: .value("Date", entry.date),
@@ -147,7 +151,6 @@ struct LogStatsChartView: View {
                         }
                     }
                 }
-                
             }
         }
         .padding()
@@ -193,15 +196,15 @@ struct LogStatsChartView: View {
             var presentbyfilesormb = ""
             
             if datainchart == .numberoffiles  {
-                readdatabyfilesormb = "Set single dates by max files,"
+                readdatabyfilesormb = "Isolate date by max files transferred: "
             } else {
-                readdatabyfilesormb = "Set single dates by max data (MB),"
+                readdatabyfilesormb = "Isolate date by max size transferred: "
             }
             
             if filesormb == .files {
-                presentbyfilesormb = "show number of files"
+                presentbyfilesormb = "number of files"
             } else {
-                presentbyfilesormb = "show transferred data (MB)"
+                presentbyfilesormb = "transferred data in MB"
             }
             
             return "\(readdatabyfilesormb) \(presentbyfilesormb)"
