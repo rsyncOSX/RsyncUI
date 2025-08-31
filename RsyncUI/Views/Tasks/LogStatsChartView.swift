@@ -39,18 +39,23 @@ struct LogStatsChartView: View {
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @State private var logentries: [LogEntry]?
+    
     @State private var datainchartbool: Bool = true // True files
     @State private var datainchart: DataInChart = .numberoffiles
+    
     @State private var typeofchartbool: Bool = true // True Barchart
     @State private var typeofchart: TypeofChart = .barchart
+    
     @State private var filesormbbool: Bool = true // True files
     @State private var filesormb: FilesOrMB = .files
+    
+    @State private var numberofdatabool: Bool = false
     @State private var numberofdata: String = ""
 
     var body: some View {
         VStack {
             
-            Text("Statistics: number of data \(logentries?.count ?? 0) ")
+            Text("Statistics: number of records \(logentries?.count ?? 0) ")
                 .font(.title)
                 .padding(.bottom, 10)
             
@@ -91,6 +96,9 @@ struct LogStatsChartView: View {
                     }
                 
                 EditValueErrorScheme(50, "Num", $numberofdata, setnumber(numberofdata))
+                
+                Toggle("Apply numbers", isOn: $numberofdatabool)
+                    .toggleStyle(.switch)
             }
             
             if typeofchart == .linemarkchart {
@@ -145,38 +153,17 @@ struct LogStatsChartView: View {
         .padding()
         .onAppear {
             Task {
-                let actorreadlogs = ActorReadLogRecordsJSON()
-                let actorreadchartsdata = ActorLogChartsData()
-                let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
-                let alllogs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-                let parsedlogs = await actorreadchartsdata.parselogrecords(from: alllogs)
-                // By default select all dates, one date only if more than one with max files transferred
-                logentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
+                logentries = await readandsortlogdata(hiddenID, validhiddenIDs)
             }
         }
         .onChange(of: filesormb) {
             Task {
-                let actorreadlogs = ActorReadLogRecordsJSON()
-                let actorreadchartsdata = ActorLogChartsData()
-                let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
-                let alllogs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-                let parsedlogs = await actorreadchartsdata.parselogrecords(from: alllogs)
-                if filesormb == .files {
-                    if numberofdata.isEmpty {
-                        logentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
-                    } else {
-                        let allmaxlogentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
-                        logentries = await actorreadchartsdata.getTopNMaxPerDaybyfiles(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
-                    }
-                    
-                } else {
-                    if numberofdata.isEmpty {
-                        logentries = await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
-                    } else {
-                        let allmaxlogentries = await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
-                        logentries = await actorreadchartsdata.getTopNMaxPerDaybyMB(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
-                    }
-                }
+                logentries = await readandsortlogdata(hiddenID, validhiddenIDs)
+            }
+        }
+        .onChange(of: numberofdatabool) {
+            Task {
+                logentries = await readandsortlogdata(hiddenID, validhiddenIDs)
             }
         }
         
@@ -221,7 +208,7 @@ struct LogStatsChartView: View {
         }
     }
     
-    func setnumber(_ number: String) -> Bool {
+    private func setnumber(_ number: String) -> Bool {
         guard number.isEmpty == false else {
             return false
         }
@@ -234,9 +221,35 @@ struct LogStatsChartView: View {
     }
 
     // Verify number
-    func verifynumbers(_ number: String) -> Bool {
+    private func verifynumbers(_ number: String) -> Bool {
         guard number.isEmpty == false else { return false }
         if Int(number) != nil { return true }
         return false
+    }
+    
+    private func readandsortlogdata(_ hiddenID: Int, _ validhiddenIDs: Set<Int>) async -> [LogEntry] {
+        
+        let actorreadlogs = ActorReadLogRecordsJSON()
+        let actorreadchartsdata = ActorLogChartsData()
+        let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+        let alllogs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+        let parsedlogs = await actorreadchartsdata.parselogrecords(from: alllogs)
+        
+        if filesormb == .files {
+            if numberofdata.isEmpty || numberofdatabool == false {
+                return await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
+            } else {
+                let allmaxlogentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
+                return await actorreadchartsdata.getTopNMaxPerDaybyfiles(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
+            }
+            
+        } else {
+            if numberofdata.isEmpty || numberofdatabool == false {
+                return await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
+            } else {
+                let allmaxlogentries = await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
+                return await actorreadchartsdata.getTopNMaxPerDaybyMB(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
+            }
+        }
     }
 }
