@@ -25,9 +25,9 @@ enum TypeofChart: String, CaseIterable, Identifiable, CustomStringConvertible {
     var description: String { rawValue.localizedLowercase }
 }
 
-enum FilesOrMB: String, CaseIterable, Identifiable, CustomStringConvertible {
+enum FilesOrSize: String, CaseIterable, Identifiable, CustomStringConvertible {
     case files
-    case sizeinmb
+    case size
 
     var id: String { rawValue }
     var description: String { rawValue.localizedLowercase }
@@ -46,8 +46,9 @@ struct LogStatsChartView: View {
     @State private var typeofchartbool: Bool = true // True Barchart
     @State private var typeofchart: TypeofChart = .barchart
     
-    @State private var filesormbbool: Bool = true // True files
-    @State private var filesormb: FilesOrMB = .files
+    @State private var filesorsizebool: Bool = true // True files
+    @State private var filesorsize: FilesOrSize = .files
+    @State private var enablefilesorsize: Bool = false
     
     @State private var numberofdatabool: Bool = false
     @State private var numberofdata: String = ""
@@ -65,6 +66,17 @@ struct LogStatsChartView: View {
             
             HStack {
                 
+                Toggle("Size or Files", isOn: $datainchartbool)
+                    .toggleStyle(.switch)
+                    .onChange(of: datainchartbool) {
+                        if datainchartbool {
+                            datainchart = .numberoffiles
+                        } else {
+                            datainchart = .transferreddata
+                        }
+                    }
+                    .disabled(!enablefilesorsize)
+                
                 Toggle("Line or Bar chart", isOn: $typeofchartbool)
                     .toggleStyle(.switch)
                     .onChange(of: typeofchartbool) {
@@ -75,23 +87,15 @@ struct LogStatsChartView: View {
                         }
                     }
                 
-                Toggle("Size or Files", isOn: $datainchartbool)
-                    .toggleStyle(.switch)
-                    .onChange(of: datainchartbool) {
-                        if datainchartbool {
-                            datainchart = .numberoffiles
-                        } else {
-                            datainchart = .transferreddata
-                        }
-                    }
                 
-                Toggle("Present by Size or Files", isOn: $filesormbbool)
+                
+                Toggle("Present by Size or Files", isOn: $filesorsizebool)
                     .toggleStyle(.switch)
-                    .onChange(of: filesormbbool) {
-                        if filesormbbool {
-                            filesormb  = .files
+                    .onChange(of: filesorsizebool) {
+                        if filesorsizebool {
+                            filesorsize  = .files
                         } else {
-                            filesormb  = .sizeinmb
+                            filesorsize  = .size
                         }
                     }
                 
@@ -159,7 +163,7 @@ struct LogStatsChartView: View {
                 logentries = await readandsortlogdata(hiddenID, validhiddenIDs)
             }
         }
-        .onChange(of: filesormb) {
+        .onChange(of: filesorsize) {
             Task {
                 logentries = await readandsortlogdata(hiddenID, validhiddenIDs)
             }
@@ -195,16 +199,22 @@ struct LogStatsChartView: View {
             var readdatabyfilesormb = ""
             var presentbyfilesormb = ""
             
-            if datainchart == .numberoffiles  {
-                readdatabyfilesormb = "Isolate date by max files transferred: "
+            if enablefilesorsize {
+                if datainchart == .numberoffiles  {
+                    readdatabyfilesormb = "Some multiple dates, isolate date by max files transferred: "
+                } else {
+                    readdatabyfilesormb = "Some multiple dates, isolate date by max size transferred: "
+                }
             } else {
-                readdatabyfilesormb = "Isolate date by max size transferred: "
+                
+                readdatabyfilesormb = "Only single dates in logrecords: "
             }
             
-            if filesormb == .files {
-                presentbyfilesormb = "number of files"
+            
+            if filesorsize == .files {
+                presentbyfilesormb = "data presents number of files"
             } else {
-                presentbyfilesormb = "transferred data in MB"
+                presentbyfilesormb = "data presents transferred data in MB"
             }
             
             return "\(readdatabyfilesormb) \(presentbyfilesormb)"
@@ -238,18 +248,26 @@ struct LogStatsChartView: View {
         let alllogs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
         let parsedlogs = await actorreadchartsdata.parselogrecords(from: alllogs)
         
-        if filesormb == .files {
+        if filesorsize == .files {
             if numberofdata.isEmpty || numberofdatabool == false {
-                return await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
+                let allmaxlogentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
+                // Check if more data pr one date
+                enablefilesorsize = allmaxlogentries.count != parsedlogs.count
+                return allmaxlogentries
             } else {
+                enablefilesorsize = false
                 let allmaxlogentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
                 return await actorreadchartsdata.getTopNMaxPerDaybyfiles(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
             }
             
         } else {
             if numberofdata.isEmpty || numberofdatabool == false {
-                return await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
+                let allmaxlogentries = await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
+                // Check if more data pr one date
+                enablefilesorsize = allmaxlogentries.count != parsedlogs.count
+                return allmaxlogentries
             } else {
+                enablefilesorsize = false
                 let allmaxlogentries = await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
                 return await actorreadchartsdata.getTopNMaxPerDaybyMB(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
             }
