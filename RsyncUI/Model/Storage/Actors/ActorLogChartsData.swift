@@ -20,7 +20,6 @@ struct LogEntry: Identifiable {
 }
 
 actor ActorLogChartsData {
-    
     // Parse logrecords and extract numbers for synchronize and snapshot tasks
     @concurrent
     nonisolated func parselogrecords(from logrecords: [Log]) async -> [LogEntry] {
@@ -28,9 +27,8 @@ actor ActorLogChartsData {
         Logger.process.info("ActorLogChartsData: parselogrecords() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         Logger.process.info("ActorLogChartsData: number of records \(logrecords.count, privacy: .public)")
         return logrecords.compactMap { logrecord in
-            
             let numbers = extractNumbersAsDoubles(from: logrecord.resultExecuted ?? "")
-            
+
             // Snapshot task
             if numbers.count == 4 {
                 let files = numbers[1]
@@ -41,7 +39,7 @@ actor ActorLogChartsData {
                                                                          files: Int(files),
                                                                          transferredMB: size,
                                                                          seconds: seconds) : nil
-            // Synchronize task
+                // Synchronize task
             } else {
                 let files = numbers[0]
                 let size = numbers[1]
@@ -59,7 +57,7 @@ actor ActorLogChartsData {
     private nonisolated func extractNumbersAsDoubles(from string: String) -> [Double] {
         extractNumbers(from: string).compactMap { Double($0) }
     }
-    
+
     // Extract all numbers as strings
     private nonisolated func extractNumbers(from string: String) -> [String] {
         let pattern = #"\d+(?:\.\d+)?"# // Matches integers and decimals
@@ -91,7 +89,7 @@ actor ActorLogChartsData {
             }
         }.values.sorted { $0.date < $1.date }
     }
-    
+
     // By number of files
     // Function to get top N records with highest values by files
     @concurrent
@@ -110,7 +108,6 @@ actor ActorLogChartsData {
         return await getTopNRecordsbyfiles(from: maxPerDay, count: count)
     }
 
-   
     // By transferredMB
     // Function to get top N records with highest values by files
     @concurrent
@@ -128,7 +125,7 @@ actor ActorLogChartsData {
         let maxPerDay = await selectMaxValueMBDates(from: records)
         return await getTopNRecordsbyMB(from: maxPerDay, count: count)
     }
-    
+
     // By transferredMB
     // Select the one date with max data transferred, if more records pr date.
     @concurrent

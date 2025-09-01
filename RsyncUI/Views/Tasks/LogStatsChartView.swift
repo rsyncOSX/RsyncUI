@@ -25,47 +25,34 @@ enum TypeofChart: String, CaseIterable, Identifiable, CustomStringConvertible {
     var description: String { rawValue.localizedLowercase }
 }
 
-enum FilesOrSize: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case files
-    case size
-
-    var id: String { rawValue }
-    var description: String { rawValue.localizedLowercase }
-}
-
-
 struct LogStatsChartView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @State private var logentries: [LogEntry]?
-    
+
     @State private var datainchartbool: Bool = true // True files
     @State private var datainchart: DataInChart = .numberoffiles
-    
+
     @State private var typeofchartbool: Bool = true // True Barchart
     @State private var typeofchart: TypeofChart = .barchart
-    
-    @State private var filesorsizebool: Bool = true // True files
-    @State private var filesorsize: FilesOrSize = .files
+
     @State private var enablefilesorsize: Bool = false
-    
+
     @State private var numberofdatabool: Bool = false
     @State private var numberofdata: String = ""
 
     var body: some View {
         VStack {
-            
-            Text("Statistics: number of records \(logentries?.count ?? 0) ")
+            Text("Statistics: number of records in chart \(logentries?.count ?? 0) for \(synchronizeid)")
                 .font(.title)
                 .padding(.bottom, 10)
-            
+
             Text(subtitle)
                 .font(.title2)
                 .padding(.bottom, 10)
-            
+
             HStack {
-                
                 Toggle("Size or Files", isOn: $datainchartbool)
                     .toggleStyle(.switch)
                     .onChange(of: datainchartbool) {
@@ -76,7 +63,7 @@ struct LogStatsChartView: View {
                         }
                     }
                     .disabled(!enablefilesorsize)
-                
+
                 Toggle("Line or Bar chart", isOn: $typeofchartbool)
                     .toggleStyle(.switch)
                     .onChange(of: typeofchartbool) {
@@ -86,30 +73,17 @@ struct LogStatsChartView: View {
                             typeofchart = .linemarkchart
                         }
                     }
-                
-                
-                
-                Toggle("Present by Size or Files", isOn: $filesorsizebool)
-                    .toggleStyle(.switch)
-                    .onChange(of: filesorsizebool) {
-                        if filesorsizebool {
-                            filesorsize  = .files
-                        } else {
-                            filesorsize  = .size
-                        }
-                    }
-                
+
                 EditValueErrorScheme(50, "Num", $numberofdata, setnumber(numberofdata))
-                
+
                 Toggle("Apply numbers", isOn: $numberofdatabool)
                     .toggleStyle(.switch)
             }
-            
+
             if typeofchart == .linemarkchart {
                 Chart {
                     ForEach(logentries ?? []) { entry in
                         switch datainchart {
-                        
                         case .numberoffiles:
                             LineMark(
                                 x: .value("Date", entry.date),
@@ -117,14 +91,14 @@ struct LogStatsChartView: View {
                             )
                             .foregroundStyle(.blue)
                             .symbol(by: .value("Type", "Files"))
-                            
+
                         case .transferreddata:
                             LineMark(
                                 x: .value("Date", entry.date),
-                                y: .value("Data Transferred (MB)", entry.transferredMB)
+                                y: .value("Size (MB)", entry.transferredMB)
                             )
                             .foregroundStyle(.green)
-                            .symbol(by: .value("Type", "Data"))
+                            .symbol(by: .value("Type", "Size"))
                         }
                     }
                 }
@@ -132,11 +106,11 @@ struct LogStatsChartView: View {
                     AxisMarks(values: .stride(by: .day))
                 }
                 .chartLegend(.automatic)
+                .padding()
             } else {
                 Chart {
                     ForEach(logentries ?? []) { entry in
                         switch datainchart {
-                            
                         case .numberoffiles:
                             BarMark(
                                 x: .value("Date", entry.date),
@@ -144,17 +118,22 @@ struct LogStatsChartView: View {
                             )
                             .foregroundStyle(.blue)
                             .symbol(by: .value("Type", "Files"))
-                        
+
                         case .transferreddata:
                             BarMark(
                                 x: .value("Date", entry.date),
-                                y: .value("Data Transferred (MB)", entry.transferredMB)
+                                y: .value("Size (MB)", entry.transferredMB)
                             )
                             .foregroundStyle(.green)
-                            .symbol(by: .value("Type", "Data"))
+                            .symbol(by: .value("Type", "Size"))
                         }
                     }
                 }
+                .chartXAxis {
+                    AxisMarks(values: .stride(by: .day))
+                }
+                .chartLegend(.automatic)
+                .padding()
             }
         }
         .padding()
@@ -163,17 +142,24 @@ struct LogStatsChartView: View {
                 logentries = await readandsortlogdata(hiddenID, validhiddenIDs)
             }
         }
-        .onChange(of: filesorsize) {
-            Task {
-                logentries = await readandsortlogdata(hiddenID, validhiddenIDs)
-            }
-        }
+       
         .onChange(of: numberofdatabool) {
             Task {
                 logentries = await readandsortlogdata(hiddenID, validhiddenIDs)
             }
         }
         
+        var synchronizeid: String {
+            if let configurations = rsyncUIdata.configurations {
+                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                    return configurations[index].backupID
+                } else {
+                    return ""
+                }
+            }
+            return ""
+        }
+
         var validhiddenIDs: Set<Int> {
             var temp = Set<Int>()
             if let configurations = rsyncUIdata.configurations {
@@ -183,7 +169,7 @@ struct LogStatsChartView: View {
             }
             return temp
         }
-        
+
         var hiddenID: Int {
             if let configurations = rsyncUIdata.configurations {
                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
@@ -194,33 +180,24 @@ struct LogStatsChartView: View {
             }
             return -1
         }
-        
+
         var subtitle: String {
             var readdatabyfilesormb = ""
-            var presentbyfilesormb = ""
-            
+
             if enablefilesorsize {
-                if datainchart == .numberoffiles  {
-                    readdatabyfilesormb = "Some multiple dates, isolate date by max files transferred: "
+                if datainchart == .numberoffiles {
+                    readdatabyfilesormb = "Some multiple dates, isolate date by max files transferred"
                 } else {
-                    readdatabyfilesormb = "Some multiple dates, isolate date by max size transferred: "
+                    readdatabyfilesormb = "Some multiple dates, isolate date by max size transferred"
                 }
             } else {
-                
                 readdatabyfilesormb = "Only single dates in logrecords: "
             }
-            
-            
-            if filesorsize == .files {
-                presentbyfilesormb = "data presents number of files"
-            } else {
-                presentbyfilesormb = "data presents transferred data in MB"
-            }
-            
-            return "\(readdatabyfilesormb) \(presentbyfilesormb)"
+
+            return readdatabyfilesormb
         }
     }
-    
+
     private func setnumber(_ number: String) -> Bool {
         guard number.isEmpty == false else {
             return false
@@ -239,16 +216,15 @@ struct LogStatsChartView: View {
         if Int(number) != nil { return true }
         return false
     }
-    
+
     private func readandsortlogdata(_ hiddenID: Int, _ validhiddenIDs: Set<Int>) async -> [LogEntry] {
-        
         let actorreadlogs = ActorReadLogRecordsJSON()
         let actorreadchartsdata = ActorLogChartsData()
         let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
         let alllogs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
         let parsedlogs = await actorreadchartsdata.parselogrecords(from: alllogs)
-        
-        if filesorsize == .files {
+
+        if datainchart == .numberoffiles {
             if numberofdata.isEmpty || numberofdatabool == false {
                 let allmaxlogentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
                 // Check if more data pr one date
@@ -259,7 +235,7 @@ struct LogStatsChartView: View {
                 let allmaxlogentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
                 return await actorreadchartsdata.getTopNMaxPerDaybyfiles(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
             }
-            
+
         } else {
             if numberofdata.isEmpty || numberofdatabool == false {
                 let allmaxlogentries = await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
