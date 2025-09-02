@@ -42,6 +42,8 @@ struct LogStatsChartView: View {
     @State private var numberofdatabool: Bool = false
     @State private var numberofdata: String = ""
 
+    @State private var selectedDataPoint: LogEntry.ID?
+
     var body: some View {
         VStack {
             Text("Statistics: number of records in chart \(logentries?.count ?? 0) for \(synchronizeid)")
@@ -82,25 +84,22 @@ struct LogStatsChartView: View {
 
             HStack {
                 if typeofchart == .linemarkchart {
-                    Chart {
-                        ForEach(logentries ?? []) { entry in
-                            switch datainchart {
-                            case .numberoffiles:
-                                LineMark(
-                                    x: .value("Date", entry.date),
-                                    y: .value("Number of Files", entry.files)
-                                )
-                                .foregroundStyle(.blue)
-                                .symbol(by: .value("Type", "Files"))
-
-                            case .transferreddata:
-                                LineMark(
-                                    x: .value("Date", entry.date),
-                                    y: .value("Size (MB)", entry.transferredMB)
-                                )
-                                .foregroundStyle(.green)
-                                .symbol(by: .value("Type", "Size"))
-                            }
+                    Chart(logentries ?? []) { entry in
+                        switch datainchart {
+                        case .numberoffiles:
+                            LineMark(
+                                x: .value("Date", entry.date),
+                                y: .value("Number of Files", entry.files)
+                            )
+                            .foregroundStyle(.blue)
+                            .symbol(by: .value("Type", "Files"))
+                        case .transferreddata:
+                            LineMark(
+                                x: .value("Date", entry.date),
+                                y: .value("Size (MB)", entry.transferredMB)
+                            )
+                            .foregroundStyle(.blue)
+                            .symbol(by: .value("Type", "Size"))
                         }
                     }
                     .chartXAxis {
@@ -116,25 +115,27 @@ struct LogStatsChartView: View {
                     }
                     .padding()
                 } else {
-                    Chart {
-                        ForEach(logentries ?? []) { entry in
-                            switch datainchart {
-                            case .numberoffiles:
-                                BarMark(
-                                    x: .value("Date", entry.date),
-                                    y: .value("Number of Files", entry.files)
-                                )
-                                .foregroundStyle(.blue)
-                                .symbol(by: .value("Type", "Files"))
+                    Chart(logentries ?? []) { entry in
+                        switch datainchart {
+                        case .numberoffiles:
+                            BarMark(
+                                x: .value("Date", entry.date),
+                                y: .value("Number of Files", entry.files)
+                            )
+                            .foregroundStyle(.blue)
+                            .symbol(by: .value("Type", "Files"))
+                            .foregroundStyle(selectedDataPoint == entry.id ? .red : .blue)
+                            .opacity(selectedDataPoint == nil || selectedDataPoint == entry.id ? 1.0 : 0.5)
 
-                            case .transferreddata:
-                                BarMark(
-                                    x: .value("Date", entry.date),
-                                    y: .value("Size (MB)", entry.transferredMB)
-                                )
-                                .foregroundStyle(.green)
-                                .symbol(by: .value("Type", "Size"))
-                            }
+                        case .transferreddata:
+                            BarMark(
+                                x: .value("Date", entry.date),
+                                y: .value("Size (MB)", entry.transferredMB)
+                            )
+                            .foregroundStyle(.green)
+                            .symbol(by: .value("Type", "Size"))
+                            .foregroundStyle(selectedDataPoint == entry.id ? .red : .green)
+                            .opacity(selectedDataPoint == nil || selectedDataPoint == entry.id ? 1.0 : 0.5)
                         }
                     }
                     .chartXAxis {
@@ -152,7 +153,7 @@ struct LogStatsChartView: View {
                 }
 
                 if let logentries {
-                    Table(logentries) {
+                    Table(logentries, selection: $selectedDataPoint) {
                         TableColumn("Date") { item in
                             Text(item.date, style: .date)
                         }
