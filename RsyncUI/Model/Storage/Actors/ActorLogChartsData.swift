@@ -87,7 +87,7 @@ actor ActorLogChartsData {
             } else {
                 result[dayKey] = record
             }
-        }.values.sorted { $0.date < $1.date }
+        }.values.sorted { $0.date > $1.date }
     }
 
     // By number of files
@@ -97,7 +97,7 @@ actor ActorLogChartsData {
         records
             .sorted { $0.files > $1.files } // Sort by value descending
             .prefix(count) // Take first N items
-            .sorted { $0.date < $1.date } // Optional: sort by date for display
+            .sorted { $0.date > $1.date } // Optional: sort by date for display
     }
 
     // By number of files
@@ -115,7 +115,7 @@ actor ActorLogChartsData {
         records
             .sorted { $0.transferredMB > $1.transferredMB } // Sort by value descending
             .prefix(count) // Take first N items
-            .sorted { $0.date < $1.date } // Optional: sort by date for display
+            .sorted { $0.date > $1.date } // Optional: sort by date for display
     }
 
     // By transferredMB
@@ -145,6 +145,6 @@ actor ActorLogChartsData {
             } else {
                 result[dayKey] = record
             }
-        }.values.sorted { $0.date < $1.date }
+        }.values.sorted { $0.date > $1.date }
     }
 }
