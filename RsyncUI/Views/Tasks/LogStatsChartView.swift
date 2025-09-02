@@ -41,7 +41,7 @@ struct LogStatsChartView: View {
 
     @State private var numberofdatabool: Bool = false
     @State private var numberofdata: String = ""
-
+    
     var body: some View {
         VStack {
             Text("Statistics: number of records in chart \(logentries?.count ?? 0) for \(synchronizeid)")
@@ -103,9 +103,16 @@ struct LogStatsChartView: View {
                     }
                 }
                 .chartXAxis {
-                    AxisMarks(values: .stride(by: .day))
+                    AxisMarks(preset: .aligned, position: .bottom) { value in
+                        AxisValueLabel()
+                        AxisTick()
+                    }
                 }
-                .chartLegend(.automatic)
+                .chartYAxis {
+                    AxisMarks(position: .leading) { value in
+                        AxisValueLabel()
+                    }
+                }
                 .padding()
             } else {
                 Chart {
@@ -130,9 +137,16 @@ struct LogStatsChartView: View {
                     }
                 }
                 .chartXAxis {
-                    AxisMarks(values: .stride(by: .day))
+                    AxisMarks(preset: .aligned, position: .bottom) { value in
+                        AxisValueLabel()
+                        AxisTick()
+                    }
                 }
-                .chartLegend(.automatic)
+                .chartYAxis {
+                    AxisMarks(position: .leading) { value in
+                        AxisValueLabel()
+                    }
+                }
                 .padding()
             }
         }
