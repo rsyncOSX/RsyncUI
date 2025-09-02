@@ -41,7 +41,7 @@ struct LogStatsChartView: View {
 
     @State private var numberofdatabool: Bool = false
     @State private var numberofdata: String = ""
-    
+
     var body: some View {
         VStack {
             Text("Statistics: number of records in chart \(logentries?.count ?? 0) for \(synchronizeid)")
@@ -80,74 +80,95 @@ struct LogStatsChartView: View {
                     .toggleStyle(.switch)
             }
 
-            if typeofchart == .linemarkchart {
-                Chart {
-                    ForEach(logentries ?? []) { entry in
-                        switch datainchart {
-                        case .numberoffiles:
-                            LineMark(
-                                x: .value("Date", entry.date),
-                                y: .value("Number of Files", entry.files)
-                            )
-                            .foregroundStyle(.blue)
-                            .symbol(by: .value("Type", "Files"))
+            HStack {
+                if typeofchart == .linemarkchart {
+                    Chart {
+                        ForEach(logentries ?? []) { entry in
+                            switch datainchart {
+                            case .numberoffiles:
+                                LineMark(
+                                    x: .value("Date", entry.date),
+                                    y: .value("Number of Files", entry.files)
+                                )
+                                .foregroundStyle(.blue)
+                                .symbol(by: .value("Type", "Files"))
 
-                        case .transferreddata:
-                            LineMark(
-                                x: .value("Date", entry.date),
-                                y: .value("Size (MB)", entry.transferredMB)
-                            )
-                            .foregroundStyle(.green)
-                            .symbol(by: .value("Type", "Size"))
+                            case .transferreddata:
+                                LineMark(
+                                    x: .value("Date", entry.date),
+                                    y: .value("Size (MB)", entry.transferredMB)
+                                )
+                                .foregroundStyle(.green)
+                                .symbol(by: .value("Type", "Size"))
+                            }
                         }
                     }
-                }
-                .chartXAxis {
-                    AxisMarks(preset: .aligned, position: .bottom) { value in
-                        AxisValueLabel()
-                        AxisTick()
-                    }
-                }
-                .chartYAxis {
-                    AxisMarks(position: .leading) { value in
-                        AxisValueLabel()
-                    }
-                }
-                .padding()
-            } else {
-                Chart {
-                    ForEach(logentries ?? []) { entry in
-                        switch datainchart {
-                        case .numberoffiles:
-                            BarMark(
-                                x: .value("Date", entry.date),
-                                y: .value("Number of Files", entry.files)
-                            )
-                            .foregroundStyle(.blue)
-                            .symbol(by: .value("Type", "Files"))
-
-                        case .transferreddata:
-                            BarMark(
-                                x: .value("Date", entry.date),
-                                y: .value("Size (MB)", entry.transferredMB)
-                            )
-                            .foregroundStyle(.green)
-                            .symbol(by: .value("Type", "Size"))
+                    .chartXAxis {
+                        AxisMarks(preset: .aligned, position: .bottom) { _ in
+                            AxisValueLabel()
+                            AxisTick()
                         }
                     }
-                }
-                .chartXAxis {
-                    AxisMarks(preset: .aligned, position: .bottom) { value in
-                        AxisValueLabel()
-                        AxisTick()
+                    .chartYAxis {
+                        AxisMarks(position: .leading) { _ in
+                            AxisValueLabel()
+                        }
                     }
-                }
-                .chartYAxis {
-                    AxisMarks(position: .leading) { value in
-                        AxisValueLabel()
+                    .padding()
+                } else {
+                    Chart {
+                        ForEach(logentries ?? []) { entry in
+                            switch datainchart {
+                            case .numberoffiles:
+                                BarMark(
+                                    x: .value("Date", entry.date),
+                                    y: .value("Number of Files", entry.files)
+                                )
+                                .foregroundStyle(.blue)
+                                .symbol(by: .value("Type", "Files"))
+
+                            case .transferreddata:
+                                BarMark(
+                                    x: .value("Date", entry.date),
+                                    y: .value("Size (MB)", entry.transferredMB)
+                                )
+                                .foregroundStyle(.green)
+                                .symbol(by: .value("Type", "Size"))
+                            }
+                        }
                     }
+                    .chartXAxis {
+                        AxisMarks(preset: .aligned, position: .bottom) { _ in
+                            AxisValueLabel()
+                            AxisTick()
+                        }
+                    }
+                    .chartYAxis {
+                        AxisMarks(position: .leading) { _ in
+                            AxisValueLabel()
+                        }
+                    }
+                    .padding()
                 }
-                .padding()
+
+                if let logentries {
+                    Table(logentries) {
+                        TableColumn("Date") { item in
+                            Text(item.date, style: .date)
+                        }
+                        .alignment(.leading)
+                        TableColumn("Size (MB)") { item in
+                            Text(String(format: "%.2f", item.transferredMB))
+                        }
+                        .alignment(.trailing)
+                        TableColumn("Files") { item in
+                            Text(String(item.files))
+                        }
+                        .alignment(.trailing)
+                    }
+                    .padding()
+                    .frame(width: 400)
+                }
             }
         }
         .padding()
@@ -156,13 +177,12 @@ struct LogStatsChartView: View {
                 logentries = await readandsortlogdata(hiddenID, validhiddenIDs)
             }
         }
-       
         .onChange(of: numberofdatabool) {
             Task {
                 logentries = await readandsortlogdata(hiddenID, validhiddenIDs)
             }
         }
-        
+
         var synchronizeid: String {
             if let configurations = rsyncUIdata.configurations {
                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
