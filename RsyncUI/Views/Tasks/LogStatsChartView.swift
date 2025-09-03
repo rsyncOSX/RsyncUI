@@ -66,7 +66,7 @@ struct LogStatsChartView: View {
                     }
                     .disabled(!enablefilesorsize)
 
-                Toggle("Line or Bar chart", isOn: $typeofchartbool)
+                Toggle("Line or Bar", isOn: $typeofchartbool)
                     .toggleStyle(.switch)
                     .onChange(of: typeofchartbool) {
                         if typeofchartbool {
@@ -78,7 +78,7 @@ struct LogStatsChartView: View {
 
                 EditValueErrorScheme(50, "Num", $numberofdata, setnumber(numberofdata))
 
-                Toggle("Apply numbers", isOn: $numberofdatabool)
+                Toggle("Apply selection", isOn: $numberofdatabool)
                     .toggleStyle(.switch)
             }
 
@@ -122,7 +122,6 @@ struct LogStatsChartView: View {
                                 x: .value("Date", entry.date),
                                 y: .value("Number of Files", entry.files)
                             )
-                            .foregroundStyle(.blue)
                             .symbol(by: .value("Type", "Files"))
                             .foregroundStyle(selectedDataPoint == entry.id ? .red : .blue)
                             .opacity(selectedDataPoint == nil || selectedDataPoint == entry.id ? 1.0 : 0.5)
@@ -132,7 +131,6 @@ struct LogStatsChartView: View {
                                 x: .value("Date", entry.date),
                                 y: .value("Size (MB)", entry.transferredMB)
                             )
-                            .foregroundStyle(.green)
                             .symbol(by: .value("Type", "Size"))
                             .foregroundStyle(selectedDataPoint == entry.id ? .red : .green)
                             .opacity(selectedDataPoint == nil || selectedDataPoint == entry.id ? 1.0 : 0.5)
@@ -159,11 +157,22 @@ struct LogStatsChartView: View {
                         }
                         .alignment(.leading)
                         TableColumn("Size (MB)") { item in
-                            Text(String(format: "%.2f", item.transferredMB))
+                            if datainchart == .transferreddata && selectedDataPoint != nil && typeofchart == .barchart{
+                                Text(String(format: "%.2f", item.transferredMB))
+                                    .foregroundColor(.red)
+                            } else {
+                                Text(String(format: "%.2f", item.transferredMB))
+                            }
                         }
                         .alignment(.trailing)
                         TableColumn("Files") { item in
-                            Text(String(item.files))
+                            if datainchart == .numberoffiles && selectedDataPoint != nil && typeofchart == .barchart {
+                                Text(String(item.files))
+                                    .foregroundColor(.red)
+                            } else {
+                                Text(String(item.files))
+                            }
+                            
                         }
                         .alignment(.trailing)
                     }
@@ -226,7 +235,7 @@ struct LogStatsChartView: View {
                     readdatabyfilesormb = "Some multiple dates, isolate date by max size transferred"
                 }
             } else {
-                readdatabyfilesormb = "Only single dates in logrecords: "
+                readdatabyfilesormb = "Only single dates in records"
             }
 
             return readdatabyfilesormb
