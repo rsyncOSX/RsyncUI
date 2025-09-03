@@ -14,3 +14,5 @@ The [user documentation](https://rsyncui.netlify.app/docs/)([repo](https://githu
 | |  | [documentation](https://rsyncui.netlify.app/docs/) and [changelog](https://rsyncui.netlify.app/blog/) |
 
 ![](images/rsyncui.png)
+
+![](images/charts.png)
