@@ -99,13 +99,24 @@ struct LogsbyConfigurationView: View {
 
             HStack {
                 if showindebounce {
+                    
                     indebounce
+
                 } else {
                     if selecteduuids.isEmpty {
                         Text("ALL logrecords, select task for logrecords by task: ^[\(logs.count) log](inflect: true)")
+                        
+                        if filterstring.isEmpty == false {
+                            Label("Filtered by: \(filterstring)", systemImage: "magnifyingglass")
+                        }
 
                     } else {
                         Text("Logrecords by selected task: ^[\(logs.count) log](inflect: true)")
+                        
+                        if filterstring.isEmpty == false {
+                            Label("Filtered by: \(filterstring)", systemImage: "magnifyingglass")
+                        }
+                        
                     }
                 }
 
