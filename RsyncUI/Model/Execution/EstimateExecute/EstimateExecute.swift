@@ -146,6 +146,7 @@ final class EstimateExecute {
         }
     }
 
+/*
     // Convenience init and init for ESTIMATE
     // filehandler and updateconfigurations are not used
     // handled in convenience init for Estimate
@@ -167,7 +168,8 @@ final class EstimateExecute {
                   filehandler: filehandler,
                   updateconfigurations: updateconfigurations)
     }
-
+ 
+*/
     @discardableResult
     convenience init(profile: String?,
                      configurations: [SynchronizeConfiguration],
@@ -208,6 +210,7 @@ final class EstimateExecute {
         startestimation()
     }
 
+/*
     // Convenience init and init for execute NO ESTIMATION
     // Real init below
     @discardableResult
@@ -229,6 +232,7 @@ final class EstimateExecute {
                   updateconfigurations: updateconfigurations)
     }
 
+*/
     // Init execute NO estimation
     @discardableResult
     init(profile: String?,
