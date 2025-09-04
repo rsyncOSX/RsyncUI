@@ -41,6 +41,8 @@ struct LogStatsChartView: View {
     @State private var numberofdata: String = ""
 
     @State private var selectedDataPoint: LogEntry.ID?
+    // Read and prepare chardata
+    @State private var chartdata = ObservableChartData()
 
     var body: some View {
         VStack {
@@ -136,7 +138,6 @@ struct LogStatsChartView: View {
                     .chartXAxis {
                         AxisMarks(preset: .aligned, position: .bottom) { _ in
                             AxisValueLabel()
-                            AxisTick()
                         }
                     }
                     .chartYAxis {
@@ -181,12 +182,22 @@ struct LogStatsChartView: View {
         .padding()
         .onAppear {
             Task {
-                logentries = await readandsortlogdata(hiddenID, validhiddenIDs)
+                
+                await chartdata.readandparselogs(profile: rsyncUIdata.profile,
+                                           validhiddenIDs: validhiddenIDs,
+                                           hiddenID: hiddenID)
+                
+                logentries = await readandsortlogdata()
             }
         }
         .onChange(of: numberofdatabool) {
             Task {
-                logentries = await readandsortlogdata(hiddenID, validhiddenIDs)
+                logentries = await readandsortlogdata()
+            }
+        }
+        .onChange(of: datainchart) {
+            Task {
+                logentries = await readandsortlogdata()
             }
         }
 
@@ -254,32 +265,39 @@ struct LogStatsChartView: View {
         return false
     }
 
-    private func readandsortlogdata(_ hiddenID: Int, _ validhiddenIDs: Set<Int>) async -> [LogEntry] {
+    private func readandsortlogdata() async -> [LogEntry] {
+        /*
         let actorreadlogs = ActorReadLogRecordsJSON()
-        let actorreadchartsdata = ActorLogChartsData()
         let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+        
+        let actorreadchartsdata = ActorLogChartsData()
         let alllogs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
         let parsedlogs = await actorreadchartsdata.parselogrecords(from: alllogs)
+*/
+        let actorreadchartsdata = ActorLogChartsData()
+        
+        if let parsedlogs = chartdata.parsedlogs {
+            if datainchart == .numberoffiles {
+                if numberofdata.isEmpty || numberofdatabool == false {
+                    let allmaxlogentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
+                    // Check if more data pr one date
+                    return allmaxlogentries
+                } else {
+                    let allmaxlogentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
+                    return await actorreadchartsdata.getTopNMaxPerDaybyfiles(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
+                }
 
-        if datainchart == .numberoffiles {
-            if numberofdata.isEmpty || numberofdatabool == false {
-                let allmaxlogentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
-                // Check if more data pr one date
-                return allmaxlogentries
             } else {
-                let allmaxlogentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
-                return await actorreadchartsdata.getTopNMaxPerDaybyfiles(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
-            }
-
-        } else {
-            if numberofdata.isEmpty || numberofdatabool == false {
-                let allmaxlogentries = await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
-                // Check if more data pr one date
-                return allmaxlogentries
-            } else {
-                let allmaxlogentries = await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
-                return await actorreadchartsdata.getTopNMaxPerDaybyMB(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
+                if numberofdata.isEmpty || numberofdatabool == false {
+                    let allmaxlogentries = await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
+                    // Check if more data pr one date
+                    return allmaxlogentries
+                } else {
+                    let allmaxlogentries = await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
+                    return await actorreadchartsdata.getTopNMaxPerDaybyMB(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
+                }
             }
         }
+        return []
     }
 }
