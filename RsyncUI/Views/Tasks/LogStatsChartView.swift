@@ -279,22 +279,22 @@ struct LogStatsChartView: View {
         if let parsedlogs = chartdata.parsedlogs {
             if datainchart == .numberoffiles {
                 if numberofdata.isEmpty || numberofdatabool == false {
-                    let allmaxlogentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
+                    let allmaxlogentries = await actorreadchartsdata.parsemaxfilesbydate(from: parsedlogs)
                     // Check if more data pr one date
                     return allmaxlogentries
                 } else {
-                    let allmaxlogentries = await actorreadchartsdata.selectMaxValueFilesDates(from: parsedlogs)
-                    return await actorreadchartsdata.getTopNMaxPerDaybyfiles(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
+                    let allmaxlogentries = await actorreadchartsdata.parsemaxfilesbydate(from: parsedlogs)
+                    return await actorreadchartsdata.parsemaxNNfilesbydate(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
                 }
 
             } else {
                 if numberofdata.isEmpty || numberofdatabool == false {
-                    let allmaxlogentries = await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
+                    let allmaxlogentries = await actorreadchartsdata.parsemaxfilesbytransferredsize(from: parsedlogs)
                     // Check if more data pr one date
                     return allmaxlogentries
                 } else {
-                    let allmaxlogentries = await actorreadchartsdata.selectMaxValueMBDates(from: parsedlogs)
-                    return await actorreadchartsdata.getTopNMaxPerDaybyMB(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
+                    let allmaxlogentries = await actorreadchartsdata.parsemaxfilesbytransferredsize(from: parsedlogs)
+                    return await actorreadchartsdata.parsemaxNNfilesbytransferredsize(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
                 }
             }
         }

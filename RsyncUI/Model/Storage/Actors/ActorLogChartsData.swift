@@ -27,7 +27,7 @@ actor ActorLogChartsData {
         Logger.process.info("ActorLogChartsData: parselogrecords() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         Logger.process.info("ActorLogChartsData: number of records \(logrecords.count, privacy: .public)")
         return logrecords.compactMap { logrecord in
-            let numbers = extractNumbersAsDoubles(from: logrecord.resultExecuted ?? "")
+            let numbers = extractnumbersasdoubles(from: logrecord.resultExecuted ?? "")
 
             // Snapshot task
             if numbers.count == 4 {
@@ -54,12 +54,12 @@ actor ActorLogChartsData {
     }
 
     // Extract numbers as Double values
-    private nonisolated func extractNumbersAsDoubles(from string: String) -> [Double] {
-        extractNumbers(from: string).compactMap { Double($0) }
+    private nonisolated func extractnumbersasdoubles(from string: String) -> [Double] {
+        extractnumbersasstrings(from: string).compactMap { Double($0) }
     }
 
     // Extract all numbers as strings
-    private nonisolated func extractNumbers(from string: String) -> [String] {
+    private nonisolated func extractnumbersasstrings(from string: String) -> [String] {
         let pattern = #"\d+(?:\.\d+)?"# // Matches integers and decimals
         let regex = try! NSRegularExpression(pattern: pattern)
         let matches = regex.matches(in: string, range: NSRange(string.startIndex..., in: string))
@@ -71,8 +71,8 @@ actor ActorLogChartsData {
     // By number of files
     // Select the one date with max files transferred, if more records pr date.
     @concurrent
-    nonisolated func selectMaxValueFilesDates(from records: [LogEntry]) async -> [LogEntry] {
-        Logger.process.info("ActorLogChartsData: selectMaxValueFilesDates() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+    nonisolated func parsemaxfilesbydate(from records: [LogEntry]) async -> [LogEntry] {
+        Logger.process.info("ActorLogChartsData: parsemaxfilesbydate() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         Logger.process.info("ActorLogChartsData: number of records IN \(records.count, privacy: .public)")
         let calendar = Calendar.current
 
@@ -89,48 +89,41 @@ actor ActorLogChartsData {
             }
         }.values.sorted { $0.date > $1.date }
     }
-
-    // By number of files
-    // Function to get top N records with highest values by files
+    
+    // By number of files, get max per day, then top NN overall by files
     @concurrent
-    nonisolated func getTopNRecordsbyfiles(from records: [LogEntry], count: Int) async -> [LogEntry] {
+    nonisolated func parsemaxNNfilesbydate(from records: [LogEntry], count: Int) async -> [LogEntry] {
+        let maxPerDay = await parsemaxfilesbydate(from: records)
+        return await getTopNRecordsbyfiles(from: maxPerDay, count: count)
+    }
+    
+    private nonisolated func getTopNRecordsbyfiles(from records: [LogEntry], count: Int) async -> [LogEntry] {
         records
             .sorted { $0.files > $1.files } // Sort by value descending
             .prefix(count) // Take first N items
             .sorted { $0.date > $1.date } // Optional: sort by date for display
     }
-
-    // By number of files
-    // Combined approach: get max per day, then top NN overall by files
+   
+    // By transferred size (in MB), get max per day, then top NN overall by files
     @concurrent
-    nonisolated func getTopNMaxPerDaybyfiles(from records: [LogEntry], count: Int) async -> [LogEntry] {
-        let maxPerDay = await selectMaxValueFilesDates(from: records)
-        return await getTopNRecordsbyfiles(from: maxPerDay, count: count)
+    nonisolated func parsemaxNNfilesbytransferredsize(from records: [LogEntry], count: Int) async -> [LogEntry] {
+        let maxPerDay = await parsemaxfilesbytransferredsize(from: records)
+        return await getTopNRecordsbyMB(from: maxPerDay, count: count)
     }
 
-    // By transferredMB
-    // Function to get top N records with highest values by files
-    @concurrent
-    nonisolated func getTopNRecordsbyMB(from records: [LogEntry], count: Int) async -> [LogEntry] {
+    private nonisolated func getTopNRecordsbyMB(from records: [LogEntry], count: Int) async -> [LogEntry] {
         records
             .sorted { $0.transferredMB > $1.transferredMB } // Sort by value descending
             .prefix(count) // Take first N items
             .sorted { $0.date > $1.date } // Optional: sort by date for display
     }
 
-    // By transferredMB
-    // Combined approach: get max per day, then top NN overall by files
-    @concurrent
-    nonisolated func getTopNMaxPerDaybyMB(from records: [LogEntry], count: Int) async -> [LogEntry] {
-        let maxPerDay = await selectMaxValueMBDates(from: records)
-        return await getTopNRecordsbyMB(from: maxPerDay, count: count)
-    }
-
-    // By transferredMB
+    
+    // By transferred size (in MB)
     // Select the one date with max data transferred, if more records pr date.
     @concurrent
-    nonisolated func selectMaxValueMBDates(from records: [LogEntry]) async -> [LogEntry] {
-        Logger.process.info("ActorLogChartsData: selectMaxValueMBDates() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+    nonisolated func parsemaxfilesbytransferredsize(from records: [LogEntry]) async -> [LogEntry] {
+        Logger.process.info("ActorLogChartsData: parsemaxfilesbytransferredsize() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         Logger.process.info("ActorLogChartsData: number of records IN \(records.count, privacy: .public)")
         let calendar = Calendar.current
 
