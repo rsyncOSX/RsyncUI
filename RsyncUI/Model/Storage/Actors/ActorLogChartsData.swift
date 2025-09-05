@@ -21,34 +21,49 @@ struct LogEntry: Identifiable {
 
 actor ActorLogChartsData {
     // Parse logrecords and extract numbers for synchronize and snapshot tasks
+    // Extract all logrecords, sorting by number of files or transferred size in MB later
     @concurrent
     nonisolated func parselogrecords(from logrecords: [Log]) async -> [LogEntry] {
         // "resultExecuted": "43 files : 0.73 MB in 0.49 seconds"
         Logger.process.info("ActorLogChartsData: parselogrecords() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         Logger.process.info("ActorLogChartsData: number of records \(logrecords.count, privacy: .public)")
-        return logrecords.compactMap { logrecord in
+        // return logrecords.compactMap { logrecord in
+        return logrecords.map { logrecord in
             let numbers = extractnumbersasdoubles(from: logrecord.resultExecuted ?? "")
-
+            
             // Snapshot task
             if numbers.count == 4 {
                 let files = numbers[1]
                 let size = numbers[2]
                 let seconds = numbers[3]
-
-                return (seconds > 1 || size > 1 || files > 1) ? LogEntry(date: logrecord.date,
-                                                                         files: Int(files),
-                                                                         transferredMB: size,
-                                                                         seconds: seconds) : nil
+                return LogEntry(date: logrecord.date,
+                                files: Int(files),
+                                transferredMB: size,
+                                seconds: seconds)
+                /*
+                 return (seconds > 1 || size > 1 || files > 1) ? LogEntry(date: logrecord.date,
+                 files: Int(files),
+                 transferredMB: size,
+                 seconds: seconds) : nil
+                 */
+                
                 // Synchronize task
             } else {
                 let files = numbers[0]
                 let size = numbers[1]
                 let seconds = numbers[2]
-
-                return (seconds > 1 || size > 1 || files > 1) ? LogEntry(date: logrecord.date,
-                                                                         files: Int(files),
-                                                                         transferredMB: size,
-                                                                         seconds: seconds) : nil
+                return LogEntry(date: logrecord.date,
+                                files: Int(files),
+                                transferredMB: size,
+                                seconds: seconds)
+                /*
+                 return (seconds > 1 || size > 1 || files > 1) ? LogEntry(date: logrecord.date,
+                 files: Int(files),
+                 transferredMB: size,
+                 seconds: seconds) : nil
+                 }
+                 */
+                
             }
         }
     }
@@ -74,8 +89,8 @@ actor ActorLogChartsData {
     nonisolated func parsemaxfilesbydate(from records: [LogEntry]) async -> [LogEntry] {
         Logger.process.info("ActorLogChartsData: parsemaxfilesbydate() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         Logger.process.info("ActorLogChartsData: number of records IN \(records.count, privacy: .public)")
+        
         let calendar = Calendar.current
-
         return records.reduce(into: [Date: LogEntry]()) { result, record in
             let dayKey = calendar.startOfDay(for: record.date)
 
