@@ -29,6 +29,14 @@ final class ProcessRsync {
     // Tasks
     var sequenceFileHandlerTask: Task<Void, Never>?
     var sequenceTerminationTask: Task<Void, Never>?
+    // The real run
+    // Used to not report the last status from rsync for more precise progress report
+    // the not reported lines are appended to output though for logging statistics reporting
+    var realrun: Bool = false
+    // The beginning of summarized status is discovered
+    // rsync = "Number of files" at start of last line nr 16
+    // openrsync = "Number of files" at start of last line nr 14
+    var beginningofsummarizedstatus: Bool = false
 
     func executeProcess() {
         // Must check valid rsync exists
@@ -101,6 +109,8 @@ final class ProcessRsync {
         if SharedReference.shared.checkforerrorinrsyncoutput {
             checklineforerror = TrimOutputFromRsync()
         }
+        let argumentscontainsdryrun = arguments?.contains("--dry-run") ?? false
+        self.realrun = !argumentscontainsdryrun
     }
 
     convenience init(arguments: [String]?,
@@ -157,6 +167,13 @@ extension ProcessRsync {
             if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
                 str.enumerateLines { line, _ in
                     self.output.append(line)
+                    // realrun == true if arguments does not contain --dry-run parameter
+                    if self.realrun && self.beginningofsummarizedstatus == false {
+                        if line.contains("Number of files") {
+                            self.beginningofsummarizedstatus = true
+                        }
+                        Logger.process.info("ProcessRsync: last status reports from rsync or openrsync discovered")
+                    }
                     if SharedReference.shared.checkforerrorinrsyncoutput,
                        self.errordiscovered == false
                     {
@@ -169,9 +186,11 @@ extension ProcessRsync {
                         }
                     }
                 }
-                // Send message about files
-                if usefilehandler {
+                // Send message about files, do not report the last lines of status from rsync if
+                // the real run is ongoing
+                if usefilehandler && self.beginningofsummarizedstatus == false && self.realrun == false {
                     filehandler(output.count)
+                    print(output.count)
                 }
             }
             outHandle.waitForDataInBackgroundAndNotify()

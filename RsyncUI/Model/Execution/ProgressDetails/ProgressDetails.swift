@@ -50,11 +50,10 @@ final class ProgressDetails {
                     Logger.process.warning("ProgressDetails: EXECUTING getmaxcountbytask() num = 0")
                 }
             }
-            Logger.process.info("ProgressDetails: EXECUTING getmaxcountbytask() : \(num, privacy: .public) ")
-            return Double(max?[0].outputfromrsync?.count ?? 0) + 3
         } else {
             return 0
         }
+        return 0
     }
 
     // For execution
