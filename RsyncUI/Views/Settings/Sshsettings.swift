@@ -22,7 +22,7 @@ struct Sshsettings: View {
                 .fontWeight(.bold))
             {
                 VStack(alignment: .leading) {
-                    ToggleViewDefault(text: NSLocalizedString("Source ssh-key is present", comment: ""),
+                    ToggleViewDefault(text: NSLocalizedString("Public ssh-key is present", comment: ""),
                                       binding: $localsshkeys)
                         .disabled(true)
                 }
