@@ -9,7 +9,7 @@ import Foundation
 import Observation
 import OSLog
 
-@Observable
+@Observable @MainActor
 final class ProgressDetails {
     var estimatedlist: [RemoteDataNumbers]?
     // UUIDs with data to be transferred
@@ -34,7 +34,22 @@ final class ProgressDetails {
     func getmaxcountbytask() -> Double {
         let max = estimatedlist?.filter { $0.hiddenID == hiddenIDatwork }
         if (max?.count ?? 0) == 1 {
-            let num = Double(max?[0].outputfromrsync?.count ?? 0) + 3
+            var num = 0.0
+            if SharedReference.shared.rsyncversion3 {
+                // Reduce count with 16 last rows which contains summarized status from rsync
+                num = Double(max?[0].outputfromrsync?.count ?? 0) - 16
+                if num <= 0 {
+                    num = 0
+                    Logger.process.warning("ProgressDetails: EXECUTING getmaxcountbytask() num = 0")
+                }
+            } else {
+                // Reduce count with 14 last rows which contains summarized status from openrsync
+                num = Double(max?[0].outputfromrsync?.count ?? 0) - 14
+                if num <= 0 {
+                    num = 0
+                    Logger.process.warning("ProgressDetails: EXECUTING getmaxcountbytask() num = 0")
+                }
+            }
             Logger.process.info("ProgressDetails: EXECUTING getmaxcountbytask() : \(num, privacy: .public) ")
             return Double(max?[0].outputfromrsync?.count ?? 0) + 3
         } else {
