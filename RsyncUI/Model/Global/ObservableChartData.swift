@@ -11,9 +11,8 @@ import OSLog
 
 @Observable @MainActor
 final class ObservableChartData {
-    
     var parsedlogs: [LogEntry]?
-    
+
     // Only read logrecords from store once
     func readandparselogs(profile: String?, validhiddenIDs: Set<Int>, hiddenID: Int) async {
         Logger.process.info("ObservableChartData: readandparselogs() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
@@ -29,7 +28,7 @@ final class ObservableChartData {
             Logger.process.info("ObservableChartData: number of records \(parsedlogs.count, privacy: .public)")
         }
     }
-    
+
     deinit {
         Logger.process.info("ObservableChartData: DEINIT")
     }

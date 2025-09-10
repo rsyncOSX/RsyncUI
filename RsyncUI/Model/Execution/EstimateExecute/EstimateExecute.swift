@@ -146,30 +146,30 @@ final class EstimateExecute {
         }
     }
 
-/*
-    // Convenience init and init for ESTIMATE
-    // filehandler and updateconfigurations are not used
-    // handled in convenience init for Estimate
+    /*
+     // Convenience init and init for ESTIMATE
+     // filehandler and updateconfigurations are not used
+     // handled in convenience init for Estimate
 
-    @discardableResult
-    convenience init(profile: String?,
-                     configurations: [SynchronizeConfiguration],
-                     selecteduuids: Set<UUID>,
-                     filehandler: @escaping (Int) -> Void,
-                     progressdetails: ProgressDetails?)
-    {
-        let updateconfigurations: ([SynchronizeConfiguration]) -> Void = { _ in
-            Logger.process.info("EstimateExecute: You should not SEE this message")
-        }
-        self.init(profile: profile,
-                  configurations: configurations,
-                  selecteduuids: selecteduuids,
-                  progressdetails: progressdetails,
-                  filehandler: filehandler,
-                  updateconfigurations: updateconfigurations)
-    }
- 
-*/
+     @discardableResult
+     convenience init(profile: String?,
+                      configurations: [SynchronizeConfiguration],
+                      selecteduuids: Set<UUID>,
+                      filehandler: @escaping (Int) -> Void,
+                      progressdetails: ProgressDetails?)
+     {
+         let updateconfigurations: ([SynchronizeConfiguration]) -> Void = { _ in
+             Logger.process.info("EstimateExecute: You should not SEE this message")
+         }
+         self.init(profile: profile,
+                   configurations: configurations,
+                   selecteduuids: selecteduuids,
+                   progressdetails: progressdetails,
+                   filehandler: filehandler,
+                   updateconfigurations: updateconfigurations)
+     }
+
+     */
     @discardableResult
     convenience init(profile: String?,
                      configurations: [SynchronizeConfiguration],
@@ -210,29 +210,29 @@ final class EstimateExecute {
         startestimation()
     }
 
-/*
-    // Convenience init and init for execute NO ESTIMATION
-    // Real init below
-    @discardableResult
-    convenience init(profile: String?,
-                     configurations: [SynchronizeConfiguration],
-                     selecteduuids: Set<UUID>,
-                     noestprogressdetails: NoEstProgressDetails?,
-                     updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
-    {
-        let filehandler: (Int) -> Void = { _ in
-            Logger.process.info("EstimateExecute: You should not SEE this message")
-        }
+    /*
+     // Convenience init and init for execute NO ESTIMATION
+     // Real init below
+     @discardableResult
+     convenience init(profile: String?,
+                      configurations: [SynchronizeConfiguration],
+                      selecteduuids: Set<UUID>,
+                      noestprogressdetails: NoEstProgressDetails?,
+                      updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
+     {
+         let filehandler: (Int) -> Void = { _ in
+             Logger.process.info("EstimateExecute: You should not SEE this message")
+         }
 
-        self.init(profile: profile,
-                  configurations: configurations,
-                  selecteduuids: selecteduuids,
-                  noestprogressdetails: noestprogressdetails,
-                  filehandler: filehandler,
-                  updateconfigurations: updateconfigurations)
-    }
+         self.init(profile: profile,
+                   configurations: configurations,
+                   selecteduuids: selecteduuids,
+                   noestprogressdetails: noestprogressdetails,
+                   filehandler: filehandler,
+                   updateconfigurations: updateconfigurations)
+     }
 
-*/
+     */
     // Init execute NO estimation
     @discardableResult
     init(profile: String?,

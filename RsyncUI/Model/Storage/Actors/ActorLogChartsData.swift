@@ -30,7 +30,7 @@ actor ActorLogChartsData {
         // return logrecords.compactMap { logrecord in
         return logrecords.map { logrecord in
             let numbers = extractnumbersasdoubles(from: logrecord.resultExecuted ?? "")
-            
+
             // Snapshot task
             if numbers.count == 4 {
                 let files = numbers[1]
@@ -46,7 +46,7 @@ actor ActorLogChartsData {
                  transferredMB: size,
                  seconds: seconds) : nil
                  */
-                
+
                 // Synchronize task
             } else {
                 let files = numbers[0]
@@ -63,7 +63,6 @@ actor ActorLogChartsData {
                  seconds: seconds) : nil
                  }
                  */
-                
             }
         }
     }
@@ -89,7 +88,7 @@ actor ActorLogChartsData {
     nonisolated func parsemaxfilesbydate(from records: [LogEntry]) async -> [LogEntry] {
         Logger.process.info("ActorLogChartsData: parsemaxfilesbydate() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
         Logger.process.info("ActorLogChartsData: number of records IN \(records.count, privacy: .public)")
-        
+
         let calendar = Calendar.current
         return records.reduce(into: [Date: LogEntry]()) { result, record in
             let dayKey = calendar.startOfDay(for: record.date)
@@ -104,21 +103,21 @@ actor ActorLogChartsData {
             }
         }.values.sorted { $0.date > $1.date }
     }
-    
+
     // By number of files, get max per day, then top NN overall by files
     @concurrent
     nonisolated func parsemaxNNfilesbydate(from records: [LogEntry], count: Int) async -> [LogEntry] {
         let maxPerDay = await parsemaxfilesbydate(from: records)
         return await getTopNRecordsbyfiles(from: maxPerDay, count: count)
     }
-    
+
     private nonisolated func getTopNRecordsbyfiles(from records: [LogEntry], count: Int) async -> [LogEntry] {
         records
             .sorted { $0.files > $1.files } // Sort by value descending
             .prefix(count) // Take first N items
             .sorted { $0.date > $1.date } // Optional: sort by date for display
     }
-   
+
     // By transferred size (in MB), get max per day, then top NN overall by files
     @concurrent
     nonisolated func parsemaxNNfilesbytransferredsize(from records: [LogEntry], count: Int) async -> [LogEntry] {
@@ -133,7 +132,6 @@ actor ActorLogChartsData {
             .sorted { $0.date > $1.date } // Optional: sort by date for display
     }
 
-    
     // By transferred size (in MB)
     // Select the one date with max data transferred, if more records pr date.
     @concurrent

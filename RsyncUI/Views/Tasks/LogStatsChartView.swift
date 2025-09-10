@@ -155,7 +155,7 @@ struct LogStatsChartView: View {
                         }
                         .alignment(.leading)
                         TableColumn("Size (MB)") { item in
-                            if datainchart == .transferreddata && selectedDataPoint != nil && typeofchart == .barchart{
+                            if datainchart == .transferreddata, selectedDataPoint != nil, typeofchart == .barchart {
                                 Text(String(format: "%.2f", item.transferredMB))
                                     .foregroundColor(.red)
                             } else {
@@ -164,13 +164,12 @@ struct LogStatsChartView: View {
                         }
                         .alignment(.trailing)
                         TableColumn("Files") { item in
-                            if datainchart == .numberoffiles && selectedDataPoint != nil && typeofchart == .barchart {
+                            if datainchart == .numberoffiles, selectedDataPoint != nil, typeofchart == .barchart {
                                 Text(String(item.files))
                                     .foregroundColor(.red)
                             } else {
                                 Text(String(item.files))
                             }
-                            
                         }
                         .alignment(.trailing)
                     }
@@ -182,11 +181,10 @@ struct LogStatsChartView: View {
         .padding()
         .onAppear {
             Task {
-                
                 await chartdata.readandparselogs(profile: rsyncUIdata.profile,
-                                           validhiddenIDs: validhiddenIDs,
-                                           hiddenID: hiddenID)
-                
+                                                 validhiddenIDs: validhiddenIDs,
+                                                 hiddenID: hiddenID)
+
                 logentries = await readandsortlogdata()
             }
         }
@@ -267,15 +265,15 @@ struct LogStatsChartView: View {
 
     private func readandsortlogdata() async -> [LogEntry] {
         /*
-        let actorreadlogs = ActorReadLogRecordsJSON()
-        let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
-        
+         let actorreadlogs = ActorReadLogRecordsJSON()
+         let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+
+         let actorreadchartsdata = ActorLogChartsData()
+         let alllogs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+         let parsedlogs = await actorreadchartsdata.parselogrecords(from: alllogs)
+         */
         let actorreadchartsdata = ActorLogChartsData()
-        let alllogs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-        let parsedlogs = await actorreadchartsdata.parselogrecords(from: alllogs)
-*/
-        let actorreadchartsdata = ActorLogChartsData()
-        
+
         if let parsedlogs = chartdata.parsedlogs {
             if datainchart == .numberoffiles {
                 if numberofdata.isEmpty || numberofdatabool == false {

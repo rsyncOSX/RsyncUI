@@ -67,41 +67,24 @@ final class ObservableRsyncPathSetting {
         }
     }
 
-    private func verifystringtoint(_ seconds: String) throws -> Bool {
-        guard seconds.isEmpty == false else { return false }
-        if Int(seconds) != nil {
+    func verifystringtoint(_ days: String) -> Bool {
+        if Int(days) != nil {
             return true
         } else {
-            throw InputError.notvalidInt
+            return false
         }
     }
 
     func markdays(days: String) {
-        do {
-            let verified = try verifystringtoint(days)
-            if verified {
-                SharedReference.shared.marknumberofdayssince = Int(days) ?? 5
-            }
-        } catch let e {
+        let verified = verifystringtoint(days)
+        if verified {
+            SharedReference.shared.marknumberofdayssince = Int(days) ?? 5
+        } else {
             SharedReference.shared.marknumberofdayssince = 5
-            marknumberofdayssince = "5"
-            let error = e
-            propogateerror(error: error)
         }
     }
 
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
-    }
-}
-
-enum InputError: LocalizedError {
-    case notvalidInt
-
-    var errorDescription: String? {
-        switch self {
-        case .notvalidInt:
-            "Not a valid number (Int)\n Setting default value"
-        }
     }
 }

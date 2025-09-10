@@ -21,19 +21,17 @@ struct RsyncandPathsettings: View {
                     ToggleViewDefault(text: NSLocalizedString("Rsync v3.x", comment: ""),
                                       binding: $rsyncpathsettings.rsyncversion3)
                         .onChange(of: rsyncpathsettings.rsyncversion3) {
-                            Task {
-                                try await Task.sleep(seconds: 1)
-                                if SharedReference.shared.norsync {
-                                    SharedReference.shared.localrsyncpath = nil
-                                    SharedReference.shared.rsyncversion3 = false
-                                    rsyncpathsettings.localrsyncpath = ""
-                                } else {
-                                    SharedReference.shared.rsyncversion3 = rsyncpathsettings.rsyncversion3
-                                    SharedReference.shared.localrsyncpath = nil
-                                    rsyncpathsettings.localrsyncpath = ""
-                                }
-                                Rsyncversion().getrsyncversion()
+                            if SharedReference.shared.norsync {
+                                SharedReference.shared.localrsyncpath = nil
+                                SharedReference.shared.rsyncversion3 = false
+                                rsyncpathsettings.localrsyncpath = ""
+                            } else {
+                                SharedReference.shared.rsyncversion3 = rsyncpathsettings.rsyncversion3
+                                print(SharedReference.shared.rsyncversion3)
+                                SharedReference.shared.localrsyncpath = nil
+                                rsyncpathsettings.localrsyncpath = ""
                             }
+                            Rsyncversion().getrsyncversion()
                         }
 
                     ToggleViewDefault(text: NSLocalizedString("Apple Silicon", comment: ""),
@@ -120,7 +118,7 @@ struct RsyncandPathsettings: View {
     }
 
     var setrsyncpathdefault: some View {
-        EditValueScheme(400, SetandValidatepathforrsync().getpathforrsync(), $rsyncpathsettings.localrsyncpath)
+        EditValueScheme(400, SetandValidatepathforrsync().getpathforrsync(rsyncpathsettings.rsyncversion3), $rsyncpathsettings.localrsyncpath)
     }
 
     var setpathforrestore: some View {
@@ -134,26 +132,27 @@ struct RsyncandPathsettings: View {
                 }
             })
             .onChange(of: rsyncpathsettings.temporarypathforrestore) {
-                Task {
-                    guard rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore) else {
-                        return
-                    }
-                    if rsyncpathsettings.temporarypathforrestore.hasSuffix("/") == false {
-                        rsyncpathsettings.temporarypathforrestore.append("/")
-                    }
-                    SharedReference.shared.pathforrestore = rsyncpathsettings.temporarypathforrestore
+                guard rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore) else {
+                    return
                 }
+                if rsyncpathsettings.temporarypathforrestore.hasSuffix("/") == false {
+                    rsyncpathsettings.temporarypathforrestore.append("/")
+                }
+                SharedReference.shared.pathforrestore = rsyncpathsettings.temporarypathforrestore
             }
     }
 
     var setmarkdays: some View {
-        EditValueScheme(400, NSLocalizedString("", comment: ""),
-                        $rsyncpathsettings.marknumberofdayssince)
+        EditValueErrorScheme(400, NSLocalizedString("", comment: ""),
+                             $rsyncpathsettings.marknumberofdayssince,
+                             rsyncpathsettings.verifystringtoint(rsyncpathsettings.marknumberofdayssince))
+            .foregroundColor(rsyncpathsettings.verifystringtoint(rsyncpathsettings.marknumberofdayssince) ? Color.white : Color.red)
+        
             .onChange(of: rsyncpathsettings.marknumberofdayssince) {
-                Task {
-                    try await Task.sleep(seconds: 1)
-                    rsyncpathsettings.markdays(days: rsyncpathsettings.marknumberofdayssince)
+                guard rsyncpathsettings.verifystringtoint(rsyncpathsettings.marknumberofdayssince) else {
+                    return
                 }
+                rsyncpathsettings.markdays(days: rsyncpathsettings.marknumberofdayssince)
             }
     }
 }
