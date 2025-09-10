@@ -188,9 +188,8 @@ extension ProcessRsync {
                 }
                 // Send message about files, do not report the last lines of status from rsync if
                 // the real run is ongoing
-                if usefilehandler && self.beginningofsummarizedstatus == false && self.realrun == false {
+                if usefilehandler && self.beginningofsummarizedstatus == false && self.realrun == true {
                     filehandler(output.count)
-                    print(output.count)
                 }
             }
             outHandle.waitForDataInBackgroundAndNotify()
