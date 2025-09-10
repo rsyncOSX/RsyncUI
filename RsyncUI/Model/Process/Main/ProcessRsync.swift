@@ -37,6 +37,9 @@ final class ProcessRsync {
     // rsync = "Number of files" at start of last line nr 16
     // openrsync = "Number of files" at start of last line nr 14
     var beginningofsummarizedstatus: Bool = false
+    // When RsyncUI starts or version of rsync is changed
+    // the arguments is only one and contains ["--version"] only
+    var getrsyncversion: Bool = false
 
     func executeProcess() {
         // Must check valid rsync exists
@@ -62,7 +65,11 @@ final class ProcessRsync {
 
         sequenceFileHandlerTask = Task {
             for await _ in sequencefilehandler {
-                await self.datahandle(pipe)
+                if self.getrsyncversion == true {
+                    await self.datahandlersyncversion(pipe)
+                } else {
+                    await self.datahandle(pipe)
+                }
             }
         }
 
@@ -102,7 +109,7 @@ final class ProcessRsync {
         self.processtermination = processtermination
         self.filehandler = filehandler
         self.usefilehandler = usefilehandler
-
+        
         if let config {
             self.config = config
         }
@@ -111,6 +118,10 @@ final class ProcessRsync {
         }
         let argumentscontainsdryrun = arguments?.contains("--dry-run") ?? false
         self.realrun = !argumentscontainsdryrun
+        
+        if arguments?.count == 1 {
+            getrsyncversion = arguments?.contains("--version") ?? false
+        }
     }
 
     convenience init(arguments: [String]?,
@@ -160,6 +171,20 @@ final class ProcessRsync {
 }
 
 extension ProcessRsync {
+    
+    func datahandlersyncversion(_ pipe: Pipe) async {
+        let outHandle = pipe.fileHandleForReading
+        let data = outHandle.availableData
+        if data.count > 0 {
+            if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
+                str.enumerateLines { line, _ in
+                    self.output.append(line)
+                }
+                outHandle.waitForDataInBackgroundAndNotify()
+            }
+        }
+    }
+    
     func datahandle(_ pipe: Pipe) async {
         let outHandle = pipe.fileHandleForReading
         let data = outHandle.availableData
@@ -172,7 +197,7 @@ extension ProcessRsync {
                         if line.contains("Number of files") {
                             self.beginningofsummarizedstatus = true
                         }
-                        Logger.process.info("ProcessRsync: last status reports from rsync or openrsync discovered")
+                        Logger.process.info("ProcessRsync: beginning of status reports discovered")
                     }
                     if SharedReference.shared.checkforerrorinrsyncoutput,
                        self.errordiscovered == false
