@@ -76,7 +76,7 @@ actor ActorReadSynchronizeConfigurationJSON {
                 let tasks = data.compactMap { element in
                     // snapshot and syncremote tasks requiere version3.x of rsync
                     if element.task == "snapshot" || element.task == "syncremote" {
-                        if rsyncversion3  {
+                        if rsyncversion3 {
                             return SynchronizeConfiguration(element)
                         }
                     } else {

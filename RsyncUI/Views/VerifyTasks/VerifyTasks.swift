@@ -111,8 +111,8 @@ struct VerifyTasks: View {
             process.executeProcess()
         } else {
             let process = ProcessRsyncOpenrsync(arguments: arguments,
-                                            config: config,
-                                            processtermination: processtermination)
+                                                config: config,
+                                                processtermination: processtermination)
             process.executeProcess()
         }
     }

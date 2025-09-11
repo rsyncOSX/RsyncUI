@@ -83,8 +83,4 @@ final class ObservableRsyncPathSetting {
             SharedReference.shared.marknumberofdayssince = 5
         }
     }
-
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
-    }
 }

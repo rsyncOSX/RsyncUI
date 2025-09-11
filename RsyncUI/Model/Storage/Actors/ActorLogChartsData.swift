@@ -40,13 +40,6 @@ actor ActorLogChartsData {
                                 files: Int(files),
                                 transferredMB: size,
                                 seconds: seconds)
-                /*
-                 return (seconds > 1 || size > 1 || files > 1) ? LogEntry(date: logrecord.date,
-                 files: Int(files),
-                 transferredMB: size,
-                 seconds: seconds) : nil
-                 */
-
                 // Synchronize task
             } else {
                 let files = numbers[0]
@@ -56,13 +49,6 @@ actor ActorLogChartsData {
                                 files: Int(files),
                                 transferredMB: size,
                                 seconds: seconds)
-                /*
-                 return (seconds > 1 || size > 1 || files > 1) ? LogEntry(date: logrecord.date,
-                 files: Int(files),
-                 transferredMB: size,
-                 seconds: seconds) : nil
-                 }
-                 */
             }
         }
     }

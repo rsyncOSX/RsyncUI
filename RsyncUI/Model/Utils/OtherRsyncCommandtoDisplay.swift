@@ -26,16 +26,13 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
 @MainActor
 struct OtherRsyncCommandtoDisplay {
     var command: String
-    var profile: String = "Default"
+    // var profile: String = "Default"
 
     init(display: OtherRsyncCommand,
          config: SynchronizeConfiguration,
          profile: String?)
     {
         var str = ""
-        if let profile {
-            self.profile = profile
-        }
         switch display {
         case .list_remote_files:
             if config.offsiteServer.isEmpty == false {
@@ -71,18 +68,6 @@ struct OtherRsyncCommandtoDisplay {
             } else {
                 str = NSLocalizedString("No remote server on task", comment: "")
             }
-        /*
-         case .remote_disk_usage:
-             if config.offsiteServer.isEmpty == false {
-                 let diskusage = ArgumentsRemoteDiskUsage(config: config,
-                                                          remotecatalog: config.offsiteCatalog)
-                 if let arguments = diskusage.argumentsremotediskusage() {
-                     str = (diskusage.getCommand() ?? "") + " " + arguments.joined(separator: " ")
-                 }
-             } else {
-                 str = NSLocalizedString("Use macOS Finder", comment: "")
-             }
-         */
         case .URL_verify:
             if config.task == SharedReference.shared.synchronize {
                 let deeplinkurl = DeeplinkURL()

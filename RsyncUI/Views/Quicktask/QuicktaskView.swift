@@ -417,26 +417,6 @@ struct QuicktaskView: View {
             })
     }
 
-    var attachedVolumesCatalogs: [String] {
-        if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
-            let fm = FileManager.default
-            let atpathURL = attachedVolumes[index].volumename
-            var catalogs = [String]()
-            do {
-                for filesandfolders in try
-                    fm.contentsOfDirectory(at: atpathURL, includingPropertiesForKeys: nil)
-                    where filesandfolders.hasDirectoryPath
-                {
-                    catalogs.append(filesandfolders.lastPathComponent)
-                }
-                return catalogs
-            } catch {
-                return []
-            }
-        }
-        return []
-    }
-
     var localhome: String {
         Homepath().userHomeDirectoryPath ?? ""
     }
@@ -485,7 +465,7 @@ extension QuicktaskView {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: dryrun, forDisplay: false)
         // Start progressview
         showprogressview = true
-        
+
         if SharedReference.shared.rsyncversion3 {
             let process = ProcessRsyncVer3x(arguments: arguments,
                                             config: config,
@@ -493,8 +473,8 @@ extension QuicktaskView {
             process.executeProcess()
         } else {
             let process = ProcessRsyncOpenrsync(arguments: arguments,
-                                            config: config,
-                                            processtermination: processtermination)
+                                                config: config,
+                                                processtermination: processtermination)
             process.executeProcess()
         }
     }

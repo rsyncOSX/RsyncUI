@@ -42,7 +42,7 @@ extension Rsyncversion {
             SharedReference.shared.rsyncversionshort =
                 rsyncversionshort.replacingOccurrences(of: "protocol", with: "\nprotocol")
 
-            if rsyncversionshort.contains("version 3.")  {
+            if rsyncversionshort.contains("version 3.") {
                 SharedReference.shared.rsyncversion3 = true
                 Logger.process.info("Rsyncversion: version 3.x of rsync discovered")
             } else {

@@ -16,10 +16,6 @@ struct AboutView: View {
         Resources().getResource(resource: .changelog)
     }
 
-    var appName: String {
-        (Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String) ?? "RsyncUI"
-    }
-
     var appVersion: String {
         (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? "1.0"
     }

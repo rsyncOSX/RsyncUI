@@ -151,14 +151,6 @@ struct ConfigurationsTableDataMainView: View {
         }
     }
 
-    var visible_not_progress: Visibility {
-        if max == 0 {
-            .visible
-        } else {
-            .hidden
-        }
-    }
-
     private func markconfig(_ seconds: Double) -> Bool {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }
