@@ -69,9 +69,9 @@ final class ObservableRsyncPathSetting {
 
     func verifystringtoint(_ days: String) -> Bool {
         if Int(days) != nil {
-            return true
+            true
         } else {
-            return false
+            false
         }
     }
 

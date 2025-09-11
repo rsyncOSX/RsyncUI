@@ -147,7 +147,6 @@ struct RsyncandPathsettings: View {
                              $rsyncpathsettings.marknumberofdayssince,
                              rsyncpathsettings.verifystringtoint(rsyncpathsettings.marknumberofdayssince))
             .foregroundColor(rsyncpathsettings.verifystringtoint(rsyncpathsettings.marknumberofdayssince) ? Color.white : Color.red)
-        
             .onChange(of: rsyncpathsettings.marknumberofdayssince) {
                 guard rsyncpathsettings.verifystringtoint(rsyncpathsettings.marknumberofdayssince) else {
                     return

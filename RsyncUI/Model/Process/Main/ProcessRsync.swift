@@ -29,17 +29,6 @@ final class ProcessRsync {
     // Tasks
     var sequenceFileHandlerTask: Task<Void, Never>?
     var sequenceTerminationTask: Task<Void, Never>?
-    // The real run
-    // Used to not report the last status from rsync for more precise progress report
-    // the not reported lines are appended to output though for logging statistics reporting
-    var realrun: Bool = false
-    // The beginning of summarized status is discovered
-    // rsync = "Number of files" at start of last line nr 16
-    // openrsync = "Number of files" at start of last line nr 14
-    var beginningofsummarizedstatus: Bool = false
-    // When RsyncUI starts or version of rsync is changed
-    // the arguments is only one and contains ["--version"] only
-    var getrsyncversion: Bool = false
 
     func executeProcess() {
         // Must check valid rsync exists
@@ -65,11 +54,7 @@ final class ProcessRsync {
 
         sequenceFileHandlerTask = Task {
             for await _ in sequencefilehandler {
-                if self.getrsyncversion == true {
-                    await self.datahandlersyncversion(pipe)
-                } else {
-                    await self.datahandle(pipe)
-                }
+                await self.datahandle(pipe)
             }
         }
 
@@ -109,18 +94,12 @@ final class ProcessRsync {
         self.processtermination = processtermination
         self.filehandler = filehandler
         self.usefilehandler = usefilehandler
-        
+
         if let config {
             self.config = config
         }
         if SharedReference.shared.checkforerrorinrsyncoutput {
             checklineforerror = TrimOutputFromRsync()
-        }
-        let argumentscontainsdryrun = arguments?.contains("--dry-run") ?? false
-        self.realrun = !argumentscontainsdryrun
-        
-        if arguments?.count == 1 {
-            getrsyncversion = arguments?.contains("--version") ?? false
         }
     }
 
@@ -171,20 +150,6 @@ final class ProcessRsync {
 }
 
 extension ProcessRsync {
-    
-    func datahandlersyncversion(_ pipe: Pipe) async {
-        let outHandle = pipe.fileHandleForReading
-        let data = outHandle.availableData
-        if data.count > 0 {
-            if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                str.enumerateLines { line, _ in
-                    self.output.append(line)
-                }
-                outHandle.waitForDataInBackgroundAndNotify()
-            }
-        }
-    }
-    
     func datahandle(_ pipe: Pipe) async {
         let outHandle = pipe.fileHandleForReading
         let data = outHandle.availableData
@@ -192,13 +157,6 @@ extension ProcessRsync {
             if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
                 str.enumerateLines { line, _ in
                     self.output.append(line)
-                    // realrun == true if arguments does not contain --dry-run parameter
-                    if self.realrun && self.beginningofsummarizedstatus == false {
-                        if line.contains("Number of files") {
-                            self.beginningofsummarizedstatus = true
-                        }
-                        Logger.process.info("ProcessRsync: beginning of status reports discovered")
-                    }
                     if SharedReference.shared.checkforerrorinrsyncoutput,
                        self.errordiscovered == false
                     {
@@ -211,9 +169,8 @@ extension ProcessRsync {
                         }
                     }
                 }
-                // Send message about files, do not report the last lines of status from rsync if
-                // the real run is ongoing
-                if usefilehandler && self.beginningofsummarizedstatus == false && self.realrun == true {
+                // Send message about files
+                if usefilehandler {
                     filehandler(output.count)
                 }
             }
