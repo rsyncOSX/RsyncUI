@@ -30,7 +30,7 @@ enum ValidateInputError: LocalizedError {
         case .snapshotnum:
             "Snapshotnum must be 1"
         case .rsyncversion2:
-            "Snapshot require rsync ver3.x"
+            "Snapshot and syncremote require rsync ver3.x"
         }
     }
 }
@@ -227,14 +227,14 @@ final class VerifyConfiguration: Connected {
                 throw ValidateInputError.offsiteserver
             }
         }
+        
         if config.task == SharedReference.shared.snapshot {
             // Verify rsync version 3.x
-            if let rsyncversionshort = SharedReference.shared.rsyncversionshort {
-                guard rsyncversionshort.contains("version 3") else {
-                    Logger.process.warning("VerifyConfiguration: snapshots requiere version 3.x of rsync.")
-                    throw ValidateInputError.rsyncversion2
-                }
+            guard SharedReference.shared.rsyncversion3 else {
+                Logger.process.warning("VerifyConfiguration: snapshots requiere version 3.x of rsync.")
+                throw ValidateInputError.rsyncversion2
             }
+            
             guard config.snapshotnum != nil else {
                 Logger.process.warning("VerifyConfiguration: snapshotnum not set.")
                 throw ValidateInputError.snapshotnum
@@ -246,7 +246,14 @@ final class VerifyConfiguration: Connected {
                 throw ValidateInputError.notconnected
             }
         }
+        
         if config.task == SharedReference.shared.syncremote {
+            // Verify rsync version 3.x
+            guard SharedReference.shared.rsyncversion3 else {
+                Logger.process.warning("VerifyConfiguration: syncremote requiere version 3.x of rsync.")
+                throw ValidateInputError.rsyncversion2
+            }
+            
             guard config.offsiteServer.isEmpty == false, config.offsiteUsername.isEmpty == false else {
                 throw ValidateInputError.offsiteusername
             }

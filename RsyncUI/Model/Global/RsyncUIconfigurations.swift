@@ -40,7 +40,8 @@ final class RsyncUIconfigurations {
     }
 
     @ObservationIgnored var oneormoresynchronizetasksisremote: Bool {
-        configurations?.filter { $0.task == SharedReference.shared.synchronize &&
+        guard SharedReference.shared.rsyncversion3 else { return false }
+        return configurations?.filter { $0.task == SharedReference.shared.synchronize &&
             $0.offsiteServer.isEmpty == false
         }.count ?? 0 > 0
     }

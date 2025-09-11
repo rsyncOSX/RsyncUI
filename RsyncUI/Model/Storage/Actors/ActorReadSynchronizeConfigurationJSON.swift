@@ -51,6 +51,7 @@ actor ActorReadSynchronizeConfigurationJSON {
 
     @concurrent
     nonisolated func readjsonfilesynchronizeconfigurations(_ profile: String?,
+                                                           _ rsyncversion3: Bool,
                                                            _ monitornetworkconnection: Bool,
                                                            _ sharedsshport: Int?) async -> [SynchronizeConfiguration]?
     {
@@ -72,8 +73,16 @@ actor ActorReadSynchronizeConfigurationJSON {
                 decodeimport.decodearraydatafileURL(DecodeSynchronizeConfiguration.self, fromwhere: filename)
             {
                 Logger.process.info("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): DECODE MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
-                let tasks = data.map { element in
-                    SynchronizeConfiguration(element)
+                let tasks = data.compactMap { element in
+                    // snapshot and syncremote tasks requiere version3.x of rsync
+                    if element.task == "snapshot" || element.task == "syncremote" {
+                        if rsyncversion3  {
+                            return SynchronizeConfiguration(element)
+                        }
+                    } else {
+                        return SynchronizeConfiguration(element)
+                    }
+                    return nil
                 }
 
                 if monitornetworkconnection {
