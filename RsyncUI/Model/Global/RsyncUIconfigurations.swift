@@ -30,11 +30,13 @@ final class RsyncUIconfigurations {
     // .doubleColumn or .detailOnly
 
     @ObservationIgnored var oneormoretasksissnapshot: Bool {
-        (configurations?.contains { $0.task == SharedReference.shared.snapshot } ?? false)
+        guard SharedReference.shared.rsyncversion3 else { return false }
+        return (configurations?.contains { $0.task == SharedReference.shared.snapshot } ?? false)
     }
 
     @ObservationIgnored var oneormoresnapshottasksisremote: Bool {
-        configurations?.filter { $0.task == SharedReference.shared.snapshot &&
+        guard SharedReference.shared.rsyncversion3 else { return false }
+        return configurations?.filter { $0.task == SharedReference.shared.snapshot &&
             $0.offsiteServer.isEmpty == false
         }.count ?? 0 > 0
     }
