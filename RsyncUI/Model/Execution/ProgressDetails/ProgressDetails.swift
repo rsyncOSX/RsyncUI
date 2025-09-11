@@ -32,19 +32,15 @@ final class ProgressDetails {
     var hiddenIDatwork: Int = -1
 
     func getmaxcountbytask() -> Double {
-        let max = estimatedlist?.filter { $0.hiddenID == hiddenIDatwork }
-        if (max?.count ?? 0) == 1 {
-            var num = 0.0
-            num = Double(max?[0].outputfromrsync?.count ?? 0)
-            if num <= 0 {
-                num = 0
+            let max = estimatedlist?.filter { $0.hiddenID == hiddenIDatwork }
+            if (max?.count ?? 0) == 1 {
+                let num = Double(max?[0].outputfromrsync?.count ?? 0) + 3
+                Logger.process.info("ProgressDetails: EXECUTING getmaxcountbytask() : \(num, privacy: .public) ")
+                return Double(max?[0].outputfromrsync?.count ?? 0) + 3
+            } else {
+                return 0
             }
-            Logger.process.info("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num, privacy: .public)")
-            return num
-        } else {
-            return 0
         }
-    }
 
     // For execution
 
