@@ -43,9 +43,16 @@ final class ObservableRestore {
                 arguments = computerestorearguments(forDisplay: false)
                 if let arguments {
                     restorefilesinprogress = true
-                    let command = ProcessRsyncVer3x(arguments: arguments,
-                                                    processtermination: processtermination)
-                    command.executeProcess()
+                    
+                    if SharedReference.shared.rsyncversion3 {
+                        let process = ProcessRsyncVer3x(arguments: arguments,
+                                                        processtermination: processtermination)
+                        process.executeProcess()
+                    } else {
+                        let process = ProcessRsyncOpenrsync(arguments: arguments,
+                                                        processtermination: processtermination)
+                        process.executeProcess()
+                    }
                 }
             }
         } catch let e {

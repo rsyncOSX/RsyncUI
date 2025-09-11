@@ -290,13 +290,13 @@ extension RestoreTableView {
             guard arguments?.isEmpty == false else { return }
 
             if SharedReference.shared.rsyncversion3 {
-                let command = ProcessRsyncVer3x(arguments: arguments,
+                let process = ProcessRsyncVer3x(arguments: arguments,
                                                 processtermination: processtermination)
-                command.executeProcess()
+                process.executeProcess()
             } else {
-                let command = ProcessRsyncOpenrsync(arguments: arguments,
+                let process = ProcessRsyncOpenrsync(arguments: arguments,
                                                     processtermination: processtermination)
-                command.executeProcess()
+                process.executeProcess()
             }
         }
     }

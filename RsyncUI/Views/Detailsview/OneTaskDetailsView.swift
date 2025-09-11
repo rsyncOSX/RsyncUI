@@ -53,15 +53,15 @@ struct OneTaskDetailsView: View {
             guard arguments != nil else { return }
 
             if SharedReference.shared.rsyncversion3 {
-                let task = ProcessRsyncVer3x(arguments: arguments,
+                let process = ProcessRsyncVer3x(arguments: arguments,
                                              config: selectedconfig,
                                              processtermination: processtermination)
-                task.executeProcess()
+                process.executeProcess()
             } else {
-                let task = ProcessRsyncOpenrsync(arguments: arguments,
+                let process = ProcessRsyncOpenrsync(arguments: arguments,
                                                  config: selectedconfig,
                                                  processtermination: processtermination)
-                task.executeProcess()
+                process.executeProcess()
             }
         })
     }
