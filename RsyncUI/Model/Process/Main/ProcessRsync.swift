@@ -67,8 +67,10 @@ final class ProcessRsync {
             for await _ in sequencefilehandler {
                 if self.getrsyncversion == true {
                     await self.datahandlersyncversion(pipe)
-                } else {
+                } else if SharedReference.shared.rsyncversion3 {
                     await self.datahandle(pipe)
+                } else {
+                    await self.datahandleopenrsync(pipe)
                 }
             }
         }
@@ -213,7 +215,38 @@ extension ProcessRsync {
                 }
                 // Send message about files, do not report the last lines of status from rsync if
                 // the real run is ongoing
-                if usefilehandler && self.beginningofsummarizedstatus == false && self.realrun == true {
+                if usefilehandler && self.beginningofsummarizedstatus == false && self.realrun == true && SharedReference.shared.rsyncversion3 {
+                    filehandler(output.count)
+                } else {
+                    filehandler(output.count)
+                }
+            }
+            outHandle.waitForDataInBackgroundAndNotify()
+        }
+    }
+    
+    func datahandleopenrsync(_ pipe: Pipe) async {
+        let outHandle = pipe.fileHandleForReading
+        let data = outHandle.availableData
+        if data.count > 0 {
+            if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
+                str.enumerateLines { line, _ in
+                    self.output.append(line)
+                    if SharedReference.shared.checkforerrorinrsyncoutput,
+                       self.errordiscovered == false
+                    {
+                        do {
+                            try self.checklineforerror?.checkforrsyncerror(line)
+                        } catch let e {
+                            self.errordiscovered = true
+                            let error = e
+                            self.propogateerror(error: error)
+                        }
+                    }
+                }
+                // Send message about files, do not report the last lines of status from rsync if
+                // the real run is ongoing
+                if usefilehandler {
                     filehandler(output.count)
                 }
             }
