@@ -1,5 +1,5 @@
 //
-//  ProcessRsync.swift
+//  ProcessRsyncVer3x.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 03/08/2025.
@@ -9,7 +9,7 @@ import Foundation
 import OSLog
 
 @MainActor
-final class ProcessRsync {
+final class ProcessRsyncVer3x {
     // Process termination and filehandler closures
     var processtermination: ([String]?, Int?) -> Void
     var filehandler: (Int) -> Void
@@ -67,10 +67,8 @@ final class ProcessRsync {
             for await _ in sequencefilehandler {
                 if self.getrsyncversion == true {
                     await self.datahandlersyncversion(pipe)
-                } else if SharedReference.shared.rsyncversion3 {
-                    await self.datahandle(pipe)
                 } else {
-                    await self.datahandleopenrsync(pipe)
+                    await self.datahandle(pipe)
                 }
             }
         }
@@ -92,8 +90,8 @@ final class ProcessRsync {
             propogateerror(error: error)
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
-            Logger.process.info("ProcessRsync: \(launchPath, privacy: .public)")
-            Logger.process.info("ProcessRsync: \(arguments.joined(separator: "\n"), privacy: .public)")
+            Logger.process.info("ProcessRsyncVer3x: \(launchPath, privacy: .public)")
+            Logger.process.info("ProcessRsyncVer3x: \(arguments.joined(separator: "\n"), privacy: .public)")
         }
     }
 
@@ -111,7 +109,7 @@ final class ProcessRsync {
         self.processtermination = processtermination
         self.filehandler = filehandler
         self.usefilehandler = usefilehandler
-        
+
         if let config {
             self.config = config
         }
@@ -119,8 +117,8 @@ final class ProcessRsync {
             checklineforerror = TrimOutputFromRsync()
         }
         let argumentscontainsdryrun = arguments?.contains("--dry-run") ?? false
-        self.realrun = !argumentscontainsdryrun
-        
+        realrun = !argumentscontainsdryrun
+
         if arguments?.count == 1 {
             getrsyncversion = arguments?.contains("--version") ?? false
         }
@@ -144,7 +142,7 @@ final class ProcessRsync {
     {
         // To satisfy arguments
         let filehandler: (Int) -> Void = { _ in
-            Logger.process.info("ProcessRsync: You should NOT SEE this message")
+            Logger.process.info("ProcessRsyncVer3x: You should NOT SEE this message")
         }
         self.init(arguments: arguments,
                   config: config,
@@ -158,7 +156,7 @@ final class ProcessRsync {
     {
         // To satisfy arguments
         let filehandler: (Int) -> Void = { _ in
-            Logger.process.info("ProcessRsync: You should not SEE this message")
+            Logger.process.info("ProcessRsyncVer3x: You should not SEE this message")
         }
         self.init(arguments: arguments,
                   config: nil,
@@ -172,8 +170,7 @@ final class ProcessRsync {
     }
 }
 
-extension ProcessRsync {
-    
+extension ProcessRsyncVer3x {
     func datahandlersyncversion(_ pipe: Pipe) async {
         let outHandle = pipe.fileHandleForReading
         let data = outHandle.availableData
@@ -186,7 +183,7 @@ extension ProcessRsync {
             }
         }
     }
-    
+
     func datahandle(_ pipe: Pipe) async {
         let outHandle = pipe.fileHandleForReading
         let data = outHandle.availableData
@@ -195,10 +192,10 @@ extension ProcessRsync {
                 str.enumerateLines { line, _ in
                     self.output.append(line)
                     // realrun == true if arguments does not contain --dry-run parameter
-                    if self.realrun && self.beginningofsummarizedstatus == false {
+                    if self.realrun, self.beginningofsummarizedstatus == false {
                         if line.contains("Number of files") {
                             self.beginningofsummarizedstatus = true
-                            Logger.process.info("ProcessRsync: datahandle() beginning of status reports discovered")
+                            Logger.process.info("ProcessRsyncVer3x: datahandle() beginning of status reports discovered")
                         }
                     }
                     if SharedReference.shared.checkforerrorinrsyncoutput,
@@ -215,38 +212,7 @@ extension ProcessRsync {
                 }
                 // Send message about files, do not report the last lines of status from rsync if
                 // the real run is ongoing
-                if usefilehandler && self.beginningofsummarizedstatus == false && self.realrun == true && SharedReference.shared.rsyncversion3 {
-                    filehandler(output.count)
-                } else {
-                    filehandler(output.count)
-                }
-            }
-            outHandle.waitForDataInBackgroundAndNotify()
-        }
-    }
-    
-    func datahandleopenrsync(_ pipe: Pipe) async {
-        let outHandle = pipe.fileHandleForReading
-        let data = outHandle.availableData
-        if data.count > 0 {
-            if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                str.enumerateLines { line, _ in
-                    self.output.append(line)
-                    if SharedReference.shared.checkforerrorinrsyncoutput,
-                       self.errordiscovered == false
-                    {
-                        do {
-                            try self.checklineforerror?.checkforrsyncerror(line)
-                        } catch let e {
-                            self.errordiscovered = true
-                            let error = e
-                            self.propogateerror(error: error)
-                        }
-                    }
-                }
-                // Send message about files, do not report the last lines of status from rsync if
-                // the real run is ongoing
-                if usefilehandler {
+                if usefilehandler, beginningofsummarizedstatus == false, realrun == true {
                     filehandler(output.count)
                 }
             }

@@ -27,7 +27,6 @@ struct RsyncandPathsettings: View {
                                 rsyncpathsettings.localrsyncpath = ""
                             } else {
                                 SharedReference.shared.rsyncversion3 = rsyncpathsettings.rsyncversion3
-                                print(SharedReference.shared.rsyncversion3)
                                 SharedReference.shared.localrsyncpath = nil
                                 rsyncpathsettings.localrsyncpath = ""
                             }
@@ -147,7 +146,6 @@ struct RsyncandPathsettings: View {
                              $rsyncpathsettings.marknumberofdayssince,
                              rsyncpathsettings.verifystringtoint(rsyncpathsettings.marknumberofdayssince))
             .foregroundColor(rsyncpathsettings.verifystringtoint(rsyncpathsettings.marknumberofdayssince) ? Color.white : Color.red)
-        
             .onChange(of: rsyncpathsettings.marknumberofdayssince) {
                 guard rsyncpathsettings.verifystringtoint(rsyncpathsettings.marknumberofdayssince) else {
                     return

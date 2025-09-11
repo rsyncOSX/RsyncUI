@@ -51,9 +51,9 @@ struct OneTaskDetailsView: View {
             let arguments = ArgumentsSynchronize(config: selectedconfig)
                 .argumentssynchronize(dryRun: true, forDisplay: false)
             guard arguments != nil else { return }
-            let task = ProcessRsync(arguments: arguments,
-                                    config: selectedconfig,
-                                    processtermination: processtermination)
+            let task = ProcessRsyncVer3x(arguments: arguments,
+                                         config: selectedconfig,
+                                         processtermination: processtermination)
             task.executeProcess()
         })
     }

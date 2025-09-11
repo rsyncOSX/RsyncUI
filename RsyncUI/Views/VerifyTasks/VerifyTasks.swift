@@ -104,9 +104,9 @@ struct VerifyTasks: View {
     func verify(config: SynchronizeConfiguration) {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
                                                                                   forDisplay: false)
-        let process = ProcessRsync(arguments: arguments,
-                                   config: config,
-                                   processtermination: processtermination)
+        let process = ProcessRsyncVer3x(arguments: arguments,
+                                        config: config,
+                                        processtermination: processtermination)
         process.executeProcess()
     }
 

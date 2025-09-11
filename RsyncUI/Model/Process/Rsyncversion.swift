@@ -7,6 +7,7 @@
 
 import Foundation
 import Observation
+import OSLog
 
 @Observable @MainActor
 final class Rsyncversion {
@@ -18,8 +19,8 @@ final class Rsyncversion {
             SharedReference.shared.rsyncversionshort = "No valid rsync deteced"
         }
         if SharedReference.shared.norsync == false {
-            let command = ProcessRsync(arguments: ["--version"],
-                                       processtermination: processtermination)
+            let command = ProcessRsyncVer3x(arguments: ["--version"],
+                                            processtermination: processtermination)
             command.executeProcess()
         }
     }
@@ -41,10 +42,12 @@ extension Rsyncversion {
             SharedReference.shared.rsyncversionshort =
                 rsyncversionshort.replacingOccurrences(of: "protocol", with: "\nprotocol")
 
-            if rsyncversionshort.contains("version 3.3") || rsyncversionshort.contains("version 3.4") {
+            if rsyncversionshort.contains("version 3.")  {
                 SharedReference.shared.rsyncversion3 = true
+                Logger.process.info("Rsyncversion: version 3.x of rsync discovered")
             } else {
                 SharedReference.shared.rsyncversion3 = false
+                Logger.process.info("Rsyncversion: default openrsync discovered")
             }
         }
     }

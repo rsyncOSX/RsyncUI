@@ -58,9 +58,9 @@ final class EstimateExecute {
                 {
                     // Used to display details of configuration in estimation
                     localprogressdetails?.configurationtobestimated = config.id
-                    let process = ProcessRsync(arguments: arguments,
-                                               config: config,
-                                               processtermination: processtermination_estimation)
+                    let process = ProcessRsyncVer3x(arguments: arguments,
+                                                    config: config,
+                                                    processtermination: processtermination_estimation)
                     process.executeProcess()
                 }
             }
@@ -76,10 +76,10 @@ final class EstimateExecute {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
                                                                                              forDisplay: false)
                 {
-                    let process = ProcessRsync(arguments: arguments,
-                                               config: config,
-                                               processtermination: processtermination_excute,
-                                               filehandler: localfilehandler)
+                    let process = ProcessRsyncVer3x(arguments: arguments,
+                                                    config: config,
+                                                    processtermination: processtermination_excute,
+                                                    filehandler: localfilehandler)
                     process.executeProcess()
                 }
             }
@@ -93,10 +93,10 @@ final class EstimateExecute {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
                                                                                              forDisplay: false)
                 {
-                    let process = ProcessRsync(arguments: arguments,
-                                               config: config,
-                                               processtermination: processtermination_noestimation,
-                                               filehandler: localfilehandler)
+                    let process = ProcessRsyncVer3x(arguments: arguments,
+                                                    config: config,
+                                                    processtermination: processtermination_noestimation,
+                                                    filehandler: localfilehandler)
                     process.executeProcess()
                 }
             }
