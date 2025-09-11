@@ -485,10 +485,18 @@ extension QuicktaskView {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: dryrun, forDisplay: false)
         // Start progressview
         showprogressview = true
-        let process = ProcessRsyncVer3x(arguments: arguments,
-                                        config: config,
-                                        processtermination: processtermination)
-        process.executeProcess()
+        
+        if SharedReference.shared.rsyncversion3 {
+            let process = ProcessRsyncVer3x(arguments: arguments,
+                                            config: config,
+                                            processtermination: processtermination)
+            process.executeProcess()
+        } else {
+            let process = ProcessRsyncOpenrsync(arguments: arguments,
+                                            config: config,
+                                            processtermination: processtermination)
+            process.executeProcess()
+        }
     }
 
     func abort() {

@@ -104,10 +104,17 @@ struct VerifyTasks: View {
     func verify(config: SynchronizeConfiguration) {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
                                                                                   forDisplay: false)
-        let process = ProcessRsyncVer3x(arguments: arguments,
-                                        config: config,
-                                        processtermination: processtermination)
-        process.executeProcess()
+        if SharedReference.shared.rsyncversion3 {
+            let process = ProcessRsyncVer3x(arguments: arguments,
+                                            config: config,
+                                            processtermination: processtermination)
+            process.executeProcess()
+        } else {
+            let process = ProcessRsyncOpenrsync(arguments: arguments,
+                                            config: config,
+                                            processtermination: processtermination)
+            process.executeProcess()
+        }
     }
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {

@@ -288,9 +288,16 @@ extension RestoreTableView {
                 arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments()
             }
             guard arguments?.isEmpty == false else { return }
-            let command = ProcessRsyncVer3x(arguments: arguments,
-                                            processtermination: processtermination)
-            command.executeProcess()
+            
+            if SharedReference.shared.rsyncversion3 {
+                let command = ProcessRsyncVer3x(arguments: arguments,
+                                                processtermination: processtermination)
+                command.executeProcess()
+            } else {
+                let command = ProcessRsyncOpenrsync(arguments: arguments,
+                                                processtermination: processtermination)
+                command.executeProcess()
+            }
         }
     }
 
