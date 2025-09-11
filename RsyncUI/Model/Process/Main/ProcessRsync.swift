@@ -196,8 +196,8 @@ extension ProcessRsync {
                     if self.realrun && self.beginningofsummarizedstatus == false {
                         if line.contains("Number of files") {
                             self.beginningofsummarizedstatus = true
+                            Logger.process.info("ProcessRsync: datahandle() beginning of status reports discovered")
                         }
-                        Logger.process.info("ProcessRsync: beginning of status reports discovered")
                     }
                     if SharedReference.shared.checkforerrorinrsyncoutput,
                        self.errordiscovered == false
