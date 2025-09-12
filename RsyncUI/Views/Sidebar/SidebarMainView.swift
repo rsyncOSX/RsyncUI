@@ -299,15 +299,21 @@ struct SidebarMainView: View {
 
             // Return nil if there is no remote tasks, only local attached discs
             // Do not show the Verify remote sidebar meny
-            if rsyncUIdata.oneormoresynchronizetasksisremote == false,
+            if rsyncUIdata.oneormoresynchronizetasksisremoteVer3x == false,
                item == .verify_remote { return nil }
 
             // Return nil if there is no remote tasks, only local attached discs
             // Do not show the Restore remote sidebar meny
-            if rsyncUIdata.oneormoresynchronizetasksisremote == false,
-               rsyncUIdata.oneormoresnapshottasksisremote == false,
-               item == .restore { return nil }
-
+            
+            if SharedReference.shared.rsyncversion3 {
+                if rsyncUIdata.oneormoresynchronizetasksisremoteVer3x == false,
+                   rsyncUIdata.oneormoresnapshottasksisremote == false,
+                   item == .restore { return nil }
+            } else {
+                if rsyncUIdata.oneormoresynchronizetasksisremoteOpenrsync == false,
+                   item == .restore { return nil }
+            }
+            
             return MenuItem(menuitem: item)
         }
     }
