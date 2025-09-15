@@ -100,6 +100,7 @@ final class VerifyConfiguration: Connected {
     let verbose: String = "--verbose"
     let compress: String = "--compress"
     // let delete: String = "--delete"
+    var jumhost: Bool = false
 
     // Verify parameters for new config.
     func verify(_ data: AppendTask) -> SynchronizeConfiguration? {
@@ -119,6 +120,8 @@ final class VerifyConfiguration: Connected {
         newconfig.parameter4 = ""
         newconfig.dateRun = ""
         newconfig.hiddenID = data.hiddenID ?? -1
+        // SSH jump host
+        jumhost = data.newjumphost
 
         // First od all verify that either source or destination is empty
         // If one is empty bail out
@@ -223,16 +226,19 @@ final class VerifyConfiguration: Connected {
         else {
             throw ValidateInputError.localcatalog
         }
-        if config.offsiteServer.isEmpty == false {
-            guard config.offsiteUsername.isEmpty == false else {
-                throw ValidateInputError.offsiteusername
+        if jumhost == false {
+            if config.offsiteServer.isEmpty == false {
+                guard config.offsiteUsername.isEmpty == false else {
+                    throw ValidateInputError.offsiteusername
+                }
+            }
+            if config.offsiteUsername.isEmpty == false {
+                guard config.offsiteServer.isEmpty == false else {
+                    throw ValidateInputError.offsiteserver
+                }
             }
         }
-        if config.offsiteUsername.isEmpty == false {
-            guard config.offsiteServer.isEmpty == false else {
-                throw ValidateInputError.offsiteserver
-            }
-        }
+        
 
         if config.task == SharedReference.shared.snapshot {
             // Verify rsync version 3.x

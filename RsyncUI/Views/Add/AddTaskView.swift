@@ -105,41 +105,43 @@ struct AddTaskView: View {
                     }
 
                     Spacer()
-
-                    if let selectedconfig,
-                       selectedconfig.task == SharedReference.shared.synchronize
-                    {
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Button {
-                                    let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
-                                    WriteWidgetsURLStringsJSON(data, .estimate)
-                                } label: {
-                                    Image(systemName: "square.and.arrow.down")
-                                }
-                                .disabled(stringestimate.isEmpty)
-                                .imageScale(.large)
-                                .help(stringestimate)
-
-                                Text("URL Estimate & Synchronize")
-                            }
-                            .padding(5)
-
-                            if selectedconfig.offsiteServer.isEmpty == false {
+                    
+                    if newdata.jumphost == false {
+                        if let selectedconfig,
+                           selectedconfig.task == SharedReference.shared.synchronize
+                        {
+                            VStack(alignment: .leading) {
                                 HStack {
                                     Button {
                                         let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
-                                        WriteWidgetsURLStringsJSON(data, .verify)
+                                        WriteWidgetsURLStringsJSON(data, .estimate)
                                     } label: {
                                         Image(systemName: "square.and.arrow.down")
                                     }
-                                    .disabled(stringverify.isEmpty)
+                                    .disabled(stringestimate.isEmpty)
                                     .imageScale(.large)
-                                    .help(stringverify)
+                                    .help(stringestimate)
 
-                                    Text("URL Verify")
+                                    Text("URL Estimate & Synchronize")
                                 }
                                 .padding(5)
+
+                                if selectedconfig.offsiteServer.isEmpty == false {
+                                    HStack {
+                                        Button {
+                                            let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
+                                            WriteWidgetsURLStringsJSON(data, .verify)
+                                        } label: {
+                                            Image(systemName: "square.and.arrow.down")
+                                        }
+                                        .disabled(stringverify.isEmpty)
+                                        .imageScale(.large)
+                                        .help(stringverify)
+
+                                        Text("URL Verify")
+                                    }
+                                    .padding(5)
+                                }
                             }
                         }
                     }
@@ -191,6 +193,11 @@ struct AddTaskView: View {
                                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                     selectedconfig = configurations[index]
                                     newdata.updateview(configurations[index])
+                                    
+                                    /*
+                                    newdata.jumphost = selectedconfig?.offsiteUsername.isEmpty && selectedconfig?.offsiteServer.isEmpty == false
+                                    */
+                                    
                                     // URLs
                                     if selectedconfig?.task == SharedReference.shared.synchronize {
                                         let deeplinkurl = DeeplinkURL()
