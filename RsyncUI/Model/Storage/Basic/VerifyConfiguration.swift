@@ -48,6 +48,8 @@ struct AppendTask {
     var hiddenID: Int?
     // For snapshottask, snapshotnum might be reset
     var snapshotnum: Int?
+    // SSH jump host
+    var newjumphost: Bool
 
     init(_ task: String,
          _ localCatalog: String,
@@ -55,7 +57,8 @@ struct AppendTask {
          _ trailingslashoptions: TrailingSlash,
          _ offsiteUsername: String?,
          _ offsiteServer: String?,
-         _ backupID: String?)
+         _ backupID: String?,
+         _ jumphost: Bool)
     {
         newtask = task
         newlocalCatalog = localCatalog
@@ -64,6 +67,7 @@ struct AppendTask {
         newoffsiteUsername = offsiteUsername
         newoffsiteServer = offsiteServer
         newbackupID = backupID
+        newjumphost = jumphost
     }
 
     init(_ task: String,
@@ -74,7 +78,8 @@ struct AppendTask {
          _ offsiteServer: String?,
          _ backupID: String?,
          _ updatedhiddenID: Int,
-         _ updatesnapshotnum: Int?)
+         _ updatesnapshotnum: Int?,
+         _ jumphost: Bool)
     {
         newtask = task
         newlocalCatalog = localCatalog
@@ -85,6 +90,7 @@ struct AppendTask {
         newbackupID = backupID
         hiddenID = updatedhiddenID
         snapshotnum = updatesnapshotnum
+        newjumphost = jumphost
     }
 }
 

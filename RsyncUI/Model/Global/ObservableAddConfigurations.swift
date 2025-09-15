@@ -38,6 +38,9 @@ final class ObservableAddConfigurations {
 
     var snapshotnum: String = ""
     var copyandpasteconfigurations: [SynchronizeConfiguration]?
+    
+    // Toggel for ssh jump-host
+    var jumphost: Bool = false
 
     let helptext1 = "Red Synchronize ID means\n--delete parameter is ADDED\nTo REMOVE --delete parameter,\nselect Rsync parameters view\nto remove"
     let helptext2 = "To ADD --delete parameter\nselect Rsync parameters view\nto add"
@@ -51,7 +54,8 @@ final class ObservableAddConfigurations {
                                  trailingslashoptions,
                                  remoteuser,
                                  remoteserver,
-                                 backupID)
+                                 backupID,
+                                jumphost)
         // If newconfig is verified add it
         if let newconfig = VerifyConfiguration().verify(getdata) {
             let updateconfigurations =
@@ -96,7 +100,8 @@ final class ObservableAddConfigurations {
                                      remoteserver,
                                      backupID,
                                      selectedconfig?.hiddenID ?? -1,
-                                     Int(mysnapshotnum))
+                                     Int(mysnapshotnum),
+                                     jumphost)
         if let updatedconfig = VerifyConfiguration().verify(updateddata) {
             let updateconfigurations =
                 UpdateConfigurations(profile: profile,
@@ -116,6 +121,7 @@ final class ObservableAddConfigurations {
         backupID = ""
         selectedconfig = nil
         snapshotnum = ""
+        jumphost = false
     }
 
     func updateview(_ config: SynchronizeConfiguration?) {

@@ -444,7 +444,8 @@ extension QuicktaskView {
                                  trailingslashoptions,
                                  remoteuser,
                                  remoteserver,
-                                 "")
+                                 "",
+                                 false)
 
         guard selectedrsynccommand != .not_selected else { return }
 

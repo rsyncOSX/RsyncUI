@@ -549,6 +549,9 @@ struct AddTaskView: View {
                         }
                     })
             }
+            
+            Toggle("SSH jump host", isOn: $newdata.jumphost)
+                .toggleStyle(.switch)
         }
     }
 
