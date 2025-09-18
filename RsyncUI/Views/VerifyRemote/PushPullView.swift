@@ -127,7 +127,10 @@ struct PushPullView: View {
         }
         // Rsync output pull
         pushorpull.rsyncpull = stringoutputfromrsync
-        pushorpull.rsyncpullmax = stringoutputfromrsync?.count ?? 0
+        pushorpull.rsyncpullmax = (stringoutputfromrsync?.count ?? 0) - 16
+        if pushorpull.rsyncpullmax < 0 {
+            pushorpull.rsyncpullmax = 0
+        }
 
         if isadjusted == false {
             Task {
@@ -156,7 +159,10 @@ struct PushPullView: View {
 
         // Rsync output push
         pushorpull.rsyncpush = stringoutputfromrsync
-        pushorpull.rsyncpushmax = stringoutputfromrsync?.count ?? 0
+        pushorpull.rsyncpushmax = (stringoutputfromrsync?.count ?? 0) - 16
+        if pushorpull.rsyncpushmax < 0 {
+            pushorpull.rsyncpushmax = 0
+        }
 
         if isadjusted {
             // Adjust both outputs
