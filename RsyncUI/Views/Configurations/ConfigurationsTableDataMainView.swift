@@ -116,7 +116,7 @@ struct ConfigurationsTableDataMainView: View {
                 }
             }
             .width(min: 50, max: 90)
-            TableColumn("Last d/h") { data in
+            TableColumn("Last hour(day)") { data in
                 var seconds: Double {
                     if let date = data.dateRun {
                         let lastbackup = date.en_date_from_string()
@@ -133,7 +133,7 @@ struct ConfigurationsTableDataMainView: View {
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
                             .foregroundColor(color)
                         
-                        Text("hours")
+                        Text("h")
                     }
                     
                     
@@ -143,7 +143,7 @@ struct ConfigurationsTableDataMainView: View {
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
                             .foregroundColor(color)
                         
-                        Text("days")
+                        Text("d")
                     }
                 }
             }

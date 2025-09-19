@@ -24,7 +24,7 @@ struct ProfilesToUpdateView: View {
             .width(min: 150, max: 300)
             TableColumn("Task", value: \.task)
                 .width(max: 80)
-            TableColumn("Last d/h") { data in
+            TableColumn("Last hour(day)") { data in
                 var seconds: Double {
                     if let date = data.dateRun {
                         let lastbackup = date.en_date_from_string()
@@ -41,7 +41,7 @@ struct ProfilesToUpdateView: View {
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
                             .foregroundColor(color)
                         
-                        Text("hours")
+                        Text("h")
                     }
                     
                     
@@ -51,7 +51,7 @@ struct ProfilesToUpdateView: View {
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
                             .foregroundColor(color)
                         
-                        Text("days")
+                        Text("d")
                     }
                 }
             }
