@@ -18,15 +18,17 @@ struct SidebarSettingsView: View {
 
     var body: some View {
         NavigationSplitView {
+            
             Divider()
-
-            List(SideSettingsbaritems.allCases, selection: $selectedsetting) { selectedsetting in
-                NavigationLink(value: selectedsetting) {
-                    SidebarSettingsRow(sidebaritem: selectedsetting)
-                }
+            
+            List(SideSettingsbaritems.allCases, selection: $selectedsetting) { item in
+                
+                SettingsNavigationLinkWithHover(item: item, selectedview: $selectedsetting)
+                
             }
             .listStyle(.sidebar)
             .toolbar(removing: .sidebarToggle)
+            
         } detail: {
             settingsView(selectedsetting)
         }
@@ -71,6 +73,30 @@ struct SidebarSettingsRow: View {
             "gear"
         case .about:
             "info.circle.fill"
+        }
+    }
+}
+
+
+struct SettingsNavigationLinkWithHover: View {
+    let item: SideSettingsbaritems // Replace with your actual item type
+    @Binding var selectedview:  SideSettingsbaritems // Replace with your selection type
+    @State private var isHovered = false
+    
+    var body: some View {
+        NavigationLink(value: item) {
+            SidebarSettingsRow(sidebaritem: item)
+        }
+        .listRowBackground(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(isHovered ? Color.blue.opacity(0.2) : Color.clear)
+                .padding(.horizontal, 10)
+        )
+        .listRowInsets(EdgeInsets())
+        .onHover { hovering in
+            withAnimation(.easeInOut(duration: 0.15)) {
+                isHovered = hovering
+            }
         }
     }
 }
