@@ -49,11 +49,11 @@ final class RsyncUIconfigurations {
     }
 
     @ObservationIgnored var oneormoresynchronizetasksisremoteOpenrsync: Bool {
-        return configurations?.filter { $0.task == SharedReference.shared.synchronize &&
+        configurations?.filter { $0.task == SharedReference.shared.synchronize &&
             $0.offsiteServer.isEmpty == false
         }.count ?? 0 > 0
     }
-    
+
     @ObservationIgnored var externalurlrequestinprogress: Bool = false
     @ObservationIgnored var executetasksinprogress: Bool = false
 
