@@ -18,17 +18,14 @@ struct SidebarSettingsView: View {
 
     var body: some View {
         NavigationSplitView {
-            
             Divider()
-            
+
             List(SideSettingsbaritems.allCases, selection: $selectedsetting) { item in
-                
                 SettingsNavigationLinkWithHover(item: item, selectedview: $selectedsetting)
-                
             }
             .listStyle(.sidebar)
             .toolbar(removing: .sidebarToggle)
-            
+
         } detail: {
             settingsView(selectedsetting)
         }
@@ -77,12 +74,11 @@ struct SidebarSettingsRow: View {
     }
 }
 
-
 struct SettingsNavigationLinkWithHover: View {
     let item: SideSettingsbaritems // Replace with your actual item type
-    @Binding var selectedview:  SideSettingsbaritems // Replace with your selection type
+    @Binding var selectedview: SideSettingsbaritems // Replace with your selection type
     @State private var isHovered = false
-    
+
     var body: some View {
         NavigationLink(value: item) {
             SidebarSettingsRow(sidebaritem: item)

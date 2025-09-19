@@ -78,7 +78,6 @@ struct SidebarMainView: View {
             Divider()
 
             List(menuitems, selection: $selectedview) { item in
-                
                 NavigationLinkWithHover(item: item, selectedview: $selectedview)
 
                 if item.menuitem == .tasks ||
@@ -303,7 +302,7 @@ struct SidebarMainView: View {
 
             // Return nil if there is no remote tasks, only local attached discs
             // Do not show the Restore remote sidebar meny
-            
+
             if SharedReference.shared.rsyncversion3 {
                 if rsyncUIdata.oneormoresynchronizetasksisremoteVer3x == false,
                    rsyncUIdata.oneormoresnapshottasksisremote == false,
@@ -312,7 +311,7 @@ struct SidebarMainView: View {
                 if rsyncUIdata.oneormoresynchronizetasksisremoteOpenrsync == false,
                    item == .restore { return nil }
             }
-            
+
             return MenuItem(menuitem: item)
         }
     }
@@ -589,9 +588,9 @@ struct SidebarRow: View {
 
 struct NavigationLinkWithHover: View {
     let item: MenuItem // Replace with your actual item type
-    @Binding var selectedview:  Sidebaritems // Replace with your selection type
+    @Binding var selectedview: Sidebaritems // Replace with your selection type
     @State private var isHovered = false
-    
+
     var body: some View {
         NavigationLink(value: item.menuitem) {
             SidebarRow(sidebaritem: item.menuitem)

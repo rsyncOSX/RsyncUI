@@ -116,7 +116,7 @@ struct ConfigurationsTableDataMainView: View {
                 }
             }
             .width(min: 50, max: 90)
-            TableColumn("Last hour(day)") { data in
+            TableColumn("Min/hour/day") { data in
                 var seconds: Double {
                     if let date = data.dateRun {
                         let lastbackup = date.en_date_from_string()
@@ -129,26 +129,33 @@ struct ConfigurationsTableDataMainView: View {
 
                 if seconds <= 3600 * 24 {
                     HStack {
-                        Text(String(format: "%.0f", seconds / (60 * 60 )))
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
-                            .foregroundColor(color)
-                        
-                        Text("h")
+                        if seconds <= 60 * 60 {
+                            Text(String(format: "%.0f", seconds / 60))
+                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
+                                .foregroundColor(color)
+
+                            Text("min")
+
+                        } else {
+                            Text(String(format: "%.0f", seconds / (60 * 60)))
+                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
+                                .foregroundColor(color)
+
+                            Text("hour")
+                        }
                     }
-                    
-                    
                 } else {
                     HStack {
                         Text(String(format: "%.0f", seconds / (60 * 60 * 24)))
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
                             .foregroundColor(color)
-                        
-                        Text("d")
+
+                        Text("day")
                     }
                 }
             }
             .width(max: 90)
-            
+
             TableColumn("Date last") { data in
                 Text(data.dateRun ?? "")
             }
