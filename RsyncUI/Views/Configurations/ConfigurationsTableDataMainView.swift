@@ -116,7 +116,7 @@ struct ConfigurationsTableDataMainView: View {
                 }
             }
             .width(min: 50, max: 90)
-            TableColumn("Days") { data in
+            TableColumn("Last d/h") { data in
                 var seconds: Double {
                     if let date = data.dateRun {
                         let lastbackup = date.en_date_from_string()
@@ -127,12 +127,29 @@ struct ConfigurationsTableDataMainView: View {
                 }
                 let color: Color = markconfig(seconds) == true ? .red : (colorScheme == .dark ? .white : .black)
 
-                Text(String(format: "%.2f", seconds / (60 * 60 * 24)))
-                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
-                    .foregroundColor(color)
+                if seconds <= 3600 * 24 {
+                    HStack {
+                        Text(String(format: "%.0f", seconds / (60 * 60 )))
+                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
+                            .foregroundColor(color)
+                        
+                        Text("hours")
+                    }
+                    
+                    
+                } else {
+                    HStack {
+                        Text(String(format: "%.0f", seconds / (60 * 60 * 24)))
+                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
+                            .foregroundColor(color)
+                        
+                        Text("days")
+                    }
+                }
             }
-            .width(max: 50)
-            TableColumn("Last") { data in
+            .width(max: 90)
+            
+            TableColumn("Date last") { data in
                 Text(data.dateRun ?? "")
             }
             .width(max: 120)
