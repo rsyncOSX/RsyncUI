@@ -166,7 +166,7 @@ final class ProcessRsyncVer3x {
     }
 
     deinit {
-        Logger.process.info("ProcessRsync: DEINIT")
+        Logger.process.info("ProcessRsyncVer3x: DEINIT")
     }
 }
 
@@ -241,6 +241,6 @@ extension ProcessRsyncVer3x {
         sequenceFileHandlerTask?.cancel()
         sequenceTerminationTask?.cancel()
 
-        Logger.process.info("ProcessRsync: process = nil and termination discovered \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ProcessRsyncVer3x: process = nil and termination discovered \(Thread.isMain) but on \(Thread.current)")
     }
 }
