@@ -78,9 +78,8 @@ struct SidebarMainView: View {
             Divider()
 
             List(menuitems, selection: $selectedview) { item in
-                NavigationLink(value: item.menuitem) {
-                    SidebarRow(sidebaritem: item.menuitem)
-                }
+                
+                NavigationLinkWithHover(item: item, selectedview: $selectedview)
 
                 if item.menuitem == .tasks ||
                     item.menuitem == .verify_tasks ||
@@ -584,6 +583,29 @@ struct SidebarRow: View {
             "calendar.circle.fill"
         case .verify_tasks:
             "hand.thumbsup.fill"
+        }
+    }
+}
+
+struct NavigationLinkWithHover: View {
+    let item: MenuItem // Replace with your actual item type
+    @Binding var selectedview:  Sidebaritems // Replace with your selection type
+    @State private var isHovered = false
+    
+    var body: some View {
+        NavigationLink(value: item.menuitem) {
+            SidebarRow(sidebaritem: item.menuitem)
+        }
+        .listRowBackground(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(isHovered ? Color.blue.opacity(0.2) : Color.clear)
+                .padding(.horizontal, 10)
+        )
+        .listRowInsets(EdgeInsets())
+        .onHover { hovering in
+            withAnimation(.easeInOut(duration: 0.15)) {
+                isHovered = hovering
+            }
         }
     }
 }
