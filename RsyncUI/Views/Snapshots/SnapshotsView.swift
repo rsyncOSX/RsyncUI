@@ -115,7 +115,8 @@ struct SnapshotsView: View {
                             .badge(snapshotdata.notmappedloguuids?.count ?? 0)
                     }
                     .help("Delete not used log records")
-                    .confirmationDialog("Delete ^[\(snapshotdata.notmappedloguuids?.count ?? 0) log](inflect: true)",
+                    .confirmationDialog(snapshotdata.notmappedloguuids?.count ?? 0 == 1 ? "Delete 1 log":
+                                            "Delete \(snapshotdata.notmappedloguuids?.count ?? 0) logs",
                                         isPresented: $isPresentingConfirm)
                     {
                         Button("Delete", role: .destructive) {
@@ -174,8 +175,10 @@ struct SnapshotsView: View {
 
     var labelnumberoflogs: some View {
         VStack(alignment: .leading) {
-            Text("There is ^[\(snapshotdata.logrecordssnapshot?.count ?? 0) snapshot](inflect: true)")
-            Text("Marked ^[\(snapshotdata.snapshotuuidsfordelete.count) snapshot](inflect: true) for delete")
+            Text(snapshotdata.logrecordssnapshot?.count ?? 0 == 1 ? "There is 1 snapshot" :
+                    "There are \(snapshotdata.logrecordssnapshot?.count ?? 0) snapshots")
+            Text(snapshotdata.snapshotuuidsfordelete.count == 1 ? "Marked 1 snapshot for delete" :
+                    "Marked \(snapshotdata.snapshotuuidsfordelete.count) snapshots for delete")
         }
     }
 

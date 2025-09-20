@@ -105,8 +105,8 @@ struct CalendarMonthView: View {
 
                 TableofSchedules(selecteduuids: $selecteduuids,
                                  schedules: scheduledata.scheduledata)
-                    .confirmationDialog(
-                        Text("Delete ^[\(selecteduuids.count) schedule](inflect: true)"),
+                    .confirmationDialog( selecteduuids.count == 1 ? "Delete 1 schedule" :
+                                            "Delete \(selecteduuids.count) schedules",
                         isPresented: $confirmdelete
                     ) {
                         Button("Delete") {

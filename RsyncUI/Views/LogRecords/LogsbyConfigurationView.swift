@@ -76,13 +76,14 @@ struct LogsbyConfigurationView: View {
                 .onDeleteCommand {
                     confirmdelete = true
                 }
-                .confirmationDialog("Delete ^[\(selectedloguuids.count) log](inflect: true)",
+                .confirmationDialog(selectedloguuids.count == 1 ? "Delete 1 log" :
+                                        "Delete \(selectedloguuids.count) logs",
                                     isPresented: $confirmdelete)
-                {
-                    Button("Delete", role: .destructive) {
-                        deletelogs(selectedloguuids)
-                    }
-                }
+                 {
+                     Button("Delete", role: .destructive) {
+                         deletelogs(selectedloguuids)
+                     }
+                 }
                 .overlay { if logs.count == 0 {
                     ContentUnavailableView {
                         Label("There are no logs by this filter", systemImage: "doc.richtext.fill")
@@ -103,14 +104,14 @@ struct LogsbyConfigurationView: View {
 
                 } else {
                     if selecteduuids.isEmpty {
-                        Text("ALL logrecords, select task for logrecords by task: ^[\(logs.count) log](inflect: true)")
+                        Text(logs.count == 1 ? "ALL logrecords, select task for logrecords by task: 1 log" : "ALL logrecords, select task for logrecords by task: \(logs.count) logs")
 
                         if filterstring.isEmpty == false {
                             Label("Filtered by: \(filterstring)", systemImage: "magnifyingglass")
                         }
 
                     } else {
-                        Text("Logrecords by selected task: ^[\(logs.count) log](inflect: true)")
+                        Text(logs.count == 1 ? "Logrecords by selected task: 1 log" : "Logrecords by selected task: \(logs.count) logs")
 
                         if filterstring.isEmpty == false {
                             Label("Filtered by: \(filterstring)", systemImage: "magnifyingglass")

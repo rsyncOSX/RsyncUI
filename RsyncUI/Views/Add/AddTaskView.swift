@@ -227,8 +227,8 @@ struct AddTaskView: View {
                         } validator: { items in
                             items.filter { $0.task != SharedReference.shared.snapshot }
                         }
-                        .confirmationDialog(
-                            Text("Copy ^[\(newdata.copyandpasteconfigurations?.count ?? 0) configuration](inflect: true)"),
+                        .confirmationDialog( newdata.copyandpasteconfigurations?.count ?? 0 == 1 ? "Copy 1 configuration" :
+                                                "Copy \(newdata.copyandpasteconfigurations?.count ?? 0) configurations",
                             isPresented: $confirmcopyandpaste
                         ) {
                             Button("Copy") {
