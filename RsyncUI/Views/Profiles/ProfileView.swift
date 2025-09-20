@@ -36,6 +36,7 @@ struct ProfileView: View {
                     }
                     localselectedprofile = record[0].profilename
                 }
+                .frame(width: 200)
 
                 ProfilesToUpdateView(allconfigurations: allconfigurations)
             }

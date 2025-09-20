@@ -127,32 +127,9 @@ struct ConfigurationsTableDataMainView: View {
                 }
                 let color: Color = markconfig(seconds) == true ? .red : (colorScheme == .dark ? .white : .black)
 
-                if seconds <= 3600 * 24 {
-                    HStack {
-                        if seconds <= 60 * 60 {
-                            Text(String(format: "%.0f", seconds / 60))
-                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
-                                .foregroundColor(color)
-
-                            Text("min")
-
-                        } else {
-                            Text(String(format: "%.0f", seconds / (60 * 60)))
-                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
-                                .foregroundColor(color)
-
-                            Text("hour")
-                        }
-                    }
-                } else {
-                    HStack {
-                        Text(String(format: "%.0f", seconds / (60 * 60 * 24)))
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
-                            .foregroundColor(color)
-
-                        Text("day")
-                    }
-                }
+                Text(latest(seconds))
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
+                    .foregroundColor(color)
             }
             .width(max: 90)
 
@@ -188,6 +165,18 @@ struct ConfigurationsTableDataMainView: View {
             }
         } else {
             -1
+        }
+    }
+
+    private func latest(_ seconds: Double) -> String {
+        if seconds <= 3600 * 24 {
+            if seconds <= 60 * 60 {
+                String(format: "%.0f", seconds / 60) + " min"
+            } else {
+                String(format: "%.0f", seconds / (60 * 60)) + " hour"
+            }
+        } else {
+            String(format: "%.0f", seconds / (60 * 60 * 24)) + " day"
         }
     }
 
