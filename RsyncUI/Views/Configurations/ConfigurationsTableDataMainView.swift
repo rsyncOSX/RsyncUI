@@ -105,9 +105,9 @@ struct ConfigurationsTableDataMainView: View {
             }
             .width(max: 80)
             TableColumn("Source folder", value: \.localCatalog)
-                .width(min: 120, max: 400)
+                .width(min: 120, max: 300)
             TableColumn("Destination folder", value: \.offsiteCatalog)
-                .width(min: 120, max: 400)
+                .width(min: 120, max: 300)
             TableColumn("Server") { data in
                 if data.offsiteServer.count > 0 {
                     Text(data.offsiteServer)
@@ -173,10 +173,10 @@ struct ConfigurationsTableDataMainView: View {
             if seconds <= 60 * 60 {
                 String(format: "%.0f", seconds / 60) + " min"
             } else {
-                String(format: "%.0f", seconds / (60 * 60)) + " hour"
+                String(format: "%.0f", seconds / (60 * 60)) + " hour(s)"
             }
         } else {
-            String(format: "%.0f", seconds / (60 * 60 * 24)) + " day"
+            String(format: "%.0f", seconds / (60 * 60 * 24)) + " day(s)"
         }
     }
 
