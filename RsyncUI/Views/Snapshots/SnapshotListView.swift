@@ -38,7 +38,7 @@ struct SnapshotListView: View {
                 }
             }
             .width(max: 200)
-            TableColumn("Days") { data in
+            TableColumn("Last") { data in
                 if let days = data.days {
                     Text(days)
                 }

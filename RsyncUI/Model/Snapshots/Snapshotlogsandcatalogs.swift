@@ -30,7 +30,17 @@ final class Snapshotlogsandcatalogs {
         let mylogrecords = RecordsSnapshot(config: config, logrecords: logrecords).loggrecordssnapshots?.map { record in
             var item = record
             if let secondssince = calculatedays(datestringlocalized: item.dateExecuted) {
-                item.days = String(format: "%.2f", secondssince / (60 * 60 * 24))
+                if secondssince <= 3600 * 24 {
+                        if secondssince <= 60 * 60 {
+                            item.days = String(format: "%.0f", secondssince / 60) + " min"
+                        } else {
+                            
+                            item.days = String(format: "%.0f", secondssince / (60 * 60)) + " hour"
+                        }
+                  
+                } else {
+                    item.days = String(format: "%.0f", secondssince / (60 * 60 * 24)) + " days"
+                }
             }
             return item
         }
