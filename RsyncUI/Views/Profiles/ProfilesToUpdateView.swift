@@ -67,12 +67,12 @@ struct ProfilesToUpdateView: View {
     private func latest(_ seconds: Double) -> String {
         if seconds <= 3600 * 24 {
             if seconds <= 60 * 60 {
-                String(format: "%.0f", seconds / 60) + " min"
+                return seconds <= 60 ? String(format: "%.0f", seconds / 60) + " min" : String(format: "%.0f", seconds / 60) + " mins"
             } else {
-                String(format: "%.0f", seconds / (60 * 60)) + " hour(s)"
+                return seconds <= 60 * 60 ? String(format: "%.0f", seconds / (60 * 60)) + " hour" : String(format: "%.0f", seconds / (60 * 60)) + " hours"
             }
         } else {
-            String(format: "%.0f", seconds / (60 * 60 * 24)) + " day(s)"
+            return seconds <= 60 * 60 * 24 ? String(format: "%.0f", seconds / (60 * 60 * 24)) + " day" : String(format: "%.0f", seconds / (60 * 60 * 24)) + " days"
         }
     }
 }
