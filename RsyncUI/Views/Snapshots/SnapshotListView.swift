@@ -49,8 +49,8 @@ struct SnapshotListView: View {
             }
             .width(max: 250)
         }
-        .confirmationDialog(
-            Text("Delete ^[\(snapshotdata.snapshotuuidsfordelete.count) snapshot](inflect: true)"),
+        .confirmationDialog(snapshotdata.snapshotuuidsfordelete.count == 1 ? "Delete 1 snapshot" :
+                                "Delete \(snapshotdata.snapshotuuidsfordelete.count) snapshots",
             isPresented: $confirmdelete
         ) {
             Button("Delete") {
