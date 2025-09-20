@@ -34,11 +34,11 @@ final class Snapshotlogsandcatalogs {
                     if secondssince <= 60 * 60 {
                         item.days = String(format: "%.0f", secondssince / 60) + " min"
                     } else {
-                        item.days = String(format: "%.0f", secondssince / (60 * 60)) + " hour"
+                        item.days = String(format: "%.0f", secondssince / (60 * 60)) + " hour(s)"
                     }
 
                 } else {
-                    item.days = String(format: "%.0f", secondssince / (60 * 60 * 24)) + " days"
+                    item.days = String(format: "%.0f", secondssince / (60 * 60 * 24)) + " day(s)"
                 }
             }
             return item

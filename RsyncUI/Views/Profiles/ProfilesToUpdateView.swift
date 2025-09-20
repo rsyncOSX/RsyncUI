@@ -69,10 +69,10 @@ struct ProfilesToUpdateView: View {
             if seconds <= 60 * 60 {
                 String(format: "%.0f", seconds / 60) + " min"
             } else {
-                String(format: "%.0f", seconds / (60 * 60)) + " hour"
+                String(format: "%.0f", seconds / (60 * 60)) + " hour(s)"
             }
         } else {
-            String(format: "%.0f", seconds / (60 * 60 * 24)) + " day"
+            String(format: "%.0f", seconds / (60 * 60 * 24)) + " day(s)"
         }
     }
 }
