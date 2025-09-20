@@ -31,13 +31,12 @@ final class Snapshotlogsandcatalogs {
             var item = record
             if let secondssince = calculatedays(datestringlocalized: item.dateExecuted) {
                 if secondssince <= 3600 * 24 {
-                        if secondssince <= 60 * 60 {
-                            item.days = String(format: "%.0f", secondssince / 60) + " min"
-                        } else {
-                            
-                            item.days = String(format: "%.0f", secondssince / (60 * 60)) + " hour"
-                        }
-                  
+                    if secondssince <= 60 * 60 {
+                        item.days = String(format: "%.0f", secondssince / 60) + " min"
+                    } else {
+                        item.days = String(format: "%.0f", secondssince / (60 * 60)) + " hour"
+                    }
+
                 } else {
                     item.days = String(format: "%.0f", secondssince / (60 * 60 * 24)) + " days"
                 }

@@ -13,6 +13,7 @@ struct ProfilesToUpdateView: View {
 
     var body: some View {
         Table(allconfigurations) {
+            
             TableColumn("Synchronize ID : profilename") { data in
                 let split = data.backupID.split(separator: " : ")
                 if split.count > 1 {
@@ -22,9 +23,11 @@ struct ProfilesToUpdateView: View {
                 }
             }
             .width(min: 150, max: 300)
+            
             TableColumn("Task", value: \.task)
                 .width(max: 80)
-            TableColumn("Hour/day") { data in
+
+            TableColumn("Min/hour/day") { data in
                 var seconds: Double {
                     if let date = data.dateRun {
                         let lastbackup = date.en_date_from_string()
@@ -35,24 +38,8 @@ struct ProfilesToUpdateView: View {
                 }
                 let color: Color = markconfig(seconds) == true ? .red : .white
 
-                if seconds <= 3600 * 24 {
-                    HStack {
-                        Text(String(format: "%.0f", seconds / (60 * 60)))
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
-                            .foregroundColor(color)
-
-                        Text("hour")
-                    }
-
-                } else {
-                    HStack {
-                        Text(String(format: "%.0f", seconds / (60 * 60 * 24)))
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
-                            .foregroundColor(color)
-
-                        Text("day")
-                    }
-                }
+                Text(latest(seconds))
+                    .foregroundColor(color)
             }
             .width(max: 90)
             TableColumn("Date last") { data in
@@ -75,5 +62,17 @@ struct ProfilesToUpdateView: View {
 
     private func markconfig(_ seconds: Double) -> Bool {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
+    }
+
+    private func latest(_ seconds: Double) -> String {
+        if seconds <= 3600 * 24 {
+            if seconds <= 60 * 60 {
+                String(format: "%.0f", seconds / 60) + " min"
+            } else {
+                String(format: "%.0f", seconds / (60 * 60)) + " hour"
+            }
+        } else {
+            String(format: "%.0f", seconds / (60 * 60 * 24)) + " day"
+        }
     }
 }
