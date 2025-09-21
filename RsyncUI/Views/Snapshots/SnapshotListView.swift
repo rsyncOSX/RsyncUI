@@ -39,7 +39,7 @@ struct SnapshotListView: View {
             }
             .width(max: 200)
             TableColumn("Last") { data in
-                if let days = data.days {
+                if let days = data.latest {
                     Text(days)
                 }
             }

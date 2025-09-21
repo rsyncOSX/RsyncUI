@@ -17,7 +17,7 @@ struct LogRecordSnapshot: Identifiable {
     var resultExecuted: String
     var period: String?
     var snapshotCatalog: String?
-    var days: String?
+    var latest: String?
 }
 
 extension LogRecordSnapshot: Hashable, Equatable {

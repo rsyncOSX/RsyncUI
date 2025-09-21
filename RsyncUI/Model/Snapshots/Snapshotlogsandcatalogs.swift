@@ -30,16 +30,7 @@ final class Snapshotlogsandcatalogs {
         let mylogrecords = RecordsSnapshot(config: config, logrecords: logrecords).loggrecordssnapshots?.map { record in
             var item = record
             if let secondssince = calculatedays(datestringlocalized: item.dateExecuted) {
-                if secondssince <= 3600 * 24 {
-                    if secondssince <= 60 * 60 {
-                        item.days = String(format: "%.0f", secondssince / 60) + " min"
-                    } else {
-                        item.days = String(format: "%.0f", secondssince / (60 * 60)) + " hour(s)"
-                    }
-
-                } else {
-                    item.days = String(format: "%.0f", secondssince / (60 * 60 * 24)) + " day(s)"
-                }
+                item.latest = latest(secondssince)
             }
             return item
         }
@@ -126,5 +117,17 @@ final class Snapshotlogsandcatalogs {
         mergeremotecatalogsandlogs()
         // Getting data is completed
         mysnapshotdata?.snapshotlist = false
+    }
+    
+    private func latest(_ seconds: Double) -> String {
+        if seconds <= 3600 * 24 {
+            if seconds <= 60 * 60 {
+                return seconds <= 60 ? String(format: "%.0f", seconds / 60) + " min" : String(format: "%.0f", seconds / 60) + " mins"
+            } else {
+                return seconds <= 60 * 60 ? String(format: "%.0f", seconds / (60 * 60)) + " hour" : String(format: "%.0f", seconds / (60 * 60)) + " hours"
+            }
+        } else {
+            return seconds <= 60 * 60 * 24 ? String(format: "%.0f", seconds / (60 * 60 * 24)) + " day" : String(format: "%.0f", seconds / (60 * 60 * 24)) + " days"
+        }
     }
 }
