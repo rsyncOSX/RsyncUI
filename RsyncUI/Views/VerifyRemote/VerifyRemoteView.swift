@@ -35,50 +35,62 @@ struct VerifyRemoteView: View {
     // Decide push or pull
     @State private var pushorpull = ObservableVerifyRemotePushPull()
     @State private var pushpullcommand = PushPullCommand.none
+    // Show warning
+    @State private var showwarning: Bool = true
 
     var body: some View {
         NavigationStack(path: $verifypath) {
+            
+           
+            
             VStack {
-                ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                            configurations: rsyncUIdata.configurations)
-                    .onChange(of: selecteduuids) {
-                        queryitem = nil
-                        if let configurations = rsyncUIdata.configurations {
-                            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                                selectedconfig = configurations[index]
-                                if selectedconfig?.task == SharedReference.shared.halted {
-                                    selectedtaskishalted = true
-                                    selectedconfig = nil
+                
+                ZStack {
+                    
+                    ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                                configurations: rsyncUIdata.configurations)
+                        .onChange(of: selecteduuids) {
+                            queryitem = nil
+                            if let configurations = rsyncUIdata.configurations {
+                                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                                    selectedconfig = configurations[index]
+                                    if selectedconfig?.task == SharedReference.shared.halted {
+                                        selectedtaskishalted = true
+                                        selectedconfig = nil
+                                    } else {
+                                        selectedtaskishalted = false
+                                    }
                                 } else {
-                                    selectedtaskishalted = false
+                                    selectedconfig = nil
                                 }
-                            } else {
-                                selectedconfig = nil
                             }
                         }
+                    
+                    if showwarning {
+                        Text("**Warning**: Verify remote is **advisory** only.")
+                            .foregroundColor(.blue)
+                            .font(.title)
+                            .onAppear {
+                                Task {
+                                    try await Task.sleep(seconds: 2)
+                                    showwarning = false
+                                }
+                            }
                     }
-
-                Toggle("Adjusted output", isOn: $isadjusted)
-                    .toggleStyle(.switch)
-
-                VStack {
-                    Text("**Warning**: Verify remote is **advisory** only.")
+                }
+                
+                HStack {
+                    Text("Select a task and select the ")
                         .foregroundColor(.blue)
-                        .font(.title)
 
-                    HStack {
-                        Text("Select a task and select the ")
-                            .foregroundColor(.blue)
-                            .font(.title2)
+                    Text(Image(systemName: "bolt.shield"))
+                        .foregroundColor(.yellow)
 
-                        Text(Image(systemName: "bolt.shield"))
-                            .foregroundColor(.yellow)
-                            .font(.title2)
-
-                        Text(" on the toolbar to verify.")
-                            .foregroundColor(.blue)
-                            .font(.title2)
-                    }
+                    Text(" on the toolbar to verify, this function is advisory only.")
+                        .foregroundColor(.blue)
+                    
+                    Toggle("Adjusted output", isOn: $isadjusted)
+                        .toggleStyle(.switch)
                 }
             }
             .navigationTitle("Verify remote")
