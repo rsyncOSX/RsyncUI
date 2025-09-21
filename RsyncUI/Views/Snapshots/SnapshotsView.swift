@@ -86,20 +86,34 @@ struct SnapshotsView: View {
             }
             if focustagsnapshot == true { labeltagsnapshot }
             if focusaborttask { labelaborttask }
+            
+         
+                HStack {
+                    
+                    Button {
+                        updateplansnapshot()
+                    } label: {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(Color(.blue))
+                    }
+                    .help("Update plan snapshot")
+                    .disabled(isdisabled)
+                    .buttonStyle(.borderedProminent)
+                    
+                    VStack(alignment: .leading) {
+                        pickersnaplast
+                            .disabled(isdisabled)
 
-            HStack {
-                VStack(alignment: .leading) {
-                    pickersnaplast
-                        .disabled(isdisabled)
+                        pickersnapdayoffweek
+                            .disabled(isdisabled)
+                    }
 
-                    pickersnapdayoffweek
-                        .disabled(isdisabled)
+                    if selectedconfiguuid.isEmpty == false {
+                        labelnumberoflogs
+                    }
+                    
+                    Spacer()
                 }
-
-                labelnumberoflogs
-
-                Spacer()
-            }
         }
         .navigationTitle("Snapshot tasks: profile \(rsyncUIdata.profile ?? "Default")")
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
@@ -139,17 +153,7 @@ struct SnapshotsView: View {
             }
 
             if selectedconfig?.task == SharedReference.shared.snapshot {
-                ToolbarItem {
-                    Button {
-                        updateplansnapshot()
-                    } label: {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(Color(.blue))
-                    }
-                    .help("Update plan snapshot")
-                    .disabled(isdisabled)
-                }
-
+                
                 ToolbarItem {
                     Button {
                         tagsnapshots()
