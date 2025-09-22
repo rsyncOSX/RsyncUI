@@ -72,26 +72,16 @@ struct VerifyRemoteView: View {
                             .font(.title)
                             .onAppear {
                                 Task {
-                                    try await Task.sleep(seconds: 2)
+                                    try await Task.sleep(seconds: 3)
                                     showwarning = false
                                 }
                             }
                     }
                 }
                 
-                HStack {
-                    Text("Select a task and select the ")
-                        .foregroundColor(.blue)
-
-                    Text(Image(systemName: "bolt.shield"))
-                        .foregroundColor(.yellow)
-
-                    Text(" on the toolbar to verify, this function is advisory only.")
-                        .foregroundColor(.blue)
-                    
-                    Toggle("Adjusted output", isOn: $isadjusted)
-                        .toggleStyle(.switch)
-                }
+                Toggle("Adjust output", isOn: $isadjusted)
+                    .toggleStyle(.switch)
+                
             }
             .navigationTitle("Verify remote")
             .navigationDestination(for: Verify.self) { which in
