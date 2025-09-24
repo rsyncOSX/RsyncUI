@@ -77,13 +77,13 @@ struct LogsbyConfigurationView: View {
                     confirmdelete = true
                 }
                 .confirmationDialog(selectedloguuids.count == 1 ? "Delete 1 log" :
-                                        "Delete \(selectedloguuids.count) logs",
-                                    isPresented: $confirmdelete)
-                 {
-                     Button("Delete", role: .destructive) {
-                         deletelogs(selectedloguuids)
-                     }
-                 }
+                    "Delete \(selectedloguuids.count) logs",
+                    isPresented: $confirmdelete)
+                {
+                    Button("Delete", role: .destructive) {
+                        deletelogs(selectedloguuids)
+                    }
+                }
                 .overlay { if logs.count == 0 {
                     ContentUnavailableView {
                         Label("There are no logs by this filter", systemImage: "doc.richtext.fill")

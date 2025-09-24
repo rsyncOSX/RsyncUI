@@ -13,7 +13,6 @@ struct ProfilesToUpdateView: View {
 
     var body: some View {
         Table(allconfigurations) {
-            
             TableColumn("Synchronize ID : profilename") { data in
                 let split = data.backupID.split(separator: " : ")
                 if split.count > 1 {
@@ -23,7 +22,7 @@ struct ProfilesToUpdateView: View {
                 }
             }
             .width(min: 150, max: 300)
-            
+
             TableColumn("Task", value: \.task)
                 .width(max: 80)
 
@@ -67,12 +66,12 @@ struct ProfilesToUpdateView: View {
     private func latest(_ seconds: Double) -> String {
         if seconds <= 3600 * 24 {
             if seconds <= 60 * 60 {
-                return seconds <= 60 ? String(format: "%.0f", seconds / 60) + " min" : String(format: "%.0f", seconds / 60) + " mins"
+                seconds <= 60 ? String(format: "%.0f", seconds / 60) + " min" : String(format: "%.0f", seconds / 60) + " mins"
             } else {
-                return seconds <= 60 * 60 ? String(format: "%.0f", seconds / (60 * 60)) + " hour" : String(format: "%.0f", seconds / (60 * 60)) + " hours"
+                seconds <= 60 * 60 ? String(format: "%.0f", seconds / (60 * 60)) + " hour" : String(format: "%.0f", seconds / (60 * 60)) + " hours"
             }
         } else {
-            return seconds <= 60 * 60 * 24 ? String(format: "%.0f", seconds / (60 * 60 * 24)) + " day" : String(format: "%.0f", seconds / (60 * 60 * 24)) + " days"
+            seconds <= 60 * 60 * 24 ? String(format: "%.0f", seconds / (60 * 60 * 24)) + " day" : String(format: "%.0f", seconds / (60 * 60 * 24)) + " days"
         }
     }
 }

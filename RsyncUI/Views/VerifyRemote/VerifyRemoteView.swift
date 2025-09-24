@@ -40,13 +40,8 @@ struct VerifyRemoteView: View {
 
     var body: some View {
         NavigationStack(path: $verifypath) {
-            
-           
-            
             VStack {
-                
                 ZStack {
-                    
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                                 configurations: rsyncUIdata.configurations)
                         .onChange(of: selecteduuids) {
@@ -65,7 +60,7 @@ struct VerifyRemoteView: View {
                                 }
                             }
                         }
-                    
+
                     if showwarning {
                         Text("**Warning**: Verify remote is **advisory** only.")
                             .foregroundColor(.blue)
@@ -78,10 +73,9 @@ struct VerifyRemoteView: View {
                             }
                     }
                 }
-                
+
                 Toggle("Adjust output", isOn: $isadjusted)
                     .toggleStyle(.switch)
-                
             }
             .navigationTitle("Verify remote")
             .navigationDestination(for: Verify.self) { which in

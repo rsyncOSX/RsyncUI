@@ -14,7 +14,7 @@ struct RsyncParametersView: View {
     @State private var parameters = ObservableParametersRsync()
     @State private var selectedconfig: SynchronizeConfiguration?
     // @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    @State private var selectedrsynccommand = RsyncCommand.synchronize_data
+    // @State private var selectedrsynccommand = RsyncCommand.synchronize_data
     // Focus buttons from the menu
     @State private var focusaborttask: Bool = false
     // Backup switch
@@ -104,46 +104,50 @@ struct RsyncParametersView: View {
                         }
                     }
 
-                    Section(header: Text("Backup switch")
+                    Section(header: Text("Backup switch & Show rsync command")
                         .font(.title3)
-                        // .foregroundColor(.blue)
                         .fontWeight(.bold))
                     {
-                        Toggle("", isOn: $backup)
-                            .toggleStyle(.switch)
-                            .onChange(of: backup) {
-                                guard selectedconfig != nil else {
-                                    backup = false
-                                    return
-                                }
-                                parameters.setbackup()
-                            }
-                            .onTapGesture {
-                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                    backup.toggle()
-                                }
-                            }
-                            .disabled(selectedconfig == nil)
-                    }
-
-                    Section(header: Text("Add --delete parameter, ON is added")
-                        .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
-                        .fontWeight(.bold)
-                        .font(.title3))
-                    {
-                        VStack(alignment: .leading) {
-                            Toggle("", isOn: $parameters.adddelete)
+                        HStack {
+                            Toggle("", isOn: $backup)
                                 .toggleStyle(.switch)
-                                .onChange(of: parameters.adddelete) {
-                                    parameters.adddelete(parameters.adddelete)
+                                .onChange(of: backup) {
+                                    guard selectedconfig != nil else {
+                                        backup = false
+                                        return
+                                    }
+                                    parameters.setbackup()
                                 }
-                                .disabled(selecteduuids.isEmpty == true)
                                 .onTapGesture {
                                     withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
                                         backup.toggle()
                                     }
                                 }
+                                .disabled(selectedconfig == nil)
+
+                            if selectedconfig != nil {
+                                Toggle("", isOn: $parameters.showdetails)
+                                    .toggleStyle(.switch)
+                            }
                         }
+                    }
+
+                    Section(header: Text("Add --delete parameter")
+                        .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
+                        .fontWeight(.bold)
+                        .font(.title3))
+                    {
+                        Toggle("", isOn: $parameters.adddelete)
+                            .toggleStyle(.switch)
+                            .onChange(of: parameters.adddelete) {
+                                parameters.adddelete(parameters.adddelete)
+                            }
+                            .disabled(selecteduuids.isEmpty == true)
+                            .onTapGesture {
+                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                    backup.toggle()
+                                }
+                            }
                     }
 
                     Spacer()
@@ -214,10 +218,12 @@ struct RsyncParametersView: View {
 
             Spacer()
 
-            VStack(alignment: .leading) {
-                RsyncCommandView(config: $parameters.configuration,
-                                 selectedrsynccommand: $selectedrsynccommand)
-                    .disabled(parameters.configuration == nil)
+            if selectedconfig != nil {
+                if parameters.showdetails {
+                    if let selectedconfig {
+                        RsyncCommandView(config: selectedconfig)
+                    }
+                }
             }
 
             if focusaborttask { labelaborttask }

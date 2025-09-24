@@ -16,10 +16,10 @@ struct ListofTasksAddView: View {
     var body: some View {
         ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                     configurations: rsyncUIdata.configurations)
-            .confirmationDialog( selecteduuids.count == 1 ? "Delete 1 configuration" :
-                                    "Delete \(selecteduuids.count) configurations",
-                isPresented: $confirmdelete
-            ) {
+            .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 configuration" :
+                "Delete \(selecteduuids.count) configurations",
+                isPresented: $confirmdelete)
+            {
                 Button("Delete") {
                     delete()
                     confirmdelete = false

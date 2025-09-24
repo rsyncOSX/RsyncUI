@@ -9,28 +9,21 @@
 import SwiftUI
 
 struct RsyncCommandView: View {
-    @Binding var config: SynchronizeConfiguration?
-    @Binding var selectedrsynccommand: RsyncCommand
+    @State var selectedrsynccommand: RsyncCommand = .synchronize_data
+
+    let config: SynchronizeConfiguration
 
     var body: some View {
         HStack(alignment: .bottom) {
-            pickerselectcommand
-
-            Spacer()
-
-            if config != nil {
-                showcommand
+            Picker("", selection: $selectedrsynccommand) {
+                ForEach(RsyncCommand.allCases) { Text($0.description)
+                    .tag($0)
+                }
             }
-        }
-    }
+            .pickerStyle(RadioGroupPickerStyle())
 
-    var pickerselectcommand: some View {
-        Picker("", selection: $selectedrsynccommand) {
-            ForEach(RsyncCommand.allCases) { Text($0.description)
-                .tag($0)
-            }
+            showcommand
         }
-        .pickerStyle(RadioGroupPickerStyle())
     }
 
     var showcommand: some View {
@@ -47,10 +40,7 @@ struct RsyncCommandView: View {
     }
 
     var commandstring: String? {
-        if let config {
-            return RsyncCommandtoDisplay(display: selectedrsynccommand,
-                                         config: config).rsynccommand
-        }
-        return nil
+        RsyncCommandtoDisplay(display: selectedrsynccommand,
+                              config: config).rsynccommand
     }
 }

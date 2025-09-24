@@ -40,10 +40,10 @@ struct ListofTasksMainView: View {
                 }
             }
             .searchable(text: $filterstring)
-            .confirmationDialog( selecteduuids.count == 1 ? "Delete 1 configuration" :
-                                    "Delete \(selecteduuids.count) configurations",
-                isPresented: $confirmdelete
-            ) {
+            .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 configuration" :
+                "Delete \(selecteduuids.count) configurations",
+                isPresented: $confirmdelete)
+            {
                 Button("Delete") {
                     delete()
                     confirmdelete = false

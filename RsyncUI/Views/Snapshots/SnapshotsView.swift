@@ -86,34 +86,32 @@ struct SnapshotsView: View {
             }
             if focustagsnapshot == true { labeltagsnapshot }
             if focusaborttask { labelaborttask }
-            
-         
-                HStack {
-                    
-                    Button {
-                        updateplansnapshot()
-                    } label: {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(Color(.blue))
-                    }
-                    .help("Update plan snapshot")
-                    .disabled(isdisabled)
-                    .buttonStyle(.borderedProminent)
-                    
-                    VStack(alignment: .leading) {
-                        pickersnaplast
-                            .disabled(isdisabled)
 
-                        pickersnapdayoffweek
-                            .disabled(isdisabled)
-                    }
-
-                    if selectedconfiguuid.isEmpty == false {
-                        labelnumberoflogs
-                    }
-                    
-                    Spacer()
+            HStack {
+                Button {
+                    updateplansnapshot()
+                } label: {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(Color(.blue))
                 }
+                .help("Update plan snapshot")
+                .disabled(isdisabled)
+                .buttonStyle(.borderedProminent)
+
+                VStack(alignment: .leading) {
+                    pickersnaplast
+                        .disabled(isdisabled)
+
+                    pickersnapdayoffweek
+                        .disabled(isdisabled)
+                }
+
+                if selectedconfiguuid.isEmpty == false {
+                    labelnumberoflogs
+                }
+
+                Spacer()
+            }
         }
         .navigationTitle("Snapshot tasks: profile \(rsyncUIdata.profile ?? "Default")")
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
@@ -129,9 +127,9 @@ struct SnapshotsView: View {
                             .badge(snapshotdata.notmappedloguuids?.count ?? 0)
                     }
                     .help("Delete not used log records")
-                    .confirmationDialog(snapshotdata.notmappedloguuids?.count ?? 0 == 1 ? "Delete 1 log":
-                                            "Delete \(snapshotdata.notmappedloguuids?.count ?? 0) logs",
-                                        isPresented: $isPresentingConfirm)
+                    .confirmationDialog(snapshotdata.notmappedloguuids?.count ?? 0 == 1 ? "Delete 1 log" :
+                        "Delete \(snapshotdata.notmappedloguuids?.count ?? 0) logs",
+                        isPresented: $isPresentingConfirm)
                     {
                         Button("Delete", role: .destructive) {
                             deletelogs(snapshotdata.notmappedloguuids)
@@ -153,7 +151,6 @@ struct SnapshotsView: View {
             }
 
             if selectedconfig?.task == SharedReference.shared.snapshot {
-                
                 ToolbarItem {
                     Button {
                         tagsnapshots()
@@ -180,9 +177,9 @@ struct SnapshotsView: View {
     var labelnumberoflogs: some View {
         VStack(alignment: .leading) {
             Text(snapshotdata.logrecordssnapshot?.count ?? 0 == 1 ? "There is 1 snapshot" :
-                    "There are \(snapshotdata.logrecordssnapshot?.count ?? 0) snapshots")
+                "There are \(snapshotdata.logrecordssnapshot?.count ?? 0) snapshots")
             Text(snapshotdata.snapshotuuidsfordelete.count == 1 ? "Marked 1 snapshot for delete" :
-                    "Marked \(snapshotdata.snapshotuuidsfordelete.count) snapshots for delete")
+                "Marked \(snapshotdata.snapshotuuidsfordelete.count) snapshots for delete")
         }
     }
 
