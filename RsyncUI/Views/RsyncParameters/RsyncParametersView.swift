@@ -125,10 +125,9 @@ struct RsyncParametersView: View {
                                 }
                                 .disabled(selectedconfig == nil)
 
-                            if selectedconfig != nil {
-                                Toggle("", isOn: $parameters.showdetails)
-                                    .toggleStyle(.switch)
-                            }
+                            Toggle("", isOn: $parameters.showdetails)
+                                .toggleStyle(.switch)
+                                .disabled(selectedconfig == nil)
                         }
                     }
 
@@ -208,6 +207,7 @@ struct RsyncParametersView: View {
                                     selectedconfig = nil
                                     parameters.setvalues(selectedconfig)
                                     backup = false
+                                    parameters.showdetails = false
                                 }
                             }
                         }

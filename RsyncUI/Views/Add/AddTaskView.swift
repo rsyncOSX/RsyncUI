@@ -103,11 +103,21 @@ struct AddTaskView: View {
                     if selectedconfig?.task == SharedReference.shared.snapshot {
                         VStack(alignment: .leading) { snapshotnum }
                     }
+                    
+                    Section(header: Text("Show save URLs")
+                        .font(.title3)
+                        .fontWeight(.bold))
+                    {
+                        Toggle("", isOn: $newdata.showsaveurls)
+                            .toggleStyle(.switch)
+                            .disabled(selectedconfig == nil)
+                    }
 
                     Spacer()
 
                     if let selectedconfig,
-                       selectedconfig.task == SharedReference.shared.synchronize
+                       selectedconfig.task == SharedReference.shared.synchronize,
+                       newdata.showsaveurls
                     {
                         VStack(alignment: .leading) {
                             HStack {
@@ -120,6 +130,7 @@ struct AddTaskView: View {
                                 .disabled(stringestimate.isEmpty)
                                 .imageScale(.large)
                                 .help(stringestimate)
+                                .buttonStyle(.borderedProminent)
 
                                 Text("URL Estimate & Synchronize")
                             }
@@ -136,6 +147,7 @@ struct AddTaskView: View {
                                     .disabled(stringverify.isEmpty)
                                     .imageScale(.large)
                                     .help(stringverify)
+                                    .buttonStyle(.borderedProminent)
 
                                     Text("URL Verify")
                                 }
@@ -215,6 +227,7 @@ struct AddTaskView: View {
                                     // URL Strings
                                     stringverify = ""
                                     stringestimate = ""
+                                    newdata.showsaveurls = false
                                 }
                             }
                         }
