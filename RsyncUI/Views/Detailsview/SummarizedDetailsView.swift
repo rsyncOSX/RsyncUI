@@ -178,13 +178,9 @@ struct SummarizedDetailsView: View {
                     }
                 }
             }
-            .width(min: 40, max: 80)
-            TableColumn("Task", value: \.task)
-                .width(max: 60)
+            .width(min: 80, max: 120)
             TableColumn("Source folder", value: \.localCatalog)
-                .width(min: 100, max: 300)
-            TableColumn("Destination folder", value: \.offsiteCatalog)
-                .width(min: 100, max: 300)
+                .width(min: 100, max: 250)
             TableColumn("Server") { data in
                 if data.offsiteServer.count > 0 {
                     Text(data.offsiteServer)
@@ -192,7 +188,7 @@ struct SummarizedDetailsView: View {
                     Text("localhost")
                 }
             }
-            .width(max: 60)
+            .width(max: 100)
         }
         .onAppear {
             if selecteduuids.count > 0 {

@@ -19,9 +19,9 @@ struct CompletedView: View {
                     Image(systemName: "hand.thumbsup.fill")
                         .font(.title)
                         .imageScale(.large)
-                        .foregroundColor(.yellow)
+                        .foregroundColor(.green)
                     Text("Synchronize data is completed")
-                        .foregroundColor(.yellow)
+                        .foregroundColor(.green)
                         .font(.title)
                 }
                 .onAppear(perform: {
