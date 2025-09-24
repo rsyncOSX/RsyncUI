@@ -161,8 +161,7 @@ struct AddTaskView: View {
                 VStack(alignment: .leading) {
                     if deleteparameterpresent {
                         HStack {
-                            Text("Tasks for Synchronize actions.")
-
+                            
                             Text("If \(Text("red Synchronize ID").foregroundColor(.red)) click")
 
                             Button {
@@ -173,15 +172,13 @@ struct AddTaskView: View {
                             }
                             .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
 
-                            Text("for more information.")
+                            Text("for more information")
                         }
                         .padding(.bottom, 10)
 
                     } else {
                         HStack {
-                            Text("Tasks for Synchronize actions.")
-
-                            Text("To add --delete click")
+                             Text("To add --delete click")
 
                             Button {
                                 newdata.whichhelptext = 2
@@ -191,7 +188,7 @@ struct AddTaskView: View {
                             }
                             .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
 
-                            Text("for more information.")
+                            Text("for more information")
                         }
                         .padding(.bottom, 10)
                     }

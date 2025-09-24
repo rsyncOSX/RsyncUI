@@ -8,24 +8,31 @@
 import SwiftUI
 
 struct EditRsyncParameter: View {
-    @State private var selectedparameter = EnumRsyncArguments.select
+    @State private var selectedparameter = EnumRsyncArguments.add
     var myvalue: Binding<String>
     var mywidth: CGFloat?
 
     var body: some View {
         HStack {
-            dropdownrsyncparameter
+            
+            Picker("", selection: $selectedparameter) {
+                ForEach(EnumRsyncArguments.allCases) { Text($0.description)
+                    .tag($0)
+                }
+            }
+            .pickerStyle(MenuPickerStyle())
+            .frame(width: 120)
 
-            TextField("rsync parameter", text: myvalue)
+            TextField("", text: myvalue)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .frame(width: mywidth)
                 .lineLimit(1)
                 .onChange(of: selectedparameter) {
-                    guard selectedparameter.rawValue != EnumRsyncArguments.select.rawValue else { return }
+                    guard selectedparameter.rawValue != EnumRsyncArguments.add.rawValue else { return }
                     let argument = selectedparameter.rawValue
                     let value = parameter(myvalue.wrappedValue)
                     myvalue.wrappedValue = argument + value
-                    selectedparameter = EnumRsyncArguments.select
+                    selectedparameter = EnumRsyncArguments.add
                 }
         }
     }
@@ -33,16 +40,6 @@ struct EditRsyncParameter: View {
     init(_ width: CGFloat, _ value: Binding<String>) {
         mywidth = width
         myvalue = value
-    }
-
-    var dropdownrsyncparameter: some View {
-        Picker("", selection: $selectedparameter) {
-            ForEach(EnumRsyncArguments.allCases) { Text($0.description)
-                .tag($0)
-            }
-        }
-        .pickerStyle(MenuPickerStyle())
-        .frame(width: 120)
     }
 
     private func parameter(_ value: String) -> String {
@@ -92,7 +89,7 @@ enum EnumRsyncArguments: String, CaseIterable, Identifiable, CustomStringConvert
     case maxdelete = "--max-delete"
     case include = "--include"
     case filter = "--filter"
-    case select
+    case add
 
     var id: String { rawValue }
     var description: String { rawValue.localizedLowercase }

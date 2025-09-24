@@ -48,7 +48,7 @@ struct RsyncParametersView: View {
                         .padding(.bottom, 10)
                     }
 
-                    Section(header: Text("Task specific parameters for rsync")
+                    Section(header: Text("Parameters for rsync, select task to add")
                         .font(.title3)
                         .fontWeight(.bold))
                     {
@@ -157,8 +157,7 @@ struct RsyncParametersView: View {
                 VStack(alignment: .leading) {
                     if deleteparameterpresent {
                         HStack {
-                            Text("Select a task.")
-
+                            
                             Text("If \(Text("red Synchronize ID").foregroundColor(.red)) click")
 
                             Button {
@@ -169,14 +168,13 @@ struct RsyncParametersView: View {
                             }
                             .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
 
-                            Text("for more information.")
+                            Text("for more information")
                         }
                         .padding(.bottom, 10)
 
                     } else {
                         HStack {
-                            Text("Select a task.")
-
+                            
                             Text("To add --delete click")
 
                             Button {
@@ -187,7 +185,7 @@ struct RsyncParametersView: View {
                             }
                             .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
 
-                            Text("for more information.")
+                            Text("for more information")
                         }
                         .padding(.bottom, 10)
                     }
