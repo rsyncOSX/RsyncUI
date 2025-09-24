@@ -62,7 +62,7 @@ struct VerifyRemoteView: View {
                         }
 
                     if showwarning {
-                        Text("**Warning**: Verify remote is **advisory** only.")
+                        Text("**Warning**: Verify remote is **advisory** only")
                             .foregroundColor(.blue)
                             .font(.title)
                             .onAppear {
@@ -106,7 +106,6 @@ struct VerifyRemoteView: View {
 
                     } label: {
                         Image(systemName: "arrow.left.arrow.right.circle.fill")
-                            .foregroundColor(.blue)
                     }
                     .help("Pull or push")
                 }

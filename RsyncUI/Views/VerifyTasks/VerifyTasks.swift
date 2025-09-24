@@ -13,11 +13,12 @@ struct VerifyTasks: View {
     @State private var remotedatanumbers: RemoteDataNumbers?
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
-
     // Present arguments view
     @State private var presentestimates: Bool = false
     // Estimating
     @State private var estimating: Bool = false
+    // Show warning
+    @State private var showmessage: Bool = true
 
     var body: some View {
         NavigationStack {
@@ -39,24 +40,26 @@ struct VerifyTasks: View {
                     if estimating {
                         ProgressView()
                     }
+                    
+                    if showmessage {
+                        Text("Verify task **always** include the --dry-run parameter")
+                            .foregroundColor(.blue)
+                            .font(.title)
+                            .onAppear {
+                                Task {
+                                    try await Task.sleep(seconds: 3)
+                                    showmessage = false
+                                }
+                            }
+                    }
                 }
-
-                Text("Verify task always include the --dry-run parameter.")
-                    .foregroundColor(.blue)
-                    .font(.title)
 
                 HStack {
                     Text("Select a task and select the ")
-                        .foregroundColor(.blue)
-                        .font(.title2)
 
                     Text(Image(systemName: "play.fill"))
-                        .foregroundColor(.blue)
-                        .font(.title2)
 
-                    Text(" on the toolbar to verify a task.")
-                        .foregroundColor(.blue)
-                        .font(.title2)
+                    Text(" on the toolbar to verify a task")
                 }
             }
             .toolbar(content: {
@@ -71,7 +74,6 @@ struct VerifyTasks: View {
                             }
                         } label: {
                             Image(systemName: "play.fill")
-                                .foregroundColor(.blue)
                         }
                         .help("Verify task")
                     }
