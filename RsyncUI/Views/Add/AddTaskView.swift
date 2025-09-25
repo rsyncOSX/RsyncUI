@@ -103,7 +103,7 @@ struct AddTaskView: View {
                     if selectedconfig?.task == SharedReference.shared.snapshot {
                         VStack(alignment: .leading) { snapshotnum }
                     }
-                    
+
                     Section(header: Text("Show save URLs")
                         .font(.title3)
                         .fontWeight(.bold))
@@ -161,7 +161,6 @@ struct AddTaskView: View {
                 VStack(alignment: .leading) {
                     if deleteparameterpresent {
                         HStack {
-                            
                             Text("If \(Text("red Synchronize ID").foregroundColor(.red)) click")
 
                             Button {
@@ -178,7 +177,7 @@ struct AddTaskView: View {
 
                     } else {
                         HStack {
-                             Text("To add --delete click")
+                            Text("To add --delete click")
 
                             Button {
                                 newdata.whichhelptext = 2

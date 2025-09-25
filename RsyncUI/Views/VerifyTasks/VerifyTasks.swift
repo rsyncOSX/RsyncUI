@@ -40,7 +40,7 @@ struct VerifyTasks: View {
                     if estimating {
                         ProgressView()
                     }
-                    
+
                     if showmessage {
                         Text("Verify task **always** include the --dry-run parameter")
                             .foregroundColor(.blue)
