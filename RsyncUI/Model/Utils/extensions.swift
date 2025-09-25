@@ -245,14 +245,19 @@ extension String {
 extension Double {
     
     func latest() -> String {
-        if self <= 3600 * 24 {
-            if self <= 60 * 60 {
+        // 3600 * 24 = 86 400 ms is one day
+        if self < 86400 {
+            // 3600 ms is one 60 minutes
+            if self <= 3600 {
                 self <= 60 ? String(format: "%.0f", self / 60) + " min" : String(format: "%.0f", self / 60) + " mins"
             } else {
-                self <= 60 * 60 ? String(format: "%.0f", self / (60 * 60)) + " hour" : String(format: "%.0f", self / (60 * 60)) + " hours"
+                // 7200 ms is two hours
+                // 3600 ms is one hour
+                self < 7200 ? String(format: "%.2f", self / 3600) + " hour" : String(format: "%.2f", self / 3600) + " hours"
             }
         } else {
-            self <= 60 * 60 * 24 ? String(format: "%.0f", self / (60 * 60 * 24)) + " day" : String(format: "%.0f", self / (60 * 60 * 24)) + " days"
+            // 86 400 * 2 = 172 800 two days
+            self < 172800 ? String(format: "%.2f", self / 86400 ) + " day" : String(format: "%.2f", self / 86400) + " days"
         }
     }
 }
