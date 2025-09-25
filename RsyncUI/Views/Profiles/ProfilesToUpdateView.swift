@@ -37,7 +37,7 @@ struct ProfilesToUpdateView: View {
                 }
                 let color: Color = markconfig(seconds) == true ? .red : .white
 
-                Text(latest(seconds))
+                Text(seconds.latest())
                     .foregroundColor(color)
             }
             .width(max: 90)
@@ -63,15 +63,4 @@ struct ProfilesToUpdateView: View {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }
 
-    private func latest(_ seconds: Double) -> String {
-        if seconds <= 3600 * 24 {
-            if seconds <= 60 * 60 {
-                seconds <= 60 ? String(format: "%.0f", seconds / 60) + " min" : String(format: "%.0f", seconds / 60) + " mins"
-            } else {
-                seconds <= 60 * 60 ? String(format: "%.0f", seconds / (60 * 60)) + " hour" : String(format: "%.0f", seconds / (60 * 60)) + " hours"
-            }
-        } else {
-            seconds <= 60 * 60 * 24 ? String(format: "%.0f", seconds / (60 * 60 * 24)) + " day" : String(format: "%.0f", seconds / (60 * 60 * 24)) + " days"
-        }
-    }
 }

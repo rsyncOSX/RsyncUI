@@ -241,6 +241,21 @@ extension String {
     }
 }
 
+
+extension Double {
+    
+    func latest() -> String {
+        if self <= 3600 * 24 {
+            if self <= 60 * 60 {
+                self <= 60 ? String(format: "%.0f", self / 60) + " min" : String(format: "%.0f", self / 60) + " mins"
+            } else {
+                self <= 60 * 60 ? String(format: "%.0f", self / (60 * 60)) + " hour" : String(format: "%.0f", self / (60 * 60)) + " hours"
+            }
+        } else {
+            self <= 60 * 60 * 24 ? String(format: "%.0f", self / (60 * 60 * 24)) + " day" : String(format: "%.0f", self / (60 * 60 * 24)) + " days"
+        }
+    }
+}
 /*
 
  func monthNameShort() -> String {

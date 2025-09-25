@@ -127,7 +127,7 @@ struct ConfigurationsTableDataMainView: View {
                 }
                 let color: Color = markconfig(seconds) == true ? .red : (colorScheme == .dark ? .white : .black)
 
-                Text(latest(seconds))
+                Text(seconds.latest())
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
                     .foregroundColor(color)
             }
@@ -165,18 +165,6 @@ struct ConfigurationsTableDataMainView: View {
             }
         } else {
             -1
-        }
-    }
-
-    private func latest(_ seconds: Double) -> String {
-        if seconds <= 3600 * 24 {
-            if seconds <= 60 * 60 {
-                seconds <= 60 ? String(format: "%.0f", seconds / 60) + " min" : String(format: "%.0f", seconds / 60) + " mins"
-            } else {
-                seconds <= 60 * 60 ? String(format: "%.0f", seconds / (60 * 60)) + " hour" : String(format: "%.0f", seconds / (60 * 60)) + " hours"
-            }
-        } else {
-            seconds <= 60 * 60 * 24 ? String(format: "%.0f", seconds / (60 * 60 * 24)) + " day" : String(format: "%.0f", seconds / (60 * 60 * 24)) + " days"
         }
     }
 
