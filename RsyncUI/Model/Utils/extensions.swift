@@ -241,26 +241,33 @@ extension String {
     }
 }
 
-
 extension Double {
-    
     func latest() -> String {
-        // 3600 * 24 = 86 400 ms is one day
-        if self < 86400 {
-            // 3600 ms is one 60 minutes
-            if self <= 3600 {
-                self <= 60 ? String(format: "%.0f", self / 60) + " min" : String(format: "%.0f", self / 60) + " mins"
-            } else {
-                // 7200 ms is two hours
-                // 3600 ms is one hour
-                self < 7200 ? String(format: "%.2f", self / 3600) + " hour" : String(format: "%.2f", self / 3600) + " hours"
-            }
-        } else {
-            // 86 400 * 2 = 172 800 two days
-            self < 172800 ? String(format: "%.2f", self / 86400 ) + " day" : String(format: "%.2f", self / 86400) + " days"
+        let seconds = self
+
+        // Less than 1 minute (60 seconds)
+        if seconds < 60 {
+            let secondsValue = Int(seconds)
+            return secondsValue == 1 ? "\(secondsValue) second" : "\(secondsValue) seconds"
+        }
+        // Less than 1 hour (3600 seconds)
+        else if seconds < 3600 {
+            let minutes = seconds / 60
+            return minutes < 2 ? String(format: "%.0f min", minutes) : String(format: "%.0f mins", minutes)
+        }
+        // Less than 1 day (86400 seconds)
+        else if seconds < 86400 {
+            let hours = seconds / 3600
+            return hours < 2 ? String(format: "%.1f hour", hours) : String(format: "%.1f hours", hours)
+        }
+        // 1 day or more
+        else {
+            let days = seconds / 86400
+            return days < 2 ? String(format: "%.1f day", days) : String(format: "%.1f days", days)
         }
     }
 }
+
 /*
 
  func monthNameShort() -> String {
