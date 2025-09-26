@@ -10,7 +10,7 @@ The [user documentation](https://rsyncui.netlify.app/docs/)([repo](https://githu
 
 | Homebrew | macOS versions |   Latest version   |
 | ----------- |   ----------- | ----------- |
-| `brew install --cask rsyncui`    | macOS Sonoma and later | v2.7.1 - [September 16, 2025](https://github.com/rsyncOSX/RsyncUI/releases) - in *active development* |
+| `brew install --cask rsyncui`    | macOS Sonoma and later | v2.7.3 - [September 26, 2025](https://github.com/rsyncOSX/RsyncUI/releases) - in *active development* |
 | |  | [documentation](https://rsyncui.netlify.app/docs/) and [changelog](https://rsyncui.netlify.app/blog/) |
 
 ![](images/rsyncui.png)
