@@ -32,8 +32,8 @@ final class ObservableParametersRsync {
     //
     var showdetails: Bool = false
 
-    let helptext1 = "Red Synchronize ID means\n--delete parameter is ADDED\nTo REMOVE --delete parameter uncheck,\nAdd --delete parameter to rsync"
-    let helptext2 = "To ADD --delete parameter check\nAdd --delete parameter to rsync"
+    let helptext1 = "Red Synchronize ID\n means --delete parameter is ADDED\nTo REMOVE --delete parameter uncheck"
+    let helptext2 = "To ADD --delete parameter check"
 
     @ObservationIgnored var whichhelptext: Int = 1
 

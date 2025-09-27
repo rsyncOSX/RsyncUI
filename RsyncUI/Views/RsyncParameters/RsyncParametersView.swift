@@ -244,11 +244,11 @@ struct RsyncParametersView: View {
         .sheet(isPresented: $showhelp) {
             switch parameters.whichhelptext {
             case 1:
-                HelpView(text: parameters.helptext1)
+                HelpView(text: parameters.helptext1, add: true, deleteparameterpresent: true)
             case 2:
-                HelpView(text: parameters.helptext2)
+                HelpView(text: parameters.helptext2, add: true, deleteparameterpresent: false)
             default:
-                HelpView(text: parameters.helptext1)
+                HelpView(text: parameters.helptext1, add: true, deleteparameterpresent: true)
             }
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
