@@ -179,14 +179,12 @@ struct LogStatsChartView: View {
             }
         }
         .padding()
-        .onAppear {
-            Task {
-                await chartdata.readandparselogs(profile: rsyncUIdata.profile,
-                                                 validhiddenIDs: validhiddenIDs,
-                                                 hiddenID: hiddenID)
+        .task {
+            await chartdata.readandparselogs(profile: rsyncUIdata.profile,
+                                             validhiddenIDs: validhiddenIDs,
+                                             hiddenID: hiddenID)
 
-                logentries = await readandsortlogdata()
-            }
+            logentries = await readandsortlogdata()
         }
         .onChange(of: numberofdatabool) {
             Task {

@@ -74,7 +74,7 @@ struct PushPullView: View {
                 }
             }
         }
-        .onAppear {
+        .task {
             pullremote(config: config)
         }
         .toolbar(content: {

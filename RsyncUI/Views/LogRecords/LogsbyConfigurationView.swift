@@ -124,12 +124,10 @@ struct LogsbyConfigurationView: View {
         }
         .navigationTitle("Log listing")
         .searchable(text: $filterstring)
-        .onAppear {
-            Task {
-                let actorreadlogs = ActorReadLogRecordsJSON()
-                logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
-                logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-            }
+        .task {
+            let actorreadlogs = ActorReadLogRecordsJSON()
+            logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+            logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
         }
         .onChange(of: filterstring) {
             showindebounce = true

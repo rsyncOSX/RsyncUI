@@ -25,10 +25,8 @@ struct NavigationLogfileView: View {
             }
         }
         .padding()
-        .onAppear {
-            Task {
-                logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
-            }
+        .task {
+            logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
         }
         .toolbar {
             ToolbarItem {

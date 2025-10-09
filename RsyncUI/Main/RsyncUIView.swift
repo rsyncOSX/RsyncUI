@@ -26,13 +26,12 @@ struct RsyncUIView: View {
                     Text("https://rsyncui.netlify.app")
                         .font(.title2)
                 }
-                .onAppear(perform: {
+                .onAppear {
                     Task {
                         try await Task.sleep(seconds: 1)
                         start = false
                     }
-
-                })
+                }
             } else {
                 SidebarMainView(rsyncUIdata: rsyncUIdata,
                                 scheduledata: scheduledata,

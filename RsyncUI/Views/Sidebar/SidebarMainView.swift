@@ -126,28 +126,27 @@ struct SidebarMainView: View {
                 Alert(title: Text("No error"))
             }
         })
-        .onAppear {
-            Task {
-                newversion.notifynewversion = await ActorGetversionofRsyncUI().getversionsofrsyncui()
-                SharedReference.shared.newversion = newversion.notifynewversion
-                if SharedReference.shared.sidebarishidden {
-                    columnVisibility = .detailOnly
-                }
-                // Only addObserver if there are more than the default profile
-                if SharedReference.shared.observemountedvolumes,
-                   rsyncUIdata.validprofiles.isEmpty == false
-                {
-                    // Observer for mounting volumes
-                    observerdidMountNotification()
-                    observerdiddidUnmountNotification()
-                }
-                // Compute schedules
-                futuredates.scheduledata = scheduledata.scheduledata
-                futuredates.recomputeschedules()
-                // Set first schedule to execute
-                futuredates.setfirsscheduledate()
-                Logger.process.info("SidebarMainView: ONAPPEAR completed")
+        .task {
+            newversion.notifynewversion = await ActorGetversionofRsyncUI().getversionsofrsyncui()
+            SharedReference.shared.newversion = newversion.notifynewversion
+            if SharedReference.shared.sidebarishidden {
+                columnVisibility = .detailOnly
             }
+            // Only addObserver if there are more than the default profile
+            if SharedReference.shared.observemountedvolumes,
+               rsyncUIdata.validprofiles.isEmpty == false
+            {
+                // Observer for mounting volumes
+                observerdidMountNotification()
+                observerdiddidUnmountNotification()
+            }
+            // Compute schedules
+            futuredates.scheduledata = scheduledata.scheduledata
+            futuredates.recomputeschedules()
+            // Set first schedule to execute
+            futuredates.setfirsscheduledate()
+            Logger.process.info("SidebarMainView: ONAPPEAR completed")
+
             // Delete any default UserSetttings applied within AddTask
             UserDefaults.standard.removeObject(forKey: "trailingslashoptions")
             UserDefaults.standard.removeObject(forKey: "selectedrsynccommand")
