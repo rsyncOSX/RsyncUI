@@ -1,19 +1,12 @@
-//
-//  GlobalTimer.swift
-//  Calendar
-//
-//  Created by Thomas Evensen on 31/03/2025.
-//
-
 import Foundation
 import Observation
 import OSLog
 import AppKit
 
 @Observable
+@MainActor
 final class GlobalTimer {
-    
-    @MainActor static let shared = GlobalTimer()
+    static let shared = GlobalTimer()
 
     private init() {
         setupWakeNotification()
@@ -32,7 +25,7 @@ final class GlobalTimer {
         schedules[profileName] = (time, callback)
         
         // Create background scheduler for this profile
-        let scheduler = NSBackgroundActivityScheduler(identifier: "com.yourapp.scheduler.\(profileName)")
+        let scheduler = NSBackgroundActivityScheduler(identifier: "no.blogspot.RsyncUI.\(profileName)")
         
         // Calculate interval from now to scheduled time
         let interval = time.timeIntervalSince(Date.now)
@@ -42,20 +35,16 @@ final class GlobalTimer {
             scheduler.repeats = false
             scheduler.qualityOfService = .userInitiated
             
-            scheduler.schedule { [weak self] completion in
-                guard let self = self else {
-                    completion(.finished)
-                    return
-                }
-                
+            scheduler.schedule { completion in
                 Task { @MainActor in
                     Logger.process.info("GlobalTimer: Background scheduler fired for \(profileName)")
                     
-                    if let schedule = self.schedules[profileName] {
+                    let timerInstance = GlobalTimer.shared
+                    if let schedule = timerInstance.schedules[profileName] {
                         if Date.now >= schedule.time {
                             schedule.callback()
-                            self.schedules.removeValue(forKey: profileName)
-                            self.schedulers.removeValue(forKey: profileName)
+                            timerInstance.schedules.removeValue(forKey: profileName)
+                            timerInstance.schedulers.removeValue(forKey: profileName)
                         }
                     }
                     
@@ -137,9 +126,11 @@ final class GlobalTimer {
             forName: NSWorkspace.didWakeNotification,
             object: nil,
             queue: .main
-        ) { [weak self] _ in
-            Logger.process.info("GlobalTimer: System woke up, checking schedules")
-            self?.checkSchedules()
+        ) { _ in
+            Task { @MainActor in
+                Logger.process.info("GlobalTimer: System woke up, checking schedules")
+                GlobalTimer.shared.checkSchedules()
+            }
         }
     }
     
