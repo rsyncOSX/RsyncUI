@@ -249,7 +249,7 @@ struct SummarizedDetailsView: View {
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }
-            .width(max: 60)
+            .width(max: 100)
             TableColumn("Tot files") { files in
                 Text(files.numberoffiles)
                     .frame(maxWidth: .infinity, alignment: .trailing)
