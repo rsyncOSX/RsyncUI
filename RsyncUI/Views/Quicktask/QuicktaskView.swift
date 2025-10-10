@@ -403,18 +403,18 @@ struct QuicktaskView: View {
 
     var labelaborttask: some View {
         Label("", systemImage: "play.fill")
-            .onAppear(perform: {
+            .onAppear {
                 focusaborttask = false
                 abort()
-            })
+            }
     }
 
     var labelstartexecution: some View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
-            .onAppear(perform: {
+            .onAppear {
                 getconfigandexecute()
-            })
+            }
     }
 
     var localhome: String {

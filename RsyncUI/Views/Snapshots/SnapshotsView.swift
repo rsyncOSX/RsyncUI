@@ -209,18 +209,18 @@ struct SnapshotsView: View {
 
     var labeltagsnapshot: some View {
         Label("", systemImage: "play.fill")
-            .onAppear(perform: {
+            .onAppear {
                 focustagsnapshot = false
                 tagsnapshots()
-            })
+            }
     }
 
     var labelaborttask: some View {
         Label("", systemImage: "play.fill")
-            .onAppear(perform: {
+            .onAppear {
                 focusaborttask = false
                 abort()
-            })
+            }
     }
 
     var progressdelete: some View {
@@ -228,9 +228,9 @@ struct SnapshotsView: View {
                      value: Double(snapshotdata.remainingsnapshotstodelete),
                      total: Double(snapshotdata.maxnumbertodelete))
             .frame(width: 200, alignment: .center)
-            .onDisappear(perform: {
+            .onDisappear {
                 deleteiscompleted = true
-            })
+            }
     }
 }
 

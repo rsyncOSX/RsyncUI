@@ -24,12 +24,12 @@ struct CompletedView: View {
                         .foregroundColor(.green)
                         .font(.title)
                 }
-                .onAppear(perform: {
+                .onAppear {
                     Task {
                         try await Task.sleep(seconds: 1)
                         showtext = false
                     }
-                })
+                }
                 .onDisappear {
                     executetaskpath.removeAll()
                 }

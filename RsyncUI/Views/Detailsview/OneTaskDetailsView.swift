@@ -40,7 +40,7 @@ struct OneTaskDetailsView: View {
                 }
             }
         }
-        .onAppear(perform: {
+        .onAppear {
             var selectedconfig: SynchronizeConfiguration?
             let selected = configurations.filter { config in
                 selecteduuids.contains(config.id)
@@ -63,7 +63,7 @@ struct OneTaskDetailsView: View {
                                                     processtermination: processtermination)
                 process.executeProcess()
             }
-        })
+        }
     }
 
     private func getconfig(uuid: UUID?) -> SynchronizeConfiguration? {

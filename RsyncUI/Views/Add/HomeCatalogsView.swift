@@ -74,7 +74,7 @@ struct HomeCatalogsView: View {
             }
         }
         .formStyle(.grouped)
-        .onDisappear(perform: {
+        .onDisappear {
             if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
                 let selectedcatalog = homecatalogs[index].catalogname
                 newdata.localcatalog = newdata.localhome.appending("/") + selectedcatalog
@@ -90,7 +90,7 @@ struct HomeCatalogsView: View {
                     newdata.remotecatalog = selectedvolume
                 }
             }
-        })
+        }
         .padding()
 
         var attachedVolumesCatalogs: [String] {

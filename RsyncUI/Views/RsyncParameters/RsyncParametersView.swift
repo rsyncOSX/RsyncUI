@@ -271,10 +271,10 @@ struct RsyncParametersView: View {
 
     var labelaborttask: some View {
         Label("", systemImage: "play.fill")
-            .onAppear(perform: {
+            .onAppear {
                 focusaborttask = false
                 abort()
-            })
+            }
     }
 
     var setsshpath: some View {

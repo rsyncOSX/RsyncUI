@@ -37,14 +37,14 @@ struct ExecuteNoEstTasksView: View {
             }
             if focusaborttask { labelaborttask }
         }
-        .onAppear(perform: {
+        .onAppear {
             executeallnoestimationtasks()
-        })
-        .onDisappear(perform: {
+        }
+        .onDisappear {
             if SharedReference.shared.process != nil {
                 InterruptProcess()
             }
-        })
+        }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
             ToolbarItem {
@@ -60,10 +60,10 @@ struct ExecuteNoEstTasksView: View {
 
     var labelaborttask: some View {
         Label("", systemImage: "play.fill")
-            .onAppear(perform: {
+            .onAppear {
                 focusaborttask = false
                 abort()
-            })
+            }
     }
 }
 

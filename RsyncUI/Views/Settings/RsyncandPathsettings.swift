@@ -125,11 +125,11 @@ struct RsyncandPathsettings: View {
                              $rsyncpathsettings.temporarypathforrestore,
                              rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore))
             .foregroundColor(rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore) ? Color.white : Color.red)
-            .onAppear(perform: {
+            .onAppear {
                 if let pathforrestore = SharedReference.shared.pathforrestore {
                     rsyncpathsettings.temporarypathforrestore = pathforrestore
                 }
-            })
+            }
             .onChange(of: rsyncpathsettings.temporarypathforrestore) {
                 guard rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore) else {
                     return

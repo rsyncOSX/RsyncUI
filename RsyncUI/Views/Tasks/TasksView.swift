@@ -322,28 +322,28 @@ struct TasksView: View {
     var doubleclickaction: some View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
-            .onAppear(perform: {
+            .onAppear {
                 doubleclickactionfunction()
                 doubleclick = false
-            })
+            }
     }
 
     var labelstartestimation: some View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
-            .onAppear(perform: {
+            .onAppear {
                 executetaskpath.append(Tasks(task: .summarizeddetailsview))
                 focusstartestimation = false
-            })
+            }
     }
 
     var labelstartexecution: some View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
-            .onAppear(perform: {
+            .onAppear {
                 execute()
                 focusstartexecution = false
-            })
+            }
     }
 }
 

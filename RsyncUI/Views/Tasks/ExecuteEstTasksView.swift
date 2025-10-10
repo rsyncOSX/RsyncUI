@@ -38,16 +38,16 @@ struct ExecuteEstTasksView: View {
             // if executestate.executestate == .execute { ProgressView() }
             if focusaborttask { labelaborttask }
         }
-        .onAppear(perform: {
+        .onAppear {
             executemultipleestimatedtasks()
-        })
-        .onDisappear(perform: {
+        }
+        .onDisappear {
             progressdetails.estimatedlist = nil
             rsyncUIdata.executetasksinprogress = false
             if SharedReference.shared.process != nil {
                 InterruptProcess()
             }
-        })
+        }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
             ToolbarItem {
@@ -63,10 +63,10 @@ struct ExecuteEstTasksView: View {
 
     var labelaborttask: some View {
         Label("", systemImage: "play.fill")
-            .onAppear(perform: {
+            .onAppear {
                 focusaborttask = false
                 abort()
-            })
+            }
     }
 }
 

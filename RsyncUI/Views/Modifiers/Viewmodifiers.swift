@@ -69,12 +69,12 @@ struct DismissafterMessageView: View {
             }
             .frame(height: 30, alignment: .center)
             .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 4))
-            .onAppear(perform: {
+            .onAppear {
                 Task {
                     try await Task.sleep(seconds: dismissafter)
                     showtext = false
                 }
-            })
+            }
             .padding(100)
         }
     }

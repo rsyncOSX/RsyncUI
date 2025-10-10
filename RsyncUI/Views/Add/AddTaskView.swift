@@ -394,11 +394,11 @@ struct AddTaskView: View {
                         .focused($focusField, equals: .localcatalogField)
                         .textContentType(.none)
                         .submitLabel(.continue)
-                        .onAppear(perform: {
+                        .onAppear {
                             if let catalog = newdata.selectedconfig?.localCatalog {
                                 newdata.localcatalog = catalog
                             }
-                        })
+                        }
                 }
                 OpencatalogView(selecteditem: $newdata.localcatalog, catalogs: true)
             }
@@ -409,11 +409,11 @@ struct AddTaskView: View {
                         .focused($focusField, equals: .remotecatalogField)
                         .textContentType(.none)
                         .submitLabel(.continue)
-                        .onAppear(perform: {
+                        .onAppear {
                             if let catalog = newdata.selectedconfig?.offsiteCatalog {
                                 newdata.remotecatalog = catalog
                             }
-                        })
+                        }
                 }
                 OpencatalogView(selecteditem: $newdata.remotecatalog, catalogs: true)
             }
@@ -429,11 +429,11 @@ struct AddTaskView: View {
                         .focused($focusField, equals: .remotecatalogField)
                         .textContentType(.none)
                         .submitLabel(.continue)
-                        .onAppear(perform: {
+                        .onAppear {
                             if let catalog = newdata.selectedconfig?.offsiteCatalog {
                                 newdata.remotecatalog = catalog
                             }
-                        })
+                        }
                 }
                 OpencatalogView(selecteditem: $newdata.remotecatalog, catalogs: true)
             }
@@ -445,11 +445,11 @@ struct AddTaskView: View {
                         .focused($focusField, equals: .localcatalogField)
                         .textContentType(.none)
                         .submitLabel(.continue)
-                        .onAppear(perform: {
+                        .onAppear {
                             if let catalog = newdata.selectedconfig?.localCatalog {
                                 newdata.localcatalog = catalog
                             }
-                        })
+                        }
                 }
                 OpencatalogView(selecteditem: $newdata.localcatalog, catalogs: true)
             }
@@ -480,11 +480,11 @@ struct AddTaskView: View {
                     .focused($focusField, equals: .synchronizeIDField)
                     .textContentType(.none)
                     .submitLabel(.continue)
-                    .onAppear(perform: {
+                    .onAppear {
                         if let id = newdata.selectedconfig?.backupID {
                             newdata.backupID = id
                         }
-                    })
+                    }
             }
         }
     }
@@ -540,11 +540,11 @@ struct AddTaskView: View {
                     .focused($focusField, equals: .remoteuserField)
                     .textContentType(.none)
                     .submitLabel(.continue)
-                    .onAppear(perform: {
+                    .onAppear {
                         if let user = newdata.selectedconfig?.offsiteUsername {
                             newdata.remoteuser = user
                         }
-                    })
+                    }
             }
             // Remote server
             if newdata.selectedconfig == nil { setremoteserver } else {
@@ -552,11 +552,11 @@ struct AddTaskView: View {
                     .focused($focusField, equals: .remoteserverField)
                     .textContentType(.none)
                     .submitLabel(.return)
-                    .onAppear(perform: {
+                    .onAppear {
                         if let server = newdata.selectedconfig?.offsiteServer {
                             newdata.remoteserver = server
                         }
-                    })
+                    }
             }
         }
     }

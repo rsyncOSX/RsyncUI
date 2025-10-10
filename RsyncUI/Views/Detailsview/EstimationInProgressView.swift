@@ -73,10 +73,10 @@ struct EstimationInProgressView: View {
 
     var labelaborttask: some View {
         Label("", systemImage: "play.fill")
-            .onAppear(perform: {
+            .onAppear {
                 focusaborttask = false
                 abort()
-            })
+            }
     }
 
     func getuuid(uuid: UUID?) -> SynchronizeConfiguration.ID? {

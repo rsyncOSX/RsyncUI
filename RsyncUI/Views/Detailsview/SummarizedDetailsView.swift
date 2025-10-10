@@ -125,11 +125,11 @@ struct SummarizedDetailsView: View {
     var labelstartexecution: some View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
-            .onAppear(perform: {
+            .onAppear {
                 executetaskpath.removeAll()
                 executetaskpath.append(Tasks(task: .executestimatedview))
                 focusstartexecution = false
-            })
+            }
     }
 
     // URL code

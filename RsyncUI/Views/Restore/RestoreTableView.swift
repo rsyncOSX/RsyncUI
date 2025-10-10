@@ -186,21 +186,21 @@ struct RestoreTableView: View {
 
     var labelaborttask: some View {
         Label("", systemImage: "play.fill")
-            .onAppear(perform: {
+            .onAppear {
                 focusaborttask = false
                 abort()
-            })
+            }
     }
 
     var setpathforrestore: some View {
         EditValueErrorScheme(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore,
                              restore.verifypathforrestore(restore.pathforrestore))
             .foregroundColor(restore.verifypathforrestore(restore.pathforrestore) ? Color.white : Color.red)
-            .onAppear(perform: {
+            .onAppear {
                 if let pathforrestore = SharedReference.shared.pathforrestore {
                     restore.pathforrestore = pathforrestore
                 }
-            })
+            }
             .onChange(of: restore.pathforrestore) {
                 guard restore.verifypathforrestore(restore.pathforrestore) else {
                     return

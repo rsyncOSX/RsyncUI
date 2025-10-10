@@ -42,11 +42,11 @@ struct Environmentsettings: View {
 
     var setenvironment: some View {
         EditValueScheme(400, NSLocalizedString("Environment", comment: ""), $environment)
-            .onAppear(perform: {
+            .onAppear {
                 if let environmentstring = SharedReference.shared.environment {
                     environment = environmentstring
                 }
-            })
+            }
             .onChange(of: environment) {
                 SharedReference.shared.environment = environment
             }
@@ -54,11 +54,11 @@ struct Environmentsettings: View {
 
     var setenvironmenvariable: some View {
         EditValueScheme(400, NSLocalizedString("Environment variable", comment: ""), $environmentvalue)
-            .onAppear(perform: {
+            .onAppear {
                 if let environmentvaluestring = SharedReference.shared.environmentvalue {
                     environmentvalue = environmentvaluestring
                 }
-            })
+            }
             .onChange(of: environmentvalue) {
                 SharedReference.shared.environmentvalue = environmentvalue
             }
