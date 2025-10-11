@@ -25,6 +25,32 @@ enum ValidateDate: LocalizedError {
 @Observable @MainActor
 final class ObservableScheduleData {
     var scheduledata: [SchedulesConfigurations] = []
+    
+    
+    // At least 10 min between schedules
+    func verifydddxextschedule(nextschedule: String) -> Bool {
+        let dates = Array(scheduledata).sorted { s1, s2 in
+            if let id1 = s1.dateRun?.en_date_from_string(),
+               let id2 = s2.dateRun?.en_date_from_string() {
+                return id1 < id2
+            }
+            return false
+        }
+        
+        if dates.count > 0 {
+            if let nextScheduleString = dates.first?.dateRun {
+               let nextScheduleDate = nextScheduleString.en_date_from_string()
+                let tenMinutesnextScheduleDate = nextScheduleDate.addingTimeInterval(10 * 60)
+                
+                if nextschedule.en_date_from_string() > tenMinutesnextScheduleDate {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        }
+        return true
+    }
 
     // Delete by IndexSet
     func delete(_ uuids: Set<UUID>) {

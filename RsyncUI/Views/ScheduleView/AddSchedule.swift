@@ -72,6 +72,11 @@ struct AddSchedule: View {
                                                            dateRun: run,
                                                            schedule: schedule)
 
+                        guard scheduledata.verifydddxextschedule(nextschedule: run) else {
+                            Logger.process.warning("AddSchedule: not valid more than 10 minutes to next schedule")
+                            return
+                        }
+                        
                         scheduledata.scheduledata.append(item)
 
                         // If more than one schedule, sort by dateRun
