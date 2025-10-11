@@ -135,6 +135,7 @@ final class GlobalTimer {
     }
     
     deinit {
+        Logger.process.info("GlobalTimer: deinit - removing wake notification observer")
         NSWorkspace.shared.notificationCenter.removeObserver(self)
     }
 }
