@@ -108,6 +108,7 @@ final class GlobalTimer {
         
         // Clean up fired schedules
         for name in fired {
+            Logger.process.info("GlobalTimer: checkSchedules() - removed \(name)")
             schedules.removeValue(forKey: name)
             schedulers[name]?.invalidate()
             schedulers.removeValue(forKey: name)
