@@ -34,13 +34,27 @@ struct AddSchedule: View {
                     .font(.title)
                     .imageScale(.small)
                     .foregroundColor(.blue)
-
+                
+                TextField("", text: $dateRunMonth)
+                    .frame(width: 100)
+                
+                /*.
+                EditValueErrorScheme(80, NSLocalizedString("", comment: ""),
+                                     $dateRunMonth,
+                                     scheduledata.verifynextschedule(nextschedule: dateRunMonth + dateRunHour))
+                foregroundColor(scheduledata.verifynextschedule(nextschedule: dateRunMonth + dateRunHour) ? Color.white : Color.red))*/
+                
+                EditValueErrorScheme(50, NSLocalizedString("", comment: ""),
+                                     $dateRunHour,
+                                     scheduledata.verifynextschedule(nextschedule: dateRunMonth + " " + dateRunHour))
+                    .foregroundColor(scheduledata.verifynextschedule(nextschedule: dateRunMonth + " " + dateRunHour) ? Color.white : Color.red)
+                /*
                 TextField("", text: $dateRunMonth)
                     .frame(width: 80)
 
                 TextField("", text: $dateRunHour)
                     .frame(width: 50, alignment: .center)
-
+*/
                 Button {
                     dateRunMonth = Date.now.en_string_month_from_date()
                     dateRunHour = hournow
@@ -72,7 +86,7 @@ struct AddSchedule: View {
                                                            dateRun: run,
                                                            schedule: schedule)
 
-                        guard scheduledata.verifydddxextschedule(nextschedule: run) else {
+                        guard scheduledata.verifynextschedule(nextschedule: run) else {
                             Logger.process.warning("AddSchedule: not valid more than 10 minutes to next schedule")
                             return
                         }

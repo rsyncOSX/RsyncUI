@@ -28,7 +28,7 @@ final class ObservableScheduleData {
     
     
     // At least 10 min between schedules
-    func verifydddxextschedule(nextschedule: String) -> Bool {
+    func verifynextschedule(nextschedule: String) -> Bool {
         let dates = Array(scheduledata).sorted { s1, s2 in
             if let id1 = s1.dateRun?.en_date_from_string(),
                let id2 = s2.dateRun?.en_date_from_string() {
