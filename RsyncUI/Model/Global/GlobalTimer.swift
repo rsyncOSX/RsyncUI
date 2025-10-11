@@ -17,6 +17,7 @@ final class GlobalTimer {
 
     private var schedules: [String: (time: Date, callback: () -> Void)] = [:]
     private var schedulers: [String: NSBackgroundActivityScheduler] = [:]
+    private var wakeObserver: NSObjectProtocol?
 
     func addSchedule(profile: String?, time: Date, callback: @escaping () -> Void) {
         let profileName = profile ?? "Default"
@@ -123,20 +124,24 @@ final class GlobalTimer {
     
     // Check schedules when system wakes up
     private func setupWakeNotification() {
-        NSWorkspace.shared.notificationCenter.addObserver(
+        wakeObserver = NSWorkspace.shared.notificationCenter.addObserver(
             forName: NSWorkspace.didWakeNotification,
             object: nil,
             queue: .main
-        ) { _ in
+        ) { [weak self] _ in
             Task { @MainActor in
                 Logger.process.info("GlobalTimer: System woke up, checking schedules")
-                GlobalTimer.shared.checkSchedules()
+                self?.checkSchedules()
             }
         }
     }
     
-    deinit {
-        Logger.process.info("GlobalTimer: deinit - removing wake notification observer")
-        NSWorkspace.shared.notificationCenter.removeObserver(self)
+    // Call this when your app terminates if needed (optional cleanup)
+    func cleanup() {
+        if let observer = wakeObserver {
+            Logger.process.info("GlobalTimer: cleanup - removing wake notification observer")
+            NSWorkspace.shared.notificationCenter.removeObserver(observer)
+            wakeObserver = nil
+        }
     }
 }
