@@ -34,27 +34,27 @@ struct AddSchedule: View {
                     .font(.title)
                     .imageScale(.small)
                     .foregroundColor(.blue)
-                
+
                 TextField("", text: $dateRunMonth)
                     .frame(width: 100)
-                
-                /*.
-                EditValueErrorScheme(80, NSLocalizedString("", comment: ""),
-                                     $dateRunMonth,
-                                     scheduledata.verifynextschedule(nextschedule: dateRunMonth + dateRunHour))
-                foregroundColor(scheduledata.verifynextschedule(nextschedule: dateRunMonth + dateRunHour) ? Color.white : Color.red))*/
-                
+
+                /* .
+                 EditValueErrorScheme(80, NSLocalizedString("", comment: ""),
+                                      $dateRunMonth,
+                                      scheduledata.verifynextschedule(nextschedule: dateRunMonth + dateRunHour))
+                 foregroundColor(scheduledata.verifynextschedule(nextschedule: dateRunMonth + dateRunHour) ? Color.white : Color.red)) */
+
                 EditValueErrorScheme(50, NSLocalizedString("", comment: ""),
                                      $dateRunHour,
                                      scheduledata.verifynextschedule(nextschedule: dateRunMonth + " " + dateRunHour))
                     .foregroundColor(scheduledata.verifynextschedule(nextschedule: dateRunMonth + " " + dateRunHour) ? Color.white : Color.red)
                 /*
-                TextField("", text: $dateRunMonth)
-                    .frame(width: 80)
+                 TextField("", text: $dateRunMonth)
+                     .frame(width: 80)
 
-                TextField("", text: $dateRunHour)
-                    .frame(width: 50, alignment: .center)
-*/
+                 TextField("", text: $dateRunHour)
+                     .frame(width: 50, alignment: .center)
+                 */
                 Button {
                     dateRunMonth = Date.now.en_string_month_from_date()
                     dateRunHour = hournow
@@ -70,56 +70,45 @@ struct AddSchedule: View {
                 Spacer()
 
                 Button {
-                    do {
-                        // Just concatenate month + minnutes string
-                        let run = dateRunMonth + " " + dateRunHour
-                        try scheduledata.validatedate(date: run)
+                    // Just concatenate month + minnutes string
+                    let run = dateRunMonth + " " + dateRunHour
 
-                        let profile: String? = if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
-                            rsyncUIdata.validprofiles[index].profilename
-                        } else {
-                            nil
-                        }
+                    let profile: String? = if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
+                        rsyncUIdata.validprofiles[index].profilename
+                    } else { nil }
 
-                        let item = SchedulesConfigurations(profile: profile,
-                                                           dateAdded: dateAdded,
-                                                           dateRun: run,
-                                                           schedule: schedule)
+                    let item = SchedulesConfigurations(profile: profile,
+                                                       dateAdded: dateAdded,
+                                                       dateRun: run,
+                                                       schedule: schedule)
 
-                        guard scheduledata.verifynextschedule(nextschedule: run) else {
-                            Logger.process.warning("AddSchedule: not valid more than 10 minutes to next schedule")
-                            return
-                        }
-                        
-                        scheduledata.scheduledata.append(item)
-
-                        // If more than one schedule, sort by dateRun
-                        if scheduledata.scheduledata.count > 1 {
-                            scheduledata.scheduledata.sort { item1, item2 in
-                                if let date1 = item1.dateRun?.validate_en_date_from_string(),
-                                   let date2 = item2.dateRun?.validate_en_date_from_string()
-                                {
-                                    return date1 < date2
-                                }
-                                return false
-                            }
-                        }
-
-                        date = Date.now
-                        futuredates.scheduledata = scheduledata.scheduledata
-                        istappeddayint = 0
-                        futuredates.lastdateinpresentmont = Date.now.endOfMonth
-                        futuredates.recomputeschedules()
-                        futuredates.setfirsscheduledate()
-
-                        WriteSchedule(scheduledata.scheduledata)
-
-                    } catch let e {
-                        Logger.process.info("AddSchedule: some ERROR adding schedule")
-
-                        let error = e
-                        SharedReference.shared.errorobject?.alert(error: error)
+                    guard scheduledata.verifynextschedule(nextschedule: run) else {
+                        Logger.process.warning("AddSchedule: not valid more than 10 minutes to next schedule")
+                        return
                     }
+
+                    scheduledata.scheduledata.append(item)
+
+                    // If more than one schedule, sort by dateRun
+                    if scheduledata.scheduledata.count > 1 {
+                        scheduledata.scheduledata.sort { item1, item2 in
+                            if let date1 = item1.dateRun?.validate_en_date_from_string(),
+                               let date2 = item2.dateRun?.validate_en_date_from_string()
+                            {
+                                return date1 < date2
+                            }
+                            return false
+                        }
+                    }
+
+                    date = Date.now
+                    futuredates.scheduledata = scheduledata.scheduledata
+                    istappeddayint = 0
+                    futuredates.lastdateinpresentmont = Date.now.endOfMonth
+                    futuredates.recomputeschedules()
+                    futuredates.setfirsscheduledate()
+
+                    WriteSchedule(scheduledata.scheduledata)
 
                 } label: {
                     Label("Add", systemImage: "plus")

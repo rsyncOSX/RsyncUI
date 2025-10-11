@@ -147,7 +147,7 @@ final class ObservableFutureSchedules {
             GlobalTimer.shared.clearSchedules()
         }
     }
-    
+
     private func starttimer(_ schedule: SchedulesConfigurations) {
         let globalTimer = GlobalTimer.shared
         // Remove and cancel any schedules

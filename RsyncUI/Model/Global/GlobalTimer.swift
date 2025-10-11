@@ -1,7 +1,7 @@
+import AppKit
 import Foundation
 import Observation
 import OSLog
-import AppKit
 
 @Observable
 @MainActor
@@ -22,24 +22,24 @@ final class GlobalTimer {
     func addschedule(profile: String?, time: Date, callback: @escaping () -> Void) {
         let profileName = profile ?? "Default"
         Logger.process.info("GlobalTimer: addSchedule() - profile \(profileName) at time \(time)")
-        
+
         schedules[profileName] = (time, callback)
-        
+
         // Create background scheduler for this profile
         let scheduler = NSBackgroundActivityScheduler(identifier: "no.blogspot.RsyncUI.\(profileName)")
-        
+
         // Calculate interval from now to scheduled time
         let interval = time.timeIntervalSince(Date.now)
-        
+
         if interval > 0 {
             scheduler.interval = interval
             scheduler.repeats = false
             scheduler.qualityOfService = .userInitiated
-            
+
             scheduler.schedule { completion in
                 Task { @MainActor in
                     Logger.process.info("GlobalTimer: Background scheduler fired for \(profileName)")
-                    
+
                     let timerInstance = GlobalTimer.shared
                     if let schedule = timerInstance.schedules[profileName] {
                         if Date.now >= schedule.time {
@@ -48,14 +48,14 @@ final class GlobalTimer {
                             timerInstance.backgroundschedules.removeValue(forKey: profileName)
                         }
                     }
-                    
+
                     completion(.finished)
                 }
             }
-            
+
             backgroundschedules[profileName] = scheduler
         }
-        
+
         // Also start regular timer as backup for when app is active
         start()
     }
@@ -75,7 +75,7 @@ final class GlobalTimer {
             scheduler.invalidate()
         }
         backgroundschedules.removeAll()
-        
+
         schedules.removeAll()
         timer?.invalidate()
         timer = nil
@@ -96,9 +96,8 @@ final class GlobalTimer {
     @objc private func checkSchedules() {
         let now = Date.now
         var fired: [String] = []
-        
+
         for (name, schedule) in schedules {
-            
             Logger.process.info("GlobalTimer: checkSchedules(): Date.now \(now) and schedule.time \(schedule.time)")
 
             if now >= schedule.time {
@@ -107,7 +106,7 @@ final class GlobalTimer {
                 fired.append(name)
             }
         }
-        
+
         // Clean up fired schedules
         for name in fired {
             Logger.process.info("GlobalTimer: checkSchedules() - removed \(name)")
@@ -115,14 +114,14 @@ final class GlobalTimer {
             backgroundschedules[name]?.invalidate()
             backgroundschedules.removeValue(forKey: name)
         }
-        
+
         // Stop timer if no more schedules
         if schedules.isEmpty {
             timer?.invalidate()
             timer = nil
         }
     }
-    
+
     // Check schedules when system wakes up
     private func setupWakeNotification() {
         wakeObserver = NSWorkspace.shared.notificationCenter.addObserver(
@@ -137,7 +136,7 @@ final class GlobalTimer {
             }
         }
     }
-    
+
     // Call this when your app terminates if needed (optional cleanup)
     func cleanup() {
         if let observer = wakeObserver {
