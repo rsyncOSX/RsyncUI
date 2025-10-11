@@ -140,23 +140,23 @@ final class ObservableFutureSchedules {
             // Present next schedule as String date
             GlobalTimer.shared.schedule = first.dateRun
 
-            startatimer(first)
+            starttimer(first)
         } else {
             firstscheduledate = nil
             GlobalTimer.shared.schedule = nil
             GlobalTimer.shared.clearSchedules()
         }
     }
-
-    private func startatimer(_ schedule: SchedulesConfigurations) {
+    
+    private func starttimer(_ schedule: SchedulesConfigurations) {
         let globalTimer = GlobalTimer.shared
         // Remove and cancel any schedules
         globalTimer.clearSchedules()
 
         // Then add new schedule
         if let schedultime = schedule.dateRun?.en_date_from_string() {
-            // The time callback
-            globalTimer.addSchedule(profile: schedule.profile, time: schedultime) {
+            // The Callback
+            globalTimer.addschedule(profile: schedule.profile, time: schedultime) {
                 self.recomputeschedules()
                 self.setfirsscheduledate()
                 // Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED INTERNALLY")
@@ -170,3 +170,14 @@ final class ObservableFutureSchedules {
         }
     }
 }
+
+/*
+ GlobalTimer.shared.addSchedule(
+     profile: "HomeBackup",
+     time: Date.now.addingTimeInterval(3600), // 1 hour from now
+     callback: {
+         print("Running home backup!")
+         // Execute backup logic
+     }
+ )
+ */
