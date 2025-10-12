@@ -119,6 +119,8 @@ final class GlobalTimer {
         if schedules.isEmpty {
             timer?.invalidate()
             timer = nil
+            // And remove the Observer
+            cleanup()
         }
     }
 
