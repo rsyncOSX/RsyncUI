@@ -23,6 +23,12 @@ final class GlobalTimer {
         let profileName = profile ?? "Default"
         Logger.process.info("GlobalTimer: addSchedule() - profile \(profileName) at time \(time)")
 
+        // Cancel existing scheduler for this profile if it exists
+        if let existingScheduler = backgroundschedules[profileName] {
+            existingScheduler.invalidate()
+            Logger.process.info("GlobalTimer: Cancelled existing scheduler for \(profileName)")
+        }
+
         schedules[profileName] = (time, callback)
 
         // Create background scheduler for this profile
@@ -35,6 +41,7 @@ final class GlobalTimer {
             scheduler.interval = interval
             scheduler.repeats = false
             scheduler.qualityOfService = .userInitiated
+            scheduler.tolerance = 60 // Add some tolerance for system optimization
 
             scheduler.schedule { completion in
                 Task { @MainActor in
@@ -42,10 +49,15 @@ final class GlobalTimer {
 
                     let timerInstance = GlobalTimer.shared
                     if let schedule = timerInstance.schedules[profileName] {
-                        if Date.now >= schedule.time {
+                        // Only execute if this is still the current scheduled time
+                        // (not replaced by a newer schedule)
+                        if schedule.time == time && Date.now >= schedule.time {
+                            Logger.process.info("GlobalTimer: Executing callback for \(profileName)")
                             schedule.callback()
                             timerInstance.schedules.removeValue(forKey: profileName)
                             timerInstance.backgroundschedules.removeValue(forKey: profileName)
+                        } else {
+                            Logger.process.info("GlobalTimer: Skipping stale task for \(profileName)")
                         }
                     }
 
@@ -54,6 +66,9 @@ final class GlobalTimer {
             }
 
             backgroundschedules[profileName] = scheduler
+            
+        } else {
+            Logger.process.warning("GlobalTimer: Scheduled time for \(profileName) is in the past, skipping")
         }
 
         // Also start regular timer as backup for when app is active
