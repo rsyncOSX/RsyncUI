@@ -95,7 +95,7 @@ struct Logsettings: View {
                     Logger.process.info("USER CONFIGURATION is SAVED")
                     if logsettings.hideschedule {
                         // Schedule is off, delete any schedules
-                        GlobalTimer.shared.clearSchedules()
+                        GlobalTimer.shared.clearschedules()
                     }
                 } label: {
                     Image(systemName: "square.and.arrow.down")

@@ -38,12 +38,6 @@ struct AddSchedule: View {
                 TextField("", text: $dateRunMonth)
                     .frame(width: 100)
 
-                /* .
-                 EditValueErrorScheme(80, NSLocalizedString("", comment: ""),
-                                      $dateRunMonth,
-                                      scheduledata.verifynextschedule(nextschedule: dateRunMonth + dateRunHour))
-                 foregroundColor(scheduledata.verifynextschedule(nextschedule: dateRunMonth + dateRunHour) ? Color.white : Color.red)) */
-
                 EditValueErrorScheme(50, NSLocalizedString("", comment: ""),
                                      $dateRunHour,
                                      scheduledata.verifynextschedule(nextschedule: dateRunMonth + " " + dateRunHour))
@@ -55,6 +49,7 @@ struct AddSchedule: View {
                  TextField("", text: $dateRunHour)
                      .frame(width: 50, alignment: .center)
                  */
+                
                 Button {
                     dateRunMonth = Date.now.en_string_month_from_date()
                     dateRunHour = hournow

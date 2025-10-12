@@ -60,15 +60,15 @@ final class GlobalTimer {
         start()
     }
 
-    func clearSchedules() {
+    func clearschedules() {
         guard schedules.count > 0 else {
-            Logger.process.info("GlobalTimer: clearSchedules() NO timer to invalidate")
+            Logger.process.info("GlobalTimer: clearschedules() NO timer to invalidate")
             timer?.invalidate()
             timer = nil
             return
         }
 
-        Logger.process.info("GlobalTimer: clearSchedules() and INVALIDATE old timer")
+        Logger.process.info("GlobalTimer: clearschedules() and INVALIDATE old timer")
 
         // Invalidate all background schedulers
         for (_, scheduler) in backgroundschedules {
@@ -87,21 +87,21 @@ final class GlobalTimer {
 
             timer = Timer.scheduledTimer(timeInterval: 60.0,
                                          target: self,
-                                         selector: #selector(checkSchedules),
+                                         selector: #selector(checkschedules),
                                          userInfo: nil,
                                          repeats: true)
         }
     }
 
-    @objc private func checkSchedules() {
+    @objc private func checkschedules() {
         let now = Date.now
         var fired: [String] = []
 
         for (name, schedule) in schedules {
-            Logger.process.info("GlobalTimer: checkSchedules(): Date.now \(now) and schedule.time \(schedule.time)")
+            Logger.process.info("GlobalTimer: checkschedules(): Date.now \(now) and schedule.time \(schedule.time)")
 
             if now >= schedule.time {
-                Logger.process.info("GlobalTimer: checkSchedules() - timer \(name) fired")
+                Logger.process.info("GlobalTimer: checkschedules() - timer \(name) fired")
                 schedule.callback()
                 fired.append(name)
             }
@@ -109,7 +109,7 @@ final class GlobalTimer {
 
         // Clean up fired schedules
         for name in fired {
-            Logger.process.info("GlobalTimer: checkSchedules() - removed \(name)")
+            Logger.process.info("GlobalTimer: checkschedules() - removed \(name)")
             schedules.removeValue(forKey: name)
             backgroundschedules[name]?.invalidate()
             backgroundschedules.removeValue(forKey: name)
@@ -132,7 +132,7 @@ final class GlobalTimer {
             guard let self else { return }
             Task { @MainActor in
                 Logger.process.info("GlobalTimer: System woke up, checking schedules")
-                checkSchedules()
+                checkschedules()
             }
         }
     }

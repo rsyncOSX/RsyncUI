@@ -12,7 +12,7 @@ import Observation
 final class ObservableScheduleData {
     var scheduledata: [SchedulesConfigurations] = []
 
-    // At least 10 min between schedules
+    // At least 10 min between schedules, next schedule is added as a string date
     func verifynextschedule(nextschedule: String) -> Bool {
         let dates = Array(scheduledata).sorted { s1, s2 in
             if let id1 = s1.dateRun?.en_date_from_string(),
@@ -24,7 +24,9 @@ final class ObservableScheduleData {
         }
 
         if dates.count > 0 {
+            // Pick the first schedule
             if let nextScheduleString = dates.first?.dateRun {
+                
                 let nextScheduleDate = nextScheduleString.en_date_from_string()
                 let tenMinutesnextScheduleDate = nextScheduleDate.addingTimeInterval(10 * 60)
 
@@ -35,6 +37,7 @@ final class ObservableScheduleData {
                 }
             }
         }
+        // No Schedules added yet
         return nextschedule.en_date_from_string() > Date.now
     }
 

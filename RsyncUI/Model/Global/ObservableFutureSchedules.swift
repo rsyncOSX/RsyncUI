@@ -144,14 +144,14 @@ final class ObservableFutureSchedules {
         } else {
             firstscheduledate = nil
             GlobalTimer.shared.schedule = nil
-            GlobalTimer.shared.clearSchedules()
+            GlobalTimer.shared.clearschedules()
         }
     }
 
     private func starttimer(_ schedule: SchedulesConfigurations) {
         let globalTimer = GlobalTimer.shared
         // Remove and cancel any schedules
-        globalTimer.clearSchedules()
+        globalTimer.clearschedules()
 
         // Then add new schedule
         if let schedultime = schedule.dateRun?.en_date_from_string() {

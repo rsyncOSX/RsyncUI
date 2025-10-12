@@ -195,7 +195,7 @@ struct SidebarMainView: View {
             }
             if scheduledata.scheduledata.isEmpty {
                 let globalTimer = GlobalTimer.shared
-                globalTimer.clearSchedules()
+                globalTimer.clearschedules()
             }
         }
         .onChange(of: futuredates.scheduledprofile) {
