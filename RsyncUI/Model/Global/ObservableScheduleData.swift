@@ -12,8 +12,8 @@ import Observation
 final class ObservableScheduleData {
     var scheduledata: [SchedulesConfigurations] = []
 
-    // At least 10 min between schedules, next schedule is added as a string date
-    func verifynextschedule(nextschedule: String) -> Bool {
+    // Verify new planned schedule
+    func verifynextschedule(plannednextschedule: String) -> Bool {
         let dates = Array(scheduledata).sorted { s1, s2 in
             if let id1 = s1.dateRun?.en_date_from_string(),
                let id2 = s2.dateRun?.en_date_from_string()
@@ -25,20 +25,27 @@ final class ObservableScheduleData {
 
         if dates.count > 0 {
             // Pick the first schedule
-            if let nextScheduleString = dates.first?.dateRun {
+            if let firstschedulestring = dates.first?.dateRun {
+                let firstscheduledate = firstschedulestring.en_date_from_string()
+                let plannedDate = plannednextschedule.en_date_from_string()
                 
-                let nextScheduleDate = nextScheduleString.en_date_from_string()
-                let tenMinutesnextScheduleDate = nextScheduleDate.addingTimeInterval(10 * 60)
-
-                if nextschedule.en_date_from_string() > tenMinutesnextScheduleDate {
+                // Case 1: plannednextschedule is at least 10 minutes AFTER firstscheduledate
+                if plannedDate >= firstscheduledate.addingTimeInterval(10 * 60) {
                     return true
-                } else {
-                    return false
                 }
+                
+                // Case 2: plannednextschedule is between (firstscheduledate - 10 min) and > now
+                if plannedDate <= firstscheduledate.addingTimeInterval(-10 * 60) &&
+                   plannedDate > Date.now {
+                    return true
+                }
+                
+                return false
             }
         }
-        // No Schedules added yet
-        return nextschedule.en_date_from_string() > Date.now
+        
+        // No schedules added yet
+        return plannednextschedule.en_date_from_string() > Date.now
     }
 
     // Delete by IndexSet

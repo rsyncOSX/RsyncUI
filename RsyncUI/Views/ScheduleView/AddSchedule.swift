@@ -40,8 +40,8 @@ struct AddSchedule: View {
 
                 EditValueErrorScheme(50, NSLocalizedString("", comment: ""),
                                      $dateRunHour,
-                                     scheduledata.verifynextschedule(nextschedule: dateRunMonth + " " + dateRunHour))
-                    .foregroundColor(scheduledata.verifynextschedule(nextschedule: dateRunMonth + " " + dateRunHour) ? Color.white : Color.red)
+                                     scheduledata.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour))
+                    .foregroundColor(scheduledata.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour) ? Color.white : Color.red)
                 /*
                  TextField("", text: $dateRunMonth)
                      .frame(width: 80)
@@ -77,7 +77,7 @@ struct AddSchedule: View {
                                                        dateRun: run,
                                                        schedule: schedule)
 
-                    guard scheduledata.verifynextschedule(nextschedule: run) else {
+                    guard scheduledata.verifynextschedule(plannednextschedule: run) else {
                         Logger.process.warning("AddSchedule: not valid more than 10 minutes to next schedule")
                         return
                     }
