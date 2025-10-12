@@ -66,17 +66,17 @@ final class GlobalTimer {
             timer?.invalidate()
             timer = nil
             return
-        }
-
-        Logger.process.info("GlobalTimer: clearschedules() and INVALIDATE old timer")
-
+        }        
         // Invalidate all background schedulers
         for (_, scheduler) in backgroundschedules {
+            
+            Logger.process.info("GlobalTimer: clearschedules() and INVALIDATE backgroundschedules")
             scheduler.invalidate()
         }
+        Logger.process.info("GlobalTimer: clearschedules() REMOVE all schedules and backgroundschedules")
         backgroundschedules.removeAll()
-
         schedules.removeAll()
+        Logger.process.info("GlobalTimer: clearschedules() and INVALIDATE first timer")
         timer?.invalidate()
         timer = nil
     }
