@@ -26,7 +26,7 @@ final class GlobalTimer {
         // Cancel existing scheduler for this profile if it exists
         if let existingScheduler = backgroundschedules[profileName] {
             existingScheduler.invalidate()
-            Logger.process.info("GlobalTimer: Cancelled existing scheduler for \(profileName)")
+            Logger.process.info("GlobalTimer: Cancelled existing Background scheduler for \(profileName)")
         }
 
         schedules[profileName] = (time, callback)
@@ -85,10 +85,10 @@ final class GlobalTimer {
         // Invalidate all background schedulers
         for (_, scheduler) in backgroundschedules {
             
-            Logger.process.info("GlobalTimer: clearschedules() and INVALIDATE backgroundschedules")
+            Logger.process.info("GlobalTimer: clearschedules() and INVALIDATE Background schedules")
             scheduler.invalidate()
         }
-        Logger.process.info("GlobalTimer: clearschedules() REMOVE all schedules and backgroundschedules")
+        Logger.process.info("GlobalTimer: clearschedules() REMOVE all schedules and Background schedules")
         backgroundschedules.removeAll()
         schedules.removeAll()
         Logger.process.info("GlobalTimer: clearschedules() and INVALIDATE first timer")
