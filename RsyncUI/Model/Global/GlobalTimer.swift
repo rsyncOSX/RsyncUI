@@ -12,30 +12,30 @@ final class GlobalTimer {
     static let shared = GlobalTimer()
 
     // MARK: - Properties
-    
+
     /// Active foreground timer that checks schedules every 60 seconds
     var timer: Timer?
-    
+
     /// Currently active schedule identifier
     @ObservationIgnored var schedule: String?
 
     /// Dictionary of scheduled tasks with their execution times and callbacks
     private var schedules: [String: (time: Date, callback: () -> Void)] = [:]
-    
+
     /// Dictionary of background schedulers for each profile
     private var backgroundSchedules: [String: NSBackgroundActivityScheduler] = [:]
-    
+
     /// Observer for system wake notifications
     private var wakeObserver: NSObjectProtocol?
 
     // MARK: - Initialization
-    
+
     private init() {
         setupWakeNotification()
     }
 
     // MARK: - Public Methods
-    
+
     /// Schedules a task to execute at a specific time for a given profile.
     /// Creates both a background scheduler and starts a foreground timer as backup.
     ///
@@ -122,7 +122,7 @@ final class GlobalTimer {
     }
 
     // MARK: - Private Methods
-    
+
     /// Starts the foreground timer if not already running.
     /// The timer checks schedules every 60 seconds.
     private func startForegroundTimer() {

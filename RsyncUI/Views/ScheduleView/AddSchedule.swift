@@ -49,7 +49,7 @@ struct AddSchedule: View {
                  TextField("", text: $dateRunHour)
                      .frame(width: 50, alignment: .center)
                  */
-                
+
                 Button {
                     dateRunMonth = Date.now.en_string_month_from_date()
                     dateRunHour = hournow

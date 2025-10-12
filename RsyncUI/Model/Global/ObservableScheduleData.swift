@@ -28,22 +28,23 @@ final class ObservableScheduleData {
             if let firstschedulestring = dates.first?.dateRun {
                 let firstscheduledate = firstschedulestring.en_date_from_string()
                 let plannedDate = plannednextschedule.en_date_from_string()
-                
+
                 // Case 1: plannednextschedule is at least 10 minutes AFTER firstscheduledate
                 if plannedDate >= firstscheduledate.addingTimeInterval(10 * 60) {
                     return true
                 }
-                
+
                 // Case 2: plannednextschedule is between (firstscheduledate - 10 min) and > now
-                if plannedDate <= firstscheduledate.addingTimeInterval(-10 * 60) &&
-                   plannedDate > Date.now {
+                if plannedDate <= firstscheduledate.addingTimeInterval(-10 * 60),
+                   plannedDate > Date.now
+                {
                     return true
                 }
-                
+
                 return false
             }
         }
-        
+
         // No schedules added yet
         return plannednextschedule.en_date_from_string() > Date.now
     }
