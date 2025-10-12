@@ -45,7 +45,7 @@ final class GlobalTimer {
 
             scheduler.schedule { completion in
                 Task { @MainActor in
-                    Logger.process.info("GlobalTimer: Background scheduler fired for \(profileName)")
+                    Logger.process.info("GlobalTimer: Scheduler fired for \(profileName)")
 
                     let timerInstance = GlobalTimer.shared
                     if let schedule = timerInstance.schedules[profileName] {
