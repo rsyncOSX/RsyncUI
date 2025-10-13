@@ -208,8 +208,9 @@ final class GlobalTimer {
         ) { [weak self] _ in
             guard let self else { return }
             Task { @MainActor in
-                Logger.process.info("GlobalTimer: System woke up, checking for missed schedules")
-                self.checkSchedules()
+                Logger.process.info("GlobalTimer: System woke up, checking for missed schedules in 3 seconds...")
+                try await Task.sleep(seconds: 3)
+                checkSchedules()
             }
         }
     }
