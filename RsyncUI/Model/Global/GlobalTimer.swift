@@ -9,25 +9,23 @@ import OSLog
 @Observable
 @MainActor
 final class GlobalTimer {
+    
     static let shared = GlobalTimer()
 
     // MARK: - Properties
 
     /// Active foreground timer that checks schedules every 60 seconds
     var timer: Timer?
-
+    /// On Wake in orogress
+    var onwake: Bool = false
     /// Currently active schedule identifier
     @ObservationIgnored var schedule: String?
-
     /// Dictionary of scheduled tasks with their execution times and callbacks
     private var timerschedules: [String: (time: Date, callback: () -> Void)] = [:]
-
     /// Dictionary of background schedulers for each profile
     private var NSbackgroundbackgroundschedules: [String: NSBackgroundActivityScheduler] = [:]
-
     /// Observer for system wake notifications
     private var wakeObserver: NSObjectProtocol?
-
     // MARK: - Initialization
 
     private init() {
@@ -208,8 +206,10 @@ final class GlobalTimer {
         ) { [weak self] _ in
             guard let self else { return }
             Task { @MainActor in
+                onwake = true
                 Logger.process.info("GlobalTimer: System woke up, checking for missed schedules in 3 seconds...")
                 try await Task.sleep(seconds: 3)
+                onwake = false
                 checkSchedules()
             }
         }

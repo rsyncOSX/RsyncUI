@@ -107,6 +107,12 @@ struct SidebarMainView: View {
                         }
                     }
             }
+            
+            // OnWake in action
+            if GlobalTimer.shared.onwake == true {
+                MessageView(mytext: "On Wake in action\nplease wait", size: .caption2)
+                    .padding([.bottom], -30)
+            }
 
             // Next scheduled action
             if GlobalTimer.shared.timer != nil {
