@@ -3,200 +3,222 @@ import Foundation
 import Observation
 import OSLog
 
-/// A singleton timer manager that schedules and executes tasks at specific times.
-/// Uses both NSBackgroundActivityScheduler (for background execution) and Timer (for foreground execution).
-/// Automatically handles system wake events to check for missed schedules.
 @Observable
 @MainActor
 final class GlobalTimer {
-    
+
     static let shared = GlobalTimer()
+    
+    /// Currently active schedule identifier
+    @ObservationIgnored var schedule: String?
+
+    // MARK: - Types
+
+    private struct ScheduledItem {
+        let time: Date
+        let callback: () -> Void
+    }
 
     // MARK: - Properties
 
-    /// Active foreground timer that checks schedules every 60 seconds
+    /// Foreground backup timer that checks schedules every 60 seconds.
     var timer: Timer?
-    /// Currently active schedule identifier
-    @ObservationIgnored var schedule: String?
-    /// Dictionary of scheduled tasks with their execution times and callbacks
-    private var timerschedules: [String: (time: Date, callback: () -> Void)] = [:]
-    /// Dictionary of background schedulers for each profile
-    private var NSbackgroundbackgroundschedules: [String: NSBackgroundActivityScheduler] = [:]
-    /// Observer for system wake notifications
+
+    /// All scheduled tasks keyed by profile name.
+    private var schedules: [String: ScheduledItem] = [:]
+
+    /// One background scheduler per profile.
+    private var backgroundSchedulers: [String: NSBackgroundActivityScheduler] = [:]
+
+    /// Observer for system wake notifications.
     private var wakeObserver: NSObjectProtocol?
+
     // MARK: - Initialization
 
     private init() {
         setupWakeNotification()
     }
 
-    // MARK: - Public Methods
+    // MARK: - Public API
 
-    /// Schedules a task to execute at a specific time for a given profile.
-    /// Creates both a background scheduler and starts a foreground timer as backup.
-    ///
+    /// Schedule a task for a profile to run at an exact time (best-effort).
     /// - Parameters:
-    ///   - profile: The profile name for this schedule. Uses "Default" if nil.
-    ///   - time: The date and time when the task should execute.
-    ///   - callback: The closure to execute when the scheduled time arrives.
+    ///   - profile: Profile identifier (defaults to "Default").
+    ///   - time: Target execution time.
+    ///   - callback: Closure executed when due.
     func addSchedule(profile: String?, time: Date, callback: @escaping () -> Void) {
         let profileName = profile ?? "Default"
-        Logger.process.info("GlobalTimer: Adding schedule for profile '\(profileName)' at \(time)")
+        Logger.process.info("GlobalTimer: Adding schedule for profile '\(profileName)' at \(time, privacy: .public)")
 
-        // Cancel any existing scheduler for this profile
-        if let existingScheduler = NSbackgroundbackgroundschedules[profileName] {
-            existingScheduler.invalidate()
+        // Cancel and remove any existing background scheduler for this profile.
+        if let existing = backgroundSchedulers[profileName] {
+            existing.invalidate()
+            backgroundSchedulers.removeValue(forKey: profileName)
             Logger.process.info("GlobalTimer: Cancelled existing scheduler for '\(profileName)'")
         }
 
-        // Store the schedule
-        timerschedules[profileName] = (time, callback)
+        // Store or replace the schedule.
+        schedules[profileName] = ScheduledItem(time: time, callback: callback)
 
-        // Create and configure background scheduler
-        let NSbackgroundscheduler = NSBackgroundActivityScheduler(identifier: "no.blogspot.RsyncUI.\(profileName)")
-        let interval = time.timeIntervalSince(Date.now)
+        // Configure background scheduler for best-effort execution around 'time'.
+        let interval = time.timeIntervalSince(Date())
+        if interval > 1 {
+            let scheduler = NSBackgroundActivityScheduler(identifier: "no.blogspot.RsyncUI.\(profileName)")
+            scheduler.repeats = false
+            scheduler.interval = interval
+            scheduler.tolerance = min(60, max(5, interval / 10)) // reasonable flexibility
+            scheduler.qualityOfService = .utility
 
-        if interval > 0 {
-            NSbackgroundscheduler.interval = interval
-            NSbackgroundscheduler.repeats = false
-            NSbackgroundscheduler.qualityOfService = .userInitiated
-            NSbackgroundscheduler.tolerance = 60 // Allow system to optimize execution within 60 seconds
-
-            NSbackgroundscheduler.schedule { completion in
+            scheduler.schedule { [weak self] completion in
+                guard let self else {
+                    completion(.finished)
+                    return
+                }
                 Task { @MainActor in
                     Logger.process.info("GlobalTimer: Background scheduler fired for '\(profileName)'")
                     self.executeScheduleIfCurrent(profileName: profileName, scheduledTime: time)
+                    // Ensure this scheduler won't fire again.
+                    self.backgroundSchedulers[profileName]?.invalidate()
+                    self.backgroundSchedulers.removeValue(forKey: profileName)
                     completion(.finished)
                 }
             }
 
+            backgroundSchedulers[profileName] = scheduler
             Logger.process.info("GlobalTimer: Background scheduler configured for '\(profileName)'")
-            NSbackgroundbackgroundschedules[profileName] = NSbackgroundscheduler
-            
         } else {
-            Logger.process.warning("GlobalTimer: Scheduled time for '\(profileName)' is in the past, skipping")
+            Logger.process.warning("GlobalTimer: Scheduled time for '\(profileName)' is in the past or too soon, skipping background scheduler")
         }
 
-        // Start foreground timer as backup for when app is active
+        // Start/ensure the foreground backup timer.
         startForegroundTimer()
+    }
+
+    /// Remove an existing schedule for a given profile, if any.
+    func removeSchedule(profile: String) {
+        if let scheduler = backgroundSchedulers.removeValue(forKey: profile) {
+            scheduler.invalidate()
+            Logger.process.info("GlobalTimer: Removed background scheduler for '\(profile)'")
+        }
+        if schedules.removeValue(forKey: profile) != nil {
+            Logger.process.info("GlobalTimer: Removed schedule for '\(profile)'")
+        }
+        stopTimerIfNoSchedules()
     }
 
     /// Clears all scheduled tasks and invalidates all timers.
     func clearSchedules() {
-        guard !timerschedules.isEmpty else {
+        guard !schedules.isEmpty || !backgroundSchedulers.isEmpty else {
             Logger.process.info("GlobalTimer: No schedules to clear")
-            timer?.invalidate()
-            timer = nil
+            stopTimerIfNoSchedules()
             return
         }
 
         Logger.process.info("GlobalTimer: Clearing all schedules and timers")
 
         // Invalidate all background schedulers
-        for (profileName, scheduler) in NSbackgroundbackgroundschedules {
+        for (profileName, scheduler) in backgroundSchedulers {
             scheduler.invalidate()
             Logger.process.info("GlobalTimer: Invalidated background scheduler for '\(profileName)'")
         }
 
-        // Clear all data structures
-        NSbackgroundbackgroundschedules.removeAll()
-        timerschedules.removeAll()
+        backgroundSchedulers.removeAll()
+        schedules.removeAll()
 
-        // Stop foreground timer
-        timer?.invalidate()
-        timer = nil
-
+        stopTimerIfNoSchedules()
         Logger.process.info("GlobalTimer: All schedules cleared")
     }
 
-    /// Cleans up observers and resources. Call when app terminates if needed.
+    /// Optional: Call on app termination if you want to explicitly drop observers.
     func cleanup() {
         if let observer = wakeObserver {
             Logger.process.info("GlobalTimer: Removing wake notification observer")
             NSWorkspace.shared.notificationCenter.removeObserver(observer)
             wakeObserver = nil
         }
+        timer?.invalidate()
+        timer = nil
     }
 
-    // MARK: - Private Methods
+    // MARK: - Private
 
-    /// Starts the foreground timer if not already running.
-    /// The timer checks schedules every 60 seconds.
+    /// Starts a foreground timer (if not already running) to check schedules every 60s.
     private func startForegroundTimer() {
         guard timer == nil else { return }
 
         Logger.process.info("GlobalTimer: Starting foreground timer")
-        timer = Timer.scheduledTimer(
-            timeInterval: 60.0,
-            target: self,
-            selector: #selector(checkSchedules),
-            userInfo: nil,
-            repeats: true
-        )
-    }
-
-    /// Checks all schedules and executes any that are due.
-    /// Called by the foreground timer and wake notification.
-    @objc private func checkSchedules() {
-        let now = Date.now
-        var firedSchedules: [String] = []
-
-        // Check each schedule to see if it should fire
-        for (profileName, schedule) in timerschedules {
-            Logger.process.info("GlobalTimer: Checking schedule for '\(profileName)' - now: \(now), scheduled: \(schedule.time)")
-
-            if now >= schedule.time {
-                Logger.process.info("GlobalTimer: Executing schedule for '\(profileName)'")
-                schedule.callback()
-                firedSchedules.append(profileName)
+        let t = Timer(timeInterval: 60.0, repeats: true) { [weak self] _ in
+            Task { @MainActor in
+                self?.checkSchedules()
             }
         }
+        // Use common modes so the timer isn't paused during UI tracking.
+        RunLoop.main.add(t, forMode: .common)
+        timer = t
 
-        // Clean up executed schedules
-        for profileName in firedSchedules {
-            timerschedules.removeValue(forKey: profileName)
-            NSbackgroundbackgroundschedules[profileName]?.invalidate()
-            NSbackgroundbackgroundschedules.removeValue(forKey: profileName)
-            Logger.process.info("GlobalTimer: Removed executed schedule for '\(profileName)'")
-        }
+        // Run an immediate check so short intervals still get picked up quickly.
+        checkSchedules()
+    }
 
-        // Stop timer and cleanup if no more schedules
-        if timerschedules.isEmpty {
+    private func stopTimerIfNoSchedules() {
+        if schedules.isEmpty {
             Logger.process.info("GlobalTimer: No more schedules, stopping timer")
             timer?.invalidate()
             timer = nil
-            cleanup()
         }
     }
 
+    /// Checks all schedules and executes any that are due.
+    @objc private func checkSchedules() {
+        let now = Date()
+        var dueProfiles: [String] = []
+
+        for (profileName, item) in schedules {
+            Logger.process.info("GlobalTimer: Checking '\(profileName)' - now: \(now, privacy: .public), scheduled: \(item.time, privacy: .public)")
+            if now >= item.time {
+                Logger.process.info("GlobalTimer: Executing schedule for '\(profileName)'")
+                item.callback()
+                dueProfiles.append(profileName)
+            }
+        }
+
+        // Cleanup executed schedules
+        for profileName in dueProfiles {
+            schedules.removeValue(forKey: profileName)
+            if let scheduler = backgroundSchedulers.removeValue(forKey: profileName) {
+                scheduler.invalidate()
+            }
+            Logger.process.info("GlobalTimer: Removed executed schedule for '\(profileName)'")
+        }
+
+        stopTimerIfNoSchedules()
+    }
+
     /// Executes a schedule if it's still current (not replaced by a newer schedule).
-    ///
-    /// - Parameters:
-    ///   - profileName: The profile identifier.
-    ///   - scheduledTime: The original scheduled time to verify this execution is still valid.
     private func executeScheduleIfCurrent(profileName: String, scheduledTime: Date) {
-        guard let schedule = timerschedules[profileName] else {
+        guard let item = schedules[profileName] else {
             Logger.process.info("GlobalTimer: No schedule found for '\(profileName)'")
             return
         }
 
-        // Only execute if this is still the current scheduled time (not replaced)
-        guard schedule.time == scheduledTime, Date.now >= schedule.time else {
-            Logger.process.info("GlobalTimer: Skipping stale schedule for '\(profileName)'")
+        // Only execute if this is still the current scheduled time.
+        guard item.time == scheduledTime, Date() >= item.time else {
+            Logger.process.info("GlobalTimer: Skipping stale or not-yet-due schedule for '\(profileName)'")
             return
         }
 
         Logger.process.info("GlobalTimer: Executing callback for '\(profileName)'")
-        schedule.callback()
+        item.callback()
 
-        // Clean up after execution
-        timerschedules.removeValue(forKey: profileName)
-        NSbackgroundbackgroundschedules.removeValue(forKey: profileName)
+        schedules.removeValue(forKey: profileName)
+        if let scheduler = backgroundSchedulers.removeValue(forKey: profileName) {
+            scheduler.invalidate()
+        }
     }
 
     /// Sets up notification observer for system wake events.
-    /// When the system wakes, it checks if any schedules were missed.
     private func setupWakeNotification() {
+        guard wakeObserver == nil else { return }
         wakeObserver = NSWorkspace.shared.notificationCenter.addObserver(
             forName: NSWorkspace.didWakeNotification,
             object: nil,
@@ -204,8 +226,10 @@ final class GlobalTimer {
         ) { [weak self] _ in
             guard let self else { return }
             Task { @MainActor in
-                Logger.process.info("GlobalTimer: System woke up, checking for missed schedules in 3 seconds...")
-                checkSchedules()
+                Logger.process.info("GlobalTimer: System woke up, checking for missed schedules in ~3 seconds...")
+                // Actually wait ~3 seconds to give the system a moment to settle.
+                try? await Task.sleep(nanoseconds: 3_000_000_000)
+                self.checkSchedules()
             }
         }
     }
