@@ -114,8 +114,6 @@ final class GlobalTimer {
             return
         }
 
-        Logger.process.info("GlobalTimer: Clearing all schedules and timers")
-
         // Invalidate all background schedulers
         for (profileName, scheduler) in backgroundSchedulers {
             scheduler.invalidate()
