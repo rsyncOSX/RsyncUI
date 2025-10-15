@@ -201,11 +201,11 @@ final class GlobalTimer {
 
         // Only execute if this is still the current scheduled time.
         guard item.time == scheduledTime, Date() >= item.time else {
-            Logger.process.info("GlobalTimer: Skipping stale or not-yet-due schedule for '\(profileName)'")
+            Logger.process.info("GlobalTimer: Skipping stale or not-yet-due schedule for '\(profileName, privacy: .public)'")
             return
         }
 
-        Logger.process.info("GlobalTimer: Executing callback for '\(profileName)'")
+        Logger.process.info("GlobalTimer: Executing callback for '\(profileName, privacy: .public)'")
         item.callback()
 
         schedules.removeValue(forKey: profileName)
