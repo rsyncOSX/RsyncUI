@@ -76,22 +76,21 @@ actor ActorLogToFile {
                         throw FilesizeError.toobigandresetting
                     }
                 }
+                
             } catch let e {
                 let error = e
                 await path.propogateerror(error: error)
                 // Reset loggfile
                 let date = Date().localized_string_from_date()
-                let reset = date + ": " + "logfile is reset..." + "\n"
+                let reset = date + ": " + "logfile is reset by RsyncUI by checking filesize when reading logfile..." + "\n"
                 await writeloggfile(reset, true)
             }
             
-
             do {
                 let data = try Data(contentsOf: logfileURL)
                 Logger.process.info("LogToFile: read logfile \(logfileURL.path, privacy: .public)")
                 let logfile = String(data: data, encoding: .utf8)
                 return logfile.map { line in
-                    print(line)
                     return line.components(separatedBy: .newlines)
                 }
             } catch let e {
@@ -114,6 +113,23 @@ actor ActorLogToFile {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
             Logger.process.info("LogToFile: readloggfileasline() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
+            
+            do {
+                let checker = FileSize()
+                if let size = try await checker.filesize() {
+                    if Int(truncating: size) > SharedConstants().logfilesize {
+                        throw FilesizeError.toobigandresetting
+                    }
+                }
+                
+            } catch let e {
+                let error = e
+                await path.propogateerror(error: error)
+                // Reset loggfile
+                let date = Date().localized_string_from_date()
+                let reset = date + ": " + "logfile is reset by RsyncUI by checking filesize when reading logfile..." + "\n"
+                await writeloggfile(reset, true)
+            }
 
             do {
                 let data = try Data(contentsOf: logfileURL)
