@@ -13,6 +13,7 @@ public final class GlobalTimer {
 
     private struct ScheduledItem {
         let time: Date
+        let tolerance: TimeInterval?
         let callback: () -> Void
     }
 
@@ -64,10 +65,13 @@ public final class GlobalTimer {
     /// - Parameters:
     ///   - profile: Profile identifier (defaults to "Default").
     ///   - time: Target execution time.
+    ///   - tolerance: Optional tolerance (seconds). If nil, a reasonable default is used.
+    ///                Pass 0 for best precision. Used for both background activity and the foreground timer
+    ///                when this item is the next due schedule.
     ///   - callback: Closure executed when due.
-    public func addSchedule(profile: String?, time: Date, callback: @escaping () -> Void) {
+    public func addSchedule(profile: String?, time: Date, tolerance: TimeInterval? = nil, callback: @escaping () -> Void) {
         let profileName = profile ?? "Default"
-        Logger.process.info("GlobalTimer: Adding schedule for profile '\(profileName, privacy: .public)' at \(time, privacy: .public)")
+        Logger.process.info("GlobalTimer: Adding schedule for profile '\(profileName, privacy: .public)' at \(time, privacy: .public) with tolerance \(tolerance ?? -1, privacy: .public)s")
 
         // Cancel and remove any existing background scheduler for this profile.
         if let existing = backgroundSchedulers.removeValue(forKey: profileName) {
@@ -75,8 +79,8 @@ public final class GlobalTimer {
             Logger.process.info("GlobalTimer: Cancelled existing scheduler for '\(profileName, privacy: .public)'")
         }
 
-        // Store or replace the schedule.
-        schedules[profileName] = ScheduledItem(time: time, callback: callback)
+        // Store or replace the schedule (with per-schedule tolerance).
+        schedules[profileName] = ScheduledItem(time: time, tolerance: normalizedTolerance(tolerance), callback: callback)
 
         // Configure background scheduler for best-effort execution around 'time'.
         let interval = time.timeIntervalSince(Date.now)
@@ -84,7 +88,7 @@ public final class GlobalTimer {
             let scheduler = NSBackgroundActivityScheduler(identifier: "no.blogspot.RsyncUI.\(profileName)")
             scheduler.repeats = false
             scheduler.interval = interval
-            scheduler.tolerance = min(60, max(5, interval / 10)) // reasonable flexibility
+            scheduler.tolerance = resolveBackgroundTolerance(requested: tolerance, interval: interval)
             scheduler.qualityOfService = .utility
 
             scheduler.schedule { [weak self] completion in
@@ -104,7 +108,7 @@ public final class GlobalTimer {
             }
 
             backgroundSchedulers[profileName] = scheduler
-            Logger.process.info("GlobalTimer: Background scheduler configured for '\(profileName, privacy: .public)'")
+            Logger.process.info("GlobalTimer: Background scheduler configured for '\(profileName, privacy: .public)' with tolerance \(scheduler.tolerance, privacy: .public)s")
         } else {
             Logger.process.warning("GlobalTimer: Scheduled time for '\(profileName, privacy: .public)' is in the past or too soon, skipping background scheduler")
         }
@@ -173,13 +177,16 @@ public final class GlobalTimer {
         timer?.invalidate()
         timer = nil
 
-        guard let next = schedules.values.map(\.time).min() else {
+        guard let nextEntry = schedules.min(by: { $0.value.time < $1.value.time }) else {
             Logger.process.info("GlobalTimer: No schedules, foreground timer not needed")
             return
         }
 
+        let nextItem = nextEntry.value
+        let nextTime = nextItem.time
+
         let now = Date.now
-        let interval = next.timeIntervalSince(now)
+        let interval = nextTime.timeIntervalSince(now)
 
         if interval <= 0 {
             Logger.process.info("GlobalTimer: Next schedule already due, executing now")
@@ -191,7 +198,8 @@ public final class GlobalTimer {
             return
         }
 
-        Logger.process.info("GlobalTimer: Scheduling one-shot foreground timer in \(interval, privacy: .public) seconds")
+        let timerTolerance = resolveTimerTolerance(requested: nextItem.tolerance, interval: interval)
+        Logger.process.info("GlobalTimer: Scheduling one-shot foreground timer in \(interval, privacy: .public) seconds (tolerance \(timerTolerance, privacy: .public)s)")
         let t = Timer(timeInterval: interval, repeats: false) { [weak self] _ in
             Task { @MainActor in
                 guard let self else { return }
@@ -200,7 +208,7 @@ public final class GlobalTimer {
                 self.scheduleNextForegroundTimer()
             }
         }
-        t.tolerance = min(60, max(1, interval / 10))
+        t.tolerance = timerTolerance
         RunLoop.main.add(t, forMode: .common)
         timer = t
     }
@@ -285,5 +293,37 @@ public final class GlobalTimer {
                 self.scheduleNextForegroundTimer()
             }
         }
+    }
+
+    // MARK: - Tolerance helpers
+
+    /// Normalizes a requested tolerance (clamps negative to 0).
+    private func normalizedTolerance(_ requested: TimeInterval?) -> TimeInterval? {
+        guard let requested else { return nil }
+        return max(0, requested)
+    }
+
+    /// Resolve default tolerance for background scheduler when none is requested.
+    private func defaultBackgroundTolerance(for interval: TimeInterval) -> TimeInterval {
+        // Reasonable flexibility for system optimization.
+        // At least 5s, at most 60s, ~10% of interval otherwise.
+        return min(60, max(5, interval / 10))
+    }
+
+    /// Resolve default tolerance for foreground one-shot timer when none is requested.
+    private func defaultTimerTolerance(for interval: TimeInterval) -> TimeInterval {
+        // Allow small drift to coalesce timers; at least 1s, at most 60s, ~10% of interval otherwise.
+        return min(60, max(1, interval / 10))
+    }
+
+    private func resolveBackgroundTolerance(requested: TimeInterval?, interval: TimeInterval) -> TimeInterval {
+        let req = normalizedTolerance(requested) ?? defaultBackgroundTolerance(for: interval)
+        // Don't exceed half of the interval to keep reasonable precision for very near events.
+        return min(req, max(0, interval / 2))
+    }
+
+    private func resolveTimerTolerance(requested: TimeInterval?, interval: TimeInterval) -> TimeInterval {
+        let req = normalizedTolerance(requested) ?? defaultTimerTolerance(for: interval)
+        return min(req, max(0, interval / 2))
     }
 }

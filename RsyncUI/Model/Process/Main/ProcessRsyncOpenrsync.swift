@@ -198,6 +198,6 @@ extension ProcessRsyncOpenrsync {
         sequenceFileHandlerTask?.cancel()
         sequenceTerminationTask?.cancel()
 
-        Logger.process.info("ProcessRsyncOpenrsync: process = nil and termination discovered \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ProcessRsyncOpenrsync: process = nil and termination discovered \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
     }
 }

@@ -28,7 +28,7 @@ actor ActorLogToFile {
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-            Logger.process.info("LogToFile: writeloggfile() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+            Logger.process.info("LogToFile: writeloggfile() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
             if let logfiledata = await appendloggfileData(newlogadata, reset) {
                 do {
                     try logfiledata.write(to: logfileURL)
@@ -64,7 +64,7 @@ actor ActorLogToFile {
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-            Logger.process.info("LogToFile: readloggfile() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+            Logger.process.info("LogToFile: readloggfile() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
 
             do {
                 let data = try Data(contentsOf: logfileURL)
@@ -92,7 +92,7 @@ actor ActorLogToFile {
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-            Logger.process.info("LogToFile: readloggfileasline() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+            Logger.process.info("LogToFile: readloggfileasline() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
 
             do {
                 let data = try Data(contentsOf: logfileURL)
@@ -118,7 +118,7 @@ actor ActorLogToFile {
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-            Logger.process.info("LogToFile: appendloggfileData() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+            Logger.process.info("LogToFile: appendloggfileData() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
 
             if let newdata = newlogadata.data(using: .utf8) {
                 do {

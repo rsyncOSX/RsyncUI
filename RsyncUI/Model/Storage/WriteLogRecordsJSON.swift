@@ -28,7 +28,7 @@ final class WriteLogRecordsJSON {
                 do {
                     try jsonData.write(to: logrecordfileURL)
                     let myprofile = profile ?? "Default"
-                    Logger.process.info("WriteLogRecordsJSON - \(myprofile), privacy: .public): write logrecords to permanent storage MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+                    Logger.process.info("WriteLogRecordsJSON - \(myprofile), privacy: .public): write logrecords to permanent storage MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
 
                 } catch let e {
                     Logger.process.error("WriteLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR writing logrecords to permanent storage")

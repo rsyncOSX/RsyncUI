@@ -25,7 +25,7 @@ actor ActorLogChartsData {
     @concurrent
     nonisolated func parselogrecords(from logrecords: [Log]) async -> [LogEntry] {
         // "resultExecuted": "43 files : 0.73 MB in 0.49 seconds"
-        Logger.process.info("ActorLogChartsData: parselogrecords() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ActorLogChartsData: parselogrecords() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
         Logger.process.info("ActorLogChartsData: number of records \(logrecords.count, privacy: .public)")
         // return logrecords.compactMap { logrecord in
         return logrecords.map { logrecord in
@@ -72,7 +72,7 @@ actor ActorLogChartsData {
     // Select the one date with max files transferred, if more records pr date.
     @concurrent
     nonisolated func parsemaxfilesbydate(from records: [LogEntry]) async -> [LogEntry] {
-        Logger.process.info("ActorLogChartsData: parsemaxfilesbydate() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ActorLogChartsData: parsemaxfilesbydate() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
         Logger.process.info("ActorLogChartsData: number of records IN \(records.count, privacy: .public)")
 
         let calendar = Calendar.current
@@ -122,7 +122,7 @@ actor ActorLogChartsData {
     // Select the one date with max data transferred, if more records pr date.
     @concurrent
     nonisolated func parsemaxfilesbytransferredsize(from records: [LogEntry]) async -> [LogEntry] {
-        Logger.process.info("ActorLogChartsData: parsemaxfilesbytransferredsize() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ActorLogChartsData: parsemaxfilesbytransferredsize() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
         Logger.process.info("ActorLogChartsData: number of records IN \(records.count, privacy: .public)")
         let calendar = Calendar.current
 

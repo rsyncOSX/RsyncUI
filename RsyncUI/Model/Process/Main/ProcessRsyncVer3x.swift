@@ -241,6 +241,6 @@ extension ProcessRsyncVer3x {
         sequenceFileHandlerTask?.cancel()
         sequenceTerminationTask?.cancel()
 
-        Logger.process.info("ProcessRsyncVer3x: process = nil and termination discovered \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ProcessRsyncVer3x: process = nil and termination discovered \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
     }
 }

@@ -58,7 +58,7 @@ actor ActorReadSynchronizeConfigurationJSON {
         var filename = ""
         let path = await Homepath()
 
-        Logger.process.info("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
 
         if let profile, let fullpathmacserial = path.fullpathmacserial {
             filename = fullpathmacserial.appending("/") + profile.appending("/") + SharedConstants().fileconfigurationsjson
@@ -72,7 +72,7 @@ actor ActorReadSynchronizeConfigurationJSON {
             if let data = try
                 decodeimport.decodearraydatafileURL(DecodeSynchronizeConfiguration.self, fromwhere: filename)
             {
-                Logger.process.info("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): DECODE MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+                Logger.process.info("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): DECODE MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
                 let tasks = data.compactMap { element in
                     // snapshot and syncremote tasks requiere version3.x of rsync
                     if element.task == "snapshot" || element.task == "syncremote" {

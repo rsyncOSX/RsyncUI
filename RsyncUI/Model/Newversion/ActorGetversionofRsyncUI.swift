@@ -12,7 +12,7 @@ actor ActorGetversionofRsyncUI {
     @concurrent
     nonisolated func getversionsofrsyncui() async -> Bool {
         do {
-            Logger.process.info("GetversionofRsyncUI: getversionsofrsyncui() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+            Logger.process.info("GetversionofRsyncUI: getversionsofrsyncui() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
             let versions = DecodeGeneric()
             if let versionsofrsyncui =
                 try await versions.decodearraydata(VersionsofRsyncUI.self,
@@ -39,7 +39,7 @@ actor ActorGetversionofRsyncUI {
     @concurrent
     nonisolated func downloadlinkofrsyncui() async -> String? {
         do {
-            Logger.process.info("GetversionofRsyncUI: downloadlinkofrsyncui() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+            Logger.process.info("GetversionofRsyncUI: downloadlinkofrsyncui() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
             let versions = DecodeGeneric()
             if let versionsofrsyncui =
                 try await versions.decodearraydata(VersionsofRsyncUI.self,

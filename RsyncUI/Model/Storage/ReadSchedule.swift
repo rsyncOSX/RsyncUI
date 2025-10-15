@@ -16,7 +16,7 @@ struct ReadSchedule {
         var filename = ""
         let path = Homepath()
 
-        Logger.process.info("ReadSchedule: readjsonfilecalendar() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ReadSchedule: readjsonfilecalendar() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
 
         if let fullpathmacserial = path.fullpathmacserial {
             filename = fullpathmacserial.appending("/") + SharedConstants().caldenarfilejson

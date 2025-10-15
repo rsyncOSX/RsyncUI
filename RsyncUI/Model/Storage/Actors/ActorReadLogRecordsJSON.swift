@@ -17,7 +17,7 @@ actor ActorReadLogRecordsJSON {
         let path = await Homepath()
         var filename = ""
 
-        Logger.process.info("ActorReadLogRecordsJSON: readjsonfilelogrecords() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ActorReadLogRecordsJSON: readjsonfilelogrecords() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
 
         if let profile, let fullpathmacserial = path.fullpathmacserial {
             filename = fullpathmacserial.appending("/") + profile.appending("/") + SharedConstants().filenamelogrecordsjson
@@ -34,7 +34,7 @@ actor ActorReadLogRecordsJSON {
             if let data = try
                 decodeimport.decodearraydatafileURL(DecodeLogRecords.self, fromwhere: filename)
             {
-                Logger.process.info("ActorReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): DECODE MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+                Logger.process.info("ActorReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): DECODE MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
                 return data.compactMap { element in
                     let item = LogRecords(element)
                     return validhiddenIDs.contains(item.hiddenID) ? item : nil
@@ -51,7 +51,7 @@ actor ActorReadLogRecordsJSON {
 
     @concurrent
     nonisolated func updatelogsbyhiddenID(_ logrecords: [LogRecords]?, _ hiddenID: Int) async -> [Log]? {
-        Logger.process.info("ActorReadLogRecordsJSON: updatelogsbyhiddenID() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ActorReadLogRecordsJSON: updatelogsbyhiddenID() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
         if let logrecords {
             // hiddenID == -1, merge logrecords for all tasks.
             // if validhiddenID, merge logrecords for a specific task
@@ -77,7 +77,7 @@ actor ActorReadLogRecordsJSON {
 
     @concurrent
     nonisolated func updatelogsbyfilter(_ logrecords: [LogRecords]?, _ filterstring: String, _ hiddenID: Int) async -> [Log]? {
-        Logger.process.info("ActorReadLogRecordsJSON: updatelogsbyfilter() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ActorReadLogRecordsJSON: updatelogsbyfilter() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
         guard filterstring != "" else { return nil }
         if let logrecords {
             if hiddenID == -1 {

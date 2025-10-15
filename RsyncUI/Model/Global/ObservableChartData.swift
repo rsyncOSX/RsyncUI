@@ -15,7 +15,7 @@ final class ObservableChartData {
 
     // Only read logrecords from store once
     func readandparselogs(profile: String?, validhiddenIDs: Set<Int>, hiddenID: Int) async {
-        Logger.process.info("ObservableChartData: readandparselogs() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("ObservableChartData: readandparselogs() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
         guard parsedlogs == nil else { return }
         // Read logrecords
         let actorreadlogs = ActorReadLogRecordsJSON()

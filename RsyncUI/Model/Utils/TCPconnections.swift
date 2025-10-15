@@ -37,7 +37,7 @@ struct TCPconnections: Sendable {
     // Async Test for TCP connection
     nonisolated func asyncverifyTCPconnection(_ host: String, port: Int) async throws {
         let client = TCPClient(address: host, port: Int32(port))
-        Logger.process.info("TCPconnections: asyncverifyTCPconnection() MAIN THREAD: \(Thread.isMain) but on \(Thread.current)")
+        Logger.process.info("TCPconnections: asyncverifyTCPconnection() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
         switch client.connect(timeout: 5) {
         case .success:
             return
