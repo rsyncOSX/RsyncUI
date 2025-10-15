@@ -136,14 +136,9 @@ final class ObservableFutureSchedules {
                                                 schedule: "")
 
             firstscheduledate = first
-
-            // Present next schedule as String date
-            GlobalTimer.shared.schedule = first.dateRun
-
             starttimer(first)
         } else {
             firstscheduledate = nil
-            GlobalTimer.shared.schedule = nil
             GlobalTimer.shared.clearSchedules()
         }
     }
@@ -156,7 +151,9 @@ final class ObservableFutureSchedules {
         // Then add new schedule
         if let schedultime = schedule.dateRun?.en_date_from_string() {
             // The Callback
-            globalTimer.addSchedule(profile: schedule.profile, time: schedultime, tolerance: 10) {
+            globalTimer.addSchedule(profile: schedule.profile ?? "Default",
+                                    time: schedultime,
+                                    tolerance: nil) {
                 self.recomputeschedules()
                 self.setfirsscheduledate()
                 // Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED INTERNALLY")
