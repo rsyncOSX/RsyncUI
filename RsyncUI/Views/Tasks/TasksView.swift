@@ -113,10 +113,10 @@ struct TasksView: View {
         .focusedSceneValue(\.importtasks, $focusimport)
         .toolbar(content: {
             ToolbarItem {
-                if GlobalTimer.shared.timer != nil,
+                if GlobalTimer.shared.timerIsActive(),
                    columnVisibility == .detailOnly
                 {
-                    MessageView(mytext: GlobalTimer.shared.schedule ?? "", size: .caption2)
+                    MessageView(mytext: GlobalTimer.shared.nextScheduleDate() ?? "", size: .caption2)
                 }
             }
 

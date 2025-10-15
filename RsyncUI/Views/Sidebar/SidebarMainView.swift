@@ -109,8 +109,8 @@ struct SidebarMainView: View {
             }
             
             // Next scheduled action
-            if GlobalTimer.shared.timer != nil {
-                MessageView(mytext: GlobalTimer.shared.schedule ?? "", size: .caption2)
+            if GlobalTimer.shared.timerIsActive() {
+                MessageView(mytext: GlobalTimer.shared.nextScheduleDate() ?? "", size: .caption2)
                     .padding([.bottom], -30)
             }
 

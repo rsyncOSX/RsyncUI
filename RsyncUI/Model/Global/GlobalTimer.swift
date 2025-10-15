@@ -18,15 +18,10 @@ public final class GlobalTimer {
     }
 
     // MARK: - Properties
-
-    /// The profile currently being executed (set briefly during callback execution).
-    /// Exposed read-only, ignored by Observation to avoid unnecessary UI invalidations.
-    @ObservationIgnored
-    public var schedule: String?
-
+    
     /// Foreground one-shot timer (backup/precision timer). Exposed read-only, but not observed.
     @ObservationIgnored
-    public var timer: Timer?
+    private var timer: Timer?
 
     /// One background scheduler per profile.
     @ObservationIgnored
@@ -50,17 +45,21 @@ public final class GlobalTimer {
     }
 
     // MARK: - Public API
+    
+    public func timerIsActive() -> Bool {
+            timer != nil
+        }
 
-    /// Updates the exposed current schedule name. Runs on the main actor.
-    public func setSchedule(_ value: String?) {
-        schedule = value
-    }
-
-    /// Clears the exposed current schedule name. Runs on the main actor.
-    public func clearSchedule() {
-        schedule = nil
-    }
-
+    /// Returns the date of the next scheduled task as a formatted string, or nil if no schedules exist.
+        /// - Parameter format: Date format style (defaults to "medium" style).
+        /// - Returns: Formatted date string of the earliest schedule, or nil if none.
+        public func nextScheduleDate(format: Date.FormatStyle = .dateTime) -> String? {
+            guard let nextItem = schedules.values.min(by: { $0.time < $1.time }) else {
+                return nil
+            }
+            return nextItem.time.formatted(format)
+        }
+    
     /// Schedule a task for a profile to run at an exact time (best-effort).
     /// - Parameters:
     ///   - profile: Profile identifier (defaults to "Default").
@@ -223,9 +222,7 @@ public final class GlobalTimer {
             if now >= item.time {
                 Logger.process.info("GlobalTimer: Executing schedule for '\(profileName, privacy: .public)'")
                 // Expose currently executing profile
-                schedule = profileName
                 item.callback()
-                schedule = nil
                 dueProfiles.append(profileName)
             }
         }
@@ -253,9 +250,7 @@ public final class GlobalTimer {
 
         Logger.process.info("GlobalTimer: Executing callback for '\(profileName, privacy: .public)'")
         // Expose currently executing profile
-        schedule = profileName
         item.callback()
-        schedule = nil
 
         schedules.removeValue(forKey: profileName)
         if let scheduler = backgroundSchedulers.removeValue(forKey: profileName) {

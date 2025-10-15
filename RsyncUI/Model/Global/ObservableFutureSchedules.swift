@@ -136,14 +136,10 @@ final class ObservableFutureSchedules {
                                                 schedule: "")
 
             firstscheduledate = first
-
-            // Present next schedule as String date
-            GlobalTimer.shared.schedule = first.dateRun
-
             starttimer(first)
+            
         } else {
             firstscheduledate = nil
-            GlobalTimer.shared.schedule = nil
             GlobalTimer.shared.clearSchedules()
         }
     }
