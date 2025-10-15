@@ -156,7 +156,7 @@ final class ObservableFutureSchedules {
         // Then add new schedule
         if let schedultime = schedule.dateRun?.en_date_from_string() {
             // The Callback
-            globalTimer.addSchedule(profile: schedule.profile, time: schedultime, tolerance: 0) {
+            globalTimer.addSchedule(profile: schedule.profile, time: schedultime, tolerance: 10) {
                 self.recomputeschedules()
                 self.setfirsscheduledate()
                 // Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED INTERNALLY")
