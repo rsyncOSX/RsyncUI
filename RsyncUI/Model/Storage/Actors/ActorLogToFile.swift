@@ -195,9 +195,9 @@ actor ActorLogToFile {
         var logfile = await readloggfileasline()
 
         if logfile == nil {
-            logfile = tmplogg.joined(separator: "\n") + tmplogg.joined(separator: "\n")
+            logfile = tmplogg.joined(separator: "\n")
         } else {
-            logfile! += tmplogg.joined(separator: "\n") + tmplogg.joined(separator: "\n")
+            logfile! += tmplogg.joined(separator: "\n")
         }
         if let logfile {
             await writeloggfile(logfile, false)
