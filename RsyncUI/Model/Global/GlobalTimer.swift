@@ -25,10 +25,9 @@ public final class GlobalTimer {
     private var wakeObserver: NSObjectProtocol?
     
     private var schedules: [String: ScheduledItem] = [:]
-    
     private var lastExecutionTime: [String: Date] = [:]
     private let minimumExecutionInterval: TimeInterval = 5 * 60 // 5 minutes in seconds
-
+    
     // MARK: - Initialization
 
     private init() {
@@ -131,43 +130,73 @@ public final class GlobalTimer {
 
     
 
+    // Add these properties to your class
+    
+
     private func checkSchedules() {
         let now = Date.now
         let dueProfiles = schedules.filter { now >= $0.value.time }.map(\.key)
         
         guard !dueProfiles.isEmpty else { return }
         
-        // Filter profiles that haven't been executed recently
-        let eligibleProfiles = dueProfiles.filter { profileName in
-            guard let lastExecution = lastExecutionTime[profileName] else {
-                return true // Never executed, so eligible
+        // Group due profiles by their last execution time
+        var eligibleProfiles: [String] = []
+        var throttledProfiles: [String] = []
+        
+        for profileName in dueProfiles {
+            if let lastExecution = self.lastExecutionTime[profileName] {
+                let timeSinceLastExecution = now.timeIntervalSince(lastExecution)
+                if timeSinceLastExecution < self.minimumExecutionInterval {
+                    throttledProfiles.append(profileName)
+                    Logger.process.debug("GlobalTimer: Throttling '\(profileName)' - executed \(Int(timeSinceLastExecution))s ago, need \(Int(self.minimumExecutionInterval))s")
+                } else {
+                    eligibleProfiles.append(profileName)
+                }
+            } else {
+                // Never executed before, so it's eligible
+                eligibleProfiles.append(profileName)
             }
-            let timeSinceLastExecution = now.timeIntervalSince(lastExecution)
-            if timeSinceLastExecution < minimumExecutionInterval {
-                Logger.process.debug("GlobalTimer: Skipping '\(profileName)' - executed \(Int(timeSinceLastExecution))s ago, need \(Int(self.minimumExecutionInterval))s")
-                return false
-            }
-            return true
         }
         
         // Handle throttled profiles - reschedule them for minimum interval from their last execution
-        let throttledProfiles = dueProfiles.filter { !eligibleProfiles.contains($0) }
         for profileName in throttledProfiles {
             if var item = schedules[profileName],
-               let lastExecution = lastExecutionTime[profileName] {
-                let nextAllowedTime = lastExecution.addingTimeInterval(minimumExecutionInterval)
+               let lastExecution = self.lastExecutionTime[profileName] {
+                let nextAllowedTime = lastExecution.addingTimeInterval(self.minimumExecutionInterval)
                 
-                // Update the schedule time to the next allowed time
-                item.time = nextAllowedTime
-                schedules[profileName] = item
-                
-                Logger.process.debug("GlobalTimer: Rescheduled '\(profileName)' to \(nextAllowedTime)")
+                // Only reschedule if the new time is in the future
+                if nextAllowedTime > now {
+                    item.time = nextAllowedTime
+                    schedules[profileName] = item
+                    Logger.process.debug("GlobalTimer: Rescheduled '\(profileName)' to \(nextAllowedTime)")
+                }
             }
         }
         
-        // Execute only the first eligible profile
-        if let firstProfile = eligibleProfiles.first {
-            executeSchedule(profileName: firstProfile)
+        // Execute eligible profiles one at a time with proper spacing
+        if !eligibleProfiles.isEmpty {
+            // Sort by original schedule time to maintain order
+            let sortedEligible = eligibleProfiles.sorted { profile1, profile2 in
+                let time1 = schedules[profile1]?.time ?? now
+                let time2 = schedules[profile2]?.time ?? now
+                return time1 < time2
+            }
+            
+            // Execute the first one immediately
+            if let firstProfile = sortedEligible.first {
+                executeSchedule(profileName: firstProfile)
+                
+                // Reschedule remaining eligible profiles with 5-minute spacing
+                for (index, profileName) in sortedEligible.dropFirst().enumerated() {
+                    if var item = schedules[profileName] {
+                        let delayMinutes = (index + 1) * 5
+                        let newTime = now.addingTimeInterval(TimeInterval(delayMinutes * 60))
+                        item.time = newTime
+                        schedules[profileName] = item
+                        Logger.process.info("GlobalTimer: Delayed '\(profileName)' by \(delayMinutes) minutes to maintain spacing")
+                    }
+                }
+            }
         }
         
         // Clean up old execution times periodically
@@ -200,6 +229,7 @@ public final class GlobalTimer {
             Logger.process.debug("GlobalTimer: Cleaned up \(removedCount) old execution time entries")
         }
     }
+    
     // MARK: - Wake Handling
 
     private func setupWakeNotification() {
