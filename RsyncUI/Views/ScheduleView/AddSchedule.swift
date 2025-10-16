@@ -110,6 +110,14 @@ struct AddSchedule: View {
                 }
             }
             .padding()
+            
+            Button {
+                
+                futuredates.testawake()
+                
+            } label: {
+                Label("DEMO", systemImage: "plus")
+            }
         }
         .onChange(of: dateRun) {
             let date = dateRun.en_date_from_string()

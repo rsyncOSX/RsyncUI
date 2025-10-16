@@ -169,22 +169,22 @@ final class ObservableFutureSchedules {
     // Test for the awake function
     
     
-    private func testawake() {
+    func testawake() {
         
         let globalTimer = GlobalTimer.shared
         // Remove and cancel any schedules
         globalTimer.clearSchedules()
         
-        let now = Date.now
-        let result = now.en_string_from_date()
-        
         let profile1 = "profile1"
         let profile2 = "profile2"
         let profile3 = "profile3"
         
-        let schedule1 = SchedulesConfigurations(profile: profile1, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule2 = SchedulesConfigurations(profile: profile2, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 2).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule3 = SchedulesConfigurations(profile: profile3, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 3).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule1 = SchedulesConfigurations(profile: profile1, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 2).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule2 = SchedulesConfigurations(profile: profile2, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 3).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule3 = SchedulesConfigurations(profile: profile3, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 4).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule12 = SchedulesConfigurations(profile: profile1, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 5).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule22 = SchedulesConfigurations(profile: profile2, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 6).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule32 = SchedulesConfigurations(profile: profile3, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 7).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         
         let callback1: () -> Void = {
             self.recomputeschedules()
@@ -213,7 +213,7 @@ final class ObservableFutureSchedules {
             }
         }
         
-        scheduledata = [schedule1, schedule2, schedule3]
+        scheduledata = [schedule1, schedule2, schedule3, schedule12, schedule22, schedule32]
         
         recomputeschedules()
         
@@ -229,6 +229,19 @@ final class ObservableFutureSchedules {
             globalTimer.addSchedule(profile: schedule3.profile, time: schedultime, tolerance: 10, callback: callback3)
         }
         
+        if let schedultime = schedule12.dateRun?.en_date_from_string() {
+            globalTimer.addSchedule(profile: schedule12.profile, time: schedultime, tolerance: 10, callback: callback1)
+        }
+        
+        if let schedultime = schedule22.dateRun?.en_date_from_string() {
+            globalTimer.addSchedule(profile: schedule22.profile, time: schedultime, tolerance: 10, callback: callback2)
+        }
+        
+        if let schedultime = schedule32.dateRun?.en_date_from_string() {
+            globalTimer.addSchedule(profile: schedule32.profile, time: schedultime, tolerance: 10, callback: callback3)
+        }
+        
+        globalTimer.startdemo()
     }
 }
 
