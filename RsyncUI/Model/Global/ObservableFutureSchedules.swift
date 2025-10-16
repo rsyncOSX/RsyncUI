@@ -190,9 +190,9 @@ final class ObservableFutureSchedules {
         }
 
         futureschedules.removeAll()
-        
+
         scheduledata = [schedule1, schedule2, schedule3, schedule12, schedule22, schedule32]
-        
+
         if let scheduledata {
             for i in 0 ..< scheduledata.count {
                 if let schedule = scheduledata[i].schedule,

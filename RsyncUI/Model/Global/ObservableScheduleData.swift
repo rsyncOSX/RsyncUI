@@ -77,7 +77,7 @@ final class ObservableScheduleData {
             }
         }
     }
-    
+
     // Demo for test av schedule
     func demodatatestschedule() {
         let schedule1 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 3).en_string_from_date(), schedule: ScheduleType.once.rawValue)
@@ -87,7 +87,6 @@ final class ObservableScheduleData {
         let schedule22 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 7).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         let schedule32 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 8).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         scheduledata = [schedule1, schedule2, schedule3, schedule12, schedule22, schedule32]
-        
     }
 
     init() {}
