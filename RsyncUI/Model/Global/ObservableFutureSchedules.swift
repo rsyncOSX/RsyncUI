@@ -179,12 +179,12 @@ final class ObservableFutureSchedules {
         let profile2 = "profile2"
         let profile3 = "profile3"
         
-        let schedule1 = SchedulesConfigurations(profile: profile1, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 2).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule2 = SchedulesConfigurations(profile: profile2, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 3).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule3 = SchedulesConfigurations(profile: profile3, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 4).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule12 = SchedulesConfigurations(profile: profile1, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 5).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule22 = SchedulesConfigurations(profile: profile2, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 6).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule32 = SchedulesConfigurations(profile: profile3, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 7).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule1 = SchedulesConfigurations(profile: profile1, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule2 = SchedulesConfigurations(profile: profile2, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 2).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule3 = SchedulesConfigurations(profile: profile3, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 3).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule12 = SchedulesConfigurations(profile: profile1, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 4).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule22 = SchedulesConfigurations(profile: profile2, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 5).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule32 = SchedulesConfigurations(profile: profile3, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 6).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         
         let callback1: () -> Void = {
             self.recomputeschedules()
@@ -240,8 +240,6 @@ final class ObservableFutureSchedules {
         if let schedultime = schedule32.dateRun?.en_date_from_string() {
             globalTimer.addSchedule(profile: schedule32.profile, time: schedultime, tolerance: 10, callback: callback3)
         }
-        
-        globalTimer.startdemo()
     }
 }
 

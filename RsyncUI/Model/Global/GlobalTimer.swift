@@ -28,6 +28,9 @@ public final class GlobalTimer {
     
     private var lastExecutionTime: [String: Date] = [:]
     private let minimumExecutionInterval: TimeInterval = 5 * 60 // 5 minutes in seconds
+    
+    // Track wake state
+    private var isHandlingWake = false
 
     // MARK: - Initialization
 
@@ -121,14 +124,33 @@ public final class GlobalTimer {
         timer = t
     }
 
-    
-
     private func checkSchedules() {
         let now = Date.now
         let dueProfiles = schedules.filter { now >= $0.value.time }.map(\.key)
         
         guard !dueProfiles.isEmpty else { return }
         
+        // If handling wake, reschedule all past-due items instead of executing
+        if isHandlingWake {
+            Logger.process.info("GlobalTimer: Wake handling - rescheduling \(dueProfiles.count) past-due schedules")
+            
+            for profileName in dueProfiles {
+                guard var item = schedules[profileName] else { continue }
+                
+                // Calculate new schedule time: minimum interval from now
+                let newTime = now.addingTimeInterval(minimumExecutionInterval)
+                item.time = newTime
+                schedules[profileName] = item
+                
+                Logger.process.info("GlobalTimer: Rescheduled '\(profileName)' from \(item.time) to \(newTime)")
+            }
+            
+            isHandlingWake = false
+            scheduleNextTimer()
+            return
+        }
+        
+        // Normal execution flow (not after wake)
         // Filter profiles that haven't been executed recently
         let eligibleProfiles = dueProfiles.filter { profileName in
             guard let lastExecution = lastExecutionTime[profileName] else {
@@ -192,6 +214,7 @@ public final class GlobalTimer {
             Logger.process.debug("GlobalTimer: Cleaned up \(removedCount) old execution time entries")
         }
     }
+    
     // MARK: - Wake Handling
 
     private func setupWakeNotification() {
@@ -207,7 +230,8 @@ public final class GlobalTimer {
     }
 
     private func handleWake() {
-        Logger.process.info("GlobalTimer: System woke, checking schedules")
+        Logger.process.info("GlobalTimer: System woke, checking for past-due schedules")
+        isHandlingWake = true
         checkSchedules()
     }
 
@@ -215,9 +239,5 @@ public final class GlobalTimer {
 
     private func defaultTolerance(for interval: TimeInterval) -> TimeInterval {
         min(60, max(1, interval * 0.1))
-    }
-    
-    public func startdemo() {
-        checkSchedules()
     }
 }
