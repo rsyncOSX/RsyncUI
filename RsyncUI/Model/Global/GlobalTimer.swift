@@ -36,6 +36,15 @@ public final class GlobalTimer {
         timer != nil
     }
     
+    public func nextScheduleDate(format: Date.FormatStyle = .dateTime) -> String? {
+        // Find the earliest ScheduledItem.time across all profiles and tasks
+        let nextDate: Date? = schedules.values
+            .flatMap { $0.values }
+            .map { $0.time }
+            .min()
+        return nextDate?.formatted(format)
+    }
+    
     // Change the schedules structure to support multiple tasks per profile
     private var schedules: [String: [UUID: ScheduledItem]] = [:]
     private var lastExecutionTime: [String: Date] = [:]
@@ -240,7 +249,29 @@ public final class GlobalTimer {
         timer?.invalidate()
         timer = nil
 
-        guard let (profileName, item) = schedules.min(by: { $0.value.time < $1.value.time }) else {
+        
+        // Find the earliest scheduled task across all profiles
+        var nextProfileName: String?
+        var nextTaskID: UUID?
+        var nextItem: ScheduledItem?
+
+        for (profile, tasks) in schedules {
+            for (taskID, item) in tasks {
+                if let current = nextItem {
+                    if item.time < current.time {
+                        nextProfileName = profile
+                        nextTaskID = taskID
+                        nextItem = item
+                    }
+                } else {
+                    nextProfileName = profile
+                    nextTaskID = taskID
+                    nextItem = item
+                }
+            }
+        }
+
+        guard let profileName = nextProfileName, let taskID = nextTaskID, let item = nextItem else {
             Logger.process.info("GlobalTimer: No schedules")
             return
         }
@@ -250,7 +281,7 @@ public final class GlobalTimer {
         // Execute immediately if already due
         if interval <= 0 {
             Logger.process.info("GlobalTimer: Schedule '\(profileName)' already due, executing now")
-            executeSchedule(profileName: profileName)
+            executeSchedule(profileName: profileName, taskID: taskID)
             scheduleNextTimer() // Schedule next if any remain
             return
         }
@@ -267,17 +298,7 @@ public final class GlobalTimer {
         timer = t
     }
 
-    private func executeSchedule(profileName: String) {
-        guard let item = schedules.removeValue(forKey: profileName) else { return }
-        
-        // Record the execution time
-        lastExecutionTime[profileName] = Date.now
-        
-        Logger.process.info("GlobalTimer: Executing schedule for '\(profileName)'")
-        item.callback()
-    }
 
-   
     
     // MARK: - Wake Handling
 
@@ -304,3 +325,4 @@ public final class GlobalTimer {
         min(60, max(1, interval * 0.1))
     }
 }
+
