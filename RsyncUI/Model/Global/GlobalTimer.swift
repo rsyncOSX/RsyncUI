@@ -252,6 +252,7 @@ public final class GlobalTimer {
                     // Execute earliest task immediately
                     let firstTask = sortedTasks.first!
                     executeSchedule(profileName: profileName, taskID: firstTask.taskID)
+                    /*
 
                     // Push remaining due tasks in this profile by minimumExecutionInterval
                     for task in sortedTasks.dropFirst() {
@@ -261,6 +262,7 @@ public final class GlobalTimer {
                             Logger.process.info("GlobalTimer: Rescheduled additional task \(task.taskID) for profile '\(profileName)' to maintain per-profile spacing")
                         }
                     }
+                     */
                 } else {
                     // Space subsequent profiles by index * 5 minutes
                     let delayMinutes = index * 5
@@ -273,7 +275,8 @@ public final class GlobalTimer {
                         schedules[profileName]?[firstTask.taskID] = item
                         Logger.process.info("GlobalTimer: Scheduled profile '\(profileName)' to execute in \(delayMinutes) minutes")
                     }
-
+                    
+                    /*
                     // Push other due tasks by an additional 5 minutes after first
                     for task in sortedTasks.dropFirst() {
                         if var item = schedules[profileName]?[task.taskID] {
@@ -282,6 +285,7 @@ public final class GlobalTimer {
                             Logger.process.info("GlobalTimer: Rescheduled additional task \(task.taskID) for profile '\(profileName)'")
                         }
                     }
+                     */
                 }
             }
         }

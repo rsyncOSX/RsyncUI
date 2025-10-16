@@ -165,5 +165,70 @@ final class ObservableFutureSchedules {
             globalTimer.addSchedule(profile: schedule.profile, time: schedultime, tolerance: 10, callback: callback)
         }
     }
+    
+    // Test for the awake function
+    
+    
+    private func testawake() {
+        
+        let globalTimer = GlobalTimer.shared
+        // Remove and cancel any schedules
+        globalTimer.clearSchedules()
+        
+        let now = Date.now
+        let result = now.en_string_from_date()
+        
+        let profile1 = "profile1"
+        let profile2 = "profile2"
+        let profile3 = "profile3"
+        
+        let schedule1 = SchedulesConfigurations(profile: profile1, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule2 = SchedulesConfigurations(profile: profile2, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 2).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule3 = SchedulesConfigurations(profile: profile3, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 3).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        
+        let callback1: () -> Void = {
+            self.recomputeschedules()
+            self.setfirsscheduledate()
+            Task {
+                // Logging to file that a Schedule is fired
+                await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for profile1"])
+            }
+        }
+        
+        let callback2: () -> Void = {
+            self.recomputeschedules()
+            self.setfirsscheduledate()
+            Task {
+                // Logging to file that a Schedule is fired
+                await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for profile2"])
+            }
+        }
+        
+        let callback3: () -> Void = {
+            self.recomputeschedules()
+            self.setfirsscheduledate()
+            Task {
+                // Logging to file that a Schedule is fired
+                await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for profile3"])
+            }
+        }
+        
+        scheduledata = [schedule1, schedule2, schedule3]
+        
+        recomputeschedules()
+        
+        if let schedultime = schedule1.dateRun?.en_date_from_string() {
+            globalTimer.addSchedule(profile: schedule1.profile, time: schedultime, tolerance: 10, callback: callback1)
+        }
+        
+        if let schedultime = schedule2.dateRun?.en_date_from_string() {
+            globalTimer.addSchedule(profile: schedule2.profile, time: schedultime, tolerance: 10, callback: callback2)
+        }
+        
+        if let schedultime = schedule3.dateRun?.en_date_from_string() {
+            globalTimer.addSchedule(profile: schedule3.profile, time: schedultime, tolerance: 10, callback: callback3)
+        }
+        
+    }
 }
 
