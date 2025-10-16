@@ -137,7 +137,7 @@ final class ObservableFutureSchedules {
 
             firstscheduledate = first
             starttimer(first)
-            
+
         } else {
             firstscheduledate = nil
             GlobalTimer.shared.clearSchedules()
@@ -148,7 +148,7 @@ final class ObservableFutureSchedules {
         let globalTimer = GlobalTimer.shared
         // Remove and cancel any schedules
         globalTimer.clearSchedules()
-        
+
         // The Callback for Schedule
         let callback: () -> Void = {
             self.recomputeschedules()
@@ -165,27 +165,25 @@ final class ObservableFutureSchedules {
             globalTimer.addSchedule(profile: schedule.profile, time: schedultime, tolerance: 10, callback: callback)
         }
     }
-    
+
     // Test for the awake function
-    
-    
+
     func testawake() {
-        
         let globalTimer = GlobalTimer.shared
         // Remove and cancel any schedules
         globalTimer.clearSchedules()
-        
+
         let profile1 = "profile1"
         let profile2 = "profile2"
         let profile3 = "profile3"
-        
+
         let schedule1 = SchedulesConfigurations(profile: profile1, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         let schedule2 = SchedulesConfigurations(profile: profile2, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 2).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         let schedule3 = SchedulesConfigurations(profile: profile3, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 3).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         let schedule12 = SchedulesConfigurations(profile: profile1, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 4).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         let schedule22 = SchedulesConfigurations(profile: profile2, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 5).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         let schedule32 = SchedulesConfigurations(profile: profile3, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 6).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        
+
         let callback1: () -> Void = {
             self.recomputeschedules()
             self.setfirsscheduledate()
@@ -194,7 +192,7 @@ final class ObservableFutureSchedules {
                 await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for profile1"])
             }
         }
-        
+
         let callback2: () -> Void = {
             self.recomputeschedules()
             self.setfirsscheduledate()
@@ -203,7 +201,7 @@ final class ObservableFutureSchedules {
                 await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for profile2"])
             }
         }
-        
+
         let callback3: () -> Void = {
             self.recomputeschedules()
             self.setfirsscheduledate()
@@ -212,34 +210,40 @@ final class ObservableFutureSchedules {
                 await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for profile3"])
             }
         }
-        
+
+        futureschedules.removeAll()
         scheduledata = [schedule1, schedule2, schedule3, schedule12, schedule22, schedule32]
-        
+
+        if let scheduledata {
+            for i in 0 ..< scheduledata.count {
+                if let schedule = scheduledata[i].schedule,
+                   let dateRun = scheduledata[i].dateRun?.validate_en_date_from_string()
+                {
+                    computefuturedates(profile: scheduledata[i].profile, schedule: schedule, dateRun: dateRun)
+                }
+            }
+        }
+
+        for i in 0 ..< (scheduledata?.count ?? 0) {
+            switch i {
+            case 0, 3:
+                if let scheduletime = scheduledata?[i].dateRun?.en_date_from_string() {
+                    globalTimer.addSchedule(profile: scheduledata?[i].profile, time: scheduletime, tolerance: 10, callback: callback1)
+                }
+            case 1, 4:
+                if let scheduletime = scheduledata?[i].dateRun?.en_date_from_string() {
+                    globalTimer.addSchedule(profile: scheduledata?[i].profile, time: scheduletime, tolerance: 10, callback: callback2)
+                }
+            case 2, 5:
+                if let scheduletime = scheduledata?[i].dateRun?.en_date_from_string() {
+                    globalTimer.addSchedule(profile: scheduledata?[i].profile, time: scheduletime, tolerance: 10, callback: callback3)
+                }
+            default:
+                return
+            }
+        }
+
         recomputeschedules()
-        
-        if let schedultime = schedule1.dateRun?.en_date_from_string() {
-            globalTimer.addSchedule(profile: schedule1.profile, time: schedultime, tolerance: 10, callback: callback1)
-        }
-        
-        if let schedultime = schedule2.dateRun?.en_date_from_string() {
-            globalTimer.addSchedule(profile: schedule2.profile, time: schedultime, tolerance: 10, callback: callback2)
-        }
-        
-        if let schedultime = schedule3.dateRun?.en_date_from_string() {
-            globalTimer.addSchedule(profile: schedule3.profile, time: schedultime, tolerance: 10, callback: callback3)
-        }
-        
-        if let schedultime = schedule12.dateRun?.en_date_from_string() {
-            globalTimer.addSchedule(profile: schedule12.profile, time: schedultime, tolerance: 10, callback: callback1)
-        }
-        
-        if let schedultime = schedule22.dateRun?.en_date_from_string() {
-            globalTimer.addSchedule(profile: schedule22.profile, time: schedultime, tolerance: 10, callback: callback2)
-        }
-        
-        if let schedultime = schedule32.dateRun?.en_date_from_string() {
-            globalTimer.addSchedule(profile: schedule32.profile, time: schedultime, tolerance: 10, callback: callback3)
-        }
+        setfirsscheduledate()
     }
 }
-

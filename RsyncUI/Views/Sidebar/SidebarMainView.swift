@@ -107,7 +107,7 @@ struct SidebarMainView: View {
                         }
                     }
             }
-            
+
             // Next scheduled action
             if GlobalTimer.shared.timerIsActive() {
                 MessageView(mytext: GlobalTimer.shared.nextScheduleDate() ?? "", size: .caption2)

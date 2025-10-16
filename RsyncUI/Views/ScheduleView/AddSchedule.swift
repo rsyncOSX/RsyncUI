@@ -110,11 +110,10 @@ struct AddSchedule: View {
                 }
             }
             .padding()
-            
+
             Button {
-                
                 futuredates.testawake()
-                
+
             } label: {
                 Label("DEMO", systemImage: "plus")
             }

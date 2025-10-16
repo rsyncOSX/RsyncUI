@@ -68,7 +68,7 @@ actor ActorLogToFile {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
             Logger.process.info("LogToFile: readloggfile() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
-            
+
             do {
                 let checker = FileSize()
                 if let size = try await checker.filesize() {
@@ -76,7 +76,7 @@ actor ActorLogToFile {
                         throw FilesizeError.toobigandresetting
                     }
                 }
-                
+
             } catch let e {
                 let error = e
                 await path.propogateerror(error: error)
@@ -85,13 +85,13 @@ actor ActorLogToFile {
                 let reset = date + ": " + "logfile is reset by RsyncUI by checking filesize when reading logfile..." + "\n"
                 await writeloggfile(reset, true)
             }
-            
+
             do {
                 let data = try Data(contentsOf: logfileURL)
                 Logger.process.info("LogToFile: read logfile \(logfileURL.path, privacy: .public)")
                 let logfile = String(data: data, encoding: .utf8)
                 return logfile.map { line in
-                    return line.components(separatedBy: .newlines)
+                    line.components(separatedBy: .newlines)
                 }
             } catch let e {
                 let error = e
@@ -113,7 +113,7 @@ actor ActorLogToFile {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
             Logger.process.info("LogToFile: readloggfileasline() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
-            
+
             do {
                 let checker = FileSize()
                 if let size = try await checker.filesize() {
@@ -121,7 +121,7 @@ actor ActorLogToFile {
                         throw FilesizeError.toobigandresetting
                     }
                 }
-                
+
             } catch let e {
                 let error = e
                 await path.propogateerror(error: error)
