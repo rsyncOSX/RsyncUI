@@ -166,54 +166,33 @@ final class ObservableFutureSchedules {
         }
     }
 
-    // Test for the awake function
+    // Demo for test av schedule
 
-    func testawake() {
+    func demodatatestschedule() {
         let globalTimer = GlobalTimer.shared
         // Remove and cancel any schedules
         globalTimer.clearSchedules()
 
-        let profile1 = "profile1"
-        let profile2 = "profile2"
-        let profile3 = "profile3"
+        let schedule1 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 3).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule2 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 4).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule3 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 5).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule12 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 6).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule22 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 7).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule32 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 8).en_string_from_date(), schedule: ScheduleType.once.rawValue)
 
-        let schedule1 = SchedulesConfigurations(profile: profile1, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule2 = SchedulesConfigurations(profile: profile2, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 2).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule3 = SchedulesConfigurations(profile: profile3, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 3).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule12 = SchedulesConfigurations(profile: profile1, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 4).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule22 = SchedulesConfigurations(profile: profile2, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 5).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule32 = SchedulesConfigurations(profile: profile3, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 6).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-
-        let callback1: () -> Void = {
+        let callback: () -> Void = {
             self.recomputeschedules()
             self.setfirsscheduledate()
             Task {
                 // Logging to file that a Schedule is fired
-                await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for profile1"])
-            }
-        }
-
-        let callback2: () -> Void = {
-            self.recomputeschedules()
-            self.setfirsscheduledate()
-            Task {
-                // Logging to file that a Schedule is fired
-                await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for profile2"])
-            }
-        }
-
-        let callback3: () -> Void = {
-            self.recomputeschedules()
-            self.setfirsscheduledate()
-            Task {
-                // Logging to file that a Schedule is fired
-                await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for profile3"])
+                await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for DEMO"])
             }
         }
 
         futureschedules.removeAll()
+        
         scheduledata = [schedule1, schedule2, schedule3, schedule12, schedule22, schedule32]
-
+        
         if let scheduledata {
             for i in 0 ..< scheduledata.count {
                 if let schedule = scheduledata[i].schedule,
@@ -225,25 +204,11 @@ final class ObservableFutureSchedules {
         }
 
         for i in 0 ..< (scheduledata?.count ?? 0) {
-            switch i {
-            case 0, 3:
-                if let scheduletime = scheduledata?[i].dateRun?.en_date_from_string() {
-                    globalTimer.addSchedule(profile: scheduledata?[i].profile, time: scheduletime, tolerance: 10, callback: callback1)
-                }
-            case 1, 4:
-                if let scheduletime = scheduledata?[i].dateRun?.en_date_from_string() {
-                    globalTimer.addSchedule(profile: scheduledata?[i].profile, time: scheduletime, tolerance: 10, callback: callback2)
-                }
-            case 2, 5:
-                if let scheduletime = scheduledata?[i].dateRun?.en_date_from_string() {
-                    globalTimer.addSchedule(profile: scheduledata?[i].profile, time: scheduletime, tolerance: 10, callback: callback3)
-                }
-            default:
-                return
+            if let scheduletime = scheduledata?[i].dateRun?.en_date_from_string() {
+                globalTimer.addSchedule(profile: scheduledata?[i].profile, time: scheduletime, tolerance: 10, callback: callback)
             }
         }
 
-        recomputeschedules()
         setfirsscheduledate()
     }
 }
