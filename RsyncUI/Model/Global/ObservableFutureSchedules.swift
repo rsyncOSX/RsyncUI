@@ -148,21 +148,21 @@ final class ObservableFutureSchedules {
         let globalTimer = GlobalTimer.shared
         // Remove and cancel any schedules
         globalTimer.clearSchedules()
-
+        
+        // The Callback for Schedule
+        let callback: () -> Void = {
+            self.recomputeschedules()
+            self.setfirsscheduledate()
+            // Setting profile name will trigger execution
+            self.scheduledprofile = schedule.profile ?? "Default"
+            Task {
+                // Logging to file that a Schedule is fired
+                await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for \(schedule.profile ?? "Default")"])
+            }
+        }
         // Then add new schedule
         if let schedultime = schedule.dateRun?.en_date_from_string() {
-            // The Callback
-            globalTimer.addSchedule(profile: schedule.profile, time: schedultime, tolerance: 10) {
-                self.recomputeschedules()
-                self.setfirsscheduledate()
-                // Logger.process.info("ObservableFutureSchedules: initiatetimer() - schedule FIRED INTERNALLY")
-
-                // Setting profile name will trigger execution
-                self.scheduledprofile = schedule.profile ?? "Default"
-                Task {
-                    await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for \(schedule.profile ?? "Default")"])
-                }
-            }
+            globalTimer.addSchedule(profile: schedule.profile, time: schedultime, tolerance: 10, callback: callback)
         }
     }
 }

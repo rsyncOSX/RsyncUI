@@ -78,9 +78,9 @@ public final class GlobalTimer {
 
     public func clearSchedules() {
         guard !schedules.isEmpty else { return }
-        
         Logger.process.info("GlobalTimer: Clearing all schedules")
         schedules.removeAll()
+        // Activating next present schedule
         scheduleNextTimer()
     }
 
