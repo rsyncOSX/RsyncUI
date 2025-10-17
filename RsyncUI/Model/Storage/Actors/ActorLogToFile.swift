@@ -188,20 +188,17 @@ actor ActorLogToFile {
 
     private func appendlogg(command: String, stringoutputfromrsync: [String]) async {
         let date = Date().localized_string_from_date()
-        var tmplogg = [String]()
-        
-        tmplogg.append("\n" + date + ": " + command + "\n")
+        // Build header line
+        let header = "\n" + date + ": " + command + "\n"
+        // Join rsync output into a single string with newlines
+        let output = stringoutputfromrsync.joined(separator: "\n")
 
-        var logfile = await readloggfileasline()
-
-        if logfile == nil {
-            logfile = tmplogg.joined(separator: "\n")
-        } else {
-            logfile! += tmplogg.joined(separator: "\n")
-        }
-        if let logfile {
-            await writeloggfile(logfile, false)
-        }
+        // Read existing logfile as a single string
+        var logfile = await readloggfileasline() ?? ""
+        // Append header and output, always ending with a newline
+        logfile += header + output + "\n"
+        // Write a new logfile with appended new lines
+        await writeloggfile(logfile, true)
     }
 
     @discardableResult
@@ -223,3 +220,4 @@ actor ActorLogToFile {
 }
 
 // swiftlint:enable non_optional_string_data_conversion
+

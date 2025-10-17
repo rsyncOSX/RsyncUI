@@ -188,6 +188,8 @@ struct SidebarMainView: View {
             selecteduuids.removeAll()
         }
         .onChange(of: futuredates.firstscheduledate) {
+            Logger.process.info("SidebarMainView: got TRIGGER from Schedule, firstscheduledate is set")
+            
             if futuredates.firstscheduledate == nil {
                 scheduledata.scheduledata.removeAll()
             } else {
@@ -199,8 +201,7 @@ struct SidebarMainView: View {
             }
         }
         .onChange(of: futuredates.scheduledprofile) {
-            Logger.process.info("SidebarMainView: got TRIGGER from Timer")
-
+            Logger.process.info("SidebarMainView: got TRIGGER from Schedule, the callback is executed")
             queryitem = nil
             if selectedview != .synchronize {
                 selectedview = .synchronize
