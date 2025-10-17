@@ -194,11 +194,11 @@ struct SidebarMainView: View {
             Logger.process.info("SidebarMainView: got TRIGGER from Schedule, firstscheduledate is set")
             
             if futuredates.firstscheduledate == nil {
-                scheduledata.scheduledata.removeAll()
+                scheduledata.scheduledata = nil
             } else {
                 scheduledata.filteronlyvalidschedules()
             }
-            if scheduledata.scheduledata.isEmpty {
+            if scheduledata.scheduledata == nil {
                 let globalTimer = GlobalTimer.shared
                 globalTimer.clearSchedules()
             }

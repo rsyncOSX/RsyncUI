@@ -50,7 +50,7 @@ struct CalendarDayView: View {
                     }
                 }
                 .contextMenu {
-                    ForEach(Array(futuredates.futureschedules), id: \.self) { schedule in
+                    ForEach(futuredates.scheduledata ?? [], id: \.self) { schedule in
                         if istoday(runDate: schedule.dateRun, day: day) {
                             VStack {
                                 Text(schedule.profile ?? "")
@@ -98,7 +98,7 @@ struct CalendarDayView: View {
                     }
                 }
                 .contextMenu {
-                    ForEach(Array(futuredates.futureschedules), id: \.self) { schedule in
+                    ForEach(futuredates.scheduledata ?? [], id: \.self) { schedule in
                         if istoday(runDate: schedule.dateRun, day: day) {
                             VStack {
                                 Text(schedule.profile ?? "")

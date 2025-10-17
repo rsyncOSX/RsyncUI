@@ -104,7 +104,7 @@ struct CalendarMonthView: View {
                             date: $date)
 
                 TableofSchedules(selecteduuids: $selecteduuids,
-                                 schedules: scheduledata.scheduledata)
+                                 schedules: scheduledata.scheduledata ?? [])
                     .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 schedule" :
                         "Delete \(selecteduuids.count) schedules",
                         isPresented: $confirmdelete)
@@ -116,18 +116,22 @@ struct CalendarMonthView: View {
                             istappeddayint = 0
                             futuredates.lastdateinpresentmont = Date.now.endOfMonth
                             futuredates.scheduledata = scheduledata.scheduledata
+                            
+                            GlobalTimer.shared.invaldiateallschedulesandtimer()
+                            futuredates.recalculateschedulesGlobalTimer()
 
-                            if scheduledata.scheduledata.isEmpty {
+                            if (scheduledata.scheduledata ?? [] ).isEmpty {
                                 futuredates.firstscheduledate = nil
                             } else {
                                 futuredates.recomputeschedules()
                             }
-
-                            futuredates.recomputeschedules()
-
+                            
                             confirmdelete = false
-
-                            WriteSchedule(scheduledata.scheduledata)
+                            if futuredates.demo == false {
+                                if let scheduladata = scheduledata.scheduledata {
+                                    WriteSchedule(scheduladata)
+                                }
+                            }
                         }
                     }
                     .onDeleteCommand {
@@ -149,11 +153,11 @@ struct CalendarMonthView: View {
         }
         .onChange(of: futuredates.firstscheduledate) {
             if futuredates.firstscheduledate == nil {
-                scheduledata.scheduledata.removeAll()
+                scheduledata.scheduledata = nil
             } else {
                 scheduledata.filteronlyvalidschedules()
             }
-            if scheduledata.scheduledata.isEmpty {
+            if (scheduledata.scheduledata ?? []).isEmpty {
                 let globalTimer = GlobalTimer.shared
                 globalTimer.clearSchedules()
             }
@@ -203,10 +207,10 @@ struct CalendarMonthView: View {
     }
 
     func thereisaschedule(_ date: Date) -> Bool {
-        let verifyaschedule = futuredates.futureschedules.compactMap { schedule in
+        let verifyaschedule = futuredates.scheduledata?.compactMap { schedule in
             schedule.dateRun?.en_date_from_string().startOfDay == date ? true : nil
         }
-        return verifyaschedule.count > 0
+        return verifyaschedule?.count ?? 0 > 0
     }
 
     func istappednoschedule(_ date: Date) -> Bool {

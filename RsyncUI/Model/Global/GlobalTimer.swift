@@ -67,14 +67,6 @@ public final class GlobalTimer {
     }
 
     // MARK: - Public API
-    /*
-    private func removefromallSchedules(_ schedule: [UUID: ScheduledItem]) {
-        if let key = schedule.keys.first {
-            self.allSchedules.removeValue(forKey: key)
-        }
-    }
-    
-     */
     
     private func validatescheduleinset(_ schedule: ScheduledItem) -> Bool {
         let validate = allSchedules.contains(where: { $0.value.time == schedule.time && $0.value.tolerance == schedule.tolerance })
@@ -101,6 +93,14 @@ public final class GlobalTimer {
         return earliest?.time.formatted(format)
     }
 
+    
+    func invaldiateallschedulesandtimer() {
+        timer?.invalidate()
+        timer = nil
+        allSchedules.removeAll()
+        
+    }
+    
     /// Schedule a task to run at a specific time
     /// - Parameters:
     ///   - time: Target execution time
@@ -235,3 +235,4 @@ public final class GlobalTimer {
         min(60, max(1, interval * 0.1))
     }
 }
+

@@ -10,11 +10,12 @@ import Observation
 
 @Observable @MainActor
 final class ObservableScheduleData {
-    var scheduledata: [SchedulesConfigurations] = []
+    
+    var scheduledata: [SchedulesConfigurations]?
 
     // Verify new planned schedule
     func verifynextschedule(plannednextschedule: String) -> Bool {
-        let dates = Array(scheduledata).sorted { s1, s2 in
+        let dates = scheduledata?.sorted { s1, s2 in
             if let id1 = s1.dateRun?.en_date_from_string(),
                let id2 = s2.dateRun?.en_date_from_string()
             {
@@ -23,9 +24,9 @@ final class ObservableScheduleData {
             return false
         }
 
-        if dates.count > 0 {
+        if dates?.count ?? 0 > 0 {
             // Pick the first schedule
-            if let firstschedulestring = dates.first?.dateRun {
+            if let firstschedulestring = dates?.first?.dateRun {
                 let firstscheduledate = firstschedulestring.en_date_from_string()
                 let plannedDate = plannednextschedule.en_date_from_string()
 
@@ -53,19 +54,19 @@ final class ObservableScheduleData {
     func delete(_ uuids: Set<UUID>) {
         var indexset = IndexSet()
 
-        _ = scheduledata.map { schedule in
-            if let index = scheduledata.firstIndex(of: schedule) {
+        _ = scheduledata?.map { schedule in
+            if let index = scheduledata?.firstIndex(of: schedule) {
                 if uuids.contains(schedule.id) {
                     indexset.insert(index)
                 }
             }
         }
         // Remove all marked configurations in one go by IndexSet
-        scheduledata.remove(atOffsets: indexset)
+        scheduledata?.remove(atOffsets: indexset)
     }
 
     func filteronlyvalidschedules() {
-        scheduledata = scheduledata.compactMap { schedule in
+        scheduledata = scheduledata?.compactMap { schedule in
             if let daterun = schedule.dateRun,
                let schedule = schedule.schedule,
                daterun.en_date_from_string() < Date.now,

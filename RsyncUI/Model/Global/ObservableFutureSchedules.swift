@@ -13,7 +13,6 @@ import SwiftUI
 @Observable @MainActor
 final class ObservableFutureSchedules {
     
-    @ObservationIgnored var futureschedules = Set<SchedulesConfigurations>()
     @ObservationIgnored var lastdateinpresentmont: Date?
     @ObservationIgnored var scheduledata: [SchedulesConfigurations]?
     @ObservationIgnored var demo: Bool = false
@@ -92,7 +91,7 @@ final class ObservableFutureSchedules {
                     Logger.process.warning("ObservableFutureSchedules: Failed to calculate future dates")
                 }
             }
-            let count = futureschedules.count
+            let count = scheduledata?.count ?? 0
             Logger.process.info("ObservableFutureSchedules: private computefuturedates(): (\(count))")
         }
     }
@@ -103,7 +102,6 @@ final class ObservableFutureSchedules {
                                                      dateAdded: nil,
                                                      dateRun: dateRun,
                                                      schedule: schedule)
-        futureschedules.insert(futureschedule)
         addtaskandcallback(futureschedule)
     }
 
@@ -111,7 +109,6 @@ final class ObservableFutureSchedules {
     func recomputeschedules() {
         
         Logger.process.info("ObservableFutureSchedules: recomputeschedules()")
-        futureschedules.removeAll()
         
         let recomputedschedules = scheduledata?.filter { item in
             if let dateRunString = item.dateRun {
@@ -123,11 +120,11 @@ final class ObservableFutureSchedules {
         guard recomputedschedules.count > 0 else {
             scheduledata?.removeAll()
             GlobalTimer.shared.clearSchedules()
-            Logger.process.info("ObservableFutureSchedules: recomputeschedules() NO MORE FUTURE SCHEDULES")
+            Logger.process.info("ObservableFutureSchedules: recomputeschedules() no schdeules")
             return
         }
         
-        Logger.process.info("ObservableFutureSchedules: recomputeschedules() number of future schedules: \(recomputedschedules.count + 1, privacy: .public)")
+        Logger.process.info("ObservableFutureSchedules: recomputeschedules() number of schedules: \(recomputedschedules.count + 1, privacy: .public)")
         
         for i in 0 ..< recomputedschedules.count {
             if let schedule = recomputedschedules[i].schedule,
@@ -140,16 +137,16 @@ final class ObservableFutureSchedules {
     // Only set when loading data, when new schedules added or deleted
     func setfirsscheduledate() {
         
-        let dates = Array(futureschedules).sorted { s1, s2 in
+        let dates = scheduledata?.sorted { s1, s2 in
             if let id1 = s1.dateRun?.en_date_from_string(), let id2 = s2.dateRun?.en_date_from_string() {
                 return id1 < id2
             }
             return false
         }
-        if dates.count > 0 {
-            let first = SchedulesConfigurations(profile: dates.first?.profile,
+        if dates?.count ?? 0 > 0 {
+            let first = SchedulesConfigurations(profile: dates?.first?.profile,
                                                 dateAdded: nil,
-                                                dateRun: dates.first?.dateRun,
+                                                dateRun: dates?.first?.dateRun,
                                                 schedule: "")
 
             firstscheduledate = first
@@ -159,6 +156,27 @@ final class ObservableFutureSchedules {
             
             firstscheduledate = nil
             GlobalTimer.shared.clearSchedules()
+        }
+    }
+    
+    func recalculateschedulesGlobalTimer() {
+        let globalTimer = GlobalTimer.shared
+        
+        for i in 0 ..< (scheduledata?.count ?? 0) {
+            if let schedultime = scheduledata?[i].dateRun?.en_date_from_string() {
+                let callback: () -> Void = {
+                    self.recomputeschedules()
+                    self.setfirsscheduledate()
+                    // Setting profile name will trigger execution
+                    self.scheduledprofile = self.scheduledata?[i].profile ?? "Default"
+                    Task {
+                        // Logging to file that a Schedule is fired
+                        await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for \(self.scheduledata?[i].profile ?? "Default")"])
+                    }
+                }
+                
+                globalTimer.addSchedule(time: schedultime, tolerance: 10, callback: callback)
+            }
         }
     }
 
@@ -194,7 +212,6 @@ final class ObservableFutureSchedules {
         let schedule22 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 5).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         let schedule32 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 6).en_string_from_date(), schedule: ScheduleType.once.rawValue)
 
-        futureschedules.removeAll()
         scheduledata = [schedule1, schedule2, schedule3, schedule12, schedule22, schedule32]
 
         if let scheduledata {
@@ -212,16 +229,16 @@ final class ObservableFutureSchedules {
     }
     
     func setfirsscheduledatedemo() {
-        let dates = Array(futureschedules).sorted { s1, s2 in
+        let dates = scheduledata?.sorted { s1, s2 in
             if let id1 = s1.dateRun?.en_date_from_string(), let id2 = s2.dateRun?.en_date_from_string() {
                 return id1 < id2
             }
             return false
         }
-        if dates.count > 0 {
-            let first = SchedulesConfigurations(profile: dates.first?.profile,
+        if dates?.count ?? 0 > 0 {
+            let first = SchedulesConfigurations(profile: dates?.first?.profile,
                                                 dateAdded: nil,
-                                                dateRun: dates.first?.dateRun,
+                                                dateRun: dates?.first?.dateRun,
                                                 schedule: "")
 
             firstscheduledate = first

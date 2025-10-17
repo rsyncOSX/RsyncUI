@@ -82,11 +82,14 @@ struct AddSchedule: View {
                         return
                     }
 
-                    scheduledata.scheduledata.append(item)
+                    if scheduledata.scheduledata == nil {
+                        scheduledata.scheduledata = []
+                    }
+                    scheduledata.scheduledata?.append(item)
 
                     // If more than one schedule, sort by dateRun
-                    if scheduledata.scheduledata.count > 1 {
-                        scheduledata.scheduledata.sort { item1, item2 in
+                    if scheduledata.scheduledata?.count ?? 0 > 1 {
+                        scheduledata.scheduledata?.sort { item1, item2 in
                             if let date1 = item1.dateRun?.validate_en_date_from_string(),
                                let date2 = item2.dateRun?.validate_en_date_from_string()
                             {
@@ -103,8 +106,10 @@ struct AddSchedule: View {
                     // Recompute schedules and set first schedule to execute
                     futuredates.recomputeschedules()
                     futuredates.setfirsscheduledate()
-
-                    WriteSchedule(scheduledata.scheduledata)
+                    
+                    if let scheduledata = scheduledata.scheduledata {
+                        WriteSchedule(scheduledata)
+                    }
 
                 } label: {
                     Label("Add", systemImage: "plus")
