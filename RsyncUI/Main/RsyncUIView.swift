@@ -15,7 +15,6 @@ struct RsyncUIView: View {
     @State private var rsyncversion = Rsyncversion()
     @State private var start: Bool = true
     @State private var rsyncUIdata = RsyncUIconfigurations()
-    @State private var scheduledata = ObservableScheduleData()
 
     var body: some View {
         VStack {
@@ -34,7 +33,6 @@ struct RsyncUIView: View {
                 }
             } else {
                 SidebarMainView(rsyncUIdata: rsyncUIdata,
-                                scheduledata: scheduledata,
                                 selectedprofileID: $selectedprofileID,
                                 errorhandling: errorhandling)
             }
@@ -57,9 +55,6 @@ struct RsyncUIView: View {
             rsyncUIdata.validprofiles = catalognames.map { catalog in
                 ProfilesnamesRecord(catalog)
             }
-            // Load calendardata from store
-            scheduledata.scheduledata = ReadSchedule()
-                .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) ?? []
         }
         .onChange(of: selectedprofileID) {
             var profile: String?

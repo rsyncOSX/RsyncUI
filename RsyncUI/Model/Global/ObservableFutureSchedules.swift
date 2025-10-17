@@ -108,6 +108,7 @@ final class ObservableFutureSchedules {
 
     // Recompute the calendardata to only show active schedules in row.
     func recomputeschedules() {
+        
         Logger.process.info("ObservableFutureSchedules: recomputeschedules()")
         futureschedules.removeAll()
         
@@ -136,7 +137,7 @@ final class ObservableFutureSchedules {
     }
 
     // Only set when loading data, when new schedules added or deleted
-    private func setfirsscheduledate() {
+    func setfirsscheduledate() {
         
         let dates = Array(futureschedules).sorted { s1, s2 in
             if let id1 = s1.dateRun?.en_date_from_string(), let id2 = s2.dateRun?.en_date_from_string() {
@@ -151,6 +152,7 @@ final class ObservableFutureSchedules {
                                                 schedule: "")
 
             firstscheduledate = first
+            addtaskandcallback(first)
 
         } else {
             
@@ -184,7 +186,7 @@ final class ObservableFutureSchedules {
     func demodatatestschedule() {
         let globalTimer = GlobalTimer.shared
         // Remove and cancel any schedules
-        globalTimer.clearSchedules()
+        // globalTimer.clearSchedules()
 
         let schedule1 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         let schedule2 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 2).en_string_from_date(), schedule: ScheduleType.once.rawValue)
@@ -235,7 +237,7 @@ final class ObservableFutureSchedules {
     private func addschedulesdemo() {
         let globalTimer = GlobalTimer.shared
         // Remove and cancel any schedules
-        globalTimer.clearSchedules()
+        // globalTimer.clearSchedules()
 
         let callback: () -> Void = {
             self.recomputeschedules()
@@ -252,25 +254,4 @@ final class ObservableFutureSchedules {
             }
         }
     }
-
-/*
-    private func starttimerdemo(_ schedule: SchedulesConfigurations) {
-        let globalTimer = GlobalTimer.shared
-        // Remove and cancel any schedules
-        globalTimer.clearSchedules()
-
-        let callback: () -> Void = {
-            self.recomputeschedules()
-            self.setfirsscheduledatedemo()
-            Task {
-                // Logging to file that a Schedule is fired
-                await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for DEMO"])
-            }
-        }
-        // Then add new schedule
-        if let schedultime = schedule.dateRun?.en_date_from_string() {
-            globalTimer.addSchedule(time: schedultime, tolerance: 10, callback: callback)
-        }
-    }
- */
 }

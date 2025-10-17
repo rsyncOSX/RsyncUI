@@ -21,7 +21,6 @@ struct MenuItem: Identifiable, Hashable {
 
 struct SidebarMainView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Bindable var scheduledata: ObservableScheduleData
     // The selectedprofileID is updated by the profile picker
     // The selectedprofileID is monitored by the RsyncUIView and when changed
     // a new profile is loaded
@@ -55,6 +54,7 @@ struct SidebarMainView: View {
     @State private var mountingvolumenow: Bool = false
     // Calendar
     @State private var futuredates = ObservableFutureSchedules()
+    @State private var scheduledata = ObservableScheduleData()
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
@@ -140,9 +140,14 @@ struct SidebarMainView: View {
                 observerdidMountNotification()
                 observerdiddidUnmountNotification()
             }
+            // Load calendardata from store
+            scheduledata.scheduledata = ReadSchedule()
+                .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) ?? []
             // Compute schedules
             futuredates.scheduledata = scheduledata.scheduledata
             futuredates.recomputeschedules()
+            futuredates.setfirsscheduledate()
+            
             Logger.process.info("SidebarMainView: ONAPPEAR completed")
 
             // Delete any default UserSetttings applied within AddTask
@@ -191,7 +196,7 @@ struct SidebarMainView: View {
             if futuredates.firstscheduledate == nil {
                 scheduledata.scheduledata.removeAll()
             } else {
-                scheduledata.removeexecutedonce()
+                scheduledata.filteronlyvalidschedules()
             }
             if scheduledata.scheduledata.isEmpty {
                 let globalTimer = GlobalTimer.shared

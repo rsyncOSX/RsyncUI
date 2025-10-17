@@ -64,7 +64,7 @@ final class ObservableScheduleData {
         scheduledata.remove(atOffsets: indexset)
     }
 
-    func removeexecutedonce() {
+    func filteronlyvalidschedules() {
         scheduledata = scheduledata.compactMap { schedule in
             if let daterun = schedule.dateRun,
                let schedule = schedule.schedule,

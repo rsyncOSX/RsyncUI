@@ -168,16 +168,7 @@ public final class GlobalTimer {
     private func checkSchedules() {
         
         let now = Date.now
-        /*
-        // let earliest = allSchedules.values.min(by: { $0.time < $1.time })
-        guard let item = allSchedules.values.min(by: { $0.time < $1.time }) else {
-            // Schedule is removed in func executeSchedule(profileName: String)
-            Logger.process.info("GlobalTimer: No task to schedule for execution")
-            return
-        }
         
-        let duetask = item.time == now ? [item.id] : []
-        */
         let duetask = allSchedules.filter { now >= $0.value.time }.map { $0.key }
         Logger.process.info("GlobalTimer: checkSchedules(), DUE profile schedule: \(duetask, privacy: .public)")
         guard !duetask.isEmpty else {

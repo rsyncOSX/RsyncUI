@@ -151,7 +151,7 @@ struct CalendarMonthView: View {
             if futuredates.firstscheduledate == nil {
                 scheduledata.scheduledata.removeAll()
             } else {
-                scheduledata.removeexecutedonce()
+                scheduledata.filteronlyvalidschedules()
             }
             if scheduledata.scheduledata.isEmpty {
                 let globalTimer = GlobalTimer.shared
