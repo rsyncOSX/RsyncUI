@@ -119,7 +119,7 @@ final class ObservableFutureSchedules {
 
         guard recomputedschedules.count > 0 else {
             scheduledata?.removeAll()
-            GlobalTimer.shared.clearSchedules()
+            GlobalTimer.shared.invaldiateallschedulesandtimer()
             Logger.process.info("ObservableFutureSchedules: recomputeschedules() no schdeules")
             return
         }
@@ -155,7 +155,7 @@ final class ObservableFutureSchedules {
         } else {
             
             firstscheduledate = nil
-            GlobalTimer.shared.clearSchedules()
+            GlobalTimer.shared.invaldiateallschedulesandtimer()
         }
     }
     
@@ -245,16 +245,14 @@ final class ObservableFutureSchedules {
 
         } else {
             firstscheduledate = nil
-            GlobalTimer.shared.clearSchedules()
+            GlobalTimer.shared.invaldiateallschedulesandtimer()
         }
     }
     
     
     private func addschedulesdemo() {
         let globalTimer = GlobalTimer.shared
-        // Remove and cancel any schedules
-        // globalTimer.clearSchedules()
-
+       
         let callback: () -> Void = {
             self.recomputeschedules()
             self.setfirsscheduledatedemo()

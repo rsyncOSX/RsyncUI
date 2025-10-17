@@ -200,7 +200,7 @@ struct SidebarMainView: View {
             }
             if scheduledata.scheduledata == nil {
                 let globalTimer = GlobalTimer.shared
-                globalTimer.clearSchedules()
+                globalTimer.invaldiateallschedulesandtimer()
             }
         }
         .onChange(of: futuredates.scheduledprofile) {

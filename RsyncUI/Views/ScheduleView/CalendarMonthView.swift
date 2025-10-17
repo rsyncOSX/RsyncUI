@@ -159,7 +159,7 @@ struct CalendarMonthView: View {
             }
             if (scheduledata.scheduledata ?? []).isEmpty {
                 let globalTimer = GlobalTimer.shared
-                globalTimer.clearSchedules()
+                globalTimer.invaldiateallschedulesandtimer()
             }
         }
         .padding()

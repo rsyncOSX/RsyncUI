@@ -95,6 +95,7 @@ public final class GlobalTimer {
 
     
     func invaldiateallschedulesandtimer() {
+        Logger.process.info("GlobalTimer: Invaldidating all schedules")
         timer?.invalidate()
         timer = nil
         allSchedules.removeAll()
@@ -128,14 +129,6 @@ public final class GlobalTimer {
         Logger.process.info("GlobalTimer: Adding NEW schedule for at \(time, privacy: .public) (tolerance: \(finalTolerance, privacy: .public)s)")
         
         appendallSchedules(scheduleitem)
-        scheduleNextTimer()
-    }
-
-    public func clearSchedules() {
-        guard !allSchedules.isEmpty else { return }
-        Logger.process.info("GlobalTimer: Clearing all schedules")
-        allSchedules.removeAll()
-        // Activating next present schedule
         scheduleNextTimer()
     }
 
