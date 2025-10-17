@@ -108,7 +108,7 @@ struct AddSchedule: View {
                 } label: {
                     Label("Add", systemImage: "plus")
                 }
-/*
+
                 Button {
                     scheduledata.demodatatestschedule()
                     futuredates.demodatatestschedule()
@@ -116,7 +116,7 @@ struct AddSchedule: View {
                 } label: {
                     Label("DEMO", systemImage: "plus")
                 }
-*/
+
             }
             .padding()
         }
