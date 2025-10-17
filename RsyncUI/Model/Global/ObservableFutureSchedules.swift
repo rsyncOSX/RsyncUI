@@ -185,7 +185,6 @@ final class ObservableFutureSchedules {
         // The Callback for Schedule
         let callback: () -> Void = {
             self.recomputeschedules()
-            self.setfirsscheduledate()
             // Setting profile name will trigger execution
             self.scheduledprofile = schedule.profile ?? "Default"
             Task {
@@ -254,7 +253,6 @@ final class ObservableFutureSchedules {
        
         let callback: () -> Void = {
             self.recomputeschedules()
-            self.setfirsscheduledatedemo()
             Task {
                 // Logging to file that a Schedule is fired
                 await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for DEMO"])

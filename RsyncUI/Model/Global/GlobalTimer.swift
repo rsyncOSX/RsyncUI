@@ -77,6 +77,11 @@ public final class GlobalTimer {
         }
     }
     
+    private func validateallschedulesalreadyintimer (_ schedule: ScheduledItem) -> Bool {
+        let validate = allSchedules.values.contains(where: { $0.time < schedule.time })
+        return validate
+    }
+    
     
     private func appendallSchedules(_ schedule: [UUID: ScheduledItem]) {
         for (key, value) in schedule {
@@ -129,7 +134,11 @@ public final class GlobalTimer {
         Logger.process.info("GlobalTimer: Adding NEW schedule for at \(time, privacy: .public) (tolerance: \(finalTolerance, privacy: .public)s)")
         
         appendallSchedules(scheduleitem)
-        scheduleNextTimer()
+        
+        if validateallschedulesalreadyintimer(schedule) == false {
+            scheduleNextTimer()
+        }
+        
     }
 
     public func cleanup() {
