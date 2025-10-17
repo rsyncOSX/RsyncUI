@@ -97,31 +97,47 @@ final class ObservableFutureSchedules {
     }
 
     private func appendfutureschedule(profile: String?, dateRun: String, schedule: String) {
-        // Only add futuredates
         guard dateRun.en_date_from_string() >= Date.now else { return }
         let futureschedule = SchedulesConfigurations(profile: profile,
                                                      dateAdded: nil,
                                                      dateRun: dateRun,
                                                      schedule: schedule)
         futureschedules.insert(futureschedule)
+        addtaskandcallback(futureschedule)
     }
 
+    // Recompute the calendardata to only show active schedules in row.
     func recomputeschedules() {
         Logger.process.info("ObservableFutureSchedules: recomputeschedules()")
         futureschedules.removeAll()
-        if let scheduledata {
-            for i in 0 ..< scheduledata.count {
-                if let schedule = scheduledata[i].schedule,
-                   let dateRun = scheduledata[i].dateRun?.validate_en_date_from_string()
-                {
-                    computefuturedates(profile: scheduledata[i].profile, schedule: schedule, dateRun: dateRun)
-                }
+        
+        let recomputedschedules = scheduledata?.filter { item in
+            if let dateRunString = item.dateRun {
+                return dateRunString.en_date_from_string() > Date.now
+            }
+            return false
+        } ?? []
+
+        guard recomputedschedules.count > 0 else {
+            scheduledata?.removeAll()
+            GlobalTimer.shared.clearSchedules()
+            Logger.process.info("ObservableFutureSchedules: recomputeschedules() NO MORE FUTURE SCHEDULES")
+            return
+        }
+        
+        Logger.process.info("ObservableFutureSchedules: recomputeschedules() number of future schedules: \(recomputedschedules.count, privacy: .public)")
+        
+        for i in 0 ..< recomputedschedules.count {
+            if let schedule = recomputedschedules[i].schedule,
+               let dateRun = recomputedschedules[i].dateRun?.validate_en_date_from_string() {
+                computefuturedates(profile: recomputedschedules[i].profile, schedule: schedule, dateRun: dateRun)
             }
         }
     }
 
     // Only set when loading data, when new schedules added or deleted
     private func setfirsscheduledate() {
+        
         let dates = Array(futureschedules).sorted { s1, s2 in
             if let id1 = s1.dateRun?.en_date_from_string(), let id2 = s2.dateRun?.en_date_from_string() {
                 return id1 < id2
@@ -135,19 +151,17 @@ final class ObservableFutureSchedules {
                                                 schedule: "")
 
             firstscheduledate = first
-            starttimer(first)
 
         } else {
+            
             firstscheduledate = nil
             GlobalTimer.shared.clearSchedules()
         }
     }
 
-    private func starttimer(_ schedule: SchedulesConfigurations) {
+    private func addtaskandcallback(_ schedule: SchedulesConfigurations) {
         let globalTimer = GlobalTimer.shared
-        // Remove and cancel any schedules
-        globalTimer.clearSchedules()
-
+        
         // The Callback for Schedule
         let callback: () -> Void = {
             self.recomputeschedules()
@@ -172,12 +186,12 @@ final class ObservableFutureSchedules {
         // Remove and cancel any schedules
         globalTimer.clearSchedules()
 
-        let schedule1 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 2).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule2 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 3).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule3 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 4).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule12 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 5).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule22 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 6).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule32 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 7).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule1 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule2 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 2).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule3 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 3).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule12 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 4).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule22 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 5).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule32 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 6).en_string_from_date(), schedule: ScheduleType.once.rawValue)
 
         futureschedules.removeAll()
         scheduledata = [schedule1, schedule2, schedule3, schedule12, schedule22, schedule32]
@@ -211,6 +225,9 @@ final class ObservableFutureSchedules {
 
             firstscheduledate = first
 
+        } else {
+            firstscheduledate = nil
+            GlobalTimer.shared.clearSchedules()
         }
     }
     
