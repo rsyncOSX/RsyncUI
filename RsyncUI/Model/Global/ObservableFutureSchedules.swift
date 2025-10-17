@@ -155,7 +155,6 @@ final class ObservableFutureSchedules {
         } else {
             
             firstscheduledate = nil
-            GlobalTimer.shared.invaldiateallschedulesandtimer()
         }
     }
     

@@ -146,7 +146,9 @@ struct CalendarMonthView: View {
             }
             date = Date.now
             futuredates.lastdateinpresentmont = Date.now.endOfMonth
-            futuredates.recomputeschedules()
+            if futuredates.scheduledata?.count ?? 0 > 0 {
+                futuredates.recomputeschedules()
+            }
         }
         .onChange(of: date) {
             days = date.calendarDisplayDays
