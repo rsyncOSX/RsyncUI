@@ -121,7 +121,6 @@ struct CalendarMonthView: View {
                                 futuredates.firstscheduledate = nil
                             } else {
                                 futuredates.recomputeschedules()
-                                futuredates.setfirsscheduledate()
                             }
 
                             futuredates.recomputeschedules()

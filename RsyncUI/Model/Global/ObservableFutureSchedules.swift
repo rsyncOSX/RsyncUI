@@ -107,9 +107,7 @@ final class ObservableFutureSchedules {
 
     func recomputeschedules() {
         Logger.process.info("ObservableFutureSchedules: recomputeschedules()")
-
         futureschedules.removeAll()
-
         if let scheduledata {
             for i in 0 ..< scheduledata.count {
                 if let schedule = scheduledata[i].schedule,
@@ -122,7 +120,7 @@ final class ObservableFutureSchedules {
     }
 
     // Only set when loading data, when new schedules added or deleted
-    func setfirsscheduledate() {
+    private func setfirsscheduledate() {
         let dates = Array(futureschedules).sorted { s1, s2 in
             if let id1 = s1.dateRun?.en_date_from_string(), let id2 = s2.dateRun?.en_date_from_string() {
                 return id1 < id2

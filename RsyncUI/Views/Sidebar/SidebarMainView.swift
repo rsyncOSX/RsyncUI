@@ -143,8 +143,6 @@ struct SidebarMainView: View {
             // Compute schedules
             futuredates.scheduledata = scheduledata.scheduledata
             futuredates.recomputeschedules()
-            // Set first schedule to execute
-            futuredates.setfirsscheduledate()
             Logger.process.info("SidebarMainView: ONAPPEAR completed")
 
             // Delete any default UserSetttings applied within AddTask

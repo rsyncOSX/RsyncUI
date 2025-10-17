@@ -101,7 +101,6 @@ struct AddSchedule: View {
                     istappeddayint = 0
                     futuredates.lastdateinpresentmont = Date.now.endOfMonth
                     futuredates.recomputeschedules()
-                    futuredates.setfirsscheduledate()
 
                     WriteSchedule(scheduledata.scheduledata)
 

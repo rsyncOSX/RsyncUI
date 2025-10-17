@@ -10,7 +10,7 @@ public final class GlobalTimer {
 
     // MARK: - Types
 
-    private struct ScheduledItem {
+    struct ScheduledItem {
         let time: Date
         let tolerance: TimeInterval
         let callback: () -> Void
@@ -24,6 +24,8 @@ public final class GlobalTimer {
     @ObservationIgnored
     private var wakeObserver: NSObjectProtocol?
     private var schedules: [String: ScheduledItem] = [:]
+    // Store all schedules
+    private var allSchedules: [[String: ScheduledItem]] = []
 
     // MARK: - Initialization
 
@@ -32,6 +34,10 @@ public final class GlobalTimer {
     }
 
     // MARK: - Public API
+    
+    func appendSchedules(_ schedules: [[String: ScheduledItem]]) {
+        self.allSchedules.append(contentsOf: schedules)
+    }
 
     public func timerIsActive() -> Bool {
         timer != nil
@@ -58,12 +64,14 @@ public final class GlobalTimer {
         let finalTolerance = tolerance ?? defaultTolerance(for: interval)
 
         Logger.process.info("GlobalTimer: Adding schedule for '\(profileName, privacy: .public)' at \(time, privacy: .public) (tolerance: \(finalTolerance, privacy: .public)s)")
-
-        schedules[profileName] = ScheduledItem(
+        
+        let scheduleItem = ScheduledItem(
             time: time,
             tolerance: max(0, finalTolerance),
             callback: callback
         )
+
+        schedules[profileName] = scheduleItem
 
         scheduleNextTimer()
     }
@@ -95,6 +103,7 @@ public final class GlobalTimer {
     // MARK: - Private
 
     private func scheduleNextTimer() {
+        
         timer?.invalidate()
         timer = nil
 
@@ -119,9 +128,13 @@ public final class GlobalTimer {
 
     private func checkSchedules() {
         let now = Date.now
+        let schedulescount = schedules.count
+        
+        Logger.process.info("GlobalTimer: checkSchedules() Number of schedules NOT executed: \(schedulescount, privacy: .public)")
+        
         let dueProfiles = schedules.filter { now >= $0.value.time }.map(\.key)
         
-        Logger.process.info("GlobalTimer: Number of DUE schedules: \(dueProfiles.count, privacy: .public)")
+        Logger.process.info("GlobalTimer: checkSchedules(), number of DUE schedules: \(dueProfiles.count, privacy: .public)")
 
         guard !dueProfiles.isEmpty else { return }
 
@@ -154,7 +167,7 @@ public final class GlobalTimer {
     }
 
     private func handleWake() {
-        Logger.process.info("GlobalTimer: System woke, checking for past-due schedules")
+        Logger.process.info("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
         checkSchedules()
     }
 
@@ -164,3 +177,4 @@ public final class GlobalTimer {
         min(60, max(1, interval * 0.1))
     }
 }
+
