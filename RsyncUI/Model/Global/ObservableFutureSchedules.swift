@@ -12,6 +12,7 @@ import SwiftUI
 
 @Observable @MainActor
 final class ObservableFutureSchedules {
+    
     @ObservationIgnored var futureschedules = Set<SchedulesConfigurations>()
     @ObservationIgnored var lastdateinpresentmont: Date?
     @ObservationIgnored var scheduledata: [SchedulesConfigurations]?
@@ -160,7 +161,7 @@ final class ObservableFutureSchedules {
         }
         // Then add new schedule
         if let schedultime = schedule.dateRun?.en_date_from_string() {
-            globalTimer.addSchedule(profile: schedule.profile, time: schedultime, tolerance: 10, callback: callback)
+            globalTimer.addSchedule(time: schedultime, tolerance: 10, callback: callback)
         }
     }
 
@@ -179,7 +180,6 @@ final class ObservableFutureSchedules {
         let schedule32 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 7).en_string_from_date(), schedule: ScheduleType.once.rawValue)
 
         futureschedules.removeAll()
-
         scheduledata = [schedule1, schedule2, schedule3, schedule12, schedule22, schedule32]
 
         if let scheduledata {
@@ -192,6 +192,7 @@ final class ObservableFutureSchedules {
             }
         }
 
+        addschedulesdemo()
         setfirsscheduledatedemo()
     }
     
@@ -209,11 +210,33 @@ final class ObservableFutureSchedules {
                                                 schedule: "")
 
             firstscheduledate = first
-            starttimerdemo(first)
 
         }
     }
     
+    
+    private func addschedulesdemo() {
+        let globalTimer = GlobalTimer.shared
+        // Remove and cancel any schedules
+        globalTimer.clearSchedules()
+
+        let callback: () -> Void = {
+            self.recomputeschedules()
+            self.setfirsscheduledatedemo()
+            Task {
+                // Logging to file that a Schedule is fired
+                await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for DEMO"])
+            }
+        }
+        
+        for i in 0 ..< (scheduledata?.count ?? 0) {
+            if let schedultime = scheduledata?[i].dateRun?.en_date_from_string() {
+                globalTimer.addSchedule(time: schedultime, tolerance: 10, callback: callback)
+            }
+        }
+    }
+
+/*
     private func starttimerdemo(_ schedule: SchedulesConfigurations) {
         let globalTimer = GlobalTimer.shared
         // Remove and cancel any schedules
@@ -229,7 +252,8 @@ final class ObservableFutureSchedules {
         }
         // Then add new schedule
         if let schedultime = schedule.dateRun?.en_date_from_string() {
-            globalTimer.addSchedule(profile: schedule.profile, time: schedultime, tolerance: 10, callback: callback)
+            globalTimer.addSchedule(time: schedultime, tolerance: 10, callback: callback)
         }
     }
+ */
 }
