@@ -16,6 +16,7 @@ final class ObservableFutureSchedules {
     @ObservationIgnored var futureschedules = Set<SchedulesConfigurations>()
     @ObservationIgnored var lastdateinpresentmont: Date?
     @ObservationIgnored var scheduledata: [SchedulesConfigurations]?
+    @ObservationIgnored var demo: Bool = false
     // First schedule to execute
     var firstscheduledate: SchedulesConfigurations?
     // Trigger execution
@@ -184,10 +185,8 @@ final class ObservableFutureSchedules {
     // Demo for test av schedule
 
     func demodatatestschedule() {
-        let globalTimer = GlobalTimer.shared
-        // Remove and cancel any schedules
-        // globalTimer.clearSchedules()
-
+        // Must set demo = true to stop trigger for SidebarMainView
+        demo = true
         let schedule1 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         let schedule2 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 2).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         let schedule3 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 3).en_string_from_date(), schedule: ScheduleType.once.rawValue)
