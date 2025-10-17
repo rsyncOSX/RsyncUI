@@ -165,7 +165,6 @@ final class ObservableFutureSchedules {
             if let schedultime = scheduledata?[i].dateRun?.en_date_from_string() {
                 let callback: () -> Void = {
                     self.recomputeschedules()
-                    self.setfirsscheduledate()
                     // Setting profile name will trigger execution
                     self.scheduledprofile = self.scheduledata?[i].profile ?? "Default"
                     Task {

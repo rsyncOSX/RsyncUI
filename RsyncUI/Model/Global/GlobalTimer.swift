@@ -18,7 +18,6 @@ public final class GlobalTimer {
      // The Callback for Schedule
      let callback: () -> Void = {
          self.recomputeschedules()
-         self.setfirsscheduledate()
          // Setting profile name will trigger execution
          self.scheduledprofile = schedule.profile ?? "Default"
          Task {
