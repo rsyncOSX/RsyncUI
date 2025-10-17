@@ -107,9 +107,7 @@ final class ObservableFutureSchedules {
 
     // Recompute the calendardata to only show active schedules in row.
     func recomputeschedules() {
-        
         Logger.process.info("ObservableFutureSchedules: recomputeschedules()")
-        
         let recomputedschedules = scheduledata?.filter { item in
             if let dateRunString = item.dateRun {
                 return dateRunString.en_date_from_string() > Date.now
@@ -120,7 +118,9 @@ final class ObservableFutureSchedules {
         guard recomputedschedules.count > 0 else {
             scheduledata?.removeAll()
             GlobalTimer.shared.invaldiateallschedulesandtimer()
+            firstscheduledate = nil
             Logger.process.info("ObservableFutureSchedules: recomputeschedules() no schdeules")
+            
             return
         }
         
@@ -132,11 +132,11 @@ final class ObservableFutureSchedules {
                 computefuturedates(profile: recomputedschedules[i].profile, schedule: schedule, dateRun: dateRun)
             }
         }
+        setfirsscheduledate()
     }
 
     // Only set when loading data, when new schedules added or deleted
     func setfirsscheduledate() {
-        
         let dates = scheduledata?.sorted { s1, s2 in
             if let id1 = s1.dateRun?.en_date_from_string(), let id2 = s2.dateRun?.en_date_from_string() {
                 return id1 < id2
@@ -148,12 +148,8 @@ final class ObservableFutureSchedules {
                                                 dateAdded: nil,
                                                 dateRun: dates?.first?.dateRun,
                                                 schedule: "")
-
             firstscheduledate = first
-            addtaskandcallback(first)
-
         } else {
-            
             firstscheduledate = nil
         }
     }
