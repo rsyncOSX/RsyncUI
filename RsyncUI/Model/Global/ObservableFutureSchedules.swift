@@ -14,8 +14,9 @@ import SwiftUI
 final class ObservableFutureSchedules {
     
     @ObservationIgnored var lastdateinpresentmont: Date?
-    @ObservationIgnored var scheduledata: [SchedulesConfigurations]?
     @ObservationIgnored var demo: Bool = false
+    
+    var scheduledata: [SchedulesConfigurations]?
     // First schedule to execute
     var firstscheduledate: SchedulesConfigurations?
     // Trigger execution
