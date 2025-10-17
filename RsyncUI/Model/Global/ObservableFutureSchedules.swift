@@ -124,7 +124,7 @@ final class ObservableFutureSchedules {
             return
         }
         
-        Logger.process.info("ObservableFutureSchedules: recomputeschedules() number of schedules: \(recomputedschedules.count + 1, privacy: .public)")
+        Logger.process.info("ObservableFutureSchedules: recomputeschedules() number of schedules: \(recomputedschedules.count, privacy: .public)")
         
         for i in 0 ..< recomputedschedules.count {
             if let schedule = recomputedschedules[i].schedule,
