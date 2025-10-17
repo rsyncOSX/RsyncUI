@@ -201,6 +201,7 @@ public final class GlobalTimer {
 
     private func executeSchedule(id: UUID) {
         guard let item = allSchedules.removeValue(forKey: id) else {
+            Logger.process.info("GlobalTimer: NO more schedules to execute, invalidating timer'")
             timer?.invalidate()
             timer = nil
             return
