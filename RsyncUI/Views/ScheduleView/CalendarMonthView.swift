@@ -116,7 +116,7 @@ struct CalendarMonthView: View {
                             date = Date.now
                             istappeddayint = 0
                             futuredates.lastdateinpresentmont = Date.now.endOfMonth
-                             
+
                             globaltimer.invaldiateallschedulesandtimer()
                             // futuredates.recalculateschedulesGlobalTimer()
 
@@ -125,14 +125,14 @@ struct CalendarMonthView: View {
                             } else {
                                 futuredates.recomputeschedules()
                             }
-                            
+
                             confirmdelete = false
                             if futuredates.demo == false {
                                 /*
-                                if let scheduladata = scheduledata.scheduledata {
-                                    WriteSchedule(scheduladata)
-                                }
-                                 */
+                                 if let scheduladata = scheduledata.scheduledata {
+                                     WriteSchedule(scheduladata)
+                                 }
+                                  */
                             }
                         }
                     }

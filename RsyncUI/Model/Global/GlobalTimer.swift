@@ -10,7 +10,7 @@ public struct ScheduledItem: Identifiable, Hashable {
     let time: Date
     let tolerance: TimeInterval
     let callback: () -> Void
-    
+
     var profile: String?
     var dateAdded: String?
     var dateRun: String?
@@ -18,7 +18,7 @@ public struct ScheduledItem: Identifiable, Hashable {
 
     public static func == (lhs: ScheduledItem, rhs: ScheduledItem) -> Bool {
         // Compare identity and schedule-relevant fields; ignore the closure
-        return lhs.id == rhs.id && lhs.time == rhs.time && lhs.tolerance == rhs.tolerance
+        lhs.id == rhs.id && lhs.time == rhs.time && lhs.tolerance == rhs.tolerance
     }
 
     public func hash(into hasher: inout Hasher) {
@@ -34,38 +34,38 @@ public struct ScheduledItem: Identifiable, Hashable {
 public final class GlobalTimer {
     public static let shared = GlobalTimer()
 
-    
     // Exposed Array of not excuted Schedule
     var allSchedules = [ScheduledItem]()
-    
+
     // MARK: - Properties
+
     @ObservationIgnored
     private var timer: Timer?
     @ObservationIgnored
     private var wakeObserver: NSObjectProtocol?
-    
-    
+
     // MARK: - Initialization
+
     private init() {
         setupWakeNotification()
     }
 
     // MARK: - Public API
-    
+
     // Verifying that there is a schedule in Set already, if false add schedule
     // to set.
     private func validatescheduleinset(_ schedule: ScheduledItem) -> Bool {
         let validate = allSchedules.contains(where: { $0.time == schedule.time && $0.tolerance == schedule.tolerance })
         return validate
     }
-    
+
     // Check if there already is a timer in Set which more recent time which already is
     // in Set. If false it executes the scheduleNextTimer.
-    private func validateallschedulesalreadyintimer (_ schedule: ScheduledItem) -> Bool {
+    private func validateallschedulesalreadyintimer(_ schedule: ScheduledItem) -> Bool {
         let validate = allSchedules.contains(where: { $0.time < schedule.time })
         return validate
     }
-    
+
     public func timerIsActive() -> Bool {
         timer != nil
     }
@@ -75,14 +75,13 @@ public final class GlobalTimer {
         return earliest?.time.formatted(format)
     }
 
-    
     func invaldiateallschedulesandtimer() {
         Logger.process.info("GlobalTimer: Invaldidating all schedules")
         timer?.invalidate()
         timer = nil
         allSchedules.removeAll()
     }
-    
+
     /// Schedule a task to run at a specific time
     /// - Parameters:
     ///   - time: Target execution time
@@ -92,17 +91,16 @@ public final class GlobalTimer {
         time: Date,
         tolerance: TimeInterval? = nil,
         callback: @escaping () -> Void,
-        
+
         profile: String?,
         dateAdded: String,
         dateRun: String,
         schedule: String
     ) {
-        
         let interval = time.timeIntervalSince(.now)
         let finalTolerance = tolerance ?? defaultTolerance(for: interval)
         // UUID is also set in ScheduledItem
-        let scheduleitem = ScheduledItem (
+        let scheduleitem = ScheduledItem(
             time: time,
             tolerance: max(0, finalTolerance),
             callback: callback,
@@ -113,15 +111,14 @@ public final class GlobalTimer {
         )
         guard validatescheduleinset(scheduleitem) == false else { return }
         Logger.process.info("GlobalTimer: Adding NEW schedule for at \(time, privacy: .public) (tolerance: \(finalTolerance, privacy: .public)s)")
-        
+
         // Append and sort by time
         allSchedules.append(scheduleitem)
         allSchedules = allSchedules.sorted(by: { $0.time < $1.time })
-        
+
         if validateallschedulesalreadyintimer(scheduleitem) == false {
             scheduleNextTimer()
         }
-        
     }
 
     public func cleanup() {
@@ -133,19 +130,16 @@ public final class GlobalTimer {
         timer = nil
     }
 
-    // MARK: - Private
-
     public func scheduleNextTimer() {
-        
         timer?.invalidate()
         timer = nil
-        
+
         guard allSchedules.isEmpty == false else {
             Logger.process.info("GlobalTimer: No more tasks to schedule for execution")
             invaldiateallschedulesandtimer()
             return
         }
-        
+
         if let item = allSchedules.first {
             let interval = item.time.timeIntervalSince(.now)
             Logger.process.info("GlobalTimer: Scheduling timer in \(interval, privacy: .public)s (tolerance: \(item.tolerance, privacy: .public)s)")
@@ -160,10 +154,12 @@ public final class GlobalTimer {
         }
     }
 
+    // MARK: - Private
+
     // This function is triggered at time t, it finds the apporiate callback and executes it
     private func checkSchedules() {
         if let item = allSchedules.first {
-            if allSchedules.count > 0  {
+            if allSchedules.count > 0 {
                 allSchedules.removeFirst()
             }
             executeSchedule(item)
@@ -203,4 +199,3 @@ public final class GlobalTimer {
         min(60, max(1, interval * 0.1))
     }
 }
-

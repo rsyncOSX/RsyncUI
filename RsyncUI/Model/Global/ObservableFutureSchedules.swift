@@ -12,12 +12,11 @@ import SwiftUI
 
 @Observable @MainActor
 final class ObservableFutureSchedules {
-    
     let globaltime = GlobalTimer.shared
-    
+
     @ObservationIgnored var lastdateinpresentmont: Date?
     @ObservationIgnored var demo: Bool = false
-    
+
     // var scheduledata: [SchedulesConfigurations]?
     // First schedule to execute
     var firstscheduledate: SchedulesConfigurations?
@@ -33,7 +32,6 @@ final class ObservableFutureSchedules {
         }
 
         switch schedule {
-            
         case ScheduleType.daily.rawValue:
             dateComponents.day = 1
         /*
@@ -123,19 +121,20 @@ final class ObservableFutureSchedules {
             GlobalTimer.shared.invaldiateallschedulesandtimer()
             firstscheduledate = nil
             Logger.process.info("ObservableFutureSchedules: recomputeschedules() no schdeules")
-            
+
             return
         }
-        
+
         Logger.process.info("ObservableFutureSchedules: recomputeschedules() number of schedules: \(recomputedschedules.count, privacy: .public)")
-        
+
         for i in 0 ..< recomputedschedules.count {
             if let schedule = recomputedschedules[i].schedule,
-               let dateRun = recomputedschedules[i].dateRun?.validate_en_date_from_string() {
+               let dateRun = recomputedschedules[i].dateRun?.validate_en_date_from_string()
+            {
                 computefuturedates(profile: recomputedschedules[i].profile, schedule: schedule, dateRun: dateRun)
             }
         }
-        
+
         setfirsscheduledate()
     }
 
@@ -160,12 +159,10 @@ final class ObservableFutureSchedules {
 
     private func addtaskandcallback(_ schedule: SchedulesConfigurations) {
         let globalTimer = GlobalTimer.shared
-        
+
         if demo == false {
-            
             // The Callback for Schedule
             let callback: () -> Void = {
-                
                 GlobalTimer.shared.scheduleNextTimer()
                 // Setting profile name will trigger execution
                 self.scheduledprofile = schedule.profile ?? "Default"
@@ -184,15 +181,13 @@ final class ObservableFutureSchedules {
                                         dateRun: schedule.dateRun ?? "",
                                         schedule: schedule.schedule ?? "")
             }
-            
+
         } else {
-            
             Logger.process.info("ObservableFutureSchedules: addtaskandcallback() adding DEMO schedule")
-            
+
             let callback: () -> Void = {
-                
                 GlobalTimer.shared.scheduleNextTimer()
-                
+
                 Task {
                     // Logging to file that a Schedule is fired
                     await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for DEMO"])
@@ -225,41 +220,39 @@ final class ObservableFutureSchedules {
         let scheduledata = [schedule1, schedule2, schedule3, schedule12, schedule22, schedule32]
         // let scheduledata = [schedule1, schedule2, schedule3]
 
-       
-            for i in 0 ..< scheduledata.count {
-                if let schedule = scheduledata[i].schedule,
-                   let dateRun = scheduledata[i].dateRun?.validate_en_date_from_string()
-                {
-                    computefuturedates(profile: scheduledata[i].profile, schedule: schedule, dateRun: dateRun)
-                }
+        for i in 0 ..< scheduledata.count {
+            if let schedule = scheduledata[i].schedule,
+               let dateRun = scheduledata[i].dateRun?.validate_en_date_from_string()
+            {
+                computefuturedates(profile: scheduledata[i].profile, schedule: schedule, dateRun: dateRun)
             }
-        
+        }
 
         setfirsscheduledate()
     }
 }
 
 /*
-    func recalculateschedulesGlobalTimer() {
-        
-        let globalTimer = GlobalTimer.shared
-        for i in 0 ..< globaltime.allSchedules.count {
-            if let schedultime = globaltime.allSchedules[i].dateRun?.en_date_from_string() {
-                let callback: () -> Void = {
-                    self.recomputeschedules()
-                    // Setting profile name will trigger execution
-                    self.scheduledprofile = self.globaltime.allSchedules[i].profile ?? "Default"
-                    Task {
-                        // Logging to file that a Schedule is fired
-                        await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for \(self.globaltime.allSchedules[i].profile ?? "Default")"])
-                    }
-                }
-                /*
-                globalTimer.addSchedule(time: schedultime,
-                                        tolerance: 10,
-                                        callback: callback)
-                 */
-            }
-        }
-    }
-*/
+ func recalculateschedulesGlobalTimer() {
+
+     let globalTimer = GlobalTimer.shared
+     for i in 0 ..< globaltime.allSchedules.count {
+         if let schedultime = globaltime.allSchedules[i].dateRun?.en_date_from_string() {
+             let callback: () -> Void = {
+                 self.recomputeschedules()
+                 // Setting profile name will trigger execution
+                 self.scheduledprofile = self.globaltime.allSchedules[i].profile ?? "Default"
+                 Task {
+                     // Logging to file that a Schedule is fired
+                     await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for \(self.globaltime.allSchedules[i].profile ?? "Default")"])
+                 }
+             }
+             /*
+             globalTimer.addSchedule(time: schedultime,
+                                     tolerance: 10,
+                                     callback: callback)
+              */
+         }
+     }
+ }
+ */

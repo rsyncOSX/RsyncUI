@@ -220,4 +220,3 @@ actor ActorLogToFile {
 }
 
 // swiftlint:enable non_optional_string_data_conversion
-

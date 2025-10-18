@@ -75,7 +75,7 @@ struct AddSchedule: View {
                         Logger.process.warning("AddSchedule: not valid more than 10 minutes to next schedule")
                         return
                     }
-                    
+
                     futuredates.appendfutureschedule(profile: profile, dateRun: run, schedule: schedule)
 
                     date = Date.now
@@ -85,10 +85,10 @@ struct AddSchedule: View {
                     futuredates.recomputeschedules()
                     futuredates.setfirsscheduledate()
                     /*
-                    if let scheduledata = scheduledata.scheduledata {
-                        WriteSchedule(scheduledata)
-                    }
-                     */
+                     if let scheduledata = scheduledata.scheduledata {
+                         WriteSchedule(scheduledata)
+                     }
+                      */
                 } label: {
                     Label("Add", systemImage: "plus")
                 }
@@ -100,7 +100,6 @@ struct AddSchedule: View {
                 } label: {
                     Label("DEMO", systemImage: "plus")
                 }
-
             }
             .padding()
         }

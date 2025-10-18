@@ -55,7 +55,7 @@ struct SidebarMainView: View {
     // Calendar
     @State private var futuredates = ObservableFutureSchedules()
     @State private var scheduledata = ObservableScheduleData()
-    
+
     let globaltimer = GlobalTimer.shared
 
     var body: some View {
@@ -143,11 +143,11 @@ struct SidebarMainView: View {
                 observerdiddidUnmountNotification()
             }
             /*
-            // Load calendardata from store
-            scheduledata.scheduledata = ReadSchedule()
-                .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) ?? []
-            futuredates.setfirsscheduledate()
-            */
+             // Load calendardata from store
+             scheduledata.scheduledata = ReadSchedule()
+                 .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) ?? []
+             futuredates.setfirsscheduledate()
+             */
             Logger.process.info("SidebarMainView: ONAPPEAR completed")
 
             // Delete any default UserSetttings applied within AddTask
@@ -191,9 +191,8 @@ struct SidebarMainView: View {
             selecteduuids.removeAll()
         }
         .onChange(of: futuredates.firstscheduledate) {
-            
             Logger.process.info("SidebarMainView: got TRIGGER from Schedule, firstscheduledate is set")
-            
+
             if globaltimer.allSchedules.isEmpty {
                 globaltimer.invaldiateallschedulesandtimer()
             }
