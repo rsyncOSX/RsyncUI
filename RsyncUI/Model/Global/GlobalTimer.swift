@@ -5,23 +5,6 @@ import OSLog
 
 // MARK: - Types
 
-// The callback is set in ObservableFutureSchedules and when
-// callback is executed at time t, it upadtes the profilename
-// which trigger executin by URL (SidebarMainView) and
-// recomputes scheduled tasks
-/*
- // The Callback for Schedule
- let callback: () -> Void = {
-     self.recomputeschedules()
-     // Setting profile name will trigger execution
-     self.scheduledprofile = schedule.profile ?? "Default"
-     Task {
-         // Logging to file that a Schedule is fired
-         await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for \(schedule.profile ?? "Default")"])
-     }
- }
- */
-
 public struct ScheduledItem: Identifiable, Hashable {
     public let id = UUID()
     let time: Date
@@ -178,11 +161,8 @@ public final class GlobalTimer {
     }
 
     // This function is triggered at time t, it finds the apporiate callback and executes it
-    // The executeSchedule(id: UUID) also removes the Scheduled task from allSchedules, leaving next
-    // due tasks in Set.
     private func checkSchedules() {
         if let item = allSchedules.first {
-            // Execute only the first eligible profile, use UUID to select task
             if allSchedules.count > 0  {
                 allSchedules.removeFirst()
             }

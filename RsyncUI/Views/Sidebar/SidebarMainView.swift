@@ -146,9 +146,6 @@ struct SidebarMainView: View {
             // Load calendardata from store
             scheduledata.scheduledata = ReadSchedule()
                 .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) ?? []
-            // Compute schedules
-            futuredates.scheduledata = scheduledata.scheduledata
-            futuredates.recomputeschedules()
             futuredates.setfirsscheduledate()
             */
             Logger.process.info("SidebarMainView: ONAPPEAR completed")

@@ -148,9 +148,6 @@ struct CalendarMonthView: View {
             }
             date = Date.now
             futuredates.lastdateinpresentmont = Date.now.endOfMonth
-            if globaltimer.allSchedules.count  > 0 {
-                futuredates.recomputeschedules()
-            }
         }
         .onChange(of: date) {
             days = date.calendarDisplayDays
@@ -166,7 +163,6 @@ struct CalendarMonthView: View {
                 Button {
                     date = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date.now
                     futuredates.lastdateinpresentmont = date.endOfMonth
-                    futuredates.recomputeschedules()
                     istappeddayint = 0
 
                 } label: {
@@ -180,7 +176,6 @@ struct CalendarMonthView: View {
                 Button {
                     date = Date.now
                     futuredates.lastdateinpresentmont = Date.now.endOfMonth
-                    futuredates.recomputeschedules()
                     istappeddayint = 0
                 } label: {
                     Image(systemName: "clock")
@@ -193,7 +188,6 @@ struct CalendarMonthView: View {
                 Button {
                     date = Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date.now
                     futuredates.lastdateinpresentmont = date.endOfMonth
-                    futuredates.recomputeschedules()
                     istappeddayint = 0
                 } label: {
                     Image(systemName: "arrow.right")
