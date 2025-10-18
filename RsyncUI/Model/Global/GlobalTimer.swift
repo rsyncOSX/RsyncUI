@@ -122,7 +122,10 @@ public final class GlobalTimer {
             scheduledata: scheduledata
         )
         
-        guard validatescheduleinset(scheduleitem) == false else { return }
+        guard validatescheduleinset(scheduleitem) == false else {
+            Logger.process.info("GlobalTimer: Adding NEW schedule - already IN allSchedules")
+            return
+        }
         Logger.process.info("GlobalTimer: Adding NEW schedule for at \(time, privacy: .public) (tolerance: \(finalTolerance, privacy: .public)s)")
 
         // Append and sort by time

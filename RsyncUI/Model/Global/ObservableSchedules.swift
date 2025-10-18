@@ -183,12 +183,13 @@ final class ObservableSchedules {
         } else {
             Logger.process.info("ObservableFutureSchedules: addtaskandcallback() adding DEMO schedule")
 
+            let count = globaltime.allSchedules.count
             let callback: () -> Void = { [weak self] in
                 guard self != nil else { return }
                 GlobalTimer.shared.scheduleNextTimer()
                 Task {
                     // Logging to file that a Schedule is fired
-                    await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for DEMO"])
+                    await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for DEMO: count is \(count)"])
                 }
             }
             // Then add new schedule
@@ -224,7 +225,7 @@ final class ObservableSchedules {
         let schedule12 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 4).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         let schedule22 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 5).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         let schedule32 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 6).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let scheduledata = [schedule1, schedule2, schedule3, schedule12, schedule22, schedule32]
+        let scheduledata = [schedule1, schedule22, schedule32, schedule12, schedule2, schedule3, schedule22, schedule12]
         // let scheduledata = [schedule1, schedule2, schedule3]
 
         for i in 0 ..< scheduledata.count {
