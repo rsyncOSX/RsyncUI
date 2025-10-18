@@ -66,7 +66,7 @@ final class ObservableFutureSchedules {
                 index = Int(timeInterval / (60 * 60 * 24))
                 // Must add the first registered date as well
                 if dateRun.monthInt == lastdateinpresentmont.monthInt {
-                    appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: "")
+                    appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: ScheduleType.daily.rawValue)
                 }
             /*
              case 7:
@@ -88,7 +88,7 @@ final class ObservableFutureSchedules {
                     computedDateRun = futureDate
                     // Only add futuredates in month presented
                     if futureDate.monthInt == lastdateinpresentmont.monthInt {
-                        appendfutureschedule(profile: profile, dateRun: futureDateString, schedule: "")
+                        appendfutureschedule(profile: profile, dateRun: futureDateString, schedule: ScheduleType.daily.rawValue)
                     }
 
                 } else {
@@ -158,10 +158,86 @@ final class ObservableFutureSchedules {
         }
     }
 
+    private func addtaskandcallback(_ schedule: SchedulesConfigurations) {
+        let globalTimer = GlobalTimer.shared
+        
+        if demo == false {
+            
+            // The Callback for Schedule
+            let callback: () -> Void = {
+                // Setting profile name will trigger execution
+                self.scheduledprofile = schedule.profile ?? "Default"
+                Task {
+                    // Logging to file that a Schedule is fired
+                    await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for \(schedule.profile ?? "Default")"])
+                }
+            }
+            // Then add new schedule
+            if let schedultime = schedule.dateRun?.en_date_from_string() {
+                globalTimer.addSchedule(time: schedultime,
+                                        tolerance: 10,
+                                        callback: callback,
+                                        profile: schedule.profile,
+                                        dateAdded: schedule.dateAdded ?? "",
+                                        dateRun: schedule.dateRun ?? "",
+                                        schedule: schedule.schedule ?? "")
+            }
+            
+        } else {
+            
+            Logger.process.info("ObservableFutureSchedules: addtaskandcallback() adding DEMO schedule")
+            
+            let callback: () -> Void = {
+                Task {
+                    // Logging to file that a Schedule is fired
+                    await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for DEMO"])
+                }
+            }
+            // Then add new schedule
+            if let schedultime = schedule.dateRun?.en_date_from_string() {
+                globalTimer.addSchedule(time: schedultime,
+                                        tolerance: 10,
+                                        callback: callback,
+                                        profile: schedule.profile,
+                                        dateAdded: schedule.dateAdded ?? "",
+                                        dateRun: schedule.dateRun ?? "",
+                                        schedule: schedule.schedule ?? "")
+            }
+        }
+    }
 
+    // Demo for test av schedule
+
+    func demodatatestschedule() {
+        // Must set demo = true to stop trigger for SidebarMainView
+        demo = true
+        let schedule1 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule2 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 2).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule3 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 3).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule12 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 4).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule22 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 5).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule32 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 6).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let scheduledata = [schedule1, schedule2, schedule3, schedule12, schedule22, schedule32]
+        // let scheduledata = [schedule1, schedule2, schedule3]
+
+       
+            for i in 0 ..< scheduledata.count {
+                if let schedule = scheduledata[i].schedule,
+                   let dateRun = scheduledata[i].dateRun?.validate_en_date_from_string()
+                {
+                    computefuturedates(profile: scheduledata[i].profile, schedule: schedule, dateRun: dateRun)
+                }
+            }
+        
+
+        setfirsscheduledate()
+    }
+}
+
+/*
     func recalculateschedulesGlobalTimer() {
         
-        let globalTimer = GlobalTimer.shared        
+        let globalTimer = GlobalTimer.shared
         for i in 0 ..< globaltime.allSchedules.count {
             if let schedultime = globaltime.allSchedules[i].dateRun?.en_date_from_string() {
                 let callback: () -> Void = {
@@ -181,88 +257,4 @@ final class ObservableFutureSchedules {
             }
         }
     }
-
-    private func addtaskandcallback(_ schedule: SchedulesConfigurations) {
-        let globalTimer = GlobalTimer.shared
-        
-        if demo == false {
-            
-            // The Callback for Schedule
-            let callback: () -> Void = {
-                self.recomputeschedules()
-                // Setting profile name will trigger execution
-                self.scheduledprofile = schedule.profile ?? "Default"
-                Task {
-                    // Logging to file that a Schedule is fired
-                    await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for \(schedule.profile ?? "Default")"])
-                }
-            }
-            // Then add new schedule
-            if let schedultime = schedule.dateRun?.en_date_from_string() {
-                globalTimer.addSchedule(time: schedultime,
-                                        tolerance: 10,
-                                        callback: callback,
-                                        profile: schedule.profile,
-                                        dateAdded: schedule.dateAdded ?? "",
-                                        dateRun: schedule.dateRun ?? "",
-                                        schedule: schedule.schedule ?? "")
-            }
-        } else {
-            
-            Logger.process.info("ObservableFutureSchedules: addtaskandcallback() adding DEMO schedule")
-            
-            let callback: () -> Void = {
-                self.recomputeschedules()
-                Task {
-                    // Logging to file that a Schedule is fired
-                    await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for DEMO"])
-                }
-            }
-            // Then add new schedule
-            if let schedultime = schedule.dateRun?.en_date_from_string() {
-                globalTimer.addSchedule(time: schedultime,
-                                        tolerance: 10,
-                                        callback: callback,
-                                        profile: schedule.profile,
-                                        dateAdded: schedule.dateAdded ?? "",
-                                        dateRun: schedule.dateRun ?? "",
-                                        schedule: schedule.schedule ?? "")
-            }
-        }
-        
-        /*
-         profile: String?,
-         dateAdded: String,
-         dateRun: String,
-         schedule: String
-         */
-        
-    }
-
-    // Demo for test av schedule
-
-    func demodatatestschedule() {
-        // Must set demo = true to stop trigger for SidebarMainView
-        demo = true
-        let schedule1 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule2 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 2).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule3 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 3).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule12 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 4).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule22 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 5).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule32 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 6).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        // scheduledata = [schedule1, schedule2, schedule3, schedule12, schedule22, schedule32]
-        let scheduledata = [schedule1, schedule2, schedule3]
-
-       
-            for i in 0 ..< scheduledata.count {
-                if let schedule = scheduledata[i].schedule,
-                   let dateRun = scheduledata[i].dateRun?.validate_en_date_from_string()
-                {
-                    computefuturedates(profile: scheduledata[i].profile, schedule: schedule, dateRun: dateRun)
-                }
-            }
-        
-
-        setfirsscheduledate()
-    }
-}
+*/

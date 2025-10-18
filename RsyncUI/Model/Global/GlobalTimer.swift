@@ -130,7 +130,11 @@ public final class GlobalTimer {
         )
         guard validatescheduleinset(scheduleitem) == false else { return }
         Logger.process.info("GlobalTimer: Adding NEW schedule for at \(time, privacy: .public) (tolerance: \(finalTolerance, privacy: .public)s)")
+        
+        // Append and sort by time
         allSchedules.append(scheduleitem)
+        allSchedules = allSchedules.sorted(by: { $0.time < $1.time })
+        
         if validateallschedulesalreadyintimer(scheduleitem) == false {
             scheduleNextTimer()
         }
@@ -152,49 +156,41 @@ public final class GlobalTimer {
         
         timer?.invalidate()
         timer = nil
-
-        // let earliest = allSchedules.values.min(by: { $0.time < $1.time })
-        guard let item = allSchedules.min(by: { $0.time < $1.time }) else {
-            // Schedule is removed in func executeSchedule(profileName: String)
-            Logger.process.info("GlobalTimer: No task to schedule for execution")
+        
+        guard allSchedules.isEmpty == false else {
+            Logger.process.info("GlobalTimer: No more tasks to schedule for execution")
+            invaldiateallschedulesandtimer()
             return
         }
         
-        let interval = item.time.timeIntervalSince(.now)
-
-        Logger.process.info("GlobalTimer: Scheduling timer in \(interval, privacy: .public)s (tolerance: \(item.tolerance, privacy: .public)s)")
-
-        let t = Timer(timeInterval: interval, repeats: false) { [weak self] _ in
-            Task { @MainActor in
-                self?.checkSchedules()
+        if let item = allSchedules.first {
+            let interval = item.time.timeIntervalSince(.now)
+            Logger.process.info("GlobalTimer: Scheduling timer in \(interval, privacy: .public)s (tolerance: \(item.tolerance, privacy: .public)s)")
+            let t = Timer(timeInterval: interval, repeats: false) { [weak self] _ in
+                Task { @MainActor in
+                    self?.checkSchedules()
+                }
             }
+            t.tolerance = item.tolerance
+            RunLoop.main.add(t, forMode: .common)
+            timer = t
         }
-        t.tolerance = item.tolerance
-        RunLoop.main.add(t, forMode: .common)
-        timer = t
     }
 
     // This function is triggered at time t, it finds the apporiate callback and executes it
     // The executeSchedule(id: UUID) also removes the Scheduled task from allSchedules, leaving next
     // due tasks in Set.
     private func checkSchedules() {
-        
-        let now = Date.now
-        
-        let duetask = allSchedules.filter { now >= $0.time }
-        Logger.process.info("GlobalTimer: checkSchedules(), DUE profile schedule: \(duetask, privacy: .public)")
-        guard !duetask.isEmpty else {
-            timer?.invalidate()
-            timer = nil
-            return
+        if let item = allSchedules.first {
+            // Execute only the first eligible profile, use UUID to select task
+            if allSchedules.count > 0  {
+                allSchedules.removeFirst()
+            }
+            executeSchedule(item)
+        } else {
+            Logger.process.info("GlobalTimer: No more tasks to schedule for execution")
+            invaldiateallschedulesandtimer()
         }
-
-        // Execute only the first eligible profile, use UUID to select task
-        if let duetaskitem = duetask.first {
-            executeSchedule(duetaskitem)
-        }
-
-        scheduleNextTimer()
     }
 
     private func executeSchedule(_ dueitem: ScheduledItem) {
