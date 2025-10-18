@@ -144,18 +144,20 @@ public final class GlobalTimer {
     }
 
     public func scheduleNextTimer() {
+        
+        Logger.process.info("GlobalTimer: scheduleNextTimer() - Invalidateing existing timer")
         timer?.invalidate()
         timer = nil
 
         guard allSchedules.isEmpty == false else {
-            Logger.process.info("GlobalTimer: No more tasks to schedule for execution")
+            Logger.process.info("GlobalTimer: scheduleNextTimer() - No more tasks to schedule for execution")
             invalidateAllSchedulesAndTimer()
             return
         }
 
         if let item = allSchedules.first {
             let interval = item.time.timeIntervalSince(.now)
-            Logger.process.info("GlobalTimer: Scheduling timer in \(interval, privacy: .public)s (tolerance: \(item.tolerance, privacy: .public)s)")
+            Logger.process.info("GlobalTimer: scheduleNextTimer() - Scheduling timer in \(interval, privacy: .public)s (tolerance: \(item.tolerance, privacy: .public)s)")
             let t = Timer(timeInterval: interval, repeats: false) { [weak self] _ in
                 Task { @MainActor in
                     self?.checkSchedules()
