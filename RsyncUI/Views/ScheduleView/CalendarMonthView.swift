@@ -125,12 +125,12 @@ struct CalendarMonthView: View {
                             }
 
                             confirmdelete = false
+                            
                             if schedules.demo == false {
-                                /*
-                                 if let scheduladata = scheduledata.scheduledata {
-                                     WriteSchedule(scheduladata)
-                                 }
-                                  */
+                                let scheduledatamapped = globaltimer.allSchedules.map({ item in
+                                    item.scheduledata
+                                })
+                                WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
                             }
                         }
                     }

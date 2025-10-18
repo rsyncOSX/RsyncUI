@@ -83,11 +83,13 @@ struct AddSchedule: View {
                     // Recompute schedules and set first schedule to execute
                     schedules.recomputeschedules()
                     schedules.setfirsscheduledate()
-                    /*
-                     if let scheduledata = scheduledata.scheduledata {
-                         WriteSchedule(scheduledata)
-                     }
-                      */
+                    
+                    let globaltimer = GlobalTimer.shared
+                    let scheduledatamapped = globaltimer.allSchedules.map({ item in
+                        item.scheduledata
+                    })
+                    WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
+                    
                 } label: {
                     Label("Add", systemImage: "plus")
                 }
