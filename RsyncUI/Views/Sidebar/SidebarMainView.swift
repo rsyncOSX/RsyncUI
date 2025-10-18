@@ -140,12 +140,12 @@ struct SidebarMainView: View {
                 observerdidMountNotification()
                 observerdiddidUnmountNotification()
             }
-            /*
-             // Load calendardata from store
-             scheduledata.scheduledata = ReadSchedule()
-                 .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) ?? []
-             futuredates.setfirsscheduledate()
-             */
+            if let scheduledata = ReadSchedule()
+                .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) {
+                guard scheduledata.count > 0 else { return }
+                schedules.appendschdeuldatafromfile(scheduledata)
+            }
+            
             Logger.process.info("SidebarMainView: ONAPPEAR completed")
 
             // Delete any default UserSetttings applied within AddTask
@@ -606,3 +606,4 @@ struct NavigationLinkWithHover: View {
         }
     }
 }
+

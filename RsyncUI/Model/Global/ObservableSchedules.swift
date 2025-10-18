@@ -201,8 +201,20 @@ final class ObservableSchedules {
         }
     }
 
-    // Demo for test av schedule
+    // Apply Scheduledata read from file, used by SidebarMainView
+    func appendschdeuldatafromfile(_ schedules: [SchedulesConfigurations]) {
+        for i in 0 ..< schedules.count {
+            if let schedule = schedules[i].schedule,
+               let dateRun = schedules[i].dateRun?.validate_en_date_from_string()
+            {
+                computefuturedates(profile: schedules[i].profile, schedule: schedule, dateRun: dateRun)
+            }
+        }
 
+        setfirsscheduledate()
+    }
+    
+    // Demo for test av schedule
     func demodatatestschedule() {
         // Must set demo = true to stop trigger for SidebarMainView
         demo = true
