@@ -116,7 +116,7 @@ struct AddSchedule: View {
                 }
 
                 Button {
-                    scheduledata.demodatatestschedule()
+                    // scheduledata.demodatatestschedule()
                     futuredates.demodatatestschedule()
 
                 } label: {

@@ -54,8 +54,6 @@ public final class GlobalTimer {
     @ObservationIgnored
     private var wakeObserver: NSObjectProtocol?
     // Dictionary to store most recent, not excuted Schedule
-    // private var schedule: [String: ScheduledItem] = [:]
-    // Store all schedules
     @ObservationIgnored
     private var allSchedules: [UUID: ScheduledItem] = [:]
 
@@ -67,15 +65,15 @@ public final class GlobalTimer {
 
     // MARK: - Public API
     
+    // Verifying that there is a schedule in Set already, if false add schedule
+    // to set.
     private func validatescheduleinset(_ schedule: ScheduledItem) -> Bool {
         let validate = allSchedules.contains(where: { $0.value.time == schedule.time && $0.value.tolerance == schedule.tolerance })
-        if validate {
-            return true
-        } else {
-            return false
-        }
+        return validate
     }
     
+    // Check if there already is a timer in Set which more recent time which already is
+    // in Set. If false it executes the scheduleNextTimer.
     private func validateallschedulesalreadyintimer (_ schedule: ScheduledItem) -> Bool {
         let validate = allSchedules.values.contains(where: { $0.time < schedule.time })
         return validate
@@ -103,7 +101,6 @@ public final class GlobalTimer {
         timer?.invalidate()
         timer = nil
         allSchedules.removeAll()
-        
     }
     
     /// Schedule a task to run at a specific time
@@ -127,11 +124,8 @@ public final class GlobalTimer {
         )
         
         guard validatescheduleinset(schedule) == false else { return }
-        
         let scheduleitem : [UUID:ScheduledItem] = [schedule.id:schedule]
-        
         Logger.process.info("GlobalTimer: Adding NEW schedule for at \(time, privacy: .public) (tolerance: \(finalTolerance, privacy: .public)s)")
-        
         appendallSchedules(scheduleitem)
         
         if validateallschedulesalreadyintimer(schedule) == false {
