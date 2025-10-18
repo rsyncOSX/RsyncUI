@@ -32,6 +32,21 @@ struct TableofSchedules: View {
                 Text(data.scheduledata?.dateAdded ?? "")
             }
             .width(max: 120)
+            
+            TableColumn("Min/hour/day") { data in
+                var seconds: Double {
+                    if let date = data.scheduledata?.dateRun {
+                        let lastbackup = date.en_date_from_string()
+                        return lastbackup.timeIntervalSinceNow
+                    } else {
+                        return 0
+                    }
+                }
+
+                Text(seconds.latest())
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
+            }
+            .width(max: 90)
         }
     }
 }
