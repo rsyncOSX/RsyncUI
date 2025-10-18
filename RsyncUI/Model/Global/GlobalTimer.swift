@@ -4,17 +4,13 @@ import Observation
 import OSLog
 
 // MARK: - Types
-
-public struct ScheduledItem: Identifiable, Hashable {
+ 
+struct ScheduledItem: Identifiable, Hashable {
     public let id = UUID()
     let time: Date
     let tolerance: TimeInterval
     let callback: () -> Void
-
-    var profile: String?
-    var dateAdded: String?
-    var dateRun: String?
-    var schedule: String?
+    var scheduledata: SchedulesConfigurations?
 
     public static func == (lhs: ScheduledItem, rhs: ScheduledItem) -> Bool {
         // Compare identity and schedule-relevant fields; ignore the closure
@@ -87,15 +83,11 @@ public final class GlobalTimer {
     ///   - time: Target execution time
     ///   - tolerance: Tolerance in seconds (defaults to 10% of interval, min 1s, max 60s)
     ///   - callback: Closure to execute when due
-    public func addSchedule(
+    func addSchedule(
         time: Date,
         tolerance: TimeInterval? = nil,
         callback: @escaping () -> Void,
-
-        profile: String?,
-        dateAdded: String,
-        dateRun: String,
-        schedule: String
+        scheduledata: SchedulesConfigurations?
     ) {
         let interval = time.timeIntervalSince(.now)
         let finalTolerance = tolerance ?? defaultTolerance(for: interval)
@@ -104,10 +96,7 @@ public final class GlobalTimer {
             time: time,
             tolerance: max(0, finalTolerance),
             callback: callback,
-            profile: profile,
-            dateAdded: dateAdded,
-            dateRun: dateRun,
-            schedule: schedule
+            scheduledata: scheduledata
         )
         guard validatescheduleinset(scheduleitem) == false else { return }
         Logger.process.info("GlobalTimer: Adding NEW schedule for at \(time, privacy: .public) (tolerance: \(finalTolerance, privacy: .public)s)")
@@ -170,7 +159,7 @@ public final class GlobalTimer {
     }
 
     private func executeSchedule(_ dueitem: ScheduledItem) {
-        Logger.process.info("GlobalTimer: EXCUTING schedule for '\(dueitem.profile ?? "Default", privacy: .public)'")
+        Logger.process.info("GlobalTimer: EXCUTING schedule for '\(dueitem.scheduledata?.profile ?? "Default", privacy: .public)'")
         dueitem.callback()
     }
 

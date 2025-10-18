@@ -111,7 +111,7 @@ final class ObservableSchedules {
     func recomputeschedules() {
         Logger.process.info("ObservableFutureSchedules: recomputeschedules()")
         let recomputedschedules = globaltime.allSchedules.filter { item in
-            if let dateRunString = item.dateRun {
+            if let dateRunString = item.scheduledata?.dateRun {
                 return dateRunString.en_date_from_string() > Date.now
             }
             return false
@@ -128,10 +128,10 @@ final class ObservableSchedules {
         Logger.process.info("ObservableFutureSchedules: recomputeschedules() number of schedules: \(recomputedschedules.count, privacy: .public)")
 
         for i in 0 ..< recomputedschedules.count {
-            if let schedule = recomputedschedules[i].schedule,
-               let dateRun = recomputedschedules[i].dateRun?.validate_en_date_from_string()
+            if let schedule = recomputedschedules[i].scheduledata?.schedule,
+               let dateRun = recomputedschedules[i].scheduledata?.dateRun?.validate_en_date_from_string()
             {
-                computefuturedates(profile: recomputedschedules[i].profile, schedule: schedule, dateRun: dateRun)
+                computefuturedates(profile: recomputedschedules[i].scheduledata?.profile, schedule: schedule, dateRun: dateRun)
             }
         }
 
@@ -141,15 +141,15 @@ final class ObservableSchedules {
     // Only set when loading data, when new schedules added or deleted
     func setfirsscheduledate() {
         let dates = globaltime.allSchedules.sorted { s1, s2 in
-            if let id1 = s1.dateRun?.en_date_from_string(), let id2 = s2.dateRun?.en_date_from_string() {
+            if let id1 = s1.scheduledata?.dateRun?.en_date_from_string(), let id2 = s2.scheduledata?.dateRun?.en_date_from_string() {
                 return id1 < id2
             }
             return false
         }
         if dates.count > 0 {
-            let first = SchedulesConfigurations(profile: dates.first?.profile,
+            let first = SchedulesConfigurations(profile: dates.first?.scheduledata?.profile,
                                                 dateAdded: nil,
-                                                dateRun: dates.first?.dateRun,
+                                                dateRun: dates.first?.scheduledata?.dateRun,
                                                 schedule: "")
             firstscheduledate = first
         } else {
@@ -176,10 +176,7 @@ final class ObservableSchedules {
                 globalTimer.addSchedule(time: schedultime,
                                         tolerance: 10,
                                         callback: callback,
-                                        profile: schedule.profile,
-                                        dateAdded: schedule.dateAdded ?? "",
-                                        dateRun: schedule.dateRun ?? "",
-                                        schedule: schedule.schedule ?? "")
+                                        scheduledata: schedule)
             }
 
         } else {
@@ -198,10 +195,7 @@ final class ObservableSchedules {
                 globalTimer.addSchedule(time: schedultime,
                                         tolerance: 10,
                                         callback: callback,
-                                        profile: schedule.profile,
-                                        dateAdded: schedule.dateAdded ?? "",
-                                        dateRun: schedule.dateRun ?? "",
-                                        schedule: schedule.schedule ?? "")
+                                        scheduledata: schedule)
             }
         }
     }
@@ -234,8 +228,8 @@ final class ObservableSchedules {
     // Verify new planned schedule
     func verifynextschedule(plannednextschedule: String) -> Bool {
         let dates = globaltime.allSchedules.sorted { s1, s2 in
-            if let id1 = s1.dateRun?.en_date_from_string(),
-               let id2 = s2.dateRun?.en_date_from_string()
+            if let id1 = s1.scheduledata?.dateRun?.en_date_from_string(),
+               let id2 = s2.scheduledata?.dateRun?.en_date_from_string()
             {
                 return id1 < id2
             }
@@ -244,7 +238,7 @@ final class ObservableSchedules {
 
         if dates.count > 0 {
             // Pick the first schedule
-            if let firstschedulestring = dates.first?.dateRun {
+            if let firstschedulestring = dates.first?.scheduledata?.dateRun {
                 let firstscheduledate = firstschedulestring.en_date_from_string()
                 let plannedDate = plannednextschedule.en_date_from_string()
 

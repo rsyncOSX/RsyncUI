@@ -14,22 +14,22 @@ struct TableofSchedules: View {
     var body: some View {
         Table(schedules, selection: $selecteduuids) {
             TableColumn("Profile") { data in
-                Text(data.profile ?? "Default")
+                Text(data.scheduledata?.profile ?? "Default")
             }
             .width(min: 100, max: 150)
 
             TableColumn("Schedule") { data in
-                Text(data.schedule ?? "")
+                Text(data.scheduledata?.schedule ?? "")
             }
             .width(min: 50, max: 70)
 
             TableColumn("Run") { data in
-                Text(data.dateRun ?? "")
+                Text(data.scheduledata?.dateRun ?? "")
             }
             .width(max: 120)
 
             TableColumn("Added") { data in
-                Text(data.dateAdded ?? "")
+                Text(data.scheduledata?.dateAdded ?? "")
             }
             .width(max: 120)
         }

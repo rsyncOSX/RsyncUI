@@ -198,7 +198,7 @@ struct CalendarMonthView: View {
 
     func thereisaschedule(_ date: Date) -> Bool {
         let verifyaschedule = globaltimer.allSchedules.compactMap { schedule in
-            schedule.dateRun?.en_date_from_string().startOfDay == date ? true : nil
+            schedule.scheduledata?.dateRun?.en_date_from_string().startOfDay == date ? true : nil
         }
         return verifyaschedule.count > 0
     }

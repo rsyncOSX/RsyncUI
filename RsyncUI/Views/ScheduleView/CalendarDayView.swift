@@ -52,12 +52,14 @@ struct CalendarDayView: View {
                 }
                 .contextMenu {
                     ForEach(globaltime.allSchedules, id: \.self) { schedule in
-                        if istoday(runDate: schedule.dateRun, day: day) {
+                        /*
+                        if istoday(runDate: schedule.scheduledata?.dateRun, day: day) {
                             VStack {
                                 Text(schedule.profile ?? "")
                                 Text(schedule.dateRun ?? "")
                             }
                         }
+                         */
                     }
                 }
         case .istappednoschedule:
@@ -100,12 +102,14 @@ struct CalendarDayView: View {
                 }
                 .contextMenu {
                     ForEach(globaltime.allSchedules, id: \.self) { schedule in
+                        /*
                         if istoday(runDate: schedule.dateRun, day: day) {
                             VStack {
                                 Text(schedule.profile ?? "")
                                 Text(schedule.dateRun ?? "")
                             }
                         }
+                         */
                     }
                 }
         }
