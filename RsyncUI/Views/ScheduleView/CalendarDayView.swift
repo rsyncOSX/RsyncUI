@@ -15,7 +15,7 @@ enum ForegroundStyle {
 }
 
 struct CalendarDayView: View {
-    @Bindable var futuredates: ObservableFutureSchedules
+    @Bindable var schedules: ObservableSchedules
     @Binding var dateRun: String
     @Binding var dateAdded: String
     @Binding var istappeddayint: Int

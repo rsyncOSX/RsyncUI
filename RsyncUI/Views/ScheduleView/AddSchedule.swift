@@ -10,7 +10,7 @@ import SwiftUI
 
 struct AddSchedule: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Bindable var futuredates: ObservableFutureSchedules
+    @Bindable var schedules: ObservableSchedules
 
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
     @Binding var dateAdded: String
@@ -39,8 +39,8 @@ struct AddSchedule: View {
 
                 EditValueErrorScheme(50, NSLocalizedString("", comment: ""),
                                      $dateRunHour,
-                                     futuredates.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour))
-                    .foregroundColor(futuredates.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour) ? Color.white : Color.red)
+                                     schedules.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour))
+                    .foregroundColor(schedules.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour) ? Color.white : Color.red)
                 /*
                  TextField("", text: $dateRunMonth)
                      .frame(width: 80)
@@ -70,19 +70,19 @@ struct AddSchedule: View {
                         rsyncUIdata.validprofiles[index].profilename
                     } else { nil }
 
-                    guard futuredates.verifynextschedule(plannednextschedule: run) else {
+                    guard schedules.verifynextschedule(plannednextschedule: run) else {
                         Logger.process.warning("AddSchedule: not valid more than 10 minutes to next schedule")
                         return
                     }
 
-                    futuredates.appendfutureschedule(profile: profile, dateRun: run, schedule: schedule)
+                    schedules.appendfutureschedule(profile: profile, dateRun: run, schedule: schedule)
 
                     date = Date.now
                     istappeddayint = 0
-                    futuredates.lastdateinpresentmont = Date.now.endOfMonth
+                    schedules.lastdateinpresentmont = Date.now.endOfMonth
                     // Recompute schedules and set first schedule to execute
-                    futuredates.recomputeschedules()
-                    futuredates.setfirsscheduledate()
+                    schedules.recomputeschedules()
+                    schedules.setfirsscheduledate()
                     /*
                      if let scheduledata = scheduledata.scheduledata {
                          WriteSchedule(scheduledata)
@@ -94,7 +94,7 @@ struct AddSchedule: View {
 
                 Button {
                     // scheduledata.demodatatestschedule()
-                    futuredates.demodatatestschedule()
+                    schedules.demodatatestschedule()
 
                 } label: {
                     Label("DEMO", systemImage: "plus")

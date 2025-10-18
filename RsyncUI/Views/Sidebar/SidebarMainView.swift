@@ -53,7 +53,7 @@ struct SidebarMainView: View {
     // .detailOnly
     @State private var mountingvolumenow: Bool = false
     // Calendar
-    @State private var futuredates = ObservableFutureSchedules()
+    @State private var schedules = ObservableSchedules()
     let globaltimer = GlobalTimer.shared
 
     var body: some View {
@@ -188,15 +188,15 @@ struct SidebarMainView: View {
             // in RsyncUIView
             selecteduuids.removeAll()
         }
-        .onChange(of: futuredates.firstscheduledate) {
+        .onChange(of: schedules.firstscheduledate) {
             Logger.process.info("SidebarMainView: got TRIGGER from Schedule, firstscheduledate is set")
 
             if globaltimer.allSchedules.isEmpty {
                 globaltimer.invaldiateallschedulesandtimer()
             }
         }
-        .onChange(of: futuredates.scheduledprofile) {
-            guard futuredates.demo == false else {
+        .onChange(of: schedules.scheduledprofile) {
+            guard schedules.demo == false else {
                 Logger.process.info("SidebarMainView: got TRIGGER from Schedule, the callback is executed BUT SKIPPED, demo")
                 return
             }
@@ -206,7 +206,7 @@ struct SidebarMainView: View {
                 selectedview = .synchronize
             }
             // Trigger as external URL, makes it load profile before execute
-            if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: futuredates.scheduledprofile) {
+            if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: schedules.scheduledprofile) {
                 handleURLsidebarmainView(url, externalurl: true)
             }
         }
@@ -251,7 +251,7 @@ struct SidebarMainView: View {
         case .schedule:
             NavigationStack {
                 CalendarMonthView(rsyncUIdata: rsyncUIdata,
-                                  futuredates: futuredates,
+                                  schedules: schedules,
                                   selectedprofileID: $selectedprofileID)
             }
         case .verify_tasks:

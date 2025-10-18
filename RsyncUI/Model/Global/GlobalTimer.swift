@@ -76,7 +76,7 @@ public final class GlobalTimer {
     }
 
     func invaldiateallschedulesandtimer() {
-        Logger.process.info("GlobalTimer: Invaldidating all schedules")
+        Logger.process.info("GlobalTimer: INVALIDATING all schedules")
         timer?.invalidate()
         timer = nil
         allSchedules.removeAll()

@@ -1,5 +1,5 @@
 //
-//  ObservableFutureSchedules.swift
+//  ObservableSchedules.swift
 //  Calendar
 //
 //  Created by Thomas Evensen on 27/03/2025.
@@ -11,8 +11,7 @@ import OSLog
 import SwiftUI
 
 @Observable @MainActor
-final class ObservableFutureSchedules {
-    
+final class ObservableSchedules {
     let globaltime = GlobalTimer.shared
 
     @ObservationIgnored var lastdateinpresentmont: Date?
@@ -231,7 +230,7 @@ final class ObservableFutureSchedules {
 
         setfirsscheduledate()
     }
-    
+
     // Verify new planned schedule
     func verifynextschedule(plannednextschedule: String) -> Bool {
         let dates = globaltime.allSchedules.sorted { s1, s2 in
@@ -283,6 +282,4 @@ final class ObservableFutureSchedules {
         // Remove all marked configurations in one go by IndexSet
         globaltime.allSchedules.remove(atOffsets: indexset)
     }
-
 }
-

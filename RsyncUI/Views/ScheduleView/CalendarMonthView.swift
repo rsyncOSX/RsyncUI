@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CalendarMonthView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Bindable var futuredates: ObservableFutureSchedules
+    @Bindable var schedules: ObservableSchedules
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
 
     @State private var date = Date.now
@@ -56,7 +56,7 @@ struct CalendarMonthView: View {
                             Text("")
                         } else {
                             if thereisaschedule(day), day >= Date() {
-                                CalendarDayView(futuredates: futuredates,
+                                CalendarDayView(schedules: schedules,
                                                 dateRun: $dateRun,
                                                 dateAdded: $dateAdded,
                                                 istappeddayint: $istappeddayint,
@@ -64,14 +64,14 @@ struct CalendarMonthView: View {
                                                 style: .thereisaschedule)
 
                             } else if istappednoschedule(day) {
-                                CalendarDayView(futuredates: futuredates,
+                                CalendarDayView(schedules: schedules,
                                                 dateRun: $dateRun,
                                                 dateAdded: $dateAdded,
                                                 istappeddayint: $istappeddayint,
                                                 day: day,
                                                 style: .istappednoschedule)
                             } else {
-                                CalendarDayView(futuredates: futuredates,
+                                CalendarDayView(schedules: schedules,
                                                 dateRun: $dateRun,
                                                 dateAdded: $dateAdded,
                                                 istappeddayint: $istappeddayint,
@@ -85,7 +85,7 @@ struct CalendarMonthView: View {
 
                 Spacer()
 
-                if let first = futuredates.firstscheduledate {
+                if let first = schedules.firstscheduledate {
                     HStack {
                         Text(first.profile ?? "")
                         Text(first.dateRun ?? "")
@@ -95,7 +95,7 @@ struct CalendarMonthView: View {
 
             VStack(alignment: .leading) {
                 AddSchedule(rsyncUIdata: rsyncUIdata,
-                            futuredates: futuredates,
+                            schedules: schedules,
                             selectedprofileID: $selectedprofileID,
                             dateAdded: $dateAdded,
                             dateRun: $dateRun,
@@ -109,23 +109,23 @@ struct CalendarMonthView: View {
                         isPresented: $confirmdelete)
                     {
                         Button("Delete") {
-                            futuredates.delete(selecteduuids)
+                            schedules.delete(selecteduuids)
 
                             date = Date.now
                             istappeddayint = 0
-                            futuredates.lastdateinpresentmont = Date.now.endOfMonth
+                            schedules.lastdateinpresentmont = Date.now.endOfMonth
 
                             globaltimer.invaldiateallschedulesandtimer()
                             // futuredates.recalculateschedulesGlobalTimer()
 
                             if globaltimer.allSchedules.isEmpty {
-                                futuredates.firstscheduledate = nil
+                                schedules.firstscheduledate = nil
                             } else {
-                                futuredates.recomputeschedules()
+                                schedules.recomputeschedules()
                             }
 
                             confirmdelete = false
-                            if futuredates.demo == false {
+                            if schedules.demo == false {
                                 /*
                                  if let scheduladata = scheduledata.scheduledata {
                                      WriteSchedule(scheduladata)
@@ -142,15 +142,15 @@ struct CalendarMonthView: View {
         .onAppear {
             days = date.calendarDisplayDays
             if let last = days.last {
-                futuredates.lastdateinpresentmont = last.startOfDay
+                schedules.lastdateinpresentmont = last.startOfDay
             }
             date = Date.now
-            futuredates.lastdateinpresentmont = Date.now.endOfMonth
+            schedules.lastdateinpresentmont = Date.now.endOfMonth
         }
         .onChange(of: date) {
             days = date.calendarDisplayDays
         }
-        .onChange(of: futuredates.firstscheduledate) {
+        .onChange(of: schedules.firstscheduledate) {
             if globaltimer.allSchedules.isEmpty {
                 globaltimer.invaldiateallschedulesandtimer()
             }
@@ -160,7 +160,7 @@ struct CalendarMonthView: View {
             ToolbarItem {
                 Button {
                     date = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date.now
-                    futuredates.lastdateinpresentmont = date.endOfMonth
+                    schedules.lastdateinpresentmont = date.endOfMonth
                     istappeddayint = 0
 
                 } label: {
@@ -173,7 +173,7 @@ struct CalendarMonthView: View {
             ToolbarItem {
                 Button {
                     date = Date.now
-                    futuredates.lastdateinpresentmont = Date.now.endOfMonth
+                    schedules.lastdateinpresentmont = Date.now.endOfMonth
                     istappeddayint = 0
                 } label: {
                     Image(systemName: "clock")
@@ -185,7 +185,7 @@ struct CalendarMonthView: View {
             ToolbarItem {
                 Button {
                     date = Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date.now
-                    futuredates.lastdateinpresentmont = date.endOfMonth
+                    schedules.lastdateinpresentmont = date.endOfMonth
                     istappeddayint = 0
                 } label: {
                     Image(systemName: "arrow.right")
