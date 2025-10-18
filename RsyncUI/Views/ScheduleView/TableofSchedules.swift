@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct TableofSchedules: View {
-    @Binding var selecteduuids: Set<SchedulesConfigurations.ID>
-    let schedules: [SchedulesConfigurations]
+    @Binding var selecteduuids: Set<ScheduledItem.ID>
+    let schedules: [ScheduledItem]
 
     var body: some View {
         Table(schedules, selection: $selecteduuids) {

@@ -24,6 +24,7 @@ struct CalendarDayView: View {
     let schedulecolor: Color = .yellow
     let istappedecolor: Color = .green
     let todaycolor: Color = .red
+    let globaltime = GlobalTimer.shared
 
     var day: Date
     var style: ForegroundStyle
@@ -50,7 +51,7 @@ struct CalendarDayView: View {
                     }
                 }
                 .contextMenu {
-                    ForEach(futuredates.scheduledata ?? [], id: \.self) { schedule in
+                    ForEach(globaltime.allSchedules, id: \.self) { schedule in
                         if istoday(runDate: schedule.dateRun, day: day) {
                             VStack {
                                 Text(schedule.profile ?? "")
@@ -98,7 +99,7 @@ struct CalendarDayView: View {
                     }
                 }
                 .contextMenu {
-                    ForEach(futuredates.scheduledata ?? [], id: \.self) { schedule in
+                    ForEach(globaltime.allSchedules, id: \.self) { schedule in
                         if istoday(runDate: schedule.dateRun, day: day) {
                             VStack {
                                 Text(schedule.profile ?? "")

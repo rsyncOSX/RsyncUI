@@ -13,10 +13,12 @@ import SwiftUI
 @Observable @MainActor
 final class ObservableFutureSchedules {
     
+    let globaltime = GlobalTimer.shared
+    
     @ObservationIgnored var lastdateinpresentmont: Date?
     @ObservationIgnored var demo: Bool = false
     
-    var scheduledata: [SchedulesConfigurations]?
+    // var scheduledata: [SchedulesConfigurations]?
     // First schedule to execute
     var firstscheduledate: SchedulesConfigurations?
     // Trigger execution
@@ -92,12 +94,12 @@ final class ObservableFutureSchedules {
                     Logger.process.warning("ObservableFutureSchedules: Failed to calculate future dates")
                 }
             }
-            let count = scheduledata?.count ?? 0
+            let count = globaltime.allSchedules.count
             Logger.process.info("ObservableFutureSchedules: private computefuturedates(): (\(count))")
         }
     }
 
-    private func appendfutureschedule(profile: String?, dateRun: String, schedule: String) {
+    func appendfutureschedule(profile: String?, dateRun: String, schedule: String) {
         guard dateRun.en_date_from_string() >= Date.now else { return }
         let futureschedule = SchedulesConfigurations(profile: profile,
                                                      dateAdded: nil,
@@ -109,15 +111,14 @@ final class ObservableFutureSchedules {
     // Recompute the calendardata to only show active schedules in row.
     func recomputeschedules() {
         Logger.process.info("ObservableFutureSchedules: recomputeschedules()")
-        let recomputedschedules = scheduledata?.filter { item in
+        let recomputedschedules = globaltime.allSchedules.filter { item in
             if let dateRunString = item.dateRun {
                 return dateRunString.en_date_from_string() > Date.now
             }
             return false
-        } ?? []
+        }
 
         guard recomputedschedules.count > 0 else {
-            scheduledata?.removeAll()
             GlobalTimer.shared.invaldiateallschedulesandtimer()
             firstscheduledate = nil
             Logger.process.info("ObservableFutureSchedules: recomputeschedules() no schdeules")
@@ -138,16 +139,16 @@ final class ObservableFutureSchedules {
 
     // Only set when loading data, when new schedules added or deleted
     func setfirsscheduledate() {
-        let dates = scheduledata?.sorted { s1, s2 in
+        let dates = globaltime.allSchedules.sorted { s1, s2 in
             if let id1 = s1.dateRun?.en_date_from_string(), let id2 = s2.dateRun?.en_date_from_string() {
                 return id1 < id2
             }
             return false
         }
-        if dates?.count ?? 0 > 0 {
-            let first = SchedulesConfigurations(profile: dates?.first?.profile,
+        if dates.count > 0 {
+            let first = SchedulesConfigurations(profile: dates.first?.profile,
                                                 dateAdded: nil,
-                                                dateRun: dates?.first?.dateRun,
+                                                dateRun: dates.first?.dateRun,
                                                 schedule: "")
             firstscheduledate = first
         } else {
@@ -159,15 +160,15 @@ final class ObservableFutureSchedules {
     func recalculateschedulesGlobalTimer() {
         
         let globalTimer = GlobalTimer.shared        
-        for i in 0 ..< (scheduledata?.count ?? 0) {
-            if let schedultime = scheduledata?[i].dateRun?.en_date_from_string() {
+        for i in 0 ..< globaltime.allSchedules.count {
+            if let schedultime = globaltime.allSchedules[i].dateRun?.en_date_from_string() {
                 let callback: () -> Void = {
                     self.recomputeschedules()
                     // Setting profile name will trigger execution
-                    self.scheduledprofile = self.scheduledata?[i].profile ?? "Default"
+                    self.scheduledprofile = self.globaltime.allSchedules[i].profile ?? "Default"
                     Task {
                         // Logging to file that a Schedule is fired
-                        await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for \(self.scheduledata?[i].profile ?? "Default")"])
+                        await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for \(self.globaltime.allSchedules[i].profile ?? "Default")"])
                     }
                 }
                 
@@ -197,7 +198,7 @@ final class ObservableFutureSchedules {
             }
         } else {
             
-            Logger.process.info("ObservableFutureSchedules: addtaskandcallback() addeing DEMO schedule")
+            Logger.process.info("ObservableFutureSchedules: addtaskandcallback() adding DEMO schedule")
             
             let callback: () -> Void = {
                 self.recomputeschedules()
@@ -227,9 +228,9 @@ final class ObservableFutureSchedules {
         let schedule22 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 5).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         let schedule32 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 6).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         // scheduledata = [schedule1, schedule2, schedule3, schedule12, schedule22, schedule32]
-        scheduledata = [schedule1, schedule2, schedule3]
+        let scheduledata = [schedule1, schedule2, schedule3]
 
-        if let scheduledata {
+       
             for i in 0 ..< scheduledata.count {
                 if let schedule = scheduledata[i].schedule,
                    let dateRun = scheduledata[i].dateRun?.validate_en_date_from_string()
@@ -237,7 +238,7 @@ final class ObservableFutureSchedules {
                     computefuturedates(profile: scheduledata[i].profile, schedule: schedule, dateRun: dateRun)
                 }
             }
-        }
+        
 
         setfirsscheduledate()
     }

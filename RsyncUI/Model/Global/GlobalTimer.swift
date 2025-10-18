@@ -3,62 +3,66 @@ import Foundation
 import Observation
 import OSLog
 
+// MARK: - Types
+
+// The callback is set in ObservableFutureSchedules and when
+// callback is executed at time t, it upadtes the profilename
+// which trigger executin by URL (SidebarMainView) and
+// recomputes scheduled tasks
+/*
+ // The Callback for Schedule
+ let callback: () -> Void = {
+     self.recomputeschedules()
+     // Setting profile name will trigger execution
+     self.scheduledprofile = schedule.profile ?? "Default"
+     Task {
+         // Logging to file that a Schedule is fired
+         await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for \(schedule.profile ?? "Default")"])
+     }
+ }
+ */
+
+public struct ScheduledItem: Identifiable, Hashable {
+    public let id = UUID()
+    let time: Date
+    let tolerance: TimeInterval
+    let callback: () -> Void
+    
+    var profile: String?
+    var dateAdded: String?
+    var dateRun: String?
+    var schedule: String?
+
+    public static func == (lhs: ScheduledItem, rhs: ScheduledItem) -> Bool {
+        // Compare identity and schedule-relevant fields; ignore the closure
+        return lhs.id == rhs.id && lhs.time == rhs.time && lhs.tolerance == rhs.tolerance
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        // Hash only stable, hashable properties; ignore the closure
+        hasher.combine(id)
+        hasher.combine(time)
+        hasher.combine(tolerance)
+    }
+}
+
 @Observable
 @MainActor
 public final class GlobalTimer {
     public static let shared = GlobalTimer()
 
-    // MARK: - Types
-
-    // The callback is set in ObservableFutureSchedules and when
-    // callback is executed at time t, it upadtes the profilename
-    // which trigger executin by URL (SidebarMainView) and
-    // recomputes scheduled tasks
-    /*
-     // The Callback for Schedule
-     let callback: () -> Void = {
-         self.recomputeschedules()
-         // Setting profile name will trigger execution
-         self.scheduledprofile = schedule.profile ?? "Default"
-         Task {
-             // Logging to file that a Schedule is fired
-             await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for \(schedule.profile ?? "Default")"])
-         }
-     }
-     */
     
-    struct ScheduledItem: Identifiable, Hashable {
-        let id = UUID()
-        let time: Date
-        let tolerance: TimeInterval
-        let callback: () -> Void
-
-        static func == (lhs: ScheduledItem, rhs: ScheduledItem) -> Bool {
-            // Compare identity and schedule-relevant fields; ignore the closure
-            return lhs.id == rhs.id && lhs.time == rhs.time && lhs.tolerance == rhs.tolerance
-        }
-
-        func hash(into hasher: inout Hasher) {
-            // Hash only stable, hashable properties; ignore the closure
-            hasher.combine(id)
-            hasher.combine(time)
-            hasher.combine(tolerance)
-        }
-    }
-
+    // Exposed Array of not excuted Schedule
+    var allSchedules = [ScheduledItem]()
+    
     // MARK: - Properties
-
     @ObservationIgnored
     private var timer: Timer?
-
     @ObservationIgnored
     private var wakeObserver: NSObjectProtocol?
-    // Dictionary to store most recent, not excuted Schedule
-    @ObservationIgnored
-    private var allSchedules: [UUID: ScheduledItem] = [:]
-
+    
+    
     // MARK: - Initialization
-
     private init() {
         setupWakeNotification()
     }
@@ -68,22 +72,20 @@ public final class GlobalTimer {
     // Verifying that there is a schedule in Set already, if false add schedule
     // to set.
     private func validatescheduleinset(_ schedule: ScheduledItem) -> Bool {
-        let validate = allSchedules.contains(where: { $0.value.time == schedule.time && $0.value.tolerance == schedule.tolerance })
+        let validate = allSchedules.contains(where: { $0.time == schedule.time && $0.tolerance == schedule.tolerance })
         return validate
     }
     
     // Check if there already is a timer in Set which more recent time which already is
     // in Set. If false it executes the scheduleNextTimer.
     private func validateallschedulesalreadyintimer (_ schedule: ScheduledItem) -> Bool {
-        let validate = allSchedules.values.contains(where: { $0.time < schedule.time })
+        let validate = allSchedules.contains(where: { $0.time < schedule.time })
         return validate
     }
     
     
-    private func appendallSchedules(_ schedule: [UUID: ScheduledItem]) {
-        for (key, value) in schedule {
-            self.allSchedules[key] = value
-        }
+    private func appendallSchedules(_ schedule: [ScheduledItem]) {
+        allSchedules.append(contentsOf: schedule)
     }
 
     public func timerIsActive() -> Bool {
@@ -91,7 +93,7 @@ public final class GlobalTimer {
     }
 
     public func nextScheduleDate(format: Date.FormatStyle = .dateTime) -> String? {
-        let earliest = allSchedules.values.min(by: { $0.time < $1.time })
+        let earliest = allSchedules.min(by: { $0.time < $1.time })
         return earliest?.time.formatted(format)
     }
 
@@ -124,7 +126,8 @@ public final class GlobalTimer {
         )
         
         guard validatescheduleinset(schedule) == false else { return }
-        let scheduleitem : [UUID:ScheduledItem] = [schedule.id:schedule]
+        
+        let scheduleitem : [ScheduledItem] = [schedule]
         Logger.process.info("GlobalTimer: Adding NEW schedule for at \(time, privacy: .public) (tolerance: \(finalTolerance, privacy: .public)s)")
         appendallSchedules(scheduleitem)
         
@@ -151,7 +154,7 @@ public final class GlobalTimer {
         timer = nil
 
         // let earliest = allSchedules.values.min(by: { $0.time < $1.time })
-        guard let item = allSchedules.values.min(by: { $0.time < $1.time }) else {
+        guard let item = allSchedules.min(by: { $0.time < $1.time }) else {
             // Schedule is removed in func executeSchedule(profileName: String)
             Logger.process.info("GlobalTimer: No task to schedule for execution")
             return
@@ -178,7 +181,7 @@ public final class GlobalTimer {
         
         let now = Date.now
         
-        let duetask = allSchedules.filter { now >= $0.value.time }.map { $0.key }
+        let duetask = allSchedules.filter { now >= $0.time }
         Logger.process.info("GlobalTimer: checkSchedules(), DUE profile schedule: \(duetask, privacy: .public)")
         guard !duetask.isEmpty else {
             timer?.invalidate()
@@ -187,22 +190,16 @@ public final class GlobalTimer {
         }
 
         // Execute only the first eligible profile, use UUID to select task
-        if let duetaskid = duetask.first {
-            executeSchedule(id: duetaskid)
+        if let duetaskitem = duetask.first {
+            executeSchedule(duetaskitem)
         }
 
         scheduleNextTimer()
     }
 
-    private func executeSchedule(id: UUID) {
-        guard let item = allSchedules.removeValue(forKey: id) else {
-            Logger.process.info("GlobalTimer: NO more schedules to execute, invalidating timer'")
-            timer?.invalidate()
-            timer = nil
-            return
-        }
-        Logger.process.info("GlobalTimer: EXCUTING schedule for '\(id, privacy: .public)'")
-        item.callback()
+    private func executeSchedule(_ dueitem: ScheduledItem) {
+        Logger.process.info("GlobalTimer: EXCUTING schedule for '\(dueitem.profile ?? "Default", privacy: .public)'")
+        dueitem.callback()
     }
 
     // MARK: - Wake Handling

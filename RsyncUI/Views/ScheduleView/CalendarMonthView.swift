@@ -26,6 +26,7 @@ struct CalendarMonthView: View {
     @State private var istappeddayint: Int = 0
 
     let defaultcolor: Color = .blue
+    let globaltimer = GlobalTimer.shared
 
     var body: some View {
         HStack {
@@ -104,7 +105,7 @@ struct CalendarMonthView: View {
                             date: $date)
 
                 TableofSchedules(selecteduuids: $selecteduuids,
-                                 schedules: scheduledata.scheduledata ?? [])
+                                 schedules: globaltimer.allSchedules)
                     .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 schedule" :
                         "Delete \(selecteduuids.count) schedules",
                         isPresented: $confirmdelete)
@@ -115,12 +116,11 @@ struct CalendarMonthView: View {
                             date = Date.now
                             istappeddayint = 0
                             futuredates.lastdateinpresentmont = Date.now.endOfMonth
-                            futuredates.scheduledata = scheduledata.scheduledata
-                            
-                            GlobalTimer.shared.invaldiateallschedulesandtimer()
+                             
+                            globaltimer.invaldiateallschedulesandtimer()
                             futuredates.recalculateschedulesGlobalTimer()
 
-                            if (scheduledata.scheduledata ?? [] ).isEmpty {
+                            if globaltimer.allSchedules.isEmpty {
                                 futuredates.firstscheduledate = nil
                             } else {
                                 futuredates.recomputeschedules()
@@ -128,9 +128,11 @@ struct CalendarMonthView: View {
                             
                             confirmdelete = false
                             if futuredates.demo == false {
+                                /*
                                 if let scheduladata = scheduledata.scheduledata {
                                     WriteSchedule(scheduladata)
                                 }
+                                 */
                             }
                         }
                     }
@@ -146,7 +148,7 @@ struct CalendarMonthView: View {
             }
             date = Date.now
             futuredates.lastdateinpresentmont = Date.now.endOfMonth
-            if futuredates.scheduledata?.count ?? 0 > 0 {
+            if globaltimer.allSchedules.count  > 0 {
                 futuredates.recomputeschedules()
             }
         }
@@ -154,14 +156,8 @@ struct CalendarMonthView: View {
             days = date.calendarDisplayDays
         }
         .onChange(of: futuredates.firstscheduledate) {
-            if futuredates.firstscheduledate == nil {
-                scheduledata.scheduledata = nil
-            } else {
-                scheduledata.filteronlyvalidschedules()
-            }
-            if (scheduledata.scheduledata ?? []).isEmpty {
-                let globalTimer = GlobalTimer.shared
-                globalTimer.invaldiateallschedulesandtimer()
+            if globaltimer.allSchedules.isEmpty {
+                globaltimer.invaldiateallschedulesandtimer()
             }
         }
         .padding()
@@ -209,10 +205,10 @@ struct CalendarMonthView: View {
     }
 
     func thereisaschedule(_ date: Date) -> Bool {
-        let verifyaschedule = futuredates.scheduledata?.compactMap { schedule in
+        let verifyaschedule = globaltimer.allSchedules.compactMap { schedule in
             schedule.dateRun?.en_date_from_string().startOfDay == date ? true : nil
         }
-        return verifyaschedule?.count ?? 0 > 0
+        return verifyaschedule.count > 0
     }
 
     func istappednoschedule(_ date: Date) -> Bool {

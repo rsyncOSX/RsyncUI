@@ -67,50 +67,28 @@ struct AddSchedule: View {
                 Button {
                     // Just concatenate month + minnutes string
                     let run = dateRunMonth + " " + dateRunHour
-
                     let profile: String? = if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
                         rsyncUIdata.validprofiles[index].profilename
                     } else { nil }
-
-                    let item = SchedulesConfigurations(profile: profile,
-                                                       dateAdded: dateAdded,
-                                                       dateRun: run,
-                                                       schedule: schedule)
 
                     guard scheduledata.verifynextschedule(plannednextschedule: run) else {
                         Logger.process.warning("AddSchedule: not valid more than 10 minutes to next schedule")
                         return
                     }
-
-                    if scheduledata.scheduledata == nil {
-                        scheduledata.scheduledata = []
-                    }
-                    scheduledata.scheduledata?.append(item)
-
-                    // If more than one schedule, sort by dateRun
-                    if scheduledata.scheduledata?.count ?? 0 > 1 {
-                        scheduledata.scheduledata?.sort { item1, item2 in
-                            if let date1 = item1.dateRun?.validate_en_date_from_string(),
-                               let date2 = item2.dateRun?.validate_en_date_from_string()
-                            {
-                                return date1 < date2
-                            }
-                            return false
-                        }
-                    }
+                    
+                    futuredates.appendfutureschedule(profile: profile, dateRun: run, schedule: schedule)
 
                     date = Date.now
-                    futuredates.scheduledata = scheduledata.scheduledata
                     istappeddayint = 0
                     futuredates.lastdateinpresentmont = Date.now.endOfMonth
                     // Recompute schedules and set first schedule to execute
                     futuredates.recomputeschedules()
                     futuredates.setfirsscheduledate()
-                    
+                    /*
                     if let scheduledata = scheduledata.scheduledata {
                         WriteSchedule(scheduledata)
                     }
-
+                     */
                 } label: {
                     Label("Add", systemImage: "plus")
                 }

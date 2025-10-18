@@ -11,11 +11,11 @@ import Observation
 @Observable @MainActor
 final class ObservableScheduleData {
     
-    var scheduledata: [SchedulesConfigurations]?
+    let globaltime = GlobalTimer.shared
 
     // Verify new planned schedule
     func verifynextschedule(plannednextschedule: String) -> Bool {
-        let dates = scheduledata?.sorted { s1, s2 in
+        let dates = globaltime.allSchedules.sorted { s1, s2 in
             if let id1 = s1.dateRun?.en_date_from_string(),
                let id2 = s2.dateRun?.en_date_from_string()
             {
@@ -24,9 +24,9 @@ final class ObservableScheduleData {
             return false
         }
 
-        if dates?.count ?? 0 > 0 {
+        if dates.count > 0 {
             // Pick the first schedule
-            if let firstschedulestring = dates?.first?.dateRun {
+            if let firstschedulestring = dates.first?.dateRun {
                 let firstscheduledate = firstschedulestring.en_date_from_string()
                 let plannedDate = plannednextschedule.en_date_from_string()
 
@@ -54,19 +54,20 @@ final class ObservableScheduleData {
     func delete(_ uuids: Set<UUID>) {
         var indexset = IndexSet()
 
-        _ = scheduledata?.map { schedule in
-            if let index = scheduledata?.firstIndex(of: schedule) {
+        _ = globaltime.allSchedules.map { schedule in
+            if let index = globaltime.allSchedules.firstIndex(of: schedule) {
                 if uuids.contains(schedule.id) {
                     indexset.insert(index)
                 }
             }
         }
         // Remove all marked configurations in one go by IndexSet
-        scheduledata?.remove(atOffsets: indexset)
+        globaltime.allSchedules.remove(atOffsets: indexset)
     }
 
+/*
     func filteronlyvalidschedules() {
-        scheduledata = scheduledata?.compactMap { schedule in
+        scheduledata = globaltime.allSchedules.compactMap { schedule in
             if let daterun = schedule.dateRun,
                let schedule = schedule.schedule,
                daterun.en_date_from_string() < Date.now,
@@ -78,6 +79,6 @@ final class ObservableScheduleData {
             }
         }
     }
-
+*/
     init() {}
 }
