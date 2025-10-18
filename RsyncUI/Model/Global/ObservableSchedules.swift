@@ -118,7 +118,7 @@ final class ObservableSchedules {
         }
 
         guard recomputedschedules.count > 0 else {
-            GlobalTimer.shared.invaldiateallschedulesandtimer()
+            GlobalTimer.shared.invalidateAllSchedulesAndTimer()
             firstscheduledate = nil
             Logger.process.info("ObservableFutureSchedules: recomputeschedules() no schdeules")
 

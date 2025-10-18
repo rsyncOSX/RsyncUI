@@ -115,7 +115,7 @@ struct CalendarMonthView: View {
                             istappeddayint = 0
                             schedules.lastdateinpresentmont = Date.now.endOfMonth
 
-                            globaltimer.invaldiateallschedulesandtimer()
+                            globaltimer.invalidateAllSchedulesAndTimer()
                             // futuredates.recalculateschedulesGlobalTimer()
 
                             if globaltimer.allSchedules.isEmpty {
@@ -152,7 +152,7 @@ struct CalendarMonthView: View {
         }
         .onChange(of: schedules.firstscheduledate) {
             if globaltimer.allSchedules.isEmpty {
-                globaltimer.invaldiateallschedulesandtimer()
+                globaltimer.invalidateAllSchedulesAndTimer()
             }
         }
         .padding()

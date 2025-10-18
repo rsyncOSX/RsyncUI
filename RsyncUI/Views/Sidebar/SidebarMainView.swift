@@ -192,7 +192,7 @@ struct SidebarMainView: View {
             Logger.process.info("SidebarMainView: got TRIGGER from Schedule, firstscheduledate is set")
 
             if globaltimer.allSchedules.isEmpty {
-                globaltimer.invaldiateallschedulesandtimer()
+                globaltimer.invalidateAllSchedulesAndTimer()
             }
         }
         .onChange(of: schedules.scheduledprofile) {

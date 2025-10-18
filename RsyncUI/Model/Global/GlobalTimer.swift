@@ -9,8 +9,29 @@ struct ScheduledItem: Identifiable, Hashable {
     public let id = UUID()
     let time: Date
     let tolerance: TimeInterval
-    let callback: () -> Void
+    // Changed to weak capture wrapper to prevent retain cycles
+    private let callbackWrapper: CallbackWrapper
     var scheduledata: SchedulesConfigurations?
+    
+    // Wrapper class to hold the callback without affecting Hashable/Equatable
+    private class CallbackWrapper {
+        let callback: () -> Void
+        init(_ callback: @escaping () -> Void) {
+            self.callback = callback
+        }
+    }
+    
+    init(time: Date, tolerance: TimeInterval, callback: @escaping () -> Void, scheduledata: SchedulesConfigurations?) {
+        self.time = time
+        self.tolerance = tolerance
+        self.callbackWrapper = CallbackWrapper(callback)
+        self.scheduledata = scheduledata
+    }
+    
+    // Execute the wrapped callback
+    func execute() {
+        callbackWrapper.callback()
+    }
 
     public static func == (lhs: ScheduledItem, rhs: ScheduledItem) -> Bool {
         // Compare identity and schedule-relevant fields; ignore the closure
@@ -30,7 +51,7 @@ struct ScheduledItem: Identifiable, Hashable {
 public final class GlobalTimer {
     public static let shared = GlobalTimer()
 
-    // Exposed Array of not excuted Schedule
+    // Exposed Array of not executed Schedule
     var allSchedules = [ScheduledItem]()
 
     // MARK: - Properties
@@ -71,7 +92,7 @@ public final class GlobalTimer {
         return earliest?.time.formatted(format)
     }
 
-    func invaldiateallschedulesandtimer() {
+    func invalidateAllSchedulesAndTimer() {
         Logger.process.info("GlobalTimer: INVALIDATING all schedules")
         timer?.invalidate()
         timer = nil
@@ -82,7 +103,8 @@ public final class GlobalTimer {
     /// - Parameters:
     ///   - time: Target execution time
     ///   - tolerance: Tolerance in seconds (defaults to 10% of interval, min 1s, max 60s)
-    ///   - callback: Closure to execute when due
+    ///   - callback: Closure to execute when due (use [weak self] to avoid retain cycles)
+    ///   - scheduledata: Optional configuration data for the schedule
     func addSchedule(
         time: Date,
         tolerance: TimeInterval? = nil,
@@ -91,6 +113,7 @@ public final class GlobalTimer {
     ) {
         let interval = time.timeIntervalSince(.now)
         let finalTolerance = tolerance ?? defaultTolerance(for: interval)
+        
         // UUID is also set in ScheduledItem
         let scheduleitem = ScheduledItem(
             time: time,
@@ -98,6 +121,7 @@ public final class GlobalTimer {
             callback: callback,
             scheduledata: scheduledata
         )
+        
         guard validatescheduleinset(scheduleitem) == false else { return }
         Logger.process.info("GlobalTimer: Adding NEW schedule for at \(time, privacy: .public) (tolerance: \(finalTolerance, privacy: .public)s)")
 
@@ -125,7 +149,7 @@ public final class GlobalTimer {
 
         guard allSchedules.isEmpty == false else {
             Logger.process.info("GlobalTimer: No more tasks to schedule for execution")
-            invaldiateallschedulesandtimer()
+            invalidateAllSchedulesAndTimer()
             return
         }
 
@@ -145,7 +169,7 @@ public final class GlobalTimer {
 
     // MARK: - Private
 
-    // This function is triggered at time t, it finds the apporiate callback and executes it
+    // This function is triggered at time t, it finds the appropriate callback and executes it
     private func checkSchedules() {
         if let item = allSchedules.first {
             if allSchedules.count > 0 {
@@ -154,13 +178,14 @@ public final class GlobalTimer {
             executeSchedule(item)
         } else {
             Logger.process.info("GlobalTimer: No more tasks to schedule for execution")
-            invaldiateallschedulesandtimer()
+            invalidateAllSchedulesAndTimer()
         }
     }
 
     private func executeSchedule(_ dueitem: ScheduledItem) {
-        Logger.process.info("GlobalTimer: EXCUTING schedule for '\(dueitem.scheduledata?.profile ?? "Default", privacy: .public)'")
-        dueitem.callback()
+        Logger.process.info("GlobalTimer: EXECUTING schedule for '\(dueitem.scheduledata?.profile ?? "Default", privacy: .public)'")
+        // Use the execute method instead of calling callback directly
+        dueitem.execute()
     }
 
     // MARK: - Wake Handling
