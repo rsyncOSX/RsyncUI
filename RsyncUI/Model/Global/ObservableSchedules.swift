@@ -162,7 +162,8 @@ final class ObservableSchedules {
 
         if demo == false {
             // The Callback for Schedule
-            let callback: () -> Void = {
+            let callback: () -> Void = { [weak self] in
+                guard let self else { return }
                 GlobalTimer.shared.scheduleNextTimer()
                 // Setting profile name will trigger execution
                 self.scheduledprofile = schedule.profile ?? "Default"
@@ -182,9 +183,9 @@ final class ObservableSchedules {
         } else {
             Logger.process.info("ObservableFutureSchedules: addtaskandcallback() adding DEMO schedule")
 
-            let callback: () -> Void = {
+            let callback: () -> Void = { [weak self] in
+                guard self != nil else { return }
                 GlobalTimer.shared.scheduleNextTimer()
-
                 Task {
                     // Logging to file that a Schedule is fired
                     await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for DEMO"])
