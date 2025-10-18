@@ -12,6 +12,7 @@ import SwiftUI
 
 @Observable @MainActor
 final class ObservableFutureSchedules {
+    
     let globaltime = GlobalTimer.shared
 
     @ObservationIgnored var lastdateinpresentmont: Date?
@@ -230,29 +231,58 @@ final class ObservableFutureSchedules {
 
         setfirsscheduledate()
     }
+    
+    // Verify new planned schedule
+    func verifynextschedule(plannednextschedule: String) -> Bool {
+        let dates = globaltime.allSchedules.sorted { s1, s2 in
+            if let id1 = s1.dateRun?.en_date_from_string(),
+               let id2 = s2.dateRun?.en_date_from_string()
+            {
+                return id1 < id2
+            }
+            return false
+        }
+
+        if dates.count > 0 {
+            // Pick the first schedule
+            if let firstschedulestring = dates.first?.dateRun {
+                let firstscheduledate = firstschedulestring.en_date_from_string()
+                let plannedDate = plannednextschedule.en_date_from_string()
+
+                // Case 1: plannednextschedule is at least 10 minutes AFTER firstscheduledate
+                if plannedDate >= firstscheduledate.addingTimeInterval(10 * 60) {
+                    return true
+                }
+
+                // Case 2: plannednextschedule is between (firstscheduledate - 10 min) and > now
+                if plannedDate <= firstscheduledate.addingTimeInterval(-10 * 60),
+                   plannedDate > Date.now
+                {
+                    return true
+                }
+
+                return false
+            }
+        }
+
+        // No schedules added yet
+        return plannednextschedule.en_date_from_string() > Date.now
+    }
+
+    // Delete by IndexSet
+    func delete(_ uuids: Set<UUID>) {
+        var indexset = IndexSet()
+
+        _ = globaltime.allSchedules.map { schedule in
+            if let index = globaltime.allSchedules.firstIndex(of: schedule) {
+                if uuids.contains(schedule.id) {
+                    indexset.insert(index)
+                }
+            }
+        }
+        // Remove all marked configurations in one go by IndexSet
+        globaltime.allSchedules.remove(atOffsets: indexset)
+    }
+
 }
 
-/*
- func recalculateschedulesGlobalTimer() {
-
-     let globalTimer = GlobalTimer.shared
-     for i in 0 ..< globaltime.allSchedules.count {
-         if let schedultime = globaltime.allSchedules[i].dateRun?.en_date_from_string() {
-             let callback: () -> Void = {
-                 self.recomputeschedules()
-                 // Setting profile name will trigger execution
-                 self.scheduledprofile = self.globaltime.allSchedules[i].profile ?? "Default"
-                 Task {
-                     // Logging to file that a Schedule is fired
-                     await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for \(self.globaltime.allSchedules[i].profile ?? "Default")"])
-                 }
-             }
-             /*
-             globalTimer.addSchedule(time: schedultime,
-                                     tolerance: 10,
-                                     callback: callback)
-              */
-         }
-     }
- }
- */

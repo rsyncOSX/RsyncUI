@@ -10,7 +10,6 @@ import SwiftUI
 
 struct AddSchedule: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Bindable var scheduledata: ObservableScheduleData
     @Bindable var futuredates: ObservableFutureSchedules
 
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
@@ -40,8 +39,8 @@ struct AddSchedule: View {
 
                 EditValueErrorScheme(50, NSLocalizedString("", comment: ""),
                                      $dateRunHour,
-                                     scheduledata.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour))
-                    .foregroundColor(scheduledata.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour) ? Color.white : Color.red)
+                                     futuredates.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour))
+                    .foregroundColor(futuredates.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour) ? Color.white : Color.red)
                 /*
                  TextField("", text: $dateRunMonth)
                      .frame(width: 80)
@@ -71,7 +70,7 @@ struct AddSchedule: View {
                         rsyncUIdata.validprofiles[index].profilename
                     } else { nil }
 
-                    guard scheduledata.verifynextschedule(plannednextschedule: run) else {
+                    guard futuredates.verifynextschedule(plannednextschedule: run) else {
                         Logger.process.warning("AddSchedule: not valid more than 10 minutes to next schedule")
                         return
                     }

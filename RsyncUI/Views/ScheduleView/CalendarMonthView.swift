@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CalendarMonthView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Bindable var scheduledata: ObservableScheduleData
     @Bindable var futuredates: ObservableFutureSchedules
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
 
@@ -96,7 +95,6 @@ struct CalendarMonthView: View {
 
             VStack(alignment: .leading) {
                 AddSchedule(rsyncUIdata: rsyncUIdata,
-                            scheduledata: scheduledata,
                             futuredates: futuredates,
                             selectedprofileID: $selectedprofileID,
                             dateAdded: $dateAdded,
@@ -111,7 +109,7 @@ struct CalendarMonthView: View {
                         isPresented: $confirmdelete)
                     {
                         Button("Delete") {
-                            scheduledata.delete(selecteduuids)
+                            futuredates.delete(selecteduuids)
 
                             date = Date.now
                             istappeddayint = 0

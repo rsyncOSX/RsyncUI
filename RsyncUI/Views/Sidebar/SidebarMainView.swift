@@ -54,8 +54,6 @@ struct SidebarMainView: View {
     @State private var mountingvolumenow: Bool = false
     // Calendar
     @State private var futuredates = ObservableFutureSchedules()
-    @State private var scheduledata = ObservableScheduleData()
-
     let globaltimer = GlobalTimer.shared
 
     var body: some View {
@@ -253,7 +251,6 @@ struct SidebarMainView: View {
         case .schedule:
             NavigationStack {
                 CalendarMonthView(rsyncUIdata: rsyncUIdata,
-                                  scheduledata: scheduledata,
                                   futuredates: futuredates,
                                   selectedprofileID: $selectedprofileID)
             }
