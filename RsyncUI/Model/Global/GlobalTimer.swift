@@ -135,7 +135,7 @@ public final class GlobalTimer {
 
     // MARK: - Private
 
-    private func scheduleNextTimer() {
+    public func scheduleNextTimer() {
         
         timer?.invalidate()
         timer = nil
