@@ -33,6 +33,7 @@ final class ObservableFutureSchedules {
         }
 
         switch schedule {
+            
         case ScheduleType.daily.rawValue:
             dateComponents.day = 1
         /*
@@ -43,7 +44,7 @@ final class ObservableFutureSchedules {
             // Handle once as a special case, only daily and weekly needs repeat
             if let lastdateinpresentmont {
                 if dateRun.monthInt == lastdateinpresentmont.monthInt {
-                    appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: "")
+                    appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: ScheduleType.once.rawValue)
                 }
             }
             return
@@ -102,7 +103,7 @@ final class ObservableFutureSchedules {
     func appendfutureschedule(profile: String?, dateRun: String, schedule: String) {
         guard dateRun.en_date_from_string() >= Date.now else { return }
         let futureschedule = SchedulesConfigurations(profile: profile,
-                                                     dateAdded: nil,
+                                                     dateAdded: Date.now.en_string_from_date(),
                                                      dateRun: dateRun,
                                                      schedule: schedule)
         addtaskandcallback(futureschedule)
@@ -134,6 +135,7 @@ final class ObservableFutureSchedules {
                 computefuturedates(profile: recomputedschedules[i].profile, schedule: schedule, dateRun: dateRun)
             }
         }
+        
         setfirsscheduledate()
     }
 
@@ -171,8 +173,11 @@ final class ObservableFutureSchedules {
                         await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for \(self.globaltime.allSchedules[i].profile ?? "Default")"])
                     }
                 }
-                
-                globalTimer.addSchedule(time: schedultime, tolerance: 10, callback: callback)
+                /*
+                globalTimer.addSchedule(time: schedultime,
+                                        tolerance: 10,
+                                        callback: callback)
+                 */
             }
         }
     }
@@ -194,7 +199,13 @@ final class ObservableFutureSchedules {
             }
             // Then add new schedule
             if let schedultime = schedule.dateRun?.en_date_from_string() {
-                globalTimer.addSchedule(time: schedultime, tolerance: 10, callback: callback)
+                globalTimer.addSchedule(time: schedultime,
+                                        tolerance: 10,
+                                        callback: callback,
+                                        profile: schedule.profile,
+                                        dateAdded: schedule.dateAdded ?? "",
+                                        dateRun: schedule.dateRun ?? "",
+                                        schedule: schedule.schedule ?? "")
             }
         } else {
             
@@ -209,10 +220,22 @@ final class ObservableFutureSchedules {
             }
             // Then add new schedule
             if let schedultime = schedule.dateRun?.en_date_from_string() {
-                globalTimer.addSchedule(time: schedultime, tolerance: 10, callback: callback)
+                globalTimer.addSchedule(time: schedultime,
+                                        tolerance: 10,
+                                        callback: callback,
+                                        profile: schedule.profile,
+                                        dateAdded: schedule.dateAdded ?? "",
+                                        dateRun: schedule.dateRun ?? "",
+                                        schedule: schedule.schedule ?? "")
             }
         }
         
+        /*
+         profile: String?,
+         dateAdded: String,
+         dateRun: String,
+         schedule: String
+         */
         
     }
 

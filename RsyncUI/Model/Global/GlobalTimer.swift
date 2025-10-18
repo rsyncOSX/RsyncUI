@@ -83,11 +83,6 @@ public final class GlobalTimer {
         return validate
     }
     
-    
-    private func appendallSchedules(_ schedule: [ScheduledItem]) {
-        allSchedules.append(contentsOf: schedule)
-    }
-
     public func timerIsActive() -> Bool {
         timer != nil
     }
@@ -113,25 +108,30 @@ public final class GlobalTimer {
     public func addSchedule(
         time: Date,
         tolerance: TimeInterval? = nil,
-        callback: @escaping () -> Void
+        callback: @escaping () -> Void,
+        
+        profile: String?,
+        dateAdded: String,
+        dateRun: String,
+        schedule: String
     ) {
         
         let interval = time.timeIntervalSince(.now)
         let finalTolerance = tolerance ?? defaultTolerance(for: interval)
         // UUID is also set in ScheduledItem
-        let schedule = ScheduledItem (
+        let scheduleitem = ScheduledItem (
             time: time,
             tolerance: max(0, finalTolerance),
-            callback: callback
+            callback: callback,
+            profile: profile,
+            dateAdded: dateAdded,
+            dateRun: dateRun,
+            schedule: schedule
         )
-        
-        guard validatescheduleinset(schedule) == false else { return }
-        
-        let scheduleitem : [ScheduledItem] = [schedule]
+        guard validatescheduleinset(scheduleitem) == false else { return }
         Logger.process.info("GlobalTimer: Adding NEW schedule for at \(time, privacy: .public) (tolerance: \(finalTolerance, privacy: .public)s)")
-        appendallSchedules(scheduleitem)
-        
-        if validateallschedulesalreadyintimer(schedule) == false {
+        allSchedules.append(scheduleitem)
+        if validateallschedulesalreadyintimer(scheduleitem) == false {
             scheduleNextTimer()
         }
         
