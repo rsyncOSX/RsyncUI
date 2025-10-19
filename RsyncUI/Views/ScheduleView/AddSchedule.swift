@@ -82,8 +82,7 @@ struct AddSchedule: View {
                     schedules.lastdateinpresentmont = Date.now.endOfMonth
                     // Recompute schedules and set first schedule to execute
                     schedules.recomputeschedules()
-                    schedules.setfirsscheduledate()
-                    
+            
                     let globaltimer = GlobalTimer.shared
                     let scheduledatamapped = globaltimer.allSchedules.map({ item in
                         item.scheduledata

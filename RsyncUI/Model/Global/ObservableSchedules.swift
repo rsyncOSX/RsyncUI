@@ -139,7 +139,7 @@ final class ObservableSchedules {
     }
 
     // Only set when loading data, when new schedules added or deleted
-    func setfirsscheduledate() {
+    private func setfirsscheduledate() {
         let dates = globaltime.allSchedules.sorted { s1, s2 in
             if let id1 = s1.scheduledata?.dateRun?.en_date_from_string(), let id2 = s2.scheduledata?.dateRun?.en_date_from_string() {
                 return id1 < id2
