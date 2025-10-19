@@ -56,23 +56,20 @@ struct CalendarMonthView: View {
                             Text("")
                         } else {
                             if thereisaschedule(day), day >= Date() {
-                                CalendarDayView(schedules: schedules,
-                                                dateRun: $dateRun,
+                                CalendarDayView(dateRun: $dateRun,
                                                 dateAdded: $dateAdded,
                                                 istappeddayint: $istappeddayint,
                                                 day: day,
                                                 style: .thereisaschedule)
 
                             } else if istappednoschedule(day) {
-                                CalendarDayView(schedules: schedules,
-                                                dateRun: $dateRun,
+                                CalendarDayView(dateRun: $dateRun,
                                                 dateAdded: $dateAdded,
                                                 istappeddayint: $istappeddayint,
                                                 day: day,
                                                 style: .istappednoschedule)
                             } else {
-                                CalendarDayView(schedules: schedules,
-                                                dateRun: $dateRun,
+                                CalendarDayView(dateRun: $dateRun,
                                                 dateAdded: $dateAdded,
                                                 istappeddayint: $istappeddayint,
                                                 day: day,
