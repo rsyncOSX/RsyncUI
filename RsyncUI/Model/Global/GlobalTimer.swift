@@ -222,8 +222,32 @@ public final class GlobalTimer {
         allSchedules.removeAll { schedule in
             indexesdelete.contains(schedule.id)
         }
-        
     }
+    
+    /*
+     private func handleWake() {
+         Logger.process.info("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
+         
+         // Partition schedules into past-due and future schedules
+         let (pastDue, future) = allSchedules.reduce(into: ([], [])) { result, schedule in
+             if schedule.time.timeIntervalSinceNow < 0 {
+                 result.0.append(schedule)
+             } else {
+                 result.1.append(schedule)
+             }
+         }
+         
+         notExecutedSchedulesafterWakeUp = pastDue
+         allSchedules = future
+     }
+     
+     private func handleWake() {
+         Logger.process.info("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
+         
+         notExecutedSchedulesafterWakeUp = allSchedules.filter { $0.time.timeIntervalSinceNow < 0 }
+         allSchedules.removeAll { $0.time.timeIntervalSinceNow < 0 }
+     }
+     */
 
     // MARK: - Helpers
 
