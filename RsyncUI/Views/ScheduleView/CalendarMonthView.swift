@@ -19,6 +19,7 @@ struct CalendarMonthView: View {
 
     @State private var days: [Date] = []
     @State private var selecteduuids: Set<SchedulesConfigurations.ID> = []
+    @State private var selecteduuidsnotexecuted: Set<SchedulesConfigurations.ID> = []
     @State private var dateAdded: String = Date.now.en_string_from_date()
     @State private var dateRun: String = Date.now.en_string_from_date()
     @State private var confirmdelete: Bool = false
@@ -99,37 +100,46 @@ struct CalendarMonthView: View {
                             istappeddayint: $istappeddayint,
                             date: $date)
 
-                TableofSchedules(selecteduuids: $selecteduuids)
-                    .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 schedule" :
-                        "Delete \(selecteduuids.count) schedules",
-                        isPresented: $confirmdelete)
-                    {
-                        Button("Delete") {
-                            schedules.delete(selecteduuids)
+                VStack {
+                    
+                    TableofSchedules(selecteduuids: $selecteduuids)
+                        .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 schedule" :
+                            "Delete \(selecteduuids.count) schedules",
+                            isPresented: $confirmdelete)
+                        {
+                            Button("Delete") {
+                                schedules.delete(selecteduuids)
 
-                            date = Date.now
-                            istappeddayint = 0
-                            schedules.lastdateinpresentmont = Date.now.endOfMonth
+                                date = Date.now
+                                istappeddayint = 0
+                                schedules.lastdateinpresentmont = Date.now.endOfMonth
 
-                            if globaltimer.allSchedules.isEmpty {
-                                schedules.firstscheduledate = nil
-                            } else {
-                                schedules.recomputeschedules()
-                            }
+                                if globaltimer.allSchedules.isEmpty {
+                                    schedules.firstscheduledate = nil
+                                } else {
+                                    schedules.recomputeschedules()
+                                }
 
-                            confirmdelete = false
-                            
-                            if schedules.demo == false {
-                                let scheduledatamapped = globaltimer.allSchedules.map({ item in
-                                    item.scheduledata
-                                })
-                                WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
+                                confirmdelete = false
+                                
+                                if schedules.demo == false {
+                                    let scheduledatamapped = globaltimer.allSchedules.map({ item in
+                                        item.scheduledata
+                                    })
+                                    WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
+                                }
                             }
                         }
+                        .onDeleteCommand {
+                            confirmdelete = true
+                        }
+                    
+                    if GlobalTimer.shared.notExecutedSchedulesafterWakeUp.count > 0 {
+                        
+                        TableofNotExeSchedules(selecteduuids: $selecteduuidsnotexecuted)
+                        
                     }
-                    .onDeleteCommand {
-                        confirmdelete = true
-                    }
+                }
             }
         }
         .onAppear {
