@@ -9,10 +9,9 @@ import SwiftUI
 
 struct TableofSchedules: View {
     @Binding var selecteduuids: Set<ScheduledItem.ID>
-    let schedules: [ScheduledItem]
-
+    
     var body: some View {
-        Table(schedules, selection: $selecteduuids) {
+        Table(GlobalTimer.shared.allSchedules, selection: $selecteduuids) {
             TableColumn("Profile") { data in
                 Text(data.scheduledata?.profile ?? "Default")
             }

@@ -99,8 +99,7 @@ struct CalendarMonthView: View {
                             istappeddayint: $istappeddayint,
                             date: $date)
 
-                TableofSchedules(selecteduuids: $selecteduuids,
-                                 schedules: globaltimer.allSchedules)
+                TableofSchedules(selecteduuids: $selecteduuids)
                     .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 schedule" :
                         "Delete \(selecteduuids.count) schedules",
                         isPresented: $confirmdelete)
@@ -112,7 +111,7 @@ struct CalendarMonthView: View {
                             istappeddayint = 0
                             schedules.lastdateinpresentmont = Date.now.endOfMonth
 
-                            globaltimer.invalidateAllSchedulesAndTimer()
+                            // globaltimer.invalidateAllSchedulesAndTimer()
                             // futuredates.recalculateschedulesGlobalTimer()
 
                             if globaltimer.allSchedules.isEmpty {

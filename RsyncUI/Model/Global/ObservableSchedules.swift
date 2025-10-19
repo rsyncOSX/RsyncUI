@@ -278,16 +278,8 @@ final class ObservableSchedules {
 
     // Delete by IndexSet
     func delete(_ uuids: Set<UUID>) {
-        var indexset = IndexSet()
-
-        _ = globaltime.allSchedules.map { schedule in
-            if let index = globaltime.allSchedules.firstIndex(of: schedule) {
-                if uuids.contains(schedule.id) {
-                    indexset.insert(index)
-                }
-            }
+        globaltime.allSchedules.removeAll { schedule in
+            uuids.contains(schedule.id)
         }
-        // Remove all marked configurations in one go by IndexSet
-        globaltime.allSchedules.remove(atOffsets: indexset)
     }
 }

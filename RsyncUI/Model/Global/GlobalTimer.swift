@@ -6,14 +6,12 @@ import OSLog
 // MARK: - Types
  
 struct ScheduledItem: Identifiable, Hashable {
-    public let id = UUID()
+    public let id: UUID  // Remove = UUID()
     let time: Date
     let tolerance: TimeInterval
-    // Changed to weak capture wrapper to prevent retain cycles
     private let callbackWrapper: CallbackWrapper
     var scheduledata: SchedulesConfigurations?
     
-    // Wrapper class to hold the callback without affecting Hashable/Equatable
     private class CallbackWrapper {
         let callback: () -> Void
         init(_ callback: @escaping () -> Void) {
@@ -22,6 +20,7 @@ struct ScheduledItem: Identifiable, Hashable {
     }
     
     init(time: Date, tolerance: TimeInterval, callback: @escaping () -> Void, scheduledata: SchedulesConfigurations?) {
+        self.id = UUID()  // Create UUID once during init
         self.time = time
         self.tolerance = tolerance
         self.callbackWrapper = CallbackWrapper(callback)
@@ -29,20 +28,17 @@ struct ScheduledItem: Identifiable, Hashable {
     }
     
     // Execute the wrapped callback
-    func execute() {
-        callbackWrapper.callback()
-    }
-
-    public static func == (lhs: ScheduledItem, rhs: ScheduledItem) -> Bool {
-        // Compare identity and schedule-relevant fields; ignore the closure
-        lhs.id == rhs.id && lhs.time == rhs.time && lhs.tolerance == rhs.tolerance
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        // Hash only stable, hashable properties; ignore the closure
+        func execute() {
+            callbackWrapper.callback()
+        }
+    
+    // Implement Hashable based on id only
+    func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-        hasher.combine(time)
-        hasher.combine(tolerance)
+    }
+    
+    static func == (lhs: ScheduledItem, rhs: ScheduledItem) -> Bool {
+        lhs.id == rhs.id
     }
 }
 
