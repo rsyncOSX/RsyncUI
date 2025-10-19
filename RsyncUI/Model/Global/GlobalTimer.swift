@@ -49,6 +49,8 @@ public final class GlobalTimer {
 
     // Exposed Array of not executed Schedule
     var allSchedules = [ScheduledItem]()
+    // Schedules not executed after WakeUp - func handleWake()
+    var notExecutedSchedulesafterWakeUp: [ScheduledItem] = []
 
     // MARK: - Properties
 
@@ -205,7 +207,22 @@ public final class GlobalTimer {
 
     private func handleWake() {
         Logger.process.info("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
-        checkSchedules()
+        notExecutedSchedulesafterWakeUp.removeAll()
+        // checkSchedules()
+        let noexecute = allSchedules.compactMap { item in
+            return item.time.timeIntervalSinceNow < 0 ? item : nil
+        }
+        _ = noexecute.map({ item in
+            notExecutedSchedulesafterWakeUp.append(item)
+        })
+        var indexesdelete = Set<UUID>()
+        _ = notExecutedSchedulesafterWakeUp.map { item in
+            indexesdelete.insert(item.id)
+        }
+        allSchedules.removeAll { schedule in
+            indexesdelete.contains(schedule.id)
+        }
+        
     }
 
     // MARK: - Helpers

@@ -111,9 +111,6 @@ struct CalendarMonthView: View {
                             istappeddayint = 0
                             schedules.lastdateinpresentmont = Date.now.endOfMonth
 
-                            // globaltimer.invalidateAllSchedulesAndTimer()
-                            // futuredates.recalculateschedulesGlobalTimer()
-
                             if globaltimer.allSchedules.isEmpty {
                                 schedules.firstscheduledate = nil
                             } else {
