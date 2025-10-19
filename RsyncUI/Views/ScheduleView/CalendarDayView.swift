@@ -51,15 +51,11 @@ struct CalendarDayView: View {
                     }
                 }
                 .contextMenu {
-                    ForEach(globaltime.allSchedules, id: \.self) { schedule in
-                        /*
-                        if istoday(runDate: schedule.scheduledata?.dateRun, day: day) {
-                            VStack {
-                                Text(schedule.profile ?? "")
-                                Text(schedule.dateRun ?? "")
-                            }
+                    ForEach(schedulestoday, id: \.self) { schedule in
+                        VStack {
+                            Text(schedule.profile ?? "")
+                            Text(schedule.dateRun ?? "")
                         }
-                         */
                     }
                 }
         case .istappednoschedule:
@@ -101,15 +97,11 @@ struct CalendarDayView: View {
                     }
                 }
                 .contextMenu {
-                    ForEach(globaltime.allSchedules, id: \.self) { schedule in
-                        /*
-                        if istoday(runDate: schedule.dateRun, day: day) {
-                            VStack {
-                                Text(schedule.profile ?? "")
-                                Text(schedule.dateRun ?? "")
-                            }
+                    ForEach(schedulestoday, id: \.self) { schedule in
+                        VStack {
+                            Text(schedule.profile ?? "")
+                            Text(schedule.dateRun ?? "")
                         }
-                         */
                     }
                 }
         }
@@ -146,5 +138,14 @@ struct CalendarDayView: View {
             return false
         }
         return false
+    }
+    
+    var schedulestoday: [SchedulesConfigurations] {
+        let todayitems = globaltime.allSchedules.filter { item in
+            istoday(runDate: item.scheduledata?.dateRun, day: day)
+        }
+        return todayitems.compactMap { item in
+            item.scheduledata
+        }
     }
 }
