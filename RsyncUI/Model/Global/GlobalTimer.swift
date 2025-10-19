@@ -208,23 +208,35 @@ public final class GlobalTimer {
     private func handleWake() {
         Logger.process.info("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
         notExecutedSchedulesafterWakeUp.removeAll()
-        // checkSchedules()
-        let noexecute = allSchedules.compactMap { item in
-            return item.time.timeIntervalSinceNow < 0 ? item : nil
-        }
-        _ = noexecute.map({ item in
-            notExecutedSchedulesafterWakeUp.append(item)
-        })
-        var indexesdelete = Set<UUID>()
-        _ = notExecutedSchedulesafterWakeUp.map { item in
-            indexesdelete.insert(item.id)
-        }
-        allSchedules.removeAll { schedule in
-            indexesdelete.contains(schedule.id)
-        }
+        Logger.process.info("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
+        notExecutedSchedulesafterWakeUp = allSchedules.filter { $0.time.timeIntervalSinceNow < 0 }
+        allSchedules.removeAll { $0.time.timeIntervalSinceNow < 0 }
     }
     
     /*
+     
+     private func handleWake() {
+         Logger.process.info("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
+         notExecutedSchedulesafterWakeUp.removeAll()
+    
+         Logger.process.info("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
+         
+         // checkSchedules()
+         let noexecute = allSchedules.compactMap { item in
+             return item.time.timeIntervalSinceNow < 0 ? item : nil
+         }
+         _ = noexecute.map({ item in
+             notExecutedSchedulesafterWakeUp.append(item)
+         })
+         var indexesdelete = Set<UUID>()
+         _ = notExecutedSchedulesafterWakeUp.map { item in
+             indexesdelete.insert(item.id)
+         }
+         allSchedules.removeAll { schedule in
+             indexesdelete.contains(schedule.id)
+         }
+     }
+     
      private func handleWake() {
          Logger.process.info("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
          
