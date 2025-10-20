@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TableofNotExeSchedules: View {
     @Binding var selecteduuids: Set<ScheduledItem.ID>
-    
+
     var body: some View {
         Table(GlobalTimer.shared.notExecutedSchedulesafterWakeUp, selection: $selecteduuids) {
             TableColumn("Profile") { data in
@@ -31,7 +31,7 @@ struct TableofNotExeSchedules: View {
                 Text(data.scheduledata?.dateAdded ?? "")
             }
             .width(max: 120)
-            
+
             TableColumn("Min/hour/day") { data in
                 var seconds: Double {
                     if let date = data.scheduledata?.dateRun {

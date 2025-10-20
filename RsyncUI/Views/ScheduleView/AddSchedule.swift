@@ -82,13 +82,13 @@ struct AddSchedule: View {
                     schedules.lastdateinpresentmont = Date.now.endOfMonth
                     // Recompute schedules and set first schedule to execute
                     schedules.recomputeschedules()
-            
+
                     let globaltimer = GlobalTimer.shared
-                    let scheduledatamapped = globaltimer.allSchedules.map({ item in
+                    let scheduledatamapped = globaltimer.allSchedules.map { item in
                         item.scheduledata
-                    })
+                    }
                     WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
-                    
+
                 } label: {
                     Label("Add", systemImage: "plus")
                 }

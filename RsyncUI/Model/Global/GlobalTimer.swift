@@ -4,39 +4,39 @@ import Observation
 import OSLog
 
 // MARK: - Types
- 
+
 struct ScheduledItem: Identifiable, Hashable {
-    public let id: UUID  // Remove = UUID()
+    let id: UUID // Remove = UUID()
     let time: Date
     let tolerance: TimeInterval
     private let callbackWrapper: CallbackWrapper
     var scheduledata: SchedulesConfigurations?
-    
+
     private class CallbackWrapper {
         let callback: () -> Void
         init(_ callback: @escaping () -> Void) {
             self.callback = callback
         }
     }
-    
+
     init(time: Date, tolerance: TimeInterval, callback: @escaping () -> Void, scheduledata: SchedulesConfigurations?) {
-        self.id = UUID()  // Create UUID once during init
+        id = UUID() // Create UUID once during init
         self.time = time
         self.tolerance = tolerance
-        self.callbackWrapper = CallbackWrapper(callback)
+        callbackWrapper = CallbackWrapper(callback)
         self.scheduledata = scheduledata
     }
-    
+
     // Execute the wrapped callback
-        func execute() {
-            callbackWrapper.callback()
-        }
-    
+    func execute() {
+        callbackWrapper.callback()
+    }
+
     // Implement Hashable based on id only
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
-    
+
     static func == (lhs: ScheduledItem, rhs: ScheduledItem) -> Bool {
         lhs.id == rhs.id
     }
@@ -111,7 +111,7 @@ public final class GlobalTimer {
     ) {
         let interval = time.timeIntervalSince(.now)
         let finalTolerance = tolerance ?? defaultTolerance(for: interval)
-        
+
         // UUID is also set in ScheduledItem
         let scheduleitem = ScheduledItem(
             time: time,
@@ -119,7 +119,7 @@ public final class GlobalTimer {
             callback: callback,
             scheduledata: scheduledata
         )
-        
+
         guard validatescheduleinset(scheduleitem) == false else {
             Logger.process.info("GlobalTimer: Adding NEW schedule - already IN allSchedules")
             return
@@ -145,7 +145,6 @@ public final class GlobalTimer {
     }
 
     public func scheduleNextTimer() {
-        
         Logger.process.info("GlobalTimer: scheduleNextTimer() - Invalidateing existing timer")
         timer?.invalidate()
         timer = nil
@@ -187,7 +186,6 @@ public final class GlobalTimer {
 
     private func executeSchedule(_ dueitem: ScheduledItem) {
         Logger.process.info("GlobalTimer: EXECUTING schedule for '\(dueitem.scheduledata?.profile ?? "Default", privacy: .public)'")
-        // Use the execute method instead of calling callback directly
         dueitem.execute()
     }
 
@@ -208,62 +206,15 @@ public final class GlobalTimer {
     private func handleWake() {
         Logger.process.info("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
         notExecutedSchedulesafterWakeUp.removeAll()
-        Logger.process.info("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
         notExecutedSchedulesafterWakeUp = allSchedules.filter { $0.time.timeIntervalSinceNow < 0 }
         allSchedules.removeAll { $0.time.timeIntervalSinceNow < 0 }
+
+        notExecutedSchedulesafterWakeUp = notExecutedSchedulesafterWakeUp.sorted(by: { $0.time < $1.time })
     }
-    
-    /*
-     
-     private func handleWake() {
-         Logger.process.info("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
-         notExecutedSchedulesafterWakeUp.removeAll()
-    
-         Logger.process.info("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
-         
-         // checkSchedules()
-         let noexecute = allSchedules.compactMap { item in
-             return item.time.timeIntervalSinceNow < 0 ? item : nil
-         }
-         _ = noexecute.map({ item in
-             notExecutedSchedulesafterWakeUp.append(item)
-         })
-         var indexesdelete = Set<UUID>()
-         _ = notExecutedSchedulesafterWakeUp.map { item in
-             indexesdelete.insert(item.id)
-         }
-         allSchedules.removeAll { schedule in
-             indexesdelete.contains(schedule.id)
-         }
-     }
-     
-     private func handleWake() {
-         Logger.process.info("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
-         
-         // Partition schedules into past-due and future schedules
-         let (pastDue, future) = allSchedules.reduce(into: ([], [])) { result, schedule in
-             if schedule.time.timeIntervalSinceNow < 0 {
-                 result.0.append(schedule)
-             } else {
-                 result.1.append(schedule)
-             }
-         }
-         
-         notExecutedSchedulesafterWakeUp = pastDue
-         allSchedules = future
-     }
-     
-     private func handleWake() {
-         Logger.process.info("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
-         
-         notExecutedSchedulesafterWakeUp = allSchedules.filter { $0.time.timeIntervalSinceNow < 0 }
-         allSchedules.removeAll { $0.time.timeIntervalSinceNow < 0 }
-     }
-     */
 
     // MARK: - Helpers
 
-    private func defaultTolerance(for interval: TimeInterval) -> TimeInterval {
+    func defaultTolerance(for interval: TimeInterval) -> TimeInterval {
         min(60, max(1, interval * 0.1))
     }
 }

@@ -23,6 +23,7 @@ struct CalendarMonthView: View {
     @State private var dateAdded: String = Date.now.en_string_from_date()
     @State private var dateRun: String = Date.now.en_string_from_date()
     @State private var confirmdelete: Bool = false
+    @State private var confirmdeletenotexecuted: Bool = false
     @State private var istappeddayint: Int = 0
 
     let defaultcolor: Color = .blue
@@ -101,7 +102,6 @@ struct CalendarMonthView: View {
                             date: $date)
 
                 VStack {
-                    
                     TableofSchedules(selecteduuids: $selecteduuids)
                         .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 schedule" :
                             "Delete \(selecteduuids.count) schedules",
@@ -121,11 +121,11 @@ struct CalendarMonthView: View {
                                 }
 
                                 confirmdelete = false
-                                
+
                                 if schedules.demo == false {
-                                    let scheduledatamapped = globaltimer.allSchedules.map({ item in
+                                    let scheduledatamapped = globaltimer.allSchedules.map { item in
                                         item.scheduledata
-                                    })
+                                    }
                                     WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
                                 }
                             }
@@ -133,11 +133,20 @@ struct CalendarMonthView: View {
                         .onDeleteCommand {
                             confirmdelete = true
                         }
-                    
+
                     if GlobalTimer.shared.notExecutedSchedulesafterWakeUp.count > 0 {
-                        
                         TableofNotExeSchedules(selecteduuids: $selecteduuidsnotexecuted)
-                        
+                            .confirmationDialog(selecteduuidsnotexecuted.count == 1 ? "Delete 1 schedule" :
+                                "Delete \(selecteduuidsnotexecuted.count) schedules",
+                                isPresented: $confirmdeletenotexecuted)
+                            {
+                                Button("Delete") {
+                                    schedules.deletenotexecuted(selecteduuidsnotexecuted)
+                                }
+                            }
+                            .onDeleteCommand {
+                                confirmdeletenotexecuted = true
+                            }
                     }
                 }
             }

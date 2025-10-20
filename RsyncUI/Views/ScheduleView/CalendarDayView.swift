@@ -138,7 +138,7 @@ struct CalendarDayView: View {
         }
         return false
     }
-    
+
     var schedulestoday: [SchedulesConfigurations] {
         let todayitems = globaltime.allSchedules.filter { item in
             istoday(runDate: item.scheduledata?.dateRun, day: day)

@@ -141,11 +141,12 @@ struct SidebarMainView: View {
                 observerdiddidUnmountNotification()
             }
             if let scheduledata = ReadSchedule()
-                .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) {
+                .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename))
+            {
                 guard scheduledata.count > 0 else { return }
                 schedules.appendschdeuldatafromfile(scheduledata)
             }
-            
+
             Logger.process.info("SidebarMainView: ONAPPEAR completed")
 
             // Delete any default UserSetttings applied within AddTask
@@ -606,4 +607,3 @@ struct NavigationLinkWithHover: View {
         }
     }
 }
-
