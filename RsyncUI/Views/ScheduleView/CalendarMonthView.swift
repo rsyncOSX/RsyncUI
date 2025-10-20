@@ -136,12 +136,14 @@ struct CalendarMonthView: View {
 
                     if GlobalTimer.shared.notExecutedSchedulesafterWakeUp.count > 0 {
                         HStack {
+                            /*
                             Button("Move to Not Executed ↓") {
                                 GlobalTimer.shared.moveToNotExecuted(itemIDs: Array(selecteduuids))
                                 selecteduuids.removeAll()
                             }
                             .disabled(selecteduuids.isEmpty)
-
+                             */
+                            
                             Button("Move to Schedules ↑") {
                                 GlobalTimer.shared.moveToSchedules(itemIDs: Array(selecteduuidsnotexecuted))
                                 selecteduuidsnotexecuted.removeAll()

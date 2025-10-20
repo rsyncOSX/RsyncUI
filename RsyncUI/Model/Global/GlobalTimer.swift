@@ -238,8 +238,10 @@ extension GlobalTimer {
         // Add to destination
         allSchedules.append(contentsOf: itemsToMove)
         allSchedules = allSchedules.sorted(by: { $0.time < $1.time })
+        scheduleNextTimer()
     }
 
+/*
     func moveToNotExecuted(itemIDs: [ScheduledItem.ID]) {
         // Find items in allSchedules
         let itemsToMove = allSchedules.filter { itemIDs.contains($0.id) }
@@ -250,6 +252,7 @@ extension GlobalTimer {
         // Add to destination
         notExecutedSchedulesafterWakeUp.append(contentsOf: itemsToMove)
     }
+ */
 }
 
 /*
