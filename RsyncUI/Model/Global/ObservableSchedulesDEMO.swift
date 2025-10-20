@@ -219,12 +219,12 @@ final class ObservableSchedulesDEMO {
     // Demo for test av schedule
     func demodatatestschedule() {
         // Must set demo = true to stop trigger for SidebarMainView
-        let schedule1 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule2 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 2).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule3 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 3).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule12 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 4).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule22 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 5).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule32 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 6).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule1 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 3).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule2 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 10).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule3 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 4).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule12 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 5).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule22 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 8).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule32 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 11).en_string_from_date(), schedule: ScheduleType.once.rawValue)
 
         let scheduledata = [schedule1, schedule22, schedule32, schedule12, schedule2, schedule3, schedule22, schedule12]
         // let scheduledata = [schedule1, schedule2, schedule3]

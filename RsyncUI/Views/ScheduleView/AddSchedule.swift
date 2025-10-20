@@ -23,7 +23,7 @@ struct AddSchedule: View {
     @State private var dateRunHour: String = ""
 
     // DEMO
-    @State private var schedulesdemo: ObservableSchedulesDEMO?
+    @State private var schedulesdemo = ObservableSchedulesDEMO()
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -99,7 +99,7 @@ struct AddSchedule: View {
 
                 } else {
                     Button {
-                        schedulesdemo?.demodatatestschedule()
+                        schedulesdemo.demodatatestschedule()
                     } label: {
                         Label("DEMO", systemImage: "plus")
                     }
@@ -151,13 +151,5 @@ struct AddSchedule: View {
         datecomponents.month = Date.now.monthInt
         let calendar = Calendar.current
         return calendar.date(from: datecomponents)?.en_string_hour_from_date() ?? "08:00"
-    }
-
-    var scheduledemo: ObservableSchedulesDEMO? {
-        if SharedReference.shared.scheduledemomode {
-            ObservableSchedulesDEMO()
-        } else {
-            nil
-        }
     }
 }
