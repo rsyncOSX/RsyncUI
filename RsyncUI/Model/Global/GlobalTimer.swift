@@ -7,7 +7,7 @@ import OSLog
 
 struct ScheduledItem: Identifiable, Hashable {
     let id: UUID // Remove = UUID()
-    let time: Date
+    var time: Date
     let tolerance: TimeInterval
     private let callbackWrapper: CallbackWrapper
     var scheduledata: SchedulesConfigurations?
@@ -222,13 +222,22 @@ public final class GlobalTimer {
 extension GlobalTimer {
     func moveToSchedules(itemIDs: [ScheduledItem.ID]) {
         // Find items in notExecutedSchedulesafterWakeUp
-        let itemsToMove = notExecutedSchedulesafterWakeUp.filter { itemIDs.contains($0.id) }
-
+        var itemsToMove = notExecutedSchedulesafterWakeUp.filter { itemIDs.contains($0.id) }
         // Remove from source
         notExecutedSchedulesafterWakeUp.removeAll { itemIDs.contains($0.id) }
-
+        // Must update time with enough space in time
+        // Add a 5 min timeintervall between not schduled tasks
+        itemsToMove = itemsToMove.enumerated().map { (index, item) in
+            let timeInterval: TimeInterval = TimeInterval(index + 1) * 5 * 60
+            var newItem = item
+            let newTime = Date.now.addingTimeInterval(timeInterval)
+            newItem.time = newTime
+            newItem.scheduledata?.dateRun = newTime.en_string_from_date()
+            return newItem
+        }
         // Add to destination
         allSchedules.append(contentsOf: itemsToMove)
+        allSchedules = allSchedules.sorted(by: { $0.time < $1.time })
     }
 
     func moveToNotExecuted(itemIDs: [ScheduledItem.ID]) {
@@ -242,3 +251,13 @@ extension GlobalTimer {
         notExecutedSchedulesafterWakeUp.append(contentsOf: itemsToMove)
     }
 }
+
+/*
+ // Then add new schedule
+ if let schedultime = schedule.dateRun?.en_date_from_string() {
+     globaltimer.addSchedule(time: schedultime,
+                             tolerance: 10,
+                             callback: callback,
+                             scheduledata: schedule)
+ }
+ */
