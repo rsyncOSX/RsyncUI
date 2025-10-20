@@ -208,8 +208,10 @@ public final class GlobalTimer {
         notExecutedSchedulesafterWakeUp.removeAll()
         notExecutedSchedulesafterWakeUp = allSchedules.filter { $0.time.timeIntervalSinceNow < 0 }
         allSchedules.removeAll { $0.time.timeIntervalSinceNow < 0 }
-
         notExecutedSchedulesafterWakeUp = notExecutedSchedulesafterWakeUp.sorted(by: { $0.time < $1.time })
+        if allSchedules.isEmpty {
+            invalidateAllSchedulesAndTimer()
+        }
     }
 
     // MARK: - Helpers
@@ -240,27 +242,5 @@ extension GlobalTimer {
         allSchedules = allSchedules.sorted(by: { $0.time < $1.time })
         scheduleNextTimer()
     }
-
-/*
-    func moveToNotExecuted(itemIDs: [ScheduledItem.ID]) {
-        // Find items in allSchedules
-        let itemsToMove = allSchedules.filter { itemIDs.contains($0.id) }
-
-        // Remove from source
-        allSchedules.removeAll { itemIDs.contains($0.id) }
-
-        // Add to destination
-        notExecutedSchedulesafterWakeUp.append(contentsOf: itemsToMove)
-    }
- */
 }
 
-/*
- // Then add new schedule
- if let schedultime = schedule.dateRun?.en_date_from_string() {
-     globaltimer.addSchedule(time: schedultime,
-                             tolerance: 10,
-                             callback: callback,
-                             scheduledata: schedule)
- }
- */

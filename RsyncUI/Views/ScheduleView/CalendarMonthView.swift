@@ -149,6 +149,8 @@ struct CalendarMonthView: View {
                                 selecteduuidsnotexecuted.removeAll()
                             }
                             .disabled(selecteduuidsnotexecuted.isEmpty)
+                            .buttonStyle(.borderedProminent)
+                            
                         }
                         .padding()
 
