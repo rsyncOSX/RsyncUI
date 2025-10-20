@@ -84,7 +84,7 @@ struct CalendarMonthView: View {
 
                 Spacer()
 
-                if let first = schedules.firstscheduledate {
+                if let first = schedules.firstscheduledate, globaltimer.timerIsActive() {
                     HStack {
                         Text(first.profile ?? "")
                         Text(first.dateRun ?? "")
