@@ -21,6 +21,9 @@ struct AddSchedule: View {
     @State private var schedule: String = ScheduleType.once.rawValue
     @State private var dateRunMonth: String = Date.now.en_string_month_from_date()
     @State private var dateRunHour: String = ""
+    
+    // DEMO
+    @State private var schedulesdemo: ObservableSchedulesDEMO?
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -62,43 +65,45 @@ struct AddSchedule: View {
                 .help("Reset to current date")
 
                 Spacer()
+                
+                if SharedReference.shared.scheduledemomode == false {
+                    Button {
+                        // Just concatenate month + minnutes string
+                        let run = dateRunMonth + " " + dateRunHour
+                        let profile: String? = if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
+                            rsyncUIdata.validprofiles[index].profilename
+                        } else { nil }
 
-                Button {
-                    // Just concatenate month + minnutes string
-                    let run = dateRunMonth + " " + dateRunHour
-                    let profile: String? = if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
-                        rsyncUIdata.validprofiles[index].profilename
-                    } else { nil }
+                        guard schedules.verifynextschedule(plannednextschedule: run) else {
+                            Logger.process.warning("AddSchedule: not valid more than 10 minutes to next schedule")
+                            return
+                        }
 
-                    guard schedules.verifynextschedule(plannednextschedule: run) else {
-                        Logger.process.warning("AddSchedule: not valid more than 10 minutes to next schedule")
-                        return
+                        schedules.appendfutureschedule(profile: profile, dateRun: run, schedule: schedule)
+
+                        date = Date.now
+                        istappeddayint = 0
+                        schedules.lastdateinpresentmont = Date.now.endOfMonth
+                        // Recompute schedules and set first schedule to execute
+                        schedules.recomputeschedules()
+
+                        let globaltimer = GlobalTimer.shared
+                        let scheduledatamapped = globaltimer.allSchedules.map { item in
+                            item.scheduledata
+                        }
+                        WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
+
+                    } label: {
+                        Label("Add", systemImage: "plus")
                     }
-
-                    schedules.appendfutureschedule(profile: profile, dateRun: run, schedule: schedule)
-
-                    date = Date.now
-                    istappeddayint = 0
-                    schedules.lastdateinpresentmont = Date.now.endOfMonth
-                    // Recompute schedules and set first schedule to execute
-                    schedules.recomputeschedules()
-
-                    let globaltimer = GlobalTimer.shared
-                    let scheduledatamapped = globaltimer.allSchedules.map { item in
-                        item.scheduledata
+                    
+                } else {
+                    
+                    Button {
+                        schedulesdemo?.demodatatestschedule()
+                    } label: {
+                        Label("DEMO", systemImage: "plus")
                     }
-                    WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
-
-                } label: {
-                    Label("Add", systemImage: "plus")
-                }
-
-                Button {
-                    // scheduledata.demodatatestschedule()
-                    schedules.demodatatestschedule()
-
-                } label: {
-                    Label("DEMO", systemImage: "plus")
                 }
             }
             .padding()
@@ -147,5 +152,14 @@ struct AddSchedule: View {
         datecomponents.month = Date.now.monthInt
         let calendar = Calendar.current
         return calendar.date(from: datecomponents)?.en_string_hour_from_date() ?? "08:00"
+    }
+    
+    var scheduledemo: ObservableSchedulesDEMO? {
+        if SharedReference.shared.scheduledemomode {
+            return ObservableSchedulesDEMO()
+        } else {
+            return nil
+        }
+        
     }
 }

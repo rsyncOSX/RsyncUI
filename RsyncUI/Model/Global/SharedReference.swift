@@ -83,4 +83,6 @@ final class SharedReference {
     @ObservationIgnored var hideverifyremotefunction: Bool = true
     // Hide Calendar function in main Sidebar
     @ObservationIgnored var hideschedule: Bool = true
+    // DEMO mode for schedule
+    @ObservationIgnored var scheduledemomode: Bool = false
 }

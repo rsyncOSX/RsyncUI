@@ -122,12 +122,13 @@ struct CalendarMonthView: View {
 
                                 confirmdelete = false
 
-                                if schedules.demo == false {
+                                if SharedReference.shared.scheduledemomode == false {
                                     let scheduledatamapped = globaltimer.allSchedules.map { item in
                                         item.scheduledata
                                     }
                                     WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
                                 }
+                                
                             }
                         }
                         .onDeleteCommand {

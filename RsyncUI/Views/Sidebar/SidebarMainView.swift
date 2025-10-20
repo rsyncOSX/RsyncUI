@@ -197,10 +197,6 @@ struct SidebarMainView: View {
             }
         }
         .onChange(of: schedules.scheduledprofile) {
-            guard schedules.demo == false else {
-                Logger.process.info("SidebarMainView: got TRIGGER from Schedule, the callback is executed BUT SKIPPED, demo")
-                return
-            }
             Logger.process.info("SidebarMainView: got TRIGGER from Schedule, the callback is executed")
             queryitem = nil
             if selectedview != .synchronize {
