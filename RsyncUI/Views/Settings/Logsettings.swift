@@ -85,7 +85,7 @@ struct Logsettings: View {
                 if togglehideschedule {
                     DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Please restart RsyncUI to take effect", comment: ""))
                 }
-                
+
                 ToggleViewDefault(text: NSLocalizedString("Demo Schedule", comment: ""),
                                   binding: $demoschedule)
                     .onChange(of: demoschedule) {

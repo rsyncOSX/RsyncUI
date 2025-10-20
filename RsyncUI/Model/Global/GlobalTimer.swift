@@ -218,3 +218,27 @@ public final class GlobalTimer {
         min(60, max(1, interval * 0.1))
     }
 }
+
+extension GlobalTimer {
+    func moveToSchedules(itemIDs: [ScheduledItem.ID]) {
+        // Find items in notExecutedSchedulesafterWakeUp
+        let itemsToMove = notExecutedSchedulesafterWakeUp.filter { itemIDs.contains($0.id) }
+
+        // Remove from source
+        notExecutedSchedulesafterWakeUp.removeAll { itemIDs.contains($0.id) }
+
+        // Add to destination
+        allSchedules.append(contentsOf: itemsToMove)
+    }
+
+    func moveToNotExecuted(itemIDs: [ScheduledItem.ID]) {
+        // Find items in allSchedules
+        let itemsToMove = allSchedules.filter { itemIDs.contains($0.id) }
+
+        // Remove from source
+        allSchedules.removeAll { itemIDs.contains($0.id) }
+
+        // Add to destination
+        notExecutedSchedulesafterWakeUp.append(contentsOf: itemsToMove)
+    }
+}
