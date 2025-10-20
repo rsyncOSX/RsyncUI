@@ -165,7 +165,6 @@ final class ObservableSchedulesDEMO {
         }
     }
 
-
     // Verify new planned schedule
     func verifynextschedule(plannednextschedule: String) -> Bool {
         let dates = globaltime.allSchedules.sorted { s1, s2 in
@@ -313,4 +312,3 @@ final class ObservableSchedulesDEMO {
         globaltimer.notExecutedSchedulesafterWakeUp = globaltimer.notExecutedSchedulesafterWakeUp.sorted(by: { $0.time < $1.time })
     }
 }
-

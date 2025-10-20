@@ -21,7 +21,7 @@ struct AddSchedule: View {
     @State private var schedule: String = ScheduleType.once.rawValue
     @State private var dateRunMonth: String = Date.now.en_string_month_from_date()
     @State private var dateRunHour: String = ""
-    
+
     // DEMO
     @State private var schedulesdemo: ObservableSchedulesDEMO?
 
@@ -65,7 +65,7 @@ struct AddSchedule: View {
                 .help("Reset to current date")
 
                 Spacer()
-                
+
                 if SharedReference.shared.scheduledemomode == false {
                     Button {
                         // Just concatenate month + minnutes string
@@ -96,9 +96,8 @@ struct AddSchedule: View {
                     } label: {
                         Label("Add", systemImage: "plus")
                     }
-                    
+
                 } else {
-                    
                     Button {
                         schedulesdemo?.demodatatestschedule()
                     } label: {
@@ -153,13 +152,12 @@ struct AddSchedule: View {
         let calendar = Calendar.current
         return calendar.date(from: datecomponents)?.en_string_hour_from_date() ?? "08:00"
     }
-    
+
     var scheduledemo: ObservableSchedulesDEMO? {
         if SharedReference.shared.scheduledemomode {
-            return ObservableSchedulesDEMO()
+            ObservableSchedulesDEMO()
         } else {
-            return nil
+            nil
         }
-        
     }
 }

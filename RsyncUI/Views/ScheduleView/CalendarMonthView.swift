@@ -128,7 +128,6 @@ struct CalendarMonthView: View {
                                     }
                                     WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
                                 }
-                                
                             }
                         }
                         .onDeleteCommand {
