@@ -36,7 +36,7 @@ struct TableofNotExeSchedules: View {
                 var seconds: Double {
                     if let date = data.scheduledata?.dateRun {
                         let lastbackup = date.en_date_from_string()
-                        return lastbackup.timeIntervalSinceNow
+                        return -lastbackup.timeIntervalSinceNow
                     } else {
                         return 0
                     }

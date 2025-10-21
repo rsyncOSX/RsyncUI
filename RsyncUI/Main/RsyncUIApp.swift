@@ -11,6 +11,7 @@ import SwiftUI
 @main
 struct RsyncUIApp: App {
     @State private var showabout: Bool = false
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some Scene {
         Window("RsyncUI", id: "main") {
@@ -49,10 +50,21 @@ struct RsyncUIApp: App {
                 }
             }
         }
+        .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .background {
+                // App is going to background - execute your cleanup task
+                performCleanupTask()
+            }
+        }
 
         Settings {
             SidebarSettingsView()
         }
+    }
+
+    private func performCleanupTask() {
+        Logger.process.info("RsyncUIApp: performCleanupTask(), RsyncUI shutting down, doing clean up")
+        GlobalTimer.shared.invalidateAllSchedulesAndTimer()
     }
 }
 

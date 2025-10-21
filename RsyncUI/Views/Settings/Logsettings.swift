@@ -86,11 +86,15 @@ struct Logsettings: View {
                     DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Please restart RsyncUI to take effect", comment: ""))
                 }
 
-                ToggleViewDefault(text: NSLocalizedString("Demo Schedule", comment: ""),
-                                  binding: $demoschedule)
-                    .onChange(of: demoschedule) {
-                        SharedReference.shared.scheduledemomode = demoschedule
-                    }
+                /* DEMO SCHEDULE
+                 if SharedReference.shared.hideschedule == false {
+                     ToggleViewDefault(text: NSLocalizedString("Test Schedule", comment: ""),
+                                       binding: $demoschedule)
+                         .onChange(of: demoschedule) {
+                             SharedReference.shared.scheduledemomode = demoschedule
+                         }
+                 }
+                 */
             }
 
             Section(header: Text("Save userconfiguration")

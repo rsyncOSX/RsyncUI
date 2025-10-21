@@ -122,12 +122,19 @@ struct CalendarMonthView: View {
 
                                 confirmdelete = false
 
-                                if SharedReference.shared.scheduledemomode == false {
-                                    let scheduledatamapped = globaltimer.allSchedules.map { item in
-                                        item.scheduledata
-                                    }
-                                    WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
+                                let scheduledatamapped = globaltimer.allSchedules.map { item in
+                                    item.scheduledata
                                 }
+                                WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
+
+                                /* DEMO SCHEDULE
+                                 if SharedReference.shared.scheduledemomode == false {
+                                     let scheduledatamapped = globaltimer.allSchedules.map { item in
+                                         item.scheduledata
+                                     }
+                                     WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
+                                 }
+                                  */
                             }
                         }
                         .onDeleteCommand {
@@ -137,20 +144,19 @@ struct CalendarMonthView: View {
                     if GlobalTimer.shared.notExecutedSchedulesafterWakeUp.count > 0 {
                         HStack {
                             /*
-                            Button("Move to Not Executed ↓") {
-                                GlobalTimer.shared.moveToNotExecuted(itemIDs: Array(selecteduuids))
-                                selecteduuids.removeAll()
-                            }
-                            .disabled(selecteduuids.isEmpty)
-                             */
-                            
+                             Button("Move to Not Executed ↓") {
+                                 GlobalTimer.shared.moveToNotExecuted(itemIDs: Array(selecteduuids))
+                                 selecteduuids.removeAll()
+                             }
+                             .disabled(selecteduuids.isEmpty)
+                              */
+
                             Button("Move to Schedules ↑") {
                                 GlobalTimer.shared.moveToSchedules(itemIDs: Array(selecteduuidsnotexecuted))
                                 selecteduuidsnotexecuted.removeAll()
                             }
                             .disabled(selecteduuidsnotexecuted.isEmpty)
                             .buttonStyle(.borderedProminent)
-                            
                         }
                         .padding()
 

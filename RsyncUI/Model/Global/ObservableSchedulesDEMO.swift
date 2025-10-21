@@ -117,7 +117,7 @@ final class ObservableSchedulesDEMO {
 
     // Recompute the calendardata to only show active schedules in row.
     func recomputeschedules() {
-        Logger.process.info("ObservableFutureSchedules: recomputeschedules()")
+        Logger.process.info("ObservableFutureSchedules: recomputeschedules() DEMO")
         let recomputedschedules = globaltime.allSchedules.filter { item in
             if let dateRunString = item.scheduledata?.dateRun {
                 return dateRunString.en_date_from_string() > Date.now
@@ -219,8 +219,8 @@ final class ObservableSchedulesDEMO {
     // Demo for test av schedule
     func demodatatestschedule() {
         // Must set demo = true to stop trigger for SidebarMainView
-        let schedule1 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 10).en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        let schedule2 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 15).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule1 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60).en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        let schedule2 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 2).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         let schedule3 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 20).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         let schedule4 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 25).en_string_from_date(), schedule: ScheduleType.once.rawValue)
         let schedule5 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(60 * 30).en_string_from_date(), schedule: ScheduleType.once.rawValue)
@@ -228,10 +228,10 @@ final class ObservableSchedulesDEMO {
 
         let scheduledata = [schedule1, schedule2, schedule3, schedule4, schedule5, schedule6]
         // let scheduledata = [schedule1, schedule2, schedule3]
-        let deleteschedule1 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60).en_string_from_date(), schedule: ScheduleType.daily.rawValue)
-        let deleteschedule2 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 2).en_string_from_date(), schedule: ScheduleType.daily.rawValue)
+        let deleteschedule1 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 15).en_string_from_date(), schedule: ScheduleType.daily.rawValue)
+        let deleteschedule2 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 5).en_string_from_date(), schedule: ScheduleType.daily.rawValue)
         let deleteschedule3 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 3).en_string_from_date(), schedule: ScheduleType.daily.rawValue)
-        let deleteschedule4 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 4).en_string_from_date(), schedule: ScheduleType.daily.rawValue)
+        let deleteschedule4 = SchedulesConfigurations(profile: nil, dateAdded: Date.now.en_string_from_date(), dateRun: Date.now.addingTimeInterval(-60 * 10).en_string_from_date(), schedule: ScheduleType.daily.rawValue)
 
         // Demodata
         for i in 0 ..< scheduledata.count {
@@ -243,7 +243,7 @@ final class ObservableSchedulesDEMO {
         }
         // Insert data in not executed table (for demo an test)
 
-        setfirsscheduledate()
+        recomputeschedules()
 
         // Not executed table
 

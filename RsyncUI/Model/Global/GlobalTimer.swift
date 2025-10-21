@@ -229,8 +229,8 @@ extension GlobalTimer {
         notExecutedSchedulesafterWakeUp.removeAll { itemIDs.contains($0.id) }
         // Must update time with enough space in time
         // Add a 5 min timeintervall between not schduled tasks
-        itemsToMove = itemsToMove.enumerated().map { (index, item) in
-            let timeInterval: TimeInterval = TimeInterval(index + 1) * 5 * 60
+        itemsToMove = itemsToMove.enumerated().map { index, item in
+            let timeInterval = TimeInterval(index + 1) * 5 * 60
             var newItem = item
             let newTime = Date.now.addingTimeInterval(timeInterval)
             newItem.time = newTime
@@ -243,4 +243,3 @@ extension GlobalTimer {
         scheduleNextTimer()
     }
 }
-
