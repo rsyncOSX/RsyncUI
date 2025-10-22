@@ -118,12 +118,13 @@ struct TasksView: View {
                 }
                 .onChange(of: focusverifyremote) {
                     guard focusverifyremote == true else { return }
-                    // guard SharedReference.shared.hideverifyremotefunction == false else { return }
-                    // guard SharedReference.shared.rsyncversion3 == true else { return }
-                    // guard rsyncUIdata.oneormoretasksissnapshot == false else { return }
-                    // guard rsyncUIdata.oneormoresynchronizetasksisremoteVer3x == true else { return }
-                    activeSheet = .verifyRemote
                     focusverifyremote = false
+                    guard SharedReference.shared.hideverifyremotefunction == false else { return }
+                    guard SharedReference.shared.rsyncversion3 == true else { return }
+                    guard rsyncUIdata.oneormoretasksissnapshot == false else { return }
+                    guard rsyncUIdata.oneormoresynchronizetasksisremoteVer3x == true else { return }
+                    activeSheet = .verifyRemote
+                    
                 }
 
                 Group {
@@ -332,7 +333,8 @@ struct TasksView: View {
         .sheet(item: $activeSheet) { sheetType in
             switch sheetType {
             case .verifyRemote:
-                VerifyRemoteView(rsyncUIdata: rsyncUIdata, activeSheet: $activeSheet)
+                VerifyRemoteView(rsyncUIdata: rsyncUIdata,
+                                 activeSheet: $activeSheet)
                     .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
                     .onDisappear {
                         activeSheet = nil

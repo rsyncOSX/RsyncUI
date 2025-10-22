@@ -110,6 +110,11 @@ struct VerifyRemoteView: View {
                 }
                 
                 ToolbarItem {
+                    Spacer()
+                }
+
+                
+                ToolbarItem {
                     Button {
                         activeSheet = nil
                     } label: {
@@ -124,6 +129,7 @@ struct VerifyRemoteView: View {
             guard queryitem != nil else { return }
             handlequeryitem()
         }
+        .padding(10)
     }
 
     @MainActor @ViewBuilder
