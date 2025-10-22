@@ -26,6 +26,7 @@ struct VerifyRemote: View {
         } label: {
             Text("Verify")
         }
+        .keyboardShortcut("z", modifiers: [.command])
     }
 }
 
