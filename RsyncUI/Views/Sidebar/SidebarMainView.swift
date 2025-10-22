@@ -370,11 +370,6 @@ extension SidebarMainView {
         case .loadprofileandverify:
             // Only by external URL load and verify
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Verify - \(url)")
-
-            guard SharedReference.shared.hideverifyremotefunction == false else {
-                Logger.process.warning("handleURLsidebarmainView: URL Loadprofile and Verify - \(url) not enabled")
-                return
-            }
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 2 {
                 let profile = queryitems[0].value ?? ""
 

@@ -11,7 +11,8 @@ import SwiftUI
 
 enum SheetType: Identifiable {
     case verifyRemote
-    case importExport
+    case importview
+    case exportview
     
     var id: Int {
         hashValue
@@ -105,15 +106,24 @@ struct TasksView: View {
                     }
                 }
                 .onChange(of: focusexport) {
-                    focusexport = true
-                    activeSheet = .importExport
+                    guard focusexport == true else { return }
+                    activeSheet = .exportview
+                    focusexport = false
                 }
                 .onChange(of: focusimport) {
-                    focusimport = true
-                    activeSheet = .importExport
+                    // focusimport = true
+                    guard focusimport == true else { return }
+                    activeSheet = .importview
+                    focusimport = false
                 }
                 .onChange(of: focusverifyremote) {
+                    guard focusverifyremote == true else { return }
+                    // guard SharedReference.shared.hideverifyremotefunction == false else { return }
+                    // guard SharedReference.shared.rsyncversion3 == true else { return }
+                    // guard rsyncUIdata.oneormoretasksissnapshot == false else { return }
+                    // guard rsyncUIdata.oneormoresynchronizetasksisremoteVer3x == true else { return }
                     activeSheet = .verifyRemote
+                    focusverifyremote = false
                 }
 
                 Group {
@@ -324,25 +334,27 @@ struct TasksView: View {
             case .verifyRemote:
                 VerifyRemoteView(rsyncUIdata: rsyncUIdata, activeSheet: $activeSheet)
                     .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
-                
-            case .importExport:
-                if focusexport {
-                    if let configurations = rsyncUIdata.configurations {
-                        ExportView(activeSheet: $activeSheet,
-                                  configurations: configurations,
-                                  preselectedtasks: selecteduuids)
-                            .onDisappear {
-                                selecteduuids.removeAll()
-                                    activeSheet = nil
-                            }
-                    }
-                } else {
-                    ImportView(rsyncUIdata: rsyncUIdata,
-                              activeSheet: $activeSheet,
-                              maxhiddenID: MaxhiddenID().computemaxhiddenID(rsyncUIdata.configurations))
                     .onDisappear {
                         activeSheet = nil
+                        // focusverifyremote = false
                     }
+                
+            case .exportview:
+                if let configurations = rsyncUIdata.configurations {
+                    ExportView(activeSheet: $activeSheet,
+                              configurations: configurations,
+                              preselectedtasks: selecteduuids)
+                        .onDisappear {
+                            selecteduuids.removeAll()
+                            activeSheet = nil
+                        }
+                }
+            case .importview:
+                ImportView(rsyncUIdata: rsyncUIdata,
+                          activeSheet: $activeSheet,
+                          maxhiddenID: MaxhiddenID().computemaxhiddenID(rsyncUIdata.configurations))
+                .onDisappear {
+                    activeSheet = nil
                 }
             }
         }

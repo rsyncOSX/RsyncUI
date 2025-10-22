@@ -116,6 +116,7 @@ struct VerifyRemoteView: View {
                         Image(systemName: "return")
                     }
                     .help("Dismiss")
+                    .buttonStyle(.borderedProminent)
                 }
             })
         }
