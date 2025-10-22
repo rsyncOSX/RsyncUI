@@ -21,10 +21,10 @@ struct Verify: Hashable, Identifiable {
 
 struct VerifyRemoteView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var verifypath: [Verify]
-    @Binding var urlcommandverify: Bool
+    // @Binding var verifypath: [Verify]
+    // @Binding var urlcommandverify: Bool
     // Queryitem binding is requiered for external URL only
-    @Binding var queryitem: URLQueryItem?
+    @State private var queryitem: URLQueryItem?
 
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedconfig: SynchronizeConfiguration?
@@ -37,6 +37,8 @@ struct VerifyRemoteView: View {
     @State private var pushpullcommand = PushPullCommand.none
     // Show warning
     @State private var showwarning: Bool = true
+    
+    @State private var verifypath: [Verify] = []
 
     var body: some View {
         NavigationStack(path: $verifypath) {

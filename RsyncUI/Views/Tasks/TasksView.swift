@@ -40,6 +40,8 @@ struct TasksView: View {
     @State private var focusexport: Bool = false
     @State private var focusimport: Bool = false
     @State private var importorexport: Bool = false
+    // Focus Verify remote
+    @State private var focusverifyremote: Bool = false
     // Local data for present local and remote info about task
     @State var selectedconfig: SynchronizeConfiguration?
     @State private var doubleclick: Bool = false
@@ -111,6 +113,7 @@ struct TasksView: View {
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.exporttasks, $focusexport)
         .focusedSceneValue(\.importtasks, $focusimport)
+        .focusedSceneValue(\.verifyremote, $focusverifyremote)
         .toolbar(content: {
             ToolbarItem {
                 if GlobalTimer.shared.timerIsActive(),

@@ -27,6 +27,8 @@ struct RsyncUIApp: App {
         .commands {
             SidebarCommands()
 
+            VerifyRemoteCommands()
+            
             ImportExportCommands()
 
             ExecuteCommands()
