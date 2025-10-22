@@ -242,9 +242,7 @@ struct SidebarMainView: View {
             ProfileView(rsyncUIdata: rsyncUIdata, selectedprofileID: $selectedprofileID)
         case .verify_remote:
             VerifyRemoteView(rsyncUIdata: rsyncUIdata,
-                             verifypath: $verifypath,
-                             urlcommandverify: $urlcommandverify,
-                             queryitem: $queryitem)
+                             verifypath: $verifypath)
         case .schedule:
             NavigationStack {
                 CalendarMonthView(rsyncUIdata: rsyncUIdata,
