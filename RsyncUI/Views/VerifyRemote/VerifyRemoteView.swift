@@ -21,11 +21,9 @@ struct Verify: Hashable, Identifiable {
 
 struct VerifyRemoteView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    // @Binding var verifypath: [Verify]
-    // @Binding var urlcommandverify: Bool
-    // Queryitem binding is requiered for external URL only
-    @State private var queryitem: URLQueryItem?
+    @Binding var focusverifyremote: Bool
 
+    @State private var queryitem: URLQueryItem?
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedconfig: SynchronizeConfiguration?
     // Selected task is halted
@@ -100,6 +98,18 @@ struct VerifyRemoteView: View {
                     }
                 }
 
+                ToolbarItem {
+                    Button {
+                        guard selectedconfig != nil else { return }
+
+                        verifypath.append(Verify(task: .executenpushpullview))
+
+                    } label: {
+                        Image(systemName: "arrow.left.arrow.right.circle.fill")
+                    }
+                    .help("Pull or push")
+                }
+                
                 ToolbarItem {
                     Button {
                         guard selectedconfig != nil else { return }

@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
-    case synchronize, tasks, rsync_parameters, verify_tasks, snapshots, log_listings, restore, profiles, verify_remote, schedule
+    case synchronize, tasks, rsync_parameters, verify_tasks, snapshots, log_listings, restore, profiles, schedule
     var id: String { rawValue }
 }
 
@@ -84,8 +84,7 @@ struct SidebarMainView: View {
                     item.menuitem == .verify_tasks ||
                     item.menuitem == .snapshots ||
                     item.menuitem == .log_listings ||
-                    item.menuitem == .restore ||
-                    item.menuitem == .verify_remote
+                    item.menuitem == .restore
 
                 { Divider() }
             }
@@ -240,12 +239,6 @@ struct SidebarMainView: View {
                              selectedprofileID: $selectedprofileID)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, selectedprofileID: $selectedprofileID)
-        case .verify_remote:
-            VerifyRemoteView(rsyncUIdata: rsyncUIdata,
-                             // verifypath: $verifypath,
-                             // urlcommandverify: $urlcommandverify,
-                             // queryitem: $queryitem
-            )
         case .schedule:
             NavigationStack {
                 CalendarMonthView(rsyncUIdata: rsyncUIdata,
@@ -278,23 +271,8 @@ struct SidebarMainView: View {
             if rsyncUIdata.oneormoretasksissnapshot == false,
                item == .snapshots { return nil }
 
-            if SharedReference.shared.hideverifyremotefunction == true,
-               item == .verify_remote { return nil }
-
             if SharedReference.shared.hideschedule == true,
                item == .schedule { return nil }
-
-            // Return nil if there is one or more remote tasks
-            // and only remote task is snapshot
-            // Do not show the Verify remote sidebar meny
-            if rsyncUIdata.oneormoretasksissnapshot == true,
-               SharedReference.shared.hideverifyremotefunction == false,
-               item == .verify_remote { return nil }
-
-            // Return nil if there is no remote tasks, only local attached discs
-            // Do not show the Verify remote sidebar meny
-            if rsyncUIdata.oneormoresynchronizetasksisremoteVer3x == false,
-               item == .verify_remote { return nil }
 
             // Return nil if there is no remote tasks, only local attached discs
             // Do not show the Restore remote sidebar meny
@@ -399,12 +377,6 @@ extension SidebarMainView {
             }
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 2 {
                 let profile = queryitems[0].value ?? ""
-
-                // Internal verify remote is triggered from within the verify_remote view
-                // and external == false, the view itself handles push and pull dryrun
-                if selectedview != .verify_remote {
-                    selectedview = .verify_remote
-                }
 
                 if profile == "Default" || profile == "default" {
                     Task {
@@ -571,8 +543,6 @@ struct SidebarRow: View {
         case .synchronize:
             "arrowshape.turn.up.backward"
         case .profiles:
-            "arrow.triangle.branch"
-        case .verify_remote:
             "arrow.left.arrow.right.circle.fill"
         case .schedule:
             "calendar.circle.fill"

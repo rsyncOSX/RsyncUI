@@ -303,6 +303,12 @@ struct TasksView: View {
                 secondaryButton: .cancel()
             )
         }
+        .sheet(isPresented: $focusverifyremote) {
+            VerifyRemoteView(rsyncUIdata: rsyncUIdata, focusverifyremote: $focusverifyremote)
+                .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
+                
+        }
+        /*
         .sheet(isPresented: $importorexport) {
             if focusexport {
                 if let configurations = rsyncUIdata.configurations {
@@ -320,6 +326,7 @@ struct TasksView: View {
                            maxhiddenID: MaxhiddenID().computemaxhiddenID(rsyncUIdata.configurations))
             }
         }
+         */
     }
 
     var doubleclickaction: some View {
