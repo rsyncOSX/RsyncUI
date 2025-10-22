@@ -35,7 +35,6 @@ struct VerifyRemoteView: View {
     @State private var pushpullcommand = PushPullCommand.none
     // Show warning
     @State private var showwarning: Bool = true
-    
     @State private var verifypath: [Verify] = []
 
     var body: some View {
@@ -112,14 +111,11 @@ struct VerifyRemoteView: View {
                 
                 ToolbarItem {
                     Button {
-                        guard selectedconfig != nil else { return }
-
-                        verifypath.append(Verify(task: .executenpushpullview))
-
+                        focusverifyremote = false
                     } label: {
-                        Image(systemName: "arrow.left.arrow.right.circle.fill")
+                        Image(systemName: "return")
                     }
-                    .help("Pull or push")
+                    .help("Dismiss")
                 }
             })
         }
