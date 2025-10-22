@@ -21,7 +21,7 @@ struct Verify: Hashable, Identifiable {
 
 struct VerifyRemoteView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var focusverifyremote: Bool
+    @Binding var activeSheet: SheetType?
 
     @State private var queryitem: URLQueryItem?
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
@@ -111,7 +111,7 @@ struct VerifyRemoteView: View {
                 
                 ToolbarItem {
                     Button {
-                        focusverifyremote = false
+                        activeSheet = nil
                     } label: {
                         Image(systemName: "return")
                     }

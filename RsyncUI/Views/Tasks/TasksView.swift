@@ -9,6 +9,15 @@ import Observation
 import OSLog
 import SwiftUI
 
+enum SheetType: Identifiable {
+    case verifyRemote
+    case importExport
+    
+    var id: Int {
+        hashValue
+    }
+}
+
 struct CopyItem: Identifiable, Codable, Transferable {
     let id: UUID
     let task: String
@@ -39,7 +48,6 @@ struct TasksView: View {
     // Focus export and import
     @State private var focusexport: Bool = false
     @State private var focusimport: Bool = false
-    @State private var importorexport: Bool = false
     // Focus Verify remote
     @State private var focusverifyremote: Bool = false
     // Local data for present local and remote info about task
@@ -55,6 +63,8 @@ struct TasksView: View {
     @State private var thereareestimates: Bool = false
 
     @State var isOpen: Bool = false
+    
+    @State private var activeSheet: SheetType?
 
     var body: some View {
         ZStack {
@@ -95,10 +105,15 @@ struct TasksView: View {
                     }
                 }
                 .onChange(of: focusexport) {
-                    importorexport = focusexport
+                    focusexport = true
+                    activeSheet = .importExport
                 }
                 .onChange(of: focusimport) {
-                    importorexport = focusimport
+                    focusimport = true
+                    activeSheet = .importExport
+                }
+                .onChange(of: focusverifyremote) {
+                    activeSheet = .verifyRemote
                 }
 
                 Group {
@@ -303,11 +318,42 @@ struct TasksView: View {
                 secondaryButton: .cancel()
             )
         }
+        // Replace your three .sheet modifiers with one:
+        .sheet(item: $activeSheet) { sheetType in
+            switch sheetType {
+            case .verifyRemote:
+                VerifyRemoteView(rsyncUIdata: rsyncUIdata, activeSheet: $activeSheet)
+                    .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
+                
+            case .importExport:
+                if focusexport {
+                    if let configurations = rsyncUIdata.configurations {
+                        ExportView(activeSheet: $activeSheet,
+                                  configurations: configurations,
+                                  preselectedtasks: selecteduuids)
+                            .onDisappear {
+                                selecteduuids.removeAll()
+                                    activeSheet = nil
+                            }
+                    }
+                } else {
+                    ImportView(rsyncUIdata: rsyncUIdata,
+                              activeSheet: $activeSheet,
+                              maxhiddenID: MaxhiddenID().computemaxhiddenID(rsyncUIdata.configurations))
+                    .onDisappear {
+                        activeSheet = nil
+                    }
+                }
+            }
+        }
+
+        /*
         .sheet(isPresented: $focusverifyremote) {
             VerifyRemoteView(rsyncUIdata: rsyncUIdata, focusverifyremote: $focusverifyremote)
                 .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
                 
         }
+         */
         /*
         .sheet(isPresented: $importorexport) {
             if focusexport {

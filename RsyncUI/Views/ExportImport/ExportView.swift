@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExportView: View {
-    @Binding var focusexport: Bool
+    @Binding var activeSheet: SheetType?
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State var exportcatalog: String = Homepath().userHomeDirectoryPath ?? ""
     @State var filenameexport: String = "export"
@@ -60,11 +60,11 @@ struct ExportView: View {
                         path = exportcatalog + "/" + filenameexport + ".json"
                     }
                     guard exportcatalog.isEmpty == false, filenameexport.isEmpty == false else {
-                        focusexport = false
+                        activeSheet = nil
                         return
                     }
                     _ = WriteExportConfigurationsJSON(path, selectedconfigurations())
-                    focusexport = false
+                    activeSheet = nil
                 }
                 .help("Export tasks")
                 .buttonStyle(ColorfulButtonStyle())
@@ -72,7 +72,7 @@ struct ExportView: View {
                 Spacer()
 
                 Button("Dismiss") {
-                    focusexport = false
+                    activeSheet = nil
                 }
                 .buttonStyle(ColorfulButtonStyle())
             }

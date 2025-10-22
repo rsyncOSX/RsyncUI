@@ -24,7 +24,7 @@ struct VerifyRemote: View {
         Button {
             verifyremote = true
         } label: {
-            Text("Verify Remote")
+            Text("Verify")
         }
     }
 }

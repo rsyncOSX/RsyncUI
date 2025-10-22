@@ -10,10 +10,8 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct ImportView: View {
-    @Environment(\.dismiss) var dismiss
-
-    @Binding var focusimport: Bool
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var activeSheet: SheetType?
 
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var filenameimport: String = ""
@@ -53,14 +51,13 @@ struct ImportView: View {
                                         VerifyDuplicates(configurations)
                                     }
                                 }
-                                focusimport = false
-                                dismiss()
+                                activeSheet = nil
                             }
                             .buttonStyle(ColorfulButtonStyle())
                         }
 
                         Button("Dismiss") {
-                            focusimport = false
+                            activeSheet = nil
                         }
                         .buttonStyle(ColorfulButtonStyle())
                     }
@@ -91,8 +88,7 @@ struct ImportView: View {
                                   })
 
                     Button("Dismiss") {
-                        focusimport = false
-                        dismiss()
+                        activeSheet = nil
                     }
                     .buttonStyle(ColorfulButtonStyle())
                 }
