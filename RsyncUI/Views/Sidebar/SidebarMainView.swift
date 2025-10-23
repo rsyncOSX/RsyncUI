@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
-    case synchronize, tasks, rsync_parameters, verify_tasks, snapshots, log_listings, restore, profiles, schedule
+    case synchronize, tasks, rsync_parameters, verify_tasks, snapshots, log_listings, restore, profiles
     var id: String { rawValue }
 }
 
@@ -231,6 +231,7 @@ struct SidebarMainView: View {
         case .synchronize:
             SidebarTasksView(rsyncUIdata: rsyncUIdata,
                              progressdetails: progressdetails,
+                             schedules: schedules,
                              selecteduuids: $selecteduuids,
                              executetaskpath: $executetaskpath,
                              queryitem: $queryitem,
@@ -239,12 +240,6 @@ struct SidebarMainView: View {
                              selectedprofileID: $selectedprofileID)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, selectedprofileID: $selectedprofileID)
-        case .schedule:
-            NavigationStack {
-                CalendarMonthView(rsyncUIdata: rsyncUIdata,
-                                  schedules: schedules,
-                                  selectedprofileID: $selectedprofileID)
-            }
         case .verify_tasks:
             NavigationStack {
                 VerifyTasks(rsyncUIdata: rsyncUIdata)
@@ -270,10 +265,6 @@ struct SidebarMainView: View {
             // Do not show the Snapshot sidebar meny
             if rsyncUIdata.oneormoretasksissnapshot == false,
                item == .snapshots { return nil }
-
-            if SharedReference.shared.hideschedule == true,
-               item == .schedule { return nil }
-
             // Return nil if there is no remote tasks, only local attached discs
             // Do not show the Restore remote sidebar meny
 
@@ -539,8 +530,6 @@ struct SidebarRow: View {
             "arrowshape.turn.up.backward"
         case .profiles:
             "arrow.left.arrow.right.circle.fill"
-        case .schedule:
-            "calendar.circle.fill"
         case .verify_tasks:
             "hand.thumbsup.fill"
         }

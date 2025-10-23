@@ -10,9 +10,10 @@ import OSLog
 import SwiftUI
 
 enum SheetType: Identifiable {
-    case verifyRemote
+    case verifyremoteview
     case importview
     case exportview
+    case scheduledtasksview
     
     var id: Int {
         hashValue
@@ -33,6 +34,7 @@ struct TasksView: View {
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @Bindable var progressdetails: ProgressDetails
+    @Bindable var schedules: ObservableSchedules
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     // Navigation path for executetasks
     @Binding var executetaskpath: [Tasks]
@@ -60,11 +62,8 @@ struct TasksView: View {
     @State private var maxcount: Double = 0
     // For estimates is true
     @State private var thereareestimates: Bool = false
-
-    @State var isOpen: Bool = false
-    
     @State private var activeSheet: SheetType?
-
+    
     var body: some View {
         ZStack {
             HStack {
@@ -240,12 +239,12 @@ struct TasksView: View {
                     }
                     .help("Reset estimates")
                 }
-
+                
                 ToolbarItem {
                     Button {
                         guard selecteduuids.count > 0 else { return }
                         guard alltasksarehalted() == false else { return }
-
+                        
                         guard selecteduuids.count == 1 else {
                             executetaskpath.append(Tasks(task: .summarizeddetailsview))
                             return
@@ -260,7 +259,7 @@ struct TasksView: View {
                     }
                     .help("Rsync output estimated task")
                 }
-
+                
                 ToolbarItem {
                     Button {
                         executetaskpath.append(Tasks(task: .viewlogfile))
@@ -269,7 +268,7 @@ struct TasksView: View {
                     }
                     .help("View logfile")
                 }
-
+                
                 ToolbarItem {
                     Button {
                         executetaskpath.append(Tasks(task: .quick_synchronize))
@@ -278,7 +277,13 @@ struct TasksView: View {
                     }
                     .help("Quick synchronize")
                 }
-
+            }
+            
+            ToolbarItem {
+                Spacer()
+            }
+            
+            Group {
                 ToolbarItem {
                     Button {
                         executetaskpath.append(Tasks(task: .charts))
@@ -289,6 +294,17 @@ struct TasksView: View {
                     .disabled(selecteduuids.count != 1 || selectedconfig?.task == SharedReference.shared.syncremote)
                 }
 
+                if SharedReference.shared.hideschedule == false {
+                    ToolbarItem {
+                        Button {
+                            activeSheet = .scheduledtasksview
+                        } label: {
+                            Image(systemName: "calendar.circle.fill")
+                        }
+                        .help("Schedule")
+                    }
+                }
+                
                 if alltasksarehalted() == false {
                     ToolbarItem {
                         Button {
@@ -311,7 +327,7 @@ struct TasksView: View {
                         
                         ToolbarItem {
                             Button {
-                                activeSheet = .verifyRemote
+                                activeSheet = .verifyremoteview
                             } label: {
                                 Image(systemName: "bolt.shield")
                                     .foregroundColor(Color(.yellow))
@@ -334,7 +350,7 @@ struct TasksView: View {
         }
         .sheet(item: $activeSheet) { sheetType in
             switch sheetType {
-            case .verifyRemote:
+            case .verifyremoteview:
                 VerifyRemoteView(rsyncUIdata: rsyncUIdata,
                                  selecteduuids: $selecteduuids,
                                  activeSheet: $activeSheet)
@@ -357,6 +373,14 @@ struct TasksView: View {
                 ImportView(rsyncUIdata: rsyncUIdata,
                           activeSheet: $activeSheet,
                           maxhiddenID: MaxhiddenID().computemaxhiddenID(rsyncUIdata.configurations))
+                .onDisappear {
+                    activeSheet = nil
+                }
+            case .scheduledtasksview:
+                CalendarMonthView(rsyncUIdata: rsyncUIdata,
+                                  schedules: schedules,
+                                  selectedprofileID: $selectedprofileID,
+                                  activeSheet: $activeSheet)
                 .onDisappear {
                     activeSheet = nil
                 }

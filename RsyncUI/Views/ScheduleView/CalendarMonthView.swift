@@ -11,6 +11,7 @@ struct CalendarMonthView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var schedules: ObservableSchedules
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
+    @Binding var activeSheet: SheetType?
 
     @State private var date = Date.now
 
@@ -229,6 +230,16 @@ struct CalendarMonthView: View {
                         .foregroundColor(.blue)
                 }
                 .help("Next month")
+            }
+            
+            ToolbarItem {
+                Button {
+                    activeSheet = nil
+                } label: {
+                    Image(systemName: "return")
+                }
+                .help("Dismiss")
+                .buttonStyle(.borderedProminent)
             }
         }
     }
