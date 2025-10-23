@@ -24,20 +24,34 @@ struct ConfigurationsTableDataMainView: View {
         }, selection: $selecteduuids) {
             TableColumn("%") { data in
                 if data.hiddenID == progressdetails.hiddenIDatwork, max > 0, progress <= max {
-                    HStack {
-                        ProgressView("",
-                                     value: progress,
-                                     total: max)
-                            .frame(width: 50, alignment: .center)
-
-                        Text("\(Int(max)) : ")
-                            .padding([.top, .trailing], 10)
-
-                        Text("\(Int(progress))")
-                            .padding([.top, .trailing], 10)
-                            .contentTransition(.numericText(countsDown: false))
-                            .animation(.default, value: progress)
+                    HStack(spacing: 8) {
+                        // Progress bar with percentage overlay
+                        ZStack(alignment: .leading) {
+                            ProgressView(value: progress, total: max)
+                                .frame(width: 120)
+                            
+                            // Optional: Show percentage inside/over the progress bar
+                            Text("\(Int((progress / max) * 100))%")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                                .frame(maxWidth: .infinity)
+                        }
+                        
+                        // Compact ratio display
+                        HStack(spacing: 4) {
+                            Text("\(Int(progress))")
+                                .contentTransition(.numericText(countsDown: false))
+                                .animation(.default, value: progress)
+                            
+                            Text("/")
+                                .foregroundStyle(.secondary)
+                            
+                            Text("\(Int(max))")
+                                .foregroundStyle(.secondary)
+                        }
+                        .font(.system(.body, design: .monospaced))
                     }
+                    .padding(.vertical, 4)
                 }
             }
             .width(min: 150, max: 250)
