@@ -28,11 +28,17 @@ struct PushPullView: View {
             if progress {
                 Spacer()
 
-                ProgressView()
-
+                HStack {
+                    
+                    Text("Estimating \(config.backupID), please wait ...")
+                    
+                    ProgressView()
+                }
+                
                 Spacer()
 
             } else {
+                
                 if let pullremotedatanumbers, let pushremotedatanumbers {
                     HStack {
                         VStack {
@@ -74,7 +80,7 @@ struct PushPullView: View {
                 }
             }
         }
-        .task {
+        .onAppear {
             pullremote(config: config)
         }
         .toolbar(content: {

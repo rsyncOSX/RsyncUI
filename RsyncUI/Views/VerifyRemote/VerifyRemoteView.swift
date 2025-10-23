@@ -21,10 +21,9 @@ struct Verify: Hashable, Identifiable {
 
 struct VerifyRemoteView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var activeSheet: SheetType?
 
-    @State private var queryitem: URLQueryItem?
-    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedconfig: SynchronizeConfiguration?
     // Selected task is halted
     @State private var selectedtaskishalted: Bool = false
@@ -33,8 +32,6 @@ struct VerifyRemoteView: View {
     // Decide push or pull
     @State private var pushorpull = ObservableVerifyRemotePushPull()
     @State private var pushpullcommand = PushPullCommand.none
-    // Show warning
-    @State private var showwarning: Bool = true
     @State private var verifypath: [Verify] = []
 
     var body: some View {
@@ -44,7 +41,6 @@ struct VerifyRemoteView: View {
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                                 configurations: rsyncUIdata.configurations)
                         .onChange(of: selecteduuids) {
-                            queryitem = nil
                             if let configurations = rsyncUIdata.configurations {
                                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                     selectedconfig = configurations[index]
@@ -59,22 +55,27 @@ struct VerifyRemoteView: View {
                                 }
                             }
                         }
-
-                    if showwarning {
-                        Text("**Warning**: Verify remote is **advisory** only")
-                            .foregroundColor(.blue)
-                            .font(.title)
-                            .onAppear {
-                                Task {
-                                    try await Task.sleep(seconds: 3)
-                                    showwarning = false
-                                }
-                            }
-                    }
                 }
 
                 Toggle("Adjust output", isOn: $isadjusted)
                     .toggleStyle(.switch)
+            }
+            .onAppear {
+                if selecteduuids.isEmpty == false {
+                    if let configurations = rsyncUIdata.configurations {
+                        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                            selectedconfig = configurations[index]
+                            if selectedconfig?.task == SharedReference.shared.halted {
+                                selectedtaskishalted = true
+                                selectedconfig = nil
+                            } else {
+                                selectedtaskishalted = false
+                            }
+                        } else {
+                            selectedconfig = nil
+                        }
+                    }
+                }
             }
             .navigationTitle("Verify remote")
             .navigationDestination(for: Verify.self) { which in
@@ -125,10 +126,6 @@ struct VerifyRemoteView: View {
                 }
             })
         }
-        .onChange(of: queryitem) {
-            guard queryitem != nil else { return }
-            handlequeryitem()
-        }
         .padding(10)
     }
 
@@ -169,24 +166,5 @@ struct VerifyRemoteView: View {
     func alltasksarehalted() -> Bool {
         let haltedtasks = rsyncUIdata.configurations?.filter { $0.task == SharedReference.shared.halted }
         return haltedtasks?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0
-    }
-
-    // URL code
-    func handlequeryitem() {
-        Logger.process.info("VerifyRemote: Change on queryitem discovered")
-        // This is from URL
-        let backupid = queryitem?.value
-        if let config = rsyncUIdata.configurations?.first(where: { $0.backupID.replacingOccurrences(of: " ", with: "_") == backupid }),
-           config.offsiteServer.isEmpty == false,
-           SharedReference.shared.rsyncversion3,
-           queryitem != nil
-        {
-            selectedconfig = config
-            guard selectedconfig?.task != SharedReference.shared.halted else { return }
-            // Set config and execute a Verify
-            verifypath.append(Verify(task: .pushpullview))
-
-            queryitem = nil
-        }
     }
 }

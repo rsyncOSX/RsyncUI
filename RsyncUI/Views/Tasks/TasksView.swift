@@ -49,8 +49,6 @@ struct TasksView: View {
     // Focus export and import
     @State private var focusexport: Bool = false
     @State private var focusimport: Bool = false
-    // Focus Verify remote
-    @State private var focusverifyremote: Bool = false
     // Local data for present local and remote info about task
     @State var selectedconfig: SynchronizeConfiguration?
     @State private var doubleclick: Bool = false
@@ -116,16 +114,6 @@ struct TasksView: View {
                     activeSheet = .importview
                     focusimport = false
                 }
-                .onChange(of: focusverifyremote) {
-                    guard focusverifyremote == true else { return }
-                    focusverifyremote = false
-                    guard SharedReference.shared.hideverifyremotefunction == false else { return }
-                    guard SharedReference.shared.rsyncversion3 == true else { return }
-                    guard rsyncUIdata.oneormoretasksissnapshot == false else { return }
-                    guard rsyncUIdata.oneormoresynchronizetasksisremoteVer3x == true else { return }
-                    activeSheet = .verifyRemote
-                    
-                }
 
                 Group {
                     if focusstartestimation { labelstartestimation }
@@ -139,7 +127,6 @@ struct TasksView: View {
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.exporttasks, $focusexport)
         .focusedSceneValue(\.importtasks, $focusimport)
-        .focusedSceneValue(\.verifyremote, $focusverifyremote)
         .toolbar(content: {
             ToolbarItem {
                 if GlobalTimer.shared.timerIsActive(),
@@ -316,6 +303,20 @@ struct TasksView: View {
                         }
                         .help("Estimate & Synchronize")
                     }
+                    
+                    ToolbarItem {
+                        Button {
+                            guard SharedReference.shared.hideverifyremotefunction == false else { return }
+                            guard SharedReference.shared.rsyncversion3 == true else { return }
+                            guard rsyncUIdata.oneormoretasksissnapshot == false else { return }
+                            guard rsyncUIdata.oneormoresynchronizetasksisremoteVer3x == true else { return }
+                            activeSheet = .verifyRemote
+                        } label: {
+                            Image(systemName: "bolt.shield")
+                                .foregroundColor(Color(.yellow))
+                        }
+                        .help("Verify Selected")
+                    }
                 }
             }
 
@@ -329,16 +330,15 @@ struct TasksView: View {
                 secondaryButton: .cancel()
             )
         }
-        // Replace your three .sheet modifiers with one:
         .sheet(item: $activeSheet) { sheetType in
             switch sheetType {
             case .verifyRemote:
                 VerifyRemoteView(rsyncUIdata: rsyncUIdata,
+                                 selecteduuids: $selecteduuids,
                                  activeSheet: $activeSheet)
                     .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
                     .onDisappear {
                         activeSheet = nil
-                        // focusverifyremote = false
                     }
                 
             case .exportview:
@@ -360,33 +360,6 @@ struct TasksView: View {
                 }
             }
         }
-
-        /*
-        .sheet(isPresented: $focusverifyremote) {
-            VerifyRemoteView(rsyncUIdata: rsyncUIdata, focusverifyremote: $focusverifyremote)
-                .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
-                
-        }
-         */
-        /*
-        .sheet(isPresented: $importorexport) {
-            if focusexport {
-                if let configurations = rsyncUIdata.configurations {
-                    ExportView(focusexport: $focusexport,
-                               configurations: configurations,
-                               preselectedtasks: selecteduuids)
-                        .onDisappear {
-                            selecteduuids.removeAll()
-                        }
-                }
-
-            } else {
-                ImportView(focusimport: $focusimport,
-                           rsyncUIdata: rsyncUIdata,
-                           maxhiddenID: MaxhiddenID().computemaxhiddenID(rsyncUIdata.configurations))
-            }
-        }
-         */
     }
 
     var doubleclickaction: some View {
