@@ -294,17 +294,6 @@ struct TasksView: View {
                     .disabled(selecteduuids.count != 1 || selectedconfig?.task == SharedReference.shared.syncremote)
                 }
 
-                if SharedReference.shared.hideschedule == false {
-                    ToolbarItem {
-                        Button {
-                            activeSheet = .scheduledtasksview
-                        } label: {
-                            Image(systemName: "calendar.circle.fill")
-                        }
-                        .help("Schedule")
-                    }
-                }
-
                 if alltasksarehalted() == false {
                     ToolbarItem {
                         Button {
@@ -319,21 +308,31 @@ struct TasksView: View {
                         }
                         .help("Estimate & Synchronize")
                     }
-
-                    if SharedReference.shared.hideverifyremotefunction == false,
-                       SharedReference.shared.rsyncversion3,
-                       rsyncUIdata.oneormoretasksissnapshot == false,
-                       rsyncUIdata.oneormoresynchronizetasksisremoteVer3x
-                    {
-                        ToolbarItem {
-                            Button {
-                                activeSheet = .verifyremoteview
-                            } label: {
-                                Image(systemName: "bolt.shield")
-                                    .foregroundColor(Color(.yellow))
-                            }
-                            .help("Verify Selected")
+                }
+                if SharedReference.shared.hideschedule == false {
+                    ToolbarItem {
+                        Button {
+                            activeSheet = .scheduledtasksview
+                        } label: {
+                            Image(systemName: "calendar.circle.fill")
                         }
+                        .help("Schedule")
+                    }
+                }
+
+                if SharedReference.shared.hideverifyremotefunction == false,
+                   SharedReference.shared.rsyncversion3,
+                   rsyncUIdata.oneormoretasksissnapshot == false,
+                   rsyncUIdata.oneormoresynchronizetasksisremoteVer3x
+                {
+                    ToolbarItem {
+                        Button {
+                            activeSheet = .verifyremoteview
+                        } label: {
+                            Image(systemName: "bolt.shield")
+                                .foregroundColor(Color(.yellow))
+                        }
+                        .help("Verify remote")
                     }
                 }
             }
