@@ -353,7 +353,7 @@ struct TasksView: View {
                 VerifyRemoteView(rsyncUIdata: rsyncUIdata,
                                  selecteduuids: $selecteduuids,
                                  activeSheet: $activeSheet)
-                    .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
+                    .frame(minWidth: 1000, idealWidth: 1100, minHeight: 400)
                     .onDisappear {
                         activeSheet = nil
                     }
@@ -379,7 +379,7 @@ struct TasksView: View {
                                   schedules: schedules,
                                   selectedprofileID: $selectedprofileID,
                                   activeSheet: $activeSheet)
-                    .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
+                    .frame(minWidth: 1000, idealWidth: 1100, minHeight: 400)
                     .onDisappear {
                         activeSheet = nil
                     }

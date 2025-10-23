@@ -30,6 +30,7 @@ struct PushPullView: View {
 
                 HStack {
                     Text("Estimating \(config.backupID), please wait ...")
+                        .font(.title2)
 
                     ProgressView()
                 }
@@ -46,8 +47,6 @@ struct PushPullView: View {
                                 verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
                             } label: {
                                 Image(systemName: "arrowshape.right.fill")
-                                    .font(.title2)
-                                    .imageScale(.large)
                             }
                             .help("Push local")
                             .padding(10)
@@ -56,7 +55,7 @@ struct PushPullView: View {
                             DetailsVerifyView(remotedatanumbers: pushremotedatanumbers)
                                 .padding(10)
                         }
-
+                        
                         VStack {
                             Button {
                                 pushpullcommand = .pull_remote
@@ -64,8 +63,6 @@ struct PushPullView: View {
                                 verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
                             } label: {
                                 Image(systemName: "arrowshape.left.fill")
-                                    .font(.title2)
-                                    .imageScale(.large)
                             }
                             .help("Pull remote")
                             .padding(10)
@@ -90,6 +87,10 @@ struct PushPullView: View {
                     Image(systemName: "stop.fill")
                 }
                 .help("Abort (⌘K)")
+            }
+            
+            ToolbarItem {
+                Text("\(config.backupID)")
             }
         })
     }

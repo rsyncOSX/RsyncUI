@@ -86,10 +86,10 @@ struct VerifyRemoteView: View {
                             guard selectedtaskishalted == false else { return }
                             verifypath.append(Verify(task: .pushpullview(configID: selectedconfig.id)))
                         } label: {
-                            Image(systemName: "bolt.shield")
-                                .foregroundColor(Color(.yellow))
+                            Image(systemName: "arrow.up")
                         }
-                        .help("Verify Selected")
+                        .buttonStyle(.borderedProminent)
+                        .help("Verify selected")
                     }
                 }
 
