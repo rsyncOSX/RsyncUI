@@ -336,6 +336,7 @@ struct TasksView: View {
             switch sheetType {
             case .verifyRemote:
                 VerifyRemoteView(rsyncUIdata: rsyncUIdata,
+                                 selecteduuids: $selecteduuids,
                                  activeSheet: $activeSheet)
                     .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
                     .onDisappear {
