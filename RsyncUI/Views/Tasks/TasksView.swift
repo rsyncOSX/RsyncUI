@@ -304,18 +304,20 @@ struct TasksView: View {
                         .help("Estimate & Synchronize")
                     }
                     
-                    ToolbarItem {
-                        Button {
-                            guard SharedReference.shared.hideverifyremotefunction == false else { return }
-                            guard SharedReference.shared.rsyncversion3 == true else { return }
-                            guard rsyncUIdata.oneormoretasksissnapshot == false else { return }
-                            guard rsyncUIdata.oneormoresynchronizetasksisremoteVer3x == true else { return }
-                            activeSheet = .verifyRemote
-                        } label: {
-                            Image(systemName: "bolt.shield")
-                                .foregroundColor(Color(.yellow))
+                    if SharedReference.shared.hideverifyremotefunction == false,
+                       SharedReference.shared.rsyncversion3,
+                       rsyncUIdata.oneormoretasksissnapshot == false,
+                       rsyncUIdata.oneormoresynchronizetasksisremoteVer3x {
+                        
+                        ToolbarItem {
+                            Button {
+                                activeSheet = .verifyRemote
+                            } label: {
+                                Image(systemName: "bolt.shield")
+                                    .foregroundColor(Color(.yellow))
+                            }
+                            .help("Verify Selected")
                         }
-                        .help("Verify Selected")
                     }
                 }
             }
@@ -334,7 +336,6 @@ struct TasksView: View {
             switch sheetType {
             case .verifyRemote:
                 VerifyRemoteView(rsyncUIdata: rsyncUIdata,
-                                 selecteduuids: $selecteduuids,
                                  activeSheet: $activeSheet)
                     .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
                     .onDisappear {

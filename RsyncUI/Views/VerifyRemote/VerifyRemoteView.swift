@@ -21,7 +21,6 @@ struct Verify: Hashable, Identifiable {
 
 struct VerifyRemoteView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var activeSheet: SheetType?
 
     @State private var selectedconfig: SynchronizeConfiguration?
@@ -33,6 +32,7 @@ struct VerifyRemoteView: View {
     @State private var pushorpull = ObservableVerifyRemotePushPull()
     @State private var pushpullcommand = PushPullCommand.none
     @State private var verifypath: [Verify] = []
+    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
     var body: some View {
         NavigationStack(path: $verifypath) {
@@ -59,23 +59,6 @@ struct VerifyRemoteView: View {
 
                 Toggle("Adjust output", isOn: $isadjusted)
                     .toggleStyle(.switch)
-            }
-            .onAppear {
-                if selecteduuids.isEmpty == false {
-                    if let configurations = rsyncUIdata.configurations {
-                        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                            selectedconfig = configurations[index]
-                            if selectedconfig?.task == SharedReference.shared.halted {
-                                selectedtaskishalted = true
-                                selectedconfig = nil
-                            } else {
-                                selectedtaskishalted = false
-                            }
-                        } else {
-                            selectedconfig = nil
-                        }
-                    }
-                }
             }
             .navigationTitle("Verify remote")
             .navigationDestination(for: Verify.self) { which in
