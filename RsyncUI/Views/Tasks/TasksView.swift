@@ -381,6 +381,7 @@ struct TasksView: View {
                                   schedules: schedules,
                                   selectedprofileID: $selectedprofileID,
                                   activeSheet: $activeSheet)
+                .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
                 .onDisappear {
                     activeSheet = nil
                 }
