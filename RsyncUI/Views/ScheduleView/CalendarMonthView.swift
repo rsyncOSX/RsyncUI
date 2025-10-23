@@ -231,7 +231,7 @@ struct CalendarMonthView: View {
                 }
                 .help("Next month")
             }
-            
+
             ToolbarItem {
                 Button {
                     activeSheet = nil

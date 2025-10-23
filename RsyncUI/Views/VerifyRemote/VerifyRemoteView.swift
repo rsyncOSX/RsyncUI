@@ -102,12 +102,11 @@ struct VerifyRemoteView: View {
                     }
                     .help("Pull or push")
                 }
-                
+
                 ToolbarItem {
                     Spacer()
                 }
 
-                
                 ToolbarItem {
                     Button {
                         activeSheet = nil
@@ -125,16 +124,15 @@ struct VerifyRemoteView: View {
     @MainActor @ViewBuilder
     func makeView(view: DestinationVerifyView) -> some View {
         switch view {
-        case .executenpushpullview(let config):
+        case let .executenpushpullview(config):
             if let index = rsyncUIdata.configurations?.firstIndex(where: { $0.id == config }) {
                 if let config = rsyncUIdata.configurations?[index] {
                     ExecutePushPullView(pushorpull: $pushorpull,
                                         pushpullcommand: $pushpullcommand,
                                         config: config)
                 }
-                
             }
-        case .pushpullview(let config):
+        case let .pushpullview(config):
             if let index = rsyncUIdata.configurations?.firstIndex(where: { $0.id == config }) {
                 if let config = rsyncUIdata.configurations?[index] {
                     PushPullView(pushorpull: $pushorpull,

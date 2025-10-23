@@ -14,7 +14,7 @@ enum SheetType: Identifiable {
     case importview
     case exportview
     case scheduledtasksview
-    
+
     var id: Int {
         hashValue
     }
@@ -63,7 +63,7 @@ struct TasksView: View {
     // For estimates is true
     @State private var thereareestimates: Bool = false
     @State private var activeSheet: SheetType?
-    
+
     var body: some View {
         ZStack {
             HStack {
@@ -239,12 +239,12 @@ struct TasksView: View {
                     }
                     .help("Reset estimates")
                 }
-                
+
                 ToolbarItem {
                     Button {
                         guard selecteduuids.count > 0 else { return }
                         guard alltasksarehalted() == false else { return }
-                        
+
                         guard selecteduuids.count == 1 else {
                             executetaskpath.append(Tasks(task: .summarizeddetailsview))
                             return
@@ -259,7 +259,7 @@ struct TasksView: View {
                     }
                     .help("Rsync output estimated task")
                 }
-                
+
                 ToolbarItem {
                     Button {
                         executetaskpath.append(Tasks(task: .viewlogfile))
@@ -268,7 +268,7 @@ struct TasksView: View {
                     }
                     .help("View logfile")
                 }
-                
+
                 ToolbarItem {
                     Button {
                         executetaskpath.append(Tasks(task: .quick_synchronize))
@@ -278,11 +278,11 @@ struct TasksView: View {
                     .help("Quick synchronize")
                 }
             }
-            
+
             ToolbarItem {
                 Spacer()
             }
-            
+
             Group {
                 ToolbarItem {
                     Button {
@@ -304,7 +304,7 @@ struct TasksView: View {
                         .help("Schedule")
                     }
                 }
-                
+
                 if alltasksarehalted() == false {
                     ToolbarItem {
                         Button {
@@ -319,12 +319,12 @@ struct TasksView: View {
                         }
                         .help("Estimate & Synchronize")
                     }
-                    
+
                     if SharedReference.shared.hideverifyremotefunction == false,
                        SharedReference.shared.rsyncversion3,
                        rsyncUIdata.oneormoretasksissnapshot == false,
-                       rsyncUIdata.oneormoresynchronizetasksisremoteVer3x {
-                        
+                       rsyncUIdata.oneormoresynchronizetasksisremoteVer3x
+                    {
                         ToolbarItem {
                             Button {
                                 activeSheet = .verifyremoteview
@@ -358,12 +358,11 @@ struct TasksView: View {
                     .onDisappear {
                         activeSheet = nil
                     }
-                
             case .exportview:
                 if let configurations = rsyncUIdata.configurations {
                     ExportView(activeSheet: $activeSheet,
-                              configurations: configurations,
-                              preselectedtasks: selecteduuids)
+                               configurations: configurations,
+                               preselectedtasks: selecteduuids)
                         .onDisappear {
                             selecteduuids.removeAll()
                             activeSheet = nil
@@ -371,20 +370,20 @@ struct TasksView: View {
                 }
             case .importview:
                 ImportView(rsyncUIdata: rsyncUIdata,
-                          activeSheet: $activeSheet,
-                          maxhiddenID: MaxhiddenID().computemaxhiddenID(rsyncUIdata.configurations))
-                .onDisappear {
-                    activeSheet = nil
-                }
+                           activeSheet: $activeSheet,
+                           maxhiddenID: MaxhiddenID().computemaxhiddenID(rsyncUIdata.configurations))
+                    .onDisappear {
+                        activeSheet = nil
+                    }
             case .scheduledtasksview:
                 CalendarMonthView(rsyncUIdata: rsyncUIdata,
                                   schedules: schedules,
                                   selectedprofileID: $selectedprofileID,
                                   activeSheet: $activeSheet)
-                .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
-                .onDisappear {
-                    activeSheet = nil
-                }
+                    .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
+                    .onDisappear {
+                        activeSheet = nil
+                    }
             }
         }
     }

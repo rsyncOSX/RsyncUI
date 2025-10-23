@@ -29,16 +29,14 @@ struct PushPullView: View {
                 Spacer()
 
                 HStack {
-                    
                     Text("Estimating \(config.backupID), please wait ...")
-                    
+
                     ProgressView()
                 }
-                
+
                 Spacer()
 
             } else {
-                
                 if let pullremotedatanumbers, let pushremotedatanumbers {
                     HStack {
                         VStack {

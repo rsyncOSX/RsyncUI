@@ -28,24 +28,25 @@ struct ConfigurationsTableDataMainView: View {
                         // Progress bar with percentage overlay
                         ZStack(alignment: .leading) {
                             ProgressView(value: progress, total: max)
-                                .frame(width: 120)
-                            
+                                .frame(width: 80)
+                                .scaleEffect(y: 1.5, anchor: .center)
+
                             // Optional: Show percentage inside/over the progress bar
                             Text("\(Int((progress / max) * 100))%")
                                 .font(.caption2)
                                 .foregroundStyle(.secondary)
                                 .frame(maxWidth: .infinity)
                         }
-                        
+
                         // Compact ratio display
                         HStack(spacing: 4) {
                             Text("\(Int(progress))")
                                 .contentTransition(.numericText(countsDown: false))
                                 .animation(.default, value: progress)
-                            
+
                             Text("/")
                                 .foregroundStyle(.secondary)
-                            
+
                             Text("\(Int(max))")
                                 .foregroundStyle(.secondary)
                         }
