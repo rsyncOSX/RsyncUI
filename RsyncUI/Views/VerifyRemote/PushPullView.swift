@@ -45,7 +45,7 @@ struct PushPullView: View {
                             Button {
                                 pushpullcommand = .push_local
                                 verifypath.removeAll()
-                                verifypath.append(Verify(task: .executenpushpullview))
+                                verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
                             } label: {
                                 Image(systemName: "arrowshape.right.fill")
                                     .font(.title2)
@@ -63,7 +63,7 @@ struct PushPullView: View {
                             Button {
                                 pushpullcommand = .pull_remote
                                 verifypath.removeAll()
-                                verifypath.append(Verify(task: .executenpushpullview))
+                                verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
                             } label: {
                                 Image(systemName: "arrowshape.left.fill")
                                     .font(.title2)

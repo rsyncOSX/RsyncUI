@@ -8,10 +8,9 @@
 import OSLog
 import SwiftUI
 
-enum DestinationVerifyView: String, Identifiable {
-    case pushpullview, executenpushpullview
-
-    var id: String { rawValue }
+enum DestinationVerifyView: Hashable {
+    case pushpullview(configID: SynchronizeConfiguration.ID)
+    case executenpushpullview(configID: SynchronizeConfiguration.ID)
 }
 
 struct Verify: Hashable, Identifiable {
@@ -68,11 +67,9 @@ struct VerifyRemoteView: View {
                 if remoteconfigurations, alltasksarehalted() == false {
                     ToolbarItem {
                         Button {
-                            guard selectedconfig != nil else { return }
+                            guard let selectedconfig else { return }
                             guard selectedtaskishalted == false else { return }
-
-                            verifypath.append(Verify(task: .pushpullview))
-
+                            verifypath.append(Verify(task: .pushpullview(configID: selectedconfig.id)))
                         } label: {
                             Image(systemName: "bolt.shield")
                                 .foregroundColor(Color(.yellow))
@@ -83,10 +80,8 @@ struct VerifyRemoteView: View {
 
                 ToolbarItem {
                     Button {
-                        guard selectedconfig != nil else { return }
-
-                        verifypath.append(Verify(task: .executenpushpullview))
-
+                        guard let selectedconfig else { return }
+                        verifypath.append(Verify(task: .executenpushpullview(configID: selectedconfig.id)))
                     } label: {
                         Image(systemName: "arrow.left.arrow.right.circle.fill")
                     }
@@ -115,20 +110,24 @@ struct VerifyRemoteView: View {
     @MainActor @ViewBuilder
     func makeView(view: DestinationVerifyView) -> some View {
         switch view {
-        case .executenpushpullview:
-            if let selectedconfig {
-                ExecutePushPullView(pushorpull: $pushorpull,
-                                    pushpullcommand: $pushpullcommand,
-                                    config: selectedconfig)
+        case .executenpushpullview(let config):
+            if let index = rsyncUIdata.configurations?.firstIndex(where: { $0.id == config }) {
+                if let config = rsyncUIdata.configurations?[index] {
+                    ExecutePushPullView(pushorpull: $pushorpull,
+                                        pushpullcommand: $pushpullcommand,
+                                        config: config)
+                }
+                
             }
-
-        case .pushpullview:
-            if let selectedconfig {
-                PushPullView(pushorpull: $pushorpull,
-                             verifypath: $verifypath,
-                             pushpullcommand: $pushpullcommand,
-                             config: selectedconfig,
-                             isadjusted: isadjusted)
+        case .pushpullview(let config):
+            if let index = rsyncUIdata.configurations?.firstIndex(where: { $0.id == config }) {
+                if let config = rsyncUIdata.configurations?[index] {
+                    PushPullView(pushorpull: $pushorpull,
+                                 verifypath: $verifypath,
+                                 pushpullcommand: $pushpullcommand,
+                                 config: config,
+                                 isadjusted: isadjusted)
+                }
             }
         }
     }
