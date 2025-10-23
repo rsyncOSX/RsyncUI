@@ -231,6 +231,10 @@ struct CalendarMonthView: View {
                 }
                 .help("Next month")
             }
+            
+            ToolbarItem {
+                Spacer()
+            }
 
             ToolbarItem {
                 Button {
