@@ -85,6 +85,10 @@ struct Logsettings: View {
                 if togglehideschedule {
                     DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Please restart RsyncUI to take effect", comment: ""))
                 }
+                
+                if togglehideverifyremotefunction {
+                    DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Please restart RsyncUI to take effect", comment: ""))
+                }
 
                 /* DEMO SCHEDULE
                  if SharedReference.shared.hideschedule == false {
