@@ -44,12 +44,13 @@ struct ScheduledItem: Identifiable, Hashable {
 
 @Observable
 @MainActor
-public final class GlobalTimer {
+final class GlobalTimer {
     public static let shared = GlobalTimer()
 
     // Exposed Array of not executed Schedule
     var allSchedules = [ScheduledItem]()
     // Schedules not executed after WakeUp - func handleWake()
+    @ObservationIgnored
     var notExecutedSchedulesafterWakeUp: [ScheduledItem] = []
 
     // MARK: - Properties
@@ -59,6 +60,8 @@ public final class GlobalTimer {
     var firstscheduledate: SchedulesConfigurations?
     // Trigger execution
     var scheduledprofile: String = ""
+    // Trigger for not executed tasks after wakeup
+    var thereisnotexecutedschedulesafterwakeup: Bool = false
 
     @ObservationIgnored
     private var timer: Timer?
@@ -87,11 +90,11 @@ public final class GlobalTimer {
         return validate
     }
 
-    public func timerIsActive() -> Bool {
+    func timerIsActive() -> Bool {
         timer != nil
     }
 
-    public func nextScheduleDate(format: Date.FormatStyle = .dateTime) -> String? {
+    func nextScheduleDate(format: Date.FormatStyle = .dateTime) -> String? {
         let earliest = allSchedules.min(by: { $0.time < $1.time })
         return earliest?.time.formatted(format)
     }
@@ -236,6 +239,9 @@ public final class GlobalTimer {
         notExecutedSchedulesafterWakeUp = notExecutedSchedulesafterWakeUp.sorted(by: { $0.time < $1.time })
         if allSchedules.isEmpty {
             invalidateAllSchedulesAndTimer()
+        }
+        if notExecutedSchedulesafterWakeUp.isEmpty == false {
+            thereisnotexecutedschedulesafterwakeup = true
         }
     }
 
