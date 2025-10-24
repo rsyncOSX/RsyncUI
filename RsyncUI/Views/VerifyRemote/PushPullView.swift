@@ -28,7 +28,12 @@ struct PushPullView: View {
             if progress {
                 Spacer()
 
-                ProgressView()
+                HStack {
+                    Text("Estimating \(config.backupID), please wait ...")
+                        .font(.title2)
+
+                    ProgressView()
+                }
 
                 Spacer()
 
@@ -39,11 +44,9 @@ struct PushPullView: View {
                             Button {
                                 pushpullcommand = .push_local
                                 verifypath.removeAll()
-                                verifypath.append(Verify(task: .executenpushpullview))
+                                verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
                             } label: {
                                 Image(systemName: "arrowshape.right.fill")
-                                    .font(.title2)
-                                    .imageScale(.large)
                             }
                             .help("Push local")
                             .padding(10)
@@ -52,16 +55,14 @@ struct PushPullView: View {
                             DetailsVerifyView(remotedatanumbers: pushremotedatanumbers)
                                 .padding(10)
                         }
-
+                        
                         VStack {
                             Button {
                                 pushpullcommand = .pull_remote
                                 verifypath.removeAll()
-                                verifypath.append(Verify(task: .executenpushpullview))
+                                verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
                             } label: {
                                 Image(systemName: "arrowshape.left.fill")
-                                    .font(.title2)
-                                    .imageScale(.large)
                             }
                             .help("Pull remote")
                             .padding(10)
@@ -74,7 +75,7 @@ struct PushPullView: View {
                 }
             }
         }
-        .task {
+        .onAppear {
             pullremote(config: config)
         }
         .toolbar(content: {
@@ -86,6 +87,10 @@ struct PushPullView: View {
                     Image(systemName: "stop.fill")
                 }
                 .help("Abort (⌘K)")
+            }
+            
+            ToolbarItem {
+                Text("\(config.backupID)")
             }
         })
     }

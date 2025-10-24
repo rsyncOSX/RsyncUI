@@ -11,6 +11,7 @@ struct CalendarMonthView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var schedules: ObservableSchedules
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
+    @Binding var activeSheet: SheetType?
 
     @State private var date = Date.now
 
@@ -84,7 +85,7 @@ struct CalendarMonthView: View {
 
                 Spacer()
 
-                if let first = schedules.firstscheduledate, globaltimer.timerIsActive() {
+                if let first = globaltimer.firstscheduledate, globaltimer.timerIsActive() {
                     HStack {
                         Text(first.profile ?? "")
                         Text(first.dateRun ?? "")
@@ -115,7 +116,7 @@ struct CalendarMonthView: View {
                                 schedules.lastdateinpresentmont = Date.now.endOfMonth
 
                                 if globaltimer.allSchedules.isEmpty {
-                                    schedules.firstscheduledate = nil
+                                    globaltimer.firstscheduledate = nil
                                 } else {
                                     schedules.recomputeschedules()
                                 }
@@ -187,7 +188,7 @@ struct CalendarMonthView: View {
         .onChange(of: date) {
             days = date.calendarDisplayDays
         }
-        .onChange(of: schedules.firstscheduledate) {
+        .onChange(of: globaltimer.firstscheduledate) {
             if globaltimer.allSchedules.isEmpty {
                 globaltimer.invalidateAllSchedulesAndTimer()
             }
@@ -229,6 +230,20 @@ struct CalendarMonthView: View {
                         .foregroundColor(.blue)
                 }
                 .help("Next month")
+            }
+            
+            ToolbarItem {
+                Spacer()
+            }
+
+            ToolbarItem {
+                Button {
+                    activeSheet = nil
+                } label: {
+                    Image(systemName: "return")
+                }
+                .help("Dismiss")
+                .buttonStyle(.borderedProminent)
             }
         }
     }

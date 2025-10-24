@@ -8,10 +8,9 @@
 import OSLog
 import SwiftUI
 
-enum DestinationVerifyView: String, Identifiable {
-    case pushpullview, executenpushpullview
-
-    var id: String { rawValue }
+enum DestinationVerifyView: Hashable {
+    case pushpullview(configID: SynchronizeConfiguration.ID)
+    case executenpushpullview(configID: SynchronizeConfiguration.ID)
 }
 
 struct Verify: Hashable, Identifiable {
@@ -21,10 +20,9 @@ struct Verify: Hashable, Identifiable {
 
 struct VerifyRemoteView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var verifypath: [Verify]
-    // Queryitem binding is requiered for external URL only
-    @State private var queryitem: URLQueryItem?
-    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
+    @Binding var activeSheet: SheetType?
+
     @State private var selectedconfig: SynchronizeConfiguration?
     // Selected task is halted
     @State private var selectedtaskishalted: Bool = false
@@ -33,8 +31,7 @@ struct VerifyRemoteView: View {
     // Decide push or pull
     @State private var pushorpull = ObservableVerifyRemotePushPull()
     @State private var pushpullcommand = PushPullCommand.none
-    // Show warning
-    @State private var showwarning: Bool = true
+    @State private var verifypath: [Verify] = []
 
     var body: some View {
         NavigationStack(path: $verifypath) {
@@ -43,7 +40,6 @@ struct VerifyRemoteView: View {
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                                 configurations: rsyncUIdata.configurations)
                         .onChange(of: selecteduuids) {
-                            queryitem = nil
                             if let configurations = rsyncUIdata.configurations {
                                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                     selectedconfig = configurations[index]
@@ -58,22 +54,25 @@ struct VerifyRemoteView: View {
                                 }
                             }
                         }
-
-                    if showwarning {
-                        Text("**Warning**: Verify remote is **advisory** only")
-                            .foregroundColor(.blue)
-                            .font(.title)
-                            .onAppear {
-                                Task {
-                                    try await Task.sleep(seconds: 3)
-                                    showwarning = false
-                                }
-                            }
-                    }
                 }
 
                 Toggle("Adjust output", isOn: $isadjusted)
                     .toggleStyle(.switch)
+            }
+            .onAppear {
+                if let configurations = rsyncUIdata.configurations {
+                    if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                        selectedconfig = configurations[index]
+                        if selectedconfig?.task == SharedReference.shared.halted {
+                            selectedtaskishalted = true
+                            selectedconfig = nil
+                        } else {
+                            selectedtaskishalted = false
+                        }
+                    } else {
+                        selectedconfig = nil
+                    }
+                }
             }
             .navigationTitle("Verify remote")
             .navigationDestination(for: Verify.self) { which in
@@ -83,55 +82,65 @@ struct VerifyRemoteView: View {
                 if remoteconfigurations, alltasksarehalted() == false {
                     ToolbarItem {
                         Button {
-                            guard selectedconfig != nil else { return }
+                            guard let selectedconfig else { return }
                             guard selectedtaskishalted == false else { return }
-
-                            verifypath.append(Verify(task: .pushpullview))
-
+                            verifypath.append(Verify(task: .pushpullview(configID: selectedconfig.id)))
                         } label: {
-                            Image(systemName: "bolt.shield")
-                                .foregroundColor(Color(.yellow))
+                            Image(systemName: "arrow.up")
                         }
-                        .help("Verify Selected")
+                        .buttonStyle(.borderedProminent)
+                        .help("Verify selected")
                     }
                 }
 
                 ToolbarItem {
                     Button {
-                        guard selectedconfig != nil else { return }
-
-                        verifypath.append(Verify(task: .executenpushpullview))
-
+                        guard let selectedconfig else { return }
+                        verifypath.append(Verify(task: .executenpushpullview(configID: selectedconfig.id)))
                     } label: {
                         Image(systemName: "arrow.left.arrow.right.circle.fill")
                     }
                     .help("Pull or push")
                 }
+
+                ToolbarItem {
+                    Spacer()
+                }
+
+                ToolbarItem {
+                    Button {
+                        activeSheet = nil
+                    } label: {
+                        Image(systemName: "return")
+                    }
+                    .help("Dismiss")
+                    .buttonStyle(.borderedProminent)
+                }
             })
         }
-        .onChange(of: queryitem) {
-            guard queryitem != nil else { return }
-            handlequeryitem()
-        }
+        .padding(10)
     }
 
     @MainActor @ViewBuilder
     func makeView(view: DestinationVerifyView) -> some View {
         switch view {
-        case .executenpushpullview:
-            if let selectedconfig {
-                ExecutePushPullView(pushorpull: $pushorpull,
-                                    pushpullcommand: $pushpullcommand,
-                                    config: selectedconfig)
+        case let .executenpushpullview(config):
+            if let index = rsyncUIdata.configurations?.firstIndex(where: { $0.id == config }) {
+                if let config = rsyncUIdata.configurations?[index] {
+                    ExecutePushPullView(pushorpull: $pushorpull,
+                                        pushpullcommand: $pushpullcommand,
+                                        config: config)
+                }
             }
-
-        case .pushpullview:
-            if let selectedconfig {
-                PushPullView(pushorpull: $pushorpull,
-                             verifypath: $verifypath,
-                             pushpullcommand: $pushpullcommand,
-                             config: selectedconfig,
-                             isadjusted: isadjusted)
+        case let .pushpullview(config):
+            if let index = rsyncUIdata.configurations?.firstIndex(where: { $0.id == config }) {
+                if let config = rsyncUIdata.configurations?[index] {
+                    PushPullView(pushorpull: $pushorpull,
+                                 verifypath: $verifypath,
+                                 pushpullcommand: $pushpullcommand,
+                                 config: config,
+                                 isadjusted: isadjusted)
+                }
             }
         }
     }
@@ -152,24 +161,5 @@ struct VerifyRemoteView: View {
     func alltasksarehalted() -> Bool {
         let haltedtasks = rsyncUIdata.configurations?.filter { $0.task == SharedReference.shared.halted }
         return haltedtasks?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0
-    }
-
-    // URL code
-    func handlequeryitem() {
-        Logger.process.info("VerifyRemote: Change on queryitem discovered")
-        // This is from URL
-        let backupid = queryitem?.value
-        if let config = rsyncUIdata.configurations?.first(where: { $0.backupID.replacingOccurrences(of: " ", with: "_") == backupid }),
-           config.offsiteServer.isEmpty == false,
-           SharedReference.shared.rsyncversion3,
-           queryitem != nil
-        {
-            selectedconfig = config
-            guard selectedconfig?.task != SharedReference.shared.halted else { return }
-            // Set config and execute a Verify
-            verifypath.append(Verify(task: .pushpullview))
-
-            queryitem = nil
-        }
     }
 }

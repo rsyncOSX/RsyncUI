@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
-    case synchronize, tasks, rsync_parameters, verify_tasks, snapshots, log_listings, restore, profiles, verify_remote, schedule
+    case synchronize, tasks, rsync_parameters, verify_tasks, snapshots, log_listings, restore, profiles
     var id: String { rawValue }
 }
 
@@ -38,7 +38,7 @@ struct SidebarMainView: View {
     // Needed here because if not empty sidebar is disabled
     @State private var addtaskpath: [AddTasks] = []
     // Verify navigation
-    @State private var verifypath: [Verify] = []
+    // @State private var verifypath: [Verify] = []
     // Check if new version
     @State private var newversion = CheckfornewversionofRsyncUI()
     // URL code
@@ -84,8 +84,7 @@ struct SidebarMainView: View {
                     item.menuitem == .verify_tasks ||
                     item.menuitem == .snapshots ||
                     item.menuitem == .log_listings ||
-                    item.menuitem == .restore ||
-                    item.menuitem == .verify_remote
+                    item.menuitem == .restore
 
                 { Divider() }
             }
@@ -189,21 +188,21 @@ struct SidebarMainView: View {
             // in RsyncUIView
             selecteduuids.removeAll()
         }
-        .onChange(of: schedules.firstscheduledate) {
+        .onChange(of: globaltimer.firstscheduledate) {
             Logger.process.info("SidebarMainView: got TRIGGER from Schedule, firstscheduledate is set")
 
             if globaltimer.allSchedules.isEmpty {
                 globaltimer.invalidateAllSchedulesAndTimer()
             }
         }
-        .onChange(of: schedules.scheduledprofile) {
+        .onChange(of: globaltimer.scheduledprofile) {
             Logger.process.info("SidebarMainView: got TRIGGER from Schedule, the callback is executed")
             queryitem = nil
             if selectedview != .synchronize {
                 selectedview = .synchronize
             }
             // Trigger as external URL, makes it load profile before execute
-            if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: schedules.scheduledprofile) {
+            if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: globaltimer.scheduledprofile) {
                 handleURLsidebarmainView(url, externalurl: true)
             }
         }
@@ -232,6 +231,7 @@ struct SidebarMainView: View {
         case .synchronize:
             SidebarTasksView(rsyncUIdata: rsyncUIdata,
                              progressdetails: progressdetails,
+                             schedules: schedules,
                              selecteduuids: $selecteduuids,
                              executetaskpath: $executetaskpath,
                              queryitem: $queryitem,
@@ -240,15 +240,6 @@ struct SidebarMainView: View {
                              selectedprofileID: $selectedprofileID)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, selectedprofileID: $selectedprofileID)
-        case .verify_remote:
-            VerifyRemoteView(rsyncUIdata: rsyncUIdata,
-                             verifypath: $verifypath)
-        case .schedule:
-            NavigationStack {
-                CalendarMonthView(rsyncUIdata: rsyncUIdata,
-                                  schedules: schedules,
-                                  selectedprofileID: $selectedprofileID)
-            }
         case .verify_tasks:
             NavigationStack {
                 VerifyTasks(rsyncUIdata: rsyncUIdata)
@@ -259,7 +250,7 @@ struct SidebarMainView: View {
     var disablesidebarmeny: Bool {
         executetaskpath.isEmpty == false ||
             addtaskpath.isEmpty == false ||
-            verifypath.isEmpty == false ||
+            // verifypath.isEmpty == false ||
             SharedReference.shared.process != nil
     }
 
@@ -274,25 +265,6 @@ struct SidebarMainView: View {
             // Do not show the Snapshot sidebar meny
             if rsyncUIdata.oneormoretasksissnapshot == false,
                item == .snapshots { return nil }
-
-            if SharedReference.shared.hideverifyremotefunction == true,
-               item == .verify_remote { return nil }
-
-            if SharedReference.shared.hideschedule == true,
-               item == .schedule { return nil }
-
-            // Return nil if there is one or more remote tasks
-            // and only remote task is snapshot
-            // Do not show the Verify remote sidebar meny
-            if rsyncUIdata.oneormoretasksissnapshot == true,
-               SharedReference.shared.hideverifyremotefunction == false,
-               item == .verify_remote { return nil }
-
-            // Return nil if there is no remote tasks, only local attached discs
-            // Do not show the Verify remote sidebar meny
-            if rsyncUIdata.oneormoresynchronizetasksisremoteVer3x == false,
-               item == .verify_remote { return nil }
-
             // Return nil if there is no remote tasks, only local attached discs
             // Do not show the Restore remote sidebar meny
 
@@ -389,19 +361,8 @@ extension SidebarMainView {
         case .loadprofileandverify:
             // Only by external URL load and verify
             Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Verify - \(url)")
-
-            guard SharedReference.shared.hideverifyremotefunction == false else {
-                Logger.process.warning("handleURLsidebarmainView: URL Loadprofile and Verify - \(url) not enabled")
-                return
-            }
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 2 {
                 let profile = queryitems[0].value ?? ""
-
-                // Internal verify remote is triggered from within the verify_remote view
-                // and external == false, the view itself handles push and pull dryrun
-                if selectedview != .verify_remote {
-                    selectedview = .verify_remote
-                }
 
                 if profile == "Default" || profile == "default" {
                     Task {
@@ -568,11 +529,7 @@ struct SidebarRow: View {
         case .synchronize:
             "arrowshape.turn.up.backward"
         case .profiles:
-            "arrow.triangle.branch"
-        case .verify_remote:
             "arrow.left.arrow.right.circle.fill"
-        case .schedule:
-            "calendar.circle.fill"
         case .verify_tasks:
             "hand.thumbsup.fill"
         }

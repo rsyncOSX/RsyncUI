@@ -9,6 +9,17 @@ import Observation
 import OSLog
 import SwiftUI
 
+enum SheetType: Identifiable {
+    case verifyremoteview
+    case importview
+    case exportview
+    case scheduledtasksview
+
+    var id: Int {
+        hashValue
+    }
+}
+
 struct CopyItem: Identifiable, Codable, Transferable {
     let id: UUID
     let task: String
@@ -23,6 +34,7 @@ struct TasksView: View {
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @Bindable var progressdetails: ProgressDetails
+    @Bindable var schedules: ObservableSchedules
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     // Navigation path for executetasks
     @Binding var executetaskpath: [Tasks]
@@ -39,7 +51,6 @@ struct TasksView: View {
     // Focus export and import
     @State private var focusexport: Bool = false
     @State private var focusimport: Bool = false
-    @State private var importorexport: Bool = false
     // Local data for present local and remote info about task
     @State var selectedconfig: SynchronizeConfiguration?
     @State private var doubleclick: Bool = false
@@ -51,8 +62,7 @@ struct TasksView: View {
     @State private var maxcount: Double = 0
     // For estimates is true
     @State private var thereareestimates: Bool = false
-
-    @State var isOpen: Bool = false
+    @State private var activeSheet: SheetType?
 
     var body: some View {
         ZStack {
@@ -93,10 +103,15 @@ struct TasksView: View {
                     }
                 }
                 .onChange(of: focusexport) {
-                    importorexport = focusexport
+                    guard focusexport == true else { return }
+                    activeSheet = .exportview
+                    focusexport = false
                 }
                 .onChange(of: focusimport) {
-                    importorexport = focusimport
+                    // focusimport = true
+                    guard focusimport == true else { return }
+                    activeSheet = .importview
+                    focusimport = false
                 }
 
                 Group {
@@ -262,7 +277,13 @@ struct TasksView: View {
                     }
                     .help("Quick synchronize")
                 }
+            }
 
+            ToolbarItem {
+                Spacer()
+            }
+
+            Group {
                 ToolbarItem {
                     Button {
                         executetaskpath.append(Tasks(task: .charts))
@@ -288,6 +309,32 @@ struct TasksView: View {
                         .help("Estimate & Synchronize")
                     }
                 }
+                if SharedReference.shared.hideschedule == false {
+                    ToolbarItem {
+                        Button {
+                            activeSheet = .scheduledtasksview
+                        } label: {
+                            Image(systemName: "calendar.circle.fill")
+                        }
+                        .help("Schedule")
+                    }
+                }
+
+                if SharedReference.shared.hideverifyremotefunction == false,
+                   SharedReference.shared.rsyncversion3,
+                   rsyncUIdata.oneormoretasksissnapshot == false,
+                   rsyncUIdata.oneormoresynchronizetasksisremoteVer3x
+                {
+                    ToolbarItem {
+                        Button {
+                            activeSheet = .verifyremoteview
+                        } label: {
+                            Image(systemName: "bolt.shield")
+                                .foregroundColor(Color(.yellow))
+                        }
+                        .help("Verify remote")
+                    }
+                }
             }
 
         })
@@ -300,21 +347,42 @@ struct TasksView: View {
                 secondaryButton: .cancel()
             )
         }
-        .sheet(isPresented: $importorexport) {
-            if focusexport {
+        .sheet(item: $activeSheet) { sheetType in
+            switch sheetType {
+            case .verifyremoteview:
+                VerifyRemoteView(rsyncUIdata: rsyncUIdata,
+                                 selecteduuids: $selecteduuids,
+                                 activeSheet: $activeSheet)
+                    .frame(minWidth: 1000, idealWidth: 1100, minHeight: 400)
+                    .onDisappear {
+                        activeSheet = nil
+                    }
+            case .exportview:
                 if let configurations = rsyncUIdata.configurations {
-                    ExportView(focusexport: $focusexport,
+                    ExportView(activeSheet: $activeSheet,
                                configurations: configurations,
                                preselectedtasks: selecteduuids)
                         .onDisappear {
                             selecteduuids.removeAll()
+                            activeSheet = nil
                         }
                 }
-
-            } else {
-                ImportView(focusimport: $focusimport,
-                           rsyncUIdata: rsyncUIdata,
+            case .importview:
+                ImportView(rsyncUIdata: rsyncUIdata,
+                           activeSheet: $activeSheet,
                            maxhiddenID: MaxhiddenID().computemaxhiddenID(rsyncUIdata.configurations))
+                    .onDisappear {
+                        activeSheet = nil
+                    }
+            case .scheduledtasksview:
+                CalendarMonthView(rsyncUIdata: rsyncUIdata,
+                                  schedules: schedules,
+                                  selectedprofileID: $selectedprofileID,
+                                  activeSheet: $activeSheet)
+                    .frame(minWidth: 1000, idealWidth: 1100, minHeight: 400)
+                    .onDisappear {
+                        activeSheet = nil
+                    }
             }
         }
     }

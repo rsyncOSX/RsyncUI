@@ -25,6 +25,7 @@ struct Tasks: Hashable, Identifiable {
 struct SidebarTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var progressdetails: ProgressDetails
+    @Bindable var schedules: ObservableSchedules
 
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     // Navigation path for executetasks
@@ -41,6 +42,7 @@ struct SidebarTasksView: View {
         NavigationStack(path: $executetaskpath) {
             TasksView(rsyncUIdata: rsyncUIdata,
                       progressdetails: progressdetails,
+                      schedules: schedules,
                       selecteduuids: $selecteduuids,
                       executetaskpath: $executetaskpath,
                       urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
