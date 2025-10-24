@@ -93,10 +93,11 @@ struct AddSchedule: View {
                     WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
 
                 } label: {
-                    Label("Add", systemImage: "plus")
+                    Image(systemName: "plus")
                 }
+                .buttonStyle(.borderedProminent)
 
-                /* DEMO SCHEDULE
+                /*
                  if SharedReference.shared.scheduledemomode == false {
                      Button {
                          // Just concatenate month + minnutes string

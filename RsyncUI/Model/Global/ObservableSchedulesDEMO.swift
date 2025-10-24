@@ -19,7 +19,7 @@ import SwiftUI
 
 @Observable @MainActor
 final class ObservableSchedulesDEMO {
-    let globaltime = GlobalTimer.shared
+    let globaltimer = GlobalTimer.shared
 
     @ObservationIgnored var lastdateinpresentmont: Date?
 
@@ -99,7 +99,7 @@ final class ObservableSchedulesDEMO {
                     Logger.process.warning("ObservableFutureSchedules: Failed to calculate future dates")
                 }
             }
-            let count = globaltime.allSchedules.count
+            let count = globaltimer.allSchedules.count
             Logger.process.info("ObservableFutureSchedules: private computefuturedates(): (\(count))")
         }
     }
@@ -118,7 +118,7 @@ final class ObservableSchedulesDEMO {
     // Recompute the calendardata to only show active schedules in row.
     func recomputeschedules() {
         Logger.process.info("ObservableFutureSchedules: recomputeschedules() DEMO")
-        let recomputedschedules = globaltime.allSchedules.filter { item in
+        let recomputedschedules = globaltimer.allSchedules.filter { item in
             if let dateRunString = item.scheduledata?.dateRun {
                 return dateRunString.en_date_from_string() > Date.now
             }
@@ -143,31 +143,12 @@ final class ObservableSchedulesDEMO {
             }
         }
 
-        setfirsscheduledate()
-    }
-
-    // Only set when loading data, when new schedules added or deleted
-    private func setfirsscheduledate() {
-        let dates = globaltime.allSchedules.sorted { s1, s2 in
-            if let id1 = s1.scheduledata?.dateRun?.en_date_from_string(), let id2 = s2.scheduledata?.dateRun?.en_date_from_string() {
-                return id1 < id2
-            }
-            return false
-        }
-        if dates.count > 0 {
-            let first = SchedulesConfigurations(profile: dates.first?.scheduledata?.profile,
-                                                dateAdded: nil,
-                                                dateRun: dates.first?.scheduledata?.dateRun,
-                                                schedule: "")
-            firstscheduledate = first
-        } else {
-            firstscheduledate = nil
-        }
+        globaltimer.setfirsscheduledate()
     }
 
     // Verify new planned schedule
     func verifynextschedule(plannednextschedule: String) -> Bool {
-        let dates = globaltime.allSchedules.sorted { s1, s2 in
+        let dates = globaltimer.allSchedules.sorted { s1, s2 in
             if let id1 = s1.scheduledata?.dateRun?.en_date_from_string(),
                let id2 = s2.scheduledata?.dateRun?.en_date_from_string()
             {
@@ -204,14 +185,14 @@ final class ObservableSchedulesDEMO {
 
     // Delete by IndexSet
     func delete(_ uuids: Set<UUID>) {
-        globaltime.allSchedules.removeAll { schedule in
+        globaltimer.allSchedules.removeAll { schedule in
             uuids.contains(schedule.id)
         }
     }
 
     // Delete by IndexSet
     func deletenotexecuted(_ uuids: Set<UUID>) {
-        globaltime.notExecutedSchedulesafterWakeUp.removeAll { schedule in
+        globaltimer.notExecutedSchedulesafterWakeUp.removeAll { schedule in
             uuids.contains(schedule.id)
         }
     }
@@ -274,7 +255,7 @@ final class ObservableSchedulesDEMO {
         Logger.process.info("ObservableFutureSchedules: addtaskandcallback() adding DEMO schedule")
         let globaltimer = GlobalTimer.shared
 
-        let count = globaltime.allSchedules.count
+        let count = globaltimer.allSchedules.count
         let callback: () -> Void = { [weak self] in
             guard self != nil else { return }
             GlobalTimer.shared.scheduleNextTimer()

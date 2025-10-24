@@ -124,16 +124,16 @@ struct VerifyRemoteView: View {
     @MainActor @ViewBuilder
     func makeView(view: DestinationVerifyView) -> some View {
         switch view {
-        case let .executenpushpullview(config):
-            if let index = rsyncUIdata.configurations?.firstIndex(where: { $0.id == config }) {
+        case let .executenpushpullview(configuuid):
+            if let index = rsyncUIdata.configurations?.firstIndex(where: { $0.id == configuuid }) {
                 if let config = rsyncUIdata.configurations?[index] {
                     ExecutePushPullView(pushorpull: $pushorpull,
                                         pushpullcommand: $pushpullcommand,
                                         config: config)
                 }
             }
-        case let .pushpullview(config):
-            if let index = rsyncUIdata.configurations?.firstIndex(where: { $0.id == config }) {
+        case let .pushpullview(configuuid):
+            if let index = rsyncUIdata.configurations?.firstIndex(where: { $0.id == configuuid }) {
                 if let config = rsyncUIdata.configurations?[index] {
                     PushPullView(pushorpull: $pushorpull,
                                  verifypath: $verifypath,
