@@ -85,7 +85,7 @@ struct CalendarMonthView: View {
 
                 Spacer()
 
-                if let first = schedules.firstscheduledate, globaltimer.timerIsActive() {
+                if let first = globaltimer.firstscheduledate, globaltimer.timerIsActive() {
                     HStack {
                         Text(first.profile ?? "")
                         Text(first.dateRun ?? "")
@@ -116,7 +116,7 @@ struct CalendarMonthView: View {
                                 schedules.lastdateinpresentmont = Date.now.endOfMonth
 
                                 if globaltimer.allSchedules.isEmpty {
-                                    schedules.firstscheduledate = nil
+                                    globaltimer.firstscheduledate = nil
                                 } else {
                                     schedules.recomputeschedules()
                                 }
@@ -188,7 +188,7 @@ struct CalendarMonthView: View {
         .onChange(of: date) {
             days = date.calendarDisplayDays
         }
-        .onChange(of: schedules.firstscheduledate) {
+        .onChange(of: globaltimer.firstscheduledate) {
             if globaltimer.allSchedules.isEmpty {
                 globaltimer.invalidateAllSchedulesAndTimer()
             }

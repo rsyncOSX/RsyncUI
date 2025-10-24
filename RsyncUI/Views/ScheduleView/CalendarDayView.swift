@@ -23,7 +23,7 @@ struct CalendarDayView: View {
     let schedulecolor: Color = .yellow
     let istappedecolor: Color = .green
     let todaycolor: Color = .red
-    let globaltime = GlobalTimer.shared
+    let globaltimer = GlobalTimer.shared
 
     var day: Date
     var style: ForegroundStyle
@@ -140,7 +140,7 @@ struct CalendarDayView: View {
     }
 
     var schedulestoday: [SchedulesConfigurations] {
-        let todayitems = globaltime.allSchedules.filter { item in
+        let todayitems = globaltimer.allSchedules.filter { item in
             istoday(runDate: item.scheduledata?.dateRun, day: day)
         }
         return todayitems.compactMap { item in

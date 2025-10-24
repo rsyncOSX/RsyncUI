@@ -54,6 +54,12 @@ public final class GlobalTimer {
 
     // MARK: - Properties
 
+    // var scheduledata: [SchedulesConfigurations]?
+    // First schedule to execute
+    var firstscheduledate: SchedulesConfigurations?
+    // Trigger execution
+    var scheduledprofile: String = ""
+
     @ObservationIgnored
     private var timer: Timer?
     @ObservationIgnored
@@ -135,7 +141,7 @@ public final class GlobalTimer {
         }
     }
 
-    public func cleanup() {
+    func cleanup() {
         if let observer = wakeObserver {
             NSWorkspace.shared.notificationCenter.removeObserver(observer)
             wakeObserver = nil
@@ -144,7 +150,7 @@ public final class GlobalTimer {
         timer = nil
     }
 
-    public func scheduleNextTimer() {
+    func scheduleNextTimer() {
         Logger.process.info("GlobalTimer: scheduleNextTimer() - Invalidateing existing timer")
         timer?.invalidate()
         timer = nil
@@ -166,6 +172,25 @@ public final class GlobalTimer {
             t.tolerance = item.tolerance
             RunLoop.main.add(t, forMode: .common)
             timer = t
+        }
+    }
+    
+    // Only set when loading data, when new schedules added or deleted
+    func setfirsscheduledate() {
+        let dates = allSchedules.sorted { s1, s2 in
+            if let id1 = s1.scheduledata?.dateRun?.en_date_from_string(), let id2 = s2.scheduledata?.dateRun?.en_date_from_string() {
+                return id1 < id2
+            }
+            return false
+        }
+        if dates.count > 0 {
+            let first = SchedulesConfigurations(profile: dates.first?.scheduledata?.profile,
+                                                dateAdded: nil,
+                                                dateRun: dates.first?.scheduledata?.dateRun,
+                                                schedule: "")
+            firstscheduledate = first
+        } else {
+            firstscheduledate = nil
         }
     }
 
@@ -241,5 +266,6 @@ extension GlobalTimer {
         allSchedules.append(contentsOf: itemsToMove)
         allSchedules = allSchedules.sorted(by: { $0.time < $1.time })
         scheduleNextTimer()
+        setfirsscheduledate()
     }
 }

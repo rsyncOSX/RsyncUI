@@ -188,21 +188,21 @@ struct SidebarMainView: View {
             // in RsyncUIView
             selecteduuids.removeAll()
         }
-        .onChange(of: schedules.firstscheduledate) {
+        .onChange(of: globaltimer.firstscheduledate) {
             Logger.process.info("SidebarMainView: got TRIGGER from Schedule, firstscheduledate is set")
 
             if globaltimer.allSchedules.isEmpty {
                 globaltimer.invalidateAllSchedulesAndTimer()
             }
         }
-        .onChange(of: schedules.scheduledprofile) {
+        .onChange(of: globaltimer.scheduledprofile) {
             Logger.process.info("SidebarMainView: got TRIGGER from Schedule, the callback is executed")
             queryitem = nil
             if selectedview != .synchronize {
                 selectedview = .synchronize
             }
             // Trigger as external URL, makes it load profile before execute
-            if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: schedules.scheduledprofile) {
+            if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: globaltimer.scheduledprofile) {
                 handleURLsidebarmainView(url, externalurl: true)
             }
         }
