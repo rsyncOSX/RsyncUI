@@ -114,7 +114,7 @@ struct SidebarMainView: View {
             }
             
             if GlobalTimer.shared.thereisnotexecutedschedulesafterwakeup {
-                MessageView(mytext: "There is not executed schedules after wakeup\nCheck Shedule", size: .caption2)
+                MessageView(mytext: "Not executed schedules\nafter wakeup", size: .caption2)
                     .padding([.bottom], -30)
                     .onAppear {
                         Task {
