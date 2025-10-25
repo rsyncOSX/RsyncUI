@@ -17,7 +17,6 @@ struct HelpButtonStyle: ButtonStyle {
     }
 }
 
-
 @available(macOS 26.0, *)
 struct GlassButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
