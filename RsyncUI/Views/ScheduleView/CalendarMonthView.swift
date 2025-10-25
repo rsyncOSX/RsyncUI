@@ -244,7 +244,7 @@ struct CalendarMonthView: View {
                         activeSheet = nil
                         dismiss()
                     }
-                    .glassEffect()
+                    .buttonStyle(GlassButtonStyle())
                 }
             } else {
                 ToolbarItem {

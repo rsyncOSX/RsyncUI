@@ -78,8 +78,13 @@ struct AddTaskView: View {
                             Button("Add") {
                                 addconfig()
                             }
-                            .glassEffect()
                             .buttonStyle(.borderedProminent)
+                            .background(.thinMaterial)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(.white.opacity(0.2), lineWidth: 1)
+                            }
+                            .buttonStyle(GlassButtonStyle())
                             .help("Add task")
 
                         } else {

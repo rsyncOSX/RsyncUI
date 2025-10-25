@@ -83,7 +83,7 @@ struct AboutView: View {
                         Button("Close", role: .close) {
                             dismiss()
                         }
-                        .glassEffect()
+                        .buttonStyle(GlassButtonStyle())
 
                     } else {
                         Button("Close") {
