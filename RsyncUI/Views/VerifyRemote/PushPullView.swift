@@ -89,9 +89,8 @@ struct PushPullView: View {
                     }
                     .help("Abort")
                 }
-
             }
-            
+
             ToolbarItem {
                 Text("\(config.backupID)")
                     .font(.title2)

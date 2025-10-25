@@ -65,6 +65,7 @@ struct AddTaskView: View {
                 // Column 1
 
                 VStack(alignment: .leading) {
+                    
                     if newdata.selectedconfig != nil {
                         Button("Update") {
                             validateandupdate()
@@ -72,11 +73,22 @@ struct AddTaskView: View {
                         .buttonStyle(.borderedProminent)
                         .help("Update task")
                     } else {
-                        Button("Add") {
-                            addconfig()
+                        
+                        if #available(macOS 26.0, *) {
+                            Button("Add") {
+                                addconfig()
+                            }
+                            .glassEffect()
+                            .buttonStyle(.borderedProminent)
+                            .help("Add task")
+
+                        } else {
+                            Button("Add") {
+                                addconfig()
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .help("Add task")
                         }
-                        .buttonStyle(.borderedProminent)
-                        .help("Add task")
                     }
 
                     VStack(alignment: .trailing) {

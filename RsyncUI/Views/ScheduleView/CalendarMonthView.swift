@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CalendarMonthView: View {
     @Environment(\.dismiss) private var dismiss
-    
+
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var schedules: ObservableSchedules
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
@@ -239,7 +239,6 @@ struct CalendarMonthView: View {
             }
 
             if #available(macOS 26.0, *) {
-                
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Close", role: .close) {
                         activeSheet = nil
@@ -248,7 +247,6 @@ struct CalendarMonthView: View {
                     .glassEffect()
                 }
             } else {
-                
                 ToolbarItem {
                     Button {
                         activeSheet = nil

@@ -111,17 +111,14 @@ struct VerifyRemoteView: View {
                 }
 
                 if #available(macOS 26.0, *) {
-                    
                     ToolbarItem(placement: .cancellationAction) {
                         Button("Close", role: .close) {
                             activeSheet = nil
                             dismiss()
                         }
                         .glassEffect()
-                        
                     }
                 } else {
-                    
                     ToolbarItem {
                         Button {
                             activeSheet = nil

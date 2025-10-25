@@ -80,14 +80,12 @@ struct AboutView: View {
                     Spacer()
 
                     if #available(macOS 26.0, *) {
-                        
                         Button("Close", role: .close) {
                             dismiss()
                         }
                         .glassEffect()
-        
+
                     } else {
-                        
                         Button("Close") {
                             dismiss()
                         }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExportView: View {
     @Environment(\.dismiss) private var dismiss
-    
+
     @Binding var activeSheet: SheetType?
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State var exportcatalog: String = Homepath().userHomeDirectoryPath ?? ""
@@ -72,17 +72,15 @@ struct ExportView: View {
                 .buttonStyle(.borderedProminent)
 
                 Spacer()
-                
+
                 if #available(macOS 26.0, *) {
-                    
                     Button("Close", role: .close) {
                         activeSheet = nil
                         dismiss()
                     }
                     .glassEffect()
-    
+
                 } else {
-                    
                     Button("Close") {
                         activeSheet = nil
                     }

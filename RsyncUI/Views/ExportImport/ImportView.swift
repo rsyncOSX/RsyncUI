@@ -11,7 +11,7 @@ import UniformTypeIdentifiers
 
 struct ImportView: View {
     @Environment(\.dismiss) private var dismiss
-    
+
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var activeSheet: SheetType?
 
@@ -59,15 +59,13 @@ struct ImportView: View {
                         }
 
                         if #available(macOS 26.0, *) {
-                            
                             Button("Close", role: .close) {
                                 activeSheet = nil
                                 dismiss()
                             }
                             .glassEffect()
-                            
+
                         } else {
-                            
                             Button("Close") {
                                 activeSheet = nil
                             }
@@ -101,15 +99,13 @@ struct ImportView: View {
                                   })
 
                     if #available(macOS 26.0, *) {
-                        
                         Button("Close", role: .close) {
                             activeSheet = nil
                             dismiss()
                         }
                         .glassEffect()
-        
+
                     } else {
-                        
                         Button("Close") {
                             activeSheet = nil
                         }
