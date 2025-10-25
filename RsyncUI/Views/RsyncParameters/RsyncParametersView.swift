@@ -33,7 +33,7 @@ struct RsyncParametersView: View {
                             saversyncparameters()
                             selecteduuids.removeAll()
                         }
-                        .buttonStyle(ColorfulButtonStyle())
+                        .buttonStyle(.borderedProminent)
                         .help("Update parameters")
                         .disabled(selectedconfig == nil)
                         .padding(.bottom, 10)
@@ -42,7 +42,7 @@ struct RsyncParametersView: View {
                         Button("Add") {
                             saversyncparameters()
                         }
-                        .buttonStyle(ColorfulButtonStyle())
+                        .buttonStyle(.borderedProminent)
                         .help("Save parameters")
                         .disabled(selectedconfig == nil)
                         .padding(.bottom, 10)

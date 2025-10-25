@@ -36,7 +36,7 @@ struct GlobalChangeTaskView: View {
                     }
                     .help("Update task")
                     .disabled(configurations.isEmpty)
-                    .buttonStyle(ColorfulButtonStyle())
+                    .buttonStyle(.borderedProminent)
                 }
 
                 VStack(alignment: .leading) { synchronizeID }

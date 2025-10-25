@@ -74,7 +74,7 @@ struct ExecutePushPullView: View {
                             } else {
                                 Button("Select") {}
                                     .padding()
-                                    .buttonStyle(ColorfulButtonStyle())
+                                    .buttonStyle(.borderedProminent)
                             }
                         }
 

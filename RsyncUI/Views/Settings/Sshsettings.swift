@@ -50,7 +50,7 @@ struct Sshsettings: View {
                     Image(systemName: "square.and.arrow.down")
                 }
                 .help("Save userconfiguration")
-                .buttonStyle(ColorfulButtonStyle())
+                .buttonStyle(.borderedProminent)
             }
 
             if localsshkeys == false {
@@ -65,7 +65,7 @@ struct Sshsettings: View {
                             Image(systemName: "key")
                         }
                         .help("Create keys")
-                        .buttonStyle(ColorfulButtonStyle())
+                        .buttonStyle(.borderedProminent)
                     }
                 }
             }

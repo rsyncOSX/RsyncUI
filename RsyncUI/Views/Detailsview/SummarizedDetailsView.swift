@@ -66,7 +66,7 @@ struct SummarizedDetailsView: View {
                                 }
                                 .buttonStyle(.borderedProminent)
                                 .help("Synchronize (⌘R)")
-                                // .buttonStyle(ColorfulButtonStyle())
+                                // .buttonStyle(.borderedProminent)
                                 .confirmationDialog("Synchronize tasks?",
                                                     isPresented: $isPresentingConfirm)
                                 {
@@ -88,7 +88,7 @@ struct SummarizedDetailsView: View {
                                 }
                                 .help("Synchronize (⌘R)")
                                 .buttonStyle(.borderedProminent)
-                                // .buttonStyle(ColorfulButtonStyle())
+                                // .buttonStyle(.borderedProminent)
                             }
                         }
                     }

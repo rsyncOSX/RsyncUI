@@ -83,7 +83,7 @@ struct RsyncandPathsettings: View {
                         Image(systemName: "wrench.adjustable.fill")
                     }
                     .help("Backup configurations")
-                    .buttonStyle(ColorfulButtonStyle())
+                    .buttonStyle(.borderedProminent)
 
                     Button {
                         _ = WriteUserConfigurationJSON(UserConfiguration())
@@ -92,7 +92,7 @@ struct RsyncandPathsettings: View {
                         Image(systemName: "square.and.arrow.down")
                     }
                     .help("Save userconfiguration")
-                    .buttonStyle(ColorfulButtonStyle())
+                    .buttonStyle(.borderedProminent)
                 }
             }
         }

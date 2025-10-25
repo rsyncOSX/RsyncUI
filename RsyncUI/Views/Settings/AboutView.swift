@@ -65,7 +65,7 @@ struct AboutView: View {
                     } label: {
                         Image(systemName: "doc.plaintext")
                     }
-                    .buttonStyle(ColorfulButtonStyle())
+                    .buttonStyle(.borderedProminent)
 
                     if SharedReference.shared.newversion {
                         Button {
@@ -74,7 +74,7 @@ struct AboutView: View {
                             Image(systemName: "square.and.arrow.down.fill")
                         }
                         .help("Download")
-                        .buttonStyle(ColorfulButtonStyle())
+                        .buttonStyle(.borderedProminent)
                     }
 
                     Spacer()
@@ -91,7 +91,7 @@ struct AboutView: View {
                         Button("Close") {
                             dismiss()
                         }
-                        .buttonStyle(ColorfulButtonStyle())
+                        .buttonStyle(.borderedProminent)
                     }
                 }
 

@@ -70,7 +70,7 @@ struct HomeCatalogsView: View {
                 Button("Return") {
                     path.removeAll()
                 }
-                .buttonStyle(ColorfulButtonStyle())
+                .buttonStyle(.borderedProminent)
             }
         }
         .formStyle(.grouped)

@@ -69,13 +69,13 @@ struct AddTaskView: View {
                         Button("Update") {
                             validateandupdate()
                         }
-                        .buttonStyle(ColorfulButtonStyle())
+                        .buttonStyle(.borderedProminent)
                         .help("Update task")
                     } else {
                         Button("Add") {
                             addconfig()
                         }
-                        .buttonStyle(ColorfulButtonStyle())
+                        .buttonStyle(.borderedProminent)
                         .help("Add task")
                     }
 

@@ -34,7 +34,7 @@ struct ImportView: View {
                         Button("Import tasks") {
                             isShowingDialog = true
                         }
-                        .buttonStyle(ColorfulButtonStyle())
+                        .buttonStyle(.borderedProminent)
                         .confirmationDialog(
                             Text("Import selected or all tasks?"),
                             isPresented: $isShowingDialog
@@ -55,7 +55,7 @@ struct ImportView: View {
                                 }
                                 activeSheet = nil
                             }
-                            .buttonStyle(ColorfulButtonStyle())
+                            .buttonStyle(.borderedProminent)
                         }
 
                         if #available(macOS 26.0, *) {
@@ -71,7 +71,7 @@ struct ImportView: View {
                             Button("Close") {
                                 activeSheet = nil
                             }
-                            .buttonStyle(ColorfulButtonStyle())
+                            .buttonStyle(.borderedProminent)
                         }
                     }
                 }
@@ -79,10 +79,10 @@ struct ImportView: View {
 
             } else {
                 HStack {
-                    Button("Select a file for import") {
+                    Button("Import file") {
                         showimportdialog = true
                     }
-                    .buttonStyle(ColorfulButtonStyle())
+                    .buttonStyle(.borderedProminent)
                     .fileImporter(isPresented: $showimportdialog,
                                   allowedContentTypes: [uutype],
                                   onCompletion: { result in
@@ -113,7 +113,7 @@ struct ImportView: View {
                         Button("Close") {
                             activeSheet = nil
                         }
-                        .buttonStyle(ColorfulButtonStyle())
+                        .buttonStyle(.borderedProminent)
                     }
                 }
             }

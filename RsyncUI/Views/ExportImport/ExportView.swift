@@ -68,8 +68,8 @@ struct ExportView: View {
                     _ = WriteExportConfigurationsJSON(path, selectedconfigurations())
                     activeSheet = nil
                 }
-                .help("Export tasks")
-                .buttonStyle(ColorfulButtonStyle())
+                .help("Export file")
+                .buttonStyle(.borderedProminent)
 
                 Spacer()
                 
@@ -86,7 +86,7 @@ struct ExportView: View {
                     Button("Close") {
                         activeSheet = nil
                     }
-                    .buttonStyle(ColorfulButtonStyle())
+                    .buttonStyle(.borderedProminent)
                 }
             }
         }
