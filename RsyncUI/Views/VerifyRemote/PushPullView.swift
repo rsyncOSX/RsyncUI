@@ -55,7 +55,7 @@ struct PushPullView: View {
                             DetailsVerifyView(remotedatanumbers: pushremotedatanumbers)
                                 .padding(10)
                         }
-                        
+
                         VStack {
                             Button {
                                 pushpullcommand = .pull_remote
@@ -88,7 +88,7 @@ struct PushPullView: View {
                 }
                 .help("Abort (⌘K)")
             }
-            
+
             ToolbarItem {
                 Text("\(config.backupID)")
             }

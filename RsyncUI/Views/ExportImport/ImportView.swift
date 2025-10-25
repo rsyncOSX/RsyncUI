@@ -10,6 +10,8 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct ImportView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var activeSheet: SheetType?
 
@@ -56,10 +58,19 @@ struct ImportView: View {
                             .buttonStyle(ColorfulButtonStyle())
                         }
 
-                        Button("Dismiss") {
-                            activeSheet = nil
+                        if #available(macOS 26.0, *) {
+                            
+                            Button("Close", role: .close) {
+                                activeSheet = nil
+                                dismiss()
+                            }
+                        } else {
+                            
+                            Button("Close") {
+                                activeSheet = nil
+                            }
+                            .buttonStyle(ColorfulButtonStyle())
                         }
-                        .buttonStyle(ColorfulButtonStyle())
                     }
                 }
                 .frame(minWidth: 600, minHeight: 500)

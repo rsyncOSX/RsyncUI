@@ -19,6 +19,8 @@ struct Verify: Hashable, Identifiable {
 }
 
 struct VerifyRemoteView: View {
+    @Environment(\.dismiss) private var dismiss
+
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var activeSheet: SheetType?
@@ -100,6 +102,7 @@ struct VerifyRemoteView: View {
                     } label: {
                         Image(systemName: "arrow.left.arrow.right.circle.fill")
                     }
+                    .buttonStyle(.borderedProminent)
                     .help("Pull or push")
                 }
 
@@ -107,15 +110,27 @@ struct VerifyRemoteView: View {
                     Spacer()
                 }
 
-                ToolbarItem {
-                    Button {
-                        activeSheet = nil
-                    } label: {
-                        Image(systemName: "return")
+                if #available(macOS 26.0, *) {
+                    
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Close", role: .close) {
+                            activeSheet = nil
+                            dismiss()
+                        }
                     }
-                    .help("Dismiss")
-                    .buttonStyle(.borderedProminent)
+                } else {
+                    
+                    ToolbarItem {
+                        Button {
+                            activeSheet = nil
+                        } label: {
+                            Image(systemName: "return")
+                        }
+                        .help("Close")
+                        .buttonStyle(.borderedProminent)
+                    }
                 }
+
             })
         }
         .padding(10)

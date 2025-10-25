@@ -45,7 +45,7 @@ struct ScheduledItem: Identifiable, Hashable {
 @Observable
 @MainActor
 final class GlobalTimer {
-    public static let shared = GlobalTimer()
+    static let shared = GlobalTimer()
 
     // Exposed Array of not executed Schedule
     var allSchedules = [ScheduledItem]()
@@ -177,7 +177,7 @@ final class GlobalTimer {
             timer = t
         }
     }
-    
+
     // Only set when loading data, when new schedules added or deleted
     func setfirsscheduledate() {
         let dates = allSchedules.sorted { s1, s2 in

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CalendarMonthView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var schedules: ObservableSchedules
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
@@ -231,19 +233,30 @@ struct CalendarMonthView: View {
                 }
                 .help("Next month")
             }
-            
+
             ToolbarItem {
                 Spacer()
             }
 
-            ToolbarItem {
-                Button {
-                    activeSheet = nil
-                } label: {
-                    Image(systemName: "return")
+            if #available(macOS 26.0, *) {
+                
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Close", role: .close) {
+                        activeSheet = nil
+                        dismiss()
+                    }
                 }
-                .help("Dismiss")
-                .buttonStyle(.borderedProminent)
+            } else {
+                
+                ToolbarItem {
+                    Button {
+                        activeSheet = nil
+                    } label: {
+                        Image(systemName: "return")
+                    }
+                    .help("Close")
+                    .buttonStyle(.borderedProminent)
+                }
             }
         }
     }

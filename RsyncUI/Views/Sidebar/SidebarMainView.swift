@@ -112,7 +112,7 @@ struct SidebarMainView: View {
                 MessageView(mytext: GlobalTimer.shared.nextScheduleDate() ?? "", size: .caption2)
                     .padding([.bottom], -30)
             }
-            
+
             if GlobalTimer.shared.thereisnotexecutedschedulesafterwakeup {
                 MessageView(mytext: "Not executed schedules\nafter wakeup", size: .caption2)
                     .padding([.bottom], -30)
