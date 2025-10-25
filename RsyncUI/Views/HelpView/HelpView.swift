@@ -33,12 +33,22 @@ struct HelpView: View {
                 Text("As a safety precaution, the --delete parameter is *not* set as a default parameter when adding new tasks. To ensure that the source and destination are in complete synchronization, the --delete parameter must be *enabled*. If you are new to `rsync`, I strongly recommend reading the *Important*  and *Limitations* sections in RsyncUI user documentation as a minimum. ")
                     .padding()
             }
-
-            Button("Dismiss") {
-                dismiss()
+            
+            if #available(macOS 26.0, *) {
+                
+                Button("Close", role: .close) {
+                    dismiss()
+                }
+            } else {
+                
+                Button("Close") {
+                    dismiss()
+                }
+                .padding()
+                .buttonStyle(.borderedProminent)
             }
-            .padding()
-            .buttonStyle(ColorfulButtonStyle())
+
+            
         }
         .padding()
     }
