@@ -79,6 +79,8 @@ struct ExportView: View {
                         activeSheet = nil
                         dismiss()
                     }
+                    .glassEffect()
+    
                 } else {
                     
                     Button("Close") {

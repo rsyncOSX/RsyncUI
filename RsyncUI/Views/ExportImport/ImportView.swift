@@ -64,6 +64,8 @@ struct ImportView: View {
                                 activeSheet = nil
                                 dismiss()
                             }
+                            .glassEffect()
+                            
                         } else {
                             
                             Button("Close") {
@@ -98,10 +100,21 @@ struct ImportView: View {
                                       }
                                   })
 
-                    Button("Dismiss") {
-                        activeSheet = nil
+                    if #available(macOS 26.0, *) {
+                        
+                        Button("Close", role: .close) {
+                            activeSheet = nil
+                            dismiss()
+                        }
+                        .glassEffect()
+        
+                    } else {
+                        
+                        Button("Close") {
+                            activeSheet = nil
+                        }
+                        .buttonStyle(ColorfulButtonStyle())
                     }
-                    .buttonStyle(ColorfulButtonStyle())
                 }
             }
         }

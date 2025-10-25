@@ -245,6 +245,7 @@ struct CalendarMonthView: View {
                         activeSheet = nil
                         dismiss()
                     }
+                    .glassEffect()
                 }
             } else {
                 

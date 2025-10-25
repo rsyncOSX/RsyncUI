@@ -79,10 +79,20 @@ struct AboutView: View {
 
                     Spacer()
 
-                    Button("Dismiss") {
-                        dismiss()
+                    if #available(macOS 26.0, *) {
+                        
+                        Button("Close", role: .close) {
+                            dismiss()
+                        }
+                        .glassEffect()
+        
+                    } else {
+                        
+                        Button("Close") {
+                            dismiss()
+                        }
+                        .buttonStyle(ColorfulButtonStyle())
                     }
-                    .buttonStyle(ColorfulButtonStyle())
                 }
 
             } header: {

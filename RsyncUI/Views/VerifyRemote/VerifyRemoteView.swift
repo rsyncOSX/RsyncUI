@@ -117,6 +117,8 @@ struct VerifyRemoteView: View {
                             activeSheet = nil
                             dismiss()
                         }
+                        .glassEffect()
+                        
                     }
                 } else {
                     

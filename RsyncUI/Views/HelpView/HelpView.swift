@@ -39,6 +39,8 @@ struct HelpView: View {
                 Button("Close", role: .close) {
                     dismiss()
                 }
+                .glassEffect()
+                
             } else {
                 
                 Button("Close") {
