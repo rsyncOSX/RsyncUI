@@ -79,18 +79,22 @@ struct PushPullView: View {
             pullremote(config: config)
         }
         .toolbar(content: {
-            ToolbarItem {
-                Button {
-                    isaborted = true
-                    abort()
-                } label: {
-                    Image(systemName: "stop.fill")
+            if progress {
+                ToolbarItem {
+                    Button {
+                        isaborted = true
+                        abort()
+                    } label: {
+                        Image(systemName: "stop.fill")
+                    }
+                    .help("Abort")
                 }
-                .help("Abort (⌘K)")
-            }
 
+            }
+            
             ToolbarItem {
                 Text("\(config.backupID)")
+                    .font(.title2)
             }
         })
     }
