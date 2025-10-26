@@ -63,7 +63,7 @@ struct ImportView: View {
                                 activeSheet = nil
                                 dismiss()
                             }
-                            .buttonStyle(GlassButtonStyle())
+                            .buttonStyle(RefinedGlassButtonStyle())
 
                         } else {
                             Button("Close") {
@@ -103,7 +103,7 @@ struct ImportView: View {
                             activeSheet = nil
                             dismiss()
                         }
-                        .buttonStyle(GlassButtonStyle())
+                        .buttonStyle(RefinedGlassButtonStyle())
 
                     } else {
                         Button("Close") {

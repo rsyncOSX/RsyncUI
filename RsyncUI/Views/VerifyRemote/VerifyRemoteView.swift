@@ -116,7 +116,7 @@ struct VerifyRemoteView: View {
                             activeSheet = nil
                             dismiss()
                         }
-                        .buttonStyle(GlassButtonStyle())
+                        .buttonStyle(RefinedGlassButtonStyle())
                     }
                 } else {
                     ToolbarItem {

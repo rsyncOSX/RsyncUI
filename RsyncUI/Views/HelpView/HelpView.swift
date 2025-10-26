@@ -38,7 +38,7 @@ struct HelpView: View {
                 Button("Close", role: .close) {
                     dismiss()
                 }
-                .buttonStyle(GlassButtonStyle())
+                .buttonStyle(RefinedGlassButtonStyle())
 
             } else {
                 Button("Close") {

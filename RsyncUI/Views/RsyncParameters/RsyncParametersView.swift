@@ -23,29 +23,69 @@ struct RsyncParametersView: View {
     @State private var showhelp: Bool = false
     // Present arguments view
     @State private var presentarguments: Bool = false
+    
+    /*
+     if #available(macOS 26.0, *) {
+         Button("Add") {
+             addconfig()
+         }
+         .buttonStyle(RefinedGlassButtonStyle())
+         .help("Add task")
+
+     } else {
+         Button("Add") {
+             addconfig()
+         }
+         .buttonStyle(.borderedProminent)
+         .help("Add task")
+     }
+     */
 
     var body: some View {
         NavigationStack {
             HStack {
                 VStack(alignment: .leading) {
                     if notifydataisupdated {
-                        Button("Update") {
-                            saversyncparameters()
-                            selecteduuids.removeAll()
+                        if #available(macOS 26.0, *) {
+                            Button("Update") {
+                                saversyncparameters()
+                                selecteduuids.removeAll()
+                            }
+                            .buttonStyle(RefinedGlassButtonStyle())
+                            .help("Update parameters")
+                            .disabled(selectedconfig == nil)
+                            .padding(.bottom, 10)
+                        } else {
+                            Button("Update") {
+                                saversyncparameters()
+                                selecteduuids.removeAll()
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .help("Update parameters")
+                            .disabled(selectedconfig == nil)
+                            .padding(.bottom, 10)
                         }
-                        .buttonStyle(.borderedProminent)
-                        .help("Update parameters")
-                        .disabled(selectedconfig == nil)
-                        .padding(.bottom, 10)
+                        
 
                     } else {
-                        Button("Add") {
-                            saversyncparameters()
+                        if #available(macOS 26.0, *) {
+                            Button("Add") {
+                                saversyncparameters()
+                            }
+                            .buttonStyle(RefinedGlassButtonStyle())
+                            .help("Save parameters")
+                            .disabled(selectedconfig == nil)
+                            .padding(.bottom, 10)
+                        } else {
+                            Button("Add") {
+                                saversyncparameters()
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .help("Save parameters")
+                            .disabled(selectedconfig == nil)
+                            .padding(.bottom, 10)
                         }
-                        .buttonStyle(.borderedProminent)
-                        .help("Save parameters")
-                        .disabled(selectedconfig == nil)
-                        .padding(.bottom, 10)
+                        
                     }
 
                     Section(header: Text("Parameters for rsync, select task to add")
