@@ -111,18 +111,30 @@ struct PushPullView: View {
         .toolbar(content: {
             if progress {
                 ToolbarItem {
-                    Button {
-                        isaborted = true
-                        abort()
-                    } label: {
-                        Image(systemName: "stop.fill")
+                    if #available(macOS 26.0, *) {
+                        Button(action: {
+                            isaborted = true
+                            abort()
+
+                        }) {
+                            Image(systemName: "stop.fill")
+                        }
+                        .buttonStyle(RefinedGlassButtonStyle())
+                        .help("Abort")
+                    } else {
+                        Button {
+                            isaborted = true
+                            abort()
+                        } label: {
+                            Image(systemName: "stop.fill")
+                        }
+                        .help("Abort")
                     }
-                    .help("Abort")
                 }
             }
 
             ToolbarItem {
-                Text("\(config.backupID)")
+                Text(" \(config.backupID)")
                     .font(.title2)
             }
         })
