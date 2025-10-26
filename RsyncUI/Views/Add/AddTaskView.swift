@@ -73,8 +73,14 @@ struct AddTaskView: View {
                         .help("Update task")
                     } else {
                         if #available(macOS 26.0, *) {
-                            Button("Add") {
+                            Button(action: {
                                 addconfig()
+
+                            }) {
+                                HStack {
+                                    Image(systemName: "plus")
+                                    Text("Add")
+                                }
                             }
                             .buttonStyle(RefinedGlassButtonStyle())
                             .help("Add task")

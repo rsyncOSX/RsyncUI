@@ -23,7 +23,7 @@ struct RsyncParametersView: View {
     @State private var showhelp: Bool = false
     // Present arguments view
     @State private var presentarguments: Bool = false
-    
+
     /*
      if #available(macOS 26.0, *) {
          Button("Add") {
@@ -47,14 +47,22 @@ struct RsyncParametersView: View {
                 VStack(alignment: .leading) {
                     if notifydataisupdated {
                         if #available(macOS 26.0, *) {
-                            Button("Update") {
+                            
+                            Button(action: {
                                 saversyncparameters()
                                 selecteduuids.removeAll()
+
+                            }) {
+                                HStack {
+                                    Image(systemName: "plus")
+                                    Text("Update")
+                                }
                             }
                             .buttonStyle(RefinedGlassButtonStyle())
                             .help("Update parameters")
                             .disabled(selectedconfig == nil)
                             .padding(.bottom, 10)
+                            
                         } else {
                             Button("Update") {
                                 saversyncparameters()
@@ -65,17 +73,24 @@ struct RsyncParametersView: View {
                             .disabled(selectedconfig == nil)
                             .padding(.bottom, 10)
                         }
-                        
 
                     } else {
                         if #available(macOS 26.0, *) {
-                            Button("Add") {
+                            
+                            Button(action: {
                                 saversyncparameters()
+
+                            }) {
+                                HStack {
+                                    Image(systemName: "plus")
+                                    Text("Add")
+                                }
                             }
                             .buttonStyle(RefinedGlassButtonStyle())
                             .help("Save parameters")
                             .disabled(selectedconfig == nil)
                             .padding(.bottom, 10)
+            
                         } else {
                             Button("Add") {
                                 saversyncparameters()
@@ -85,7 +100,6 @@ struct RsyncParametersView: View {
                             .disabled(selectedconfig == nil)
                             .padding(.bottom, 10)
                         }
-                        
                     }
 
                     Section(header: Text("Parameters for rsync, select task to add")

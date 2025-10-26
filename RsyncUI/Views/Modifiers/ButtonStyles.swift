@@ -18,15 +18,15 @@ struct HelpButtonStyle: ButtonStyle {
 }
 
 @available(macOS 26.0, *)
-fileprivate extension Color {
+private extension Color {
     @MainActor static var glassBorderLight = Color.white.opacity(0.35)
     @MainActor static var glassBorderDark = Color.white.opacity(0.12)
     @MainActor static var glassShadowLight = Color.black.opacity(0.10)
     @MainActor static var glassShadowDark = Color.black.opacity(0.45)
 }
 
-@available(macOS 26.0, *)
 /// A refined glass-like ButtonStyle that dims slightly when the control is disabled.
+@available(macOS 26.0, *)
 public struct RefinedGlassButtonStyle: ButtonStyle {
     public var cornerRadius: CGFloat = 10
     public var horizontalPadding: CGFloat = 16
