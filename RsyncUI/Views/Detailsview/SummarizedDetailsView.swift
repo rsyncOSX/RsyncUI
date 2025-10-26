@@ -52,43 +52,80 @@ struct SummarizedDetailsView: View {
 
                         if datatosynchronize {
                             if SharedReference.shared.confirmexecute {
-                                Button {
-                                    isPresentingConfirm = progressdetails.confirmexecutetasks()
-                                    if isPresentingConfirm == false {
-                                        executetaskpath.removeAll()
-                                        executetaskpath.append(Tasks(task: .executestimatedview))
-                                    }
-                                } label: {
-                                    Text(Image(systemName: "play.fill"))
-                                        // .foregroundColor(.blue)
-                                        .font(.title2)
-                                        .imageScale(.large)
-                                }
-                                .buttonStyle(.borderedProminent)
-                                .help("Synchronize (⌘R)")
-                                // .buttonStyle(.borderedProminent)
-                                .confirmationDialog("Synchronize tasks?",
-                                                    isPresented: $isPresentingConfirm)
-                                {
-                                    Button("Synchronize", role: .destructive) {
-                                        executetaskpath.removeAll()
-                                        executetaskpath.append(Tasks(task: .executestimatedview))
-                                    }
-                                }
+                                
+                                if #available(macOS 26.0, *) {
+                                    Button(action: {
+                                        isPresentingConfirm = progressdetails.confirmexecutetasks()
+                                        if isPresentingConfirm == false {
+                                            executetaskpath.removeAll()
+                                            executetaskpath.append(Tasks(task: .executestimatedview))
+                                        }
 
-                            } else {
-                                Button {
-                                    executetaskpath.removeAll()
-                                    executetaskpath.append(Tasks(task: .executestimatedview))
-                                } label: {
-                                    Text(Image(systemName: "play.fill"))
-                                        .imageScale(.large)
-                                        // .foregroundColor(.blue)
-                                        .font(.title2)
+                                    }) {
+                                        Image(systemName: "play.fill")
+                                    }
+                                    .buttonStyle(RefinedGlassButtonStyle())
+                                    .help("Synchronize")
+                                    .confirmationDialog("Synchronize tasks?",
+                                                        isPresented: $isPresentingConfirm)
+                                    {
+                                        Button("Synchronize", role: .destructive) {
+                                            executetaskpath.removeAll()
+                                            executetaskpath.append(Tasks(task: .executestimatedview))
+                                        }
+                                    }
+
+                                } else {
+                                    Button {
+                                        isPresentingConfirm = progressdetails.confirmexecutetasks()
+                                        if isPresentingConfirm == false {
+                                            executetaskpath.removeAll()
+                                            executetaskpath.append(Tasks(task: .executestimatedview))
+                                        }
+                                    } label: {
+                                        Text(Image(systemName: "play.fill"))
+                                            // .foregroundColor(.blue)
+                                            .font(.title2)
+                                            .imageScale(.large)
+                                    }
+                                    .buttonStyle(.borderedProminent)
+                                    .help("Synchronize")
+                                    .confirmationDialog("Synchronize tasks?",
+                                                        isPresented: $isPresentingConfirm)
+                                    {
+                                        Button("Synchronize", role: .destructive) {
+                                            executetaskpath.removeAll()
+                                            executetaskpath.append(Tasks(task: .executestimatedview))
+                                        }
+                                    }
                                 }
-                                .help("Synchronize (⌘R)")
-                                .buttonStyle(.borderedProminent)
-                                // .buttonStyle(.borderedProminent)
+                                
+                            } else {
+                                
+                                if #available(macOS 26.0, *) {
+                                    Button(action: {
+                                        executetaskpath.removeAll()
+                                        executetaskpath.append(Tasks(task: .executestimatedview))
+
+                                    }) {
+                                        Image(systemName: "play.fill")
+                                    }
+                                    .buttonStyle(RefinedGlassButtonStyle())
+                                    .help("Synchronize")
+
+                                } else {
+                                    Button {
+                                        executetaskpath.removeAll()
+                                        executetaskpath.append(Tasks(task: .executestimatedview))
+                                    } label: {
+                                        Text(Image(systemName: "play.fill"))
+                                            .imageScale(.large)
+                                            // .foregroundColor(.blue)
+                                            .font(.title2)
+                                    }
+                                    .help("Synchronize")
+                                    .buttonStyle(.borderedProminent)
+                                }
                             }
                         }
                     }
