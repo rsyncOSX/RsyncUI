@@ -31,33 +31,66 @@ struct ImportView: View {
                                                 configurations: configurations)
 
                     HStack {
-                        Button("Import tasks") {
-                            isShowingDialog = true
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .confirmationDialog(
-                            Text("Import selected or all tasks?"),
-                            isPresented: $isShowingDialog
-                        ) {
-                            Button("Import", role: .none) {
-                                let updateconfigurations =
-                                    UpdateConfigurations(profile: rsyncUIdata.profile,
-                                                         configurations: rsyncUIdata.configurations)
-                                if selecteduuids.isEmpty == true {
-                                    rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations)
-                                } else {
-                                    rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
-                                }
-                                if SharedReference.shared.duplicatecheck {
-                                    if let configurations = rsyncUIdata.configurations {
-                                        VerifyDuplicates(configurations)
+                        
+                        if #available(macOS 26.0, *) {
+                            
+                            Button("Import tasks") {
+                                isShowingDialog = true
+                            }
+                            .buttonStyle(RefinedGlassButtonStyle())
+                            .confirmationDialog(
+                                Text("Import selected or all tasks?"),
+                                isPresented: $isShowingDialog
+                            ) {
+                                Button("Import", role: .none) {
+                                    let updateconfigurations =
+                                        UpdateConfigurations(profile: rsyncUIdata.profile,
+                                                             configurations: rsyncUIdata.configurations)
+                                    if selecteduuids.isEmpty == true {
+                                        rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations)
+                                    } else {
+                                        rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
                                     }
+                                    if SharedReference.shared.duplicatecheck {
+                                        if let configurations = rsyncUIdata.configurations {
+                                            VerifyDuplicates(configurations)
+                                        }
+                                    }
+                                    activeSheet = nil
                                 }
-                                activeSheet = nil
+                                .buttonStyle(RefinedGlassButtonStyle())
+                            }
+                            
+                        } else {
+                            
+                            Button("Import tasks") {
+                                isShowingDialog = true
                             }
                             .buttonStyle(.borderedProminent)
+                            .confirmationDialog(
+                                Text("Import selected or all tasks?"),
+                                isPresented: $isShowingDialog
+                            ) {
+                                Button("Import", role: .none) {
+                                    let updateconfigurations =
+                                        UpdateConfigurations(profile: rsyncUIdata.profile,
+                                                             configurations: rsyncUIdata.configurations)
+                                    if selecteduuids.isEmpty == true {
+                                        rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations)
+                                    } else {
+                                        rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
+                                    }
+                                    if SharedReference.shared.duplicatecheck {
+                                        if let configurations = rsyncUIdata.configurations {
+                                            VerifyDuplicates(configurations)
+                                        }
+                                    }
+                                    activeSheet = nil
+                                }
+                                .buttonStyle(.borderedProminent)
+                            }
                         }
-
+                        
                         if #available(macOS 26.0, *) {
                             Button("Close", role: .close) {
                                 activeSheet = nil
@@ -76,28 +109,60 @@ struct ImportView: View {
                 .frame(minWidth: 600, minHeight: 500)
 
             } else {
+                
+               
+                
+                
                 HStack {
-                    Button("Import file") {
-                        showimportdialog = true
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .fileImporter(isPresented: $showimportdialog,
-                                  allowedContentTypes: [uutype],
-                                  onCompletion: { result in
-                                      switch result {
-                                      case let .success(url):
-                                          filenameimport = url.relativePath
-                                          guard filenameimport.isEmpty == false else { return }
-                                          if let importconfigurations = ReadImportConfigurationsJSON(filenameimport,
-                                                                                                     maxhiddenId: maxhiddenID).importconfigurations
-                                          {
-                                              configurations = importconfigurations
+                    
+                    if #available(macOS 26.0, *) {
+                        
+                        Button("Import file") {
+                            showimportdialog = true
+                        }
+                        .buttonStyle(RefinedGlassButtonStyle())
+                        .fileImporter(isPresented: $showimportdialog,
+                                      allowedContentTypes: [uutype],
+                                      onCompletion: { result in
+                                          switch result {
+                                          case let .success(url):
+                                              filenameimport = url.relativePath
+                                              guard filenameimport.isEmpty == false else { return }
+                                              if let importconfigurations = ReadImportConfigurationsJSON(filenameimport,
+                                                                                                         maxhiddenId: maxhiddenID).importconfigurations
+                                              {
+                                                  configurations = importconfigurations
+                                              }
+                                          case let .failure(error):
+                                              SharedReference.shared.errorobject?.alert(error: error)
                                           }
-                                      case let .failure(error):
-                                          SharedReference.shared.errorobject?.alert(error: error)
-                                      }
-                                  })
-
+                                      })
+                    } else {
+                        
+                        Button("Import file") {
+                            showimportdialog = true
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .fileImporter(isPresented: $showimportdialog,
+                                      allowedContentTypes: [uutype],
+                                      onCompletion: { result in
+                                          switch result {
+                                          case let .success(url):
+                                              filenameimport = url.relativePath
+                                              guard filenameimport.isEmpty == false else { return }
+                                              if let importconfigurations = ReadImportConfigurationsJSON(filenameimport,
+                                                                                                         maxhiddenId: maxhiddenID).importconfigurations
+                                              {
+                                                  configurations = importconfigurations
+                                              }
+                                          case let .failure(error):
+                                              SharedReference.shared.errorobject?.alert(error: error)
+                                          }
+                                      })
+                    }
+                    
+                    
+                    
                     if #available(macOS 26.0, *) {
                         Button("Close", role: .close) {
                             activeSheet = nil

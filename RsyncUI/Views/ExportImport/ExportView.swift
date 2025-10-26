@@ -53,25 +53,45 @@ struct ExportView: View {
                     .foregroundColor(.secondary)
 
                 OpencatalogView(selecteditem: $exportcatalog, catalogs: true)
-
-                Button("Export") {
-                    var path = ""
-                    if exportcatalog.hasSuffix("/") == true {
-                        path = exportcatalog + filenameexport + ".json"
-                    } else {
-                        path = exportcatalog + "/" + filenameexport + ".json"
-                    }
-                    guard exportcatalog.isEmpty == false, filenameexport.isEmpty == false else {
+                
+                if #available(macOS 26.0, *) {
+                    
+                    Button("Export") {
+                        var path = ""
+                        if exportcatalog.hasSuffix("/") == true {
+                            path = exportcatalog + filenameexport + ".json"
+                        } else {
+                            path = exportcatalog + "/" + filenameexport + ".json"
+                        }
+                        guard exportcatalog.isEmpty == false, filenameexport.isEmpty == false else {
+                            activeSheet = nil
+                            return
+                        }
+                        _ = WriteExportConfigurationsJSON(path, selectedconfigurations())
                         activeSheet = nil
-                        return
                     }
-                    _ = WriteExportConfigurationsJSON(path, selectedconfigurations())
-                    activeSheet = nil
+                    .help("Export file")
+                    .buttonStyle(RefinedGlassButtonStyle())
+                    
+                } else {
+                    
+                    Button("Export") {
+                        var path = ""
+                        if exportcatalog.hasSuffix("/") == true {
+                            path = exportcatalog + filenameexport + ".json"
+                        } else {
+                            path = exportcatalog + "/" + filenameexport + ".json"
+                        }
+                        guard exportcatalog.isEmpty == false, filenameexport.isEmpty == false else {
+                            activeSheet = nil
+                            return
+                        }
+                        _ = WriteExportConfigurationsJSON(path, selectedconfigurations())
+                        activeSheet = nil
+                    }
+                    .help("Export file")
+                    .buttonStyle(.borderedProminent)
                 }
-                .help("Export file")
-                .buttonStyle(.borderedProminent)
-
-                Spacer()
 
                 if #available(macOS 26.0, *) {
                     Button("Close", role: .close) {
@@ -81,6 +101,9 @@ struct ExportView: View {
                     .buttonStyle(RefinedGlassButtonStyle())
 
                 } else {
+                    
+                    Spacer()
+                    
                     Button("Close") {
                         activeSheet = nil
                     }
