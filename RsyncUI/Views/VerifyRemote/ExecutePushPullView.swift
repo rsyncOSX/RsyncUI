@@ -96,7 +96,6 @@ struct ExecutePushPullView: View {
                                     .padding()
                                     .buttonStyle(.borderedProminent)
                                 }
-
                             }
                         }
 

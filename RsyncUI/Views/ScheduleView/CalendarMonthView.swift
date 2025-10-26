@@ -198,40 +198,77 @@ struct CalendarMonthView: View {
         .padding()
         .toolbar {
             ToolbarItem {
-                Button {
-                    date = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date.now
-                    schedules.lastdateinpresentmont = date.endOfMonth
-                    istappeddayint = 0
+                if #available(macOS 26.0, *) {
+                    Button(action: {
+                        date = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date.now
+                        schedules.lastdateinpresentmont = date.endOfMonth
+                        istappeddayint = 0
+                    }) {
+                        Image(systemName: "arrow.left")
+                    }
+                    .buttonStyle(RefinedGlassButtonStyle())
+                    .help("Previous month")
 
-                } label: {
-                    Image(systemName: "arrow.left")
-                        .foregroundColor(.blue)
+                } else {
+                    Button {
+                        date = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date.now
+                        schedules.lastdateinpresentmont = date.endOfMonth
+                        istappeddayint = 0
+                    } label: {
+                        Image(systemName: "arrow.left")
+                            .foregroundColor(.blue)
+                    }
+                    .help("Previous month")
                 }
-                .help("Previous month")
             }
 
             ToolbarItem {
-                Button {
-                    date = Date.now
-                    schedules.lastdateinpresentmont = Date.now.endOfMonth
-                    istappeddayint = 0
-                } label: {
-                    Image(systemName: "clock")
-                        .foregroundColor(.blue)
+                if #available(macOS 26.0, *) {
+                    Button(action: {
+                        date = Date.now
+                        schedules.lastdateinpresentmont = Date.now.endOfMonth
+                        istappeddayint = 0
+                    }) {
+                        Image(systemName: "clock")
+                    }
+                    .buttonStyle(RefinedGlassButtonStyle())
+                    .help("Today")
+
+                } else {
+                    Button {
+                        date = Date.now
+                        schedules.lastdateinpresentmont = Date.now.endOfMonth
+                        istappeddayint = 0
+                    } label: {
+                        Image(systemName: "clock")
+                            .foregroundColor(.blue)
+                    }
+                    .help("Today")
                 }
-                .help("Today")
             }
 
             ToolbarItem {
-                Button {
-                    date = Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date.now
-                    schedules.lastdateinpresentmont = date.endOfMonth
-                    istappeddayint = 0
-                } label: {
-                    Image(systemName: "arrow.right")
-                        .foregroundColor(.blue)
+                if #available(macOS 26.0, *) {
+                    Button(action: {
+                        date = Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date.now
+                        schedules.lastdateinpresentmont = date.endOfMonth
+                        istappeddayint = 0
+                    }) {
+                        Image(systemName: "arrow.right")
+                    }
+                    .buttonStyle(RefinedGlassButtonStyle())
+                    .help("Next month")
+                } else {
+                    Button {
+                        date = Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date.now
+                        schedules.lastdateinpresentmont = date.endOfMonth
+                        istappeddayint = 0
+                    } label: {
+                        Image(systemName: "arrow.right")
+                            .foregroundColor(.blue)
+                    }
+                    .help("Next month")
                 }
-                .help("Next month")
             }
 
             ToolbarItem {

@@ -94,7 +94,7 @@ struct VerifyRemoteView: View {
                             }
                             .buttonStyle(RefinedGlassButtonStyle())
                             .help("Verify selected")
-                            
+
                         } else {
                             Button {
                                 guard let selectedconfig else { return }
@@ -106,13 +106,10 @@ struct VerifyRemoteView: View {
                             .buttonStyle(.borderedProminent)
                             .help("Verify selected")
                         }
-                        
-                        
                     }
                 }
 
                 ToolbarItem {
-                    
                     if #available(macOS 26.0, *) {
                         Button(action: {
                             guard let selectedconfig else { return }
@@ -123,7 +120,7 @@ struct VerifyRemoteView: View {
                         }
                         .buttonStyle(RefinedGlassButtonStyle())
                         .help("Pull or push")
-                        
+
                     } else {
                         Button {
                             guard let selectedconfig else { return }
