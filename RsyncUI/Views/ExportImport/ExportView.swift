@@ -53,9 +53,8 @@ struct ExportView: View {
                     .foregroundColor(.secondary)
 
                 OpencatalogView(selecteditem: $exportcatalog, catalogs: true)
-                
+
                 if #available(macOS 26.0, *) {
-                    
                     Button("Export") {
                         var path = ""
                         if exportcatalog.hasSuffix("/") == true {
@@ -72,9 +71,8 @@ struct ExportView: View {
                     }
                     .help("Export file")
                     .buttonStyle(RefinedGlassButtonStyle())
-                    
+
                 } else {
-                    
                     Button("Export") {
                         var path = ""
                         if exportcatalog.hasSuffix("/") == true {
@@ -101,9 +99,8 @@ struct ExportView: View {
                     .buttonStyle(RefinedGlassButtonStyle())
 
                 } else {
-                    
                     Spacer()
-                    
+
                     Button("Close") {
                         activeSheet = nil
                     }

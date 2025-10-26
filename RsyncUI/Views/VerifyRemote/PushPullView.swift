@@ -41,32 +41,62 @@ struct PushPullView: View {
                 if let pullremotedatanumbers, let pushremotedatanumbers {
                     HStack {
                         VStack {
-                            Button {
-                                pushpullcommand = .push_local
-                                verifypath.removeAll()
-                                verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
-                            } label: {
-                                Image(systemName: "arrowshape.right.fill")
+                            if #available(macOS 26.0, *) {
+                                Button(action: {
+                                    pushpullcommand = .push_local
+                                    verifypath.removeAll()
+                                    verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
+
+                                }) {
+                                    Image(systemName: "arrowshape.right.fill")
+                                }
+                                .buttonStyle(RefinedGlassButtonStyle())
+                                .help("Push local")
+                                .padding(10)
+
+                            } else {
+                                Button {
+                                    pushpullcommand = .push_local
+                                    verifypath.removeAll()
+                                    verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
+                                } label: {
+                                    Image(systemName: "arrowshape.right.fill")
+                                }
+                                .help("Push local")
+                                .padding(10)
+                                .buttonStyle(.borderedProminent)
                             }
-                            .help("Push local")
-                            .padding(10)
-                            .buttonStyle(.borderedProminent)
 
                             DetailsVerifyView(remotedatanumbers: pushremotedatanumbers)
                                 .padding(10)
                         }
 
                         VStack {
-                            Button {
-                                pushpullcommand = .pull_remote
-                                verifypath.removeAll()
-                                verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
-                            } label: {
-                                Image(systemName: "arrowshape.left.fill")
+                            if #available(macOS 26.0, *) {
+                                Button(action: {
+                                    pushpullcommand = .pull_remote
+                                    verifypath.removeAll()
+                                    verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
+
+                                }) {
+                                    Image(systemName: "arrowshape.left.fill")
+                                }
+                                .buttonStyle(RefinedGlassButtonStyle())
+                                .help("Pull remote")
+                                .padding(10)
+
+                            } else {
+                                Button {
+                                    pushpullcommand = .pull_remote
+                                    verifypath.removeAll()
+                                    verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
+                                } label: {
+                                    Image(systemName: "arrowshape.left.fill")
+                                }
+                                .help("Pull remote")
+                                .padding(10)
+                                .buttonStyle(.borderedProminent)
                             }
-                            .help("Pull remote")
-                            .padding(10)
-                            .buttonStyle(.borderedProminent)
 
                             DetailsVerifyView(remotedatanumbers: pullremotedatanumbers)
                                 .padding(10)

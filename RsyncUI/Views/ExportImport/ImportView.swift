@@ -31,9 +31,7 @@ struct ImportView: View {
                                                 configurations: configurations)
 
                     HStack {
-                        
                         if #available(macOS 26.0, *) {
-                            
                             Button("Import tasks") {
                                 isShowingDialog = true
                             }
@@ -60,9 +58,8 @@ struct ImportView: View {
                                 }
                                 .buttonStyle(RefinedGlassButtonStyle())
                             }
-                            
+
                         } else {
-                            
                             Button("Import tasks") {
                                 isShowingDialog = true
                             }
@@ -90,7 +87,7 @@ struct ImportView: View {
                                 .buttonStyle(.borderedProminent)
                             }
                         }
-                        
+
                         if #available(macOS 26.0, *) {
                             Button("Close", role: .close) {
                                 activeSheet = nil
@@ -109,14 +106,8 @@ struct ImportView: View {
                 .frame(minWidth: 600, minHeight: 500)
 
             } else {
-                
-               
-                
-                
                 HStack {
-                    
                     if #available(macOS 26.0, *) {
-                        
                         Button("Import file") {
                             showimportdialog = true
                         }
@@ -138,7 +129,6 @@ struct ImportView: View {
                                           }
                                       })
                     } else {
-                        
                         Button("Import file") {
                             showimportdialog = true
                         }
@@ -160,9 +150,7 @@ struct ImportView: View {
                                           }
                                       })
                     }
-                    
-                    
-                    
+
                     if #available(macOS 26.0, *) {
                         Button("Close", role: .close) {
                             activeSheet = nil

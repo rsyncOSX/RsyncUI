@@ -52,7 +52,6 @@ struct SummarizedDetailsView: View {
 
                         if datatosynchronize {
                             if SharedReference.shared.confirmexecute {
-                                
                                 if #available(macOS 26.0, *) {
                                     Button(action: {
                                         isPresentingConfirm = progressdetails.confirmexecutetasks()
@@ -99,9 +98,8 @@ struct SummarizedDetailsView: View {
                                         }
                                     }
                                 }
-                                
+
                             } else {
-                                
                                 if #available(macOS 26.0, *) {
                                     Button(action: {
                                         executetaskpath.removeAll()

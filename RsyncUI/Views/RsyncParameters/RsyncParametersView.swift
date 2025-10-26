@@ -47,7 +47,6 @@ struct RsyncParametersView: View {
                 VStack(alignment: .leading) {
                     if notifydataisupdated {
                         if #available(macOS 26.0, *) {
-                            
                             Button(action: {
                                 saversyncparameters()
                                 selecteduuids.removeAll()
@@ -62,7 +61,7 @@ struct RsyncParametersView: View {
                             .help("Update parameters")
                             .disabled(selectedconfig == nil)
                             .padding(.bottom, 10)
-                            
+
                         } else {
                             Button("Update") {
                                 saversyncparameters()
@@ -76,7 +75,6 @@ struct RsyncParametersView: View {
 
                     } else {
                         if #available(macOS 26.0, *) {
-                            
                             Button(action: {
                                 saversyncparameters()
 
@@ -90,7 +88,7 @@ struct RsyncParametersView: View {
                             .help("Save parameters")
                             .disabled(selectedconfig == nil)
                             .padding(.bottom, 10)
-            
+
                         } else {
                             Button("Add") {
                                 saversyncparameters()

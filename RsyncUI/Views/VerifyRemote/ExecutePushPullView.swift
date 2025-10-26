@@ -49,32 +49,54 @@ struct ExecutePushPullView: View {
                             }
 
                             if pushpullcommand == .push_local {
-                                Button {
-                                    showprogressview = true
-                                    push(config: config)
+                                if #available(macOS 26.0, *) {
+                                    Button(action: {
+                                        showprogressview = true
+                                        push(config: config)
 
-                                } label: {
-                                    Image(systemName: "arrowshape.right.fill")
-                                        .imageScale(.large)
-                                }
-                                .padding()
-                                .buttonStyle(.borderedProminent)
+                                    }) {
+                                        Image(systemName: "arrowshape.right.fill")
+                                    }
+                                    .buttonStyle(RefinedGlassButtonStyle())
+                                    .padding()
 
-                            } else if pushpullcommand == .pull_remote {
-                                Button {
-                                    showprogressview = true
-                                    pull(config: config)
-                                } label: {
-                                    Image(systemName: "arrowshape.left.fill")
-                                        .imageScale(.large)
-                                }
-                                .padding()
-                                .buttonStyle(.borderedProminent)
+                                } else {
+                                    Button {
+                                        showprogressview = true
+                                        push(config: config)
 
-                            } else {
-                                Button("Select") {}
+                                    } label: {
+                                        Image(systemName: "arrowshape.right.fill")
+                                            .imageScale(.large)
+                                    }
                                     .padding()
                                     .buttonStyle(.borderedProminent)
+                                }
+
+                            } else if pushpullcommand == .pull_remote {
+                                if #available(macOS 26.0, *) {
+                                    Button(action: {
+                                        showprogressview = true
+                                        pull(config: config)
+
+                                    }) {
+                                        Image(systemName: "arrowshape.left.fill")
+                                    }
+                                    .buttonStyle(RefinedGlassButtonStyle())
+                                    .padding()
+
+                                } else {
+                                    Button {
+                                        showprogressview = true
+                                        pull(config: config)
+                                    } label: {
+                                        Image(systemName: "arrowshape.left.fill")
+                                            .imageScale(.large)
+                                    }
+                                    .padding()
+                                    .buttonStyle(.borderedProminent)
+                                }
+
                             }
                         }
 
