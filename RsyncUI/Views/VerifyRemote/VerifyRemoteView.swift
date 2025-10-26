@@ -83,27 +83,57 @@ struct VerifyRemoteView: View {
             .toolbar(content: {
                 if remoteconfigurations, alltasksarehalted() == false {
                     ToolbarItem {
-                        Button {
-                            guard let selectedconfig else { return }
-                            guard selectedtaskishalted == false else { return }
-                            verifypath.append(Verify(task: .pushpullview(configID: selectedconfig.id)))
-                        } label: {
-                            Image(systemName: "arrow.up")
+                        if #available(macOS 26.0, *) {
+                            Button(action: {
+                                guard let selectedconfig else { return }
+                                guard selectedtaskishalted == false else { return }
+                                verifypath.append(Verify(task: .pushpullview(configID: selectedconfig.id)))
+
+                            }) {
+                                Image(systemName: "arrow.up")
+                            }
+                            .buttonStyle(RefinedGlassButtonStyle())
+                            .help("Verify selected")
+                            
+                        } else {
+                            Button {
+                                guard let selectedconfig else { return }
+                                guard selectedtaskishalted == false else { return }
+                                verifypath.append(Verify(task: .pushpullview(configID: selectedconfig.id)))
+                            } label: {
+                                Image(systemName: "arrow.up")
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .help("Verify selected")
                         }
-                        .buttonStyle(.borderedProminent)
-                        .help("Verify selected")
+                        
+                        
                     }
                 }
 
                 ToolbarItem {
-                    Button {
-                        guard let selectedconfig else { return }
-                        verifypath.append(Verify(task: .executenpushpullview(configID: selectedconfig.id)))
-                    } label: {
-                        Image(systemName: "arrow.left.arrow.right.circle.fill")
+                    
+                    if #available(macOS 26.0, *) {
+                        Button(action: {
+                            guard let selectedconfig else { return }
+                            verifypath.append(Verify(task: .executenpushpullview(configID: selectedconfig.id)))
+
+                        }) {
+                            Image(systemName: "arrow.left.arrow.right.circle.fill")
+                        }
+                        .buttonStyle(RefinedGlassButtonStyle())
+                        .help("Pull or push")
+                        
+                    } else {
+                        Button {
+                            guard let selectedconfig else { return }
+                            verifypath.append(Verify(task: .executenpushpullview(configID: selectedconfig.id)))
+                        } label: {
+                            Image(systemName: "arrow.left.arrow.right.circle.fill")
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .help("Pull or push")
                     }
-                    .buttonStyle(.borderedProminent)
-                    .help("Pull or push")
                 }
 
                 ToolbarItem {
