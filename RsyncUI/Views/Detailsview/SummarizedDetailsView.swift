@@ -53,6 +53,7 @@ struct SummarizedDetailsView: View {
                         if datatosynchronize {
                             if SharedReference.shared.confirmexecute {
                                 
+                                // Because of the role .destructive keep the if #available(macOS 26.0, *)
                                 if #available(macOS 26.0, *) {
                                     Button(action: {
                                         isPresentingConfirm = progressdetails.confirmexecutetasks()

@@ -31,6 +31,7 @@ struct ImportView: View {
                                                 configurations: configurations)
 
                     HStack {
+                        
                         if #available(macOS 26.0, *) {
                             Button("Import tasks") {
                                 isShowingDialog = true
@@ -88,6 +89,7 @@ struct ImportView: View {
                             }
                         }
 
+                        // Because of the role .destructive keep the if #available(macOS 26.0, *)
                         if #available(macOS 26.0, *) {
                             Button("Close", role: .close) {
                                 activeSheet = nil
@@ -107,50 +109,32 @@ struct ImportView: View {
 
             } else {
                 HStack {
-                    if #available(macOS 26.0, *) {
-                        Button("Import file") {
-                            showimportdialog = true
-                        }
-                        .buttonStyle(RefinedGlassButtonStyle())
-                        .fileImporter(isPresented: $showimportdialog,
-                                      allowedContentTypes: [uutype],
-                                      onCompletion: { result in
-                                          switch result {
-                                          case let .success(url):
-                                              filenameimport = url.relativePath
-                                              guard filenameimport.isEmpty == false else { return }
-                                              if let importconfigurations = ReadImportConfigurationsJSON(filenameimport,
-                                                                                                         maxhiddenId: maxhiddenID).importconfigurations
-                                              {
-                                                  configurations = importconfigurations
-                                              }
-                                          case let .failure(error):
-                                              SharedReference.shared.errorobject?.alert(error: error)
-                                          }
-                                      })
-                    } else {
-                        Button("Import file") {
-                            showimportdialog = true
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .fileImporter(isPresented: $showimportdialog,
-                                      allowedContentTypes: [uutype],
-                                      onCompletion: { result in
-                                          switch result {
-                                          case let .success(url):
-                                              filenameimport = url.relativePath
-                                              guard filenameimport.isEmpty == false else { return }
-                                              if let importconfigurations = ReadImportConfigurationsJSON(filenameimport,
-                                                                                                         maxhiddenId: maxhiddenID).importconfigurations
-                                              {
-                                                  configurations = importconfigurations
-                                              }
-                                          case let .failure(error):
-                                              SharedReference.shared.errorobject?.alert(error: error)
-                                          }
-                                      })
+                    
+                    ConditionalGlassButton(
+                        systemImage: "",
+                        text: "Import file",
+                        helpText: "Import file"
+                    ) {
+                        showimportdialog = true
                     }
-
+                    .fileImporter(isPresented: $showimportdialog,
+                                  allowedContentTypes: [uutype],
+                                  onCompletion: { result in
+                                      switch result {
+                                      case let .success(url):
+                                          filenameimport = url.relativePath
+                                          guard filenameimport.isEmpty == false else { return }
+                                          if let importconfigurations = ReadImportConfigurationsJSON(filenameimport,
+                                                                                                     maxhiddenId: maxhiddenID).importconfigurations
+                                          {
+                                              configurations = importconfigurations
+                                          }
+                                      case let .failure(error):
+                                          SharedReference.shared.errorobject?.alert(error: error)
+                                      }
+                                  })
+                    
+                    // Because of the role .destructive keep the if #available(macOS 26.0, *)
                     if #available(macOS 26.0, *) {
                         Button("Close", role: .close) {
                             activeSheet = nil
