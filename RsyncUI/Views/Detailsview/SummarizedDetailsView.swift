@@ -52,6 +52,7 @@ struct SummarizedDetailsView: View {
 
                         if datatosynchronize {
                             if SharedReference.shared.confirmexecute {
+                                
                                 if #available(macOS 26.0, *) {
                                     Button(action: {
                                         isPresentingConfirm = progressdetails.confirmexecutetasks()
@@ -100,29 +101,13 @@ struct SummarizedDetailsView: View {
                                 }
 
                             } else {
-                                if #available(macOS 26.0, *) {
-                                    Button(action: {
-                                        executetaskpath.removeAll()
-                                        executetaskpath.append(Tasks(task: .executestimatedview))
-
-                                    }) {
-                                        Image(systemName: "play.fill")
-                                    }
-                                    .buttonStyle(RefinedGlassButtonStyle())
-                                    .help("Synchronize")
-
-                                } else {
-                                    Button {
-                                        executetaskpath.removeAll()
-                                        executetaskpath.append(Tasks(task: .executestimatedview))
-                                    } label: {
-                                        Text(Image(systemName: "play.fill"))
-                                            .imageScale(.large)
-                                            // .foregroundColor(.blue)
-                                            .font(.title2)
-                                    }
-                                    .help("Synchronize")
-                                    .buttonStyle(.borderedProminent)
+                                
+                                ConditionalGlassButton(
+                                    systemImage: "play.fill",
+                                    helpText: "Synchronize"
+                                ) {
+                                    executetaskpath.removeAll()
+                                    executetaskpath.append(Tasks(task: .executestimatedview))
                                 }
                             }
                         }
