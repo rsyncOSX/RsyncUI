@@ -67,10 +67,14 @@ struct HomeCatalogsView: View {
                 .font(.title3)
                 .fontWeight(.bold))
             {
-                Button("Return") {
+                
+                ConditionalGlassButton(
+                    systemImage: "return",
+                    text: "Return",
+                    helpText: "Return"
+                ) {
                     path.removeAll()
                 }
-                .buttonStyle(.borderedProminent)
             }
         }
         .formStyle(.grouped)

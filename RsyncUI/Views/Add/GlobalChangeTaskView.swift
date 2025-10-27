@@ -30,13 +30,16 @@ struct GlobalChangeTaskView: View {
 
             VStack(alignment: .leading) {
                 HStack {
-                    Button("Update") {
+                    
+                    ConditionalGlassButton(
+                        systemImage: "arrow.down",
+                        text: "Update",
+                        helpText: "Update task"
+                    ) {
                         guard newdata.whatischanged.isEmpty == false else { return }
                         showingAlert = true
                     }
-                    .help("Update task")
                     .disabled(configurations.isEmpty)
-                    .buttonStyle(.borderedProminent)
                 }
 
                 VStack(alignment: .leading) { synchronizeID }

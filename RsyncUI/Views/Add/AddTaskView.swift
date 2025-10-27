@@ -73,7 +73,6 @@ struct AddTaskView: View {
                         ) {
                             validateandupdate()
                         }
-
                     } else {
                         ConditionalGlassButton(
                             systemImage: "plus",
