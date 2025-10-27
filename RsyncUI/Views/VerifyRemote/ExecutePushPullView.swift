@@ -49,52 +49,20 @@ struct ExecutePushPullView: View {
                             }
 
                             if pushpullcommand == .push_local {
-                                if #available(macOS 26.0, *) {
-                                    Button(action: {
-                                        showprogressview = true
-                                        push(config: config)
-
-                                    }) {
-                                        Image(systemName: "arrowshape.right.fill")
-                                    }
-                                    .buttonStyle(RefinedGlassButtonStyle())
-                                    .padding()
-
-                                } else {
-                                    Button {
-                                        showprogressview = true
-                                        push(config: config)
-
-                                    } label: {
-                                        Image(systemName: "arrowshape.right.fill")
-                                            .imageScale(.large)
-                                    }
-                                    .padding()
-                                    .buttonStyle(.borderedProminent)
+                                ConditionalGlassButton(
+                                    systemImage: "arrowshape.right.fill",
+                                    helpText: "Push to remote"
+                                ) {
+                                    showprogressview = true
+                                    push(config: config)
                                 }
-
                             } else if pushpullcommand == .pull_remote {
-                                if #available(macOS 26.0, *) {
-                                    Button(action: {
-                                        showprogressview = true
-                                        pull(config: config)
-
-                                    }) {
-                                        Image(systemName: "arrowshape.left.fill")
-                                    }
-                                    .buttonStyle(RefinedGlassButtonStyle())
-                                    .padding()
-
-                                } else {
-                                    Button {
-                                        showprogressview = true
-                                        pull(config: config)
-                                    } label: {
-                                        Image(systemName: "arrowshape.left.fill")
-                                            .imageScale(.large)
-                                    }
-                                    .padding()
-                                    .buttonStyle(.borderedProminent)
+                                ConditionalGlassButton(
+                                    systemImage: "arrowshape.left.fill",
+                                    helpText: "Pull from remote"
+                                ) {
+                                    showprogressview = true
+                                    pull(config: config)
                                 }
                             }
                         }

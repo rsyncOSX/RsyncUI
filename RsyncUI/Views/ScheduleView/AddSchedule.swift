@@ -63,7 +63,7 @@ struct AddSchedule: View {
                     }
                     .buttonStyle(RefinedGlassButtonStyle())
                     .help("Reset to current date")
-                    
+
                 } else {
                     Button {
                         dateRunMonth = Date.now.en_string_month_from_date()
@@ -77,11 +77,9 @@ struct AddSchedule: View {
                     .buttonBorderShape(.circle)
                     .help("Reset to current date")
                 }
-                
-                
 
                 Spacer()
-                
+
                 if #available(macOS 26.0, *) {
                     Button(action: {
                         // Just concatenate month + minnutes string
@@ -113,7 +111,7 @@ struct AddSchedule: View {
                         Image(systemName: "plus")
                     }
                     .buttonStyle(RefinedGlassButtonStyle())
-                    
+
                 } else {
                     Button {
                         // Just concatenate month + minnutes string
@@ -146,8 +144,6 @@ struct AddSchedule: View {
                     }
                     .buttonStyle(.borderedProminent)
                 }
-
-                
 
                 /*
                  if SharedReference.shared.scheduledemomode == false {

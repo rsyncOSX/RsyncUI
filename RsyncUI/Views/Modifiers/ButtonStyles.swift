@@ -117,14 +117,13 @@ public struct RefinedGlassButtonStyle: ButtonStyle {
     }
 }
 
-
 struct ConditionalGlassButton: View {
     let systemImage: String
     let text: String?
     let helpText: String
     let role: ButtonRole?
     let action: () -> Void
-    
+
     init(systemImage: String, text: String? = nil, helpText: String, role: ButtonRole? = nil, action: @escaping () -> Void) {
         self.systemImage = systemImage
         self.text = text
@@ -132,12 +131,12 @@ struct ConditionalGlassButton: View {
         self.role = role
         self.action = action
     }
-    
+
     var body: some View {
         if #available(macOS 26.0, *) {
             Button(role: role, action: action) {
                 Label {
-                    if let text = text {
+                    if let text {
                         Text(text)
                     }
                 } icon: {
@@ -154,10 +153,10 @@ struct ConditionalGlassButton: View {
                 }
                 return role
             }()
-            
+
             Button(role: fallbackRole, action: action) {
                 Label {
-                    if let text = text {
+                    if let text {
                         Text(text)
                     }
                 } icon: {

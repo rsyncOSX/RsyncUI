@@ -41,62 +41,30 @@ struct PushPullView: View {
                 if let pullremotedatanumbers, let pushremotedatanumbers {
                     HStack {
                         VStack {
-                            if #available(macOS 26.0, *) {
-                                Button(action: {
-                                    pushpullcommand = .push_local
-                                    verifypath.removeAll()
-                                    verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
-
-                                }) {
-                                    Image(systemName: "arrowshape.right.fill")
-                                }
-                                .buttonStyle(RefinedGlassButtonStyle())
-                                .help("Push local")
-                                .padding(10)
-
-                            } else {
-                                Button {
-                                    pushpullcommand = .push_local
-                                    verifypath.removeAll()
-                                    verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
-                                } label: {
-                                    Image(systemName: "arrowshape.right.fill")
-                                }
-                                .help("Push local")
-                                .padding(10)
-                                .buttonStyle(.borderedProminent)
+                            ConditionalGlassButton(
+                                systemImage: "arrowshape.right.fill",
+                                helpText: "Push local"
+                            ) {
+                                pushpullcommand = .push_local
+                                verifypath.removeAll()
+                                verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
                             }
+                            .padding(10)
 
                             DetailsVerifyView(remotedatanumbers: pushremotedatanumbers)
                                 .padding(10)
                         }
 
                         VStack {
-                            if #available(macOS 26.0, *) {
-                                Button(action: {
-                                    pushpullcommand = .pull_remote
-                                    verifypath.removeAll()
-                                    verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
-
-                                }) {
-                                    Image(systemName: "arrowshape.left.fill")
-                                }
-                                .buttonStyle(RefinedGlassButtonStyle())
-                                .help("Pull remote")
-                                .padding(10)
-
-                            } else {
-                                Button {
-                                    pushpullcommand = .pull_remote
-                                    verifypath.removeAll()
-                                    verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
-                                } label: {
-                                    Image(systemName: "arrowshape.left.fill")
-                                }
-                                .help("Pull remote")
-                                .padding(10)
-                                .buttonStyle(.borderedProminent)
+                            ConditionalGlassButton(
+                                systemImage: "arrowshape.left.fill",
+                                helpText: "Pull remote"
+                            ) {
+                                pushpullcommand = .pull_remote
+                                verifypath.removeAll()
+                                verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
                             }
+                            .padding(10)
 
                             DetailsVerifyView(remotedatanumbers: pullremotedatanumbers)
                                 .padding(10)
@@ -111,24 +79,12 @@ struct PushPullView: View {
         .toolbar(content: {
             if progress {
                 ToolbarItem {
-                    if #available(macOS 26.0, *) {
-                        Button(action: {
-                            isaborted = true
-                            abort()
-
-                        }) {
-                            Image(systemName: "stop.fill")
-                        }
-                        .buttonStyle(RefinedGlassButtonStyle())
-                        .help("Abort")
-                    } else {
-                        Button {
-                            isaborted = true
-                            abort()
-                        } label: {
-                            Image(systemName: "stop.fill")
-                        }
-                        .help("Abort")
+                    ConditionalGlassButton(
+                        systemImage: "stop.fill",
+                        helpText: "Abort"
+                    ) {
+                        isaborted = true
+                        abort()
                     }
                 }
             }

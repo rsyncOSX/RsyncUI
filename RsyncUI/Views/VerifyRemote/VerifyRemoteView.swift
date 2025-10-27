@@ -83,53 +83,24 @@ struct VerifyRemoteView: View {
             .toolbar(content: {
                 if remoteconfigurations, alltasksarehalted() == false {
                     ToolbarItem {
-                        if #available(macOS 26.0, *) {
-                            Button(action: {
-                                guard let selectedconfig else { return }
-                                guard selectedtaskishalted == false else { return }
-                                verifypath.append(Verify(task: .pushpullview(configID: selectedconfig.id)))
-
-                            }) {
-                                Image(systemName: "arrow.up")
-                            }
-                            .buttonStyle(RefinedGlassButtonStyle())
-                            .help("Verify selected")
-
-                        } else {
-                            Button {
-                                guard let selectedconfig else { return }
-                                guard selectedtaskishalted == false else { return }
-                                verifypath.append(Verify(task: .pushpullview(configID: selectedconfig.id)))
-                            } label: {
-                                Image(systemName: "arrow.up")
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .help("Verify selected")
+                        ConditionalGlassButton(
+                            systemImage: "arrow.up",
+                            helpText: "Verify selected"
+                        ) {
+                            guard let selectedconfig else { return }
+                            guard selectedtaskishalted == false else { return }
+                            verifypath.append(Verify(task: .pushpullview(configID: selectedconfig.id)))
                         }
                     }
                 }
 
                 ToolbarItem {
-                    if #available(macOS 26.0, *) {
-                        Button(action: {
-                            guard let selectedconfig else { return }
-                            verifypath.append(Verify(task: .executenpushpullview(configID: selectedconfig.id)))
-
-                        }) {
-                            Image(systemName: "arrow.left.arrow.right.circle.fill")
-                        }
-                        .buttonStyle(RefinedGlassButtonStyle())
-                        .help("Pull or push")
-
-                    } else {
-                        Button {
-                            guard let selectedconfig else { return }
-                            verifypath.append(Verify(task: .executenpushpullview(configID: selectedconfig.id)))
-                        } label: {
-                            Image(systemName: "arrow.left.arrow.right.circle.fill")
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .help("Pull or push")
+                    ConditionalGlassButton(
+                        systemImage: "arrow.left.arrow.right.circle.fill",
+                        helpText: "Pull or push"
+                    ) {
+                        guard let selectedconfig else { return }
+                        verifypath.append(Verify(task: .executenpushpullview(configID: selectedconfig.id)))
                     }
                 }
 
@@ -137,6 +108,8 @@ struct VerifyRemoteView: View {
                     Spacer()
                 }
 
+                // Cannot use the view modifier ConditionalGlassButton when the close role is part of
+                // the button, use like this then.
                 if #available(macOS 26.0, *) {
                     ToolbarItem(placement: .cancellationAction) {
                         Button("Close", role: .close) {

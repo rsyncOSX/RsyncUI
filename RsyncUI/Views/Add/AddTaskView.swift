@@ -65,9 +65,7 @@ struct AddTaskView: View {
                 // Column 1
 
                 VStack(alignment: .leading) {
-                    
                     if newdata.selectedconfig != nil {
-                        
                         ConditionalGlassButton(
                             systemImage: "arrow.down",
                             text: "Update",
@@ -75,9 +73,8 @@ struct AddTaskView: View {
                         ) {
                             validateandupdate()
                         }
-    
+
                     } else {
-                        
                         ConditionalGlassButton(
                             systemImage: "plus",
                             text: "Add",
@@ -86,7 +83,7 @@ struct AddTaskView: View {
                             addconfig()
                         }
                     }
-                    
+
                     VStack(alignment: .trailing) {
                         pickerselecttypeoftask
                             .disabled(selectedconfig != nil)
