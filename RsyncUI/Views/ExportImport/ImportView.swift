@@ -31,7 +31,6 @@ struct ImportView: View {
                                                 configurations: configurations)
 
                     HStack {
-                        
                         if #available(macOS 26.0, *) {
                             Button("Import tasks") {
                                 isShowingDialog = true
@@ -109,7 +108,6 @@ struct ImportView: View {
 
             } else {
                 HStack {
-                    
                     ConditionalGlassButton(
                         systemImage: "",
                         text: "Import file",
@@ -133,7 +131,7 @@ struct ImportView: View {
                                           SharedReference.shared.errorobject?.alert(error: error)
                                       }
                                   })
-                    
+
                     // Because of the role .destructive keep the if #available(macOS 26.0, *)
                     if #available(macOS 26.0, *) {
                         Button("Close", role: .close) {

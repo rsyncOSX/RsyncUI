@@ -52,97 +52,45 @@ struct AddSchedule: View {
                      .frame(width: 50, alignment: .center)
                  */
 
-                if #available(macOS 26.0, *) {
-                    Button(action: {
-                        dateRunMonth = Date.now.en_string_month_from_date()
-                        dateRunHour = hournow
-                        istappeddayint = 0
-
-                    }) {
-                        Image(systemName: "arrow.trianglehead.clockwise")
-                    }
-                    .buttonStyle(RefinedGlassButtonStyle())
-                    .help("Reset to current date")
-
-                } else {
-                    Button {
-                        dateRunMonth = Date.now.en_string_month_from_date()
-                        dateRunHour = hournow
-                        istappeddayint = 0
-
-                    } label: {
-                        Image(systemName: "arrow.trianglehead.clockwise")
-                            .foregroundColor(.blue)
-                    }
-                    .buttonBorderShape(.circle)
-                    .help("Reset to current date")
+                ConditionalGlassButton(
+                    systemImage: "arrow.trianglehead.clockwise",
+                    helpText: "Reset to current date"
+                ) {
+                    dateRunMonth = Date.now.en_string_month_from_date()
+                    dateRunHour = hournow
+                    istappeddayint = 0
                 }
 
                 Spacer()
 
-                if #available(macOS 26.0, *) {
-                    Button(action: {
-                        // Just concatenate month + minnutes string
-                        let run = dateRunMonth + " " + dateRunHour
-                        let profile: String? = if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
-                            rsyncUIdata.validprofiles[index].profilename
-                        } else { nil }
+                ConditionalGlassButton(
+                    systemImage: "plus",
+                    helpText: "Add schedule"
+                ) {
+                    // Just concatenate month + minnutes string
+                    let run = dateRunMonth + " " + dateRunHour
+                    let profile: String? = if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
+                        rsyncUIdata.validprofiles[index].profilename
+                    } else { nil }
 
-                        guard schedules.verifynextschedule(plannednextschedule: run) else {
-                            Logger.process.warning("AddSchedule: not valid more than 10 minutes to next schedule")
-                            return
-                        }
-
-                        schedules.appendfutureschedule(profile: profile, dateRun: run, schedule: schedule)
-
-                        date = Date.now
-                        istappeddayint = 0
-                        schedules.lastdateinpresentmont = Date.now.endOfMonth
-                        // Recompute schedules and set first schedule to execute
-                        schedules.recomputeschedules()
-
-                        let globaltimer = GlobalTimer.shared
-                        let scheduledatamapped = globaltimer.allSchedules.map { item in
-                            item.scheduledata
-                        }
-                        WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
-
-                    }) {
-                        Image(systemName: "plus")
+                    guard schedules.verifynextschedule(plannednextschedule: run) else {
+                        Logger.process.warning("AddSchedule: not valid more than 10 minutes to next schedule")
+                        return
                     }
-                    .buttonStyle(RefinedGlassButtonStyle())
 
-                } else {
-                    Button {
-                        // Just concatenate month + minnutes string
-                        let run = dateRunMonth + " " + dateRunHour
-                        let profile: String? = if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
-                            rsyncUIdata.validprofiles[index].profilename
-                        } else { nil }
+                    schedules.appendfutureschedule(profile: profile, dateRun: run, schedule: schedule)
 
-                        guard schedules.verifynextschedule(plannednextschedule: run) else {
-                            Logger.process.warning("AddSchedule: not valid more than 10 minutes to next schedule")
-                            return
-                        }
+                    date = Date.now
+                    istappeddayint = 0
+                    schedules.lastdateinpresentmont = Date.now.endOfMonth
+                    // Recompute schedules and set first schedule to execute
+                    schedules.recomputeschedules()
 
-                        schedules.appendfutureschedule(profile: profile, dateRun: run, schedule: schedule)
-
-                        date = Date.now
-                        istappeddayint = 0
-                        schedules.lastdateinpresentmont = Date.now.endOfMonth
-                        // Recompute schedules and set first schedule to execute
-                        schedules.recomputeschedules()
-
-                        let globaltimer = GlobalTimer.shared
-                        let scheduledatamapped = globaltimer.allSchedules.map { item in
-                            item.scheduledata
-                        }
-                        WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
-
-                    } label: {
-                        Image(systemName: "plus")
+                    let globaltimer = GlobalTimer.shared
+                    let scheduledatamapped = globaltimer.allSchedules.map { item in
+                        item.scheduledata
                     }
-                    .buttonStyle(.borderedProminent)
+                    WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
                 }
 
                 /*

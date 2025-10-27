@@ -188,26 +188,3 @@ struct ConditionalGlassButton: View {
         }
     }
 }
-
-/*
- // Close button (will use .close on macOS 26.0+, .cancel on older versions)
- if #available(macOS 26.0, *) {
-     ConditionalGlassButton(
-         systemImage: "xmark.circle.fill",
-         text: "Close",
-         helpText: "Close window",
-         role: .close
-     ) {
-         // close action
-     }
- }
-
- // Regular button
- ConditionalGlassButton(
-     systemImage: "arrow.left.arrow.right.circle.fill",
-     text: "Sync",
-     helpText: "Pull or push"
- ) {
-     // action
- }
- */

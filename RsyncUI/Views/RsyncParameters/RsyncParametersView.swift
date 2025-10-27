@@ -29,7 +29,6 @@ struct RsyncParametersView: View {
             HStack {
                 VStack(alignment: .leading) {
                     if notifydataisupdated {
-                        
                         ConditionalGlassButton(
                             systemImage: "arrow.down",
                             text: "Update",
@@ -40,9 +39,8 @@ struct RsyncParametersView: View {
                         }
                         .disabled(selectedconfig == nil)
                         .padding(.bottom, 10)
-                        
+
                     } else {
-                        
                         ConditionalGlassButton(
                             systemImage: "plus",
                             text: "Add",

@@ -30,7 +30,6 @@ struct GlobalChangeTaskView: View {
 
             VStack(alignment: .leading) {
                 HStack {
-                    
                     ConditionalGlassButton(
                         systemImage: "arrow.down",
                         text: "Update",

@@ -53,7 +53,7 @@ struct ExportView: View {
                     .foregroundColor(.secondary)
 
                 OpencatalogView(selecteditem: $exportcatalog, catalogs: true)
-                
+
                 ConditionalGlassButton(
                     systemImage: "",
                     text: "Export",
@@ -72,7 +72,6 @@ struct ExportView: View {
                     _ = WriteExportConfigurationsJSON(path, selectedconfigurations())
                     activeSheet = nil
                 }
-                
 
                 if #available(macOS 26.0, *) {
                     Button("Close", role: .close) {

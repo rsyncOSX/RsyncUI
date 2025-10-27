@@ -67,7 +67,6 @@ struct HomeCatalogsView: View {
                 .font(.title3)
                 .fontWeight(.bold))
             {
-                
                 ConditionalGlassButton(
                     systemImage: "return",
                     text: "Return",

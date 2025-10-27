@@ -52,7 +52,6 @@ struct SummarizedDetailsView: View {
 
                         if datatosynchronize {
                             if SharedReference.shared.confirmexecute {
-                                
                                 // Because of the role .destructive keep the if #available(macOS 26.0, *)
                                 if #available(macOS 26.0, *) {
                                     Button(action: {
@@ -102,7 +101,6 @@ struct SummarizedDetailsView: View {
                                 }
 
                             } else {
-                                
                                 ConditionalGlassButton(
                                     systemImage: "play.fill",
                                     helpText: "Synchronize"

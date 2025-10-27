@@ -145,18 +145,17 @@ struct CalendarMonthView: View {
                         }
 
                     if GlobalTimer.shared.notExecutedSchedulesafterWakeUp.count > 0 {
-                       
-                            ConditionalGlassButton(
-                                systemImage: "",
-                                text: "Move to Schedules ↑",
-                                helpText: "Move to Schedules"
-                            ) {
-                                GlobalTimer.shared.moveToSchedules(itemIDs: Array(selecteduuidsnotexecuted))
-                                selecteduuidsnotexecuted.removeAll()
-                            }
-                            .disabled(selecteduuidsnotexecuted.isEmpty)
-                            .padding()
-                        
+                        ConditionalGlassButton(
+                            systemImage: "",
+                            text: "Move to Schedules ↑",
+                            helpText: "Move to Schedules"
+                        ) {
+                            GlobalTimer.shared.moveToSchedules(itemIDs: Array(selecteduuidsnotexecuted))
+                            selecteduuidsnotexecuted.removeAll()
+                        }
+                        .disabled(selecteduuidsnotexecuted.isEmpty)
+                        .padding()
+
                         TableofNotExeSchedules(selecteduuids: $selecteduuidsnotexecuted)
                             .confirmationDialog(selecteduuidsnotexecuted.count == 1 ? "Delete 1 schedule" :
                                 "Delete \(selecteduuidsnotexecuted.count) schedules",
@@ -192,76 +191,35 @@ struct CalendarMonthView: View {
         .padding()
         .toolbar {
             ToolbarItem {
-                if #available(macOS 26.0, *) {
-                    Button(action: {
-                        date = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date.now
-                        schedules.lastdateinpresentmont = date.endOfMonth
-                        istappeddayint = 0
-                    }) {
-                        Image(systemName: "arrow.left")
-                    }
-                    .buttonStyle(RefinedGlassButtonStyle())
-                    .help("Previous month")
-
-                } else {
-                    Button {
-                        date = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date.now
-                        schedules.lastdateinpresentmont = date.endOfMonth
-                        istappeddayint = 0
-                    } label: {
-                        Image(systemName: "arrow.left")
-                            .foregroundColor(.blue)
-                    }
-                    .help("Previous month")
+                ConditionalGlassButton(
+                    systemImage: "arrow.left",
+                    helpText: "Previous month"
+                ) {
+                    date = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date.now
+                    schedules.lastdateinpresentmont = date.endOfMonth
+                    istappeddayint = 0
                 }
             }
 
             ToolbarItem {
-                if #available(macOS 26.0, *) {
-                    Button(action: {
-                        date = Date.now
-                        schedules.lastdateinpresentmont = Date.now.endOfMonth
-                        istappeddayint = 0
-                    }) {
-                        Image(systemName: "clock")
-                    }
-                    .buttonStyle(RefinedGlassButtonStyle())
-                    .help("Today")
-
-                } else {
-                    Button {
-                        date = Date.now
-                        schedules.lastdateinpresentmont = Date.now.endOfMonth
-                        istappeddayint = 0
-                    } label: {
-                        Image(systemName: "clock")
-                            .foregroundColor(.blue)
-                    }
-                    .help("Today")
+                ConditionalGlassButton(
+                    systemImage: "clock",
+                    helpText: "Today"
+                ) {
+                    date = Date.now
+                    schedules.lastdateinpresentmont = Date.now.endOfMonth
+                    istappeddayint = 0
                 }
             }
 
             ToolbarItem {
-                if #available(macOS 26.0, *) {
-                    Button(action: {
-                        date = Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date.now
-                        schedules.lastdateinpresentmont = date.endOfMonth
-                        istappeddayint = 0
-                    }) {
-                        Image(systemName: "arrow.right")
-                    }
-                    .buttonStyle(RefinedGlassButtonStyle())
-                    .help("Next month")
-                } else {
-                    Button {
-                        date = Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date.now
-                        schedules.lastdateinpresentmont = date.endOfMonth
-                        istappeddayint = 0
-                    } label: {
-                        Image(systemName: "arrow.right")
-                            .foregroundColor(.blue)
-                    }
-                    .help("Next month")
+                ConditionalGlassButton(
+                    systemImage: "arrow.right",
+                    helpText: "Next month"
+                ) {
+                    date = Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date.now
+                    schedules.lastdateinpresentmont = date.endOfMonth
+                    istappeddayint = 0
                 }
             }
 
