@@ -136,12 +136,12 @@ struct ExecutePushPullView: View {
         }
         .toolbar(content: {
             ToolbarItem {
-                Button {
+                ConditionalGlassButton(
+                    systemImage: "stop.fill",
+                    helpText: "Abort"
+                ) {
                     abort()
-                } label: {
-                    Image(systemName: "stop.fill")
                 }
-                .help("Abort (⌘K)")
             }
         })
     }
