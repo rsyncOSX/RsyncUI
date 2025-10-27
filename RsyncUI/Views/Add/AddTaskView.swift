@@ -65,35 +65,28 @@ struct AddTaskView: View {
                 // Column 1
 
                 VStack(alignment: .leading) {
+                    
                     if newdata.selectedconfig != nil {
-                        Button("Update") {
+                        
+                        ConditionalGlassButton(
+                            systemImage: "arrow.down",
+                            text: "Update",
+                            helpText: "Update task"
+                        ) {
                             validateandupdate()
                         }
-                        .buttonStyle(.borderedProminent)
-                        .help("Update task")
+    
                     } else {
-                        if #available(macOS 26.0, *) {
-                            Button(action: {
-                                addconfig()
-
-                            }) {
-                                HStack {
-                                    Image(systemName: "plus")
-                                    Text("Add")
-                                }
-                            }
-                            .buttonStyle(RefinedGlassButtonStyle())
-                            .help("Add task")
-
-                        } else {
-                            Button("Add") {
-                                addconfig()
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .help("Add task")
+                        
+                        ConditionalGlassButton(
+                            systemImage: "plus",
+                            text: "Add",
+                            helpText: "Add task"
+                        ) {
+                            addconfig()
                         }
                     }
-
+                    
                     VStack(alignment: .trailing) {
                         pickerselecttypeoftask
                             .disabled(selectedconfig != nil)

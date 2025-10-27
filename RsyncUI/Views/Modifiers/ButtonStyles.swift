@@ -116,3 +116,79 @@ public struct RefinedGlassButtonStyle: ButtonStyle {
             .contentShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
     }
 }
+
+
+struct ConditionalGlassButton: View {
+    let systemImage: String
+    let text: String?
+    let helpText: String
+    let role: ButtonRole?
+    let action: () -> Void
+    
+    init(systemImage: String, text: String? = nil, helpText: String, role: ButtonRole? = nil, action: @escaping () -> Void) {
+        self.systemImage = systemImage
+        self.text = text
+        self.helpText = helpText
+        self.role = role
+        self.action = action
+    }
+    
+    var body: some View {
+        if #available(macOS 26.0, *) {
+            Button(role: role, action: action) {
+                Label {
+                    if let text = text {
+                        Text(text)
+                    }
+                } icon: {
+                    Image(systemName: systemImage)
+                }
+            }
+            .buttonStyle(RefinedGlassButtonStyle())
+            .help(helpText)
+        } else {
+            // For older macOS versions, use .cancel for close buttons, or nil for others
+            let fallbackRole: ButtonRole? = {
+                if #available(macOS 26.0, *) {
+                    return role == .close ? .cancel : role
+                }
+                return role
+            }()
+            
+            Button(role: fallbackRole, action: action) {
+                Label {
+                    if let text = text {
+                        Text(text)
+                    }
+                } icon: {
+                    Image(systemName: systemImage)
+                }
+            }
+            .buttonStyle(.borderedProminent)
+            .help(helpText)
+        }
+    }
+}
+
+/*
+ // Close button (will use .close on macOS 26.0+, .cancel on older versions)
+ if #available(macOS 26.0, *) {
+     ConditionalGlassButton(
+         systemImage: "xmark.circle.fill",
+         text: "Close",
+         helpText: "Close window",
+         role: .close
+     ) {
+         // close action
+     }
+ }
+
+ // Regular button
+ ConditionalGlassButton(
+     systemImage: "arrow.left.arrow.right.circle.fill",
+     text: "Sync",
+     helpText: "Pull or push"
+ ) {
+     // action
+ }
+ */
