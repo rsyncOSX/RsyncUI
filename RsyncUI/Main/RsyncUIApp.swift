@@ -34,19 +34,23 @@ struct RsyncUIApp: App {
             SnapshotCommands()
 
             CommandGroup(replacing: .help) {
-                Button(action: {
+                ConditionalGlassButton(
+                    systemImage: "questionmark.text.page.fill",
+                    text: "RsyncUI documentation",
+                    helpText: "RsyncUI documentation"
+                ) {
                     let documents = "https://rsyncui.netlify.app/docs/"
                     NSWorkspace.shared.open(URL(string: documents)!)
-                }) {
-                    Text("RsyncUI documentation")
                 }
             }
 
             CommandGroup(replacing: .appInfo) {
-                Button(action: {
+                ConditionalGlassButton(
+                    systemImage: "",
+                    text: "About RsyncUI",
+                    helpText: "About"
+                ) {
                     showabout = true
-                }) {
-                    Text("About RsyncUI")
                 }
             }
         }

@@ -59,22 +59,23 @@ struct AboutView: View {
 
             Section {
                 HStack {
-                    Button {
+                    ConditionalGlassButton(
+                        systemImage: "doc.plaintext",
+                        text: "Changelog",
+                        helpText: "Changelog"
+                    ) {
                         openchangelog()
                         dismiss()
-                    } label: {
-                        Image(systemName: "doc.plaintext")
                     }
-                    .buttonStyle(.borderedProminent)
 
                     if SharedReference.shared.newversion {
-                        Button {
+                        ConditionalGlassButton(
+                            systemImage: "square.and.arrow.down.fill",
+                            text: "Download",
+                            helpText: "Download"
+                        ) {
                             opendownload()
-                        } label: {
-                            Image(systemName: "square.and.arrow.down.fill")
                         }
-                        .help("Download")
-                        .buttonStyle(.borderedProminent)
                     }
 
                     Spacer()

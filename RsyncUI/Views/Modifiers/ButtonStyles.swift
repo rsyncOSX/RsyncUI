@@ -134,17 +134,27 @@ struct ConditionalGlassButton: View {
 
     var body: some View {
         if #available(macOS 26.0, *) {
-            Button(role: role, action: action) {
-                Label {
+            if systemImage.isEmpty {
+                Button(role: role, action: action) {
                     if let text {
                         Text(text)
                     }
-                } icon: {
-                    Image(systemName: systemImage)
                 }
+                .buttonStyle(RefinedGlassButtonStyle())
+                .help(helpText)
+            } else {
+                Button(role: role, action: action) {
+                    Label {
+                        if let text {
+                            Text(text)
+                        }
+                    } icon: {
+                        Image(systemName: systemImage)
+                    }
+                }
+                .buttonStyle(RefinedGlassButtonStyle())
+                .help(helpText)
             }
-            .buttonStyle(RefinedGlassButtonStyle())
-            .help(helpText)
         } else {
             // For older macOS versions, use .cancel for close buttons, or nil for others
             let fallbackRole: ButtonRole? = {
@@ -154,17 +164,27 @@ struct ConditionalGlassButton: View {
                 return role
             }()
 
-            Button(role: fallbackRole, action: action) {
-                Label {
+            if systemImage.isEmpty {
+                Button(role: role, action: action) {
                     if let text {
                         Text(text)
                     }
-                } icon: {
-                    Image(systemName: systemImage)
                 }
+                .buttonStyle(.borderedProminent)
+                .help(helpText)
+            } else {
+                Button(role: fallbackRole, action: action) {
+                    Label {
+                        if let text {
+                            Text(text)
+                        }
+                    } icon: {
+                        Image(systemName: systemImage)
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+                .help(helpText)
             }
-            .buttonStyle(.borderedProminent)
-            .help(helpText)
         }
     }
 }
