@@ -33,7 +33,7 @@ struct ConfigurationsTableDataView: View {
                     }
                 }
             }
-            .width(min: 50, max: 150)
+            .width(min: 90, max: 200)
 
             TableColumn("Action") { data in
                 if data.task == SharedReference.shared.halted {
