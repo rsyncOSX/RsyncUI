@@ -101,7 +101,11 @@ struct ConfigurationsTableDataMainView: View {
                     Image(systemName: "stop.fill")
                         .foregroundColor(Color(.red))
                         .contextMenu {
-                            Button("Toggle halt task") {
+                            ConditionalGlassButton(
+                                systemImage: "stop.fill",
+                                text: "Toggle halt task",
+                                helpText: "Enable task"
+                            ) {
                                 let index = getindex(selecteduuids)
                                 guard index != -1 else { return }
                                 updatehalted(index)
@@ -110,7 +114,11 @@ struct ConfigurationsTableDataMainView: View {
                 } else {
                     Text(data.task)
                         .contextMenu {
-                            Button("Toggle halt task") {
+                            ConditionalGlassButton(
+                                systemImage: "stop.fill",
+                                text: "Toggle halt task",
+                                helpText: "Halt task"
+                            ) {
                                 let index = getindex(selecteduuids)
                                 guard index != -1 else { return }
                                 updatehalted(index)
