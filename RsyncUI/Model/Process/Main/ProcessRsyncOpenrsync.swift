@@ -56,14 +56,18 @@ final class ProcessRsyncOpenrsync {
             for await _ in sequencefilehandler {
                 await self.datahandle(pipe)
             }
+            // Final drain - keep reading until no more data
+            while pipe.fileHandleForReading.availableData.count > 0 {
+                Logger.process.info("ProcessRsyncOpenrsync: sequenceFileHandlerTask - drain remaining data")
+                await self.datahandle(pipe)
+            }
         }
 
         sequenceTerminationTask = Task {
             for await _ in sequencetermination {
-                Task {
-                    try await Task.sleep(seconds: 0.5)
-                    await self.termination()
-                }
+                // Small delay to let final data arrive
+                try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
+                await self.termination()
             }
         }
 
