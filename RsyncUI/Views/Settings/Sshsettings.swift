@@ -43,14 +43,15 @@ struct Sshsettings: View {
                 .font(.title3)
                 .fontWeight(.bold))
             {
-                Button {
+                ConditionalGlassButton(
+                    systemImage: "square.and.arrow.down",
+                    text: "Save",
+                    helpText: "Save userconfiguration"
+                ) {
                     _ = WriteUserConfigurationJSON(UserConfiguration())
                     Logger.process.info("USER CONFIGURATION is SAVED")
-                } label: {
-                    Image(systemName: "square.and.arrow.down")
+                    
                 }
-                .help("Save userconfiguration")
-                .buttonStyle(.borderedProminent)
             }
 
             if localsshkeys == false {

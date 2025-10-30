@@ -76,23 +76,25 @@ struct RsyncandPathsettings: View {
                 .fontWeight(.bold))
             {
                 HStack {
-                    Button {
+                    
+                    ConditionalGlassButton(
+                        systemImage: "wrench.adjustable.fill",
+                        text: "Backup configurations",
+                        helpText: "Backup configurations"
+                    ) {
                         _ = Backupconfigfiles()
-
-                    } label: {
-                        Image(systemName: "wrench.adjustable.fill")
+                        
                     }
-                    .help("Backup configurations")
-                    .buttonStyle(.borderedProminent)
-
-                    Button {
+                    
+                    ConditionalGlassButton(
+                        systemImage: "square.and.arrow.down",
+                        text: "Save",
+                        helpText: "Save userconfiguration"
+                    ) {
                         _ = WriteUserConfigurationJSON(UserConfiguration())
                         Logger.process.info("USER CONFIGURATION is SAVED")
-                    } label: {
-                        Image(systemName: "square.and.arrow.down")
+                        
                     }
-                    .help("Save userconfiguration")
-                    .buttonStyle(.borderedProminent)
                 }
             }
         }

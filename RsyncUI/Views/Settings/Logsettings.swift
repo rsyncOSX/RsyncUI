@@ -105,18 +105,19 @@ struct Logsettings: View {
                 .font(.title3)
                 .fontWeight(.bold))
             {
-                Button {
+                
+                ConditionalGlassButton(
+                    systemImage: "square.and.arrow.down",
+                    text: "Save",
+                    helpText: "Save userconfiguration"
+                ) {
                     _ = WriteUserConfigurationJSON(UserConfiguration())
                     Logger.process.info("USER CONFIGURATION is SAVED")
                     if logsettings.hideschedule {
                         // Schedule is off, delete any schedules
                         GlobalTimer.shared.invalidateAllSchedulesAndTimer()
                     }
-                } label: {
-                    Image(systemName: "square.and.arrow.down")
                 }
-                .help("Save userconfiguration")
-                .buttonStyle(.borderedProminent)
             }
         }
         .formStyle(.grouped)
