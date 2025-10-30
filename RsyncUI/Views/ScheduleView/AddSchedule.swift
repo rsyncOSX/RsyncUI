@@ -93,18 +93,15 @@ struct AddSchedule: View {
                     WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
                 }
 
-                
-                 if SharedReference.shared.scheduledemomode == true {
-                     
-                     ConditionalGlassButton(
-                         systemImage: "plus",
-                         text: "DEMO",
-                         helpText: "Add schedule"
-                     ) {
-                         schedulesdemo.demodatatestschedule()
-                     }
-                 }
-                  
+                if SharedReference.shared.scheduledemomode == true {
+                    ConditionalGlassButton(
+                        systemImage: "plus",
+                        text: "DEMO",
+                        helpText: "Add schedule"
+                    ) {
+                        schedulesdemo.demodatatestschedule()
+                    }
+                }
             }
             .padding()
         }

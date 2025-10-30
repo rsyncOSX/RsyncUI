@@ -109,10 +109,10 @@ final class ProcessRsyncVer3x {
             // Run asynchronously so we don't block whatever thread calls terminationHandler.
             Task.detached { [weak self] in
                 // Small delay to let final data arrive (matches previous behavior)
-                try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
+                // try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
                 await MainActor.run { [weak self] in
-                    guard let self = self, !self.terminationHandled else { return }
-                    self.terminationHandled = true
+                    guard let self, !self.terminationHandled else { return }
+                    terminationHandled = true
                     Task { await self.termination() }
                 }
             }
@@ -121,14 +121,14 @@ final class ProcessRsyncVer3x {
         // Fallback: also spawn a detached task that blocks on waitUntilExit.
         // This ensures we catch termination even if terminationHandler is missed for any reason.
         waitForExitTask = Task.detached { [weak self, weak task] in
-            guard let task = task else { return }
+            guard let task else { return }
             // This will block the current thread until the process exits.
             task.waitUntilExit()
             // small delay consistent with previous logic to allow final data arrival
-            try? await Task.sleep(nanoseconds: 100_000_000)
+            // try? await Task.sleep(nanoseconds: 100_000_000)
             await MainActor.run { [weak self] in
-                guard let self = self, !self.terminationHandled else { return }
-                self.terminationHandled = true
+                guard let self, !self.terminationHandled else { return }
+                terminationHandled = true
                 Task { await self.termination() }
             }
         }
@@ -280,19 +280,19 @@ extension ProcessRsyncVer3x {
 
     // Process a single complete line from rsync output (kept for completeness; not used by current handlers)
     private func handleLine(_ line: String) {
-        self.output.append(line)
+        output.append(line)
         // realrun == true if arguments does not contain --dry-run parameter
-        if self.realrun, self.beginningofsummarizedstatus == false {
+        if realrun, beginningofsummarizedstatus == false {
             if line.contains("Number of files") {
-                self.beginningofsummarizedstatus = true
+                beginningofsummarizedstatus = true
                 Logger.process.info("ProcessRsyncVer3x: datahandle() beginning of status reports discovered")
             }
         }
         if SharedReference.shared.checkforerrorinrsyncoutput,
-           self.errordiscovered == false
+           errordiscovered == false
         {
             do {
-                try self.checklineforerror?.checkforrsyncerror(line)
+                try checklineforerror?.checkforrsyncerror(line)
             } catch let e {
                 self.errordiscovered = true
                 let error = e
@@ -303,7 +303,7 @@ extension ProcessRsyncVer3x {
 
     // Drain any remaining availableData from the stored outHandle and process lines using NSString.enumerateLines
     private func drainRemainingOutput() {
-        guard let outHandle = self.outHandle else { return }
+        guard let outHandle else { return }
         var data = outHandle.availableData
         while data.count > 0 {
             if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
