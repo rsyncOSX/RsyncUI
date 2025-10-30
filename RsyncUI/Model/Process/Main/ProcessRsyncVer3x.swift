@@ -85,7 +85,7 @@ final class ProcessRsyncVer3x {
         sequenceTerminationTask = Task {
             for await _ in sequencetermination {
                 // Small delay to let final data arrive
-                try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
+                // try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
                 await self.termination()
             }
         }
@@ -180,6 +180,7 @@ final class ProcessRsyncVer3x {
 
 extension ProcessRsyncVer3x {
     func datahandlersyncversion(_ pipe: Pipe) async {
+        Logger.process.info("ProcessRsyncVer3x: Getting rsync version")
         let outHandle = pipe.fileHandleForReading
         let data = outHandle.availableData
         if data.count > 0 {
