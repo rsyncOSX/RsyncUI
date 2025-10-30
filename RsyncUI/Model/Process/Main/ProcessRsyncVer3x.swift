@@ -23,12 +23,9 @@ final class ProcessRsyncVer3x {
     // Check for error
     var checklineforerror: TrimOutputFromRsync?
     var errordiscovered: Bool = false
-    // AsyncSequence
-    let sequencefilehandler = NotificationCenter.default.notifications(named: NSNotification.Name.NSFileHandleDataAvailable, object: nil)
-    let sequencetermination = NotificationCenter.default.notifications(named: Process.didTerminateNotification, object: nil)
     // Tasks
     var sequenceFileHandlerTask: Task<Void, Never>?
-    var sequenceTerminationTask: Task<Void, Never>?
+    var waitForExitTask: Task<Void, Never>?
     // The real run
     // Used to not report the last status from rsync for more precise progress report
     // the not reported lines are appended to output though for logging statistics reporting
@@ -41,40 +38,64 @@ final class ProcessRsyncVer3x {
     // the arguments is only one and contains ["--version"] only
     var getrsyncversion: Bool = false
 
+    // Keep references so termination can drain remaining data reliably
+    private var pipe: Pipe?
+    private var outHandle: FileHandle?
+
+    // Ensure termination is handled only once (guard against both terminationHandler and waitUntilExit firing)
+    private var terminationHandled: Bool = false
+
     func executeProcess() {
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
         guard config?.task != SharedReference.shared.halted else { return }
+
         // Process
         let task = Process()
+
         // Getting version of rsync
         task.launchPath = GetfullpathforRsync().rsyncpath()
         guard task.launchPath != nil else { return }
         task.arguments = arguments
+
         // If there are any Environmentvariables like
         // SSH_AUTH_SOCK": "/Users/user/.gnupg/S.gpg-agent.ssh"
         if let environment = MyEnvironment() {
             task.environment = environment.environment
         }
-        // Pipe for reading output from Process
+
+        // Pipe for reading output from Process (stdout + stderr merged)
         let pipe = Pipe()
         task.standardOutput = pipe
         task.standardError = pipe
         let outHandle = pipe.fileHandleForReading
         outHandle.waitForDataInBackgroundAndNotify()
 
+        // store for termination final drain
+        self.pipe = pipe
+        self.outHandle = outHandle
+
+        // Create AsyncSequence scoped to this specific file handle
+        let fileNotifications = NotificationCenter.default.notifications(
+            named: NSNotification.Name.NSFileHandleDataAvailable,
+            object: outHandle
+        )
+
+        // IMPORTANT: capture self strongly here so the instance remains alive for the full lifetime
+        // of the streaming Task. This prevents early deinit which previously prevented termination()
+        // from running. The Task will complete on process exit and then release self.
         sequenceFileHandlerTask = Task {
-            for await _ in sequencefilehandler {
-                if self.getrsyncversion == true {
+            // strong capture of self (no [weak self])
+            for await _ in fileNotifications {
+                if self.getrsyncversion {
                     await self.datahandlersyncversion(pipe)
                 } else {
                     await self.datahandle(pipe)
                 }
             }
-            // Final drain - keep reading until no more data
-            while pipe.fileHandleForReading.availableData.count > 0 {
-                Logger.process.info("ProcessRsyncVer3x: sequenceFileHandlerTask - drain remaining data")
-                if self.getrsyncversion == true {
+            // Final drain - keep reading until no more data (availableData returns empty when EOF)
+            while outHandle.availableData.count > 0 {
+                if self.getrsyncversion {
                     await self.datahandlersyncversion(pipe)
                 } else {
                     await self.datahandle(pipe)
@@ -82,11 +103,33 @@ final class ProcessRsyncVer3x {
             }
         }
 
-        sequenceTerminationTask = Task {
-            for await _ in sequencetermination {
-                // Small delay to let final data arrive
+        // Use Process.terminationHandler to reliably detect termination for this specific Process.
+        // Set before starting the process so we don't miss a quick exit.
+        task.terminationHandler = { [weak self] _ in
+            // Run asynchronously so we don't block whatever thread calls terminationHandler.
+            Task.detached { [weak self] in
+                // Small delay to let final data arrive (matches previous behavior)
                 try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
-                await self.termination()
+                await MainActor.run { [weak self] in
+                    guard let self = self, !self.terminationHandled else { return }
+                    self.terminationHandled = true
+                    Task { await self.termination() }
+                }
+            }
+        }
+
+        // Fallback: also spawn a detached task that blocks on waitUntilExit.
+        // This ensures we catch termination even if terminationHandler is missed for any reason.
+        waitForExitTask = Task.detached { [weak self, weak task] in
+            guard let task = task else { return }
+            // This will block the current thread until the process exits.
+            task.waitUntilExit()
+            // small delay consistent with previous logic to allow final data arrival
+            try? await Task.sleep(nanoseconds: 100_000_000)
+            await MainActor.run { [weak self] in
+                guard let self = self, !self.terminationHandled else { return }
+                self.terminationHandled = true
+                Task { await self.termination() }
             }
         }
 
@@ -95,7 +138,7 @@ final class ProcessRsyncVer3x {
             try task.run()
         } catch let e {
             let error = e
-            propogateerror(error: error)
+            propagateError(error: error)
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
             Logger.process.info("ProcessRsyncVer3x: \(launchPath, privacy: .public)")
@@ -103,7 +146,7 @@ final class ProcessRsyncVer3x {
         }
     }
 
-    func propogateerror(error: Error) {
+    func propagateError(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 
@@ -174,38 +217,98 @@ final class ProcessRsyncVer3x {
     }
 
     deinit {
+        // Do not cancel the file handler task here — the Task intentionally retains `self`
+        // until the process exits. Cancelling here would skip termination handling.
+        waitForExitTask?.cancel()
         Logger.process.info("ProcessRsyncVer3x: DEINIT")
     }
 }
 
 extension ProcessRsyncVer3x {
+    // Handle output when only --version is requested. Use NSString enumeration to avoid manual partial-line buffering.
     func datahandlersyncversion(_ pipe: Pipe) async {
         let outHandle = pipe.fileHandleForReading
         let data = outHandle.availableData
-        if data.count > 0 {
-            if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                str.enumerateLines { line, _ in
-                    self.output.append(line)
+        guard data.count > 0 else { return }
+
+        if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
+            str.enumerateLines { line, _ in
+                self.output.append(line)
+            }
+        }
+
+        outHandle.waitForDataInBackgroundAndNotify()
+    }
+
+    // Main data handler using NSString.enumerateLines (no partial-line buffering)
+    func datahandle(_ pipe: Pipe) async {
+        let outHandle = pipe.fileHandleForReading
+        let data = outHandle.availableData
+        guard data.count > 0 else { return }
+
+        if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
+            str.enumerateLines { line, _ in
+                self.output.append(line)
+                // realrun == true if arguments does not contain --dry-run parameter
+                if self.realrun, self.beginningofsummarizedstatus == false {
+                    if line.contains("Number of files") {
+                        self.beginningofsummarizedstatus = true
+                        Logger.process.info("ProcessRsyncVer3x: datahandle() beginning of status reports discovered")
+                    }
                 }
-                outHandle.waitForDataInBackgroundAndNotify()
+                if SharedReference.shared.checkforerrorinrsyncoutput,
+                   self.errordiscovered == false
+                {
+                    do {
+                        try self.checklineforerror?.checkforrsyncerror(line)
+                    } catch let e {
+                        self.errordiscovered = true
+                        let error = e
+                        self.propagateError(error: error)
+                    }
+                }
+            }
+            // Send message about files, do not report the last lines of status from rsync if
+            // the real run is ongoing
+            if usefilehandler, beginningofsummarizedstatus == false, realrun == true {
+                filehandler(output.count)
+            }
+        }
+
+        outHandle.waitForDataInBackgroundAndNotify()
+    }
+
+    // Process a single complete line from rsync output (kept for completeness; not used by current handlers)
+    private func handleLine(_ line: String) {
+        self.output.append(line)
+        // realrun == true if arguments does not contain --dry-run parameter
+        if self.realrun, self.beginningofsummarizedstatus == false {
+            if line.contains("Number of files") {
+                self.beginningofsummarizedstatus = true
+                Logger.process.info("ProcessRsyncVer3x: datahandle() beginning of status reports discovered")
+            }
+        }
+        if SharedReference.shared.checkforerrorinrsyncoutput,
+           self.errordiscovered == false
+        {
+            do {
+                try self.checklineforerror?.checkforrsyncerror(line)
+            } catch let e {
+                self.errordiscovered = true
+                let error = e
+                self.propagateError(error: error)
             }
         }
     }
 
-    func datahandle(_ pipe: Pipe) async {
-        let outHandle = pipe.fileHandleForReading
-        let data = outHandle.availableData
-        if data.count > 0 {
+    // Drain any remaining availableData from the stored outHandle and process lines using NSString.enumerateLines
+    private func drainRemainingOutput() {
+        guard let outHandle = self.outHandle else { return }
+        var data = outHandle.availableData
+        while data.count > 0 {
             if let str = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
                 str.enumerateLines { line, _ in
                     self.output.append(line)
-                    // realrun == true if arguments does not contain --dry-run parameter
-                    if self.realrun, self.beginningofsummarizedstatus == false {
-                        if line.contains("Number of files") {
-                            self.beginningofsummarizedstatus = true
-                            Logger.process.info("ProcessRsyncVer3x: datahandle() beginning of status reports discovered")
-                        }
-                    }
                     if SharedReference.shared.checkforerrorinrsyncoutput,
                        self.errordiscovered == false
                     {
@@ -214,22 +317,20 @@ extension ProcessRsyncVer3x {
                         } catch let e {
                             self.errordiscovered = true
                             let error = e
-                            self.propogateerror(error: error)
+                            self.propagateError(error: error)
                         }
                     }
                 }
-                // Send message about files, do not report the last lines of status from rsync if
-                // the real run is ongoing
-                if usefilehandler, beginningofsummarizedstatus == false, realrun == true {
-                    filehandler(output.count)
-                }
             }
-            outHandle.waitForDataInBackgroundAndNotify()
+            data = outHandle.availableData
         }
     }
 
     func termination() async {
+        // Final drain of remaining data in case notifications missed anything
+        drainRemainingOutput()
         processtermination(output, config?.hiddenID)
+
         // Log error in rsync output to file
         if errordiscovered, let config {
             Task {
@@ -238,16 +339,10 @@ extension ProcessRsyncVer3x {
             }
         }
         SharedReference.shared.process = nil
-        // Remove observers
-        NotificationCenter.default.removeObserver(sequencefilehandler as Any,
-                                                  name: NSNotification.Name.NSFileHandleDataAvailable,
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(sequencetermination as Any,
-                                                  name: Process.didTerminateNotification,
-                                                  object: nil)
-        // Cancel Tasks
+
+        // Cancel file handler task (this will also cause the NotificationCenter sequence to be released)
         sequenceFileHandlerTask?.cancel()
-        sequenceTerminationTask?.cancel()
+        waitForExitTask?.cancel()
 
         Logger.process.info("ProcessRsyncVer3x: process = nil and termination discovered \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
     }
