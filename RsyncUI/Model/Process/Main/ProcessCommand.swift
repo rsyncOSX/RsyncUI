@@ -18,14 +18,17 @@ final class ProcessCommand {
     var command: String?
     // Arguments to command
     var arguments: [String]?
-
-    // AsyncSequence
-    let sequencefilehandler = NotificationCenter.default.notifications(named: NSNotification.Name.NSFileHandleDataAvailable, object: nil)
-    let sequencetermination = NotificationCenter.default.notifications(named: Process.didTerminateNotification, object: nil)
+    
     // Tasks
     var sequenceFileHandlerTask: Task<Void, Never>?
-    var sequenceTerminationTask: Task<Void, Never>?
+    var waitForExitTask: Task<Void, Never>?
 
+    // Keep references so termination can drain remaining data reliably
+    private var pipe: Pipe?
+    private var outHandle: FileHandle?
+    // Ensure termination is handled only once (guard against both terminationHandler and waitUntilExit firing)
+    private var terminationHandled: Bool = false
+    
     func executeProcess() {
         if let command, let arguments, arguments.count > 0 {
             let task = Process()
@@ -36,29 +39,64 @@ final class ProcessCommand {
             if let environment = MyEnvironment() {
                 task.environment = environment.environment
             }
-            // Pipe for reading output from Process
+            // Pipe for reading output from Process (stdout + stderr merged)
             let pipe = Pipe()
             task.standardOutput = pipe
             task.standardError = pipe
             let outHandle = pipe.fileHandleForReading
             outHandle.waitForDataInBackgroundAndNotify()
 
+            // store for termination final drain
+            self.pipe = pipe
+            self.outHandle = outHandle
+
+            // Create AsyncSequence scoped to this specific file handle
+            let fileNotifications = NotificationCenter.default.notifications(
+                named: NSNotification.Name.NSFileHandleDataAvailable,
+                object: outHandle
+            )
+
+            // IMPORTANT: capture self strongly here so the instance remains alive for the full lifetime
+            // of the streaming Task. This prevents early deinit which previously prevented termination()
+            // from running. The Task will complete on process exit and then release self.
             sequenceFileHandlerTask = Task {
-                for await _ in sequencefilehandler {
+                // strong capture of self (no [weak self])
+                for await _ in fileNotifications {
                     await self.datahandle(pipe)
                 }
-                // Final drain - keep reading until no more data
-                while pipe.fileHandleForReading.availableData.count > 0 {
-                    Logger.process.info("ProcessCommand: sequenceFileHandlerTask - drain remaining data")
+                // Final drain - keep reading until no more data (availableData returns empty when EOF)
+                while outHandle.availableData.count > 0 {
                     await self.datahandle(pipe)
                 }
             }
 
-            sequenceTerminationTask = Task {
-                for await _ in sequencetermination {
-                    // Small delay to let final data arrive
-                    try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
-                    await self.termination()
+            // Use Process.terminationHandler to reliably detect termination for this specific Process.
+            // Set before starting the process so we don't miss a quick exit.
+            task.terminationHandler = { [weak self] _ in
+                // Run asynchronously so we don't block whatever thread calls terminationHandler.
+                Task.detached { [weak self] in
+                    // Small delay to let final data arrive (matches previous behavior)
+                    // try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
+                    await MainActor.run { [weak self] in
+                        guard let self, !self.terminationHandled else { return }
+                        terminationHandled = true
+                        Task { await self.termination() }
+                    }
+                }
+            }
+
+            // Fallback: also spawn a detached task that blocks on waitUntilExit.
+            // This ensures we catch termination even if terminationHandler is missed for any reason.
+            waitForExitTask = Task.detached { [weak self, weak task] in
+                guard let task else { return }
+                // This will block the current thread until the process exits.
+                task.waitUntilExit()
+                // small delay consistent with previous logic to allow final data arrival
+                // try? await Task.sleep(nanoseconds: 100_000_000)
+                await MainActor.run { [weak self] in
+                    guard let self, !self.terminationHandled else { return }
+                    terminationHandled = true
+                    Task { await self.termination() }
                 }
             }
 
@@ -125,17 +163,9 @@ extension ProcessCommand {
     func termination() async {
         processtermination(output)
         SharedReference.shared.process = nil
-
-        // Remove observers
-        NotificationCenter.default.removeObserver(sequencefilehandler as Any,
-                                                  name: NSNotification.Name.NSFileHandleDataAvailable,
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(sequencetermination as Any,
-                                                  name: Process.didTerminateNotification,
-                                                  object: nil)
-        // Cancel Tasks
+        // Cancel file handler task (this will also cause the NotificationCenter sequence to be released)
         sequenceFileHandlerTask?.cancel()
-        sequenceTerminationTask?.cancel()
+        waitForExitTask?.cancel()
 
         Logger.process.info("ProcessCommand: process = nil and termination discovered \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
     }
