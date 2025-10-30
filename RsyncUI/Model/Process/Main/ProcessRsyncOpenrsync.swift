@@ -23,9 +23,7 @@ final class ProcessRsyncOpenrsync {
     // Check for error
     var checklineforerror: TrimOutputFromRsync?
     var errordiscovered: Bool = false
-    // AsyncSequence
-    let sequencefilehandler = NotificationCenter.default.notifications(named: NSNotification.Name.NSFileHandleDataAvailable, object: nil)
-    let sequencetermination = NotificationCenter.default.notifications(named: Process.didTerminateNotification, object: nil)
+   
     // Tasks
     var sequenceFileHandlerTask: Task<Void, Never>?
     var sequenceTerminationTask: Task<Void, Never>?
@@ -34,6 +32,11 @@ final class ProcessRsyncOpenrsync {
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
         guard config?.task != SharedReference.shared.halted else { return }
+        
+        // AsyncSequence
+        let sequencefilehandler = NotificationCenter.default.notifications(named: NSNotification.Name.NSFileHandleDataAvailable, object: nil)
+        let sequencetermination = NotificationCenter.default.notifications(named: Process.didTerminateNotification, object: nil)
+        
         // Process
         let task = Process()
         // Getting version of rsync
@@ -191,6 +194,7 @@ extension ProcessRsyncOpenrsync {
             }
         }
         SharedReference.shared.process = nil
+        /*
         // Remove observers
         NotificationCenter.default.removeObserver(sequencefilehandler as Any,
                                                   name: NSNotification.Name.NSFileHandleDataAvailable,
@@ -198,6 +202,7 @@ extension ProcessRsyncOpenrsync {
         NotificationCenter.default.removeObserver(sequencetermination as Any,
                                                   name: Process.didTerminateNotification,
                                                   object: nil)
+         */
         // Cancel Tasks
         sequenceFileHandlerTask?.cancel()
         sequenceTerminationTask?.cancel()

@@ -23,9 +23,7 @@ final class ProcessRsyncVer3x {
     // Check for error
     var checklineforerror: TrimOutputFromRsync?
     var errordiscovered: Bool = false
-    // AsyncSequence
-    let sequencefilehandler = NotificationCenter.default.notifications(named: NSNotification.Name.NSFileHandleDataAvailable, object: nil)
-    let sequencetermination = NotificationCenter.default.notifications(named: Process.didTerminateNotification, object: nil)
+    
     // Tasks
     var sequenceFileHandlerTask: Task<Void, Never>?
     var sequenceTerminationTask: Task<Void, Never>?
@@ -45,6 +43,11 @@ final class ProcessRsyncVer3x {
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
         guard config?.task != SharedReference.shared.halted else { return }
+        
+        // AsyncSequence
+        let sequencefilehandler = NotificationCenter.default.notifications(named: NSNotification.Name.NSFileHandleDataAvailable, object: nil)
+        let sequencetermination = NotificationCenter.default.notifications(named: Process.didTerminateNotification, object: nil)
+        
         // Process
         let task = Process()
         // Getting version of rsync
@@ -180,7 +183,6 @@ final class ProcessRsyncVer3x {
 
 extension ProcessRsyncVer3x {
     func datahandlersyncversion(_ pipe: Pipe) async {
-        Logger.process.info("ProcessRsyncVer3x: Getting rsync version")
         let outHandle = pipe.fileHandleForReading
         let data = outHandle.availableData
         if data.count > 0 {
@@ -239,13 +241,6 @@ extension ProcessRsyncVer3x {
             }
         }
         SharedReference.shared.process = nil
-        // Remove observers
-        NotificationCenter.default.removeObserver(sequencefilehandler as Any,
-                                                  name: NSNotification.Name.NSFileHandleDataAvailable,
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(sequencetermination as Any,
-                                                  name: Process.didTerminateNotification,
-                                                  object: nil)
         // Cancel Tasks
         sequenceFileHandlerTask?.cancel()
         sequenceTerminationTask?.cancel()
