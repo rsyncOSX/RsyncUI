@@ -33,10 +33,6 @@ final class ProcessRsyncOpenrsync {
         guard SharedReference.shared.norsync == false else { return }
         guard config?.task != SharedReference.shared.halted else { return }
         
-        // AsyncSequence
-        let sequencefilehandler = NotificationCenter.default.notifications(named: NSNotification.Name.NSFileHandleDataAvailable, object: nil)
-        let sequencetermination = NotificationCenter.default.notifications(named: Process.didTerminateNotification, object: nil)
-        
         // Process
         let task = Process()
         // Getting version of rsync
@@ -54,6 +50,10 @@ final class ProcessRsyncOpenrsync {
         task.standardError = pipe
         let outHandle = pipe.fileHandleForReading
         outHandle.waitForDataInBackgroundAndNotify()
+        
+        // AsyncSequence
+        let sequencefilehandler = NotificationCenter.default.notifications(named: NSNotification.Name.NSFileHandleDataAvailable, object: outHandle)
+        let sequencetermination = NotificationCenter.default.notifications(named: Process.didTerminateNotification, object: task)
 
         sequenceFileHandlerTask = Task {
             for await _ in sequencefilehandler {
