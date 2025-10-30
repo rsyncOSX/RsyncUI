@@ -278,29 +278,6 @@ extension ProcessRsyncVer3x {
         outHandle.waitForDataInBackgroundAndNotify()
     }
 
-    // Process a single complete line from rsync output (kept for completeness; not used by current handlers)
-    private func handleLine(_ line: String) {
-        output.append(line)
-        // realrun == true if arguments does not contain --dry-run parameter
-        if realrun, beginningofsummarizedstatus == false {
-            if line.contains("Number of files") {
-                beginningofsummarizedstatus = true
-                Logger.process.info("ProcessRsyncVer3x: datahandle() beginning of status reports discovered")
-            }
-        }
-        if SharedReference.shared.checkforerrorinrsyncoutput,
-           errordiscovered == false
-        {
-            do {
-                try checklineforerror?.checkforrsyncerror(line)
-            } catch let e {
-                self.errordiscovered = true
-                let error = e
-                self.propagateError(error: error)
-            }
-        }
-    }
-
     // Drain any remaining availableData from the stored outHandle and process lines using NSString.enumerateLines
     private func drainRemainingOutput() {
         guard let outHandle else { return }
