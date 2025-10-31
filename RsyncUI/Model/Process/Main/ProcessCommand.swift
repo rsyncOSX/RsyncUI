@@ -18,16 +18,10 @@ final class ProcessCommand {
     var command: String?
     // Arguments to command
     var arguments: [String]?
-    
-    // Tasks
+    // Task handlers
     var sequenceFileHandlerTask: Task<Void, Never>?
-    var waitForExitTask: Task<Void, Never>?
+    var sequenceTerminationTask: Task<Void, Never>?
 
-    // Keep references so termination can drain remaining data reliably
-    private var pipe: Pipe?
-    private var outHandle: FileHandle?
-    // Ensure termination is handled only once (guard against both terminationHandler and waitUntilExit firing)
-    private var terminationHandled: Bool = false
     
     func executeProcess() {
         if let command, let arguments, arguments.count > 0 {
@@ -46,57 +40,26 @@ final class ProcessCommand {
             let outHandle = pipe.fileHandleForReading
             outHandle.waitForDataInBackgroundAndNotify()
 
-            // store for termination final drain
-            self.pipe = pipe
-            self.outHandle = outHandle
+            // AsyncSequence
+            let sequencefilehandler = NotificationCenter.default.notifications(named: NSNotification.Name.NSFileHandleDataAvailable, object: outHandle)
+            let sequencetermination = NotificationCenter.default.notifications(named: Process.didTerminateNotification, object: task)
 
-            // Create AsyncSequence scoped to this specific file handle
-            let fileNotifications = NotificationCenter.default.notifications(
-                named: NSNotification.Name.NSFileHandleDataAvailable,
-                object: outHandle
-            )
-
-            // IMPORTANT: capture self strongly here so the instance remains alive for the full lifetime
-            // of the streaming Task. This prevents early deinit which previously prevented termination()
-            // from running. The Task will complete on process exit and then release self.
             sequenceFileHandlerTask = Task {
-                // strong capture of self (no [weak self])
-                for await _ in fileNotifications {
+                for await _ in sequencefilehandler {
                     await self.datahandle(pipe)
                 }
-                // Final drain - keep reading until no more data (availableData returns empty when EOF)
-                while outHandle.availableData.count > 0 {
+                // Final drain - keep reading until no more data
+                while pipe.fileHandleForReading.availableData.count > 0 {
+                    Logger.process.info("ProcessCommand: sequenceFileHandlerTask - drain remaining data")
                     await self.datahandle(pipe)
                 }
             }
 
-            // Use Process.terminationHandler to reliably detect termination for this specific Process.
-            // Set before starting the process so we don't miss a quick exit.
-            task.terminationHandler = { [weak self] _ in
-                // Run asynchronously so we don't block whatever thread calls terminationHandler.
-                Task.detached { [weak self] in
-                    // Small delay to let final data arrive (matches previous behavior)
+            sequenceTerminationTask = Task {
+                for await _ in sequencetermination {
+                    // Small delay to let final data arrive
                     // try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
-                    await MainActor.run { [weak self] in
-                        guard let self, !self.terminationHandled else { return }
-                        terminationHandled = true
-                        Task { await self.termination() }
-                    }
-                }
-            }
-
-            // Fallback: also spawn a detached task that blocks on waitUntilExit.
-            // This ensures we catch termination even if terminationHandler is missed for any reason.
-            waitForExitTask = Task.detached { [weak self, weak task] in
-                guard let task else { return }
-                // This will block the current thread until the process exits.
-                task.waitUntilExit()
-                // small delay consistent with previous logic to allow final data arrival
-                // try? await Task.sleep(nanoseconds: 100_000_000)
-                await MainActor.run { [weak self] in
-                    guard let self, !self.terminationHandled else { return }
-                    terminationHandled = true
-                    Task { await self.termination() }
+                    await self.termination()
                 }
             }
 
@@ -109,11 +72,9 @@ final class ProcessCommand {
                 propogateerror(error: error)
             }
             if let launchPath = task.launchPath, let arguments = task.arguments {
-                Logger.process.info("ProcessCommand: \(launchPath, privacy: .public)")
-                Logger.process.info("ProcessCommand: \(arguments.joined(separator: "\n"), privacy: .public)")
+                Logger.process.info("ProcessRsyncOpenrsync: \(launchPath, privacy: .public)")
+                Logger.process.info("ProcessRsyncOpenrsync: \(arguments.joined(separator: "\n"), privacy: .public)")
             }
-        } else {
-            Logger.process.warning("ProcessCommand: no command to executed or arguments = 0")
         }
     }
 
@@ -162,10 +123,10 @@ extension ProcessCommand {
 
     func termination() async {
         processtermination(output)
+
         SharedReference.shared.process = nil
-        // Cancel file handler task (this will also cause the NotificationCenter sequence to be released)
         sequenceFileHandlerTask?.cancel()
-        waitForExitTask?.cancel()
+        sequenceTerminationTask?.cancel()
 
         Logger.process.info("ProcessCommand: process = nil and termination discovered \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
     }
