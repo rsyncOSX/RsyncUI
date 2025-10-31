@@ -69,7 +69,7 @@ final class ProcessRsyncOpenrsync {
         sequenceTerminationTask = Task {
             for await _ in sequencetermination {
                 // Small delay to let final data arrive
-                // try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
+                try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
                 await self.termination()
             }
         }
