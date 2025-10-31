@@ -101,8 +101,8 @@ final class ProcessRsyncVer3x {
             propogateerror(error: error)
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
-            Logger.process.info("ProcessRsyncVer3x: \(launchPath, privacy: .public)")
-            Logger.process.info("ProcessRsyncVer3x: \(arguments.joined(separator: "\n"), privacy: .public)")
+            Logger.process.info("ProcessRsyncVer3x: command - \(launchPath, privacy: .public)")
+            Logger.process.info("ProcessRsyncVer3x: arguments - \(arguments.joined(separator: "\n"), privacy: .public)")
         }
     }
 
