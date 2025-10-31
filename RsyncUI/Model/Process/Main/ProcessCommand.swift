@@ -41,24 +41,42 @@ final class ProcessCommand {
             outHandle.waitForDataInBackgroundAndNotify()
 
             // AsyncSequence
-            let sequencefilehandler = NotificationCenter.default.notifications(named: NSNotification.Name.NSFileHandleDataAvailable, object: outHandle)
-            let sequencetermination = NotificationCenter.default.notifications(named: Process.didTerminateNotification, object: task)
+            let sequencefilehandler = NotificationCenter.default.notifications(
+                named: NSNotification.Name.NSFileHandleDataAvailable,
+                object: outHandle)
+            let sequencetermination = NotificationCenter.default.notifications(
+                named: Process.didTerminateNotification,
+                object: task)
 
             sequenceFileHandlerTask = Task {
                 for await _ in sequencefilehandler {
-                    await self.datahandle(pipe)
-                }
-                // Final drain - keep reading until no more data
-                while pipe.fileHandleForReading.availableData.count > 0 {
-                    Logger.process.info("ProcessCommand: sequenceFileHandlerTask - drain remaining data")
                     await self.datahandle(pipe)
                 }
             }
 
             sequenceTerminationTask = Task {
                 for await _ in sequencetermination {
-                    // Small delay to let final data arrive
-                    try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
+                    Logger.process.info("ProcessRsyncVer3x: Process terminated - starting potensial drain")
+                    sequenceFileHandlerTask?.cancel()
+                    try? await Task.sleep(nanoseconds: 50_000_000)
+                    var totalDrained = 0
+                    while true {
+                        let data: Data = pipe.fileHandleForReading.availableData
+                        if data.isEmpty {
+                            Logger.process.info("ProcessRsyncVer3x: Drain complete - \(totalDrained) bytes total")
+                            break
+                        }
+
+                        totalDrained += data.count
+                        Logger.process.info("ProcessRsyncVer3x: Draining \(data.count) bytes")
+
+                        // IMPORTANT: Actually process the drained data
+                        if let text = String(data: data, encoding: .utf8) {
+                            Logger.process.info("ProcessRsyncVer3x: Drained text: \(text)")
+                            self.output.append(text)
+                        }
+                    }
+
                     await self.termination()
                 }
             }
