@@ -56,23 +56,23 @@ final class ProcessCommand {
 
             sequenceTerminationTask = Task {
                 for await _ in sequencetermination {
-                    Logger.process.info("ProcessRsyncVer3x: Process terminated - starting potensial drain")
+                    Logger.process.info("ProcessCommand: Process terminated - starting potensial drain")
                     sequenceFileHandlerTask?.cancel()
                     try? await Task.sleep(nanoseconds: 50_000_000)
                     var totalDrained = 0
                     while true {
                         let data: Data = pipe.fileHandleForReading.availableData
                         if data.isEmpty {
-                            Logger.process.info("ProcessRsyncVer3x: Drain complete - \(totalDrained) bytes total")
+                            Logger.process.info("ProcessCommand: Drain complete - \(totalDrained) bytes total")
                             break
                         }
 
                         totalDrained += data.count
-                        Logger.process.info("ProcessRsyncVer3x: Draining \(data.count) bytes")
+                        Logger.process.info("ProcessCommand: Draining \(data.count) bytes")
 
                         // IMPORTANT: Actually process the drained data
                         if let text = String(data: data, encoding: .utf8) {
-                            Logger.process.info("ProcessRsyncVer3x: Drained text: \(text)")
+                            // Logger.process.info("ProcessRsyncVer3x: Drained text: \(text)")
                             self.output.append(text)
                         }
                     }

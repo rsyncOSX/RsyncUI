@@ -83,7 +83,7 @@ final class ProcessRsyncOpenrsync {
 
                     // IMPORTANT: Actually process the drained data
                     if let text = String(data: data, encoding: .utf8) {
-                        Logger.process.info("ProcessRsyncOpenrsync: Drained text: \(text)")
+                        // Logger.process.info("ProcessRsyncOpenrsync: Drained text: \(text)")
                         self.output.append(text)
                     }
                 }

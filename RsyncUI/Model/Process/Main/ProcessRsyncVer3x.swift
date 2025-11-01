@@ -98,7 +98,7 @@ final class ProcessRsyncVer3x {
 
                     // IMPORTANT: Actually process the drained data
                     if let text = String(data: data, encoding: .utf8) {
-                        Logger.process.info("ProcessRsyncVer3x: Drained text: \(text)")
+                        // Logger.process.info("ProcessRsyncVer3x: Drained text: \(text)")
                         self.output.append(text)
                     }
                 }
