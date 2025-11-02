@@ -155,7 +155,8 @@ struct ExecutePushPullView: View {
                                         config: config,
                                         processtermination: processtermination,
                                         filehandler: filehandler,
-                                        rsyncpath: GetfullpathforRsync().rsyncpath)
+                                        rsyncpath: GetfullpathforRsync().rsyncpath,
+                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
         process.executeProcess()
     }
 
@@ -167,7 +168,8 @@ struct ExecutePushPullView: View {
                                         config: config,
                                         processtermination: processtermination,
                                         filehandler: filehandler,
-                                        rsyncpath: GetfullpathforRsync().rsyncpath)
+                                        rsyncpath: GetfullpathforRsync().rsyncpath,
+                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
         process.executeProcess()
     }
 

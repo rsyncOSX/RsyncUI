@@ -470,7 +470,8 @@ extension QuicktaskView {
             let process = ProcessRsyncVer3x(arguments: arguments,
                                             config: config,
                                             processtermination: processtermination,
-                                            rsyncpath: GetfullpathforRsync().rsyncpath)
+                                            rsyncpath: GetfullpathforRsync().rsyncpath,
+                                            checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
             process.executeProcess()
         } else {
             let process = ProcessRsyncOpenrsync(arguments: arguments,

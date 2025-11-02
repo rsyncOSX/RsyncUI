@@ -63,7 +63,8 @@ final class EstimateExecute {
                         let process = ProcessRsyncVer3x(arguments: arguments,
                                                         config: config,
                                                         processtermination: processtermination_estimation,
-                                                        rsyncpath: GetfullpathforRsync().rsyncpath)
+                                                        rsyncpath: GetfullpathforRsync().rsyncpath,
+                                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
                         process.executeProcess()
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,
@@ -90,7 +91,8 @@ final class EstimateExecute {
                                                         config: config,
                                                         processtermination: processtermination_excute,
                                                         filehandler: localfilehandler,
-                                                        rsyncpath: GetfullpathforRsync().rsyncpath)
+                                                        rsyncpath: GetfullpathforRsync().rsyncpath,
+                                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
                         process.executeProcess()
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,
@@ -116,7 +118,8 @@ final class EstimateExecute {
                                                         config: config,
                                                         processtermination: processtermination_noestimation,
                                                         filehandler: localfilehandler,
-                                                        rsyncpath: GetfullpathforRsync().rsyncpath)
+                                                        rsyncpath: GetfullpathforRsync().rsyncpath,
+                                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
                         process.executeProcess()
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,

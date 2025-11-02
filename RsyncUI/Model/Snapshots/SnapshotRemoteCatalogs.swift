@@ -16,7 +16,8 @@ final class SnapshotRemoteCatalogs {
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
         let command = ProcessRsyncVer3x(arguments: arguments,
                                         processtermination: processtermination,
-                                        rsyncpath: GetfullpathforRsync().rsyncpath)
+                                        rsyncpath: GetfullpathforRsync().rsyncpath,
+                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
         command.executeProcess()
     }
 

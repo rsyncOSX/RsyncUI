@@ -12,7 +12,8 @@ import OSLog
 final class ProcessRsyncVer3x {
     var rsyncpath: () -> String?
     // task.launchPath = GetfullpathforRsync().rsyncpath()
-    // checklineforerror = TrimOutputFromRsync()
+    var checklineforerror: (_ line: String) throws -> Void
+    // checklineforerror = TrimOutputFromRsync().checkforrsyncerror(line)
     /*
      Task {
          await ActorLogToFile(command: config.backupID,
@@ -31,7 +32,6 @@ final class ProcessRsyncVer3x {
     // Use filehandler
     var usefilehandler: Bool = false
     // Check for error
-    var checklineforerror: TrimOutputFromRsync?
     var errordiscovered: Bool = false
     
     // Tasks
@@ -136,19 +136,18 @@ final class ProcessRsyncVer3x {
          processtermination: @escaping ([String]?, Int?) -> Void,
          filehandler: @escaping (Int) -> Void,
          rsyncpath: @escaping () -> String?,
+         checklineforerror: @escaping (String) throws -> Void,
          usefilehandler: Bool)
     {
         self.arguments = arguments
         self.processtermination = processtermination
         self.filehandler = filehandler
         self.rsyncpath = rsyncpath
+        self.checklineforerror = checklineforerror
         self.usefilehandler = usefilehandler
 
         if let config {
             self.config = config
-        }
-        if SharedReference.shared.checkforerrorinrsyncoutput {
-            checklineforerror = TrimOutputFromRsync()
         }
         let argumentscontainsdryrun = arguments?.contains("--dry-run") ?? false
         realrun = !argumentscontainsdryrun
@@ -162,20 +161,23 @@ final class ProcessRsyncVer3x {
                      config: SynchronizeConfiguration?,
                      processtermination: @escaping ([String]?, Int?) -> Void,
                      filehandler: @escaping (Int) -> Void,
-                     rsyncpath: @escaping () -> String?)
+                     rsyncpath: @escaping () -> String?,
+                     checklineforerror: @escaping (String) throws -> Void)
     {
         self.init(arguments: arguments,
                   config: config,
                   processtermination: processtermination,
                   filehandler: filehandler,
                   rsyncpath: rsyncpath,
+                  checklineforerror: checklineforerror,
                   usefilehandler: true)
     }
 
     convenience init(arguments: [String]?,
                      config: SynchronizeConfiguration?,
                      processtermination: @escaping ([String]?, Int?) -> Void,
-                     rsyncpath: @escaping () -> String?)
+                     rsyncpath: @escaping () -> String?,
+                     checklineforerror: @escaping (String) throws -> Void)
     {
         // To satisfy arguments
         let filehandler: (Int) -> Void = { _ in
@@ -186,12 +188,14 @@ final class ProcessRsyncVer3x {
                   processtermination: processtermination,
                   filehandler: filehandler,
                   rsyncpath: rsyncpath,
+                  checklineforerror: checklineforerror,
                   usefilehandler: false)
     }
 
     convenience init(arguments: [String]?,
                      processtermination: @escaping ([String]?, Int?) -> Void,
-                     rsyncpath: @escaping () -> String?)
+                     rsyncpath: @escaping () -> String?,
+                     checklineforerror: @escaping (String) throws -> Void)
     {
         // To satisfy arguments
         let filehandler: (Int) -> Void = { _ in
@@ -202,6 +206,7 @@ final class ProcessRsyncVer3x {
                   processtermination: processtermination,
                   filehandler: filehandler,
                   rsyncpath: rsyncpath,
+                  checklineforerror: checklineforerror,
                   usefilehandler: false)
     }
 
@@ -242,7 +247,7 @@ extension ProcessRsyncVer3x {
                        self.errordiscovered == false
                     {
                         do {
-                            try self.checklineforerror?.checkforrsyncerror(line)
+                            try self.checklineforerror(line)
                         } catch let e {
                             self.errordiscovered = true
                             let error = e

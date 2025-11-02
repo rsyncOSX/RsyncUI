@@ -104,7 +104,8 @@ struct PushPullView: View {
         let process = ProcessRsyncVer3x(arguments: arguments,
                                         config: config,
                                         processtermination: pullprocesstermination,
-                                        rsyncpath: GetfullpathforRsync().rsyncpath)
+                                        rsyncpath: GetfullpathforRsync().rsyncpath,
+                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
         process.executeProcess()
     }
 
@@ -116,7 +117,8 @@ struct PushPullView: View {
         let process = ProcessRsyncVer3x(arguments: arguments,
                                         config: config,
                                         processtermination: pushprocesstermination,
-                                        rsyncpath: GetfullpathforRsync().rsyncpath)
+                                        rsyncpath: GetfullpathforRsync().rsyncpath,
+                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
         process.executeProcess()
     }
 

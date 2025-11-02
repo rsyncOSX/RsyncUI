@@ -21,7 +21,8 @@ final class Rsyncversion {
         if SharedReference.shared.norsync == false {
             let command = ProcessRsyncVer3x(arguments: ["--version"],
                                             processtermination: processtermination,
-                                            rsyncpath: GetfullpathforRsync().rsyncpath)
+                                            rsyncpath: GetfullpathforRsync().rsyncpath,
+                                            checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
             command.executeProcess()
         }
     }
