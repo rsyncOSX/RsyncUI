@@ -291,7 +291,8 @@ extension RestoreTableView {
 
             if SharedReference.shared.rsyncversion3 {
                 let process = ProcessRsyncVer3x(arguments: arguments,
-                                                processtermination: processtermination)
+                                                processtermination: processtermination,
+                                                rsyncpath: GetfullpathforRsync().rsyncpath)
                 process.executeProcess()
             } else {
                 let process = ProcessRsyncOpenrsync(arguments: arguments,

@@ -10,6 +10,16 @@ import OSLog
 
 @MainActor
 final class ProcessRsyncVer3x {
+    var rsyncpath: () -> String?
+    // task.launchPath = GetfullpathforRsync().rsyncpath()
+    // checklineforerror = TrimOutputFromRsync()
+    /*
+     Task {
+         await ActorLogToFile(command: config.backupID,
+                              stringoutputfromrsync: output)
+     }
+     */
+    
     // Process termination and filehandler closures
     var processtermination: ([String]?, Int?) -> Void
     var filehandler: (Int) -> Void
@@ -47,7 +57,7 @@ final class ProcessRsyncVer3x {
         // Process
         let task = Process()
         // Getting version of rsync
-        task.launchPath = GetfullpathforRsync().rsyncpath()
+        task.launchPath = rsyncpath()
         guard task.launchPath != nil else { return }
         task.arguments = arguments
         // If there are any Environmentvariables like
@@ -108,11 +118,12 @@ final class ProcessRsyncVer3x {
         }
         
         SharedReference.shared.process = task
+        
         do {
             try task.run()
         } catch let e {
             let error = e
-            propogateerror(error: error)
+            SharedReference.shared.errorobject?.alert(error: error)
         }
         if let launchPath = task.launchPath, let arguments = task.arguments {
             Logger.process.info("ProcessRsyncVer3x: command - \(launchPath, privacy: .public)")
@@ -120,19 +131,17 @@ final class ProcessRsyncVer3x {
         }
     }
 
-    func propogateerror(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
-    }
-
     init(arguments: [String]?,
          config: SynchronizeConfiguration?,
          processtermination: @escaping ([String]?, Int?) -> Void,
          filehandler: @escaping (Int) -> Void,
+         rsyncpath: @escaping () -> String?,
          usefilehandler: Bool)
     {
         self.arguments = arguments
         self.processtermination = processtermination
         self.filehandler = filehandler
+        self.rsyncpath = rsyncpath
         self.usefilehandler = usefilehandler
 
         if let config {
@@ -152,18 +161,21 @@ final class ProcessRsyncVer3x {
     convenience init(arguments: [String]?,
                      config: SynchronizeConfiguration?,
                      processtermination: @escaping ([String]?, Int?) -> Void,
-                     filehandler: @escaping (Int) -> Void)
+                     filehandler: @escaping (Int) -> Void,
+                     rsyncpath: @escaping () -> String?)
     {
         self.init(arguments: arguments,
                   config: config,
                   processtermination: processtermination,
                   filehandler: filehandler,
+                  rsyncpath: rsyncpath,
                   usefilehandler: true)
     }
 
     convenience init(arguments: [String]?,
                      config: SynchronizeConfiguration?,
-                     processtermination: @escaping ([String]?, Int?) -> Void)
+                     processtermination: @escaping ([String]?, Int?) -> Void,
+                     rsyncpath: @escaping () -> String?)
     {
         // To satisfy arguments
         let filehandler: (Int) -> Void = { _ in
@@ -173,11 +185,13 @@ final class ProcessRsyncVer3x {
                   config: config,
                   processtermination: processtermination,
                   filehandler: filehandler,
+                  rsyncpath: rsyncpath,
                   usefilehandler: false)
     }
 
     convenience init(arguments: [String]?,
-                     processtermination: @escaping ([String]?, Int?) -> Void)
+                     processtermination: @escaping ([String]?, Int?) -> Void,
+                     rsyncpath: @escaping () -> String?)
     {
         // To satisfy arguments
         let filehandler: (Int) -> Void = { _ in
@@ -187,6 +201,7 @@ final class ProcessRsyncVer3x {
                   config: nil,
                   processtermination: processtermination,
                   filehandler: filehandler,
+                  rsyncpath: rsyncpath,
                   usefilehandler: false)
     }
 
@@ -231,7 +246,7 @@ extension ProcessRsyncVer3x {
                         } catch let e {
                             self.errordiscovered = true
                             let error = e
-                            self.propogateerror(error: error)
+                            SharedReference.shared.errorobject?.alert(error: error)
                         }
                     }
                 }

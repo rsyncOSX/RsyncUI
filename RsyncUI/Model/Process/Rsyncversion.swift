@@ -20,7 +20,8 @@ final class Rsyncversion {
         }
         if SharedReference.shared.norsync == false {
             let command = ProcessRsyncVer3x(arguments: ["--version"],
-                                            processtermination: processtermination)
+                                            processtermination: processtermination,
+                                            rsyncpath: GetfullpathforRsync().rsyncpath)
             command.executeProcess()
         }
     }

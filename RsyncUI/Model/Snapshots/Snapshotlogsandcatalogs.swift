@@ -19,7 +19,8 @@ final class Snapshotlogsandcatalogs {
     func getremotecataloginfo() {
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
         let command = ProcessRsyncVer3x(arguments: arguments,
-                                        processtermination: processtermination)
+                                        processtermination: processtermination,
+                                        rsyncpath: GetfullpathforRsync().rsyncpath)
         command.executeProcess()
     }
 
