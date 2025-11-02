@@ -62,9 +62,12 @@ final class ProcessRsyncVer3x {
         task.arguments = arguments
         // If there are any Environmentvariables like
         // SSH_AUTH_SOCK": "/Users/user/.gnupg/S.gpg-agent.ssh"
+        // MUST FIX
+        /*
         if let environment = MyEnvironment() {
             task.environment = environment.environment
         }
+         */
         // Pipe for reading output from Process
         let pipe = Pipe()
         task.standardOutput = pipe
