@@ -1,4 +1,11 @@
 //
+//  ProcessRsyncVer3xTEST.swift
+//  RsyncUI
+//
+//  Created by Thomas Evensen on 03/11/2025.
+//
+
+//
 //  ProcessRsyncVer3x.swift
 //  RsyncUI
 //
@@ -9,25 +16,9 @@ import Foundation
 import OSLog
 
 @MainActor
-final class ProcessRsyncVer3x {
-    // Get rsync path GetfullpathforRsync().rsyncpath()
-    var rsyncpath: () -> String?
-    // Check a line for error TrimOutputFromRsync().checkforrsyncerror(line)
-    var checklineforerror: (_ line: String) throws -> Void
-    // Update the process object
-    var updateprocess: (Process?) -> Void
+final class ProcessRsyncVer3xTEST {
     
-    /*
-     Task {
-         await ActorLogToFile(command: config.backupID,
-                              stringoutputfromrsync: output)
-     }
-     */
-    
-    // Process termination and filehandler closures
-    var processtermination: ([String]?, Int?) -> Void
-    var filehandler: (Int) -> Void
-    
+    let handlers: ProcessHandlers
     var config: SynchronizeConfiguration?
     // Arguments to command
     var arguments: [String]?
@@ -61,7 +52,7 @@ final class ProcessRsyncVer3x {
         // Process
         let task = Process()
         // Getting version of rsync
-        task.launchPath = rsyncpath()
+        task.launchPath = handlers.rsyncpath()
         guard task.launchPath != nil else { return }
         task.arguments = arguments
         // If there are any Environmentvariables like
@@ -124,7 +115,7 @@ final class ProcessRsyncVer3x {
             }
         }
         // Update current process task
-        updateprocess(task)
+        handlers.updateprocess(task)
         
         do {
             try task.run()
@@ -140,19 +131,11 @@ final class ProcessRsyncVer3x {
 
     init(arguments: [String]?,
          config: SynchronizeConfiguration?,
-         processtermination: @escaping ([String]?, Int?) -> Void,
-         filehandler: @escaping (Int) -> Void,
-         rsyncpath: @escaping () -> String?,
-         checklineforerror: @escaping (String) throws -> Void,
-         updateprocess: @escaping (Process?) -> Void,
+         handlers: ProcessHandlers,
          usefilehandler: Bool)
     {
         self.arguments = arguments
-        self.processtermination = processtermination
-        self.filehandler = filehandler
-        self.rsyncpath = rsyncpath
-        self.checklineforerror = checklineforerror
-        self.updateprocess = updateprocess
+        self.handlers = handlers
         self.usefilehandler = usefilehandler
 
         if let config {
@@ -168,60 +151,21 @@ final class ProcessRsyncVer3x {
 
     convenience init(arguments: [String]?,
                      config: SynchronizeConfiguration?,
-                     processtermination: @escaping ([String]?, Int?) -> Void,
-                     filehandler: @escaping (Int) -> Void,
-                     rsyncpath: @escaping () -> String?,
-                     checklineforerror: @escaping (String) throws -> Void,
-                     updateprocess: @escaping (Process?) -> Void)
+                     handlers: ProcessHandlers)
     {
         self.init(arguments: arguments,
                   config: config,
-                  processtermination: processtermination,
-                  filehandler: filehandler,
-                  rsyncpath: rsyncpath,
-                  checklineforerror: checklineforerror,
-                  updateprocess: updateprocess,
+                  handlers: handlers,
                   usefilehandler: true)
     }
 
     convenience init(arguments: [String]?,
-                     config: SynchronizeConfiguration?,
-                     processtermination: @escaping ([String]?, Int?) -> Void,
-                     rsyncpath: @escaping () -> String?,
-                     checklineforerror: @escaping (String) throws -> Void,
-                     updateprocess: @escaping (Process?) -> Void)
+                    handlers: ProcessHandlers)
     {
-        // To satisfy arguments
-        let filehandler: (Int) -> Void = { _ in
-            Logger.process.info("ProcessRsyncVer3x: You should NOT SEE this message")
-        }
-        self.init(arguments: arguments,
-                  config: config,
-                  processtermination: processtermination,
-                  filehandler: filehandler,
-                  rsyncpath: rsyncpath,
-                  checklineforerror: checklineforerror,
-                  updateprocess: updateprocess,
-                  usefilehandler: false)
-    }
-
-    convenience init(arguments: [String]?,
-                     processtermination: @escaping ([String]?, Int?) -> Void,
-                     rsyncpath: @escaping () -> String?,
-                     checklineforerror: @escaping (String) throws -> Void,
-                     updateprocess: @escaping (Process?) -> Void)
-    {
-        // To satisfy arguments
-        let filehandler: (Int) -> Void = { _ in
-            Logger.process.info("ProcessRsyncVer3x: You should not SEE this message")
-        }
+        
         self.init(arguments: arguments,
                   config: nil,
-                  processtermination: processtermination,
-                  filehandler: filehandler,
-                  rsyncpath: rsyncpath,
-                  checklineforerror: checklineforerror,
-                  updateprocess: updateprocess,
+                  handlers: handlers,
                   usefilehandler: false)
     }
 
@@ -230,7 +174,7 @@ final class ProcessRsyncVer3x {
     }
 }
 
-extension ProcessRsyncVer3x {
+extension ProcessRsyncVer3xTEST {
     func datahandlersyncversion(_ pipe: Pipe) async {
         let outHandle = pipe.fileHandleForReading
         let data = outHandle.availableData
@@ -262,7 +206,7 @@ extension ProcessRsyncVer3x {
                        self.errordiscovered == false
                     {
                         do {
-                            try self.checklineforerror(line)
+                            try self.handlers.checklineforerror(line)
                         } catch let e {
                             self.errordiscovered = true
                             let error = e
@@ -273,7 +217,7 @@ extension ProcessRsyncVer3x {
                 // Send message about files, do not report the last lines of status from rsync if
                 // the real run is ongoing
                 if usefilehandler, beginningofsummarizedstatus == false, realrun == true {
-                    filehandler(output.count)
+                    handlers.filehandler(output.count)
                 }
             }
             outHandle.waitForDataInBackgroundAndNotify()
@@ -281,7 +225,7 @@ extension ProcessRsyncVer3x {
     }
 
     func termination() async {
-        processtermination(output, config?.hiddenID)
+        handlers.processtermination(output, config?.hiddenID)
         // Log error in rsync output to file
         if errordiscovered, let config {
             Task {
@@ -290,7 +234,7 @@ extension ProcessRsyncVer3x {
             }
         }
         // Set current process to nil
-        updateprocess(nil)
+        handlers.updateprocess(nil)
         // Cancel Tasks
         sequenceFileHandlerTask?.cancel()
         sequenceTerminationTask?.cancel()

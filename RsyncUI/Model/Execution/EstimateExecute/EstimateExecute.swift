@@ -48,9 +48,20 @@ final class EstimateExecute {
         }
         return nil
     }
-
+    
     private func startestimation() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
+        
+        let handlers: ProcessHandlers = ProcessHandlers(
+            processtermination: processtermination_estimation,
+            filehandler: { _ in
+                Logger.process.info("ProcessRsyncVer3x: You should not SEE this message")
+            },
+            rsyncpath: GetfullpathforRsync().rsyncpath,
+            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+            updateprocess: SharedReference.shared.updateprocess
+        )
+        
         if let localhiddenID = stackoftasks?.removeFirst() {
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
@@ -60,12 +71,9 @@ final class EstimateExecute {
                     localprogressdetails?.configurationtobestimated = config.id
 
                     if SharedReference.shared.rsyncversion3 {
-                        let process = ProcessRsyncVer3x(arguments: arguments,
+                        let process = ProcessRsyncVer3xTEST(arguments: arguments,
                                                         config: config,
-                                                        processtermination: processtermination_estimation,
-                                                        rsyncpath: GetfullpathforRsync().rsyncpath,
-                                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-                                                        updateprocess: SharedReference.shared.updateprocess)
+                                                        handlers: handlers)
                         process.executeProcess()
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,
@@ -80,6 +88,15 @@ final class EstimateExecute {
 
     private func startexecution() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
+        
+        let handlers: ProcessHandlers = ProcessHandlers(
+            processtermination: processtermination_excute,
+            filehandler: localfilehandler,
+            rsyncpath: GetfullpathforRsync().rsyncpath,
+            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+            updateprocess: SharedReference.shared.updateprocess
+        )
+        
         if let localhiddenID = stackoftasks?.removeFirst() {
             // For display progress of synchronization of correct task
             localprogressdetails?.hiddenIDatwork = localhiddenID
@@ -88,13 +105,9 @@ final class EstimateExecute {
                                                                                              forDisplay: false)
                 {
                     if SharedReference.shared.rsyncversion3 {
-                        let process = ProcessRsyncVer3x(arguments: arguments,
-                                                        config: config,
-                                                        processtermination: processtermination_excute,
-                                                        filehandler: localfilehandler,
-                                                        rsyncpath: GetfullpathforRsync().rsyncpath,
-                                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-                                                        updateprocess: SharedReference.shared.updateprocess)
+                        let process = ProcessRsyncVer3xTEST(arguments: arguments,
+                                                            config: config,
+                                                            handlers: handlers)
                         process.executeProcess()
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,
@@ -110,19 +123,24 @@ final class EstimateExecute {
 
     private func startexecution_noestimate() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
+        
+        let handlers: ProcessHandlers = ProcessHandlers(
+            processtermination: processtermination_noestimation,
+            filehandler: localfilehandler,
+            rsyncpath: GetfullpathforRsync().rsyncpath,
+            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+            updateprocess: SharedReference.shared.updateprocess
+        )
+        
         if let localhiddenID = stackoftasks?.removeFirst() {
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
                                                                                              forDisplay: false)
                 {
                     if SharedReference.shared.rsyncversion3 {
-                        let process = ProcessRsyncVer3x(arguments: arguments,
-                                                        config: config,
-                                                        processtermination: processtermination_noestimation,
-                                                        filehandler: localfilehandler,
-                                                        rsyncpath: GetfullpathforRsync().rsyncpath,
-                                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-                                                        updateprocess: SharedReference.shared.updateprocess)
+                        let process = ProcessRsyncVer3xTEST(arguments: arguments,
+                                                            config: config,
+                                                            handlers: handlers)
                         process.executeProcess()
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,
