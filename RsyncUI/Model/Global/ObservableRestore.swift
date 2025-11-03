@@ -50,7 +50,8 @@ final class ObservableRestore {
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)
             },
-            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
+            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
+            rsyncversion3: SharedReference.shared.rsyncversion3
         )
         do {
             let ok = try validateforrestore()
@@ -59,18 +60,17 @@ final class ObservableRestore {
                 if let arguments {
                     restorefilesinprogress = true
 
-                    if SharedReference.shared.rsyncversion3 {
-                        // Must check valid rsync exists
-                        guard SharedReference.shared.norsync == false else { return }
+                    // Must check valid rsync exists
+                    guard SharedReference.shared.norsync == false else { return }
 
-                        let command = ProcessRsync(arguments: arguments,
-                                                        handlers: handlers,
-                                                        filehandler: false)
-                        command.executeProcess()
-                    } else {
-                        let process = ProcessRsyncOpenrsync(arguments: arguments,
-                                                            processtermination: processtermination)
-                        process.executeProcess()
+                    let process = ProcessRsync(arguments: arguments,
+                                               handlers: handlers,
+                                               filehandler: false)
+                    do {
+                        try process.executeProcess()
+                    } catch let e {
+                        let error = e
+                        SharedReference.shared.errorobject?.alert(error: error)
                     }
                 }
             }

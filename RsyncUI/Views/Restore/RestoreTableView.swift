@@ -7,8 +7,8 @@
 // swiftlint:disable line_length
 
 import OSLog
-import SwiftUI
 import RsyncProcess
+import SwiftUI
 
 struct RestoreTableView: View {
     @State var restore = ObservableRestore()
@@ -291,29 +291,29 @@ extension RestoreTableView {
             }
             guard arguments?.isEmpty == false else { return }
 
-            if SharedReference.shared.rsyncversion3 {
-                let handlers = ProcessHandlers(
-                    processtermination: processtermination,
-                    filehandler: { _ in
-                        Logger.process.info("ProcessRsync: You should not SEE this message")
-                    },
-                    rsyncpath: GetfullpathforRsync().rsyncpath,
-                    checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-                    updateprocess: SharedReference.shared.updateprocess,
-                    propogateerror: { error in
-                        SharedReference.shared.errorobject?.alert(error: error)
-                    },
-                    checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
-                )
+            let handlers = ProcessHandlers(
+                processtermination: processtermination,
+                filehandler: { _ in
+                    Logger.process.info("ProcessRsync: You should not SEE this message")
+                },
+                rsyncpath: GetfullpathforRsync().rsyncpath,
+                checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+                updateprocess: SharedReference.shared.updateprocess,
+                propogateerror: { error in
+                    SharedReference.shared.errorobject?.alert(error: error)
+                },
+                checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
+                rsyncversion3: SharedReference.shared.rsyncversion3
+            )
 
-                let process = ProcessRsync(arguments: arguments,
-                                                handlers: handlers,
-                                                filehandler: false)
-                process.executeProcess()
-            } else {
-                let process = ProcessRsyncOpenrsync(arguments: arguments,
-                                                    processtermination: processtermination)
-                process.executeProcess()
+            let process = ProcessRsync(arguments: arguments,
+                                       handlers: handlers,
+                                       filehandler: false)
+            do {
+                try process.executeProcess()
+            } catch let e {
+                let error = e
+                SharedReference.shared.errorobject?.alert(error: error)
             }
         }
     }

@@ -6,8 +6,8 @@
 //
 
 import OSLog
-import SwiftUI
 import RsyncProcess
+import SwiftUI
 
 enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvertible {
     case synchronize
@@ -467,36 +467,34 @@ extension QuicktaskView {
         // Start progressview
         showprogressview = true
 
-        if SharedReference.shared.rsyncversion3 {
-            let handlers = ProcessHandlers(
-                processtermination: processtermination,
-                filehandler: { _ in
-                    Logger.process.info("ProcessRsync: You should not SEE this message")
-                },
-                rsyncpath: GetfullpathforRsync().rsyncpath,
-                checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-                updateprocess: SharedReference.shared.updateprocess,
-                propogateerror: { error in
-                    SharedReference.shared.errorobject?.alert(error: error)
-                },
-                checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
-            )
+        let handlers = ProcessHandlers(
+            processtermination: processtermination,
+            filehandler: { _ in
+                Logger.process.info("ProcessRsync: You should not SEE this message")
+            },
+            rsyncpath: GetfullpathforRsync().rsyncpath,
+            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+            updateprocess: SharedReference.shared.updateprocess,
+            propogateerror: { error in
+                SharedReference.shared.errorobject?.alert(error: error)
+            },
+            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
+            rsyncversion3: SharedReference.shared.rsyncversion3
+        )
 
-            // Must check valid rsync exists
-            guard SharedReference.shared.norsync == false else { return }
-            guard config.task != SharedReference.shared.halted else { return }
+        // Must check valid rsync exists
+        guard SharedReference.shared.norsync == false else { return }
+        guard config.task != SharedReference.shared.halted else { return }
 
-            let process = ProcessRsync(arguments: arguments,
-                                            hiddenID: config.hiddenID,
-                                            handlers: handlers,
-                                            usefilehandler: false)
-            process.executeProcess()
-
-        } else {
-            let process = ProcessRsyncOpenrsync(arguments: arguments,
-                                                config: config,
-                                                processtermination: processtermination)
-            process.executeProcess()
+        let process = ProcessRsync(arguments: arguments,
+                                   hiddenID: config.hiddenID,
+                                   handlers: handlers,
+                                   usefilehandler: false)
+        do {
+            try process.executeProcess()
+        } catch let e {
+            let error = e
+            SharedReference.shared.errorobject?.alert(error: error)
         }
     }
 

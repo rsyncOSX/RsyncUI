@@ -12,14 +12,6 @@ import RsyncProcess
 
 @Observable @MainActor
 final class Rsyncversion {
-    /*
-     var processtermination: ([String]?, Int?) -> Void
-     var filehandler: (Int) -> Void
-     var rsyncpath: () -> String?
-     var checklineforerror: (String) throws -> Void
-     var updateprocess: (Process?) -> Void
-     */
-
     func getrsyncversion() {
         let handlers = ProcessHandlers(
             processtermination: processtermination,
@@ -32,7 +24,8 @@ final class Rsyncversion {
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)
             },
-            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
+            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
+            rsyncversion3: SharedReference.shared.rsyncversion3
         )
 
         do {
@@ -42,10 +35,15 @@ final class Rsyncversion {
             SharedReference.shared.rsyncversionshort = "No valid rsync deteced"
         }
         if SharedReference.shared.norsync == false {
-            let command = ProcessRsync(arguments: ["--version"],
-                                            handlers: handlers,
-                                            filehandler: false)
-            command.executeProcess()
+            let process = ProcessRsync(arguments: ["--version"],
+                                       handlers: handlers,
+                                       filehandler: false)
+            do {
+                try process.executeProcess()
+            } catch let e {
+                let error = e
+                SharedReference.shared.errorobject?.alert(error: error)
+            }
         }
     }
 

@@ -5,8 +5,8 @@
 //  Created by Thomas Evensen on 12/12/2024.
 //
 
-import SwiftUI
 import RsyncProcess
+import SwiftUI
 
 struct ExecutePushPullView: View {
     @Binding var pushorpull: ObservableVerifyRemotePushPull
@@ -161,16 +161,22 @@ struct ExecutePushPullView: View {
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)
             },
-            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
+            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
+            rsyncversion3: SharedReference.shared.rsyncversion3
         )
         guard SharedReference.shared.norsync == false else { return }
         guard config.task != SharedReference.shared.halted else { return }
 
         let process = ProcessRsync(arguments: arguments,
-                                        hiddenID: config.hiddenID,
-                                        handlers: handlers,
-                                        usefilehandler: true)
-        process.executeProcess()
+                                   hiddenID: config.hiddenID,
+                                   handlers: handlers,
+                                   usefilehandler: true)
+        do {
+            try process.executeProcess()
+        } catch let e {
+            let error = e
+            SharedReference.shared.errorobject?.alert(error: error)
+        }
     }
 
     func pull(config: SynchronizeConfiguration) {
@@ -183,17 +189,23 @@ struct ExecutePushPullView: View {
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)
             },
-            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
+            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
+            rsyncversion3: SharedReference.shared.rsyncversion3
         )
 
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryrun,
                                                                                               forDisplay: false,
                                                                                               keepdelete: keepdelete)
         let process = ProcessRsync(arguments: arguments,
-                                        hiddenID: config.hiddenID,
-                                        handlers: handlers,
-                                        usefilehandler: true)
-        process.executeProcess()
+                                   hiddenID: config.hiddenID,
+                                   handlers: handlers,
+                                   usefilehandler: true)
+        do {
+            try process.executeProcess()
+        } catch let e {
+            let error = e
+            SharedReference.shared.errorobject?.alert(error: error)
+        }
     }
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {

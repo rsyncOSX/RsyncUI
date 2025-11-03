@@ -29,14 +29,20 @@ final class Snapshotlogsandcatalogs {
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)
             },
-            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
+            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
+            rsyncversion3: SharedReference.shared.rsyncversion3
         )
 
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
-        let command = ProcessRsync(arguments: arguments,
-                                        handlers: handlers,
-                                        filehandler: false)
-        command.executeProcess()
+        let process = ProcessRsync(arguments: arguments,
+                                   handlers: handlers,
+                                   filehandler: false)
+        do {
+            try process.executeProcess()
+        } catch let e {
+            let error = e
+            SharedReference.shared.errorobject?.alert(error: error)
+        }
     }
 
     // Merging remote snaphotcatalogs and existing logs
