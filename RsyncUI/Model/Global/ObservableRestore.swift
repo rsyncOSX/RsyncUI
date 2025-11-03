@@ -8,6 +8,7 @@
 
 import Foundation
 import Observation
+import OSLog
 
 @Observable @MainActor
 final class ObservableRestore {
@@ -37,6 +38,15 @@ final class ObservableRestore {
 
     func executerestore() {
         var arguments: [String]?
+        let handlers: ProcessHandlers = ProcessHandlers(
+            processtermination: processtermination,
+            filehandler: { _ in
+                Logger.process.info("ProcessRsyncVer3x: You should not SEE this message")
+            },
+            rsyncpath: GetfullpathforRsync().rsyncpath,
+            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+            updateprocess: SharedReference.shared.updateprocess
+        )
         do {
             let ok = try validateforrestore()
             if ok {
@@ -45,11 +55,8 @@ final class ObservableRestore {
                     restorefilesinprogress = true
 
                     if SharedReference.shared.rsyncversion3 {
-                        let process = ProcessRsyncVer3x(arguments: arguments,
-                                                        processtermination: processtermination,
-                                                        rsyncpath: GetfullpathforRsync().rsyncpath,
-                                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-                                                        updateprocess: SharedReference.shared.updateprocess)
+                        let process = ProcessRsyncVer3xTEST(arguments: arguments,
+                                                        handlers: handlers)
                         process.executeProcess()
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,

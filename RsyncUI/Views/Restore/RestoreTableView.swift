@@ -7,6 +7,7 @@
 // swiftlint:disable line_length
 
 import SwiftUI
+import OSLog
 
 struct RestoreTableView: View {
     @State var restore = ObservableRestore()
@@ -290,11 +291,17 @@ extension RestoreTableView {
             guard arguments?.isEmpty == false else { return }
 
             if SharedReference.shared.rsyncversion3 {
-                let process = ProcessRsyncVer3x(arguments: arguments,
-                                                processtermination: processtermination,
-                                                rsyncpath: GetfullpathforRsync().rsyncpath,
-                                                checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-                                                updateprocess: SharedReference.shared.updateprocess)
+                let handlers: ProcessHandlers = ProcessHandlers(
+                    processtermination: processtermination,
+                    filehandler: { _ in
+                        Logger.process.info("ProcessRsyncVer3x: You should not SEE this message")
+                    },
+                    rsyncpath: GetfullpathforRsync().rsyncpath,
+                    checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+                    updateprocess: SharedReference.shared.updateprocess
+                )
+                let process = ProcessRsyncVer3xTEST(arguments: arguments,
+                                                handlers: handlers)
                 process.executeProcess()
             } else {
                 let process = ProcessRsyncOpenrsync(arguments: arguments,

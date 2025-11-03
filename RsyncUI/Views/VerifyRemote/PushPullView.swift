@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 struct PushPullView: View {
     @Binding var pushorpull: ObservableVerifyRemotePushPull
@@ -101,12 +102,19 @@ struct PushPullView: View {
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: true,
                                                                                               forDisplay: false,
                                                                                               keepdelete: true)
-        let process = ProcessRsyncVer3x(arguments: arguments,
+        
+        let handlers: ProcessHandlers = ProcessHandlers(
+            processtermination: pullprocesstermination,
+            filehandler: { _ in
+                Logger.process.info("ProcessRsyncVer3x: You should not SEE this message")
+            },
+            rsyncpath: GetfullpathforRsync().rsyncpath,
+            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+            updateprocess: SharedReference.shared.updateprocess
+        )
+        let process = ProcessRsyncVer3xTEST(arguments: arguments,
                                         config: config,
-                                        processtermination: pullprocesstermination,
-                                        rsyncpath: GetfullpathforRsync().rsyncpath,
-                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-                                        updateprocess: SharedReference.shared.updateprocess)
+                                        handlers: handlers)
         process.executeProcess()
     }
 
@@ -115,12 +123,19 @@ struct PushPullView: View {
         let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: true,
                                                                                            forDisplay: false,
                                                                                            keepdelete: true)
-        let process = ProcessRsyncVer3x(arguments: arguments,
+        let handlers: ProcessHandlers = ProcessHandlers(
+            processtermination: pushprocesstermination,
+            filehandler: { _ in
+                Logger.process.info("ProcessRsyncVer3x: You should not SEE this message")
+            },
+            rsyncpath: GetfullpathforRsync().rsyncpath,
+            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+            updateprocess: SharedReference.shared.updateprocess
+        )
+        
+        let process = ProcessRsyncVer3xTEST(arguments: arguments,
                                         config: config,
-                                        processtermination: pushprocesstermination,
-                                        rsyncpath: GetfullpathforRsync().rsyncpath,
-                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-                                        updateprocess: SharedReference.shared.updateprocess)
+                                        handlers: handlers)
         process.executeProcess()
     }
 

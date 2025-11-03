@@ -17,12 +17,18 @@ final class Snapshotlogsandcatalogs {
     var logrecords: [LogRecords]
 
     func getremotecataloginfo() {
+        let handlers: ProcessHandlers = ProcessHandlers(
+            processtermination: processtermination,
+            filehandler: { _ in
+                Logger.process.info("ProcessRsyncVer3x: You should not SEE this message")
+            },
+            rsyncpath: GetfullpathforRsync().rsyncpath,
+            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+            updateprocess: SharedReference.shared.updateprocess
+        )
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
-        let command = ProcessRsyncVer3x(arguments: arguments,
-                                        processtermination: processtermination,
-                                        rsyncpath: GetfullpathforRsync().rsyncpath,
-                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-                                        updateprocess: SharedReference.shared.updateprocess)
+        let command = ProcessRsyncVer3xTEST(arguments: arguments,
+                                        handlers: handlers)
         command.executeProcess()
     }
 

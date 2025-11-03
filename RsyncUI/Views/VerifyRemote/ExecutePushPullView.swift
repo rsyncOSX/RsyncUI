@@ -151,27 +151,34 @@ struct ExecutePushPullView: View {
         let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: dryrun,
                                                                                            forDisplay: false,
                                                                                            keepdelete: keepdelete)
-        let process = ProcessRsyncVer3x(arguments: arguments,
+        let handlers: ProcessHandlers = ProcessHandlers(
+            processtermination: processtermination,
+            filehandler: filehandler,
+            rsyncpath: GetfullpathforRsync().rsyncpath,
+            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+            updateprocess: SharedReference.shared.updateprocess
+        )
+        
+        let process = ProcessRsyncVer3xTEST(arguments: arguments,
                                         config: config,
-                                        processtermination: processtermination,
-                                        filehandler: filehandler,
-                                        rsyncpath: GetfullpathforRsync().rsyncpath,
-                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-                                        updateprocess: SharedReference.shared.updateprocess)
+                                        handlers: handlers)
         process.executeProcess()
     }
 
     func pull(config: SynchronizeConfiguration) {
+        let handlers: ProcessHandlers = ProcessHandlers(
+            processtermination: processtermination,
+            filehandler: filehandler,
+            rsyncpath: GetfullpathforRsync().rsyncpath,
+            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+            updateprocess: SharedReference.shared.updateprocess
+        )
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryrun,
                                                                                               forDisplay: false,
                                                                                               keepdelete: keepdelete)
-        let process = ProcessRsyncVer3x(arguments: arguments,
+        let process = ProcessRsyncVer3xTEST(arguments: arguments,
                                         config: config,
-                                        processtermination: processtermination,
-                                        filehandler: filehandler,
-                                        rsyncpath: GetfullpathforRsync().rsyncpath,
-                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-                                        updateprocess: SharedReference.shared.updateprocess)
+                                        handlers: handlers)
         process.executeProcess()
     }
 

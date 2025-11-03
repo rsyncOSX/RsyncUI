@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 struct VerifyTasks: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
@@ -107,12 +108,20 @@ struct VerifyTasks: View {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
                                                                                   forDisplay: false)
         if SharedReference.shared.rsyncversion3 {
-            let process = ProcessRsyncVer3x(arguments: arguments,
+            
+            let handlers: ProcessHandlers = ProcessHandlers(
+                processtermination: processtermination,
+                filehandler: { _ in
+                    Logger.process.info("ProcessRsyncVer3x: You should not SEE this message")
+                },
+                rsyncpath: GetfullpathforRsync().rsyncpath,
+                checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+                updateprocess: SharedReference.shared.updateprocess
+            )
+            
+            let process = ProcessRsyncVer3xTEST(arguments: arguments,
                                             config: config,
-                                            processtermination: processtermination,
-                                            rsyncpath: GetfullpathforRsync().rsyncpath,
-                                            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-                                            updateprocess: SharedReference.shared.updateprocess)
+                                            handlers: handlers)
             process.executeProcess()
         } else {
             let process = ProcessRsyncOpenrsync(arguments: arguments,
