@@ -1,5 +1,5 @@
 //
-//  ProcessRsyncVer3xTEST.swift
+//  ProcessRsyncVer3x.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 03/11/2025.
@@ -19,7 +19,6 @@ import OSLog
 final class ProcessRsyncVer3x {
     // Process handlers
     let handlers: ProcessHandlers
-    var config: SynchronizeConfiguration?
     // Arguments to command
     var arguments: [String]?
     // Output
@@ -28,7 +27,7 @@ final class ProcessRsyncVer3x {
     var usefilehandler: Bool = false
     // Check for error
     var errordiscovered: Bool = false
-    
+
     // Tasks
     var sequenceFileHandlerTask: Task<Void, Never>?
     var sequenceTerminationTask: Task<Void, Never>?
@@ -43,12 +42,10 @@ final class ProcessRsyncVer3x {
     // When RsyncUI starts or version of rsync is changed
     // the arguments is only one and contains ["--version"] only
     var getrsyncversion: Bool = false
+    // hiddenID
+    var hiddenID: Int = -1
 
     func executeProcess() {
-        // Must check valid rsync exists
-        guard SharedReference.shared.norsync == false else { return }
-        guard config?.task != SharedReference.shared.halted else { return }
-        
         // Process
         let task = Process()
         // Getting version of rsync
@@ -59,24 +56,26 @@ final class ProcessRsyncVer3x {
         // SSH_AUTH_SOCK": "/Users/user/.gnupg/S.gpg-agent.ssh"
         // MUST FIX
         /*
-        if let environment = MyEnvironment() {
-            task.environment = environment.environment
-        }
-         */
+         if let environment = MyEnvironment() {
+             task.environment = environment.environment
+         }
+          */
         // Pipe for reading output from Process
         let pipe = Pipe()
         task.standardOutput = pipe
         task.standardError = pipe
         let outHandle = pipe.fileHandleForReading
         outHandle.waitForDataInBackgroundAndNotify()
-        
+
         // AsyncSequence
         let sequencefilehandler = NotificationCenter.default.notifications(
             named: NSNotification.Name.NSFileHandleDataAvailable,
-            object: outHandle)
+            object: outHandle
+        )
         let sequencetermination = NotificationCenter.default.notifications(
             named: Process.didTerminateNotification,
-            object: task)
+            object: task
+        )
 
         sequenceFileHandlerTask = Task {
             for await _ in sequencefilehandler {
@@ -116,7 +115,7 @@ final class ProcessRsyncVer3x {
         }
         // Update current process task
         handlers.updateprocess(task)
-        
+
         do {
             try task.run()
         } catch let e {
@@ -130,17 +129,15 @@ final class ProcessRsyncVer3x {
     }
 
     init(arguments: [String]?,
-         config: SynchronizeConfiguration?,
+         hiddenID: Int,
          handlers: ProcessHandlers,
          usefilehandler: Bool)
     {
         self.arguments = arguments
+        self.hiddenID = hiddenID
         self.handlers = handlers
         self.usefilehandler = usefilehandler
 
-        if let config {
-            self.config = config
-        }
         let argumentscontainsdryrun = arguments?.contains("--dry-run") ?? false
         realrun = !argumentscontainsdryrun
 
@@ -150,23 +147,13 @@ final class ProcessRsyncVer3x {
     }
 
     convenience init(arguments: [String]?,
-                     config: SynchronizeConfiguration?,
-                     handlers: ProcessHandlers)
+                     handlers: ProcessHandlers,
+                     filhandler: Bool)
     {
         self.init(arguments: arguments,
-                  config: config,
+                  hiddenID: -1,
                   handlers: handlers,
-                  usefilehandler: true)
-    }
-
-    convenience init(arguments: [String]?,
-                    handlers: ProcessHandlers)
-    {
-        
-        self.init(arguments: arguments,
-                  config: nil,
-                  handlers: handlers,
-                  usefilehandler: false)
+                  usefilehandler: filhandler)
     }
 
     deinit {
@@ -210,7 +197,7 @@ extension ProcessRsyncVer3x {
                         } catch let e {
                             self.errordiscovered = true
                             let error = e
-                            SharedReference.shared.errorobject?.alert(error: error)
+                            self.handlers.propogateerror(error)
                         }
                     }
                 }
@@ -225,14 +212,16 @@ extension ProcessRsyncVer3x {
     }
 
     func termination() async {
-        handlers.processtermination(output, config?.hiddenID)
+        handlers.processtermination(output, hiddenID)
         // Log error in rsync output to file
-        if errordiscovered, let config {
-            Task {
-                await ActorLogToFile(command: config.backupID,
-                                     stringoutputfromrsync: output)
-            }
-        }
+        /*
+         if errordiscovered, let config {
+             Task {
+                 await ActorLogToFile(command: config.backupID,
+                                      stringoutputfromrsync: output)
+             }
+         }
+          */
         // Set current process to nil
         handlers.updateprocess(nil)
         // Cancel Tasks

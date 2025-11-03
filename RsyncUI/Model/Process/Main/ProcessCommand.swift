@@ -22,7 +22,6 @@ final class ProcessCommand {
     var sequenceFileHandlerTask: Task<Void, Never>?
     var sequenceTerminationTask: Task<Void, Never>?
 
-    
     func executeProcess() {
         if let command, let arguments, arguments.count > 0 {
             let task = Process()
@@ -43,10 +42,12 @@ final class ProcessCommand {
             // AsyncSequence
             let sequencefilehandler = NotificationCenter.default.notifications(
                 named: NSNotification.Name.NSFileHandleDataAvailable,
-                object: outHandle)
+                object: outHandle
+            )
             let sequencetermination = NotificationCenter.default.notifications(
                 named: Process.didTerminateNotification,
-                object: task)
+                object: task
+            )
 
             sequenceFileHandlerTask = Task {
                 for await _ in sequencefilehandler {

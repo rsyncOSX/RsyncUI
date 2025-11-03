@@ -7,8 +7,8 @@
 
 import Foundation
 import Observation
-import SwiftUI
 import OSLog
+import SwiftUI
 
 struct OneTaskDetailsView: View {
     @Bindable var progressdetails: ProgressDetails
@@ -54,18 +54,27 @@ struct OneTaskDetailsView: View {
             guard arguments != nil else { return }
 
             if SharedReference.shared.rsyncversion3 {
-                let handlers: ProcessHandlers = ProcessHandlers(
+                let handlers = ProcessHandlers(
                     processtermination: processtermination,
                     filehandler: { _ in
                         Logger.process.info("ProcessRsyncVer3x: You should not SEE this message")
                     },
                     rsyncpath: GetfullpathforRsync().rsyncpath,
                     checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-                    updateprocess: SharedReference.shared.updateprocess
+                    updateprocess: SharedReference.shared.updateprocess,
+                    propogateerror: { error in
+                        SharedReference.shared.errorobject?.alert(error: error)
+                    }
                 )
+                // Must check valid rsync exists
+                guard SharedReference.shared.norsync == false else { return }
+                guard selectedconfig?.task != SharedReference.shared.halted else { return }
+
                 let process = ProcessRsyncVer3x(arguments: arguments,
-                                                config: selectedconfig,
-                                                handlers: handlers)
+                                                hiddenID: selectedconfig?.hiddenID ?? -1,
+                                                handlers: handlers,
+                                                usefilehandler: false)
+
                 process.executeProcess()
             } else {
                 let process = ProcessRsyncOpenrsync(arguments: arguments,

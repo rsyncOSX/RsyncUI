@@ -86,9 +86,8 @@ final class SharedReference {
     @ObservationIgnored var hideschedule: Bool = true
     // DEMO SCHEDULE
     @ObservationIgnored var scheduledemomode: Bool = false
-    
+
     func updateprocess(_ task: Process?) {
-        
         if task != nil {
             Logger.process.info("SharedReference: Process set to ACTIVE")
             process = task

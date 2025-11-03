@@ -105,7 +105,6 @@ struct Logsettings: View {
                 .font(.title3)
                 .fontWeight(.bold))
             {
-                
                 ConditionalGlassButton(
                     systemImage: "square.and.arrow.down",
                     text: "Save",

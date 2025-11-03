@@ -11,9 +11,6 @@ import OSLog
 
 @Observable @MainActor
 final class Rsyncversion {
-    
-    
-    
     /*
      var processtermination: ([String]?, Int?) -> Void
      var filehandler: (Int) -> Void
@@ -21,19 +18,21 @@ final class Rsyncversion {
      var checklineforerror: (String) throws -> Void
      var updateprocess: (Process?) -> Void
      */
-    
+
     func getrsyncversion() {
-        
-        let handlers: ProcessHandlers = ProcessHandlers(
+        let handlers = ProcessHandlers(
             processtermination: processtermination,
             filehandler: { _ in
                 Logger.process.info("ProcessRsyncVer3x: You should not SEE this message")
             },
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-            updateprocess: SharedReference.shared.updateprocess
+            updateprocess: SharedReference.shared.updateprocess,
+            propogateerror: { error in
+                SharedReference.shared.errorobject?.alert(error: error)
+            }
         )
-        
+
         do {
             try SetandValidatepathforrsync().validatelocalpathforrsync()
         } catch {
@@ -42,7 +41,8 @@ final class Rsyncversion {
         }
         if SharedReference.shared.norsync == false {
             let command = ProcessRsyncVer3x(arguments: ["--version"],
-                                            handlers: handlers)
+                                            handlers: handlers,
+                                            filhandler: false)
             command.executeProcess()
         }
     }

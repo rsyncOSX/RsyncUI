@@ -48,20 +48,23 @@ final class EstimateExecute {
         }
         return nil
     }
-    
+
     private func startestimation() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
-        
-        let handlers: ProcessHandlers = ProcessHandlers(
+
+        let handlers = ProcessHandlers(
             processtermination: processtermination_estimation,
             filehandler: { _ in
                 Logger.process.info("ProcessRsyncVer3x: You should not SEE this message")
             },
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-            updateprocess: SharedReference.shared.updateprocess
+            updateprocess: SharedReference.shared.updateprocess,
+            propogateerror: { error in
+                SharedReference.shared.errorobject?.alert(error: error)
+            }
         )
-        
+
         if let localhiddenID = stackoftasks?.removeFirst() {
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
@@ -71,9 +74,15 @@ final class EstimateExecute {
                     localprogressdetails?.configurationtobestimated = config.id
 
                     if SharedReference.shared.rsyncversion3 {
+                        // Must check valid rsync exists
+                        guard SharedReference.shared.norsync == false else { return }
+                        guard config.task != SharedReference.shared.halted else { return }
+
                         let process = ProcessRsyncVer3x(arguments: arguments,
-                                                        config: config,
-                                                        handlers: handlers)
+                                                        hiddenID: config.hiddenID,
+                                                        handlers: handlers,
+                                                        usefilehandler: false)
+
                         process.executeProcess()
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,
@@ -88,15 +97,18 @@ final class EstimateExecute {
 
     private func startexecution() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
-        
-        let handlers: ProcessHandlers = ProcessHandlers(
+
+        let handlers = ProcessHandlers(
             processtermination: processtermination_excute,
             filehandler: localfilehandler,
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-            updateprocess: SharedReference.shared.updateprocess
+            updateprocess: SharedReference.shared.updateprocess,
+            propogateerror: { error in
+                SharedReference.shared.errorobject?.alert(error: error)
+            }
         )
-        
+
         if let localhiddenID = stackoftasks?.removeFirst() {
             // For display progress of synchronization of correct task
             localprogressdetails?.hiddenIDatwork = localhiddenID
@@ -106,8 +118,13 @@ final class EstimateExecute {
                 {
                     if SharedReference.shared.rsyncversion3 {
                         let process = ProcessRsyncVer3x(arguments: arguments,
-                                                            config: config,
-                                                            handlers: handlers)
+                                                        hiddenID: config.hiddenID,
+                                                        handlers: handlers,
+                                                        usefilehandler: true)
+                        // Must check valid rsync exists
+                        guard SharedReference.shared.norsync == false else { return }
+                        guard config.task != SharedReference.shared.halted else { return }
+
                         process.executeProcess()
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,
@@ -123,24 +140,33 @@ final class EstimateExecute {
 
     private func startexecution_noestimate() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
-        
-        let handlers: ProcessHandlers = ProcessHandlers(
+
+        let handlers = ProcessHandlers(
             processtermination: processtermination_noestimation,
             filehandler: localfilehandler,
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-            updateprocess: SharedReference.shared.updateprocess
+            updateprocess: SharedReference.shared.updateprocess,
+            propogateerror: { error in
+                SharedReference.shared.errorobject?.alert(error: error)
+            }
         )
-        
+
         if let localhiddenID = stackoftasks?.removeFirst() {
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
                                                                                              forDisplay: false)
                 {
                     if SharedReference.shared.rsyncversion3 {
+                        // Must check valid rsync exists
+                        guard SharedReference.shared.norsync == false else { return }
+                        guard config.task != SharedReference.shared.halted else { return }
+
                         let process = ProcessRsyncVer3x(arguments: arguments,
-                                                            config: config,
-                                                            handlers: handlers)
+                                                        hiddenID: config.hiddenID,
+                                                        handlers: handlers,
+                                                        usefilehandler: true)
+
                         process.executeProcess()
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,

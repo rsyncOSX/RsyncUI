@@ -38,14 +38,17 @@ final class ObservableRestore {
 
     func executerestore() {
         var arguments: [String]?
-        let handlers: ProcessHandlers = ProcessHandlers(
+        let handlers = ProcessHandlers(
             processtermination: processtermination,
             filehandler: { _ in
                 Logger.process.info("ProcessRsyncVer3x: You should not SEE this message")
             },
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-            updateprocess: SharedReference.shared.updateprocess
+            updateprocess: SharedReference.shared.updateprocess,
+            propogateerror: { error in
+                SharedReference.shared.errorobject?.alert(error: error)
+            }
         )
         do {
             let ok = try validateforrestore()
@@ -55,8 +58,12 @@ final class ObservableRestore {
                     restorefilesinprogress = true
 
                     if SharedReference.shared.rsyncversion3 {
+                        // Must check valid rsync exists
+                        guard SharedReference.shared.norsync == false else { return }
+
                         let process = ProcessRsyncVer3x(arguments: arguments,
-                                                        handlers: handlers)
+                                                        handlers: handlers,
+                                                        filhandler: false)
                         process.executeProcess()
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,

@@ -14,5 +14,5 @@ struct ProcessHandlers {
     var rsyncpath: () -> String?
     var checklineforerror: (String) throws -> Void
     var updateprocess: (Process?) -> Void
+    var propogateerror: (Error) -> Void
 }
-

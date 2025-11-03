@@ -151,34 +151,45 @@ struct ExecutePushPullView: View {
         let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: dryrun,
                                                                                            forDisplay: false,
                                                                                            keepdelete: keepdelete)
-        let handlers: ProcessHandlers = ProcessHandlers(
+        let handlers = ProcessHandlers(
             processtermination: processtermination,
             filehandler: filehandler,
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-            updateprocess: SharedReference.shared.updateprocess
+            updateprocess: SharedReference.shared.updateprocess,
+            propogateerror: { error in
+                SharedReference.shared.errorobject?.alert(error: error)
+            }
         )
-        
+        guard SharedReference.shared.norsync == false else { return }
+        guard config.task != SharedReference.shared.halted else { return }
+
         let process = ProcessRsyncVer3x(arguments: arguments,
-                                        config: config,
-                                        handlers: handlers)
+                                        hiddenID: config.hiddenID,
+                                        handlers: handlers,
+                                        usefilehandler: true)
         process.executeProcess()
     }
 
     func pull(config: SynchronizeConfiguration) {
-        let handlers: ProcessHandlers = ProcessHandlers(
+        let handlers = ProcessHandlers(
             processtermination: processtermination,
             filehandler: filehandler,
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-            updateprocess: SharedReference.shared.updateprocess
+            updateprocess: SharedReference.shared.updateprocess,
+            propogateerror: { error in
+                SharedReference.shared.errorobject?.alert(error: error)
+            }
         )
+
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryrun,
                                                                                               forDisplay: false,
                                                                                               keepdelete: keepdelete)
         let process = ProcessRsyncVer3x(arguments: arguments,
-                                        config: config,
-                                        handlers: handlers)
+                                        hiddenID: config.hiddenID,
+                                        handlers: handlers,
+                                        usefilehandler: true)
         process.executeProcess()
     }
 

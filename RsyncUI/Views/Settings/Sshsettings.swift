@@ -50,7 +50,6 @@ struct Sshsettings: View {
                 ) {
                     _ = WriteUserConfigurationJSON(UserConfiguration())
                     Logger.process.info("USER CONFIGURATION is SAVED")
-                    
                 }
             }
 

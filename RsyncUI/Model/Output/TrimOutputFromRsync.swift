@@ -38,4 +38,3 @@ final class TrimOutputFromRsync {
 
     init() {}
 }
-

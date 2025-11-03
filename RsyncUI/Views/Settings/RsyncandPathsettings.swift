@@ -76,16 +76,14 @@ struct RsyncandPathsettings: View {
                 .fontWeight(.bold))
             {
                 HStack {
-                    
                     ConditionalGlassButton(
                         systemImage: "wrench.adjustable.fill",
                         text: "Backup configurations",
                         helpText: "Backup configurations"
                     ) {
                         _ = Backupconfigfiles()
-                        
                     }
-                    
+
                     ConditionalGlassButton(
                         systemImage: "square.and.arrow.down",
                         text: "Save",
@@ -93,7 +91,6 @@ struct RsyncandPathsettings: View {
                     ) {
                         _ = WriteUserConfigurationJSON(UserConfiguration())
                         Logger.process.info("USER CONFIGURATION is SAVED")
-                        
                     }
                 }
             }

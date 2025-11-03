@@ -23,7 +23,7 @@ final class ProcessRsyncOpenrsync {
     // Check for error
     var checklineforerror: TrimOutputFromRsync?
     var errordiscovered: Bool = false
-   
+
     // Tasks
     var sequenceFileHandlerTask: Task<Void, Never>?
     var sequenceTerminationTask: Task<Void, Never>?
@@ -32,7 +32,7 @@ final class ProcessRsyncOpenrsync {
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
         guard config?.task != SharedReference.shared.halted else { return }
-        
+
         // Process
         let task = Process()
         // Getting version of rsync
@@ -50,14 +50,16 @@ final class ProcessRsyncOpenrsync {
         task.standardError = pipe
         let outHandle = pipe.fileHandleForReading
         outHandle.waitForDataInBackgroundAndNotify()
-        
+
         // AsyncSequence
         let sequencefilehandler = NotificationCenter.default.notifications(
             named: NSNotification.Name.NSFileHandleDataAvailable,
-            object: outHandle)
+            object: outHandle
+        )
         let sequencetermination = NotificationCenter.default.notifications(
             named: Process.didTerminateNotification,
-            object: task)
+            object: task
+        )
 
         sequenceFileHandlerTask = Task {
             for await _ in sequencefilehandler {
