@@ -27,7 +27,6 @@ final class ProcessRsyncVer3x {
     var usefilehandler: Bool = false
     // Check for error
     var errordiscovered: Bool = false
-
     // Tasks
     var sequenceFileHandlerTask: Task<Void, Never>?
     var sequenceTerminationTask: Task<Void, Never>?
