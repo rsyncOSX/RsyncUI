@@ -307,13 +307,9 @@ extension RestoreTableView {
                 )
 
                 let process = ProcessRsyncVer3x(arguments: arguments,
-                                                delegate: handlers,
-                                                reportProgress: false)
-                do {
-                    try process.executeProcess()
-                } catch {
-                    
-                }
+                                                handlers: handlers,
+                                                filehandler: false)
+                process.executeProcess()
             } else {
                 let process = ProcessRsyncOpenrsync(arguments: arguments,
                                                     processtermination: processtermination)

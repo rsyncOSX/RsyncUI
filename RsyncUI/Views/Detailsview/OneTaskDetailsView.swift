@@ -74,14 +74,11 @@ struct OneTaskDetailsView: View {
 
                 let process = ProcessRsyncVer3x(arguments: arguments,
                                                 hiddenID: selectedconfig?.hiddenID ?? -1,
-                                                delegate: handlers,
-                                                reportProgress: false)
+                                                handlers: handlers,
+                                                usefilehandler: false)
 
-                do {
-                    try process.executeProcess()
-                } catch {
-                    
-                }
+                process.executeProcess()
+                
             } else {
                 let process = ProcessRsyncOpenrsync(arguments: arguments,
                                                     config: selectedconfig,

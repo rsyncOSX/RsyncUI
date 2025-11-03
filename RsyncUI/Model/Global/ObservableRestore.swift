@@ -64,13 +64,9 @@ final class ObservableRestore {
                         guard SharedReference.shared.norsync == false else { return }
 
                         let command = ProcessRsyncVer3x(arguments: arguments,
-                                                        delegate: handlers,
-                                                        reportProgress: false)
-                        do {
-                            try command.executeProcess()
-                        } catch {
-                            
-                        }
+                                                        handlers: handlers,
+                                                        filehandler: false)
+                        command.executeProcess()
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,
                                                             processtermination: processtermination)

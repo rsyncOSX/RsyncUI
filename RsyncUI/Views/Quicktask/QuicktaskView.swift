@@ -488,13 +488,9 @@ extension QuicktaskView {
 
             let process = ProcessRsyncVer3x(arguments: arguments,
                                             hiddenID: config.hiddenID,
-                                            delegate: handlers,
-                                            reportProgress: false)
-            do {
-                try process.executeProcess()
-            } catch {
-                
-            }
+                                            handlers: handlers,
+                                            usefilehandler: false)
+            process.executeProcess()
 
         } else {
             let process = ProcessRsyncOpenrsync(arguments: arguments,

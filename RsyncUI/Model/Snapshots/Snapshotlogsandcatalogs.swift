@@ -34,13 +34,9 @@ final class Snapshotlogsandcatalogs {
 
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
         let command = ProcessRsyncVer3x(arguments: arguments,
-                                        delegate: handlers,
-                                        reportProgress: false)
-        do {
-            try command.executeProcess()
-        } catch {
-            
-        }
+                                        handlers: handlers,
+                                        filehandler: false)
+        command.executeProcess()
     }
 
     // Merging remote snaphotcatalogs and existing logs

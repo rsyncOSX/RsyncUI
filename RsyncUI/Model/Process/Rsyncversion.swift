@@ -43,13 +43,9 @@ final class Rsyncversion {
         }
         if SharedReference.shared.norsync == false {
             let command = ProcessRsyncVer3x(arguments: ["--version"],
-                                            delegate: handlers,
-                                            reportProgress: false)
-            do {
-                try command.executeProcess()
-            } catch {
-                
-            }
+                                            handlers: handlers,
+                                            filehandler: false)
+            command.executeProcess()
         }
     }
 

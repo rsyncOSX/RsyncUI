@@ -168,13 +168,9 @@ struct ExecutePushPullView: View {
 
         let process = ProcessRsyncVer3x(arguments: arguments,
                                         hiddenID: config.hiddenID,
-                                        delegate: handlers,
-                                        reportProgress: true)
-        do {
-            try process.executeProcess()
-        } catch {
-            
-        }
+                                        handlers: handlers,
+                                        usefilehandler: true)
+        process.executeProcess()
     }
 
     func pull(config: SynchronizeConfiguration) {
@@ -195,13 +191,9 @@ struct ExecutePushPullView: View {
                                                                                               keepdelete: keepdelete)
         let process = ProcessRsyncVer3x(arguments: arguments,
                                         hiddenID: config.hiddenID,
-                                        delegate: handlers,
-                                        reportProgress: true)
-        do {
-            try process.executeProcess()
-        } catch {
-            
-        }
+                                        handlers: handlers,
+                                        usefilehandler: true)
+        process.executeProcess()
     }
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
