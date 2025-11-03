@@ -105,7 +105,8 @@ struct PushPullView: View {
                                         config: config,
                                         processtermination: pullprocesstermination,
                                         rsyncpath: GetfullpathforRsync().rsyncpath,
-                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
+                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+                                        updateprocess: SharedReference.shared.updateprocess)
         process.executeProcess()
     }
 
@@ -118,7 +119,8 @@ struct PushPullView: View {
                                         config: config,
                                         processtermination: pushprocesstermination,
                                         rsyncpath: GetfullpathforRsync().rsyncpath,
-                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
+                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+                                        updateprocess: SharedReference.shared.updateprocess)
         process.executeProcess()
     }
 

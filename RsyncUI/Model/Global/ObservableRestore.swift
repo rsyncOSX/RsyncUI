@@ -48,7 +48,8 @@ final class ObservableRestore {
                         let process = ProcessRsyncVer3x(arguments: arguments,
                                                         processtermination: processtermination,
                                                         rsyncpath: GetfullpathforRsync().rsyncpath,
-                                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
+                                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+                                                        updateprocess: SharedReference.shared.updateprocess)
                         process.executeProcess()
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,

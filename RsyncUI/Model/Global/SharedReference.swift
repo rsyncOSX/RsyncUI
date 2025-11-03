@@ -8,6 +8,7 @@
 
 import Foundation
 import Observation
+import OSLog
 
 public extension Thread {
     static var isMain: Bool { isMainThread }
@@ -70,7 +71,7 @@ final class SharedReference {
     // Mac serialnumer
     @ObservationIgnored var macserialnumber: String?
     // Reference to the active process
-    var process: Process?
+    @ObservationIgnored var process: Process?
     // Object for propogate errors to views
     @ObservationIgnored var errorobject: AlertError?
     // let bundleIdentifier: String = "no.blogspot.RsyncUI"
@@ -85,4 +86,15 @@ final class SharedReference {
     @ObservationIgnored var hideschedule: Bool = true
     // DEMO SCHEDULE
     @ObservationIgnored var scheduledemomode: Bool = false
+    
+    func updateprocess(_ task: Process?) {
+        
+        if task != nil {
+            Logger.process.info("SharedReference: Process set to ACTIVE")
+            process = task
+        } else {
+            Logger.process.info("SharedReference: Process set to NIL")
+            process = nil
+        }
+    }
 }

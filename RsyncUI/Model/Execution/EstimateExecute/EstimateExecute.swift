@@ -64,7 +64,8 @@ final class EstimateExecute {
                                                         config: config,
                                                         processtermination: processtermination_estimation,
                                                         rsyncpath: GetfullpathforRsync().rsyncpath,
-                                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
+                                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+                                                        updateprocess: SharedReference.shared.updateprocess)
                         process.executeProcess()
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,
@@ -92,7 +93,8 @@ final class EstimateExecute {
                                                         processtermination: processtermination_excute,
                                                         filehandler: localfilehandler,
                                                         rsyncpath: GetfullpathforRsync().rsyncpath,
-                                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
+                                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+                                                        updateprocess: SharedReference.shared.updateprocess)
                         process.executeProcess()
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,
@@ -119,7 +121,8 @@ final class EstimateExecute {
                                                         processtermination: processtermination_noestimation,
                                                         filehandler: localfilehandler,
                                                         rsyncpath: GetfullpathforRsync().rsyncpath,
-                                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
+                                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+                                                        updateprocess: SharedReference.shared.updateprocess)
                         process.executeProcess()
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,

@@ -21,7 +21,8 @@ final class Snapshotlogsandcatalogs {
         let command = ProcessRsyncVer3x(arguments: arguments,
                                         processtermination: processtermination,
                                         rsyncpath: GetfullpathforRsync().rsyncpath,
-                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
+                                        checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+                                        updateprocess: SharedReference.shared.updateprocess)
         command.executeProcess()
     }
 

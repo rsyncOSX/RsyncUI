@@ -10,10 +10,13 @@ import OSLog
 
 @MainActor
 final class ProcessRsyncVer3x {
+    // Get rsync path GetfullpathforRsync().rsyncpath()
     var rsyncpath: () -> String?
-    // task.launchPath = GetfullpathforRsync().rsyncpath()
+    // Check a line for error TrimOutputFromRsync().checkforrsyncerror(line)
     var checklineforerror: (_ line: String) throws -> Void
-    // checklineforerror = TrimOutputFromRsync().checkforrsyncerror(line)
+    // Update the process object
+    var updateprocess: (Process?) -> Void
+    
     /*
      Task {
          await ActorLogToFile(command: config.backupID,
@@ -119,8 +122,8 @@ final class ProcessRsyncVer3x {
                 await self.termination()
             }
         }
-        
-        SharedReference.shared.process = task
+        // Update current process task
+        updateprocess(task)
         
         do {
             try task.run()
@@ -140,6 +143,7 @@ final class ProcessRsyncVer3x {
          filehandler: @escaping (Int) -> Void,
          rsyncpath: @escaping () -> String?,
          checklineforerror: @escaping (String) throws -> Void,
+         updateprocess: @escaping (Process?) -> Void,
          usefilehandler: Bool)
     {
         self.arguments = arguments
@@ -147,6 +151,7 @@ final class ProcessRsyncVer3x {
         self.filehandler = filehandler
         self.rsyncpath = rsyncpath
         self.checklineforerror = checklineforerror
+        self.updateprocess = updateprocess
         self.usefilehandler = usefilehandler
 
         if let config {
@@ -165,7 +170,8 @@ final class ProcessRsyncVer3x {
                      processtermination: @escaping ([String]?, Int?) -> Void,
                      filehandler: @escaping (Int) -> Void,
                      rsyncpath: @escaping () -> String?,
-                     checklineforerror: @escaping (String) throws -> Void)
+                     checklineforerror: @escaping (String) throws -> Void,
+                     updateprocess: @escaping (Process?) -> Void)
     {
         self.init(arguments: arguments,
                   config: config,
@@ -173,6 +179,7 @@ final class ProcessRsyncVer3x {
                   filehandler: filehandler,
                   rsyncpath: rsyncpath,
                   checklineforerror: checklineforerror,
+                  updateprocess: updateprocess,
                   usefilehandler: true)
     }
 
@@ -180,7 +187,8 @@ final class ProcessRsyncVer3x {
                      config: SynchronizeConfiguration?,
                      processtermination: @escaping ([String]?, Int?) -> Void,
                      rsyncpath: @escaping () -> String?,
-                     checklineforerror: @escaping (String) throws -> Void)
+                     checklineforerror: @escaping (String) throws -> Void,
+                     updateprocess: @escaping (Process?) -> Void)
     {
         // To satisfy arguments
         let filehandler: (Int) -> Void = { _ in
@@ -192,13 +200,15 @@ final class ProcessRsyncVer3x {
                   filehandler: filehandler,
                   rsyncpath: rsyncpath,
                   checklineforerror: checklineforerror,
+                  updateprocess: updateprocess,
                   usefilehandler: false)
     }
 
     convenience init(arguments: [String]?,
                      processtermination: @escaping ([String]?, Int?) -> Void,
                      rsyncpath: @escaping () -> String?,
-                     checklineforerror: @escaping (String) throws -> Void)
+                     checklineforerror: @escaping (String) throws -> Void,
+                     updateprocess: @escaping (Process?) -> Void)
     {
         // To satisfy arguments
         let filehandler: (Int) -> Void = { _ in
@@ -210,6 +220,7 @@ final class ProcessRsyncVer3x {
                   filehandler: filehandler,
                   rsyncpath: rsyncpath,
                   checklineforerror: checklineforerror,
+                  updateprocess: updateprocess,
                   usefilehandler: false)
     }
 
@@ -277,7 +288,8 @@ extension ProcessRsyncVer3x {
                                      stringoutputfromrsync: output)
             }
         }
-        SharedReference.shared.process = nil
+        // Set current process to nil
+        updateprocess(nil)
         // Cancel Tasks
         sequenceFileHandlerTask?.cancel()
         sequenceTerminationTask?.cancel()

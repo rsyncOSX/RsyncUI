@@ -22,7 +22,8 @@ final class Rsyncversion {
             let command = ProcessRsyncVer3x(arguments: ["--version"],
                                             processtermination: processtermination,
                                             rsyncpath: GetfullpathforRsync().rsyncpath,
-                                            checklineforerror: TrimOutputFromRsync().checkforrsyncerror)
+                                            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+                                            updateprocess: SharedReference.shared.updateprocess)
             command.executeProcess()
         }
     }

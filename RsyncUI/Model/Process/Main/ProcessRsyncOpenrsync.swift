@@ -212,15 +212,6 @@ extension ProcessRsyncOpenrsync {
             }
         }
         SharedReference.shared.process = nil
-        /*
-        // Remove observers
-        NotificationCenter.default.removeObserver(sequencefilehandler as Any,
-                                                  name: NSNotification.Name.NSFileHandleDataAvailable,
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(sequencetermination as Any,
-                                                  name: Process.didTerminateNotification,
-                                                  object: nil)
-         */
         // Cancel Tasks
         sequenceFileHandlerTask?.cancel()
         sequenceTerminationTask?.cancel()
