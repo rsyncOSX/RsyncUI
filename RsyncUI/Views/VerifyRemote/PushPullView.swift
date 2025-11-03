@@ -7,6 +7,7 @@
 
 import OSLog
 import SwiftUI
+import RsyncProcess
 
 struct PushPullView: View {
     @Binding var pushorpull: ObservableVerifyRemotePushPull
@@ -122,9 +123,13 @@ struct PushPullView: View {
 
         let process = ProcessRsyncVer3x(arguments: arguments,
                                         hiddenID: config.hiddenID,
-                                        handlers: handlers,
-                                        usefilehandler: false)
-        process.executeProcess()
+                                        delegate: handlers,
+                                        reportProgress: false)
+        do {
+            try process.executeProcess()
+        } catch {
+            
+        }
     }
 
     // For check remote, pull remote data
@@ -148,9 +153,13 @@ struct PushPullView: View {
 
         let process = ProcessRsyncVer3x(arguments: arguments,
                                         hiddenID: config.hiddenID,
-                                        handlers: handlers,
-                                        usefilehandler: false)
-        process.executeProcess()
+                                        delegate: handlers,
+                                        reportProgress: false)
+        do {
+            try process.executeProcess()
+        } catch {
+            
+        }
     }
 
     func pullprocesstermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {

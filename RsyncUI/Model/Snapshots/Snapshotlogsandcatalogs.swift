@@ -8,6 +8,7 @@
 
 import Foundation
 import OSLog
+import RsyncProcess
 
 @MainActor
 final class Snapshotlogsandcatalogs {
@@ -33,9 +34,13 @@ final class Snapshotlogsandcatalogs {
 
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
         let command = ProcessRsyncVer3x(arguments: arguments,
-                                        handlers: handlers,
-                                        filhandler: false)
-        command.executeProcess()
+                                        delegate: handlers,
+                                        reportProgress: false)
+        do {
+            try command.executeProcess()
+        } catch {
+            
+        }
     }
 
     // Merging remote snaphotcatalogs and existing logs

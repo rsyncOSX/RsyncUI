@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RsyncProcess
 
 struct ExecutePushPullView: View {
     @Binding var pushorpull: ObservableVerifyRemotePushPull
@@ -167,9 +168,13 @@ struct ExecutePushPullView: View {
 
         let process = ProcessRsyncVer3x(arguments: arguments,
                                         hiddenID: config.hiddenID,
-                                        handlers: handlers,
-                                        usefilehandler: true)
-        process.executeProcess()
+                                        delegate: handlers,
+                                        reportProgress: true)
+        do {
+            try process.executeProcess()
+        } catch {
+            
+        }
     }
 
     func pull(config: SynchronizeConfiguration) {
@@ -190,9 +195,13 @@ struct ExecutePushPullView: View {
                                                                                               keepdelete: keepdelete)
         let process = ProcessRsyncVer3x(arguments: arguments,
                                         hiddenID: config.hiddenID,
-                                        handlers: handlers,
-                                        usefilehandler: true)
-        process.executeProcess()
+                                        delegate: handlers,
+                                        reportProgress: true)
+        do {
+            try process.executeProcess()
+        } catch {
+            
+        }
     }
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {

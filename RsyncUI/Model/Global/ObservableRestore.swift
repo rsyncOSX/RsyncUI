@@ -9,6 +9,7 @@
 import Foundation
 import Observation
 import OSLog
+import RsyncProcess
 
 @Observable @MainActor
 final class ObservableRestore {
@@ -62,10 +63,14 @@ final class ObservableRestore {
                         // Must check valid rsync exists
                         guard SharedReference.shared.norsync == false else { return }
 
-                        let process = ProcessRsyncVer3x(arguments: arguments,
-                                                        handlers: handlers,
-                                                        filhandler: false)
-                        process.executeProcess()
+                        let command = ProcessRsyncVer3x(arguments: arguments,
+                                                        delegate: handlers,
+                                                        reportProgress: false)
+                        do {
+                            try command.executeProcess()
+                        } catch {
+                            
+                        }
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,
                                                             processtermination: processtermination)

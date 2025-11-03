@@ -7,6 +7,7 @@
 
 import OSLog
 import SwiftUI
+import RsyncProcess
 
 enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvertible {
     case synchronize
@@ -487,9 +488,13 @@ extension QuicktaskView {
 
             let process = ProcessRsyncVer3x(arguments: arguments,
                                             hiddenID: config.hiddenID,
-                                            handlers: handlers,
-                                            usefilehandler: false)
-            process.executeProcess()
+                                            delegate: handlers,
+                                            reportProgress: false)
+            do {
+                try process.executeProcess()
+            } catch {
+                
+            }
 
         } else {
             let process = ProcessRsyncOpenrsync(arguments: arguments,

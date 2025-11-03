@@ -16,9 +16,9 @@ import Foundation
 import OSLog
 
 @MainActor
-final class ProcessRsyncVer3x {
+final class ProcessRsyncVer3xOLD {
     // Process handlers
-    let handlers: ProcessHandlers
+    let handlers: ProcessHandlersOLD
     // Arguments to command
     var arguments: [String]?
     // Output
@@ -129,7 +129,7 @@ final class ProcessRsyncVer3x {
 
     init(arguments: [String]?,
          hiddenID: Int,
-         handlers: ProcessHandlers,
+         handlers: ProcessHandlersOLD,
          usefilehandler: Bool)
     {
         self.arguments = arguments
@@ -146,7 +146,7 @@ final class ProcessRsyncVer3x {
     }
 
     convenience init(arguments: [String]?,
-                     handlers: ProcessHandlers,
+                     handlers: ProcessHandlersOLD,
                      filhandler: Bool)
     {
         self.init(arguments: arguments,
@@ -160,7 +160,7 @@ final class ProcessRsyncVer3x {
     }
 }
 
-extension ProcessRsyncVer3x {
+extension ProcessRsyncVer3xOLD {
     func datahandlersyncversion(_ pipe: Pipe) async {
         let outHandle = pipe.fileHandleForReading
         let data = outHandle.availableData

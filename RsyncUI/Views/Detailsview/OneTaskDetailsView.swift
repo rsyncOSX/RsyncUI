@@ -9,6 +9,7 @@ import Foundation
 import Observation
 import OSLog
 import SwiftUI
+import RsyncProcess
 
 struct OneTaskDetailsView: View {
     @Bindable var progressdetails: ProgressDetails
@@ -73,10 +74,14 @@ struct OneTaskDetailsView: View {
 
                 let process = ProcessRsyncVer3x(arguments: arguments,
                                                 hiddenID: selectedconfig?.hiddenID ?? -1,
-                                                handlers: handlers,
-                                                usefilehandler: false)
+                                                delegate: handlers,
+                                                reportProgress: false)
 
-                process.executeProcess()
+                do {
+                    try process.executeProcess()
+                } catch {
+                    
+                }
             } else {
                 let process = ProcessRsyncOpenrsync(arguments: arguments,
                                                     config: selectedconfig,

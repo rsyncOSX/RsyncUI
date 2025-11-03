@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-struct ProcessHandlers {
+struct ProcessHandlersOLD {
     var processtermination: ([String]?, Int?) -> Void
     var filehandler: (Int) -> Void
     var rsyncpath: () -> String?

@@ -8,6 +8,7 @@
 import Foundation
 import Observation
 import OSLog
+import RsyncProcess
 
 @Observable @MainActor
 final class Rsyncversion {
@@ -42,9 +43,13 @@ final class Rsyncversion {
         }
         if SharedReference.shared.norsync == false {
             let command = ProcessRsyncVer3x(arguments: ["--version"],
-                                            handlers: handlers,
-                                            filhandler: false)
-            command.executeProcess()
+                                            delegate: handlers,
+                                            reportProgress: false)
+            do {
+                try command.executeProcess()
+            } catch {
+                
+            }
         }
     }
 

@@ -8,6 +8,7 @@
 
 import OSLog
 import SwiftUI
+import RsyncProcess
 
 struct RestoreTableView: View {
     @State var restore = ObservableRestore()
@@ -306,9 +307,13 @@ extension RestoreTableView {
                 )
 
                 let process = ProcessRsyncVer3x(arguments: arguments,
-                                                handlers: handlers,
-                                                filhandler: false)
-                process.executeProcess()
+                                                delegate: handlers,
+                                                reportProgress: false)
+                do {
+                    try process.executeProcess()
+                } catch {
+                    
+                }
             } else {
                 let process = ProcessRsyncOpenrsync(arguments: arguments,
                                                     processtermination: processtermination)

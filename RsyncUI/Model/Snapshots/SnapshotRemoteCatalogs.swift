@@ -7,6 +7,7 @@
 
 import Foundation
 import OSLog
+import RsyncProcess
 
 @MainActor
 final class SnapshotRemoteCatalogs {
@@ -29,9 +30,13 @@ final class SnapshotRemoteCatalogs {
         )
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
         let command = ProcessRsyncVer3x(arguments: arguments,
-                                        handlers: handlers,
-                                        filhandler: false)
-        command.executeProcess()
+                                        delegate: handlers,
+                                        reportProgress: false)
+        do {
+            try command.executeProcess()
+        } catch {
+            
+        }
     }
 
     @discardableResult

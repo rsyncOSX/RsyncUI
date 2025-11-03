@@ -8,6 +8,7 @@
 import Foundation
 import OSLog
 import ParseRsyncOutput
+import RsyncProcess
 
 enum ErrorDatatoSynchronize: LocalizedError {
     case thereisdatatosynchronize(idwitherror: String)
@@ -81,10 +82,14 @@ final class EstimateExecute {
 
                         let process = ProcessRsyncVer3x(arguments: arguments,
                                                         hiddenID: config.hiddenID,
-                                                        handlers: handlers,
-                                                        usefilehandler: false)
+                                                        delegate: handlers,
+                                                        reportProgress: false)
 
-                        process.executeProcess()
+                        do {
+                            try process.executeProcess()
+                        } catch {
+                            
+                        }
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,
                                                             config: config,
@@ -121,13 +126,17 @@ final class EstimateExecute {
                     if SharedReference.shared.rsyncversion3 {
                         let process = ProcessRsyncVer3x(arguments: arguments,
                                                         hiddenID: config.hiddenID,
-                                                        handlers: handlers,
-                                                        usefilehandler: true)
+                                                        delegate: handlers,
+                                                        reportProgress: true)
                         // Must check valid rsync exists
                         guard SharedReference.shared.norsync == false else { return }
                         guard config.task != SharedReference.shared.halted else { return }
 
-                        process.executeProcess()
+                        do {
+                            try process.executeProcess()
+                        } catch {
+                            
+                        }
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,
                                                             config: config,
@@ -167,10 +176,14 @@ final class EstimateExecute {
 
                         let process = ProcessRsyncVer3x(arguments: arguments,
                                                         hiddenID: config.hiddenID,
-                                                        handlers: handlers,
-                                                        usefilehandler: true)
+                                                        delegate: handlers,
+                                                        reportProgress: true)
 
-                        process.executeProcess()
+                        do {
+                            try process.executeProcess()
+                        } catch {
+                            
+                        }
                     } else {
                         let process = ProcessRsyncOpenrsync(arguments: arguments,
                                                             config: config,
