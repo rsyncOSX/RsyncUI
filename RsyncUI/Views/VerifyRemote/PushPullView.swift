@@ -107,7 +107,7 @@ struct PushPullView: View {
         let handlers = ProcessHandlers(
             processtermination: pullprocesstermination,
             filehandler: { _ in
-                Logger.process.info("ProcessRsyncVer3x: You should not SEE this message")
+                Logger.process.info("ProcessRsync: You should not SEE this message")
             },
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
@@ -121,7 +121,7 @@ struct PushPullView: View {
         guard SharedReference.shared.norsync == false else { return }
         guard config.task != SharedReference.shared.halted else { return }
 
-        let process = ProcessRsyncVer3x(arguments: arguments,
+        let process = ProcessRsync(arguments: arguments,
                                         hiddenID: config.hiddenID,
                                         handlers: handlers,
                                         usefilehandler: false)
@@ -136,7 +136,7 @@ struct PushPullView: View {
         let handlers = ProcessHandlers(
             processtermination: pushprocesstermination,
             filehandler: { _ in
-                Logger.process.info("ProcessRsyncVer3x: You should not SEE this message")
+                Logger.process.info("ProcessRsync: You should not SEE this message")
             },
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
@@ -147,7 +147,7 @@ struct PushPullView: View {
             checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
         )
 
-        let process = ProcessRsyncVer3x(arguments: arguments,
+        let process = ProcessRsync(arguments: arguments,
                                         hiddenID: config.hiddenID,
                                         handlers: handlers,
                                         usefilehandler: false)

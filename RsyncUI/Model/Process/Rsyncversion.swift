@@ -24,7 +24,7 @@ final class Rsyncversion {
         let handlers = ProcessHandlers(
             processtermination: processtermination,
             filehandler: { _ in
-                Logger.process.info("ProcessRsyncVer3x: You should not SEE this message")
+                Logger.process.info("ProcessRsync: You should not SEE this message")
             },
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
@@ -42,7 +42,7 @@ final class Rsyncversion {
             SharedReference.shared.rsyncversionshort = "No valid rsync deteced"
         }
         if SharedReference.shared.norsync == false {
-            let command = ProcessRsyncVer3x(arguments: ["--version"],
+            let command = ProcessRsync(arguments: ["--version"],
                                             handlers: handlers,
                                             filehandler: false)
             command.executeProcess()
