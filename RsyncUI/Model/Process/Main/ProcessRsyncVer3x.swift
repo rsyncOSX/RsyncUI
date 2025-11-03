@@ -188,7 +188,7 @@ extension ProcessRsyncVer3x {
                             Logger.process.info("ProcessRsyncVer3x: datahandle() beginning of status reports discovered")
                         }
                     }
-                    if SharedReference.shared.checkforerrorinrsyncoutput,
+                    if self.handlers.checkforerrorinrsyncoutput,
                        self.errordiscovered == false
                     {
                         do {

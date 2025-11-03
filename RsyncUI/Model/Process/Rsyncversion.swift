@@ -30,7 +30,8 @@ final class Rsyncversion {
             updateprocess: SharedReference.shared.updateprocess,
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)
-            }
+            },
+            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
         )
 
         do {

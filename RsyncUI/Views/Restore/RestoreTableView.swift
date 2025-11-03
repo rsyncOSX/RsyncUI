@@ -301,7 +301,8 @@ extension RestoreTableView {
                     updateprocess: SharedReference.shared.updateprocess,
                     propogateerror: { error in
                         SharedReference.shared.errorobject?.alert(error: error)
-                    }
+                    },
+                    checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
                 )
 
                 let process = ProcessRsyncVer3x(arguments: arguments,

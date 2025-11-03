@@ -24,7 +24,8 @@ final class SnapshotRemoteCatalogs {
             updateprocess: SharedReference.shared.updateprocess,
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)
-            }
+            },
+            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
         )
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
         let command = ProcessRsyncVer3x(arguments: arguments,

@@ -113,7 +113,8 @@ struct PushPullView: View {
             updateprocess: SharedReference.shared.updateprocess,
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)
-            }
+            },
+            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
         )
 
         guard SharedReference.shared.norsync == false else { return }
@@ -141,7 +142,8 @@ struct PushPullView: View {
             updateprocess: SharedReference.shared.updateprocess,
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)
-            }
+            },
+            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
         )
 
         let process = ProcessRsyncVer3x(arguments: arguments,

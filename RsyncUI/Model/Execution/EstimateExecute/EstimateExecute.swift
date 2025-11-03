@@ -62,7 +62,8 @@ final class EstimateExecute {
             updateprocess: SharedReference.shared.updateprocess,
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)
-            }
+            },
+            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
@@ -106,7 +107,8 @@ final class EstimateExecute {
             updateprocess: SharedReference.shared.updateprocess,
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)
-            }
+            },
+            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
@@ -149,7 +151,8 @@ final class EstimateExecute {
             updateprocess: SharedReference.shared.updateprocess,
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)
-            }
+            },
+            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {

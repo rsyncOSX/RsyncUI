@@ -64,7 +64,8 @@ struct OneTaskDetailsView: View {
                     updateprocess: SharedReference.shared.updateprocess,
                     propogateerror: { error in
                         SharedReference.shared.errorobject?.alert(error: error)
-                    }
+                    },
+                    checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
                 )
                 // Must check valid rsync exists
                 guard SharedReference.shared.norsync == false else { return }

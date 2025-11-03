@@ -15,4 +15,5 @@ struct ProcessHandlers {
     var checklineforerror: (String) throws -> Void
     var updateprocess: (Process?) -> Void
     var propogateerror: (Error) -> Void
+    var checkforerrorinrsyncoutput: Bool
 }

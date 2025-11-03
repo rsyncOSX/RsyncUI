@@ -48,7 +48,8 @@ final class ObservableRestore {
             updateprocess: SharedReference.shared.updateprocess,
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)
-            }
+            },
+            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput
         )
         do {
             let ok = try validateforrestore()
