@@ -55,7 +55,7 @@ final class ObservableRestore {
                     restorefilesinprogress = true
 
                     if SharedReference.shared.rsyncversion3 {
-                        let process = ProcessRsyncVer3xTEST(arguments: arguments,
+                        let process = ProcessRsyncVer3x(arguments: arguments,
                                                         handlers: handlers)
                         process.executeProcess()
                     } else {

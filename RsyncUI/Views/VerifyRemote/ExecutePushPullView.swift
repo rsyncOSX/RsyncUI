@@ -159,7 +159,7 @@ struct ExecutePushPullView: View {
             updateprocess: SharedReference.shared.updateprocess
         )
         
-        let process = ProcessRsyncVer3xTEST(arguments: arguments,
+        let process = ProcessRsyncVer3x(arguments: arguments,
                                         config: config,
                                         handlers: handlers)
         process.executeProcess()
@@ -176,7 +176,7 @@ struct ExecutePushPullView: View {
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryrun,
                                                                                               forDisplay: false,
                                                                                               keepdelete: keepdelete)
-        let process = ProcessRsyncVer3xTEST(arguments: arguments,
+        let process = ProcessRsyncVer3x(arguments: arguments,
                                         config: config,
                                         handlers: handlers)
         process.executeProcess()

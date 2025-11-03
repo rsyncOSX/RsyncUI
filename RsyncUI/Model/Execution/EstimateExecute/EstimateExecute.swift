@@ -71,7 +71,7 @@ final class EstimateExecute {
                     localprogressdetails?.configurationtobestimated = config.id
 
                     if SharedReference.shared.rsyncversion3 {
-                        let process = ProcessRsyncVer3xTEST(arguments: arguments,
+                        let process = ProcessRsyncVer3x(arguments: arguments,
                                                         config: config,
                                                         handlers: handlers)
                         process.executeProcess()
@@ -105,7 +105,7 @@ final class EstimateExecute {
                                                                                              forDisplay: false)
                 {
                     if SharedReference.shared.rsyncversion3 {
-                        let process = ProcessRsyncVer3xTEST(arguments: arguments,
+                        let process = ProcessRsyncVer3x(arguments: arguments,
                                                             config: config,
                                                             handlers: handlers)
                         process.executeProcess()
@@ -138,7 +138,7 @@ final class EstimateExecute {
                                                                                              forDisplay: false)
                 {
                     if SharedReference.shared.rsyncversion3 {
-                        let process = ProcessRsyncVer3xTEST(arguments: arguments,
+                        let process = ProcessRsyncVer3x(arguments: arguments,
                                                             config: config,
                                                             handlers: handlers)
                         process.executeProcess()

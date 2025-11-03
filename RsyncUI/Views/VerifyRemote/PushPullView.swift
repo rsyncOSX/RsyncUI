@@ -112,7 +112,7 @@ struct PushPullView: View {
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
             updateprocess: SharedReference.shared.updateprocess
         )
-        let process = ProcessRsyncVer3xTEST(arguments: arguments,
+        let process = ProcessRsyncVer3x(arguments: arguments,
                                         config: config,
                                         handlers: handlers)
         process.executeProcess()
@@ -133,7 +133,7 @@ struct PushPullView: View {
             updateprocess: SharedReference.shared.updateprocess
         )
         
-        let process = ProcessRsyncVer3xTEST(arguments: arguments,
+        let process = ProcessRsyncVer3x(arguments: arguments,
                                         config: config,
                                         handlers: handlers)
         process.executeProcess()

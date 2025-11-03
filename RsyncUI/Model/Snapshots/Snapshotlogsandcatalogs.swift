@@ -27,7 +27,7 @@ final class Snapshotlogsandcatalogs {
             updateprocess: SharedReference.shared.updateprocess
         )
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
-        let command = ProcessRsyncVer3xTEST(arguments: arguments,
+        let command = ProcessRsyncVer3x(arguments: arguments,
                                         handlers: handlers)
         command.executeProcess()
     }

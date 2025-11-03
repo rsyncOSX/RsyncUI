@@ -119,7 +119,7 @@ struct VerifyTasks: View {
                 updateprocess: SharedReference.shared.updateprocess
             )
             
-            let process = ProcessRsyncVer3xTEST(arguments: arguments,
+            let process = ProcessRsyncVer3x(arguments: arguments,
                                             config: config,
                                             handlers: handlers)
             process.executeProcess()

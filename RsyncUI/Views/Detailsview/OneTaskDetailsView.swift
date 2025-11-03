@@ -63,7 +63,7 @@ struct OneTaskDetailsView: View {
                     checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
                     updateprocess: SharedReference.shared.updateprocess
                 )
-                let process = ProcessRsyncVer3xTEST(arguments: arguments,
+                let process = ProcessRsyncVer3x(arguments: arguments,
                                                 config: selectedconfig,
                                                 handlers: handlers)
                 process.executeProcess()
