@@ -25,7 +25,7 @@
       "location" : "https://github.com/rsyncOSX/ProcessCommand",
       "state" : {
         "branch" : "main",
-        "revision" : "222b22952e37862c38747e2b22755e8c02e8e683"
+        "revision" : "7df6c511c78a71f22d960850f688141cd03e546e"
       }
     },
     {
@@ -43,7 +43,7 @@
       "location" : "https://github.com/rsyncOSX/RsyncProcess",
       "state" : {
         "branch" : "main",
-        "revision" : "2ade09d0b9e2674193dcc5b8f9826fa824efd204"
+        "revision" : "23bb1f86912197edd77a33ef7750d82e75ae4c4b"
       }
     },
     {
