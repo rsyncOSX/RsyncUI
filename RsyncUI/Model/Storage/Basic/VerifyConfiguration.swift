@@ -206,7 +206,7 @@ final class VerifyConfiguration: Connected {
     private func snapshotcreateremotecatalog(config: SynchronizeConfiguration) {
         guard config.offsiteServer.isEmpty == false else { return }
         let args = ArgumentsSnapshotCreateCatalog(config: config)
-        
+
         let handlers = ProcessHandlersCommand(
             processtermination: { _, _ in
                 Logger.process.info("ProcessCommand: Process terminated with default handler")
@@ -221,11 +221,10 @@ final class VerifyConfiguration: Connected {
             },
             rsyncui: true
         )
-        
-        
+
         let process = ProcessCommand(command: args.getCommand(),
-                                           arguments: args.getArguments(),
-                                            handlers: handlers)
+                                     arguments: args.getArguments(),
+                                     handlers: handlers)
         do {
             try process.executeProcess()
         } catch let e {

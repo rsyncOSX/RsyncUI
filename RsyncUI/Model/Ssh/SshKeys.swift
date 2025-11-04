@@ -8,8 +8,8 @@
 
 import Cocoa
 import Foundation
-import SSHCreateKey
 import ProcessCommand
+import SSHCreateKey
 
 @MainActor
 final class SshKeys {
@@ -54,7 +54,7 @@ final class SshKeys {
             },
             rsyncui: true
         )
-        
+
         let process = ProcessCommand(command: command,
                                      arguments: arguments,
                                      handlers: handlers)

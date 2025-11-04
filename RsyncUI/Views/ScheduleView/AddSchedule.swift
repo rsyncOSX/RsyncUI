@@ -22,9 +22,6 @@ struct AddSchedule: View {
     @State private var dateRunMonth: String = Date.now.en_string_month_from_date()
     @State private var dateRunHour: String = ""
 
-    // DEMO
-    @State private var schedulesdemo = ObservableSchedulesDEMO()
-
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -91,16 +88,6 @@ struct AddSchedule: View {
                         item.scheduledata
                     }
                     WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
-                }
-
-                if SharedReference.shared.scheduledemomode == true {
-                    ConditionalGlassButton(
-                        systemImage: "plus",
-                        text: "DEMO",
-                        helpText: "Add schedule"
-                    ) {
-                        schedulesdemo.demodatatestschedule()
-                    }
                 }
             }
             .padding()
