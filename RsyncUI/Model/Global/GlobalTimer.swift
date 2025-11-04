@@ -143,7 +143,7 @@ final class GlobalTimer {
             scheduleNextTimer()
         }
     }
-
+/*
     func cleanup() {
         if let observer = wakeObserver {
             NSWorkspace.shared.notificationCenter.removeObserver(observer)
@@ -152,7 +152,7 @@ final class GlobalTimer {
         timer?.invalidate()
         timer = nil
     }
-
+*/
     func scheduleNextTimer() {
         Logger.process.info("GlobalTimer: scheduleNextTimer() - Invalidateing existing timer")
         timer?.invalidate()

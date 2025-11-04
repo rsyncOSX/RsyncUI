@@ -15,7 +15,6 @@ struct Logsettings: View {
     @State private var togglealwaysshowestimateddetailsview: Bool = false
     @State private var togglehideverifyremotefunction: Bool = false
     @State private var togglehideschedule: Bool = false
-    @State private var demoschedule: Bool = false
 
     var body: some View {
         Form {
@@ -89,16 +88,6 @@ struct Logsettings: View {
                 if togglehideverifyremotefunction {
                     DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Please restart RsyncUI to take effect", comment: ""))
                 }
-
-                /* DEMO SCHEDULE
-                 if SharedReference.shared.hideschedule == false {
-                     ToggleViewDefault(text: NSLocalizedString("Test Schedule", comment: ""),
-                                       binding: $demoschedule)
-                         .onChange(of: demoschedule) {
-                             SharedReference.shared.scheduledemomode = demoschedule
-                         }
-                 }
-                 */
             }
 
             Section(header: Text("Save userconfiguration")
