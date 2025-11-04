@@ -9,6 +9,7 @@
 import Cocoa
 import Foundation
 import SSHCreateKey
+import ProcessCommand
 
 @MainActor
 final class SshKeys {
@@ -41,13 +42,28 @@ final class SshKeys {
     // Execute command
     func executesshcreatekeys() {
         guard arguments != nil else { return }
+        let handlers = ProcessHandlersCommand(
+            processtermination: processtermination,
+            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+            updateprocess: SharedReference.shared.updateprocess,
+            propogateerror: { error in
+                SharedReference.shared.errorobject?.alert(error: error)
+            },
+            rsyncui: true
+        )
+        
         let process = ProcessCommand(command: command,
                                      arguments: arguments,
-                                     processtermination: processtermination)
-        process.executeProcess()
+                                     handlers: handlers)
+        do {
+            try process.executeProcess()
+        } catch let e {
+            let error = e
+            SharedReference.shared.errorobject?.alert(error: error)
+        }
     }
 
-    func processtermination(stringoutputfromrsync: [String]?) {
+    func processtermination(stringoutputfromrsync: [String]?, _: Bool) {
         Task {
             await ActorLogToFile(command: command ?? "", stringoutputfromrsync: TrimOutputFromRsync(stringoutputfromrsync ?? []).trimmeddata)
         }

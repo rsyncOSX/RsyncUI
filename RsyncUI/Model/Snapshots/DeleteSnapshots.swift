@@ -7,6 +7,8 @@
 
 import Foundation
 import OSLog
+import ProcessCommand
+
 
 @MainActor
 final class DeleteSnapshots {
@@ -43,11 +45,27 @@ final class DeleteSnapshots {
             let remaining = snapshotcatalogstodelete?.count ?? 0
             mysnapshotdata?.remainingsnapshotstodelete = (mysnapshotdata?.maxnumbertodelete ?? 0) - remaining
             if let config = localeconfig {
+                
+                let handlers = ProcessHandlersCommand(
+                    processtermination: processtermination,
+                    checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+                    updateprocess: SharedReference.shared.updateprocess,
+                    propogateerror: { error in
+                        SharedReference.shared.errorobject?.alert(error: error)
+                    },
+                    rsyncui: true
+                )
+                
                 let arguments = ArgumentsSnapshotDeleteCatalogs(config: config, remotecatalog: remotecatalog)
-                let command = ProcessCommand(command: arguments.getCommand(),
+                let process = ProcessCommand(command: arguments.getCommand(),
                                              arguments: arguments.getArguments(),
-                                             processtermination: processtermination)
-                command.executeProcess()
+                                             handlers: handlers)
+                do {
+                    try process.executeProcess()
+                } catch let e {
+                    let error = e
+                    SharedReference.shared.errorobject?.alert(error: error)
+                }
             }
         }
     }
@@ -64,7 +82,7 @@ final class DeleteSnapshots {
 }
 
 extension DeleteSnapshots {
-    func processtermination(data _: [String]?) {
+    func processtermination(data _: [String]?, _: Bool) {
         deletesnapshots()
     }
 }
