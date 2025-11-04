@@ -24,6 +24,9 @@ final class Rsyncversion {
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)
             },
+            logger: { command, output in
+                _ = await ActorLogToFile(command, output)
+            },
             checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
             rsyncversion3: SharedReference.shared.rsyncversion3
         )
