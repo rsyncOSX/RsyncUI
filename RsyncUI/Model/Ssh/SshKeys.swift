@@ -49,6 +49,9 @@ final class SshKeys {
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)
             },
+            logger: { command, output in
+                _ = await ActorLogToFile(command, output)
+            },
             rsyncui: true
         )
         
@@ -65,7 +68,7 @@ final class SshKeys {
 
     func processtermination(stringoutputfromrsync: [String]?, _: Bool) {
         Task {
-            await ActorLogToFile(command: command ?? "", stringoutputfromrsync: TrimOutputFromRsync(stringoutputfromrsync ?? []).trimmeddata)
+            await ActorLogToFile(command ?? "", TrimOutputFromRsync(stringoutputfromrsync ?? []).trimmeddata)
         }
     }
 

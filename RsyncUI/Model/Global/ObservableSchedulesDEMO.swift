@@ -234,7 +234,7 @@ final class ObservableSchedulesDEMO {
             GlobalTimer.shared.scheduleNextTimer()
             Task {
                 // Logging to file that a Schedule is fired
-                await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule NOTEXECUTED for DEMO:"])
+                await ActorLogToFile("Schedule", ["ObservableFutureSchedules: schedule NOTEXECUTED for DEMO:"])
             }
         }
 
@@ -261,7 +261,7 @@ final class ObservableSchedulesDEMO {
             GlobalTimer.shared.scheduleNextTimer()
             Task {
                 // Logging to file that a Schedule is fired
-                await ActorLogToFile(command: "Schedule", stringoutputfromrsync: ["ObservableFutureSchedules: schedule FIRED for DEMO: count is \(count)"])
+                await ActorLogToFile("Schedule",  ["ObservableFutureSchedules: schedule FIRED for DEMO: count is \(count)"])
             }
         }
         // Then add new schedule
