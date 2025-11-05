@@ -26,7 +26,7 @@ struct AboutView: View {
 
     var copyright: String {
         let copyright = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as? String
-        return copyright ?? NSLocalizedString("Copyright ©2025 Thomas Evensen", comment: "")
+        return copyright ?? NSLocalizedString("Copyright ©2020-2026 Thomas Evensen", comment: "")
     }
 
     var configpath: String {
