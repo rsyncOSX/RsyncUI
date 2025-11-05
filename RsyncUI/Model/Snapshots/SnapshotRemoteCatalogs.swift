@@ -30,7 +30,8 @@ final class SnapshotRemoteCatalogs {
                 _ = await ActorLogToFile(command, output)
             },
             checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
-            rsyncversion3: SharedReference.shared.rsyncversion3
+            rsyncversion3: SharedReference.shared.rsyncversion3,
+            environment: MyEnvironment()?.environment
         )
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
         let process = ProcessRsync(arguments: arguments,

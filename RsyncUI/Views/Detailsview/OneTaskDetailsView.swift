@@ -69,7 +69,8 @@ struct OneTaskDetailsView: View {
                     _ = await ActorLogToFile(command, output)
                 },
                 checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
-                rsyncversion3: SharedReference.shared.rsyncversion3
+                rsyncversion3: SharedReference.shared.rsyncversion3,
+                environment: MyEnvironment()?.environment
             )
             // Must check valid rsync exists
             guard SharedReference.shared.norsync == false else { return }

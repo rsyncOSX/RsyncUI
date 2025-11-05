@@ -68,7 +68,8 @@ final class EstimateExecute {
                 _ = await ActorLogToFile(command, output)
             },
             checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
-            rsyncversion3: SharedReference.shared.rsyncversion3
+            rsyncversion3: SharedReference.shared.rsyncversion3,
+            environment: MyEnvironment()?.environment
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
@@ -115,7 +116,8 @@ final class EstimateExecute {
                 _ = await ActorLogToFile(command, output)
             },
             checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
-            rsyncversion3: SharedReference.shared.rsyncversion3
+            rsyncversion3: SharedReference.shared.rsyncversion3,
+            environment: MyEnvironment()?.environment
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
@@ -160,7 +162,8 @@ final class EstimateExecute {
                 _ = await ActorLogToFile(command, output)
             },
             checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
-            rsyncversion3: SharedReference.shared.rsyncversion3
+            rsyncversion3: SharedReference.shared.rsyncversion3,
+            environment: MyEnvironment()?.environment
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {

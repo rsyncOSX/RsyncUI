@@ -55,7 +55,8 @@ final class ObservableRestore {
                 _ = await ActorLogToFile(command, output)
             },
             checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
-            rsyncversion3: SharedReference.shared.rsyncversion3
+            rsyncversion3: SharedReference.shared.rsyncversion3,
+            environment: MyEnvironment()?.environment
         )
         do {
             let ok = try validateforrestore()

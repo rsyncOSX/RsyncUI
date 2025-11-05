@@ -123,7 +123,8 @@ struct VerifyTasks: View {
                 _ = await ActorLogToFile(command, output)
             },
             checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
-            rsyncversion3: SharedReference.shared.rsyncversion3
+            rsyncversion3: SharedReference.shared.rsyncversion3,
+            environment: MyEnvironment()?.environment
         )
 
         guard SharedReference.shared.norsync == false else { return }

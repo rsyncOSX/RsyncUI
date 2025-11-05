@@ -306,7 +306,8 @@ extension RestoreTableView {
                     _ = await ActorLogToFile(command, output)
                 },
                 checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
-                rsyncversion3: SharedReference.shared.rsyncversion3
+                rsyncversion3: SharedReference.shared.rsyncversion3,
+                environment: MyEnvironment()?.environment
             )
 
             let process = ProcessRsync(arguments: arguments,
