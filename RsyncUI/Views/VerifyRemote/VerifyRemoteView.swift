@@ -80,59 +80,61 @@ struct VerifyRemoteView: View {
             .navigationDestination(for: Verify.self) { which in
                 makeView(view: which.task)
             }
-            .toolbar(content: {
-                if remoteconfigurations, alltasksarehalted() == false {
-                    ToolbarItem {
-                        ConditionalGlassButton(
-                            systemImage: "arrow.up",
-                            helpText: "Verify selected"
-                        ) {
-                            guard let selectedconfig else { return }
-                            guard selectedtaskishalted == false else { return }
-                            verifypath.append(Verify(task: .pushpullview(configID: selectedconfig.id)))
-                        }
-                    }
-                }
-
-                ToolbarItem {
-                    ConditionalGlassButton(
-                        systemImage: "arrow.left.arrow.right.circle.fill",
-                        helpText: "Pull or push"
-                    ) {
-                        guard let selectedconfig else { return }
-                        verifypath.append(Verify(task: .executenpushpullview(configID: selectedconfig.id)))
-                    }
-                }
-
-                ToolbarItem {
-                    Spacer()
-                }
-
-                // Cannot use the view modifier ConditionalGlassButton when the close role is part of
-                // the button, use like this then.
-                if #available(macOS 26.0, *) {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("Close", role: .close) {
-                            activeSheet = nil
-                            dismiss()
-                        }
-                        .buttonStyle(RefinedGlassButtonStyle())
-                    }
-                } else {
-                    ToolbarItem {
-                        Button {
-                            activeSheet = nil
-                        } label: {
-                            Image(systemName: "return")
-                        }
-                        .help("Close")
-                        .buttonStyle(.borderedProminent)
-                    }
-                }
-
-            })
+            .toolbar { verifyremotetoolbarcontent }
         }
         .padding(10)
+    }
+
+    @ToolbarContentBuilder
+    private var verifyremotetoolbarcontent: some ToolbarContent {
+        if remoteconfigurations, alltasksarehalted() == false {
+            ToolbarItem {
+                ConditionalGlassButton(
+                    systemImage: "arrow.up",
+                    helpText: "Verify selected"
+                ) {
+                    guard let selectedconfig else { return }
+                    guard selectedtaskishalted == false else { return }
+                    verifypath.append(Verify(task: .pushpullview(configID: selectedconfig.id)))
+                }
+            }
+        }
+
+        ToolbarItem {
+            ConditionalGlassButton(
+                systemImage: "arrow.left.arrow.right.circle.fill",
+                helpText: "Pull or push"
+            ) {
+                guard let selectedconfig else { return }
+                verifypath.append(Verify(task: .executenpushpullview(configID: selectedconfig.id)))
+            }
+        }
+
+        ToolbarItem {
+            Spacer()
+        }
+
+        // Cannot use the view modifier ConditionalGlassButton when the close role is part of
+        // the button, use like this then.
+        if #available(macOS 26.0, *) {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Close", role: .close) {
+                    activeSheet = nil
+                    dismiss()
+                }
+                .buttonStyle(RefinedGlassButtonStyle())
+            }
+        } else {
+            ToolbarItem {
+                Button {
+                    activeSheet = nil
+                } label: {
+                    Image(systemName: "return")
+                }
+                .help("Close")
+                .buttonStyle(.borderedProminent)
+            }
+        }
     }
 
     @MainActor @ViewBuilder

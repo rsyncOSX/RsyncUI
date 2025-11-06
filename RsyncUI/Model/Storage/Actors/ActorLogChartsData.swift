@@ -41,7 +41,7 @@ actor ActorLogChartsData {
                                 transferredMB: size,
                                 seconds: seconds)
                 // Synchronize task
-            } else if numbers.count ==  3 {
+            } else if numbers.count == 3 {
                 let files = numbers[0]
                 let size = numbers[1]
                 let seconds = numbers[2]

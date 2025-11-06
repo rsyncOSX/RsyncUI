@@ -116,74 +116,77 @@ struct RestoreTableView: View {
                     }
                 }
             }
-            .toolbar(content: {
-                ToolbarItem {
-                    if restore.selectedconfig?.task != SharedReference.shared.syncremote,
-                       restore.selectedconfig?.task != SharedReference.shared.halted,
-                       restore.selectedconfig?.offsiteServer.isEmpty == false,
-                       restore.restorefilelist.count == 0
-                    {
-                        Button {
-                            getlistoffilesforrestore()
-                        } label: {
-                            Image(systemName: "square.and.arrow.down.fill")
-                        }
-                        .help("Get list of files for restore")
-                    }
-                }
-
-                ToolbarItem {
-                    if restore.selectedconfig?.task == SharedReference.shared.snapshot {
-                        snapshotfolderpicker
-                    }
-                }
-
-                ToolbarItem {
-                    if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
-                       restore.restorefilelist.count > 0,
-                       restore.filestorestore.isEmpty == false
-                    {
-                        Button {
-                            executerestore()
-                        } label: {
-                            Image(systemName: "play.fill")
-                                .foregroundColor(Color(.blue))
-                        }
-                        .help("Restore files")
-                    }
-                }
-
-                ToolbarItem {
-                    if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
-                       restore.restorefilelist.count > 0,
-                       restore.filestorestore.isEmpty == false
-                    {
-                        Button {
-                            guard SharedReference.shared.process == nil else { return }
-                            guard restore.selectedconfig != nil else { return }
-                            restore.presentrestorelist = true
-                        } label: {
-                            Image(systemName: "doc.plaintext")
-                        }
-                        .help("Output from rsync")
-                    }
-                }
-
-                ToolbarItem {
-                    Button {
-                        abort()
-                    } label: {
-                        Image(systemName: "stop.fill")
-                    }
-                    .help("Abort (⌘K)")
-                }
-            })
+            .toolbar { restoretoolbarcontent }
         }
         .navigationTitle("Restore files")
         .navigationDestination(isPresented: $restore.presentrestorelist) {
             OutputRsyncView(output: restore.restorefilelist)
         }
         .padding()
+    }
+
+    @ToolbarContentBuilder
+    private var restoretoolbarcontent: some ToolbarContent {
+        ToolbarItem {
+            if restore.selectedconfig?.task != SharedReference.shared.syncremote,
+               restore.selectedconfig?.task != SharedReference.shared.halted,
+               restore.selectedconfig?.offsiteServer.isEmpty == false,
+               restore.restorefilelist.count == 0
+            {
+                Button {
+                    getlistoffilesforrestore()
+                } label: {
+                    Image(systemName: "square.and.arrow.down.fill")
+                }
+                .help("Get list of files for restore")
+            }
+        }
+
+        ToolbarItem {
+            if restore.selectedconfig?.task == SharedReference.shared.snapshot {
+                snapshotfolderpicker
+            }
+        }
+
+        ToolbarItem {
+            if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
+               restore.restorefilelist.count > 0,
+               restore.filestorestore.isEmpty == false
+            {
+                Button {
+                    executerestore()
+                } label: {
+                    Image(systemName: "play.fill")
+                        .foregroundColor(Color(.blue))
+                }
+                .help("Restore files")
+            }
+        }
+
+        ToolbarItem {
+            if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
+               restore.restorefilelist.count > 0,
+               restore.filestorestore.isEmpty == false
+            {
+                Button {
+                    guard SharedReference.shared.process == nil else { return }
+                    guard restore.selectedconfig != nil else { return }
+                    restore.presentrestorelist = true
+                } label: {
+                    Image(systemName: "doc.plaintext")
+                }
+                .help("Output from rsync")
+            }
+        }
+
+        ToolbarItem {
+            Button {
+                abort()
+            } label: {
+                Image(systemName: "stop.fill")
+            }
+            .help("Abort (⌘K)")
+        }
     }
 
     var labelaborttask: some View {

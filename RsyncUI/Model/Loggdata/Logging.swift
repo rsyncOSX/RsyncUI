@@ -36,11 +36,11 @@ final class Logging {
             guard extractnumbersasdoubles(from: result).count == 3 || extractnumbersasdoubles(from: result).count == 4 else {
                 return false
             }
-            
+
             var log = Log()
             log.dateExecuted = date
             log.resultExecuted = result
-            
+
             if logrecords?[index].logrecords == nil {
                 logrecords?[index].logrecords = [Log]()
             }
@@ -57,7 +57,7 @@ final class Logging {
         guard extractnumbersasdoubles(from: result).count == 3 || extractnumbersasdoubles(from: result).count == 4 else {
             return false
         }
-        
+
         var newrecord = LogRecords()
         newrecord.hiddenID = hiddenID
         let currendate = Date()
@@ -127,7 +127,7 @@ final class Logging {
             WriteLogRecordsJSON(localeprofile, logrecords)
         }
     }
-    
+
     // Extract numbers as Double values
     private func extractnumbersasdoubles(from string: String) -> [Double] {
         extractnumbersasstrings(from: string).compactMap { Double($0) }

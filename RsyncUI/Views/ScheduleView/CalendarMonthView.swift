@@ -189,62 +189,65 @@ struct CalendarMonthView: View {
             }
         }
         .padding()
-        .toolbar {
-            ToolbarItem {
-                ConditionalGlassButton(
-                    systemImage: "arrow.left",
-                    helpText: "Previous month"
-                ) {
-                    date = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date.now
-                    schedules.lastdateinpresentmont = date.endOfMonth
-                    istappeddayint = 0
-                }
-            }
+        .toolbar { calendartoolbarcontent }
+    }
 
-            ToolbarItem {
-                ConditionalGlassButton(
-                    systemImage: "clock",
-                    helpText: "Today"
-                ) {
-                    date = Date.now
-                    schedules.lastdateinpresentmont = Date.now.endOfMonth
-                    istappeddayint = 0
-                }
+    @ToolbarContentBuilder
+    private var calendartoolbarcontent: some ToolbarContent {
+        ToolbarItem {
+            ConditionalGlassButton(
+                systemImage: "arrow.left",
+                helpText: "Previous month"
+            ) {
+                date = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date.now
+                schedules.lastdateinpresentmont = date.endOfMonth
+                istappeddayint = 0
             }
+        }
 
-            ToolbarItem {
-                ConditionalGlassButton(
-                    systemImage: "arrow.right",
-                    helpText: "Next month"
-                ) {
-                    date = Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date.now
-                    schedules.lastdateinpresentmont = date.endOfMonth
-                    istappeddayint = 0
-                }
+        ToolbarItem {
+            ConditionalGlassButton(
+                systemImage: "clock",
+                helpText: "Today"
+            ) {
+                date = Date.now
+                schedules.lastdateinpresentmont = Date.now.endOfMonth
+                istappeddayint = 0
             }
+        }
 
-            ToolbarItem {
-                Spacer()
+        ToolbarItem {
+            ConditionalGlassButton(
+                systemImage: "arrow.right",
+                helpText: "Next month"
+            ) {
+                date = Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date.now
+                schedules.lastdateinpresentmont = date.endOfMonth
+                istappeddayint = 0
             }
+        }
 
-            if #available(macOS 26.0, *) {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Close", role: .close) {
-                        activeSheet = nil
-                        dismiss()
-                    }
-                    .buttonStyle(RefinedGlassButtonStyle())
+        ToolbarItem {
+            Spacer()
+        }
+
+        if #available(macOS 26.0, *) {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Close", role: .close) {
+                    activeSheet = nil
+                    dismiss()
                 }
-            } else {
-                ToolbarItem {
-                    Button {
-                        activeSheet = nil
-                    } label: {
-                        Image(systemName: "return")
-                    }
-                    .help("Close")
-                    .buttonStyle(.borderedProminent)
+                .buttonStyle(RefinedGlassButtonStyle())
+            }
+        } else {
+            ToolbarItem {
+                Button {
+                    activeSheet = nil
+                } label: {
+                    Image(systemName: "return")
                 }
+                .help("Close")
+                .buttonStyle(.borderedProminent)
             }
         }
     }
