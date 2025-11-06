@@ -249,6 +249,13 @@ struct TasksView: View {
                             executetaskpath.append(Tasks(task: .summarizeddetailsview))
                             return
                         }
+                        
+                        if selecteduuids.count == 1 {
+                            guard selectedconfig?.task != SharedReference.shared.halted else {
+                                return
+                            }
+                        }
+                        
                         if progressdetails.tasksareestimated(selecteduuids) {
                             executetaskpath.append(Tasks(task: .dryrunonetaskalreadyestimated))
                         } else {
