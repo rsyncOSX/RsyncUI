@@ -32,9 +32,15 @@ final class Logging {
 
     func addlogexisting(hiddenID: Int, result: String, date: String) -> Bool {
         if let index = logrecords?.firstIndex(where: { $0.hiddenID == hiddenID }) {
+            // Extra check that log results contains numbers
+            guard extractnumbersasdoubles(from: result).count == 3 || extractnumbersasdoubles(from: result).count == 4 else {
+                return false
+            }
+            
             var log = Log()
             log.dateExecuted = date
             log.resultExecuted = result
+            
             if logrecords?[index].logrecords == nil {
                 logrecords?[index].logrecords = [Log]()
             }
@@ -47,6 +53,11 @@ final class Logging {
     }
 
     func addlognew(hiddenID: Int, result: String, date: String) -> Bool {
+        // Extra check that log results contains numbers
+        guard extractnumbersasdoubles(from: result).count == 3 || extractnumbersasdoubles(from: result).count == 4 else {
+            return false
+        }
+        
         var newrecord = LogRecords()
         newrecord.hiddenID = hiddenID
         let currendate = Date()
@@ -114,6 +125,21 @@ final class Logging {
                 }
             }
             WriteLogRecordsJSON(localeprofile, logrecords)
+        }
+    }
+    
+    // Extract numbers as Double values
+    private func extractnumbersasdoubles(from string: String) -> [Double] {
+        extractnumbersasstrings(from: string).compactMap { Double($0) }
+    }
+
+    // Extract all numbers as strings
+    private func extractnumbersasstrings(from string: String) -> [String] {
+        let pattern = #"\d+(?:\.\d+)?"# // Matches integers and decimals
+        let regex = try! NSRegularExpression(pattern: pattern)
+        let matches = regex.matches(in: string, range: NSRange(string.startIndex..., in: string))
+        return matches.map { match in
+            String(string[Range(match.range, in: string)!])
         }
     }
 
