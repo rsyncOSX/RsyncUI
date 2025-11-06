@@ -21,9 +21,9 @@ struct ExecuteCommands: Commands {
             Divider()
 
             Abborttask(aborttask: $aborttask)
-            
+
             Divider()
-            
+
             ShowQuicktask(showquicktask: $showquicktask)
         }
     }
@@ -67,28 +67,28 @@ struct Abborttask: View {
         .keyboardShortcut("k", modifiers: [.command])
     }
 }
+
 struct ShowQuicktask: View {
     @Binding var showquicktask: Bool?
 
     var body: some View {
-        
         if show {
             Button {
-                self.showquicktask = true
+                showquicktask = true
             } label: {
-                Label("Show Quicktask", systemImage: "play.fill")
+                Label("Show Quicktask", systemImage: "hare.fill")
             }
             .keyboardShortcut("s", modifiers: [.command])
         } else {
             Button {
-                self.showquicktask = false
+                showquicktask = false
             } label: {
-                Label("Hide Quicktask", systemImage: "play.fill")
+                Label("Hide Quicktask", systemImage: "hare")
             }
             .keyboardShortcut("s", modifiers: [.command])
         }
     }
-    
+
     var show: Bool {
         if showquicktask == false {
             true
@@ -129,12 +129,9 @@ extension FocusedValues {
         get { self[FocusedAborttask.self] }
         set { self[FocusedAborttask.self] = newValue }
     }
-    
+
     var showquicktask: FocusedShowQuicktaskBinding.Value? {
         get { self[FocusedShowQuicktaskBinding.self] }
         set { self[FocusedShowQuicktaskBinding.self] = newValue }
     }
 }
-
-
-

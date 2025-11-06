@@ -272,7 +272,7 @@ struct TasksView: View {
             }
             .help("Synchronize (⌘R)")
         }
-        
+
         ToolbarItem {
             Button {
                 selecteduuids.removeAll()
@@ -287,63 +287,60 @@ struct TasksView: View {
             }
             .help("Reset estimates")
         }
-        
+
         ToolbarItem {
             Spacer()
         }
 
         Group {
-            
             if showquicktask {
-                
-            ToolbarItem {
-                Button {
-                    guard selecteduuids.count > 0 else { return }
-                    guard alltasksarehalted() == false else { return }
+                ToolbarItem {
+                    Button {
+                        guard selecteduuids.count > 0 else { return }
+                        guard alltasksarehalted() == false else { return }
 
-                    guard selecteduuids.count == 1 else {
-                        executetaskpath.append(Tasks(task: .summarizeddetailsview))
-                        return
-                    }
-
-                    if selecteduuids.count == 1 {
-                        guard selectedconfig?.task != SharedReference.shared.halted else {
+                        guard selecteduuids.count == 1 else {
+                            executetaskpath.append(Tasks(task: .summarizeddetailsview))
                             return
                         }
+
+                        if selecteduuids.count == 1 {
+                            guard selectedconfig?.task != SharedReference.shared.halted else {
+                                return
+                            }
+                        }
+
+                        if progressdetails.tasksareestimated(selecteduuids) {
+                            executetaskpath.append(Tasks(task: .dryrunonetaskalreadyestimated))
+                        } else {
+                            executetaskpath.append(Tasks(task: .onetaskdetailsview))
+                        }
+                    } label: {
+                        Image(systemName: "text.magnifyingglass")
                     }
+                    .help("Rsync output estimated task")
+                }
 
-                    if progressdetails.tasksareestimated(selecteduuids) {
-                        executetaskpath.append(Tasks(task: .dryrunonetaskalreadyestimated))
-                    } else {
-                        executetaskpath.append(Tasks(task: .onetaskdetailsview))
+                ToolbarItem {
+                    Button {
+                        executetaskpath.append(Tasks(task: .viewlogfile))
+                    } label: {
+                        Image(systemName: "doc.plaintext")
                     }
-                } label: {
-                    Image(systemName: "text.magnifyingglass")
+                    .help("View logfile")
                 }
-                .help("Rsync output estimated task")
-            }
 
-            ToolbarItem {
-                Button {
-                    executetaskpath.append(Tasks(task: .viewlogfile))
-                } label: {
-                    Image(systemName: "doc.plaintext")
+                ToolbarItem {
+                    Button {
+                        executetaskpath.append(Tasks(task: .quick_synchronize))
+                    } label: {
+                        Image(systemName: "hare")
+                    }
+                    .help("Quick synchronize")
                 }
-                .help("View logfile")
-            }
-
-            ToolbarItem {
-                Button {
-                    executetaskpath.append(Tasks(task: .quick_synchronize))
-                } label: {
-                    Image(systemName: "hare")
-                }
-                .help("Quick synchronize")
             }
         }
 
-        }
-        
         ToolbarItem {
             Spacer()
         }
