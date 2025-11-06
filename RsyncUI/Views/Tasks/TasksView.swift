@@ -63,6 +63,7 @@ struct TasksView: View {
     // For estimates is true
     @State private var thereareestimates: Bool = false
     @State private var activeSheet: SheetType?
+    @State private var showquicktask: Bool = false
 
     var body: some View {
         ZStack {
@@ -126,6 +127,7 @@ struct TasksView: View {
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.exporttasks, $focusexport)
         .focusedSceneValue(\.importtasks, $focusimport)
+        .focusedSceneValue(\.showquicktask, $showquicktask)
         .toolbar { taskviewtoolbarcontent }
         .alert(isPresented: $showingAlert) {
             Alert(
@@ -292,7 +294,8 @@ struct TasksView: View {
 
         Group {
             
-
+            if showquicktask {
+                
             ToolbarItem {
                 Button {
                     guard selecteduuids.count > 0 else { return }
@@ -339,6 +342,8 @@ struct TasksView: View {
             }
         }
 
+        }
+        
         ToolbarItem {
             Spacer()
         }
