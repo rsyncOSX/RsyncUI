@@ -76,14 +76,14 @@ struct ShowQuicktask: View {
             Button {
                 showquicktask = true
             } label: {
-                Label("Show Quicktask", systemImage: "hare.fill")
+                Label("Show Quick & Chart", systemImage: "hare.fill")
             }
             .keyboardShortcut("s", modifiers: [.command])
         } else {
             Button {
                 showquicktask = false
             } label: {
-                Label("Hide Quicktask", systemImage: "hare")
+                Label("Hide Quick & Chart", systemImage: "hare")
             }
             .keyboardShortcut("s", modifiers: [.command])
         }

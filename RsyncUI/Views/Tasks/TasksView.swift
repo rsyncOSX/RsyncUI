@@ -338,6 +338,16 @@ struct TasksView: View {
                     }
                     .help("Quick synchronize")
                 }
+                
+                ToolbarItem {
+                    Button {
+                        executetaskpath.append(Tasks(task: .charts))
+                    } label: {
+                        Image(systemName: "chart.bar.fill")
+                    }
+                    .help("Charts")
+                    .disabled(selecteduuids.count != 1 || selectedconfig?.task == SharedReference.shared.syncremote)
+                }
             }
         }
 
@@ -346,16 +356,6 @@ struct TasksView: View {
         }
 
         Group {
-            ToolbarItem {
-                Button {
-                    executetaskpath.append(Tasks(task: .charts))
-                } label: {
-                    Image(systemName: "chart.bar.fill")
-                }
-                .help("Charts")
-                .disabled(selecteduuids.count != 1 || selectedconfig?.task == SharedReference.shared.syncremote)
-            }
-
             if alltasksarehalted() == false {
                 ToolbarItem {
                     Button {
