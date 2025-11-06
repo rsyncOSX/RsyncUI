@@ -126,7 +126,58 @@ struct TasksView: View {
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.exporttasks, $focusexport)
         .focusedSceneValue(\.importtasks, $focusimport)
-        .toolbar(content: {
+        .toolbar { taskviewtoolbarcontent }
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("Synchronize all tasks with NO estimating first?"),
+                primaryButton: .default(Text("Synchronize")) {
+                    executetaskpath.append(Tasks(task: .executenoestimatetasksview))
+                },
+                secondaryButton: .cancel()
+            )
+        }
+        .sheet(item: $activeSheet) { sheetType in
+            switch sheetType {
+            case .verifyremoteview:
+                VerifyRemoteView(rsyncUIdata: rsyncUIdata,
+                                 selecteduuids: $selecteduuids,
+                                 activeSheet: $activeSheet)
+                    .frame(minWidth: 1100, idealWidth: 1200, minHeight: 400)
+                    .onDisappear {
+                        activeSheet = nil
+                    }
+            case .exportview:
+                if let configurations = rsyncUIdata.configurations {
+                    ExportView(activeSheet: $activeSheet,
+                               configurations: configurations,
+                               preselectedtasks: selecteduuids)
+                        .onDisappear {
+                            selecteduuids.removeAll()
+                            activeSheet = nil
+                        }
+                }
+            case .importview:
+                ImportView(rsyncUIdata: rsyncUIdata,
+                           activeSheet: $activeSheet,
+                           maxhiddenID: MaxhiddenID().computemaxhiddenID(rsyncUIdata.configurations))
+                    .onDisappear {
+                        activeSheet = nil
+                    }
+            case .scheduledtasksview:
+                CalendarMonthView(rsyncUIdata: rsyncUIdata,
+                                  schedules: schedules,
+                                  selectedprofileID: $selectedprofileID,
+                                  activeSheet: $activeSheet)
+                    .frame(minWidth: 1100, idealWidth: 1200, minHeight: 400)
+                    .onDisappear {
+                        activeSheet = nil
+                    }
+            }
+        }
+    }
+    
+    @ToolbarContentBuilder
+        private var taskviewtoolbarcontent: some ToolbarContent {
             ToolbarItem {
                 if GlobalTimer.shared.timerIsActive(),
                    columnVisibility == .detailOnly
@@ -300,7 +351,7 @@ struct TasksView: View {
                     .help("Charts")
                     .disabled(selecteduuids.count != 1 || selectedconfig?.task == SharedReference.shared.syncremote)
                 }
-
+                
                 if alltasksarehalted() == false {
                     ToolbarItem {
                         Button {
@@ -326,7 +377,7 @@ struct TasksView: View {
                         .help("Schedule")
                     }
                 }
-
+                
                 if SharedReference.shared.hideverifyremotefunction == false,
                    SharedReference.shared.rsyncversion3,
                    rsyncUIdata.oneormoretasksissnapshot == false,
@@ -343,56 +394,7 @@ struct TasksView: View {
                     }
                 }
             }
-
-        })
-        .alert(isPresented: $showingAlert) {
-            Alert(
-                title: Text("Synchronize all tasks with NO estimating first?"),
-                primaryButton: .default(Text("Synchronize")) {
-                    executetaskpath.append(Tasks(task: .executenoestimatetasksview))
-                },
-                secondaryButton: .cancel()
-            )
         }
-        .sheet(item: $activeSheet) { sheetType in
-            switch sheetType {
-            case .verifyremoteview:
-                VerifyRemoteView(rsyncUIdata: rsyncUIdata,
-                                 selecteduuids: $selecteduuids,
-                                 activeSheet: $activeSheet)
-                    .frame(minWidth: 1100, idealWidth: 1200, minHeight: 400)
-                    .onDisappear {
-                        activeSheet = nil
-                    }
-            case .exportview:
-                if let configurations = rsyncUIdata.configurations {
-                    ExportView(activeSheet: $activeSheet,
-                               configurations: configurations,
-                               preselectedtasks: selecteduuids)
-                        .onDisappear {
-                            selecteduuids.removeAll()
-                            activeSheet = nil
-                        }
-                }
-            case .importview:
-                ImportView(rsyncUIdata: rsyncUIdata,
-                           activeSheet: $activeSheet,
-                           maxhiddenID: MaxhiddenID().computemaxhiddenID(rsyncUIdata.configurations))
-                    .onDisappear {
-                        activeSheet = nil
-                    }
-            case .scheduledtasksview:
-                CalendarMonthView(rsyncUIdata: rsyncUIdata,
-                                  schedules: schedules,
-                                  selectedprofileID: $selectedprofileID,
-                                  activeSheet: $activeSheet)
-                    .frame(minWidth: 1100, idealWidth: 1200, minHeight: 400)
-                    .onDisappear {
-                        activeSheet = nil
-                    }
-            }
-        }
-    }
 
     var doubleclickaction: some View {
         Label("", systemImage: "play.fill")
