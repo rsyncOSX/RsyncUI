@@ -270,26 +270,28 @@ struct TasksView: View {
             }
             .help("Synchronize (⌘R)")
         }
-
+        
+        ToolbarItem {
+            Button {
+                selecteduuids.removeAll()
+                reset()
+            } label: {
+                if thereareestimates == true {
+                    Image(systemName: "clear")
+                        .foregroundColor(Color(.red))
+                } else {
+                    Image(systemName: "clear")
+                }
+            }
+            .help("Reset estimates")
+        }
+        
         ToolbarItem {
             Spacer()
         }
 
         Group {
-            ToolbarItem {
-                Button {
-                    selecteduuids.removeAll()
-                    reset()
-                } label: {
-                    if thereareestimates == true {
-                        Image(systemName: "clear")
-                            .foregroundColor(Color(.red))
-                    } else {
-                        Image(systemName: "clear")
-                    }
-                }
-                .help("Reset estimates")
-            }
+            
 
             ToolbarItem {
                 Button {
