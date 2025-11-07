@@ -348,6 +348,15 @@ struct TasksView: View {
                     .help("Charts")
                     .disabled(selecteduuids.count != 1 || selectedconfig?.task == SharedReference.shared.syncremote)
                 }
+                
+                ToolbarItem {
+                    Button {
+                        activeSheet = .scheduledtasksview
+                    } label: {
+                        Image(systemName: "calendar.circle.fill")
+                    }
+                    .help("Schedule")
+                }
             }
         }
 
@@ -371,17 +380,7 @@ struct TasksView: View {
                     .help("Estimate & Synchronize")
                 }
             }
-            if SharedReference.shared.hideschedule == false {
-                ToolbarItem {
-                    Button {
-                        activeSheet = .scheduledtasksview
-                    } label: {
-                        Image(systemName: "calendar.circle.fill")
-                    }
-                    .help("Schedule")
-                }
-            }
-
+            
             if SharedReference.shared.hideverifyremotefunction == false,
                SharedReference.shared.rsyncversion3,
                rsyncUIdata.oneormoretasksissnapshot == false,

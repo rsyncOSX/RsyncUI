@@ -14,7 +14,6 @@ struct Logsettings: View {
     @State private var toggleobservemountedvolumes: Bool = false
     @State private var togglealwaysshowestimateddetailsview: Bool = false
     @State private var togglehideverifyremotefunction: Bool = false
-    @State private var togglehideschedule: Bool = false
 
     var body: some View {
         Form {
@@ -60,16 +59,6 @@ struct Logsettings: View {
                         togglehideverifyremotefunction = logsettings.hideverifyremotefunction
                     }
 
-                ToggleViewDefault(text: NSLocalizedString("Hide Schedule", comment: ""),
-                                  binding: $logsettings.hideschedule)
-                    .onChange(of: logsettings.hideschedule) {
-                        SharedReference.shared.hideschedule = logsettings.hideschedule
-                        togglehideschedule = logsettings.hideschedule
-                        if logsettings.hideschedule {
-                            deleteschedulefile()
-                        }
-                    }
-
                 if SharedReference.shared.rsyncversion3 {
                     ToggleViewDefault(text: NSLocalizedString("Confirm execute", comment: ""), binding: $logsettings.confirmexecute)
                         .onChange(of: logsettings.confirmexecute) {
@@ -78,10 +67,6 @@ struct Logsettings: View {
                 }
 
                 if toggleobservemountedvolumes {
-                    DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Please restart RsyncUI to take effect", comment: ""))
-                }
-
-                if togglehideschedule {
                     DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Please restart RsyncUI to take effect", comment: ""))
                 }
 
@@ -101,10 +86,6 @@ struct Logsettings: View {
                 ) {
                     _ = WriteUserConfigurationJSON(UserConfiguration())
                     Logger.process.info("USER CONFIGURATION is SAVED")
-                    if logsettings.hideschedule {
-                        // Schedule is off, delete any schedules
-                        GlobalTimer.shared.invalidateAllSchedulesAndTimer()
-                    }
                 }
             }
         }
