@@ -88,16 +88,16 @@ struct SnapshotsView: View {
             if focusaborttask { labelaborttask }
 
             HStack {
-                Button {
+                
+                ConditionalGlassButton(
+                    systemImage: "square.and.arrow.down",
+                    text: "Update",
+                    helpText: "Update plan snapshot"
+                ) {
                     updateplansnapshot()
-                } label: {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(Color(.blue))
                 }
-                .help("Update plan snapshot")
                 .disabled(isdisabled)
-                .buttonStyle(.borderedProminent)
-
+                
                 VStack(alignment: .leading) {
                     pickersnaplast
                         .disabled(isdisabled)
