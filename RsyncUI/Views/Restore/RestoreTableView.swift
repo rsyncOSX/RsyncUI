@@ -297,7 +297,7 @@ extension RestoreTableView {
             let handlers = ProcessHandlers(
                 processtermination: processtermination,
                 filehandler: { _ in
-                    Logger.process.info("ProcessRsync: You should not SEE this message")
+                    Logger.process.info("RsyncProcess:You should not SEE this message")
                 },
                 rsyncpath: GetfullpathforRsync().rsyncpath,
                 checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
@@ -313,7 +313,7 @@ extension RestoreTableView {
                 environment: MyEnvironment()?.environment
             )
 
-            let process = ProcessRsync(arguments: arguments,
+            let process = RsyncProcess(arguments: arguments,
                                        handlers: handlers,
                                        filehandler: false)
             do {

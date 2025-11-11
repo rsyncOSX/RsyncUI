@@ -42,7 +42,7 @@ final class ObservableRestore {
         let handlers = ProcessHandlers(
             processtermination: processtermination,
             filehandler: { _ in
-                Logger.process.info("ProcessRsync: You should not SEE this message")
+                Logger.process.info("RsyncProcess:You should not SEE this message")
             },
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
@@ -68,7 +68,7 @@ final class ObservableRestore {
                     // Must check valid rsync exists
                     guard SharedReference.shared.norsync == false else { return }
 
-                    let process = ProcessRsync(arguments: arguments,
+                    let process = RsyncProcess(arguments: arguments,
                                                handlers: handlers,
                                                filehandler: false)
                     do {

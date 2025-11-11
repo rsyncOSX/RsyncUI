@@ -470,7 +470,7 @@ extension QuicktaskView {
         let handlers = ProcessHandlers(
             processtermination: processtermination,
             filehandler: { _ in
-                Logger.process.info("ProcessRsync: You should not SEE this message")
+                Logger.process.info("RsyncProcess:You should not SEE this message")
             },
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
@@ -490,7 +490,7 @@ extension QuicktaskView {
         guard SharedReference.shared.norsync == false else { return }
         guard config.task != SharedReference.shared.halted else { return }
 
-        let process = ProcessRsync(arguments: arguments,
+        let process = RsyncProcess(arguments: arguments,
                                    hiddenID: config.hiddenID,
                                    handlers: handlers,
                                    usefilehandler: false)

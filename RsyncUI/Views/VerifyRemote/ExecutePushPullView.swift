@@ -171,7 +171,7 @@ struct ExecutePushPullView: View {
         guard SharedReference.shared.norsync == false else { return }
         guard config.task != SharedReference.shared.halted else { return }
 
-        let process = ProcessRsync(arguments: arguments,
+        let process = RsyncProcess(arguments: arguments,
                                    hiddenID: config.hiddenID,
                                    handlers: handlers,
                                    usefilehandler: true)
@@ -204,7 +204,7 @@ struct ExecutePushPullView: View {
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryrun,
                                                                                               forDisplay: false,
                                                                                               keepdelete: keepdelete)
-        let process = ProcessRsync(arguments: arguments,
+        let process = RsyncProcess(arguments: arguments,
                                    hiddenID: config.hiddenID,
                                    handlers: handlers,
                                    usefilehandler: true)
