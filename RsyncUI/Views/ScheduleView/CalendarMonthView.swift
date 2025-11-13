@@ -115,7 +115,7 @@ struct CalendarMonthView: View {
 
                                 date = Date.now
                                 istappeddayint = 0
-                                schedules.lastdateinpresentmont = Date.now.endOfMonth
+                                schedules.lastdateinpresentmonth = Date.now.endOfMonth
 
                                 confirmdelete = false
 
@@ -168,10 +168,10 @@ struct CalendarMonthView: View {
         .onAppear {
             days = date.calendarDisplayDays
             if let last = days.last {
-                schedules.lastdateinpresentmont = last.startOfDay
+                schedules.lastdateinpresentmonth = last.startOfDay
             }
             date = Date.now
-            schedules.lastdateinpresentmont = Date.now.endOfMonth
+            schedules.lastdateinpresentmonth = Date.now.endOfMonth
         }
         .onChange(of: date) {
             days = date.calendarDisplayDays
@@ -193,7 +193,7 @@ struct CalendarMonthView: View {
                 helpText: "Previous month"
             ) {
                 date = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date.now
-                schedules.lastdateinpresentmont = date.endOfMonth
+                schedules.lastdateinpresentmonth = date.endOfMonth
                 istappeddayint = 0
             }
         }
@@ -204,7 +204,7 @@ struct CalendarMonthView: View {
                 helpText: "Today"
             ) {
                 date = Date.now
-                schedules.lastdateinpresentmont = Date.now.endOfMonth
+                schedules.lastdateinpresentmonth = Date.now.endOfMonth
                 istappeddayint = 0
             }
         }
@@ -215,7 +215,7 @@ struct CalendarMonthView: View {
                 helpText: "Next month"
             ) {
                 date = Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date.now
-                schedules.lastdateinpresentmont = date.endOfMonth
+                schedules.lastdateinpresentmonth = date.endOfMonth
                 istappeddayint = 0
             }
         }        

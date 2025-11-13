@@ -36,8 +36,10 @@ extension Date {
         let todayComponentyear = (calendar as NSCalendar).components(.year, from: today)
         let todaymonthComponent = (calendar as NSCalendar).components(.month, from: today)
         if yearComponent == todayComponentyear {
-            if (monthComponent.month ?? -1) == (todaymonthComponent.month ?? -1) - 1 {
-                return true
+            if let selected = monthComponent.month, let today = todaymonthComponent.month {
+                if selected == today - 1 {
+                    return true
+                }
             }
         }
         return false
