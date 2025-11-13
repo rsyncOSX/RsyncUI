@@ -16,12 +16,6 @@ final class ObservableSchedules {
 
     @ObservationIgnored var lastdateinpresentmont: Date?
 
-    // var scheduledata: [SchedulesConfigurations]?
-    // First schedule to execute
-    // var firstscheduledate: SchedulesConfigurations?
-    // Trigger execution
-    // var scheduledprofile: String = ""
-
     private func computefuturedates(profile: String?, schedule: String, dateRun: Date) {
         var dateComponents = DateComponents()
 
@@ -70,7 +64,7 @@ final class ObservableSchedules {
                  index = Int(timeInterval / (60 * 60 * 24 * 7))
                  // Must add the first registered date as well
                  if dateRun.monthInt == lastdateinpresentmont.monthInt {
-                     appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: "")
+                     appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: ScheduleType.weekly.rawValue)
                  }
               
             default:
@@ -85,9 +79,12 @@ final class ObservableSchedules {
                     computedDateRun = futureDate
                     // Only add futuredates in month presented
                     if futureDate.monthInt == lastdateinpresentmont.monthInt {
-                        appendfutureschedule(profile: profile, dateRun: futureDateString, schedule: ScheduleType.daily.rawValue)
+                        if dateComponents.day == 1 {
+                            appendfutureschedule(profile: profile, dateRun: futureDateString, schedule: ScheduleType.daily.rawValue)
+                        } else {
+                            appendfutureschedule(profile: profile, dateRun: futureDateString, schedule: ScheduleType.weekly.rawValue)
+                        }
                     }
-
                 } else {
                     Logger.process.warning("ObservableFutureSchedules: Failed to calculate future dates")
                 }
@@ -97,7 +94,6 @@ final class ObservableSchedules {
         }
     }
 
-    // CAUTION: check for DEMO mode or not
     func appendfutureschedule(profile: String?, dateRun: String, schedule: String) {
         guard dateRun.en_date_from_string() >= Date.now else { return }
         let futureschedule = SchedulesConfigurations(profile: profile,

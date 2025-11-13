@@ -130,14 +130,6 @@ struct CalendarMonthView: View {
                                 }
                                 WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
 
-                                /* DEMO SCHEDULE
-                                 if SharedReference.shared.scheduledemomode == false {
-                                     let scheduledatamapped = globaltimer.allSchedules.map { item in
-                                         item.scheduledata
-                                     }
-                                     WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
-                                 }
-                                  */
                             }
                         }
                         .onDeleteCommand {
