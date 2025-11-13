@@ -1,10 +1,23 @@
 import OSLog
 import SwiftUI
 
+class AppDelegate: NSObject, NSApplicationDelegate {
+    
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
+    }
+    
+    func applicationWillTerminate(_ notification: Notification) {
+        Logger.process.info("RsyncUIApp: applicationWillTerminate, doing clean up")
+        GlobalTimer.shared.invalidateAllSchedulesAndTimer()
+    }
+}
+
 @main
 struct RsyncUIApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State private var showabout: Bool = false
-    @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.openWindow) private var openWindow
 
     var body: some Scene {
         Window("RsyncUI", id: "main") {
@@ -15,6 +28,11 @@ struct RsyncUIApp: App {
                 .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
                 .sheet(isPresented: $showabout) {
                     AboutView()
+                }
+                .onDisappear {
+                    // Quit the app when the main window is closed
+                    performCleanupTask()
+                    NSApplication.shared.terminate(nil)
                 }
         }
         .commands {
@@ -44,13 +62,7 @@ struct RsyncUIApp: App {
                 }
             }
         }
-        .onChange(of: scenePhase) { _, newPhase in
-            if newPhase == .background {
-                performCleanupTask()
-            }
-        }
 
-        // Add a new WindowGroup for your floating window
         Window("Details", id: "floating-details") {
             AllOutputView()
                 .frame(minWidth: 400, minHeight: 300)
@@ -73,3 +85,4 @@ extension Logger {
     private static let subsystem = Bundle.main.bundleIdentifier!
     static let process = Logger(subsystem: subsystem, category: "process")
 }
+
