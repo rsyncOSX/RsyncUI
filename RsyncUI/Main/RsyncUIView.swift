@@ -6,8 +6,8 @@
 //
 
 import OSLog
-import SwiftUI
 import RsyncProcess
+import SwiftUI
 
 struct RsyncUIView: View {
     // Selected profile
@@ -40,10 +40,7 @@ struct RsyncUIView: View {
         }
         .padding()
         .task {
-            // User config is read async on @MainActor
-            await ReadUserConfigurationJSON().readuserconfiguration()
-            await RsyncOutputCapture.shared.enable()
-            
+            ReadUserConfigurationJSON().readuserconfiguration()
             // Get version of rsync
             rsyncversion.getrsyncversion()
             rsyncUIdata.executetasksinprogress = false

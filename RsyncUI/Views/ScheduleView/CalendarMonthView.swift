@@ -122,15 +122,14 @@ struct CalendarMonthView: View {
                                 let scheduledatamapped = globaltimer.allSchedules.map { item in
                                     item.scheduledata
                                 }
-                                
+
                                 WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
-                                
+
                                 if globaltimer.allSchedules.isEmpty {
                                     globaltimer.firstscheduledate = nil
                                 } else {
                                     globaltimer.setfirsscheduledate()
                                 }
-
                             }
                         }
                         .onDeleteCommand {
@@ -218,8 +217,8 @@ struct CalendarMonthView: View {
                 schedules.lastdateinnextmonth = date.endOfCurrentMonth
                 istappeddayint = 0
             }
-        }        
-        
+        }
+
         ToolbarItem {
             Spacer()
         }

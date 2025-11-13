@@ -88,7 +88,6 @@ struct SnapshotsView: View {
             if focusaborttask { labelaborttask }
 
             HStack {
-                
                 ConditionalGlassButton(
                     systemImage: "square.and.arrow.down",
                     text: "Update",
@@ -97,7 +96,7 @@ struct SnapshotsView: View {
                     updateplansnapshot()
                 }
                 .disabled(isdisabled)
-                
+
                 VStack(alignment: .leading) {
                     pickersnaplast
                         .disabled(isdisabled)

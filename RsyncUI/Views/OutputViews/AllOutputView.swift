@@ -34,5 +34,13 @@ struct AllOutputView: View {
             }
         }
         .padding()
+        .task {
+            await RsyncOutputCapture.shared.enable()
+        }
+        .onDisappear {
+            Task {
+                await RsyncOutputCapture.shared.disable()
+            }
+        }
     }
 }

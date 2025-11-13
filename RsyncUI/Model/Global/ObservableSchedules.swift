@@ -27,10 +27,10 @@ final class ObservableSchedules {
         switch schedule {
         case ScheduleType.daily.rawValue:
             dateComponents.day = 1
-        
-         case ScheduleType.weekly.rawValue:
-             dateComponents.day = 7
-          
+
+        case ScheduleType.weekly.rawValue:
+            dateComponents.day = 7
+
         case ScheduleType.once.rawValue:
             // Handle once as a special case, only daily and weekly needs repeat
             if let lastdateinnextmonth {
@@ -39,6 +39,7 @@ final class ObservableSchedules {
                 }
             }
             return
+
         default:
             return
         }
@@ -46,7 +47,6 @@ final class ObservableSchedules {
         var computedDateRun: Date = dateRun
 
         if let lastdateinnextmonth {
-            
             let timeInterval: TimeInterval = lastdateinnextmonth.timeIntervalSince(computedDateRun)
             guard timeInterval > 0 else { return }
 
@@ -59,14 +59,14 @@ final class ObservableSchedules {
                 if dateRun.monthInt == lastdateinnextmonth.monthInt {
                     appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: ScheduleType.daily.rawValue)
                 }
-            
-             case 7:
-                 index = Int(timeInterval / (60 * 60 * 24 * 7))
-                 // Must add the first registered date as well
-                 if dateRun.monthInt == lastdateinnextmonth.monthInt {
-                     appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: ScheduleType.weekly.rawValue)
-                 }
-              
+
+            case 7:
+                index = Int(timeInterval / (60 * 60 * 24 * 7))
+                // Must add the first registered date as well
+                if dateRun.monthInt == lastdateinnextmonth.monthInt {
+                    appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: ScheduleType.weekly.rawValue)
+                }
+
             default:
                 break
             }
@@ -93,7 +93,7 @@ final class ObservableSchedules {
             Logger.process.info("ObservableSchedules: private computefuturedates(): (\(count))")
         }
     }
-    
+
     func computelastdateinnextmonth() -> Date? {
         let calendar = Calendar.current
         var components = calendar.dateComponents([.year, .month], from: Date())
@@ -102,7 +102,8 @@ final class ObservableSchedules {
         // Request the last day of that month
         components.day = 0 // Setting day to 0 gives the last day of the previous month
         if let lastDayOfNextMonth = calendar.date(byAdding: .month, value: 1,
-                                                  to: calendar.date(from: components)!) {
+                                                  to: calendar.date(from: components)!)
+        {
             return lastDayOfNextMonth
         } else {
             return nil

@@ -71,7 +71,7 @@ struct OneTaskDetailsView: View {
                 checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
                 rsyncversion3: SharedReference.shared.rsyncversion3,
                 environment: MyEnvironment()?.environment,
-            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
+                printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
             )
             // Must check valid rsync exists
             guard SharedReference.shared.norsync == false else { return }

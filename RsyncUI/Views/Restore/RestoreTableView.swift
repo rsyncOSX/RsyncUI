@@ -311,7 +311,7 @@ extension RestoreTableView {
                 checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
                 rsyncversion3: SharedReference.shared.rsyncversion3,
                 environment: MyEnvironment()?.environment,
-            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
+                printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
             )
 
             let process = RsyncProcess(arguments: arguments,

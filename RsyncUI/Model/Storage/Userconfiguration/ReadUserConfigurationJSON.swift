@@ -14,8 +14,7 @@ import OSLog
 struct ReadUserConfigurationJSON {
     let path = Homepath()
 
-    // Read useroconfig async, using await to be sure it is read before continue execution
-    func readuserconfiguration() async {
+    func readuserconfiguration() {
         let decodeuserconfiguration = DecodeGeneric()
         var userconfigurationfile = ""
         if let fullpathmacserial = path.fullpathmacserial {

@@ -31,7 +31,7 @@ struct CopyItem: Identifiable, Codable, Transferable {
 
 struct TasksView: View {
     @Environment(\.openWindow) private var openWindow
-    
+
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
@@ -340,7 +340,7 @@ struct TasksView: View {
                     }
                     .help("Quick synchronize")
                 }
-                
+
                 ToolbarItem {
                     Button {
                         executetaskpath.append(Tasks(task: .charts))
@@ -350,7 +350,7 @@ struct TasksView: View {
                     .help("Charts")
                     .disabled(selecteduuids.count != 1 || selectedconfig?.task == SharedReference.shared.syncremote)
                 }
-                
+
                 ToolbarItem {
                     Button {
                         activeSheet = .scheduledtasksview
@@ -359,7 +359,7 @@ struct TasksView: View {
                     }
                     .help("Schedule")
                 }
-                
+
                 ToolbarItem {
                     Button {
                         openWindow(id: "floating-details")
@@ -391,7 +391,7 @@ struct TasksView: View {
                     .help("Estimate & Synchronize")
                 }
             }
-            
+
             if SharedReference.shared.hideverifyremotefunction == false,
                SharedReference.shared.rsyncversion3,
                rsyncUIdata.oneormoretasksissnapshot == false,

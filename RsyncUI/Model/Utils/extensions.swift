@@ -61,7 +61,7 @@ extension Date {
         }
         return false
     }
-    
+
     func localized_string_from_date() -> String {
         let dateformatter = DateFormatter()
         dateformatter.formatterBehavior = .behavior10_4
@@ -167,16 +167,18 @@ extension Date {
 
     var endOfCurrentMonth: Date {
         guard let interval = Calendar.current.dateInterval(of: .month, for: self),
-              let lastDay = Calendar.current.date(byAdding: .day, value: -1, to: interval.end) else {
+              let lastDay = Calendar.current.date(byAdding: .day, value: -1, to: interval.end)
+        else {
             return self
         }
         return lastDay
     }
-    
+
     var endOfNextMonth: Date? {
         guard let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: self),
               let interval = Calendar.current.dateInterval(of: .month, for: nextMonth),
-              let lastDay = Calendar.current.date(byAdding: .day, value: -1, to: interval.end) else {
+              let lastDay = Calendar.current.date(byAdding: .day, value: -1, to: interval.end)
+        else {
             return nil
         }
         return lastDay
