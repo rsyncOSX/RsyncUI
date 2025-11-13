@@ -1,10 +1,3 @@
-//
-//  RsyncUIApp.swift
-//
-//  Created by Thomas Evensen on 12/01/2021.
-//
-// swiftlint:disable multiple_closures_with_trailing_closure
-
 import OSLog
 import SwiftUI
 
@@ -26,11 +19,8 @@ struct RsyncUIApp: App {
         }
         .commands {
             SidebarCommands()
-
             ImportExportCommands()
-
             ExecuteCommands()
-
             SnapshotCommands()
 
             CommandGroup(replacing: .help) {
@@ -56,10 +46,17 @@ struct RsyncUIApp: App {
         }
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase == .background {
-                // App is going to background - execute your cleanup task
                 performCleanupTask()
             }
         }
+
+        // Add a new WindowGroup for your floating window
+        Window("Details", id: "floating-details") {
+            AllOutputView()
+                .frame(minWidth: 400, minHeight: 300)
+        }
+        .defaultPosition(.center)
+        .defaultSize(width: 600, height: 400)
 
         Settings {
             SidebarSettingsView()
@@ -76,5 +73,3 @@ extension Logger {
     private static let subsystem = Bundle.main.bundleIdentifier!
     static let process = Logger(subsystem: subsystem, category: "process")
 }
-
-// swiftlint:enable multiple_closures_with_trailing_closure

@@ -166,7 +166,8 @@ struct ExecutePushPullView: View {
             },
             checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
             rsyncversion3: SharedReference.shared.rsyncversion3,
-            environment: MyEnvironment()?.environment
+            environment: MyEnvironment()?.environment,
+            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
         )
         guard SharedReference.shared.norsync == false else { return }
         guard config.task != SharedReference.shared.halted else { return }
@@ -198,7 +199,8 @@ struct ExecutePushPullView: View {
             },
             checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
             rsyncversion3: SharedReference.shared.rsyncversion3,
-            environment: MyEnvironment()?.environment
+            environment: MyEnvironment()?.environment,
+            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
         )
 
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryrun,

@@ -7,6 +7,7 @@
 
 import OSLog
 import SwiftUI
+import RsyncProcess
 
 struct RsyncUIView: View {
     // Selected profile
@@ -40,6 +41,9 @@ struct RsyncUIView: View {
         .padding()
         .task {
             ReadUserConfigurationJSON().readuserconfiguration()
+
+            await RsyncOutputCapture.shared.enable()
+            
             // Get version of rsync
             rsyncversion.getrsyncversion()
             rsyncUIdata.executetasksinprogress = false

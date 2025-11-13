@@ -30,6 +30,8 @@ struct CopyItem: Identifiable, Codable, Transferable {
 }
 
 struct TasksView: View {
+    @Environment(\.openWindow) private var openWindow
+    
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
@@ -356,6 +358,15 @@ struct TasksView: View {
                         Image(systemName: "calendar.circle.fill")
                     }
                     .help("Schedule")
+                }
+                
+                ToolbarItem {
+                    Button {
+                        openWindow(id: "floating-details")
+                    } label: {
+                        Image(systemName: "text.document")
+                    }
+                    .help("Rsync output")
                 }
             }
         }

@@ -35,7 +35,8 @@ final class Snapshotlogsandcatalogs {
             },
             checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
             rsyncversion3: SharedReference.shared.rsyncversion3,
-            environment: MyEnvironment()?.environment
+            environment: MyEnvironment()?.environment,
+            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
         )
 
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()

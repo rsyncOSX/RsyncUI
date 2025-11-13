@@ -124,7 +124,8 @@ struct VerifyTasks: View {
             },
             checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
             rsyncversion3: SharedReference.shared.rsyncversion3,
-            environment: MyEnvironment()?.environment
+            environment: MyEnvironment()?.environment,
+            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
         )
 
         guard SharedReference.shared.norsync == false else { return }

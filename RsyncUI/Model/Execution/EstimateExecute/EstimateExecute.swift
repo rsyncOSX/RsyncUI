@@ -69,7 +69,8 @@ final class EstimateExecute {
             },
             checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
             rsyncversion3: SharedReference.shared.rsyncversion3,
-            environment: MyEnvironment()?.environment
+            environment: MyEnvironment()?.environment,
+            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
@@ -117,7 +118,8 @@ final class EstimateExecute {
             },
             checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
             rsyncversion3: SharedReference.shared.rsyncversion3,
-            environment: MyEnvironment()?.environment
+            environment: MyEnvironment()?.environment,
+            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
@@ -163,7 +165,8 @@ final class EstimateExecute {
             },
             checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
             rsyncversion3: SharedReference.shared.rsyncversion3,
-            environment: MyEnvironment()?.environment
+            environment: MyEnvironment()?.environment,
+            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
