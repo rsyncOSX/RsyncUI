@@ -72,7 +72,7 @@ struct AddSchedule: View {
 
                     date = Date.now
                     istappeddayint = 0
-                    schedules.lastdateinnextmonth = Date.now.endOfCurrentMonth
+                    schedules.lastdateinnextmonth = schedules.computelastdateinnextmonth()
                     // Recompute schedules and set first schedule to execute
                     schedules.recomputeschedules()
 

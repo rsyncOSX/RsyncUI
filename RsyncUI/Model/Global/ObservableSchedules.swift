@@ -21,7 +21,7 @@ final class ObservableSchedules {
 
         // Last date in month is NOT set when loading data at startup
         if lastdateinnextmonth == nil {
-            lastdateinnextmonth = Date.now.endOfNextMonth
+            lastdateinnextmonth = computelastdateinnextmonth()
         }
 
         switch schedule {
@@ -46,8 +46,8 @@ final class ObservableSchedules {
         var computedDateRun: Date = dateRun
 
         if let lastdateinnextmonth {
+            
             let timeInterval: TimeInterval = lastdateinnextmonth.timeIntervalSince(computedDateRun)
-
             guard timeInterval > 0 else { return }
 
             var index = 0
@@ -91,6 +91,21 @@ final class ObservableSchedules {
             }
             let count = globaltimer.allSchedules.count
             Logger.process.info("ObservableSchedules: private computefuturedates(): (\(count))")
+        }
+    }
+    
+    func computelastdateinnextmonth() -> Date? {
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.year, .month], from: Date())
+        // Move to next month
+        components.month! += 1
+        // Request the last day of that month
+        components.day = 0 // Setting day to 0 gives the last day of the previous month
+        if let lastDayOfNextMonth = calendar.date(byAdding: .month, value: 1,
+                                                  to: calendar.date(from: components)!) {
+            return lastDayOfNextMonth
+        } else {
+            return nil
         }
     }
 
