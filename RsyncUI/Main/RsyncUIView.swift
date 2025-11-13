@@ -40,8 +40,8 @@ struct RsyncUIView: View {
         }
         .padding()
         .task {
-            ReadUserConfigurationJSON().readuserconfiguration()
-
+            // User config is read async on @MainActor
+            await ReadUserConfigurationJSON().readuserconfiguration()
             await RsyncOutputCapture.shared.enable()
             
             // Get version of rsync

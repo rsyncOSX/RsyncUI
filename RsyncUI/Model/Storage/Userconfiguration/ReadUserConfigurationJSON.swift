@@ -14,7 +14,8 @@ import OSLog
 struct ReadUserConfigurationJSON {
     let path = Homepath()
 
-    func readuserconfiguration() {
+    // Read useroconfig async, using await to be sure it is read before continue execution
+    func readuserconfiguration() async {
         let decodeuserconfiguration = DecodeGeneric()
         var userconfigurationfile = ""
         if let fullpathmacserial = path.fullpathmacserial {
@@ -26,7 +27,7 @@ struct ReadUserConfigurationJSON {
                                                                 fromwhere: userconfigurationfile)
             {
                 UserConfiguration(importeddata)
-                Logger.process.info("ReadUserConfigurationJSON: Reading user configurations from permanent storage")
+                Logger.process.info("ReadUserConfigurationJSON: Reading user configurations MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
             }
 
         } catch let e {
