@@ -35,7 +35,7 @@ struct CalendarMonthView: View {
     var body: some View {
         HStack {
             VStack {
-                if date.endOfMonth == Date.now.endOfMonth {
+                if date.endOfCurrentMonth == Date.now.endOfCurrentMonth {
                     Text("\(date.en_string_from_date())")
                         .font(.title)
                         .padding()
@@ -115,7 +115,7 @@ struct CalendarMonthView: View {
 
                                 date = Date.now
                                 istappeddayint = 0
-                                schedules.lastdateinpresentmonth = Date.now.endOfMonth
+                                schedules.lastdateinnextmonth = Date.now.endOfCurrentMonth
 
                                 confirmdelete = false
 
@@ -168,10 +168,10 @@ struct CalendarMonthView: View {
         .onAppear {
             days = date.calendarDisplayDays
             if let last = days.last {
-                schedules.lastdateinpresentmonth = last.startOfDay
+                schedules.lastdateinnextmonth = last.startOfDay
             }
             date = Date.now
-            schedules.lastdateinpresentmonth = Date.now.endOfMonth
+            schedules.lastdateinnextmonth = Date.now.endOfCurrentMonth
         }
         .onChange(of: date) {
             days = date.calendarDisplayDays
@@ -193,7 +193,7 @@ struct CalendarMonthView: View {
                 helpText: "Previous month"
             ) {
                 date = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date.now
-                schedules.lastdateinpresentmonth = date.endOfMonth
+                schedules.lastdateinnextmonth = date.endOfCurrentMonth
                 istappeddayint = 0
             }
         }
@@ -204,7 +204,7 @@ struct CalendarMonthView: View {
                 helpText: "Today"
             ) {
                 date = Date.now
-                schedules.lastdateinpresentmonth = Date.now.endOfMonth
+                schedules.lastdateinnextmonth = Date.now.endOfCurrentMonth
                 istappeddayint = 0
             }
         }
@@ -215,7 +215,7 @@ struct CalendarMonthView: View {
                 helpText: "Next month"
             ) {
                 date = Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date.now
-                schedules.lastdateinpresentmonth = date.endOfMonth
+                schedules.lastdateinnextmonth = date.endOfCurrentMonth
                 istappeddayint = 0
             }
         }        

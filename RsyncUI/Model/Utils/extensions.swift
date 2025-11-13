@@ -162,12 +162,24 @@ extension Date {
     }
 
     var startOfMonth: Date {
-        Calendar.current.dateInterval(of: .month, for: self)!.start
+        Calendar.current.dateInterval(of: .month, for: self)?.start ?? self
     }
 
-    var endOfMonth: Date {
-        let lastDay = Calendar.current.dateInterval(of: .month, for: self)!.end
-        return Calendar.current.date(byAdding: .day, value: -1, to: lastDay)!
+    var endOfCurrentMonth: Date {
+        guard let interval = Calendar.current.dateInterval(of: .month, for: self),
+              let lastDay = Calendar.current.date(byAdding: .day, value: -1, to: interval.end) else {
+            return self
+        }
+        return lastDay
+    }
+    
+    var endOfNextMonth: Date? {
+        guard let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: self),
+              let interval = Calendar.current.dateInterval(of: .month, for: nextMonth),
+              let lastDay = Calendar.current.date(byAdding: .day, value: -1, to: interval.end) else {
+            return nil
+        }
+        return lastDay
     }
 
     /*
@@ -177,7 +189,7 @@ extension Date {
      }
      */
     var numberOfDaysInMonth: Int {
-        Calendar.current.component(.day, from: endOfMonth)
+        Calendar.current.component(.day, from: endOfCurrentMonth)
     }
 
     // Fix: negative days causing issue for first row

@@ -14,14 +14,14 @@ import SwiftUI
 final class ObservableSchedules {
     let globaltimer = GlobalTimer.shared
 
-    @ObservationIgnored var lastdateinpresentmonth: Date?
+    @ObservationIgnored var lastdateinnextmonth: Date?
 
     private func computefuturedates(profile: String?, schedule: String, dateRun: Date) {
         var dateComponents = DateComponents()
 
         // Last date in month is NOT set when loading data at startup
-        if lastdateinpresentmonth == nil {
-            lastdateinpresentmonth = Date.now.endOfMonth
+        if lastdateinnextmonth == nil {
+            lastdateinnextmonth = Date.now.endOfNextMonth
         }
 
         switch schedule {
@@ -33,8 +33,8 @@ final class ObservableSchedules {
           
         case ScheduleType.once.rawValue:
             // Handle once as a special case, only daily and weekly needs repeat
-            if let lastdateinpresentmonth {
-                if dateRun.monthInt == lastdateinpresentmonth.monthInt {
+            if let lastdateinnextmonth {
+                if dateRun.monthInt <= lastdateinnextmonth.monthInt {
                     appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: ScheduleType.once.rawValue)
                 }
             }
@@ -45,8 +45,8 @@ final class ObservableSchedules {
         // This date is incrementet by schedule
         var computedDateRun: Date = dateRun
 
-        if let lastdateinpresentmonth {
-            let timeInterval: TimeInterval = lastdateinpresentmonth.timeIntervalSince(computedDateRun)
+        if let lastdateinnextmonth {
+            let timeInterval: TimeInterval = lastdateinnextmonth.timeIntervalSince(computedDateRun)
 
             guard timeInterval > 0 else { return }
 
@@ -56,14 +56,14 @@ final class ObservableSchedules {
             case 1:
                 index = Int(timeInterval / (60 * 60 * 24))
                 // Must add the first registered date as well
-                if dateRun.monthInt == lastdateinpresentmonth.monthInt {
+                if dateRun.monthInt == lastdateinnextmonth.monthInt {
                     appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: ScheduleType.daily.rawValue)
                 }
             
              case 7:
                  index = Int(timeInterval / (60 * 60 * 24 * 7))
                  // Must add the first registered date as well
-                 if dateRun.monthInt == lastdateinpresentmonth.monthInt {
+                 if dateRun.monthInt == lastdateinnextmonth.monthInt {
                      appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: ScheduleType.weekly.rawValue)
                  }
               
@@ -78,7 +78,7 @@ final class ObservableSchedules {
                     // the next futureDate again.
                     computedDateRun = futureDate
                     // Only add futuredates in month presented
-                    if futureDate.monthInt == lastdateinpresentmonth.monthInt {
+                    if futureDate.monthInt == lastdateinnextmonth.monthInt {
                         if dateComponents.day == 1 {
                             appendfutureschedule(profile: profile, dateRun: futureDateString, schedule: ScheduleType.daily.rawValue)
                         } else {
