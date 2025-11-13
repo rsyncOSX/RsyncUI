@@ -100,7 +100,7 @@ final class TagSnapshots {
                         }
                         return false
                     } else {
-                        if datesnapshot.ispreviousmont {
+                        if datesnapshot.ispreviousmonth {
                             let tag = "Delete" + " " + datesnapshot.localized_weekday_from_date() + ", "
                                 + datesnapshot.localized_month_from_date() + " " + "previous month"
                             logrecordssnapshot?[index].period = tag

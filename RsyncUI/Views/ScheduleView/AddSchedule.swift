@@ -41,13 +41,6 @@ struct AddSchedule: View {
                                      $dateRunHour,
                                      schedules.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour))
                     .foregroundColor(schedules.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour) ? Color.white : Color.red)
-                /*
-                 TextField("", text: $dateRunMonth)
-                     .frame(width: 80)
-
-                 TextField("", text: $dateRunHour)
-                     .frame(width: 50, alignment: .center)
-                 */
 
                 ConditionalGlassButton(
                     systemImage: "arrow.trianglehead.clockwise",
@@ -89,6 +82,7 @@ struct AddSchedule: View {
                     }
                     WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
                 }
+                .disabled(dateRun.en_date_from_string().isnexttwomonths == false)
             }
             .padding()
         }

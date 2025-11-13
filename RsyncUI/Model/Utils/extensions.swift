@@ -28,7 +28,7 @@ extension Date {
         rhs.compare(lhs) == ComparisonResult.orderedAscending
     }
 
-    var ispreviousmont: Bool {
+    var ispreviousmonth: Bool {
         let calendar = Calendar.current
         let yearComponent = (calendar as NSCalendar).components(.year, from: self)
         let monthComponent = (calendar as NSCalendar).components(.month, from: self)
@@ -43,6 +43,23 @@ extension Date {
         return false
     }
 
+    var isnexttwomonths: Bool {
+        let calendar = Calendar.current
+        let yearComponent = (calendar as NSCalendar).components(.year, from: self)
+        let monthComponent = (calendar as NSCalendar).components(.month, from: self)
+        let today = Date()
+        let todayComponentyear = (calendar as NSCalendar).components(.year, from: today)
+        let todaymonthComponent = (calendar as NSCalendar).components(.month, from: today)
+        if yearComponent == todayComponentyear {
+            if let selected = monthComponent.month, let today = todaymonthComponent.month {
+                if selected <= today + 1 {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
     func localized_string_from_date() -> String {
         let dateformatter = DateFormatter()
         dateformatter.formatterBehavior = .behavior10_4
