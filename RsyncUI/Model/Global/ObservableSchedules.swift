@@ -78,7 +78,7 @@ final class ObservableSchedules {
                     // the next futureDate again.
                     computedDateRun = futureDate
                     // Only add futuredates in month presented
-                    if futureDate.monthInt == lastdateinnextmonth.monthInt {
+                    if futureDate.monthInt <= lastdateinnextmonth.monthInt {
                         if dateComponents.day == 1 {
                             appendfutureschedule(profile: profile, dateRun: futureDateString, schedule: ScheduleType.daily.rawValue)
                         } else {
