@@ -86,11 +86,11 @@ final class ObservableSchedules {
                         }
                     }
                 } else {
-                    Logger.process.warning("ObservableFutureSchedules: Failed to calculate future dates")
+                    Logger.process.warning("ObservableSchedules: Failed to calculate future dates")
                 }
             }
             let count = globaltimer.allSchedules.count
-            Logger.process.info("ObservableFutureSchedules: private computefuturedates(): (\(count))")
+            Logger.process.info("ObservableSchedules: private computefuturedates(): (\(count))")
         }
     }
 
@@ -105,7 +105,7 @@ final class ObservableSchedules {
 
     // Recompute the calendardata to only show active schedules in row.
     func recomputeschedules() {
-        Logger.process.info("ObservableFutureSchedules: recomputeschedules()")
+        Logger.process.info("ObservableSchedules: recomputeschedules()")
         let recomputedschedules = globaltimer.allSchedules.filter { item in
             if let dateRunString = item.scheduledata?.dateRun {
                 return dateRunString.en_date_from_string() > Date.now
@@ -116,12 +116,12 @@ final class ObservableSchedules {
         guard recomputedschedules.count > 0 else {
             globaltimer.invalidateAllSchedulesAndTimer()
             globaltimer.firstscheduledate = nil
-            Logger.process.info("ObservableFutureSchedules: recomputeschedules() no schdeules")
+            Logger.process.info("ObservableSchedules: recomputeschedules() no schdeules")
 
             return
         }
 
-        Logger.process.info("ObservableFutureSchedules: recomputeschedules() number of schedules: \(recomputedschedules.count, privacy: .public)")
+        Logger.process.info("ObservableSchedules: recomputeschedules() number of schedules: \(recomputedschedules.count, privacy: .public)")
 
         for i in 0 ..< recomputedschedules.count {
             if let schedule = recomputedschedules[i].scheduledata?.schedule,
@@ -143,7 +143,7 @@ final class ObservableSchedules {
             globaltimer.scheduledprofile = schedule.profile ?? "Default"
             Task {
                 // Logging to file that a Schedule is fired
-                await ActorLogToFile("Schedule", ["ObservableFutureSchedules: schedule FIRED for \(schedule.profile ?? "Default")"])
+                await ActorLogToFile("Schedule", ["ObservableSchedules: schedule FIRED for \(schedule.profile ?? "Default")"])
             }
         }
         // Then add new schedule

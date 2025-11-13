@@ -117,18 +117,19 @@ struct CalendarMonthView: View {
                                 istappeddayint = 0
                                 schedules.lastdateinpresentmont = Date.now.endOfMonth
 
-                                if globaltimer.allSchedules.isEmpty {
-                                    globaltimer.firstscheduledate = nil
-                                } else {
-                                    schedules.recomputeschedules()
-                                }
-
                                 confirmdelete = false
 
                                 let scheduledatamapped = globaltimer.allSchedules.map { item in
                                     item.scheduledata
                                 }
+                                
                                 WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
+                                
+                                if globaltimer.allSchedules.isEmpty {
+                                    globaltimer.firstscheduledate = nil
+                                } else {
+                                    globaltimer.setfirsscheduledate()
+                                }
 
                             }
                         }
