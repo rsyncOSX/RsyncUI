@@ -2,9 +2,10 @@
 
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD)
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.7.6/total)
+![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.7.7rc3/total)
 [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
-**Note:** I inadvertently deleted the version 2.7.6 dmg file and subsequently re-added it. The download count was reset, and the number of downloads before re-addition was about 1,000 downloads.
+**Note:** I inadvertently deleted the version 2.7.6 dmg file and subsequently re-added it. The download count was reset, and the number of downloads before re-addition was about 1,000 downloads. The version 2.7.7rc3 will serve as a release candidate for a limited period, allowing users to identify and report any potential issues prior to the official release.
 
 If you find RsyncUI useful, I would appreciate it if you could consider giving me a star. Each star serves as motivation for me to continue developing RsyncUI.
 
