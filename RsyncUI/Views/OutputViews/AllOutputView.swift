@@ -36,6 +36,9 @@ struct AllOutputView: View {
         .padding()
         .task {
             await RsyncOutputCapture.shared.enable()
+            // Or with file output:
+            // let logURL = FileManager.default.temporaryDirectory.appendingPathComponent("rsync-output.log")
+            // await RsyncOutputCapture.shared.enable(writeToFile: logURL)
         }
         .onDisappear {
             Task {
