@@ -26,9 +26,7 @@ struct RsyncUIApp: App {
                     Homepath().createrootprofilecatalog()
                 }
                 .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
-                .sheet(isPresented: $showabout) {
-                    AboutView()
-                }
+                .sheet(isPresented: $showabout) { AboutView() }
                 .onDisappear {
                     // Quit the app when the main window is closed
                     performCleanupTask()
@@ -63,9 +61,8 @@ struct RsyncUIApp: App {
             }
         }
 
-        Window("Details", id: "floating-details") {
+        Window("Rsync ouput", id: "floating-details") {
             AllOutputView()
-                .frame(minWidth: 400, minHeight: 300)
         }
         .defaultPosition(.center)
         .defaultSize(width: 600, height: 400)
