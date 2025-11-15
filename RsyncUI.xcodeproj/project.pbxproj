@@ -765,7 +765,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/ProcessCommand";
 			requirement = {
-				branch = main;
+				branch = approchableconcurrency;
 				kind = branch;
 			};
 		};

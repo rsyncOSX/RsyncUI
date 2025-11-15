@@ -10,13 +10,14 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-@MainActor
-struct ReadSchedule {
-    func readjsonfilecalendar(_ validprofiles: [String]) -> [SchedulesConfigurations]? {
-        var filename = ""
-        let path = Homepath()
 
-        Logger.process.info("ReadSchedule: readjsonfilecalendar() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
+actor ActorReadSchedule {
+    func readjsonfilecalendar(_ validprofiles: [String]) async -> [SchedulesConfigurations]? {
+        let reporterror = ReportError()
+        var filename = ""
+        let path = await Homepath()
+
+        Logger.process.info("ActorReadSchedule: readjsonfilecalendar() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
 
         if let fullpathmacserial = path.fullpathmacserial {
             filename = fullpathmacserial.appending("/") + SharedConstants().caldenarfilejson
@@ -31,7 +32,7 @@ struct ReadSchedule {
                 // Dont need to sort when reading, the schedules are sorted by runDate when
                 // new schedules are added and saved
 
-                Logger.process.info("ReadSchedule - read Calendar from permanent storage \(filename, privacy: .public)")
+                Logger.process.info("ActorReadSchedule - read Calendar from permanent storage \(filename, privacy: .public)")
 
                 return data.compactMap { element in
                     let item = SchedulesConfigurations(element)
@@ -50,9 +51,9 @@ struct ReadSchedule {
             }
 
         } catch let e {
-            Logger.process.info("ReadSchedule: some ERROR reading")
+            Logger.process.info("ActorReadSchedule - read Calendar from permanent storage \(filename, privacy: .public) failed with error: some ERROR reading")
             let error = e
-            path.propogateerror(error: error)
+            await reporterror.propogateerror(error: error)
         }
 
         return nil

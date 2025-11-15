@@ -150,7 +150,7 @@ struct SidebarMainView: View {
                 observerdidMountNotification()
                 observerdiddidUnmountNotification()
             }
-            if let scheduledata = ReadSchedule()
+            if let scheduledata = await ActorReadSchedule()
                 .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename))
             {
                 guard scheduledata.count > 0 else { return }
