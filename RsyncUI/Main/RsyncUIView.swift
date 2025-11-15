@@ -59,7 +59,6 @@ struct RsyncUIView: View {
         }
         .task(id: selectedprofileID) {
             // Skip initial run when selectedprofileID is nil on first appearance
-            guard selectedprofileID != nil else { return }
             var profile: String?
             // Only for external URL
             guard rsyncUIdata.externalurlrequestinprogress == false else {
