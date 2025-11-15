@@ -157,7 +157,7 @@ struct SidebarMainView: View {
                 schedules.appendschdeuldatafromfile(scheduledata)
             }
 
-            Logger.process.info("SidebarMainView: ONAPPEAR completed")
+            Logger.process.debugmesseageonly("SidebarMainView: ONAPPEAR completed")
 
             // Delete any default UserSetttings applied within AddTask
             UserDefaults.standard.removeObject(forKey: "trailingslashoptions")
@@ -200,14 +200,14 @@ struct SidebarMainView: View {
             selecteduuids.removeAll()
         }
         .onChange(of: globaltimer.firstscheduledate) {
-            Logger.process.info("SidebarMainView: got TRIGGER from Schedule, firstscheduledate is set")
+            Logger.process.debugmesseageonly("SidebarMainView: got TRIGGER from Schedule, firstscheduledate is set")
 
             if globaltimer.allSchedules.isEmpty {
                 globaltimer.invalidateAllSchedulesAndTimer()
             }
         }
         .onChange(of: globaltimer.scheduledprofile) {
-            Logger.process.info("SidebarMainView: got TRIGGER from Schedule, the callback is executed")
+            Logger.process.debugmesseageonly("SidebarMainView: got TRIGGER from Schedule, the callback is executed")
             queryitem = nil
             if selectedview != .synchronize {
                 selectedview = .synchronize
@@ -308,12 +308,12 @@ extension SidebarMainView {
 
         switch deeplinkurl.handleURL(url)?.host {
         case .quicktask:
-            Logger.process.info("handleURLsidebarmainView: URL Quicktask - \(url)")
+            Logger.process.debugmesseageonly("handleURLsidebarmainView: URL Quicktask - \(url)")
 
             selectedview = .synchronize
             executetaskpath.append(Tasks(task: .quick_synchronize))
         case .loadprofile:
-            Logger.process.info("handleURLsidebarmainView: URL Loadprofile - \(url)")
+            Logger.process.debugmesseageonly("handleURLsidebarmainView: URL Loadprofile - \(url)")
 
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
                 let profile = queryitems[0].value
@@ -327,7 +327,7 @@ extension SidebarMainView {
                 return
             }
         case .loadprofileandestimate:
-            Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Estimate - \(url)")
+            Logger.process.debugmesseageonly("handleURLsidebarmainView: URL Loadprofile and Estimate - \(url)")
 
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
                 let profile = queryitems[0].value
@@ -371,7 +371,7 @@ extension SidebarMainView {
             }
         case .loadprofileandverify:
             // Only by external URL load and verify
-            Logger.process.info("handleURLsidebarmainView: URL Loadprofile and Verify - \(url)")
+            Logger.process.debugmesseageonly("handleURLsidebarmainView: URL Loadprofile and Verify - \(url)")
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 2 {
                 let profile = queryitems[0].value ?? ""
 
@@ -417,14 +417,14 @@ extension SidebarMainView {
     }
 
     func observerdidMountNotification() {
-        Logger.process.info("SidebarMainView: observerdidMountNotification added")
+        Logger.process.debugmesseageonly("SidebarMainView: observerdidMountNotification added")
 
         let notificationCenter = NSWorkspace.shared.notificationCenter
         notificationCenter.addObserver(forName: NSWorkspace.didMountNotification,
                                        object: nil, queue: .main)
         { notification in
             if let volumeURL = notification.userInfo?[NSWorkspace.volumeURLUserInfoKey] as? URL {
-                Logger.process.info("SidebarMainView: observerdidMountNotification \(volumeURL)")
+                Logger.process.debugmesseageonly("SidebarMainView: observerdidMountNotification \(volumeURL)")
                 Task {
                     guard await tasksareinprogress() == false else { return }
                     await verifyandloadprofilemountedvolume(volumeURL)
@@ -434,13 +434,13 @@ extension SidebarMainView {
     }
 
     func observerdiddidUnmountNotification() {
-        Logger.process.info("SidebarMainView: observerdidUnmountNotification added")
+        Logger.process.debugmesseageonly("SidebarMainView: observerdidUnmountNotification added")
 
         let notificationCenter = NSWorkspace.shared.notificationCenter
         notificationCenter.addObserver(forName: NSWorkspace.didUnmountNotification,
                                        object: nil, queue: .main)
         { _ in
-            Logger.process.info("SidebarMainView: observerdidUnmountNotification")
+            Logger.process.debugmesseageonly("SidebarMainView: observerdidUnmountNotification")
             Task {
                 guard await tasksareinprogress() == false else { return }
                 await verifyandloadprofilemountedvolume(nil)
@@ -490,7 +490,7 @@ extension SidebarMainView {
     // Must load profile for URL-link async to make sure profile is
     // loaded ahead of start requested action. Only for external URL requests
     func loadprofileforexternalurllink(_ profile: String?) async -> Bool {
-        Logger.process.info("SidebarMainView: loadprofileforexternalurllink executed")
+        Logger.process.debugmesseageonly("SidebarMainView: loadprofileforexternalurllink executed")
         rsyncUIdata.externalurlrequestinprogress = true
         if profile == nil {
             rsyncUIdata.profile = nil

@@ -578,11 +578,11 @@ struct AddTaskView: View {
         .onChange(of: newdata.trailingslashoptions) {
             // Saving selected trailing slash as default value in UserDefaults
             UserDefaults.standard.set(newdata.trailingslashoptions.rawValue, forKey: "trailingslashoptions")
-            Logger.process.info("AddTaskView: saving trailingslashoptions to UserDefaults")
+            Logger.process.debugmesseageonly("AddTaskView: saving trailingslashoptions to UserDefaults")
         }
         .onAppear {
             if let trailingslashoptions = UserDefaults.standard.value(forKey: "trailingslashoptions") {
-                Logger.process.info("AddTaskView: set default settings for trailingslashoptions: \(trailingslashoptions as! NSObject)")
+                Logger.process.debugmesseageonly("AddTaskView: set default settings for trailingslashoptions: \(trailingslashoptions as! NSObject)")
 
                 switch trailingslashoptions as! String {
                 case "do_not_check":
@@ -611,11 +611,11 @@ struct AddTaskView: View {
         .onChange(of: newdata.selectedrsynccommand) {
             // Saving selected rsync command slash as default value in UserDefaults
             UserDefaults.standard.set(newdata.selectedrsynccommand.rawValue, forKey: "selectedrsynccommand")
-            Logger.process.info("AddTaskView: saving selectedrsynccommand to UserDefaults")
+            Logger.process.debugmesseageonly("AddTaskView: saving selectedrsynccommand to UserDefaults")
         }
         .onAppear {
             if let selectedrsynccommand = UserDefaults.standard.value(forKey: "selectedrsynccommand") {
-                Logger.process.info("AddTaskView: set default settings for selectedrsynccommand: \(selectedrsynccommand as! NSObject)")
+                Logger.process.debugmesseageonly("AddTaskView: set default settings for selectedrsynccommand: \(selectedrsynccommand as! NSObject)")
 
                 switch selectedrsynccommand as! String {
                 case "synchronize":

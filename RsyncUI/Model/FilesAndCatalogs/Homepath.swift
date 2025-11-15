@@ -65,7 +65,7 @@ struct Homepath {
                 {
                     array.append(filesandfolders.lastPathComponent)
                 }
-                Logger.process.info("Homepath: the following folders were found in \(fullpathmacserial): \(array)")
+                Logger.process.debugmesseageonly("Homepath: the following folders were found in \(fullpathmacserial): \(array)")
                 return array
             } catch {
                 return []
@@ -83,7 +83,7 @@ struct Homepath {
            let fullpathnomacserial
         {
             guard fm.locationExists(at: fullpathmacserial, kind: .folder) == false else {
-                Logger.process.info("Homepath: root catalog exists")
+                Logger.process.debugmesseageonly("Homepath: root catalog exists")
                 return
             }
             // if false then create profile catalogs
@@ -96,7 +96,7 @@ struct Homepath {
             let fullpathnomacserialURL = URL(fileURLWithPath: fullpathnomacserial)
             do {
                 try fm.createDirectory(at: fullpathnomacserialURL, withIntermediateDirectories: true, attributes: nil)
-                Logger.process.info("Homepath: creating root catalog step1")
+                Logger.process.debugmesseageonly("Homepath: creating root catalog step1")
             } catch let e {
                 let error = e
                 propogateerror(error: error)
@@ -106,7 +106,7 @@ struct Homepath {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             do {
                 try fm.createDirectory(at: fullpathmacserialURL, withIntermediateDirectories: true, attributes: nil)
-                Logger.process.info("Homepath: creating root catalog step2")
+                Logger.process.debugmesseageonly("Homepath: creating root catalog step2")
             } catch let e {
                 let error = e
                 propogateerror(error: error)

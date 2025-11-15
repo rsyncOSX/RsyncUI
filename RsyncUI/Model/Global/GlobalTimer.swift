@@ -100,7 +100,7 @@ final class GlobalTimer {
     }
 
     func invalidateAllSchedulesAndTimer() {
-        Logger.process.info("GlobalTimer: INVALIDATING all schedules")
+        Logger.process.debugmesseageonly("GlobalTimer: INVALIDATING all schedules")
         timer?.invalidate()
         timer = nil
         allSchedules.removeAll()
@@ -130,10 +130,10 @@ final class GlobalTimer {
         )
 
         guard validatescheduleinset(scheduleitem) == false else {
-            Logger.process.info("GlobalTimer: Adding NEW schedule - already IN allSchedules")
+            Logger.process.debugmesseageonly("GlobalTimer: Adding NEW schedule - already IN allSchedules")
             return
         }
-        Logger.process.info("GlobalTimer: Adding NEW schedule for at \(time, privacy: .public) (tolerance: \(finalTolerance, privacy: .public)s)")
+        Logger.process.debugmesseageonly("GlobalTimer: Adding NEW schedule for at \(time) tolerance: \(finalTolerance))")
 
         // Append and sort by time
         allSchedules.append(scheduleitem)
@@ -155,19 +155,19 @@ final class GlobalTimer {
      }
      */
     func scheduleNextTimer() {
-        Logger.process.info("GlobalTimer: scheduleNextTimer() - Invalidateing existing timer")
+        Logger.process.debugmesseageonly("GlobalTimer: scheduleNextTimer() - Invalidateing existing timer")
         timer?.invalidate()
         timer = nil
 
         guard allSchedules.isEmpty == false else {
-            Logger.process.info("GlobalTimer: scheduleNextTimer() - No more tasks to schedule for execution")
+            Logger.process.debugmesseageonly("GlobalTimer: scheduleNextTimer() - No more tasks to schedule for execution")
             invalidateAllSchedulesAndTimer()
             return
         }
 
         if let item = allSchedules.first {
             let interval = item.time.timeIntervalSince(.now)
-            Logger.process.info("GlobalTimer: scheduleNextTimer() - Scheduling timer in \(interval, privacy: .public)s (tolerance: \(item.tolerance, privacy: .public)s)")
+            Logger.process.debugmesseageonly("GlobalTimer: scheduleNextTimer() - Scheduling timer in \(interval) (tolerance: \(item.tolerance))")
             let t = Timer(timeInterval: interval, repeats: false) { [weak self] _ in
                 Task { @MainActor in
                     self?.checkSchedules()
@@ -208,13 +208,13 @@ final class GlobalTimer {
             }
             executeSchedule(item)
         } else {
-            Logger.process.info("GlobalTimer: No more tasks to schedule for execution")
+            Logger.process.debugmesseageonly("GlobalTimer: No more tasks to schedule for execution")
             invalidateAllSchedulesAndTimer()
         }
     }
 
     private func executeSchedule(_ dueitem: ScheduledItem) {
-        Logger.process.info("GlobalTimer: EXECUTING schedule for '\(dueitem.scheduledata?.profile ?? "Default", privacy: .public)'")
+        Logger.process.debugmesseageonly("GlobalTimer: EXECUTING schedule for '\(dueitem.scheduledata?.profile ?? "Default")")
         dueitem.execute()
     }
 
@@ -233,7 +233,7 @@ final class GlobalTimer {
     }
 
     private func handleWake() {
-        Logger.process.info("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
+        Logger.process.debugmesseageonly("GlobalTimer: handleWake(), system woke up, checking for past-due schedules")
         notExecutedSchedulesafterWakeUp.removeAll()
         notExecutedSchedulesafterWakeUp = allSchedules.filter { $0.time.timeIntervalSinceNow < 0 }
         allSchedules.removeAll { $0.time.timeIntervalSinceNow < 0 }

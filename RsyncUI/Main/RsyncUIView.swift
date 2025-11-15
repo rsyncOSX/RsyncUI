@@ -63,7 +63,7 @@ struct RsyncUIView: View {
             var profile: String?
             // Only for external URL
             guard rsyncUIdata.externalurlrequestinprogress == false else {
-                Logger.process.info("RsyncUIView: external URL loaded")
+                Logger.process.debugmesseageonly("RsyncUIView: external URL loaded")
                 rsyncUIdata.externalurlrequestinprogress = false
                 return
             }

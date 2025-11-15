@@ -52,7 +52,7 @@ final class ObservableSnapshotData {
     }
 
     deinit {
-        Logger.process.info("ObservableSnapshotData: DEINIT")
+        Logger.process.debugmesseageonly("ObservableSnapshotData: DEINIT")
     }
 }
 

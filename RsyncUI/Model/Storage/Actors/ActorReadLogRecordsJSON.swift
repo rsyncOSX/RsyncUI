@@ -25,7 +25,7 @@ actor ActorReadLogRecordsJSON {
             }
         }
 
-        Logger.process.info("ActorReadLogRecordsJSON: readjsonfilelogrecords() from \(filename, privacy: .public)")
+        Logger.process.debugmesseageonly("ActorReadLogRecordsJSON: readjsonfilelogrecords() from \(filename)")
 
         let decodeimport = DecodeGeneric()
         do {
@@ -102,6 +102,6 @@ actor ActorReadLogRecordsJSON {
     }
 
     deinit {
-        Logger.process.info("ActorReadLogRecordsJSON: DEINIT")
+        Logger.process.debugmesseageonly("ActorReadLogRecordsJSON: DEINIT")
     }
 }

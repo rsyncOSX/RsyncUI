@@ -35,7 +35,7 @@ actor ActorLogToFile {
             if let logfiledata = await appendloggfileData(newlogadata, reset) {
                 do {
                     try logfiledata.write(to: logfileURL)
-                    Logger.process.info("LogToFile: writeloggfile() logfile \(logfileURL.path, privacy: .public)")
+                    Logger.process.debugmesseageonly("LogToFile: writeloggfile() logfile \(logfileURL.path)")
                     let checker = FileSize()
                     // Task {
                     do {
@@ -87,7 +87,7 @@ actor ActorLogToFile {
 
             do {
                 let data = try Data(contentsOf: logfileURL)
-                Logger.process.info("LogToFile: read logfile \(logfileURL.path, privacy: .public)")
+                Logger.process.debugmesseageonly("LogToFile: read logfile \(logfileURL.path)")
                 let logfile = String(data: data, encoding: .utf8)
                 return logfile.map { line in
                     line.components(separatedBy: .newlines)
@@ -131,7 +131,7 @@ actor ActorLogToFile {
 
             do {
                 let data = try Data(contentsOf: logfileURL)
-                Logger.process.info("LogToFile: read logfile \(logfileURL.path, privacy: .public)")
+                Logger.process.debugmesseageonly("LogToFile: read logfile \(logfileURL.path)")
                 return String(data: data, encoding: .utf8)
 
             } catch let e {
@@ -162,14 +162,14 @@ actor ActorLogToFile {
                     } else {
                         // Or append any new log data
                         if fm.locationExists(at: logfileString, kind: .file) == true {
-                            Logger.process.info("LogToFile: append existing logfile \(logfileURL.path, privacy: .public)")
+                            Logger.process.debugmesseageonly("LogToFile: append existing logfile \(logfileURL.path)")
                             let data = try Data(contentsOf: logfileURL)
                             var returneddata = data
                             returneddata.append(newdata)
                             return returneddata
                         } else {
                             // Or if first time write logfile ony return new log data
-                            Logger.process.info("LogToFile: create new logfile \(logfileURL.path, privacy: .public)")
+                            Logger.process.debugmesseageonly("LogToFile: create new logfile \(logfileURL.path)")
                             return newdata
                         }
                     }

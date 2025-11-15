@@ -56,7 +56,7 @@ final class EstimateExecute {
         let handlers = ProcessHandlers(
             processtermination: processtermination_estimation,
             filehandler: { _ in
-                Logger.process.info("RsyncProcess:You should not SEE this message")
+                Logger.process.debugmesseageonly("RsyncProcess:You should not SEE this message")
             },
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
@@ -222,7 +222,7 @@ final class EstimateExecute {
         if excutetasks != nil {
             // Execute tasks
             guard selecteduuids.count > 0 else {
-                Logger.process.warning("EstimateExecute: guard uuids.count == 0: \(selecteduuids.count, privacy: .public)")
+                Logger.process.warning("EstimateExecute: guard uuids.count == 0: \(selecteduuids.count)")
                 return
             }
 
@@ -230,7 +230,7 @@ final class EstimateExecute {
             stackoftasks = taskstosynchronize.map(\.hiddenID)
 
             guard stackoftasks?.count ?? 0 > 0 else {
-                Logger.process.warning("EstimateExecute: guard uuids.contains($0.id): \(selecteduuids.count, privacy: .public)")
+                Logger.process.warning("EstimateExecute: guard uuids.contains($0.id): \(selecteduuids.count)")
                 return
             }
             startexecution()
@@ -250,7 +250,7 @@ final class EstimateExecute {
                       progressdetails: ProgressDetails?)
      {
          let updateconfigurations: ([SynchronizeConfiguration]) -> Void = { _ in
-             Logger.process.info("EstimateExecute: You should not SEE this message")
+             Logger.process.debugmesseageonly("EstimateExecute: You should not SEE this message")
          }
          self.init(profile: profile,
                    configurations: configurations,
@@ -268,10 +268,10 @@ final class EstimateExecute {
                      progressdetails: ProgressDetails?)
     {
         let filehandler: (Int) -> Void = { _ in
-            Logger.process.info("EstimateExecute: You should not SEE this message")
+            Logger.process.debugmesseageonly("EstimateExecute: You should not SEE this message")
         }
         let updateconfigurations: ([SynchronizeConfiguration]) -> Void = { _ in
-            Logger.process.info("EstimateExecute: You should not SEE this message")
+            Logger.process.debugmesseageonly("EstimateExecute: You should not SEE this message")
         }
         self.init(profile: profile,
                   configurations: configurations,
@@ -312,7 +312,7 @@ final class EstimateExecute {
                       updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
      {
          let filehandler: (Int) -> Void = { _ in
-             Logger.process.info("EstimateExecute: You should not SEE this message")
+             Logger.process.debugmesseageonly("EstimateExecute: You should not SEE this message")
          }
 
          self.init(profile: profile,
@@ -355,7 +355,7 @@ final class EstimateExecute {
     }
 
     deinit {
-        Logger.process.info("EstimateExecute: DEINIT")
+        Logger.process.debugmesseageonly("EstimateExecute: DEINIT")
         self.stackoftasks = nil
     }
 }
@@ -398,7 +398,7 @@ extension EstimateExecute {
 
                 guard stackoftasks?.count ?? 0 > 0 else {
                     localprogressdetails?.estimationiscomplete()
-                    Logger.process.info("EstimateExecute: estimation is completed")
+                    Logger.process.debugmesseageonly("EstimateExecute: estimation is completed")
                     return
                 }
                 // Estimate next task
@@ -429,7 +429,7 @@ extension EstimateExecute {
 
                 guard stackoftasks?.count ?? 0 > 0 else {
                     localprogressdetails?.estimationiscomplete()
-                    Logger.process.info("EstimateExecute: estimation is completed")
+                    Logger.process.debugmesseageonly("EstimateExecute: estimation is completed")
                     return
                 }
                 // Estimate next task
@@ -460,7 +460,7 @@ extension EstimateExecute {
             localupdateconfigurations(updateconfigurations)
             // Update logrecords
             update.addlogpermanentstore(schedulerecords: schedulerecords)
-            Logger.process.info("EstimateExecute: execution is completed")
+            Logger.process.debugmesseageonly("EstimateExecute: execution is completed")
             return
         }
         // Execute next task
@@ -498,7 +498,7 @@ extension EstimateExecute {
                 // Update logrecords
                 update.addlogpermanentstore(schedulerecords: schedulerecords)
                 localnoestprogressdetails?.executealltasksnoestiamtioncomplete()
-                Logger.process.info("EstimateExecute: execution is completed")
+                Logger.process.debugmesseageonly("EstimateExecute: execution is completed")
                 return
             }
             // Execute next task

@@ -35,13 +35,13 @@ actor ActorReadSynchronizeConfigurationJSON {
                     let itemforcheck = (server, sshport)
                     if checkedserverandport.contains(where: { $0 == itemforcheck }) == false {
                         checkedserverandport.append(itemforcheck)
-                        Logger.process.info("ActorReadSynchronizeConfigurationJSON: checking networkconnection server: \(server, privacy: .public) port: \(sshport, privacy: .public)")
+                        Logger.process.debugmesseageonly("ActorReadSynchronizeConfigurationJSON: checking networkconnection server: \(server) port: \(sshport)")
                         _ = try await TCPconnections().asyncverifyTCPconnection(config.offsiteServer, port: sshport)
                     }
 
                 } catch let e {
                     let server = config.offsiteServer
-                    Logger.process.info("ActorReadSynchronizeConfigurationJSON: some ERROR checking networkconnection server: \(server, privacy: .public) port: \(sshport, privacy: .public)")
+                    Logger.process.debugmesseageonly("ActorReadSynchronizeConfigurationJSON: some ERROR checking networkconnection server: \(server) port: \(sshport)")
                     let error = e
                     await reporterror.propogateerror(error: error)
                 }
@@ -101,7 +101,7 @@ actor ActorReadSynchronizeConfigurationJSON {
     }
 
     deinit {
-        Logger.process.info("ActorReadSynchronizeConfigurationJSON: DEINIT")
+        Logger.process.debugmesseageonly("ActorReadSynchronizeConfigurationJSON: DEINIT")
     }
 }
 

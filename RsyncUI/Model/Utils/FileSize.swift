@@ -25,7 +25,7 @@ struct FileSize {
             do {
                 // Return filesize
                 if let filesize = try fm.attributesOfItem(atPath: logfileURL.path)[FileAttributeKey.size] as? NSNumber {
-                    Logger.process.info("FileChecker: Filesize of logfile \(filesize, privacy: .public)")
+                    Logger.process.debugmesseageonly("FileChecker: Filesize of logfile \(filesize)")
                     return filesize
                 }
             } catch {

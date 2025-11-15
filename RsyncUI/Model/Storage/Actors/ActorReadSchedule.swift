@@ -29,7 +29,7 @@ actor ActorReadSchedule {
                 // Dont need to sort when reading, the schedules are sorted by runDate when
                 // new schedules are added and saved
 
-                Logger.process.info("ActorReadSchedule - read Calendar from permanent storage \(filename, privacy: .public)")
+                Logger.process.debugmesseageonly("ActorReadSchedule - read Calendar from permanent storage \(filename)")
 
                 return data.compactMap { element in
                     let item = SchedulesConfigurations(element)
@@ -48,7 +48,7 @@ actor ActorReadSchedule {
             }
 
         } catch let e {
-            Logger.process.info("ActorReadSchedule - read Calendar from permanent storage \(filename, privacy: .public) failed with error: some ERROR reading")
+            Logger.process.debugmesseageonly("ActorReadSchedule - read Calendar from permanent storage \(filename) failed with error: some ERROR reading")
             let error = e
             await reporterror.propogateerror(error: error)
         }

@@ -32,7 +32,7 @@ final class ObservableRsyncPathSetting {
         switch SharedReference.shared.rsyncversion3 {
         case true:
             let rsyncpath = path.appending("/") + SharedReference.shared.rsync
-            Logger.process.info("Verifying rsync ver3 path \(rsyncpath, privacy: .public)")
+            Logger.process.debugmesseageonly("Verifying rsync ver3 path \(rsyncpath)")
             if fm.isExecutableFile(atPath: rsyncpath) == false {
                 return false
             } else {

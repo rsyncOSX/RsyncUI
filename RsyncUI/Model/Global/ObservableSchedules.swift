@@ -90,7 +90,7 @@ final class ObservableSchedules {
                 }
             }
             let count = globaltimer.allSchedules.count
-            Logger.process.info("ObservableSchedules: private computefuturedates(): (\(count))")
+            Logger.process.debugmesseageonly("ObservableSchedules: private computefuturedates(): (\(count))")
         }
     }
 
@@ -121,7 +121,7 @@ final class ObservableSchedules {
 
     // Recompute the calendardata to only show active schedules in row.
     func recomputeschedules() {
-        Logger.process.info("ObservableSchedules: recomputeschedules()")
+        Logger.process.debugmesseageonly("ObservableSchedules: recomputeschedules()")
         let recomputedschedules = globaltimer.allSchedules.filter { item in
             if let dateRunString = item.scheduledata?.dateRun {
                 return dateRunString.en_date_from_string() > Date.now
@@ -132,12 +132,12 @@ final class ObservableSchedules {
         guard recomputedschedules.count > 0 else {
             globaltimer.invalidateAllSchedulesAndTimer()
             globaltimer.firstscheduledate = nil
-            Logger.process.info("ObservableSchedules: recomputeschedules() no schdeules")
+            Logger.process.debugmesseageonly("ObservableSchedules: recomputeschedules() no schdeules")
 
             return
         }
 
-        Logger.process.info("ObservableSchedules: recomputeschedules() number of schedules: \(recomputedschedules.count, privacy: .public)")
+        Logger.process.debugmesseageonly("ObservableSchedules: recomputeschedules() number of schedules: \(recomputedschedules.count)")
 
         for i in 0 ..< recomputedschedules.count {
             if let schedule = recomputedschedules[i].scheduledata?.schedule,

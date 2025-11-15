@@ -16,7 +16,7 @@ final class Rsyncversion {
         let handlers = ProcessHandlers(
             processtermination: processtermination,
             filehandler: { _ in
-                Logger.process.info("RsyncProcess:You should not SEE this message")
+                Logger.process.debugmesseageonly("RsyncProcess:You should not SEE this message")
             },
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
@@ -72,10 +72,10 @@ extension Rsyncversion {
 
             if rsyncversionshort.contains("version 3.") {
                 SharedReference.shared.rsyncversion3 = true
-                Logger.process.info("Rsyncversion: version 3.x of rsync discovered")
+                Logger.process.debugmesseageonly("Rsyncversion: version 3.x of rsync discovered")
             } else {
                 SharedReference.shared.rsyncversion3 = false
-                Logger.process.info("Rsyncversion: default openrsync discovered")
+                Logger.process.debugmesseageonly("Rsyncversion: default openrsync discovered")
             }
         }
     }

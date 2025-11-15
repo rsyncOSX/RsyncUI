@@ -27,7 +27,7 @@ final class ReadLogRecordsJSON {
             if let data = try
                 decodeimport.decodearraydatafileURL(DecodeLogRecords.self, fromwhere: filename)
             {
-                Logger.process.info("ReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): read logrecords from permanent storage")
+                Logger.process.debugmesseageonly("ReadLogRecordsJSON - \(profile ?? "default") read logrecords from permanent storage")
                 return data.compactMap { element in
                     let item = LogRecords(element)
                     return validhiddenIDs.contains(item.hiddenID) ? item : nil
@@ -43,6 +43,6 @@ final class ReadLogRecordsJSON {
     }
 
     deinit {
-        Logger.process.info("ReadLogRecordsJSON: DEINIT")
+        Logger.process.debugmesseageonly("ReadLogRecordsJSON: DEINIT")
     }
 }

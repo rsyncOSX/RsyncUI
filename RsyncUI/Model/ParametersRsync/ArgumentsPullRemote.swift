@@ -16,7 +16,7 @@ final class ArgumentsPullRemote {
 
     func argumentspullremotewithparameters(dryRun: Bool, forDisplay: Bool, keepdelete: Bool) -> [String]? {
         if let config {
-            // Logger.process.info("ArgumentsPullRemote: using argumentspullremotewithparameters() --delete is removed")
+            // Logger.process.debugmesseageonly("ArgumentsPullRemote: using argumentspullremotewithparameters() --delete is removed")
             if let parameters = PrepareParameters(config: config).parameters {
                 let rsyncparameterspull =
                     RsyncParametersPullRemote(parameters: parameters)

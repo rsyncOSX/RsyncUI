@@ -42,7 +42,7 @@ final class ProgressDetails {
                     num = 0
                     Logger.process.warning("ProgressDetails: EXECUTING getmaxcountbytask() num = 0")
                 }
-                Logger.process.info("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num, privacy: .public)")
+                Logger.process.debugmesseageonly("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num)")
                 return num
             } else {
                 num = Double(max?[0].outputfromrsync?.count ?? 0)
@@ -50,7 +50,7 @@ final class ProgressDetails {
                     num = 0
                     Logger.process.warning("ProgressDetails: EXECUTING getmaxcountbytask() num = 0")
                 }
-                Logger.process.info("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num, privacy: .public)")
+                Logger.process.debugmesseageonly("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num)")
                 return num
             }
         } else {
@@ -97,12 +97,12 @@ final class ProgressDetails {
     }
 
     func appenduuidwithdatatosynchronize(_ id: UUID) {
-        Logger.process.info("ProgressDetails: ESTIMATION appending uuid \(id) to uuidswithdatatosynchronize")
+        Logger.process.debugmesseageonly("ProgressDetails: ESTIMATION appending uuid \(id) to uuidswithdatatosynchronize")
         uuidswithdatatosynchronize.insert(id)
     }
 
     func resetcounts() {
-        Logger.process.info("ProgressDetails: RESET all properties")
+        Logger.process.debugmesseageonly("ProgressDetails: RESET all properties")
         numberofconfigurations = -1
         uuidswithdatatosynchronize.removeAll()
         estimatedlist = nil
@@ -122,18 +122,18 @@ final class ProgressDetails {
         numberofconfigurationsestimated = Double(estimatedlist?.count ?? 0)
         onetaskisestimated = true
         let numbers = estimatedlist?.count ?? 0
-        Logger.process.info("ProgressDetails: ESTIMATION appendrecordestimatedlist - count: \(numbers, privacy: .public)")
+        Logger.process.debugmesseageonly("ProgressDetails: ESTIMATION appendrecordestimatedlist - count: \(numbers)")
     }
 
     func estimationiscomplete() {
         estimatealltasksinprogress = false
         let numbers = estimatedlist?.count ?? 0
-        Logger.process.info("ProgressDetails: ESTIMATION completed: \(numbers, privacy: .public)")
+        Logger.process.debugmesseageonly("ProgressDetails: ESTIMATION completed: \(numbers)")
     }
 
     func startestimation() {
         estimatealltasksinprogress = true
-        Logger.process.info("ProgressDetails: ESTIMATION started")
+        Logger.process.debugmesseageonly("ProgressDetails: ESTIMATION started")
     }
 
     func confirmexecutetasks() -> Bool {
@@ -142,6 +142,6 @@ final class ProgressDetails {
     }
 
     init() {
-        Logger.process.info("ProgressDetails INIT")
+        Logger.process.debugmesseageonly("ProgressDetails INIT")
     }
 }

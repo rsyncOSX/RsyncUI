@@ -19,7 +19,7 @@ struct CatalogForProfile {
         if let fullpathmacserial = path.fullpathmacserial, let profile {
             let fullpathprofileString = fullpathmacserial.appending("/") + profile
             guard fm.locationExists(at: fullpathprofileString, kind: .folder) == false else {
-                Logger.process.info("CatalogProfile: profile catalog exist: \(fullpathprofileString, privacy: .public)")
+                Logger.process.debugmesseageonly("CatalogProfile: profile catalog exist: \(fullpathprofileString)")
                 return false
             }
 
@@ -27,7 +27,7 @@ struct CatalogForProfile {
             let profileURL = fullpathmacserialURL.appendingPathComponent(profile)
 
             do {
-                Logger.process.info("CatalogProfile creating: \(profileURL, privacy: .public)")
+                Logger.process.debugmesseageonly("CatalogProfile creating: \(profileURL)")
                 try fm.createDirectory(at: profileURL, withIntermediateDirectories: true, attributes: nil)
             } catch let e {
                 let error = e
@@ -47,11 +47,11 @@ struct CatalogForProfile {
             let profileURL = fullpathmacserialURL.appendingPathComponent(profile)
 
             guard fm.locationExists(at: fullpathprofileString, kind: .folder) == true else {
-                Logger.process.info("CatalogProfile: profile catalog does not exist \(fullpathprofileString, privacy: .public)")
+                Logger.process.debugmesseageonly("CatalogProfile: profile catalog does not exist \(fullpathprofileString)")
                 return false
             }
             do {
-                Logger.process.info("CatalogProfile: deleted \(profileURL) catalog")
+                Logger.process.debugmesseageonly("CatalogProfile: deleted \(profileURL) catalog")
                 try fm.removeItem(at: profileURL)
             } catch let e {
                 let error = e as NSError

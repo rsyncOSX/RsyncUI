@@ -21,9 +21,9 @@ final class WriteExportConfigurationsJSON {
             if let jsonData {
                 do {
                     try jsonData.write(to: exportconfigurationfileURL)
-                    Logger.process.info("WriteExportConfigurationsJSON - \(exportpath, privacy: .public): write export configurations to permanent storage")
+                    Logger.process.debugmesseageonly("WriteExportConfigurationsJSON - \(exportpath) write export configurations to permanent storage")
                 } catch let e {
-                    Logger.process.error("WriteExportConfigurationsJSON - \(exportpath, privacy: .public): some ERROR write export configurations to permanent storage")
+                    Logger.process.error("WriteExportConfigurationsJSON - \(exportpath) some ERROR write export configurations to permanent storage")
                     let error = e
                     propogateerror(error: error)
                 }

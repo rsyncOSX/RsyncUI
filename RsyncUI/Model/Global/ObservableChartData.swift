@@ -25,11 +25,11 @@ final class ObservableChartData {
         // LogEntry logs
         parsedlogs = await actorreadchartsdata.parselogrecords(from: alllogs)
         if let parsedlogs {
-            Logger.process.info("ObservableChartData: number of records \(parsedlogs.count, privacy: .public)")
+            Logger.process.debugmesseageonly("ObservableChartData: number of records \(parsedlogs.count)")
         }
     }
 
     deinit {
-        Logger.process.info("ObservableChartData: DEINIT")
+        Logger.process.debugmesseageonly("ObservableChartData: DEINIT")
     }
 }

@@ -21,7 +21,7 @@ final class Snapshotlogsandcatalogs {
         let handlers = ProcessHandlers(
             processtermination: processtermination,
             filehandler: { _ in
-                Logger.process.info("RsyncProcess:You should not SEE this message")
+                Logger.process.debugmesseageonly("RsyncProcess:You should not SEE this message")
             },
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
@@ -125,7 +125,7 @@ final class Snapshotlogsandcatalogs {
     }
 
     deinit {
-        Logger.process.info("Snapshotlogsandcatalogs: DEINIT")
+        Logger.process.debugmesseageonly("Snapshotlogsandcatalogs: DEINIT")
     }
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {

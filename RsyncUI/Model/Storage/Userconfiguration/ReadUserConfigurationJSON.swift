@@ -26,11 +26,7 @@ struct ReadUserConfigurationJSON {
                                                                 fromwhere: userconfigurationfile)
             {
                 UserConfiguration(importeddata)
-                if Thread.isMainThread {
-                    Logger.process.info("ReadUserConfigurationJSON: Reading user configurations Running on main thread")
-                } else {
-                    Logger.process.info("ReadUserConfigurationJSON: Reading user configurations NOT on main thread, currently on \(Thread.current, privacy: .public)")
-                }
+                Logger.process.debugtthreadonly("ReadUserConfigurationJSON: Reading user configurations")
             }
 
         } catch let e {

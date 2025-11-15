@@ -7,7 +7,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationWillTerminate(_: Notification) {
-        Logger.process.info("RsyncUIApp: applicationWillTerminate, doing clean up")
+        Logger.process.debugmesseageonly("RsyncUIApp: applicationWillTerminate, doing clean up")
         GlobalTimer.shared.invalidateAllSchedulesAndTimer()
     }
 }
@@ -72,7 +72,7 @@ struct RsyncUIApp: App {
     }
 
     private func performCleanupTask() {
-        Logger.process.info("RsyncUIApp: performCleanupTask(), RsyncUI shutting down, doing clean up")
+        Logger.process.debugmesseageonly("RsyncUIApp: performCleanupTask(), RsyncUI shutting down, doing clean up")
         GlobalTimer.shared.invalidateAllSchedulesAndTimer()
     }
 }
@@ -93,7 +93,7 @@ extension Logger {
             if Thread.checkIsMainThread() {
                 debug("\(message) Running on main thread")
             } else {
-                debug("\(message) NOT on main thread, currently on \(Thread.current, privacy: .public)")
+                debug("\(message) NOT on main thread, currently on \(Thread.current)")
             }
         #endif
     }

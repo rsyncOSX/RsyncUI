@@ -49,7 +49,7 @@ struct Sshsettings: View {
                     helpText: "Save userconfiguration"
                 ) {
                     _ = WriteUserConfigurationJSON(UserConfiguration())
-                    Logger.process.info("USER CONFIGURATION is SAVED")
+                    Logger.process.debugmesseageonly("USER CONFIGURATION is SAVED")
                 }
             }
 

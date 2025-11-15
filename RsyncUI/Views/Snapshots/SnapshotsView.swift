@@ -333,9 +333,9 @@ extension SnapshotsView {
             rsyncUIdata.configurations = updateconfiguration.configurations
             updated = true
             if selectedconfig.snaplast == 1 {
-                Logger.process.info("SnapshotsView: saved EVERY day in month for \(snapdayofweek, privacy: .public)")
+                Logger.process.debugmesseageonly("SnapshotsView: saved EVERY day in month for \(snapdayofweek)")
             } else {
-                Logger.process.info("SnapshotsView: saved LAST day in month for \(snapdayofweek, privacy: .public)")
+                Logger.process.debugmesseageonly("SnapshotsView: saved LAST day in month for \(snapdayofweek)")
             }
         }
         Task {

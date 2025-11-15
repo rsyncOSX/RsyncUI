@@ -45,7 +45,7 @@ final class Logging {
                 logrecords?[index].logrecords = [Log]()
             }
             logrecords?[index].logrecords?.append(log)
-            Logger.process.info("SingletaskPrimaryLogging: added log existing task")
+            Logger.process.debugmesseageonly("SingletaskPrimaryLogging: added log existing task")
             return true
         } else {
             return false
@@ -68,7 +68,7 @@ final class Logging {
         newrecord.logrecords = [Log]()
         newrecord.logrecords?.append(log)
         logrecords?.append(newrecord)
-        Logger.process.info("SingletaskPrimaryLogging: added log new task")
+        Logger.process.debugmesseageonly("SingletaskPrimaryLogging: added log new task")
         return true
     }
 

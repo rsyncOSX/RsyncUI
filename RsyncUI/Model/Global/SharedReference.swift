@@ -89,10 +89,10 @@ final class SharedReference {
 
     func updateprocess(_ task: Process?) {
         if task != nil {
-            Logger.process.info("SharedReference: Process set to ACTIVE")
+            Logger.process.debugmesseageonly("SharedReference: Process set to ACTIVE")
             process = task
         } else {
-            Logger.process.info("SharedReference: Process set to NIL")
+            Logger.process.debugmesseageonly("SharedReference: Process set to NIL")
             process = nil
         }
     }

@@ -24,7 +24,7 @@ struct VerifyDuplicates {
         _ = configurations.map { record in
             arrayofhiddenIDs.append(record.hiddenID)
         }
-        Logger.process.info("VerifyDuplicates: doing a check for duplicates")
+        Logger.process.debugmesseageonly("VerifyDuplicates: doing a check for duplicates")
         do {
             try checkforduplicates()
         } catch let e {

@@ -19,14 +19,14 @@ actor ActorGetversionofRsyncUI {
                 try await versions.decodearraydata(VersionsofRsyncUI.self,
                                                    fromwhere: Resources().getResource(resource: .urlJSON))
             {
-                Logger.process.info("CheckfornewversionofRsyncUI: \(versionsofrsyncui, privacy: .public)")
+                Logger.process.debugmesseageonly("CheckfornewversionofRsyncUI: \(versionsofrsyncui)")
                 let runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
                 let check = versionsofrsyncui.filter { runningversion.isEmpty ? true : $0.version == runningversion }
                 if check.count > 0 {
-                    Logger.process.info("CheckfornewversionofRsyncUI: COMPLETED NEW VERSION FOUND")
+                    Logger.process.debugmesseageonly("CheckfornewversionofRsyncUI: COMPLETED NEW VERSION FOUND")
                     return true
                 } else {
-                    Logger.process.info("CheckfornewversionofRsyncUI: COMPLETED NO NEW VERSION")
+                    Logger.process.debugmesseageonly("CheckfornewversionofRsyncUI: COMPLETED NO NEW VERSION")
                     return false
                 }
             }
@@ -46,7 +46,7 @@ actor ActorGetversionofRsyncUI {
                 try await versions.decodearraydata(VersionsofRsyncUI.self,
                                                    fromwhere: Resources().getResource(resource: .urlJSON))
             {
-                Logger.process.info("CheckfornewversionofRsyncUI: \(versionsofrsyncui, privacy: .public)")
+                Logger.process.debugmesseageonly("CheckfornewversionofRsyncUI: \(versionsofrsyncui)")
                 let runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
                 let check = versionsofrsyncui.filter { runningversion.isEmpty ? true : $0.version == runningversion }
                 if check.count > 0 {

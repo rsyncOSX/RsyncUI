@@ -53,7 +53,7 @@ struct SidebarTasksView: View {
                 }
         }
         .onChange(of: executetaskpath) {
-            Logger.process.info("SidebarTasksView: executetaskpath \(executetaskpath, privacy: .public)")
+            Logger.process.debugmesseageonly("SidebarTasksView: executetaskpath \(executetaskpath)")
         }
         .onChange(of: queryitem) {
             // URL code
@@ -129,7 +129,7 @@ struct SidebarTasksView: View {
 extension SidebarTasksView {
     // URL code
     private func handlequeryitem() {
-        Logger.process.info("SidebarTasksView: Change on queryitem discovered")
+        Logger.process.debugmesseageonly("SidebarTasksView: Change on queryitem discovered")
         if queryitem != nil {
             executetaskpath.append(Tasks(task: .summarizeddetailsview))
         }

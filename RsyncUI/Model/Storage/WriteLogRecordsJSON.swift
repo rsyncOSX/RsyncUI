@@ -58,7 +58,7 @@ final class WriteLogRecordsJSON {
     }
 
     deinit {
-        Logger.process.info("WriteLogRecordsJSON DEINIT")
+        Logger.process.debugmesseageonly("WriteLogRecordsJSON DEINIT")
     }
 }
 
