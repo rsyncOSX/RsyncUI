@@ -186,15 +186,11 @@ struct LogStatsChartView: View {
 
             logentries = await readandsortlogdata()
         }
-        .onChange(of: numberofdatabool) {
-            Task {
-                logentries = await readandsortlogdata()
-            }
+        .task(id: numberofdatabool) {
+            logentries = await readandsortlogdata()
         }
-        .onChange(of: datainchart) {
-            Task {
-                logentries = await readandsortlogdata()
-            }
+        .task(id: datainchart) {
+            logentries = await readandsortlogdata()
         }
 
         var synchronizeid: String {
