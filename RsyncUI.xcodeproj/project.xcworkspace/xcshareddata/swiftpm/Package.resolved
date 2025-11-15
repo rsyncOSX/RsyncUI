@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/RsyncProcess",
       "state" : {
-        "branch" : "main",
-        "revision" : "fc804b2873dae3844131935718856cd86220abc6"
+        "branch" : "approchableconcurrency",
+        "revision" : "cea1c4f2c969d9849b1726c14f3a31c70906d739"
       }
     },
     {
