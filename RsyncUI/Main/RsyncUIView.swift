@@ -44,13 +44,6 @@ struct RsyncUIView: View {
             // Get version of rsync
             rsyncversion.getrsyncversion()
             rsyncUIdata.executetasksinprogress = false
-
-            rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
-                .readjsonfilesynchronizeconfigurations(nil,
-                                                       SharedReference.shared.rsyncversion3,
-                                                       SharedReference.shared.monitornetworkconnection,
-                                                       SharedReference.shared.sshport)
-
             // Load valid profilenames
             let catalognames = Homepath().getfullpathmacserialcatalogsasstringnames()
             rsyncUIdata.validprofiles = catalognames.map { catalog in
@@ -58,7 +51,6 @@ struct RsyncUIView: View {
             }
         }
         .task(id: selectedprofileID) {
-            // Skip initial run when selectedprofileID is nil on first appearance
             var profile: String?
             // Only for external URL
             guard rsyncUIdata.externalurlrequestinprogress == false else {

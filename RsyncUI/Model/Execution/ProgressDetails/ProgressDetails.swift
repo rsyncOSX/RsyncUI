@@ -140,8 +140,4 @@ final class ProgressDetails {
         let filterconfirm = estimatedlist?.filter { $0.confirmexecute == true }
         return filterconfirm?.count ?? 0 > 0
     }
-
-    init() {
-        Logger.process.debugmesseageonly("ProgressDetails INIT")
-    }
 }
