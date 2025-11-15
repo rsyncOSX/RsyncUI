@@ -11,12 +11,9 @@ import OSLog
 actor ActorGetversionofRsyncUI {
     @concurrent
     nonisolated func getversionsofrsyncui() async -> Bool {
+        
         do {
-            if Thread.checkIsMainThread() {
-                Logger.process.info("GetversionofRsyncUI: getversionsofrsyncui() Running on main thread")
-            } else {
-                Logger.process.info("GetversionofRsyncUI: getversionsofrsyncui() NOT on main thread, currently on \(Thread.current, privacy: .public)")
-            }
+            Logger.process.debugtthreadonly("GetversionofRsyncUI: getversionsofrsyncui()")
             let versions = DecodeGeneric()
             if let versionsofrsyncui =
                 try await versions.decodearraydata(VersionsofRsyncUI.self,
@@ -43,12 +40,7 @@ actor ActorGetversionofRsyncUI {
     @concurrent
     nonisolated func downloadlinkofrsyncui() async -> String? {
         do {
-            
-            if Thread.checkIsMainThread() {
-                Logger.process.info("GetversionofRsyncUI: downloadlinkofrsyncui() Running on main thread")
-            } else {
-                Logger.process.info("GetversionofRsyncUI: downloadlinkofrsyncui() NOT on main thread, currently on \(Thread.current, privacy: .public)")
-            }
+            Logger.process.debugtthreadonly("GetversionofRsyncUI: downloadlinkofrsyncui()")
             let versions = DecodeGeneric()
             if let versionsofrsyncui =
                 try await versions.decodearraydata(VersionsofRsyncUI.self,

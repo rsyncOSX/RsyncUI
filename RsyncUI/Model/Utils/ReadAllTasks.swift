@@ -19,13 +19,7 @@ struct ReadAllTasks {
         }
 
         let allprofiles = validprofiles.map(\.profilename)
-        
-        if Thread.checkIsMainThread() {
-            Logger.process.info("ReadAllTasks: readallmarkedtasks() Running on main thread")
-        } else {
-            Logger.process.info("ReadAllTasks: readallmarkedtasks() NOT on main thread, currently on \(Thread.current, privacy: .public)")
-        }
-
+        Logger.process.debugtthreadonly("ReadAllTasks: readallmarkedtasks()")
         let monitornetworkconnection = SharedReference.shared.monitornetworkconnection
         let sshport = SharedReference.shared.sshport
         let rsyncversion3 = SharedReference.shared.rsyncversion3

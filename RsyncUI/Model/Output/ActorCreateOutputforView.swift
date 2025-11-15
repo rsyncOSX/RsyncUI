@@ -11,11 +11,7 @@ actor ActorCreateOutputforView {
     // From Array[String]
     @concurrent
     nonisolated func createaoutputforview(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
-        if Thread.checkIsMainThread() {
-            Logger.process.info("ActorCreateOutputforView: createaoutputforview() Running on main thread")
-        } else {
-            Logger.process.info("ActorCreateOutputforView: createaoutputforview() NOT on main thread, currently on \(Thread.current, privacy: .public)")
-        }
+        Logger.process.debugtthreadonly("ActorCreateOutputforView: createaoutputforview()")
         if let stringoutputfromrsync {
             return stringoutputfromrsync.map { line in
                 RsyncOutputData(record: line)
@@ -27,11 +23,7 @@ actor ActorCreateOutputforView {
     // From Set<String>
     @concurrent
     nonisolated func createaoutputforview(_ setoutputfromrsync: Set<String>?) async -> [RsyncOutputData] {
-        if Thread.checkIsMainThread() {
-            Logger.process.info("ActorCreateOutputforView: createaoutputforview() Running on main thread")
-        } else {
-            Logger.process.info("ActorCreateOutputforView: createaoutputforview() NOT on main thread, currently on \(Thread.current, privacy: .public)")
-        }
+        Logger.process.debugtthreadonly("ActorCreateOutputforView: createaoutputforview()")
         if let setoutputfromrsync {
             return setoutputfromrsync.map { line in
                 RsyncOutputData(record: line)
@@ -43,11 +35,7 @@ actor ActorCreateOutputforView {
     // Show filelist for Restore, the TrimOutputForRestore prepares list
     @concurrent
     nonisolated func createoutputforrestore(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
-        if Thread.checkIsMainThread() {
-            Logger.process.info("ActorCreateOutputforView: createoutputforrestore() Running on main thread")
-        } else {
-            Logger.process.info("ActorCreateOutputforView: createoutputforrestore() NOT on main thread, currently on \(Thread.current, privacy: .public)")
-        }
+        Logger.process.debugtthreadonly("ActorCreateOutputforView: createoutputforrestore()")
         if let stringoutputfromrsync {
             if let trimmeddata = await TrimOutputForRestore(stringoutputfromrsync).trimmeddata {
                 return trimmeddata.map { filename in
@@ -61,11 +49,7 @@ actor ActorCreateOutputforView {
     // After a restore, present files
     @concurrent
     nonisolated func createoutputafterrestore(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
-        if Thread.checkIsMainThread() {
-            Logger.process.info("ActorCreateOutputforView: createoutputafterrestore() Running on main thread")
-        } else {
-            Logger.process.info("ActorCreateOutputforView: createoutputafterrestore() NOT on main thread, currently on \(Thread.current, privacy: .public)")
-        }
+        Logger.process.debugtthreadonly("ActorCreateOutputforView: createoutputafterrestore()")
         if let stringoutputfromrsync {
             return stringoutputfromrsync.map { filename in
                 RsyncOutputData(record: filename)
@@ -77,11 +61,7 @@ actor ActorCreateOutputforView {
     // Logfile
     @concurrent
     nonisolated func createaoutputlogfileforview() async -> [LogfileRecords] {
-        if Thread.checkIsMainThread() {
-            Logger.process.info("ActorCreateOutputforView: createaoutputlogfileforview() generatedata() Running on main thread")
-        } else {
-            Logger.process.info("ActorCreateOutputforView: createaoutputlogfileforview() generatedata() NOT on main thread, currently on \(Thread.current, privacy: .public)")
-        }
+        Logger.process.debugtthreadonly("ActorCreateOutputforView: createaoutputlogfileforview()")
         if let data = await ActorLogToFile(false).readloggfile() {
             return data.map { record in
                 LogfileRecords(line: record)

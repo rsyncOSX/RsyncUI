@@ -2,12 +2,11 @@ import OSLog
 import SwiftUI
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
-    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        return true
+    func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {
+        true
     }
-    
-    func applicationWillTerminate(_ notification: Notification) {
+
+    func applicationWillTerminate(_: Notification) {
         Logger.process.info("RsyncUIApp: applicationWillTerminate, doing clean up")
         GlobalTimer.shared.invalidateAllSchedulesAndTimer()
     }
@@ -81,5 +80,21 @@ struct RsyncUIApp: App {
 extension Logger {
     private static let subsystem = Bundle.main.bundleIdentifier!
     static let process = Logger(subsystem: subsystem, category: "process")
-}
 
+    func debugmesseageonly(_ message: String) {
+        #if DEBUG
+            debug("\(message)")
+        #endif
+    }
+
+    func debugtthreadonly(_ message: String) {
+        #if DEBUG
+            debug("\(message)")
+            if Thread.checkIsMainThread() {
+                debug("\(message) Running on main thread")
+            } else {
+                debug("\(message) NOT on main thread, currently on \(Thread.current, privacy: .public)")
+            }
+        #endif
+    }
+}

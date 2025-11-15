@@ -28,12 +28,7 @@ final class WriteLogRecordsJSON {
                 do {
                     try jsonData.write(to: logrecordfileURL)
                     let myprofile = profile ?? "Default"
-                    if Thread.isMainThread {
-                        Logger.process.info("WriteLogRecordsJSON - \(myprofile), privacy: .public): write logrecords to permanent storage Running on main thread")
-                    } else {
-                        Logger.process.info("WriteLogRecordsJSON - \(myprofile), privacy: .public): write logrecords to permanent storage NOT on main thread, currently on \(Thread.current, privacy: .public)")
-                    }
-
+                    Logger.process.debugtthreadonly("WriteLogRecordsJSON - \(myprofile): write logrecords to permanent storage")
                 } catch let e {
                     Logger.process.error("WriteLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR writing logrecords to permanent storage")
                     let error = e

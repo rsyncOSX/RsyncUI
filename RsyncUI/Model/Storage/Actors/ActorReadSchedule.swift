@@ -1,5 +1,5 @@
 //
-//  ReadSchedule.swift
+//  ActorReadSchedule.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 19/04/2021.
@@ -10,19 +10,12 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-
 actor ActorReadSchedule {
     func readjsonfilecalendar(_ validprofiles: [String]) async -> [SchedulesConfigurations]? {
         let reporterror = ReportError()
         var filename = ""
         let path = await Homepath()
-
-        if Thread.checkIsMainThread() {
-            Logger.process.info("ActorReadSchedule: readjsonfilecalendar() Running on main thread")
-        } else {
-            Logger.process.info("ActorReadSchedule: readjsonfilecalendar() NOT on main thread, currently on \(Thread.current, privacy: .public)")
-        }
-
+        Logger.process.debugtthreadonly("ActorReadSchedule: readjsonfilecalendar()")
         if let fullpathmacserial = path.fullpathmacserial {
             filename = fullpathmacserial.appending("/") + SharedConstants().caldenarfilejson
         }

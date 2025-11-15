@@ -57,12 +57,7 @@ actor ActorReadSynchronizeConfigurationJSON {
     {
         var filename = ""
         let path = await Homepath()
-        
-        if Thread.checkIsMainThread() {
-            Logger.process.info("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations() Running on main thread")
-        } else {
-            Logger.process.info("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations() NOT on main thread, currently on \(Thread.current, privacy: .public)")
-        }
+        Logger.process.debugtthreadonly("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations()")
         if let profile, let fullpathmacserial = path.fullpathmacserial {
             filename = fullpathmacserial.appending("/") + profile.appending("/") + SharedConstants().fileconfigurationsjson
         } else {
@@ -75,11 +70,7 @@ actor ActorReadSynchronizeConfigurationJSON {
             if let data = try
                 decodeimport.decodearraydatafileURL(DecodeSynchronizeConfiguration.self, fromwhere: filename)
             {
-                if Thread.checkIsMainThread() {
-                    Logger.process.info("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): DECODE Running on main thread")
-                } else {
-                    Logger.process.info("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): DECODE NOT on main thread, currently on \(Thread.current, privacy: .public)")
-                }
+                Logger.process.debugtthreadonly("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default") ?? DECODE")
                 let tasks = data.compactMap { element in
                     // snapshot and syncremote tasks requiere version3.x of rsync
                     if element.task == "snapshot" || element.task == "syncremote" {
