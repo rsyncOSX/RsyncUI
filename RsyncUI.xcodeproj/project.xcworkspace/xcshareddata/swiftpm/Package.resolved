@@ -15,7 +15,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/ParseRsyncOutput",
       "state" : {
-        "branch" : "approchableconcurrency",
+        "branch" : "main",
         "revision" : "793fd02281393738439b25e54e514a77f8b431e7"
       }
     },
@@ -24,7 +24,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/ProcessCommand",
       "state" : {
-        "branch" : "approchableconcurrency",
+        "branch" : "main",
         "revision" : "f5b0d6c78f38c42e3ab0c5a945ccfe0626eda00a"
       }
     },
@@ -42,7 +42,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/RsyncProcess",
       "state" : {
-        "branch" : "approchableconcurrency",
+        "branch" : "main",
         "revision" : "82d35a698b8d402387bb8612e81504b48139324e"
       }
     },

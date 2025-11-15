@@ -767,7 +767,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/ProcessCommand";
 			requirement = {
-				branch = approchableconcurrency;
+				branch = main;
 				kind = branch;
 			};
 		};
@@ -775,7 +775,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/RsyncProcess";
 			requirement = {
-				branch = approchableconcurrency;
+				branch = main;
 				kind = branch;
 			};
 		};
@@ -791,7 +791,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/ParseRsyncOutput";
 			requirement = {
-				branch = approchableconcurrency;
+				branch = main;
 				kind = branch;
 			};
 		};
