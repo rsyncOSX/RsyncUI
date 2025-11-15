@@ -17,7 +17,15 @@ actor ActorReadLogRecordsJSON {
         let path = await Homepath()
         var filename = ""
 
-        Logger.process.info("ActorReadLogRecordsJSON: readjsonfilelogrecords() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
+        if Thread.checkIsMainThread() {
+
+            Logger.process.info("ActorReadLogRecordsJSON: readjsonfilelogrecords() Running on main thread")
+
+        } else {
+
+            Logger.process.info("ActorReadLogRecordsJSON: readjsonfilelogrecords() NOT on main thread, currently on \(Thread.current, privacy: .public)")
+
+        }
 
         if let profile, let fullpathmacserial = path.fullpathmacserial {
             filename = fullpathmacserial.appending("/") + profile.appending("/") + SharedConstants().filenamelogrecordsjson
@@ -51,7 +59,11 @@ actor ActorReadLogRecordsJSON {
 
     @concurrent
     nonisolated func updatelogsbyhiddenID(_ logrecords: [LogRecords]?, _ hiddenID: Int) async -> [Log]? {
-        Logger.process.info("ActorReadLogRecordsJSON: updatelogsbyhiddenID() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
+        if Thread.checkIsMainThread() {
+            Logger.process.info("ActorReadLogRecordsJSON: updatelogsbyhiddenID() Running on main thread")
+        } else {
+            Logger.process.info("ActorReadLogRecordsJSON: updatelogsbyhiddenID() NOT on main thread, currently on \(Thread.current, privacy: .public)")
+        }
         if let logrecords {
             // hiddenID == -1, merge logrecords for all tasks.
             // if validhiddenID, merge logrecords for a specific task
@@ -77,7 +89,11 @@ actor ActorReadLogRecordsJSON {
 
     @concurrent
     nonisolated func updatelogsbyfilter(_ logrecords: [LogRecords]?, _ filterstring: String, _ hiddenID: Int) async -> [Log]? {
-        Logger.process.info("ActorReadLogRecordsJSON: updatelogsbyfilter() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
+        if Thread.checkIsMainThread() {
+            Logger.process.info("ActorReadLogRecordsJSON: updatelogsbyfilter() Running on main thread")
+        } else {
+            Logger.process.info("ActorReadLogRecordsJSON: updatelogsbyfilter() NOT on main thread, currently on \(Thread.current, privacy: .public)")
+        }
         guard filterstring != "" else { return nil }
         if let logrecords {
             if hiddenID == -1 {

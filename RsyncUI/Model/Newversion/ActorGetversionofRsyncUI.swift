@@ -12,7 +12,11 @@ actor ActorGetversionofRsyncUI {
     @concurrent
     nonisolated func getversionsofrsyncui() async -> Bool {
         do {
-            Logger.process.info("GetversionofRsyncUI: getversionsofrsyncui() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
+            if Thread.checkIsMainThread() {
+                Logger.process.info("GetversionofRsyncUI: getversionsofrsyncui() Running on main thread")
+            } else {
+                Logger.process.info("GetversionofRsyncUI: getversionsofrsyncui() NOT on main thread, currently on \(Thread.current, privacy: .public)")
+            }
             let versions = DecodeGeneric()
             if let versionsofrsyncui =
                 try await versions.decodearraydata(VersionsofRsyncUI.self,

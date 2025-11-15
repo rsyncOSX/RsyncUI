@@ -25,7 +25,11 @@ actor ActorLogChartsData {
     @concurrent
     nonisolated func parselogrecords(from logrecords: [Log]) async -> [LogEntry] {
         // "resultExecuted": "43 files : 0.73 MB in 0.49 seconds"
-        Logger.process.info("ActorLogChartsData: parselogrecords() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
+        if Thread.checkIsMainThread() {
+            Logger.process.info("ActorLogChartsData: parselogrecords() Running on main thread")
+        } else {
+            Logger.process.info("ActorLogChartsData: parselogrecords() NOT on main thread, currently on \(Thread.current, privacy: .public)")
+        }
         Logger.process.info("ActorLogChartsData: number of records \(logrecords.count, privacy: .public)")
         // return logrecords.compactMap { logrecord in
         return logrecords.compactMap { logrecord in

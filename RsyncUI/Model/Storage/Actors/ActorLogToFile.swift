@@ -31,7 +31,11 @@ actor ActorLogToFile {
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-            Logger.process.info("LogToFile: writeloggfile() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
+            if Thread.checkIsMainThread() {
+                Logger.process.info("LogToFile: writeloggfile() Running on main thread")
+            } else {
+                Logger.process.info("LogToFile: writeloggfile() NOT on main thread, currently on \(Thread.current, privacy: .public)")
+            }
             if let logfiledata = await appendloggfileData(newlogadata, reset) {
                 do {
                     try logfiledata.write(to: logfileURL)

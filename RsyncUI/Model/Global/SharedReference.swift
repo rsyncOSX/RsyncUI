@@ -13,6 +13,10 @@ import OSLog
 public extension Thread {
     static var isMain: Bool { isMainThread }
     static var currentThread: Thread { Thread.current }
+    
+    nonisolated static func checkIsMainThread() -> Bool {
+        Thread.isMainThread
+    }
 }
 
 @Observable

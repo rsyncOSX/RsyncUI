@@ -72,7 +72,11 @@ actor ActorReadSynchronizeConfigurationJSON {
             if let data = try
                 decodeimport.decodearraydatafileURL(DecodeSynchronizeConfiguration.self, fromwhere: filename)
             {
-                Logger.process.info("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): DECODE MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
+                if Thread.checkIsMainThread() {
+                    Logger.process.info("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): DECODE Running on main thread")
+                } else {
+                    Logger.process.info("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): DECODE NOT on main thread, currently on \(Thread.current, privacy: .public)")
+                }
                 let tasks = data.compactMap { element in
                     // snapshot and syncremote tasks requiere version3.x of rsync
                     if element.task == "snapshot" || element.task == "syncremote" {
