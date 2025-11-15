@@ -16,7 +16,7 @@
       "location" : "https://github.com/rsyncOSX/ParseRsyncOutput",
       "state" : {
         "branch" : "main",
-        "revision" : "793fd02281393738439b25e54e514a77f8b431e7"
+        "revision" : "ffe0cc78125f73c817c5715620c07051fe700ef1"
       }
     },
     {
@@ -25,7 +25,7 @@
       "location" : "https://github.com/rsyncOSX/ProcessCommand",
       "state" : {
         "branch" : "main",
-        "revision" : "f5b0d6c78f38c42e3ab0c5a945ccfe0626eda00a"
+        "revision" : "cf68ae4539a41f31bdfa0070abe00afce658303f"
       }
     },
     {
@@ -43,7 +43,7 @@
       "location" : "https://github.com/rsyncOSX/RsyncProcess",
       "state" : {
         "branch" : "main",
-        "revision" : "82d35a698b8d402387bb8612e81504b48139324e"
+        "revision" : "c10ca0861cc7ca49823e1bbf738333b0b865051a"
       }
     },
     {
