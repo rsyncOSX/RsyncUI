@@ -57,9 +57,10 @@ struct RsyncUIView: View {
                 ProfilesnamesRecord(catalog)
             }
         }
-        .onChange(of: selectedprofileID) {
+        .task(id: selectedprofileID) {
+            // Skip initial run when selectedprofileID is nil on first appearance
+            guard selectedprofileID != nil else { return }
             var profile: String?
-
             // Only for external URL
             guard rsyncUIdata.externalurlrequestinprogress == false else {
                 Logger.process.info("RsyncUIView: external URL loaded")
@@ -75,16 +76,14 @@ struct RsyncUIView: View {
                 profile = nil
             }
 
-            Task {
-                rsyncUIdata.profile = profile
-                rsyncUIdata.executetasksinprogress = false
+            rsyncUIdata.profile = profile
+            rsyncUIdata.executetasksinprogress = false
 
-                rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
-                    .readjsonfilesynchronizeconfigurations(profile,
-                                                           SharedReference.shared.rsyncversion3,
-                                                           SharedReference.shared.monitornetworkconnection,
-                                                           SharedReference.shared.sshport)
-            }
+            rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
+                .readjsonfilesynchronizeconfigurations(profile,
+                                                       SharedReference.shared.rsyncversion3,
+                                                       SharedReference.shared.monitornetworkconnection,
+                                                       SharedReference.shared.sshport)
         }
     }
 
