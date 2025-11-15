@@ -57,9 +57,12 @@ actor ActorReadSynchronizeConfigurationJSON {
     {
         var filename = ""
         let path = await Homepath()
-
-        Logger.process.info("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
-
+        
+        if Thread.checkIsMainThread() {
+            Logger.process.info("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations() Running on main thread")
+        } else {
+            Logger.process.info("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations() NOT on main thread, currently on \(Thread.current, privacy: .public)")
+        }
         if let profile, let fullpathmacserial = path.fullpathmacserial {
             filename = fullpathmacserial.appending("/") + profile.appending("/") + SharedConstants().fileconfigurationsjson
         } else {

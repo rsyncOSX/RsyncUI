@@ -71,8 +71,12 @@ actor ActorLogToFile {
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-            Logger.process.info("LogToFile: readloggfile() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
-
+            
+            if Thread.checkIsMainThread() {
+                Logger.process.info("LogToFile: readloggfile() Running on main thread")
+            } else {
+                Logger.process.info("LogToFile: readloggfile() NOT on main thread, currently on \(Thread.current, privacy: .public)")
+            }
             do {
                 let checker = FileSize()
                 if let size = try await checker.filesize() {
@@ -116,8 +120,11 @@ actor ActorLogToFile {
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-            Logger.process.info("LogToFile: readloggfileasline() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
-
+            if Thread.checkIsMainThread() {
+                Logger.process.info("LogToFile: readloggfileasline() Running on main thread")
+            } else {
+                Logger.process.info("LogToFile: readloggfileasline() NOT on main thread, currently on \(Thread.current, privacy: .public)")
+            }
             do {
                 let checker = FileSize()
                 if let size = try await checker.filesize() {
@@ -159,8 +166,12 @@ actor ActorLogToFile {
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-            Logger.process.info("LogToFile: appendloggfileData() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
-
+            if Thread.checkIsMainThread() {
+                Logger.process.info("LogToFile: appendloggfileData() Running on main thread")
+            } else {
+                Logger.process.info("LogToFile: appendloggfileData() NOT on main thread, currently on \(Thread.current, privacy: .public)")
+            }
+            
             if let newdata = newlogadata.data(using: .utf8) {
                 do {
                     if reset {

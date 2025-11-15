@@ -19,8 +19,12 @@ struct ReadAllTasks {
         }
 
         let allprofiles = validprofiles.map(\.profilename)
-
-        Logger.process.info("ReadAllTasks: readallmarkedtasks() START of async CALLs MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
+        
+        if Thread.checkIsMainThread() {
+            Logger.process.info("ReadAllTasks: readallmarkedtasks() Running on main thread")
+        } else {
+            Logger.process.info("ReadAllTasks: readallmarkedtasks() NOT on main thread, currently on \(Thread.current, privacy: .public)")
+        }
 
         let monitornetworkconnection = SharedReference.shared.monitornetworkconnection
         let sshport = SharedReference.shared.sshport

@@ -78,7 +78,11 @@ actor ActorLogChartsData {
     // Select the one date with max files transferred, if more records pr date.
     @concurrent
     nonisolated func parsemaxfilesbydate(from records: [LogEntry]) async -> [LogEntry] {
-        Logger.process.info("ActorLogChartsData: parsemaxfilesbydate() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
+        if Thread.checkIsMainThread() {
+            Logger.process.info("ActorLogChartsData: parsemaxfilesbydate() Running on main thread")
+        } else {
+            Logger.process.info("ActorLogChartsData: parsemaxfilesbydate() NOT on main thread, currently on \(Thread.current, privacy: .public)")
+        }
         Logger.process.info("ActorLogChartsData: number of records IN \(records.count, privacy: .public)")
 
         let calendar = Calendar.current
@@ -128,7 +132,11 @@ actor ActorLogChartsData {
     // Select the one date with max data transferred, if more records pr date.
     @concurrent
     nonisolated func parsemaxfilesbytransferredsize(from records: [LogEntry]) async -> [LogEntry] {
-        Logger.process.info("ActorLogChartsData: parsemaxfilesbytransferredsize() MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
+        if Thread.checkIsMainThread() {
+            Logger.process.info("ActorLogChartsData: parsemaxfilesbytransferredsize() Running on main thread")
+        } else {
+            Logger.process.info("ActorLogChartsData: parsemaxfilesbytransferredsize() NOT on main thread, currently on \(Thread.current, privacy: .public)")
+        }
         Logger.process.info("ActorLogChartsData: number of records IN \(records.count, privacy: .public)")
         let calendar = Calendar.current
 

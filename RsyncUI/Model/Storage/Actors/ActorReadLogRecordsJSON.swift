@@ -18,13 +18,9 @@ actor ActorReadLogRecordsJSON {
         var filename = ""
 
         if Thread.checkIsMainThread() {
-
             Logger.process.info("ActorReadLogRecordsJSON: readjsonfilelogrecords() Running on main thread")
-
         } else {
-
             Logger.process.info("ActorReadLogRecordsJSON: readjsonfilelogrecords() NOT on main thread, currently on \(Thread.current, privacy: .public)")
-
         }
 
         if let profile, let fullpathmacserial = path.fullpathmacserial {
@@ -42,7 +38,13 @@ actor ActorReadLogRecordsJSON {
             if let data = try
                 decodeimport.decodearraydatafileURL(DecodeLogRecords.self, fromwhere: filename)
             {
-                Logger.process.info("ActorReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): DECODE MAIN THREAD: \(Thread.isMain, privacy: .public) but on \(Thread.current, privacy: .public)")
+                
+                if Thread.checkIsMainThread() {
+                    Logger.process.info("ActorReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public) Running on main thread")
+                } else {
+                    Logger.process.info("ActorReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public) NOT on main thread, currently on \(Thread.current, privacy: .public)")
+                }
+               
                 return data.compactMap { element in
                     let item = LogRecords(element)
                     return validhiddenIDs.contains(item.hiddenID) ? item : nil

@@ -18,13 +18,9 @@ actor ActorReadSchedule {
         let path = await Homepath()
 
         if Thread.checkIsMainThread() {
-
             Logger.process.info("ActorReadSchedule: readjsonfilecalendar() Running on main thread")
-
         } else {
-
             Logger.process.info("ActorReadSchedule: readjsonfilecalendar() NOT on main thread, currently on \(Thread.current, privacy: .public)")
-
         }
 
         if let fullpathmacserial = path.fullpathmacserial {
