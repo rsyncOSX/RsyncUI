@@ -16,7 +16,7 @@
       "location" : "https://github.com/rsyncOSX/ParseRsyncOutput",
       "state" : {
         "branch" : "approchableconcurrency",
-        "revision" : "e72a24f6f5a4d609a78ad555da75f113c91021c2"
+        "revision" : "793fd02281393738439b25e54e514a77f8b431e7"
       }
     },
     {
@@ -25,7 +25,7 @@
       "location" : "https://github.com/rsyncOSX/ProcessCommand",
       "state" : {
         "branch" : "approchableconcurrency",
-        "revision" : "5f36fca937367f07f7fa786d7898d8f9b33ba414"
+        "revision" : "f5b0d6c78f38c42e3ab0c5a945ccfe0626eda00a"
       }
     },
     {
@@ -43,7 +43,7 @@
       "location" : "https://github.com/rsyncOSX/RsyncProcess",
       "state" : {
         "branch" : "approchableconcurrency",
-        "revision" : "5edc1d554925ac9801888474fec7fe6cb744ab45"
+        "revision" : "82d35a698b8d402387bb8612e81504b48139324e"
       }
     },
     {
