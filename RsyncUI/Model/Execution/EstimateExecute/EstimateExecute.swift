@@ -153,9 +153,20 @@ final class EstimateExecute {
     }
 
     // Used in Estimate
-    func validatetagging(_ lines: Int, _ tagged: Bool) throws {
+    private func validatetagging(_ lines: Int, _ tagged: Bool) throws {
         if lines > SharedReference.shared.alerttagginglines, tagged == false {
             throw ErrorDatatoSynchronize.thereisdatatosynchronize(idwitherror: synchronizeIDwitherror)
+        }
+    }
+    
+    private func computestackoftasks(_ selecteduuids: Set<UUID>) -> [Int] {
+        if selecteduuids.count > 0 {
+            let configurations = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
+            return configurations.map(\.hiddenID)
+        } else {
+            // Or go for all
+            let configurations = localconfigurations.filter { $0.task != SharedReference.shared.halted }
+            return configurations.map(\.hiddenID)
         }
     }
 
@@ -189,6 +200,25 @@ final class EstimateExecute {
         }
     }
 
+    // Init execute NO estimation
+    @discardableResult
+    init(profile: String?,
+         configurations: [SynchronizeConfiguration],
+         selecteduuids: Set<UUID>,
+         noestprogressdetails: NoEstProgressDetails?,
+         filehandler: @escaping (Int) -> Void,
+         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
+    {
+        structprofile = profile
+        localconfigurations = configurations
+        localnoestprogressdetails = noestprogressdetails
+        localfilehandler = filehandler
+        localupdateconfigurations = updateconfigurations
+
+        stackoftasks = computestackoftasks(selecteduuids)
+        startexecution_noestimate()
+    }
+    
     @discardableResult
     convenience init(profile: String?,
                      configurations: [SynchronizeConfiguration],
@@ -225,36 +255,7 @@ final class EstimateExecute {
         startestimation()
     }
 
-    // Init execute NO estimation
-    @discardableResult
-    init(profile: String?,
-         configurations: [SynchronizeConfiguration],
-         selecteduuids: Set<UUID>,
-         noestprogressdetails: NoEstProgressDetails?,
-         filehandler: @escaping (Int) -> Void,
-         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
-    {
-        structprofile = profile
-        localconfigurations = configurations
-        localnoestprogressdetails = noestprogressdetails
-        localfilehandler = filehandler
-        localupdateconfigurations = updateconfigurations
-
-        stackoftasks = computestackoftasks(selecteduuids)
-        startexecution_noestimate()
-    }
-
-    private func computestackoftasks(_ selecteduuids: Set<UUID>) -> [Int] {
-        if selecteduuids.count > 0 {
-            let configurations = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
-            return configurations.map(\.hiddenID)
-        } else {
-            // Or go for all
-            let configurations = localconfigurations.filter { $0.task != SharedReference.shared.halted }
-            return configurations.map(\.hiddenID)
-        }
-    }
-
+   
     deinit {
         Logger.process.debugmesseageonly("EstimateExecute: DEINIT")
         self.stackoftasks = nil
@@ -262,7 +263,7 @@ final class EstimateExecute {
 }
 
 extension EstimateExecute {
-    func processtermination_estimation(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
+    private func processtermination_estimation(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
         var adjustedoutputfromrsync = false
         var suboutput: [String]?
 
@@ -339,7 +340,7 @@ extension EstimateExecute {
         }
     }
 
-    func processtermination_excute(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
+    private func processtermination_excute(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
         guard setabort == false else { return }
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
@@ -368,7 +369,7 @@ extension EstimateExecute {
         startexecution()
     }
 
-    func processtermination_noestimation(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
+    private func processtermination_noestimation(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
         // If snahost task the snapshotnum is increased when updating the configuration.
         // When creating the logrecord, decrease the snapshotum by 1
 
