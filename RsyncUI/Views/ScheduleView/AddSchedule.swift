@@ -64,7 +64,6 @@ struct AddSchedule: View {
                     } else { nil }
 
                     guard schedules.verifynextschedule(plannednextschedule: run) else {
-                        Logger.process.warning("AddSchedule: not valid more than 10 minutes to next schedule")
                         return
                     }
 

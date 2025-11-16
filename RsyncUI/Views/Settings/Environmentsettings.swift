@@ -33,7 +33,6 @@ struct Environmentsettings: View {
                     helpText: "Save userconfiguration"
                 ) {
                     _ = WriteUserConfigurationJSON(UserConfiguration())
-                    Logger.process.debugmesseageonly("USER CONFIGURATION is SAVED")
                 }
             }
         }

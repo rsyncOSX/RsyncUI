@@ -103,7 +103,6 @@ extension ExecuteEstTasksView {
             return
         }
         if let adjustedselecteduuids {
-            Logger.process.debugmesseageonly("ExecuteEstimatedTasksView: executemultipleestimatedtasks(): \(adjustedselecteduuids)")
             if let configurations = rsyncUIdata.configurations {
                 EstimateExecute(profile: rsyncUIdata.profile,
                                 configurations: configurations,
@@ -117,7 +116,6 @@ extension ExecuteEstTasksView {
     }
 
     func updateconfigurations(_ configurations: [SynchronizeConfiguration]) {
-        Logger.process.debugmesseageonly("ExecuteEstimatedTasksView: updateconfigurations() in memory\nReset data and return to MAIN THREAD task view")
         rsyncUIdata.configurations = configurations
         progressdetails.hiddenIDatwork = -1
         progressdetails.estimatedlist = nil

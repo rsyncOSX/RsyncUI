@@ -332,11 +332,6 @@ extension SnapshotsView {
             updateconfiguration.updateconfiguration(selectedconfig, false)
             rsyncUIdata.configurations = updateconfiguration.configurations
             updated = true
-            if selectedconfig.snaplast == 1 {
-                Logger.process.debugmesseageonly("SnapshotsView: saved EVERY day in month for \(snapdayofweek)")
-            } else {
-                Logger.process.debugmesseageonly("SnapshotsView: saved LAST day in month for \(snapdayofweek)")
-            }
         }
         Task {
             try await Task.sleep(seconds: 2)

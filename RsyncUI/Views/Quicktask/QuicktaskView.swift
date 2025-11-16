@@ -112,8 +112,6 @@ struct QuicktaskView: View {
                         }
                         .onAppear {
                             if let selectedrsynccommand = UserDefaults.standard.value(forKey: "quickselectedrsynccommand") {
-                                Logger.process.debugmesseageonly("QuicktaskView: set default settings for selectedrsynccommand: \(selectedrsynccommand as! NSObject)")
-
                                 switch selectedrsynccommand as! String {
                                 case "synchronize":
                                     self.selectedrsynccommand = TypeofTaskQuictask.synchronize
@@ -143,8 +141,6 @@ struct QuicktaskView: View {
                         }
                         .onAppear {
                             if let trailingslashoptions = UserDefaults.standard.value(forKey: "quicktrailingslash") {
-                                Logger.process.debugmesseageonly("QuicktaskView: set default settings for trailingslashoptions: \(trailingslashoptions as! NSObject)")
-
                                 switch trailingslashoptions as! String {
                                 case "do_not_check":
                                     self.trailingslashoptions = TrailingSlash.do_not_check
@@ -239,8 +235,6 @@ struct QuicktaskView: View {
                                 }
                                 .onAppear {
                                     if let quickremotecatalog = UserDefaults.standard.value(forKey: "quickremotecatalog") {
-                                        Logger.process.debugmesseageonly("QuicktaskView: set default settings for remotecatalog: \(quickremotecatalog as! NSObject)")
-
                                         remotecatalog = quickremotecatalog as! String
                                     }
                                 }
@@ -262,7 +256,6 @@ struct QuicktaskView: View {
                                 }
                                 .onAppear {
                                     if let quickremotecatalog = UserDefaults.standard.value(forKey: "quickremotecatalog") {
-                                        Logger.process.debugmesseageonly("QuicktaskView: set default settings for remotecatalog: \(quickremotecatalog as! NSObject)")
                                         remotecatalog = quickremotecatalog as! String
                                     }
                                 }
@@ -294,7 +287,6 @@ struct QuicktaskView: View {
                                 }
                                 .onAppear {
                                     if let quicklocalcatalog = UserDefaults.standard.value(forKey: "quicklocalcatalog") {
-                                        Logger.process.debugmesseageonly("QuicktaskView: set default settings for localcatalog: \(quicklocalcatalog as! NSObject)")
                                         localcatalog = quicklocalcatalog as! String
                                     }
                                 }
@@ -470,7 +462,6 @@ extension QuicktaskView {
         let handlers = ProcessHandlers(
             processtermination: processtermination,
             filehandler: { _ in
-                Logger.process.debugmesseageonly("RsyncProcess:You should not SEE this message")
             },
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,

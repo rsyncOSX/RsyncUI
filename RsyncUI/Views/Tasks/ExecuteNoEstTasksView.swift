@@ -80,7 +80,6 @@ extension ExecuteNoEstTasksView {
     }
 
     func executeallnoestimationtasks() {
-        Logger.process.debugmesseageonly("executeallnoestimationtasks(): \(selecteduuids)")
         noestprogressdetails.startexecutealltasksnoestimation()
         if let configurations = rsyncUIdata.configurations {
             EstimateExecute(profile: rsyncUIdata.profile,
@@ -93,7 +92,6 @@ extension ExecuteNoEstTasksView {
     }
 
     func updateconfigurations(_ configurations: [SynchronizeConfiguration]) {
-        Logger.process.debugmesseageonly("Updateconfigurations() in memory\nReset data and return to MAIN THREAD task view")
         rsyncUIdata.configurations = configurations
         progressviewshowinfo = false
         noestprogressdetails.reset()

@@ -227,12 +227,10 @@ struct TasksView: View {
                 // If more than one task is selected, any halted tasks are ruled out
                 if let selectedconfig {
                     guard selectedconfig.task != SharedReference.shared.halted else {
-                        Logger.process.debugmesseageonly("TasksView: MAGIC WAND button selected task is halted, bailing out")
                         return
                     }
                 }
                 guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                    Logger.process.debugmesseageonly("TasksView: MAGIC WAND button no tasks selected, no configurations, bailing out")
                     return
                 }
 
@@ -252,13 +250,11 @@ struct TasksView: View {
                 // If more than one task is selected, any halted tasks are ruled out
                 if let selectedconfig {
                     guard selectedconfig.task != SharedReference.shared.halted else {
-                        Logger.process.debugmesseageonly("TasksView: PLAY button selected task is halted, bailing out")
                         return
                     }
                 }
 
                 guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                    Logger.process.debugmesseageonly("TasksView: PLAY button selected, no configurations, bailing out")
                     return
                 }
                 // Check if there are estimated tasks, if true execute the
@@ -450,7 +446,6 @@ extension TasksView {
         guard SharedReference.shared.norsync == false else { return }
         // Must check if task is halted
         guard selectedconfig?.task != SharedReference.shared.halted else {
-            Logger.process.debugmesseageonly("Doubleclick: task is halted")
             return
         }
 
@@ -458,7 +453,6 @@ extension TasksView {
             dryrun()
         } else if progressdetails.onlyselectedtaskisestimated(selecteduuids) {
             // Only execute task if this task only is estimated
-            Logger.process.debugmesseageonly("Doubleclick: execute a real run for one task only")
             execute()
         } else {
             dryrun()
@@ -469,20 +463,17 @@ extension TasksView {
         if selectedconfig != nil,
            progressdetails.estimatedlist?.count ?? 0 == 0
         {
-            Logger.process.debugmesseageonly("TasksView: DryRun() execute a dryrun for one task only")
             doubleclick = false
             executetaskpath.append(Tasks(task: .onetaskdetailsview))
         } else if selectedconfig != nil,
                   progressdetails.executeanotherdryrun(rsyncUIdata.profile) == true
         {
-            Logger.process.debugmesseageonly("TasksView: DryRun() new task same profile selected, execute a dryrun")
             doubleclick = false
             executetaskpath.append(Tasks(task: .onetaskdetailsview))
 
         } else if selectedconfig != nil,
                   progressdetails.alltasksestimated(rsyncUIdata.profile) == false
         {
-            Logger.process.debugmesseageonly("TasksView: DryRun() profile is changed, new task selected, execute a dryrun")
             doubleclick = false
             executetaskpath.append(Tasks(task: .onetaskdetailsview))
         }
@@ -495,7 +486,6 @@ extension TasksView {
            progressdetails.alltasksestimated(rsyncUIdata.profile) == true
 
         {
-            Logger.process.debugmesseageonly("TasksView: Execute() ALL estimated tasks")
             // Execute all estimated tasks
             selecteduuids = progressdetails.getuuidswithdatatosynchronize()
             // Change view, see SidebarTasksView
@@ -506,7 +496,6 @@ extension TasksView {
 
         {
             // One or some tasks are selected and estimated
-            Logger.process.debugmesseageonly("TasksView: Execute() ESTIMATED tasks only")
             // Execute estimated tasks only
             selecteduuids = progressdetails.getuuidswithdatatosynchronize()
             // Change view, see SidebarTasksView
@@ -514,7 +503,6 @@ extension TasksView {
 
         } else {
             // Execute all tasks, no estimate
-            Logger.process.debugmesseageonly("TasksView: Execute() selected or all tasks NO ESTIMATE")
             // Execute tasks, no estimate, ask to execute
             showingAlert = true
         }

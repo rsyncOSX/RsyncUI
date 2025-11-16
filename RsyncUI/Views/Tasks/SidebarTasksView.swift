@@ -52,9 +52,6 @@ struct SidebarTasksView: View {
                     makeView(view: which.task)
                 }
         }
-        .onChange(of: executetaskpath) {
-            Logger.process.debugmesseageonly("SidebarTasksView: executetaskpath \(executetaskpath)")
-        }
         .onChange(of: queryitem) {
             // URL code
             handlequeryitem()

@@ -107,7 +107,6 @@ struct PushPullView: View {
         let handlers = ProcessHandlers(
             processtermination: pullprocesstermination,
             filehandler: { _ in
-                Logger.process.debugmesseageonly("RsyncProcess:You should not SEE this message")
             },
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
@@ -147,7 +146,6 @@ struct PushPullView: View {
         let handlers = ProcessHandlers(
             processtermination: pushprocesstermination,
             filehandler: { _ in
-                Logger.process.debugmesseageonly("RsyncProcess:You should not SEE this message")
             },
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,

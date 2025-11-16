@@ -85,7 +85,6 @@ struct Logsettings: View {
                     helpText: "Save userconfiguration"
                 ) {
                     _ = WriteUserConfigurationJSON(UserConfiguration())
-                    Logger.process.debugmesseageonly("USER CONFIGURATION is SAVED")
                 }
             }
         }
@@ -101,11 +100,9 @@ struct Logsettings: View {
             let profileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().caldenarfilejson)
 
             guard fm.locationExists(at: fullpathscheduleString, kind: .file) == true else {
-                Logger.process.debugmesseageonly("Logsettings: schedule file does not exist \(fullpathscheduleString)")
                 return
             }
             do {
-                Logger.process.debugmesseageonly("Logsettings: deleted \(profileURL) file")
                 try fm.removeItem(at: profileURL)
             } catch let e {
                 let error = e as NSError
