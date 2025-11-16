@@ -49,14 +49,15 @@ final class EstimateExecute {
         }
         return nil
     }
-
-    private func startestimation() {
-        guard (stackoftasks?.count ?? 0) > 0 else { return }
-
-        let handlers = ProcessHandlers(
-            processtermination: processtermination_estimation,
-            filehandler: { _ in
-            },
+    
+    private func createhandlers(
+        filehandler: @escaping (Int) -> Void,
+        processtermination: @escaping ([String]?, Int?) -> Void
+        
+    ) -> ProcessHandlers {
+        ProcessHandlers(
+            processtermination: processtermination,
+            filehandler: filehandler,
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
             updateprocess: SharedReference.shared.updateprocess,
@@ -70,6 +71,15 @@ final class EstimateExecute {
             rsyncversion3: SharedReference.shared.rsyncversion3,
             environment: MyEnvironment()?.environment,
             printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
+        )
+    }
+    
+    private func startestimation() {
+        guard (stackoftasks?.count ?? 0) > 0 else { return }
+        
+        let handlers = createhandlers(
+            filehandler: { _ in },
+            processtermination: processtermination_estimation
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
@@ -102,23 +112,9 @@ final class EstimateExecute {
 
     private func startexecution() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
-
-        let handlers = ProcessHandlers(
-            processtermination: processtermination_excute,
+        let handlers = createhandlers(
             filehandler: localfilehandler,
-            rsyncpath: GetfullpathforRsync().rsyncpath,
-            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-            updateprocess: SharedReference.shared.updateprocess,
-            propogateerror: { error in
-                SharedReference.shared.errorobject?.alert(error: error)
-            },
-            logger: { command, output in
-                _ = await ActorLogToFile(command, output)
-            },
-            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
-            rsyncversion3: SharedReference.shared.rsyncversion3,
-            environment: MyEnvironment()?.environment,
-            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
+            processtermination: processtermination_excute
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
@@ -149,23 +145,10 @@ final class EstimateExecute {
 
     private func startexecution_noestimate() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
-
-        let handlers = ProcessHandlers(
-            processtermination: processtermination_noestimation,
+        
+        let handlers = createhandlers(
             filehandler: localfilehandler,
-            rsyncpath: GetfullpathforRsync().rsyncpath,
-            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-            updateprocess: SharedReference.shared.updateprocess,
-            propogateerror: { error in
-                SharedReference.shared.errorobject?.alert(error: error)
-            },
-            logger: { command, output in
-                _ = await ActorLogToFile(command, output)
-            },
-            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
-            rsyncversion3: SharedReference.shared.rsyncversion3,
-            environment: MyEnvironment()?.environment,
-            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
+            processtermination: processtermination_noestimation
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
