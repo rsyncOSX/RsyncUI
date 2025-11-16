@@ -49,14 +49,14 @@ final class EstimateExecute {
         }
         return nil
     }
-    
-    
+
     private func startestimation() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
-        
+
         let handlers = CreateHandlers().createhandlers(
             filehandler: { _ in },
-            processtermination: processtermination_estimation)
+            processtermination: processtermination_estimation
+        )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
             if let config = getconfig(localhiddenID) {
@@ -90,8 +90,9 @@ final class EstimateExecute {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
         let handlers = CreateHandlers().createhandlers(
             filehandler: localfilehandler,
-            processtermination: processtermination_excute)
-        
+            processtermination: processtermination_excute
+        )
+
         if let localhiddenID = stackoftasks?.removeFirst() {
             // For display progress of synchronization of correct task
             localprogressdetails?.hiddenIDatwork = localhiddenID
@@ -120,11 +121,12 @@ final class EstimateExecute {
 
     private func startexecution_noestimate() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
-        
+
         let handlers = CreateHandlers().createhandlers(
             filehandler: localfilehandler,
-            processtermination: processtermination_noestimation)
-        
+            processtermination: processtermination_noestimation
+        )
+
         if let localhiddenID = stackoftasks?.removeFirst() {
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,

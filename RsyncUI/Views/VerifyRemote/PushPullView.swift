@@ -104,23 +104,9 @@ struct PushPullView: View {
                                                                                               forDisplay: false,
                                                                                               keepdelete: true)
 
-        let handlers = ProcessHandlers(
-            processtermination: pullprocesstermination,
-            filehandler: { _ in
-            },
-            rsyncpath: GetfullpathforRsync().rsyncpath,
-            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-            updateprocess: SharedReference.shared.updateprocess,
-            propogateerror: { error in
-                SharedReference.shared.errorobject?.alert(error: error)
-            },
-            logger: { command, output in
-                _ = await ActorLogToFile(command, output)
-            },
-            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
-            rsyncversion3: SharedReference.shared.rsyncversion3,
-            environment: MyEnvironment()?.environment,
-            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
+        let handlers = CreateHandlers().createhandlers(
+            filehandler: { _ in },
+            processtermination: pullprocesstermination
         )
 
         guard SharedReference.shared.norsync == false else { return }
@@ -143,23 +129,9 @@ struct PushPullView: View {
         let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: true,
                                                                                            forDisplay: false,
                                                                                            keepdelete: true)
-        let handlers = ProcessHandlers(
-            processtermination: pushprocesstermination,
-            filehandler: { _ in
-            },
-            rsyncpath: GetfullpathforRsync().rsyncpath,
-            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-            updateprocess: SharedReference.shared.updateprocess,
-            propogateerror: { error in
-                SharedReference.shared.errorobject?.alert(error: error)
-            },
-            logger: { command, output in
-                _ = await ActorLogToFile(command, output)
-            },
-            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
-            rsyncversion3: SharedReference.shared.rsyncversion3,
-            environment: MyEnvironment()?.environment,
-            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
+        let handlers = CreateHandlers().createhandlers(
+            filehandler: { _ in },
+            processtermination: pushprocesstermination
         )
 
         let process = RsyncProcess(arguments: arguments,

@@ -132,7 +132,6 @@ final class ObservableSchedules {
             return
         }
 
-
         for i in 0 ..< recomputedschedules.count {
             if let schedule = recomputedschedules[i].scheduledata?.schedule,
                let dateRun = recomputedschedules[i].scheduledata?.dateRun?.validate_en_date_from_string()

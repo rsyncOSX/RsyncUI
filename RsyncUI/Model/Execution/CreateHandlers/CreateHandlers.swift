@@ -13,7 +13,7 @@ struct CreateHandlers {
     func createhandlers(
         filehandler: @escaping (Int) -> Void,
         processtermination: @escaping ([String]?, Int?) -> Void
-        
+
     ) -> ProcessHandlers {
         ProcessHandlers(
             processtermination: processtermination,

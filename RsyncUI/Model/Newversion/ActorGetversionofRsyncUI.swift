@@ -11,7 +11,6 @@ import OSLog
 actor ActorGetversionofRsyncUI {
     @concurrent
     nonisolated func getversionsofrsyncui() async -> Bool {
-        
         do {
             let versions = DecodeGeneric()
             if let versionsofrsyncui =
