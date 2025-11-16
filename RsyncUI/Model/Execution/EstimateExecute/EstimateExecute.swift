@@ -50,37 +50,13 @@ final class EstimateExecute {
         return nil
     }
     
-    private func createhandlers(
-        filehandler: @escaping (Int) -> Void,
-        processtermination: @escaping ([String]?, Int?) -> Void
-        
-    ) -> ProcessHandlers {
-        ProcessHandlers(
-            processtermination: processtermination,
-            filehandler: filehandler,
-            rsyncpath: GetfullpathforRsync().rsyncpath,
-            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-            updateprocess: SharedReference.shared.updateprocess,
-            propogateerror: { error in
-                SharedReference.shared.errorobject?.alert(error: error)
-            },
-            logger: { command, output in
-                _ = await ActorLogToFile(command, output)
-            },
-            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
-            rsyncversion3: SharedReference.shared.rsyncversion3,
-            environment: MyEnvironment()?.environment,
-            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
-        )
-    }
     
     private func startestimation() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
         
-        let handlers = createhandlers(
+        let handlers = CreateHandlers().createhandlers(
             filehandler: { _ in },
-            processtermination: processtermination_estimation
-        )
+            processtermination: processtermination_estimation)
 
         if let localhiddenID = stackoftasks?.removeFirst() {
             if let config = getconfig(localhiddenID) {
@@ -112,11 +88,10 @@ final class EstimateExecute {
 
     private func startexecution() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
-        let handlers = createhandlers(
+        let handlers = CreateHandlers().createhandlers(
             filehandler: localfilehandler,
-            processtermination: processtermination_excute
-        )
-
+            processtermination: processtermination_excute)
+        
         if let localhiddenID = stackoftasks?.removeFirst() {
             // For display progress of synchronization of correct task
             localprogressdetails?.hiddenIDatwork = localhiddenID
@@ -146,11 +121,10 @@ final class EstimateExecute {
     private func startexecution_noestimate() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
         
-        let handlers = createhandlers(
+        let handlers = CreateHandlers().createhandlers(
             filehandler: localfilehandler,
-            processtermination: processtermination_noestimation
-        )
-
+            processtermination: processtermination_noestimation)
+        
         if let localhiddenID = stackoftasks?.removeFirst() {
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
