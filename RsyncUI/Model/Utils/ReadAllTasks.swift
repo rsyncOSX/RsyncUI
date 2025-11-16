@@ -14,12 +14,10 @@ struct ReadAllTasks {
         var old: [SynchronizeConfiguration]?
         // Important: we must temporarly disable monitor network connection
         if SharedReference.shared.monitornetworkconnection {
-            Logger.process.debugmesseageonly("ReadAllTasks: monitornetworkconnection is disabled")
             SharedReference.shared.monitornetworkconnection = false
         }
 
         let allprofiles = validprofiles.map(\.profilename)
-        Logger.process.debugtthreadonly("ReadAllTasks: readallmarkedtasks()")
         let monitornetworkconnection = SharedReference.shared.monitornetworkconnection
         let sshport = SharedReference.shared.sshport
         let rsyncversion3 = SharedReference.shared.rsyncversion3
@@ -69,8 +67,6 @@ struct ReadAllTasks {
             }
         }
 
-        Logger.process.debugmesseageonly("ReadAllTasks: readallmarkedtasks() COMPLETED async CALLs")
-
         if old?.count == 0 {
             return []
         } else {
@@ -87,18 +83,13 @@ struct ReadAllTasks {
         var allconfigurations: [SynchronizeConfiguration] = []
         // Important: we must temporarly disable monitor network connection
         if SharedReference.shared.monitornetworkconnection {
-            Logger.process.debugmesseageonly("ReadAllTasks: monitornetworkconnection is disabled")
             SharedReference.shared.monitornetworkconnection = false
         }
 
         let allprofiles = validprofiles.map(\.profilename)
 
-        Logger.process.debugmesseageonly("ReadAllTasks: readalltasks() START of async CALLs")
-
         for i in 0 ..< allprofiles.count {
             let profilename = allprofiles[i]
-
-            // Logger.process.debugmesseageonly("ReadAllTasks: readalltasks() LET ASYNC")
 
             let configurations = await ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profilename,
@@ -116,8 +107,6 @@ struct ReadAllTasks {
                 allconfigurations.append(contentsOf: adjustedconfigurations)
             }
         }
-
-        Logger.process.debugmesseageonly("ReadAllTasks: readalltasks() COMPLETED async CALLs")
 
         return allconfigurations
     }

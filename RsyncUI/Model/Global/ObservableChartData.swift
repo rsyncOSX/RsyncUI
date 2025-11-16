@@ -15,7 +15,6 @@ final class ObservableChartData {
 
     // Only read logrecords from store once
     func readandparselogs(profile: String?, validhiddenIDs: Set<Int>, hiddenID: Int) async {
-        Logger.process.debugtthreadonly("ObservableChartData: readandparselogs()")
         guard parsedlogs == nil else { return }
         // Read logrecords
         let actorreadlogs = ActorReadLogRecordsJSON()
@@ -24,9 +23,6 @@ final class ObservableChartData {
         let alllogs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
         // LogEntry logs
         parsedlogs = await actorreadchartsdata.parselogrecords(from: alllogs)
-        if let parsedlogs {
-            Logger.process.debugmesseageonly("ObservableChartData: number of records \(parsedlogs.count)")
-        }
     }
 
     deinit {

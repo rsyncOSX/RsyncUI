@@ -203,7 +203,6 @@ struct QuicktaskView: View {
                                 }
                                 .onAppear {
                                     if let quicklocalcatalog = UserDefaults.standard.value(forKey: "quicklocalcatalog") {
-                                        Logger.process.debugmesseageonly("QuicktaskView: set default settings for localcatalog: \(quicklocalcatalog as! NSObject)")
                                         localcatalog = quicklocalcatalog as! String
                                     }
                                 }

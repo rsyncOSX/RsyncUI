@@ -38,18 +38,12 @@ final class ProgressDetails {
             if SharedReference.shared.rsyncversion3 {
                 // Reduce count with 16 last rows which contains summarized status from rsync
                 num = Double(max?[0].outputfromrsync?.count ?? 0) - 16
-                if num <= 0 {
-                    num = 0
-                    Logger.process.warning("ProgressDetails: EXECUTING getmaxcountbytask() num = 0")
-                }
+                if num <= 0 { num = 0 }
                 Logger.process.debugmesseageonly("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num)")
                 return num
             } else {
                 num = Double(max?[0].outputfromrsync?.count ?? 0)
-                if num <= 0 {
-                    num = 0
-                    Logger.process.warning("ProgressDetails: EXECUTING getmaxcountbytask() num = 0")
-                }
+                if num <= 0 { num = 0 }
                 Logger.process.debugmesseageonly("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num)")
                 return num
             }
@@ -97,12 +91,10 @@ final class ProgressDetails {
     }
 
     func appenduuidwithdatatosynchronize(_ id: UUID) {
-        Logger.process.debugmesseageonly("ProgressDetails: ESTIMATION appending uuid \(id) to uuidswithdatatosynchronize")
         uuidswithdatatosynchronize.insert(id)
     }
 
     func resetcounts() {
-        Logger.process.debugmesseageonly("ProgressDetails: RESET all properties")
         numberofconfigurations = -1
         uuidswithdatatosynchronize.removeAll()
         estimatedlist = nil
