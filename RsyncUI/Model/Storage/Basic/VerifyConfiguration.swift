@@ -209,7 +209,6 @@ final class VerifyConfiguration: Connected {
 
         let handlers = ProcessHandlersCommand(
             processtermination: { _, _ in
-                Logger.process.debugmesseageonly("ProcessCommand: Process terminated with default handler")
             },
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
             updateprocess: SharedReference.shared.updateprocess,

@@ -220,18 +220,12 @@ final class EstimateExecute {
 
         if excutetasks != nil {
             // Execute tasks
-            guard selecteduuids.count > 0 else {
-                Logger.process.warning("EstimateExecute: guard uuids.count == 0: \(selecteduuids.count)")
-                return
-            }
+            guard selecteduuids.count > 0 else { return }
 
             let taskstosynchronize = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
             stackoftasks = taskstosynchronize.map(\.hiddenID)
 
-            guard stackoftasks?.count ?? 0 > 0 else {
-                Logger.process.warning("EstimateExecute: guard uuids.contains($0.id): \(selecteduuids.count)")
-                return
-            }
+            guard stackoftasks?.count ?? 0 > 0 else { return }
             startexecution()
         }
     }
@@ -346,7 +340,7 @@ extension EstimateExecute {
 
                 guard stackoftasks?.count ?? 0 > 0 else {
                     localprogressdetails?.estimationiscomplete()
-                    Logger.process.debugmesseageonly("EstimateExecute: estimation is completed")
+                    Logger.process.debugmesseageonly("EstimateExecute: ESTIMATION is completed")
                     return
                 }
                 // Estimate next task
@@ -377,7 +371,7 @@ extension EstimateExecute {
 
                 guard stackoftasks?.count ?? 0 > 0 else {
                     localprogressdetails?.estimationiscomplete()
-                    Logger.process.debugmesseageonly("EstimateExecute: estimation is completed")
+                    Logger.process.debugmesseageonly("EstimateExecute: ESTIMATION is completed")
                     return
                 }
                 // Estimate next task
@@ -408,7 +402,7 @@ extension EstimateExecute {
             localupdateconfigurations(updateconfigurations)
             // Update logrecords
             update.addlogpermanentstore(schedulerecords: schedulerecords)
-            Logger.process.debugmesseageonly("EstimateExecute: execution is completed")
+            Logger.process.debugmesseageonly("EstimateExecute: EXECUTION is completed")
             return
         }
         // Execute next task

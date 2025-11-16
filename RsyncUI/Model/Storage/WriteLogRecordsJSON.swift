@@ -27,8 +27,6 @@ final class WriteLogRecordsJSON {
             if let jsonData, let logrecordfileURL {
                 do {
                     try jsonData.write(to: logrecordfileURL)
-                    let myprofile = profile ?? "Default"
-                    Logger.process.debugtthreadonly("WriteLogRecordsJSON - \(myprofile): write logrecords to permanent storage")
                 } catch let e {
                     Logger.process.error("WriteLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR writing logrecords to permanent storage")
                     let error = e

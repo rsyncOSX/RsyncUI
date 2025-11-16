@@ -47,11 +47,9 @@ struct CatalogForProfile {
             let profileURL = fullpathmacserialURL.appendingPathComponent(profile)
 
             guard fm.locationExists(at: fullpathprofileString, kind: .folder) == true else {
-                Logger.process.debugmesseageonly("CatalogProfile: profile catalog does not exist \(fullpathprofileString)")
                 return false
             }
             do {
-                Logger.process.debugmesseageonly("CatalogProfile: deleted \(profileURL) catalog")
                 try fm.removeItem(at: profileURL)
             } catch let e {
                 let error = e as NSError

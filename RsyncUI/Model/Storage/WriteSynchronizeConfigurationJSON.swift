@@ -28,8 +28,6 @@ final class WriteSynchronizeConfigurationJSON {
             if let jsonData, let configurationfileURL {
                 do {
                     try jsonData.write(to: configurationfileURL)
-                    let myprofile = profile ?? "Default"
-                    Logger.process.debugmesseageonly("WriteSynchronizeConfigurationJSON - \(myprofile) write configurations to permanent storage \(configurationfileURL.path())")
                 } catch let e {
                     let error = e
                     path.propogateerror(error: error)
