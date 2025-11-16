@@ -7,7 +7,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationWillTerminate(_: Notification) {
-        Logger.process.debugmesseageonly("RsyncUIApp: applicationWillTerminate, doing clean up")
         GlobalTimer.shared.invalidateAllSchedulesAndTimer()
     }
 }
