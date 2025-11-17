@@ -110,7 +110,7 @@ extension ExecuteEstTasksView {
                                 progressdetails: progressdetails,
                                 filehandler: filehandler,
                                 updateconfigurations: updateconfigurations,
-                                excutetasks: true)
+                                mode: .execute)
             }
         }
     }
