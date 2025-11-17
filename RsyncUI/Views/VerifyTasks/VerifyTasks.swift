@@ -108,23 +108,10 @@ struct VerifyTasks: View {
     func verify(config: SynchronizeConfiguration) {
         let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
                                                                                   forDisplay: false)
-        let handlers = ProcessHandlers(
-            processtermination: processtermination,
-            filehandler: { _ in
-            },
-            rsyncpath: GetfullpathforRsync().rsyncpath,
-            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-            updateprocess: SharedReference.shared.updateprocess,
-            propogateerror: { error in
-                SharedReference.shared.errorobject?.alert(error: error)
-            },
-            logger: { command, output in
-                _ = await ActorLogToFile(command, output)
-            },
-            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
-            rsyncversion3: SharedReference.shared.rsyncversion3,
-            environment: MyEnvironment()?.environment,
-            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
+
+        let handlers = CreateHandlers().createhandlers(
+            filehandler: { _ in },
+            processtermination: processtermination
         )
 
         guard SharedReference.shared.norsync == false else { return }

@@ -44,18 +44,8 @@ final class DeleteSnapshots {
             let remaining = snapshotcatalogstodelete?.count ?? 0
             mysnapshotdata?.remainingsnapshotstodelete = (mysnapshotdata?.maxnumbertodelete ?? 0) - remaining
             if let config = localeconfig {
-                let handlers = ProcessHandlersCommand(
-                    processtermination: processtermination,
-                    checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-                    updateprocess: SharedReference.shared.updateprocess,
-                    propogateerror: { error in
-                        SharedReference.shared.errorobject?.alert(error: error)
-                    },
-                    logger: { command, output in
-                        _ = await ActorLogToFile(command, output)
-                    },
-                    rsyncui: true
-                )
+                let handlers = CreateCommandHandlers().createcommandhandlers(
+                    processtermination: processtermination)
 
                 let arguments = ArgumentsSnapshotDeleteCatalogs(config: config, remotecatalog: remotecatalog)
                 let process = ProcessCommand(command: arguments.getCommand(),

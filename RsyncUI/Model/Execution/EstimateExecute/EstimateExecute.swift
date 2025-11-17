@@ -158,7 +158,7 @@ final class EstimateExecute {
             throw ErrorDatatoSynchronize.thereisdatatosynchronize(idwitherror: synchronizeIDwitherror)
         }
     }
-    
+
     private func computestackoftasks(_ selecteduuids: Set<UUID>) -> [Int] {
         if selecteduuids.count > 0 {
             let configurations = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
@@ -218,7 +218,7 @@ final class EstimateExecute {
         stackoftasks = computestackoftasks(selecteduuids)
         startexecution_noestimate()
     }
-    
+
     @discardableResult
     convenience init(profile: String?,
                      configurations: [SynchronizeConfiguration],
@@ -255,7 +255,6 @@ final class EstimateExecute {
         startestimation()
     }
 
-   
     deinit {
         Logger.process.debugmesseageonly("EstimateExecute: DEINIT")
         self.stackoftasks = nil

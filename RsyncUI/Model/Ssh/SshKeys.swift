@@ -42,18 +42,9 @@ final class SshKeys {
     // Execute command
     func executesshcreatekeys() {
         guard arguments != nil else { return }
-        let handlers = ProcessHandlersCommand(
-            processtermination: processtermination,
-            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-            updateprocess: SharedReference.shared.updateprocess,
-            propogateerror: { error in
-                SharedReference.shared.errorobject?.alert(error: error)
-            },
-            logger: { command, output in
-                _ = await ActorLogToFile(command, output)
-            },
-            rsyncui: true
-        )
+
+        let handlers = CreateCommandHandlers().createcommandhandlers(
+            processtermination: processtermination)
 
         let process = ProcessCommand(command: command,
                                      arguments: arguments,

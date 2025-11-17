@@ -207,19 +207,8 @@ final class VerifyConfiguration: Connected {
         guard config.offsiteServer.isEmpty == false else { return }
         let args = ArgumentsSnapshotCreateCatalog(config: config)
 
-        let handlers = ProcessHandlersCommand(
-            processtermination: { _, _ in
-            },
-            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
-            updateprocess: SharedReference.shared.updateprocess,
-            propogateerror: { error in
-                SharedReference.shared.errorobject?.alert(error: error)
-            },
-            logger: { command, output in
-                _ = await ActorLogToFile(command, output)
-            },
-            rsyncui: true
-        )
+        let handlers = CreateCommandHandlers().createcommandhandlers(
+            processtermination: { _, _ in })
 
         let process = ProcessCommand(command: args.getCommand(),
                                      arguments: args.getArguments(),
