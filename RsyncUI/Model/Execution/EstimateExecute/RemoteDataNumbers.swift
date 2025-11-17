@@ -71,7 +71,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         }
         if let preparedoutputfromrsync, preparedoutputfromrsync.count > 0 {
             let parsersyncoutput = ParseRsyncOutput(preparedoutputfromrsync,
-                                                    SharedReference.shared.rsyncversion3)
+                                                    SharedReference.shared.rsyncversion3 ? .ver3 : .openrsync)
             stats = parsersyncoutput.stats
             filestransferred = parsersyncoutput.formatted_filestransferred
 

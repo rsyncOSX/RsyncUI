@@ -356,7 +356,7 @@ extension EstimateExecute {
         // It removes all lines except the last 20 lines where summarized numbers are put
         let preparedoutputfromrsync = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
         if let stats = ParseRsyncOutput(preparedoutputfromrsync,
-                                        SharedReference.shared.rsyncversion3).stats
+                                        SharedReference.shared.rsyncversion3 ? .ver3 : .openrsync).stats
         {
             schedulerecords.append((hiddenID ?? -1, stats))
         }
