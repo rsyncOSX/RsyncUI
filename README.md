@@ -1,6 +1,7 @@
 ## Hi there 👋
 
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD)
+![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.7.8/total)
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.7.6/total)
 [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
@@ -14,7 +15,7 @@ The [user documentation](https://rsyncui.netlify.app/docs/)([repo](https://githu
 
 | Homebrew | macOS versions |   Latest version   |
 | ----------- |   ----------- | ----------- |
-| `brew install --cask rsyncui`    | macOS Sonoma and later | v2.7.6 - [November 3, 2025](https://github.com/rsyncOSX/RsyncUI/releases) - in *active development* |
+| `brew install --cask rsyncui`    | macOS Sonoma and later | v2.7.8 - [November 19, 2025](https://github.com/rsyncOSX/RsyncUI/releases) - in *active development* |
 | |  | [documentation](https://rsyncui.netlify.app/docs/) and [changelog](https://rsyncui.netlify.app/blog/) |
 
 ![](images/rsyncui.png)
