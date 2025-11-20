@@ -1,5 +1,5 @@
 {
-  "originHash" : "081e4151b0c5a10d5a8761c2c7c118a817061b6ae2b8f9fd9abe75448de940b6",
+  "originHash" : "9fbc903191b41a70c3139e2a34a4db08aa78c96ab5b3b0e476cb64abb776a7e0",
   "pins" : [
     {
       "identity" : "decodeencodegeneric",
@@ -31,10 +31,10 @@
     {
       "identity" : "rsyncarguments",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/rsyncOSX/RsyncArguments.git",
+      "location" : "https://github.com/rsyncOSX/RsyncArguments",
       "state" : {
-        "branch" : "main",
-        "revision" : "3ee7812ea7db49e390242b53b1a9ce63dbc54d37"
+        "branch" : "Version2refactor",
+        "revision" : "766ea71df73a177be2b2db3894ff296d0354dee2"
       }
     },
     {

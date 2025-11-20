@@ -484,7 +484,6 @@ extension TasksView {
         rsyncUIdata.executetasksinprogress = true
         if selecteduuids.count == 0,
            progressdetails.alltasksestimated(rsyncUIdata.profile) == true
-
         {
             // Execute all estimated tasks
             selecteduuids = progressdetails.getuuidswithdatatosynchronize()
@@ -493,7 +492,6 @@ extension TasksView {
 
         } else if selecteduuids.count >= 1,
                   progressdetails.tasksareestimated(selecteduuids) == true
-
         {
             // One or some tasks are selected and estimated
             // Execute estimated tasks only

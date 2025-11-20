@@ -18,13 +18,16 @@ final class ArgumentsSnapshotCreateCatalog {
 
     func argumentssshcommands() -> [String]? {
         if let config {
-            let sshparameter = SSHPrepareParameters(config: config).sshparameters
-            let snapshotcreatecatalog = SnapshotCreateRootCatalog(sshparameters: sshparameter)
+            /*
+             let sshparameter = SSHPrepareParameters(config: config).sshparameters
+             let snapshotcreatecatalog = SnapshotCreateRootCatalog(sshparameters: sshparameter)
 
-            snapshotcreatecatalog.initialise_setsshidentityfileandsshport()
-            command = snapshotcreatecatalog.remotecommand
-            return snapshotcreatecatalog.snapshotcreaterootcatalog(offsiteCatalog: config.offsiteCatalog)
+             snapshotcreatecatalog.initialise_setsshidentityfileandsshport()
+             command = snapshotcreatecatalog.remotecommand
+             return snapshotcreatecatalog.snapshotcreaterootcatalog(offsiteCatalog: config.offsiteCatalog)
+              */
         }
+
         return nil
     }
 

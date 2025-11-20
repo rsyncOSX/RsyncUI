@@ -19,19 +19,21 @@ final class ArgumentsSnapshotDeleteCatalogs {
 
     func argumentssshcommands() -> [String]? {
         if let config {
-            let sshparameter = SSHPrepareParameters(config: config).sshparameters
-            let snapshotdelete = SnapshotDelete(sshparameters: sshparameter)
+            /*
+             let sshparameter = SSHPrepareParameters(config: config).sshparameters
+             let snapshotdelete = SnapshotDelete(sshparameters: sshparameter)
 
-            snapshotdelete.initialise_setsshidentityfileandsshport()
+             snapshotdelete.initialise_setsshidentityfileandsshport()
 
-            if config.offsiteServer.isEmpty == false {
-                command = snapshotdelete.remotecommand
-            } else {
-                command = snapshotdelete.localcommand
-            }
-            if let remotecatalog {
-                return snapshotdelete.snapshotdelete(remotecatalog: remotecatalog)
-            }
+             if config.offsiteServer.isEmpty == false {
+                 command = snapshotdelete.remotecommand
+             } else {
+                 command = snapshotdelete.localcommand
+             }
+             if let remotecatalog {
+                 return snapshotdelete.snapshotdelete(remotecatalog: remotecatalog)
+             }
+              */
         }
         return nil
     }

@@ -149,9 +149,9 @@ struct ExecutePushPullView: View {
 
     // For a verify run, --dry-run
     func push(config: SynchronizeConfiguration) {
-        let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: dryrun,
-                                                                                           forDisplay: false,
-                                                                                           keepdelete: keepdelete)
+        let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremotewithparameters(dryRun: dryrun,
+                                                                                                         forDisplay: false,
+                                                                                                         keepdelete: keepdelete)
 
         let handlers = CreateHandlers().createhandlers(
             filehandler: filehandler,

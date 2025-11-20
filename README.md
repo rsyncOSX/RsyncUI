@@ -1,5 +1,7 @@
 ## Hi there 👋
 
+NEW RsyncArguments SPM, still testing. DO NOT USE THIS version
+
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD)
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.7.8/total)
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.7.6/total)
@@ -19,4 +21,5 @@ The [user documentation](https://rsyncui.netlify.app/docs/)([repo](https://githu
 ![](images/rsyncui.png)
 
 ![](images/charts.png)
+
 
