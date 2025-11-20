@@ -15,25 +15,26 @@ final class ArgumentsSnapshotDeleteCatalogs {
     private var config: SynchronizeConfiguration?
     private var arguments: [String]?
     private var command: String?
-    private var remotecatalog: String?
+    private var remotecatalog: String
 
     func argumentssshcommands() -> [String]? {
         if let config {
-            /*
-             let sshparameter = SSHPrepareParameters(config: config).sshparameters
-             let snapshotdelete = SnapshotDelete(sshparameters: sshparameter)
-
-             snapshotdelete.initialise_setsshidentityfileandsshport()
-
-             if config.offsiteServer.isEmpty == false {
-                 command = snapshotdelete.remotecommand
-             } else {
-                 command = snapshotdelete.localcommand
-             }
-             if let remotecatalog {
-                 return snapshotdelete.snapshotdelete(remotecatalog: remotecatalog)
-             }
-              */
+            let sshparameters =  SSHParameters(
+                                offsiteServer: config.offsiteServer,
+                                offsiteUsername: config.offsiteUsername,
+                                sshport: String(config.sshport ?? -1),
+                                sshkeypathandidentityfile: config.sshkeypathandidentityfile ?? "",
+                                sharedsshport: String(SharedReference.shared.sshport ?? -1),
+                                sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile,
+                                rsyncversion3: SharedReference.shared.rsyncversion3
+                            )
+            let sshargs = SnapshotDelete(sshParameters: sshparameters)
+            if config.offsiteServer.isEmpty == false {
+                command = sshargs.remoteCommand
+            } else {
+                command = sshargs.localCommand
+            }
+            return sshargs.snapshotDelete(remoteCatalog: remotecatalog)
         }
         return nil
     }
