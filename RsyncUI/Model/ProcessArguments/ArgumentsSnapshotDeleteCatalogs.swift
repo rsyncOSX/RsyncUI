@@ -19,15 +19,7 @@ final class ArgumentsSnapshotDeleteCatalogs {
 
     func argumentssshcommands() -> [String]? {
         if let config {
-            let sshparameters = SSHParameters(
-                offsiteServer: config.offsiteServer,
-                offsiteUsername: config.offsiteUsername,
-                sshport: String(config.sshport ?? -1),
-                sshkeypathandidentityfile: config.sshkeypathandidentityfile ?? "",
-                sharedsshport: String(SharedReference.shared.sshport ?? -1),
-                sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile,
-                rsyncversion3: SharedReference.shared.rsyncversion3
-            )
+            let sshparameters = SSHParams().sshparams(config: config)
             let sshargs = SnapshotDelete(sshParameters: sshparameters)
             if config.offsiteServer.isEmpty == false {
                 command = sshargs.remoteCommand
