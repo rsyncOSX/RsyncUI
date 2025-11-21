@@ -754,7 +754,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/SSHCreateKey.git";
 			requirement = {
-				branch = Version2refactor;
+				branch = main;
 				kind = branch;
 			};
 		};
@@ -770,7 +770,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/DecodeEncodeGeneric.git";
 			requirement = {
-				branch = Version2refactor;
+				branch = main;
 				kind = branch;
 			};
 		};
@@ -786,7 +786,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/RsyncArguments";
 			requirement = {
-				branch = Version2refactor;
+				branch = main;
 				kind = branch;
 			};
 		};
@@ -802,7 +802,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/RsyncUIDeepLinks";
 			requirement = {
-				branch = Version2refactor;
+				branch = main;
 				kind = branch;
 			};
 		};

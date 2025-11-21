@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/DecodeEncodeGeneric.git",
       "state" : {
-        "branch" : "Version2refactor",
-        "revision" : "ced71274a564daf24dd5591bc3a475e38bec1365"
+        "branch" : "main",
+        "revision" : "58316ebaf6df76c53b2485465543916e58787482"
       }
     },
     {
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/RsyncArguments",
       "state" : {
-        "branch" : "Version2refactor",
-        "revision" : "43deb155896e4e4606c0b8335d8172c875b42e05"
+        "branch" : "main",
+        "revision" : "7759a408251c8a38f4c105633337e450ba31e3d6"
       }
     },
     {
@@ -51,7 +51,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/RsyncUIDeepLinks",
       "state" : {
-        "branch" : "Version2refactor",
+        "branch" : "main",
         "revision" : "4b9861cfda77d8d3c51ff2dee432b746508af112"
       }
     },
@@ -60,8 +60,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/SSHCreateKey.git",
       "state" : {
-        "branch" : "Version2refactor",
-        "revision" : "30e440bda558828aebea6dd3b449796b8c1e6dbc"
+        "branch" : "main",
+        "revision" : "cac9cda932f2ebf3a0dd1233920bf211d21853d3"
       }
     }
   ],
