@@ -751,7 +751,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/SSHCreateKey.git";
 			requirement = {
-				branch = main;
+				branch = develop;
 				kind = branch;
 			};
 		};
@@ -759,7 +759,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/DecodeEncodeGeneric.git";
 			requirement = {
-				branch = main;
+				branch = develop;
 				kind = branch;
 			};
 		};
@@ -767,7 +767,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/ProcessCommand";
 			requirement = {
-				branch = main;
+				branch = develop;
 				kind = branch;
 			};
 		};
@@ -775,7 +775,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/RsyncProcess";
 			requirement = {
-				branch = main;
+				branch = develop;
 				kind = branch;
 			};
 		};
@@ -783,7 +783,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/RsyncArguments.git";
 			requirement = {
-				branch = main;
+				branch = develop;
 				kind = branch;
 			};
 		};
@@ -791,7 +791,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/ParseRsyncOutput";
 			requirement = {
-				branch = main;
+				branch = develop;
 				kind = branch;
 			};
 		};
@@ -799,7 +799,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/RsyncUIDeepLinks";
 			requirement = {
-				branch = main;
+				branch = develop;
 				kind = branch;
 			};
 		};

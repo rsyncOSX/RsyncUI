@@ -6,7 +6,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/DecodeEncodeGeneric.git",
       "state" : {
-        "branch" : "main",
+        "branch" : "develop",
         "revision" : "43c5a970c8dd31e6107426b3523604bac51ea1b1"
       }
     },
@@ -15,7 +15,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/ParseRsyncOutput",
       "state" : {
-        "branch" : "main",
+        "branch" : "develop",
         "revision" : "616b6b8e06d6cb9f301bea5ffa0e53d69e2f9111"
       }
     },
@@ -24,7 +24,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/ProcessCommand",
       "state" : {
-        "branch" : "main",
+        "branch" : "develop",
         "revision" : "cf68ae4539a41f31bdfa0070abe00afce658303f"
       }
     },
@@ -33,7 +33,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/RsyncArguments.git",
       "state" : {
-        "branch" : "main",
+        "branch" : "develop",
         "revision" : "3ee7812ea7db49e390242b53b1a9ce63dbc54d37"
       }
     },
@@ -42,7 +42,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/RsyncProcess",
       "state" : {
-        "branch" : "main",
+        "branch" : "develop",
         "revision" : "c1f877de64f5448c0b1e36ab5be4b3b884825128"
       }
     },
@@ -51,7 +51,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/RsyncUIDeepLinks",
       "state" : {
-        "branch" : "main",
+        "branch" : "develop",
         "revision" : "c8ff58a1300e9c899da0663eec5d326dc1515ab2"
       }
     },
@@ -60,7 +60,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/SSHCreateKey.git",
       "state" : {
-        "branch" : "main",
+        "branch" : "develop",
         "revision" : "2b79790c04bd714629a072a2bd343f78de2dd779"
       }
     }
