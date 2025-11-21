@@ -18,20 +18,19 @@ final class ReadImportConfigurationsJSON {
     private func importjsonfile(_ filenameimport: String) {
         let decodeimport = DecodeGeneric()
         do {
-            if let importeddata = try
-                decodeimport.decodearraydatafileURL(DecodeSynchronizeConfiguration.self, fromwhere: filenameimport)
-            {
-                importconfigurations = importeddata.map { importrecord in
-                    var element = SynchronizeConfiguration(importrecord)
-                    element.hiddenID = maxhiddenID + 1
-                    element.dateRun = nil
-                    element.backupID = "IMPORT: " + (importrecord.backupID ?? "")
-                    element.id = UUID()
-                    maxhiddenID += 1
-                    return element
-                }
-                Logger.process.debugmesseageonly("ReadImportConfigurationsJSON - \(filenameimport)read import configurations from permanent storage")
+            let importeddata = try
+                decodeimport.decodeArray(DecodeSynchronizeConfiguration.self, fromFile: filenameimport)
+
+            importconfigurations = importeddata.map { importrecord in
+                var element = SynchronizeConfiguration(importrecord)
+                element.hiddenID = maxhiddenID + 1
+                element.dateRun = nil
+                element.backupID = "IMPORT: " + (importrecord.backupID ?? "")
+                element.id = UUID()
+                maxhiddenID += 1
+                return element
             }
+            Logger.process.debugmesseageonly("ReadImportConfigurationsJSON - \(filenameimport)read import configurations from permanent storage")
 
         } catch {
             Logger.process.error("ReadImportConfigurationsJSON - \(filenameimport, privacy: .public): some ERROR read import configurations from permanent storage")

@@ -16,11 +16,13 @@ final class ArgumentsSnapshotRemoteCatalogs {
 
     func remotefilelistarguments() -> [String]? {
         if let config {
-            if let parameters = PrepareParameters(config: config).parameters {
-                let rsyncparametersrestore =
-                    RsyncParametersRestore(parameters: parameters)
-                rsyncparametersrestore.remoteargumentssnapshotcataloglist()
-                return rsyncparametersrestore.computedarguments
+            let params = Params().params(config: config)
+            let rsyncparametersrestore = RsyncParametersRestore(parameters: params)
+            do {
+                try rsyncparametersrestore.remoteArgumentsSnapshotCatalogList()
+                return rsyncparametersrestore.computedArguments
+            } catch {
+                return nil
             }
         }
         return nil

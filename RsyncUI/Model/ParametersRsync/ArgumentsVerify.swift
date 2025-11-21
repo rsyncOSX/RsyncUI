@@ -16,23 +16,39 @@ final class ArgumentsVerify {
 
     func argumentsverify(forDisplay: Bool) -> [String]? {
         if let config {
-            if let parameters = PrepareParameters(config: config).parameters {
-                let rsyncparameterssynchronize =
-                    RsyncParametersSynchronize(parameters: parameters)
-                switch config.task {
-                case SharedReference.shared.synchronize:
-                    rsyncparameterssynchronize.argumentsforsynchronize(forDisplay: forDisplay,
-                                                                       verify: true, dryrun: true)
-                case SharedReference.shared.snapshot:
-                    rsyncparameterssynchronize.argumentsforsynchronizesnapshot(forDisplay: forDisplay,
-                                                                               verify: true, dryrun: true)
-                case SharedReference.shared.syncremote:
-                    rsyncparameterssynchronize.argumentsforsynchronizeremote(forDisplay: forDisplay,
-                                                                             verify: true, dryrun: true)
-                default:
-                    break
+            let params = Params().params(config: config)
+            let rsyncparameterssynchronize = RsyncParametersSynchronize(parameters: params)
+
+            switch config.task {
+            case SharedReference.shared.synchronize:
+                do {
+                    try rsyncparameterssynchronize.argumentsForSynchronize(forDisplay: forDisplay,
+                                                                           verify: true,
+                                                                           dryrun: true)
+                    return rsyncparameterssynchronize.computedArguments
+                } catch {
+                    return nil
                 }
-                return rsyncparameterssynchronize.computedarguments
+            case SharedReference.shared.snapshot:
+                do {
+                    try rsyncparameterssynchronize.argumentsForSynchronizeSnapshot(forDisplay: forDisplay,
+                                                                                   verify: true,
+                                                                                   dryrun: true)
+                    return rsyncparameterssynchronize.computedArguments
+                } catch {
+                    return nil
+                }
+            case SharedReference.shared.syncremote:
+                do {
+                    try rsyncparameterssynchronize.argumentsForSynchronizeRemote(forDisplay: forDisplay,
+                                                                                 verify: true,
+                                                                                 dryrun: true)
+                    return rsyncparameterssynchronize.computedArguments
+                } catch {
+                    return nil
+                }
+            default:
+                break
             }
         }
         return nil

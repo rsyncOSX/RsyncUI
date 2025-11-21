@@ -15,7 +15,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 struct RsyncUIApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State private var showabout: Bool = false
-    @Environment(\.openWindow) private var openWindow
 
     var body: some Scene {
         Window("RsyncUI", id: "main") {

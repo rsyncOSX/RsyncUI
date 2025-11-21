@@ -38,7 +38,7 @@ struct PushPullCommandtoDisplay {
             }
         case .push_local:
             if config.offsiteServer.isEmpty == false, config.task == SharedReference.shared.synchronize {
-                if let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: dryRun, forDisplay: true, keepdelete: keepdelete) {
+                if let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremotewithparameters(dryRun: dryRun, forDisplay: true, keepdelete: keepdelete) {
                     str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
                 }
             } else {

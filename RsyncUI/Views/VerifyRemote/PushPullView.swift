@@ -126,9 +126,9 @@ struct PushPullView: View {
 
     // For check remote, pull remote data
     func pushremote(config: SynchronizeConfiguration) {
-        let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremote(dryRun: true,
-                                                                                           forDisplay: false,
-                                                                                           keepdelete: true)
+        let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremotewithparameters(dryRun: true,
+                                                                                                         forDisplay: false,
+                                                                                                         keepdelete: true)
         let handlers = CreateHandlers().createhandlers(
             filehandler: { _ in },
             processtermination: pushprocesstermination

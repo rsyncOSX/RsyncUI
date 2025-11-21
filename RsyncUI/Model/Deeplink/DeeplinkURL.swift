@@ -61,7 +61,7 @@ struct DeeplinkURL {
 
     func validatenoaction(_ queryItem: URLQueryItem?) -> Bool {
         do {
-            try deeplinks.validatenoongoingURLaction(queryItem)
+            try deeplinks.validateNoOngoingURLAction(queryItem)
             return true
         } catch let e {
             let error = e

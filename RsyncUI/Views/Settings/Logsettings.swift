@@ -90,26 +90,6 @@ struct Logsettings: View {
         }
         .formStyle(.grouped)
     }
-
-    private func deleteschedulefile() {
-        let path = Homepath()
-        let fm = FileManager.default
-        if let fullpathmacserial = path.fullpathmacserial {
-            let fullpathscheduleString = fullpathmacserial.appending("/") + SharedConstants().caldenarfilejson
-            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            let profileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().caldenarfilejson)
-
-            guard fm.locationExists(at: fullpathscheduleString, kind: .file) == true else {
-                return
-            }
-            do {
-                try fm.removeItem(at: profileURL)
-            } catch let e {
-                let error = e as NSError
-                path.propogateerror(error: error)
-            }
-        }
-    }
 }
 
 // swiftlint:enable line_length

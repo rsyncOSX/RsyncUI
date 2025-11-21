@@ -182,7 +182,7 @@ final class ObservableParametersRsync {
     }
 
     init() {
-        sshcreatekey = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
-                                    sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
+        sshcreatekey = SSHCreateKey(sharedSSHPort: String(SharedReference.shared.sshport ?? -1),
+                                    sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
     }
 }

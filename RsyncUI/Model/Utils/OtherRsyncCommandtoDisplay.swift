@@ -26,47 +26,62 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
 @MainActor
 struct OtherRsyncCommandtoDisplay {
     var command: String
-    // var profile: String = "Default"
 
     init(display: OtherRsyncCommand,
          config: SynchronizeConfiguration,
          profile: String?)
     {
-        var str = ""
+        var str = [String]()
         switch display {
         case .list_remote_files:
             if config.offsiteServer.isEmpty == false {
                 if let arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments() {
-                    str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined(separator: " ")
+                    str.append(GetfullpathforRsync().rsyncpath() ?? "no rsync in path ")
+                    let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: "")
+                    str.append(cleanedArguments)
                 }
             } else {
-                str = NSLocalizedString("Use macOS Finder", comment: "")
+                str = ["Use macOS Finder"]
             }
         case .create_public_SSHkey:
             if config.offsiteServer.isEmpty == false {
-                let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
-                                                 sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
-                if let arguments = createsshkeys.argumentscreatekey() {
-                    str = createsshkeys.createkeycommand + " " + arguments.joined(separator: " ")
-                }
+                let createsshkeys = SSHCreateKey(sharedSSHPort: String(SharedReference.shared.sshport ?? -1),
+                                                 sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
+                do {
+                    let arguments = try createsshkeys.argumentsCreateKey()
+                    str.append(createsshkeys.createKeyCommand)
+                    let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: "")
+                    str.append(cleanedArguments)
+
+                } catch {}
+
             } else {
-                str = NSLocalizedString("No remote server on task", comment: "")
+                str = ["No remote server on task"]
             }
         case .verify_public_SSHkey:
             if config.offsiteServer.isEmpty == false {
-                let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
-                                                 sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
-                str = createsshkeys.argumentsverifyremotepublicsshkey(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
+                let createsshkeys = SSHCreateKey(sharedSSHPort: String(SharedReference.shared.sshport ?? -1),
+                                                 sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
+                do {
+                    let tmpstr = try createsshkeys.argumentsVerifyRemotePublicSSHKey(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
+                    let cleanedArguments = tmpstr.joined(separator: " ").replacingOccurrences(of: ",", with: "")
+                    str.append(cleanedArguments)
+                } catch {}
+
             } else {
-                str = NSLocalizedString("No remote server on task", comment: "")
+                str = ["No remote server on task"]
             }
         case .copy_public_SSHkey:
             if config.offsiteServer.isEmpty == false {
-                let createsshkeys = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
-                                                 sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
-                str = createsshkeys.argumentssshcopyid(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
+                let createsshkeys = SSHCreateKey(sharedSSHPort: String(SharedReference.shared.sshport ?? -1),
+                                                 sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
+                do {
+                    let tmpstr = try createsshkeys.argumentsSSHCopyID(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
+                    let cleanedArguments = tmpstr.joined(separator: " ").replacingOccurrences(of: ",", with: "")
+                    str.append(cleanedArguments)
+                } catch {}
             } else {
-                str = NSLocalizedString("No remote server on task", comment: "")
+                str = ["No remote server on task"]
             }
         case .URL_verify:
             if config.task == SharedReference.shared.synchronize {
@@ -75,18 +90,18 @@ struct OtherRsyncCommandtoDisplay {
                 if config.offsiteServer.isEmpty == false {
                     // Create verifyremote URL
                     let urlverify = deeplinkurl.createURLloadandverify(valueprofile: profile, valueid: config.backupID)
-                    str = urlverify?.absoluteString ?? ""
+                    str = [urlverify?.absoluteString ?? ""]
                 }
             } else {
-                str = ""
+                str.removeAll()
             }
         case .URL_estimate:
             let deeplinkurl = DeeplinkURL()
             // Create estimate and synchronize URL
             let urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: profile)
-            str = urlestimate?.absoluteString ?? ""
+            str = [urlestimate?.absoluteString ?? ""]
         }
-        command = str
+        command = str.joined(separator: ",")
     }
 }
 

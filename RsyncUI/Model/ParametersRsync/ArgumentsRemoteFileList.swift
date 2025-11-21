@@ -15,15 +15,18 @@ final class ArgumentsRemoteFileList {
 
     func remotefilelistarguments() -> [String]? {
         if let config {
-            if let parameters = PrepareParameters(config: config).parameters {
-                let rsyncparametersrestore =
-                    RsyncParametersRestore(parameters: parameters)
-                if config.task == SharedReference.shared.synchronize {
-                    rsyncparametersrestore.remoteargumentsfilelist()
-                } else if config.task == SharedReference.shared.snapshot {
-                    rsyncparametersrestore.remoteargumentssnapshotfilelist()
-                }
-                return rsyncparametersrestore.computedarguments
+            let params = Params().params(config: config)
+            let rsyncparametersremotelist = RsyncParametersRestore(parameters: params)
+            if config.task == SharedReference.shared.synchronize {
+                do {
+                    try rsyncparametersremotelist.remoteArgumentsFileList()
+                    return rsyncparametersremotelist.computedArguments
+                } catch {}
+            } else if config.task == SharedReference.shared.snapshot {
+                do {
+                    try rsyncparametersremotelist.remoteArgumentsSnapshotFileList()
+                    return rsyncparametersremotelist.computedArguments
+                } catch {}
             }
         }
         return nil

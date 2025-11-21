@@ -47,9 +47,9 @@ final class DeleteSnapshots {
                 let handlers = CreateCommandHandlers().createcommandhandlers(
                     processtermination: processtermination)
 
-                let arguments = ArgumentsSnapshotDeleteCatalogs(config: config, remotecatalog: remotecatalog)
-                let process = ProcessCommand(command: arguments.getCommand(),
-                                             arguments: arguments.getArguments(),
+                let delete = ArgumentsSnapshotDeleteCatalogs(config: config, remotecatalog: remotecatalog)
+                let process = ProcessCommand(command: delete.getCommand(),
+                                             arguments: delete.getArguments(),
                                              handlers: handlers)
                 do {
                     try process.executeProcess()

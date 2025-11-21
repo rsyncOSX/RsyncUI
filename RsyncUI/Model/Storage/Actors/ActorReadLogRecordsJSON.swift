@@ -29,14 +29,13 @@ actor ActorReadLogRecordsJSON {
 
         let decodeimport = DecodeGeneric()
         do {
-            if let data = try
-                decodeimport.decodearraydatafileURL(DecodeLogRecords.self, fromwhere: filename)
-            {
-                Logger.process.debugtthreadonly("ActorReadLogRecordsJSON - \(profile ?? "default")")
-                return data.compactMap { element in
-                    let item = LogRecords(element)
-                    return validhiddenIDs.contains(item.hiddenID) ? item : nil
-                }
+            let data = try
+                decodeimport.decodeArray(DecodeLogRecords.self, fromFile: filename)
+
+            Logger.process.debugtthreadonly("ActorReadLogRecordsJSON - \(profile ?? "default")")
+            return data.compactMap { element in
+                let item = LogRecords(element)
+                return validhiddenIDs.contains(item.hiddenID) ? item : nil
             }
 
         } catch let e {

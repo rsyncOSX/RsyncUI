@@ -17,13 +17,16 @@ final class ArgumentsRestore {
 
     func argumentsrestore(dryRun: Bool, forDisplay: Bool) -> [String]? {
         if let config {
-            if let parameters = PrepareParameters(config: config).parameters {
-                let rsyncparametersrestore =
-                    RsyncParametersRestore(parameters: parameters)
-                rsyncparametersrestore.argumentsrestore(forDisplay: forDisplay,
-                                                        verify: false, dryrun: dryRun,
-                                                        restoresnapshotbyfiles: restoresnapshotbyfiles)
-                return rsyncparametersrestore.computedarguments
+            let params = Params().params(config: config)
+            let rsyncparametersrestore = RsyncParametersRestore(parameters: params)
+            do {
+                try rsyncparametersrestore.argumentsRestore(forDisplay: forDisplay,
+                                                            verify: false,
+                                                            dryrun: dryRun,
+                                                            restoreSnapshotByFiles: restoresnapshotbyfiles)
+                return rsyncparametersrestore.computedArguments
+            } catch {
+                return nil
             }
         }
         return nil

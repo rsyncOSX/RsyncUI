@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		E911E85E2C6BCD9D00152CD6 /* SSHCreateKey in Frameworks */ = {isa = PBXBuildFile; productRef = E911E85D2C6BCD9D00152CD6 /* SSHCreateKey */; };
+		E913AF962ECCF6310057E4F2 /* RsyncProcess in Frameworks */ = {isa = PBXBuildFile; productRef = E913AF952ECCF6310057E4F2 /* RsyncProcess */; };
 		E93FBF6C2E3DE674005225E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E93FBEBE2E3DE674005225E2 /* Assets.xcassets */; };
 		E93FBFF12E3DE6A3005225E2 /* RsyncUIicon.icon in Resources */ = {isa = PBXBuildFile; fileRef = E93FBFF02E3DE6A3005225E2 /* RsyncUIicon.icon */; };
 		E952A9A12EB9E139002C11C6 /* ProcessCommand in Frameworks */ = {isa = PBXBuildFile; productRef = E952A9A02EB9E139002C11C6 /* ProcessCommand */; };
 		E95CA3E42C73230800966D69 /* DecodeEncodeGeneric in Frameworks */ = {isa = PBXBuildFile; productRef = E95CA3E32C73230800966D69 /* DecodeEncodeGeneric */; };
-		E97775B42EB8E87A00EA6601 /* RsyncProcess in Frameworks */ = {isa = PBXBuildFile; productRef = E97775B32EB8E87A00EA6601 /* RsyncProcess */; };
 		E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E99DE0F826A32F8B00A08A69 /* Credits.rtf */; };
-		E9BAB99D2C60A611008A1707 /* RsyncArguments in Frameworks */ = {isa = PBXBuildFile; productRef = E9BAB99C2C60A611008A1707 /* RsyncArguments */; };
+		E9AC986B2ECEF99600D0C654 /* RsyncArguments in Frameworks */ = {isa = PBXBuildFile; productRef = E9AC986A2ECEF99600D0C654 /* RsyncArguments */; };
+		E9B0B9A22ECCEE68004BDC24 /* RsyncArguments in Frameworks */ = {isa = PBXBuildFile; productRef = E9B0B9A12ECCEE68004BDC24 /* RsyncArguments */; };
 		E9C077762C8CCA65005F8669 /* ParseRsyncOutput in Frameworks */ = {isa = PBXBuildFile; productRef = E9C077752C8CCA65005F8669 /* ParseRsyncOutput */; };
 		E9C566062D1BF046009C540F /* RsyncUIDeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = E9C566052D1BF046009C540F /* RsyncUIDeepLinks */; };
 		E9C9E3742D379F7000E907AB /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E961CC042D33B3C400A5F5A5 /* WidgetKit.framework */; };
@@ -110,9 +111,10 @@
 				E952A9A12EB9E139002C11C6 /* ProcessCommand in Frameworks */,
 				E9C566062D1BF046009C540F /* RsyncUIDeepLinks in Frameworks */,
 				E9C077762C8CCA65005F8669 /* ParseRsyncOutput in Frameworks */,
-				E9BAB99D2C60A611008A1707 /* RsyncArguments in Frameworks */,
+				E9AC986B2ECEF99600D0C654 /* RsyncArguments in Frameworks */,
+				E9B0B9A22ECCEE68004BDC24 /* RsyncArguments in Frameworks */,
 				E95CA3E42C73230800966D69 /* DecodeEncodeGeneric in Frameworks */,
-				E97775B42EB8E87A00EA6601 /* RsyncProcess in Frameworks */,
+				E913AF962ECCF6310057E4F2 /* RsyncProcess in Frameworks */,
 				E911E85E2C6BCD9D00152CD6 /* SSHCreateKey in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -198,13 +200,14 @@
 			);
 			name = RsyncUI;
 			packageProductDependencies = (
-				E9BAB99C2C60A611008A1707 /* RsyncArguments */,
 				E911E85D2C6BCD9D00152CD6 /* SSHCreateKey */,
 				E95CA3E32C73230800966D69 /* DecodeEncodeGeneric */,
 				E9C077752C8CCA65005F8669 /* ParseRsyncOutput */,
 				E9C566052D1BF046009C540F /* RsyncUIDeepLinks */,
-				E97775B32EB8E87A00EA6601 /* RsyncProcess */,
 				E952A9A02EB9E139002C11C6 /* ProcessCommand */,
+				E9B0B9A12ECCEE68004BDC24 /* RsyncArguments */,
+				E913AF952ECCF6310057E4F2 /* RsyncProcess */,
+				E9AC986A2ECEF99600D0C654 /* RsyncArguments */,
 			);
 			productName = RsyncUI;
 			productReference = E985C5C325F3AC0700CB895C /* RsyncUI.app */;
@@ -289,13 +292,13 @@
 			);
 			mainGroup = E985C5BA25F3AC0700CB895C;
 			packageReferences = (
-				E9BAB99B2C60A611008A1707 /* XCRemoteSwiftPackageReference "RsyncArguments" */,
 				E911E85C2C6BCD9D00152CD6 /* XCRemoteSwiftPackageReference "SSHCreateKey" */,
 				E94B878B2C7321090031B27A /* XCRemoteSwiftPackageReference "DecodeEncodeGeneric" */,
 				E9C077742C8CCA65005F8669 /* XCRemoteSwiftPackageReference "ParseRsyncOutput" */,
 				E9C566042D1BF046009C540F /* XCRemoteSwiftPackageReference "RsyncUIDeepLinks" */,
-				E97775B22EB8E87A00EA6601 /* XCRemoteSwiftPackageReference "RsyncProcess" */,
 				E952A99F2EB9E139002C11C6 /* XCRemoteSwiftPackageReference "ProcessCommand" */,
+				E913AF942ECCF6310057E4F2 /* XCRemoteSwiftPackageReference "RsyncProcess" */,
+				E9AC98692ECEF99600D0C654 /* XCRemoteSwiftPackageReference "RsyncArguments" */,
 			);
 			productRefGroup = E985C5C425F3AC0700CB895C /* Products */;
 			projectDirPath = "";
@@ -515,7 +518,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 169;
+				CURRENT_PROJECT_VERSION = 170;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"RsyncUI/Preview Content\"";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -527,7 +530,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.7.8;
+				MARKETING_VERSION = 2.7.9;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -548,7 +551,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 169;
+				CURRENT_PROJECT_VERSION = 170;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"RsyncUI/Preview Content\"";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -560,7 +563,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.7.8;
+				MARKETING_VERSION = 2.7.9;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -581,7 +584,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 169;
+				CURRENT_PROJECT_VERSION = 170;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -595,7 +598,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.7.8;
+				MARKETING_VERSION = 2.7.9;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI.WidgetVerify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -615,7 +618,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 169;
+				CURRENT_PROJECT_VERSION = 170;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -629,7 +632,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.7.8;
+				MARKETING_VERSION = 2.7.9;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI.WidgetVerify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -648,7 +651,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 169;
+				CURRENT_PROJECT_VERSION = 170;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -662,7 +665,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.7.8;
+				MARKETING_VERSION = 2.7.9;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI.WidgetEstimate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -682,7 +685,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 169;
+				CURRENT_PROJECT_VERSION = 170;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -696,7 +699,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.7.8;
+				MARKETING_VERSION = 2.7.9;
 				PRODUCT_BUNDLE_IDENTIFIER = no.blogspot.RsyncUI.WidgetEstimate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -755,6 +758,14 @@
 				kind = branch;
 			};
 		};
+		E913AF942ECCF6310057E4F2 /* XCRemoteSwiftPackageReference "RsyncProcess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rsyncOSX/RsyncProcess";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		E94B878B2C7321090031B27A /* XCRemoteSwiftPackageReference "DecodeEncodeGeneric" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/DecodeEncodeGeneric.git";
@@ -771,17 +782,9 @@
 				kind = branch;
 			};
 		};
-		E97775B22EB8E87A00EA6601 /* XCRemoteSwiftPackageReference "RsyncProcess" */ = {
+		E9AC98692ECEF99600D0C654 /* XCRemoteSwiftPackageReference "RsyncArguments" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rsyncOSX/RsyncProcess";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		E9BAB99B2C60A611008A1707 /* XCRemoteSwiftPackageReference "RsyncArguments" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rsyncOSX/RsyncArguments.git";
+			repositoryURL = "https://github.com/rsyncOSX/RsyncArguments";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -811,6 +814,11 @@
 			package = E911E85C2C6BCD9D00152CD6 /* XCRemoteSwiftPackageReference "SSHCreateKey" */;
 			productName = SSHCreateKey;
 		};
+		E913AF952ECCF6310057E4F2 /* RsyncProcess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E913AF942ECCF6310057E4F2 /* XCRemoteSwiftPackageReference "RsyncProcess" */;
+			productName = RsyncProcess;
+		};
 		E952A9A02EB9E139002C11C6 /* ProcessCommand */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E952A99F2EB9E139002C11C6 /* XCRemoteSwiftPackageReference "ProcessCommand" */;
@@ -821,14 +829,13 @@
 			package = E94B878B2C7321090031B27A /* XCRemoteSwiftPackageReference "DecodeEncodeGeneric" */;
 			productName = DecodeEncodeGeneric;
 		};
-		E97775B32EB8E87A00EA6601 /* RsyncProcess */ = {
+		E9AC986A2ECEF99600D0C654 /* RsyncArguments */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E97775B22EB8E87A00EA6601 /* XCRemoteSwiftPackageReference "RsyncProcess" */;
-			productName = RsyncProcess;
+			package = E9AC98692ECEF99600D0C654 /* XCRemoteSwiftPackageReference "RsyncArguments" */;
+			productName = RsyncArguments;
 		};
-		E9BAB99C2C60A611008A1707 /* RsyncArguments */ = {
+		E9B0B9A12ECCEE68004BDC24 /* RsyncArguments */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E9BAB99B2C60A611008A1707 /* XCRemoteSwiftPackageReference "RsyncArguments" */;
 			productName = RsyncArguments;
 		};
 		E9C077752C8CCA65005F8669 /* ParseRsyncOutput */ = {

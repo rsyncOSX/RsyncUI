@@ -84,9 +84,7 @@ struct SidebarMainView: View {
                     item.menuitem == .verify_tasks ||
                     item.menuitem == .snapshots ||
                     item.menuitem == .log_listings ||
-                    item.menuitem == .restore
-
-                { Divider() }
+                    item.menuitem == .restore { Divider() }
             }
             .listStyle(.sidebar)
             .disabled(disablesidebarmeny)

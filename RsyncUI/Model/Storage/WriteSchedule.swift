@@ -30,9 +30,9 @@ struct WriteSchedule {
     private func encodeJSONData(_ calendar: [SchedulesConfigurations]) {
         let encodejsondata = EncodeGeneric()
         do {
-            if let encodeddata = try encodejsondata.encodedata(data: calendar) {
-                writeJSONToPersistentStore(jsonData: encodeddata)
-            }
+            let encodeddata = try encodejsondata.encode(calendar)
+            writeJSONToPersistentStore(jsonData: encodeddata)
+
         } catch {
             Logger.process.error("WriteSchedule some ERROR writing")
             return
