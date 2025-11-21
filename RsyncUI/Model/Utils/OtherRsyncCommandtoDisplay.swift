@@ -26,7 +26,6 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
 @MainActor
 struct OtherRsyncCommandtoDisplay {
     var command: String
-    // var profile: String = "Default"
 
     init(display: OtherRsyncCommand,
          config: SynchronizeConfiguration,
@@ -38,7 +37,8 @@ struct OtherRsyncCommandtoDisplay {
             if config.offsiteServer.isEmpty == false {
                 if let arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments() {
                     str.append(GetfullpathforRsync().rsyncpath() ?? "no rsync in path ")
-                    str.append( arguments.joined(separator: " "))
+                    let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: "")
+                    str.append(cleanedArguments)
                 }
             } else {
                 str = ["Use macOS Finder"]
@@ -49,8 +49,9 @@ struct OtherRsyncCommandtoDisplay {
                                                  sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
                 do {
                     let arguments = try createsshkeys.argumentsCreateKey()
-                    str.append(createsshkeys.createKeyCommand )
-                    str.append(arguments.joined(separator: " "))
+                    str.append(createsshkeys.createKeyCommand)
+                    let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: "")
+                    str.append(cleanedArguments)
                     
                 } catch {}
                     
@@ -62,7 +63,9 @@ struct OtherRsyncCommandtoDisplay {
                 let createsshkeys = SSHCreateKey(sharedSSHPort: String(SharedReference.shared.sshport ?? -1),
                                                  sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
                 do {
-                    str = try createsshkeys.argumentsVerifyRemotePublicSSHKey(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
+                    let tmpstr = try createsshkeys.argumentsVerifyRemotePublicSSHKey(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
+                    let cleanedArguments = tmpstr.joined(separator: " ").replacingOccurrences(of: ",", with: "")
+                    str.append(cleanedArguments)
                 } catch {}
                 
             } else {
@@ -73,7 +76,9 @@ struct OtherRsyncCommandtoDisplay {
                 let createsshkeys = SSHCreateKey(sharedSSHPort: String(SharedReference.shared.sshport ?? -1),
                                                  sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
                 do {
-                    str = try createsshkeys.argumentsSSHCopyID(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
+                    let tmpstr = try createsshkeys.argumentsSSHCopyID(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
+                    let cleanedArguments = tmpstr.joined(separator: " ").replacingOccurrences(of: ",", with: "")
+                    str.append(cleanedArguments)
                 } catch {}
             } else {
                 str = ["No remote server on task"]
@@ -101,3 +106,4 @@ struct OtherRsyncCommandtoDisplay {
 }
 
 // swiftlint:enable line_length opening_brace
+
