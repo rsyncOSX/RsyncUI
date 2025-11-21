@@ -1,5 +1,5 @@
 {
-  "originHash" : "9fbc903191b41a70c3139e2a34a4db08aa78c96ab5b3b0e476cb64abb776a7e0",
+  "originHash" : "7e7a4861cde0580aabda714b8f1a09918bce76cfbeb93143eb8c7bf15cc21735",
   "pins" : [
     {
       "identity" : "decodeencodegeneric",
@@ -51,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/RsyncUIDeepLinks",
       "state" : {
-        "branch" : "main",
-        "revision" : "c8ff58a1300e9c899da0663eec5d326dc1515ab2"
+        "branch" : "Version2refactor",
+        "revision" : "4b9861cfda77d8d3c51ff2dee432b746508af112"
       }
     },
     {

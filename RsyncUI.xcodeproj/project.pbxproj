@@ -802,7 +802,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/RsyncUIDeepLinks";
 			requirement = {
-				branch = main;
+				branch = Version2refactor;
 				kind = branch;
 			};
 		};
