@@ -20,23 +20,28 @@ final class SshKeys {
 
     // Create rsa keypair
     func createPublicPrivateRSAKeyPair() -> Bool {
-        let present = sshcreatekey?.validatepublickeypresent()
+        let present = sshcreatekey?.validatePublicKeyPresent()
         if present == false {
-            // If new keypath is set create it
-            sshcreatekey?.createsshkeyrootpath()
-            // Create keys
-            arguments = sshcreatekey?.argumentscreatekey()
-            // command = "/usr/bin/ssh-keygen"
-            command = sshcreatekey?.createkeycommand
-            executesshcreatekeys()
-            return true
+            do {
+                // If new keypath is set create it
+                try sshcreatekey?.createSSHKeyRootPath()
+                // Create keys
+                arguments = try sshcreatekey?.argumentsCreateKey()
+                // command = "/usr/bin/ssh-keygen"
+                command = sshcreatekey?.createKeyCommand
+                executesshcreatekeys()
+                return true
+            } catch {
+                return false
+            }
+            
         } else {
             return false
         }
     }
 
     func validatepublickeypresent() -> Bool {
-        sshcreatekey?.validatepublickeypresent() ?? false
+        sshcreatekey?.validatePublicKeyPresent() ?? false
     }
 
     // Execute command
@@ -64,7 +69,7 @@ final class SshKeys {
     }
 
     init() {
-        sshcreatekey = SSHCreateKey(sharedsshport: String(SharedReference.shared.sshport ?? -1),
-                                    sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile)
+        sshcreatekey = SSHCreateKey(sharedSSHPort: String(SharedReference.shared.sshport ?? -1),
+                                    sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
     }
 }

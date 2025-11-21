@@ -60,8 +60,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/SSHCreateKey.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "2b79790c04bd714629a072a2bd343f78de2dd779"
+        "branch" : "Version2refactor",
+        "revision" : "30e440bda558828aebea6dd3b449796b8c1e6dbc"
       }
     }
   ],

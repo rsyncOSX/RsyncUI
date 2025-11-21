@@ -754,7 +754,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/SSHCreateKey.git";
 			requirement = {
-				branch = main;
+				branch = Version2refactor;
 				kind = branch;
 			};
 		};
