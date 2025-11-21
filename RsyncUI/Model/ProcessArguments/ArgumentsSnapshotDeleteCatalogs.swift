@@ -17,7 +17,7 @@ final class ArgumentsSnapshotDeleteCatalogs {
     private var command: String?
     private var remotecatalog: String
 
-    func argumentssshcommands() -> [String]? {
+    private func argumentssnapshotdeletecatalogs() -> [String]? {
         if let config {
             let sshparameters = SSHParams().sshparams(config: config)
             let sshargs = SnapshotDelete(sshParameters: sshparameters)
@@ -37,7 +37,7 @@ final class ArgumentsSnapshotDeleteCatalogs {
     init(config: SynchronizeConfiguration, remotecatalog: String) {
         self.config = config
         self.remotecatalog = remotecatalog
-        arguments = argumentssshcommands()
+        arguments = argumentssnapshotdeletecatalogs()
     }
 }
 
