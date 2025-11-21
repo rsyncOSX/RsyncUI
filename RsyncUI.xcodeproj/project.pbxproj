@@ -770,7 +770,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/DecodeEncodeGeneric.git";
 			requirement = {
-				branch = main;
+				branch = Version2refactor;
 				kind = branch;
 			};
 		};

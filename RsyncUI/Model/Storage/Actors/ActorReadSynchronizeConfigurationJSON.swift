@@ -67,30 +67,29 @@ actor ActorReadSynchronizeConfigurationJSON {
         }
         let decodeimport = DecodeGeneric()
         do {
-            if let data = try
-                decodeimport.decodearraydatafileURL(DecodeSynchronizeConfiguration.self, fromwhere: filename)
-            {
-                Logger.process.debugtthreadonly("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default") ?? DECODE")
-                let tasks = data.compactMap { element in
-                    // snapshot and syncremote tasks requiere version3.x of rsync
-                    if element.task == "snapshot" || element.task == "syncremote" {
-                        if rsyncversion3 {
-                            return SynchronizeConfiguration(element)
-                        }
-                    } else {
+            let data = try
+                decodeimport.decodeArray(DecodeSynchronizeConfiguration.self, fromFile: filename)
+
+            Logger.process.debugtthreadonly("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default") ?? DECODE")
+            let tasks = data.compactMap { element in
+                // snapshot and syncremote tasks requiere version3.x of rsync
+                if element.task == "snapshot" || element.task == "syncremote" {
+                    if rsyncversion3 {
                         return SynchronizeConfiguration(element)
                     }
-                    return nil
+                } else {
+                    return SynchronizeConfiguration(element)
                 }
-
-                if monitornetworkconnection {
-                    Task {
-                        await self.verifyremoteconnection(configurations: tasks, sharedsshport: sharedsshport)
-                    }
-                }
-
-                return tasks
+                return nil
             }
+
+            if monitornetworkconnection {
+                Task {
+                    await self.verifyremoteconnection(configurations: tasks, sharedsshport: sharedsshport)
+                }
+            }
+
+            return tasks
 
         } catch let e {
             Logger.process.error("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading synchronize configurations from permanent storage")

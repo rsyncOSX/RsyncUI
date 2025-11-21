@@ -55,17 +55,14 @@ struct RsyncUIEstimateProvider: @preconcurrency TimelineProvider {
             return nil
         }
         do {
-            if let importeddata = try
-                decodeuserconfiguration.decodestringdatafileURL(DecodeStringEstimate.self,
-                                                                fromwhere: userconfigurationfile)
-            {
-                return importeddata.urlstringestimate
-            }
+            let importeddata = try
+                decodeuserconfiguration.decode(DecodeStringEstimate.self,
+                                               fromFile: userconfigurationfile)
 
+            return importeddata.urlstringestimate
         } catch {
             return nil
         }
-        return nil
     }
 
     var documentscatalog: String? {

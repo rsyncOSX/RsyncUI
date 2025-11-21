@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/DecodeEncodeGeneric.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "43c5a970c8dd31e6107426b3523604bac51ea1b1"
+        "branch" : "Version2refactor",
+        "revision" : "ced71274a564daf24dd5591bc3a475e38bec1365"
       }
     },
     {

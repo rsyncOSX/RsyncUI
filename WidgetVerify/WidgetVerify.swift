@@ -65,17 +65,14 @@ struct RsyncUIVerifyProvider: @preconcurrency TimelineProvider {
             return nil
         }
         do {
-            if let importeddata = try
-                decodeuserconfiguration.decodestringdatafileURL(DecodeStringVerify.self,
-                                                                fromwhere: userconfigurationfile)
-            {
-                return importeddata.urlstringverify
-            }
+            let importeddata = try
+                decodeuserconfiguration.decode(DecodeStringVerify.self,
+                                               fromFile: userconfigurationfile)
+            return importeddata.urlstringverify
 
         } catch {
             return nil
         }
-        return nil
     }
 
     var documentscatalog: String? {

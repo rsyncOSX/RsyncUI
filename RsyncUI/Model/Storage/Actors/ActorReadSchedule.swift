@@ -22,22 +22,21 @@ actor ActorReadSchedule {
 
         let decodeimport = DecodeGeneric()
         do {
-            if let data = try
-                decodeimport.decodearraydatafileURL(DecodeSchedules.self,
-                                                    fromwhere: filename)
-            {
-                return data.compactMap { element in
-                    let item = SchedulesConfigurations(element)
-                    if item.schedule == ScheduleType.once.rawValue,
-                       let daterun = item.dateRun, daterun.en_date_from_string() < Date.now
-                    {
-                        return nil
+            let data = try
+                decodeimport.decodeArray(DecodeSchedules.self,
+                                         fromFile: filename)
+
+            return data.compactMap { element in
+                let item = SchedulesConfigurations(element)
+                if item.schedule == ScheduleType.once.rawValue,
+                   let daterun = item.dateRun, daterun.en_date_from_string() < Date.now
+                {
+                    return nil
+                } else {
+                    if let profile = item.profile {
+                        return validprofiles.contains(profile) ? item : nil
                     } else {
-                        if let profile = item.profile {
-                            return validprofiles.contains(profile) ? item : nil
-                        } else {
-                            return item
-                        }
+                        return item
                     }
                 }
             }

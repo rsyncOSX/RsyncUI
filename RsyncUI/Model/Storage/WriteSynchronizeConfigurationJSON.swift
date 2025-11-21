@@ -39,9 +39,9 @@ final class WriteSynchronizeConfigurationJSON {
     private func encodeJSONData(_ configurations: [SynchronizeConfiguration], _ profile: String?) {
         let encodejsondata = EncodeGeneric()
         do {
-            if let encodeddata = try encodejsondata.encodedata(data: configurations) {
-                writeJSONToPersistentStore(jsonData: encodeddata, profile)
-            }
+            let encodeddata = try encodejsondata.encode(configurations)
+            writeJSONToPersistentStore(jsonData: encodeddata, profile)
+
         } catch let e {
             let error = e
             path.propogateerror(error: error)

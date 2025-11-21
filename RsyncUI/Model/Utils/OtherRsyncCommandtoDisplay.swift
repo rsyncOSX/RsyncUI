@@ -52,9 +52,9 @@ struct OtherRsyncCommandtoDisplay {
                     str.append(createsshkeys.createKeyCommand)
                     let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: "")
                     str.append(cleanedArguments)
-                    
+
                 } catch {}
-                    
+
             } else {
                 str = ["No remote server on task"]
             }
@@ -67,7 +67,7 @@ struct OtherRsyncCommandtoDisplay {
                     let cleanedArguments = tmpstr.joined(separator: " ").replacingOccurrences(of: ",", with: "")
                     str.append(cleanedArguments)
                 } catch {}
-                
+
             } else {
                 str = ["No remote server on task"]
             }
@@ -106,4 +106,3 @@ struct OtherRsyncCommandtoDisplay {
 }
 
 // swiftlint:enable line_length opening_brace
-

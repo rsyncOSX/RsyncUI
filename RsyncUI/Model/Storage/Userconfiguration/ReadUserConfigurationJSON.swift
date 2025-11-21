@@ -21,13 +21,12 @@ struct ReadUserConfigurationJSON {
             userconfigurationfile = fullpathmacserial.appending("/") + SharedReference.shared.userconfigjson
         }
         do {
-            if let importeddata = try
-                decodeuserconfiguration.decodestringdatafileURL(DecodeUserConfiguration.self,
-                                                                fromwhere: userconfigurationfile)
-            {
-                UserConfiguration(importeddata)
-                Logger.process.debugtthreadonly("ReadUserConfigurationJSON: Reading user configurations")
-            }
+            let importeddata = try
+                decodeuserconfiguration.decode(DecodeUserConfiguration.self,
+                                               fromFile: userconfigurationfile)
+
+            UserConfiguration(importeddata)
+            Logger.process.debugtthreadonly("ReadUserConfigurationJSON: Reading user configurations")
 
         } catch let e {
             Logger.process.error("ReadUserConfigurationJSON: some ERROR reading user configurations from permanent storage")

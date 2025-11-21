@@ -39,9 +39,9 @@ final class WriteLogRecordsJSON {
     private func encodeJSONData(_ logrecords: [LogRecords], _ profile: String?) {
         let encodejsondata = EncodeGeneric()
         do {
-            if let encodeddata = try encodejsondata.encodedata(data: logrecords) {
-                writeJSONToPersistentStore(jsonData: encodeddata, profile)
-            }
+            let encodeddata = try encodejsondata.encode(logrecords)
+            writeJSONToPersistentStore(jsonData: encodeddata, profile)
+
         } catch let e {
             let error = e
             path.propogateerror(error: error)

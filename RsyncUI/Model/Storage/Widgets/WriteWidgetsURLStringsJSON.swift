@@ -59,10 +59,10 @@ struct WriteWidgetsURLStringsJSON {
     {
         let encodejsondata = EncodeGeneric()
         do {
-            if let encodeddata = try encodejsondata.encodedata(data: urlwidgetstrings) {
-                writeJSONToPersistentStore(jsonData: encodeddata, whichurltowrite)
-                Logger.process.debugmesseageonly("WriteWidgetsURLStringsJSON: Writing URL-strings to permanent storage")
-            }
+            let encodeddata = try encodejsondata.encode(urlwidgetstrings)
+            writeJSONToPersistentStore(jsonData: encodeddata, whichurltowrite)
+            Logger.process.debugmesseageonly("WriteWidgetsURLStringsJSON: Writing URL-strings to permanent storage")
+
         } catch let e {
             Logger.process.error("WriteWidgetsURLStringsJSON: some ERROR writing user configurations from permanent storage")
             let error = e
