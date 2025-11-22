@@ -59,7 +59,7 @@ struct RsyncUIApp: App {
         }
 
         Window("Rsync ouput", id: "floating-details") {
-            AllOutputView()
+            RsyncRealtimeView()
         }
         .defaultPosition(.center)
         .defaultSize(width: 600, height: 400)
