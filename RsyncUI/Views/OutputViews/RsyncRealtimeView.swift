@@ -25,17 +25,26 @@ struct RsyncRealtimeView: View {
 
             HStack {
                 Spacer()
-
+                
                 ConditionalGlassButton(
                     systemImage: "checkmark",
-                    text: "Enable",
-                    helpText: "Enable output capture"
+                    text: "Capture to view",
+                    helpText: "Enable capture rsync output"
                 ) {
                     Task {
                         await RsyncOutputCapture.shared.enable()
-                        // Or with file output:
-                        // let logURL = FileManager.default.temporaryDirectory.appendingPathComponent("rsync-output.log")
-                        // await RsyncOutputCapture.shared.enable(writeToFile: logURL)
+                    }
+                }
+
+                ConditionalGlassButton(
+                    systemImage: "square.and.arrow.down.badge.checkmark",
+                    text: "Capture to file",
+                    helpText: "Enable capture rsync output"
+                ) {
+                    Task {
+                        if let logURL = userHomeDirectoryURLPath?.appendingPathComponent("rsync-output.log") {
+                            await RsyncOutputCapture.shared.enable(writeToFile: logURL)
+                        }
                     }
                 }
 
@@ -57,6 +66,16 @@ struct RsyncRealtimeView: View {
             Task {
                 await RsyncOutputCapture.shared.disable()
             }
+        }
+    }
+    
+    var userHomeDirectoryURLPath: URL? {
+        let pw = getpwuid(getuid())
+        if let home = pw?.pointee.pw_dir {
+            let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
+            return URL(fileURLWithPath: homePath)
+        } else {
+            return nil
         }
     }
 }
