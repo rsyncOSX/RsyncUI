@@ -81,7 +81,9 @@ struct LogsbyConfigurationView: View {
                     isPresented: $confirmdelete)
                 {
                     Button("Delete", role: .destructive) {
-                        deletelogs(selectedloguuids)
+                        Task {
+                            await deletelogs(selectedloguuids)
+                        }
                     }
                 }
                 .overlay { if logs.count == 0 {
@@ -217,58 +219,28 @@ struct LogsbyConfigurationView: View {
         }
     }
 
-    func deletelogs(_ uuids: Set<UUID>) {
-        if var records = logrecords {
-            var indexset = IndexSet()
+    func deletelogs(_ uuids: Set<UUID>) async {
+        Task {
+            // Start both async operations, and make sure to await the intermediate result before using it
+            async let updatedRecords: [LogRecords]? = ActorReadLogRecordsJSON().deletelogs(
+                uuids,
+                logrecords: logrecords,
+                profile: rsyncUIdata.profile,
+                validhiddenIDs: validhiddenIDs
+            )
 
-            for i in 0 ..< records.count {
-                for j in 0 ..< uuids.count {
-                    if let index = records[i].logrecords?.firstIndex(
-                        where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: j)] })
-                    {
-                        indexset.insert(index)
-                    }
-                }
-                records[i].logrecords?.remove(atOffsets: indexset)
-                indexset.removeAll()
-            }
+            let records = await updatedRecords
+            async let updatedLogs: [Log]? = ActorReadLogRecordsJSON().updatelogsbyhiddenID(records, hiddenID)
+
+            self.logrecords = records
+            self.logs = await (updatedLogs ?? [])
+            
             WriteLogRecordsJSON(rsyncUIdata.profile, records)
-            selectedloguuids.removeAll()
-            logrecords = nil
-            Task {
-                // Structured Concurrency, also read new records from store
-                let actorreadlogs = ActorReadLogRecordsJSON()
-                logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
-                logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-            }
+                        selectedloguuids.removeAll()
         }
     }
 }
+
 
 // swiftlint: enable line_length
 
-actor DeleteLogrecords {
-    @concurrent
-    func readlogrecords(_ profile: String?, _ validhiddenIDs: Set<Int>) async -> [LogRecords]? {
-        let actorreadlogs = ActorReadLogRecordsJSON()
-        return await actorreadlogs.readjsonfilelogrecords(profile, validhiddenIDs)
-    }
-
-    @concurrent
-    func deletelogs(_ uuids: Set<UUID>, profile: String?, validhiddenIDs: Set<Int>) async -> [LogRecords]? {
-        guard var records = await readlogrecords(profile, validhiddenIDs) else { return nil}
-        var indexset = IndexSet()
-
-        for i in 0 ..< records.count {
-            for j in 0 ..< uuids.count {
-                if let index = records[i].logrecords?.firstIndex(
-                    where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: j)] }) {
-                    indexset.insert(index)
-                }
-            }
-            records[i].logrecords?.remove(atOffsets: indexset)
-            indexset.removeAll()
-        }
-        return records
-    }
-}
