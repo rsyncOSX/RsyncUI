@@ -246,3 +246,29 @@ struct LogsbyConfigurationView: View {
 }
 
 // swiftlint: enable line_length
+
+actor DeleteLogrecords {
+    @concurrent
+    func readlogrecords(_ profile: String?, _ validhiddenIDs: Set<Int>) async -> [LogRecords]? {
+        let actorreadlogs = ActorReadLogRecordsJSON()
+        return await actorreadlogs.readjsonfilelogrecords(profile, validhiddenIDs)
+    }
+
+    @concurrent
+    func deletelogs(_ uuids: Set<UUID>, profile: String?, validhiddenIDs: Set<Int>) async -> [LogRecords]? {
+        guard var records = await readlogrecords(profile, validhiddenIDs) else { return nil}
+        var indexset = IndexSet()
+
+        for i in 0 ..< records.count {
+            for j in 0 ..< uuids.count {
+                if let index = records[i].logrecords?.firstIndex(
+                    where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: j)] }) {
+                    indexset.insert(index)
+                }
+            }
+            records[i].logrecords?.remove(atOffsets: indexset)
+            indexset.removeAll()
+        }
+        return records
+    }
+}
