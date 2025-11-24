@@ -105,22 +105,20 @@ actor ActorReadLogRecordsJSON {
                     logrecords: [LogRecords]?,
                     profile: String?,
                     validhiddenIDs: Set<Int>) async -> [LogRecords]? {
-        // guard var records = await readlogrecords(profile, validhiddenIDs) else { return nil}
-        var indexset = IndexSet()
         var records = logrecords
-
+        
         Logger.process.debugtthreadonly("ActorReadLogRecordsJSON: deletelogs()")
         
+        // Convert to Set for O(1) lookup instead of O(n)
+        let uuidsToDelete = uuids
+        
         for i in 0 ..< (records?.count ?? 0) {
-            for j in 0 ..< uuids.count {
-                if let index = records?[i].logrecords?.firstIndex(
-                    where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: j)] }) {
-                    indexset.insert(index)
-                }
+            // Remove in one pass instead of building IndexSet
+            records?[i].logrecords?.removeAll { record in
+                uuidsToDelete.contains(record.id)
             }
-            records?[i].logrecords?.remove(atOffsets: indexset)
-            indexset.removeAll()
         }
+        
         return records
     }
 
@@ -128,3 +126,29 @@ actor ActorReadLogRecordsJSON {
         Logger.process.debugmesseageonly("ActorReadLogRecordsJSON: DEINIT")
     }
 }
+
+/*
+ @concurrent
+ func deletelogs(_ uuids: Set<UUID>,
+                 logrecords: [LogRecords]?,
+                 profile: String?,
+                 validhiddenIDs: Set<Int>) async -> [LogRecords]? {
+     // guard var records = await readlogrecords(profile, validhiddenIDs) else { return nil}
+     var indexset = IndexSet()
+     var records = logrecords
+
+     Logger.process.debugtthreadonly("ActorReadLogRecordsJSON: deletelogs()")
+     
+     for i in 0 ..< (records?.count ?? 0) {
+         for j in 0 ..< uuids.count {
+             if let index = records?[i].logrecords?.firstIndex(
+                 where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: j)] }) {
+                 indexset.insert(index)
+             }
+         }
+         records?[i].logrecords?.remove(atOffsets: indexset)
+         indexset.removeAll()
+     }
+     return records
+ }
+ */
