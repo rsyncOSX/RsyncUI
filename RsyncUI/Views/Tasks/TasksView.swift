@@ -321,15 +321,6 @@ struct TasksView: View {
 
                 ToolbarItem {
                     Button {
-                        executetaskpath.append(Tasks(task: .viewlogfile))
-                    } label: {
-                        Image(systemName: "doc.plaintext")
-                    }
-                    .help("View logfile")
-                }
-
-                ToolbarItem {
-                    Button {
                         executetaskpath.append(Tasks(task: .quick_synchronize))
                     } label: {
                         Image(systemName: "hare")
@@ -355,12 +346,21 @@ struct TasksView: View {
                     }
                     .help("Schedule")
                 }
-
+                
                 ToolbarItem {
                     Button {
-                        openWindow(id: "floating-details")
+                        executetaskpath.append(Tasks(task: .viewlogfile))
                     } label: {
-                        Image(systemName: "text.document")
+                        Image(systemName: "doc.plaintext")
+                    }
+                    .help("View logfile")
+                }
+                
+                ToolbarItem {
+                    Button {
+                        openWindow(id: "liversynclog")
+                    } label: {
+                        Image(systemName: "square.and.arrow.down.badge.checkmark")
                     }
                     .help("Rsync output")
                 }

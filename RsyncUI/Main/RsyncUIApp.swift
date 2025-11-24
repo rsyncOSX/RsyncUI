@@ -58,7 +58,7 @@ struct RsyncUIApp: App {
             }
         }
 
-        Window("Rsync ouput", id: "floating-details") {
+        Window("Rsync ouput", id: "liversynclog") {
             RsyncRealtimeView()
         }
         .defaultPosition(.center)
