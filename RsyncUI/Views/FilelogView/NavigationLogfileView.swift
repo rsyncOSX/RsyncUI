@@ -31,6 +31,28 @@ struct NavigationLogfileView: View {
         .toolbar {
             ToolbarItem {
                 Button {
+                    Task {
+                        logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
+                    }
+                } label: {
+                    Image(systemName: "document")
+                }
+                .help("Read logfile")
+            }
+            
+            ToolbarItem {
+                Button {
+                    Task {
+                        logfilerecords = await ActorCreateOutputforView().createaoutputrsynclogforview()
+                    }
+                } label: {
+                    Image(systemName: "square.and.arrow.down.badge.checkmark")
+                }
+                .help("Read rsync log")
+            }
+            
+            ToolbarItem {
+                Button {
                     reset()
                 } label: {
                     Image(systemName: "clear")
@@ -51,6 +73,12 @@ struct NavigationLogfileView: View {
 
     func afterareload() {
         resetloggfile = false
+    }
+    
+    func readlogfile()  {
+        Task {
+            logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
+        }
     }
 }
 

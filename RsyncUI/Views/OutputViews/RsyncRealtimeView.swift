@@ -42,7 +42,7 @@ struct RsyncRealtimeView: View {
                     helpText: "Enable capture rsync output"
                 ) {
                     Task {
-                        if let logURL = userHomeDirectoryURLPath?.appendingPathComponent("rsync-output.log") {
+                        if let logURL = URL.userHomeDirectoryURLPath?.appendingPathComponent("rsync-output.log") {
                             await RsyncOutputCapture.shared.enable(writeToFile: logURL)
                         }
                     }
@@ -68,14 +68,5 @@ struct RsyncRealtimeView: View {
             }
         }
     }
-
-    var userHomeDirectoryURLPath: URL? {
-        let pw = getpwuid(getuid())
-        if let home = pw?.pointee.pw_dir {
-            let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
-            return URL(fileURLWithPath: homePath)
-        } else {
-            return nil
-        }
-    }
 }
+
