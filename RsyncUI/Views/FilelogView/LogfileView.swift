@@ -9,7 +9,7 @@ import Foundation
 import Observation
 import SwiftUI
 
-struct NavigationLogfileView: View {
+struct LogfileView: View {
     @State private var resetloggfile = false
     @State private var logfilerecords: [LogfileRecords]?
 

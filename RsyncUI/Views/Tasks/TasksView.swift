@@ -349,7 +349,7 @@ struct TasksView: View {
                 
                 ToolbarItem {
                     Button {
-                        executetaskpath.append(Tasks(task: .viewlogfile))
+                        openWindow(id: "rsyncuilog")
                     } label: {
                         Image(systemName: "doc.plaintext")
                     }

@@ -63,6 +63,12 @@ struct RsyncUIApp: App {
         }
         .defaultPosition(.center)
         .defaultSize(width: 600, height: 400)
+        
+        Window("RsyncUI log", id: "rsyncuilog") {
+            LogfileView()
+        }
+        .defaultPosition(.center)
+        .defaultSize(width: 600, height: 400)
 
         Settings {
             SidebarSettingsView()

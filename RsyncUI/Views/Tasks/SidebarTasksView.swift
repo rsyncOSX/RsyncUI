@@ -13,7 +13,7 @@ enum DestinationView: String, Identifiable {
     case executestimatedview, executenoestimatetasksview,
          summarizeddetailsview, onetaskdetailsview,
          dryrunonetaskalreadyestimated, quick_synchronize,
-         completedview, viewlogfile, charts
+         completedview, charts
     var id: String { rawValue }
 }
 
@@ -109,8 +109,6 @@ struct SidebarTasksView: View {
                 .onAppear {
                     reset()
                 }
-        case .viewlogfile:
-            NavigationLogfileView()
         case .charts:
             LogStatsChartView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
         }
