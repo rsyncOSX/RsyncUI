@@ -23,42 +23,46 @@ struct LogfileView: View {
             .onChange(of: resetloggfile) {
                 afterareload()
             }
+            
+            Spacer()
+            
+            HStack {
+                
+                ConditionalGlassButton(
+                    systemImage: "document",
+                    text: "Logfile",
+                    helpText: "View logfile"
+                ) {
+                    Task {
+                        logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
+                    }
+                }
+                
+                ConditionalGlassButton(
+                    systemImage: "square.and.arrow.down.badge.checkmark",
+                    text: "Rsync output file",
+                    helpText: "View file rsync output"
+                ) {
+                    Task {
+                        logfilerecords = await ActorCreateOutputforView().createaoutputrsynclogforview()
+                    }
+                }
+                
+                Spacer()
+                
+                ConditionalGlassButton(
+                    systemImage: "clear",
+                    text: "Reset logfile",
+                    helpText: "Reset logfile"
+                ) {
+                    reset()
+                }
+                
+            }
         }
         .padding()
         .task {
             logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
-        }
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    Task {
-                        logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
-                    }
-                } label: {
-                    Image(systemName: "document")
-                }
-                .help("Read logfile")
-            }
-            
-            ToolbarItem {
-                Button {
-                    Task {
-                        logfilerecords = await ActorCreateOutputforView().createaoutputrsynclogforview()
-                    }
-                } label: {
-                    Image(systemName: "square.and.arrow.down.badge.checkmark")
-                }
-                .help("Read rsync log")
-            }
-            
-            ToolbarItem {
-                Button {
-                    reset()
-                } label: {
-                    Image(systemName: "clear")
-                }
-                .help("Reset logfile")
-            }
         }
     }
 

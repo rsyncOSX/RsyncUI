@@ -348,6 +348,10 @@ struct TasksView: View {
                 }
                 
                 ToolbarItem {
+                    Spacer()
+                }
+                
+                ToolbarItem {
                     Button {
                         openWindow(id: "rsyncuilog")
                     } label: {
