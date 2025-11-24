@@ -25,7 +25,7 @@ struct RsyncRealtimeView: View {
 
             HStack {
                 Spacer()
-                
+
                 ConditionalGlassButton(
                     systemImage: "checkmark",
                     text: "Capture to view",
@@ -68,7 +68,7 @@ struct RsyncRealtimeView: View {
             }
         }
     }
-    
+
     var userHomeDirectoryURLPath: URL? {
         let pw = getpwuid(getuid())
         if let home = pw?.pointee.pw_dir {

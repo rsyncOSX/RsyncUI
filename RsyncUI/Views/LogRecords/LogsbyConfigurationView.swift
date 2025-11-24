@@ -232,15 +232,13 @@ struct LogsbyConfigurationView: View {
             let records = await updatedRecords
             async let updatedLogs: [Log]? = ActorReadLogRecordsJSON().updatelogsbyhiddenID(records, hiddenID)
 
-            self.logrecords = records
-            self.logs = await (updatedLogs ?? [])
-            
+            logrecords = records
+            logs = await (updatedLogs ?? [])
+
             WriteLogRecordsJSON(rsyncUIdata.profile, records)
-                        selectedloguuids.removeAll()
+            selectedloguuids.removeAll()
         }
     }
 }
 
-
 // swiftlint: enable line_length
-

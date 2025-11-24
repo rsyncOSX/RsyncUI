@@ -99,26 +99,27 @@ actor ActorReadLogRecordsJSON {
         }
         return nil
     }
-    
+
     @concurrent
     func deletelogs(_ uuids: Set<UUID>,
                     logrecords: [LogRecords]?,
-                    profile: String?,
-                    validhiddenIDs: Set<Int>) async -> [LogRecords]? {
+                    profile _: String?,
+                    validhiddenIDs _: Set<Int>) async -> [LogRecords]?
+    {
         var records = logrecords
-        
+
         Logger.process.debugtthreadonly("ActorReadLogRecordsJSON: deletelogs()")
-        
+
         // Convert to Set for O(1) lookup instead of O(n)
         let uuidsToDelete = uuids
-        
+
         for i in 0 ..< (records?.count ?? 0) {
             // Remove in one pass instead of building IndexSet
             records?[i].logrecords?.removeAll { record in
                 uuidsToDelete.contains(record.id)
             }
         }
-        
+
         return records
     }
 
@@ -138,7 +139,7 @@ actor ActorReadLogRecordsJSON {
      var records = logrecords
 
      Logger.process.debugtthreadonly("ActorReadLogRecordsJSON: deletelogs()")
-     
+
      for i in 0 ..< (records?.count ?? 0) {
          for j in 0 ..< uuids.count {
              if let index = records?[i].logrecords?.firstIndex(
