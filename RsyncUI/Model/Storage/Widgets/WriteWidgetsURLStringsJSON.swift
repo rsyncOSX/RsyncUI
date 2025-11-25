@@ -21,7 +21,7 @@ struct WriteWidgetsURLStringsJSON {
     let deeplinks = RsyncUIDeepLinks()
 
     private func writeJSONToPersistentStore(jsonData: Data?, _ whichurltowrite: WidgetURLStringsJSON) {
-        if let userHomeDirectoryPath = path.userHomeDirectoryPath {
+        if let userHomeDirectoryPath = URL.userHomeDirectoryURLPath?.path() {
             switch whichurltowrite {
             case .estimate:
                 let pathestimate = userHomeDirectoryPath.appending("/" + path.estimatestringsandboxcatalog)

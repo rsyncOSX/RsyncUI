@@ -40,8 +40,8 @@ struct LogfileView: View {
                 
                 ConditionalGlassButton(
                     systemImage: "square.and.arrow.down.badge.checkmark",
-                    text: "Rsync output file",
-                    helpText: "View file rsync output"
+                    text: "Rsync output",
+                    helpText: "View rsync output"
                 ) {
                     Task {
                         logfilerecords = await ActorCreateOutputforView().createaoutputrsynclogforview()

@@ -33,26 +33,6 @@ struct Homepath {
         return SharedReference.shared.macserialnumber
     }
 
-    var userHomeDirectoryPath: String? {
-        let pw = getpwuid(getuid())
-        if let home = pw?.pointee.pw_dir {
-            let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
-            return homePath
-        } else {
-            return nil
-        }
-    }
-
-    var userHomeDirectoryURLPath: URL? {
-        let pw = getpwuid(getuid())
-        if let home = pw?.pointee.pw_dir {
-            let homePath = FileManager.default.string(withFileSystemRepresentation: home, length: Int(strlen(home)))
-            return URL(fileURLWithPath: homePath)
-        } else {
-            return nil
-        }
-    }
-
     func getfullpathmacserialcatalogsasstringnames() -> [String] {
         let fm = FileManager.default
         if let fullpathmacserial {
@@ -119,8 +99,8 @@ struct Homepath {
     }
 
     init() {
-        fullpathmacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath + (macserialnumber ?? "")
-        fullpathnomacserial = (userHomeDirectoryPath ?? "") + SharedReference.shared.configpath
+        fullpathmacserial = (URL.userHomeDirectoryURLPath?.path() ?? "") + SharedReference.shared.configpath + (macserialnumber ?? "")
+        fullpathnomacserial = (URL.userHomeDirectoryURLPath?.path() ?? "") + SharedReference.shared.configpath
     }
 }
 

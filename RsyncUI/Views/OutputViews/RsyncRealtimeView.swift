@@ -27,8 +27,8 @@ struct RsyncRealtimeView: View {
                 Spacer()
 
                 ConditionalGlassButton(
-                    systemImage: "checkmark",
-                    text: "Capture to view",
+                    systemImage: "eyes.inverse",
+                    text: "View",
                     helpText: "Enable capture rsync output"
                 ) {
                     Task {
@@ -38,7 +38,7 @@ struct RsyncRealtimeView: View {
 
                 ConditionalGlassButton(
                     systemImage: "square.and.arrow.down.badge.checkmark",
-                    text: "Capture to file",
+                    text: "File",
                     helpText: "Enable capture rsync output"
                 ) {
                     Task {

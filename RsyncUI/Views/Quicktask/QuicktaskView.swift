@@ -410,7 +410,7 @@ struct QuicktaskView: View {
     }
 
     var localhome: String {
-        Homepath().userHomeDirectoryPath ?? ""
+        URL.userHomeDirectoryURLPath?.path() ?? ""
     }
 }
 

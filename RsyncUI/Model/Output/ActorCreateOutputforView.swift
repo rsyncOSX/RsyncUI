@@ -93,9 +93,3 @@ actor ActorCreateOutputforView {
         return []
     }
 }
-
-/*
- if let logURL = URL.userHomeDirectoryURLPath?.appendingPathComponent("rsync-output.log") {
-     await RsyncOutputCapture.shared.enable(writeToFile: logURL)
- }
- */

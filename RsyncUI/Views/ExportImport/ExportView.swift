@@ -12,7 +12,7 @@ struct ExportView: View {
 
     @Binding var activeSheet: SheetType?
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    @State var exportcatalog: String = Homepath().userHomeDirectoryPath ?? ""
+    @State var exportcatalog: String = URL.userHomeDirectoryURLPath?.path() ?? ""
     @State var filenameexport: String = "export"
 
     @State var somesnapshottask: Bool = false

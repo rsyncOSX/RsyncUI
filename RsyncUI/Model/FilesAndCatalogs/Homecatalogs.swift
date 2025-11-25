@@ -20,7 +20,7 @@ struct Catalognames: Identifiable, Hashable {
 struct Homecatalogs {
     func homecatalogs() -> [Catalognames] {
         let fm = FileManager.default
-        if let atpathURL = Homepath().userHomeDirectoryURLPath {
+        if let atpathURL = URL.userHomeDirectoryURLPath {
             var catalogs = [Catalognames]()
             do {
                 for filesandfolders in try
