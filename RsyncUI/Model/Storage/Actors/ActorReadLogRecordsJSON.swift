@@ -127,29 +127,3 @@ actor ActorReadLogRecordsJSON {
         Logger.process.debugmesseageonly("ActorReadLogRecordsJSON: DEINIT")
     }
 }
-
-/*
- @concurrent
- func deletelogs(_ uuids: Set<UUID>,
-                 logrecords: [LogRecords]?,
-                 profile: String?,
-                 validhiddenIDs: Set<Int>) async -> [LogRecords]? {
-     // guard var records = await readlogrecords(profile, validhiddenIDs) else { return nil}
-     var indexset = IndexSet()
-     var records = logrecords
-
-     Logger.process.debugtthreadonly("ActorReadLogRecordsJSON: deletelogs()")
-
-     for i in 0 ..< (records?.count ?? 0) {
-         for j in 0 ..< uuids.count {
-             if let index = records?[i].logrecords?.firstIndex(
-                 where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: j)] }) {
-                 indexset.insert(index)
-             }
-         }
-         records?[i].logrecords?.remove(atOffsets: indexset)
-         indexset.removeAll()
-     }
-     return records
- }
- */

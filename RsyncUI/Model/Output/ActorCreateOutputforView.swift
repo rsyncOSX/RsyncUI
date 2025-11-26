@@ -62,7 +62,7 @@ actor ActorCreateOutputforView {
     @concurrent
     nonisolated func createaoutputlogfileforview() async -> [LogfileRecords] {
         Logger.process.debugtthreadonly("ActorCreateOutputforView: createaoutputlogfileforview()")
-        if let data = await ActorLogToFile(false).readloggfile() {
+        if let data = await ActorLogToFile().readloggfile() {
             return data.map { record in
                 LogfileRecords(line: record)
             }
@@ -70,12 +70,12 @@ actor ActorCreateOutputforView {
             return []
         }
     }
-    
+
     // $Home/rsync-output.log
     @concurrent
     nonisolated func createaoutputrsynclogforview() async -> [LogfileRecords] {
         Logger.process.debugtthreadonly("ActorCreateOutputforView: createaoutputrsynclog()")
-        
+
         if let logURL = URL.userHomeDirectoryURLPath?.appendingPathComponent("rsync-output.log") {
             do {
                 let data = try Data(contentsOf: logURL)
@@ -88,8 +88,7 @@ actor ActorCreateOutputforView {
                     }
                 }
             } catch {}
-        
-    }
+        }
         return []
     }
 }

@@ -1,5 +1,5 @@
 //
-//  NavigationLogfileView.swift
+//  LogfileView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 25/11/2023.
@@ -10,8 +10,8 @@ import Observation
 import SwiftUI
 
 struct LogfileView: View {
-    @State private var resetloggfile = false
     @State private var logfilerecords: [LogfileRecords]?
+    @State private var whichlogfileispresented: LogfileToReset = .RsyncUIlogfile
 
     var body: some View {
         VStack {
@@ -20,36 +20,34 @@ struct LogfileView: View {
                     Text(data.line)
                 }
             }
-            .onChange(of: resetloggfile) {
-                afterareload()
-            }
-            
+
             Spacer()
-            
+
             HStack {
-                
                 ConditionalGlassButton(
                     systemImage: "document",
                     text: "Logfile",
                     helpText: "View logfile"
                 ) {
                     Task {
+                        whichlogfileispresented = .RsyncUIlogfile
                         logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
                     }
                 }
-                
+
                 ConditionalGlassButton(
                     systemImage: "square.and.arrow.down.badge.checkmark",
                     text: "Rsync output",
                     helpText: "View rsync output"
                 ) {
                     Task {
+                        whichlogfileispresented = .RsyncOutputlogfile
                         logfilerecords = await ActorCreateOutputforView().createaoutputrsynclogforview()
                     }
                 }
-                
+
                 Spacer()
-                
+
                 ConditionalGlassButton(
                     systemImage: "trash",
                     text: "Clear",
@@ -57,7 +55,6 @@ struct LogfileView: View {
                 ) {
                     reset()
                 }
-                
             }
         }
         .padding()
@@ -67,19 +64,18 @@ struct LogfileView: View {
     }
 
     func reset() {
-        resetloggfile = true
-
         Task {
-            await ActorLogToFile(true)
-            logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
+            await ActorLogToFile(whichlogfileispresented)
+            switch whichlogfileispresented {
+            case .RsyncOutputlogfile:
+                logfilerecords = await ActorCreateOutputforView().createaoutputrsynclogforview()
+            case .RsyncUIlogfile:
+                logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
+            }
         }
     }
 
-    func afterareload() {
-        resetloggfile = false
-    }
-    
-    func readlogfile()  {
+    func readlogfile() {
         Task {
             logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
         }

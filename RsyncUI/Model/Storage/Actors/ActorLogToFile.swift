@@ -24,7 +24,25 @@ enum FilesizeError: LocalizedError {
     }
 }
 
+enum LogfileToReset {
+    case RsyncUIlogfile
+    case RsyncOutputlogfile
+}
+
 actor ActorLogToFile {
+    @concurrent
+    nonisolated func resetrsynclogfile() async {
+        if let logURL = URL.userHomeDirectoryURLPath?.appendingPathComponent("rsync-output.log") {
+            do {
+                let date = Date().localized_string_from_date()
+                let reset = date + ": " + "rsync-output.log is reset..." + "\n"
+                if let newdata = reset.data(using: .utf8) {
+                    try newdata.write(to: logURL)
+                }
+            } catch {}
+        }
+    }
+
     @concurrent
     nonisolated func writeloggfile(_ newlogadata: String, _ reset: Bool) async {
         let path = await Homepath()
@@ -199,12 +217,19 @@ actor ActorLogToFile {
     }
 
     @discardableResult
-    init(_ reset: Bool) async {
-        if reset {
+    init() async {}
+
+    @discardableResult
+    init(_ whichlogfile: LogfileToReset) async {
+        switch whichlogfile {
+        case .RsyncUIlogfile:
             // Reset loggfile
             let date = Date().localized_string_from_date()
             let reset = date + ": " + "logfile is reset..." + "\n"
             await writeloggfile(reset, true)
+        case .RsyncOutputlogfile:
+            // Reset rsync-outputlog
+            await resetrsynclogfile()
         }
     }
 

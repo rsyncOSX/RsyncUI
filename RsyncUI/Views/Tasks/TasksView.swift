@@ -346,11 +346,11 @@ struct TasksView: View {
                     }
                     .help("Schedule")
                 }
-                
+
                 ToolbarItem {
                     Spacer()
                 }
-                
+
                 ToolbarItem {
                     Button {
                         openWindow(id: "rsyncuilog")
@@ -359,7 +359,7 @@ struct TasksView: View {
                     }
                     .help("View logfile")
                 }
-                
+
                 ToolbarItem {
                     Button {
                         openWindow(id: "liversynclog")
