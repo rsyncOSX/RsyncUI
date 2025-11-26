@@ -16,7 +16,7 @@
       "location" : "https://github.com/rsyncOSX/ParseRsyncOutput",
       "state" : {
         "branch" : "main",
-        "revision" : "dc902d0080d4207bbd35a72d914721ba47332a93"
+        "revision" : "1e6e3ecb77406526d5f5131852c3c685b6b0e785"
       }
     },
     {
@@ -43,7 +43,7 @@
       "location" : "https://github.com/rsyncOSX/RsyncProcess",
       "state" : {
         "branch" : "main",
-        "revision" : "3a111a0aaa873e497b9646dbe3031944d666dc02"
+        "revision" : "7dd22ecb9030172f41f2c7ce73bf9fc9013dc866"
       }
     },
     {
