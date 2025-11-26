@@ -51,8 +51,8 @@ struct LogfileView: View {
                 Spacer()
                 
                 ConditionalGlassButton(
-                    systemImage: "clear",
-                    text: "Reset logfile",
+                    systemImage: "trash",
+                    text: "Clear",
                     helpText: "Reset logfile"
                 ) {
                     reset()
