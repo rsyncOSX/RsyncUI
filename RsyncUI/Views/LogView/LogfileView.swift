@@ -37,7 +37,7 @@ struct LogfileView: View {
 
                 ConditionalGlassButton(
                     systemImage: "square.and.arrow.down.badge.checkmark",
-                    text: "Rsync output",
+                    text: "rsync",
                     helpText: "View rsync output"
                 ) {
                     Task {

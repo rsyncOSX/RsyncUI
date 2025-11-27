@@ -24,14 +24,16 @@ struct RsyncRealtimeView: View {
             }
 
             HStack {
-                Spacer()
-
+               
                 ConditionalGlassButton(
                     systemImage: "eyes.inverse",
                     text: "View",
                     helpText: "Enable capture rsync output"
                 ) {
                     Task {
+                        if await RsyncOutputCapture.shared.isCapturing() {
+                            await RsyncOutputCapture.shared.disable()
+                        }
                         await RsyncOutputCapture.shared.enable()
                     }
                 }
@@ -42,6 +44,9 @@ struct RsyncRealtimeView: View {
                     helpText: "Enable capture rsync output"
                 ) {
                     Task {
+                        if await RsyncOutputCapture.shared.isCapturing() {
+                            await RsyncOutputCapture.shared.disable()
+                        }
                         if let logURL = URL.userHomeDirectoryURLPath?.appendingPathComponent("rsync-output.log") {
                             await RsyncOutputCapture.shared.enable(writeToFile: logURL)
                         }
