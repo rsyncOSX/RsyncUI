@@ -78,6 +78,7 @@ struct RsyncUIApp: App {
     private func performCleanupTask() {
         Logger.process.debugmesseageonly("RsyncUIApp: performCleanupTask(), RsyncUI shutting down, doing clean up")
         GlobalTimer.shared.invalidateAllSchedulesAndTimer()
+        SharedReference.shared.checkeandterminateprocess()
     }
 }
 

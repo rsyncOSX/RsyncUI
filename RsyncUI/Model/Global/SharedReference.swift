@@ -8,7 +8,6 @@
 
 import Foundation
 import Observation
-import OSLog
 
 public extension Thread {
     static var isMain: Bool { isMainThread }
@@ -93,5 +92,22 @@ final class SharedReference {
         } else {
             process = nil
         }
+    }
+    
+    func checkeandterminateprocess() {
+        guard let process, process.isRunning else {
+            return
+        }
+        // Send SIGTERM for graceful shutdown
+        process.terminate()
+        // Optional: Wait briefly for graceful shutdown
+        DispatchQueue.global().async {
+            usleep(500_000) // 0.5 seconds
+            // Force kill if still running
+            if process.isRunning {
+                kill(process.processIdentifier, SIGKILL)
+            }
+        }
+        self.process = nil
     }
 }
