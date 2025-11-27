@@ -13,6 +13,8 @@ struct RsyncRealtimeView: View {
     // The generated observable model from @Observable should be usable as an observable object here.
     // Using @ObservedObject to reference the shared singleton.
     @State private var model = PrintLines.shared
+    @State private var isTappedfile = false
+    @State private var isTappedview = false
 
     var body: some View {
         // NavigationView {
@@ -28,10 +30,18 @@ struct RsyncRealtimeView: View {
                 ConditionalGlassButton(
                     systemImage: "eyes.inverse",
                     text: "View",
-                    helpText: "Enable capture rsync output"
+                    helpText: "Enable capture rsync output",
+                    textcolor: isTappedview
                 ) {
                     Task {
+                        isTappedview.toggle()
+                        guard isTappedview else {
+                            await RsyncOutputCapture.shared.disable()
+                            return
+                        }
+                        
                         if await RsyncOutputCapture.shared.isCapturing() {
+                            isTappedfile = false
                             await RsyncOutputCapture.shared.disable()
                         }
                         await RsyncOutputCapture.shared.enable()
@@ -41,10 +51,17 @@ struct RsyncRealtimeView: View {
                 ConditionalGlassButton(
                     systemImage: "square.and.arrow.down.badge.checkmark",
                     text: "File",
-                    helpText: "Enable capture rsync output"
+                    helpText: "Enable capture rsync output",
+                    textcolor: isTappedfile
                 ) {
                     Task {
+                        isTappedfile.toggle()
+                        guard isTappedfile else {
+                            await RsyncOutputCapture.shared.disable()
+                            return
+                        }
                         if await RsyncOutputCapture.shared.isCapturing() {
+                            isTappedview = false
                             await RsyncOutputCapture.shared.disable()
                         }
                         if let logURL = URL.userHomeDirectoryURLPath?.appendingPathComponent("rsync-output.log") {
@@ -52,7 +69,7 @@ struct RsyncRealtimeView: View {
                         }
                     }
                 }
-
+                
                 Spacer()
 
                 ConditionalGlassButton(

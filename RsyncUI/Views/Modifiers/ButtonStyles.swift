@@ -160,10 +160,13 @@ private struct PressureAnimatedButton: View {
 }
 
 struct ConditionalGlassButton: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     let systemImage: String
     let text: String?
     let helpText: String
     let role: ButtonRole?
+    var textcolor: Bool = false
     let action: () -> Void
 
     init(systemImage: String, text: String? = nil, helpText: String, role: ButtonRole? = nil, action: @escaping () -> Void) {
@@ -173,6 +176,15 @@ struct ConditionalGlassButton: View {
         self.role = role
         self.action = action
     }
+    
+    init(systemImage: String, text: String? = nil, helpText: String, role: ButtonRole? = nil, textcolor: Bool, action: @escaping () -> Void) {
+        self.systemImage = systemImage
+        self.text = text
+        self.helpText = helpText
+        self.role = role
+        self.textcolor = textcolor
+        self.action = action
+    }
 
     var body: some View {
         if #available(macOS 26.0, *) {
@@ -180,15 +192,18 @@ struct ConditionalGlassButton: View {
                 Button(role: role, action: action) {
                     if let text {
                         Text(text)
+                            .foregroundColor(textcolor ? .green : (colorScheme == .dark ? .white : .black))
                     }
                 }
                 .buttonStyle(RefinedGlassButtonStyle())
                 .help(helpText)
+                
             } else {
                 Button(role: role, action: action) {
                     Label {
                         if let text {
                             Text(text)
+                                .foregroundColor(textcolor ? .green : (colorScheme == .dark ? .white : .black))
                         }
                     } icon: {
                         Image(systemName: systemImage)
@@ -196,6 +211,7 @@ struct ConditionalGlassButton: View {
                 }
                 .buttonStyle(RefinedGlassButtonStyle())
                 .help(helpText)
+                
             }
         } else {
             // For older macOS versions, use .cancel for close buttons, or nil for others
@@ -210,6 +226,7 @@ struct ConditionalGlassButton: View {
                 Button(role: role, action: action) {
                     if let text {
                         Text(text)
+                            .foregroundColor(textcolor ? .green : (colorScheme == .dark ? .white : .black))
                     }
                 }
                 .buttonStyle(.borderedProminent)
@@ -219,6 +236,7 @@ struct ConditionalGlassButton: View {
                     Label {
                         if let text {
                             Text(text)
+                                .foregroundColor(textcolor ? .green : (colorScheme == .dark ? .white : .black))
                         }
                     } icon: {
                         Image(systemName: systemImage)
