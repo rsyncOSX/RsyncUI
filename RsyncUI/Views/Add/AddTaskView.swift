@@ -123,39 +123,27 @@ struct AddTaskView: View {
                        selectedconfig.task == SharedReference.shared.synchronize,
                        newdata.showsaveurls
                     {
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Button {
-                                    let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
-                                    WriteWidgetsURLStringsJSON(data, .estimate)
-                                } label: {
-                                    Image(systemName: "square.and.arrow.down")
-                                }
-                                .disabled(stringestimate.isEmpty)
-                                .imageScale(.large)
-                                .help(stringestimate)
-                                .buttonStyle(.borderedProminent)
-
-                                Text("URL Estimate & Synchronize")
+                        HStack {
+                            
+                            ConditionalGlassButton(
+                                systemImage: "square.and.arrow.down",
+                                text: "Export",
+                                helpText: "URL Estimate & Synchronize"
+                            ) {
+                                let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
+                                WriteWidgetsURLStringsJSON(data, .estimate)
                             }
-                            .padding(5)
-
+                          
                             if selectedconfig.offsiteServer.isEmpty == false {
-                                HStack {
-                                    Button {
-                                        let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
-                                        WriteWidgetsURLStringsJSON(data, .verify)
-                                    } label: {
-                                        Image(systemName: "square.and.arrow.down")
-                                    }
-                                    .disabled(stringverify.isEmpty)
-                                    .imageScale(.large)
-                                    .help(stringverify)
-                                    .buttonStyle(.borderedProminent)
-
-                                    Text("URL Verify")
+                                
+                                ConditionalGlassButton(
+                                    systemImage: "square.and.arrow.down",
+                                    text: "Verify",
+                                    helpText: "URL Verify"
+                                ) {
+                                    let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
+                                    WriteWidgetsURLStringsJSON(data, .verify)
                                 }
-                                .padding(5)
                             }
                         }
                     }
