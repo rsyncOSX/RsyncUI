@@ -127,7 +127,7 @@ struct AddTaskView: View {
                             
                             ConditionalGlassButton(
                                 systemImage: "square.and.arrow.down",
-                                text: "Export",
+                                text: "URL Estimate",
                                 helpText: "URL Estimate & Synchronize"
                             ) {
                                 let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
@@ -138,7 +138,7 @@ struct AddTaskView: View {
                                 
                                 ConditionalGlassButton(
                                     systemImage: "square.and.arrow.down",
-                                    text: "Verify",
+                                    text: "URL Verify",
                                     helpText: "URL Verify"
                                 ) {
                                     let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)

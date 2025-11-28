@@ -28,7 +28,7 @@ struct ExporttasksButton: View {
         Button {
             exporttasks = true
         } label: {
-            Label("Export", systemImage: "play.fill")
+            Text("Export")
         }
     }
 }
@@ -40,7 +40,7 @@ struct ImporttasksButton: View {
         Button {
             importtasks = true
         } label: {
-            Label("Import", systemImage: "play.fill")
+            Text("Import")
         }
     }
 }

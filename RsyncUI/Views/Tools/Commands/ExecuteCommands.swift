@@ -36,7 +36,7 @@ struct StarteestimateButton: View {
         Button {
             startestimation = true
         } label: {
-            Label("Estimate", systemImage: "play.fill")
+            Text("Estimate")
         }
         .keyboardShortcut("e", modifiers: [.command])
     }
@@ -49,7 +49,7 @@ struct StartexecuteButton: View {
         Button {
             startexecution = true
         } label: {
-            Label("Synchronize", systemImage: "play.fill")
+            Text("Synchronize")
         }
         .keyboardShortcut("r", modifiers: [.command])
     }
@@ -62,7 +62,7 @@ struct Abborttask: View {
         Button {
             aborttask = true
         } label: {
-            Label("Abort task", systemImage: "play.fill")
+            Text("Abort task")
         }
         .keyboardShortcut("k", modifiers: [.command])
     }
@@ -76,14 +76,14 @@ struct ShowQuicktask: View {
             Button {
                 showquicktask = true
             } label: {
-                Label("Show Quick & Chart", systemImage: "hare.fill")
+                Text("Show Quick & Chart")
             }
             .keyboardShortcut("s", modifiers: [.command])
         } else {
             Button {
                 showquicktask = false
             } label: {
-                Label("Hide Quick & Chart", systemImage: "hare")
+                Text("Hide Quick & Chart")
             }
             .keyboardShortcut("s", modifiers: [.command])
         }
