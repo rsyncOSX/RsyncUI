@@ -126,7 +126,15 @@ extension SidebarTasksView {
     private func handlequeryitem() {
         Logger.process.debugmesseageonly("SidebarTasksView: Change on queryitem discovered")
         if queryitem != nil {
-            executetaskpath.append(Tasks(task: .summarizeddetailsview))
+            
+            if let name = queryitem?.name {
+                if name == "id" {
+                    // The Verify is no longer supported
+                    queryitem = nil
+                } else if name == "profile" {
+                    executetaskpath.append(Tasks(task: .summarizeddetailsview))
+                }
+            }
         }
     }
 }
