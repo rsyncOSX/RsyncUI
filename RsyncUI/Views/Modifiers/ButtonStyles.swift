@@ -32,10 +32,10 @@ public struct RefinedGlassButtonStyle: ButtonStyle {
     public var horizontalPadding: CGFloat = 16
     public var verticalPadding: CGFloat = 10
     public var font: Font = .headline
-    
+
     public var disabledOpacity: Double = 0.6
     public var disabledBrightness: Double = -0.02
-    
+
     /// Duration to hold the pressed animation after release (in seconds)
     public var pressureHoldDuration: Double = 0.3
 
@@ -91,15 +91,15 @@ private struct PressureAnimatedButton: View {
     let colorScheme: ColorScheme
     let reduceMotion: Bool
     let isEnabled: Bool
-    
+
     @State private var isAnimatingPressure = false
-    
+
     var body: some View {
         let pressed = configuration.isPressed
-        
+
         // Use the sustained pressure state instead of immediate press
         let showPressedState = isAnimatingPressure || pressed
-        
+
         let baseShadow = colorScheme == .dark ? Color.glassShadowDark : Color.glassShadowLight
         let shadowOpacityMultiplier = isEnabled ? 1.0 : 0.45
 
@@ -144,11 +144,11 @@ private struct PressureAnimatedButton: View {
             .brightness(isEnabled ? 0 : disabledBrightness)
             .animation(reduceMotion || !isEnabled ? nil : .spring(response: 0.25, dampingFraction: 0.7), value: showPressedState)
             .contentShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-            .onChange(of: pressed) { oldValue, newValue in
-                if newValue && !isAnimatingPressure {
+            .onChange(of: pressed) { _, newValue in
+                if newValue, !isAnimatingPressure {
                     // Button was just pressed
                     isAnimatingPressure = true
-                } else if !newValue && isAnimatingPressure {
+                } else if !newValue, isAnimatingPressure {
                     // Button was released - hold the animation for specified duration
                     Task {
                         try? await Task.sleep(for: .seconds(pressureHoldDuration))
@@ -161,7 +161,7 @@ private struct PressureAnimatedButton: View {
 
 struct ConditionalGlassButton: View {
     @Environment(\.colorScheme) var colorScheme
-    
+
     let systemImage: String
     let text: String?
     let helpText: String
@@ -176,7 +176,7 @@ struct ConditionalGlassButton: View {
         self.role = role
         self.action = action
     }
-    
+
     init(systemImage: String, text: String? = nil, helpText: String, role: ButtonRole? = nil, textcolor: Bool, action: @escaping () -> Void) {
         self.systemImage = systemImage
         self.text = text
@@ -197,7 +197,7 @@ struct ConditionalGlassButton: View {
                 }
                 .buttonStyle(RefinedGlassButtonStyle())
                 .help(helpText)
-                
+
             } else {
                 Button(role: role, action: action) {
                     Label {
@@ -211,7 +211,6 @@ struct ConditionalGlassButton: View {
                 }
                 .buttonStyle(RefinedGlassButtonStyle())
                 .help(helpText)
-                
             }
         } else {
             // For older macOS versions, use .cancel for close buttons, or nil for others

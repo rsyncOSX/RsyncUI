@@ -16,7 +16,6 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
     case copy_public_SSHkey
     case verify_public_SSHkey
     // case remote_disk_usage
-    case URL_verify
     case URL_estimate
 
     var id: String { rawValue }
@@ -82,18 +81,6 @@ struct OtherRsyncCommandtoDisplay {
                 } catch {}
             } else {
                 str = ["No remote server on task"]
-            }
-        case .URL_verify:
-            if config.task == SharedReference.shared.synchronize {
-                let deeplinkurl = DeeplinkURL()
-
-                if config.offsiteServer.isEmpty == false {
-                    // Create verifyremote URL
-                    let urlverify = deeplinkurl.createURLloadandverify(valueprofile: profile, valueid: config.backupID)
-                    str = [urlverify?.absoluteString ?? ""]
-                }
-            } else {
-                str.removeAll()
             }
         case .URL_estimate:
             let deeplinkurl = DeeplinkURL()

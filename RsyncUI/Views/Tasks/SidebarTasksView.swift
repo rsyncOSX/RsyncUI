@@ -126,7 +126,6 @@ extension SidebarTasksView {
     private func handlequeryitem() {
         Logger.process.debugmesseageonly("SidebarTasksView: Change on queryitem discovered")
         if queryitem != nil {
-            
             if let name = queryitem?.name {
                 if name == "id" {
                     // The Verify is no longer supported

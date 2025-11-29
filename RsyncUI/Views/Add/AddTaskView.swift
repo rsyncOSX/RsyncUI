@@ -51,9 +51,7 @@ struct AddTaskView: View {
     @FocusState private var focusField: AddConfigurationField?
     // Reload and show table data
     @State private var confirmcopyandpaste: Bool = false
-
-    // URL strings
-    @State private var stringverify: String = ""
+    // URL string
     @State private var stringestimate: String = ""
 
     // Present a help sheet
@@ -115,17 +113,16 @@ struct AddTaskView: View {
                         HStack {
                             Toggle("", isOn: $newdata.showsaveurls)
                                 .toggleStyle(.switch)
-                            
+
                             if newdata.showsaveurls {
-                                
                                 HStack {
                                     ConditionalGlassButton(
                                         systemImage: "square.and.arrow.down",
                                         text: "URL Estimate",
                                         helpText: "URL Estimate & Synchronize"
                                     ) {
-                                        let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
-                                        WriteWidgetsURLStringsJSON(data, .estimate)
+                                        let data = WidgetURLstrings(urletimate: stringestimate)
+                                        WriteWidgetsURLStringsJSON(data)
                                     }
                                 }
                             }
@@ -178,26 +175,18 @@ struct AddTaskView: View {
                                     // URLs
                                     if selectedconfig?.task == SharedReference.shared.synchronize {
                                         let deeplinkurl = DeeplinkURL()
-
-                                        if selectedconfig?.offsiteServer.isEmpty == false {
-                                            // Create verifyremote URL
-                                            let urlverify = deeplinkurl.createURLloadandverify(valueprofile: rsyncUIdata.profile ?? "Default", valueid: selectedconfig?.backupID ?? "Synchronize ID")
-                                            stringverify = urlverify?.absoluteString ?? ""
-                                        }
                                         // Create estimate and synchronize URL
                                         let urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: rsyncUIdata.profile ?? "Default")
                                         stringestimate = urlestimate?.absoluteString ?? ""
 
                                     } else {
-                                        stringverify = ""
                                         stringestimate = ""
                                     }
 
                                 } else {
                                     selectedconfig = nil
                                     newdata.updateview(nil)
-                                    // URL Strings
-                                    stringverify = ""
+                                    // URL String
                                     stringestimate = ""
                                     newdata.showsaveurls = false
                                 }

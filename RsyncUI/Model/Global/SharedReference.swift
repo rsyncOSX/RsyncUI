@@ -93,7 +93,7 @@ final class SharedReference {
             process = nil
         }
     }
-    
+
     func checkeandterminateprocess() {
         guard let process, process.isRunning else {
             return

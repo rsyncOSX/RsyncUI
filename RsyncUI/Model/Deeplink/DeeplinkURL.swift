@@ -18,9 +18,6 @@ struct DeeplinkURL {
         do {
             if let components = try deeplinks.validateScheme(url) {
                 if let deepLinkQueryItem = deeplinks.handlevalidURL(components) {
-                    if deepLinkQueryItem.host == .loadprofileandverify {
-                        guard SharedReference.shared.rsyncversion3 else { return nil }
-                    }
                     return deepLinkQueryItem
                 } else {
                     do {
@@ -67,22 +64,6 @@ struct DeeplinkURL {
             let error = e
             SharedReference.shared.errorobject?.alert(error: error)
             return false
-        }
-    }
-
-    func createURLloadandverify(valueprofile: String?, valueid: String) -> URL? {
-        let host = Deeplinknavigation.loadprofileandverify.rawValue
-        let adjustedvalueid = valueid.replacingOccurrences(of: " ", with: "_")
-        var adjustedvalueprofile = valueprofile
-        if valueprofile == nil {
-            adjustedvalueprofile = "Default"
-        }
-        let queryitems: [URLQueryItem] = [URLQueryItem(name: "profile", value: adjustedvalueprofile),
-                                          URLQueryItem(name: "id", value: adjustedvalueid)]
-        if let url = deeplinks.createURL(host, queryitems) {
-            return url
-        } else {
-            return nil
         }
     }
 

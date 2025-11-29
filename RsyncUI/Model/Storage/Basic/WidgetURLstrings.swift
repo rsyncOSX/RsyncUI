@@ -10,11 +10,9 @@ import Foundation
 @MainActor
 struct WidgetURLstrings: @MainActor Codable {
     var urlstringestimate: String?
-    var urlstringverify: String?
 
     @discardableResult
-    init(urletimate: String, urlverify: String) {
-        urlstringverify = urlverify
+    init(urletimate: String) {
         urlstringestimate = urletimate
     }
 }

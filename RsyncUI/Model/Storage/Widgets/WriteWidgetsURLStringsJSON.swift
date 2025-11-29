@@ -10,89 +10,52 @@ import Foundation
 import OSLog
 import RsyncUIDeepLinks
 
-enum WidgetURLStringsJSON {
-    case estimate
-    // case verify
-}
-
 @MainActor
 struct WriteWidgetsURLStringsJSON {
-    let path = Homepath()
     let deeplinks = RsyncUIDeepLinks()
+    // They are Sandboxed and Documents catalog, to reade the URL-strings is in a Container
+    let estimatestringsandboxcatalog = "Library/Containers/no.blogspot.RsyncUI.WidgetEstimate/Data/Documents"
 
-    private func writeJSONToPersistentStore(jsonData: Data?, _ whichurltowrite: WidgetURLStringsJSON) {
+    private func writeJSONToPersistentStore(jsonData: Data?) {
         if let userHomeDirectoryPath = URL.userHomeDirectoryURLPath?.path() {
-            switch whichurltowrite {
-            case .estimate:
-                let pathestimate = userHomeDirectoryPath.appending("/" + path.estimatestringsandboxcatalog)
-                let fullpathURL = URL(fileURLWithPath: pathestimate)
-                let estimatefileURL = fullpathURL.appendingPathComponent(SharedReference.shared.userconfigjson)
-                Logger.process.debugmesseageonly("WriteWidgetsURLStringsJSON: URL-string \(estimatefileURL)")
-                if let jsonData {
-                    do {
-                        try jsonData.write(to: estimatefileURL)
-                    } catch let e {
-                        let error = e
-                        path.propogateerror(error: error)
-                    }
+            let pathestimate = userHomeDirectoryPath.appending("/" + estimatestringsandboxcatalog)
+            let fullpathURL = URL(fileURLWithPath: pathestimate)
+            let estimatefileURL = fullpathURL.appendingPathComponent(SharedReference.shared.userconfigjson)
+            Logger.process.debugmesseageonly("WriteWidgetsURLStringsJSON: URL-string \(estimatefileURL)")
+            if let jsonData {
+                do {
+                    try jsonData.write(to: estimatefileURL)
+                } catch let e {
+                    let error = e
+                    SharedReference.shared.errorobject?.alert(error: error)
                 }
-/*
-            case .verify:
-                let pathverify = userHomeDirectoryPath.appending("/" + path.verifystringsandboxcatalog)
-                let fullpathURL = URL(fileURLWithPath: pathverify)
-                let veirfyfileURL = fullpathURL.appendingPathComponent(SharedReference.shared.userconfigjson)
-                Logger.process.debugmesseageonly("WriteWidgetsURLStringsJSON: URL-string \(veirfyfileURL)")
-                if let jsonData {
-                    do {
-                        try jsonData.write(to: veirfyfileURL)
-                    } catch let e {
-                        let error = e
-                        path.propogateerror(error: error)
-                    }
-                }
- */
             }
         }
     }
 
-    private func encodeJSONData(_ urlwidgetstrings: WidgetURLstrings,
-                                _ whichurltowrite: WidgetURLStringsJSON)
-    {
+    private func encodeJSONData(_ urlwidgetstrings: WidgetURLstrings) {
         let encodejsondata = EncodeGeneric()
         do {
             let encodeddata = try encodejsondata.encode(urlwidgetstrings)
-            writeJSONToPersistentStore(jsonData: encodeddata, whichurltowrite)
+            writeJSONToPersistentStore(jsonData: encodeddata)
             Logger.process.debugmesseageonly("WriteWidgetsURLStringsJSON: Writing URL-strings to permanent storage")
 
         } catch let e {
             Logger.process.error("WriteWidgetsURLStringsJSON: some ERROR writing user configurations from permanent storage")
             let error = e
-            path.propogateerror(error: error)
+            SharedReference.shared.errorobject?.alert(error: error)
         }
     }
 
     @discardableResult
-    init(_ urlwidgetstrings: WidgetURLstrings?, _ whichurltowrite: WidgetURLStringsJSON) {
+    init(_ urlwidgetstrings: WidgetURLstrings?) {
         if let urlwidgetstrings {
-            switch whichurltowrite {
-            case .estimate:
-                do {
-                    let valid = try deeplinks.validateURLstring(urlwidgetstrings.urlstringestimate ?? "")
-                    if valid { encodeJSONData(urlwidgetstrings, whichurltowrite) }
-                } catch let e {
-                    let error = e
-                    path.propogateerror(error: error)
-                }
-/*
-            case .verify:
-                do {
-                    let valid = try deeplinks.validateURLstring(urlwidgetstrings.urlstringverify ?? "")
-                    if valid { encodeJSONData(urlwidgetstrings, whichurltowrite) }
-                } catch let e {
-                    let error = e
-                    path.propogateerror(error: error)
-                }
- */
+            do {
+                let valid = try deeplinks.validateURLstring(urlwidgetstrings.urlstringestimate ?? "")
+                if valid { encodeJSONData(urlwidgetstrings) }
+            } catch let e {
+                let error = e
+                SharedReference.shared.errorobject?.alert(error: error)
             }
         }
     }

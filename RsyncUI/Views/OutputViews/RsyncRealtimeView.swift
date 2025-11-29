@@ -26,7 +26,6 @@ struct RsyncRealtimeView: View {
             }
 
             HStack {
-               
                 ConditionalGlassButton(
                     systemImage: "eyes.inverse",
                     text: "View",
@@ -39,7 +38,7 @@ struct RsyncRealtimeView: View {
                             await RsyncOutputCapture.shared.disable()
                             return
                         }
-                        
+
                         if await RsyncOutputCapture.shared.isCapturing() {
                             isTappedfile = false
                             await RsyncOutputCapture.shared.disable()
@@ -69,7 +68,7 @@ struct RsyncRealtimeView: View {
                         }
                     }
                 }
-                
+
                 Spacer()
 
                 ConditionalGlassButton(

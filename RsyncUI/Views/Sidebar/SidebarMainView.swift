@@ -172,24 +172,6 @@ struct SidebarMainView: View {
             if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: valueprofile) {
                 handleURLsidebarmainView(url, externalurl: false)
             }
-        }
-        .onChange(of: urlcommandverify) {
-            // URL code
-            // Binding to listen for initiating deep link execute estimate and synchronize from
-            // toolbar in Verify View
-            guard urlcommandverify == true else { return }
-            let valueprofile = rsyncUIdata.profile
-            var valueid = ""
-            if let configurations = rsyncUIdata.configurations {
-                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                    valueid = configurations[index].backupID
-                    if let url = DeeplinkURL().createURLloadandverify(valueprofile: valueprofile,
-                                                                      valueid: valueid)
-                    {
-                        handleURLsidebarmainView(url, externalurl: false)
-                    }
-                }
-            }
         }.onChange(of: selectedprofileID) {
             // Only clean selecteuuids, new profile is loaded
             // in RsyncUIView
@@ -353,47 +335,6 @@ extension SidebarMainView {
                     }
                 }
 
-            } else {
-                return
-            }
-        case .loadprofileandverify:
-            // Only by external URL load and verify
-            if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 2 {
-                let profile = queryitems[0].value ?? ""
-
-                if profile == "Default" || profile == "default" {
-                    Task {
-                        if externalurl {
-                            // Load profile for external URL
-                            async let loadprofile = loadprofileforexternalurllink(profile)
-                            guard await loadprofile else { return }
-
-                            guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                                selectedview = .synchronize
-                                return
-                            }
-                            // Observe queryitem
-                            queryitem = queryitems[1]
-                        }
-                    }
-                } else {
-                    if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
-                        Task {
-                            if externalurl {
-                                // Load profile for external URL
-                                async let loadprofile = loadprofileforexternalurllink(profile)
-                                guard await loadprofile else { return }
-
-                                guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                                    selectedview = .synchronize
-                                    return
-                                }
-                                // Observe queryitem
-                                queryitem = queryitems[1]
-                            }
-                        }
-                    }
-                }
             } else {
                 return
             }
