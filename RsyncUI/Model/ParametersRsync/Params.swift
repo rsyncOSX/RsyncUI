@@ -42,7 +42,8 @@ struct Params {
             ),
             paths: PathConfiguration(
                 localCatalog: config.localCatalog,
-                offsiteCatalog: config.offsiteCatalog
+                offsiteCatalog: config.offsiteCatalog,
+                sharedPathForRestore: SharedReference.shared.pathforrestore ?? ""
             ),
             snapshotNumber: config.snapshotnum,
             isRsyncDaemon: rsyncdaemon, // Use Bool instead of -1/1
