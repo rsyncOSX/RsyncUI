@@ -112,32 +112,24 @@ struct AddTaskView: View {
                         .font(.title3)
                         .fontWeight(.bold))
                     {
-                        Toggle("", isOn: $newdata.showsaveurls)
-                            .toggleStyle(.switch)
-                            .disabled(selectedconfig == nil)
-                    }
-
-                    Spacer()
-
-                    if let selectedconfig,
-                       selectedconfig.task == SharedReference.shared.synchronize,
-                       newdata.showsaveurls
-                    {
-                        
                         HStack {
-                            ConditionalGlassButton(
-                                systemImage: "square.and.arrow.down",
-                                text: "URL Estimate",
-                                helpText: "URL Estimate & Synchronize"
-                            ) {
-                                let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
-                                WriteWidgetsURLStringsJSON(data, .estimate)
-                            }
+                            Toggle("", isOn: $newdata.showsaveurls)
+                                .toggleStyle(.switch)
                             
-                            Spacer()
+                            if newdata.showsaveurls {
+                                
+                                HStack {
+                                    ConditionalGlassButton(
+                                        systemImage: "square.and.arrow.down",
+                                        text: "URL Estimate",
+                                        helpText: "URL Estimate & Synchronize"
+                                    ) {
+                                        let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
+                                        WriteWidgetsURLStringsJSON(data, .estimate)
+                                    }
+                                }
+                            }
                         }
-                        
-                        
                     }
                 }
 
