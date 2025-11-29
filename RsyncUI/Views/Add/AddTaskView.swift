@@ -108,7 +108,7 @@ struct AddTaskView: View {
                         VStack(alignment: .leading) { snapshotnum }
                     }
 
-                    Section(header: Text("Show save URLs")
+                    Section(header: Text("Show save URL")
                         .font(.title3)
                         .fontWeight(.bold))
                     {
@@ -123,8 +123,8 @@ struct AddTaskView: View {
                        selectedconfig.task == SharedReference.shared.synchronize,
                        newdata.showsaveurls
                     {
+                        
                         HStack {
-                            
                             ConditionalGlassButton(
                                 systemImage: "square.and.arrow.down",
                                 text: "URL Estimate",
@@ -133,19 +133,11 @@ struct AddTaskView: View {
                                 let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
                                 WriteWidgetsURLStringsJSON(data, .estimate)
                             }
-                          
-                            if selectedconfig.offsiteServer.isEmpty == false {
-                                
-                                ConditionalGlassButton(
-                                    systemImage: "square.and.arrow.down",
-                                    text: "URL Verify",
-                                    helpText: "URL Verify"
-                                ) {
-                                    let data = WidgetURLstrings(urletimate: stringestimate, urlverify: stringverify)
-                                    WriteWidgetsURLStringsJSON(data, .verify)
-                                }
-                            }
+                            
+                            Spacer()
                         }
+                        
+                        
                     }
                 }
 
