@@ -12,7 +12,7 @@ import RsyncUIDeepLinks
 
 enum WidgetURLStringsJSON {
     case estimate
-    case verify
+    // case verify
 }
 
 @MainActor
@@ -36,7 +36,7 @@ struct WriteWidgetsURLStringsJSON {
                         path.propogateerror(error: error)
                     }
                 }
-
+/*
             case .verify:
                 let pathverify = userHomeDirectoryPath.appending("/" + path.verifystringsandboxcatalog)
                 let fullpathURL = URL(fileURLWithPath: pathverify)
@@ -50,6 +50,7 @@ struct WriteWidgetsURLStringsJSON {
                         path.propogateerror(error: error)
                     }
                 }
+ */
             }
         }
     }
@@ -82,6 +83,7 @@ struct WriteWidgetsURLStringsJSON {
                     let error = e
                     path.propogateerror(error: error)
                 }
+/*
             case .verify:
                 do {
                     let valid = try deeplinks.validateURLstring(urlwidgetstrings.urlstringverify ?? "")
@@ -90,6 +92,7 @@ struct WriteWidgetsURLStringsJSON {
                     let error = e
                     path.propogateerror(error: error)
                 }
+ */
             }
         }
     }
