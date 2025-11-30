@@ -70,7 +70,7 @@ final class ObservableRestore {
             }
         } catch let e {
             let error = e
-            propogateerror(error: error)
+            propagateError(error: error)
         }
     }
 
@@ -150,7 +150,7 @@ final class ObservableRestore {
         return nil
     }
 
-    func propogateerror(error: Error) {
+    func propagateError(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
     

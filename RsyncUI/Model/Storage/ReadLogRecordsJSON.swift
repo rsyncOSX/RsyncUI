@@ -27,7 +27,7 @@ final class ReadLogRecordsJSON {
             let data = try
                 decodeimport.decodeArray(DecodeLogRecords.self, fromFile: filename)
 
-            Logger.process.debugmesseageonly("ReadLogRecordsJSON - \(profile ?? "default") read logrecords from permanent storage")
+            Logger.process.debugmessageonly("ReadLogRecordsJSON - \(profile ?? "default") read logrecords from permanent storage")
             return data.compactMap { element in
                 let item = LogRecords(element)
                 return validhiddenIDs.contains(item.hiddenID) ? item : nil
@@ -36,12 +36,12 @@ final class ReadLogRecordsJSON {
         } catch let e {
             Logger.process.error("ReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading logrecords from permanent storage")
             let error = e
-            path.propogateerror(error: error)
+            path.propagateError(error: error)
         }
         return nil
     }
 
     deinit {
-        Logger.process.debugmesseageonly("ReadLogRecordsJSON: DEINIT")
+        Logger.process.debugmessageonly("ReadLogRecordsJSON: DEINIT")
     }
 }

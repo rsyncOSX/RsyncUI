@@ -25,7 +25,7 @@ final class WriteLogRecordsJSON {
                 logrecordfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().filenamelogrecordsjson)
             }
             if let logrecordfileURL {
-                Logger.process.debugmesseageonly("WriteLogRecordsJSON: writeJSONToPersistentStore \(logrecordfileURL)")
+                Logger.process.debugmessageonly("WriteLogRecordsJSON: writeJSONToPersistentStore \(logrecordfileURL)")
             }
             if let jsonData, let logrecordfileURL {
                 do {
@@ -33,7 +33,7 @@ final class WriteLogRecordsJSON {
                 } catch let e {
                     Logger.process.error("WriteLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR writing logrecords to permanent storage")
                     let error = e
-                    path.propogateerror(error: error)
+                    path.propagateError(error: error)
                 }
             }
         }
@@ -47,7 +47,7 @@ final class WriteLogRecordsJSON {
 
         } catch let e {
             let error = e
-            path.propogateerror(error: error)
+            path.propagateError(error: error)
         }
     }
 
@@ -59,7 +59,7 @@ final class WriteLogRecordsJSON {
     }
 
     deinit {
-        Logger.process.debugmesseageonly("WriteLogRecordsJSON DEINIT")
+        Logger.process.debugmessageonly("WriteLogRecordsJSON DEINIT")
     }
 }
 

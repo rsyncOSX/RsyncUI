@@ -53,7 +53,7 @@ actor ActorLogToFile {
             if let logfiledata = await appendloggfileData(newlogadata, reset) {
                 do {
                     try logfiledata.write(to: logfileURL)
-                    Logger.process.debugmesseageonly("ActorLogToFile: writeloggfile() logfile \(logfileURL.path)")
+                    Logger.process.debugmessageonly("ActorLogToFile: writeloggfile() logfile \(logfileURL.path)")
                     let checker = FileSize()
                     // Task {
                     do {
@@ -64,12 +64,12 @@ actor ActorLogToFile {
                         }
                     } catch let e {
                         let error = e
-                        await path.propogateerror(error: error)
+                        await path.propagateError(error: error)
                     }
                     // }
                 } catch let e {
                     let error = e
-                    await path.propogateerror(error: error)
+                    await path.propagateError(error: error)
                 }
             }
         }
@@ -96,7 +96,7 @@ actor ActorLogToFile {
 
             } catch let e {
                 let error = e
-                await path.propogateerror(error: error)
+                await path.propagateError(error: error)
                 // Reset loggfile
                 let date = Date().localized_string_from_date()
                 let reset = date + ": " + "logfile is reset by RsyncUI by checking filesize when reading logfile..." + "\n"
@@ -105,14 +105,14 @@ actor ActorLogToFile {
 
             do {
                 let data = try Data(contentsOf: logfileURL)
-                Logger.process.debugmesseageonly("ActorLogToFile: read logfile \(logfileURL.path)")
+                Logger.process.debugmessageonly("ActorLogToFile: read logfile \(logfileURL.path)")
                 let logfile = String(data: data, encoding: .utf8)
                 return logfile.map { line in
                     line.components(separatedBy: .newlines)
                 }
             } catch let e {
                 let error = e
-                await path.propogateerror(error: error)
+                await path.propagateError(error: error)
             }
         }
 
@@ -140,7 +140,7 @@ actor ActorLogToFile {
 
             } catch let e {
                 let error = e
-                await path.propogateerror(error: error)
+                await path.propagateError(error: error)
                 // Reset loggfile
                 let date = Date().localized_string_from_date()
                 let reset = date + ": " + "logfile is reset by RsyncUI by checking filesize when reading logfile..." + "\n"
@@ -149,12 +149,12 @@ actor ActorLogToFile {
 
             do {
                 let data = try Data(contentsOf: logfileURL)
-                Logger.process.debugmesseageonly("ActorLogToFile: read logfile \(logfileURL.path)")
+                Logger.process.debugmessageonly("ActorLogToFile: read logfile \(logfileURL.path)")
                 return String(data: data, encoding: .utf8)
 
             } catch let e {
                 let error = e
-                await path.propogateerror(error: error)
+                await path.propagateError(error: error)
             }
         }
 
@@ -180,20 +180,20 @@ actor ActorLogToFile {
                     } else {
                         // Or append any new log data
                         if fm.locationExists(at: logfileString, kind: .file) == true {
-                            Logger.process.debugmesseageonly("ActorLogToFile: append existing logfile \(logfileURL.path)")
+                            Logger.process.debugmessageonly("ActorLogToFile: append existing logfile \(logfileURL.path)")
                             let data = try Data(contentsOf: logfileURL)
                             var returneddata = data
                             returneddata.append(newdata)
                             return returneddata
                         } else {
                             // Or if first time write logfile ony return new log data
-                            Logger.process.debugmesseageonly("ActorLogToFile: create new logfile \(logfileURL.path)")
+                            Logger.process.debugmessageonly("ActorLogToFile: create new logfile \(logfileURL.path)")
                             return newdata
                         }
                     }
                 } catch let e {
                     let error = e
-                    await path.propogateerror(error: error)
+                    await path.propagateError(error: error)
                 }
             }
         }

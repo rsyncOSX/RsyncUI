@@ -35,7 +35,7 @@ final class DeleteSnapshots {
             return
         }
         if let remotecatalog = snapshotcatalogstodelete?[0] {
-            Logger.process.debugmesseageonly("DeleteSnapshots: deleting snapshot catalog \(remotecatalog)")
+            Logger.process.debugmessageonly("DeleteSnapshots: deleting snapshot catalog \(remotecatalog)")
             snapshotcatalogstodelete?.remove(at: 0)
             if (snapshotcatalogstodelete?.count ?? 0) == 0 {
                 snapshotcatalogstodelete = nil

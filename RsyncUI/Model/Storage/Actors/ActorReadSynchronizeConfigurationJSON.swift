@@ -35,15 +35,15 @@ actor ActorReadSynchronizeConfigurationJSON {
                     let itemforcheck = (server, sshport)
                     if checkedserverandport.contains(where: { $0 == itemforcheck }) == false {
                         checkedserverandport.append(itemforcheck)
-                        Logger.process.debugmesseageonly("ActorReadSynchronizeConfigurationJSON: checking networkconnection server: \(server) port: \(sshport)")
+                        Logger.process.debugmessageonly("ActorReadSynchronizeConfigurationJSON: checking networkconnection server: \(server) port: \(sshport)")
                         _ = try await TCPconnections().asyncverifyTCPconnection(config.offsiteServer, port: sshport)
                     }
 
                 } catch let e {
                     let server = config.offsiteServer
-                    Logger.process.debugmesseageonly("ActorReadSynchronizeConfigurationJSON: some ERROR checking networkconnection server: \(server) port: \(sshport)")
+                    Logger.process.debugmessageonly("ActorReadSynchronizeConfigurationJSON: some ERROR checking networkconnection server: \(server) port: \(sshport)")
                     let error = e
-                    await reporterror.propogateerror(error: error)
+                    await reporterror.propagateError(error: error)
                 }
             }
         }
@@ -65,7 +65,7 @@ actor ActorReadSynchronizeConfigurationJSON {
                 filename = fullpathmacserial.appending("/") + SharedConstants().fileconfigurationsjson
             }
         }
-        Logger.process.debugmesseageonly("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations \(filename)")
+        Logger.process.debugmessageonly("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations \(filename)")
         let decodeimport = DecodeGeneric()
         do {
             let data = try
@@ -95,19 +95,19 @@ actor ActorReadSynchronizeConfigurationJSON {
         } catch let e {
             Logger.process.error("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading synchronize configurations from permanent storage")
             let error = e
-            await path.propogateerror(error: error)
+            await path.propagateError(error: error)
         }
         return nil
     }
 
     deinit {
-        Logger.process.debugmesseageonly("ActorReadSynchronizeConfigurationJSON: DEINIT")
+        Logger.process.debugmessageonly("ActorReadSynchronizeConfigurationJSON: DEINIT")
     }
 }
 
 @MainActor
 struct ReportError {
-    func propogateerror(error: Error) {
+    func propagateError(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

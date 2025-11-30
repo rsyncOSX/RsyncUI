@@ -120,13 +120,13 @@ final class VerifyConfiguration: Connected {
 
         guard data.newlocalCatalog.isEmpty == false else {
             let error = ValidateInputError.localcatalog
-            propogateerror(error: error)
+            propagateError(error: error)
             return nil
         }
 
         guard data.newoffsiteCatalog.isEmpty == false else {
             let error = ValidateInputError.localcatalog
-            propogateerror(error: error)
+            propagateError(error: error)
             return nil
         }
 
@@ -189,7 +189,7 @@ final class VerifyConfiguration: Connected {
             guard validated == true else { return nil }
         } catch let e {
             let error = e
-            propogateerror(error: error)
+            propagateError(error: error)
             return nil
         }
         // If validated and snapshottask create remote snapshotcatalog
@@ -272,7 +272,7 @@ final class VerifyConfiguration: Connected {
         return true
     }
 
-    func propogateerror(error: Error) {
+    func propagateError(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

@@ -57,10 +57,10 @@ extension Rsyncversion {
 
             if rsyncversionshort.contains("version 3.") {
                 SharedReference.shared.rsyncversion3 = true
-                Logger.process.debugmesseageonly("Rsyncversion: version 3.x of rsync discovered")
+                Logger.process.debugmessageonly("Rsyncversion: version 3.x of rsync discovered")
             } else {
                 SharedReference.shared.rsyncversion3 = false
-                Logger.process.debugmesseageonly("Rsyncversion: default openrsync discovered")
+                Logger.process.debugmessageonly("Rsyncversion: default openrsync discovered")
             }
         }
     }

@@ -21,7 +21,7 @@ struct WriteSchedule {
                 } catch let e {
                     Logger.process.error("WriteSchedule: some ERROR write Calendar to permanent storage")
                     let error = e
-                    path.propogateerror(error: error)
+                    path.propagateError(error: error)
                 }
             }
         }

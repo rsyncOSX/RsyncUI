@@ -26,6 +26,6 @@ final class ObservableChartData {
     }
 
     deinit {
-        Logger.process.debugmesseageonly("ObservableChartData: DEINIT")
+        Logger.process.debugmessageonly("ObservableChartData: DEINIT")
     }
 }

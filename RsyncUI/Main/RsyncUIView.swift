@@ -45,7 +45,7 @@ struct RsyncUIView: View {
             rsyncversion.getrsyncversion()
             rsyncUIdata.executetasksinprogress = false
             // Load valid profilenames
-            let catalognames = Homepath().getfullpathmacserialcatalogsasstringnames()
+            let catalognames = Homepath().getFullPathMacSerialCatalogsAsStringNames()
             rsyncUIdata.validprofiles = catalognames.map { catalog in
                 ProfilesnamesRecord(catalog)
             }

@@ -21,11 +21,11 @@ final class WriteExportConfigurationsJSON {
             if let jsonData {
                 do {
                     try jsonData.write(to: exportconfigurationfileURL)
-                    Logger.process.debugmesseageonly("WriteExportConfigurationsJSON - \(exportpath) write export configurations to permanent storage")
+                    Logger.process.debugmessageonly("WriteExportConfigurationsJSON - \(exportpath) write export configurations to permanent storage")
                 } catch let e {
                     Logger.process.error("WriteExportConfigurationsJSON - \(exportpath) some ERROR write export configurations to permanent storage")
                     let error = e
-                    propogateerror(error: error)
+                    propagateError(error: error)
                 }
             }
         }
@@ -39,11 +39,11 @@ final class WriteExportConfigurationsJSON {
 
         } catch let e {
             let error = e
-            propogateerror(error: error)
+            propagateError(error: error)
         }
     }
 
-    func propogateerror(error: Error) {
+    func propagateError(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 

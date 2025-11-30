@@ -42,9 +42,9 @@ actor ActorReadSchedule {
             }
 
         } catch let e {
-            Logger.process.debugmesseageonly("ActorReadSchedule - read Calendar from permanent storage \(filename) failed with error: some ERROR reading")
+            Logger.process.debugmessageonly("ActorReadSchedule - read Calendar from permanent storage \(filename) failed with error: some ERROR reading")
             let error = e
-            await reporterror.propogateerror(error: error)
+            await reporterror.propagateError(error: error)
         }
 
         return nil

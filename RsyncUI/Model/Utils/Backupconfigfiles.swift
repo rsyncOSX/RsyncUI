@@ -29,7 +29,7 @@ final class Backupconfigfiles {
                 try fm.copyItem(at: fullpathnomacserialURL, to: documentsbackuppathURL)
             } catch let e {
                 let error = e
-                homepath.propogateerror(error: error)
+                homepath.propagateError(error: error)
             }
         }
     }

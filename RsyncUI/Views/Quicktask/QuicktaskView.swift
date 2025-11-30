@@ -449,7 +449,7 @@ extension QuicktaskView {
                 }
             } catch let e {
                 let error = e
-                propogateerror(error: error)
+                propagateError(error: error)
             }
         }
     }
@@ -496,7 +496,7 @@ extension QuicktaskView {
         progress = Double(count)
     }
     
-    func propogateerror(error: Error) {
+    func propagateError(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 

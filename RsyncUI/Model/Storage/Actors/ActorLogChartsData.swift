@@ -26,7 +26,7 @@ actor ActorLogChartsData {
     nonisolated func parselogrecords(from logrecords: [Log]) async -> [LogEntry] {
         // "resultExecuted": "43 files : 0.73 MB in 0.49 seconds"
         Logger.process.debugtthreadonly("ActorLogChartsData: parselogrecords()")
-        Logger.process.debugmesseageonly("ActorLogChartsData: number of records \(logrecords.count)")
+        Logger.process.debugmessageonly("ActorLogChartsData: number of records \(logrecords.count)")
         // return logrecords.compactMap { logrecord in
         return logrecords.compactMap { logrecord in
             let numbers = extractnumbersasdoubles(from: logrecord.resultExecuted ?? "")
@@ -75,7 +75,7 @@ actor ActorLogChartsData {
     @concurrent
     nonisolated func parsemaxfilesbydate(from records: [LogEntry]) async -> [LogEntry] {
         Logger.process.debugtthreadonly("ActorLogChartsData: parsemaxfilesbydate()")
-        Logger.process.debugmesseageonly("ActorLogChartsData: number of records IN \(records.count)")
+        Logger.process.debugmessageonly("ActorLogChartsData: number of records IN \(records.count)")
 
         let calendar = Calendar.current
         return records.reduce(into: [Date: LogEntry]()) { result, record in
@@ -125,7 +125,7 @@ actor ActorLogChartsData {
     @concurrent
     nonisolated func parsemaxfilesbytransferredsize(from records: [LogEntry]) async -> [LogEntry] {
         Logger.process.debugtthreadonly("ActorLogChartsData: parsemaxfilesbytransferredsize()")
-        Logger.process.debugmesseageonly("ActorLogChartsData: number of records IN \(records.count)")
+        Logger.process.debugmessageonly("ActorLogChartsData: number of records IN \(records.count)")
         let calendar = Calendar.current
 
         return records.reduce(into: [Date: LogEntry]()) { result, record in

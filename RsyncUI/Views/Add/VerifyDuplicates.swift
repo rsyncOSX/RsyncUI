@@ -28,11 +28,11 @@ struct VerifyDuplicates {
             try checkforduplicates()
         } catch let e {
             let error = e
-            propogateerror(error: error)
+            propagateError(error: error)
         }
     }
 
-    func propogateerror(error: Error) {
+    func propagateError(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 }

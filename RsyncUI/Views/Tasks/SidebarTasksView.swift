@@ -123,7 +123,7 @@ struct SidebarTasksView: View {
 extension SidebarTasksView {
     // URL code
     private func handlequeryitem() {
-        Logger.process.debugmesseageonly("SidebarTasksView: Change on queryitem discovered")
+        Logger.process.debugmessageonly("SidebarTasksView: Change on queryitem discovered")
         if queryitem != nil {
             if let name = queryitem?.name {
                 if name == "id" {

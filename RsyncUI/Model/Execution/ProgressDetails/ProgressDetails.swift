@@ -39,12 +39,12 @@ final class ProgressDetails {
                 // Reduce count with 16 last rows which contains summarized status from rsync
                 num = Double(max?[0].outputfromrsync?.count ?? 0) - 16
                 if num <= 0 { num = 0 }
-                Logger.process.debugmesseageonly("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num)")
+                Logger.process.debugmessageonly("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num)")
                 return num
             } else {
                 num = Double(max?[0].outputfromrsync?.count ?? 0)
                 if num <= 0 { num = 0 }
-                Logger.process.debugmesseageonly("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num)")
+                Logger.process.debugmessageonly("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num)")
                 return num
             }
         } else {
@@ -114,18 +114,18 @@ final class ProgressDetails {
         numberofconfigurationsestimated = Double(estimatedlist?.count ?? 0)
         onetaskisestimated = true
         let numbers = estimatedlist?.count ?? 0
-        Logger.process.debugmesseageonly("ProgressDetails: ESTIMATION appendrecordestimatedlist - count: \(numbers)")
+        Logger.process.debugmessageonly("ProgressDetails: ESTIMATION appendrecordestimatedlist - count: \(numbers)")
     }
 
     func estimationiscomplete() {
         estimatealltasksinprogress = false
         let numbers = estimatedlist?.count ?? 0
-        Logger.process.debugmesseageonly("ProgressDetails: ESTIMATION completed: \(numbers)")
+        Logger.process.debugmessageonly("ProgressDetails: ESTIMATION completed: \(numbers)")
     }
 
     func startestimation() {
         estimatealltasksinprogress = true
-        Logger.process.debugmesseageonly("ProgressDetails: ESTIMATION started")
+        Logger.process.debugmessageonly("ProgressDetails: ESTIMATION started")
     }
 
     func confirmexecutetasks() -> Bool {

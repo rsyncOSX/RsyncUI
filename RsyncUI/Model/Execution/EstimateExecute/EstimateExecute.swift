@@ -263,7 +263,7 @@ final class EstimateExecute {
     }
 
     deinit {
-        Logger.process.debugmesseageonly("EstimateExecute: DEINIT")
+        Logger.process.debugmessageonly("EstimateExecute: DEINIT")
         self.stackoftasks = nil
     }
 }
@@ -306,7 +306,7 @@ extension EstimateExecute {
 
                 guard stackoftasks?.count ?? 0 > 0 else {
                     localprogressdetails?.estimationiscomplete()
-                    Logger.process.debugmesseageonly("EstimateExecute: ESTIMATION is completed")
+                    Logger.process.debugmessageonly("EstimateExecute: ESTIMATION is completed")
                     return
                 }
                 // Estimate next task
@@ -337,7 +337,7 @@ extension EstimateExecute {
 
                 guard stackoftasks?.count ?? 0 > 0 else {
                     localprogressdetails?.estimationiscomplete()
-                    Logger.process.debugmesseageonly("EstimateExecute: ESTIMATION is completed")
+                    Logger.process.debugmessageonly("EstimateExecute: ESTIMATION is completed")
                     return
                 }
                 // Estimate next task
@@ -368,7 +368,7 @@ extension EstimateExecute {
             localupdateconfigurations(updateconfigurations)
             // Update logrecords
             update.addlogpermanentstore(schedulerecords: schedulerecords)
-            Logger.process.debugmesseageonly("EstimateExecute: EXECUTION is completed")
+            Logger.process.debugmessageonly("EstimateExecute: EXECUTION is completed")
             return
         }
         // Execute next task
@@ -406,7 +406,7 @@ extension EstimateExecute {
                 // Update logrecords
                 update.addlogpermanentstore(schedulerecords: schedulerecords)
                 localnoestprogressdetails?.executealltasksnoestiamtioncomplete()
-                Logger.process.debugmesseageonly("EstimateExecute: execution is completed")
+                Logger.process.debugmessageonly("EstimateExecute: execution is completed")
                 return
             }
             // Execute next task

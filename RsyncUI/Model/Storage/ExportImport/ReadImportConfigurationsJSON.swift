@@ -30,7 +30,7 @@ final class ReadImportConfigurationsJSON {
                 maxhiddenID += 1
                 return element
             }
-            Logger.process.debugmesseageonly("ReadImportConfigurationsJSON - \(filenameimport)read import configurations from permanent storage")
+            Logger.process.debugmessageonly("ReadImportConfigurationsJSON - \(filenameimport)read import configurations from permanent storage")
 
         } catch {
             Logger.process.error("ReadImportConfigurationsJSON - \(filenameimport, privacy: .public): some ERROR read import configurations from permanent storage")

@@ -25,7 +25,7 @@ actor ActorReadLogRecordsJSON {
             }
         }
 
-        Logger.process.debugmesseageonly("ActorReadLogRecordsJSON: readjsonfilelogrecords() from \(filename)")
+        Logger.process.debugmessageonly("ActorReadLogRecordsJSON: readjsonfilelogrecords() from \(filename)")
 
         let decodeimport = DecodeGeneric()
         do {
@@ -41,7 +41,7 @@ actor ActorReadLogRecordsJSON {
         } catch let e {
             Logger.process.error("ActorReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading logrecords from permanent storage")
             let error = e
-            await path.propogateerror(error: error)
+            await path.propagateError(error: error)
         }
         return nil
     }
@@ -124,6 +124,6 @@ actor ActorReadLogRecordsJSON {
     }
 
     deinit {
-        Logger.process.debugmesseageonly("ActorReadLogRecordsJSON: DEINIT")
+        Logger.process.debugmessageonly("ActorReadLogRecordsJSON: DEINIT")
     }
 }

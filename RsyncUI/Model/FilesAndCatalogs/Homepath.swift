@@ -5,6 +5,13 @@
 //  Created by Thomas Evensen on 24/06/2024.
 //
 
+//
+//  Homepath.swift
+//  RsyncUI
+//
+//  Created by Thomas Evensen on 24/06/2024.
+//
+
 import Foundation
 import OSLog
 
@@ -14,6 +21,7 @@ struct Homepath {
     var fullpathnomacserial: String?
     // full path with macserialnumber
     var fullpathmacserial: String?
+    
     // Documentscatalog
     var documentscatalog: String? {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
@@ -28,74 +36,84 @@ struct Homepath {
         return SharedReference.shared.macserialnumber
     }
 
-    func getfullpathmacserialcatalogsasstringnames() -> [String] {
+    func getFullPathMacSerialCatalogsAsStringNames() -> [String] {
         let fm = FileManager.default
-        if let fullpathmacserial {
-            var array = [String]()
-            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            do {
-                for filesandfolders in try fm.contentsOfDirectory(at: fullpathmacserialURL,
-                                                                  includingPropertiesForKeys: nil)
-                    where filesandfolders.hasDirectoryPath
-                {
-                    array.append(filesandfolders.lastPathComponent)
-                }
-                Logger.process.debugmesseageonly("Homepath: the following folders were found in \(fullpathmacserial): \(array)")
-                return array
-            } catch {
-                return []
-            }
+        guard let fullpathmacserial else {
+            Logger.process.warning("Homepath: fullpathmacserial is nil")
+            return []
         }
-        return []
+        
+        var array = [String]()
+        let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+        
+        do {
+            for filesandfolders in try fm.contentsOfDirectory(at: fullpathmacserialURL,
+                                                              includingPropertiesForKeys: nil)
+                where filesandfolders.hasDirectoryPath
+            {
+                array.append(filesandfolders.lastPathComponent)
+            }
+            Logger.process.info("Homepath: the following folders were found in \(fullpathmacserial): \(array)")
+            return array
+        } catch {
+            Logger.process.error("Homepath: failed to read directory at \(fullpathmacserial): \(error.localizedDescription)")
+            return []
+        }
     }
 
     // Create profile catalog at first start of RsyncOSX.
     // If profile catalog exists - bail out, no need to create
-    func createrootprofilecatalog() {
+    func createRootProfileCatalog() {
         let fm = FileManager.default
+        
         // First check if profilecatalog exists, if yes bail out
-        if let fullpathmacserial,
-           let fullpathnomacserial
-        {
-            guard fm.locationExists(at: fullpathmacserial, kind: .folder) == false else {
-                Logger.process.debugmesseageonly("Homepath: root catalog exists")
-                return
-            }
-            // if false then create profile catalogs
-            // Creating profile catalalog is a two step task
-            // step 1: create profilecatalog
-            // step 2: create profilecatalog/macserialnumber
-            // config path = /userHomeDirectoryPath/.rsyncosx/macserialnumber
+        guard let fullpathmacserial,
+              let fullpathnomacserial else {
+            Logger.process.error("Homepath: paths are nil, cannot create root catalog")
+            return
+        }
+        
+        guard fm.locationExists(at: fullpathmacserial, kind: .folder) == false else {
+            Logger.process.info("Homepath: root catalog exists")
+            return
+        }
+        
+        // if false then create profile catalogs
+        // Creating profile catalog is a two step task
+        // step 1: create profilecatalog
+        // step 2: create profilecatalog/macserialnumber
+        // config path = /userHomeDirectoryPath/.rsyncosx/macserialnumber
 
-            // Step 1
-            let fullpathnomacserialURL = URL(fileURLWithPath: fullpathnomacserial)
-            do {
-                try fm.createDirectory(at: fullpathnomacserialURL, withIntermediateDirectories: true, attributes: nil)
-                Logger.process.debugmesseageonly("Homepath: creating root catalog step1")
-            } catch let e {
-                let error = e
-                propogateerror(error: error)
-            }
+        // Step 1
+        let fullpathnomacserialURL = URL(fileURLWithPath: fullpathnomacserial)
+        do {
+            try fm.createDirectory(at: fullpathnomacserialURL, withIntermediateDirectories: true, attributes: nil)
+            Logger.process.info("Homepath: creating root catalog step1")
+        } catch {
+            propagateError(error: error)
+            return
+        }
 
-            // Step 2
-            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            do {
-                try fm.createDirectory(at: fullpathmacserialURL, withIntermediateDirectories: true, attributes: nil)
-                Logger.process.debugmesseageonly("Homepath: creating root catalog step2")
-            } catch let e {
-                let error = e
-                propogateerror(error: error)
-            }
+        // Step 2
+        let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
+        do {
+            try fm.createDirectory(at: fullpathmacserialURL, withIntermediateDirectories: true, attributes: nil)
+            Logger.process.info("Homepath: creating root catalog step2")
+        } catch {
+            propagateError(error: error)
         }
     }
 
-    func propogateerror(error: Error) {
+    func propagateError(error: Error) {
+        Logger.process.error("Homepath: error occurred - \(error.localizedDescription)")
         SharedReference.shared.errorobject?.alert(error: error)
     }
 
     init() {
-        fullpathmacserial = (URL.userHomeDirectoryURLPath?.path() ?? "") + SharedReference.shared.configpath.appending("/") + (macserialnumber ?? "")
-        fullpathnomacserial = (URL.userHomeDirectoryURLPath?.path() ?? "") + SharedReference.shared.configpath.appending("/")
+        let homePath = URL.userHomeDirectoryURLPath?.path() ?? ""
+        let configPath = SharedReference.shared.configpath
+        fullpathnomacserial = homePath + configPath + "/"
+        fullpathmacserial = homePath + configPath + "/" + (macserialnumber ?? "")
     }
 }
 

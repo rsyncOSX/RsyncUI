@@ -20,7 +20,7 @@ struct RsyncUIApp: App {
         Window("RsyncUI", id: "main") {
             RsyncUIView()
                 .task {
-                    Homepath().createrootprofilecatalog()
+                    Homepath().createRootProfileCatalog()
                 }
                 .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
                 .sheet(isPresented: $showabout) { AboutView() }
@@ -76,7 +76,7 @@ struct RsyncUIApp: App {
     }
 
     private func performCleanupTask() {
-        Logger.process.debugmesseageonly("RsyncUIApp: performCleanupTask(), RsyncUI shutting down, doing clean up")
+        Logger.process.debugmessageonly("RsyncUIApp: performCleanupTask(), RsyncUI shutting down, doing clean up")
         GlobalTimer.shared.invalidateAllSchedulesAndTimer()
         SharedReference.shared.checkeandterminateprocess()
     }
@@ -86,7 +86,7 @@ extension Logger {
     private static let subsystem = Bundle.main.bundleIdentifier!
     static let process = Logger(subsystem: subsystem, category: "process")
 
-    func debugmesseageonly(_ message: String) {
+    func debugmessageonly(_ message: String) {
         #if DEBUG
             debug("\(message)")
         #endif
