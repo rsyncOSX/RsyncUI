@@ -75,7 +75,14 @@ struct RestoreTableView: View {
                     }
 
                     if gettingfilelist { ProgressView() }
-                    if restore.restorefilesinprogress { ProgressView() }
+                    if restore.restorefilesinprogress { VStack {
+                        ProgressView()
+
+                        Text("\(Int(restore.progress))")
+                            .font(.title2)
+                            .contentTransition(.numericText(countsDown: false))
+                            .animation(.default, value: restore.progress)
+                    } }
 
                     if restore.selectedconfig?.offsiteServer.isEmpty == true {
                         DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Use macOS Finder to restore files from attached discs.", comment: ""))
@@ -295,7 +302,7 @@ extension RestoreTableView {
             guard arguments?.isEmpty == false else { return }
 
             let handlers = CreateHandlers().createhandlers(
-                filehandler: { _ in },
+                filehandler: {_ in },
                 processtermination: processtermination
             )
 

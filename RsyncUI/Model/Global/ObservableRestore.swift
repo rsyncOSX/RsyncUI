@@ -22,6 +22,8 @@ final class ObservableRestore {
     var restorefilelist: [RsyncOutputData] = []
     var filestorestore: String = ""
     var selectedconfig: SynchronizeConfiguration?
+    // Progress count
+    var progress: Double = 0
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         Task {
@@ -40,7 +42,7 @@ final class ObservableRestore {
     func executerestore() {
         var arguments: [String]?
         let handlers = CreateHandlers().createhandlers(
-            filehandler: { _ in },
+            filehandler: filehandler,
             processtermination: processtermination
         )
 
@@ -56,8 +58,9 @@ final class ObservableRestore {
 
                     let process = RsyncProcess(arguments: arguments,
                                                handlers: handlers,
-                                               filehandler: false)
+                                               filehandler: true)
                     do {
+                        progress = 0
                         try process.executeProcess()
                     } catch let e {
                         let error = e
@@ -149,6 +152,10 @@ final class ObservableRestore {
 
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
+    }
+    
+    func filehandler(count: Int) {
+        progress = Double(count)
     }
 }
 
