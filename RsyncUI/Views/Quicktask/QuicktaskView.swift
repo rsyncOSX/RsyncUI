@@ -78,12 +78,11 @@ struct QuicktaskView: View {
 
     @FocusState private var focusField: QuicktaskField?
 
-    @State private var selectedhomecatalog: Catalognames.ID?
-    @State private var selectedAttachedVolume: AttachedVolumes.ID?
+    @State private var selectedhomecatalog: Catalog.ID?
+    @State private var selectedAttachedVolume: AttachedVolume.ID?
     @State private var selectedAttachedVolumeCatalogs: String?
 
-    let homecatalogs: [Catalognames]
-    let attachedVolumes: [AttachedVolumes]
+    let homecatalogs: [Catalog]
 
     var body: some View {
         ZStack {
@@ -211,16 +210,16 @@ struct QuicktaskView: View {
 
                             Picker("", selection: $selectedhomecatalog) {
                                 Text("Home Catalogs (source)")
-                                    .tag(nil as Catalognames.ID?)
+                                    .tag(nil as Catalog.ID?)
                                 ForEach(homecatalogs, id: \.self) { catalog in
-                                    Text(catalog.catalogname)
+                                    Text(catalog.name)
                                         .tag(catalog.id)
                                 }
                             }
                             .frame(width: 300)
                             .onChange(of: selectedhomecatalog) {
                                 if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
-                                    localcatalog = localhome + homecatalogs[index].catalogname
+                                    localcatalog = localhome + homecatalogs[index].name
                                 }
                             }
                         }
@@ -263,16 +262,16 @@ struct QuicktaskView: View {
 
                             Picker("", selection: $selectedhomecatalog) {
                                 Text("Home Catalogs (destination)")
-                                    .tag(nil as Catalognames.ID?)
+                                    .tag(nil as Catalog.ID?)
                                 ForEach(homecatalogs, id: \.self) { catalog in
-                                    Text(catalog.catalogname)
+                                    Text(catalog.name)
                                         .tag(catalog.id)
                                 }
                             }
                             .frame(width: 300)
                             .onChange(of: selectedhomecatalog) {
                                 if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
-                                    remotecatalog = localhome.appending("/") + homecatalogs[index].catalogname
+                                    remotecatalog = localhome.appending("/") + homecatalogs[index].name
                                 }
                             }
                         }

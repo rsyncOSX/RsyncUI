@@ -13,12 +13,12 @@ struct HomeCatalogsView: View {
     @Bindable var newdata: ObservableAddConfigurations
     @Binding var path: [AddTasks]
 
-    @State private var selectedhomecatalog: Catalognames.ID?
-    @State private var selectedAttachedVolume: AttachedVolumes.ID?
+    @State private var selectedhomecatalog: Catalog.ID?
+    @State private var selectedAttachedVolume: AttachedVolume.ID?
     @State private var selectedAttachedVolumeCatalogs: String?
 
-    let homecatalogs: [Catalognames]
-    let attachedVolumes: [AttachedVolumes]
+    let homecatalogs: [Catalog]
+    let attachedVolumes: [AttachedVolume]
 
     var body: some View {
         Form {
@@ -28,9 +28,9 @@ struct HomeCatalogsView: View {
             {
                 Picker("Select a Folder in home directory", selection: $selectedhomecatalog) {
                     Text("Select")
-                        .tag(nil as Catalognames.ID?)
+                        .tag(nil as Catalog.ID?)
                     ForEach(homecatalogs, id: \.self) { catalog in
-                        Text(catalog.catalogname)
+                        Text(catalog.name)
                             .tag(catalog.id)
                     }
                 }
@@ -43,9 +43,9 @@ struct HomeCatalogsView: View {
             {
                 Picker("Select an Attached Volume", selection: $selectedAttachedVolume) {
                     Text("Select")
-                        .tag(nil as AttachedVolumes.ID?)
+                        .tag(nil as AttachedVolume.ID?)
                     ForEach(attachedVolumes, id: \.self) { volume in
-                        Text(volume.volumename.lastPathComponent)
+                        Text(volume.volumeURL.lastPathComponent)
                             .tag(volume.id)
                     }
                 }
@@ -79,7 +79,7 @@ struct HomeCatalogsView: View {
         .formStyle(.grouped)
         .onDisappear {
             if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
-                let selectedcatalog = homecatalogs[index].catalogname
+                let selectedcatalog = homecatalogs[index].name
                 newdata.localcatalog = newdata.localhome + selectedcatalog
                 newdata.backupID = "Backup of: " + selectedcatalog
             }
@@ -87,7 +87,7 @@ struct HomeCatalogsView: View {
             guard newdata.localcatalog.isEmpty == false else { return }
 
             if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
-                let attachedvolume = attachedVolumes[index].volumename
+                let attachedvolume = attachedVolumes[index].volumeURL
                 if let index = attachedVolumesCatalogs.firstIndex(where: { $0 == selectedAttachedVolumeCatalogs }) {
                     let selectedvolume = (attachedvolume.relativePath).appending("/") + attachedVolumesCatalogs[index]
                     newdata.remotecatalog = selectedvolume
@@ -99,7 +99,7 @@ struct HomeCatalogsView: View {
         var attachedVolumesCatalogs: [String] {
             if let index = attachedVolumes.firstIndex(where: { $0.id == selectedAttachedVolume }) {
                 let fm = FileManager.default
-                let atpathURL = attachedVolumes[index].volumename
+                let atpathURL = attachedVolumes[index].volumeURL
                 var catalogs = [String]()
                 do {
                     for filesandfolders in try

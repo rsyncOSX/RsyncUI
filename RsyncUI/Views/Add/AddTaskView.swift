@@ -300,8 +300,8 @@ struct AddTaskView: View {
         case .homecatalogs:
             HomeCatalogsView(newdata: newdata,
                              path: $addtaskpath,
-                             homecatalogs: Homecatalogs().homecatalogs(),
-                             attachedVolumes: Attachedvolumes().attachedVolumes())
+                             homecatalogs: HomeCatalogsService().homeCatalogs(),
+                             attachedVolumes: AttachedVolumesService().attachedVolumes())
 
         case .globalchanges:
             GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
