@@ -94,8 +94,8 @@ struct Homepath {
     }
 
     init() {
-        fullpathmacserial = (URL.userHomeDirectoryURLPath?.path() ?? "") + SharedReference.shared.configpath + (macserialnumber ?? "")
-        fullpathnomacserial = (URL.userHomeDirectoryURLPath?.path() ?? "") + SharedReference.shared.configpath
+        fullpathmacserial = (URL.userHomeDirectoryURLPath?.path() ?? "") + SharedReference.shared.configpath.appending("/") + (macserialnumber ?? "")
+        fullpathnomacserial = (URL.userHomeDirectoryURLPath?.path() ?? "") + SharedReference.shared.configpath.appending("/")
     }
 }
 
