@@ -66,6 +66,8 @@ struct QuicktaskView: View {
     @State private var focusstartexecution: Bool = false
     // Completed task
     @State private var completed: Bool = false
+    // Progress
+    @State private var progress: Double = 0
 
     enum QuicktaskField: Hashable {
         case localcatalogField
@@ -218,7 +220,7 @@ struct QuicktaskView: View {
                             .frame(width: 300)
                             .onChange(of: selectedhomecatalog) {
                                 if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
-                                    localcatalog = localhome.appending("/") + homecatalogs[index].catalogname
+                                    localcatalog = localhome + homecatalogs[index].catalogname
                                 }
                             }
                         }
@@ -327,7 +329,7 @@ struct QuicktaskView: View {
             }
             .formStyle(.grouped)
 
-            if showprogressview { ProgressView() }
+            if showprogressview { RestoreProgressView(progress: progress, statusText: "Synchronizing...") }
             if focusaborttask { labelaborttask }
             if focusstartexecution { labelstartexecution }
         }
@@ -459,7 +461,7 @@ extension QuicktaskView {
         showprogressview = true
 
         let handlers = CreateHandlers().createhandlers(
-            filehandler: { _ in },
+            filehandler: filehandler,
             processtermination: processtermination
         )
 
@@ -470,7 +472,7 @@ extension QuicktaskView {
         let process = RsyncProcess(arguments: arguments,
                                    hiddenID: config.hiddenID,
                                    handlers: handlers,
-                                   usefilehandler: false)
+                                   usefilehandler: true)
         do {
             try process.executeProcess()
         } catch let e {
@@ -491,6 +493,10 @@ extension QuicktaskView {
         }
     }
 
+    func filehandler(count: Int) {
+        progress = Double(count)
+    }
+    
     func propogateerror(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }

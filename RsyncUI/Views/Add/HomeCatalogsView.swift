@@ -80,7 +80,7 @@ struct HomeCatalogsView: View {
         .onDisappear {
             if let index = homecatalogs.firstIndex(where: { $0.id == selectedhomecatalog }) {
                 let selectedcatalog = homecatalogs[index].catalogname
-                newdata.localcatalog = newdata.localhome.appending("/") + selectedcatalog
+                newdata.localcatalog = newdata.localhome + selectedcatalog
                 newdata.backupID = "Backup of: " + selectedcatalog
             }
 
