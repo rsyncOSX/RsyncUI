@@ -121,14 +121,7 @@ struct ExecutePushPullView: View {
                         }
 
                     } else {
-                        VStack {
-                            ProgressView()
-
-                            Text("\(Int(progress))")
-                                .font(.title2)
-                                .contentTransition(.numericText(countsDown: false))
-                                .animation(.default, value: progress)
-                        }
+                        RestoreProgressView(progress: progress, statusText: "Synchronizing...")
                     }
 
                     Spacer()

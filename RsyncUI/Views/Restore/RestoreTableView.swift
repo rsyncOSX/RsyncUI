@@ -75,14 +75,7 @@ struct RestoreTableView: View {
                     }
 
                     if gettingfilelist { ProgressView() }
-                    if restore.restorefilesinprogress { VStack {
-                        ProgressView()
-
-                        Text("\(Int(restore.progress))")
-                            .font(.title2)
-                            .contentTransition(.numericText(countsDown: false))
-                            .animation(.default, value: restore.progress)
-                    } }
+                    if restore.restorefilesinprogress { RestoreProgressView(progress: restore.progress, statusText: "Restoring...") }
 
                     if restore.selectedconfig?.offsiteServer.isEmpty == true {
                         DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Use macOS Finder to restore files from attached discs.", comment: ""))
@@ -350,3 +343,53 @@ extension RestoreTableView {
 }
 
 // swiftlint:enable line_length
+
+
+import SwiftUI
+
+struct RestoreProgressView: View {
+    let progress: Double
+    let statusText: String
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            // Circular progress indicator
+            ZStack {
+                Circle()
+                    .stroke(
+                        Color.gray.opacity(0.2),
+                        lineWidth: 12
+                    )
+                
+                Circle()
+                    .trim(from: 0, to: min(progress / 100, 1.0))
+                    .stroke(
+                        LinearGradient(
+                            colors: [.blue, .cyan],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        style: StrokeStyle(
+                            lineWidth: 12,
+                            lineCap: .round
+                        )
+                    )
+                    .rotationEffect(.degrees(-90))
+                    .animation(.spring(response: 0.6, dampingFraction: 0.8), value: progress)
+                
+                VStack(spacing: 4) {
+                    Text("\(Int(progress))")
+                        .font(.system(size: 36, weight: .bold, design: .rounded))
+                        .contentTransition(.numericText(countsDown: false))
+                }
+            }
+            .frame(width: 160, height: 160)
+            
+            Text(statusText)
+                .font(.headline)
+                .foregroundStyle(.secondary)
+        }
+        .padding(32)
+        .animation(.default, value: progress)
+    }
+}
