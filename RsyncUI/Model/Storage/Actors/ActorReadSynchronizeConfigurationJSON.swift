@@ -65,6 +65,7 @@ actor ActorReadSynchronizeConfigurationJSON {
                 filename = fullpathmacserial.appending("/") + SharedConstants().fileconfigurationsjson
             }
         }
+        Logger.process.debugmesseageonly("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations \(filename)")
         let decodeimport = DecodeGeneric()
         do {
             let data = try

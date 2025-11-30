@@ -61,7 +61,7 @@ final class SharedReference {
     let usrlocalbinarm: String = "/opt/homebrew/bin"
     @ObservationIgnored var macosarm: Bool = false
     // RsyncUI config files and path
-    let configpath: String = "/.rsyncosx/"
+    let configpath: String = ".rsyncosx/"
     // Userconfiguration json file
     let userconfigjson: String = "rsyncuiconfig.json"
     // String tasks

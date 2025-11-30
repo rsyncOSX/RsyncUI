@@ -361,22 +361,6 @@ struct RestoreProgressView: View {
                         lineWidth: 12
                     )
                 
-                Circle()
-                    .trim(from: 0, to: min(progress / 100, 1.0))
-                    .stroke(
-                        LinearGradient(
-                            colors: [.blue, .cyan],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        style: StrokeStyle(
-                            lineWidth: 12,
-                            lineCap: .round
-                        )
-                    )
-                    .rotationEffect(.degrees(-90))
-                    .animation(.spring(response: 0.6, dampingFraction: 0.8), value: progress)
-                
                 VStack(spacing: 4) {
                     Text("\(Int(progress))")
                         .font(.system(size: 36, weight: .bold, design: .rounded))
