@@ -175,7 +175,7 @@ final class EstimateExecute {
         }
     }
 
-    // EXECUTE init
+    // ESTIMATE and EXECUTE init
     @discardableResult
     init(profile: String?,
          configurations: [SynchronizeConfiguration],
@@ -237,24 +237,6 @@ final class EstimateExecute {
 
         stackoftasks = computestackoftasks(selecteduuids)
         startexecution_noestimate()
-    }
-
-    // Convenience init for start estimation
-    @discardableResult
-    convenience init(profile: String?,
-                     configurations: [SynchronizeConfiguration],
-                     selecteduuids: Set<UUID>,
-                     progressdetails: ProgressDetails?)
-    {
-        let filehandler: (Int) -> Void = { _ in }
-        let updateconfigurations: ([SynchronizeConfiguration]) -> Void = { _ in }
-        self.init(profile: profile,
-                  configurations: configurations,
-                  selecteduuids: selecteduuids,
-                  progressdetails: progressdetails,
-                  filehandler: filehandler,
-                  updateconfigurations: updateconfigurations,
-                  mode: .estimate)
     }
 
     deinit {
