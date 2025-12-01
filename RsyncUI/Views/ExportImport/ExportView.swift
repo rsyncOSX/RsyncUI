@@ -43,7 +43,7 @@ struct ExportView: View {
                     Text(exportcatalog)
                         .foregroundColor(.secondary)
                 } else {
-                    Text(exportcatalog + "/")
+                    Text(exportcatalog.appending("/"))
                         .foregroundColor(.secondary)
                 }
 
@@ -63,7 +63,7 @@ struct ExportView: View {
                     if exportcatalog.hasSuffix("/") == true {
                         path = exportcatalog + filenameexport + ".json"
                     } else {
-                        path = exportcatalog + "/" + filenameexport + ".json"
+                        path = exportcatalog.appending("/") + filenameexport + ".json"
                     }
                     guard exportcatalog.isEmpty == false, filenameexport.isEmpty == false else {
                         activeSheet = nil
@@ -93,7 +93,7 @@ struct ExportView: View {
         .padding()
         .frame(minWidth: 600, minHeight: 500)
         .onAppear {
-            if FileManager.default.locationExists(at: exportcatalog + "/" + "tmp", kind: .folder) {
+            if FileManager.default.locationExists(at: exportcatalog.appending("/") + "tmp", kind: .folder) {
                 exportcatalog += "/" + "tmp" + "/"
             } else {
                 exportcatalog += "/"

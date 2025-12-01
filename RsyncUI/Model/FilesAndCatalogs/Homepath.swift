@@ -113,8 +113,8 @@ struct Homepath {
     init() {
         let homePath = URL.userHomeDirectoryURLPath?.path() ?? ""
         let configPath = SharedReference.shared.configpath
-        fullpathnomacserial = homePath + configPath + "/"
-        fullpathmacserial = homePath + configPath + "/" + (macserialnumber ?? "")
+        fullpathnomacserial = homePath + configPath.appending("/")
+        fullpathmacserial = homePath + configPath.appending("/") + (macserialnumber ?? "")
     }
 }
 

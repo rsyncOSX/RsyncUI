@@ -16,13 +16,18 @@ final class AlertError {
     func alert(error: Error) {
         activeError = error
     }
+    
+    func clearError() {
+        activeError = nil
+    }
 
-    var presentalert: Binding<Bool> {
+    var isPresentingAlert: Binding<Bool> {
         Binding<Bool>(
             get: { self.activeError != nil },
             set: { value in
-                guard !value else { return }
-                self.activeError = nil
+                if !value {
+                    self.activeError = nil
+                }
             }
         )
     }

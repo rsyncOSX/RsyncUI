@@ -127,7 +127,7 @@ struct SidebarMainView: View {
         } detail: {
             selectView(selectedview)
         }
-        .alert(isPresented: errorhandling.presentalert, content: {
+        .alert(isPresented: errorhandling.isPresentingAlert, content: {
             if let error = errorhandling.activeError {
                 Alert(localizedError: error)
             } else {
