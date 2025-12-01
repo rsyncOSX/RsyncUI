@@ -27,6 +27,9 @@ final class ObservableRestore {
     var max: Double = 0
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+        if dryrun {
+            max = Double(stringoutputfromrsync?.count ?? 0)
+        }
         Task {
             restorefilelist = await
                 ActorCreateOutputforView().createoutputafterrestore(stringoutputfromrsync)
