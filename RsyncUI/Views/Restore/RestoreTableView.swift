@@ -75,7 +75,7 @@ struct RestoreTableView: View {
                     }
 
                     if gettingfilelist { ProgressView() }
-                    if restore.restorefilesinprogress { RestoreProgressView(progress: restore.progress, statusText: "Restoring...") }
+                    if restore.restorefilesinprogress {SynchronizeProgressView(max: restore.max, progress: restore.progress, statusText: "Restoring...") }
 
                     if restore.selectedconfig?.offsiteServer.isEmpty == true {
                         DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Use macOS Finder to restore files from attached discs.", comment: ""))
@@ -295,7 +295,7 @@ extension RestoreTableView {
             guard arguments?.isEmpty == false else { return }
 
             let handlers = CreateHandlers().createhandlers(
-                filehandler: {_ in },
+                filehandler: { _ in },
                 processtermination: processtermination
             )
 
@@ -344,13 +344,11 @@ extension RestoreTableView {
 
 // swiftlint:enable line_length
 
-
-import SwiftUI
-
-struct RestoreProgressView: View {
+struct SynchronizeProgressView: View {
+    let max: Double
     let progress: Double
     let statusText: String
-    
+
     var body: some View {
         VStack(spacing: 20) {
             // Circular progress indicator
@@ -361,6 +359,25 @@ struct RestoreProgressView: View {
                         lineWidth: 12
                     )
                 
+                if max > 0 {
+                
+                    Circle()
+                        .trim(from: 0, to: min(progress / max, 1.0))
+                        .stroke(
+                            LinearGradient(
+                                colors: [.blue, .cyan],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            style: StrokeStyle(
+                                lineWidth: 12,
+                                lineCap: .round
+                            )
+                        )
+                        .rotationEffect(.degrees(-90))
+                        .animation(.spring(response: 0.6, dampingFraction: 0.8), value: progress)
+                }
+                
                 VStack(spacing: 4) {
                     Text("\(Int(progress))")
                         .font(.system(size: 36, weight: .bold, design: .rounded))
@@ -368,7 +385,7 @@ struct RestoreProgressView: View {
                 }
             }
             .frame(width: 160, height: 160)
-            
+
             Text(statusText)
                 .font(.headline)
                 .foregroundStyle(.secondary)

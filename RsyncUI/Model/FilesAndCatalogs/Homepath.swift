@@ -21,7 +21,7 @@ struct Homepath {
     var fullpathnomacserial: String?
     // full path with macserialnumber
     var fullpathmacserial: String?
-    
+
     // Documentscatalog
     var documentscatalog: String? {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
@@ -42,10 +42,10 @@ struct Homepath {
             Logger.process.warning("Homepath: fullpathmacserial is nil")
             return []
         }
-        
+
         var array = [String]()
         let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-        
+
         do {
             for filesandfolders in try fm.contentsOfDirectory(at: fullpathmacserialURL,
                                                               includingPropertiesForKeys: nil)
@@ -65,19 +65,20 @@ struct Homepath {
     // If profile catalog exists - bail out, no need to create
     func createRootProfileCatalog() {
         let fm = FileManager.default
-        
+
         // First check if profilecatalog exists, if yes bail out
         guard let fullpathmacserial,
-              let fullpathnomacserial else {
+              let fullpathnomacserial
+        else {
             Logger.process.error("Homepath: paths are nil, cannot create root catalog")
             return
         }
-        
+
         guard fm.locationExists(at: fullpathmacserial, kind: .folder) == false else {
             Logger.process.info("Homepath: root catalog exists")
             return
         }
-        
+
         // if false then create profile catalogs
         // Creating profile catalog is a two step task
         // step 1: create profilecatalog

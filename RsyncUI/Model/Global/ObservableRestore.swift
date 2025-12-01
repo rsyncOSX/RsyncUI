@@ -24,6 +24,7 @@ final class ObservableRestore {
     var selectedconfig: SynchronizeConfiguration?
     // Progress count
     var progress: Double = 0
+    var max: Double = 0
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         Task {
@@ -153,7 +154,7 @@ final class ObservableRestore {
     func propagateError(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
-    
+
     func filehandler(count: Int) {
         progress = Double(count)
     }

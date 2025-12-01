@@ -19,6 +19,7 @@ struct ExecutePushPullView: View {
     @State private var keepdelete: Bool = true
 
     @State private var progress: Double = 0
+    @State private var max: Double = 0
 
     let config: SynchronizeConfiguration
 
@@ -121,7 +122,7 @@ struct ExecutePushPullView: View {
                         }
 
                     } else {
-                        RestoreProgressView(progress: progress, statusText: "Synchronizing...")
+                        SynchronizeProgressView(max: max, progress: progress, statusText: "Synchronizing...")
                     }
 
                     Spacer()

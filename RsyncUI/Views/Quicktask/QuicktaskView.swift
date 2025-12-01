@@ -66,8 +66,9 @@ struct QuicktaskView: View {
     @State private var focusstartexecution: Bool = false
     // Completed task
     @State private var completed: Bool = false
-    // Progress
+    // Progress and max if estimate first
     @State private var progress: Double = 0
+    @State private var max: Double = 0
 
     enum QuicktaskField: Hashable {
         case localcatalogField
@@ -328,7 +329,7 @@ struct QuicktaskView: View {
             }
             .formStyle(.grouped)
 
-            if showprogressview { RestoreProgressView(progress: progress, statusText: "Synchronizing...") }
+            if showprogressview { SynchronizeProgressView(max: max, progress: progress, statusText: "Synchronizing...") }
             if focusaborttask { labelaborttask }
             if focusstartexecution { labelstartexecution }
         }
@@ -495,7 +496,7 @@ extension QuicktaskView {
     func filehandler(count: Int) {
         progress = Double(count)
     }
-    
+
     func propagateError(error: Error) {
         SharedReference.shared.errorobject?.alert(error: error)
     }
