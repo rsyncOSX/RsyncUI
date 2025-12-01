@@ -35,7 +35,6 @@ struct ExecuteEstTasksView: View {
                 maxcount = progressdetails.getmaxcountbytask()
             }
 
-            // if executestate.executestate == .execute { ProgressView() }
             if focusaborttask { labelaborttask }
         }
         .onAppear {

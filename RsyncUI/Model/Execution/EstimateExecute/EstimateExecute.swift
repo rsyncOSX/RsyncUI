@@ -185,49 +185,42 @@ final class EstimateExecute {
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void,
          mode: OperationMode)
     {
-        guard mode == .execute else {
-            fatalError("Use estimate initializer")
+
+        switch mode {
+            
+        case .execute:
+            structprofile = profile
+            localconfigurations = configurations
+            localprogressdetails = progressdetails
+            localfilehandler = filehandler
+            localupdateconfigurations = updateconfigurations
+
+            guard selecteduuids.count > 0 else { return }
+
+            let taskstosynchronize = localconfigurations.filter {
+                selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted
+            }
+            stackoftasks = taskstosynchronize.map(\.hiddenID)
+
+            guard stackoftasks?.count ?? 0 > 0 else { return }
+            Logger.process.debugmessageonly("EstimateExecute: START EXECUTION")
+            startexecution()
+            
+        case .estimate:
+            structprofile = profile
+            localconfigurations = configurations
+            localprogressdetails = progressdetails
+            localfilehandler = filehandler
+            localupdateconfigurations = updateconfigurations
+
+            stackoftasks = computestackoftasks(selecteduuids)
+            localprogressdetails?.setprofileandnumberofconfigurations(structprofile, stackoftasks?.count ?? 0)
+            Logger.process.debugmessageonly("EstimateExecute: START ESTIMATION")
+            startestimation()
         }
-
-        structprofile = profile
-        localconfigurations = configurations
-        localprogressdetails = progressdetails
-        localfilehandler = filehandler
-        localupdateconfigurations = updateconfigurations
-
-        guard selecteduuids.count > 0 else { return }
-
-        let taskstosynchronize = localconfigurations.filter {
-            selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted
-        }
-        stackoftasks = taskstosynchronize.map(\.hiddenID)
-
-        guard stackoftasks?.count ?? 0 > 0 else { return }
-        startexecution()
     }
 
-    // ESTIMATE init
-    @discardableResult
-    init(profile: String?,
-         configurations: [SynchronizeConfiguration],
-         selecteduuids: Set<UUID>,
-         progressdetails: ProgressDetails?,
-         filehandler: @escaping (Int) -> Void,
-         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void,
-         estimationMode _: Void = ())
-    {
-        structprofile = profile
-        localconfigurations = configurations
-        localprogressdetails = progressdetails
-        localfilehandler = filehandler
-        localupdateconfigurations = updateconfigurations
-
-        stackoftasks = computestackoftasks(selecteduuids)
-        localprogressdetails?.setprofileandnumberofconfigurations(structprofile, stackoftasks?.count ?? 0)
-        startestimation()
-    }
-
-    // Init execute NO estimation
+    // convenience init execute NO estimation
     @discardableResult
     init(profile: String?,
          configurations: [SynchronizeConfiguration],
@@ -246,6 +239,7 @@ final class EstimateExecute {
         startexecution_noestimate()
     }
 
+    // Convenience init for start estimation
     @discardableResult
     convenience init(profile: String?,
                      configurations: [SynchronizeConfiguration],
@@ -259,7 +253,8 @@ final class EstimateExecute {
                   selecteduuids: selecteduuids,
                   progressdetails: progressdetails,
                   filehandler: filehandler,
-                  updateconfigurations: updateconfigurations)
+                  updateconfigurations: updateconfigurations,
+                  mode: .estimate)
     }
 
     deinit {

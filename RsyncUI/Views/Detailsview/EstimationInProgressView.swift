@@ -36,10 +36,6 @@ struct EstimationInProgressView: View {
 
             if focusaborttask { labelaborttask }
         }
-        .onAppear {
-            progressdetails.resetcounts()
-            progressdetails.startestimation()
-        }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .frame(maxWidth: .infinity)
     }
