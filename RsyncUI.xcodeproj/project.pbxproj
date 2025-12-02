@@ -77,7 +77,6 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		E9C9E3762D379F7000E907AB /* WidgetVerify */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = WidgetVerify; sourceTree = "<group>"; };
 		E9C9E3912D37A14200E907AB /* WidgetEstimate */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E96CB3EE2EA28AA100995147 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = WidgetEstimate; sourceTree = "<group>"; };
 		E9EF75A62D2D6DC70039D1D4 /* RsyncUI */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E96CB3EC2EA28AA100995147 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = RsyncUI; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -128,7 +127,6 @@
 				E93FBEBE2E3DE674005225E2 /* Assets.xcassets */,
 				E99DE0F826A32F8B00A08A69 /* Credits.rtf */,
 				E9EF75A62D2D6DC70039D1D4 /* RsyncUI */,
-				E9C9E3762D379F7000E907AB /* WidgetVerify */,
 				E9C9E3912D37A14200E907AB /* WidgetEstimate */,
 				E961CC032D33B3C400A5F5A5 /* Frameworks */,
 				E985C5C425F3AC0700CB895C /* Products */,
