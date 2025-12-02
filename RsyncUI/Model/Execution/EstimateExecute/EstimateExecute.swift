@@ -185,34 +185,25 @@ final class EstimateExecute {
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void,
          mode: OperationMode)
     {
+        
+        structprofile = profile
+        localconfigurations = configurations
+        localprogressdetails = progressdetails
+        localfilehandler = filehandler
+        localupdateconfigurations = updateconfigurations
 
         switch mode {
             
         case .execute:
-            structprofile = profile
-            localconfigurations = configurations
-            localprogressdetails = progressdetails
-            localfilehandler = filehandler
-            localupdateconfigurations = updateconfigurations
-
             guard selecteduuids.count > 0 else { return }
-
             let taskstosynchronize = localconfigurations.filter {
                 selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted
             }
             stackoftasks = taskstosynchronize.map(\.hiddenID)
-
             guard stackoftasks?.count ?? 0 > 0 else { return }
             Logger.process.debugmessageonly("EstimateExecute: START EXECUTION")
             startexecution()
-            
         case .estimate:
-            structprofile = profile
-            localconfigurations = configurations
-            localprogressdetails = progressdetails
-            localfilehandler = filehandler
-            localupdateconfigurations = updateconfigurations
-
             stackoftasks = computestackoftasks(selecteduuids)
             localprogressdetails?.setprofileandnumberofconfigurations(structprofile, stackoftasks?.count ?? 0)
             Logger.process.debugmessageonly("EstimateExecute: START ESTIMATION")
