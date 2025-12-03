@@ -194,13 +194,14 @@ extension Execute {
             if let logData = (hiddenID ?? -1, stats) as? Typelogdata {
                 schedulerecords.append(logData)
             }
-            
+            Logger.process.debugmessageonly("Execute: getstats() SUCCESS")
         } catch let e {
             let error = e
             SharedReference.shared.errorobject?.alert(error: error)
             if let logData = (hiddenID ?? -1, "0 files : 0.00 MB in 0.00 seconds") as? Typelogdata {
                 schedulerecords.append(logData)
             }
+            Logger.process.debugmessageonly("Execute: getstats() FAILED")
         }
         
         guard stackoftasks?.count ?? 0 > 0 else {

@@ -9,6 +9,7 @@
 
 import Foundation
 import ParseRsyncOutput
+import OSLog
 
 @MainActor
 struct RemoteDataNumbers: Identifiable, Hashable {
@@ -74,6 +75,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
                                                     SharedReference.shared.rsyncversion3 ? .ver3 : .openrsync)
             do {
                 stats = try parsersyncoutput.getstats()
+                Logger.process.debugmessageonly("RemoteDataNumbers: getstats() SUCCESS")
             } catch let e {
                 let error = e
                 SharedReference.shared.errorobject?.alert(error: error)
@@ -97,6 +99,8 @@ struct RemoteDataNumbers: Identifiable, Hashable {
                 totalnumbers = "0"
 
                 datatosynchronize = false
+                
+                Logger.process.debugmessageonly("RemoteDataNumbers: getstats() FAILED")
                 return
             }
             
