@@ -191,13 +191,8 @@ extension Execute {
         do {
             let stats = try ParseRsyncOutput(preparedoutputfromrsync,
                                             SharedReference.shared.rsyncversion3 ? .ver3 : .openrsync).getstats()
-            
-            // Safe casting instead of force unwrap
             if let logData = (hiddenID ?? -1, stats) as? Typelogdata {
                 schedulerecords.append(logData)
-            } else {
-                // Handle the case where the cast fails
-                print("Failed to cast to Typelogdata")
             }
             
         } catch let e {

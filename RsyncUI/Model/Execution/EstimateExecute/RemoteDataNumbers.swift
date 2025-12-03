@@ -48,7 +48,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var stats: String?
     // A reduced number of output
     var preparedoutputfromrsync: [String]?
-
+    
     init(stringoutputfromrsync: [String]?,
          config: SynchronizeConfiguration?)
     {
@@ -78,6 +78,24 @@ struct RemoteDataNumbers: Identifiable, Hashable {
                 let error = e
                 SharedReference.shared.errorobject?.alert(error: error)
                 // Break this loop, the numbers below make no sense if stats is missing
+                filestransferred = "NO stats"
+                filestransferred_Int = 0
+                totaldirectories_Int = 0
+                newfiles_Int = 0
+                deletefiles_Int = 0
+
+                totaltransferredfilessize_Int = 0
+                totalfilesize_Int = 0
+
+                numberoffiles = "0"
+                totalfilesize = "0"
+                totaldirectories = "0"
+                newfiles = "0"
+
+                deletefiles = "0"
+                totalnumbers = "0"
+
+                datatosynchronize = false
                 return
             }
             
@@ -109,6 +127,8 @@ struct RemoteDataNumbers: Identifiable, Hashable {
             }
         }
     }
+    
+    
 }
 
 // swiftlint:enable line_length
