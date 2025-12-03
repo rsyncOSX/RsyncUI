@@ -82,7 +82,7 @@ extension ExecuteNoEstTasksView {
     func executeallnoestimationtasks() {
         noestprogressdetails.startexecutealltasksnoestimation()
         if let configurations = rsyncUIdata.configurations {
-            EstimateExecute(profile: rsyncUIdata.profile,
+            Execute(profile: rsyncUIdata.profile,
                             configurations: configurations,
                             selecteduuids: selecteduuids,
                             noestprogressdetails: noestprogressdetails,

@@ -103,13 +103,12 @@ extension ExecuteEstTasksView {
         }
         if let adjustedselecteduuids {
             if let configurations = rsyncUIdata.configurations {
-                EstimateExecute(profile: rsyncUIdata.profile,
+                Execute(profile: rsyncUIdata.profile,
                                 configurations: configurations,
                                 selecteduuids: adjustedselecteduuids,
                                 progressdetails: progressdetails,
                                 filehandler: filehandler,
-                                updateconfigurations: updateconfigurations,
-                                mode: .execute)
+                                updateconfigurations: updateconfigurations)
             }
         }
     }

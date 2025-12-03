@@ -1,5 +1,5 @@
 //
-//  EstimateExecute.swift
+//  Execute.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 10/06/2025.
@@ -23,13 +23,8 @@ enum ErrorDatatoSynchronize: LocalizedError {
 
 typealias Typelogdata = (Int, String)
 
-enum OperationMode {
-    case execute
-    case estimate
-}
-
 @MainActor
-final class EstimateExecute {
+final class Execute {
     private var localconfigurations: [SynchronizeConfiguration]
     private var structprofile: String?
     private var setabort = false
@@ -55,47 +50,11 @@ final class EstimateExecute {
         return nil
     }
 
-    private func startestimation() {
-        guard (stackoftasks?.count ?? 0) > 0 else { return }
-
-        let handlers = CreateHandlers().createhandlers(
-            filehandler: { _ in },
-            processtermination: processtermination_estimation
-        )
-
-        if let localhiddenID = stackoftasks?.removeFirst() {
-            if let config = getconfig(localhiddenID) {
-                if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
-                                                                                             forDisplay: false)
-                {
-                    // Used to display details of configuration in estimation
-                    localprogressdetails?.configurationtobestimated = config.id
-
-                    // Must check valid rsync exists
-                    guard SharedReference.shared.norsync == false else { return }
-                    guard config.task != SharedReference.shared.halted else { return }
-
-                    let process = RsyncProcess(arguments: arguments,
-                                               hiddenID: config.hiddenID,
-                                               handlers: handlers,
-                                               usefilehandler: false)
-
-                    do {
-                        try process.executeProcess()
-                    } catch let e {
-                        let error = e
-                        SharedReference.shared.errorobject?.alert(error: error)
-                    }
-                }
-            }
-        }
-    }
-
     private func startexecution() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
         let handlers = CreateHandlers().createhandlers(
             filehandler: localfilehandler,
-            processtermination: processtermination_excute
+            processtermination: processtermination
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
@@ -175,15 +134,13 @@ final class EstimateExecute {
         }
     }
 
-    // ESTIMATE and EXECUTE init
     @discardableResult
     init(profile: String?,
          configurations: [SynchronizeConfiguration],
          selecteduuids: Set<UUID>,
          progressdetails: ProgressDetails?,
          filehandler: @escaping (Int) -> Void,
-         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void,
-         mode: OperationMode)
+         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
         
         structprofile = profile
@@ -191,27 +148,18 @@ final class EstimateExecute {
         localprogressdetails = progressdetails
         localfilehandler = filehandler
         localupdateconfigurations = updateconfigurations
-
-        switch mode {
-            
-        case .execute:
-            guard selecteduuids.count > 0 else { return }
-            let taskstosynchronize = localconfigurations.filter {
-                selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted
-            }
-            stackoftasks = taskstosynchronize.map(\.hiddenID)
-            guard stackoftasks?.count ?? 0 > 0 else { return }
-            Logger.process.debugmessageonly("EstimateExecute: START EXECUTION")
-            startexecution()
-        case .estimate:
-            stackoftasks = computestackoftasks(selecteduuids)
-            localprogressdetails?.setprofileandnumberofconfigurations(structprofile, stackoftasks?.count ?? 0)
-            Logger.process.debugmessageonly("EstimateExecute: START ESTIMATION")
-            startestimation()
+        
+        guard selecteduuids.count > 0 else { return }
+        let taskstosynchronize = localconfigurations.filter {
+            selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted
         }
+        stackoftasks = taskstosynchronize.map(\.hiddenID)
+        guard stackoftasks?.count ?? 0 > 0 else { return }
+        Logger.process.debugmessageonly("Execute: START EXECUTION")
+        startexecution()
+
     }
 
-    // convenience init execute NO estimation
     @discardableResult
     init(profile: String?,
          configurations: [SynchronizeConfiguration],
@@ -231,90 +179,14 @@ final class EstimateExecute {
     }
 
     deinit {
-        Logger.process.debugmessageonly("EstimateExecute: DEINIT")
+        Logger.process.debugmessageonly("Execute: DEINIT")
         self.stackoftasks = nil
     }
 }
 
-extension EstimateExecute {
-    private func processtermination_estimation(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
-        var adjustedoutputfromrsync = false
-        var suboutput: [String]?
+extension Execute {
 
-        if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
-            adjustedoutputfromrsync = true
-            suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
-        }
-
-        if adjustedoutputfromrsync {
-            var record = RemoteDataNumbers(stringoutputfromrsync: suboutput,
-                                           config: getconfig(hiddenID ?? -1))
-            adjustedoutputfromrsync = false
-            Task {
-                // Create data for output rsync for view
-                record.outputfromrsync =
-                    await ActorCreateOutputforView().createaoutputforview(stringoutputfromrsync)
-                localprogressdetails?.appendrecordestimatedlist(record)
-
-                if record.datatosynchronize {
-                    if let config = getconfig(hiddenID ?? -1) {
-                        localprogressdetails?.appenduuidwithdatatosynchronize(config.id)
-                    }
-                }
-
-                // Validate that tagging is correct
-                do {
-                    // In case of throwing an error to identify which task
-                    synchronizeIDwitherror = record.backupID
-                    try validatetagging(stringoutputfromrsync?.count ?? 0, record.datatosynchronize)
-                } catch let e {
-                    let error = e
-                    SharedReference.shared.errorobject?.alert(error: error)
-                }
-
-                guard stackoftasks?.count ?? 0 > 0 else {
-                    localprogressdetails?.estimationiscomplete()
-                    Logger.process.debugmessageonly("EstimateExecute: ESTIMATION is completed")
-                    return
-                }
-                // Estimate next task
-                startestimation()
-            }
-        } else {
-            var record = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
-                                           config: getconfig(hiddenID ?? -1))
-            Task {
-                // Create data for output rsync for view
-                record.outputfromrsync =
-                    await ActorCreateOutputforView().createaoutputforview(stringoutputfromrsync)
-                localprogressdetails?.appendrecordestimatedlist(record)
-
-                if record.datatosynchronize {
-                    if let config = getconfig(hiddenID ?? -1) {
-                        localprogressdetails?.appenduuidwithdatatosynchronize(config.id)
-                    }
-                }
-
-                // Validate that tagging is correct
-                do {
-                    try validatetagging(stringoutputfromrsync?.count ?? 0, record.datatosynchronize)
-                } catch let e {
-                    let error = e
-                    SharedReference.shared.errorobject?.alert(error: error)
-                }
-
-                guard stackoftasks?.count ?? 0 > 0 else {
-                    localprogressdetails?.estimationiscomplete()
-                    Logger.process.debugmessageonly("EstimateExecute: ESTIMATION is completed")
-                    return
-                }
-                // Estimate next task
-                startestimation()
-            }
-        }
-    }
-
-    private func processtermination_excute(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
+    private func processtermination(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
         guard setabort == false else { return }
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
@@ -336,7 +208,7 @@ extension EstimateExecute {
             localupdateconfigurations(updateconfigurations)
             // Update logrecords
             update.addlogpermanentstore(schedulerecords: schedulerecords)
-            Logger.process.debugmessageonly("EstimateExecute: EXECUTION is completed")
+            Logger.process.debugmessageonly("Execute: EXECUTION is completed")
             return
         }
         // Execute next task
@@ -374,7 +246,7 @@ extension EstimateExecute {
                 // Update logrecords
                 update.addlogpermanentstore(schedulerecords: schedulerecords)
                 localnoestprogressdetails?.executealltasksnoestiamtioncomplete()
-                Logger.process.debugmessageonly("EstimateExecute: execution is completed")
+                Logger.process.debugmessageonly("Execute: execution is completed")
                 return
             }
             // Execute next task
