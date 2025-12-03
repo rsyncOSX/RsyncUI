@@ -198,7 +198,10 @@ extension Execute {
         } catch let e {
             let error = e
             SharedReference.shared.errorobject?.alert(error: error)
-            // Loop will continue here automatically after handling the error
+            let stats = "No stats available"
+            if let logData = (hiddenID ?? -1, stats) as? Typelogdata {
+                schedulerecords.append(logData)
+            }
         }
         
         guard stackoftasks?.count ?? 0 > 0 else {
