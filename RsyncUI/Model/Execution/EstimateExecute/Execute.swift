@@ -198,8 +198,7 @@ extension Execute {
         } catch let e {
             let error = e
             SharedReference.shared.errorobject?.alert(error: error)
-            let stats = "No stats available"
-            if let logData = (hiddenID ?? -1, stats) as? Typelogdata {
+            if let logData = (hiddenID ?? -1, "0") as? Typelogdata {
                 schedulerecords.append(logData)
             }
         }
