@@ -188,20 +188,22 @@ extension Execute {
         // It removes all lines except the last 20 lines where summarized numbers are put
         let preparedoutputfromrsync = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
         
-        do {
-            let stats = try ParseRsyncOutput(preparedoutputfromrsync,
-                                            SharedReference.shared.rsyncversion3 ? .ver3 : .openrsync).getstats()
-            if let logData = (hiddenID ?? -1, stats) as? Typelogdata {
-                schedulerecords.append(logData)
+        if SharedReference.shared.addsummarylogrecord {
+            do {
+                let stats = try ParseRsyncOutput(preparedoutputfromrsync,
+                                                SharedReference.shared.rsyncversion3 ? .ver3 : .openrsync).getstats()
+                if let logData = (hiddenID ?? -1, stats) as? Typelogdata {
+                    schedulerecords.append(logData)
+                }
+                Logger.process.debugmessageonly("Execute: getstats() SUCCESS")
+            } catch let e {
+                let error = e
+                SharedReference.shared.errorobject?.alert(error: error)
+                if let logData = (hiddenID ?? -1, "0 files : 0.00 MB in 0.00 seconds") as? Typelogdata {
+                    schedulerecords.append(logData)
+                }
+                Logger.process.debugmessageonly("Execute: getstats() FAILED")
             }
-            Logger.process.debugmessageonly("Execute: getstats() SUCCESS")
-        } catch let e {
-            let error = e
-            SharedReference.shared.errorobject?.alert(error: error)
-            if let logData = (hiddenID ?? -1, "0 files : 0.00 MB in 0.00 seconds") as? Typelogdata {
-                schedulerecords.append(logData)
-            }
-            Logger.process.debugmessageonly("Execute: getstats() FAILED")
         }
         
         guard stackoftasks?.count ?? 0 > 0 else {
@@ -210,9 +212,11 @@ extension Execute {
             let updateconfigurations = update.setCurrentDateonConfiguration(configrecords: configrecords)
             // Send date stamped configurations back to caller
             localupdateconfigurations(updateconfigurations)
+            
+            Logger.process.debugmessageonly("Execute: EXECUTION is completed")
+            guard SharedReference.shared.addsummarylogrecord else { return }
             // Update logrecords
             update.addlogpermanentstore(schedulerecords: schedulerecords)
-            Logger.process.debugmessageonly("Execute: EXECUTION is completed")
             return
         }
         // Execute next task
@@ -233,24 +237,27 @@ extension Execute {
                 suboutput = stringoutputfromrsync
             }
 
-            let record = RemoteDataNumbers(stringoutputfromrsync: suboutput,
-                                           config: config)
-            if let stats = record.stats {
-                schedulerecords.append((hiddenID ?? -1, stats))
-                localnoestprogressdetails?.appendrecordexecutedlist(record)
-                localnoestprogressdetails?.appenduuidwithdatatosynchronize(config.id)
+            if SharedReference.shared.addsummarylogrecord {
+                let record = RemoteDataNumbers(stringoutputfromrsync: suboutput,
+                                               config: config)
+                if let stats = record.stats {
+                    schedulerecords.append((hiddenID ?? -1, stats))
+                    localnoestprogressdetails?.appendrecordexecutedlist(record)
+                    localnoestprogressdetails?.appenduuidwithdatatosynchronize(config.id)
+                }
             }
-
+            
             guard stackoftasks?.count ?? 0 > 0 else {
                 let update = Logging(profile: structprofile,
                                      configurations: localconfigurations)
                 let updateconfigurations = update.setCurrentDateonConfiguration(configrecords: configrecords)
                 // Send date stamped configurations back to caller
                 localupdateconfigurations(updateconfigurations)
-                // Update logrecords
-                update.addlogpermanentstore(schedulerecords: schedulerecords)
                 localnoestprogressdetails?.executealltasksnoestiamtioncomplete()
                 Logger.process.debugmessageonly("Execute: execution is completed")
+                guard SharedReference.shared.addsummarylogrecord else { return }
+                // Update logrecords
+                update.addlogpermanentstore(schedulerecords: schedulerecords)
                 return
             }
             // Execute next task
