@@ -187,11 +187,25 @@ extension Execute {
         // Prepareoutput prepares output from rsync for extracting the numbers only.
         // It removes all lines except the last 20 lines where summarized numbers are put
         let preparedoutputfromrsync = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
-        if let stats = ParseRsyncOutput(preparedoutputfromrsync,
-                                        SharedReference.shared.rsyncversion3 ? .ver3 : .openrsync).stats
-        {
-            schedulerecords.append((hiddenID ?? -1, stats))
+        
+        do {
+            let stats = try ParseRsyncOutput(preparedoutputfromrsync,
+                                            SharedReference.shared.rsyncversion3 ? .ver3 : .openrsync).getstats()
+            
+            // Safe casting instead of force unwrap
+            if let logData = (hiddenID ?? -1, stats) as? Typelogdata {
+                schedulerecords.append(logData)
+            } else {
+                // Handle the case where the cast fails
+                print("Failed to cast to Typelogdata")
+            }
+            
+        } catch let e {
+            let error = e
+            SharedReference.shared.errorobject?.alert(error: error)
+            // Loop will continue here automatically after handling the error
         }
+        
         guard stackoftasks?.count ?? 0 > 0 else {
             let update = Logging(profile: structprofile,
                                  configurations: localconfigurations)
