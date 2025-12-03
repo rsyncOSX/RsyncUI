@@ -77,7 +77,8 @@ struct RemoteDataNumbers: Identifiable, Hashable {
             } catch let e {
                 let error = e
                 SharedReference.shared.errorobject?.alert(error: error)
-                // Loop will continue here automatically after handling the error
+                // Break this loop, the numbers below make no sense if stats is missing
+                return
             }
             
             filestransferred = parsersyncoutput.formatted_filestransferred
