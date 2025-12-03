@@ -59,7 +59,6 @@ struct Logsettings: View {
                         togglehideverifyremotefunction = logsettings.hideverifyremotefunction
                     }
                 
-                setsleeptime
 
                 if SharedReference.shared.rsyncversion3 {
                     ToggleViewDefault(text: NSLocalizedString("Confirm execute", comment: ""), binding: $logsettings.confirmexecute)
@@ -91,17 +90,6 @@ struct Logsettings: View {
             }
         }
         .formStyle(.grouped)
-    }
-    
-    var setsleeptime: some View {
-        EditValueErrorScheme(400, NSLocalizedString("", comment: ""),
-                             $logsettings.sleeptime,
-                             logsettings.verifyuint(String(logsettings.sleeptime)))
-            .foregroundColor(logsettings.verifyuint(String(logsettings.sleeptime)) ? Color.white : Color.red)
-            .onChange(of: logsettings.sleeptime) {
-                guard logsettings.verifyuint(String(logsettings.sleeptime)) else { return }
-                SharedReference.shared.sleeptime = logsettings.sleeptime as UInt64
-            }
     }
 }
 

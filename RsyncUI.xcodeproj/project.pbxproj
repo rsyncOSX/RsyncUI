@@ -603,7 +603,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/RsyncProcess";
 			requirement = {
-				branch = sleeptime;
+				branch = main;
 				kind = branch;
 			};
 		};

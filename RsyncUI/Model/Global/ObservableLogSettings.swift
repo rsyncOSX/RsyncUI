@@ -28,17 +28,4 @@ final class ObservableLogSettings {
     var alwaysshowestimateddetailsview: Bool = SharedReference.shared.alwaysshowestimateddetailsview
     // Hide Verify Remote view
     var hideverifyremotefunction: Bool = SharedReference.shared.hideverifyremotefunction
-    // Sleeptime RsyncProcess
-    var sleeptime: UInt64 = SharedReference.shared.sleeptime
-    
-    func verifyuint(_ value: String) -> Bool {
-        if UInt64(value) != nil {
-            guard let uintvalue = UInt64(value), uintvalue > 5_000_000  else {
-                return false
-            }
-            return true
-        } else {
-           return false
-        }
-    }
 }

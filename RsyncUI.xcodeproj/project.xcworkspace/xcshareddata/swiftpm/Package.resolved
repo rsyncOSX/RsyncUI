@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/RsyncProcess",
       "state" : {
-        "branch" : "sleeptime",
-        "revision" : "bbf3e5d1875e64ed6f8183949212054fdc77f927"
+        "branch" : "main",
+        "revision" : "edd3ba46d5852faefa100d402273713e0fec3d35"
       }
     },
     {

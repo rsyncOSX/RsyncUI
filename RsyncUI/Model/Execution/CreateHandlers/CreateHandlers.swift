@@ -30,8 +30,7 @@ struct CreateHandlers {
             checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
             rsyncversion3: SharedReference.shared.rsyncversion3,
             environment: MyEnvironment()?.environment,
-            printlines: RsyncOutputCapture.shared.makePrintLinesClosure(),
-            sleeptime: SharedReference.shared.sleeptime
+            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
         )
     }
 }

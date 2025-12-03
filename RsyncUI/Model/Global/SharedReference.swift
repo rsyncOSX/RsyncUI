@@ -85,8 +85,6 @@ final class SharedReference {
     let alerttagginglines = 20
     // Hide Verify Remote function in main Sidebar
     @ObservationIgnored var hideverifyremotefunction: Bool = true
-    // Sleeptime used in RsyncProcess termination
-    @ObservationIgnored var sleeptime: UInt64 = 50_000_000
 
     func updateprocess(_ task: Process?) {
         if task != nil {
