@@ -75,11 +75,6 @@ struct LogfileView: View {
         }
     }
 
-    func readlogfile() {
-        Task {
-            logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
-        }
-    }
 }
 
 struct LogfileRecords: Identifiable {

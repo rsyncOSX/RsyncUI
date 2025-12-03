@@ -15,19 +15,10 @@ import RsyncProcess
 final class Estimate {
     private var localconfigurations: [SynchronizeConfiguration]
     private var structprofile: String?
-    private var setabort = false
 
     weak var localprogressdetails: ProgressDetails?
-    weak var localnoestprogressdetails: NoEstProgressDetails?
 
-    // Collect loggdata for later save to permanent storage (hiddenID, log)
-    private var configrecords = [Typelogdata]()
-    private var schedulerecords = [Typelogdata]()
-    // Report progress to caller
-    var localfilehandler: (Int) -> Void
-    // Update configurations
-    var localupdateconfigurations: ([SynchronizeConfiguration]) -> Void
-
+    
     var stackoftasks: [Int]?
     var synchronizeIDwitherror: String = ""
 
@@ -97,16 +88,12 @@ final class Estimate {
     init(profile: String?,
          configurations: [SynchronizeConfiguration],
          selecteduuids: Set<UUID>,
-         progressdetails: ProgressDetails?,
-         filehandler: @escaping (Int) -> Void,
-         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
+         progressdetails: ProgressDetails?)
     {
         
         structprofile = profile
         localconfigurations = configurations
         localprogressdetails = progressdetails
-        localfilehandler = filehandler
-        localupdateconfigurations = updateconfigurations
         
         stackoftasks = computestackoftasks(selecteduuids)
         localprogressdetails?.setprofileandnumberofconfigurations(structprofile, stackoftasks?.count ?? 0)

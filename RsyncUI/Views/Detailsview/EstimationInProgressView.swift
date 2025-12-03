@@ -51,9 +51,7 @@ struct EstimationInProgressView: View {
                 Estimate(profile: profile,
                                 configurations: configurations,
                                 selecteduuids: selecteduuids,
-                                progressdetails: progressdetails,
-                                filehandler:  { _ in },
-                                updateconfigurations: { _ in })
+                                progressdetails: progressdetails)
             }
             .progressViewStyle(.circular)
     }
@@ -66,9 +64,7 @@ struct EstimationInProgressView: View {
                 Estimate(profile: profile,
                                 configurations: configurations,
                                 selecteduuids: selecteduuids,
-                                progressdetails: progressdetails,
-                                filehandler:  { _ in },
-                                updateconfigurations: { _ in })
+                                progressdetails: progressdetails)
             }
     }
 

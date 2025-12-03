@@ -41,7 +41,6 @@ final class Execute {
     var localupdateconfigurations: ([SynchronizeConfiguration]) -> Void
 
     var stackoftasks: [Int]?
-    var synchronizeIDwitherror: String = ""
 
     private func getconfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
         if let index = localconfigurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
@@ -113,13 +112,6 @@ final class Execute {
                     }
                 }
             }
-        }
-    }
-
-    // Used in Estimate
-    private func validatetagging(_ lines: Int, _ tagged: Bool) throws {
-        if lines > SharedReference.shared.alerttagginglines, tagged == false {
-            throw ErrorDatatoSynchronize.thereisdatatosynchronize(idwitherror: synchronizeIDwitherror)
         }
     }
 
