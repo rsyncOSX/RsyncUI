@@ -7,23 +7,30 @@
 
 import SwiftUI
 
-struct EditValueErrorScheme: View {
+struct EditValueErrorScheme<T: LosslessStringConvertible>: View {
     @Environment(\.colorScheme) var colorScheme
 
-    var myvalue: Binding<String>
+    var myvalue: Binding<T>
     var mywidth: CGFloat?
     var myprompt: Text?
     var myerror: Bool
 
     var body: some View {
-        TextField("", text: myvalue, prompt: myprompt)
+        TextField("", text: Binding(
+            get: { String(myvalue.wrappedValue) },
+            set: { newValue in
+                if let converted = T(newValue) {
+                    myvalue.wrappedValue = converted
+                }
+            }
+        ), prompt: myprompt)
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .frame(width: mywidth, alignment: .trailing)
             .lineLimit(1)
             .foregroundColor(color(error: myerror))
     }
 
-    init(_ width: CGFloat, _ str: String?, _ value: Binding<String>, _ error: Bool) {
+    init(_ width: CGFloat, _ str: String?, _ value: Binding<T>, _ error: Bool) {
         mywidth = width
         myvalue = value
         myprompt = Text(str ?? "")
