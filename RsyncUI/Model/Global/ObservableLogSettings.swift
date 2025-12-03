@@ -33,7 +33,7 @@ final class ObservableLogSettings {
     
     func verifyuint(_ value: String) -> Bool {
         if UInt64(value) != nil {
-            guard let uintvalue = UInt64(value), uintvalue > 10_000_000  else {
+            guard let uintvalue = UInt64(value), uintvalue > 5_000_000  else {
                 return false
             }
             return true
