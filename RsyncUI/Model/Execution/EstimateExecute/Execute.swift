@@ -198,7 +198,7 @@ extension Execute {
         } catch let e {
             let error = e
             SharedReference.shared.errorobject?.alert(error: error)
-            if let logData = (hiddenID ?? -1, "0") as? Typelogdata {
+            if let logData = (hiddenID ?? -1, "0,0,0") as? Typelogdata {
                 schedulerecords.append(logData)
             }
         }
