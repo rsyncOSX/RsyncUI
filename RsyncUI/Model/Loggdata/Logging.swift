@@ -97,33 +97,31 @@ final class Logging {
     // setCurrentDateonConfiguration(configrecords: [Typelogdata]).
     // Must set -1 to get correct num in log
     func addlogpermanentstore(schedulerecords: [Typelogdata]) {
-        if SharedReference.shared.addsummarylogrecord {
-            _ = schedulerecords.map { logdata in
-                let hiddenID = logdata.0
-                let stats = logdata.1
-                let currendate = Date()
-                let date = currendate.en_string_from_date()
-                if let config = getconfig(hiddenID: hiddenID) {
-                    let resultannotaded: String? = if config.task == SharedReference.shared.snapshot {
-                        if let snapshotnum = config.snapshotnum {
-                            "(" + String(snapshotnum - 1) + ") " + stats
-                        } else {
-                            "(" + "1" + ") " + stats
-                        }
+        _ = schedulerecords.map { logdata in
+            let hiddenID = logdata.0
+            let stats = logdata.1
+            let currendate = Date()
+            let date = currendate.en_string_from_date()
+            if let config = getconfig(hiddenID: hiddenID) {
+                let resultannotaded: String? = if config.task == SharedReference.shared.snapshot {
+                    if let snapshotnum = config.snapshotnum {
+                        "(" + String(snapshotnum - 1) + ") " + stats
                     } else {
-                        stats
+                        "(" + "1" + ") " + stats
                     }
-                    var inserted: Bool = addlogexisting(hiddenID: hiddenID,
-                                                        result: resultannotaded ?? "",
-                                                        date: date)
-                    // Record does not exist, create new LogRecord (not inserted)
-                    if inserted == false {
-                        inserted = addlognew(hiddenID: hiddenID, result: resultannotaded ?? "", date: date)
-                    }
+                } else {
+                    stats
+                }
+                var inserted: Bool = addlogexisting(hiddenID: hiddenID,
+                                                    result: resultannotaded ?? "",
+                                                    date: date)
+                // Record does not exist, create new LogRecord (not inserted)
+                if inserted == false {
+                    inserted = addlognew(hiddenID: hiddenID, result: resultannotaded ?? "", date: date)
                 }
             }
-            WriteLogRecordsJSON(localeprofile, logrecords)
         }
+        WriteLogRecordsJSON(localeprofile, logrecords)
     }
 
     // Extract numbers as Double values

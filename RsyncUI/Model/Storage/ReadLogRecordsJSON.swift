@@ -33,11 +33,16 @@ final class ReadLogRecordsJSON {
                 return validhiddenIDs.contains(item.hiddenID) ? item : nil
             }
 
+        } catch {
+            Logger.process.error("ReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading logrecords from permanent storage")
+        }
+        /*
         } catch let e {
             Logger.process.error("ReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading logrecords from permanent storage")
             let error = e
             path.propagateError(error: error)
         }
+         */
         return nil
     }
 
