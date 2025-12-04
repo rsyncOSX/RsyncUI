@@ -144,7 +144,6 @@ final class Logging {
     }
 
     // Caution, the snapshotnum is alrady increased in
-    // setCurrentDateonConfiguration(configrecords: [Typelogdata]).
     // Must set -1 to get correct num in log
     private func formatLogResult(stats: String, config: SynchronizeConfiguration) -> String {
         guard config.task == SharedReference.shared.snapshot else {
