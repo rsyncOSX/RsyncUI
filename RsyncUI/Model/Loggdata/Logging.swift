@@ -154,3 +154,40 @@ final class Logging {
         }
     }
 }
+
+/*
+ 
+ func addLogPermanentStore(scheduleRecords: [TypeLogData]) {
+     scheduleRecords.forEach { logData in
+         let hiddenID = logData.0
+         let stats = logData.1
+         let currentDate = Date()
+         let dateString = currentDate.en_string_from_date()
+         
+         guard let config = getConfig(hiddenID: hiddenID) else { return }
+         
+         let annotatedResult = formatLogResult(stats: stats, config: config)
+         
+         // Try updating existing record first, then create new if needed
+         let wasInserted = addLogExisting(hiddenID: hiddenID,
+                                          result: annotatedResult,
+                                          date: dateString)
+                        || addLogNew(hiddenID: hiddenID,
+                                    result: annotatedResult,
+                                    date: dateString)
+         
+         // Optional: Handle insertion failure if needed
+         // if !wasInserted { /* log error */ }
+     }
+     
+     WriteLogRecordsJSON(localeProfile, logRecords)
+ }
+
+ private func formatLogResult(stats: String, config: Config) -> String {
+     guard config.task == SharedReference.shared.snapshot else { return stats }
+     
+     let snapshotNumber = (config.snapshotNum ?? 1) - 1
+     return "(\(snapshotNumber)) \(stats)"
+ }
+ 
+ */
