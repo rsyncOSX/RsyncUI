@@ -12,7 +12,6 @@ import OSLog
 
 actor ActorReadSchedule {
     func readjsonfilecalendar(_ validprofiles: [String]) async -> [SchedulesConfigurations]? {
-        let reporterror = ReportError()
         var filename = ""
         let path = await Homepath()
         Logger.process.debugtthreadonly("ActorReadSchedule: readjsonfilecalendar()")
@@ -40,18 +39,19 @@ actor ActorReadSchedule {
                     }
                 }
             }
-            
+
         } catch {
             Logger.process.debugmessageonly("ActorReadSchedule - read Calendar from permanent storage \(filename) failed with error: some ERROR reading")
         }
 
         /*
-        } catch let e {
-            Logger.process.debugmessageonly("ActorReadSchedule - read Calendar from permanent storage \(filename) failed with error: some ERROR reading")
-            let error = e
-            await reporterror.propagateError(error: error)
-        }
-         */
+          I do not wish to receive that annoying message.
+         } catch let e {
+             Logger.process.debugmessageonly("ActorReadSchedule - read Calendar from permanent storage \(filename) failed with error: some ERROR reading")
+             let error = e
+             await reporterror.propagateError(error: error)
+         }
+          */
         return nil
     }
 }
