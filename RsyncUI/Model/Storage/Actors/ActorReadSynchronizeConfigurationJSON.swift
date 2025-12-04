@@ -92,11 +92,17 @@ actor ActorReadSynchronizeConfigurationJSON {
 
             return tasks
 
-        } catch let e {
+        } catch {
             Logger.process.error("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading synchronize configurations from permanent storage")
-            let error = e
-            await path.propagateError(error: error)
         }
+        /*
+          I do not wish to receive that annoying message.
+         } catch let e {
+             Logger.process.error("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading synchronize configurations from permanent storage")
+             let error = e
+             await path.propagateError(error: error)
+         }
+          */
         return nil
     }
 

@@ -58,7 +58,6 @@ struct Logsettings: View {
                         SharedReference.shared.hideverifyremotefunction = logsettings.hideverifyremotefunction
                         togglehideverifyremotefunction = logsettings.hideverifyremotefunction
                     }
-                
 
                 if SharedReference.shared.rsyncversion3 {
                     ToggleViewDefault(text: NSLocalizedString("Confirm execute", comment: ""), binding: $logsettings.confirmexecute)

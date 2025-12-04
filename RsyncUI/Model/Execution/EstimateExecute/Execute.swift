@@ -134,13 +134,12 @@ final class Execute {
          filehandler: @escaping (Int) -> Void,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
     {
-        
         structprofile = profile
         localconfigurations = configurations
         localprogressdetails = progressdetails
         localfilehandler = filehandler
         localupdateconfigurations = updateconfigurations
-        
+
         guard selecteduuids.count > 0 else { return }
         let taskstosynchronize = localconfigurations.filter {
             selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted
@@ -149,7 +148,6 @@ final class Execute {
         guard stackoftasks?.count ?? 0 > 0 else { return }
         Logger.process.debugmessageonly("Execute: START EXECUTION")
         startexecution()
-
     }
 
     @discardableResult
@@ -177,7 +175,6 @@ final class Execute {
 }
 
 extension Execute {
-
     private func processtermination(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
         guard setabort == false else { return }
         // Log records
@@ -187,11 +184,11 @@ extension Execute {
         // Prepareoutput prepares output from rsync for extracting the numbers only.
         // It removes all lines except the last 20 lines where summarized numbers are put
         let preparedoutputfromrsync = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
-        
+
         if SharedReference.shared.addsummarylogrecord {
             do {
                 let stats = try ParseRsyncOutput(preparedoutputfromrsync,
-                                                SharedReference.shared.rsyncversion3 ? .ver3 : .openrsync).getstats()
+                                                 SharedReference.shared.rsyncversion3 ? .ver3 : .openrsync).getstats()
                 if let logData = (hiddenID ?? -1, stats) as? Typelogdata {
                     schedulerecords.append(logData)
                 }
@@ -205,14 +202,14 @@ extension Execute {
                 Logger.process.debugmessageonly("Execute: getstats() FAILED")
             }
         }
-        
+
         guard stackoftasks?.count ?? 0 > 0 else {
             let update = Logging(profile: structprofile,
                                  configurations: localconfigurations)
             let updateconfigurations = update.setCurrentDateonConfiguration(configrecords: configrecords)
             // Send date stamped configurations back to caller
             localupdateconfigurations(updateconfigurations)
-            
+
             Logger.process.debugmessageonly("Execute: EXECUTION is completed")
             guard SharedReference.shared.addsummarylogrecord else { return }
             // Update logrecords
@@ -246,7 +243,7 @@ extension Execute {
                     localnoestprogressdetails?.appenduuidwithdatatosynchronize(config.id)
                 }
             }
-            
+
             guard stackoftasks?.count ?? 0 > 0 else {
                 let update = Logging(profile: structprofile,
                                      configurations: localconfigurations)

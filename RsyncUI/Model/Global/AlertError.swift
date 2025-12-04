@@ -16,7 +16,7 @@ final class AlertError {
     func alert(error: Error) {
         activeError = error
     }
-    
+
     func clearError() {
         activeError = nil
     }

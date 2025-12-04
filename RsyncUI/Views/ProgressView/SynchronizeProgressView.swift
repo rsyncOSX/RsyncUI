@@ -21,9 +21,8 @@ struct SynchronizeProgressView: View {
                         Color.gray.opacity(0.2),
                         lineWidth: 12
                     )
-                
+
                 if max > 0 {
-                
                     Circle()
                         .trim(from: 0, to: min(progress / max, 1.0))
                         .stroke(
@@ -40,7 +39,7 @@ struct SynchronizeProgressView: View {
                         .rotationEffect(.degrees(-90))
                         .animation(.spring(response: 0.6, dampingFraction: 0.8), value: progress)
                 }
-                
+
                 VStack(spacing: 4) {
                     Text("\(Int(progress))")
                         .font(.system(size: 36, weight: .bold, design: .rounded))
@@ -57,4 +56,3 @@ struct SynchronizeProgressView: View {
         .animation(.default, value: progress)
     }
 }
-

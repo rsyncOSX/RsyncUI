@@ -74,7 +74,6 @@ struct LogfileView: View {
             }
         }
     }
-
 }
 
 struct LogfileRecords: Identifiable {

@@ -104,11 +104,11 @@ extension ExecuteEstTasksView {
         if let adjustedselecteduuids {
             if let configurations = rsyncUIdata.configurations {
                 Execute(profile: rsyncUIdata.profile,
-                                configurations: configurations,
-                                selecteduuids: adjustedselecteduuids,
-                                progressdetails: progressdetails,
-                                filehandler: filehandler,
-                                updateconfigurations: updateconfigurations)
+                        configurations: configurations,
+                        selecteduuids: adjustedselecteduuids,
+                        progressdetails: progressdetails,
+                        filehandler: filehandler,
+                        updateconfigurations: updateconfigurations)
             }
         }
     }

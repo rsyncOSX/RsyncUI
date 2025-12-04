@@ -191,9 +191,9 @@ struct ExecutePushPullView: View {
 
     func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         showprogressview = false
-        
+
         if dryrun {
-            max = Double(stringoutputfromrsync?.count ?? 0 )
+            max = Double(stringoutputfromrsync?.count ?? 0)
         }
 
         if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {

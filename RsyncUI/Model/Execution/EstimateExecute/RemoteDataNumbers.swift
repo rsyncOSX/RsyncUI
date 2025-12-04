@@ -8,8 +8,8 @@
 // swiftlint:disable line_length
 
 import Foundation
-import ParseRsyncOutput
 import OSLog
+import ParseRsyncOutput
 
 @MainActor
 struct RemoteDataNumbers: Identifiable, Hashable {
@@ -49,7 +49,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var stats: String?
     // A reduced number of output
     var preparedoutputfromrsync: [String]?
-    
+
     init(stringoutputfromrsync: [String]?,
          config: SynchronizeConfiguration?)
     {
@@ -99,11 +99,11 @@ struct RemoteDataNumbers: Identifiable, Hashable {
                 totalnumbers = "0"
 
                 datatosynchronize = false
-                
+
                 Logger.process.debugmessageonly("RemoteDataNumbers: getstats() FAILED")
                 return
             }
-            
+
             filestransferred = parsersyncoutput.formatted_filestransferred
 
             filestransferred_Int = parsersyncoutput.numbersonly?.filestransferred ?? 0
@@ -132,8 +132,6 @@ struct RemoteDataNumbers: Identifiable, Hashable {
             }
         }
     }
-    
-    
 }
 
 // swiftlint:enable line_length

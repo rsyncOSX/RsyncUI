@@ -83,11 +83,11 @@ extension ExecuteNoEstTasksView {
         noestprogressdetails.startexecutealltasksnoestimation()
         if let configurations = rsyncUIdata.configurations {
             Execute(profile: rsyncUIdata.profile,
-                            configurations: configurations,
-                            selecteduuids: selecteduuids,
-                            noestprogressdetails: noestprogressdetails,
-                            filehandler: filehandler,
-                            updateconfigurations: updateconfigurations)
+                    configurations: configurations,
+                    selecteduuids: selecteduuids,
+                    noestprogressdetails: noestprogressdetails,
+                    filehandler: filehandler,
+                    updateconfigurations: updateconfigurations)
         }
     }
 

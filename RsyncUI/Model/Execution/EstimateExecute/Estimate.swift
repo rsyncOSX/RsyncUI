@@ -10,7 +10,6 @@ import OSLog
 import ParseRsyncOutput
 import RsyncProcess
 
-
 @MainActor
 final class Estimate {
     private var localconfigurations: [SynchronizeConfiguration]
@@ -18,7 +17,6 @@ final class Estimate {
 
     weak var localprogressdetails: ProgressDetails?
 
-    
     var stackoftasks: [Int]?
     var synchronizeIDwitherror: String = ""
 
@@ -65,7 +63,6 @@ final class Estimate {
         }
     }
 
-    
     // Used in Estimate
     private func validatetagging(_ lines: Int, _ tagged: Bool) throws {
         if lines > SharedReference.shared.alerttagginglines, tagged == false {
@@ -90,11 +87,10 @@ final class Estimate {
          selecteduuids: Set<UUID>,
          progressdetails: ProgressDetails?)
     {
-        
         structprofile = profile
         localconfigurations = configurations
         localprogressdetails = progressdetails
-        
+
         stackoftasks = computestackoftasks(selecteduuids)
         localprogressdetails?.setprofileandnumberofconfigurations(structprofile, stackoftasks?.count ?? 0)
         Logger.process.debugmessageonly("Estimate: START ESTIMATION")

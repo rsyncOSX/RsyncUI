@@ -37,12 +37,17 @@ actor ActorReadLogRecordsJSON {
                 let item = LogRecords(element)
                 return validhiddenIDs.contains(item.hiddenID) ? item : nil
             }
-
-        } catch let e {
+        } catch {
             Logger.process.error("ActorReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading logrecords from permanent storage")
-            let error = e
-            await path.propagateError(error: error)
         }
+        /*
+           I do not wish to receive that annoying message.
+         } catch let e {
+             Logger.process.error("ActorReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading logrecords from permanent storage")
+             let error = e
+             await path.propagateError(error: error)
+         }
+         */
         return nil
     }
 
