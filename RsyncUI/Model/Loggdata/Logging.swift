@@ -157,37 +157,54 @@ final class Logging {
 
 /*
  
- func addLogPermanentStore(scheduleRecords: [TypeLogData]) {
-     scheduleRecords.forEach { logData in
-         let hiddenID = logData.0
-         let stats = logData.1
-         let currentDate = Date()
-         let dateString = currentDate.en_string_from_date()
+ struct ScheduleLogData {
+     let hiddenID: String
+     let stats: String
+ }
+
+ enum LogError: Error {
+     case insertionFailed(ids: [String])
+ }
+
+ func addLogToPermanentStore(scheduleRecords: [ScheduleLogData]) throws {
+     let dateString = Date().en_string_from_date()
+     var failedInserts: [String] = []
+     
+     for record in scheduleRecords {
+         guard let config = getConfig(hiddenID: record.hiddenID) else {
+             failedInserts.append(record.hiddenID)
+             continue
+         }
          
-         guard let config = getConfig(hiddenID: hiddenID) else { return }
+         let result = formatLogResult(stats: record.stats, config: config)
          
-         let annotatedResult = formatLogResult(stats: stats, config: config)
+         let success = updateExistingLog(hiddenID: record.hiddenID, result: result, date: dateString)
+                    || createNewLog(hiddenID: record.hiddenID, result: result, date: dateString)
          
-         // Try updating existing record first, then create new if needed
-         let wasInserted = addLogExisting(hiddenID: hiddenID,
-                                          result: annotatedResult,
-                                          date: dateString)
-                        || addLogNew(hiddenID: hiddenID,
-                                    result: annotatedResult,
-                                    date: dateString)
-         
-         // Optional: Handle insertion failure if needed
-         // if !wasInserted { /* log error */ }
+         if !success {
+             failedInserts.append(record.hiddenID)
+         }
      }
      
-     WriteLogRecordsJSON(localeProfile, logRecords)
+     try persistLogs()
+     
+     if !failedInserts.isEmpty {
+         throw LogError.insertionFailed(ids: failedInserts)
+     }
  }
 
  private func formatLogResult(stats: String, config: Config) -> String {
-     guard config.task == SharedReference.shared.snapshot else { return stats }
+     guard config.task == SharedReference.shared.snapshot else {
+         return stats
+     }
      
-     let snapshotNumber = (config.snapshotNum ?? 1) - 1
+     let snapshotNumber = max((config.snapshotNum ?? 1) - 1, 1)
      return "(\(snapshotNumber)) \(stats)"
+ }
+
+ private func persistLogs() throws {
+     // Renamed and potentially throwing version
+     writeLogRecordsJSON(localeProfile, logRecords)
  }
  
  */
