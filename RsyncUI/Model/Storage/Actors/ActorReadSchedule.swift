@@ -40,13 +40,18 @@ actor ActorReadSchedule {
                     }
                 }
             }
+            
+        } catch {
+            Logger.process.debugmessageonly("ActorReadSchedule - read Calendar from permanent storage \(filename) failed with error: some ERROR reading")
+        }
 
+        /*
         } catch let e {
             Logger.process.debugmessageonly("ActorReadSchedule - read Calendar from permanent storage \(filename) failed with error: some ERROR reading")
             let error = e
             await reporterror.propagateError(error: error)
         }
-
+         */
         return nil
     }
 }
