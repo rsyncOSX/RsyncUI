@@ -21,10 +21,6 @@ struct Logsettings: View {
                 .font(.title3)
                 .fontWeight(.bold))
             {
-                ToggleViewDefault(text: NSLocalizedString("Monitor network", comment: ""), binding: $logsettings.monitornetworkconnection)
-                    .onChange(of: logsettings.monitornetworkconnection) {
-                        SharedReference.shared.monitornetworkconnection = logsettings.monitornetworkconnection
-                    }
                 ToggleViewDefault(text: NSLocalizedString("Check for error in output", comment: ""), binding: $logsettings.checkforerrorinrsyncoutput)
                     .onChange(of: logsettings.checkforerrorinrsyncoutput) {
                         SharedReference.shared.checkforerrorinrsyncoutput = logsettings.checkforerrorinrsyncoutput

@@ -12,14 +12,7 @@ import OSLog
 struct ReadAllTasks {
     func readallmarkedtasks(_ validprofiles: [ProfilesnamesRecord]) async -> [SynchronizeConfiguration] {
         var old: [SynchronizeConfiguration]?
-        // Important: we must temporarly disable monitor network connection
-        if SharedReference.shared.monitornetworkconnection {
-            SharedReference.shared.monitornetworkconnection = false
-        }
-
         let allprofiles = validprofiles.map(\.profilename)
-        let monitornetworkconnection = SharedReference.shared.monitornetworkconnection
-        let sshport = SharedReference.shared.sshport
         let rsyncversion3 = SharedReference.shared.rsyncversion3
 
         for i in 0 ..< allprofiles.count {
@@ -27,9 +20,7 @@ struct ReadAllTasks {
 
             async let configurations = ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profilename,
-                                                       rsyncversion3,
-                                                       monitornetworkconnection,
-                                                       sshport)
+                                                       rsyncversion3)
 
             let profileold = await configurations?.filter { element in
                 var seconds: Double {
@@ -81,11 +72,6 @@ struct ReadAllTasks {
     // Put profilename in Backup ID
     func readalltasks(_ validprofiles: [ProfilesnamesRecord]) async -> [SynchronizeConfiguration] {
         var allconfigurations: [SynchronizeConfiguration] = []
-        // Important: we must temporarly disable monitor network connection
-        if SharedReference.shared.monitornetworkconnection {
-            SharedReference.shared.monitornetworkconnection = false
-        }
-
         let allprofiles = validprofiles.map(\.profilename)
 
         for i in 0 ..< allprofiles.count {
@@ -93,9 +79,7 @@ struct ReadAllTasks {
 
             let configurations = await ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profilename,
-                                                       SharedReference.shared.rsyncversion3,
-                                                       SharedReference.shared.monitornetworkconnection,
-                                                       SharedReference.shared.sshport)
+                                                       SharedReference.shared.rsyncversion3)
 
             let adjustedconfigurations = configurations?.map { element in
                 var newelement = element

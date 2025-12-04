@@ -13,8 +13,6 @@ struct UserConfiguration: @MainActor Codable {
     var rsyncversion3: Int = -1
     // Detailed logging
     var addsummarylogrecord: Int = 1
-    // Montor network connection
-    var monitornetworkconnection: Int = -1
     // local path for rsync
     var localrsyncpath: String?
     // temporary path for restore
@@ -52,11 +50,6 @@ struct UserConfiguration: @MainActor Codable {
             SharedReference.shared.addsummarylogrecord = true
         } else {
             SharedReference.shared.addsummarylogrecord = false
-        }
-        if monitornetworkconnection == 1 {
-            SharedReference.shared.monitornetworkconnection = true
-        } else {
-            SharedReference.shared.monitornetworkconnection = false
         }
         if localrsyncpath != nil {
             SharedReference.shared.localrsyncpath = localrsyncpath
@@ -125,7 +118,6 @@ struct UserConfiguration: @MainActor Codable {
     init(_ data: DecodeUserConfiguration) {
         rsyncversion3 = data.rsyncversion3 ?? -1
         addsummarylogrecord = data.addsummarylogrecord ?? 1
-        monitornetworkconnection = data.monitornetworkconnection ?? -1
         localrsyncpath = data.localrsyncpath
         pathforrestore = data.pathforrestore
         marknumberofdayssince = data.marknumberofdayssince ?? "5"
@@ -156,11 +148,6 @@ struct UserConfiguration: @MainActor Codable {
             addsummarylogrecord = 1
         } else {
             addsummarylogrecord = -1
-        }
-        if SharedReference.shared.monitornetworkconnection {
-            monitornetworkconnection = 1
-        } else {
-            monitornetworkconnection = -1
         }
         if SharedReference.shared.localrsyncpath != nil {
             localrsyncpath = SharedReference.shared.localrsyncpath

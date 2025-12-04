@@ -11,49 +11,9 @@ import Foundation
 import OSLog
 
 actor ActorReadSynchronizeConfigurationJSON {
-    typealias TypeServerPort = (String, Int)
-
-    @concurrent
-    nonisolated func verifyremoteconnection(configurations: [SynchronizeConfiguration]?, sharedsshport: Int?) async {
-        let reporterror = ReportError()
-        var checkedserverandport = [TypeServerPort]()
-
-        if let networkscheck = configurations?.filter({ task in
-            task.offsiteServer.isEmpty == false
-        }) {
-            for i in 0 ..< networkscheck.count {
-                let config = networkscheck[i]
-
-                var sshport = 22
-                if let port = config.sshport, port != -1 {
-                    sshport = port
-                } else if let port = sharedsshport, port != -1 {
-                    sshport = port
-                }
-                do {
-                    let server = config.offsiteServer
-                    let itemforcheck = (server, sshport)
-                    if checkedserverandport.contains(where: { $0 == itemforcheck }) == false {
-                        checkedserverandport.append(itemforcheck)
-                        Logger.process.debugmessageonly("ActorReadSynchronizeConfigurationJSON: checking networkconnection server: \(server) port: \(sshport)")
-                        _ = try await TCPconnections().asyncverifyTCPconnection(config.offsiteServer, port: sshport)
-                    }
-
-                } catch let e {
-                    let server = config.offsiteServer
-                    Logger.process.debugmessageonly("ActorReadSynchronizeConfigurationJSON: some ERROR checking networkconnection server: \(server) port: \(sshport)")
-                    let error = e
-                    await reporterror.propagateError(error: error)
-                }
-            }
-        }
-    }
-
     @concurrent
     nonisolated func readjsonfilesynchronizeconfigurations(_ profile: String?,
-                                                           _ rsyncversion3: Bool,
-                                                           _ monitornetworkconnection: Bool,
-                                                           _ sharedsshport: Int?) async -> [SynchronizeConfiguration]?
+                                                           _ rsyncversion3: Bool) async -> [SynchronizeConfiguration]?
     {
         var filename = ""
         let path = await Homepath()
@@ -82,12 +42,6 @@ actor ActorReadSynchronizeConfigurationJSON {
                     return SynchronizeConfiguration(element)
                 }
                 return nil
-            }
-
-            if monitornetworkconnection {
-                Task {
-                    await self.verifyremoteconnection(configurations: tasks, sharedsshport: sharedsshport)
-                }
             }
 
             return tasks
@@ -119,3 +73,41 @@ struct ReportError {
 }
 
 // swiftlint:enable line_length
+
+/*
+ @concurrent
+ nonisolated func verifyremoteconnection(configurations: [SynchronizeConfiguration]?, sharedsshport: Int?) async {
+     let reporterror = ReportError()
+     var checkedserverandport = [(String, Int)]()
+
+     if let networkscheck = configurations?.filter({ task in
+         task.offsiteServer.isEmpty == false
+     }) {
+         for i in 0 ..< networkscheck.count {
+             let config = networkscheck[i]
+
+             var sshport = 22
+             if let port = config.sshport, port != -1 {
+                 sshport = port
+             } else if let port = sharedsshport, port != -1 {
+                 sshport = port
+             }
+             do {
+                 let server = config.offsiteServer
+                 let itemforcheck = (server, sshport)
+                 if checkedserverandport.contains(where: { $0 == itemforcheck }) == false {
+                     checkedserverandport.append(itemforcheck)
+                     Logger.process.debugmessageonly("ActorReadSynchronizeConfigurationJSON: checking networkconnection server: \(server) port: \(sshport)")
+                     _ = try await TCPconnections().asyncverifyTCPconnection(config.offsiteServer, port: sshport)
+                 }
+
+             } catch let e {
+                 let server = config.offsiteServer
+                 Logger.process.debugmessageonly("ActorReadSynchronizeConfigurationJSON: some ERROR checking networkconnection server: \(server) port: \(sshport)")
+                 let error = e
+                 await reporterror.propagateError(error: error)
+             }
+         }
+     }
+ }
+ */

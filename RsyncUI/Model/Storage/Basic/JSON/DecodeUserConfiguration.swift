@@ -11,8 +11,6 @@ struct DecodeUserConfiguration: Codable {
     let rsyncversion3: Int?
     // Detailed logging
     let addsummarylogrecord: Int?
-    // Monitor network connection
-    let monitornetworkconnection: Int?
     // local path for rsync
     let localrsyncpath: String?
     // temporary path for restore
@@ -42,7 +40,6 @@ struct DecodeUserConfiguration: Codable {
     enum CodingKeys: String, CodingKey {
         case rsyncversion3
         case addsummarylogrecord
-        case monitornetworkconnection
         case localrsyncpath
         case pathforrestore
         case marknumberofdayssince
@@ -63,7 +60,6 @@ struct DecodeUserConfiguration: Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         rsyncversion3 = try values.decodeIfPresent(Int.self, forKey: .rsyncversion3)
         addsummarylogrecord = try values.decodeIfPresent(Int.self, forKey: .addsummarylogrecord)
-        monitornetworkconnection = try values.decodeIfPresent(Int.self, forKey: .monitornetworkconnection)
         localrsyncpath = try values.decodeIfPresent(String.self, forKey: .localrsyncpath)
         pathforrestore = try values.decodeIfPresent(String.self, forKey: .pathforrestore)
         marknumberofdayssince = try values.decodeIfPresent(String.self, forKey: .marknumberofdayssince)

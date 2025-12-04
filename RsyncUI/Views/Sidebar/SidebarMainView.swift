@@ -425,9 +425,7 @@ extension SidebarMainView {
 
         rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
             .readjsonfilesynchronizeconfigurations(profile,
-                                                   SharedReference.shared.rsyncversion3,
-                                                   SharedReference.shared.monitornetworkconnection,
-                                                   SharedReference.shared.sshport)
+                                                   SharedReference.shared.rsyncversion3)
 
         if rsyncUIdata.configurations == nil {
             return false

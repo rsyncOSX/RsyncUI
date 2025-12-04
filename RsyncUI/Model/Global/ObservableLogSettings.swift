@@ -12,8 +12,6 @@ import Observation
 final class ObservableLogSettings {
     // Detailed logging
     var addsummarylogrecord: Bool = SharedReference.shared.addsummarylogrecord
-    // Check for network changes
-    var monitornetworkconnection: Bool = SharedReference.shared.monitornetworkconnection
     // Check for "error" in output from rsync
     var checkforerrorinrsyncoutput: Bool = SharedReference.shared.checkforerrorinrsyncoutput
     // Automatic execution of estimated tasks

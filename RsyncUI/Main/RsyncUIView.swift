@@ -71,9 +71,7 @@ struct RsyncUIView: View {
 
             rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profile,
-                                                       SharedReference.shared.rsyncversion3,
-                                                       SharedReference.shared.monitornetworkconnection,
-                                                       SharedReference.shared.sshport)
+                                                       SharedReference.shared.rsyncversion3)
         }
     }
 

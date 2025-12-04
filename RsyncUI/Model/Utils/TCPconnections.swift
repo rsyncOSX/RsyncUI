@@ -9,20 +9,6 @@
 import Foundation
 import OSLog
 
-enum Networkerror: LocalizedError {
-    case networkdropped
-    case noconnection
-
-    var errorDescription: String? {
-        switch self {
-        case .networkdropped:
-            "Network connection is dropped"
-        case .noconnection:
-            "No connection to server"
-        }
-    }
-}
-
 struct TCPconnections: Sendable {
     func verifyTCPconnection(_ host: String, port: Int, timeout: Int) -> Bool {
         let client = TCPClient(address: host, port: Int32(port))
@@ -33,17 +19,18 @@ struct TCPconnections: Sendable {
             return false
         }
     }
-
-    // Async Test for TCP connection
-    nonisolated func asyncverifyTCPconnection(_ host: String, port: Int) async throws {
-        let client = TCPClient(address: host, port: Int32(port))
-        Logger.process.debugtthreadonly("TCPconnections: asyncverifyTCPconnection()")
-        switch client.connect(timeout: 5) {
-        case .success:
-            return
-        default:
-            await InterruptProcess()
-            throw Networkerror.noconnection
-        }
-    }
 }
+
+/*
+ // Async Test for TCP connection
+ nonisolated func asyncverifyTCPconnection(_ host: String, port: Int) async throws {
+     let client = TCPClient(address: host, port: Int32(port))
+     Logger.process.debugtthreadonly("TCPconnections: asyncverifyTCPconnection()")
+     switch client.connect(timeout: 5) {
+     case .success:
+         return
+     default:
+         await InterruptProcess()
+     }
+ }
+ */

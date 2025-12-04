@@ -43,8 +43,6 @@ final class SharedReference {
     @ObservationIgnored var sshkeypathandidentityfile: String?
     // Check for error in output from rsync
     @ObservationIgnored var checkforerrorinrsyncoutput: Bool = false
-    // Check for network changes
-    @ObservationIgnored var monitornetworkconnection: Bool = false
     // Confirm execution
     // A safety rule
     @ObservationIgnored var confirmexecute: Bool = false
