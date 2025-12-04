@@ -77,11 +77,13 @@ struct RemoteDataNumbers: Identifiable, Hashable {
                 stats = try parsersyncoutput.getstats()
                 Logger.process.debugmessageonly("RemoteDataNumbers: getstats() SUCCESS")
             } catch let e {
-                let error = e
-                SharedReference.shared.errorobject?.alert(error: error)
+                if SharedReference.shared.silencemissingstats == false {
+                    let error = e
+                    SharedReference.shared.errorobject?.alert(error: error)
+                }
                 // Break this loop, the numbers below make no sense if stats is missing
                 stats = "0 files : 0.00 MB in 0.00 seconds"
-                filestransferred = "NO stats"
+                filestransferred = "No stats"
                 filestransferred_Int = 0
                 totaldirectories_Int = 0
                 newfiles_Int = 0

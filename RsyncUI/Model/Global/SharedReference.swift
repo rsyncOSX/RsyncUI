@@ -52,6 +52,8 @@ final class SharedReference {
     @ObservationIgnored var newversion: Bool = false
     // Synchronize without timedelay URL-actions
     @ObservationIgnored var synchronizewithouttimedelay: Bool = false
+    // Silence missing stats
+    @ObservationIgnored var silencemissingstats: Bool = true
     // rsync command
     let rsync: String = "rsync"
     let usrbin: String = "/usr/bin"

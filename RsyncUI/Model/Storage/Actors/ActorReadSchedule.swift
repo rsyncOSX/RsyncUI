@@ -12,7 +12,6 @@ import OSLog
 
 actor ActorReadSchedule {
     func readjsonfilecalendar(_ validprofiles: [String]) async -> [SchedulesConfigurations]? {
-        let reporterror = ReportError()
         var filename = ""
         let path = await Homepath()
         Logger.process.debugtthreadonly("ActorReadSchedule: readjsonfilecalendar()")
