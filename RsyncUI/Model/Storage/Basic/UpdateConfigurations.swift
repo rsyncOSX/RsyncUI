@@ -64,7 +64,7 @@ final class UpdateConfigurations {
     func deleteconfigurations(_ uuids: Set<UUID>) {
         var indexset = IndexSet()
         if let configurations {
-            _ = configurations.map { configuration in
+            for configuration in configurations {
                 if let index = configurations.firstIndex(of: configuration) {
                     if uuids.contains(configuration.id) {
                         indexset.insert(index)

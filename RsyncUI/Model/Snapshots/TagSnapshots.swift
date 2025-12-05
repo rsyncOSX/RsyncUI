@@ -17,7 +17,7 @@ final class TagSnapshots {
     private func markfordelete() {
         if var index = logrecordssnapshot?.count, let logrecordssnapshot {
             index -= 1
-            _ = logrecordssnapshot.map { _ in
+            for _ in logrecordssnapshot {
                 index -= 1
                 guard index >= 0 else { return }
                 if currentweek(index: index) {

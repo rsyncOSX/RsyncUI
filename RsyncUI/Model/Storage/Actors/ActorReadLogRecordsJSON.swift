@@ -59,7 +59,7 @@ actor ActorReadLogRecordsJSON {
             // if validhiddenID, merge logrecords for a specific task
             if hiddenID == -1 {
                 var merged = [Log]()
-                _ = logrecords.map { logrecord in
+                for logrecord in logrecords {
                     if let logrecords = logrecord.logrecords {
                         merged += [logrecords].flatMap(\.self)
                     }
@@ -84,7 +84,7 @@ actor ActorReadLogRecordsJSON {
         if let logrecords {
             if hiddenID == -1 {
                 var merged = [Log]()
-                _ = logrecords.map { logrecord in
+                for logrecord in logrecords {
                     if let logrecords = logrecord.logrecords {
                         merged += [logrecords].flatMap(\.self)
                     }
