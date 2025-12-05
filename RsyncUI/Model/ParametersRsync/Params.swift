@@ -11,8 +11,7 @@ import RsyncArguments
 @MainActor
 struct Params {
     func params(
-        config: SynchronizeConfiguration) -> Parameters
-    {
+        config: SynchronizeConfiguration) -> Parameters {
         var rsyncdaemon = false
         if config.rsyncdaemon == 1 { rsyncdaemon = true }
         return Parameters(

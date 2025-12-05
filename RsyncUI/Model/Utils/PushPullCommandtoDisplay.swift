@@ -24,8 +24,7 @@ struct PushPullCommandtoDisplay {
     init(display: PushPullCommand,
          config: SynchronizeConfiguration,
          dryRun: Bool,
-         keepdelete: Bool)
-    {
+         keepdelete: Bool) {
         var str = ""
         switch display {
         case .pull_remote:

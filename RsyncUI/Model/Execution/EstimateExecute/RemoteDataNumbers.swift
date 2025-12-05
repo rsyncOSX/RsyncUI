@@ -50,8 +50,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var preparedoutputfromrsync: [String]?
 
     init(stringoutputfromrsync: [String]?,
-         config: SynchronizeConfiguration?)
-    {
+         config: SynchronizeConfiguration?) {
         hiddenID = config?.hiddenID ?? -1
         task = config?.task ?? ""
         localCatalog = config?.localCatalog ?? ""
@@ -127,8 +126,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
 
             if SharedReference.shared.rsyncversion3,
                filestransferred_Int + totaldirectories_Int == newfiles_Int,
-               datatosynchronize
-            {
+               datatosynchronize {
                 confirmexecute = true
             }
         }

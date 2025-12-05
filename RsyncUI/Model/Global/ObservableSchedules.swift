@@ -100,8 +100,7 @@ final class ObservableSchedules {
         // Request the last day of that month
         components.day = 0 // Setting day to 0 gives the last day of the previous month
         if let lastDayOfNextMonth = calendar.date(byAdding: .month, value: 1,
-                                                  to: calendar.date(from: components)!)
-        {
+                                                  to: calendar.date(from: components)!) {
             return lastDayOfNextMonth
         } else {
             return nil
@@ -134,8 +133,7 @@ final class ObservableSchedules {
 
         for i in 0 ..< recomputedschedules.count {
             if let schedule = recomputedschedules[i].scheduledata?.schedule,
-               let dateRun = recomputedschedules[i].scheduledata?.dateRun?.validate_en_date_from_string()
-            {
+               let dateRun = recomputedschedules[i].scheduledata?.dateRun?.validate_en_date_from_string() {
                 computefuturedates(profile: recomputedschedules[i].scheduledata?.profile, schedule: schedule, dateRun: dateRun)
             }
         }
@@ -168,8 +166,7 @@ final class ObservableSchedules {
     func appendschdeuldatafromfile(_ schedules: [SchedulesConfigurations]) {
         for i in 0 ..< schedules.count {
             if let schedule = schedules[i].schedule,
-               let dateRun = schedules[i].dateRun?.validate_en_date_from_string()
-            {
+               let dateRun = schedules[i].dateRun?.validate_en_date_from_string() {
                 computefuturedates(profile: schedules[i].profile, schedule: schedule, dateRun: dateRun)
             }
         }
@@ -181,8 +178,7 @@ final class ObservableSchedules {
     func verifynextschedule(plannednextschedule: String) -> Bool {
         let dates = globaltimer.allSchedules.sorted { s1, s2 in
             if let id1 = s1.scheduledata?.dateRun?.en_date_from_string(),
-               let id2 = s2.scheduledata?.dateRun?.en_date_from_string()
-            {
+               let id2 = s2.scheduledata?.dateRun?.en_date_from_string() {
                 return id1 < id2
             }
             return false
@@ -201,8 +197,7 @@ final class ObservableSchedules {
 
                 // Case 2: plannednextschedule is between (firstscheduledate - 10 min) and > now
                 if plannedDate <= firstscheduledate.addingTimeInterval(-10 * 60),
-                   plannedDate > Date.now
-                {
+                   plannedDate > Date.now {
                     return true
                 }
 

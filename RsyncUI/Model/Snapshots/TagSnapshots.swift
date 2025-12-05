@@ -31,8 +31,7 @@ final class TagSnapshots {
             if datecomponentsfromdate(localizeddate: datesnapshot).weekOfYear ==
                 datecomponentsfromdate(localizeddate: Date()).weekOfYear,
                 datecomponentsfromdate(localizeddate: datesnapshot).year ==
-                datecomponentsfromdate(localizeddate: Date()).year
-            {
+                datecomponentsfromdate(localizeddate: Date()).year {
                 if logrecordssnapshot?[index].resultExecuted != "no record" {
                     logrecordssnapshot?[index].period = "Keep" + " " + "this week"
                 }
@@ -84,8 +83,7 @@ final class TagSnapshots {
             if let year = datecomponentsfromdate(localizeddate: datesnapshot).year,
                let month = datecomponentsfromdate(localizeddate: datesnapshot).month,
                let monthToday = datecomponentsfromdate(localizeddate: Date()).month,
-               let yearToday = datecomponentsfromdate(localizeddate: Date()).year
-            {
+               let yearToday = datecomponentsfromdate(localizeddate: Date()).year {
                 if month != monthToday || year < yearToday {
                     if verifydaytokeepinmonth(datesnapshot) == true {
                         if month == monthToday - 1 {
@@ -153,8 +151,7 @@ final class TagSnapshots {
 
     init(plan: Int,
          snapdayoffweek: String,
-         data: [LogRecordSnapshot]?)
-    {
+         data: [LogRecordSnapshot]?) {
         // which plan to apply
         if plan == 1 {
             keepallselcteddayofweek = true

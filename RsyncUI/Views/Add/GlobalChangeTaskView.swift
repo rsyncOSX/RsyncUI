@@ -66,8 +66,7 @@ struct GlobalChangeTaskView: View {
                     newdata.updateglobalchangedconfigurations()
                     // any snapshotstasks
                     if let snapshotstask = newdata.notchangedsnapshotconfigurations,
-                       let globalupdate = newdata.globalchangedconfigurations
-                    {
+                       let globalupdate = newdata.globalchangedconfigurations {
                         rsyncUIdata.configurations = globalupdate + snapshotstask
                     } else {
                         rsyncUIdata.configurations = newdata.globalchangedconfigurations

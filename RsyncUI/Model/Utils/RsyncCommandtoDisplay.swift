@@ -22,8 +22,7 @@ struct RsyncCommandtoDisplay {
     var rsynccommand: String
 
     init(display: RsyncCommand,
-         config: SynchronizeConfiguration)
-    {
+         config: SynchronizeConfiguration) {
         var str = ""
         switch display {
         case .synchronize_data:

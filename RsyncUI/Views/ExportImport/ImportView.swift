@@ -122,8 +122,7 @@ struct ImportView: View {
                                           filenameimport = url.relativePath
                                           guard filenameimport.isEmpty == false else { return }
                                           if let importconfigurations = ReadImportConfigurationsJSON(filenameimport,
-                                                                                                     maxhiddenId: maxhiddenID).importconfigurations
-                                          {
+                                                                                                     maxhiddenId: maxhiddenID).importconfigurations {
                                               configurations = importconfigurations
                                           }
                                       case let .failure(error):

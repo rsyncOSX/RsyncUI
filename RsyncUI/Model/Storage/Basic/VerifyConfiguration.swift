@@ -55,8 +55,7 @@ struct AppendTask {
          _ trailingslashoptions: TrailingSlash,
          _ offsiteUsername: String?,
          _ offsiteServer: String?,
-         _ backupID: String?)
-    {
+         _ backupID: String?) {
         newtask = task
         newlocalCatalog = localCatalog
         newoffsiteCatalog = offsiteCatalog
@@ -74,8 +73,7 @@ struct AppendTask {
          _ offsiteServer: String?,
          _ backupID: String?,
          _ updatedhiddenID: Int,
-         _ updatesnapshotnum: Int?)
-    {
+         _ updatesnapshotnum: Int?) {
         newtask = task
         newlocalCatalog = localCatalog
         newoffsiteCatalog = offsiteCatalog

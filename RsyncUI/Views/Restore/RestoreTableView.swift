@@ -63,8 +63,7 @@ struct RestoreTableView: View {
                                     restore.restorefilelist.removeAll()
                                 }
                                 .overlay { if filterstring.count > 0,
-                                              restore.restorefilelist.count == 0
-                                    {
+                                              restore.restorefilelist.count == 0 {
                                         ContentUnavailableView.search
                                     }
                                 }
@@ -130,8 +129,7 @@ struct RestoreTableView: View {
             if restore.selectedconfig?.task != SharedReference.shared.syncremote,
                restore.selectedconfig?.task != SharedReference.shared.halted,
                restore.selectedconfig?.offsiteServer.isEmpty == false,
-               restore.restorefilelist.count == 0
-            {
+               restore.restorefilelist.count == 0 {
                 Button {
                     getlistoffilesforrestore()
                 } label: {
@@ -150,8 +148,7 @@ struct RestoreTableView: View {
         ToolbarItem {
             if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
                restore.restorefilelist.count > 0,
-               restore.filestorestore.isEmpty == false
-            {
+               restore.filestorestore.isEmpty == false {
                 Button {
                     executerestore()
                 } label: {
@@ -165,8 +162,7 @@ struct RestoreTableView: View {
         ToolbarItem {
             if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
                restore.restorefilelist.count > 0,
-               restore.filestorestore.isEmpty == false
-            {
+               restore.filestorestore.isEmpty == false {
                 Button {
                     guard SharedReference.shared.process == nil else { return }
                     guard restore.selectedconfig != nil else { return }

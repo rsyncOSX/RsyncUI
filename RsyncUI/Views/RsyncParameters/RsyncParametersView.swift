@@ -54,8 +54,7 @@ struct RsyncParametersView: View {
 
                     Section(header: Text("Parameters for rsync, select task to add")
                         .font(.title3)
-                        .fontWeight(.bold))
-                    {
+                        .fontWeight(.bold)) {
                         // .foregroundColor(.blue)) {
                         EditRsyncParameter(400, $parameters.parameter8)
                             .onChange(of: parameters.parameter8) {
@@ -110,8 +109,7 @@ struct RsyncParametersView: View {
 
                     Section(header: Text("Backup switch & Show rsync command")
                         .font(.title3)
-                        .fontWeight(.bold))
-                    {
+                        .fontWeight(.bold)) {
                         HStack {
                             Toggle("", isOn: $backup)
                                 .toggleStyle(.switch)
@@ -138,8 +136,7 @@ struct RsyncParametersView: View {
                     Section(header: Text("Add --delete parameter")
                         .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
                         .fontWeight(.bold)
-                        .font(.title3))
-                    {
+                        .font(.title3)) {
                         Toggle("", isOn: $parameters.adddelete)
                             .toggleStyle(.switch)
                             .onChange(of: parameters.adddelete) {
@@ -304,8 +301,7 @@ struct RsyncParametersView: View {
             parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
             parameters.adddelete == (selectedconfig.parameter4.isEmpty == true) ||
             // parameters.sshport != String(selectedconfig.sshport ?? -1) ||
-            parameters.sshkeypathandidentityfile != (selectedconfig.sshkeypathandidentityfile ?? "")
-        {
+            parameters.sshkeypathandidentityfile != (selectedconfig.sshkeypathandidentityfile ?? "") {
             return true
         }
         return false
@@ -320,8 +316,7 @@ struct RsyncParametersView: View {
 extension RsyncParametersView {
     func saversyncparameters() {
         if let updatedconfiguration = parameters.updatersyncparameters(),
-           let configurations = rsyncUIdata.configurations
-        {
+           let configurations = rsyncUIdata.configurations {
             let updateconfigurations =
                 UpdateConfigurations(profile: rsyncUIdata.profile,
                                      configurations: configurations)

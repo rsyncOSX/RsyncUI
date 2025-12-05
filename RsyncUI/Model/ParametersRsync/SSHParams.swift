@@ -11,8 +11,7 @@ import RsyncArguments
 @MainActor
 struct SSHParams {
     func sshparams(
-        config: SynchronizeConfiguration) -> SSHParameters
-    {
+        config: SynchronizeConfiguration) -> SSHParameters {
         SSHParameters(
             offsiteServer: config.offsiteServer,
             offsiteUsername: config.offsiteUsername,

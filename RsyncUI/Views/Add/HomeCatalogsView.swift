@@ -24,8 +24,7 @@ struct HomeCatalogsView: View {
         Form {
             Section(header: Text("Step one")
                 .font(.title3)
-                .fontWeight(.bold))
-            {
+                .fontWeight(.bold)) {
                 Picker("Select a Folder in home directory", selection: $selectedhomecatalog) {
                     Text("Select")
                         .tag(nil as Catalog.ID?)
@@ -39,8 +38,7 @@ struct HomeCatalogsView: View {
 
             Section(header: Text("Step two and three")
                 .font(.title3)
-                .fontWeight(.bold))
-            {
+                .fontWeight(.bold)) {
                 Picker("Select an Attached Volume", selection: $selectedAttachedVolume) {
                     Text("Select")
                         .tag(nil as AttachedVolume.ID?)
@@ -65,8 +63,7 @@ struct HomeCatalogsView: View {
 
             Section(header: Text("Step four")
                 .font(.title3)
-                .fontWeight(.bold))
-            {
+                .fontWeight(.bold)) {
                 ConditionalGlassButton(
                     systemImage: "return",
                     text: "Return",
@@ -104,8 +101,7 @@ struct HomeCatalogsView: View {
                 do {
                     for filesandfolders in try
                         fm.contentsOfDirectory(at: atpathURL, includingPropertiesForKeys: nil)
-                        where filesandfolders.hasDirectoryPath
-                    {
+                        where filesandfolders.hasDirectoryPath {
                         catalogs.append(filesandfolders.lastPathComponent)
                     }
                     return catalogs

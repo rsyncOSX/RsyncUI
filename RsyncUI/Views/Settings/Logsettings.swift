@@ -18,8 +18,7 @@ struct Logsettings: View {
         Form {
             Section(header: Text("Log settings")
                 .font(.title3)
-                .fontWeight(.bold))
-            {
+                .fontWeight(.bold)) {
                 ToggleViewDefault(text: NSLocalizedString("Check for error in output", comment: ""), binding: $logsettings.checkforerrorinrsyncoutput)
                     .onChange(of: logsettings.checkforerrorinrsyncoutput) {
                         SharedReference.shared.checkforerrorinrsyncoutput = logsettings.checkforerrorinrsyncoutput
@@ -72,8 +71,7 @@ struct Logsettings: View {
 
             Section(header: Text("Save userconfiguration")
                 .font(.title3)
-                .fontWeight(.bold))
-            {
+                .fontWeight(.bold)) {
                 ConditionalGlassButton(
                     systemImage: "square.and.arrow.down",
                     text: "Save",

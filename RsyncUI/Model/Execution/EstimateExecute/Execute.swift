@@ -60,8 +60,7 @@ final class Execute {
             localprogressdetails?.hiddenIDatwork = localhiddenID
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
-                                                                                             forDisplay: false)
-                {
+                                                                                             forDisplay: false) {
                     let process = RsyncProcess(arguments: arguments,
                                                hiddenID: config.hiddenID,
                                                handlers: handlers,
@@ -92,8 +91,7 @@ final class Execute {
         if let localhiddenID = stackoftasks?.removeFirst() {
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
-                                                                                             forDisplay: false)
-                {
+                                                                                             forDisplay: false) {
                     // Must check valid rsync exists
                     guard SharedReference.shared.norsync == false else { return }
                     guard config.task != SharedReference.shared.halted else { return }
@@ -131,8 +129,7 @@ final class Execute {
          selecteduuids: Set<UUID>,
          progressdetails: ProgressDetails?,
          filehandler: @escaping (Int) -> Void,
-         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
-    {
+         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void) {
         structprofile = profile
         localconfigurations = configurations
         localprogressdetails = progressdetails
@@ -155,8 +152,7 @@ final class Execute {
          selecteduuids: Set<UUID>,
          noestprogressdetails: NoEstProgressDetails?,
          filehandler: @escaping (Int) -> Void,
-         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void)
-    {
+         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void) {
         structprofile = profile
         localconfigurations = configurations
         localnoestprogressdetails = noestprogressdetails

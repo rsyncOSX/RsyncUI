@@ -12,8 +12,7 @@ import OSLog
 actor ActorReadLogRecordsJSON {
     @concurrent
     nonisolated func readjsonfilelogrecords(_ profile: String?,
-                                            _ validhiddenIDs: Set<Int>) async -> [LogRecords]?
-    {
+                                            _ validhiddenIDs: Set<Int>) async -> [LogRecords]? {
         let path = await Homepath()
         var filename = ""
         Logger.process.debugtthreadonly("ActorReadLogRecordsJSON: readjsonfilelogrecords()")
@@ -68,8 +67,7 @@ actor ActorReadLogRecordsJSON {
                 return merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
             } else {
                 if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }),
-                   let logrecords = logrecords[index].logrecords
-                {
+                   let logrecords = logrecords[index].logrecords {
                     return logrecords.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
                 }
             }
@@ -94,8 +92,7 @@ actor ActorReadLogRecordsJSON {
                 }
             } else {
                 if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }),
-                   let logrecords = logrecords[index].logrecords
-                {
+                   let logrecords = logrecords[index].logrecords {
                     let records = logrecords.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
                     return records.filter { ($0.dateExecuted?.en_date_from_string().long_localized_string_from_date().contains(filterstring)) ?? false || ($0.resultExecuted?.contains(filterstring) ?? false)
                     }
@@ -109,8 +106,7 @@ actor ActorReadLogRecordsJSON {
     func deletelogs(_ uuids: Set<UUID>,
                     logrecords: [LogRecords]?,
                     profile _: String?,
-                    validhiddenIDs _: Set<Int>) async -> [LogRecords]?
-    {
+                    validhiddenIDs _: Set<Int>) async -> [LogRecords]? {
         var records = logrecords
 
         Logger.process.debugtthreadonly("ActorReadLogRecordsJSON: deletelogs()")

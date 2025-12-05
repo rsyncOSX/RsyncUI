@@ -66,8 +66,7 @@ struct VerifyTasks: View {
             }
             .toolbar(content: {
                 if selectedconfig != nil,
-                   selectedconfig?.task != SharedReference.shared.halted
-                {
+                   selectedconfig?.task != SharedReference.shared.halted {
                     ToolbarItem {
                         Button {
                             if let selectedconfig {
@@ -82,8 +81,7 @@ struct VerifyTasks: View {
                 }
 
                 if selectedconfig != nil,
-                   selectedconfig?.task != SharedReference.shared.halted
-                {
+                   selectedconfig?.task != SharedReference.shared.halted {
                     ToolbarItem {
                         Button {
                             abort()

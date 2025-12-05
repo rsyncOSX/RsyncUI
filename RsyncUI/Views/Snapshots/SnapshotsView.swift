@@ -128,8 +128,7 @@ struct SnapshotsView: View {
                     .help("Delete not used log records")
                     .confirmationDialog(snapshotdata.notmappedloguuids?.count ?? 0 == 1 ? "Delete 1 log" :
                         "Delete \(snapshotdata.notmappedloguuids?.count ?? 0) logs",
-                        isPresented: $isPresentingConfirm)
-                    {
+                        isPresented: $isPresentingConfirm) {
                         Button("Delete", role: .destructive) {
                             deletelogs(snapshotdata.notmappedloguuids)
                         }
@@ -184,8 +183,7 @@ struct SnapshotsView: View {
 
     var pickersnapdayoffweek: some View {
         Picker("",
-               selection: $snapdayofweek)
-        {
+               selection: $snapdayofweek) {
             ForEach(StringDayofweek.allCases) { Text($0.description)
                 .tag($0)
             }
@@ -196,8 +194,7 @@ struct SnapshotsView: View {
 
     var pickersnaplast: some View {
         Picker("",
-               selection: $snaplast)
-        {
+               selection: $snaplast) {
             ForEach(PlanSnapshots.allCases) { Text($0.description)
                 .tag($0)
             }
@@ -344,8 +341,7 @@ extension SnapshotsView {
             for i in 0 ..< records.count {
                 for j in 0 ..< uuids.count {
                     if let index = records[i].logrecords?.firstIndex(
-                        where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: j)] })
-                    {
+                        where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: j)] }) {
                         indexset.insert(index)
                     }
                 }

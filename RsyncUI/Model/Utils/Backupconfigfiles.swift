@@ -18,8 +18,7 @@ final class Backupconfigfiles {
     func backup() {
         let fm = FileManager.default
         if let backuppath,
-           let fullpathnomacserial
-        {
+           let fullpathnomacserial {
             let fullpathnomacserialURL = URL(fileURLWithPath: fullpathnomacserial)
             let targetpath = "RsyncUIcopy-" + Date().shortlocalized_string_from_date()
             let documentsURL = URL(fileURLWithPath: backuppath)

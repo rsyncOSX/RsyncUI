@@ -77,8 +77,7 @@ struct LogsbyConfigurationView: View {
                 }
                 .confirmationDialog(selectedloguuids.count == 1 ? "Delete 1 log" :
                     "Delete \(selectedloguuids.count) logs",
-                    isPresented: $confirmdelete)
-                {
+                    isPresented: $confirmdelete) {
                     Button("Delete", role: .destructive) {
                         Task {
                             await deletelogs(selectedloguuids)

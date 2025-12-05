@@ -63,8 +63,7 @@ final class DeleteSnapshots {
 
     init(config: SynchronizeConfiguration,
          snapshotdata: ObservableSnapshotData,
-         logrecordssnapshot: [LogRecordSnapshot]?)
-    {
+         logrecordssnapshot: [LogRecordSnapshot]?) {
         guard config.task == SharedReference.shared.snapshot else { return }
         localeconfig = config
         mysnapshotdata = snapshotdata

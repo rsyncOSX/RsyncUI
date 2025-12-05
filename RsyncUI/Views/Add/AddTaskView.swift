@@ -107,8 +107,7 @@ struct AddTaskView: View {
 
                     Section(header: Text("Show save URL")
                         .font(.title3)
-                        .fontWeight(.bold))
-                    {
+                        .fontWeight(.bold)) {
                         HStack {
                             Toggle("", isOn: $newdata.showsaveurls)
                                 .toggleStyle(.switch)
@@ -202,8 +201,7 @@ struct AddTaskView: View {
                         }
                         .confirmationDialog(newdata.copyandpasteconfigurations?.count ?? 0 == 1 ? "Copy 1 configuration" :
                             "Copy \(newdata.copyandpasteconfigurations?.count ?? 0) configurations",
-                            isPresented: $confirmcopyandpaste)
-                        {
+                            isPresented: $confirmcopyandpaste) {
                             Button("Copy") {
                                 confirmcopyandpaste = false
                                 rsyncUIdata.configurations =
@@ -527,8 +525,7 @@ struct AddTaskView: View {
 
     var trailingslash: some View {
         Picker(NSLocalizedString("Trailing /", comment: ""),
-               selection: $newdata.trailingslashoptions)
-        {
+               selection: $newdata.trailingslashoptions) {
             ForEach(TrailingSlash.allCases) { Text($0.description)
                 .tag($0)
             }
@@ -557,8 +554,7 @@ struct AddTaskView: View {
 
     var pickerselecttypeoftask: some View {
         Picker(NSLocalizedString("Action", comment: ""),
-               selection: $newdata.selectedrsynccommand)
-        {
+               selection: $newdata.selectedrsynccommand) {
             ForEach(TypeofTask.allCases) { Text($0.description)
                 .tag($0)
             }

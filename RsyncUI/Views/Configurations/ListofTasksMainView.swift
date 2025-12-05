@@ -30,8 +30,7 @@ struct ListofTasksMainView: View {
                                         max: max)
             .overlay {
                 if (rsyncUIdata.configurations ?? []).filter(
-                    { filterstring.isEmpty ? true : $0.backupID.contains(filterstring) }).isEmpty
-                {
+                    { filterstring.isEmpty ? true : $0.backupID.contains(filterstring) }).isEmpty {
                     ContentUnavailableView {
                         Label("There are no tasks by this Synchronize ID", systemImage: "doc.richtext.fill")
                     } description: {
@@ -42,8 +41,7 @@ struct ListofTasksMainView: View {
             .searchable(text: $filterstring)
             .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 configuration" :
                 "Delete \(selecteduuids.count) configurations",
-                isPresented: $confirmdelete)
-            {
+                isPresented: $confirmdelete) {
                 Button("Delete") {
                     delete()
                     confirmdelete = false

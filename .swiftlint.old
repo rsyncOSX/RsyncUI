@@ -1,10 +1,9 @@
 disabled_rules: # rule identifiers to exclude from running
-  - line_length
-  - file_length
-  - type_body_length
-  - force_cast
   - identifier_name
-  - cyclomatic_complexity
+  - opening_brace
+  - line_length
+  - non_optional_string_data_conversion
+  - cyclomatic_complexity 
   - function_body_length
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - SourcePackages/*

@@ -51,8 +51,7 @@ struct SnapshotListView: View {
         }
         .confirmationDialog(snapshotdata.snapshotuuidsfordelete.count == 1 ? "Delete 1 snapshot" :
             "Delete \(snapshotdata.snapshotuuidsfordelete.count) snapshots",
-            isPresented: $confirmdelete)
-        {
+            isPresented: $confirmdelete) {
             Button("Delete") {
                 delete()
                 confirmdelete = false
@@ -65,8 +64,7 @@ struct SnapshotListView: View {
             if logrecords.count == 0,
                selectedconfig != nil,
                selectedconfig?.task == SharedReference.shared.snapshot,
-               snapshotdata.snapshotlist == false
-            {
+               snapshotdata.snapshotlist == false {
                 ContentUnavailableView {
                     Label("There are no snapshot records by this search string in Date or Tag",
                           systemImage: "doc.richtext.fill")

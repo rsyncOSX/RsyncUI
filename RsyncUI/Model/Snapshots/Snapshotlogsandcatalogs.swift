@@ -98,8 +98,7 @@ final class Snapshotlogsandcatalogs {
 
     init(config: SynchronizeConfiguration,
          logrecords: [LogRecords],
-         snapshotdata: ObservableSnapshotData)
-    {
+         snapshotdata: ObservableSnapshotData) {
         self.config = config
         self.logrecords = logrecords
         guard config.task == SharedReference.shared.snapshot else { return }

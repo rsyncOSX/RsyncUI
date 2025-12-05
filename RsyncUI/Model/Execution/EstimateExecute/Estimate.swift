@@ -38,8 +38,7 @@ final class Estimate {
         if let localhiddenID = stackoftasks?.removeFirst() {
             if let config = getconfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
-                                                                                             forDisplay: false)
-                {
+                                                                                             forDisplay: false) {
                     // Used to display details of configuration in estimation
                     localprogressdetails?.configurationtobestimated = config.id
 
@@ -85,8 +84,7 @@ final class Estimate {
     init(profile: String?,
          configurations: [SynchronizeConfiguration],
          selecteduuids: Set<UUID>,
-         progressdetails: ProgressDetails?)
-    {
+         progressdetails: ProgressDetails?) {
         structprofile = profile
         localconfigurations = configurations
         localprogressdetails = progressdetails

@@ -142,15 +142,13 @@ struct SidebarMainView: View {
             }
             // Only addObserver if there are more than the default profile
             if SharedReference.shared.observemountedvolumes,
-               rsyncUIdata.validprofiles.isEmpty == false
-            {
+               rsyncUIdata.validprofiles.isEmpty == false {
                 // Observer for mounting volumes
                 observerdidMountNotification()
                 observerdiddidUnmountNotification()
             }
             if let scheduledata = await ActorReadSchedule()
-                .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename))
-            {
+                .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) {
                 guard scheduledata.count > 0 else { return }
                 schedules.appendschdeuldatafromfile(scheduledata)
             }
@@ -346,8 +344,7 @@ extension SidebarMainView {
     func observerdidMountNotification() {
         let notificationCenter = NSWorkspace.shared.notificationCenter
         notificationCenter.addObserver(forName: NSWorkspace.didMountNotification,
-                                       object: nil, queue: .main)
-        { notification in
+                                       object: nil, queue: .main) { notification in
             if let volumeURL = notification.userInfo?[NSWorkspace.volumeURLUserInfoKey] as? URL {
                 Task {
                     guard await tasksareinprogress() == false else { return }
@@ -360,8 +357,7 @@ extension SidebarMainView {
     func observerdiddidUnmountNotification() {
         let notificationCenter = NSWorkspace.shared.notificationCenter
         notificationCenter.addObserver(forName: NSWorkspace.didUnmountNotification,
-                                       object: nil, queue: .main)
-        { _ in
+                                       object: nil, queue: .main) { _ in
             Task {
                 guard await tasksareinprogress() == false else { return }
                 await verifyandloadprofilemountedvolume(nil)

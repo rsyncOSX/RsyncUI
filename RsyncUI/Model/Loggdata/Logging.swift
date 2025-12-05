@@ -160,8 +160,7 @@ final class Logging {
     }
 
     init(profile: String?,
-         configurations: [SynchronizeConfiguration]?)
-    {
+         configurations: [SynchronizeConfiguration]?) {
         localeprofile = profile
         structconfigurations = configurations
         if localeprofile == nil {

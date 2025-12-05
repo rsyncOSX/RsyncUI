@@ -15,8 +15,7 @@ struct RsyncandPathsettings: View {
         Form {
             Section(header: Text("Version rsync")
                 .font(.title3)
-                .fontWeight(.bold))
-            {
+                .fontWeight(.bold)) {
                 HStack {
                     ToggleViewDefault(text: NSLocalizedString("Rsync v3.x", comment: ""),
                                       binding: $rsyncpathsettings.rsyncversion3)
@@ -44,8 +43,7 @@ struct RsyncandPathsettings: View {
 
             Section(header: Text("Path rsync")
                 .font(.title3)
-                .fontWeight(.bold))
-            {
+                .fontWeight(.bold)) {
                 if rsyncpathsettings.localrsyncpath.isEmpty == true {
                     setrsyncpathdefault
                 } else {
@@ -55,8 +53,7 @@ struct RsyncandPathsettings: View {
 
             Section(header: Text("Path for restore")
                 .font(.title3)
-                .fontWeight(.bold))
-            {
+                .fontWeight(.bold)) {
                 HStack {
                     setpathforrestore
 
@@ -66,15 +63,13 @@ struct RsyncandPathsettings: View {
 
             Section(header: Text("Mark days after")
                 .font(.title3)
-                .fontWeight(.bold))
-            {
+                .fontWeight(.bold)) {
                 setmarkdays
             }
 
             Section(header: Text("Backup configurations & Save userconfiguration")
                 .font(.title3)
-                .fontWeight(.bold))
-            {
+                .fontWeight(.bold)) {
                 HStack {
                     ConditionalGlassButton(
                         systemImage: "wrench.adjustable.fill",
@@ -107,8 +102,7 @@ struct RsyncandPathsettings: View {
                 }
                 SharedReference.shared.localrsyncpath = rsyncpathsettings.localrsyncpath
                 if rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath),
-                   rsyncpathsettings.setandvalidatepathforrsync(rsyncpathsettings.localrsyncpath)
-                {
+                   rsyncpathsettings.setandvalidatepathforrsync(rsyncpathsettings.localrsyncpath) {
                     Rsyncversion().getrsyncversion()
                 }
             }

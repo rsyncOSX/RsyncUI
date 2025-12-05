@@ -20,8 +20,7 @@ final class ObservableVerifyRemotePushPull {
 
     func adjustoutput() {
         if var pullremote = rsyncpull,
-           var pushremote = rsyncpush
-        {
+           var pushremote = rsyncpush {
             guard pullremote.count > 17, pushremote.count > 17 else { return }
 
             pullremote.removeFirst()

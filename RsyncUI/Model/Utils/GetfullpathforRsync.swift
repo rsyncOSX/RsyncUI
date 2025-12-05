@@ -15,8 +15,7 @@ struct GetfullpathforRsync {
         guard SharedReference.shared.norsync == false else { return nil }
         if SharedReference.shared.rsyncversion3 {
             if let localrsyncpath = SharedReference.shared.localrsyncpath,
-               localrsyncpath.isEmpty == false
-            {
+               localrsyncpath.isEmpty == false {
                 Logger.process.debugmessageonly("GetfullpathforRsync OPTIONAL path: \(localrsyncpath)")
 
                 if localrsyncpath.hasPrefix("/") {

@@ -90,12 +90,10 @@ struct QuicktaskView: View {
             Form {
                 Section(header: Text("Parameters to Task")
                     .font(.title3)
-                    .fontWeight(.bold))
-                {
+                    .fontWeight(.bold)) {
                     HStack {
                         Picker(NSLocalizedString("Action", comment: ""),
-                               selection: $selectedrsynccommand)
-                        {
+                               selection: $selectedrsynccommand) {
                             ForEach(TypeofTaskQuictask.allCases) { Text($0.description)
                                 .tag($0)
                             }
@@ -130,8 +128,7 @@ struct QuicktaskView: View {
                         Spacer()
 
                         Picker(NSLocalizedString("Trailing /", comment: ""),
-                               selection: $trailingslashoptions)
-                        {
+                               selection: $trailingslashoptions) {
                             ForEach(TrailingSlash.allCases) { Text($0.description)
                                 .tag($0)
                             }
@@ -193,8 +190,7 @@ struct QuicktaskView: View {
                 if selectedrsynccommand == .synchronize || selectedrsynccommand == .not_selected {
                     Section(header: Text("Source and destination")
                         .font(.title3)
-                        .fontWeight(.bold))
-                    {
+                        .fontWeight(.bold)) {
                         HStack {
                             EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""), $localcatalog)
                                 .focused($focusField, equals: .localcatalogField)
@@ -244,8 +240,7 @@ struct QuicktaskView: View {
                 } else {
                     Section(header: Text("Source and destination")
                         .font(.title3)
-                        .fontWeight(.bold))
-                    {
+                        .fontWeight(.bold)) {
                         // remotecatalog
                         HStack {
                             EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $remotecatalog)
@@ -297,8 +292,7 @@ struct QuicktaskView: View {
 
                 Section(header: Text("Remote user and server")
                     .font(.title3)
-                    .fontWeight(.bold))
-                {
+                    .fontWeight(.bold)) {
                     // Remote user
                     EditValueScheme(300, NSLocalizedString("Add remote user - required", comment: ""), $remoteuser)
                         .focused($focusField, equals: .remoteuserField)

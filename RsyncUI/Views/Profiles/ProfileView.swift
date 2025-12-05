@@ -61,8 +61,7 @@ struct ProfileView: View {
                 }
                 .help("Delete profile")
                 .confirmationDialog("Delete \(localselectedprofile ?? "")?",
-                                    isPresented: $isPresentingConfirm)
-                {
+                                    isPresented: $isPresentingConfirm) {
                     Button("Delete", role: .destructive) {
                         deleteprofile()
                     }

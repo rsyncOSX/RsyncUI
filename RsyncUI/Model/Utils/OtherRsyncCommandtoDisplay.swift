@@ -26,8 +26,7 @@ struct OtherRsyncCommandtoDisplay {
 
     init(display: OtherRsyncCommand,
          config: SynchronizeConfiguration,
-         profile: String?)
-    {
+         profile: String?) {
         var str = [String]()
         switch display {
         case .list_remote_files:

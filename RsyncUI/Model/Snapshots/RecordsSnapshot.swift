@@ -11,8 +11,7 @@ final class RecordsSnapshot {
     var loggrecordssnapshots: [LogRecordSnapshot]?
 
     private func readandsortallloggdata(_ config: SynchronizeConfiguration,
-                                        _ logrecords: [LogRecords])
-    {
+                                        _ logrecords: [LogRecords]) {
         var data: [LogRecordSnapshot]?
         let localrecords = logrecords.filter { $0.hiddenID == config.hiddenID }
         guard localrecords.count == 1 else { return }
@@ -41,8 +40,7 @@ final class RecordsSnapshot {
     }
 
     init(config: SynchronizeConfiguration,
-         logrecords: [LogRecords])
-    {
+         logrecords: [LogRecords]) {
         if loggrecordssnapshots == nil {
             readandsortallloggdata(config, logrecords)
         }

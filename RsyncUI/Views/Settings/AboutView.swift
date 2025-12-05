@@ -37,8 +37,7 @@ struct AboutView: View {
         Form {
             Section(header: Text("RsyncUI")
                 .font(.title3)
-                .fontWeight(.bold))
-            {
+                .fontWeight(.bold)) {
                 appnamestring
 
                 copyrightstring

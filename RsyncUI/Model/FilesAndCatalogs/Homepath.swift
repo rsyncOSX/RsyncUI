@@ -49,8 +49,7 @@ struct Homepath {
         do {
             for filesandfolders in try fm.contentsOfDirectory(at: fullpathmacserialURL,
                                                               includingPropertiesForKeys: nil)
-                where filesandfolders.hasDirectoryPath
-            {
+                where filesandfolders.hasDirectoryPath {
                 array.append(filesandfolders.lastPathComponent)
             }
             Logger.process.info("Homepath: the following folders were found in \(fullpathmacserial): \(array)")

@@ -16,8 +16,7 @@ struct Environmentsettings: View {
         Form {
             Section(header: Text("Rsync environment")
                 .font(.title3)
-                .fontWeight(.bold))
-            {
+                .fontWeight(.bold)) {
                 setenvironment
 
                 setenvironmenvariable
@@ -25,8 +24,7 @@ struct Environmentsettings: View {
 
             Section(header: Text("Save userconfiguration")
                 .font(.title3)
-                .fontWeight(.bold))
-            {
+                .fontWeight(.bold)) {
                 ConditionalGlassButton(
                     systemImage: "square.and.arrow.down",
                     text: "Save",

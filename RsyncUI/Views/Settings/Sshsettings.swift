@@ -18,8 +18,7 @@ struct Sshsettings: View {
         Form {
             Section(header: Text("Global ssh-keys")
                 .font(.title3)
-                .fontWeight(.bold))
-            {
+                .fontWeight(.bold)) {
                 VStack(alignment: .leading) {
                     ToggleViewDefault(text: NSLocalizedString("Public ssh-key is present", comment: ""),
                                       binding: $localsshkeys)
@@ -29,8 +28,7 @@ struct Sshsettings: View {
 
             Section(header: Text("Global ssh-keypath and ssh-port")
                 .font(.title3)
-                .fontWeight(.bold))
-            {
+                .fontWeight(.bold)) {
                 EditValueErrorScheme(400, NSLocalizedString("Global ssh-keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile,
                                      sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile))
 
@@ -40,8 +38,7 @@ struct Sshsettings: View {
 
             Section(header: Text("Save userconfiguration")
                 .font(.title3)
-                .fontWeight(.bold))
-            {
+                .fontWeight(.bold)) {
                 ConditionalGlassButton(
                     systemImage: "square.and.arrow.down",
                     text: "Save",
@@ -54,8 +51,7 @@ struct Sshsettings: View {
             if localsshkeys == false {
                 Section(header: Text("SSH keys")
                     .font(.title3)
-                    .fontWeight(.bold))
-                {
+                    .fontWeight(.bold)) {
                     HStack {
                         Button {
                             createkeys()

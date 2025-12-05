@@ -85,8 +85,7 @@ struct TasksView: View {
                             selectedconfig = configurations[index]
                             // Must check if rsync version and snapshot
                             if configurations[index].task == SharedReference.shared.snapshot,
-                               SharedReference.shared.rsyncversion3 == false
-                            {
+                               SharedReference.shared.rsyncversion3 == false {
                                 selecteduuids.removeAll()
                             }
                         } else {
@@ -184,8 +183,7 @@ struct TasksView: View {
     private var taskviewtoolbarcontent: some ToolbarContent {
         ToolbarItem {
             if GlobalTimer.shared.timerIsActive(),
-               columnVisibility == .detailOnly
-            {
+               columnVisibility == .detailOnly {
                 MessageView(mytext: GlobalTimer.shared.nextScheduleDate() ?? "", size: .caption2)
             }
         }
@@ -395,8 +393,7 @@ struct TasksView: View {
             if SharedReference.shared.hideverifyremotefunction == false,
                SharedReference.shared.rsyncversion3,
                rsyncUIdata.oneormoretasksissnapshot == false,
-               rsyncUIdata.oneormoresynchronizetasksisremoteVer3x
-            {
+               rsyncUIdata.oneormoresynchronizetasksisremoteVer3x {
                 ToolbarItem {
                     Button {
                         activeSheet = .verifyremoteview
@@ -465,19 +462,16 @@ extension TasksView {
 
     func dryrun() {
         if selectedconfig != nil,
-           progressdetails.estimatedlist?.count ?? 0 == 0
-        {
+           progressdetails.estimatedlist?.count ?? 0 == 0 {
             doubleclick = false
             executetaskpath.append(Tasks(task: .onetaskdetailsview))
         } else if selectedconfig != nil,
-                  progressdetails.executeanotherdryrun(rsyncUIdata.profile) == true
-        {
+                  progressdetails.executeanotherdryrun(rsyncUIdata.profile) == true {
             doubleclick = false
             executetaskpath.append(Tasks(task: .onetaskdetailsview))
 
         } else if selectedconfig != nil,
-                  progressdetails.alltasksestimated(rsyncUIdata.profile) == false
-        {
+                  progressdetails.alltasksestimated(rsyncUIdata.profile) == false {
             doubleclick = false
             executetaskpath.append(Tasks(task: .onetaskdetailsview))
         }
@@ -487,16 +481,14 @@ extension TasksView {
         // All tasks are estimated and ready for execution.
         rsyncUIdata.executetasksinprogress = true
         if selecteduuids.count == 0,
-           progressdetails.alltasksestimated(rsyncUIdata.profile) == true
-        {
+           progressdetails.alltasksestimated(rsyncUIdata.profile) == true {
             // Execute all estimated tasks
             selecteduuids = progressdetails.getuuidswithdatatosynchronize()
             // Change view, see SidebarTasksView
             executetaskpath.append(Tasks(task: .executestimatedview))
 
         } else if selecteduuids.count >= 1,
-                  progressdetails.tasksareestimated(selecteduuids) == true
-        {
+                  progressdetails.tasksareestimated(selecteduuids) == true {
             // One or some tasks are selected and estimated
             // Execute estimated tasks only
             selecteduuids = progressdetails.getuuidswithdatatosynchronize()

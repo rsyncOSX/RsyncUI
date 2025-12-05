@@ -36,8 +36,7 @@ struct SummarizedDetailsView: View {
                             }
                             if let datatosynchronize {
                                 if datatosynchronize.count == 0,
-                                   SharedReference.shared.alwaysshowestimateddetailsview == false
-                                {
+                                   SharedReference.shared.alwaysshowestimateddetailsview == false {
                                     executetaskpath.removeAll()
                                 }
                             }
@@ -67,8 +66,7 @@ struct SummarizedDetailsView: View {
                                     .buttonStyle(RefinedGlassButtonStyle())
                                     .help("Synchronize")
                                     .confirmationDialog("Synchronize tasks?",
-                                                        isPresented: $isPresentingConfirm)
-                                    {
+                                                        isPresented: $isPresentingConfirm) {
                                         Button("Synchronize", role: .destructive) {
                                             executetaskpath.removeAll()
                                             executetaskpath.append(Tasks(task: .executestimatedview))
@@ -91,8 +89,7 @@ struct SummarizedDetailsView: View {
                                     .buttonStyle(.borderedProminent)
                                     .help("Synchronize")
                                     .confirmationDialog("Synchronize tasks?",
-                                                        isPresented: $isPresentingConfirm)
-                                    {
+                                                        isPresented: $isPresentingConfirm) {
                                         Button("Synchronize", role: .destructive) {
                                             executetaskpath.removeAll()
                                             executetaskpath.append(Tasks(task: .executestimatedview))
@@ -177,8 +174,7 @@ struct SummarizedDetailsView: View {
 
     var leftcolumndetails: some View {
         Table(progressdetails.estimatedlist ?? [],
-              selection: $selecteduuids)
-        {
+              selection: $selecteduuids) {
             TableColumn("Synchronize ID") { data in
                 if data.datatosynchronize {
                     if data.backupID.isEmpty == true {
@@ -222,8 +218,7 @@ struct SummarizedDetailsView: View {
 
     var rightcolumndetails: some View {
         Table(progressdetails.estimatedlist ?? [],
-              selection: $selecteduuids)
-        {
+              selection: $selecteduuids) {
             TableColumn("New") { files in
                 if files.datatosynchronize {
                     Text(files.newfiles)

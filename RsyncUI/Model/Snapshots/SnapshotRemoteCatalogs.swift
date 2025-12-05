@@ -34,8 +34,7 @@ final class SnapshotRemoteCatalogs {
 
     @discardableResult
     init(config: SynchronizeConfiguration,
-         snapshotdata: ObservableSnapshotData)
-    {
+         snapshotdata: ObservableSnapshotData) {
         guard config.task == SharedReference.shared.snapshot else { return }
         mysnapshotdata = snapshotdata
         getremotecataloginfo(config)

@@ -27,8 +27,7 @@ actor ActorReadSchedule {
             return data.compactMap { element in
                 let item = SchedulesConfigurations(element)
                 if item.schedule == ScheduleType.once.rawValue,
-                   let daterun = item.dateRun, daterun.en_date_from_string() < Date.now
-                {
+                   let daterun = item.dateRun, daterun.en_date_from_string() < Date.now {
                     return nil
                 } else {
                     if let profile = item.profile {

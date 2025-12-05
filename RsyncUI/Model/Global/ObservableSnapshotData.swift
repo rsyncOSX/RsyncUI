@@ -41,8 +41,7 @@ final class ObservableSnapshotData {
         if let logrecordssnapshot {
             return logrecordssnapshot.sorted { cat1, cat2 -> Bool in
                 if let cat1 = cat1.snapshotCatalog,
-                   let cat2 = cat2.snapshotCatalog
-                {
+                   let cat2 = cat2.snapshotCatalog {
                     return (Int(cat1.dropFirst(2)) ?? 0) > (Int(cat2.dropFirst(2)) ?? 0)
                 }
                 return false
