@@ -99,16 +99,19 @@ final class Logging {
 
     // Extract numbers as Double values
     private func extractnumbersasdoubles(from string: String) -> [Double] {
-        extractnumbersasstrings(from: string).compactMap { Double($0) }
+        extractNumbersAsStrings(from: string).compactMap { Double($0) }
     }
 
-    // Extract all numbers as strings
-    private func extractnumbersasstrings(from string: String) -> [String] {
-        let pattern = #"\d+(?:\.\d+)?"# // Matches integers and decimals
-        let regex = try! NSRegularExpression(pattern: pattern)
+    private static let numberRegex: NSRegularExpression? = {
+        try? NSRegularExpression(pattern: #"\d+(?:\.\d+)?"#)
+    }()
+
+    private func extractNumbersAsStrings(from string: String) -> [String] {
+        guard let regex = Self.numberRegex else { return [] }
+        
         let matches = regex.matches(in: string, range: NSRange(string.startIndex..., in: string))
-        return matches.map { match in
-            String(string[Range(match.range, in: string)!])
+        return matches.compactMap { match in
+            Range(match.range, in: string).map { String(string[$0]) }
         }
     }
 
