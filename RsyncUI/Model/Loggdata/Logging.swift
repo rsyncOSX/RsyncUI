@@ -19,11 +19,12 @@ final class Logging {
     var logrecords: [LogRecords]?
     var localeprofile: String?
 
+
     var validhiddenIDs: Set<Int> {
         var temp = Set<Int>()
         if let configurations = structconfigurations {
-            _ = configurations.map { record in
-                temp.insert(record.hiddenID)
+            for config in configurations {
+                temp.insert(config.hiddenID)
             }
         }
         return temp
