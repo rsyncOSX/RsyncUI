@@ -25,53 +25,53 @@ struct HomeCatalogsView: View {
             Section(header: Text("Step one")
                 .font(.title3)
                 .fontWeight(.bold)) {
-                Picker("Select a Folder in home directory", selection: $selectedhomecatalog) {
-                    Text("Select")
-                        .tag(nil as Catalog.ID?)
-                    ForEach(homecatalogs, id: \.self) { catalog in
-                        Text(catalog.name)
-                            .tag(catalog.id)
+                    Picker("Select a Folder in home directory", selection: $selectedhomecatalog) {
+                        Text("Select")
+                            .tag(nil as Catalog.ID?)
+                        ForEach(homecatalogs, id: \.self) { catalog in
+                            Text(catalog.name)
+                                .tag(catalog.id)
+                        }
                     }
+                    .frame(width: 500)
                 }
-                .frame(width: 500)
-            }
 
             Section(header: Text("Step two and three")
                 .font(.title3)
                 .fontWeight(.bold)) {
-                Picker("Select an Attached Volume", selection: $selectedAttachedVolume) {
-                    Text("Select")
-                        .tag(nil as AttachedVolume.ID?)
-                    ForEach(attachedVolumes, id: \.self) { volume in
-                        Text(volume.volumeURL.lastPathComponent)
-                            .tag(volume.id)
+                    Picker("Select an Attached Volume", selection: $selectedAttachedVolume) {
+                        Text("Select")
+                            .tag(nil as AttachedVolume.ID?)
+                        ForEach(attachedVolumes, id: \.self) { volume in
+                            Text(volume.volumeURL.lastPathComponent)
+                                .tag(volume.id)
+                        }
                     }
-                }
-                .frame(width: 500)
+                    .frame(width: 500)
 
-                Picker("Select a Folder in Attached Volume", selection: $selectedAttachedVolumeCatalogs) {
-                    Text("Select")
-                        .tag(nil as String?)
-                    ForEach(attachedVolumesCatalogs, id: \.self) { volumename in
-                        Text(volumename)
-                            .tag(volumename)
+                    Picker("Select a Folder in Attached Volume", selection: $selectedAttachedVolumeCatalogs) {
+                        Text("Select")
+                            .tag(nil as String?)
+                        ForEach(attachedVolumesCatalogs, id: \.self) { volumename in
+                            Text(volumename)
+                                .tag(volumename)
+                        }
                     }
+                    .frame(width: 500)
+                    .disabled(selectedAttachedVolume == nil)
                 }
-                .frame(width: 500)
-                .disabled(selectedAttachedVolume == nil)
-            }
 
             Section(header: Text("Step four")
                 .font(.title3)
                 .fontWeight(.bold)) {
-                ConditionalGlassButton(
-                    systemImage: "return",
-                    text: "Return",
-                    helpText: "Return"
-                ) {
-                    path.removeAll()
+                    ConditionalGlassButton(
+                        systemImage: "return",
+                        text: "Return",
+                        helpText: "Return"
+                    ) {
+                        path.removeAll()
+                    }
                 }
-            }
         }
         .formStyle(.grouped)
         .onDisappear {

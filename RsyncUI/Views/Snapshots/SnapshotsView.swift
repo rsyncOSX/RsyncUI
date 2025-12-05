@@ -129,9 +129,9 @@ struct SnapshotsView: View {
                     .confirmationDialog(snapshotdata.notmappedloguuids?.count ?? 0 == 1 ? "Delete 1 log" :
                         "Delete \(snapshotdata.notmappedloguuids?.count ?? 0) logs",
                         isPresented: $isPresentingConfirm) {
-                        Button("Delete", role: .destructive) {
-                            deletelogs(snapshotdata.notmappedloguuids)
-                        }
+                            Button("Delete", role: .destructive) {
+                                deletelogs(snapshotdata.notmappedloguuids)
+                            }
                     }
                     .overlay(HStack(alignment: .top) {
                         Image(systemName: String((snapshotdata.notmappedloguuids?.count ?? 0) <= 50

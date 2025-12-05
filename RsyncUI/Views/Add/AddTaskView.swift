@@ -108,24 +108,24 @@ struct AddTaskView: View {
                     Section(header: Text("Show save URL")
                         .font(.title3)
                         .fontWeight(.bold)) {
-                        HStack {
-                            Toggle("", isOn: $newdata.showsaveurls)
-                                .toggleStyle(.switch)
+                            HStack {
+                                Toggle("", isOn: $newdata.showsaveurls)
+                                    .toggleStyle(.switch)
 
-                            if newdata.showsaveurls {
-                                HStack {
-                                    ConditionalGlassButton(
-                                        systemImage: "square.and.arrow.down",
-                                        text: "URL Estimate",
-                                        helpText: "URL Estimate & Synchronize"
-                                    ) {
-                                        let data = WidgetURLstrings(urletimate: stringestimate)
-                                        WriteWidgetsURLStringsJSON(data)
+                                if newdata.showsaveurls {
+                                    HStack {
+                                        ConditionalGlassButton(
+                                            systemImage: "square.and.arrow.down",
+                                            text: "URL Estimate",
+                                            helpText: "URL Estimate & Synchronize"
+                                        ) {
+                                            let data = WidgetURLstrings(urletimate: stringestimate)
+                                            WriteWidgetsURLStringsJSON(data)
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
                 }
 
                 // Column 2
@@ -202,17 +202,17 @@ struct AddTaskView: View {
                         .confirmationDialog(newdata.copyandpasteconfigurations?.count ?? 0 == 1 ? "Copy 1 configuration" :
                             "Copy \(newdata.copyandpasteconfigurations?.count ?? 0) configurations",
                             isPresented: $confirmcopyandpaste) {
-                            Button("Copy") {
-                                confirmcopyandpaste = false
-                                rsyncUIdata.configurations =
-                                    newdata.writecopyandpastetasks(rsyncUIdata.profile,
-                                                                   rsyncUIdata.configurations ?? [])
-                                if SharedReference.shared.duplicatecheck {
-                                    if let configurations = rsyncUIdata.configurations {
-                                        VerifyDuplicates(configurations)
+                                Button("Copy") {
+                                    confirmcopyandpaste = false
+                                    rsyncUIdata.configurations =
+                                        newdata.writecopyandpastetasks(rsyncUIdata.profile,
+                                                                       rsyncUIdata.configurations ?? [])
+                                    if SharedReference.shared.duplicatecheck {
+                                        if let configurations = rsyncUIdata.configurations {
+                                            VerifyDuplicates(configurations)
+                                        }
                                     }
                                 }
-                            }
                         }
                 }
             }

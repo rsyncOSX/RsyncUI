@@ -16,78 +16,78 @@ struct RsyncandPathsettings: View {
             Section(header: Text("Version rsync")
                 .font(.title3)
                 .fontWeight(.bold)) {
-                HStack {
-                    ToggleViewDefault(text: NSLocalizedString("Rsync v3.x", comment: ""),
-                                      binding: $rsyncpathsettings.rsyncversion3)
-                        .onChange(of: rsyncpathsettings.rsyncversion3) {
-                            if SharedReference.shared.norsync {
-                                SharedReference.shared.localrsyncpath = nil
-                                SharedReference.shared.rsyncversion3 = false
-                                rsyncpathsettings.localrsyncpath = ""
-                            } else {
-                                SharedReference.shared.rsyncversion3 = rsyncpathsettings.rsyncversion3
-                                SharedReference.shared.localrsyncpath = nil
-                                rsyncpathsettings.localrsyncpath = ""
+                    HStack {
+                        ToggleViewDefault(text: NSLocalizedString("Rsync v3.x", comment: ""),
+                                          binding: $rsyncpathsettings.rsyncversion3)
+                            .onChange(of: rsyncpathsettings.rsyncversion3) {
+                                if SharedReference.shared.norsync {
+                                    SharedReference.shared.localrsyncpath = nil
+                                    SharedReference.shared.rsyncversion3 = false
+                                    rsyncpathsettings.localrsyncpath = ""
+                                } else {
+                                    SharedReference.shared.rsyncversion3 = rsyncpathsettings.rsyncversion3
+                                    SharedReference.shared.localrsyncpath = nil
+                                    rsyncpathsettings.localrsyncpath = ""
+                                }
+                                Rsyncversion().getrsyncversion()
                             }
-                            Rsyncversion().getrsyncversion()
-                        }
 
-                    ToggleViewDefault(text: NSLocalizedString("Apple Silicon", comment: ""),
-                                      binding: $rsyncpathsettings.macosarm)
-                        .onChange(of: rsyncpathsettings.macosarm) {
-                            SharedReference.shared.macosarm = rsyncpathsettings.macosarm
-                        }
-                        .disabled(true)
+                        ToggleViewDefault(text: NSLocalizedString("Apple Silicon", comment: ""),
+                                          binding: $rsyncpathsettings.macosarm)
+                            .onChange(of: rsyncpathsettings.macosarm) {
+                                SharedReference.shared.macosarm = rsyncpathsettings.macosarm
+                            }
+                            .disabled(true)
+                    }
                 }
-            }
 
             Section(header: Text("Path rsync")
                 .font(.title3)
                 .fontWeight(.bold)) {
-                if rsyncpathsettings.localrsyncpath.isEmpty == true {
-                    setrsyncpathdefault
-                } else {
-                    setrsyncpathlocalpath
+                    if rsyncpathsettings.localrsyncpath.isEmpty == true {
+                        setrsyncpathdefault
+                    } else {
+                        setrsyncpathlocalpath
+                    }
                 }
-            }
 
             Section(header: Text("Path for restore")
                 .font(.title3)
                 .fontWeight(.bold)) {
-                HStack {
-                    setpathforrestore
+                    HStack {
+                        setpathforrestore
 
-                    OpencatalogView(selecteditem: $rsyncpathsettings.temporarypathforrestore, catalogs: true)
+                        OpencatalogView(selecteditem: $rsyncpathsettings.temporarypathforrestore, catalogs: true)
+                    }
                 }
-            }
 
             Section(header: Text("Mark days after")
                 .font(.title3)
                 .fontWeight(.bold)) {
-                setmarkdays
-            }
+                    setmarkdays
+                }
 
             Section(header: Text("Backup configurations & Save userconfiguration")
                 .font(.title3)
                 .fontWeight(.bold)) {
-                HStack {
-                    ConditionalGlassButton(
-                        systemImage: "wrench.adjustable.fill",
-                        text: "Backup configurations",
-                        helpText: "Backup configurations"
-                    ) {
-                        _ = Backupconfigfiles()
-                    }
+                    HStack {
+                        ConditionalGlassButton(
+                            systemImage: "wrench.adjustable.fill",
+                            text: "Backup configurations",
+                            helpText: "Backup configurations"
+                        ) {
+                            _ = Backupconfigfiles()
+                        }
 
-                    ConditionalGlassButton(
-                        systemImage: "square.and.arrow.down",
-                        text: "Save",
-                        helpText: "Save userconfiguration"
-                    ) {
-                        _ = WriteUserConfigurationJSON(UserConfiguration())
+                        ConditionalGlassButton(
+                            systemImage: "square.and.arrow.down",
+                            text: "Save",
+                            helpText: "Save userconfiguration"
+                        ) {
+                            _ = WriteUserConfigurationJSON(UserConfiguration())
+                        }
                     }
                 }
-            }
         }
         .formStyle(.grouped)
     }

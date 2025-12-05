@@ -78,11 +78,11 @@ struct LogsbyConfigurationView: View {
                 .confirmationDialog(selectedloguuids.count == 1 ? "Delete 1 log" :
                     "Delete \(selectedloguuids.count) logs",
                     isPresented: $confirmdelete) {
-                    Button("Delete", role: .destructive) {
-                        Task {
-                            await deletelogs(selectedloguuids)
+                        Button("Delete", role: .destructive) {
+                            Task {
+                                await deletelogs(selectedloguuids)
+                            }
                         }
-                    }
                 }
                 .overlay { if logs.count == 0 {
                     ContentUnavailableView {

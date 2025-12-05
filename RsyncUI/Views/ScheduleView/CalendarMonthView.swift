@@ -109,27 +109,27 @@ struct CalendarMonthView: View {
                         .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 schedule" :
                             "Delete \(selecteduuids.count) schedules",
                             isPresented: $confirmdelete) {
-                            Button("Delete") {
-                                schedules.delete(selecteduuids)
+                                Button("Delete") {
+                                    schedules.delete(selecteduuids)
 
-                                date = Date.now
-                                istappeddayint = 0
-                                schedules.lastdateinnextmonth = Date.now.endOfCurrentMonth
+                                    date = Date.now
+                                    istappeddayint = 0
+                                    schedules.lastdateinnextmonth = Date.now.endOfCurrentMonth
 
-                                confirmdelete = false
+                                    confirmdelete = false
 
-                                let scheduledatamapped = globaltimer.allSchedules.map { item in
-                                    item.scheduledata
+                                    let scheduledatamapped = globaltimer.allSchedules.map { item in
+                                        item.scheduledata
+                                    }
+
+                                    WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
+
+                                    if globaltimer.allSchedules.isEmpty {
+                                        globaltimer.firstscheduledate = nil
+                                    } else {
+                                        globaltimer.setfirsscheduledate()
+                                    }
                                 }
-
-                                WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
-
-                                if globaltimer.allSchedules.isEmpty {
-                                    globaltimer.firstscheduledate = nil
-                                } else {
-                                    globaltimer.setfirsscheduledate()
-                                }
-                            }
                         }
                         .onDeleteCommand {
                             confirmdelete = true
@@ -151,9 +151,9 @@ struct CalendarMonthView: View {
                             .confirmationDialog(selecteduuidsnotexecuted.count == 1 ? "Delete 1 schedule" :
                                 "Delete \(selecteduuidsnotexecuted.count) schedules",
                                 isPresented: $confirmdeletenotexecuted) {
-                                Button("Delete") {
-                                    schedules.deletenotexecuted(selecteduuidsnotexecuted)
-                                }
+                                    Button("Delete") {
+                                        schedules.deletenotexecuted(selecteduuidsnotexecuted)
+                                    }
                             }
                             .onDeleteCommand {
                                 confirmdeletenotexecuted = true

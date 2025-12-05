@@ -19,10 +19,10 @@ struct ListofTasksAddView: View {
             .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 configuration" :
                 "Delete \(selecteduuids.count) configurations",
                 isPresented: $confirmdelete) {
-                Button("Delete") {
-                    delete()
-                    confirmdelete = false
-                }
+                    Button("Delete") {
+                        delete()
+                        confirmdelete = false
+                    }
             }
             .onDeleteCommand {
                 confirmdelete = true

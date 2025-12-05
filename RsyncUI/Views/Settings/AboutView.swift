@@ -38,23 +38,23 @@ struct AboutView: View {
             Section(header: Text("RsyncUI")
                 .font(.title3)
                 .fontWeight(.bold)) {
-                appnamestring
+                    appnamestring
 
-                copyrightstring
+                    copyrightstring
 
-                HStack {
-                    VStack(alignment: .leading) {
-                        Image(nsImage: NSImage(named: NSImage.applicationIconName)!)
-                            .resizable()
-                            .aspectRatio(1.0, contentMode: .fit)
-                            .frame(width: 64, height: 64)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Image(nsImage: NSImage(named: NSImage.applicationIconName)!)
+                                .resizable()
+                                .aspectRatio(1.0, contentMode: .fit)
+                                .frame(width: 64, height: 64)
+                        }
+
+                        rsyncversionshortstring
                     }
 
-                    rsyncversionshortstring
+                    rsyncuiconfigpathpath
                 }
-
-                rsyncuiconfigpathpath
-            }
 
             Section {
                 HStack {

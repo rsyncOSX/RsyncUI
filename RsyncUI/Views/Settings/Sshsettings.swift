@@ -19,49 +19,49 @@ struct Sshsettings: View {
             Section(header: Text("Global ssh-keys")
                 .font(.title3)
                 .fontWeight(.bold)) {
-                VStack(alignment: .leading) {
-                    ToggleViewDefault(text: NSLocalizedString("Public ssh-key is present", comment: ""),
-                                      binding: $localsshkeys)
-                        .disabled(true)
+                    VStack(alignment: .leading) {
+                        ToggleViewDefault(text: NSLocalizedString("Public ssh-key is present", comment: ""),
+                                          binding: $localsshkeys)
+                            .disabled(true)
+                    }
                 }
-            }
 
             Section(header: Text("Global ssh-keypath and ssh-port")
                 .font(.title3)
                 .fontWeight(.bold)) {
-                EditValueErrorScheme(400, NSLocalizedString("Global ssh-keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile,
-                                     sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile))
+                    EditValueErrorScheme(400, NSLocalizedString("Global ssh-keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile,
+                                         sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile))
 
-                EditValueErrorScheme(400, NSLocalizedString("Global ssh-port", comment: ""),
-                                     $sshsettings.sshportnumber, sshsettings.setsshport(sshsettings.sshportnumber))
-            }
+                    EditValueErrorScheme(400, NSLocalizedString("Global ssh-port", comment: ""),
+                                         $sshsettings.sshportnumber, sshsettings.setsshport(sshsettings.sshportnumber))
+                }
 
             Section(header: Text("Save userconfiguration")
                 .font(.title3)
                 .fontWeight(.bold)) {
-                ConditionalGlassButton(
-                    systemImage: "square.and.arrow.down",
-                    text: "Save",
-                    helpText: "Save userconfiguration"
-                ) {
-                    _ = WriteUserConfigurationJSON(UserConfiguration())
+                    ConditionalGlassButton(
+                        systemImage: "square.and.arrow.down",
+                        text: "Save",
+                        helpText: "Save userconfiguration"
+                    ) {
+                        _ = WriteUserConfigurationJSON(UserConfiguration())
+                    }
                 }
-            }
 
             if localsshkeys == false {
                 Section(header: Text("SSH keys")
                     .font(.title3)
                     .fontWeight(.bold)) {
-                    HStack {
-                        Button {
-                            createkeys()
-                        } label: {
-                            Image(systemName: "key")
+                        HStack {
+                            Button {
+                                createkeys()
+                            } label: {
+                                Image(systemName: "key")
+                            }
+                            .help("Create keys")
+                            .buttonStyle(.borderedProminent)
                         }
-                        .help("Create keys")
-                        .buttonStyle(.borderedProminent)
                     }
-                }
             }
 
             if showsshkeyiscreated { DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("ssh-key is created, see logfile.", comment: "")) }

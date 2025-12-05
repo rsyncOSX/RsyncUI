@@ -55,43 +55,43 @@ struct RsyncParametersView: View {
                     Section(header: Text("Parameters for rsync, select task to add")
                         .font(.title3)
                         .fontWeight(.bold)) {
-                        // .foregroundColor(.blue)) {
-                        EditRsyncParameter(400, $parameters.parameter8)
-                            .onChange(of: parameters.parameter8) {
-                                parameters.configuration?.parameter8 = parameters.parameter8
-                            }
-                            .disabled(selectedconfig == nil)
-                        EditRsyncParameter(400, $parameters.parameter9)
-                            .onChange(of: parameters.parameter9) {
-                                parameters.configuration?.parameter9 = parameters.parameter9
-                            }
-                            .disabled(selectedconfig == nil)
-                        EditRsyncParameter(400, $parameters.parameter10)
-                            .onChange(of: parameters.parameter10) {
-                                parameters.configuration?.parameter10 = parameters.parameter10
-                            }
-                            .disabled(selectedconfig == nil)
-                        EditRsyncParameter(400, $parameters.parameter11)
-                            .onChange(of: parameters.parameter11) {
-                                parameters.configuration?.parameter11 = parameters.parameter11
-                            }
-                            .disabled(selectedconfig == nil)
-                        EditRsyncParameter(400, $parameters.parameter12)
-                            .onChange(of: parameters.parameter12) {
-                                parameters.configuration?.parameter12 = parameters.parameter12
-                            }
-                            .disabled(selectedconfig == nil)
-                        EditRsyncParameter(400, $parameters.parameter13)
-                            .onChange(of: parameters.parameter13) {
-                                parameters.configuration?.parameter13 = parameters.parameter13
-                            }
-                            .disabled(selectedconfig == nil)
-                        EditRsyncParameter(400, $parameters.parameter14)
-                            .onChange(of: parameters.parameter14) {
-                                parameters.configuration?.parameter14 = parameters.parameter14
-                            }
-                            .disabled(selectedconfig == nil)
-                    }
+                            // .foregroundColor(.blue)) {
+                            EditRsyncParameter(400, $parameters.parameter8)
+                                .onChange(of: parameters.parameter8) {
+                                    parameters.configuration?.parameter8 = parameters.parameter8
+                                }
+                                .disabled(selectedconfig == nil)
+                            EditRsyncParameter(400, $parameters.parameter9)
+                                .onChange(of: parameters.parameter9) {
+                                    parameters.configuration?.parameter9 = parameters.parameter9
+                                }
+                                .disabled(selectedconfig == nil)
+                            EditRsyncParameter(400, $parameters.parameter10)
+                                .onChange(of: parameters.parameter10) {
+                                    parameters.configuration?.parameter10 = parameters.parameter10
+                                }
+                                .disabled(selectedconfig == nil)
+                            EditRsyncParameter(400, $parameters.parameter11)
+                                .onChange(of: parameters.parameter11) {
+                                    parameters.configuration?.parameter11 = parameters.parameter11
+                                }
+                                .disabled(selectedconfig == nil)
+                            EditRsyncParameter(400, $parameters.parameter12)
+                                .onChange(of: parameters.parameter12) {
+                                    parameters.configuration?.parameter12 = parameters.parameter12
+                                }
+                                .disabled(selectedconfig == nil)
+                            EditRsyncParameter(400, $parameters.parameter13)
+                                .onChange(of: parameters.parameter13) {
+                                    parameters.configuration?.parameter13 = parameters.parameter13
+                                }
+                                .disabled(selectedconfig == nil)
+                            EditRsyncParameter(400, $parameters.parameter14)
+                                .onChange(of: parameters.parameter14) {
+                                    parameters.configuration?.parameter14 = parameters.parameter14
+                                }
+                                .disabled(selectedconfig == nil)
+                        }
 
                     Section(header: Text("Task specific SSH parameter")
                         .font(.title3)
@@ -110,45 +110,45 @@ struct RsyncParametersView: View {
                     Section(header: Text("Backup switch & Show rsync command")
                         .font(.title3)
                         .fontWeight(.bold)) {
-                        HStack {
-                            Toggle("", isOn: $backup)
-                                .toggleStyle(.switch)
-                                .onChange(of: backup) {
-                                    guard selectedconfig != nil else {
-                                        backup = false
-                                        return
+                            HStack {
+                                Toggle("", isOn: $backup)
+                                    .toggleStyle(.switch)
+                                    .onChange(of: backup) {
+                                        guard selectedconfig != nil else {
+                                            backup = false
+                                            return
+                                        }
+                                        parameters.setbackup()
                                     }
-                                    parameters.setbackup()
-                                }
-                                .onTapGesture {
-                                    withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                        backup.toggle()
+                                    .onTapGesture {
+                                        withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                            backup.toggle()
+                                        }
                                     }
-                                }
-                                .disabled(selectedconfig == nil)
+                                    .disabled(selectedconfig == nil)
 
-                            Toggle("", isOn: $parameters.showdetails)
-                                .toggleStyle(.switch)
-                                .disabled(selectedconfig == nil)
+                                Toggle("", isOn: $parameters.showdetails)
+                                    .toggleStyle(.switch)
+                                    .disabled(selectedconfig == nil)
+                            }
                         }
-                    }
 
                     Section(header: Text("Add --delete parameter")
                         .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
                         .fontWeight(.bold)
                         .font(.title3)) {
-                        Toggle("", isOn: $parameters.adddelete)
-                            .toggleStyle(.switch)
-                            .onChange(of: parameters.adddelete) {
-                                parameters.adddelete(parameters.adddelete)
-                            }
-                            .disabled(selecteduuids.isEmpty == true)
-                            .onTapGesture {
-                                withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                    backup.toggle()
+                            Toggle("", isOn: $parameters.adddelete)
+                                .toggleStyle(.switch)
+                                .onChange(of: parameters.adddelete) {
+                                    parameters.adddelete(parameters.adddelete)
                                 }
-                            }
-                    }
+                                .disabled(selecteduuids.isEmpty == true)
+                                .onTapGesture {
+                                    withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                        backup.toggle()
+                                    }
+                                }
+                        }
 
                     Spacer()
                 }

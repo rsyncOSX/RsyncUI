@@ -1,2 +1,3 @@
 --swiftversion 6
 --allman false
+--disable wrapMultilineStatementBraces
