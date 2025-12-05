@@ -62,12 +62,8 @@ struct ListofTasksMainView: View {
                 Task {
                     try await Task.sleep(seconds: 2)
                     if let filteredconfigurations = rsyncUIdata.configurations?.filter({ filterstring.isEmpty ? true : $0.backupID.contains(filterstring) }) {
-                        guard filterstring.isEmpty == false else {
-                            // selecteduuids.removeAll()
-                            return
-                        }
-
-                        _ = filteredconfigurations.map { configuration in
+                        guard filterstring.isEmpty == false else { return }
+                        for configuration in filteredconfigurations {
                             selecteduuids.insert(configuration.id)
                         }
                     }

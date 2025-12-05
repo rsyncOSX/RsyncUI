@@ -88,7 +88,7 @@ extension ExecuteEstTasksView {
         } else {
             if let estimatedlist = progressdetails.estimatedlist {
                 adjustedselecteduuids = Set<SynchronizeConfiguration.ID>()
-                _ = estimatedlist.map { estimate in
+                for estimate in estimatedlist {
                     if estimate.datatosynchronize == true {
                         adjustedselecteduuids?.insert(estimate.id)
                     }
