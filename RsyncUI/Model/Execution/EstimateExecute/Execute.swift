@@ -21,7 +21,6 @@ enum ErrorDatatoSynchronize: LocalizedError {
     }
 }
 
-typealias Typelogdata = (Int, String)
 
 @MainActor
 final class Execute {
@@ -33,14 +32,15 @@ final class Execute {
     weak var localnoestprogressdetails: NoEstProgressDetails?
 
     // Collect loggdata for later save to permanent storage (hiddenID, log)
-    private var configrecords = [Typelogdata]()
-    private var schedulerecords = [Typelogdata]()
+    private var configrecords = [ScheduleLogData]()
+    private var schedulerecords = [ScheduleLogData]()
     // Report progress to caller
     var localfilehandler: (Int) -> Void
     // Update configurations
     var localupdateconfigurations: ([SynchronizeConfiguration]) -> Void
-
     var stackoftasks: [Int]?
+
+    let defaultstats = "0 files : 0.00 MB in 0.00 seconds"
 
     private func getconfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
         if let index = localconfigurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
@@ -180,7 +180,8 @@ extension Execute {
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
         // When creating the logrecord, decrease the snapshotum by 1
-        configrecords.append((hiddenID ?? -1, Date().en_string_from_date()))
+        let element = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: Date().en_string_from_date())
+        configrecords.append(element)
         // Prepareoutput prepares output from rsync for extracting the numbers only.
         // It removes all lines except the last 20 lines where summarized numbers are put
         let preparedoutputfromrsync = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
@@ -189,18 +190,17 @@ extension Execute {
             do {
                 let stats = try ParseRsyncOutput(preparedoutputfromrsync,
                                                  SharedReference.shared.rsyncversion3 ? .ver3 : .openrsync).getstats()
-                if let logData = (hiddenID ?? -1, stats) as? Typelogdata {
-                    schedulerecords.append(logData)
-                }
+                let logData = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: stats ?? defaultstats)
+                schedulerecords.append(logData)
                 Logger.process.debugmessageonly("Execute: getstats() SUCCESS")
             } catch let e {
                 if SharedReference.shared.silencemissingstats == false {
                     let error = e
                     SharedReference.shared.errorobject?.alert(error: error)
                 }
-                if let logData = (hiddenID ?? -1, "0 files : 0.00 MB in 0.00 seconds") as? Typelogdata {
-                    schedulerecords.append(logData)
-                }
+                
+                let logData = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: defaultstats)
+                schedulerecords.append(logData)
                 Logger.process.debugmessageonly("Execute: getstats() FAILED")
             }
         }
@@ -215,7 +215,10 @@ extension Execute {
             Logger.process.debugmessageonly("Execute: EXECUTION is completed")
             guard SharedReference.shared.addsummarylogrecord else { return }
             // Update logrecords
-            update.addlogpermanentstore(schedulerecords: schedulerecords)
+            do {
+                try update.addLogToPermanentStore(scheduleRecords: schedulerecords)
+            } catch { return }
+
             return
         }
         // Execute next task
@@ -228,7 +231,8 @@ extension Execute {
 
         var suboutput: [String]?
 
-        configrecords.append((hiddenID ?? -1, Date().en_string_from_date()))
+        let element = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: Date().en_string_from_date())
+        configrecords.append(element)
         if let config = getconfig(hiddenID ?? -1) {
             if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
                 suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
@@ -240,7 +244,8 @@ extension Execute {
                 let record = RemoteDataNumbers(stringoutputfromrsync: suboutput,
                                                config: config)
                 if let stats = record.stats {
-                    schedulerecords.append((hiddenID ?? -1, stats))
+                    let element = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: stats)
+                    schedulerecords.append(element)
                     localnoestprogressdetails?.appendrecordexecutedlist(record)
                     localnoestprogressdetails?.appenduuidwithdatatosynchronize(config.id)
                 }
@@ -256,7 +261,9 @@ extension Execute {
                 Logger.process.debugmessageonly("Execute: execution is completed")
                 guard SharedReference.shared.addsummarylogrecord else { return }
                 // Update logrecords
-                update.addlogpermanentstore(schedulerecords: schedulerecords)
+                do {
+                    try update.addLogToPermanentStore(scheduleRecords: schedulerecords)
+                } catch { return }
                 return
             }
             // Execute next task

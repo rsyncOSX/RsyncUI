@@ -8,39 +8,44 @@
 import Foundation
 import OSLog
 
+struct ScheduleLogData {
+    let hiddenID: Int
+    let stats: String
+}
+
 @MainActor
 final class Logging {
     var structconfigurations: [SynchronizeConfiguration]?
     var logrecords: [LogRecords]?
     var localeprofile: String?
-    
+
+
     var validhiddenIDs: Set<Int> {
         var temp = Set<Int>()
         if let configurations = structconfigurations {
-            _ = configurations.map { record in
-                temp.insert(record.hiddenID)
+            for config in configurations {
+                temp.insert(config.hiddenID)
             }
         }
         return temp
     }
-    
+
     func increasesnapshotnum(index: Int) {
         if let num = structconfigurations?[index].snapshotnum {
             structconfigurations?[index].snapshotnum = num + 1
         }
     }
-    
-    func addlogexisting(hiddenID: Int, result: String, date: String) -> Bool {
+
+    func updateExistingLog(hiddenID: Int, result: String, date: String) -> Bool {
         if let index = logrecords?.firstIndex(where: { $0.hiddenID == hiddenID }) {
             // Extra check that log results contains numbers
-            guard extractnumbersasdoubles(from: result).count == 3 || extractnumbersasdoubles(from: result).count == 4 else {
-                return false
-            }
-            
+            guard extractnumbersasdoubles(from: result).count == 3 ||
+                extractnumbersasdoubles(from: result).count == 4 else { return false }
+
             var log = Log()
             log.dateExecuted = date
             log.resultExecuted = result
-            
+
             if logrecords?[index].logrecords == nil {
                 logrecords?[index].logrecords = [Log]()
             }
@@ -50,13 +55,12 @@ final class Logging {
             return false
         }
     }
-    
-    func addlognew(hiddenID: Int, result: String, date: String) -> Bool {
+
+    func createNewLog(hiddenID: Int, result: String, date: String) -> Bool {
         // Extra check that log results contains numbers
-        guard extractnumbersasdoubles(from: result).count == 3 || extractnumbersasdoubles(from: result).count == 4 else {
-            return false
-        }
-        
+        guard extractnumbersasdoubles(from: result).count == 3 ||
+            extractnumbersasdoubles(from: result).count == 4 else { return false }
+
         var newrecord = LogRecords()
         newrecord.hiddenID = hiddenID
         let currendate = Date()
@@ -69,18 +73,19 @@ final class Logging {
         logrecords?.append(newrecord)
         return true
     }
-    
-    private func getconfig(hiddenID: Int) -> SynchronizeConfiguration? {
+
+    private func getConfig(hiddenID: Int) -> SynchronizeConfiguration? {
         if let index = structconfigurations?.firstIndex(where: { $0.hiddenID == hiddenID }) {
             return structconfigurations?[index]
         }
         return nil
     }
-    
-    func setCurrentDateonConfiguration(configrecords: [Typelogdata]) -> [SynchronizeConfiguration] {
-        _ = configrecords.map { logdata in
-            let hiddenID = logdata.0
-            let date = logdata.1
+
+    func setCurrentDateonConfiguration(configrecords: [ScheduleLogData]) -> [SynchronizeConfiguration] {
+        for record in configrecords {
+            let hiddenID = record.hiddenID
+            // stats is set to date
+            let date = record.stats
             if let index = structconfigurations?.firstIndex(where: { $0.hiddenID == hiddenID }) {
                 // Caution, snapshotnum already increased before logrecord
                 if structconfigurations?[index].task == SharedReference.shared.snapshot {
@@ -92,43 +97,12 @@ final class Logging {
         WriteSynchronizeConfigurationJSON(localeprofile, structconfigurations)
         return structconfigurations ?? []
     }
-    
-    // Caution, the snapshotnum is alrady increased in
-    // setCurrentDateonConfiguration(configrecords: [Typelogdata]).
-    // Must set -1 to get correct num in log
-    func addlogpermanentstore(schedulerecords: [Typelogdata]) {
-        _ = schedulerecords.map { logdata in
-            let hiddenID = logdata.0
-            let stats = logdata.1
-            let currendate = Date()
-            let date = currendate.en_string_from_date()
-            if let config = getconfig(hiddenID: hiddenID) {
-                let resultannotaded: String? = if config.task == SharedReference.shared.snapshot {
-                    if let snapshotnum = config.snapshotnum {
-                        "(" + String(snapshotnum - 1) + ") " + stats
-                    } else {
-                        "(" + "1" + ") " + stats
-                    }
-                } else {
-                    stats
-                }
-                var inserted: Bool = addlogexisting(hiddenID: hiddenID,
-                                                    result: resultannotaded ?? "",
-                                                    date: date)
-                // Record does not exist, create new LogRecord (not inserted)
-                if inserted == false {
-                    inserted = addlognew(hiddenID: hiddenID, result: resultannotaded ?? "", date: date)
-                }
-            }
-        }
-        WriteLogRecordsJSON(localeprofile, logrecords)
-    }
-    
+
     // Extract numbers as Double values
     private func extractnumbersasdoubles(from string: String) -> [Double] {
         extractnumbersasstrings(from: string).compactMap { Double($0) }
     }
-    
+
     // Extract all numbers as strings
     private func extractnumbersasstrings(from string: String) -> [String] {
         let pattern = #"\d+(?:\.\d+)?"# // Matches integers and decimals
@@ -138,7 +112,54 @@ final class Logging {
             String(string[Range(match.range, in: string)!])
         }
     }
-    
+
+    enum LogError: Error {
+        case insertionFailed(ids: [Int])
+    }
+
+    func addLogToPermanentStore(scheduleRecords: [ScheduleLogData]) throws {
+        let dateString = Date().en_string_from_date()
+        var failedInserts: [Int] = []
+
+        for record in scheduleRecords {
+            guard let config = getConfig(hiddenID: record.hiddenID) else {
+                failedInserts.append(record.hiddenID)
+                continue
+            }
+
+            let result = formatLogResult(stats: record.stats, config: config)
+
+            let success = updateExistingLog(hiddenID: record.hiddenID, result: result, date: dateString)
+                || createNewLog(hiddenID: record.hiddenID, result: result, date: dateString)
+
+            if !success {
+                failedInserts.append(record.hiddenID)
+            }
+        }
+
+        try persistLogs()
+
+        if !failedInserts.isEmpty {
+            throw LogError.insertionFailed(ids: failedInserts)
+        }
+    }
+
+    // Caution, the snapshotnum is alrady increased in
+    // Must set -1 to get correct num in log
+    private func formatLogResult(stats: String, config: SynchronizeConfiguration) -> String {
+        guard config.task == SharedReference.shared.snapshot else {
+            return stats
+        }
+
+        let snapshotNumber = max((config.snapshotnum ?? 1) - 1, 1)
+        return "(\(snapshotNumber)) \(stats)"
+    }
+
+    private func persistLogs() throws {
+        // Renamed and potentially throwing version
+        WriteLogRecordsJSON(localeprofile, logrecords)
+    }
+
     init(profile: String?,
          configurations: [SynchronizeConfiguration]?)
     {

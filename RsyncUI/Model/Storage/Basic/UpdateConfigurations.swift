@@ -15,8 +15,8 @@ final class UpdateConfigurations {
     var maxhiddenID: Int {
         if let configs = configurations {
             var setofhiddenIDs = Set<Int>()
-            _ = configs.map { record in
-                setofhiddenIDs.insert(record.hiddenID)
+            for item in configs {
+                setofhiddenIDs.insert(item.hiddenID)
             }
             return setofhiddenIDs.max() ?? 0
         }
@@ -64,7 +64,7 @@ final class UpdateConfigurations {
     func deleteconfigurations(_ uuids: Set<UUID>) {
         var indexset = IndexSet()
         if let configurations {
-            _ = configurations.map { configuration in
+            for configuration in configurations {
                 if let index = configurations.firstIndex(of: configuration) {
                     if uuids.contains(configuration.id) {
                         indexset.insert(index)

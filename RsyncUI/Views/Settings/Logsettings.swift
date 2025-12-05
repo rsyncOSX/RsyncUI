@@ -17,7 +17,7 @@ struct Logsettings: View {
 
     var body: some View {
         Form {
-            Section(header: Text("Monitor network, error and log settings")
+            Section(header: Text("Log settings")
                 .font(.title3)
                 .fontWeight(.bold))
             {

@@ -76,8 +76,8 @@ final class Snapshotlogsandcatalogs {
         var mergedalluuids = Set<UUID>()
         var mergeuseduuids = Set<UUID>()
         var merged = [Log]()
-
-        _ = logrecords.map { logrecord in
+        
+        for logrecord in logrecords {
             if let logrecords = logrecord.logrecords {
                 merged += [logrecords].flatMap(\.self)
             }
