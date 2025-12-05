@@ -5,8 +5,6 @@
 //  Created by Thomas Evensen on 16/09/2024.
 //
 
-// swiftlint:disable line_length opening_brace
-
 import Foundation
 import SSHCreateKey
 
@@ -91,5 +89,3 @@ struct OtherRsyncCommandtoDisplay {
         command = str.joined(separator: ",")
     }
 }
-
-// swiftlint:enable line_length opening_brace

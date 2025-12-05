@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 21/11/2023.
 //
-// swiftlint:disable line_length
 
 import OSLog
 import RsyncProcess
@@ -341,5 +340,3 @@ extension RestoreTableView {
         }
     }
 }
-
-// swiftlint:enable line_length

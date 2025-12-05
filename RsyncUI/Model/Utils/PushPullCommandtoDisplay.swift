@@ -50,5 +50,3 @@ struct PushPullCommandtoDisplay {
         command = str
     }
 }
-
-// swiftlint:enable line_length opening_brace

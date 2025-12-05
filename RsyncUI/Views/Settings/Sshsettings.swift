@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 10/02/2021.
 //
-// swiftlint:disable line_length
 
 import OSLog
 import SwiftUI
@@ -86,5 +85,3 @@ extension Sshsettings {
         }
     }
 }
-
-// swiftlint:enable line_length

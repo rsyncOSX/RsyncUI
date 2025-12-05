@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 11/12/2023.
 //
-// swiftlint:disable file_length type_body_length line_length
 
 import OSLog
 import SwiftUI
@@ -620,5 +619,3 @@ extension AddTaskView {
         selecteduuids.removeAll()
     }
 }
-
-// swiftlint:enable file_length type_body_length line_length

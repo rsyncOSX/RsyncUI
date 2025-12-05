@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 22.07.2017.
 //  Copyright © 2017 Thomas Evensen. All rights reserved.
 //
-// swiftlint:disable line_length opening_brace
 
 import Foundation
 
@@ -51,5 +50,3 @@ struct RsyncCommandtoDisplay {
         rsynccommand = str
     }
 }
-
-// swiftlint:enable line_length opening_brace

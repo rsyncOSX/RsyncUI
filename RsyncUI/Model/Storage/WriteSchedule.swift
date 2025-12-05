@@ -1,6 +1,5 @@
 //
 //  WriteSchedule.swift
-// swiftlint:disable line_length
 
 import DecodeEncodeGeneric
 import Foundation
@@ -44,5 +43,3 @@ struct WriteSchedule {
         encodeJSONData(calendar)
     }
 }
-
-// swiftlint:enable line_length

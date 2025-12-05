@@ -2,7 +2,6 @@
 //  UpdateConfigurations.swift
 //
 //
-// swiftlint:disable opening_brace
 
 import Foundation
 
@@ -123,5 +122,3 @@ final class UpdateConfigurations {
         }
     }
 }
-
-// swiftlint:enable opening_brace

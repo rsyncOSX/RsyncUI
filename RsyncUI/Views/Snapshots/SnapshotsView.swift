@@ -234,7 +234,6 @@ struct SnapshotsView: View {
 }
 
 extension SnapshotsView {
-    
     var validhiddenIDs: Set<Int> {
         var temp = Set<Int>()
         if let configurations = rsyncUIdata.configurations {

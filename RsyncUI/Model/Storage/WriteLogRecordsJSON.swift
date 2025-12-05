@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 27/04/2021.
 //
-// swiftlint:disable line_length
 
 import DecodeEncodeGeneric
 import Foundation
@@ -62,5 +61,3 @@ final class WriteLogRecordsJSON {
         Logger.process.debugmessageonly("WriteLogRecordsJSON DEINIT")
     }
 }
-
-// swiftlint:enable line_length

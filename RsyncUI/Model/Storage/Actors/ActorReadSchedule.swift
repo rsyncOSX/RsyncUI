@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 19/04/2021.
 //
-// swiftlint:disable line_length
 
 import DecodeEncodeGeneric
 import Foundation
@@ -55,5 +54,3 @@ actor ActorReadSchedule {
         return nil
     }
 }
-
-// swiftlint:enable line_length

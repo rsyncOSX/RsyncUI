@@ -203,7 +203,7 @@ struct LogStatsChartView: View {
             }
             return ""
         }
-        
+
         var validhiddenIDs: Set<Int> {
             var temp = Set<Int>()
             if let configurations = rsyncUIdata.configurations {

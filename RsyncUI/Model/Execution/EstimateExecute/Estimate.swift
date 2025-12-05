@@ -181,5 +181,3 @@ extension Estimate {
         }
     }
 }
-
-// swiftlint: enable line_length

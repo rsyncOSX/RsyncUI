@@ -47,5 +47,3 @@ enum DuplicateError: LocalizedError {
         }
     }
 }
-
-// swiftlint:enable line_length

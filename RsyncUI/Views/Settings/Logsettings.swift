@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 04/06/2024.
 //
-// swiftlint:disable line_length
 
 import OSLog
 import SwiftUI
@@ -87,5 +86,3 @@ struct Logsettings: View {
         .formStyle(.grouped)
     }
 }
-
-// swiftlint:enable line_length

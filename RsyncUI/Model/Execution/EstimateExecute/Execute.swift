@@ -21,7 +21,6 @@ enum ErrorDatatoSynchronize: LocalizedError {
     }
 }
 
-
 @MainActor
 final class Execute {
     private var localconfigurations: [SynchronizeConfiguration]
@@ -198,7 +197,7 @@ extension Execute {
                     let error = e
                     SharedReference.shared.errorobject?.alert(error: error)
                 }
-                
+
                 let logData = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: defaultstats)
                 schedulerecords.append(logData)
                 Logger.process.debugmessageonly("Execute: getstats() FAILED")
@@ -271,5 +270,3 @@ extension Execute {
         }
     }
 }
-
-// swiftlint: enable line_length

@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 06/04/2021.
 //
-// swiftlint:disable line_length
 
 import Foundation
 import Observation
@@ -176,5 +175,3 @@ enum RestoreError: LocalizedError {
         }
     }
 }
-
-// swiftlint:enable line_length

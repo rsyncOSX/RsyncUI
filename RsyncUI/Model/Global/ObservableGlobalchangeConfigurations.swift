@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 03/06/2021.
 //
-// swiftlint:disable line_length
 
 import Foundation
 import Observation
@@ -125,5 +124,3 @@ final class ObservableGlobalchangeConfigurations {
         resetform()
     }
 }
-
-// swiftlint:enable line_length

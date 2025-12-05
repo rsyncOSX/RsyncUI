@@ -19,7 +19,6 @@ final class Logging {
     var logrecords: [LogRecords]?
     var localeprofile: String?
 
-
     var validhiddenIDs: Set<Int> {
         var temp = Set<Int>()
         if let configurations = structconfigurations {

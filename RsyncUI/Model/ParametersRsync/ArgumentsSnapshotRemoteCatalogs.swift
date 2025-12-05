@@ -5,8 +5,6 @@
 //  Created by Thomas Evensen on 27/08/2024.
 //
 
-// swiftlint:disable line_length
-
 import Foundation
 import RsyncArguments
 
@@ -33,5 +31,3 @@ final class ArgumentsSnapshotRemoteCatalogs {
         self.config = config
     }
 }
-
-// swiftlint:enable line_length

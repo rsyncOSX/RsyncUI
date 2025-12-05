@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 07/08/2024.
 //
-// swiftlint:disable line_length
 
 import Foundation
 import RsyncArguments
@@ -36,5 +35,3 @@ final class ArgumentsRemoteFileList {
         self.config = config
     }
 }
-
-// swiftlint:enable line_length
