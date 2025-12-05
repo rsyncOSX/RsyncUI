@@ -53,14 +53,13 @@ struct SummarizedDetailsView: View {
                             if SharedReference.shared.confirmexecute {
                                 // Because of the role .destructive keep the if #available(macOS 26.0, *)
                                 if #available(macOS 26.0, *) {
-                                    Button(action: {
+                                    Button {
                                         isPresentingConfirm = progressdetails.confirmexecutetasks()
                                         if isPresentingConfirm == false {
                                             executetaskpath.removeAll()
                                             executetaskpath.append(Tasks(task: .executestimatedview))
                                         }
-
-                                    }) {
+                                    } label: {
                                         Image(systemName: "play.fill")
                                     }
                                     .buttonStyle(RefinedGlassButtonStyle())

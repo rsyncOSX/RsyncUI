@@ -102,13 +102,10 @@ final class Logging {
         extractNumbersAsStrings(from: string).compactMap { Double($0) }
     }
 
-    private static let numberRegex: NSRegularExpression? = {
-        try? NSRegularExpression(pattern: #"\d+(?:\.\d+)?"#)
-    }()
+    private static let numberRegex: NSRegularExpression? = try? NSRegularExpression(pattern: #"\d+(?:\.\d+)?"#)
 
     private func extractNumbersAsStrings(from string: String) -> [String] {
         guard let regex = Self.numberRegex else { return [] }
-        
         let matches = regex.matches(in: string, range: NSRange(string.startIndex..., in: string))
         return matches.compactMap { match in
             Range(match.range, in: string).map { String(string[$0]) }

@@ -60,9 +60,7 @@ actor ActorLogChartsData {
         extractNumbersAsStrings(from: string).compactMap { Double($0) }
     }
 
-    private static let numberRegex: NSRegularExpression? = {
-        try? NSRegularExpression(pattern: #"\d+(?:\.\d+)?"#)
-    }()
+    private static let numberRegex: NSRegularExpression? = try? NSRegularExpression(pattern: #"\d+(?:\.\d+)?"#)
 
     private nonisolated func extractNumbersAsStrings(from string: String) -> [String] {
         guard let regex = Self.numberRegex else { return [] }
