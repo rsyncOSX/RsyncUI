@@ -21,8 +21,8 @@ struct VerifyDuplicates {
 
     @discardableResult
     init(_ configurations: [SynchronizeConfiguration]) {
-        _ = configurations.map { record in
-            arrayofhiddenIDs.append(record.hiddenID)
+        for configuration in configurations {
+            arrayofhiddenIDs.append(configuration.hiddenID)
         }
         do {
             try checkforduplicates()

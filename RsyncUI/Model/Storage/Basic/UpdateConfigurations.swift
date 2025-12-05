@@ -15,8 +15,8 @@ final class UpdateConfigurations {
     var maxhiddenID: Int {
         if let configs = configurations {
             var setofhiddenIDs = Set<Int>()
-            _ = configs.map { record in
-                setofhiddenIDs.insert(record.hiddenID)
+            for item in configs {
+                setofhiddenIDs.insert(item.hiddenID)
             }
             return setofhiddenIDs.max() ?? 0
         }
