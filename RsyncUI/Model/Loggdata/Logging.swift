@@ -82,10 +82,10 @@ final class Logging {
     }
 
     func setCurrentDateonConfiguration(configrecords: [ScheduleLogData]) -> [SynchronizeConfiguration] {
-        _ = configrecords.map { logdata in
-            let hiddenID = logdata.hiddenID
+        for record in configrecords {
+            let hiddenID = record.hiddenID
             // stats is set to date
-            let date = logdata.stats
+            let date = record.stats
             if let index = structconfigurations?.firstIndex(where: { $0.hiddenID == hiddenID }) {
                 // Caution, snapshotnum already increased before logrecord
                 if structconfigurations?[index].task == SharedReference.shared.snapshot {
