@@ -567,7 +567,7 @@ struct AddTaskView: View {
         }
         .onAppear {
             if let selectedrsynccommand = UserDefaults.standard.value(forKey: "selectedrsynccommand") {
-                switch selectedrsynccommand as! String {
+                switch selectedrsynccommand as? String {
                 case "synchronize":
                     newdata.selectedrsynccommand = TypeofTask.synchronize
                 case "snapshot":

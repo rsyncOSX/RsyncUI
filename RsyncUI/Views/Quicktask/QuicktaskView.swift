@@ -112,7 +112,7 @@ struct QuicktaskView: View {
                             }
                             .onAppear {
                                 if let selectedrsynccommand = UserDefaults.standard.value(forKey: "quickselectedrsynccommand") {
-                                    switch selectedrsynccommand as! String {
+                                    switch selectedrsynccommand as? String {
                                     case "synchronize":
                                         self.selectedrsynccommand = TypeofTaskQuictask.synchronize
                                     case "syncremote":
@@ -182,7 +182,7 @@ struct QuicktaskView: View {
                                 }
                                 .onAppear {
                                     if let quickcatalogorfile = UserDefaults.standard.value(forKey: "quickcatalogorfile") {
-                                        catalogorfile = quickcatalogorfile as! Bool
+                                        catalogorfile = quickcatalogorfile as? Bool ?? false
                                     }
                                 }
                         }

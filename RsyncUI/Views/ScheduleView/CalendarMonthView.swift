@@ -122,8 +122,10 @@ struct CalendarMonthView: View {
                                         item.scheduledata
                                     }
 
-                                    WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])
-
+                                    if let scheduledatamapped = scheduledatamapped as? [SchedulesConfigurations] {
+                                        WriteSchedule(scheduledatamapped )
+                                    }
+                                    
                                     if globaltimer.allSchedules.isEmpty {
                                         globaltimer.firstscheduledate = nil
                                     } else {

@@ -184,12 +184,6 @@ extension Date {
         return lastDay
     }
 
-    /*
-     var startOfPreviousMonth: Date {
-         let dayInPreviousMonth = Calendar.current.date(byAdding: .month, value: -1, to: self)!
-         return dayInPreviousMonth.startOfMonth
-     }
-     */
     var numberOfDaysInMonth: Int {
         Calendar.current.component(.day, from: endOfCurrentMonth)
     }

@@ -95,16 +95,18 @@ final class ObservableSchedules {
     func computelastdateinnextmonth() -> Date? {
         let calendar = Calendar.current
         var components = calendar.dateComponents([.year, .month], from: Date())
-        // Move to next month
-        components.month! += 1
-        // Request the last day of that month
-        components.day = 0 // Setting day to 0 gives the last day of the previous month
-        if let lastDayOfNextMonth = calendar.date(byAdding: .month, value: 1,
-                                                  to: calendar.date(from: components)!) {
-            return lastDayOfNextMonth
-        } else {
-            return nil
+        if var month = components.month {
+            month += 1
+            // Request the last day of that month
+            components.day = 0 // Setting day to 0 gives the last day of the previous month
+            if let lastDayOfNextMonth = calendar.date(byAdding: .month, value: 1,
+                                                      to: calendar.date(from: components)!) {
+                return lastDayOfNextMonth
+            } else {
+                return nil
+            }
         }
+        return nil
     }
 
     func appendfutureschedule(profile: String?, dateRun: String, schedule: String) {
