@@ -258,14 +258,6 @@ struct LogStatsChartView: View {
     }
 
     private func readandsortlogdata() async -> [LogEntry] {
-        /*
-         let actorreadlogs = ActorReadLogRecordsJSON()
-         let logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
-
-         let actorreadchartsdata = ActorLogChartsData()
-         let alllogs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-         let parsedlogs = await actorreadchartsdata.parselogrecords(from: alllogs)
-         */
         let actorreadchartsdata = ActorLogChartsData()
 
         if let parsedlogs = chartdata.parsedlogs {

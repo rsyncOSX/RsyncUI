@@ -40,10 +40,6 @@ import Foundation
 @_silgen_name("ytcpsocket_port") private func c_ytcpsocket_port(_ fd: Int32) -> Int32
 
 open class TCPClient: Socket {
-    /*
-     * connect to server
-     * return success or fail with message
-     */
     open func connect(timeout: Int) -> ResultYTP {
         let rs: Int32 = c_ytcpsocket_connect(address, port: Int32(self.port), timeout: Int32(timeout))
         if rs > 0 {
@@ -63,10 +59,6 @@ open class TCPClient: Socket {
         }
     }
 
-    /*
-     * close socket
-     * return success or fail with message
-     */
     open func close() {
         guard let fd else { return }
 
@@ -74,10 +66,6 @@ open class TCPClient: Socket {
         self.fd = nil
     }
 
-    /*
-     * send data
-     * return success or fail with message
-     */
     open func send(data: [Byte]) -> ResultYTP {
         guard let fd else { return .failure(SocketError.connectionClosed) }
 
@@ -89,10 +77,6 @@ open class TCPClient: Socket {
         }
     }
 
-    /*
-     * send string
-     * return success or fail with message
-     */
     open func send(string: String) -> ResultYTP {
         guard let fd else { return .failure(SocketError.connectionClosed) }
 
@@ -104,10 +88,6 @@ open class TCPClient: Socket {
         }
     }
 
-    /*
-     *
-     * send nsdata
-     */
     open func send(data: Data) -> ResultYTP {
         guard let fd else { return .failure(SocketError.connectionClosed) }
 
@@ -121,10 +101,6 @@ open class TCPClient: Socket {
         }
     }
 
-    /*
-     * read data with expect length
-     * return success or fail with message
-     */
     open func read(_ expectlen: Int, timeout: Int = -1) -> [Byte]? {
         guard let fd: Int32 = fd else { return nil }
 
@@ -137,9 +113,6 @@ open class TCPClient: Socket {
         return data
     }
 
-    /*
-     * gets byte available for reading
-     */
     open func bytesAvailable() -> Int32? {
         guard let fd: Int32 = fd else { return nil }
 

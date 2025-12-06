@@ -287,13 +287,6 @@ extension SnapshotsView {
         if let config = selectedconfig {
             guard config.task == SharedReference.shared.snapshot else { return }
             guard (snapshotdata.getsnapshotdata()?.count ?? 0) > 0 else { return }
-            /*
-             var snapdayoffweek: String = ""
-             var snaplast: String = ""
-             plan == 1, only keep last day of week in a month
-             plan == 0, keep last day of week every week
-             dayofweek
-             */
             var localsnaplast = 0
             if snaplast == PlanSnapshots.Last.rawValue {
                 localsnaplast = 0 // keep selected day of week every week of month

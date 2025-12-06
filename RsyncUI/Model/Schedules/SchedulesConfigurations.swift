@@ -5,11 +5,6 @@
 //  Created by Thomas Evensen on 25/03/2025.
 //
 
-/*
- let currendate = Date()
- let date = currendate.en_us_string_from_date()
- */
-
 import Foundation
 
 enum ScheduleType: String, CaseIterable, Identifiable, CustomStringConvertible {

@@ -229,11 +229,3 @@ struct ConfigurationsTableDataMainView: View {
         }
     }
 }
-
-/*
- enum Halted: Int {
-     case synchronize = 1 // before halted synchronize
-     case syncremote = 2 // as above but syncremote
-     case snapshot = 3 // as above but
- }
- */
