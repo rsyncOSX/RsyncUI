@@ -80,7 +80,7 @@ struct LogsbyConfigurationView: View {
                     isPresented: $confirmdelete) {
                         Button("Delete", role: .destructive) {
                             Task {
-                                await deletelogs(selectedloguuids)
+                                await deleteLogs(selectedloguuids)
                             }
                         }
                 }
@@ -223,9 +223,9 @@ struct LogsbyConfigurationView: View {
         }
     }
 
-    func deletelogs(_ uuids: Set<UUID>) async {
+    func deleteLogs(_ uuids: Set<UUID>) async {
         Task {
-            async let updatedRecords: [LogRecords]? = ActorReadLogRecordsJSON().deletelogs(
+            async let updatedRecords: [LogRecords]? = ActorReadLogRecordsJSON().deleteLogs(
                 uuids,
                 logrecords: logrecords,
                 profile: rsyncUIdata.profile,

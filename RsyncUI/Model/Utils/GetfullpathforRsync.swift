@@ -16,7 +16,7 @@ struct GetfullpathforRsync {
         if SharedReference.shared.rsyncversion3 {
             if let localrsyncpath = SharedReference.shared.localrsyncpath,
                localrsyncpath.isEmpty == false {
-                Logger.process.debugmessageonly("GetfullpathforRsync OPTIONAL path: \(localrsyncpath)")
+                Logger.process.debugMessageOnly("GetfullpathforRsync OPTIONAL path: \(localrsyncpath)")
 
                 if localrsyncpath.hasPrefix("/") {
                     return localrsyncpath + SharedReference.shared.rsync
@@ -25,9 +25,9 @@ struct GetfullpathforRsync {
                 }
             } else {
                 if SharedReference.shared.macosarm {
-                    Logger.process.debugmessageonly("GetfullpathforRsync HOMEBREW path ARM: \(SharedReference.shared.usrlocalbinarm.appending("/"))")
+                    Logger.process.debugMessageOnly("GetfullpathforRsync HOMEBREW path ARM: \(SharedReference.shared.usrlocalbinarm.appending("/"))")
                 } else {
-                    Logger.process.debugmessageonly("GetfullpathforRsync HOMEBREW path INTEL: \(SharedReference.shared.usrlocalbin.appending("/"))")
+                    Logger.process.debugMessageOnly("GetfullpathforRsync HOMEBREW path INTEL: \(SharedReference.shared.usrlocalbin.appending("/"))")
                 }
                 if SharedReference.shared.macosarm {
                     return SharedReference.shared.usrlocalbinarm.appending("/") + SharedReference.shared.rsync
@@ -36,7 +36,7 @@ struct GetfullpathforRsync {
                 }
             }
         } else {
-            Logger.process.debugmessageonly("GetfullpathforRsync DEFAULT path: \(SharedReference.shared.usrbin.appending("/"))")
+            Logger.process.debugMessageOnly("GetfullpathforRsync DEFAULT path: \(SharedReference.shared.usrbin.appending("/"))")
             return SharedReference.shared.usrbin.appending("/") + SharedReference.shared.rsync
         }
     }

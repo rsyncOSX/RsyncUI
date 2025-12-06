@@ -19,7 +19,7 @@ struct CatalogForProfile {
         if let fullpathmacserial = path.fullpathmacserial, let profile {
             let fullpathprofileString = fullpathmacserial.appending("/") + profile
             guard fm.locationExists(at: fullpathprofileString, kind: .folder) == false else {
-                Logger.process.debugmessageonly("CatalogProfile: profile catalog exist: \(fullpathprofileString)")
+                Logger.process.debugMessageOnly("CatalogProfile: profile catalog exist: \(fullpathprofileString)")
                 return false
             }
 
@@ -27,7 +27,7 @@ struct CatalogForProfile {
             let profileURL = fullpathmacserialURL.appendingPathComponent(profile)
 
             do {
-                Logger.process.debugmessageonly("CatalogProfile creating: \(profileURL)")
+                Logger.process.debugMessageOnly("CatalogProfile creating: \(profileURL)")
                 try fm.createDirectory(at: profileURL, withIntermediateDirectories: true, attributes: nil)
             } catch let e {
                 let error = e

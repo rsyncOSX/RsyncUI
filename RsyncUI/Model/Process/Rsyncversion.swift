@@ -14,8 +14,8 @@ import RsyncProcess
 final class Rsyncversion {
     func getrsyncversion() {
         let handlers = CreateHandlers().createhandlers(
-            filehandler: { _ in },
-            processtermination: processtermination
+            fileHandler: { _ in },
+            processTermination: processTermination
         )
 
         do {
@@ -48,7 +48,7 @@ final class Rsyncversion {
 }
 
 extension Rsyncversion {
-    func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+    func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         guard stringoutputfromrsync?.count ?? 0 > 0 else { return }
         if let rsyncversionshort = stringoutputfromrsync?[0] {
             let s = rsyncversionshort.replacingOccurrences(of: "protocol", with: "\nprotocol")
@@ -57,10 +57,10 @@ extension Rsyncversion {
 
             if rsyncversionshort.contains("version 3.") {
                 SharedReference.shared.rsyncversion3 = true
-                Logger.process.debugmessageonly("Rsyncversion: version 3.x of rsync discovered")
+                Logger.process.debugMessageOnly("Rsyncversion: version 3.x of rsync discovered")
             } else {
                 SharedReference.shared.rsyncversion3 = false
-                Logger.process.debugmessageonly("Rsyncversion: default openrsync discovered")
+                Logger.process.debugMessageOnly("Rsyncversion: default openrsync discovered")
             }
         }
     }

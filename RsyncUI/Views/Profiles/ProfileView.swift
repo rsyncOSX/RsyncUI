@@ -45,7 +45,7 @@ struct ProfileView: View {
                             $newprofile)
         }
         .onSubmit {
-            createprofile()
+            createProfile()
         }
         .task {
             allconfigurations = await ReadAllTasks().readallmarkedtasks(rsyncUIdata.validprofiles)
@@ -63,7 +63,7 @@ struct ProfileView: View {
                 .confirmationDialog("Delete \(localselectedprofile ?? "")?",
                                     isPresented: $isPresentingConfirm) {
                     Button("Delete", role: .destructive) {
-                        deleteprofile()
+                        deleteProfile()
                     }
                 }
             }
@@ -72,8 +72,8 @@ struct ProfileView: View {
 }
 
 extension ProfileView {
-    func createprofile() {
-        if newdata.createprofile(newprofile) {
+    func createProfile() {
+        if newdata.createProfile(newprofile) {
             // Add a profile record
             rsyncUIdata.validprofiles.append(ProfilesnamesRecord(newprofile))
             if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.profilename == newprofile }) {
@@ -84,9 +84,9 @@ extension ProfileView {
         }
     }
 
-    func deleteprofile() {
+    func deleteProfile() {
         if let deleteprofile = localselectedprofile {
-            if newdata.deleteprofile(deleteprofile) {
+            if newdata.deleteProfile(deleteprofile) {
                 selectedprofileID = nil
                 // Remove the profile record
                 if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == uuidprofile }) {

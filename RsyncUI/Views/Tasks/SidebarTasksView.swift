@@ -53,7 +53,7 @@ struct SidebarTasksView: View {
         }
         .onChange(of: queryitem) {
             // URL code
-            handlequeryitem()
+            handleQueryItem()
         }
     }
 
@@ -113,7 +113,7 @@ struct SidebarTasksView: View {
     }
 
     func reset() {
-        progressdetails.resetcounts()
+        progressdetails.resetCounts()
         rsyncUIdata.executetasksinprogress = false
         queryitem = nil
     }
@@ -121,8 +121,8 @@ struct SidebarTasksView: View {
 
 extension SidebarTasksView {
     // URL code
-    private func handlequeryitem() {
-        Logger.process.debugmessageonly("SidebarTasksView: Change on queryitem discovered")
+    private func handleQueryItem() {
+        Logger.process.debugMessageOnly("SidebarTasksView: Change on queryitem discovered")
         if queryitem != nil {
             if let name = queryitem?.name {
                 if name == "id" {

@@ -16,8 +16,8 @@ final class SnapshotRemoteCatalogs {
 
     func getremotecataloginfo(_ config: SynchronizeConfiguration) {
         let handlers = CreateHandlers().createhandlers(
-            filehandler: { _ in },
-            processtermination: processtermination
+            fileHandler: { _ in },
+            processTermination: processTermination
         )
 
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
@@ -40,7 +40,7 @@ final class SnapshotRemoteCatalogs {
         getremotecataloginfo(config)
     }
 
-    func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+    func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         if let stringoutputfromrsync {
             let catalogs = TrimOutputForRestore(stringoutputfromrsync).trimmeddata
             catalogsanddates = catalogs?.compactMap { line in

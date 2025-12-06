@@ -34,14 +34,14 @@ final class Execute {
     private var configrecords = [ScheduleLogData]()
     private var schedulerecords = [ScheduleLogData]()
     // Report progress to caller
-    var localfilehandler: (Int) -> Void
+    var localfileHandler: (Int) -> Void
     // Update configurations
     var localupdateconfigurations: ([SynchronizeConfiguration]) -> Void
     var stackoftasks: [Int]?
 
     let defaultstats = "0 files : 0.00 MB in 0.00 seconds"
 
-    private func getconfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
+    private func getConfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
         if let index = localconfigurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
             return localconfigurations[index]
         }
@@ -51,14 +51,14 @@ final class Execute {
     private func startexecution() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
         let handlers = CreateHandlers().createhandlers(
-            filehandler: localfilehandler,
-            processtermination: processtermination
+            fileHandler: localfileHandler,
+            processTermination: processTermination
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
             // For display progress of synchronization of correct task
             localprogressdetails?.hiddenIDatwork = localhiddenID
-            if let config = getconfig(localhiddenID) {
+            if let config = getConfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
                                                                                              forDisplay: false) {
                     let process = RsyncProcess(arguments: arguments,
@@ -84,12 +84,12 @@ final class Execute {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
 
         let handlers = CreateHandlers().createhandlers(
-            filehandler: localfilehandler,
-            processtermination: processtermination_noestimation
+            fileHandler: localfileHandler,
+            processTermination: processTermination_noestimation
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
-            if let config = getconfig(localhiddenID) {
+            if let config = getConfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
                                                                                              forDisplay: false) {
                     // Must check valid rsync exists
@@ -128,12 +128,12 @@ final class Execute {
          configurations: [SynchronizeConfiguration],
          selecteduuids: Set<UUID>,
          progressdetails: ProgressDetails?,
-         filehandler: @escaping (Int) -> Void,
+         fileHandler: @escaping (Int) -> Void,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void) {
         structprofile = profile
         localconfigurations = configurations
         localprogressdetails = progressdetails
-        localfilehandler = filehandler
+        localfileHandler = fileHandler
         localupdateconfigurations = updateconfigurations
 
         guard selecteduuids.count > 0 else { return }
@@ -142,7 +142,7 @@ final class Execute {
         }
         stackoftasks = taskstosynchronize.map(\.hiddenID)
         guard stackoftasks?.count ?? 0 > 0 else { return }
-        Logger.process.debugmessageonly("Execute: START EXECUTION")
+        Logger.process.debugMessageOnly("Execute: START EXECUTION")
         startexecution()
     }
 
@@ -151,12 +151,12 @@ final class Execute {
          configurations: [SynchronizeConfiguration],
          selecteduuids: Set<UUID>,
          noestprogressdetails: NoEstProgressDetails?,
-         filehandler: @escaping (Int) -> Void,
+         fileHandler: @escaping (Int) -> Void,
          updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void) {
         structprofile = profile
         localconfigurations = configurations
         localnoestprogressdetails = noestprogressdetails
-        localfilehandler = filehandler
+        localfileHandler = fileHandler
         localupdateconfigurations = updateconfigurations
 
         stackoftasks = computestackoftasks(selecteduuids)
@@ -164,13 +164,13 @@ final class Execute {
     }
 
     deinit {
-        Logger.process.debugmessageonly("Execute: DEINIT")
+        Logger.process.debugMessageOnly("Execute: DEINIT")
         self.stackoftasks = nil
     }
 }
 
 extension Execute {
-    private func processtermination(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
+    private func processTermination(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
         guard setabort == false else { return }
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
@@ -187,12 +187,12 @@ extension Execute {
                                                  SharedReference.shared.rsyncversion3 ? .ver3 : .openrsync).getstats()
                 let logData = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: stats ?? defaultstats)
                 schedulerecords.append(logData)
-                Logger.process.debugmessageonly("Execute: getstats() SUCCESS")
+                Logger.process.debugMessageOnly("Execute: getstats() SUCCESS")
             } catch let e {
                 if SharedReference.shared.silencemissingstats == false {
                     let logData = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: defaultstats)
                     schedulerecords.append(logData)
-                    Logger.process.debugmessageonly("Execute: getstats() FAILED")
+                    Logger.process.debugMessageOnly("Execute: getstats() FAILED")
                     
                     let error = e
                     SharedReference.shared.errorobject?.alert(error: error)
@@ -200,7 +200,7 @@ extension Execute {
                 } else {
                     let logData = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: defaultstats)
                     schedulerecords.append(logData)
-                    Logger.process.debugmessageonly("Execute: getstats() FAILED")
+                    Logger.process.debugMessageOnly("Execute: getstats() FAILED")
                 }
 
             }
@@ -213,7 +213,7 @@ extension Execute {
             // Send date stamped configurations back to caller
             localupdateconfigurations(updateconfigurations)
 
-            Logger.process.debugmessageonly("Execute: EXECUTION is completed")
+            Logger.process.debugMessageOnly("Execute: EXECUTION is completed")
             guard SharedReference.shared.addsummarylogrecord else { return }
             // Update logrecords
             do {
@@ -226,7 +226,7 @@ extension Execute {
         startexecution()
     }
 
-    private func processtermination_noestimation(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
+    private func processTermination_noestimation(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
         // If snahost task the snapshotnum is increased when updating the configuration.
         // When creating the logrecord, decrease the snapshotum by 1
 
@@ -234,7 +234,7 @@ extension Execute {
 
         let element = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: Date().en_string_from_date())
         configrecords.append(element)
-        if let config = getconfig(hiddenID ?? -1) {
+        if let config = getConfig(hiddenID ?? -1) {
             if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
                 suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
             } else {
@@ -247,8 +247,8 @@ extension Execute {
                 if let stats = record.stats {
                     let element = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: stats)
                     schedulerecords.append(element)
-                    localnoestprogressdetails?.appendrecordexecutedlist(record)
-                    localnoestprogressdetails?.appenduuidwithdatatosynchronize(config.id)
+                    localnoestprogressdetails?.appendRecordExecutedList(record)
+                    localnoestprogressdetails?.appendUUIDWithDataToSynchronize(config.id)
                 }
             }
 
@@ -258,8 +258,8 @@ extension Execute {
                 let updateconfigurations = update.setCurrentDateonConfiguration(configrecords: configrecords)
                 // Send date stamped configurations back to caller
                 localupdateconfigurations(updateconfigurations)
-                localnoestprogressdetails?.executealltasksnoestiamtioncomplete()
-                Logger.process.debugmessageonly("Execute: execution is completed")
+                localnoestprogressdetails?.executeAllTasksNoEstimationComplete()
+                Logger.process.debugMessageOnly("Execute: execution is completed")
                 guard SharedReference.shared.addsummarylogrecord else { return }
                 // Update logrecords
                 do {

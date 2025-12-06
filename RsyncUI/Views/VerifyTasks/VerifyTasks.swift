@@ -108,8 +108,8 @@ struct VerifyTasks: View {
                                                                                   forDisplay: false)
 
         let handlers = CreateHandlers().createhandlers(
-            filehandler: { _ in },
-            processtermination: processtermination
+            fileHandler: { _ in },
+            processTermination: processTermination
         )
 
         guard SharedReference.shared.norsync == false else { return }
@@ -127,7 +127,7 @@ struct VerifyTasks: View {
         }
     }
 
-    func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+    func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         estimating = false
 
         if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {

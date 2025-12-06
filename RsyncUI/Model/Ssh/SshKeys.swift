@@ -49,7 +49,7 @@ final class SshKeys {
         guard arguments != nil else { return }
 
         let handlers = CreateCommandHandlers().createcommandhandlers(
-            processtermination: processtermination)
+            processTermination: processTermination)
 
         let process = ProcessCommand(command: command,
                                      arguments: arguments,
@@ -62,7 +62,7 @@ final class SshKeys {
         }
     }
 
-    func processtermination(stringoutputfromrsync: [String]?, _: Bool) {
+    func processTermination(stringoutputfromrsync: [String]?, _: Bool) {
         Task {
             await ActorLogToFile(command ?? "", TrimOutputFromRsync(stringoutputfromrsync ?? []).trimmeddata)
         }

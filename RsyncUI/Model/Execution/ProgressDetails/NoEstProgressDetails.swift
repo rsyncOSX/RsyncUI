@@ -15,22 +15,22 @@ final class NoEstProgressDetails {
     // UUIDs with data to be transferred
     var uuidswithdatatosynchronize = Set<UUID>()
 
-    func executealltasksnoestiamtioncomplete() {
+    func executeAllTasksNoEstimationComplete() {
         executenoestimationcompleted = true
     }
 
-    func startexecutealltasksnoestimation() {
+    func startExecuteAllTasksNoEstimation() {
         executenoestimationcompleted = false
     }
 
-    func appendrecordexecutedlist(_ record: RemoteDataNumbers) {
+    func appendRecordExecutedList(_ record: RemoteDataNumbers) {
         if executelist == nil {
             executelist = [RemoteDataNumbers]()
         }
         executelist?.append(record)
     }
 
-    func appenduuidwithdatatosynchronize(_ id: UUID) {
+    func appendUUIDWithDataToSynchronize(_ id: UUID) {
         uuidswithdatatosynchronize.insert(id)
     }
 

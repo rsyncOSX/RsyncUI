@@ -69,7 +69,7 @@ struct ExportView: View {
                         activeSheet = nil
                         return
                     }
-                    _ = WriteExportConfigurationsJSON(path, selectedconfigurations())
+                    _ = WriteExportConfigurationsJSON(path, selectedConfigurations())
                     activeSheet = nil
                 }
 
@@ -115,7 +115,7 @@ struct ExportView: View {
             .textContentType(.none)
     }
 
-    func selectedconfigurations() -> [SynchronizeConfiguration] {
+    func selectedConfigurations() -> [SynchronizeConfiguration] {
         if selecteduuids.count > 0 {
             configurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.snapshot }
         } else {

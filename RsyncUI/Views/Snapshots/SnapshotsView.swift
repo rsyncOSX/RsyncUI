@@ -43,7 +43,7 @@ struct SnapshotsView: View {
                                 if let configurations = rsyncUIdata.configurations {
                                     if let index = configurations.firstIndex(where: { $0.id == selectedconfiguuid.first }) {
                                         selectedconfig = configurations[index]
-                                        getdata()
+                                        getData()
                                     } else {
                                         selectedconfig = nil
                                         snapshotdata.setsnapshotdata(nil)
@@ -62,7 +62,7 @@ struct SnapshotsView: View {
                                          selectedconfig: $selectedconfig)
                             .onChange(of: deleteiscompleted) {
                                 if deleteiscompleted == true {
-                                    getdata()
+                                    getData()
                                     deleteiscompleted = false
                                 }
                             }
@@ -93,7 +93,7 @@ struct SnapshotsView: View {
                     text: "Update",
                     helpText: "Update plan snapshot"
                 ) {
-                    updateplansnapshot()
+                    updatePlanSnapshot()
                 }
                 .disabled(isdisabled)
 
@@ -130,7 +130,7 @@ struct SnapshotsView: View {
                         "Delete \(snapshotdata.notmappedloguuids?.count ?? 0) logs",
                         isPresented: $isPresentingConfirm) {
                             Button("Delete", role: .destructive) {
-                                deletelogs(snapshotdata.notmappedloguuids)
+                                deleteLogs(snapshotdata.notmappedloguuids)
                             }
                     }
                     .overlay(HStack(alignment: .top) {
@@ -151,7 +151,7 @@ struct SnapshotsView: View {
             if selectedconfig?.task == SharedReference.shared.snapshot {
                 ToolbarItem {
                     Button {
-                        tagsnapshots()
+                        tagSnapshots()
                     } label: {
                         Image(systemName: "tag")
                     }
@@ -207,7 +207,7 @@ struct SnapshotsView: View {
         Label("", systemImage: "play.fill")
             .onAppear {
                 focustagsnapshot = false
-                tagsnapshots()
+                tagSnapshots()
             }
     }
 
@@ -248,7 +248,7 @@ extension SnapshotsView {
         InterruptProcess()
     }
 
-    func getdata() {
+    func getData() {
         snapshotdata.snapshotuuidsfordelete.removeAll()
         guard SharedReference.shared.process == nil else { return }
         if let config = selectedconfig {
@@ -283,7 +283,7 @@ extension SnapshotsView {
         }
     }
 
-    func tagsnapshots() {
+    func tagSnapshots() {
         if let config = selectedconfig {
             guard config.task == SharedReference.shared.snapshot else { return }
             guard (snapshotdata.getsnapshotdata()?.count ?? 0) > 0 else { return }
@@ -301,7 +301,7 @@ extension SnapshotsView {
         }
     }
 
-    func updateplansnapshot() {
+    func updatePlanSnapshot() {
         if var selectedconfig {
             guard selectedconfig.task == SharedReference.shared.snapshot else {
                 return
@@ -328,7 +328,7 @@ extension SnapshotsView {
         }
     }
 
-    func deletelogs(_ uuids: Set<UUID>?) {
+    func deleteLogs(_ uuids: Set<UUID>?) {
         if var records = snapshotdata.readlogrecordsfromfile, let uuids {
             var indexset = IndexSet()
             for i in 0 ..< records.count {

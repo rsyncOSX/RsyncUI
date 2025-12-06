@@ -43,7 +43,7 @@ struct CalendarDayView: View {
                         )
                 )
                 .onTapGesture {
-                    if let date = settappeddate(day) {
+                    if let date = setTappedDate(day) {
                         dateRun = date.en_string_from_date()
                         dateAdded = Date.now.en_string_from_date()
                         istappeddayint = day.dayInt
@@ -69,7 +69,7 @@ struct CalendarDayView: View {
                         )
                 )
                 .onTapGesture {
-                    if let date = settappeddate(day) {
+                    if let date = setTappedDate(day) {
                         dateRun = date.en_string_from_date()
                         dateAdded = Date.now.en_string_from_date()
                         istappeddayint = day.dayInt
@@ -89,7 +89,7 @@ struct CalendarDayView: View {
                         )
                 )
                 .onTapGesture {
-                    if let date = settappeddate(day) {
+                    if let date = setTappedDate(day) {
                         dateRun = date.en_string_from_date()
                         dateAdded = Date.now.en_string_from_date()
                         istappeddayint = day.dayInt
@@ -106,7 +106,7 @@ struct CalendarDayView: View {
         }
     }
 
-    func settappeddate(_ date: Date) -> Date? {
+    func setTappedDate(_ date: Date) -> Date? {
         var datecomponents = DateComponents()
         datecomponents.hour = 8
         datecomponents.day = date.dayInt
@@ -116,7 +116,7 @@ struct CalendarDayView: View {
         return calendar.date(from: datecomponents)
     }
 
-    func istoday(runDate: String?, day: Date) -> Bool {
+    func isToday(runDate: String?, day: Date) -> Bool {
         if let runDate {
             let run = runDate.en_date_from_string()
             var rundatecomponents = DateComponents()
@@ -141,7 +141,7 @@ struct CalendarDayView: View {
 
     var schedulestoday: [SchedulesConfigurations] {
         let todayitems = globaltimer.allSchedules.filter { item in
-            istoday(runDate: item.scheduledata?.dateRun, day: day)
+            isToday(runDate: item.scheduledata?.dateRun, day: day)
         }
         return todayitems.compactMap { item in
             item.scheduledata

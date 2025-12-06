@@ -35,7 +35,7 @@ final class ObservableGlobalchangeConfigurations {
     // Selecte UUIDS for change
     var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
-    func resetform() {
+    func resetForm() {
         occurence_localcatalog = ""
         replace_localcatalog = ""
         occurence_remotecatalog = ""
@@ -121,6 +121,6 @@ final class ObservableGlobalchangeConfigurations {
                 }
             }
         }
-        resetform()
+        resetForm()
     }
 }

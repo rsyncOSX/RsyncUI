@@ -144,8 +144,8 @@ struct SidebarMainView: View {
             if SharedReference.shared.observemountedvolumes,
                rsyncUIdata.validprofiles.isEmpty == false {
                 // Observer for mounting volumes
-                observerdidMountNotification()
-                observerdiddidUnmountNotification()
+                observerDidMountNotification()
+                observerDidUnmountNotification()
             }
             if let scheduledata = await ActorReadSchedule()
                 .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) {
@@ -271,7 +271,7 @@ extension SidebarMainView {
     private func handleURLsidebarmainView(_ url: URL, externalurl: Bool) {
         let deeplinkurl = DeeplinkURL()
         // Verify URL action is valid
-        guard deeplinkurl.validatenoaction(queryitem) else { return }
+        guard deeplinkurl.validateNoAction(queryitem) else { return }
         // Verify no other process is running
         guard SharedReference.shared.process == nil else { return }
         // Also veriy that no other query item is processed
@@ -286,7 +286,7 @@ extension SidebarMainView {
         case .loadprofile:
             if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
                 let profile = queryitems[0].value
-                if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
+                if deeplinkurl.validateProfile(profile, rsyncUIdata.validprofiles) {
                     if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.profilename == profile }) {
                         // Set the profile picker and let the picker do the job
                         selectedprofileID = rsyncUIdata.validprofiles[index].id
@@ -305,7 +305,7 @@ extension SidebarMainView {
                     Task {
                         if externalurl {
                             // Load profile for external URL, this make the call structured concurrency
-                            async let loadprofile = loadprofileforexternalurllink(nil)
+                            async let loadprofile = loadProfileForExternalURLLink(nil)
                             guard await loadprofile else { return }
                         }
                         guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
@@ -316,11 +316,11 @@ extension SidebarMainView {
                         queryitem = queryitems[0]
                     }
                 } else {
-                    if deeplinkurl.validateprofile(profile, rsyncUIdata.validprofiles) {
+                    if deeplinkurl.validateProfile(profile, rsyncUIdata.validprofiles) {
                         Task {
                             if externalurl {
                                 // Load profile for external URL
-                                async let loadprofile = loadprofileforexternalurllink(profile)
+                                async let loadprofile = loadProfileForExternalURLLink(profile)
                                 guard await loadprofile else { return }
                             }
                             guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
@@ -341,31 +341,31 @@ extension SidebarMainView {
         }
     }
 
-    func observerdidMountNotification() {
+    func observerDidMountNotification() {
         let notificationCenter = NSWorkspace.shared.notificationCenter
         notificationCenter.addObserver(forName: NSWorkspace.didMountNotification,
                                        object: nil, queue: .main) { notification in
             if let volumeURL = notification.userInfo?[NSWorkspace.volumeURLUserInfoKey] as? URL {
                 Task {
-                    guard await tasksareinprogress() == false else { return }
-                    await verifyandloadprofilemountedvolume(volumeURL)
+                    guard await tasksAreInProgress() == false else { return }
+                    await verifyAndLoadProfileMountedVolume(volumeURL)
                 }
             }
         }
     }
 
-    func observerdiddidUnmountNotification() {
+    func observerDidUnmountNotification() {
         let notificationCenter = NSWorkspace.shared.notificationCenter
         notificationCenter.addObserver(forName: NSWorkspace.didUnmountNotification,
                                        object: nil, queue: .main) { _ in
             Task {
-                guard await tasksareinprogress() == false else { return }
-                await verifyandloadprofilemountedvolume(nil)
+                guard await tasksAreInProgress() == false else { return }
+                await verifyAndLoadProfileMountedVolume(nil)
             }
         }
     }
 
-    private func verifyandloadprofilemountedvolume(_ mountedvolume: URL?) async {
+    private func verifyAndLoadProfileMountedVolume(_ mountedvolume: URL?) async {
         if let mountedvolume {
             mountingvolumenow = true
 
@@ -394,7 +394,7 @@ extension SidebarMainView {
     }
 
     // Must check that no tasks are running
-    private func tasksareinprogress() async -> Bool {
+    private func tasksAreInProgress() async -> Bool {
         guard SharedReference.shared.process == nil else { return true }
         // And no execution is in progress
         guard rsyncUIdata.executetasksinprogress == false else { return true }
@@ -406,7 +406,7 @@ extension SidebarMainView {
 
     // Must load profile for URL-link async to make sure profile is
     // loaded ahead of start requested action. Only for external URL requests
-    func loadprofileforexternalurllink(_ profile: String?) async -> Bool {
+    func loadProfileForExternalURLLink(_ profile: String?) async -> Bool {
         rsyncUIdata.externalurlrequestinprogress = true
         if profile == nil {
             rsyncUIdata.profile = nil
@@ -436,10 +436,10 @@ struct SidebarRow: View {
 
     var body: some View {
         Label(sidebaritem.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "),
-              systemImage: systemimage(sidebaritem))
+              systemImage: systemImage(sidebaritem))
     }
 
-    func systemimage(_ view: Sidebaritems) -> String {
+    func systemImage(_ view: Sidebaritems) -> String {
         switch view {
         case .tasks:
             "text.badge.plus"

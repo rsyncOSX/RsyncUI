@@ -31,7 +31,7 @@ final class ProgressDetails {
     // For execution
     var hiddenIDatwork: Int = -1
 
-    func getmaxcountbytask() -> Double {
+    func getMaxCountByTask() -> Double {
         let max = estimatedlist?.filter { $0.hiddenID == hiddenIDatwork }
         if (max?.count ?? 0) == 1 {
             var num = 0.0
@@ -39,12 +39,12 @@ final class ProgressDetails {
                 // Reduce count with 16 last rows which contains summarized status from rsync
                 num = Double(max?[0].outputfromrsync?.count ?? 0) - 16
                 if num <= 0 { num = 0 }
-                Logger.process.debugmessageonly("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num)")
+                Logger.process.debugMessageOnly("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num)")
                 return num
             } else {
                 num = Double(max?[0].outputfromrsync?.count ?? 0)
                 if num <= 0 { num = 0 }
-                Logger.process.debugmessageonly("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num)")
+                Logger.process.debugMessageOnly("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num)")
                 return num
             }
         } else {
@@ -54,47 +54,47 @@ final class ProgressDetails {
 
     // For execution
 
-    func tasksareestimated(_ uuids: Set<UUID>) -> Bool {
+    func tasksAreEstimated(_ uuids: Set<UUID>) -> Bool {
         let answer = estimatedlist?.filter {
             uuids.contains($0.id)
         }
         return answer?.count == uuids.count
     }
 
-    func onlyselectedtaskisestimated(_ uuids: Set<UUID>) -> Bool {
+    func onlySelectedTaskIsEstimated(_ uuids: Set<UUID>) -> Bool {
         let answer = estimatedlist?.filter {
             uuids.contains($0.id)
         }
         return (answer?.count ?? 0 == 1) && (estimatedlist?.count ?? 0 == 1)
     }
 
-    func setprofileandnumberofconfigurations(_ profilename: String?, _ num: Int) {
+    func setProfileAndNumberOfConfigurations(_ profilename: String?, _ num: Int) {
         profile = profilename
         numberofconfigurations = num
     }
 
-    func executeanotherdryrun(_ profilename: String?) -> Bool {
+    func executeAnotherDryRun(_ profilename: String?) -> Bool {
         estimatealltasksinprogress == false &&
             onetaskisestimated == true &&
             estimatedlist?.count != numberofconfigurations &&
             profile == profilename
     }
 
-    func alltasksestimated(_ profilename: String?) -> Bool {
+    func allTasksEstimated(_ profilename: String?) -> Bool {
         estimatealltasksinprogress == false &&
             estimatedlist?.count == numberofconfigurations &&
             profile == profilename
     }
 
-    func getuuidswithdatatosynchronize() -> Set<UUID> {
+    func getUUIDsWithDataToSynchronize() -> Set<UUID> {
         uuidswithdatatosynchronize
     }
 
-    func appenduuidwithdatatosynchronize(_ id: UUID) {
+    func appendUUIDWithDataToSynchronize(_ id: UUID) {
         uuidswithdatatosynchronize.insert(id)
     }
 
-    func resetcounts() {
+    func resetCounts() {
         numberofconfigurations = -1
         uuidswithdatatosynchronize.removeAll()
         estimatedlist = nil
@@ -106,7 +106,7 @@ final class ProgressDetails {
         configurationtobestimated = nil
     }
 
-    func appendrecordestimatedlist(_ record: RemoteDataNumbers) {
+    func appendRecordEstimatedList(_ record: RemoteDataNumbers) {
         if estimatedlist == nil {
             estimatedlist = [RemoteDataNumbers]()
         }
@@ -114,21 +114,21 @@ final class ProgressDetails {
         numberofconfigurationsestimated = Double(estimatedlist?.count ?? 0)
         onetaskisestimated = true
         let numbers = estimatedlist?.count ?? 0
-        Logger.process.debugmessageonly("ProgressDetails: ESTIMATION appendrecordestimatedlist - count: \(numbers)")
+        Logger.process.debugMessageOnly("ProgressDetails: ESTIMATION appendrecordestimatedlist - count: \(numbers)")
     }
 
-    func estimationiscomplete() {
+    func estimationIsComplete() {
         estimatealltasksinprogress = false
         let numbers = estimatedlist?.count ?? 0
-        Logger.process.debugmessageonly("ProgressDetails: ESTIMATION completed: \(numbers)")
+        Logger.process.debugMessageOnly("ProgressDetails: ESTIMATION completed: \(numbers)")
     }
 
-    func startestimation() {
+    func startEstimation() {
         estimatealltasksinprogress = true
-        Logger.process.debugmessageonly("ProgressDetails: ESTIMATION started")
+        Logger.process.debugMessageOnly("ProgressDetails: ESTIMATION started")
     }
 
-    func confirmexecutetasks() -> Bool {
+    func confirmExecuteTasks() -> Bool {
         let filterconfirm = estimatedlist?.filter { $0.confirmexecute == true }
         return filterconfirm?.count ?? 0 > 0
     }

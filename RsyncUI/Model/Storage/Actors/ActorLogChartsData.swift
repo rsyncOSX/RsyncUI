@@ -25,8 +25,8 @@ actor ActorLogChartsData {
     @concurrent
     nonisolated func parselogrecords(from logrecords: [Log]) async -> [LogEntry] {
         // "resultExecuted": "43 files : 0.73 MB in 0.49 seconds"
-        Logger.process.debugtthreadonly("ActorLogChartsData: parselogrecords()")
-        Logger.process.debugmessageonly("ActorLogChartsData: number of records \(logrecords.count)")
+        Logger.process.debugThreadOnly("ActorLogChartsData: parselogrecords()")
+        Logger.process.debugMessageOnly("ActorLogChartsData: number of records \(logrecords.count)")
         // return logrecords.compactMap { logrecord in
         return logrecords.compactMap { logrecord in
             let numbers = extractnumbersasdoubles(from: logrecord.resultExecuted ?? "")
@@ -74,8 +74,8 @@ actor ActorLogChartsData {
     // Select the one date with max files transferred, if more records pr date.
     @concurrent
     nonisolated func parsemaxfilesbydate(from records: [LogEntry]) async -> [LogEntry] {
-        Logger.process.debugtthreadonly("ActorLogChartsData: parsemaxfilesbydate()")
-        Logger.process.debugmessageonly("ActorLogChartsData: number of records IN \(records.count)")
+        Logger.process.debugThreadOnly("ActorLogChartsData: parsemaxfilesbydate()")
+        Logger.process.debugMessageOnly("ActorLogChartsData: number of records IN \(records.count)")
 
         let calendar = Calendar.current
         return records.reduce(into: [Date: LogEntry]()) { result, record in
@@ -124,8 +124,8 @@ actor ActorLogChartsData {
     // Select the one date with max data transferred, if more records pr date.
     @concurrent
     nonisolated func parsemaxfilesbytransferredsize(from records: [LogEntry]) async -> [LogEntry] {
-        Logger.process.debugtthreadonly("ActorLogChartsData: parsemaxfilesbytransferredsize()")
-        Logger.process.debugmessageonly("ActorLogChartsData: number of records IN \(records.count)")
+        Logger.process.debugThreadOnly("ActorLogChartsData: parsemaxfilesbytransferredsize()")
+        Logger.process.debugMessageOnly("ActorLogChartsData: number of records IN \(records.count)")
         let calendar = Calendar.current
 
         return records.reduce(into: [Date: LogEntry]()) { result, record in

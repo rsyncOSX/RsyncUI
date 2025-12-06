@@ -12,7 +12,7 @@ import OSLog
 struct VerifyDuplicates {
     private var arrayofhiddenIDs = [Int]()
 
-    private func checkforduplicates() throws {
+    private func checkForDuplicates() throws {
         let uniqueIDs = Set(arrayofhiddenIDs)
         guard arrayofhiddenIDs.count == uniqueIDs.count else {
             throw DuplicateError.duplicate
@@ -25,7 +25,7 @@ struct VerifyDuplicates {
             arrayofhiddenIDs.append(configuration.hiddenID)
         }
         do {
-            try checkforduplicates()
+            try checkForDuplicates()
         } catch let e {
             let error = e
             propagateError(error: error)

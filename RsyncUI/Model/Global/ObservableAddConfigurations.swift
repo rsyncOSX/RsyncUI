@@ -45,7 +45,7 @@ final class ObservableAddConfigurations {
 
     @ObservationIgnored var whichhelptext: Int = 1
 
-    func addconfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
+    func addConfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog.replacingOccurrences(of: "\"", with: ""),
                                  remotecatalog.replacingOccurrences(of: "\"", with: ""),
@@ -59,7 +59,7 @@ final class ObservableAddConfigurations {
                 UpdateConfigurations(profile: profile,
                                      configurations: configurations)
             if updateconfigurations.addconfiguration(newconfig) == true {
-                resetform()
+                resetForm()
                 return updateconfigurations.configurations
             }
         }
@@ -103,13 +103,13 @@ final class ObservableAddConfigurations {
                 UpdateConfigurations(profile: profile,
                                      configurations: configurations)
             updateconfigurations.updateconfiguration(updatedconfig, false)
-            resetform()
+            resetForm()
             return updateconfigurations.configurations
         }
         return configurations
     }
 
-    func resetform() {
+    func resetForm() {
         localcatalog = ""
         remotecatalog = ""
         remoteuser = ""

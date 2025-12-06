@@ -82,7 +82,7 @@ struct RsyncUIApp: App {
     }
 
     private func performCleanupTask() {
-        Logger.process.debugmessageonly("RsyncUIApp: performCleanupTask(), RsyncUI shutting down, doing clean up")
+        Logger.process.debugMessageOnly("RsyncUIApp: performCleanupTask(), RsyncUI shutting down, doing clean up")
         GlobalTimer.shared.invalidateAllSchedulesAndTimer()
         SharedReference.shared.checkeandterminateprocess()
     }
@@ -92,13 +92,13 @@ extension Logger {
     private static let subsystem = Bundle.main.bundleIdentifier
     static let process = Logger(subsystem: subsystem ?? "process", category: "process")
 
-    func debugmessageonly(_ message: String) {
+    func debugMessageOnly(_ message: String) {
         #if DEBUG
             debug("\(message)")
         #endif
     }
 
-    func debugtthreadonly(_ message: String) {
+    func debugThreadOnly(_ message: String) {
         #if DEBUG
             if Thread.checkIsMainThread() {
                 debug("\(message) Running on main thread")

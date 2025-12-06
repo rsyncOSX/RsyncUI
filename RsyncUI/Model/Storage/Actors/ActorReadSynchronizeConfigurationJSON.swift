@@ -15,7 +15,7 @@ actor ActorReadSynchronizeConfigurationJSON {
                                                            _ rsyncversion3: Bool) async -> [SynchronizeConfiguration]? {
         var filename = ""
         let path = await Homepath()
-        Logger.process.debugtthreadonly("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations()")
+        Logger.process.debugThreadOnly("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations()")
         if let profile, let fullpathmacserial = path.fullpathmacserial {
             filename = fullpathmacserial.appending("/") + profile.appending("/") + SharedConstants().fileconfigurationsjson
         } else {
@@ -23,13 +23,13 @@ actor ActorReadSynchronizeConfigurationJSON {
                 filename = fullpathmacserial.appending("/") + SharedConstants().fileconfigurationsjson
             }
         }
-        Logger.process.debugmessageonly("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations \(filename)")
+        Logger.process.debugMessageOnly("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations \(filename)")
         let decodeimport = DecodeGeneric()
         do {
             let data = try
                 decodeimport.decodeArray(DecodeSynchronizeConfiguration.self, fromFile: filename)
 
-            Logger.process.debugtthreadonly("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default") ?? DECODE")
+            Logger.process.debugThreadOnly("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default") ?? DECODE")
             let tasks = data.compactMap { element in
                 // snapshot and syncremote tasks requiere version3.x of rsync
                 if element.task == "snapshot" || element.task == "syncremote" {
@@ -51,7 +51,7 @@ actor ActorReadSynchronizeConfigurationJSON {
     }
 
     deinit {
-        Logger.process.debugmessageonly("ActorReadSynchronizeConfigurationJSON: DEINIT")
+        Logger.process.debugMessageOnly("ActorReadSynchronizeConfigurationJSON: DEINIT")
     }
 }
 

@@ -15,7 +15,7 @@ actor ActorReadLogRecordsJSON {
                                             _ validhiddenIDs: Set<Int>) async -> [LogRecords]? {
         let path = await Homepath()
         var filename = ""
-        Logger.process.debugtthreadonly("ActorReadLogRecordsJSON: readjsonfilelogrecords()")
+        Logger.process.debugThreadOnly("ActorReadLogRecordsJSON: readjsonfilelogrecords()")
         if let profile, let fullpathmacserial = path.fullpathmacserial {
             filename = fullpathmacserial.appending("/") + profile.appending("/") + SharedConstants().filenamelogrecordsjson
         } else {
@@ -24,14 +24,14 @@ actor ActorReadLogRecordsJSON {
             }
         }
 
-        Logger.process.debugmessageonly("ActorReadLogRecordsJSON: readjsonfilelogrecords() from \(filename)")
+        Logger.process.debugMessageOnly("ActorReadLogRecordsJSON: readjsonfilelogrecords() from \(filename)")
 
         let decodeimport = DecodeGeneric()
         do {
             let data = try
                 decodeimport.decodeArray(DecodeLogRecords.self, fromFile: filename)
 
-            Logger.process.debugtthreadonly("ActorReadLogRecordsJSON - \(profile ?? "default")")
+            Logger.process.debugThreadOnly("ActorReadLogRecordsJSON - \(profile ?? "default")")
             return data.compactMap { element in
                 let item = LogRecords(element)
                 return validhiddenIDs.contains(item.hiddenID) ? item : nil
@@ -44,7 +44,7 @@ actor ActorReadLogRecordsJSON {
 
     @concurrent
     nonisolated func updatelogsbyhiddenID(_ logrecords: [LogRecords]?, _ hiddenID: Int) async -> [Log]? {
-        Logger.process.debugtthreadonly("ActorReadLogRecordsJSON: updatelogsbyhiddenID()")
+        Logger.process.debugThreadOnly("ActorReadLogRecordsJSON: updatelogsbyhiddenID()")
         if let logrecords {
             // hiddenID == -1, merge logrecords for all tasks.
             // if validhiddenID, merge logrecords for a specific task
@@ -69,7 +69,7 @@ actor ActorReadLogRecordsJSON {
 
     @concurrent
     nonisolated func updatelogsbyfilter(_ logrecords: [LogRecords]?, _ filterstring: String, _ hiddenID: Int) async -> [Log]? {
-        Logger.process.debugtthreadonly("ActorReadLogRecordsJSON: updatelogsbyfilter()")
+        Logger.process.debugThreadOnly("ActorReadLogRecordsJSON: updatelogsbyfilter()")
         guard filterstring != "" else { return nil }
         if let logrecords {
             if hiddenID == -1 {
@@ -95,13 +95,13 @@ actor ActorReadLogRecordsJSON {
     }
 
     @concurrent
-    func deletelogs(_ uuids: Set<UUID>,
+    func deleteLogs(_ uuids: Set<UUID>,
                     logrecords: [LogRecords]?,
                     profile _: String?,
                     validhiddenIDs _: Set<Int>) async -> [LogRecords]? {
         var records = logrecords
 
-        Logger.process.debugtthreadonly("ActorReadLogRecordsJSON: deletelogs()")
+        Logger.process.debugThreadOnly("ActorReadLogRecordsJSON: deletelogs()")
 
         // Convert to Set for O(1) lookup instead of O(n)
         let uuidsToDelete = uuids
@@ -117,6 +117,6 @@ actor ActorReadLogRecordsJSON {
     }
 
     deinit {
-        Logger.process.debugmessageonly("ActorReadLogRecordsJSON: DEINIT")
+        Logger.process.debugMessageOnly("ActorReadLogRecordsJSON: DEINIT")
     }
 }

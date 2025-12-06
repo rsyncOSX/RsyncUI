@@ -34,7 +34,7 @@ struct RsyncParametersView: View {
                             text: "Update",
                             helpText: "Update parameters"
                         ) {
-                            saversyncparameters()
+                            saveRsyncParameters()
                             selecteduuids.removeAll()
                         }
                         .disabled(selectedconfig == nil)
@@ -46,7 +46,7 @@ struct RsyncParametersView: View {
                             text: "Add",
                             helpText: "Save parameters"
                         ) {
-                            saversyncparameters()
+                            saveRsyncParameters()
                         }
                         .disabled(selectedconfig == nil)
                         .padding(.bottom, 10)
@@ -314,7 +314,7 @@ struct RsyncParametersView: View {
 }
 
 extension RsyncParametersView {
-    func saversyncparameters() {
+    func saveRsyncParameters() {
         if let updatedconfiguration = parameters.updatersyncparameters(),
            let configurations = rsyncUIdata.configurations {
             let updateconfigurations =

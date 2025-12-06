@@ -54,7 +54,7 @@ struct SummarizedDetailsView: View {
                                 // Because of the role .destructive keep the if #available(macOS 26.0, *)
                                 if #available(macOS 26.0, *) {
                                     Button {
-                                        isPresentingConfirm = progressdetails.confirmexecutetasks()
+                                        isPresentingConfirm = progressdetails.confirmExecuteTasks()
                                         if isPresentingConfirm == false {
                                             executetaskpath.removeAll()
                                             executetaskpath.append(Tasks(task: .executestimatedview))
@@ -74,7 +74,7 @@ struct SummarizedDetailsView: View {
 
                                 } else {
                                     Button {
-                                        isPresentingConfirm = progressdetails.confirmexecutetasks()
+                                        isPresentingConfirm = progressdetails.confirmExecuteTasks()
                                         if isPresentingConfirm == false {
                                             executetaskpath.removeAll()
                                             executetaskpath.append(Tasks(task: .executestimatedview))
@@ -126,8 +126,8 @@ struct SummarizedDetailsView: View {
                 guard progressdetails.estimatealltasksinprogress == false else {
                     return
                 }
-                progressdetails.resetcounts()
-                progressdetails.startestimation()
+                progressdetails.resetCounts()
+                progressdetails.startEstimation()
             }
         }
 

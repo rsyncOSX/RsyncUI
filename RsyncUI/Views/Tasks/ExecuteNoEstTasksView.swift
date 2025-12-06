@@ -38,7 +38,7 @@ struct ExecuteNoEstTasksView: View {
             if focusaborttask { labelaborttask }
         }
         .onAppear {
-            executeallnoestimationtasks()
+            executeAllNoEstimationTasks()
         }
         .onDisappear {
             if SharedReference.shared.process != nil {
@@ -68,7 +68,7 @@ struct ExecuteNoEstTasksView: View {
 }
 
 extension ExecuteNoEstTasksView {
-    func filehandler(count: Int) {
+    func fileHandler(count: Int) {
         progress = count
     }
 
@@ -79,19 +79,19 @@ extension ExecuteNoEstTasksView {
         noestprogressdetails.reset()
     }
 
-    func executeallnoestimationtasks() {
-        noestprogressdetails.startexecutealltasksnoestimation()
+    func executeAllNoEstimationTasks() {
+        noestprogressdetails.startExecuteAllTasksNoEstimation()
         if let configurations = rsyncUIdata.configurations {
             Execute(profile: rsyncUIdata.profile,
                     configurations: configurations,
                     selecteduuids: selecteduuids,
                     noestprogressdetails: noestprogressdetails,
-                    filehandler: filehandler,
-                    updateconfigurations: updateconfigurations)
+                    fileHandler: fileHandler,
+                    updateconfigurations: updateConfigurations)
         }
     }
 
-    func updateconfigurations(_ configurations: [SynchronizeConfiguration]) {
+    func updateConfigurations(_ configurations: [SynchronizeConfiguration]) {
         rsyncUIdata.configurations = configurations
         progressviewshowinfo = false
         noestprogressdetails.reset()

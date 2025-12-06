@@ -24,7 +24,7 @@ final class WriteLogRecordsJSON {
                 logrecordfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().filenamelogrecordsjson)
             }
             if let logrecordfileURL {
-                Logger.process.debugmessageonly("WriteLogRecordsJSON: writeJSONToPersistentStore \(logrecordfileURL)")
+                Logger.process.debugMessageOnly("WriteLogRecordsJSON: writeJSONToPersistentStore \(logrecordfileURL)")
             }
             if let jsonData, let logrecordfileURL {
                 do {
@@ -58,6 +58,6 @@ final class WriteLogRecordsJSON {
     }
 
     deinit {
-        Logger.process.debugmessageonly("WriteLogRecordsJSON DEINIT")
+        Logger.process.debugMessageOnly("WriteLogRecordsJSON DEINIT")
     }
 }

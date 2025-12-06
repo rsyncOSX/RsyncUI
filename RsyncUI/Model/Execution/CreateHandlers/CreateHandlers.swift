@@ -11,13 +11,13 @@ import RsyncProcess
 @MainActor
 struct CreateHandlers {
     func createhandlers(
-        filehandler: @escaping (Int) -> Void,
-        processtermination: @escaping ([String]?, Int?) -> Void
+        fileHandler: @escaping (Int) -> Void,
+        processTermination: @escaping ([String]?, Int?) -> Void
 
     ) -> ProcessHandlers {
         ProcessHandlers(
-            processtermination: processtermination,
-            filehandler: filehandler,
+            processtermination: processTermination,
+            filehandler: fileHandler,
             rsyncpath: GetfullpathforRsync().rsyncpath,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
             updateprocess: SharedReference.shared.updateprocess,

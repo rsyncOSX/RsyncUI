@@ -147,7 +147,7 @@ struct ConfigurationsTableDataMainView: View {
                         return 0
                     }
                 }
-                let color: Color = markconfig(seconds) == true ? .red : (colorScheme == .dark ? .white : .black)
+                let color: Color = markConfig(seconds) == true ? .red : (colorScheme == .dark ? .white : .black)
 
                 Text(seconds.latest())
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
@@ -174,7 +174,7 @@ struct ConfigurationsTableDataMainView: View {
         }
     }
 
-    private func markconfig(_ seconds: Double) -> Bool {
+    private func markConfig(_ seconds: Double) -> Bool {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }
 

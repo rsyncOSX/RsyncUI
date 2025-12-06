@@ -52,6 +52,6 @@ final class ObservableVerifyRemotePushPull {
     }
 
     deinit {
-        Logger.process.debugmessageonly("ObservablePushPull: DEINIT")
+        Logger.process.debugMessageOnly("ObservablePushPull: DEINIT")
     }
 }

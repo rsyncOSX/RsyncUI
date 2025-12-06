@@ -10,7 +10,7 @@ import Observation
 
 @Observable @MainActor
 final class ObservableProfiles {
-    func createprofile(_ newprofile: String) -> Bool {
+    func createProfile(_ newprofile: String) -> Bool {
         guard newprofile != "Default" else { return false }
         guard newprofile != "default" else { return false }
         guard newprofile.isEmpty == false else { return false }
@@ -22,7 +22,7 @@ final class ObservableProfiles {
         }
     }
 
-    func deleteprofile(_ profile: String?) -> Bool {
+    func deleteProfile(_ profile: String?) -> Bool {
         guard profile != nil else { return false }
         if CatalogForProfile().deleteprofilecatalog(profile) {
             return true

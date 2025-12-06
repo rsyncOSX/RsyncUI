@@ -73,7 +73,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
                                                     SharedReference.shared.rsyncversion3 ? .ver3 : .openrsync)
             do {
                 stats = try parsersyncoutput.getstats()
-                Logger.process.debugmessageonly("RemoteDataNumbers: getstats() SUCCESS")
+                Logger.process.debugMessageOnly("RemoteDataNumbers: getstats() SUCCESS")
             } catch let e {
                 if SharedReference.shared.silencemissingstats == false {
                     let error = e
@@ -100,7 +100,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
 
                     datatosynchronize = false
 
-                    Logger.process.debugmessageonly("RemoteDataNumbers: getstats() FAILED")
+                    Logger.process.debugMessageOnly("RemoteDataNumbers: getstats() FAILED")
                     return
                 }
             }

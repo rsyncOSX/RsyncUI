@@ -52,7 +52,7 @@ final class TagSnapshots {
             let yearToday = datecomponentsfromdate(localizeddate: Date()).year
 
             if month == monthToday, year == yearToday {
-                if datesnapshot.isSelectedDayofWeek(day: day) == false {
+                if datesnapshot.isSelectedDayOfWeek(day: day) == false {
                     let tag = "Delete" + " " + datesnapshot.localized_weekday_from_date() + ", "
                         + datesnapshot.localized_month_from_date() + " " + "this month"
 
@@ -120,7 +120,7 @@ final class TagSnapshots {
         if keepallselcteddayofweek {
             day.rawValue == date.getWeekday()
         } else {
-            if date.isSelectedDayofWeek(day: day), date.daymonth() > 24 {
+            if date.isSelectedDayOfWeek(day: day), date.dayMonth() > 24 {
                 true
             } else {
                 false

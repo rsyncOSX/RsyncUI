@@ -176,7 +176,7 @@ struct VerifyRemoteView: View {
         }
     }
 
-    func alltasksarehalted() -> Bool {
+    func allTasksAreHalted() -> Bool {
         let haltedtasks = configurationsdata.configurations?.filter { $0.task == SharedReference.shared.halted }
         return haltedtasks?.count ?? 0 == configurationsdata.configurations?.count ?? 0
     }

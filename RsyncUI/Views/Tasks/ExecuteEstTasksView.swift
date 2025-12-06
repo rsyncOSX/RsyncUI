@@ -32,13 +32,13 @@ struct ExecuteEstTasksView: View {
                 max: maxcount
             )
             .onChange(of: progressdetails.hiddenIDatwork) {
-                maxcount = progressdetails.getmaxcountbytask()
+                maxcount = progressdetails.getMaxCountByTask()
             }
 
             if focusaborttask { labelaborttask }
         }
         .onAppear {
-            executemultipleestimatedtasks()
+            executeMultipleEstimatedTasks()
         }
         .onDisappear {
             progressdetails.estimatedlist = nil
@@ -70,7 +70,7 @@ struct ExecuteEstTasksView: View {
 }
 
 extension ExecuteEstTasksView {
-    func filehandler(count: Int) {
+    func fileHandler(count: Int) {
         progress = Double(count)
     }
 
@@ -81,7 +81,7 @@ extension ExecuteEstTasksView {
         executetaskpath.removeAll()
     }
 
-    func executemultipleestimatedtasks() {
+    func executeMultipleEstimatedTasks() {
         var adjustedselecteduuids: Set<SynchronizeConfiguration.ID>?
         if selecteduuids.count > 0 {
             adjustedselecteduuids = selecteduuids
@@ -105,13 +105,13 @@ extension ExecuteEstTasksView {
                         configurations: configurations,
                         selecteduuids: adjustedselecteduuids,
                         progressdetails: progressdetails,
-                        filehandler: filehandler,
-                        updateconfigurations: updateconfigurations)
+                        fileHandler: fileHandler,
+                        updateconfigurations: updateConfigurations)
             }
         }
     }
 
-    func updateconfigurations(_ configurations: [SynchronizeConfiguration]) {
+    func updateConfigurations(_ configurations: [SynchronizeConfiguration]) {
         rsyncUIdata.configurations = configurations
         progressdetails.hiddenIDatwork = -1
         progressdetails.estimatedlist = nil

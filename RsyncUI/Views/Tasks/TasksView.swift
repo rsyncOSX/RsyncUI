@@ -211,7 +211,7 @@ struct TasksView: View {
         ToolbarItem {
             Button {
                 guard SharedReference.shared.norsync == false else { return }
-                guard alltasksarehalted() == false else { return }
+                guard allTasksAreHalted() == false else { return }
                 // This only applies if one task is selected and that task is halted
                 // If more than one task is selected, any halted tasks are ruled out
                 if let selectedconfig {
@@ -234,7 +234,7 @@ struct TasksView: View {
         ToolbarItem {
             Button {
                 guard SharedReference.shared.norsync == false else { return }
-                guard alltasksarehalted() == false else { return }
+                guard allTasksAreHalted() == false else { return }
                 // This only applies if one task is selected and that task is halted
                 // If more than one task is selected, any halted tasks are ruled out
                 if let selectedconfig {
@@ -284,7 +284,7 @@ struct TasksView: View {
                 ToolbarItem {
                     Button {
                         guard selecteduuids.count > 0 else { return }
-                        guard alltasksarehalted() == false else { return }
+                        guard allTasksAreHalted() == false else { return }
 
                         guard selecteduuids.count == 1 else {
                             executetaskpath.append(Tasks(task: .summarizeddetailsview))
@@ -297,7 +297,7 @@ struct TasksView: View {
                             }
                         }
 
-                        if progressdetails.tasksareestimated(selecteduuids) {
+                        if progressdetails.tasksAreEstimated(selecteduuids) {
                             executetaskpath.append(Tasks(task: .dryrunonetaskalreadyestimated))
                         } else {
                             executetaskpath.append(Tasks(task: .onetaskdetailsview))
@@ -365,7 +365,7 @@ struct TasksView: View {
         }
 
         Group {
-            if alltasksarehalted() == false {
+            if allTasksAreHalted() == false {
                 ToolbarItem {
                     Button {
                         if urlcommandestimateandsynchronize {
@@ -402,7 +402,7 @@ struct TasksView: View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
             .onAppear {
-                doubleclickactionfunction()
+                doubleClickActionFunction()
                 doubleclick = false
             }
     }
@@ -427,14 +427,14 @@ struct TasksView: View {
 }
 
 extension TasksView {
-    private func alltasksarehalted() -> Bool {
+    private func allTasksAreHalted() -> Bool {
         let haltedtasks = rsyncUIdata.configurations?.filter { $0.task == SharedReference.shared.halted }
         return haltedtasks?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0
     }
 
     // Double click action is discovered in the ListofTasksMainView
     // Must do some checks her as well
-    func doubleclickactionfunction() {
+    func doubleClickActionFunction() {
         guard SharedReference.shared.norsync == false else { return }
         // Must check if task is halted
         guard selectedconfig?.task != SharedReference.shared.halted else {
@@ -442,27 +442,27 @@ extension TasksView {
         }
 
         if progressdetails.estimatedlist == nil {
-            dryrun()
-        } else if progressdetails.onlyselectedtaskisestimated(selecteduuids) {
+            dryRun()
+        } else if progressdetails.onlySelectedTaskIsEstimated(selecteduuids) {
             // Only execute task if this task only is estimated
             execute()
         } else {
-            dryrun()
+            dryRun()
         }
     }
 
-    func dryrun() {
+    func dryRun() {
         if selectedconfig != nil,
            progressdetails.estimatedlist?.count ?? 0 == 0 {
             doubleclick = false
             executetaskpath.append(Tasks(task: .onetaskdetailsview))
         } else if selectedconfig != nil,
-                  progressdetails.executeanotherdryrun(rsyncUIdata.profile) == true {
+                  progressdetails.executeAnotherDryRun(rsyncUIdata.profile) == true {
             doubleclick = false
             executetaskpath.append(Tasks(task: .onetaskdetailsview))
 
         } else if selectedconfig != nil,
-                  progressdetails.alltasksestimated(rsyncUIdata.profile) == false {
+                  progressdetails.allTasksEstimated(rsyncUIdata.profile) == false {
             doubleclick = false
             executetaskpath.append(Tasks(task: .onetaskdetailsview))
         }
@@ -472,17 +472,17 @@ extension TasksView {
         // All tasks are estimated and ready for execution.
         rsyncUIdata.executetasksinprogress = true
         if selecteduuids.count == 0,
-           progressdetails.alltasksestimated(rsyncUIdata.profile) == true {
+           progressdetails.allTasksEstimated(rsyncUIdata.profile) == true {
             // Execute all estimated tasks
-            selecteduuids = progressdetails.getuuidswithdatatosynchronize()
+            selecteduuids = progressdetails.getUUIDsWithDataToSynchronize()
             // Change view, see SidebarTasksView
             executetaskpath.append(Tasks(task: .executestimatedview))
 
         } else if selecteduuids.count >= 1,
-                  progressdetails.tasksareestimated(selecteduuids) == true {
+                  progressdetails.tasksAreEstimated(selecteduuids) == true {
             // One or some tasks are selected and estimated
             // Execute estimated tasks only
-            selecteduuids = progressdetails.getuuidswithdatatosynchronize()
+            selecteduuids = progressdetails.getUUIDsWithDataToSynchronize()
             // Change view, see SidebarTasksView
             executetaskpath.append(Tasks(task: .executestimatedview))
 
@@ -494,7 +494,7 @@ extension TasksView {
     }
 
     func reset() {
-        progressdetails.resetcounts()
+        progressdetails.resetCounts()
         selectedconfig = nil
         thereareestimates = false
         rsyncUIdata.executetasksinprogress = false

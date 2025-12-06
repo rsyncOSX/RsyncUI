@@ -48,11 +48,11 @@ actor ActorLogToFile {
         if let fullpathmacserial = path.fullpathmacserial {
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-            Logger.process.debugtthreadonly("ActorLogToFile: writeloggfile()")
+            Logger.process.debugThreadOnly("ActorLogToFile: writeloggfile()")
             if let logfiledata = await appendloggfileData(newlogadata, reset) {
                 do {
                     try logfiledata.write(to: logfileURL)
-                    Logger.process.debugmessageonly("ActorLogToFile: writeloggfile() logfile \(logfileURL.path)")
+                    Logger.process.debugMessageOnly("ActorLogToFile: writeloggfile() logfile \(logfileURL.path)")
                     let checker = FileSize()
                     // Task {
                     do {
@@ -84,7 +84,7 @@ actor ActorLogToFile {
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-            Logger.process.debugtthreadonly("ActorLogToFile: readloggfile()")
+            Logger.process.debugThreadOnly("ActorLogToFile: readloggfile()")
             do {
                 let checker = FileSize()
                 if let size = try await checker.filesize() {
@@ -104,7 +104,7 @@ actor ActorLogToFile {
 
             do {
                 let data = try Data(contentsOf: logfileURL)
-                Logger.process.debugmessageonly("ActorLogToFile: read logfile \(logfileURL.path)")
+                Logger.process.debugMessageOnly("ActorLogToFile: read logfile \(logfileURL.path)")
                 let logfile = String(data: data, encoding: .utf8)
                 return logfile.map { line in
                     line.components(separatedBy: .newlines)
@@ -128,7 +128,7 @@ actor ActorLogToFile {
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-            Logger.process.debugtthreadonly("ActorLogToFile: readloggfileasline()")
+            Logger.process.debugThreadOnly("ActorLogToFile: readloggfileasline()")
             do {
                 let checker = FileSize()
                 if let size = try await checker.filesize() {
@@ -148,7 +148,7 @@ actor ActorLogToFile {
 
             do {
                 let data = try Data(contentsOf: logfileURL)
-                Logger.process.debugmessageonly("ActorLogToFile: read logfile \(logfileURL.path)")
+                Logger.process.debugMessageOnly("ActorLogToFile: read logfile \(logfileURL.path)")
                 return String(data: data, encoding: .utf8)
 
             } catch let e {
@@ -170,7 +170,7 @@ actor ActorLogToFile {
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
-            Logger.process.debugtthreadonly("ActorLogToFile: appendloggfileData()")
+            Logger.process.debugThreadOnly("ActorLogToFile: appendloggfileData()")
             if let newdata = newlogadata.data(using: .utf8) {
                 do {
                     if reset {
@@ -179,14 +179,14 @@ actor ActorLogToFile {
                     } else {
                         // Or append any new log data
                         if fm.locationExists(at: logfileString, kind: .file) == true {
-                            Logger.process.debugmessageonly("ActorLogToFile: append existing logfile \(logfileURL.path)")
+                            Logger.process.debugMessageOnly("ActorLogToFile: append existing logfile \(logfileURL.path)")
                             let data = try Data(contentsOf: logfileURL)
                             var returneddata = data
                             returneddata.append(newdata)
                             return returneddata
                         } else {
                             // Or if first time write logfile ony return new log data
-                            Logger.process.debugmessageonly("ActorLogToFile: create new logfile \(logfileURL.path)")
+                            Logger.process.debugMessageOnly("ActorLogToFile: create new logfile \(logfileURL.path)")
                             return newdata
                         }
                     }

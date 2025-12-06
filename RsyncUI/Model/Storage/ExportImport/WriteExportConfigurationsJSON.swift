@@ -20,7 +20,7 @@ final class WriteExportConfigurationsJSON {
             if let jsonData {
                 do {
                     try jsonData.write(to: exportconfigurationfileURL)
-                    Logger.process.debugmessageonly("WriteExportConfigurationsJSON - \(exportpath) write export configurations to permanent storage")
+                    Logger.process.debugMessageOnly("WriteExportConfigurationsJSON - \(exportpath) write export configurations to permanent storage")
                 } catch let e {
                     Logger.process.error("WriteExportConfigurationsJSON - \(exportpath) some ERROR write export configurations to permanent storage")
                     let error = e

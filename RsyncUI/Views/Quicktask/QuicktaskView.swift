@@ -359,7 +359,7 @@ struct QuicktaskView: View {
         .toolbar(content: {
             ToolbarItem {
                 Button {
-                    resetform()
+                    resetForm()
                 } label: {
                     if localcatalog.isEmpty == false {
                         Image(systemName: "clear")
@@ -373,7 +373,7 @@ struct QuicktaskView: View {
 
             ToolbarItem {
                 Button {
-                    getconfigandexecute()
+                    getConfigAndExecute()
                 } label: {
                     Image(systemName: "play.fill")
                         .foregroundColor(Color(.blue))
@@ -410,7 +410,7 @@ struct QuicktaskView: View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)
             .onAppear {
-                getconfigandexecute()
+                getConfigAndExecute()
             }
     }
 
@@ -420,7 +420,7 @@ struct QuicktaskView: View {
 }
 
 extension QuicktaskView {
-    func resetform() {
+    func resetForm() {
         selectedrsynccommand = .synchronize
         trailingslashoptions = .add
         dryrun = true
@@ -434,7 +434,7 @@ extension QuicktaskView {
         selectedAttachedVolumeCatalogs = nil
     }
 
-    func getconfigandexecute() {
+    func getConfigAndExecute() {
         let getdata = AppendTask(selectedrsynccommand.rawValue,
                                  localcatalog,
                                  remotecatalog,
@@ -447,7 +447,7 @@ extension QuicktaskView {
 
         if let config = VerifyConfiguration().verify(getdata) {
             do {
-                let ok = try validateinput(config)
+                let ok = try validateInput(config)
                 if ok {
                     execute(config: config, dryrun: dryrun)
                 }
@@ -464,8 +464,8 @@ extension QuicktaskView {
         showprogressview = true
 
         let handlers = CreateHandlers().createhandlers(
-            filehandler: filehandler,
-            processtermination: processtermination
+            fileHandler: fileHandler,
+            processTermination: processTermination
         )
 
         // Must check valid rsync exists
@@ -488,7 +488,7 @@ extension QuicktaskView {
         InterruptProcess()
     }
 
-    func processtermination(_ stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+    func processTermination(_ stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         showprogressview = false
         if dryrun {
             max = Double(stringoutputfromrsync?.count ?? 0)
@@ -499,7 +499,7 @@ extension QuicktaskView {
         }
     }
 
-    func filehandler(count: Int) {
+    func fileHandler(count: Int) {
         progress = Double(count)
     }
 
@@ -507,7 +507,7 @@ extension QuicktaskView {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 
-    private func validateinput(_ config: SynchronizeConfiguration) throws -> Bool {
+    private func validateInput(_ config: SynchronizeConfiguration) throws -> Bool {
         if config.localCatalog.isEmpty {
             throw ValidateInputQuicktask.localcatalog
         }

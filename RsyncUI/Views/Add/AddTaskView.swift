@@ -68,7 +68,7 @@ struct AddTaskView: View {
                             text: "Update",
                             helpText: "Update task"
                         ) {
-                            validateandupdate()
+                            validateAndUpdate()
                         }
                     } else {
                         ConditionalGlassButton(
@@ -76,7 +76,7 @@ struct AddTaskView: View {
                             text: "Add",
                             helpText: "Add task"
                         ) {
-                            addconfig()
+                            addConfig()
                         }
                     }
 
@@ -238,12 +238,12 @@ struct AddTaskView: View {
             case .remoteuserField:
                 focusField = .remoteserverField
             case .snapshotnumField:
-                validateandupdate()
+                validateAndUpdate()
             case .remoteserverField:
                 if newdata.selectedconfig == nil {
-                    addconfig()
+                    addConfig()
                 } else {
-                    validateandupdate()
+                    validateAndUpdate()
                 }
                 focusField = nil
             default:
@@ -261,7 +261,7 @@ struct AddTaskView: View {
             }
         }
         .onChange(of: rsyncUIdata.profile) {
-            newdata.resetform()
+            newdata.resetForm()
             selecteduuids.removeAll()
             selectedconfig = nil
         }
@@ -600,9 +600,9 @@ struct AddTaskView: View {
 }
 
 extension AddTaskView {
-    func addconfig() {
+    func addConfig() {
         let profile = rsyncUIdata.profile
-        rsyncUIdata.configurations = newdata.addconfig(profile, rsyncUIdata.configurations)
+        rsyncUIdata.configurations = newdata.addConfig(profile, rsyncUIdata.configurations)
         if SharedReference.shared.duplicatecheck {
             if let configurations = rsyncUIdata.configurations {
                 VerifyDuplicates(configurations)
@@ -610,7 +610,7 @@ extension AddTaskView {
         }
     }
 
-    func validateandupdate() {
+    func validateAndUpdate() {
         let profile = rsyncUIdata.profile
         rsyncUIdata.configurations = newdata.updateconfig(profile, rsyncUIdata.configurations)
         selecteduuids.removeAll()

@@ -21,7 +21,7 @@ struct WriteWidgetsURLStringsJSON {
             let pathestimate = userHomeDirectoryPath.appending("/" + estimatestringsandboxcatalog)
             let fullpathURL = URL(fileURLWithPath: pathestimate)
             let estimatefileURL = fullpathURL.appendingPathComponent(SharedReference.shared.userconfigjson)
-            Logger.process.debugmessageonly("WriteWidgetsURLStringsJSON: URL-string \(estimatefileURL)")
+            Logger.process.debugMessageOnly("WriteWidgetsURLStringsJSON: URL-string \(estimatefileURL)")
             if let jsonData {
                 do {
                     try jsonData.write(to: estimatefileURL)
@@ -38,7 +38,7 @@ struct WriteWidgetsURLStringsJSON {
         do {
             let encodeddata = try encodejsondata.encode(urlwidgetstrings)
             writeJSONToPersistentStore(jsonData: encodeddata)
-            Logger.process.debugmessageonly("WriteWidgetsURLStringsJSON: Writing URL-strings to permanent storage")
+            Logger.process.debugMessageOnly("WriteWidgetsURLStringsJSON: Writing URL-strings to permanent storage")
 
         } catch let e {
             Logger.process.error("WriteWidgetsURLStringsJSON: some ERROR writing user configurations from permanent storage")

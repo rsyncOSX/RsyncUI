@@ -11,11 +11,11 @@ import ProcessCommand
 @MainActor
 struct CreateCommandHandlers {
     func createcommandhandlers(
-        processtermination: @escaping ([String]?, Bool) -> Void
+        processTermination: @escaping ([String]?, Bool) -> Void
 
     ) -> ProcessHandlersCommand {
         ProcessHandlersCommand(
-            processtermination: processtermination,
+            processtermination: processTermination,
             checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
             updateprocess: SharedReference.shared.updateprocess,
             propogateerror: { error in

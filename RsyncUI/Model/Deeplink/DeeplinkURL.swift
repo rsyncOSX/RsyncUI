@@ -36,7 +36,7 @@ struct DeeplinkURL {
         return nil
     }
 
-    func validateprofile(_ profile: String?, _ validprofiles: [ProfilesnamesRecord]) -> Bool {
+    func validateProfile(_ profile: String?, _ validprofiles: [ProfilesnamesRecord]) -> Bool {
         if let profile {
             let profiles: [String] = validprofiles.map { record in
                 record.profilename
@@ -56,7 +56,7 @@ struct DeeplinkURL {
         }
     }
 
-    func validatenoaction(_ queryItem: URLQueryItem?) -> Bool {
+    func validateNoAction(_ queryItem: URLQueryItem?) -> Bool {
         do {
             try deeplinks.validateNoOngoingURLAction(queryItem)
             return true

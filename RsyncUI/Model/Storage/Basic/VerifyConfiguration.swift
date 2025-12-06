@@ -182,7 +182,7 @@ final class VerifyConfiguration: Connected {
             newconfig.task = SharedReference.shared.syncremote
         }
         do {
-            let validated = try validateinput(config: newconfig)
+            let validated = try validateInput(config: newconfig)
             guard validated == true else { return nil }
         } catch let e {
             let error = e
@@ -205,7 +205,7 @@ final class VerifyConfiguration: Connected {
         let args = ArgumentsSnapshotCreateCatalog(config: config)
 
         let handlers = CreateCommandHandlers().createcommandhandlers(
-            processtermination: { _, _ in })
+            processTermination: { _, _ in })
 
         let process = ProcessCommand(command: args.getCommand(),
                                      arguments: args.getArguments(),
@@ -219,7 +219,7 @@ final class VerifyConfiguration: Connected {
     }
 
     // Validate input, throws errors
-    private func validateinput(config: SynchronizeConfiguration) throws -> Bool {
+    private func validateInput(config: SynchronizeConfiguration) throws -> Bool {
         guard config.localCatalog.isEmpty == false,
               config.offsiteCatalog.isEmpty == false
         else {

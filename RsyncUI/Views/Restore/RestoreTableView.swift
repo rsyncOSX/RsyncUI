@@ -35,7 +35,7 @@ struct RestoreTableView: View {
                                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                     restore.selectedconfig = configurations[index]
                                     if configurations[index].task == SharedReference.shared.snapshot {
-                                        getsnapshotlogsandcatalogs()
+                                        getSnapshotLogsAndCatalogs()
                                     }
                                     restore.restorefilelist.removeAll()
                                 } else {
@@ -110,7 +110,7 @@ struct RestoreTableView: View {
                     if filterstring.isEmpty == false {
                         restore.restorefilelist = restore.restorefilelist.filter { $0.record.contains(filterstring) }
                     } else {
-                        getlistoffilesforrestore()
+                        getListOfFilesForRestore()
                     }
                 }
             }
@@ -131,7 +131,7 @@ struct RestoreTableView: View {
                restore.selectedconfig?.offsiteServer.isEmpty == false,
                restore.restorefilelist.count == 0 {
                 Button {
-                    getlistoffilesforrestore()
+                    getListOfFilesForRestore()
                 } label: {
                     Image(systemName: "square.and.arrow.down.fill")
                 }
@@ -150,7 +150,7 @@ struct RestoreTableView: View {
                restore.restorefilelist.count > 0,
                restore.filestorestore.isEmpty == false {
                 Button {
-                    executerestore()
+                    executeRestore()
                 } label: {
                     Image(systemName: "play.fill")
                         .foregroundColor(Color(.blue))
@@ -249,12 +249,12 @@ struct RestoreTableView: View {
 }
 
 extension RestoreTableView {
-    func getlistoffilesforrestore() {
+    func getListOfFilesForRestore() {
         if let config = restore.selectedconfig {
             guard config.task != SharedReference.shared.syncremote else { return }
             guard config.offsiteServer.isEmpty == false else { return }
             gettingfilelist = true
-            getfilelist()
+            getFileList()
         }
     }
 
@@ -262,7 +262,7 @@ extension RestoreTableView {
         InterruptProcess()
     }
 
-    func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+    func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         gettingfilelist = false
         restore.restorefilelist.removeAll()
         Task {
@@ -270,7 +270,7 @@ extension RestoreTableView {
         }
     }
 
-    func getfilelist() {
+    func getFileList() {
         if let config = restore.selectedconfig {
             var arguments: [String]?
             let snapshot: Bool = (config.snapshotnum != nil) ? true : false
@@ -290,8 +290,8 @@ extension RestoreTableView {
             guard arguments?.isEmpty == false else { return }
 
             let handlers = CreateHandlers().createhandlers(
-                filehandler: { _ in },
-                processtermination: processtermination
+                fileHandler: { _ in },
+                processTermination: processTermination
             )
 
             let process = RsyncProcess(arguments: arguments,
@@ -306,7 +306,7 @@ extension RestoreTableView {
         }
     }
 
-    func executerestore() {
+    func executeRestore() {
         if let config = restore.selectedconfig, restore.filestorestore.isEmpty == false {
             let snapshot: Bool = (config.snapshotnum != nil) ? true : false
             if snapshot, snapshotfolder.isEmpty == false {
@@ -318,14 +318,14 @@ extension RestoreTableView {
                     tempconfig.snapshotnum = snapshotnum + 1
                 }
                 restore.selectedconfig = tempconfig
-                restore.executerestore()
+                restore.executeRestore()
             } else {
-                restore.executerestore()
+                restore.executeRestore()
             }
         }
     }
 
-    func getsnapshotlogsandcatalogs() {
+    func getSnapshotLogsAndCatalogs() {
         guard SharedReference.shared.process == nil else { return }
         if let config = restore.selectedconfig {
             guard config.task == SharedReference.shared.snapshot else { return }

@@ -25,7 +25,7 @@ final class WriteSynchronizeConfigurationJSON {
                 configurationfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().fileconfigurationsjson)
             }
             if let configurationfileURL {
-                Logger.process.debugmessageonly("WriteSynchronizeConfigurationJSON: writeJSONToPersistentStore \(configurationfileURL)")
+                Logger.process.debugMessageOnly("WriteSynchronizeConfigurationJSON: writeJSONToPersistentStore \(configurationfileURL)")
             }
             if let jsonData, let configurationfileURL {
                 do {
@@ -58,6 +58,6 @@ final class WriteSynchronizeConfigurationJSON {
     }
 
     deinit {
-        Logger.process.debugmessageonly("WriteSynchronizeConfigurationJSON DEINIT")
+        Logger.process.debugMessageOnly("WriteSynchronizeConfigurationJSON DEINIT")
     }
 }

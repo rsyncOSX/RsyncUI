@@ -63,7 +63,7 @@ struct AboutView: View {
                         text: "Changelog",
                         helpText: "Changelog"
                     ) {
-                        openchangelog()
+                        openChangelog()
                         dismiss()
                     }
 
@@ -73,7 +73,7 @@ struct AboutView: View {
                             text: "Download",
                             helpText: "Download"
                         ) {
-                            opendownload()
+                            openDownload()
                         }
                     }
 
@@ -132,11 +132,11 @@ struct AboutView: View {
 }
 
 extension AboutView {
-    func openchangelog() {
+    func openChangelog() {
         NSWorkspace.shared.open(URL(string: changelog)!)
     }
 
-    func opendownload() {
+    func openDownload() {
         if urlstring.isEmpty == false {
             NSWorkspace.shared.open(URL(string: urlstring)!)
         }

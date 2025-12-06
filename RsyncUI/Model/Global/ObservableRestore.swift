@@ -25,7 +25,7 @@ final class ObservableRestore {
     var progress: Double = 0
     var max: Double = 0
 
-    func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+    func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         if dryrun {
             max = Double(stringoutputfromrsync?.count ?? 0)
         }
@@ -42,11 +42,11 @@ final class ObservableRestore {
         return fm.fileExists(atPath: path, isDirectory: nil)
     }
 
-    func executerestore() {
+    func executeRestore() {
         var arguments: [String]?
         let handlers = CreateHandlers().createhandlers(
-            filehandler: filehandler,
-            processtermination: processtermination
+            fileHandler: fileHandler,
+            processTermination: processTermination
         )
 
         do {
@@ -157,7 +157,7 @@ final class ObservableRestore {
         SharedReference.shared.errorobject?.alert(error: error)
     }
 
-    func filehandler(count: Int) {
+    func fileHandler(count: Int) {
         progress = Double(count)
     }
 }

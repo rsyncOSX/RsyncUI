@@ -148,8 +148,8 @@ struct ExecutePushPullView: View {
                                                                                                          keepdelete: keepdelete)
 
         let handlers = CreateHandlers().createhandlers(
-            filehandler: filehandler,
-            processtermination: processtermination
+            fileHandler: fileHandler,
+            processTermination: processTermination
         )
 
         guard SharedReference.shared.norsync == false else { return }
@@ -173,8 +173,8 @@ struct ExecutePushPullView: View {
                                                                                               keepdelete: keepdelete)
 
         let handlers = CreateHandlers().createhandlers(
-            filehandler: filehandler,
-            processtermination: processtermination
+            fileHandler: fileHandler,
+            processTermination: processTermination
         )
 
         let process = RsyncProcess(arguments: arguments,
@@ -189,7 +189,7 @@ struct ExecutePushPullView: View {
         }
     }
 
-    func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+    func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         showprogressview = false
 
         if dryrun {
@@ -210,7 +210,7 @@ struct ExecutePushPullView: View {
         }
     }
 
-    func filehandler(count: Int) {
+    func fileHandler(count: Int) {
         progress = Double(count)
     }
 

@@ -13,7 +13,7 @@ actor ActorReadSchedule {
     func readjsonfilecalendar(_ validprofiles: [String]) async -> [SchedulesConfigurations]? {
         var filename = ""
         let path = await Homepath()
-        Logger.process.debugtthreadonly("ActorReadSchedule: readjsonfilecalendar()")
+        Logger.process.debugThreadOnly("ActorReadSchedule: readjsonfilecalendar()")
         if let fullpathmacserial = path.fullpathmacserial {
             filename = fullpathmacserial.appending("/") + SharedConstants().caldenarfilejson
         }
@@ -39,7 +39,7 @@ actor ActorReadSchedule {
             }
 
         } catch {
-            Logger.process.debugmessageonly("ActorReadSchedule - read Calendar from permanent storage \(filename) failed with error: some ERROR reading")
+            Logger.process.debugMessageOnly("ActorReadSchedule - read Calendar from permanent storage \(filename) failed with error: some ERROR reading")
         }
         return nil
     }

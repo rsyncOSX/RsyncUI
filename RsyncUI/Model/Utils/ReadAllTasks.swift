@@ -31,7 +31,7 @@ struct ReadAllTasks {
                         return 0
                     }
                 }
-                return markconfig(seconds) == true
+                return markConfig(seconds) == true
             }
 
             if old == nil, let profileold {
@@ -65,7 +65,7 @@ struct ReadAllTasks {
         }
     }
 
-    private func markconfig(_ seconds: Double) -> Bool {
+    private func markConfig(_ seconds: Double) -> Bool {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }
 

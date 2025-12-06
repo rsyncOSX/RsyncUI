@@ -9,7 +9,7 @@
 import Foundation
 
 extension Date {
-    func daymonth() -> Int {
+    func dayMonth() -> Int {
         let calendar = Calendar.current
         let dateComponent = (calendar as NSCalendar).components(.day, from: self)
         return dateComponent.day ?? 1
@@ -20,7 +20,7 @@ extension Date {
         return (calendar as NSCalendar).components(.weekday, from: self).weekday ?? 1
     }
 
-    func isSelectedDayofWeek(day: NumDayofweek) -> Bool {
+    func isSelectedDayOfWeek(day: NumDayofweek) -> Bool {
         getWeekday() == day.rawValue
     }
 

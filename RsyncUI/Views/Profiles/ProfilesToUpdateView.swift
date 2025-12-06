@@ -35,7 +35,7 @@ struct ProfilesToUpdateView: View {
                         return 0
                     }
                 }
-                let color: Color = markconfig(seconds) == true ? .red : .white
+                let color: Color = markConfig(seconds) == true ? .red : .white
 
                 Text(seconds.latest())
                     .foregroundColor(color)
@@ -59,7 +59,7 @@ struct ProfilesToUpdateView: View {
         }
     }
 
-    private func markconfig(_ seconds: Double) -> Bool {
+    private func markConfig(_ seconds: Double) -> Bool {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }
 }

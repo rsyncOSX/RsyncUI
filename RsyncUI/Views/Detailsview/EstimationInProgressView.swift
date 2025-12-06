@@ -18,7 +18,7 @@ struct EstimationInProgressView: View {
 
     var body: some View {
         ZStack {
-            if let uuid = getuuid(uuid: progressdetails.configurationtobestimated) {
+            if let uuid = getUUID(uuid: progressdetails.configurationtobestimated) {
                 EstimateTableView(progressdetails: progressdetails,
                                   estimatinguuid: uuid,
                                   configurations: configurations)
@@ -76,7 +76,7 @@ struct EstimationInProgressView: View {
             }
     }
 
-    func getuuid(uuid: UUID?) -> SynchronizeConfiguration.ID? {
+    func getUUID(uuid: UUID?) -> SynchronizeConfiguration.ID? {
         if let index = configurations.firstIndex(where: { $0.id == uuid }) {
             return configurations[index].id
         }
@@ -85,6 +85,6 @@ struct EstimationInProgressView: View {
 
     func abort() {
         InterruptProcess()
-        progressdetails.resetcounts()
+        progressdetails.resetCounts()
     }
 }

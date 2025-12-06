@@ -35,7 +35,7 @@ final class DeleteSnapshots {
             return
         }
         if let remotecatalog = snapshotcatalogstodelete?[0] {
-            Logger.process.debugmessageonly("DeleteSnapshots: deleting snapshot catalog \(remotecatalog)")
+            Logger.process.debugMessageOnly("DeleteSnapshots: deleting snapshot catalog \(remotecatalog)")
             snapshotcatalogstodelete?.remove(at: 0)
             if (snapshotcatalogstodelete?.count ?? 0) == 0 {
                 snapshotcatalogstodelete = nil
@@ -45,7 +45,7 @@ final class DeleteSnapshots {
             mysnapshotdata?.remainingsnapshotstodelete = (mysnapshotdata?.maxnumbertodelete ?? 0) - remaining
             if let config = localeconfig {
                 let handlers = CreateCommandHandlers().createcommandhandlers(
-                    processtermination: processtermination)
+                    processTermination: processTermination)
 
                 let delete = ArgumentsSnapshotDeleteCatalogs(config: config, remotecatalog: remotecatalog)
                 let process = ProcessCommand(command: delete.getCommand(),
@@ -72,7 +72,7 @@ final class DeleteSnapshots {
 }
 
 extension DeleteSnapshots {
-    func processtermination(data _: [String]?, _: Bool) {
+    func processTermination(data _: [String]?, _: Bool) {
         deletesnapshots()
     }
 }

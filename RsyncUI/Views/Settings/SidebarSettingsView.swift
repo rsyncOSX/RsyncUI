@@ -55,10 +55,10 @@ struct SidebarSettingsRow: View {
 
     var body: some View {
         Label(sidebaritem.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "),
-              systemImage: systemimage(sidebaritem))
+              systemImage: systemImage(sidebaritem))
     }
 
-    func systemimage(_ view: SideSettingsbaritems) -> String {
+    func systemImage(_ view: SideSettingsbaritems) -> String {
         switch view {
         case .rsync_and_path:
             "gear"

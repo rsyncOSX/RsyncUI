@@ -75,7 +75,7 @@ struct LogStatsChartView: View {
                         }
                     }
 
-                EditValueErrorScheme(50, "Num", $numberofdata, setnumber(numberofdata))
+                EditValueErrorScheme(50, "Num", $numberofdata, setNumber(numberofdata))
 
                 Toggle("Apply selection", isOn: $numberofdatabool)
                     .toggleStyle(.switch)
@@ -184,13 +184,13 @@ struct LogStatsChartView: View {
                                              validhiddenIDs: validhiddenIDs,
                                              hiddenID: hiddenID)
 
-            logentries = await readandsortlogdata()
+            logentries = await readAndSortLogData()
         }
         .task(id: numberofdatabool) {
-            logentries = await readandsortlogdata()
+            logentries = await readAndSortLogData()
         }
         .task(id: datainchart) {
-            logentries = await readandsortlogdata()
+            logentries = await readAndSortLogData()
         }
 
         var synchronizeid: String {
@@ -238,11 +238,11 @@ struct LogStatsChartView: View {
         }
     }
 
-    private func setnumber(_ number: String) -> Bool {
+    private func setNumber(_ number: String) -> Bool {
         guard number.isEmpty == false else {
             return false
         }
-        let verified = verifynumbers(number)
+        let verified = verifyNumbers(number)
         if verified == true {
             return true
         } else {
@@ -251,13 +251,13 @@ struct LogStatsChartView: View {
     }
 
     // Verify number
-    private func verifynumbers(_ number: String) -> Bool {
+    private func verifyNumbers(_ number: String) -> Bool {
         guard number.isEmpty == false else { return false }
         if Int(number) != nil { return true }
         return false
     }
 
-    private func readandsortlogdata() async -> [LogEntry] {
+    private func readAndSortLogData() async -> [LogEntry] {
         let actorreadchartsdata = ActorLogChartsData()
 
         if let parsedlogs = chartdata.parsedlogs {

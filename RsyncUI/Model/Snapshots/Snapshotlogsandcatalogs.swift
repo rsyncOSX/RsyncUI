@@ -19,8 +19,8 @@ final class Snapshotlogsandcatalogs {
 
     func getremotecataloginfo() {
         let handlers = CreateHandlers().createhandlers(
-            filehandler: { _ in },
-            processtermination: processtermination
+            fileHandler: { _ in },
+            processTermination: processTermination
         )
 
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
@@ -108,10 +108,10 @@ final class Snapshotlogsandcatalogs {
     }
 
     deinit {
-        Logger.process.debugmessageonly("Snapshotlogsandcatalogs: DEINIT")
+        Logger.process.debugMessageOnly("Snapshotlogsandcatalogs: DEINIT")
     }
 
-    func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+    func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         if let stringoutputfromrsync {
             let catalogs = TrimOutputForRestore(stringoutputfromrsync).trimmeddata
             catalogsanddates = catalogs?.compactMap { line in

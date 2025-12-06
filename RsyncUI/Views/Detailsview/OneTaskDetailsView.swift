@@ -31,7 +31,7 @@ struct OneTaskDetailsView: View {
                         // Only one task is estimated if selected, if more than one
                         // task is selected multiple estimation is selected. That is why
                         // that is why (uuid: selecteduuids.first)
-                        if let config = getconfig(uuid: selecteduuids.first) {
+                        if let config = getConfig(uuid: selecteduuids.first) {
                             Text("Estimating now: " + "\(config.backupID)")
                                 .foregroundColor(.green)
                                 .font(.title)
@@ -55,8 +55,8 @@ struct OneTaskDetailsView: View {
             guard arguments != nil else { return }
 
             let handlers = CreateHandlers().createhandlers(
-                filehandler: { _ in },
-                processtermination: processtermination
+                fileHandler: { _ in },
+                processTermination: processTermination
             )
 
             // Must check valid rsync exists
@@ -77,20 +77,20 @@ struct OneTaskDetailsView: View {
         }
     }
 
-    private func getconfig(uuid: UUID?) -> SynchronizeConfiguration? {
+    private func getConfig(uuid: UUID?) -> SynchronizeConfiguration? {
         if let index = configurations.firstIndex(where: { $0.id == uuid }) {
             return configurations[index]
         }
         return nil
     }
 
-    func validatetagging(_ lines: Int, _ tagged: Bool) throws {
+    func validateTagging(_ lines: Int, _ tagged: Bool) throws {
         if lines > SharedReference.shared.alerttagginglines, tagged == false {
             throw ErrorDatatoSynchronize.thereisdatatosynchronize(idwitherror: "Current Synchronization ID")
         }
     }
 
-    func processtermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+    func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         var selectedconfig: SynchronizeConfiguration?
         let selected = configurations.filter { config in
             selecteduuids.contains(config.id)
@@ -110,7 +110,7 @@ struct OneTaskDetailsView: View {
 
         // Validate that tagging is correct
         do {
-            try validatetagging(stringoutputfromrsync?.count ?? 0, remotedatanumbers?.datatosynchronize ?? true)
+            try validateTagging(stringoutputfromrsync?.count ?? 0, remotedatanumbers?.datatosynchronize ?? true)
         } catch let e {
             let error = e
             SharedReference.shared.errorobject?.alert(error: error)
@@ -120,7 +120,7 @@ struct OneTaskDetailsView: View {
             remotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createaoutputforview(stringoutputfromrsync)
 
             if let remotedatanumbers {
-                progressdetails.appendrecordestimatedlist(remotedatanumbers)
+                progressdetails.appendRecordEstimatedList(remotedatanumbers)
             }
 
             estimateiscompleted = true

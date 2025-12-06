@@ -60,14 +60,14 @@ struct CalendarMonthView: View {
                         if day.monthInt != date.monthInt {
                             Text("")
                         } else {
-                            if thereisaschedule(day), day >= Date() {
+                            if thereIsASchedule(day), day >= Date() {
                                 CalendarDayView(dateRun: $dateRun,
                                                 dateAdded: $dateAdded,
                                                 istappeddayint: $istappeddayint,
                                                 day: day,
                                                 style: .thereisaschedule)
 
-                            } else if istappednoschedule(day) {
+                            } else if isTappedNoSchedule(day) {
                                 CalendarDayView(dateRun: $dateRun,
                                                 dateAdded: $dateAdded,
                                                 istappeddayint: $istappeddayint,
@@ -244,14 +244,14 @@ struct CalendarMonthView: View {
         }
     }
 
-    func thereisaschedule(_ date: Date) -> Bool {
+    func thereIsASchedule(_ date: Date) -> Bool {
         let verifyaschedule = globaltimer.allSchedules.compactMap { schedule in
             schedule.scheduledata?.dateRun?.en_date_from_string().startOfDay == date ? true : nil
         }
         return verifyaschedule.count > 0
     }
 
-    func istappednoschedule(_ date: Date) -> Bool {
+    func isTappedNoSchedule(_ date: Date) -> Bool {
         date.dayInt == istappeddayint
     }
 }

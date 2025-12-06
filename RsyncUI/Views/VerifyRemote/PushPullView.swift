@@ -81,7 +81,7 @@ struct PushPullView: View {
             }
         }
         .onAppear {
-            pullremote(config: config)
+            pullRemote(config: config)
         }
         .toolbar(content: {
             if progress {
@@ -99,14 +99,14 @@ struct PushPullView: View {
     }
 
     // For check remote, pull remote data
-    func pullremote(config: SynchronizeConfiguration) {
+    func pullRemote(config: SynchronizeConfiguration) {
         let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: true,
                                                                                               forDisplay: false,
                                                                                               keepdelete: true)
 
         let handlers = CreateHandlers().createhandlers(
-            filehandler: { _ in },
-            processtermination: pullprocesstermination
+            fileHandler: { _ in },
+            processTermination: pullProcessTermination
         )
 
         guard SharedReference.shared.norsync == false else { return }
@@ -125,13 +125,13 @@ struct PushPullView: View {
     }
 
     // For check remote, pull remote data
-    func pushremote(config: SynchronizeConfiguration) {
+    func pushRemote(config: SynchronizeConfiguration) {
         let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremotewithparameters(dryRun: true,
                                                                                                          forDisplay: false,
                                                                                                          keepdelete: true)
         let handlers = CreateHandlers().createhandlers(
-            filehandler: { _ in },
-            processtermination: pushprocesstermination
+            fileHandler: { _ in },
+            processTermination: pushProcessTermination
         )
 
         let process = RsyncProcess(arguments: arguments,
@@ -146,7 +146,7 @@ struct PushPullView: View {
         }
     }
 
-    func pullprocesstermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+    func pullProcessTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
             let suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
             pullremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
@@ -172,11 +172,11 @@ struct PushPullView: View {
             }
         }
         // Then do a synchronize task, adjusted for push vs pull
-        pushremote(config: config)
+        pushRemote(config: config)
     }
 
     // This is a normal synchronize task, dry-run = true
-    func pushprocesstermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+    func pushProcessTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         guard isaborted == false else {
             progress = false
             return
