@@ -57,7 +57,6 @@ struct VerifyRemoteView: View {
                     }
 
                 HStack {
-                    
                     if configurationsdata.validprofiles.isEmpty == false {
                         Picker("", selection: $selectedprofileID) {
                             Text("Default")
@@ -70,7 +69,7 @@ struct VerifyRemoteView: View {
                         .frame(width: 180)
                         .padding([.bottom, .top, .trailing], 7)
                     }
-                    
+
                     ConditionalGlassButton(
                         systemImage: "arrow.up",
                         helpText: "Verify selected"
