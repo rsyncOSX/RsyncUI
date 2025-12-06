@@ -193,16 +193,15 @@ extension Execute {
                     let logData = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: defaultstats)
                     schedulerecords.append(logData)
                     Logger.process.debugMessageOnly("Execute: getstats() FAILED")
-                    
+
                     let error = e
                     SharedReference.shared.errorobject?.alert(error: error)
-                    
+
                 } else {
                     let logData = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: defaultstats)
                     schedulerecords.append(logData)
                     Logger.process.debugMessageOnly("Execute: getstats() FAILED")
                 }
-
             }
         }
 
