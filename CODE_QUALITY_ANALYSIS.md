@@ -2,7 +2,7 @@
 
 **Analysis Date:** December 6, 2025  
 **Project Version:** 2.8.2  
-**Codebase Size:** 18,262 lines of Swift across 168 files
+**Codebase Size:** 18,278 lines of Swift across 168 files
 
 ---
 
@@ -54,7 +54,7 @@ RsyncUI is a well-structured macOS app with solid fundamentals. The codebase dem
 
 **Issue:** Forced unwrapping (!) that can crash if nil
 
-**Status:** Addressed in active date helpers; remaining unwraps only inside commented-out legacy helpers.
+**Status:** No active force unwraps; remaining unwraps exist only inside commented-out legacy helpers.
 
 **Impact:** If commented helpers are re-enabled without fixes, risk of crash.  
 **Severity:** HIGH  
@@ -64,10 +64,10 @@ RsyncUI is a well-structured macOS app with solid fundamentals. The codebase dem
 
 **Issue:** Unsafe as! casts without validation
 
-**Status:** Active force casts removed from AddTaskView and QuicktaskView (now guarded optional casts).  
-**Impact:** Reduced crash risk in Quicktask/Add flows.  
-**Severity:** MEDIUM (verify remaining areas).  
-**Recommendation:** Re-scan periodically to ensure no new `as!`.
+**Status:** No active `as!` casts; AddTaskView and QuicktaskView now use guarded optional casts.  
+**Impact:** Crash risk from force casts removed.  
+**Severity:** LOW (monitor for regressions).  
+**Recommendation:** Keep `as!` usage at zero via lint/checks.
 
 ### 3. 🟠 Optional Unwrapping Patterns (MEDIUM PRIORITY)
 
@@ -200,10 +200,10 @@ throw Rsyncerror.rsyncerror   // Throwing
 
 | Metric | Value | Assessment |
 |--------|-------|-----------|
-| **Total Lines** | 18,262 | Reasonable size |
+| **Total Lines** | 18,278 | Reasonable size |
 | **Average File Size** | 108 lines | Good - manageable |
-| **Force Unwraps Found** | 0 in active code (unwraps remain only in commented legacy helpers) | 🔴 HIGH if re-enabled |
-| **Force Casts Found** | 0 in active code | ✅ Improved |
+| **Force Unwraps Found** | 0 in active code (only in commented legacy helpers) | 🔴 HIGH if re-enabled |
+| **Force Casts Found** | 0 in active code | ✅ Good |
 | **Legacy Concurrency** | ~8 instances | ✅ LOW - well migrated |
 | **@MainActor Usage** | Widespread | ✅ Good |
 | **Actor Usage** | Good coverage | ✅ Good |
@@ -214,45 +214,21 @@ throw Rsyncerror.rsyncerror   // Throwing
 ## 🎯 Priority Recommendations
 
 ### CRITICAL (Do First)
-1. **Remove all force unwraps (!)**
-   - Audit all uses in extensions.swift, RsyncUIApp.swift, ObservableSchedules.swift
-   - Replace with nil-coalescing or safe unwrapping
-   - Add try/catch where appropriate
-
-2. **Replace unsafe casts (as!)**
-   - Replace QuicktaskView.swift casts with safe casts (as?)
-   - Add guard statements for type safety
-   - Add assertions or logs if type mismatches occur
+1. If re-enabling legacy date helpers (commented block), replace unwraps with guarded optionals.
+2. Add a lint/check to keep `as!` usage at zero.
+3. Run app with Address Sanitizer to catch crashes.
 
 ### HIGH (Next Sprint)
-3. **Clean up commented code**
-   - Remove commented-out functions (ActorReadSynchronizeConfigurationJSON)
-   - Remove permanent log storage placeholder or move to backlog
-   - Document any intentionally preserved code
-
-4. **Consistent optional handling**
-   - Standardize on guard let for critical paths
-   - Document why ?? defaults are used
-   - Add telemetry for when defaults are used
+4. Clean up commented code (e.g., ActorReadSynchronizeConfigurationJSON, permanent log storage placeholder) or ticket it.
+5. Standardize optional-handling style (prefer guard let where clarity matters) and document intentional ?? defaults.
 
 ### MEDIUM (Next Release)
-5. **Improve error logging**
-   - Never silently swallow errors (silencemissingstats pattern)
-   - Log default value usage with full context
-   - Add error counters for monitoring
-
-6. **Naming standardization**
-   - Convert lowercase method names to camelCase (startestimation → startEstimation)
-   - Create linting rules to enforce consistency
+6. Improve error logging: never silently swallow errors (silencemissingstats), log default-value fallbacks, add counters/telemetry.
+7. Naming standardization (camelCase for methods); consider lint rules.
 
 ### LOW (Future Improvements)
-7. **Extract magic strings/numbers**
-   - Create Constants.swift for common values
-   - Document why specific numbers chosen (e.g., 20 line threshold)
-
-8. **Async/await improvements**
-   - Complete commented async TCP connection function or remove
-   - Consider more async operations where applicable
+8. Extract magic strings/numbers into constants; document thresholds (e.g., 20-line trim).
+9. Async/await improvements: complete or remove commented async TCP helper.
 
 ---
 
@@ -276,10 +252,7 @@ throw Rsyncerror.rsyncerror   // Throwing
 
 | File | Issues | Priority |
 |------|--------|----------|
-| `extensions.swift` | 5 force unwraps | CRITICAL |
-| `QuicktaskView.swift` | 8+ force casts | CRITICAL |
-| `RsyncUIApp.swift` | 1 force unwrap | CRITICAL |
-| `ObservableSchedules.swift` | 1 force unwrap | CRITICAL |
+| `extensions.swift` (commented legacy helpers) | Force unwraps if re-enabled | HIGH if used |
 | `ActorReadSynchronizeConfigurationJSON.swift` | Commented code | HIGH |
 | `Execute.swift` | Default stats hiding errors | MEDIUM |
 | `RemoteDataNumbers.swift` | Silent error handling | MEDIUM |
@@ -311,7 +284,7 @@ throw Rsyncerror.rsyncerror   // Throwing
 | Practice | Status | Notes |
 |----------|--------|-------|
 | MVVM Pattern | ✅ Implemented | Good separation |
-| Error Handling | ⚠️ Partial | Unsafe unwrapping issues |
+| Error Handling | ⚠️ Partial | Defaults masking errors; legacy commented unwraps |
 | Concurrency Safety | ✅ Good | @MainActor, Actors used well |
 | Code Organization | ✅ Good | Feature-based structure |
 | Naming Conventions | ⚠️ Inconsistent | Some lowercase method names |
