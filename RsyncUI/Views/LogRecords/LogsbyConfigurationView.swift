@@ -174,17 +174,23 @@ struct LogsbyConfigurationView: View {
                     } else {
                         Image(systemName: "clear")
                             .foregroundColor(Color(.red))
-                            .overlay(HStack(alignment: .top) {
-                                Image(systemName:
-                                    String(selectedloguuids.count <= 50 ? selectedloguuids.count : 50))
-                                    .foregroundColor(.red)
-                                    .frame(maxWidth: .infinity)
-                            }
-                            .frame(maxHeight: .infinity)
-                            .symbolVariant(.fill)
-                            .symbolVariant(.circle)
-                            .allowsHitTesting(false)
-                            .offset(x: 10, y: -10)
+                            .overlay(
+                                Group {
+                                    if selectedloguuids.count > 50 {
+                                        // Show "50+" as text with proper sizing
+                                        Text("50+")
+                                            .font(.system(size: 9, weight: .bold))
+                                            .foregroundColor(.white)
+                                            .frame(minWidth: 24, minHeight: 24)
+                                            .background(Circle().fill(Color.red))
+                                    } else {
+                                        // Show number as SF Symbol
+                                        Image(systemName: "\(selectedloguuids.count).circle.fill")
+                                            .foregroundColor(.red)
+                                    }
+                                }
+                                .allowsHitTesting(false)
+                                .offset(x: 10, y: -10)
                             )
                     }
                 }
