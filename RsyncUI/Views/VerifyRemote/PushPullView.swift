@@ -41,35 +41,41 @@ struct PushPullView: View {
 
             } else {
                 if let pullremotedatanumbers, let pushremotedatanumbers {
-                    HStack {
-                        VStack {
-                            ConditionalGlassButton(
-                                systemImage: "arrowshape.right.fill",
-                                helpText: "Push local"
-                            ) {
-                                pushpullcommand = .push_local
-                                verifypath.removeAll()
-                                verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
-                            }
-                            .padding(10)
-
-                            DetailsVerifyView(remotedatanumbers: pushremotedatanumbers)
+                    VStack {
+                        
+                        Text(" \(config.backupID)")
+                            .font(.title2)
+                        
+                        HStack {
+                            VStack {
+                                ConditionalGlassButton(
+                                    systemImage: "arrowshape.right.fill",
+                                    helpText: "Push local"
+                                ) {
+                                    pushpullcommand = .push_local
+                                    verifypath.removeAll()
+                                    verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
+                                }
                                 .padding(10)
-                        }
 
-                        VStack {
-                            ConditionalGlassButton(
-                                systemImage: "arrowshape.left.fill",
-                                helpText: "Pull remote"
-                            ) {
-                                pushpullcommand = .pull_remote
-                                verifypath.removeAll()
-                                verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
+                                DetailsVerifyView(remotedatanumbers: pushremotedatanumbers)
+                                    .padding(10)
                             }
-                            .padding(10)
 
-                            DetailsVerifyView(remotedatanumbers: pullremotedatanumbers)
+                            VStack {
+                                ConditionalGlassButton(
+                                    systemImage: "arrowshape.left.fill",
+                                    helpText: "Pull remote"
+                                ) {
+                                    pushpullcommand = .pull_remote
+                                    verifypath.removeAll()
+                                    verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
+                                }
                                 .padding(10)
+
+                                DetailsVerifyView(remotedatanumbers: pullremotedatanumbers)
+                                    .padding(10)
+                            }
                         }
                     }
                 }
@@ -89,11 +95,6 @@ struct PushPullView: View {
                         abort()
                     }
                 }
-            }
-
-            ToolbarItem {
-                Text(" \(config.backupID)")
-                    .font(.title2)
             }
         })
     }
