@@ -2,15 +2,15 @@
 
 **Analysis Date:** December 6, 2025 (Updated)  
 **Project Version:** 2.8.2  
-**Codebase Size:** 18,257 lines of Swift across 168 files
+**Codebase Size:** 18,072 lines of Swift across 168 files
 
 ---
 
 ## Executive Summary
 
-RsyncUI is a well-structured macOS app with solid fundamentals and excellent recent improvements. The codebase demonstrates strong architectural decisions (MVVM, SwiftUI, modern concurrency patterns) with now-enforced defensive programming practices.
+RsyncUI is a well-structured macOS app with excellent fundamentals and recent quality improvements. The codebase demonstrates strong architectural decisions (MVVM, SwiftUI, modern concurrency patterns) with enforced defensive programming practices and clean, maintainable code.
 
-**Overall Assessment:** **8.5/10** - Strong architecture with excellent error handling now enforced via SwiftLint
+**Overall Assessment:** **8.8/10** - Excellent architecture, clean code, excellent error handling enforced via SwiftLint
 
 ---
 
@@ -102,26 +102,11 @@ if SharedReference.shared.silencemissingstats == false {
 **Severity:** MEDIUM
 **Recommendation:** Always log errors even when using defaults; add telemetry
 
-### 5. 🟠 Commented-Out Code (MEDIUM PRIORITY)
+### 5. ✅ Commented-Out Code - RESOLVED
 
-**Issue:** Commented-out code blocks that should be removed or completed
-
-```swift
-// ActorReadSynchronizeConfigurationJSON.swift:52-58
-// Entire block of code is commented out
-/*
- } catch let e {
-     Logger.process.error(...)
- }
- */
-
-// ObservableLogSettings.swift
-// Permanent log storage function is commented out
-```
-
-**Impact:** Code maintainability, confusion about functionality
-**Severity:** MEDIUM
-**Recommendation:** Remove or create GitHub issues for incomplete features
+**Status:** All large commented code blocks removed; only inline documentation headers and documented hacks remain.  
+**Impact:** Cleaner codebase; 185 lines removed.  
+**Recommendation:** Keep code cleanup enforced in reviews.
 
 ### 6. 🟡 Magic Strings (LOW PRIORITY)
 
@@ -193,11 +178,12 @@ throw Rsyncerror.rsyncerror   // Throwing
 
 | Metric | Value | Assessment |
 |--------|-------|-----------|
-| **Total Lines** | 18,257 | Reasonable size |
-| **Average File Size** | 108 lines | Good - manageable |
+| **Total Lines** | 18,072 | Clean, well-managed size |
+| **Average File Size** | 107 lines | Good - maintainable |
 | **Force Unwraps Found** | 0 (enforced by SwiftLint) | ✅ Excellent |
 | **Force Casts Found** | 0 (enforced by SwiftLint) | ✅ Excellent |
 | **SwiftLint Rules** | force_unwrapping, force_cast active | ✅ Protected |
+| **Commented Code Blocks** | 0 (all removed) | ✅ Clean |
 | **Legacy Concurrency** | ~8 instances | ✅ LOW - well migrated |
 | **@MainActor Usage** | Widespread | ✅ Good |
 | **Actor Usage** | Good coverage | ✅ Good |
@@ -208,11 +194,11 @@ throw Rsyncerror.rsyncerror   // Throwing
 ## 🎯 Priority Recommendations
 
 ### CRITICAL (Do First)
-1. Add a lint/check to keep `as!` and force unwraps at zero. 
+1. Add a lint/check to keep `as!` and force unwraps at zero. ✅ Done
 2. Run app with Address Sanitizer to catch crashes.
 
 ### HIGH (Next Sprint)
-3. Clean up or ticket commented code (e.g., ActorReadSynchronizeConfigurationJSON, permanent log storage placeholder).
+3. ✅ Commented code removed—focus now on logging improvements.
 4. Standardize optional-handling style (prefer guard let where clarity matters); document intentional ?? defaults.
 
 ### MEDIUM (Next Release)
