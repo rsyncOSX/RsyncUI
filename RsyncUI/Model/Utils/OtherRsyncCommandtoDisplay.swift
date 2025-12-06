@@ -32,7 +32,7 @@ struct OtherRsyncCommandtoDisplay {
         case .list_remote_files:
             if config.offsiteServer.isEmpty == false {
                 if let arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments() {
-                    str.append(GetfullpathforRsync().rsyncpath() ?? "no rsync in path ")
+                    str.append(GetfullpathforRsync().rsyncpath())
                     let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: "")
                     str.append(cleanedArguments)
                 }

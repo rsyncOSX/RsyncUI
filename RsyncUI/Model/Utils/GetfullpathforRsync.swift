@@ -11,8 +11,8 @@ import OSLog
 
 @MainActor
 struct GetfullpathforRsync {
-    func rsyncpath() -> String? {
-        guard SharedReference.shared.norsync == false else { return nil }
+    func rsyncpath() -> String {
+        guard SharedReference.shared.norsync == false else { return "no rsync in path" }
         if SharedReference.shared.rsyncversion3 {
             if let localrsyncpath = SharedReference.shared.localrsyncpath,
                localrsyncpath.isEmpty == false {

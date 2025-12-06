@@ -78,30 +78,31 @@ struct RemoteDataNumbers: Identifiable, Hashable {
                 if SharedReference.shared.silencemissingstats == false {
                     let error = e
                     SharedReference.shared.errorobject?.alert(error: error)
+                } else {
+                    // Break this loop, the numbers below make no sense if stats is missing
+                    stats = "0 files : 0.00 MB in 0.00 seconds"
+                    filestransferred = "No stats"
+                    filestransferred_Int = 0
+                    totaldirectories_Int = 0
+                    newfiles_Int = 0
+                    deletefiles_Int = 0
+
+                    totaltransferredfilessize_Int = 0
+                    totalfilesize_Int = 0
+
+                    numberoffiles = "0"
+                    totalfilesize = "0"
+                    totaldirectories = "0"
+                    newfiles = "0"
+
+                    deletefiles = "0"
+                    totalnumbers = "0"
+
+                    datatosynchronize = false
+
+                    Logger.process.debugmessageonly("RemoteDataNumbers: getstats() FAILED")
+                    return
                 }
-                // Break this loop, the numbers below make no sense if stats is missing
-                stats = "0 files : 0.00 MB in 0.00 seconds"
-                filestransferred = "No stats"
-                filestransferred_Int = 0
-                totaldirectories_Int = 0
-                newfiles_Int = 0
-                deletefiles_Int = 0
-
-                totaltransferredfilessize_Int = 0
-                totalfilesize_Int = 0
-
-                numberoffiles = "0"
-                totalfilesize = "0"
-                totaldirectories = "0"
-                newfiles = "0"
-
-                deletefiles = "0"
-                totalnumbers = "0"
-
-                datatosynchronize = false
-
-                Logger.process.debugmessageonly("RemoteDataNumbers: getstats() FAILED")
-                return
             }
 
             filestransferred = parsersyncoutput.formatted_filestransferred

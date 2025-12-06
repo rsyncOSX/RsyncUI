@@ -190,13 +190,19 @@ extension Execute {
                 Logger.process.debugmessageonly("Execute: getstats() SUCCESS")
             } catch let e {
                 if SharedReference.shared.silencemissingstats == false {
+                    let logData = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: defaultstats)
+                    schedulerecords.append(logData)
+                    Logger.process.debugmessageonly("Execute: getstats() FAILED")
+                    
                     let error = e
                     SharedReference.shared.errorobject?.alert(error: error)
+                    
+                } else {
+                    let logData = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: defaultstats)
+                    schedulerecords.append(logData)
+                    Logger.process.debugmessageonly("Execute: getstats() FAILED")
                 }
 
-                let logData = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: defaultstats)
-                schedulerecords.append(logData)
-                Logger.process.debugmessageonly("Execute: getstats() FAILED")
             }
         }
 

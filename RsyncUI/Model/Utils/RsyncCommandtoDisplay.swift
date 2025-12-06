@@ -30,19 +30,19 @@ struct RsyncCommandtoDisplay {
                 str = "Task is halted"
             } else {
                 if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: true) {
-                    str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
+                    str = (GetfullpathforRsync().rsyncpath()) + " " + arguments.joined()
                 }
             }
         case .restore_data:
             if let arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, forDisplay: true) {
-                str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
+                str = (GetfullpathforRsync().rsyncpath()) + " " + arguments.joined()
             }
         case .verify_synchronized_data:
             if config.task == SharedReference.shared.halted {
                 str = "Task is halted"
             } else {
                 if let arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: true) {
-                    str = (GetfullpathforRsync().rsyncpath() ?? "no rsync in path ") + " " + arguments.joined()
+                    str = (GetfullpathforRsync().rsyncpath()) + " " + arguments.joined()
                 }
             }
         }
