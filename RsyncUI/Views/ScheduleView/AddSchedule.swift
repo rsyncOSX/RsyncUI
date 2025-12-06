@@ -79,9 +79,9 @@ struct AddSchedule: View {
                     let scheduledatamapped = globaltimer.allSchedules.map { item in
                         item.scheduledata
                     }
-                    
+
                     if let scheduledatamapped = scheduledatamapped as? [SchedulesConfigurations] {
-                        WriteSchedule(scheduledatamapped )
+                        WriteSchedule(scheduledatamapped)
                     }
                 }
                 .disabled(dateRun.en_date_from_string().isnexttwomonths == false)
