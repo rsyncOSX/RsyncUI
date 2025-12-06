@@ -104,7 +104,7 @@ struct PushPullView: View {
                                                                                               forDisplay: false,
                                                                                               keepdelete: true)
 
-        let handlers = CreateHandlers().createhandlers(
+        let handlers = CreateHandlers().createHandlers(
             fileHandler: { _ in },
             processTermination: pullProcessTermination
         )
@@ -129,7 +129,7 @@ struct PushPullView: View {
         let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremotewithparameters(dryRun: true,
                                                                                                          forDisplay: false,
                                                                                                          keepdelete: true)
-        let handlers = CreateHandlers().createhandlers(
+        let handlers = CreateHandlers().createHandlers(
             fileHandler: { _ in },
             processTermination: pushProcessTermination
         )
@@ -168,7 +168,7 @@ struct PushPullView: View {
 
         if isadjusted == false {
             Task {
-                pullremotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createaoutputforview(stringoutputfromrsync)
+                pullremotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
             }
         }
         // Then do a synchronize task, adjusted for push vs pull
@@ -202,12 +202,12 @@ struct PushPullView: View {
             // Adjust both outputs
             pushorpull.adjustoutput()
             Task {
-                pullremotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createaoutputforview(pushorpull.adjustedpull)
-                pushremotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createaoutputforview(pushorpull.adjustedpush)
+                pullremotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(pushorpull.adjustedpull)
+                pushremotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(pushorpull.adjustedpush)
             }
         } else {
             Task {
-                pushremotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createaoutputforview(stringoutputfromrsync)
+                pushremotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
             }
         }
     }

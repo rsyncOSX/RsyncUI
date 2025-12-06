@@ -319,7 +319,7 @@ extension SnapshotsView {
             let updateconfiguration =
                 UpdateConfigurations(profile: rsyncUIdata.profile,
                                      configurations: rsyncUIdata.configurations)
-            updateconfiguration.updateconfiguration(selectedconfig, false)
+            updateconfiguration.updateConfiguration(selectedconfig, false)
             rsyncUIdata.configurations = updateconfiguration.configurations
             updated = true
         }

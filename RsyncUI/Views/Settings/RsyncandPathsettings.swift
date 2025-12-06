@@ -29,7 +29,7 @@ struct RsyncandPathsettings: View {
                                     SharedReference.shared.localrsyncpath = nil
                                     rsyncpathsettings.localrsyncpath = ""
                                 }
-                                Rsyncversion().getrsyncversion()
+                                Rsyncversion().getRsyncVersion()
                             }
 
                         ToggleViewDefault(text: NSLocalizedString("Apple Silicon", comment: ""),
@@ -103,7 +103,7 @@ struct RsyncandPathsettings: View {
                 SharedReference.shared.localrsyncpath = rsyncpathsettings.localrsyncpath
                 if rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath),
                    rsyncpathsettings.setandvalidatepathforrsync(rsyncpathsettings.localrsyncpath) {
-                    Rsyncversion().getrsyncversion()
+                    Rsyncversion().getRsyncVersion()
                 }
             }
     }
@@ -115,15 +115,15 @@ struct RsyncandPathsettings: View {
     var setpathforrestore: some View {
         EditValueErrorScheme(400, NSLocalizedString("Path for restore", comment: ""),
                              $rsyncpathsettings.temporarypathforrestore,
-                             rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore))
-            .foregroundColor(rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore) ? Color.white : Color.red)
+                             rsyncpathsettings.verifyPathForRestore(rsyncpathsettings.temporarypathforrestore))
+            .foregroundColor(rsyncpathsettings.verifyPathForRestore(rsyncpathsettings.temporarypathforrestore) ? Color.white : Color.red)
             .onAppear {
                 if let pathforrestore = SharedReference.shared.pathforrestore {
                     rsyncpathsettings.temporarypathforrestore = pathforrestore
                 }
             }
             .onChange(of: rsyncpathsettings.temporarypathforrestore) {
-                guard rsyncpathsettings.verifypathforrestore(rsyncpathsettings.temporarypathforrestore) else {
+                guard rsyncpathsettings.verifyPathForRestore(rsyncpathsettings.temporarypathforrestore) else {
                     return
                 }
                 if rsyncpathsettings.temporarypathforrestore.hasSuffix("/") == false {

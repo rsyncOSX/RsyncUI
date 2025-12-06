@@ -42,7 +42,7 @@ struct RsyncUIView: View {
         .task {
             ReadUserConfigurationJSON().readuserconfiguration()
             // Get version of rsync
-            rsyncversion.getrsyncversion()
+            rsyncversion.getRsyncVersion()
             rsyncUIdata.executetasksinprogress = false
             // Load valid profilenames
             let catalognames = Homepath().getFullPathMacSerialCatalogsAsStringNames()

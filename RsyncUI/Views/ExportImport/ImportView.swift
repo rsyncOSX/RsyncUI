@@ -44,9 +44,9 @@ struct ImportView: View {
                                         UpdateConfigurations(profile: rsyncUIdata.profile,
                                                              configurations: rsyncUIdata.configurations)
                                     if selecteduuids.isEmpty == true {
-                                        rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations)
+                                        rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(configurations)
                                     } else {
-                                        rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
+                                        rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(configurations.filter { selecteduuids.contains($0.id) })
                                     }
                                     if SharedReference.shared.duplicatecheck {
                                         if let configurations = rsyncUIdata.configurations {
@@ -72,9 +72,9 @@ struct ImportView: View {
                                         UpdateConfigurations(profile: rsyncUIdata.profile,
                                                              configurations: rsyncUIdata.configurations)
                                     if selecteduuids.isEmpty == true {
-                                        rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations)
+                                        rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(configurations)
                                     } else {
-                                        rsyncUIdata.configurations = updateconfigurations.addimportconfigurations(configurations.filter { selecteduuids.contains($0.id) })
+                                        rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(configurations.filter { selecteduuids.contains($0.id) })
                                     }
                                     if SharedReference.shared.duplicatecheck {
                                         if let configurations = rsyncUIdata.configurations {

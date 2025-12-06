@@ -15,7 +15,7 @@ final class ObservableProfiles {
         guard newprofile != "default" else { return false }
         guard newprofile.isEmpty == false else { return false }
         let catalogprofile = CatalogForProfile()
-        if catalogprofile.createprofilecatalog(newprofile) {
+        if catalogprofile.createProfileCatalog(newprofile) {
             return true
         } else {
             return false
@@ -24,7 +24,7 @@ final class ObservableProfiles {
 
     func deleteProfile(_ profile: String?) -> Bool {
         guard profile != nil else { return false }
-        if CatalogForProfile().deleteprofilecatalog(profile) {
+        if CatalogForProfile().deleteProfileCatalog(profile) {
             return true
         } else {
             return false

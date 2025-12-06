@@ -10,7 +10,7 @@ import RsyncProcess
 
 @MainActor
 struct CreateHandlers {
-    func createhandlers(
+    func createHandlers(
         fileHandler: @escaping (Int) -> Void,
         processTermination: @escaping ([String]?, Int?) -> Void
 
@@ -19,7 +19,7 @@ struct CreateHandlers {
             processtermination: processTermination,
             filehandler: fileHandler,
             rsyncpath: GetfullpathforRsync().rsyncpath,
-            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+            checklineforerror: TrimOutputFromRsync().checkForRsyncError(_:),
             updateprocess: SharedReference.shared.updateprocess,
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)

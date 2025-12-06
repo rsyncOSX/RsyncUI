@@ -30,14 +30,14 @@ final class Estimate {
     private func startEstimation() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
 
-        let handlers = CreateHandlers().createhandlers(
+        let handlers = CreateHandlers().createHandlers(
             fileHandler: { _ in },
             processTermination: processTermination
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
             if let config = getConfig(localhiddenID) {
-                if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
+                if let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: true,
                                                                                              forDisplay: false) {
                     // Used to display details of configuration in estimation
                     localprogressdetails?.configurationtobestimated = config.id
@@ -118,7 +118,7 @@ extension Estimate {
             Task {
                 // Create data for output rsync for view
                 record.outputfromrsync =
-                    await ActorCreateOutputforView().createaoutputforview(stringoutputfromrsync)
+                    await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
                 localprogressdetails?.appendRecordEstimatedList(record)
 
                 if record.datatosynchronize {
@@ -151,7 +151,7 @@ extension Estimate {
             Task {
                 // Create data for output rsync for view
                 record.outputfromrsync =
-                    await ActorCreateOutputforView().createaoutputforview(stringoutputfromrsync)
+                    await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
                 localprogressdetails?.appendRecordEstimatedList(record)
 
                 if record.datatosynchronize {

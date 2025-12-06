@@ -10,7 +10,7 @@ import OSLog
 
 @MainActor
 struct ReadAllTasks {
-    func readallmarkedtasks(_ validprofiles: [ProfilesnamesRecord]) async -> [SynchronizeConfiguration] {
+    func readAllMarkedTasks(_ validprofiles: [ProfilesnamesRecord]) async -> [SynchronizeConfiguration] {
         var old: [SynchronizeConfiguration]?
         let allprofiles = validprofiles.map(\.profilename)
         let rsyncversion3 = SharedReference.shared.rsyncversion3

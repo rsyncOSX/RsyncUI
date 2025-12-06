@@ -15,7 +15,7 @@ final class SnapshotRemoteCatalogs {
     var catalogsanddates: [SnapshotFolder]?
 
     func getremotecataloginfo(_ config: SynchronizeConfiguration) {
-        let handlers = CreateHandlers().createhandlers(
+        let handlers = CreateHandlers().createHandlers(
             fileHandler: { _ in },
             processTermination: processTermination
         )

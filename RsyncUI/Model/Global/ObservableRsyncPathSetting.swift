@@ -42,7 +42,7 @@ final class ObservableRsyncPathSetting {
         }
     }
 
-    func verifypathforrestore(_ path: String) -> Bool {
+    func verifyPathForRestore(_ path: String) -> Bool {
         let fm = FileManager.default
         return fm.fileExists(atPath: path, isDirectory: nil)
     }
@@ -58,7 +58,7 @@ final class ObservableRsyncPathSetting {
         let validate = SetandValidatepathforrsync()
         validate.setlocalrsyncpath(path)
         do {
-            try validate.validatelocalpathforrsync()
+            try validate.validateLocalPathForRsync()
             return true
         } catch {
             SharedReference.shared.rsyncversionshort = "No valid rsync detected"

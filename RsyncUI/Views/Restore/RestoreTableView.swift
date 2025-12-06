@@ -194,15 +194,15 @@ struct RestoreTableView: View {
 
     var setpathforrestore: some View {
         EditValueErrorScheme(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore,
-                             restore.verifypathforrestore(restore.pathforrestore))
-            .foregroundColor(restore.verifypathforrestore(restore.pathforrestore) ? Color.white : Color.red)
+                             restore.verifyPathForRestore(restore.pathforrestore))
+            .foregroundColor(restore.verifyPathForRestore(restore.pathforrestore) ? Color.white : Color.red)
             .onAppear {
                 if let pathforrestore = SharedReference.shared.pathforrestore {
                     restore.pathforrestore = pathforrestore
                 }
             }
             .onChange(of: restore.pathforrestore) {
-                guard restore.verifypathforrestore(restore.pathforrestore) else {
+                guard restore.verifyPathForRestore(restore.pathforrestore) else {
                     return
                 }
                 if restore.pathforrestore.hasSuffix("/") == false {
@@ -289,7 +289,7 @@ extension RestoreTableView {
             }
             guard arguments?.isEmpty == false else { return }
 
-            let handlers = CreateHandlers().createhandlers(
+            let handlers = CreateHandlers().createHandlers(
                 fileHandler: { _ in },
                 processTermination: processTermination
             )

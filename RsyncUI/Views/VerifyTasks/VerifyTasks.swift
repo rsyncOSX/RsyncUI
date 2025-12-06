@@ -104,10 +104,10 @@ struct VerifyTasks: View {
 
     // For a verify run, --dry-run
     func verify(config: SynchronizeConfiguration) {
-        let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true,
+        let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: true,
                                                                                   forDisplay: false)
 
-        let handlers = CreateHandlers().createhandlers(
+        let handlers = CreateHandlers().createHandlers(
             fileHandler: { _ in },
             processTermination: processTermination
         )
@@ -140,7 +140,7 @@ struct VerifyTasks: View {
         }
 
         Task {
-            remotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createaoutputforview(stringoutputfromrsync)
+            remotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
             presentestimates = true
         }
     }

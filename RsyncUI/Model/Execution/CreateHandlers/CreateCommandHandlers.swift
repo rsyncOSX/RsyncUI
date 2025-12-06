@@ -16,7 +16,7 @@ struct CreateCommandHandlers {
     ) -> ProcessHandlersCommand {
         ProcessHandlersCommand(
             processtermination: processTermination,
-            checklineforerror: TrimOutputFromRsync().checkforrsyncerror,
+            checklineforerror: TrimOutputFromRsync().checkForRsyncError(_:),
             updateprocess: SharedReference.shared.updateprocess,
             propogateerror: { error in
                 SharedReference.shared.errorobject?.alert(error: error)

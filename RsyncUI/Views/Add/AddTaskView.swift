@@ -192,7 +192,7 @@ struct AddTaskView: View {
                         }
                         .copyable(copyitems.filter { selecteduuids.contains($0.id) })
                         .pasteDestination(for: CopyItem.self) { items in
-                            newdata.preparecopyandpastetasks(items,
+                            newdata.prepareCopyAndPasteTasks(items,
                                                              rsyncUIdata.configurations ?? [])
                             guard items.count > 0 else { return }
                             confirmcopyandpaste = true
@@ -205,7 +205,7 @@ struct AddTaskView: View {
                                 Button("Copy") {
                                     confirmcopyandpaste = false
                                     rsyncUIdata.configurations =
-                                        newdata.writecopyandpastetasks(rsyncUIdata.profile,
+                                        newdata.writeCopyAndPasteTasks(rsyncUIdata.profile,
                                                                        rsyncUIdata.configurations ?? [])
                                     if SharedReference.shared.duplicatecheck {
                                         if let configurations = rsyncUIdata.configurations {
@@ -612,7 +612,7 @@ extension AddTaskView {
 
     func validateAndUpdate() {
         let profile = rsyncUIdata.profile
-        rsyncUIdata.configurations = newdata.updateconfig(profile, rsyncUIdata.configurations)
+        rsyncUIdata.configurations = newdata.updateConfig(profile, rsyncUIdata.configurations)
         selecteduuids.removeAll()
     }
 }

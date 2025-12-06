@@ -23,7 +23,7 @@ final class TrimOutputFromRsync {
     var trimmeddata: [String]?
 
     // Check for error in output form rsync
-    func checkforrsyncerror(_ line: String) throws {
+    func checkForRsyncError(_ line: String) throws {
         let error = line.contains("rsync error:")
         if error {
             throw Rsyncerror.rsyncerror

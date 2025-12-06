@@ -80,7 +80,7 @@ final class Logging {
         return nil
     }
 
-    func setCurrentDateonConfiguration(configrecords: [ScheduleLogData]) -> [SynchronizeConfiguration] {
+    func setCurrentDateOnConfiguration(configrecords: [ScheduleLogData]) -> [SynchronizeConfiguration] {
         for record in configrecords {
             let hiddenID = record.hiddenID
             // stats is set to date

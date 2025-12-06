@@ -37,14 +37,14 @@ final class ObservableRestore {
         presentrestorelist = true
     }
 
-    func verifypathforrestore(_ path: String) -> Bool {
+    func verifyPathForRestore(_ path: String) -> Bool {
         let fm = FileManager.default
         return fm.fileExists(atPath: path, isDirectory: nil)
     }
 
     func executeRestore() {
         var arguments: [String]?
-        let handlers = CreateHandlers().createhandlers(
+        let handlers = CreateHandlers().createHandlers(
             fileHandler: fileHandler,
             processTermination: processTermination
         )

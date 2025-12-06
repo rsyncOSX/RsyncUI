@@ -320,7 +320,7 @@ extension RsyncParametersView {
             let updateconfigurations =
                 UpdateConfigurations(profile: rsyncUIdata.profile,
                                      configurations: configurations)
-            updateconfigurations.updateconfiguration(updatedconfiguration, true)
+            updateconfigurations.updateConfiguration(updatedconfiguration, true)
             rsyncUIdata.configurations = updateconfigurations.configurations
             parameters.reset()
             selectedconfig = nil

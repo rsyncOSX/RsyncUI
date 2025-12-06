@@ -13,7 +13,7 @@ import OSLog
 struct CatalogForProfile {
     let path = Homepath()
 
-    func createprofilecatalog(_ profile: String?) -> Bool {
+    func createProfileCatalog(_ profile: String?) -> Bool {
         let fm = FileManager.default
         // First check if profilecatalog exists, if yes bail out
         if let fullpathmacserial = path.fullpathmacserial, let profile {
@@ -39,7 +39,7 @@ struct CatalogForProfile {
     }
 
     // Function for deleting profile directory
-    func deleteprofilecatalog(_ profile: String?) -> Bool {
+    func deleteProfileCatalog(_ profile: String?) -> Bool {
         let fm = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial, let profile {
             let fullpathprofileString = fullpathmacserial.appending("/") + profile

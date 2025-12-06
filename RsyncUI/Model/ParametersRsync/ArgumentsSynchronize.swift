@@ -30,7 +30,7 @@ final class ArgumentsSynchronize {
         return nil
     }
 
-    func argumentssynchronize(dryRun: Bool, forDisplay: Bool) -> [String]? {
+    func argumentsSynchronize(dryRun: Bool, forDisplay: Bool) -> [String]? {
         if let config {
             let params = Params().params(config: config)
             let rsyncparameterssynchronize = RsyncParametersSynchronize(parameters: params)

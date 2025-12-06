@@ -459,11 +459,11 @@ extension QuicktaskView {
     }
 
     func execute(config: SynchronizeConfiguration, dryrun: Bool) {
-        let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: dryrun, forDisplay: false)
+        let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: dryrun, forDisplay: false)
         // Start progressview
         showprogressview = true
 
-        let handlers = CreateHandlers().createhandlers(
+        let handlers = CreateHandlers().createHandlers(
             fileHandler: fileHandler,
             processTermination: processTermination
         )
@@ -494,7 +494,7 @@ extension QuicktaskView {
             max = Double(stringoutputfromrsync?.count ?? 0)
         }
         Task {
-            rsyncoutput.output = await ActorCreateOutputforView().createaoutputforview(stringoutputfromrsync)
+            rsyncoutput.output = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
             completed = true
         }
     }

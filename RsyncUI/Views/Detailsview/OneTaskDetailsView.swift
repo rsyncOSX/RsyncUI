@@ -51,10 +51,10 @@ struct OneTaskDetailsView: View {
                 selectedconfig = selected[0]
             }
             let arguments = ArgumentsSynchronize(config: selectedconfig)
-                .argumentssynchronize(dryRun: true, forDisplay: false)
+                .argumentsSynchronize(dryRun: true, forDisplay: false)
             guard arguments != nil else { return }
 
-            let handlers = CreateHandlers().createhandlers(
+            let handlers = CreateHandlers().createHandlers(
                 fileHandler: { _ in },
                 processTermination: processTermination
             )
@@ -117,7 +117,7 @@ struct OneTaskDetailsView: View {
         }
 
         Task {
-            remotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createaoutputforview(stringoutputfromrsync)
+            remotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
 
             if let remotedatanumbers {
                 progressdetails.appendRecordEstimatedList(remotedatanumbers)

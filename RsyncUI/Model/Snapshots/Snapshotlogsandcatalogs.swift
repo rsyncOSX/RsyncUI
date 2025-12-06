@@ -18,7 +18,7 @@ final class Snapshotlogsandcatalogs {
     var logrecords: [LogRecords]
 
     func getremotecataloginfo() {
-        let handlers = CreateHandlers().createhandlers(
+        let handlers = CreateHandlers().createHandlers(
             fileHandler: { _ in },
             processTermination: processTermination
         )

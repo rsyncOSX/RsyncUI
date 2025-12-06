@@ -50,7 +50,7 @@ final class Execute {
 
     private func startexecution() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
-        let handlers = CreateHandlers().createhandlers(
+        let handlers = CreateHandlers().createHandlers(
             fileHandler: localfileHandler,
             processTermination: processTermination
         )
@@ -59,7 +59,7 @@ final class Execute {
             // For display progress of synchronization of correct task
             localprogressdetails?.hiddenIDatwork = localhiddenID
             if let config = getConfig(localhiddenID) {
-                if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
+                if let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: false,
                                                                                              forDisplay: false) {
                     let process = RsyncProcess(arguments: arguments,
                                                hiddenID: config.hiddenID,
@@ -83,14 +83,14 @@ final class Execute {
     private func startexecution_noestimate() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
 
-        let handlers = CreateHandlers().createhandlers(
+        let handlers = CreateHandlers().createHandlers(
             fileHandler: localfileHandler,
             processTermination: processTermination_noestimation
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
             if let config = getConfig(localhiddenID) {
-                if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: false,
+                if let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: false,
                                                                                              forDisplay: false) {
                     // Must check valid rsync exists
                     guard SharedReference.shared.norsync == false else { return }
@@ -209,7 +209,7 @@ extension Execute {
         guard stackoftasks?.count ?? 0 > 0 else {
             let update = Logging(profile: structprofile,
                                  configurations: localconfigurations)
-            let updateconfigurations = update.setCurrentDateonConfiguration(configrecords: configrecords)
+            let updateconfigurations = update.setCurrentDateOnConfiguration(configrecords: configrecords)
             // Send date stamped configurations back to caller
             localupdateconfigurations(updateconfigurations)
 
@@ -255,7 +255,7 @@ extension Execute {
             guard stackoftasks?.count ?? 0 > 0 else {
                 let update = Logging(profile: structprofile,
                                      configurations: localconfigurations)
-                let updateconfigurations = update.setCurrentDateonConfiguration(configrecords: configrecords)
+                let updateconfigurations = update.setCurrentDateOnConfiguration(configrecords: configrecords)
                 // Send date stamped configurations back to caller
                 localupdateconfigurations(updateconfigurations)
                 localnoestprogressdetails?.executeAllTasksNoEstimationComplete()

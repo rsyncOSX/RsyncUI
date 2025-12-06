@@ -58,7 +58,7 @@ final class ObservableAddConfigurations {
             let updateconfigurations =
                 UpdateConfigurations(profile: profile,
                                      configurations: configurations)
-            if updateconfigurations.addconfiguration(newconfig) == true {
+            if updateconfigurations.addConfiguration(newconfig) == true {
                 resetForm()
                 return updateconfigurations.configurations
             }
@@ -66,7 +66,7 @@ final class ObservableAddConfigurations {
         return configurations
     }
 
-    func updateconfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
+    func updateConfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
         var mysnapshotnum = 0
 
         if snapshotnum.isEmpty == false {
@@ -102,7 +102,7 @@ final class ObservableAddConfigurations {
             let updateconfigurations =
                 UpdateConfigurations(profile: profile,
                                      configurations: configurations)
-            updateconfigurations.updateconfiguration(updatedconfig, false)
+            updateconfigurations.updateConfiguration(updatedconfig, false)
             resetForm()
             return updateconfigurations.configurations
         }
@@ -144,7 +144,7 @@ final class ObservableAddConfigurations {
     }
 
     // Prepare for Copy and Paste tasks
-    func preparecopyandpastetasks(_ items: [CopyItem], _ configurations: [SynchronizeConfiguration]) {
+    func prepareCopyAndPasteTasks(_ items: [CopyItem], _ configurations: [SynchronizeConfiguration]) {
         copyandpasteconfigurations = nil
         copyandpasteconfigurations = [SynchronizeConfiguration]()
         let copyitems = configurations.filter { config in
@@ -166,11 +166,11 @@ final class ObservableAddConfigurations {
     }
 
     // After accept of Copy and Paste a write operation is performed
-    func writecopyandpastetasks(_ profile: String?, _ configurations: [SynchronizeConfiguration]) -> [SynchronizeConfiguration]? {
+    func writeCopyAndPasteTasks(_ profile: String?, _ configurations: [SynchronizeConfiguration]) -> [SynchronizeConfiguration]? {
         let updateconfigurations =
             UpdateConfigurations(profile: profile,
                                  configurations: configurations)
-        return updateconfigurations.writecopyandpastetask(copyandpasteconfigurations)
+        return updateconfigurations.writeCopyAndPasteTask(copyandpasteconfigurations)
     }
 }
 

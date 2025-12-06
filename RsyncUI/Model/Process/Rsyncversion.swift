@@ -12,14 +12,14 @@ import RsyncProcess
 
 @Observable @MainActor
 final class Rsyncversion {
-    func getrsyncversion() {
-        let handlers = CreateHandlers().createhandlers(
+    func getRsyncVersion() {
+        let handlers = CreateHandlers().createHandlers(
             fileHandler: { _ in },
             processTermination: processTermination
         )
 
         do {
-            try SetandValidatepathforrsync().validatelocalpathforrsync()
+            try SetandValidatepathforrsync().validateLocalPathForRsync()
         } catch {
             SharedReference.shared.norsync = true
             SharedReference.shared.rsyncversionshort = "No valid rsync deteced"

@@ -29,7 +29,7 @@ struct RsyncCommandtoDisplay {
             if config.task == SharedReference.shared.halted {
                 str = "Task is halted"
             } else {
-                if let arguments = ArgumentsSynchronize(config: config).argumentssynchronize(dryRun: true, forDisplay: true) {
+                if let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: true, forDisplay: true) {
                     str = (GetfullpathforRsync().rsyncpath()) + " " + arguments.joined()
                 }
             }

@@ -24,7 +24,7 @@ final class UpdateConfigurations {
 
     // Function is updating Configurations in memory (by record) and
     // then saves updated Configurations from memory to persistent store
-    func updateconfiguration(_ config: SynchronizeConfiguration, _ parameters: Bool) {
+    func updateConfiguration(_ config: SynchronizeConfiguration, _ parameters: Bool) {
         if let index = configurations?.firstIndex(where: { $0.hiddenID == config.hiddenID }) {
             if parameters {
                 // Updated parameters only, keep all other
@@ -78,7 +78,7 @@ final class UpdateConfigurations {
     }
 
     // Add new configurations
-    func addconfiguration(_ config: SynchronizeConfiguration) -> Bool {
+    func addConfiguration(_ config: SynchronizeConfiguration) -> Bool {
         let beforecount = (configurations?.count ?? 0)
         var newconfig: SynchronizeConfiguration = config
         newconfig.hiddenID = maxhiddenID + 1
@@ -93,7 +93,7 @@ final class UpdateConfigurations {
     }
 
     // Write Import configurations
-    func addimportconfigurations(_ importconfigurations: [SynchronizeConfiguration]) -> [SynchronizeConfiguration]? {
+    func addImportConfigurations(_ importconfigurations: [SynchronizeConfiguration]) -> [SynchronizeConfiguration]? {
         if importconfigurations.count > 0, var configurations {
             configurations += importconfigurations
             WriteSynchronizeConfigurationJSON(localeprofile, configurations)
@@ -103,7 +103,7 @@ final class UpdateConfigurations {
     }
 
     // Write Copy and Paste tasks
-    func writecopyandpastetask(_ copyandpastetasks: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
+    func writeCopyAndPasteTask(_ copyandpastetasks: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
         if let copyandpastetasks, var configurations {
             configurations += copyandpastetasks
             WriteSynchronizeConfigurationJSON(localeprofile, configurations)

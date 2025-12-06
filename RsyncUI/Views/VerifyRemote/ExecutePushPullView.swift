@@ -147,7 +147,7 @@ struct ExecutePushPullView: View {
                                                                                                          forDisplay: false,
                                                                                                          keepdelete: keepdelete)
 
-        let handlers = CreateHandlers().createhandlers(
+        let handlers = CreateHandlers().createHandlers(
             fileHandler: fileHandler,
             processTermination: processTermination
         )
@@ -172,7 +172,7 @@ struct ExecutePushPullView: View {
                                                                                               forDisplay: false,
                                                                                               keepdelete: keepdelete)
 
-        let handlers = CreateHandlers().createhandlers(
+        let handlers = CreateHandlers().createHandlers(
             fileHandler: fileHandler,
             processTermination: processTermination
         )
@@ -206,7 +206,7 @@ struct ExecutePushPullView: View {
         }
 
         Task {
-            remotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createaoutputforview(stringoutputfromrsync)
+            remotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
         }
     }
 
