@@ -38,23 +38,36 @@ struct VerifyRemoteView: View {
     var body: some View {
         NavigationStack(path: $verifypath) {
             VStack {
-                ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                            configurations: configurationsdata.configurations)
-                    .onChange(of: selecteduuids) {
-                        if let configurations = configurationsdata.configurations {
-                            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                                selectedconfig = configurations[index]
-                                if selectedconfig?.task == SharedReference.shared.halted {
-                                    selectedtaskishalted = true
-                                    selectedconfig = nil
+                ZStack {
+                    ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                                configurations: configurationsdata.configurations)
+                        .onChange(of: selecteduuids) {
+                            if let configurations = configurationsdata.configurations {
+                                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                                    selectedconfig = configurations[index]
+                                    if selectedconfig?.task == SharedReference.shared.halted {
+                                        selectedtaskishalted = true
+                                        selectedconfig = nil
+                                    } else {
+                                        selectedtaskishalted = false
+                                    }
                                 } else {
-                                    selectedtaskishalted = false
+                                    selectedconfig = nil
                                 }
-                            } else {
-                                selectedconfig = nil
                             }
                         }
+
+                    if selecteduuids.count == 1, selectedconfig != nil {
+                        ConditionalGlassButton(
+                            systemImage: "arrow.up",
+                            helpText: "Verify selected"
+                        ) {
+                            guard let selectedconfig else { return }
+                            guard selectedtaskishalted == false else { return }
+                            verifypath.append(Verify(task: .pushpullview(configID: selectedconfig.id)))
+                        }
                     }
+                }
 
                 HStack {
                     if configurationsdata.validprofiles.isEmpty == false {
@@ -68,15 +81,6 @@ struct VerifyRemoteView: View {
                         }
                         .frame(width: 180)
                         .padding([.bottom, .top, .trailing], 7)
-                    }
-
-                    ConditionalGlassButton(
-                        systemImage: "arrow.up",
-                        helpText: "Verify selected"
-                    ) {
-                        guard let selectedconfig else { return }
-                        guard selectedtaskishalted == false else { return }
-                        verifypath.append(Verify(task: .pushpullview(configID: selectedconfig.id)))
                     }
 
                     ConditionalGlassButton(
@@ -121,6 +125,8 @@ struct VerifyRemoteView: View {
             }
         }
         .task(id: selectedprofileID) {
+            selecteduuids.removeAll()
+            selectedconfig = nil
             let profile: String? = if let index = configurationsdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
                 configurationsdata.validprofiles[index].profilename
             } else {
