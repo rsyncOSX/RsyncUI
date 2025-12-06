@@ -140,7 +140,8 @@ struct QuicktaskView: View {
                             }
                             .onAppear {
                                 if let trailingslashoptions = UserDefaults.standard.value(forKey: "quicktrailingslash") {
-                                    switch trailingslashoptions as! String {
+                                    guard let trailing = trailingslashoptions as? String else { return }
+                                    switch trailing {
                                     case "do_not_check":
                                         self.trailingslashoptions = TrailingSlash.do_not_check
                                     case "do_not_add":
@@ -201,7 +202,9 @@ struct QuicktaskView: View {
                                     }
                                     .onAppear {
                                         if let quicklocalcatalog = UserDefaults.standard.value(forKey: "quicklocalcatalog") {
-                                            localcatalog = quicklocalcatalog as! String
+                                            if let catalog = quicklocalcatalog as? String {
+                                                localcatalog = catalog
+                                            }
                                         }
                                     }
 
@@ -232,7 +235,9 @@ struct QuicktaskView: View {
                                     }
                                     .onAppear {
                                         if let quickremotecatalog = UserDefaults.standard.value(forKey: "quickremotecatalog") {
-                                            remotecatalog = quickremotecatalog as! String
+                                            if let catalog = quickremotecatalog as? String {
+                                                remotecatalog = catalog
+                                            }
                                         }
                                     }
                             }
@@ -252,7 +257,9 @@ struct QuicktaskView: View {
                                     }
                                     .onAppear {
                                         if let quickremotecatalog = UserDefaults.standard.value(forKey: "quickremotecatalog") {
-                                            remotecatalog = quickremotecatalog as! String
+                                            if let catalog = quickremotecatalog as? String {
+                                                remotecatalog = catalog
+                                            }
                                         }
                                     }
 
@@ -283,7 +290,9 @@ struct QuicktaskView: View {
                                     }
                                     .onAppear {
                                         if let quicklocalcatalog = UserDefaults.standard.value(forKey: "quicklocalcatalog") {
-                                            localcatalog = quicklocalcatalog as! String
+                                            if let catalog = quicklocalcatalog as? String {
+                                                localcatalog = catalog
+                                            }
                                         }
                                     }
                             }

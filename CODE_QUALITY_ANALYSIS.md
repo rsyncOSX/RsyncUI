@@ -54,42 +54,20 @@ RsyncUI is a well-structured macOS app with solid fundamentals. The codebase dem
 
 **Issue:** Forced unwrapping (!) that can crash if nil
 
-**Examples Found:**
-```swift
-// extensions.swift (multiple date helpers)
-Calendar.current.date(byAdding: .day, value: -numberFromPreviousMonth, to: startOfMonth)!
-day = Calendar.current.date(byAdding: .day, value: 1, to: day)!
-days.append(newDay!)
-(calendar as NSCalendar).date(byAdding: dateComponent, to: self, options: .matchNextTime)!
-self = calendar.date(from: dateComponent)!
-```
+**Status:** Addressed in active date helpers; remaining unwraps only inside commented-out legacy helpers.
 
-**Progress:** Previous unwraps in `RsyncUIApp` and `ObservableSchedules` removed.  
-**Impact:** Application crashes if nil values encountered.  
+**Impact:** If commented helpers are re-enabled without fixes, risk of crash.  
 **Severity:** HIGH  
-**Recommendation:** Replace with optional binding/guard and safe fallbacks.
+**Recommendation:** If re-enabling legacy helpers, replace unwraps with guarded returns.
 
 ### 2. 🔴 Force Type Casting (HIGH PRIORITY)
 
 **Issue:** Unsafe as! casts without validation
 
-**Examples Found (6):**
-```swift
-// AddTaskView.swift
-switch trailingslashoptions as! String
-
-// QuicktaskView.swift
-switch trailingslashoptions as! String
-localcatalog = quicklocalcatalog as! String
-remotecatalog = quickremotecatalog as! String
-remotecatalog = quickremotecatalog as! String
-localcatalog = quicklocalcatalog as! String
-```
-
-**Progress:** Force casts reduced; CalendarMonthView and other prior instances resolved.  
-**Impact:** Runtime crashes if type doesn't match.  
-**Severity:** HIGH  
-**Recommendation:** Use safe casting (as?) with guard/if let.
+**Status:** Active force casts removed from AddTaskView and QuicktaskView (now guarded optional casts).  
+**Impact:** Reduced crash risk in Quicktask/Add flows.  
+**Severity:** MEDIUM (verify remaining areas).  
+**Recommendation:** Re-scan periodically to ensure no new `as!`.
 
 ### 3. 🟠 Optional Unwrapping Patterns (MEDIUM PRIORITY)
 
@@ -224,8 +202,8 @@ throw Rsyncerror.rsyncerror   // Throwing
 |--------|-------|-----------|
 | **Total Lines** | 18,262 | Reasonable size |
 | **Average File Size** | 108 lines | Good - manageable |
-| **Force Unwraps Found** | 6 | 🔴 HIGH - should be 0 |
-| **Force Casts Found** | 6 | 🔴 HIGH - should be 0 |
+| **Force Unwraps Found** | 0 in active code (unwraps remain only in commented legacy helpers) | 🔴 HIGH if re-enabled |
+| **Force Casts Found** | 0 in active code | ✅ Improved |
 | **Legacy Concurrency** | ~8 instances | ✅ LOW - well migrated |
 | **@MainActor Usage** | Widespread | ✅ Good |
 | **Actor Usage** | Good coverage | ✅ Good |
@@ -346,8 +324,8 @@ throw Rsyncerror.rsyncerror   // Throwing
 ## 🚀 Action Plan
 
 ### Week 1-2: Safety
-1. Fix remaining force unwraps (extensions.swift)
-2. Fix remaining force casts (AddTaskView.swift, QuicktaskView.swift)
+1. If re-enabling legacy date helpers (commented block), replace unwraps with guarded optionals.
+2. Keep `as!` at zero; add lint/check to prevent regressions.
 3. Run app with Address Sanitizer to catch crashes
 
 ### Week 3-4: Cleanup

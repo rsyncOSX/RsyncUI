@@ -195,7 +195,10 @@ extension Date {
         if numberFromPreviousMonth < 0 {
             numberFromPreviousMonth += 7 // Adjust to a 0-6 range if negative
         }
-        return Calendar.current.date(byAdding: .day, value: -numberFromPreviousMonth, to: startOfMonth)!
+        guard let adjusted = Calendar.current.date(byAdding: .day, value: -numberFromPreviousMonth, to: startOfMonth) else {
+            return startOfMonth
+        }
+        return adjusted
     }
 
     var calendarDisplayDays: [Date] {
@@ -205,12 +208,15 @@ extension Date {
         var day = firstDisplayDay
         while day < startOfMonth {
             days.append(day)
-            day = Calendar.current.date(byAdding: .day, value: 1, to: day)!
+            guard let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: day) else { break }
+            day = nextDay
         }
         // Add days of the current month
         for dayOffset in 0 ..< numberOfDaysInMonth {
             let newDay = Calendar.current.date(byAdding: .day, value: dayOffset, to: startOfMonth)
-            days.append(newDay!)
+            if let newDay {
+                days.append(newDay)
+            }
         }
         return days
     }

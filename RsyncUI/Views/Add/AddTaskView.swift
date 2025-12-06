@@ -538,7 +538,8 @@ struct AddTaskView: View {
         }
         .onAppear {
             if let trailingslashoptions = UserDefaults.standard.value(forKey: "trailingslashoptions") {
-                switch trailingslashoptions as! String {
+                guard let trailing = trailingslashoptions as? String else { return }
+                switch trailing {
                 case "do_not_check":
                     newdata.trailingslashoptions = TrailingSlash.do_not_check
                 case "do_not_add":
