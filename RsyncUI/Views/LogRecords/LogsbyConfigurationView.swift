@@ -225,20 +225,16 @@ struct LogsbyConfigurationView: View {
 
     func deletelogs(_ uuids: Set<UUID>) async {
         Task {
-            // Start both async operations, and make sure to await the intermediate result before using it
             async let updatedRecords: [LogRecords]? = ActorReadLogRecordsJSON().deletelogs(
                 uuids,
                 logrecords: logrecords,
                 profile: rsyncUIdata.profile,
                 validhiddenIDs: validhiddenIDs
             )
-
             let records = await updatedRecords
             async let updatedLogs: [Log]? = ActorReadLogRecordsJSON().updatelogsbyhiddenID(records, hiddenID)
-
             logrecords = records
             logs = await (updatedLogs ?? [])
-
             WriteLogRecordsJSON(rsyncUIdata.profile, records)
             selectedloguuids.removeAll()
         }

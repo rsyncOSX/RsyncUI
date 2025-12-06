@@ -42,10 +42,9 @@ struct PushPullView: View {
             } else {
                 if let pullremotedatanumbers, let pushremotedatanumbers {
                     VStack {
-                        
                         Text(" \(config.backupID)")
                             .font(.title2)
-                        
+
                         HStack {
                             VStack {
                                 ConditionalGlassButton(
