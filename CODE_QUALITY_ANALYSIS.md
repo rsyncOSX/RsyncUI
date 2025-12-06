@@ -2,7 +2,7 @@
 
 **Analysis Date:** December 6, 2025  
 **Project Version:** 2.8.2  
-**Codebase Size:** 18,261 lines of Swift across 168 files
+**Codebase Size:** 18,262 lines of Swift across 168 files
 
 ---
 
@@ -52,42 +52,44 @@ RsyncUI is a well-structured macOS app with solid fundamentals. The codebase dem
 
 ### 1. 🔴 Force Unwrapping (HIGH PRIORITY)
 
-**Issue:** Multiple instances of forced unwrapping (!) that can crash if nil
+**Issue:** Forced unwrapping (!) that can crash if nil
 
 **Examples Found:**
 ```swift
-// RsyncUIApp.swift:92
-private static let subsystem = Bundle.main.bundleIdentifier!  // ❌ Can crash
-
-// ObservableSchedules.swift:99
-components.month! += 1  // ❌ Can crash
-
-// extensions.swift:189, 204, 214, 340, 347, 402
-let dayInPreviousMonth = Calendar.current.date(byAdding: .month, value: -1, to: self)!  // ❌ Can crash
+// extensions.swift (multiple date helpers)
+Calendar.current.date(byAdding: .day, value: -numberFromPreviousMonth, to: startOfMonth)!
+day = Calendar.current.date(byAdding: .day, value: 1, to: day)!
+days.append(newDay!)
+(calendar as NSCalendar).date(byAdding: dateComponent, to: self, options: .matchNextTime)!
+self = calendar.date(from: dateComponent)!
 ```
 
-**Impact:** Application crashes if nil values encountered
-**Severity:** HIGH
-**Recommendation:** Use nil-coalescing (??) or guard statements instead
+**Progress:** Previous unwraps in `RsyncUIApp` and `ObservableSchedules` removed.  
+**Impact:** Application crashes if nil values encountered.  
+**Severity:** HIGH  
+**Recommendation:** Replace with optional binding/guard and safe fallbacks.
 
 ### 2. 🔴 Force Type Casting (HIGH PRIORITY)
 
 **Issue:** Unsafe as! casts without validation
 
-**Examples Found:**
+**Examples Found (6):**
 ```swift
-// QuicktaskView.swift:115, 143, 185, 204, 235, 255, 286
-switch selectedrsynccommand as! String {  // ❌ Can crash
-switch trailingslashoptions as! String {  // ❌ Can crash
-catalogorfile = quickcatalogorfile as! Bool  // ❌ Can crash
+// AddTaskView.swift
+switch trailingslashoptions as! String
 
-// CalendarMonthView.swift:125
-WriteSchedule(scheduledatamapped as! [SchedulesConfigurations])  // ❌ Can crash
+// QuicktaskView.swift
+switch trailingslashoptions as! String
+localcatalog = quicklocalcatalog as! String
+remotecatalog = quickremotecatalog as! String
+remotecatalog = quickremotecatalog as! String
+localcatalog = quicklocalcatalog as! String
 ```
 
-**Impact:** Runtime crashes if type doesn't match
-**Severity:** HIGH
-**Recommendation:** Use safe casting (as?) with guard/if let
+**Progress:** Force casts reduced; CalendarMonthView and other prior instances resolved.  
+**Impact:** Runtime crashes if type doesn't match.  
+**Severity:** HIGH  
+**Recommendation:** Use safe casting (as?) with guard/if let.
 
 ### 3. 🟠 Optional Unwrapping Patterns (MEDIUM PRIORITY)
 
@@ -220,10 +222,10 @@ throw Rsyncerror.rsyncerror   // Throwing
 
 | Metric | Value | Assessment |
 |--------|-------|-----------|
-| **Total Lines** | 18,261 | Reasonable size |
+| **Total Lines** | 18,262 | Reasonable size |
 | **Average File Size** | 108 lines | Good - manageable |
-| **Force Unwraps Found** | 8 | 🔴 HIGH - should be 0 |
-| **Force Casts Found** | 8+ | 🔴 HIGH - should be 0 |
+| **Force Unwraps Found** | 6 | 🔴 HIGH - should be 0 |
+| **Force Casts Found** | 6 | 🔴 HIGH - should be 0 |
 | **Legacy Concurrency** | ~8 instances | ✅ LOW - well migrated |
 | **@MainActor Usage** | Widespread | ✅ Good |
 | **Actor Usage** | Good coverage | ✅ Good |
@@ -344,8 +346,8 @@ throw Rsyncerror.rsyncerror   // Throwing
 ## 🚀 Action Plan
 
 ### Week 1-2: Safety
-1. Fix all force unwraps (extensions.swift priority)
-2. Fix all force casts (QuicktaskView.swift priority)
+1. Fix remaining force unwraps (extensions.swift)
+2. Fix remaining force casts (AddTaskView.swift, QuicktaskView.swift)
 3. Run app with Address Sanitizer to catch crashes
 
 ### Week 3-4: Cleanup
