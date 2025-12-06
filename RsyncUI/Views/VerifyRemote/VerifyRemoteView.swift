@@ -57,6 +57,20 @@ struct VerifyRemoteView: View {
                     }
 
                 HStack {
+                    
+                    if configurationsdata.validprofiles.isEmpty == false {
+                        Picker("", selection: $selectedprofileID) {
+                            Text("Default")
+                                .tag(nil as ProfilesnamesRecord.ID?)
+                            ForEach(configurationsdata.validprofiles, id: \.self) { profile in
+                                Text(profile.profilename)
+                                    .tag(profile.id)
+                            }
+                        }
+                        .frame(width: 180)
+                        .padding([.bottom, .top, .trailing], 7)
+                    }
+                    
                     ConditionalGlassButton(
                         systemImage: "arrow.up",
                         helpText: "Verify selected"
@@ -101,8 +115,14 @@ struct VerifyRemoteView: View {
                 makeView(view: which.task)
             }
         }
+        .task {
+            let catalognames = Homepath().getFullPathMacSerialCatalogsAsStringNames()
+            configurationsdata.validprofiles = catalognames.map { catalog in
+                ProfilesnamesRecord(catalog)
+            }
+        }
         .task(id: selectedprofileID) {
-            var profile: String? = if let index = configurationsdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
+            let profile: String? = if let index = configurationsdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
                 configurationsdata.validprofiles[index].profilename
             } else {
                 nil
