@@ -21,7 +21,7 @@ struct AttachedVolumesService: Sendable {
         let keys: [URLResourceKey] = [
             .volumeNameKey,
             .volumeIsRemovableKey,
-            .volumeIsEjectableKey
+            .volumeIsEjectableKey,
         ]
 
         guard let paths = FileManager.default.mountedVolumeURLs(
