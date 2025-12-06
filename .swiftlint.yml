@@ -2,11 +2,13 @@ disabled_rules:
   - line_length
   - file_length
   - type_body_length
-  - force_cast
   - identifier_name
   - cyclomatic_complexity
   - function_body_length
   - trailing_comma
+
+opt_in_rules:
+  - force_unwrapping
 
 excluded:
   - SourcePackages/*

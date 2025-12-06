@@ -2,7 +2,7 @@
 
 **Analysis Date:** December 6, 2025  
 **Project Version:** 2.8.2  
-**Codebase Size:** 18,278 lines of Swift across 168 files
+**Codebase Size:** 18,282 lines of Swift across 168 files
 
 ---
 
@@ -50,19 +50,14 @@ RsyncUI is a well-structured macOS app with solid fundamentals. The codebase dem
 
 ## ⚠️ Problems & Issues
 
-### 1. 🔴 Force Unwrapping (HIGH PRIORITY)
+### 1. 🟢 Force Unwrapping
 
-**Issue:** Forced unwrapping (!) that can crash if nil
+**Status:** No active force unwraps (legacy helpers cleaned).  
+**Impact:** Crash risk from unwraps removed.  
+**Severity:** LOW (monitor for regressions).  
+**Recommendation:** Keep lint/checks to prevent new unwraps.
 
-**Status:** No active force unwraps; remaining unwraps exist only inside commented-out legacy helpers.
-
-**Impact:** If commented helpers are re-enabled without fixes, risk of crash.  
-**Severity:** HIGH  
-**Recommendation:** If re-enabling legacy helpers, replace unwraps with guarded returns.
-
-### 2. 🔴 Force Type Casting (HIGH PRIORITY)
-
-**Issue:** Unsafe as! casts without validation
+### 2. 🟢 Force Type Casting
 
 **Status:** No active `as!` casts; AddTaskView and QuicktaskView now use guarded optional casts.  
 **Impact:** Crash risk from force casts removed.  
@@ -200,9 +195,9 @@ throw Rsyncerror.rsyncerror   // Throwing
 
 | Metric | Value | Assessment |
 |--------|-------|-----------|
-| **Total Lines** | 18,278 | Reasonable size |
+| **Total Lines** | 18,282 | Reasonable size |
 | **Average File Size** | 108 lines | Good - manageable |
-| **Force Unwraps Found** | 0 in active code (only in commented legacy helpers) | 🔴 HIGH if re-enabled |
+| **Force Unwraps Found** | 0 in active code | ✅ Good |
 | **Force Casts Found** | 0 in active code | ✅ Good |
 | **Legacy Concurrency** | ~8 instances | ✅ LOW - well migrated |
 | **@MainActor Usage** | Widespread | ✅ Good |
@@ -214,21 +209,20 @@ throw Rsyncerror.rsyncerror   // Throwing
 ## 🎯 Priority Recommendations
 
 ### CRITICAL (Do First)
-1. If re-enabling legacy date helpers (commented block), replace unwraps with guarded optionals.
-2. Add a lint/check to keep `as!` usage at zero.
-3. Run app with Address Sanitizer to catch crashes.
+1. Add a lint/check to keep `as!` and force unwraps at zero. 
+2. Run app with Address Sanitizer to catch crashes.
 
 ### HIGH (Next Sprint)
-4. Clean up commented code (e.g., ActorReadSynchronizeConfigurationJSON, permanent log storage placeholder) or ticket it.
-5. Standardize optional-handling style (prefer guard let where clarity matters) and document intentional ?? defaults.
+3. Clean up or ticket commented code (e.g., ActorReadSynchronizeConfigurationJSON, permanent log storage placeholder).
+4. Standardize optional-handling style (prefer guard let where clarity matters); document intentional ?? defaults.
 
 ### MEDIUM (Next Release)
-6. Improve error logging: never silently swallow errors (silencemissingstats), log default-value fallbacks, add counters/telemetry.
-7. Naming standardization (camelCase for methods); consider lint rules.
+5. Improve error logging: never silently swallow errors (silencemissingstats), log default-value fallbacks, add counters/telemetry.
+6. Naming standardization (camelCase for methods); consider lint rules.
 
 ### LOW (Future Improvements)
-8. Extract magic strings/numbers into constants; document thresholds (e.g., 20-line trim).
-9. Async/await improvements: complete or remove commented async TCP helper.
+7. Extract magic strings/numbers into constants; document thresholds (e.g., 20-line trim).
+8. Async/await improvements: complete or remove commented async TCP helper.
 
 ---
 
@@ -252,7 +246,7 @@ throw Rsyncerror.rsyncerror   // Throwing
 
 | File | Issues | Priority |
 |------|--------|----------|
-| `extensions.swift` (commented legacy helpers) | Force unwraps if re-enabled | HIGH if used |
+| `extensions.swift` | Legacy date helpers now safe (no unwraps) | -- |
 | `ActorReadSynchronizeConfigurationJSON.swift` | Commented code | HIGH |
 | `Execute.swift` | Default stats hiding errors | MEDIUM |
 | `RemoteDataNumbers.swift` | Silent error handling | MEDIUM |
@@ -284,7 +278,7 @@ throw Rsyncerror.rsyncerror   // Throwing
 | Practice | Status | Notes |
 |----------|--------|-------|
 | MVVM Pattern | ✅ Implemented | Good separation |
-| Error Handling | ⚠️ Partial | Defaults masking errors; legacy commented unwraps |
+| Error Handling | ⚠️ Partial | Defaults masking errors; remaining unwraps in date helpers |
 | Concurrency Safety | ✅ Good | @MainActor, Actors used well |
 | Code Organization | ✅ Good | Feature-based structure |
 | Naming Conventions | ⚠️ Inconsistent | Some lowercase method names |

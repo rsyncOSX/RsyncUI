@@ -333,18 +333,18 @@ extension Double {
      return getWeekday() != 1
  }
 
- func dateByAddingMonths(_ months: Int) -> Date {
+ func dateByAddingMonths(_ months: Int) -> Date? {
      let calendar = Calendar.current
      var dateComponent = DateComponents()
      dateComponent.month = months
-     return (calendar as NSCalendar).date(byAdding: dateComponent, to: self, options: NSCalendar.Options.matchNextTime)!
+     return (calendar as NSCalendar).date(byAdding: dateComponent, to: self, options: NSCalendar.Options.matchNextTime)
  }
 
- func dateByAddingDays(_ days: Int) -> Date {
+ func dateByAddingDays(_ days: Int) -> Date? {
      let calendar = Calendar.current
      var dateComponent = DateComponents()
      dateComponent.day = days
-     return (calendar as NSCalendar).date(byAdding: dateComponent, to: self, options: NSCalendar.Options.matchNextTime)!
+     return (calendar as NSCalendar).date(byAdding: dateComponent, to: self, options: NSCalendar.Options.matchNextTime)
  }
 
  func weekday() -> Int? {
@@ -399,6 +399,10 @@ extension Double {
      dateComponent.year = year
      dateComponent.month = month
      dateComponent.day = day
-     self = calendar.date(from: dateComponent)!
+     if let composed = calendar.date(from: dateComponent) {
+         self = composed
+     } else {
+         self = Date()
+     }
  }
   */
