@@ -10,7 +10,6 @@ import OSLog
 import SwiftUI
 
 enum SheetType: Identifiable {
-    case verifyremoteview
     case importview
     case exportview
     case scheduledtasksview
@@ -141,14 +140,6 @@ struct TasksView: View {
         }
         .sheet(item: $activeSheet) { sheetType in
             switch sheetType {
-            case .verifyremoteview:
-                VerifyRemoteView(rsyncUIdata: rsyncUIdata,
-                                 selecteduuids: $selecteduuids,
-                                 activeSheet: $activeSheet)
-                    .frame(minWidth: 1100, idealWidth: 1200, minHeight: 550)
-                    .onDisappear {
-                        activeSheet = nil
-                    }
             case .exportview:
                 if let configurations = rsyncUIdata.configurations {
                     ExportView(activeSheet: $activeSheet,
@@ -396,7 +387,7 @@ struct TasksView: View {
                rsyncUIdata.oneormoresynchronizetasksisremoteVer3x {
                 ToolbarItem {
                     Button {
-                        activeSheet = .verifyremoteview
+                        openWindow(id: "verify")
                     } label: {
                         Image(systemName: "bolt.shield")
                             .foregroundColor(Color(.yellow))

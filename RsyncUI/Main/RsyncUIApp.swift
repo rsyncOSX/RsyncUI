@@ -70,6 +70,12 @@ struct RsyncUIApp: App {
         .defaultPosition(.center)
         .defaultSize(width: 600, height: 400)
 
+        Window("RsyncUI Verify", id: "verify") {
+            VerifyRemoteView()
+        }
+        .defaultPosition(.center)
+        .defaultSize(width: 1100, height: 510)
+
         Settings {
             SidebarSettingsView()
         }

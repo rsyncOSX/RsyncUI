@@ -21,10 +21,10 @@ struct Verify: Hashable, Identifiable {
 struct VerifyRemoteView: View {
     @Environment(\.dismiss) private var dismiss
 
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    @Binding var activeSheet: SheetType?
+    @State private var selectedprofileID: ProfilesnamesRecord.ID?
+    @State private var configurationsdata = RsyncUIconfigurations()
 
+    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedconfig: SynchronizeConfiguration?
     // Selected task is halted
     @State private var selectedtaskishalted: Bool = false
@@ -38,41 +38,61 @@ struct VerifyRemoteView: View {
     var body: some View {
         NavigationStack(path: $verifypath) {
             VStack {
-                ZStack {
-                    ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                                configurations: rsyncUIdata.configurations)
-                        .onChange(of: selecteduuids) {
-                            if let configurations = rsyncUIdata.configurations {
-                                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                                    selectedconfig = configurations[index]
-                                    if selectedconfig?.task == SharedReference.shared.halted {
-                                        selectedtaskishalted = true
-                                        selectedconfig = nil
-                                    } else {
-                                        selectedtaskishalted = false
-                                    }
-                                } else {
+                ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                            configurations: configurationsdata.configurations)
+                    .onChange(of: selecteduuids) {
+                        if let configurations = configurationsdata.configurations {
+                            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                                selectedconfig = configurations[index]
+                                if selectedconfig?.task == SharedReference.shared.halted {
+                                    selectedtaskishalted = true
                                     selectedconfig = nil
+                                } else {
+                                    selectedtaskishalted = false
                                 }
+                            } else {
+                                selectedconfig = nil
                             }
                         }
-                }
+                    }
 
-                Toggle("Adjust output", isOn: $isadjusted)
-                    .toggleStyle(.switch)
-            }
-            .onAppear {
-                if let configurations = rsyncUIdata.configurations {
-                    if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                        selectedconfig = configurations[index]
-                        if selectedconfig?.task == SharedReference.shared.halted {
-                            selectedtaskishalted = true
-                            selectedconfig = nil
-                        } else {
-                            selectedtaskishalted = false
+                HStack {
+                    ConditionalGlassButton(
+                        systemImage: "arrow.up",
+                        helpText: "Verify selected"
+                    ) {
+                        guard let selectedconfig else { return }
+                        guard selectedtaskishalted == false else { return }
+                        verifypath.append(Verify(task: .pushpullview(configID: selectedconfig.id)))
+                    }
+
+                    ConditionalGlassButton(
+                        systemImage: "arrow.left.arrow.right.circle.fill",
+                        helpText: "Pull or push"
+                    ) {
+                        guard let selectedconfig else { return }
+                        verifypath.append(Verify(task: .executenpushpullview(configID: selectedconfig.id)))
+                    }
+
+                    Toggle("Adjust output", isOn: $isadjusted)
+                        .toggleStyle(.switch)
+
+                    Spacer()
+
+                    if #available(macOS 26.0, *) {
+                        Button("Close", role: .close) {
+                            dismiss()
                         }
+                        .buttonStyle(RefinedGlassButtonStyle())
+
                     } else {
-                        selectedconfig = nil
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "return")
+                        }
+                        .help("Close")
+                        .buttonStyle(.borderedProminent)
                     }
                 }
             }
@@ -80,77 +100,34 @@ struct VerifyRemoteView: View {
             .navigationDestination(for: Verify.self) { which in
                 makeView(view: which.task)
             }
-            .toolbar { verifyremotetoolbarcontent }
         }
-        .padding(10)
-    }
-
-    @ToolbarContentBuilder
-    private var verifyremotetoolbarcontent: some ToolbarContent {
-        if remoteconfigurations, alltasksarehalted() == false {
-            ToolbarItem {
-                ConditionalGlassButton(
-                    systemImage: "arrow.up",
-                    helpText: "Verify selected"
-                ) {
-                    guard let selectedconfig else { return }
-                    guard selectedtaskishalted == false else { return }
-                    verifypath.append(Verify(task: .pushpullview(configID: selectedconfig.id)))
-                }
+        .task(id: selectedprofileID) {
+            var profile: String? = if let index = configurationsdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
+                configurationsdata.validprofiles[index].profilename
+            } else {
+                nil
             }
+            configurationsdata.configurations = await ActorReadSynchronizeConfigurationJSON()
+                .readjsonfilesynchronizeconfigurations(profile,
+                                                       SharedReference.shared.rsyncversion3)
         }
-
-        ToolbarItem {
-            ConditionalGlassButton(
-                systemImage: "arrow.left.arrow.right.circle.fill",
-                helpText: "Pull or push"
-            ) {
-                guard let selectedconfig else { return }
-                verifypath.append(Verify(task: .executenpushpullview(configID: selectedconfig.id)))
-            }
-        }
-
-        ToolbarItem {
-            Spacer()
-        }
-
-        // Cannot use the view modifier ConditionalGlassButton when the close role is part of
-        // the button, use like this then.
-        if #available(macOS 26.0, *) {
-            ToolbarItem(placement: .cancellationAction) {
-                Button("Close", role: .close) {
-                    activeSheet = nil
-                    dismiss()
-                }
-                .buttonStyle(RefinedGlassButtonStyle())
-            }
-        } else {
-            ToolbarItem {
-                Button {
-                    activeSheet = nil
-                } label: {
-                    Image(systemName: "return")
-                }
-                .help("Close")
-                .buttonStyle(.borderedProminent)
-            }
-        }
+        .padding()
     }
 
     @MainActor @ViewBuilder
     func makeView(view: DestinationVerifyView) -> some View {
         switch view {
         case let .executenpushpullview(configuuid):
-            if let index = rsyncUIdata.configurations?.firstIndex(where: { $0.id == configuuid }) {
-                if let config = rsyncUIdata.configurations?[index] {
+            if let index = configurationsdata.configurations?.firstIndex(where: { $0.id == configuuid }) {
+                if let config = configurationsdata.configurations?[index] {
                     ExecutePushPullView(pushorpull: $pushorpull,
                                         pushpullcommand: $pushpullcommand,
                                         config: config)
                 }
             }
         case let .pushpullview(configuuid):
-            if let index = rsyncUIdata.configurations?.firstIndex(where: { $0.id == configuuid }) {
-                if let config = rsyncUIdata.configurations?[index] {
+            if let index = configurationsdata.configurations?.firstIndex(where: { $0.id == configuuid }) {
+                if let config = configurationsdata.configurations?[index] {
                     PushPullView(pushorpull: $pushorpull,
                                  verifypath: $verifypath,
                                  pushpullcommand: $pushpullcommand,
@@ -162,7 +139,7 @@ struct VerifyRemoteView: View {
     }
 
     var remoteconfigurations: Bool {
-        let remotes = rsyncUIdata.configurations?.filter { configuration in
+        let remotes = configurationsdata.configurations?.filter { configuration in
             configuration.offsiteServer.isEmpty == false &&
                 configuration.task == SharedReference.shared.synchronize &&
                 SharedReference.shared.rsyncversion3 == true
@@ -175,7 +152,7 @@ struct VerifyRemoteView: View {
     }
 
     func alltasksarehalted() -> Bool {
-        let haltedtasks = rsyncUIdata.configurations?.filter { $0.task == SharedReference.shared.halted }
-        return haltedtasks?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0
+        let haltedtasks = configurationsdata.configurations?.filter { $0.task == SharedReference.shared.halted }
+        return haltedtasks?.count ?? 0 == configurationsdata.configurations?.count ?? 0
     }
 }
