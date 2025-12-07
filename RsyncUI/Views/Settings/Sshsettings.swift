@@ -54,7 +54,7 @@ struct Sshsettings: View {
                     .fontWeight(.bold)) {
                         HStack {
                             Button {
-                                createkeys()
+                                createKeys()
                             } label: {
                                 Image(systemName: "key")
                             }
@@ -71,7 +71,7 @@ struct Sshsettings: View {
 }
 
 extension Sshsettings {
-    func createkeys() {
+    func createKeys() {
         if SshKeys().createPublicPrivateRSAKeyPair() {
             Task {
                 try await Task.sleep(seconds: 1)

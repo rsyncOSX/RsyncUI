@@ -160,7 +160,7 @@ struct SidebarMainView: View {
         .onOpenURL { incomingURL in
             // URL code
             // Deep link triggered RsyncUI from outside
-            handleURLsidebarmainView(incomingURL, externalurl: true)
+            handleURLSidebarMainView(incomingURL, externalURL: true)
         }
         .onChange(of: urlcommandestimateandsynchronize) {
             // URL code
@@ -168,7 +168,7 @@ struct SidebarMainView: View {
             // toolbar in TasksView
             let valueprofile = rsyncUIdata.profile
             if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: valueprofile) {
-                handleURLsidebarmainView(url, externalurl: false)
+                handleURLSidebarMainView(url, externalURL: false)
             }
         }.onChange(of: selectedprofileID) {
             // Only clean selecteuuids, new profile is loaded
@@ -187,7 +187,7 @@ struct SidebarMainView: View {
             }
             // Trigger as external URL, makes it load profile before execute
             if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: globaltimer.scheduledprofile) {
-                handleURLsidebarmainView(url, externalurl: true)
+                handleURLSidebarMainView(url, externalURL: true)
             }
         }
     }
@@ -268,7 +268,7 @@ struct SidebarMainView: View {
 
 extension SidebarMainView {
     // URL code
-    private func handleURLsidebarmainView(_ url: URL, externalurl: Bool) {
+    private func handleURLSidebarMainView(_ url: URL, externalURL: Bool) {
         let deeplinkurl = DeeplinkURL()
         // Verify URL action is valid
         guard deeplinkurl.validateNoAction(queryitem) else { return }
@@ -303,7 +303,7 @@ extension SidebarMainView {
 
                 if profile == "Default" || profile == "default" {
                     Task {
-                        if externalurl {
+                        if externalURL {
                             // Load profile for external URL, this make the call structured concurrency
                             async let loadprofile = loadProfileForExternalURLLink(nil)
                             guard await loadprofile else { return }
@@ -318,7 +318,7 @@ extension SidebarMainView {
                 } else {
                     if deeplinkurl.validateProfile(profile, rsyncUIdata.validprofiles) {
                         Task {
-                            if externalurl {
+                            if externalURL {
                                 // Load profile for external URL
                                 async let loadprofile = loadProfileForExternalURLLink(profile)
                                 guard await loadprofile else { return }

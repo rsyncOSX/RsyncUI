@@ -105,9 +105,9 @@ struct ConfigurationsTableDataMainView: View {
                                 text: "Toggle halt task",
                                 helpText: "Enable task"
                             ) {
-                                let index = getindex(selecteduuids)
+                                let index = getIndex(selecteduuids)
                                 guard index != -1 else { return }
-                                updatehalted(index)
+                                updateHalted(index)
                             }
                         }
                 } else {
@@ -118,9 +118,9 @@ struct ConfigurationsTableDataMainView: View {
                                 text: "Toggle halt task",
                                 helpText: "Halt task"
                             ) {
-                                let index = getindex(selecteduuids)
+                                let index = getIndex(selecteduuids)
                                 guard index != -1 else { return }
-                                updatehalted(index)
+                                updateHalted(index)
                             }
                         }
                 }
@@ -178,7 +178,7 @@ struct ConfigurationsTableDataMainView: View {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }
 
-    private func getindex(_: Set<UUID>) -> Int {
+    private func getIndex(_: Set<UUID>) -> Int {
         if let configurations = rsyncUIdata.configurations {
             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                 index
@@ -190,7 +190,7 @@ struct ConfigurationsTableDataMainView: View {
         }
     }
 
-    private func updatehalted(_ index: Int) {
+    private func updateHalted(_ index: Int) {
         if let halted = rsyncUIdata.configurations?[index].halted,
            let task = rsyncUIdata.configurations?[index].task {
             if halted == 0 {
