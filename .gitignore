@@ -5,16 +5,21 @@
 ## Build generated
 .build/
 build/
+Build/
 DerivedData/
 Logs/
-Build/
 ModuleCache.noindex/
 Index.noindex/
 *.dmg
+*.ipa
 
-.swiftpm/configuration/registries.json
-.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+## Swift Package Manager
+.swiftpm/
 .netrc
+Packages/
+Package.pins
+Package.resolved
+SourcePackages/
 
 ## Various settings
 *.pbxuser
@@ -26,63 +31,42 @@ Index.noindex/
 *.perspectivev3
 !default.perspectivev3
 xcuserdata/
+*.xcuserstate
+*.xcbkptlist
 
 ## Other
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
-info.plist
-
-## Obj-C/Swift specific
 *.hmap
-*.ipa
 *.dSYM.zip
 *.dSYM
+*.sdkstatcache
 
 ## Playgrounds
 timeline.xctimeline
 playground.xcworkspace
 
-# Swift Package Manager
-#
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Packages/
-# Package.pins
-# Package.resolved
-.build/
-
 # CocoaPods
 #
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
+# Uncomment if you want to ignore Pods directory
 # Pods/
 
 # Carthage
 #
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
+# Uncomment if you want to ignore Carthage checkouts
 # Carthage/Checkouts
-
-Carthage/Build
+Carthage/Build/
 
 # fastlane
-#
-# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-# screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/#source-control
-
 fastlane/report.xml
 fastlane/Preview.html
-fastlane/screenshots
-fastlane/test_output
+fastlane/screenshots/**/*.png
+fastlane/test_output/
 
-*.xcuserstate
-
-*.xcbkptlist
+# macOS
 .DS_Store
-SourcePackages
-RsyncSwiftUI.xcodeproj/xcuserdata/thomas.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
-*.sdkstatcache
-info.plist
+
+# Info.plist (if auto-generated)
+# Note: Be careful with this - only ignore if it's truly generated
+# info.plist
