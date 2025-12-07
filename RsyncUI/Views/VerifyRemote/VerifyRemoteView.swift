@@ -64,6 +64,7 @@ struct VerifyRemoteView: View {
                         ) {
                             guard let selectedconfig else { return }
                             guard selectedtaskishalted == false else { return }
+                            guard SharedReference.shared.process == nil else { return }
                             verifypath.append(Verify(task: .pushpullview(configID: selectedconfig.id)))
                         }
                     }
@@ -88,6 +89,7 @@ struct VerifyRemoteView: View {
                         helpText: "Pull or push"
                     ) {
                         guard let selectedconfig else { return }
+                        guard SharedReference.shared.process == nil else { return }
                         verifypath.append(Verify(task: .executenpushpullview(configID: selectedconfig.id)))
                     }
 
