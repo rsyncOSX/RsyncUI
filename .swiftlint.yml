@@ -9,6 +9,7 @@ disabled_rules:
 
 opt_in_rules:
   - force_unwrapping
+  - identifier_name
 
 excluded:
   - SourcePackages/*
