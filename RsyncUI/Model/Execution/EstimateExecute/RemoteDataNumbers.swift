@@ -48,6 +48,9 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var stats: String?
     // A reduced number of output
     var preparedoutputfromrsync: [String]?
+    // Number of lines in output to handle
+    let numberoflines = 20
+    let defaultstats = "0 files : 0.00 MB in 0.00 seconds"
 
     init(stringoutputfromrsync: [String]?,
          config: SynchronizeConfiguration?) {
@@ -63,7 +66,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         // It removes all lines except the last 20 lines where summarized numbers are put
         // Normally this is done before calling the RemoteDataNumbers
 
-        if stringoutputfromrsync?.count ?? 0 > 20 {
+        if stringoutputfromrsync?.count ?? 0 > numberoflines {
             preparedoutputfromrsync = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
         } else {
             preparedoutputfromrsync = stringoutputfromrsync
@@ -80,7 +83,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
                     SharedReference.shared.errorobject?.alert(error: error)
                 } else {
                     // Break this loop, the numbers below make no sense if stats is missing
-                    stats = "0 files : 0.00 MB in 0.00 seconds"
+                    stats = defaultstats
                     filestransferred = "No stats"
                     filestransferred_Int = 0
                     totaldirectories_Int = 0
