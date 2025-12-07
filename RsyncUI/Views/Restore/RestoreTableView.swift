@@ -296,7 +296,7 @@ extension RestoreTableView {
 
             let process = RsyncProcess(arguments: arguments,
                                        handlers: handlers,
-                                       filehandler: false)
+                                       fileHandler: false)
             do {
                 try process.executeProcess()
             } catch let e {

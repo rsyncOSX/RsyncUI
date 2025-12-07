@@ -158,7 +158,7 @@ struct ExecutePushPullView: View {
         let process = RsyncProcess(arguments: arguments,
                                    hiddenID: config.hiddenID,
                                    handlers: handlers,
-                                   usefilehandler: true)
+                                   useFileHandler: true)
         do {
             try process.executeProcess()
         } catch let e {
@@ -180,7 +180,7 @@ struct ExecutePushPullView: View {
         let process = RsyncProcess(arguments: arguments,
                                    hiddenID: config.hiddenID,
                                    handlers: handlers,
-                                   usefilehandler: true)
+                                   useFileHandler: true)
         do {
             try process.executeProcess()
         } catch let e {

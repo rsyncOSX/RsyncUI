@@ -66,7 +66,7 @@ struct OneTaskDetailsView: View {
             let process = RsyncProcess(arguments: arguments,
                                        hiddenID: selectedconfig?.hiddenID ?? -1,
                                        handlers: handlers,
-                                       usefilehandler: false)
+                                       useFileHandler: false)
 
             do {
                 try process.executeProcess()

@@ -16,21 +16,21 @@ struct CreateHandlers {
 
     ) -> ProcessHandlers {
         ProcessHandlers(
-            processtermination: processTermination,
-            filehandler: fileHandler,
-            rsyncpath: GetfullpathforRsync().rsyncpath,
-            checklineforerror: TrimOutputFromRsync().checkForRsyncError(_:),
-            updateprocess: SharedReference.shared.updateprocess,
-            propogateerror: { error in
+            processTermination: processTermination,
+            fileHandler: fileHandler,
+            rsyncPath: GetfullpathforRsync().rsyncpath,
+            checkLineForError: TrimOutputFromRsync().checkForRsyncError(_:),
+            updateProcess: SharedReference.shared.updateprocess,
+            propagateError: { error in
                 SharedReference.shared.errorobject?.alert(error: error)
             },
             logger: { command, output in
                 _ = await ActorLogToFile(command, output)
             },
-            checkforerrorinrsyncoutput: SharedReference.shared.checkforerrorinrsyncoutput,
-            rsyncversion3: SharedReference.shared.rsyncversion3,
+            checkForErrorInRsyncOutput: SharedReference.shared.checkforerrorinrsyncoutput,
+            rsyncVersion3: SharedReference.shared.rsyncversion3,
             environment: MyEnvironment()?.environment,
-            printlines: RsyncOutputCapture.shared.makePrintLinesClosure()
+            printLine: RsyncOutputCapture.shared.makePrintLinesClosure()
         )
     }
 }

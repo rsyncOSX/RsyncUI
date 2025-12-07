@@ -64,7 +64,7 @@ final class Execute {
                     let process = RsyncProcess(arguments: arguments,
                                                hiddenID: config.hiddenID,
                                                handlers: handlers,
-                                               usefilehandler: true)
+                                               useFileHandler: true)
                     // Must check valid rsync exists
                     guard SharedReference.shared.norsync == false else { return }
                     guard config.task != SharedReference.shared.halted else { return }
@@ -99,7 +99,7 @@ final class Execute {
                     let process = RsyncProcess(arguments: arguments,
                                                hiddenID: config.hiddenID,
                                                handlers: handlers,
-                                               usefilehandler: true)
+                                               useFileHandler: true)
 
                     do {
                         try process.executeProcess()

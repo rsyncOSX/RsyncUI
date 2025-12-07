@@ -26,7 +26,7 @@ final class Snapshotlogsandcatalogs {
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
         let process = RsyncProcess(arguments: arguments,
                                    handlers: handlers,
-                                   filehandler: false)
+                                   fileHandler: false)
         do {
             try process.executeProcess()
         } catch let e {

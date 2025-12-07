@@ -49,7 +49,7 @@ final class Estimate {
                     let process = RsyncProcess(arguments: arguments,
                                                hiddenID: config.hiddenID,
                                                handlers: handlers,
-                                               usefilehandler: false)
+                                               useFileHandler: false)
 
                     do {
                         try process.executeProcess()

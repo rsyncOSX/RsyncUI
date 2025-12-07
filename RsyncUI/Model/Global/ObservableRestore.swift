@@ -61,7 +61,7 @@ final class ObservableRestore {
 
                     let process = RsyncProcess(arguments: arguments,
                                                handlers: handlers,
-                                               filehandler: true)
+                                               fileHandler: true)
                     do {
                         progress = 0
                         try process.executeProcess()

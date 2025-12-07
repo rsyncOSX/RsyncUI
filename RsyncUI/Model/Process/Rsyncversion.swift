@@ -27,7 +27,7 @@ final class Rsyncversion {
         if SharedReference.shared.norsync == false {
             let process = RsyncProcess(arguments: ["--version"],
                                        handlers: handlers,
-                                       filehandler: false)
+                                       fileHandler: false)
             do {
                 try process.executeProcess()
             } catch let e {
