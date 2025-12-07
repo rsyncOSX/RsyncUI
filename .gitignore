@@ -3,6 +3,7 @@
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## Build generated
+.build/
 build/
 DerivedData/
 Logs/
@@ -10,6 +11,10 @@ Build/
 ModuleCache.noindex/
 Index.noindex/
 *.dmg
+
+.swiftpm/configuration/registries.json
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+.netrc
 
 ## Various settings
 *.pbxuser
