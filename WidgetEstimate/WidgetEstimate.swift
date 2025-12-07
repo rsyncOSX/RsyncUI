@@ -30,7 +30,7 @@ struct RsyncUIEstimateProvider: @preconcurrency TimelineProvider {
 
     func getTimeline(in _: Context, completion: @escaping (Timeline<Entry>) -> Void) {
         let currentDate = Date()
-        let entryDate = Calendar.current.date(byAdding: .minute, value: 1, to: currentDate)!
+        if let entryDate = Calendar.current.date(byAdding: .minute, value: 1, to: currentDate) {
         if let queryelements, queryelements.queryItems?.count ?? 0 > 0 {
             let entry = RsyncUIWidgetEstimateEntry(date: Date(),
                                                    urlstringestimate: url,
@@ -42,6 +42,8 @@ struct RsyncUIEstimateProvider: @preconcurrency TimelineProvider {
             let timeline = Timeline(entries: [entry], policy: .atEnd)
             completion(timeline)
         }
+        }
+        
     }
 
     private func readconfiguration() -> String? {

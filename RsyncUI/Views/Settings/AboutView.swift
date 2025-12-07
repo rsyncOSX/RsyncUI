@@ -44,10 +44,12 @@ struct AboutView: View {
 
                     HStack {
                         VStack(alignment: .leading) {
-                            Image(nsImage: NSImage(named: NSImage.applicationIconName)!)
-                                .resizable()
-                                .aspectRatio(1.0, contentMode: .fit)
-                                .frame(width: 64, height: 64)
+                            if let appIcon = NSImage(named: NSImage.applicationIconName) {
+                                Image(nsImage: appIcon)
+                                    .resizable()
+                                    .aspectRatio(1.0, contentMode: .fit)
+                                    .frame(width: 64, height: 64)
+                            }
                         }
 
                         rsyncversionshortstring
@@ -133,12 +135,14 @@ struct AboutView: View {
 
 extension AboutView {
     func openChangelog() {
-        NSWorkspace.shared.open(URL(string: changelog)!)
+        if let url = URL(string: changelog) {
+            NSWorkspace.shared.open(url)
+        }
     }
 
     func openDownload() {
-        if urlstring.isEmpty == false {
-            NSWorkspace.shared.open(URL(string: urlstring)!)
+        if urlstring.isEmpty == false, let url = URL(string: urlstring) {
+            NSWorkspace.shared.open(url)
         }
     }
 }

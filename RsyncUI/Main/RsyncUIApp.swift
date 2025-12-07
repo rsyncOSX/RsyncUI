@@ -43,7 +43,9 @@ struct RsyncUIApp: App {
                     helpText: "RsyncUI documentation"
                 ) {
                     let documents = "https://rsyncui.netlify.app/docs/"
-                    NSWorkspace.shared.open(URL(string: documents)!)
+                    if let url = URL(string: documents) {
+                        NSWorkspace.shared.open(url)
+                    }
                 }
             }
 

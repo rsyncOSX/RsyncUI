@@ -99,8 +99,8 @@ final class ObservableSchedules {
             month += 1
             // Request the last day of that month
             components.day = 0 // Setting day to 0 gives the last day of the previous month
-            if let lastDayOfNextMonth = calendar.date(byAdding: .month, value: 1,
-                                                      to: calendar.date(from: components)!) {
+            if let baseDate = calendar.date(from: components),
+               let lastDayOfNextMonth = calendar.date(byAdding: .month, value: 1, to: baseDate) {
                 return lastDayOfNextMonth
             } else {
                 return nil
