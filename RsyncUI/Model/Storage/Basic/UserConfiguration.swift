@@ -39,77 +39,31 @@ struct UserConfiguration: @MainActor Codable {
     // Hide Verify View
     var hideverifyremotefunction: Int = -1
 
+    private func intToBool(_ value: Int) -> Bool {
+        return value == 1
+    }
+
     private func setuserconfigdata() {
-        if rsyncversion3 == 1 {
-            SharedReference.shared.rsyncversion3 = true
-        } else {
-            SharedReference.shared.rsyncversion3 = false
-        }
-        if addsummarylogrecord == 1 {
-            SharedReference.shared.addsummarylogrecord = true
-        } else {
-            SharedReference.shared.addsummarylogrecord = false
-        }
-        if localrsyncpath != nil {
-            SharedReference.shared.localrsyncpath = localrsyncpath
-        } else {
-            SharedReference.shared.localrsyncpath = nil
-        }
-        if pathforrestore != nil {
-            SharedReference.shared.pathforrestore = pathforrestore
-        } else {
-            SharedReference.shared.pathforrestore = nil
-        }
+        SharedReference.shared.rsyncversion3 = intToBool(rsyncversion3)
+        SharedReference.shared.addsummarylogrecord = intToBool(addsummarylogrecord)
+        SharedReference.shared.localrsyncpath = localrsyncpath
+        SharedReference.shared.pathforrestore = pathforrestore
         if Int(marknumberofdayssince) ?? 0 > 0 {
             SharedReference.shared.marknumberofdayssince = Int(marknumberofdayssince) ?? 0
         }
-        if sshkeypathandidentityfile != nil {
-            SharedReference.shared.sshkeypathandidentityfile = sshkeypathandidentityfile
+        SharedReference.shared.sshkeypathandidentityfile = sshkeypathandidentityfile
+        SharedReference.shared.sshport = sshport
+        SharedReference.shared.environment = environment
+        SharedReference.shared.environmentvalue = environmentvalue
+        SharedReference.shared.checkforerrorinrsyncoutput = intToBool(checkforerrorinrsyncoutput)
+        if let confirmexecute {
+            SharedReference.shared.confirmexecute = intToBool(confirmexecute)
         }
-        if sshport != nil {
-            SharedReference.shared.sshport = sshport
-        }
-        if environment != nil {
-            SharedReference.shared.environment = environment
-        }
-        if environmentvalue != nil {
-            SharedReference.shared.environmentvalue = environmentvalue
-        }
-        if checkforerrorinrsyncoutput == 1 {
-            SharedReference.shared.checkforerrorinrsyncoutput = true
-        } else {
-            SharedReference.shared.checkforerrorinrsyncoutput = false
-        }
-        if confirmexecute == 1 {
-            SharedReference.shared.confirmexecute = true
-        } else {
-            SharedReference.shared.confirmexecute = false
-        }
-        if synchronizewithouttimedelay == 1 {
-            SharedReference.shared.synchronizewithouttimedelay = true
-        } else {
-            SharedReference.shared.synchronizewithouttimedelay = false
-        }
-        if sidebarishidden == 1 {
-            SharedReference.shared.sidebarishidden = true
-        } else {
-            SharedReference.shared.sidebarishidden = false
-        }
-        if observemountedvolumes == 1 {
-            SharedReference.shared.observemountedvolumes = true
-        } else {
-            SharedReference.shared.observemountedvolumes = false
-        }
-        if alwaysshowestimateddetailsview == 1 {
-            SharedReference.shared.alwaysshowestimateddetailsview = true
-        } else {
-            SharedReference.shared.alwaysshowestimateddetailsview = false
-        }
-        if hideverifyremotefunction == 1 {
-            SharedReference.shared.hideverifyremotefunction = true
-        } else {
-            SharedReference.shared.hideverifyremotefunction = false
-        }
+        SharedReference.shared.synchronizewithouttimedelay = intToBool(synchronizewithouttimedelay)
+        SharedReference.shared.sidebarishidden = intToBool(sidebarishidden)
+        SharedReference.shared.observemountedvolumes = intToBool(observemountedvolumes)
+        SharedReference.shared.alwaysshowestimateddetailsview = intToBool(alwaysshowestimateddetailsview)
+        SharedReference.shared.hideverifyremotefunction = intToBool(hideverifyremotefunction)
     }
 
     // Used when reading JSON data from store

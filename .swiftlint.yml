@@ -3,7 +3,7 @@ disabled_rules:
   - file_length
   - type_body_length
   - identifier_name
-  - cyclomatic_complexity
+#  - cyclomatic_complexity
   - function_body_length
   - trailing_comma
 
