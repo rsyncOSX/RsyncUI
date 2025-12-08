@@ -5,10 +5,11 @@ disabled_rules:
   - function_body_length
   - trailing_comma
   - function_parameter_count
+  - identifier_name
 
 opt_in_rules:
   - force_unwrapping
-  - identifier_name
+  
 
 excluded:
   - SourcePackages/*
