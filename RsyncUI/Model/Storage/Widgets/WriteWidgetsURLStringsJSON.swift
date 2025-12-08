@@ -25,8 +25,8 @@ struct WriteWidgetsURLStringsJSON {
             if let jsonData {
                 do {
                     try jsonData.write(to: estimatefileURL)
-                } catch let e {
-                    let error = e
+                } catch let err {
+                    let error = err
                     SharedReference.shared.errorobject?.alert(error: error)
                 }
             }
@@ -40,9 +40,9 @@ struct WriteWidgetsURLStringsJSON {
             writeJSONToPersistentStore(jsonData: encodeddata)
             Logger.process.debugMessageOnly("WriteWidgetsURLStringsJSON: Writing URL-strings to permanent storage")
 
-        } catch let e {
+        } catch let err {
             Logger.process.error("WriteWidgetsURLStringsJSON: some ERROR writing user configurations from permanent storage")
-            let error = e
+            let error = err
             SharedReference.shared.errorobject?.alert(error: error)
         }
     }
@@ -53,8 +53,8 @@ struct WriteWidgetsURLStringsJSON {
             do {
                 let valid = try deeplinks.validateURLstring(urlwidgetstrings.urlstringestimate ?? "")
                 if valid { encodeJSONData(urlwidgetstrings) }
-            } catch let e {
-                let error = e
+            } catch let err {
+                let error = err
                 SharedReference.shared.errorobject?.alert(error: error)
             }
         }

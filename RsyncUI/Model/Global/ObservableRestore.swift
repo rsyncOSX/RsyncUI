@@ -65,14 +65,14 @@ final class ObservableRestore {
                     do {
                         progress = 0
                         try process.executeProcess()
-                    } catch let e {
-                        let error = e
+                    } catch let err {
+                        let error = err
                         SharedReference.shared.errorobject?.alert(error: error)
                     }
                 }
             }
-        } catch let e {
-            let error = e
+        } catch let err {
+            let error = err
             propagateError(error: error)
         }
     }

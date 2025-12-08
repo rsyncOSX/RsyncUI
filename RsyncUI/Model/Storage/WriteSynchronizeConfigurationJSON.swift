@@ -30,8 +30,8 @@ final class WriteSynchronizeConfigurationJSON {
             if let jsonData, let configurationfileURL {
                 do {
                     try jsonData.write(to: configurationfileURL)
-                } catch let e {
-                    let error = e
+                } catch let err {
+                    let error = err
                     path.propagateError(error: error)
                 }
             }
@@ -44,8 +44,8 @@ final class WriteSynchronizeConfigurationJSON {
             let encodeddata = try encodejsondata.encode(configurations)
             writeJSONToPersistentStore(jsonData: encodeddata, profile)
 
-        } catch let e {
-            let error = e
+        } catch let err {
+            let error = err
             path.propagateError(error: error)
         }
     }

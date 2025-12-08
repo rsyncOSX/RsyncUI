@@ -20,8 +20,8 @@ struct WriteUserConfigurationJSON {
             if let jsonData {
                 do {
                     try jsonData.write(to: usercongigfileURL)
-                } catch let e {
-                    let error = e
+                } catch let err {
+                    let error = err
                     path.propagateError(error: error)
                 }
             }
@@ -35,9 +35,9 @@ struct WriteUserConfigurationJSON {
             writeJSONToPersistentStore(jsonData: encodeddata)
             Logger.process.debugMessageOnly("WriteUserConfigurationJSON: Writing user configurations to permanent storage")
 
-        } catch let e {
+        } catch let err {
             Logger.process.error("WriteUserConfigurationJSON: some ERROR writing user configurations from permanent storage")
-            let error = e
+            let error = err
             path.propagateError(error: error)
         }
     }

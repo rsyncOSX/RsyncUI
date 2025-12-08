@@ -29,9 +29,9 @@ final class WriteLogRecordsJSON {
             if let jsonData, let logrecordfileURL {
                 do {
                     try jsonData.write(to: logrecordfileURL)
-                } catch let e {
+                } catch let err {
                     Logger.process.error("WriteLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR writing logrecords to permanent storage")
-                    let error = e
+                    let error = err
                     path.propagateError(error: error)
                 }
             }
@@ -44,8 +44,8 @@ final class WriteLogRecordsJSON {
             let encodeddata = try encodejsondata.encode(logrecords)
             writeJSONToPersistentStore(jsonData: encodeddata, profile)
 
-        } catch let e {
-            let error = e
+        } catch let err {
+            let error = err
             path.propagateError(error: error)
         }
     }

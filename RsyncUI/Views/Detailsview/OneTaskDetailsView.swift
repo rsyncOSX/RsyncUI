@@ -70,8 +70,8 @@ struct OneTaskDetailsView: View {
 
             do {
                 try process.executeProcess()
-            } catch let e {
-                let error = e
+            } catch let err {
+                let error = err
                 SharedReference.shared.errorobject?.alert(error: error)
             }
         }
@@ -111,8 +111,8 @@ struct OneTaskDetailsView: View {
         // Validate that tagging is correct
         do {
             try validateTagging(stringoutputfromrsync?.count ?? 0, remotedatanumbers?.datatosynchronize ?? true)
-        } catch let e {
-            let error = e
+        } catch let err {
+            let error = err
             SharedReference.shared.errorobject?.alert(error: error)
         }
 

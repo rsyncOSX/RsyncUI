@@ -25,8 +25,8 @@ final class Backupconfigfiles {
             let documentsbackuppathURL = documentsURL.appendingPathComponent(targetpath)
             do {
                 try fm.copyItem(at: fullpathnomacserialURL, to: documentsbackuppathURL)
-            } catch let e {
-                let error = e
+            } catch let err {
+                let error = err
                 homepath.propagateError(error: error)
             }
         }

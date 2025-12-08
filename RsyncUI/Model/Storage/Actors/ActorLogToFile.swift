@@ -61,13 +61,13 @@ actor ActorLogToFile {
                                 throw FilesizeError.toobig
                             }
                         }
-                    } catch let e {
-                        let error = e
+                    } catch let err {
+                        let error = err
                         await path.propagateError(error: error)
                     }
                     // }
-                } catch let e {
-                    let error = e
+                } catch let err {
+                    let error = err
                     await path.propagateError(error: error)
                 }
             }
@@ -93,8 +93,8 @@ actor ActorLogToFile {
                     }
                 }
 
-            } catch let e {
-                let error = e
+            } catch let err {
+                let error = err
                 await path.propagateError(error: error)
                 // Reset loggfile
                 let date = Date().localized_string_from_date()
@@ -109,8 +109,8 @@ actor ActorLogToFile {
                 return logfile.map { line in
                     line.components(separatedBy: .newlines)
                 }
-            } catch let e {
-                let error = e
+            } catch let err {
+                let error = err
                 await path.propagateError(error: error)
             }
         }
@@ -137,8 +137,8 @@ actor ActorLogToFile {
                     }
                 }
 
-            } catch let e {
-                let error = e
+            } catch let err {
+                let error = err
                 await path.propagateError(error: error)
                 // Reset loggfile
                 let date = Date().localized_string_from_date()
@@ -151,8 +151,8 @@ actor ActorLogToFile {
                 Logger.process.debugMessageOnly("ActorLogToFile: read logfile \(logfileURL.path)")
                 return String(data: data, encoding: .utf8)
 
-            } catch let e {
-                let error = e
+            } catch let err {
+                let error = err
                 await path.propagateError(error: error)
             }
         }
@@ -190,8 +190,8 @@ actor ActorLogToFile {
                             return newdata
                         }
                     }
-                } catch let e {
-                    let error = e
+                } catch let err {
+                    let error = err
                     await path.propagateError(error: error)
                 }
             }

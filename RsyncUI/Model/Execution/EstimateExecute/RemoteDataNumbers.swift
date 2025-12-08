@@ -77,9 +77,9 @@ struct RemoteDataNumbers: Identifiable, Hashable {
             do {
                 stats = try parsersyncoutput.getstats()
                 Logger.process.debugMessageOnly("RemoteDataNumbers: getstats() SUCCESS")
-            } catch let e {
+            } catch let err {
                 if SharedReference.shared.silencemissingstats == false {
-                    let error = e
+                    let error = err
                     SharedReference.shared.errorobject?.alert(error: error)
                 } else {
                     // Break this loop, the numbers below make no sense if stats is missing

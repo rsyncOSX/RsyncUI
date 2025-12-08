@@ -21,9 +21,9 @@ final class WriteExportConfigurationsJSON {
                 do {
                     try jsonData.write(to: exportconfigurationfileURL)
                     Logger.process.debugMessageOnly("WriteExportConfigurationsJSON - \(exportpath) write export configurations to permanent storage")
-                } catch let e {
+                } catch let err {
                     Logger.process.error("WriteExportConfigurationsJSON - \(exportpath) some ERROR write export configurations to permanent storage")
-                    let error = e
+                    let error = err
                     propagateError(error: error)
                 }
             }
@@ -36,8 +36,8 @@ final class WriteExportConfigurationsJSON {
             let encodeddata = try encodejsondata.encode(configurations)
             writeJSONToPersistentStore(jsonData: encodeddata)
 
-        } catch let e {
-            let error = e
+        } catch let err {
+            let error = err
             propagateError(error: error)
         }
     }

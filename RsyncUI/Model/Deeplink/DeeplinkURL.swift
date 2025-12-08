@@ -22,15 +22,15 @@ struct DeeplinkURL {
                 } else {
                     do {
                         try deeplinks.thrownoaction()
-                    } catch let e {
-                        let error = e
+                    } catch let err {
+                        let error = err
                         SharedReference.shared.errorobject?.alert(error: error)
                     }
                 }
             }
 
-        } catch let e {
-            let error = e
+        } catch let err {
+            let error = err
             SharedReference.shared.errorobject?.alert(error: error)
         }
         return nil
@@ -45,8 +45,8 @@ struct DeeplinkURL {
             do {
                 try deeplinks.validateprofile(profile, profiles)
                 return true
-            } catch let e {
-                let error = e
+            } catch let err {
+                let error = err
                 SharedReference.shared.errorobject?.alert(error: error)
                 return false
             }
@@ -60,8 +60,8 @@ struct DeeplinkURL {
         do {
             try deeplinks.validateNoOngoingURLAction(queryItem)
             return true
-        } catch let e {
-            let error = e
+        } catch let err {
+            let error = err
             SharedReference.shared.errorobject?.alert(error: error)
             return false
         }

@@ -53,8 +53,8 @@ final class Estimate {
 
                     do {
                         try process.executeProcess()
-                    } catch let e {
-                        let error = e
+                    } catch let err {
+                        let error = err
                         SharedReference.shared.errorobject?.alert(error: error)
                     }
                 }
@@ -132,8 +132,8 @@ extension Estimate {
                     // In case of throwing an error to identify which task
                     synchronizeIDwitherror = record.backupID
                     try validateTagging(stringoutputfromrsync?.count ?? 0, record.datatosynchronize)
-                } catch let e {
-                    let error = e
+                } catch let err {
+                    let error = err
                     SharedReference.shared.errorobject?.alert(error: error)
                 }
 
@@ -163,8 +163,8 @@ extension Estimate {
                 // Validate that tagging is correct
                 do {
                     try validateTagging(stringoutputfromrsync?.count ?? 0, record.datatosynchronize)
-                } catch let e {
-                    let error = e
+                } catch let err {
+                    let error = err
                     SharedReference.shared.errorobject?.alert(error: error)
                 }
 

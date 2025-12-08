@@ -29,8 +29,8 @@ struct CatalogForProfile {
             do {
                 Logger.process.debugMessageOnly("CatalogProfile creating: \(profileURL)")
                 try fm.createDirectory(at: profileURL, withIntermediateDirectories: true, attributes: nil)
-            } catch let e {
-                let error = e
+            } catch let err {
+                let error = err
                 path.propagateError(error: error)
                 return false
             }
@@ -51,8 +51,8 @@ struct CatalogForProfile {
             }
             do {
                 try fm.removeItem(at: profileURL)
-            } catch let e {
-                let error = e as NSError
+            } catch let err {
+                let error = err as NSError
                 path.propagateError(error: error)
                 return false
             }

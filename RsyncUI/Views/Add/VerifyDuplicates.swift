@@ -26,8 +26,8 @@ struct VerifyDuplicates {
         }
         do {
             try checkForDuplicates()
-        } catch let e {
-            let error = e
+        } catch let err {
+            let error = err
             propagateError(error: error)
         }
     }

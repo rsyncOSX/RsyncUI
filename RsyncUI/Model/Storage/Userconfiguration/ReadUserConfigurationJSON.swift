@@ -27,9 +27,9 @@ struct ReadUserConfigurationJSON {
             UserConfiguration(importeddata)
             Logger.process.debugThreadOnly("ReadUserConfigurationJSON: Reading user configurations")
 
-        } catch let e {
+        } catch let err {
             Logger.process.error("ReadUserConfigurationJSON: some ERROR reading user configurations from permanent storage")
-            let error = e
+            let error = err
             path.propagateError(error: error)
         }
     }

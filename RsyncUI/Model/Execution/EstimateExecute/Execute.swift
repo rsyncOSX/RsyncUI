@@ -71,8 +71,8 @@ final class Execute {
 
                     do {
                         try process.executeProcess()
-                    } catch let e {
-                        let error = e
+                    } catch let err {
+                        let error = err
                         SharedReference.shared.errorobject?.alert(error: error)
                     }
                 }
@@ -103,8 +103,8 @@ final class Execute {
 
                     do {
                         try process.executeProcess()
-                    } catch let e {
-                        let error = e
+                    } catch let err {
+                        let error = err
                         SharedReference.shared.errorobject?.alert(error: error)
                     }
                 }
@@ -188,13 +188,13 @@ extension Execute {
                 let logData = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: stats ?? defaultstats)
                 schedulerecords.append(logData)
                 Logger.process.debugMessageOnly("Execute: getstats() SUCCESS")
-            } catch let e {
+            } catch let err {
                 if SharedReference.shared.silencemissingstats == false {
                     let logData = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: defaultstats)
                     schedulerecords.append(logData)
                     Logger.process.debugMessageOnly("Execute: getstats() FAILED")
 
-                    let error = e
+                    let error = err
                     SharedReference.shared.errorobject?.alert(error: error)
 
                 } else {
