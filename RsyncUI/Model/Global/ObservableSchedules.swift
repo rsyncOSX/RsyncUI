@@ -60,7 +60,7 @@ final class ObservableSchedules {
 
         let index = calculateScheduleIndex(timeInterval: timeInterval, dayInterval: dateComponents.day ?? 0)
         appendInitialScheduleIfNeeded(profile: profile, dateRun: dateRun, lastDayOfMonth: lastdateinnextmonth, scheduleType: scheduleType)
-        
+
         addFutureSchedules(profile: profile, startDate: dateRun, dateComponents: dateComponents, scheduleType: scheduleType, count: index, lastDayOfMonth: lastdateinnextmonth)
     }
 
