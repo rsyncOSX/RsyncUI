@@ -17,8 +17,6 @@ final class ObservableSchedules {
     @ObservationIgnored var lastdateinnextmonth: Date?
 
     private func computefuturedates(profile: String?, schedule: String, dateRun: Date) {
-        var dateComponents = DateComponents()
-
         // Last date in month is NOT set when loading data at startup
         if lastdateinnextmonth == nil {
             lastdateinnextmonth = computelastdateinnextmonth()
@@ -26,68 +24,73 @@ final class ObservableSchedules {
 
         switch schedule {
         case ScheduleType.daily.rawValue:
-            dateComponents.day = 1
-
+            computeDailySchedule(profile: profile, dateRun: dateRun)
         case ScheduleType.weekly.rawValue:
-            dateComponents.day = 7
-
+            computeWeeklySchedule(profile: profile, dateRun: dateRun)
         case ScheduleType.once.rawValue:
-            // Handle once as a special case, only daily and weekly needs repeat
-            if let lastdateinnextmonth {
-                if dateRun.monthInt <= lastdateinnextmonth.monthInt {
-                    appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: ScheduleType.once.rawValue)
-                }
-            }
-            return
-
+            computeOnceSchedule(profile: profile, dateRun: dateRun)
         default:
             return
         }
-        // This date is incrementet by schedule
-        var computedDateRun: Date = dateRun
+    }
 
-        if let lastdateinnextmonth {
-            let timeInterval: TimeInterval = lastdateinnextmonth.timeIntervalSince(computedDateRun)
-            guard timeInterval > 0 else { return }
+    private func computeOnceSchedule(profile: String?, dateRun: Date) {
+        guard let lastdateinnextmonth else { return }
+        if dateRun.monthInt <= lastdateinnextmonth.monthInt {
+            appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: ScheduleType.once.rawValue)
+        }
+    }
 
-            var index = 0
+    private func computeDailySchedule(profile: String?, dateRun: Date) {
+        var dateComponents = DateComponents()
+        dateComponents.day = 1
+        computeRepeatingSchedule(profile: profile, dateRun: dateRun, dateComponents: dateComponents, scheduleType: ScheduleType.daily.rawValue)
+    }
 
-            switch dateComponents.day ?? 0 {
-            case 1:
-                index = Int(timeInterval / (60 * 60 * 24))
-                // Must add the first registered date as well
-                if dateRun.monthInt == lastdateinnextmonth.monthInt {
-                    appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: ScheduleType.daily.rawValue)
+    private func computeWeeklySchedule(profile: String?, dateRun: Date) {
+        var dateComponents = DateComponents()
+        dateComponents.day = 7
+        computeRepeatingSchedule(profile: profile, dateRun: dateRun, dateComponents: dateComponents, scheduleType: ScheduleType.weekly.rawValue)
+    }
+
+    private func computeRepeatingSchedule(profile: String?, dateRun: Date, dateComponents: DateComponents, scheduleType: String) {
+        guard let lastdateinnextmonth else { return }
+        let timeInterval: TimeInterval = lastdateinnextmonth.timeIntervalSince(dateRun)
+        guard timeInterval > 0 else { return }
+
+        let index = calculateScheduleIndex(timeInterval: timeInterval, dayInterval: dateComponents.day ?? 0)
+        appendInitialScheduleIfNeeded(profile: profile, dateRun: dateRun, lastDayOfMonth: lastdateinnextmonth, scheduleType: scheduleType)
+        
+        addFutureSchedules(profile: profile, startDate: dateRun, dateComponents: dateComponents, scheduleType: scheduleType, count: index, lastDayOfMonth: lastdateinnextmonth)
+    }
+
+    private func calculateScheduleIndex(timeInterval: TimeInterval, dayInterval: Int) -> Int {
+        switch dayInterval {
+        case 1:
+            return Int(timeInterval / (60 * 60 * 24))
+        case 7:
+            return Int(timeInterval / (60 * 60 * 24 * 7))
+        default:
+            return 0
+        }
+    }
+
+    private func appendInitialScheduleIfNeeded(profile: String?, dateRun: Date, lastDayOfMonth: Date, scheduleType: String) {
+        if dateRun.monthInt == lastDayOfMonth.monthInt {
+            appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: scheduleType)
+        }
+    }
+
+    private func addFutureSchedules(profile: String?, startDate: Date, dateComponents: DateComponents, scheduleType: String, count: Int, lastDayOfMonth: Date) {
+        var computedDateRun: Date = startDate
+        for _ in 0 ..< count {
+            if let futureDate = Calendar.current.date(byAdding: dateComponents, to: computedDateRun) {
+                computedDateRun = futureDate
+                if futureDate.monthInt <= lastDayOfMonth.monthInt {
+                    appendfutureschedule(profile: profile, dateRun: futureDate.en_string_from_date(), schedule: scheduleType)
                 }
-
-            case 7:
-                index = Int(timeInterval / (60 * 60 * 24 * 7))
-                // Must add the first registered date as well
-                if dateRun.monthInt == lastdateinnextmonth.monthInt {
-                    appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: ScheduleType.weekly.rawValue)
-                }
-
-            default:
-                break
-            }
-            // Loops only for daily and weekly
-            for _ in 0 ..< index {
-                if let futureDate = Calendar.current.date(byAdding: dateComponents, to: computedDateRun) {
-                    let futureDateString = futureDate.en_string_from_date()
-                    // Set computedDateRun to next futureDate, adding dateComponents will compute
-                    // the next futureDate again.
-                    computedDateRun = futureDate
-                    // Only add futuredates in month presented
-                    if futureDate.monthInt <= lastdateinnextmonth.monthInt {
-                        if dateComponents.day == 1 {
-                            appendfutureschedule(profile: profile, dateRun: futureDateString, schedule: ScheduleType.daily.rawValue)
-                        } else {
-                            appendfutureschedule(profile: profile, dateRun: futureDateString, schedule: ScheduleType.weekly.rawValue)
-                        }
-                    }
-                } else {
-                    Logger.process.warning("ObservableSchedules: Failed to calculate future dates")
-                }
+            } else {
+                Logger.process.warning("ObservableSchedules: Failed to calculate future dates")
             }
         }
     }
