@@ -62,6 +62,8 @@ struct UserConfiguration: @MainActor Codable {
         SharedReference.shared.checkforerrorinrsyncoutput = intToBool(checkforerrorinrsyncoutput)
         if let confirmexecute {
             SharedReference.shared.confirmexecute = intToBool(confirmexecute)
+        } else {
+            SharedReference.shared.confirmexecute = false
         }
         SharedReference.shared.synchronizewithouttimedelay = intToBool(synchronizewithouttimedelay)
         SharedReference.shared.sidebarishidden = intToBool(sidebarishidden)
