@@ -112,68 +112,55 @@ final class VerifyConfiguration: Connected {
         newconfig.dateRun = ""
         newconfig.hiddenID = data.hiddenID ?? -1
 
-        // First od all verify that either source or destination is empty
-        // If one is empty bail out
-
         guard data.newlocalCatalog.isEmpty == false else {
-            let error = ValidateInputError.localcatalog
-            propagateError(error: error)
+            propagateError(error: ValidateInputError.localcatalog)
             return nil
         }
 
         guard data.newoffsiteCatalog.isEmpty == false else {
-            let error = ValidateInputError.localcatalog
+            propagateError(error: ValidateInputError.localcatalog)
+            return nil
+        }
+
+        newconfig.snapshotnum = (data.snapshotnum ?? 0) > 0 ? data.snapshotnum : nil
+
+        handleTrailingSlash(data: data, newconfig: &newconfig)
+        handleSnapshotAndSyncRemote(data: data, newconfig: &newconfig)
+
+        do {
+            let validated = try validateInput(config: newconfig)
+            guard validated == true else { return nil }
+        } catch {
             propagateError(error: error)
             return nil
         }
 
-        if (data.snapshotnum ?? 0) > 0 {
-            newconfig.snapshotnum = data.snapshotnum
-        } else {
-            newconfig.snapshotnum = nil
+        if shouldCreateRemoteSnapshot(data: data, newconfig: newconfig) {
+            snapshotcreateremotecatalog(config: newconfig)
         }
 
-        // Check what to do with trailing slash
+        return newconfig
+    }
+
+    private func handleTrailingSlash(data: AppendTask, newconfig: inout SynchronizeConfiguration) {
         switch data.newtrailingslashoptions {
-        // Remove any trailing slashes
-        // If no trailing slash added, accept data
         case .do_not_add:
-            if data.newlocalCatalog.hasSuffix("/") == true {
-                let catalog = data.newlocalCatalog.dropLast()
-                newconfig.localCatalog = String(catalog)
-            } else {
-                newconfig.localCatalog = data.newlocalCatalog
-            }
-            if data.newoffsiteCatalog.hasSuffix("/") == true {
-                let catalog = data.newoffsiteCatalog.dropLast()
-                newconfig.offsiteCatalog = String(catalog)
-            } else {
-                newconfig.offsiteCatalog = data.newoffsiteCatalog
-            }
-        // Check for adding trailing slash
-        // If trailing slash is already added, accept the data
+            newconfig.localCatalog = data.newlocalCatalog.hasSuffix("/") ?
+                String(data.newlocalCatalog.dropLast()) : data.newlocalCatalog
+            newconfig.offsiteCatalog = data.newoffsiteCatalog.hasSuffix("/") ?
+                String(data.newoffsiteCatalog.dropLast()) : data.newoffsiteCatalog
         case .add:
-            if data.newlocalCatalog.hasSuffix("/") == false {
-                var catalog = data.newlocalCatalog
-                catalog += "/"
-                newconfig.localCatalog = catalog
-            } else {
-                newconfig.localCatalog = data.newlocalCatalog
-            }
-            if data.newoffsiteCatalog.hasSuffix("/") == false {
-                var catalog = data.newoffsiteCatalog
-                catalog += "/"
-                newconfig.offsiteCatalog = catalog
-            } else {
-                newconfig.offsiteCatalog = data.newoffsiteCatalog
-            }
-        // Do not check for trailing slash or not
+            newconfig.localCatalog = data.newlocalCatalog.hasSuffix("/") ?
+                data.newlocalCatalog : data.newlocalCatalog + "/"
+            newconfig.offsiteCatalog = data.newoffsiteCatalog.hasSuffix("/") ?
+                data.newoffsiteCatalog : data.newoffsiteCatalog + "/"
         case .do_not_check:
             newconfig.localCatalog = data.newlocalCatalog
             newconfig.offsiteCatalog = data.newoffsiteCatalog
         }
+    }
 
-        // New snapshot task
+    private func handleSnapshotAndSyncRemote(data: AppendTask, newconfig: inout SynchronizeConfiguration) {
         if data.newtask == SharedReference.shared.snapshot, newconfig.snapshotnum == nil {
             newconfig.task = SharedReference.shared.snapshot
             newconfig.snapshotnum = 1
@@ -181,22 +168,10 @@ final class VerifyConfiguration: Connected {
         if data.newtask == SharedReference.shared.syncremote {
             newconfig.task = SharedReference.shared.syncremote
         }
-        do {
-            let validated = try validateInput(config: newconfig)
-            guard validated == true else { return nil }
-        } catch let e {
-            let error = e
-            propagateError(error: error)
-            return nil
-        }
-        // If validated and snapshottask create remote snapshotcatalog
-        // Must be connected to create base remote snapshot catalog
-        if data.newtask == SharedReference.shared.snapshot, newconfig.snapshotnum == 1 {
-            // If connected create base remote snapshotcatalog
-            snapshotcreateremotecatalog(config: newconfig)
-        }
-        // Return a new configuration to be appended
-        return newconfig
+    }
+
+    private func shouldCreateRemoteSnapshot(data: AppendTask, newconfig: SynchronizeConfiguration) -> Bool {
+        return data.newtask == SharedReference.shared.snapshot && newconfig.snapshotnum == 1
     }
 
     // Create remote snapshot catalog
@@ -237,36 +212,40 @@ final class VerifyConfiguration: Connected {
         }
 
         if config.task == SharedReference.shared.snapshot {
-            // Verify rsync version 3.x
-            guard SharedReference.shared.rsyncversion3 else {
-                Logger.process.warning("VerifyConfiguration: snapshots requiere version 3.x of rsync.")
-                throw ValidateInputError.rsyncversion2
-            }
-
-            guard config.snapshotnum != nil else {
-                Logger.process.warning("VerifyConfiguration: snapshotnum not set.")
-                throw ValidateInputError.snapshotnum
-            }
-            // also check if connected because creating base Remote folder if remote server
-            // must be connected to create remote base catalog
-            guard connected(server: config.offsiteServer) else {
-                Logger.process.warning("VerifyConfiguration: not connected to remote server.")
-                throw ValidateInputError.notconnected
-            }
+            try validateSnapshotTask(config: config)
         }
 
         if config.task == SharedReference.shared.syncremote {
-            // Verify rsync version 3.x
-            guard SharedReference.shared.rsyncversion3 else {
-                Logger.process.warning("VerifyConfiguration: syncremote requiere version 3.x of rsync.")
-                throw ValidateInputError.rsyncversion2
-            }
-
-            guard config.offsiteServer.isEmpty == false, config.offsiteUsername.isEmpty == false else {
-                throw ValidateInputError.offsiteusername
-            }
+            try validateSyncRemoteTask(config: config)
         }
         return true
+    }
+
+    private func validateSnapshotTask(config: SynchronizeConfiguration) throws {
+        guard SharedReference.shared.rsyncversion3 else {
+            Logger.process.warning("VerifyConfiguration: snapshots requiere version 3.x of rsync.")
+            throw ValidateInputError.rsyncversion2
+        }
+
+        guard config.snapshotnum != nil else {
+            Logger.process.warning("VerifyConfiguration: snapshotnum not set.")
+            throw ValidateInputError.snapshotnum
+        }
+        guard connected(server: config.offsiteServer) else {
+            Logger.process.warning("VerifyConfiguration: not connected to remote server.")
+            throw ValidateInputError.notconnected
+        }
+    }
+
+    private func validateSyncRemoteTask(config: SynchronizeConfiguration) throws {
+        guard SharedReference.shared.rsyncversion3 else {
+            Logger.process.warning("VerifyConfiguration: syncremote requiere version 3.x of rsync.")
+            throw ValidateInputError.rsyncversion2
+        }
+
+        guard config.offsiteServer.isEmpty == false, config.offsiteUsername.isEmpty == false else {
+            throw ValidateInputError.offsiteusername
+        }
     }
 
     func propagateError(error: Error) {
