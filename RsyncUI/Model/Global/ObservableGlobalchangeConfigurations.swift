@@ -54,71 +54,66 @@ final class ObservableGlobalchangeConfigurations {
         return original.replacingOccurrences(of: replace, with: update)
     }
 
+    private func shouldUpdateTask(_ task: SynchronizeConfiguration) -> Bool {
+        selecteduuids.contains(task.id) || selecteduuids.isEmpty
+    }
+
+    private func updateBackupID(_ task: SynchronizeConfiguration) -> SynchronizeConfiguration {
+        guard shouldUpdateTask(task) else { return task }
+        var newtask = task
+        newtask.backupID = updatestring(update: replace_backupID,
+                                        replace: occurence_backupID,
+                                        original: task.backupID)
+        return newtask
+    }
+
+    private func updateLocalCatalog(_ task: SynchronizeConfiguration) -> SynchronizeConfiguration {
+        guard shouldUpdateTask(task) else { return task }
+        var newtask = task
+        newtask.localCatalog = updatestring(update: replace_localcatalog,
+                                            replace: occurence_localcatalog,
+                                            original: task.localCatalog)
+        return newtask
+    }
+
+    private func updateRemoteCatalog(_ task: SynchronizeConfiguration) -> SynchronizeConfiguration {
+        guard shouldUpdateTask(task) else { return task }
+        var newtask = task
+        newtask.offsiteCatalog = updatestring(update: replace_remotecatalog,
+                                              replace: occurence_remotecatalog,
+                                              original: task.offsiteCatalog)
+        return newtask
+    }
+
+    private func updateRemoteUser(_ task: SynchronizeConfiguration) -> SynchronizeConfiguration {
+        guard shouldUpdateTask(task) else { return task }
+        var newtask = task
+        newtask.offsiteUsername = task.offsiteUsername.replacingOccurrences(of: task.offsiteUsername, with: occurence_remoteuser)
+        return newtask
+    }
+
+    private func updateRemoteServer(_ task: SynchronizeConfiguration) -> SynchronizeConfiguration {
+        guard shouldUpdateTask(task) else { return task }
+        var newtask = task
+        newtask.offsiteServer = task.offsiteServer.replacingOccurrences(of: task.offsiteServer, with: occurence_remoteserver)
+        return newtask
+    }
+
     func updateglobalchangedconfigurations() {
         guard whatischanged.isEmpty == false else { return }
 
         for element in whatischanged {
             switch element {
             case .backupID:
-                globalchangedconfigurations = globalchangedconfigurations?.map { task in
-                    if selecteduuids.contains(task.id) || selecteduuids.isEmpty {
-                        var newtask = task
-                        newtask.backupID = updatestring(update: replace_backupID,
-                                                        replace: occurence_backupID,
-                                                        original: task.backupID)
-                        return newtask
-                    } else {
-                        return task
-                    }
-                }
+                globalchangedconfigurations = globalchangedconfigurations?.map(updateBackupID)
             case .localcatalog:
-                globalchangedconfigurations = globalchangedconfigurations?.map { task in
-                    if selecteduuids.contains(task.id) || selecteduuids.isEmpty {
-                        var newtask = task
-                        newtask.localCatalog = updatestring(update: replace_localcatalog,
-                                                            replace: occurence_localcatalog,
-                                                            original: task.localCatalog)
-                        return newtask
-                    } else {
-                        return task
-                    }
-                }
+                globalchangedconfigurations = globalchangedconfigurations?.map(updateLocalCatalog)
             case .remotecatalog:
-                globalchangedconfigurations = globalchangedconfigurations?.map { task in
-                    if selecteduuids.contains(task.id) || selecteduuids.isEmpty {
-                        var newtask = task
-                        newtask.offsiteCatalog = updatestring(update: replace_remotecatalog,
-                                                              replace: occurence_remotecatalog,
-                                                              original: task.offsiteCatalog)
-                        return newtask
-                    } else {
-                        return task
-                    }
-                }
+                globalchangedconfigurations = globalchangedconfigurations?.map(updateRemoteCatalog)
             case .remoteuser:
-                globalchangedconfigurations = globalchangedconfigurations?.map { task in
-                    if selecteduuids.contains(task.id) || selecteduuids.isEmpty {
-                        let oldsstring = task.offsiteUsername
-                        let newstring = oldsstring.replacingOccurrences(of: oldsstring, with: occurence_remoteuser)
-                        var newtask = task
-                        newtask.offsiteUsername = newstring
-                        return newtask
-                    } else {
-                        return task
-                    }
-                }
+                globalchangedconfigurations = globalchangedconfigurations?.map(updateRemoteUser)
             case .remoteserver:
-                globalchangedconfigurations = globalchangedconfigurations?.map { task in
-                    if selecteduuids.contains(task.id) || selecteduuids.isEmpty {
-                        let oldsstring = task.offsiteServer
-                        let newstring = oldsstring.replacingOccurrences(of: oldsstring, with: occurence_remoteserver)
-                        var newtask = task
-                        newtask.offsiteServer = newstring
-                        return newtask
-                    } else {
-                        return task
-                    }
-                }
+                globalchangedconfigurations = globalchangedconfigurations?.map(updateRemoteServer)
             }
         }
         resetForm()
