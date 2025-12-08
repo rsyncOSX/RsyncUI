@@ -43,6 +43,10 @@ struct UserConfiguration: @MainActor Codable {
         return value == 1
     }
 
+    private func boolToInt(_ value: Bool) -> Int {
+        return value ? 1 : -1
+    }
+
     private func setuserconfigdata() {
         SharedReference.shared.rsyncversion3 = intToBool(rsyncversion3)
         SharedReference.shared.addsummarylogrecord = intToBool(addsummarylogrecord)
@@ -85,80 +89,26 @@ struct UserConfiguration: @MainActor Codable {
         observemountedvolumes = data.observemountedvolumes ?? -1
         alwaysshowestimateddetailsview = data.alwaysshowestimateddetailsview ?? -1
         hideverifyremotefunction = data.hideverifyremotefunction ?? -1
-        // Set data read from JSON in SharedReference.
         setuserconfigdata()
     }
-
     // Default values user configuration
     @discardableResult
     init() {
-        if SharedReference.shared.rsyncversion3 {
-            rsyncversion3 = 1
-        } else {
-            rsyncversion3 = -1
-        }
-        if SharedReference.shared.addsummarylogrecord {
-            addsummarylogrecord = 1
-        } else {
-            addsummarylogrecord = -1
-        }
-        if SharedReference.shared.localrsyncpath != nil {
-            localrsyncpath = SharedReference.shared.localrsyncpath
-        } else {
-            localrsyncpath = nil
-        }
-        if SharedReference.shared.pathforrestore != nil {
-            pathforrestore = SharedReference.shared.pathforrestore
-        } else {
-            pathforrestore = nil
-        }
+        rsyncversion3 = boolToInt(SharedReference.shared.rsyncversion3)
+        addsummarylogrecord = boolToInt(SharedReference.shared.addsummarylogrecord)
+        localrsyncpath = SharedReference.shared.localrsyncpath
+        pathforrestore = SharedReference.shared.pathforrestore
         marknumberofdayssince = String(SharedReference.shared.marknumberofdayssince)
-        if SharedReference.shared.sshkeypathandidentityfile != nil {
-            sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile
-        }
-        if SharedReference.shared.sshport != nil {
-            sshport = SharedReference.shared.sshport
-        }
-        if SharedReference.shared.environment != nil {
-            environment = SharedReference.shared.environment
-        }
-        if SharedReference.shared.environmentvalue != nil {
-            environmentvalue = SharedReference.shared.environmentvalue
-        }
-        if SharedReference.shared.checkforerrorinrsyncoutput == true {
-            checkforerrorinrsyncoutput = 1
-        } else {
-            checkforerrorinrsyncoutput = -1
-        }
-        if SharedReference.shared.confirmexecute == true {
-            confirmexecute = 1
-        } else {
-            confirmexecute = -1
-        }
-        if SharedReference.shared.synchronizewithouttimedelay == true {
-            synchronizewithouttimedelay = 1
-        } else {
-            synchronizewithouttimedelay = -1
-        }
-        if SharedReference.shared.sidebarishidden == true {
-            sidebarishidden = 1
-        } else {
-            sidebarishidden = -1
-        }
-        if SharedReference.shared.observemountedvolumes == true {
-            observemountedvolumes = 1
-        } else {
-            observemountedvolumes = -1
-        }
-        if SharedReference.shared.alwaysshowestimateddetailsview == true {
-            alwaysshowestimateddetailsview = 1
-        } else {
-            alwaysshowestimateddetailsview = -1
-        }
-        if SharedReference.shared.hideverifyremotefunction == true {
-            hideverifyremotefunction = 1
-        } else {
-            hideverifyremotefunction = -1
-        }
+        sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile
+        sshport = SharedReference.shared.sshport
+        environment = SharedReference.shared.environment
+        environmentvalue = SharedReference.shared.environmentvalue
+        checkforerrorinrsyncoutput = boolToInt(SharedReference.shared.checkforerrorinrsyncoutput)
+        confirmexecute = boolToInt(SharedReference.shared.confirmexecute)
+        synchronizewithouttimedelay = boolToInt(SharedReference.shared.synchronizewithouttimedelay)
+        sidebarishidden = boolToInt(SharedReference.shared.sidebarishidden)
+        observemountedvolumes = boolToInt(SharedReference.shared.observemountedvolumes)
+        alwaysshowestimateddetailsview = boolToInt(SharedReference.shared.alwaysshowestimateddetailsview)
+        hideverifyremotefunction = boolToInt(SharedReference.shared.hideverifyremotefunction)
     }
 }
