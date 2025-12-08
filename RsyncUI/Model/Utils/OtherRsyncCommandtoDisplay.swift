@@ -39,14 +39,14 @@ struct OtherRsyncCommandtoDisplay {
         case .URL_estimate:
             Self.urlEstimate(profile: profile)
         }
-        command = str.joined(separator: ",")
+        command = str.joined(separator: ",").replacingOccurrences(of: ",", with: " ")
     }
 
     private static func listRemoteFiles(config: SynchronizeConfiguration) -> [String] {
         if config.offsiteServer.isEmpty == false {
             if let arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments() {
                 let rsyncPath = GetfullpathforRsync().rsyncpath()
-                let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: "")
+                let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
                 return [rsyncPath, cleanedArguments]
             }
         } else {
@@ -61,7 +61,7 @@ struct OtherRsyncCommandtoDisplay {
                                              sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
             do {
                 let arguments = try createsshkeys.argumentsCreateKey()
-                let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: "")
+                let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
                 return [createsshkeys.createKeyCommand, cleanedArguments]
             } catch {}
         } else {
@@ -76,7 +76,7 @@ struct OtherRsyncCommandtoDisplay {
                                              sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
             do {
                 let tmpstr = try createsshkeys.argumentsVerifyRemotePublicSSHKey(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
-                let cleanedArguments = tmpstr.joined(separator: " ").replacingOccurrences(of: ",", with: "")
+                let cleanedArguments = tmpstr.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
                 return [cleanedArguments]
             } catch {}
         } else {
@@ -91,7 +91,7 @@ struct OtherRsyncCommandtoDisplay {
                                              sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
             do {
                 let tmpstr = try createsshkeys.argumentsSSHCopyID(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
-                let cleanedArguments = tmpstr.joined(separator: " ").replacingOccurrences(of: ",", with: "")
+                let cleanedArguments = tmpstr.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
                 return [cleanedArguments]
             } catch {}
         } else {
