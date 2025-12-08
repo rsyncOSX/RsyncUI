@@ -27,18 +27,17 @@ struct OtherRsyncCommandtoDisplay {
     init(display: OtherRsyncCommand,
          config: SynchronizeConfiguration,
          profile: String?) {
-        let str: [String]
-        switch display {
+        let str: [String] = switch display {
         case .list_remote_files:
-            str = Self.listRemoteFiles(config: config)
+            Self.listRemoteFiles(config: config)
         case .create_public_SSHkey:
-            str = Self.createPublicSSHKey(config: config)
+            Self.createPublicSSHKey(config: config)
         case .verify_public_SSHkey:
-            str = Self.verifyPublicSSHKey(config: config)
+            Self.verifyPublicSSHKey(config: config)
         case .copy_public_SSHkey:
-            str = Self.copyPublicSSHKey(config: config)
+            Self.copyPublicSSHKey(config: config)
         case .URL_estimate:
-            str = Self.urlEstimate(profile: profile)
+            Self.urlEstimate(profile: profile)
         }
         command = str.joined(separator: ",")
     }

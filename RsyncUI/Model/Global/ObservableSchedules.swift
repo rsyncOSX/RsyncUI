@@ -67,11 +67,11 @@ final class ObservableSchedules {
     private func calculateScheduleIndex(timeInterval: TimeInterval, dayInterval: Int) -> Int {
         switch dayInterval {
         case 1:
-            return Int(timeInterval / (60 * 60 * 24))
+            Int(timeInterval / (60 * 60 * 24))
         case 7:
-            return Int(timeInterval / (60 * 60 * 24 * 7))
+            Int(timeInterval / (60 * 60 * 24 * 7))
         default:
-            return 0
+            0
         }
     }
 

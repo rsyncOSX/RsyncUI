@@ -171,7 +171,7 @@ final class VerifyConfiguration: Connected {
     }
 
     private func shouldCreateRemoteSnapshot(data: AppendTask, newconfig: SynchronizeConfiguration) -> Bool {
-        return data.newtask == SharedReference.shared.snapshot && newconfig.snapshotnum == 1
+        data.newtask == SharedReference.shared.snapshot && newconfig.snapshotnum == 1
     }
 
     // Create remote snapshot catalog

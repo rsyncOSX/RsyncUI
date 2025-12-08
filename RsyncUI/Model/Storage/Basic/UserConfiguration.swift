@@ -40,11 +40,11 @@ struct UserConfiguration: @MainActor Codable {
     var hideverifyremotefunction: Int = -1
 
     private func intToBool(_ value: Int) -> Bool {
-        return value == 1
+        value == 1
     }
 
     private func boolToInt(_ value: Bool) -> Int {
-        return value ? 1 : -1
+        value ? 1 : -1
     }
 
     private func setuserconfigdata() {
@@ -91,6 +91,7 @@ struct UserConfiguration: @MainActor Codable {
         hideverifyremotefunction = data.hideverifyremotefunction ?? -1
         setuserconfigdata()
     }
+
     // Default values user configuration
     @discardableResult
     init() {
