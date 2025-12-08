@@ -281,63 +281,62 @@ extension SidebarMainView {
 
         switch deeplinkurl.handleURL(url)?.host {
         case .quicktask:
-            selectedview = .synchronize
-            executetaskpath.append(Tasks(task: .quick_synchronize))
+            handleQuickTask()
         case .loadprofile:
-            if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
-                let profile = queryitems[0].value
-                if deeplinkurl.validateProfile(profile, rsyncUIdata.validprofiles) {
-                    if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.profilename == profile }) {
-                        // Set the profile picker and let the picker do the job
-                        selectedprofileID = rsyncUIdata.validprofiles[index].id
-                    }
-                }
-            } else {
-                return
-            }
+            handleLoadProfile(url, deeplinkurl)
         case .loadprofileandestimate:
-            if let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 {
-                let profile = queryitems[0].value
-
-                selectedview = .synchronize
-
-                if profile == "Default" || profile == "default" {
-                    Task {
-                        if externalURL {
-                            // Load profile for external URL, this make the call structured concurrency
-                            async let loadprofile = loadProfileForExternalURLLink(nil)
-                            guard await loadprofile else { return }
-                        }
-                        guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                            selectedview = .synchronize
-                            return
-                        }
-                        // Observe queryitem
-                        queryitem = queryitems[0]
-                    }
-                } else {
-                    if deeplinkurl.validateProfile(profile, rsyncUIdata.validprofiles) {
-                        Task {
-                            if externalURL {
-                                // Load profile for external URL
-                                async let loadprofile = loadProfileForExternalURLLink(profile)
-                                guard await loadprofile else { return }
-                            }
-                            guard rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                                selectedview = .synchronize
-                                return
-                            }
-                            // Observe queryitem
-                            queryitem = queryitems[0]
-                        }
-                    }
-                }
-
-            } else {
-                return
-            }
+            handleLoadProfileAndEstimate(url, deeplinkurl, externalURL)
         default:
             return
+        }
+    }
+
+    private func handleQuickTask() {
+        selectedview = .synchronize
+        executetaskpath.append(Tasks(task: .quick_synchronize))
+    }
+
+    private func handleLoadProfile(_ url: URL, _ deeplinkurl: DeeplinkURL) {
+        guard let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 else { return }
+        let profile = queryitems[0].value
+        guard deeplinkurl.validateProfile(profile, rsyncUIdata.validprofiles) else { return }
+        if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.profilename == profile }) {
+            selectedprofileID = rsyncUIdata.validprofiles[index].id
+        }
+    }
+
+    private func handleLoadProfileAndEstimate(_ url: URL, _ deeplinkurl: DeeplinkURL, _ externalURL: Bool) {
+        guard let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 else { return }
+        let profile = queryitems[0].value
+
+        selectedview = .synchronize
+
+        if profile == "Default" || profile == "default" {
+            handleDefaultProfileEstimate(queryitems, externalURL)
+        } else if deeplinkurl.validateProfile(profile, rsyncUIdata.validprofiles), let profile {
+            handleNamedProfileEstimate(profile, queryitems, externalURL)
+        }
+    }
+
+    private func handleDefaultProfileEstimate(_ queryitems: [URLQueryItem], _ externalURL: Bool) {
+        Task {
+            if externalURL {
+                async let loadprofile = loadProfileForExternalURLLink(nil)
+                guard await loadprofile else { return }
+            }
+            guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
+            queryitem = queryitems[0]
+        }
+    }
+
+    private func handleNamedProfileEstimate(_ profile: String, _ queryitems: [URLQueryItem], _ externalURL: Bool) {
+        Task {
+            if externalURL {
+                async let loadprofile = loadProfileForExternalURLLink(profile)
+                guard await loadprofile else { return }
+            }
+            guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
+            queryitem = queryitems[0]
         }
     }
 
