@@ -7,7 +7,7 @@
       "location" : "https://github.com/rsyncOSX/DecodeEncodeGeneric.git",
       "state" : {
         "branch" : "main",
-        "revision" : "3d9432bafebb415372e5aa66d0535144da6a9ace"
+        "revision" : "8a0656dd9c37d2da809b494d459bdd825f9f562a"
       }
     },
     {
@@ -34,7 +34,7 @@
       "location" : "https://github.com/rsyncOSX/RsyncArguments",
       "state" : {
         "branch" : "main",
-        "revision" : "e3c4f8a2c6e1e8f467efb118a7e057dd6b42b5a8"
+        "revision" : "d8cab39f5ff015aa490169f1f2e3fe3ddd95fa8b"
       }
     },
     {
@@ -52,7 +52,7 @@
       "location" : "https://github.com/rsyncOSX/RsyncUIDeepLinks",
       "state" : {
         "branch" : "main",
-        "revision" : "9e8a21dbc6d25386c49ecb4a1c04bac38ae32739"
+        "revision" : "69de5f17405705728fe423dff57bf9fd12c75f81"
       }
     },
     {
@@ -61,7 +61,7 @@
       "location" : "https://github.com/rsyncOSX/SSHCreateKey.git",
       "state" : {
         "branch" : "main",
-        "revision" : "aab2d7d520b3b45aa95bf5a88feb2116c3b7f010"
+        "revision" : "fec68cb58a8a69772344b281181dcec822ffaa33"
       }
     }
   ],
