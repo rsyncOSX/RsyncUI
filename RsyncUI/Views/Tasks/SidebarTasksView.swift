@@ -70,34 +70,11 @@ struct SidebarTasksView: View {
                                   selecteduuids: $selecteduuids,
                                   executetaskpath: $executetaskpath)
         case .summarizeddetailsview:
-            // After a complete estimation all tasks
-            if let configurations = rsyncUIdata.configurations {
-                SummarizedDetailsView(progressdetails: progressdetails,
-                                      selecteduuids: $selecteduuids,
-                                      executetaskpath: $executetaskpath,
-                                      configurations: configurations,
-                                      profile: rsyncUIdata.profile,
-                                      queryitem: queryitem)
-                    .onDisappear {
-                        queryitem = nil
-                    }
-            }
+            summarizedDetailsViewContent()
         case .onetaskdetailsview:
-            // After dry-run one task
-            if let configurations = rsyncUIdata.configurations {
-                OneTaskDetailsView(progressdetails: progressdetails,
-                                   selecteduuids: selecteduuids,
-                                   configurations: configurations)
-            }
+            oneTaskDetailsViewContent()
         case .dryrunonetaskalreadyestimated:
-            if let estimates = progressdetails.estimatedlist?.filter({ $0.id == selecteduuids.first }) {
-                if estimates.count == 1 {
-                    DetailsView(remotedatanumbers: estimates[0])
-                        .onDisappear {
-                            selecteduuids.removeAll()
-                        }
-                }
-            }
+            dryRunDetailsViewContent()
         case .quick_synchronize:
             QuicktaskView(
                 homecatalogs: HomeCatalogsService().homeCatalogs()
@@ -109,6 +86,44 @@ struct SidebarTasksView: View {
                 }
         case .charts:
             LogStatsChartView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
+        }
+    }
+
+    @MainActor @ViewBuilder
+    private func summarizedDetailsViewContent() -> some View {
+        // After a complete estimation all tasks
+        if let configurations = rsyncUIdata.configurations {
+            SummarizedDetailsView(progressdetails: progressdetails,
+                                  selecteduuids: $selecteduuids,
+                                  executetaskpath: $executetaskpath,
+                                  configurations: configurations,
+                                  profile: rsyncUIdata.profile,
+                                  queryitem: queryitem)
+                .onDisappear {
+                    queryitem = nil
+                }
+        }
+    }
+
+    @MainActor @ViewBuilder
+    private func oneTaskDetailsViewContent() -> some View {
+        // After dry-run one task
+        if let configurations = rsyncUIdata.configurations {
+            OneTaskDetailsView(progressdetails: progressdetails,
+                               selecteduuids: selecteduuids,
+                               configurations: configurations)
+        }
+    }
+
+    @MainActor @ViewBuilder
+    private func dryRunDetailsViewContent() -> some View {
+        if let estimates = progressdetails.estimatedlist?.filter({ $0.id == selecteduuids.first }) {
+            if estimates.count == 1 {
+                DetailsView(remotedatanumbers: estimates[0])
+                    .onDisappear {
+                        selecteduuids.removeAll()
+                    }
+            }
         }
     }
 
