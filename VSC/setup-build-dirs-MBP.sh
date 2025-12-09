@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Base directory for builds
-BUILD_BASE="/tmp/vscodebuilds"
+BUILD_BASE="/Users/thomas/tmp/vscodebuilds"
 
 # Array of project names
 PROJECTS=("DecodeEncodeGeneric" "ParseRsyncOutput" "ProcessCommand" "RsyncArguments" "RsyncProcess" "RsyncUIDeepLinks" "SSHCreateKey" "RsyncUI")
