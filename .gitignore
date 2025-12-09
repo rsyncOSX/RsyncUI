@@ -70,3 +70,4 @@ fastlane/test_output/
 # Info.plist (if auto-generated)
 # Note: Be careful with this - only ignore if it's truly generated
 # info.plist
+.build
