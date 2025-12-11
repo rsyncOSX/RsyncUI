@@ -42,7 +42,7 @@ struct ConfigurationsTableDataMainView: View {
             }
             .width(min: 100, max: 150)
             .defaultVisibility(visible_progress)
-            
+
             TableColumn("Num") { data in
                 if data.hiddenID == progressdetails.hiddenIDatwork, max > 0, progress <= max {
                     HStack(spacing: 8) {
@@ -65,7 +65,7 @@ struct ConfigurationsTableDataMainView: View {
             }
             .width(min: 150, max: 250)
             .defaultVisibility(visible_progress)
-            
+
             TableColumn("Synchronize ID") { data in
                 if let index = progressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id }) {
                     if progressdetails.estimatedlist?[index].datatosynchronize == false,
