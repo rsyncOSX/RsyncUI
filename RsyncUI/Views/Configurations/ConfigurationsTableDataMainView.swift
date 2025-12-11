@@ -31,13 +31,21 @@ struct ConfigurationsTableDataMainView: View {
                                 .frame(width: 80)
                                 .scaleEffect(y: 1.5, anchor: .center)
 
-                            // Optional: Show percentage inside/over the progress bar
                             Text("\(Int((progress / max) * 100))%")
                                 .font(.caption2)
                                 .foregroundStyle(.secondary)
                                 .frame(maxWidth: .infinity)
                         }
-
+                    }
+                    .padding(.vertical, 4)
+                }
+            }
+            .width(min: 100, max: 150)
+            .defaultVisibility(visible_progress)
+            
+            TableColumn("Num") { data in
+                if data.hiddenID == progressdetails.hiddenIDatwork, max > 0, progress <= max {
+                    HStack(spacing: 8) {
                         // Compact ratio display
                         HStack(spacing: 4) {
                             Text("\(Int(progress))")
@@ -57,6 +65,7 @@ struct ConfigurationsTableDataMainView: View {
             }
             .width(min: 150, max: 250)
             .defaultVisibility(visible_progress)
+            
             TableColumn("Synchronize ID") { data in
                 if let index = progressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id }) {
                     if progressdetails.estimatedlist?[index].datatosynchronize == false,
