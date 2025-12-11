@@ -25,7 +25,7 @@
       "location" : "https://github.com/rsyncOSX/ProcessCommand",
       "state" : {
         "branch" : "main",
-        "revision" : "b9dc5be71b12f7e7bd969a7e21c6afa04d23566a"
+        "revision" : "ef4836b51a73c897d5849d5d2c80c43d22ff453d"
       }
     },
     {
@@ -34,7 +34,7 @@
       "location" : "https://github.com/rsyncOSX/RsyncArguments",
       "state" : {
         "branch" : "main",
-        "revision" : "d8cab39f5ff015aa490169f1f2e3fe3ddd95fa8b"
+        "revision" : "7c3ce0fc29a83ca65135e7136b1a4a22187789ba"
       }
     },
     {
@@ -43,7 +43,7 @@
       "location" : "https://github.com/rsyncOSX/RsyncProcess",
       "state" : {
         "branch" : "main",
-        "revision" : "3e55bc89581d094532362590e5c8a3981a4fa657"
+        "revision" : "c605050f5cbff6ad777972f5ef31053f4151f603"
       }
     },
     {
@@ -52,7 +52,7 @@
       "location" : "https://github.com/rsyncOSX/RsyncUIDeepLinks",
       "state" : {
         "branch" : "main",
-        "revision" : "69de5f17405705728fe423dff57bf9fd12c75f81"
+        "revision" : "32df87aae399719264e06b547dbf3b3005fff54c"
       }
     },
     {
@@ -61,7 +61,7 @@
       "location" : "https://github.com/rsyncOSX/SSHCreateKey.git",
       "state" : {
         "branch" : "main",
-        "revision" : "fec68cb58a8a69772344b281181dcec822ffaa33"
+        "revision" : "76dcd284ef2e3101732f1c4684a4e55db8445326"
       }
     }
   ],
