@@ -7,7 +7,7 @@
       "location" : "https://github.com/rsyncOSX/DecodeEncodeGeneric.git",
       "state" : {
         "branch" : "main",
-        "revision" : "cc2cd818ed902f8a0d8070bee40c3ef3c05ff345"
+        "revision" : "b5ecbbbe1b244191efec1532a979f6ae342d6617"
       }
     },
     {
@@ -16,7 +16,7 @@
       "location" : "https://github.com/rsyncOSX/ParseRsyncOutput",
       "state" : {
         "branch" : "main",
-        "revision" : "112952c85c2acf053321200e1edb3f1a437512a4"
+        "revision" : "ebfa08c37dc9d8e042f1940ea9757b7b6aea0bf6"
       }
     },
     {
