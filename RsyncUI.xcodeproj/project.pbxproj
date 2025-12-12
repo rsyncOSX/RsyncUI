@@ -627,7 +627,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/RsyncArguments";
 			requirement = {
-				branch = main;
+				branch = v283;
 				kind = branch;
 			};
 		};
