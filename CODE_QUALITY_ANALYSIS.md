@@ -100,7 +100,7 @@ fullpathmacserial = homePath + configPath.appending("/") + (macserialnumber ?? "
 **Severity:** MEDIUM
 **Recommendation:** Standardize on guard let or optional binding patterns
 
-### 5. 🟠 Default Values Masking Errors (MEDIUM PRIORITY)
+### 5. ✅ Default Values Masking Errors - IMPROVED (December 12, 2025)
 
 **Issue:** Using default stats to hide missing data issues
 
@@ -117,9 +117,10 @@ if SharedReference.shared.silencemissingstats == false {
 }
 ```
 
-**Impact:** Silent failures may go unnoticed in logs
-**Severity:** MEDIUM
-**Recommendation:** Always log errors even when using defaults; add telemetry
+**Resolution:** `silencemissingstats` is now user-configurable (December 12) via Settings → Log settings. Users can control whether to silence or surface missing stats errors.
+
+**Impact:** Users have explicit control over error reporting behavior; default is to show errors
+**Status:** IMPROVED - User control added; consider adding telemetry for future observability
 
 ### 5. ✅ Commented-Out Code - RESOLVED
 
@@ -234,7 +235,7 @@ throw Rsyncerror.rsyncerror   // Throwing
 4. ✅ Naming conventions standardized (70 files, 282 renames to camelCase).
 
 ### MEDIUM (Next Release)
-5. Improve error logging: never silently swallow errors (silencemissingstats), log default-value fallbacks, add counters/telemetry.
+5. ✅ Error logging improved: `silencemissingstats` now user-configurable (Dec 12); consider adding counters/telemetry for observability.
 6. Extract magic strings/numbers into constants; document thresholds (e.g., 20-line trim).
 
 ### LOW (Future Improvements)
@@ -333,22 +334,23 @@ RsyncUI has achieved **exceptional code quality standards** with a **strong arch
 ✅ **Zero Force Casts** - No `as!` operations in codebase; SwiftLint enforces this continuously  
 ✅ **Standardized Naming** - 76 files refactored with 355+ method renames to proper camelCase conventions  
 ✅ **Clean Codebase** - All commented-out code blocks removed; only essential documentation headers remain  
-✅ **Optimized Linting** - SwiftLint configuration refined to focus on practical quality metrics (removed cyclomatic_complexity to avoid false positives on complex-but-necessary logic)
+✅ **Optimized Linting** - SwiftLint configuration refined to focus on practical quality metrics (removed cyclomatic_complexity to avoid false positives on complex-but-necessary logic)  
+✅ **User-Configurable Error Control** - `silencemissingstats` setting exposed in UI (December 12)
 
 ### Quality Rating: **9.2/10** ⭐
 The codebase is production-ready with excellent safety guarantees and maintainability. Remaining items are primarily:
-- Error logging enhancements (medium priority)
+- Error logging enhancements with telemetry (low-medium priority)
 - Magic string/number extraction (low priority)
 - Optional unwrapping pattern standardization (medium priority)
 
 **Recommendation:** Current code quality is excellent. Focus future efforts on:
-1. Logging improvements for better observability
+1. Telemetry/observability improvements for error tracking
 2. Optional binding pattern standardization
 3. Gradual extraction of magic constants as code evolves
 
 ---
 
 **Prepared for:** RsyncUI Development Team  
-**Version:** 1.1  
-**Last Updated:** December 8, 2025  
-**Status:** All critical safety issues resolved; ready for production
+**Version:** 1.2  
+**Last Updated:** December 12, 2025  
+**Status:** All critical safety issues resolved; user controls enhanced; ready for production
