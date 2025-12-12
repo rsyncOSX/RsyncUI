@@ -13,6 +13,7 @@ struct Logsettings: View {
     @State private var toggleobservemountedvolumes: Bool = false
     @State private var togglealwaysshowestimateddetailsview: Bool = false
     @State private var togglehideverifyremotefunction: Bool = false
+    @State private var togglesilencemissingstats: Bool = false
 
     var body: some View {
         Form {
@@ -53,6 +54,13 @@ struct Logsettings: View {
                             togglehideverifyremotefunction = logsettings.hideverifyremotefunction
                         }
 
+                    ToggleViewDefault(text: NSLocalizedString("Silence missing stats", comment: ""),
+                                      binding: $logsettings.silencemissingstats)
+                        .onChange(of: logsettings.silencemissingstats) {
+                            SharedReference.shared.silencemissingstats = logsettings.silencemissingstats
+                            togglesilencemissingstats = logsettings.silencemissingstats
+                        }
+
                     if SharedReference.shared.rsyncversion3 {
                         ToggleViewDefault(text: NSLocalizedString("Confirm execute", comment: ""), binding: $logsettings.confirmexecute)
                             .onChange(of: logsettings.confirmexecute) {
@@ -66,6 +74,10 @@ struct Logsettings: View {
 
                     if togglehideverifyremotefunction {
                         DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Please restart RsyncUI to take effect", comment: ""))
+                    }
+
+                    if togglesilencemissingstats {
+                        DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Setting applies to next rsync run", comment: ""))
                     }
                 }
 

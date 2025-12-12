@@ -36,6 +36,8 @@ struct DecodeUserConfiguration: Codable {
     let alwaysshowestimateddetailsview: Int?
     // Hide Verify function
     let hideverifyremotefunction: Int?
+    // Silence missing stats
+    let silencemissingstats: Int?
 
     enum CodingKeys: String, CodingKey {
         case rsyncversion3
@@ -54,6 +56,7 @@ struct DecodeUserConfiguration: Codable {
         case observemountedvolumes
         case alwaysshowestimateddetailsview
         case hideverifyremotefunction
+        case silencemissingstats
     }
 
     init(from decoder: Decoder) throws {
@@ -74,5 +77,6 @@ struct DecodeUserConfiguration: Codable {
         observemountedvolumes = try values.decodeIfPresent(Int.self, forKey: .observemountedvolumes)
         alwaysshowestimateddetailsview = try values.decodeIfPresent(Int.self, forKey: .alwaysshowestimateddetailsview)
         hideverifyremotefunction = try values.decodeIfPresent(Int.self, forKey: .hideverifyremotefunction)
+        silencemissingstats = try values.decodeIfPresent(Int.self, forKey: .silencemissingstats)
     }
 }

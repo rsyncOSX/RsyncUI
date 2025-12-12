@@ -26,4 +26,6 @@ final class ObservableLogSettings {
     var alwaysshowestimateddetailsview: Bool = SharedReference.shared.alwaysshowestimateddetailsview
     // Hide Verify Remote view
     var hideverifyremotefunction: Bool = SharedReference.shared.hideverifyremotefunction
+    // Silence missing stats
+    var silencemissingstats: Bool = SharedReference.shared.silencemissingstats
 }
