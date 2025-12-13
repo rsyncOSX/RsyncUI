@@ -1,5 +1,5 @@
 disabled_rules:
-  - line_length
+#  - line_length
   - file_length
   - type_body_length
   - function_body_length
@@ -7,5 +7,5 @@ disabled_rules:
   - function_parameter_count
   - identifier_name
 
-opt_in_rules:
-  - force_unwrapping
+
+line_length: 130

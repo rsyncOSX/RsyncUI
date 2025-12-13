@@ -16,7 +16,8 @@ enum ErrorDatatoSynchronize: LocalizedError {
     var errorDescription: String? {
         switch self {
         case let .thereisdatatosynchronize(idwitherror):
-            "There are errors in tagging data\n for synchronize ID \(idwitherror)\nMost likely number of rows\n> 20 lines and no data to synchronize"
+            "There are errors in tagging data\n for synchronize ID \(idwitherror)\n"
+                + "Most likely number of rows\n> 20 lines and no data to synchronize"
         }
     }
 }
@@ -114,7 +115,9 @@ final class Execute {
 
     private func computestackoftasks(_ selecteduuids: Set<UUID>) -> [Int] {
         if selecteduuids.count > 0 {
-            let configurations = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
+            let configurations = localconfigurations.filter { selecteduuids.contains($0.id)
+                && $0.task != SharedReference.shared.halted
+            }
             return configurations.map(\.hiddenID)
         } else {
             // Or go for all

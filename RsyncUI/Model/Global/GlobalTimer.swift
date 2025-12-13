@@ -163,7 +163,8 @@ final class GlobalTimer {
     // Only set when loading data, when new schedules added or deleted
     func setfirsscheduledate() {
         let dates = allSchedules.sorted { s1, s2 in
-            if let id1 = s1.scheduledata?.dateRun?.en_date_from_string(), let id2 = s2.scheduledata?.dateRun?.en_date_from_string() {
+            if let id1 = s1.scheduledata?.dateRun?.en_date_from_string(),
+               let id2 = s2.scheduledata?.dateRun?.en_date_from_string() {
                 return id1 < id2
             }
             return false

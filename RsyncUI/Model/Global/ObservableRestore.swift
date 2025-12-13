@@ -127,7 +127,8 @@ final class ObservableRestore {
         // Full restore
         if filestorestore == "./." {
             if let config = selectedconfig {
-                return ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: forDisplay)
+                return ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun,
+                                                                                                        forDisplay: forDisplay)
             }
         } else {
             // Restore by file
@@ -142,11 +143,13 @@ final class ObservableRestore {
                 if snapshot {
                     // Arguments for restore file from last snapshot
                     return ArgumentsRestore(config: localconf,
-                                            restoresnapshotbyfiles: true).argumentsrestore(dryRun: dryrun, forDisplay: forDisplay)
+                                            restoresnapshotbyfiles: true).argumentsrestore(dryRun: dryrun,
+                                                                                           forDisplay: forDisplay)
                 } else {
                     // Arguments for full restore from last snapshot
                     return ArgumentsRestore(config: localconf,
-                                            restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun, forDisplay: forDisplay)
+                                            restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun,
+                                                                                            forDisplay: forDisplay)
                 }
             }
         }

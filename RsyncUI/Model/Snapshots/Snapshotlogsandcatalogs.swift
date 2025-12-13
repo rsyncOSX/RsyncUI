@@ -56,7 +56,8 @@ final class Snapshotlogsandcatalogs {
                 item.snapshotCatalog = snapshotcatalogfromschedulelog
                 return item
             } else {
-                var item = LogRecordSnapshot(idlogrecord: UUID(), date: Date(), dateExecuted: "no record", resultExecuted: "no record")
+                var item = LogRecordSnapshot(idlogrecord: UUID(), date: Date(), dateExecuted: "no record",
+                                             resultExecuted: "no record")
                 let snapshotcatalogfromschedulelog = "./" + realsnapshotcatalog.dropFirst().dropLast()
                 item.period = "... no tag ..."
                 item.snapshotCatalog = snapshotcatalogfromschedulelog
