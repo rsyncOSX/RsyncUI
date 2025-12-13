@@ -41,7 +41,8 @@ struct Logsettings: View {
                             SharedReference.shared.observemountedvolumes = logsettings.observemountedvolumes
                             toggleobservemountedvolumes = logsettings.observemountedvolumes
                         }
-                    ToggleViewDefault(text: "Always present the summarized estimate view", binding: $logsettings.alwaysshowestimateddetailsview)
+                    ToggleViewDefault(text: "Always present the summarized estimate view",
+                                      binding: $logsettings.alwaysshowestimateddetailsview)
                         .onChange(of: logsettings.alwaysshowestimateddetailsview) {
                             SharedReference.shared.alwaysshowestimateddetailsview = logsettings.alwaysshowestimateddetailsview
                             togglealwaysshowestimateddetailsview = logsettings.alwaysshowestimateddetailsview
