@@ -49,7 +49,7 @@ actor ActorReadSynchronizeConfigurationJSON {
             let profileName = profile ?? "default profile"
             let errorMessage = "ActorReadSynchronizeConfigurationJSON - \(profileName): " +
                 "some ERROR reading synchronize configurations from permanent storage"
-            Logger.process.error("\(errorMessage)")
+            Logger.process.errorMessageOnly("\(errorMessage)")
         }
         return nil
     }

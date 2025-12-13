@@ -55,7 +55,7 @@ struct Homepath {
             Logger.process.info("Homepath: the following folders were found in \(fullpathmacserial): \(array)")
             return array
         } catch {
-            Logger.process.error("Homepath: failed to read directory at \(fullpathmacserial): \(error.localizedDescription)")
+            Logger.process.errorMessageOnly("Homepath: failed to read directory at \(fullpathmacserial): \(error.localizedDescription)")
             return []
         }
     }
@@ -69,7 +69,7 @@ struct Homepath {
         guard let fullpathmacserial,
               let fullpathnomacserial
         else {
-            Logger.process.error("Homepath: paths are nil, cannot create root catalog")
+            Logger.process.errorMessageOnly("Homepath: paths are nil, cannot create root catalog")
             return
         }
 
@@ -105,7 +105,7 @@ struct Homepath {
     }
 
     func propagateError(error: Error) {
-        Logger.process.error("Homepath: error occurred - \(error.localizedDescription)")
+        Logger.process.errorMessageOnly("Homepath: error occurred - \(error.localizedDescription)")
         SharedReference.shared.errorobject?.alert(error: error)
     }
 

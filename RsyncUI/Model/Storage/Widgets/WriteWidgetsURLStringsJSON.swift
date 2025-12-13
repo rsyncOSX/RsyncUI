@@ -41,7 +41,7 @@ struct WriteWidgetsURLStringsJSON {
             Logger.process.debugMessageOnly("WriteWidgetsURLStringsJSON: Writing URL-strings to permanent storage")
 
         } catch let err {
-            Logger.process.error("WriteWidgetsURLStringsJSON: some ERROR writing user configurations from permanent storage")
+            Logger.process.errorMessageOnly("WriteWidgetsURLStringsJSON: some ERROR writing user configurations from permanent storage")
             let error = err
             SharedReference.shared.errorobject?.alert(error: error)
         }

@@ -18,7 +18,7 @@ struct WriteSchedule {
                 do {
                     try jsonData.write(to: calendarfileURL)
                 } catch let err {
-                    Logger.process.error("WriteSchedule: some ERROR write Calendar to permanent storage")
+                    Logger.process.errorMessageOnly("WriteSchedule: some ERROR write Calendar to permanent storage")
                     let error = err
                     path.propagateError(error: error)
                 }
@@ -33,7 +33,7 @@ struct WriteSchedule {
             writeJSONToPersistentStore(jsonData: encodeddata)
 
         } catch {
-            Logger.process.error("WriteSchedule some ERROR writing")
+            Logger.process.errorMessageOnly("WriteSchedule some ERROR writing")
             return
         }
     }

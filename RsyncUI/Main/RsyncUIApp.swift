@@ -93,6 +93,12 @@ struct RsyncUIApp: App {
 extension Logger {
     private static let subsystem = Bundle.main.bundleIdentifier
     static let process = Logger(subsystem: subsystem ?? "process", category: "process")
+    
+    func errorMessageOnly(_ message: String) {
+        #if DEBUG
+            error("\(message)")
+        #endif
+    }
 
     func debugMessageOnly(_ message: String) {
         #if DEBUG

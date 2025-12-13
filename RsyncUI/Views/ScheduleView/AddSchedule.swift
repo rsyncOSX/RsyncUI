@@ -40,7 +40,8 @@ struct AddSchedule: View {
                 EditValueErrorScheme(50, NSLocalizedString("", comment: ""),
                                      $dateRunHour,
                                      schedules.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour))
-                    .foregroundColor(schedules.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour) ? Color.white : Color.red)
+                    .foregroundColor(schedules.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour)
+                        ? Color.white : Color.red)
 
                 ConditionalGlassButton(
                     systemImage: "arrow.trianglehead.clockwise",

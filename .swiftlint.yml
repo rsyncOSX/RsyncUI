@@ -8,4 +8,4 @@ disabled_rules:
   - identifier_name
 
 
-line_length: 130
+line_length: 135

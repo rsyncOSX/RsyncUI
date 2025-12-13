@@ -146,7 +146,8 @@ struct RestoreTableView: View {
         }
 
         ToolbarItem {
-            if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
+            if restore.selectedconfig?.task != SharedReference.shared.syncremote,
+               restore.selectedconfig?.offsiteServer.isEmpty == false,
                restore.restorefilelist.count > 0,
                restore.filestorestore.isEmpty == false {
                 Button {
@@ -160,7 +161,8 @@ struct RestoreTableView: View {
         }
 
         ToolbarItem {
-            if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
+            if restore.selectedconfig?.task != SharedReference.shared.syncremote,
+               restore.selectedconfig?.offsiteServer.isEmpty == false,
                restore.restorefilelist.count > 0,
                restore.filestorestore.isEmpty == false {
                 Button {

@@ -64,7 +64,7 @@ struct Sshsettings: View {
                     }
             }
 
-            if showsshkeyiscreated { DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("ssh-key is created, see logfile.", comment: "")) }
+            if showsshkeyiscreated { DismissafterMessageView(dismissafter: 2, mytext: "ssh-key is created, see logfile.") }
         }
         .formStyle(.grouped)
     }

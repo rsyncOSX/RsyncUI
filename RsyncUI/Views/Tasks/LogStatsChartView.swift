@@ -278,7 +278,8 @@ struct LogStatsChartView: View {
                     return allmaxlogentries
                 } else {
                     let allmaxlogentries = await actorreadchartsdata.parsemaxfilesbytransferredsize(from: parsedlogs)
-                    return await actorreadchartsdata.parsemaxNNfilesbytransferredsize(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
+                    return await actorreadchartsdata.parsemaxNNfilesbytransferredsize(from: allmaxlogentries,
+                                                                                      count: Int(numberofdata) ?? 20)
                 }
             }
         }

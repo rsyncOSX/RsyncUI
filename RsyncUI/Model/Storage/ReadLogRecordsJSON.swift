@@ -34,7 +34,7 @@ final class ReadLogRecordsJSON {
             }
 
         } catch {
-            Logger.process.error("ReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading logrecords from permanent storage")
+            Logger.process.errorMessageOnly("ReadLogRecordsJSON - \(profile ?? "default profile"): some ERROR reading logrecords from permanent storage")
         }
         return nil
     }

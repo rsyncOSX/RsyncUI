@@ -38,8 +38,8 @@ actor ActorReadLogRecordsJSON {
             }
         } catch {
             let profileName = profile ?? "default profile"
-            Logger.process.error(
-                "ActorReadLogRecordsJSON - \(profileName, privacy: .public): some ERROR reading logrecords from permanent storage"
+            Logger.process.errorMessageOnly(
+                "ActorReadLogRecordsJSON - \(profileName): some ERROR reading logrecords from permanent storage"
             )
         }
         return nil
