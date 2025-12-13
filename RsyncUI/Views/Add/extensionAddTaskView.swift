@@ -369,5 +369,3 @@ extension AddTaskView {
         (rsyncUIdata.configurations?.filter { $0.parameter4.isEmpty == false }.count ?? 0) > 0
     }
 }
-
-// swiftlint:enable line_length
