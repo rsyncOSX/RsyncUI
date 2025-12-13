@@ -73,7 +73,8 @@ struct RestoreTableView: View {
                     }
 
                     if gettingfilelist { ProgressView() }
-                    if restore.restorefilesinprogress { SynchronizeProgressView(max: restore.max, progress: restore.progress, statusText: "Restoring...") }
+                    if restore.restorefilesinprogress { SynchronizeProgressView(max: restore.max, progress: restore.progress,
+                                                                                statusText: "Restoring...") }
 
                     if restore.selectedconfig?.offsiteServer.isEmpty == true {
                         DismissafterMessageView(dismissafter: 2, mytext: "Use macOS Finder to restore files from attached discs.")
