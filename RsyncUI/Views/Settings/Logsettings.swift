@@ -20,41 +20,41 @@ struct Logsettings: View {
             Section(header: Text("Log settings")
                 .font(.title3)
                 .fontWeight(.bold)) {
-                    ToggleViewDefault(text: NSLocalizedString("Check for error in output", comment: ""), binding: $logsettings.checkforerrorinrsyncoutput)
+                    ToggleViewDefault(text: "Check for error in output", binding: $logsettings.checkforerrorinrsyncoutput)
                         .onChange(of: logsettings.checkforerrorinrsyncoutput) {
                             SharedReference.shared.checkforerrorinrsyncoutput = logsettings.checkforerrorinrsyncoutput
                         }
-                    ToggleViewDefault(text: NSLocalizedString("Add summary logrecord", comment: ""), binding: $logsettings.addsummarylogrecord)
+                    ToggleViewDefault(text: "Add summary logrecord", binding: $logsettings.addsummarylogrecord)
                         .onChange(of: logsettings.addsummarylogrecord) {
                             SharedReference.shared.addsummarylogrecord = logsettings.addsummarylogrecord
                         }
-                    ToggleViewDefault(text: NSLocalizedString("No time delay Synchronize URL-actions", comment: ""), binding: $logsettings.synchronizewithouttimedelay)
+                    ToggleViewDefault(text: "No time delay Synchronize URL-actions", binding: $logsettings.synchronizewithouttimedelay)
                         .onChange(of: logsettings.synchronizewithouttimedelay) {
                             SharedReference.shared.synchronizewithouttimedelay = logsettings.synchronizewithouttimedelay
                         }
-                    ToggleViewDefault(text: NSLocalizedString("Hide the Sidebar on startup", comment: ""), binding: $logsettings.sidebarishidden)
+                    ToggleViewDefault(text: "Hide the Sidebar on startup", binding: $logsettings.sidebarishidden)
                         .onChange(of: logsettings.sidebarishidden) {
                             SharedReference.shared.sidebarishidden = logsettings.sidebarishidden
                         }
-                    ToggleViewDefault(text: NSLocalizedString("Observe mounting of external drives", comment: ""), binding: $logsettings.observemountedvolumes)
+                    ToggleViewDefault(text: "Observe mounting of external drives", binding: $logsettings.observemountedvolumes)
                         .onChange(of: logsettings.observemountedvolumes) {
                             SharedReference.shared.observemountedvolumes = logsettings.observemountedvolumes
                             toggleobservemountedvolumes = logsettings.observemountedvolumes
                         }
-                    ToggleViewDefault(text: NSLocalizedString("Always present the summarized estimate view", comment: ""), binding: $logsettings.alwaysshowestimateddetailsview)
+                    ToggleViewDefault(text: "Always present the summarized estimate view", binding: $logsettings.alwaysshowestimateddetailsview)
                         .onChange(of: logsettings.alwaysshowestimateddetailsview) {
                             SharedReference.shared.alwaysshowestimateddetailsview = logsettings.alwaysshowestimateddetailsview
                             togglealwaysshowestimateddetailsview = logsettings.alwaysshowestimateddetailsview
                         }
 
-                    ToggleViewDefault(text: NSLocalizedString("Hide Verify remote", comment: ""),
+                    ToggleViewDefault(text: "Hide Verify remote",
                                       binding: $logsettings.hideverifyremotefunction)
                         .onChange(of: logsettings.hideverifyremotefunction) {
                             SharedReference.shared.hideverifyremotefunction = logsettings.hideverifyremotefunction
                             togglehideverifyremotefunction = logsettings.hideverifyremotefunction
                         }
 
-                    ToggleViewDefault(text: NSLocalizedString("Silence missing stats", comment: ""),
+                    ToggleViewDefault(text: "Silence missing stats",
                                       binding: $logsettings.silencemissingstats)
                         .onChange(of: logsettings.silencemissingstats) {
                             SharedReference.shared.silencemissingstats = logsettings.silencemissingstats
@@ -62,22 +62,22 @@ struct Logsettings: View {
                         }
 
                     if SharedReference.shared.rsyncversion3 {
-                        ToggleViewDefault(text: NSLocalizedString("Confirm execute", comment: ""), binding: $logsettings.confirmexecute)
+                        ToggleViewDefault(text: "Confirm execute", binding: $logsettings.confirmexecute)
                             .onChange(of: logsettings.confirmexecute) {
                                 SharedReference.shared.confirmexecute = logsettings.confirmexecute
                             }
                     }
 
                     if toggleobservemountedvolumes {
-                        DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Please restart RsyncUI to take effect", comment: ""))
+                        DismissafterMessageView(dismissafter: 2, mytext: "Please restart RsyncUI to take effect")
                     }
 
                     if togglehideverifyremotefunction {
-                        DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Please restart RsyncUI to take effect", comment: ""))
+                        DismissafterMessageView(dismissafter: 2, mytext: "Please restart RsyncUI to take effect")
                     }
 
                     if togglesilencemissingstats {
-                        DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Setting applies to next rsync run", comment: ""))
+                        DismissafterMessageView(dismissafter: 2, mytext: "Setting applies to next rsync run")
                     }
                 }
 

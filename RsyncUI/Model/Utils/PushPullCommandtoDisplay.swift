@@ -33,7 +33,7 @@ struct PushPullCommandtoDisplay {
                     str = (GetfullpathforRsync().rsyncpath()) + " " + arguments.joined()
                 }
             } else {
-                str = NSLocalizedString("Use macOS Finder", comment: "")
+                str = "Use macOS Finder"
             }
         case .push_local:
             if config.offsiteServer.isEmpty == false, config.task == SharedReference.shared.synchronize {
@@ -41,10 +41,10 @@ struct PushPullCommandtoDisplay {
                     str = (GetfullpathforRsync().rsyncpath()) + " " + arguments.joined()
                 }
             } else {
-                str = NSLocalizedString("Use macOS Finder", comment: "")
+                str = "Use macOS Finder"
             }
         case .none:
-            str = NSLocalizedString("Select either pull or push", comment: "")
+            str = "Select either pull or push"
         }
         command = str
     }

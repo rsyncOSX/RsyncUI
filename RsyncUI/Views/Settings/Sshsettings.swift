@@ -20,7 +20,7 @@ struct Sshsettings: View {
                 .font(.title3)
                 .fontWeight(.bold)) {
                     VStack(alignment: .leading) {
-                        ToggleViewDefault(text: NSLocalizedString("Public ssh-key is present", comment: ""),
+                        ToggleViewDefault(text: "Public ssh-key is present",
                                           binding: $localsshkeys)
                             .disabled(true)
                     }
@@ -29,10 +29,10 @@ struct Sshsettings: View {
             Section(header: Text("Global ssh-keypath and ssh-port")
                 .font(.title3)
                 .fontWeight(.bold)) {
-                    EditValueErrorScheme(400, NSLocalizedString("Global ssh-keypath and identityfile", comment: ""), $sshsettings.sshkeypathandidentityfile,
+                    EditValueErrorScheme(400, "Global ssh-keypath and identityfile", $sshsettings.sshkeypathandidentityfile,
                                          sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile))
 
-                    EditValueErrorScheme(400, NSLocalizedString("Global ssh-port", comment: ""),
+                    EditValueErrorScheme(400, "Global ssh-port",
                                          $sshsettings.sshportnumber, sshsettings.setsshport(sshsettings.sshportnumber))
                 }
 

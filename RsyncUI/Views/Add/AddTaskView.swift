@@ -307,7 +307,7 @@ struct AddTaskView: View {
 
     // Add and edit text values
     var setlocalcatalogsyncremote: some View {
-        EditValueScheme(300, NSLocalizedString("Add Remote folder - required", comment: ""),
+        EditValueScheme(300, "Add Remote folder - required",
                         $newdata.localcatalog)
             .focused($focusField, equals: .localcatalogField)
             .textContentType(.none)
@@ -315,7 +315,7 @@ struct AddTaskView: View {
     }
 
     var setremotecatalogsyncremote: some View {
-        EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""),
+        EditValueScheme(300, "Add Source folder - required",
                         $newdata.remotecatalog)
             .focused($focusField, equals: .remotecatalogField)
             .textContentType(.none)
@@ -323,7 +323,7 @@ struct AddTaskView: View {
     }
 
     var setlocalcatalog: some View {
-        EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""),
+        EditValueScheme(300, "Add Source folder - required",
                         $newdata.localcatalog)
             .focused($focusField, equals: .localcatalogField)
             .textContentType(.none)
@@ -331,7 +331,7 @@ struct AddTaskView: View {
     }
 
     var setremotecatalog: some View {
-        EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""),
+        EditValueScheme(300, "Add Destination folder - required",
                         $newdata.remotecatalog)
             .focused($focusField, equals: .remotecatalogField)
             .textContentType(.none)
@@ -419,7 +419,7 @@ struct AddTaskView: View {
     }
 
     var setID: some View {
-        EditValueScheme(300, NSLocalizedString("Add synchronize ID", comment: ""),
+        EditValueScheme(300, "Add synchronize ID",
                         $newdata.backupID)
             .focused($focusField, equals: .synchronizeIDField)
             .textContentType(.none)
@@ -465,13 +465,13 @@ struct AddTaskView: View {
                 .submitLabel(.return)
                 .disabled(!changesnapshotnum)
 
-            ToggleViewDefault(text: NSLocalizedString("Change snapshotnumber", comment: ""),
+            ToggleViewDefault(text: "Change snapshotnumber",
                               binding: $changesnapshotnum)
         }
     }
 
     var setremoteuser: some View {
-        EditValueScheme(300, NSLocalizedString("Add remote user", comment: ""),
+        EditValueScheme(300, "Add remote user",
                         $newdata.remoteuser)
             .focused($focusField, equals: .remoteuserField)
             .textContentType(.none)
@@ -479,7 +479,7 @@ struct AddTaskView: View {
     }
 
     var setremoteserver: some View {
-        EditValueScheme(300, NSLocalizedString("Add remote server", comment: ""),
+        EditValueScheme(300, "Add remote server",
                         $newdata.remoteserver)
             .focused($focusField, equals: .remoteserverField)
             .textContentType(.none)
@@ -524,7 +524,7 @@ struct AddTaskView: View {
     }
 
     var trailingslash: some View {
-        Picker(NSLocalizedString("Trailing /", comment: ""),
+        Picker("Trailing /",
                selection: $newdata.trailingslashoptions) {
             ForEach(TrailingSlash.allCases) { Text($0.description)
                 .tag($0)
@@ -554,7 +554,7 @@ struct AddTaskView: View {
     }
 
     var pickerselecttypeoftask: some View {
-        Picker(NSLocalizedString("Action", comment: ""),
+        Picker("Action",
                selection: $newdata.selectedrsynccommand) {
             ForEach(TypeofTask.allCases) { Text($0.description)
                 .tag($0)

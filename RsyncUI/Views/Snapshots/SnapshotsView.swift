@@ -81,7 +81,7 @@ struct SnapshotsView: View {
                 }
 
                 if SharedReference.shared.rsyncversion3 == false {
-                    DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Only rsync version 3.x supports snapshots.", comment: ""))
+                    DismissafterMessageView(dismissafter: 2, mytext: "Only rsync version 3.x supports snapshots.")
                 }
             }
             if focustagsnapshot == true { labeltagsnapshot }

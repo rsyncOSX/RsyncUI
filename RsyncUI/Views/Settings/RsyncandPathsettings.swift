@@ -17,7 +17,7 @@ struct RsyncandPathsettings: View {
                 .font(.title3)
                 .fontWeight(.bold)) {
                     HStack {
-                        ToggleViewDefault(text: NSLocalizedString("Rsync v3.x", comment: ""),
+                        ToggleViewDefault(text: "Rsync v3.x",
                                           binding: $rsyncpathsettings.rsyncversion3)
                             .onChange(of: rsyncpathsettings.rsyncversion3) {
                                 if SharedReference.shared.norsync {
@@ -32,7 +32,7 @@ struct RsyncandPathsettings: View {
                                 Rsyncversion().getRsyncVersion()
                             }
 
-                        ToggleViewDefault(text: NSLocalizedString("Apple Silicon", comment: ""),
+                        ToggleViewDefault(text: "Apple Silicon",
                                           binding: $rsyncpathsettings.macosarm)
                             .onChange(of: rsyncpathsettings.macosarm) {
                                 SharedReference.shared.macosarm = rsyncpathsettings.macosarm
@@ -113,7 +113,7 @@ struct RsyncandPathsettings: View {
     }
 
     var setpathforrestore: some View {
-        EditValueErrorScheme(400, NSLocalizedString("Path for restore", comment: ""),
+        EditValueErrorScheme(400, "Path for restore",
                              $rsyncpathsettings.temporarypathforrestore,
                              rsyncpathsettings.verifyPathForRestore(rsyncpathsettings.temporarypathforrestore))
             .foregroundColor(rsyncpathsettings.verifyPathForRestore(rsyncpathsettings.temporarypathforrestore) ? Color.white : Color.red)
@@ -134,7 +134,7 @@ struct RsyncandPathsettings: View {
     }
 
     var setmarkdays: some View {
-        EditValueErrorScheme(400, NSLocalizedString("", comment: ""),
+        EditValueErrorScheme(400, "",
                              $rsyncpathsettings.marknumberofdayssince,
                              rsyncpathsettings.verifystringtoint(rsyncpathsettings.marknumberofdayssince))
             .foregroundColor(rsyncpathsettings.verifystringtoint(rsyncpathsettings.marknumberofdayssince) ? Color.white : Color.red)

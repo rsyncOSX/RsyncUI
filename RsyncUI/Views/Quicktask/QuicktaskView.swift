@@ -92,7 +92,7 @@ struct QuicktaskView: View {
                     .font(.title3)
                     .fontWeight(.bold)) {
                         HStack {
-                            Picker(NSLocalizedString("Action", comment: ""),
+                            Picker("Action",
                                    selection: $selectedrsynccommand) {
                                 ForEach(TypeofTaskQuictask.allCases) { Text($0.description)
                                     .tag($0)
@@ -127,7 +127,7 @@ struct QuicktaskView: View {
 
                             Spacer()
 
-                            Picker(NSLocalizedString("Trailing /", comment: ""),
+                            Picker("Trailing /",
                                    selection: $trailingslashoptions) {
                                 ForEach(TrailingSlash.allCases) { Text($0.description)
                                     .tag($0)
@@ -193,7 +193,7 @@ struct QuicktaskView: View {
                         .font(.title3)
                         .fontWeight(.bold)) {
                             HStack {
-                                EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""), $localcatalog)
+                                EditValueScheme(300, "Add Source folder - required", $localcatalog)
                                     .focused($focusField, equals: .localcatalogField)
                                     .textContentType(.none)
                                     .submitLabel(.continue)
@@ -226,7 +226,7 @@ struct QuicktaskView: View {
 
                             // remotecatalog
                             HStack {
-                                EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $remotecatalog)
+                                EditValueScheme(300, "Add Destination folder - required", $remotecatalog)
                                     .focused($focusField, equals: .remotecatalogField)
                                     .textContentType(.none)
                                     .submitLabel(.continue)
@@ -248,7 +248,7 @@ struct QuicktaskView: View {
                         .fontWeight(.bold)) {
                             // remotecatalog
                             HStack {
-                                EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $remotecatalog)
+                                EditValueScheme(300, "Add Destination folder - required", $remotecatalog)
                                     .focused($focusField, equals: .remotecatalogField)
                                     .textContentType(.none)
                                     .submitLabel(.continue)
@@ -281,7 +281,7 @@ struct QuicktaskView: View {
 
                             // localcatalog
                             HStack {
-                                EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""), $localcatalog)
+                                EditValueScheme(300, "Add Source folder - required", $localcatalog)
                                     .focused($focusField, equals: .localcatalogField)
                                     .textContentType(.none)
                                     .submitLabel(.continue)
@@ -303,7 +303,7 @@ struct QuicktaskView: View {
                     .font(.title3)
                     .fontWeight(.bold)) {
                         // Remote user
-                        EditValueScheme(300, NSLocalizedString("Add remote user - required", comment: ""), $remoteuser)
+                        EditValueScheme(300, "Add remote user - required", $remoteuser)
                             .focused($focusField, equals: .remoteuserField)
                             .textContentType(.none)
                             .submitLabel(.continue)
@@ -316,7 +316,7 @@ struct QuicktaskView: View {
                                 }
                             }
                         // Remote server
-                        EditValueScheme(300, NSLocalizedString("Add remote server - required", comment: ""), $remoteserver)
+                        EditValueScheme(300, "Add remote server - required", $remoteserver)
                             .focused($focusField, equals: .remoteserverField)
                             .textContentType(.none)
                             .submitLabel(.return)

@@ -37,7 +37,7 @@ struct AddSchedule: View {
                 TextField("", text: $dateRunMonth)
                     .frame(width: 100)
 
-                EditValueErrorScheme(50, NSLocalizedString("", comment: ""),
+                EditValueErrorScheme(50, "",
                                      $dateRunHour,
                                      schedules.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour))
                     .foregroundColor(schedules.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour)
@@ -100,7 +100,7 @@ struct AddSchedule: View {
     }
 
     var pickerselecttypeoftask: some View {
-        Picker(NSLocalizedString("", comment: ""),
+        Picker("",
                selection: $schedule) {
             ForEach(ScheduleType.allCases) { Text($0.description)
                 .tag($0)
