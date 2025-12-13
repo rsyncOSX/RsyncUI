@@ -29,8 +29,8 @@ struct PushPullCommandtoDisplay {
         switch display {
         case .pull_remote:
             if config.offsiteServer.isEmpty == false, config.task == SharedReference.shared.synchronize {
-                if let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryRun, 
-                forDisplay: true, keepdelete: keepdelete) {
+                if let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryRun,
+                                                                                                         forDisplay: true, keepdelete: keepdelete) {
                     str = (GetfullpathforRsync().rsyncpath()) + " " + arguments.joined()
                 }
             } else {
@@ -38,8 +38,8 @@ struct PushPullCommandtoDisplay {
             }
         case .push_local:
             if config.offsiteServer.isEmpty == false, config.task == SharedReference.shared.synchronize {
-                if let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremotewithparameters(dryRun: dryRun, 
-                forDisplay: true, keepdelete: keepdelete) {
+                if let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremotewithparameters(dryRun: dryRun,
+                                                                                                                    forDisplay: true, keepdelete: keepdelete) {
                     str = (GetfullpathforRsync().rsyncpath()) + " " + arguments.joined()
                 }
             } else {

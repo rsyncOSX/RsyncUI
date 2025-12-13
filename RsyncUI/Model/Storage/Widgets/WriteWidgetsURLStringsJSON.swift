@@ -61,4 +61,5 @@ struct WriteWidgetsURLStringsJSON {
         }
     }
 }
+
 // swiftlint:enable line_length

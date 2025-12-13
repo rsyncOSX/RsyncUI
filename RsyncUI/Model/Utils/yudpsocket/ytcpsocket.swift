@@ -172,4 +172,5 @@ open class TCPServer: Socket {
         self.fd = nil
     }
 }
+
 // swiftlint:enable line_length

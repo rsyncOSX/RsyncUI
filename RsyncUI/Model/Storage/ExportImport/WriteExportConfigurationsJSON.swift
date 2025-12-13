@@ -55,4 +55,5 @@ final class WriteExportConfigurationsJSON {
         }
     }
 }
+
 // swiftlint:enable line_length

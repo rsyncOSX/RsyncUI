@@ -42,4 +42,5 @@ struct GetfullpathforRsync {
         }
     }
 }
+
 // swiftlint:enable line_length

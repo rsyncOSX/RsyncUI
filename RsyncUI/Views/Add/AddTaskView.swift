@@ -617,4 +617,5 @@ extension AddTaskView {
         selecteduuids.removeAll()
     }
 }
+
 // swiftlint:enable line_length

@@ -62,5 +62,5 @@ final class WriteSynchronizeConfigurationJSON {
         Logger.process.debugMessageOnly("WriteSynchronizeConfigurationJSON DEINIT")
     }
 }
-// swiftlint:enable line_length
 
+// swiftlint:enable line_length

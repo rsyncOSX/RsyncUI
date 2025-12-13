@@ -44,4 +44,5 @@ final class ReadLogRecordsJSON {
         Logger.process.debugMessageOnly("ReadLogRecordsJSON: DEINIT")
     }
 }
+
 // swiftlint:enable line_length

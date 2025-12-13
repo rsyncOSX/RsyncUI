@@ -43,5 +43,5 @@ final class ReadImportConfigurationsJSON {
         importjsonfile(filenameimport)
     }
 }
-// swiftlint:enable line_length
 
+// swiftlint:enable line_length

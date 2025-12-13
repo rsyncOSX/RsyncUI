@@ -62,4 +62,5 @@ final class WriteLogRecordsJSON {
         Logger.process.debugMessageOnly("WriteLogRecordsJSON DEINIT")
     }
 }
+
 // swiftlint:enable line_length

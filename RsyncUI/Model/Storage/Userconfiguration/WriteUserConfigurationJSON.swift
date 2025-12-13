@@ -50,4 +50,5 @@ struct WriteUserConfigurationJSON {
         }
     }
 }
+
 // swiftlint:enable line_length

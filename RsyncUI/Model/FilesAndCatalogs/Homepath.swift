@@ -140,4 +140,5 @@ public enum LocationKind {
     /// A folder can be found at the location.
     case folder
 }
+
 // swiftlint:enable line_length
