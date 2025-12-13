@@ -59,7 +59,10 @@ struct ListofTasksMainView: View {
             .onChange(of: filterstring) {
                 Task {
                     try await Task.sleep(seconds: 2)
-                    if let filteredconfigurations = rsyncUIdata.configurations?.filter({ filterstring.isEmpty ? true : $0.backupID.contains(filterstring) }) {
+                    let shouldInclude = { (config: SynchronizeConfiguration) in
+                        filterstring.isEmpty ? true : config.backupID.contains(filterstring)
+                    }
+                    if let filteredconfigurations = rsyncUIdata.configurations?.filter(shouldInclude) {
                         guard filterstring.isEmpty == false else { return }
                         for configuration in filteredconfigurations {
                             selecteduuids.insert(configuration.id)

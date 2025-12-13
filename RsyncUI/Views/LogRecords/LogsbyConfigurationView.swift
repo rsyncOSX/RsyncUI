@@ -104,14 +104,20 @@ struct LogsbyConfigurationView: View {
 
                 } else {
                     if selecteduuids.isEmpty {
-                        Text(logs.count == 1 ? "ALL logrecords, select task for logrecords by task: 1 log" : "ALL logrecords, select task for logrecords by task: \(logs.count) logs")
+                        let logText = logs.count == 1 ?
+                            "ALL logrecords, select task for logrecords by task: 1 log" :
+                            "ALL logrecords, select task for logrecords by task: \(logs.count) logs"
+                        Text(logText)
 
                         if filterstring.isEmpty == false {
                             Label("Filtered by: \(filterstring)", systemImage: "magnifyingglass")
                         }
 
                     } else {
-                        Text(logs.count == 1 ? "Logrecords by selected task: 1 log" : "Logrecords by selected task: \(logs.count) logs")
+                        let logText = logs.count == 1 ?
+                            "Logrecords by selected task: 1 log" :
+                            "Logrecords by selected task: \(logs.count) logs"
+                        Text(logText)
 
                         if filterstring.isEmpty == false {
                             Label("Filtered by: \(filterstring)", systemImage: "magnifyingglass")

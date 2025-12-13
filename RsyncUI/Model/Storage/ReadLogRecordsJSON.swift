@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 19/04/2021.
 //
+// swiftlint:disable line_length
 
 import DecodeEncodeGeneric
 import Foundation
@@ -43,3 +44,4 @@ final class ReadLogRecordsJSON {
         Logger.process.debugMessageOnly("ReadLogRecordsJSON: DEINIT")
     }
 }
+// swiftlint:enable line_length

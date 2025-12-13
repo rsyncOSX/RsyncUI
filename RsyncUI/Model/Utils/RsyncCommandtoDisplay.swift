@@ -34,7 +34,8 @@ struct RsyncCommandtoDisplay {
                 }
             }
         case .restore_data:
-            if let arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, forDisplay: true) {
+            if let arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true, 
+            forDisplay: true) {
                 str = (GetfullpathforRsync().rsyncpath()) + " " + arguments.joined()
             }
         case .verify_synchronized_data:

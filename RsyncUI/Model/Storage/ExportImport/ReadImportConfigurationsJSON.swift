@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 23/07/2024.
 //
+// swiftlint:disable line_length
 
 import DecodeEncodeGeneric
 import Foundation
@@ -42,4 +43,5 @@ final class ReadImportConfigurationsJSON {
         importjsonfile(filenameimport)
     }
 }
+// swiftlint:enable line_length
 

@@ -69,7 +69,8 @@ struct ConfigurationsTableDataMainView: View {
             TableColumn("Synchronize ID") { data in
                 if let index = progressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id }) {
                     if progressdetails.estimatedlist?[index].datatosynchronize == false,
-                       progressdetails.estimatedlist?[index].preparedoutputfromrsync?.count ?? 0 > SharedReference.shared.alerttagginglines {
+                       progressdetails.estimatedlist?[index].preparedoutputfromrsync?.count ?? 0 > 
+                       SharedReference.shared.alerttagginglines {
                         // If tagging is kind of suspicious and need attention
 
                         if data.backupID.isEmpty == true {

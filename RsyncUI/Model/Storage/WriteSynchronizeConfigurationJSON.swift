@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 27/04/2021.
 //
+// // swiftlint:disable line_length
 
 import DecodeEncodeGeneric
 import Foundation
@@ -61,3 +62,5 @@ final class WriteSynchronizeConfigurationJSON {
         Logger.process.debugMessageOnly("WriteSynchronizeConfigurationJSON DEINIT")
     }
 }
+// swiftlint:enable line_length
+

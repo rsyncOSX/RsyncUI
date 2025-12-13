@@ -5,6 +5,7 @@
 //  Created by Thomas Evensen on 06/06/2019.
 //  Copyright © 2019 Thomas Evensen. All rights reserved.
 //
+// swiftlint:disable line_length
 
 import Foundation
 import OSLog
@@ -41,3 +42,4 @@ struct GetfullpathforRsync {
         }
     }
 }
+// swiftlint:enable line_length
