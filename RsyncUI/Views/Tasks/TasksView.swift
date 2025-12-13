@@ -47,24 +47,24 @@ struct TasksView: View {
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
 
     // Focus buttons from the menu
-    @State  var focusstartestimation: Bool = false
-    @State  var focusstartexecution: Bool = false
+    @State var focusstartestimation: Bool = false
+    @State var focusstartexecution: Bool = false
     // Focus export and import
-    @State  var focusexport: Bool = false
-    @State  var focusimport: Bool = false
+    @State var focusexport: Bool = false
+    @State var focusimport: Bool = false
     // Local data for present local and remote info about task
     @State var selectedconfig: SynchronizeConfiguration?
-    @State  var doubleclick: Bool = false
+    @State var doubleclick: Bool = false
     // Alert button
-    @State  var showingAlert = false
+    @State var showingAlert = false
     // Progress synchronizing
-    @State  var progress: Double = 0
+    @State var progress: Double = 0
     // Not used, only for parameter
-    @State  var maxcount: Double = 0
+    @State var maxcount: Double = 0
     // For estimates is true
-    @State  var thereareestimates: Bool = false
-    @State  var activeSheet: SheetType?
-    @State  var showquicktask: Bool = false
+    @State var thereareestimates: Bool = false
+    @State var activeSheet: SheetType?
+    @State var showquicktask: Bool = false
 
     var body: some View {
         ZStack {
@@ -170,7 +170,6 @@ struct TasksView: View {
         }
     }
 
-    
     var doubleclickaction: some View {
         Label("", systemImage: "play.fill")
             .foregroundColor(.black)

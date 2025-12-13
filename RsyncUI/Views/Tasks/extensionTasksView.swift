@@ -1,5 +1,5 @@
 //
-//  extensionTasjsView.swift
+//  extensionTasksView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 13/12/2025.
@@ -8,7 +8,6 @@
 import Observation
 import OSLog
 import SwiftUI
-
 
 extension TasksView {
     @ToolbarContentBuilder
