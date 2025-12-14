@@ -49,7 +49,7 @@ struct Homepath {
 
         do {
             for filesandfolders in try fmanager.contentsOfDirectory(at: fullpathmacserialURL,
-                                                              includingPropertiesForKeys: nil)
+                                                                    includingPropertiesForKeys: nil)
                 where filesandfolders.hasDirectoryPath {
                 array.append(filesandfolders.lastPathComponent)
             }

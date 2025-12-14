@@ -100,7 +100,7 @@ struct HomeCatalogsView: View {
                 var catalogs = [String]()
                 do {
                     for filesandfolders in try
-                            fmanager.contentsOfDirectory(at: atpathURL, includingPropertiesForKeys: nil)
+                        fmanager.contentsOfDirectory(at: atpathURL, includingPropertiesForKeys: nil)
                         where filesandfolders.hasDirectoryPath {
                         catalogs.append(filesandfolders.lastPathComponent)
                     }
