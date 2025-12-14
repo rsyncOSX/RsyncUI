@@ -17,10 +17,10 @@ struct Params {
         return Parameters(
             task: config.task,
             basicParameters: BasicRsyncParameters(
-                archiveMode: "--archive",
-                verboseOutput: "--verbose",
-                compressionEnabled: "--compress",
-                deleteExtraneous: "--delete"
+                archiveMode: DefaultRsyncParameters.archiveMode.rawValue,
+                verboseOutput: DefaultRsyncParameters.verboseOutput.rawValue,
+                compressionEnabled: DefaultRsyncParameters.compressionEnabled.rawValue,
+                deleteExtraneous: DefaultRsyncParameters.deleteExtraneous.rawValue
             ),
             optionalParameters: OptionalRsyncParameters(parameter8: config.parameter8,
                                                         parameter9: config.parameter9,
