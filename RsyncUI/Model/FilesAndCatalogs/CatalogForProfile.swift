@@ -40,17 +40,17 @@ struct CatalogForProfile {
 
     // Function for deleting profile directory
     func deleteProfileCatalog(_ profile: String?) -> Bool {
-        let fm = FileManager.default
+        let fmanager = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial, let profile {
             let fullpathprofileString = fullpathmacserial.appending("/") + profile
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let profileURL = fullpathmacserialURL.appendingPathComponent(profile)
 
-            guard fm.locationExists(at: fullpathprofileString, kind: .folder) == true else {
+            guard fmanager.locationExists(at: fullpathprofileString, kind: .folder) == true else {
                 return false
             }
             do {
-                try fm.removeItem(at: profileURL)
+                try fmanager.removeItem(at: profileURL)
             } catch let err {
                 let error = err as NSError
                 path.propagateError(error: error)

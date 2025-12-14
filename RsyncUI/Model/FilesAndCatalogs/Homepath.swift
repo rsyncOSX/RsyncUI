@@ -64,7 +64,7 @@ struct Homepath {
     // Create profile catalog at first start of RsyncOSX.
     // If profile catalog exists - bail out, no need to create
     func createRootProfileCatalog() {
-        let fm = FileManager.default
+        let fmanager = FileManager.default
 
         // First check if profilecatalog exists, if yes bail out
         guard let fullpathmacserial,
@@ -74,7 +74,7 @@ struct Homepath {
             return
         }
 
-        guard fm.locationExists(at: fullpathmacserial, kind: .folder) == false else {
+        guard fmanager.locationExists(at: fullpathmacserial, kind: .folder) == false else {
             Logger.process.info("Homepath: root catalog exists")
             return
         }
@@ -88,7 +88,7 @@ struct Homepath {
         // Step 1
         let fullpathnomacserialURL = URL(fileURLWithPath: fullpathnomacserial)
         do {
-            try fm.createDirectory(at: fullpathnomacserialURL, withIntermediateDirectories: true, attributes: nil)
+            try fmanager.createDirectory(at: fullpathnomacserialURL, withIntermediateDirectories: true, attributes: nil)
             Logger.process.info("Homepath: creating root catalog step1")
         } catch {
             propagateError(error: error)
@@ -98,7 +98,7 @@ struct Homepath {
         // Step 2
         let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
         do {
-            try fm.createDirectory(at: fullpathmacserialURL, withIntermediateDirectories: true, attributes: nil)
+            try fmanager.createDirectory(at: fullpathmacserialURL, withIntermediateDirectories: true, attributes: nil)
             Logger.process.info("Homepath: creating root catalog step2")
         } catch {
             propagateError(error: error)
