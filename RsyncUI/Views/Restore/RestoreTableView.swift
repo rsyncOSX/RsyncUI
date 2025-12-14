@@ -73,10 +73,11 @@ struct RestoreTableView: View {
                     }
 
                     if gettingfilelist { ProgressView() }
-                    if restore.restorefilesinprogress { SynchronizeProgressView(max: restore.max, progress: restore.progress, statusText: "Restoring...") }
+                    if restore.restorefilesinprogress { SynchronizeProgressView(max: restore.max, progress: restore.progress,
+                                                                                statusText: "Restoring...") }
 
                     if restore.selectedconfig?.offsiteServer.isEmpty == true {
-                        DismissafterMessageView(dismissafter: 2, mytext: NSLocalizedString("Use macOS Finder to restore files from attached discs.", comment: ""))
+                        DismissafterMessageView(dismissafter: 2, mytext: "Use macOS Finder to restore files from attached discs.")
                     }
                 }
 
@@ -146,7 +147,8 @@ struct RestoreTableView: View {
         }
 
         ToolbarItem {
-            if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
+            if restore.selectedconfig?.task != SharedReference.shared.syncremote,
+               restore.selectedconfig?.offsiteServer.isEmpty == false,
                restore.restorefilelist.count > 0,
                restore.filestorestore.isEmpty == false {
                 Button {
@@ -160,7 +162,8 @@ struct RestoreTableView: View {
         }
 
         ToolbarItem {
-            if restore.selectedconfig?.task != SharedReference.shared.syncremote, restore.selectedconfig?.offsiteServer.isEmpty == false,
+            if restore.selectedconfig?.task != SharedReference.shared.syncremote,
+               restore.selectedconfig?.offsiteServer.isEmpty == false,
                restore.restorefilelist.count > 0,
                restore.filestorestore.isEmpty == false {
                 Button {
@@ -193,7 +196,7 @@ struct RestoreTableView: View {
     }
 
     var setpathforrestore: some View {
-        EditValueErrorScheme(500, NSLocalizedString("Path for restore", comment: ""), $restore.pathforrestore,
+        EditValueErrorScheme(500, "Path for restore", $restore.pathforrestore,
                              restore.verifyPathForRestore(restore.pathforrestore))
             .foregroundColor(restore.verifyPathForRestore(restore.pathforrestore) ? Color.white : Color.red)
             .onAppear {
@@ -213,7 +216,7 @@ struct RestoreTableView: View {
     }
 
     var setfilestorestore: some View {
-        EditValueScheme(500, NSLocalizedString("Select files to restore or \"./.\" for full restore", comment: ""),
+        EditValueScheme(500, "Select files to restore or \"./.\" for full restore",
                         $restore.filestorestore)
     }
 

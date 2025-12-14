@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 07/12/2024.
 //
+// swiftlint:disable line_length
 
 import Foundation
 import SSHCreateKey
@@ -29,23 +30,27 @@ struct PushPullCommandtoDisplay {
         switch display {
         case .pull_remote:
             if config.offsiteServer.isEmpty == false, config.task == SharedReference.shared.synchronize {
-                if let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryRun, forDisplay: true, keepdelete: keepdelete) {
+                if let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryRun,
+                                                                                                         forDisplay: true, keepdelete: keepdelete) {
                     str = (GetfullpathforRsync().rsyncpath()) + " " + arguments.joined()
                 }
             } else {
-                str = NSLocalizedString("Use macOS Finder", comment: "")
+                str = "Use macOS Finder"
             }
         case .push_local:
             if config.offsiteServer.isEmpty == false, config.task == SharedReference.shared.synchronize {
-                if let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremotewithparameters(dryRun: dryRun, forDisplay: true, keepdelete: keepdelete) {
+                if let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremotewithparameters(dryRun: dryRun,
+                                                                                                                    forDisplay: true, keepdelete: keepdelete) {
                     str = (GetfullpathforRsync().rsyncpath()) + " " + arguments.joined()
                 }
             } else {
-                str = NSLocalizedString("Use macOS Finder", comment: "")
+                str = "Use macOS Finder"
             }
         case .none:
-            str = NSLocalizedString("Select either pull or push", comment: "")
+            str = "Select either pull or push"
         }
         command = str
     }
 }
+
+// swiftlint:enable line_length

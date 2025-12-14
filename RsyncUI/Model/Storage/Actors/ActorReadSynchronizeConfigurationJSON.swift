@@ -23,7 +23,8 @@ actor ActorReadSynchronizeConfigurationJSON {
                 filename = fullpathmacserial.appending("/") + SharedConstants().fileconfigurationsjson
             }
         }
-        Logger.process.debugMessageOnly("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations \(filename)")
+        let message = "ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations \(filename)"
+        Logger.process.debugMessageOnly(message)
         let decodeimport = DecodeGeneric()
         do {
             let data = try
@@ -45,7 +46,10 @@ actor ActorReadSynchronizeConfigurationJSON {
             return tasks
 
         } catch {
-            Logger.process.error("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading synchronize configurations from permanent storage")
+            let profileName = profile ?? "default profile"
+            let errorMessage = "ActorReadSynchronizeConfigurationJSON - \(profileName): " +
+                "some ERROR reading synchronize configurations from permanent storage"
+            Logger.process.errorMessageOnly("\(errorMessage)")
         }
         return nil
     }

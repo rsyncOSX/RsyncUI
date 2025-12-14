@@ -115,7 +115,7 @@ struct GlobalChangeTaskView: View {
         Section(header: headerID) {
             HStack {
                 // Synchronize ID
-                EditValueScheme(140, NSLocalizedString("Synchronize ID", comment: ""), $newdata.occurence_backupID)
+                EditValueScheme(140, "Synchronize ID", $newdata.occurence_backupID)
                     .onChange(of: newdata.occurence_backupID) {
                         Task {
                             try await Task.sleep(seconds: 2)
@@ -133,7 +133,7 @@ struct GlobalChangeTaskView: View {
                     .disabled(configurations.isEmpty)
                     .focused($focusField, equals: .synchronizeIDField)
 
-                EditValueScheme(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_backupID)
+                EditValueScheme(140, "Replace", $newdata.replace_backupID)
                     .onChange(of: newdata.replace_backupID) {
                         Task {
                             try await Task.sleep(seconds: 2)
@@ -158,7 +158,7 @@ struct GlobalChangeTaskView: View {
         Section(header: headerlocalremote) {
             HStack {
                 // localcatalog
-                EditValueScheme(140, NSLocalizedString("Source folder", comment: ""), $newdata.occurence_localcatalog)
+                EditValueScheme(140, "Source folder", $newdata.occurence_localcatalog)
                     .onChange(of: newdata.occurence_localcatalog) {
                         Task {
                             try await Task.sleep(seconds: 2)
@@ -177,7 +177,7 @@ struct GlobalChangeTaskView: View {
                     .focused($focusField, equals: .localcatalogField)
 
                 // localcatalog
-                EditValueScheme(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_localcatalog)
+                EditValueScheme(140, "Replace", $newdata.replace_localcatalog)
                     .onChange(of: newdata.replace_localcatalog) {
                         Task {
                             try await Task.sleep(seconds: 2)
@@ -197,7 +197,7 @@ struct GlobalChangeTaskView: View {
             }
 
             HStack {
-                EditValueScheme(140, NSLocalizedString("Destination folder", comment: ""), $newdata.occurence_remotecatalog)
+                EditValueScheme(140, "Destination folder", $newdata.occurence_remotecatalog)
                     .onChange(of: newdata.occurence_remotecatalog) {
                         Task {
                             try await Task.sleep(seconds: 2)
@@ -215,7 +215,7 @@ struct GlobalChangeTaskView: View {
                     .disabled(configurations.isEmpty)
                     .focused($focusField, equals: .remotecatalogField)
 
-                EditValueScheme(140, NSLocalizedString("Replace", comment: ""), $newdata.replace_remotecatalog)
+                EditValueScheme(140, "Replace", $newdata.replace_remotecatalog)
                     .onChange(of: newdata.replace_remotecatalog) {
                         Task {
                             try await Task.sleep(seconds: 2)
@@ -239,7 +239,7 @@ struct GlobalChangeTaskView: View {
     var remoteuserandserver: some View {
         Section(header: headerremote) {
             // Remote user
-            EditValueScheme(300, NSLocalizedString("Remote user", comment: ""), $newdata.occurence_remoteuser)
+            EditValueScheme(300, "Remote user", $newdata.occurence_remoteuser)
                 .onChange(of: newdata.occurence_remoteuser) {
                     Task {
                         try await Task.sleep(seconds: 2)
@@ -258,7 +258,7 @@ struct GlobalChangeTaskView: View {
                 .focused($focusField, equals: .remoteuserField)
 
             // Remote server
-            EditValueScheme(300, NSLocalizedString("Remote server", comment: ""), $newdata.occurence_remoteserver)
+            EditValueScheme(300, "Remote server", $newdata.occurence_remoteserver)
                 .onChange(of: newdata.occurence_remoteserver) {
                     Task {
                         try await Task.sleep(seconds: 2)

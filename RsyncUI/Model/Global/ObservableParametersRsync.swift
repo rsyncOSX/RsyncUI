@@ -177,7 +177,7 @@ final class ObservableParametersRsync {
         if adddelete {
             configuration?.parameter4 = "--delete"
         } else {
-            configuration?.parameter4 = ""
+            configuration?.parameter4 = nil
         }
     }
 

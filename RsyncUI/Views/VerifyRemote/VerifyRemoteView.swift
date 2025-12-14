@@ -129,7 +129,9 @@ struct VerifyRemoteView: View {
         .task(id: selectedprofileID) {
             selecteduuids.removeAll()
             selectedconfig = nil
-            let profile: String? = if let index = configurationsdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
+            let profile: String? = if let index = configurationsdata
+                .validprofiles
+                .firstIndex(where: { $0.id == selectedprofileID }) {
                 configurationsdata.validprofiles[index].profilename
             } else {
                 nil

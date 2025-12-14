@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 23/07/2024.
 //
+// swiftlint:disable line_length
 
 import DecodeEncodeGeneric
 import Foundation
@@ -29,10 +30,10 @@ final class ReadImportConfigurationsJSON {
                 maxhiddenID += 1
                 return element
             }
-            Logger.process.debugMessageOnly("ReadImportConfigurationsJSON - \(filenameimport)read import configurations from permanent storage")
+            Logger.process.debugMessageOnly("ReadImportConfigurationsJSON - \(filenameimport) read import configurations from permanent storage")
 
         } catch {
-            Logger.process.error("ReadImportConfigurationsJSON - \(filenameimport, privacy: .public): some ERROR read import configurations from permanent storage")
+            Logger.process.errorMessageOnly("ReadImportConfigurationsJSON - \(filenameimport): some ERROR read import configurations from permanent storage")
             return
         }
     }
@@ -42,3 +43,5 @@ final class ReadImportConfigurationsJSON {
         importjsonfile(filenameimport)
     }
 }
+
+// swiftlint:enable line_length

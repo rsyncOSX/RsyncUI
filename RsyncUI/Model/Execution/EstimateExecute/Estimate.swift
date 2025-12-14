@@ -71,7 +71,9 @@ final class Estimate {
 
     private func computestackoftasks(_ selecteduuids: Set<UUID>) -> [Int] {
         if selecteduuids.count > 0 {
-            let configurations = localconfigurations.filter { selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted }
+            let configurations = localconfigurations.filter { selecteduuids.contains($0.id) &&
+                $0.task != SharedReference.shared.halted
+            }
             return configurations.map(\.hiddenID)
         } else {
             // Or go for all
@@ -111,71 +113,55 @@ extension Estimate {
             suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
         }
 
-        if adjustedoutputfromrsync {
-            var record = RemoteDataNumbers(stringoutputfromrsync: suboutput,
-                                           config: getConfig(hiddenID ?? -1))
-            adjustedoutputfromrsync = false
-            Task {
-                // Create data for output rsync for view
-                record.outputfromrsync =
-                    await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
-                localprogressdetails?.appendRecordEstimatedList(record)
+        let outputToProcess = adjustedoutputfromrsync ? suboutput : stringoutputfromrsync
+        processRecordAndContinueEstimation(
+            outputToProcess: outputToProcess,
+            originalOutput: stringoutputfromrsync,
+            hiddenID: hiddenID
+        )
+    }
 
-                if record.datatosynchronize {
-                    if let config = getConfig(hiddenID ?? -1) {
-                        localprogressdetails?.appendUUIDWithDataToSynchronize(config.id)
-                    }
+    private func processRecordAndContinueEstimation(
+        outputToProcess: [String]?,
+        originalOutput: [String]?,
+        hiddenID: Int?
+    ) {
+        var record = RemoteDataNumbers(
+            stringoutputfromrsync: outputToProcess,
+            config: getConfig(hiddenID ?? -1)
+        )
+
+        Task {
+            // Create data for output rsync for view
+            record.outputfromrsync =
+                await ActorCreateOutputforView().createOutputForView(originalOutput)
+            localprogressdetails?.appendRecordEstimatedList(record)
+
+            if record.datatosynchronize {
+                if let config = getConfig(hiddenID ?? -1) {
+                    localprogressdetails?.appendUUIDWithDataToSynchronize(config.id)
                 }
+            }
 
-                // Validate that tagging is correct
-                do {
-                    // In case of throwing an error to identify which task
+            // Validate that tagging is correct
+            do {
+                // In case of throwing an error to identify which task
+                if outputToProcess != originalOutput {
                     synchronizeIDwitherror = record.backupID
-                    try validateTagging(stringoutputfromrsync?.count ?? 0, record.datatosynchronize)
-                } catch let err {
-                    let error = err
-                    SharedReference.shared.errorobject?.alert(error: error)
                 }
-
-                guard stackoftasks?.count ?? 0 > 0 else {
-                    localprogressdetails?.estimationIsComplete()
-                    Logger.process.debugMessageOnly("Estimate: ESTIMATION is completed")
-                    return
-                }
-                // Estimate next task
-                startEstimation()
+                try validateTagging(originalOutput?.count ?? 0, record.datatosynchronize)
+            } catch let err {
+                let error = err
+                SharedReference.shared.errorobject?.alert(error: error)
             }
-        } else {
-            var record = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
-                                           config: getConfig(hiddenID ?? -1))
-            Task {
-                // Create data for output rsync for view
-                record.outputfromrsync =
-                    await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
-                localprogressdetails?.appendRecordEstimatedList(record)
 
-                if record.datatosynchronize {
-                    if let config = getConfig(hiddenID ?? -1) {
-                        localprogressdetails?.appendUUIDWithDataToSynchronize(config.id)
-                    }
-                }
-
-                // Validate that tagging is correct
-                do {
-                    try validateTagging(stringoutputfromrsync?.count ?? 0, record.datatosynchronize)
-                } catch let err {
-                    let error = err
-                    SharedReference.shared.errorobject?.alert(error: error)
-                }
-
-                guard stackoftasks?.count ?? 0 > 0 else {
-                    localprogressdetails?.estimationIsComplete()
-                    Logger.process.debugMessageOnly("Estimate: ESTIMATION is completed")
-                    return
-                }
-                // Estimate next task
-                startEstimation()
+            guard stackoftasks?.count ?? 0 > 0 else {
+                localprogressdetails?.estimationIsComplete()
+                Logger.process.debugMessageOnly("Estimate: ESTIMATION is completed")
+                return
             }
+            // Estimate next task
+            startEstimation()
         }
     }
 }

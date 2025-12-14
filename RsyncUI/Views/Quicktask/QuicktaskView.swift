@@ -39,14 +39,15 @@ enum ValidateInputQuicktask: LocalizedError {
 }
 
 struct QuicktaskView: View {
-    @State private var localcatalog: String = ""
-    @State private var remotecatalog: String = ""
-    @State private var selectedrsynccommand = TypeofTaskQuictask.synchronize
-    @State private var remoteuser: String = ""
-    @State private var remoteserver: String = ""
-    @State private var trailingslashoptions: TrailingSlash = .add
-    @State private var dryrun: Bool = true
-    @State private var catalogorfile: Bool = true
+    @State var localcatalog: String = ""
+    @State var remotecatalog: String = ""
+    @State var selectedrsynccommand = TypeofTaskQuictask.synchronize
+    @State var remoteuser: String = ""
+    @State var remoteserver: String = ""
+    @State var trailingslashoptions: TrailingSlash = .add
+    @State var dryrun: Bool = true
+    @State var catalogorfile: Bool = true
+    @State var focusaborttask: Bool = false
 
     @AppStorage("quicklocalcatalog") var quicklocalcatalog: String = ""
     @AppStorage("quickremotecatalog") var quickremotecatalog: String = ""
@@ -59,16 +60,16 @@ struct QuicktaskView: View {
     @AppStorage("quickcatalogorfile") var quickcatalogorfile: Bool = true
 
     // Executed labels
-    @State private var showprogressview = false
-    @State private var rsyncoutput = ObservableRsyncOutput()
+    @State var showprogressview = false
+    @State var rsyncoutput = ObservableRsyncOutput()
     // Focus buttons from the menu
-    @State private var focusaborttask: Bool = false
-    @State private var focusstartexecution: Bool = false
+    @State var Bool = false
+    @State var focusstartexecution: Bool = false
     // Completed task
-    @State private var completed: Bool = false
+    @State var completed: Bool = false
     // Progress and max if estimate first
-    @State private var progress: Double = 0
-    @State private var max: Double = 0
+    @State var progress: Double = 0
+    @State var max: Double = 0
 
     enum QuicktaskField: Hashable {
         case localcatalogField
@@ -77,11 +78,11 @@ struct QuicktaskView: View {
         case remoteserverField
     }
 
-    @FocusState private var focusField: QuicktaskField?
+    @FocusState var focusField: QuicktaskField?
 
-    @State private var selectedhomecatalog: Catalog.ID?
-    @State private var selectedAttachedVolume: AttachedVolume.ID?
-    @State private var selectedAttachedVolumeCatalogs: String?
+    @State var selectedhomecatalog: Catalog.ID?
+    @State var selectedAttachedVolume: AttachedVolume.ID?
+    @State var selectedAttachedVolumeCatalogs: String?
 
     let homecatalogs: [Catalog]
 
@@ -92,7 +93,7 @@ struct QuicktaskView: View {
                     .font(.title3)
                     .fontWeight(.bold)) {
                         HStack {
-                            Picker(NSLocalizedString("Action", comment: ""),
+                            Picker("Action",
                                    selection: $selectedrsynccommand) {
                                 ForEach(TypeofTaskQuictask.allCases) { Text($0.description)
                                     .tag($0)
@@ -127,7 +128,7 @@ struct QuicktaskView: View {
 
                             Spacer()
 
-                            Picker(NSLocalizedString("Trailing /", comment: ""),
+                            Picker("Trailing /",
                                    selection: $trailingslashoptions) {
                                 ForEach(TrailingSlash.allCases) { Text($0.description)
                                     .tag($0)
@@ -193,7 +194,7 @@ struct QuicktaskView: View {
                         .font(.title3)
                         .fontWeight(.bold)) {
                             HStack {
-                                EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""), $localcatalog)
+                                EditValueScheme(300, "Add Source folder - required", $localcatalog)
                                     .focused($focusField, equals: .localcatalogField)
                                     .textContentType(.none)
                                     .submitLabel(.continue)
@@ -226,7 +227,7 @@ struct QuicktaskView: View {
 
                             // remotecatalog
                             HStack {
-                                EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $remotecatalog)
+                                EditValueScheme(300, "Add Destination folder - required", $remotecatalog)
                                     .focused($focusField, equals: .remotecatalogField)
                                     .textContentType(.none)
                                     .submitLabel(.continue)
@@ -248,7 +249,7 @@ struct QuicktaskView: View {
                         .fontWeight(.bold)) {
                             // remotecatalog
                             HStack {
-                                EditValueScheme(300, NSLocalizedString("Add Destination folder - required", comment: ""), $remotecatalog)
+                                EditValueScheme(300, "Add Destination folder - required", $remotecatalog)
                                     .focused($focusField, equals: .remotecatalogField)
                                     .textContentType(.none)
                                     .submitLabel(.continue)
@@ -281,7 +282,7 @@ struct QuicktaskView: View {
 
                             // localcatalog
                             HStack {
-                                EditValueScheme(300, NSLocalizedString("Add Source folder - required", comment: ""), $localcatalog)
+                                EditValueScheme(300, "Add Source folder - required", $localcatalog)
                                     .focused($focusField, equals: .localcatalogField)
                                     .textContentType(.none)
                                     .submitLabel(.continue)
@@ -303,7 +304,7 @@ struct QuicktaskView: View {
                     .font(.title3)
                     .fontWeight(.bold)) {
                         // Remote user
-                        EditValueScheme(300, NSLocalizedString("Add remote user - required", comment: ""), $remoteuser)
+                        EditValueScheme(300, "Add remote user - required", $remoteuser)
                             .focused($focusField, equals: .remoteuserField)
                             .textContentType(.none)
                             .submitLabel(.continue)
@@ -316,7 +317,7 @@ struct QuicktaskView: View {
                                 }
                             }
                         // Remote server
-                        EditValueScheme(300, NSLocalizedString("Add remote server - required", comment: ""), $remoteserver)
+                        EditValueScheme(300, "Add remote server - required", $remoteserver)
                             .focused($focusField, equals: .remoteserverField)
                             .textContentType(.none)
                             .submitLabel(.return)
@@ -356,41 +357,7 @@ struct QuicktaskView: View {
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
-        .toolbar(content: {
-            ToolbarItem {
-                Button {
-                    resetForm()
-                } label: {
-                    if localcatalog.isEmpty == false {
-                        Image(systemName: "clear")
-                            .foregroundColor(Color(.red))
-                    } else {
-                        Image(systemName: "clear")
-                    }
-                }
-                .help("Clear saved quicktask")
-            }
-
-            ToolbarItem {
-                Button {
-                    getConfigAndExecute()
-                } label: {
-                    Image(systemName: "play.fill")
-                        .foregroundColor(Color(.blue))
-                }
-                .help("Synchronize (⌘R)")
-                .disabled(selectedrsynccommand == .not_selected)
-            }
-
-            ToolbarItem {
-                Button {
-                    abort()
-                } label: {
-                    Image(systemName: "stop.fill")
-                }
-                .help("Abort (⌘K)")
-            }
-        })
+        .toolbar { toolbarContent }
         .padding()
         .navigationTitle("Quicktask - only for remote server")
         .navigationDestination(isPresented: $completed) {
@@ -416,110 +383,5 @@ struct QuicktaskView: View {
 
     var localhome: String {
         URL.userHomeDirectoryURLPath?.path() ?? ""
-    }
-}
-
-extension QuicktaskView {
-    func resetForm() {
-        selectedrsynccommand = .synchronize
-        trailingslashoptions = .add
-        dryrun = true
-        catalogorfile = true
-        localcatalog = ""
-        remotecatalog = ""
-        remoteuser = ""
-        remoteserver = ""
-        selectedhomecatalog = nil
-        selectedAttachedVolume = nil
-        selectedAttachedVolumeCatalogs = nil
-    }
-
-    func getConfigAndExecute() {
-        let getdata = AppendTask(selectedrsynccommand.rawValue,
-                                 localcatalog,
-                                 remotecatalog,
-                                 trailingslashoptions,
-                                 remoteuser,
-                                 remoteserver,
-                                 "")
-
-        guard selectedrsynccommand != .not_selected else { return }
-
-        if let config = VerifyConfiguration().verify(getdata) {
-            do {
-                let ok = try validateInput(config)
-                if ok {
-                    execute(config: config, dryrun: dryrun)
-                }
-            } catch let err {
-                let error = err
-                propagateError(error: error)
-            }
-        }
-    }
-
-    func execute(config: SynchronizeConfiguration, dryrun: Bool) {
-        let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: dryrun, forDisplay: false)
-        // Start progressview
-        showprogressview = true
-
-        let handlers = CreateHandlers().createHandlers(
-            fileHandler: fileHandler,
-            processTermination: processTermination
-        )
-
-        // Must check valid rsync exists
-        guard SharedReference.shared.norsync == false else { return }
-        guard config.task != SharedReference.shared.halted else { return }
-
-        let process = RsyncProcess(arguments: arguments,
-                                   hiddenID: config.hiddenID,
-                                   handlers: handlers,
-                                   useFileHandler: true)
-        do {
-            try process.executeProcess()
-        } catch let err {
-            let error = err
-            SharedReference.shared.errorobject?.alert(error: error)
-        }
-    }
-
-    func abort() {
-        InterruptProcess()
-    }
-
-    func processTermination(_ stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        showprogressview = false
-        if dryrun {
-            max = Double(stringoutputfromrsync?.count ?? 0)
-        }
-        Task {
-            rsyncoutput.output = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
-            completed = true
-        }
-    }
-
-    func fileHandler(count: Int) {
-        progress = Double(count)
-    }
-
-    func propagateError(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
-    }
-
-    private func validateInput(_ config: SynchronizeConfiguration) throws -> Bool {
-        if config.localCatalog.isEmpty {
-            throw ValidateInputQuicktask.localcatalog
-        }
-        if config.offsiteCatalog.isEmpty {
-            throw ValidateInputQuicktask.remotecatalog
-        }
-        if config.offsiteUsername.isEmpty {
-            throw ValidateInputQuicktask.offsiteusername
-        }
-        if config.offsiteServer.isEmpty {
-            throw ValidateInputQuicktask.offsiteserver
-        }
-        return true
     }
 }

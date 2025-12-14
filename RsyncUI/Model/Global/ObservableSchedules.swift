@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 27/03/2025.
 //
+// swiftlint:disable function_parameter_count
 
 import Foundation
 import Observation
@@ -44,13 +45,15 @@ final class ObservableSchedules {
     private func computeDailySchedule(profile: String?, dateRun: Date) {
         var dateComponents = DateComponents()
         dateComponents.day = 1
-        computeRepeatingSchedule(profile: profile, dateRun: dateRun, dateComponents: dateComponents, scheduleType: ScheduleType.daily.rawValue)
+        computeRepeatingSchedule(profile: profile, dateRun: dateRun, dateComponents: dateComponents,
+                                 scheduleType: ScheduleType.daily.rawValue)
     }
 
     private func computeWeeklySchedule(profile: String?, dateRun: Date) {
         var dateComponents = DateComponents()
         dateComponents.day = 7
-        computeRepeatingSchedule(profile: profile, dateRun: dateRun, dateComponents: dateComponents, scheduleType: ScheduleType.weekly.rawValue)
+        computeRepeatingSchedule(profile: profile, dateRun: dateRun, dateComponents: dateComponents,
+                                 scheduleType: ScheduleType.weekly.rawValue)
     }
 
     private func computeRepeatingSchedule(profile: String?, dateRun: Date, dateComponents: DateComponents, scheduleType: String) {
@@ -59,9 +62,11 @@ final class ObservableSchedules {
         guard timeInterval > 0 else { return }
 
         let index = calculateScheduleIndex(timeInterval: timeInterval, dayInterval: dateComponents.day ?? 0)
-        appendInitialScheduleIfNeeded(profile: profile, dateRun: dateRun, lastDayOfMonth: lastdateinnextmonth, scheduleType: scheduleType)
+        appendInitialScheduleIfNeeded(profile: profile, dateRun: dateRun, lastDayOfMonth: lastdateinnextmonth,
+                                      scheduleType: scheduleType)
 
-        addFutureSchedules(profile: profile, startDate: dateRun, dateComponents: dateComponents, scheduleType: scheduleType, count: index, lastDayOfMonth: lastdateinnextmonth)
+        addFutureSchedules(profile: profile, startDate: dateRun, dateComponents: dateComponents,
+                           scheduleType: scheduleType, count: index, lastDayOfMonth: lastdateinnextmonth)
     }
 
     private func calculateScheduleIndex(timeInterval: TimeInterval, dayInterval: Int) -> Int {
@@ -81,7 +86,8 @@ final class ObservableSchedules {
         }
     }
 
-    private func addFutureSchedules(profile: String?, startDate: Date, dateComponents: DateComponents, scheduleType: String, count: Int, lastDayOfMonth: Date) {
+    private func addFutureSchedules(profile: String?, startDate: Date, dateComponents: DateComponents,
+                                    scheduleType: String, count: Int, lastDayOfMonth: Date) {
         var computedDateRun: Date = startDate
         for _ in 0 ..< count {
             if let futureDate = Calendar.current.date(byAdding: dateComponents, to: computedDateRun) {
@@ -228,3 +234,5 @@ final class ObservableSchedules {
         }
     }
 }
+
+// swiftlint:enable function_parameter_count

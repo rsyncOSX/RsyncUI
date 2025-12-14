@@ -11,6 +11,7 @@
 //
 //  Created by Thomas Evensen on 24/06/2024.
 //
+// swiftlint:disable line_length
 
 import Foundation
 import OSLog
@@ -37,7 +38,7 @@ struct Homepath {
     }
 
     func getFullPathMacSerialCatalogsAsStringNames() -> [String] {
-        let fm = FileManager.default
+        let fmanager = FileManager.default
         guard let fullpathmacserial else {
             Logger.process.warning("Homepath: fullpathmacserial is nil")
             return []
@@ -47,15 +48,15 @@ struct Homepath {
         let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
 
         do {
-            for filesandfolders in try fm.contentsOfDirectory(at: fullpathmacserialURL,
-                                                              includingPropertiesForKeys: nil)
+            for filesandfolders in try fmanager.contentsOfDirectory(at: fullpathmacserialURL,
+                                                                    includingPropertiesForKeys: nil)
                 where filesandfolders.hasDirectoryPath {
                 array.append(filesandfolders.lastPathComponent)
             }
             Logger.process.info("Homepath: the following folders were found in \(fullpathmacserial): \(array)")
             return array
         } catch {
-            Logger.process.error("Homepath: failed to read directory at \(fullpathmacserial): \(error.localizedDescription)")
+            Logger.process.errorMessageOnly("Homepath: failed to read directory at \(fullpathmacserial): \(error.localizedDescription)")
             return []
         }
     }
@@ -63,17 +64,17 @@ struct Homepath {
     // Create profile catalog at first start of RsyncOSX.
     // If profile catalog exists - bail out, no need to create
     func createRootProfileCatalog() {
-        let fm = FileManager.default
+        let fmanager = FileManager.default
 
         // First check if profilecatalog exists, if yes bail out
         guard let fullpathmacserial,
               let fullpathnomacserial
         else {
-            Logger.process.error("Homepath: paths are nil, cannot create root catalog")
+            Logger.process.errorMessageOnly("Homepath: paths are nil, cannot create root catalog")
             return
         }
 
-        guard fm.locationExists(at: fullpathmacserial, kind: .folder) == false else {
+        guard fmanager.locationExists(at: fullpathmacserial, kind: .folder) == false else {
             Logger.process.info("Homepath: root catalog exists")
             return
         }
@@ -87,7 +88,7 @@ struct Homepath {
         // Step 1
         let fullpathnomacserialURL = URL(fileURLWithPath: fullpathnomacserial)
         do {
-            try fm.createDirectory(at: fullpathnomacserialURL, withIntermediateDirectories: true, attributes: nil)
+            try fmanager.createDirectory(at: fullpathnomacserialURL, withIntermediateDirectories: true, attributes: nil)
             Logger.process.info("Homepath: creating root catalog step1")
         } catch {
             propagateError(error: error)
@@ -97,7 +98,7 @@ struct Homepath {
         // Step 2
         let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
         do {
-            try fm.createDirectory(at: fullpathmacserialURL, withIntermediateDirectories: true, attributes: nil)
+            try fmanager.createDirectory(at: fullpathmacserialURL, withIntermediateDirectories: true, attributes: nil)
             Logger.process.info("Homepath: creating root catalog step2")
         } catch {
             propagateError(error: error)
@@ -105,7 +106,7 @@ struct Homepath {
     }
 
     func propagateError(error: Error) {
-        Logger.process.error("Homepath: error occurred - \(error.localizedDescription)")
+        Logger.process.errorMessageOnly("Homepath: error occurred - \(error.localizedDescription)")
         SharedReference.shared.errorobject?.alert(error: error)
     }
 
@@ -139,3 +140,5 @@ public enum LocationKind {
     /// A folder can be found at the location.
     case folder
 }
+
+// swiftlint:enable line_length

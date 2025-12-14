@@ -37,7 +37,10 @@ actor ActorReadLogRecordsJSON {
                 return validhiddenIDs.contains(item.hiddenID) ? item : nil
             }
         } catch {
-            Logger.process.error("ActorReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading logrecords from permanent storage")
+            let profileName = profile ?? "default profile"
+            Logger.process.errorMessageOnly(
+                "ActorReadLogRecordsJSON - \(profileName): some ERROR reading logrecords from permanent storage"
+            )
         }
         return nil
     }
@@ -80,13 +83,21 @@ actor ActorReadLogRecordsJSON {
                     }
                 }
                 let records = merged.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
-                return records.filter { ($0.dateExecuted?.en_date_from_string().long_localized_string_from_date().contains(filterstring)) ?? false || ($0.resultExecuted?.contains(filterstring) ?? false)
+                return records.filter { record in
+                    let dateString = record.dateExecuted?.en_date_from_string().long_localized_string_from_date() ?? ""
+                    let dateMatch = dateString.contains(filterstring)
+                    let resultMatch = (record.resultExecuted?.contains(filterstring)) ?? false
+                    return dateMatch || resultMatch
                 }
             } else {
                 if let index = logrecords.firstIndex(where: { $0.hiddenID == hiddenID }),
                    let logrecords = logrecords[index].logrecords {
                     let records = logrecords.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
-                    return records.filter { ($0.dateExecuted?.en_date_from_string().long_localized_string_from_date().contains(filterstring)) ?? false || ($0.resultExecuted?.contains(filterstring) ?? false)
+                    return records.filter { record in
+                        let dateString = record.dateExecuted?.en_date_from_string().long_localized_string_from_date() ?? ""
+                        let dateMatch = dateString.contains(filterstring)
+                        let resultMatch = (record.resultExecuted?.contains(filterstring)) ?? false
+                        return dateMatch || resultMatch
                     }
                 }
             }

@@ -299,7 +299,7 @@ struct RsyncParametersView: View {
             parameters.parameter13 != (selectedconfig.parameter13 ?? "") ||
             parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
             parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
-            parameters.adddelete == (selectedconfig.parameter4.isEmpty == true) ||
+            parameters.adddelete == (selectedconfig.parameter4?.isEmpty == true) ||
             // parameters.sshport != String(selectedconfig.sshport ?? -1) ||
             parameters.sshkeypathandidentityfile != (selectedconfig.sshkeypathandidentityfile ?? "") {
             return true
@@ -308,7 +308,7 @@ struct RsyncParametersView: View {
     }
 
     var deleteparameterpresent: Bool {
-        let parameter = rsyncUIdata.configurations?.filter { $0.parameter4.isEmpty == false }
+        let parameter = rsyncUIdata.configurations?.filter { $0.parameter4?.isEmpty == false }
         return parameter?.count ?? 0 > 0
     }
 }

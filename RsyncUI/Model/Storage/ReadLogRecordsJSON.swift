@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 19/04/2021.
 //
+// swiftlint:disable line_length
 
 import DecodeEncodeGeneric
 import Foundation
@@ -34,7 +35,7 @@ final class ReadLogRecordsJSON {
             }
 
         } catch {
-            Logger.process.error("ReadLogRecordsJSON - \(profile ?? "default profile", privacy: .public): some ERROR reading logrecords from permanent storage")
+            Logger.process.errorMessageOnly("ReadLogRecordsJSON - \(profile ?? "default profile"): some ERROR reading logrecords from permanent storage")
         }
         return nil
     }
@@ -43,3 +44,5 @@ final class ReadLogRecordsJSON {
         Logger.process.debugMessageOnly("ReadLogRecordsJSON: DEINIT")
     }
 }
+
+// swiftlint:enable line_length

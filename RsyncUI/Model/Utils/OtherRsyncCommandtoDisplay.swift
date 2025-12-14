@@ -75,7 +75,8 @@ struct OtherRsyncCommandtoDisplay {
             let createsshkeys = SSHCreateKey(sharedSSHPort: String(SharedReference.shared.sshport ?? -1),
                                              sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
             do {
-                let tmpstr = try createsshkeys.argumentsVerifyRemotePublicSSHKey(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
+                let tmpstr = try createsshkeys.argumentsVerifyRemotePublicSSHKey(offsiteServer: config.offsiteServer,
+                                                                                 offsiteUsername: config.offsiteUsername)
                 let cleanedArguments = tmpstr.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
                 return [cleanedArguments]
             } catch {}
@@ -90,7 +91,8 @@ struct OtherRsyncCommandtoDisplay {
             let createsshkeys = SSHCreateKey(sharedSSHPort: String(SharedReference.shared.sshport ?? -1),
                                              sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
             do {
-                let tmpstr = try createsshkeys.argumentsSSHCopyID(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)
+                let tmpstr = try createsshkeys.argumentsSSHCopyID(offsiteServer: config.offsiteServer,
+                                                                  offsiteUsername: config.offsiteUsername)
                 let cleanedArguments = tmpstr.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
                 return [cleanedArguments]
             } catch {}

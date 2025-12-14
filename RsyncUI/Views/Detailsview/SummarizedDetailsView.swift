@@ -253,11 +253,11 @@ struct SummarizedDetailsView: View {
             .width(max: 55)
             TableColumn("kB trans") { files in
                 if files.datatosynchronize {
-                    Text("\(files.totaltransferredfilessize_Int / 1000)")
+                    Text("\(files.totaltransferredfilessizeInt / 1000)")
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .foregroundColor(.blue)
                 } else {
-                    Text("\(files.totaltransferredfilessize_Int / 1000)")
+                    Text("\(files.totaltransferredfilessizeInt / 1000)")
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }
@@ -268,7 +268,7 @@ struct SummarizedDetailsView: View {
             }
             .width(max: 90)
             TableColumn("Tot kB") { files in
-                Text("\(files.totalfilesize_Int / 1000)")
+                Text("\(files.totalfilesizeInt / 1000)")
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .width(max: 80)

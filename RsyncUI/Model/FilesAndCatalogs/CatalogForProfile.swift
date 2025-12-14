@@ -14,11 +14,11 @@ struct CatalogForProfile {
     let path = Homepath()
 
     func createProfileCatalog(_ profile: String?) -> Bool {
-        let fm = FileManager.default
+        let fmanager = FileManager.default
         // First check if profilecatalog exists, if yes bail out
         if let fullpathmacserial = path.fullpathmacserial, let profile {
             let fullpathprofileString = fullpathmacserial.appending("/") + profile
-            guard fm.locationExists(at: fullpathprofileString, kind: .folder) == false else {
+            guard fmanager.locationExists(at: fullpathprofileString, kind: .folder) == false else {
                 Logger.process.debugMessageOnly("CatalogProfile: profile catalog exist: \(fullpathprofileString)")
                 return false
             }
@@ -28,7 +28,7 @@ struct CatalogForProfile {
 
             do {
                 Logger.process.debugMessageOnly("CatalogProfile creating: \(profileURL)")
-                try fm.createDirectory(at: profileURL, withIntermediateDirectories: true, attributes: nil)
+                try fmanager.createDirectory(at: profileURL, withIntermediateDirectories: true, attributes: nil)
             } catch let err {
                 let error = err
                 path.propagateError(error: error)
@@ -40,17 +40,17 @@ struct CatalogForProfile {
 
     // Function for deleting profile directory
     func deleteProfileCatalog(_ profile: String?) -> Bool {
-        let fm = FileManager.default
+        let fmanager = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial, let profile {
             let fullpathprofileString = fullpathmacserial.appending("/") + profile
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let profileURL = fullpathmacserialURL.appendingPathComponent(profile)
 
-            guard fm.locationExists(at: fullpathprofileString, kind: .folder) == true else {
+            guard fmanager.locationExists(at: fullpathprofileString, kind: .folder) == true else {
                 return false
             }
             do {
-                try fm.removeItem(at: profileURL)
+                try fmanager.removeItem(at: profileURL)
             } catch let err {
                 let error = err as NSError
                 path.propagateError(error: error)

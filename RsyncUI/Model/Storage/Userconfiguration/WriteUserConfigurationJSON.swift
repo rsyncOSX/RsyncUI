@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 12/02/2022.
 //
+// swiftlint:disable line_length
 
 import DecodeEncodeGeneric
 import Foundation
@@ -36,7 +37,7 @@ struct WriteUserConfigurationJSON {
             Logger.process.debugMessageOnly("WriteUserConfigurationJSON: Writing user configurations to permanent storage")
 
         } catch let err {
-            Logger.process.error("WriteUserConfigurationJSON: some ERROR writing user configurations from permanent storage")
+            Logger.process.errorMessageOnly("WriteUserConfigurationJSON: some ERROR writing user configurations from permanent storage")
             let error = err
             path.propagateError(error: error)
         }
@@ -49,3 +50,5 @@ struct WriteUserConfigurationJSON {
         }
     }
 }
+
+// swiftlint:enable line_length

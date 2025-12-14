@@ -16,14 +16,14 @@ struct DecodeSynchronizeConfiguration: Codable {
     let offsiteCatalog: String?
     let offsiteServer: String?
     let offsiteUsername: String?
-    let parameter1: String?
+    // let parameter1: String?
     let parameter10: String?
     let parameter11: String?
     let parameter12: String?
     let parameter13: String?
     let parameter14: String?
-    let parameter2: String?
-    let parameter3: String?
+    // let parameter2: String?
+    // let parameter3: String?
     let parameter4: String?
     let parameter8: String?
     let parameter9: String?
@@ -44,14 +44,14 @@ struct DecodeSynchronizeConfiguration: Codable {
         case offsiteCatalog
         case offsiteServer
         case offsiteUsername
-        case parameter1
+        // case parameter1
         case parameter10
         case parameter11
         case parameter12
         case parameter13
         case parameter14
-        case parameter2
-        case parameter3
+        // case parameter2
+        // case parameter3
         case parameter4
         case parameter8
         case parameter9
@@ -74,14 +74,14 @@ struct DecodeSynchronizeConfiguration: Codable {
         offsiteCatalog = try values.decodeIfPresent(String.self, forKey: .offsiteCatalog)
         offsiteServer = try values.decodeIfPresent(String.self, forKey: .offsiteServer)
         offsiteUsername = try values.decodeIfPresent(String.self, forKey: .offsiteUsername)
-        parameter1 = try values.decodeIfPresent(String.self, forKey: .parameter1)
+        // parameter1 = try values.decodeIfPresent(String.self, forKey: .parameter1)
         parameter10 = try values.decodeIfPresent(String.self, forKey: .parameter10)
         parameter11 = try values.decodeIfPresent(String.self, forKey: .parameter11)
         parameter12 = try values.decodeIfPresent(String.self, forKey: .parameter12)
         parameter13 = try values.decodeIfPresent(String.self, forKey: .parameter13)
         parameter14 = try values.decodeIfPresent(String.self, forKey: .parameter14)
-        parameter2 = try values.decodeIfPresent(String.self, forKey: .parameter2)
-        parameter3 = try values.decodeIfPresent(String.self, forKey: .parameter3)
+        // parameter2 = try values.decodeIfPresent(String.self, forKey: .parameter2)
+        // parameter3 = try values.decodeIfPresent(String.self, forKey: .parameter3)
         parameter4 = try values.decodeIfPresent(String.self, forKey: .parameter4)
         parameter8 = try values.decodeIfPresent(String.self, forKey: .parameter8)
         parameter9 = try values.decodeIfPresent(String.self, forKey: .parameter9)

@@ -41,7 +41,7 @@ struct ProfileView: View {
                 ProfilesToUpdateView(allconfigurations: allconfigurations)
             }
 
-            EditValueScheme(300, NSLocalizedString("Create profile - press Enter when added", comment: ""),
+            EditValueScheme(300, "Create profile - press Enter when added",
                             $newprofile)
         }
         .onSubmit {

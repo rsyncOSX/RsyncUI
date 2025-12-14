@@ -14,17 +14,17 @@ struct FileSize {
 
     func filesize() throws -> NSNumber? {
         let path = Homepath()
-        let fm = FileManager.default
+        let fmanager = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial {
             let logfileString = fullpathmacserial.appending("/") + SharedConstants().logname
-            guard fm.locationExists(at: logfileString, kind: .file) == true else { return nil }
+            guard fmanager.locationExists(at: logfileString, kind: .file) == true else { return nil }
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
 
             do {
                 // Return filesize
-                if let filesize = try fm.attributesOfItem(atPath: logfileURL.path)[FileAttributeKey.size] as? NSNumber {
+                if let filesize = try fmanager.attributesOfItem(atPath: logfileURL.path)[FileAttributeKey.size] as? NSNumber {
                     return filesize
                 }
             } catch {

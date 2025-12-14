@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 12/02/2022.
 //
+// swiftlint:disable line_length
 
 import DecodeEncodeGeneric
 import Foundation
@@ -41,7 +42,7 @@ struct WriteWidgetsURLStringsJSON {
             Logger.process.debugMessageOnly("WriteWidgetsURLStringsJSON: Writing URL-strings to permanent storage")
 
         } catch let err {
-            Logger.process.error("WriteWidgetsURLStringsJSON: some ERROR writing user configurations from permanent storage")
+            Logger.process.errorMessageOnly("WriteWidgetsURLStringsJSON: some ERROR writing user configurations from permanent storage")
             let error = err
             SharedReference.shared.errorobject?.alert(error: error)
         }
@@ -60,3 +61,5 @@ struct WriteWidgetsURLStringsJSON {
         }
     }
 }
+
+// swiftlint:enable line_length
