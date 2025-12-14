@@ -38,7 +38,7 @@ struct Homepath {
     }
 
     func getFullPathMacSerialCatalogsAsStringNames() -> [String] {
-        let fm = FileManager.default
+        let fmanager = FileManager.default
         guard let fullpathmacserial else {
             Logger.process.warning("Homepath: fullpathmacserial is nil")
             return []
@@ -48,7 +48,7 @@ struct Homepath {
         let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
 
         do {
-            for filesandfolders in try fm.contentsOfDirectory(at: fullpathmacserialURL,
+            for filesandfolders in try fmanager.contentsOfDirectory(at: fullpathmacserialURL,
                                                               includingPropertiesForKeys: nil)
                 where filesandfolders.hasDirectoryPath {
                 array.append(filesandfolders.lastPathComponent)

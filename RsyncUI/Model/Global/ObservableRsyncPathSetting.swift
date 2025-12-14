@@ -28,11 +28,11 @@ final class ObservableRsyncPathSetting {
 
     // Used for mark local path red or white
     func verifypathforrsync(_ path: String) -> Bool {
-        let fm = FileManager.default
+        let fmanager = FileManager.default
         switch SharedReference.shared.rsyncversion3 {
         case true:
             let rsyncpath = path.appending("/") + SharedReference.shared.rsync
-            if fm.isExecutableFile(atPath: rsyncpath) == false {
+            if fmanager.isExecutableFile(atPath: rsyncpath) == false {
                 return false
             } else {
                 return true
@@ -43,8 +43,8 @@ final class ObservableRsyncPathSetting {
     }
 
     func verifyPathForRestore(_ path: String) -> Bool {
-        let fm = FileManager.default
-        return fm.fileExists(atPath: path, isDirectory: nil)
+        let fmanager = FileManager.default
+        return fmanager.fileExists(atPath: path, isDirectory: nil)
     }
 
     // Only validate path if rsyncver3 is true

@@ -38,8 +38,8 @@ final class ObservableRestore {
     }
 
     func verifyPathForRestore(_ path: String) -> Bool {
-        let fm = FileManager.default
-        return fm.fileExists(atPath: path, isDirectory: nil)
+        let fmanager = FileManager.default
+        return fmanager.fileExists(atPath: path, isDirectory: nil)
     }
 
     func executeRestore() {

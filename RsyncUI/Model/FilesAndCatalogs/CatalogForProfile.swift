@@ -14,11 +14,11 @@ struct CatalogForProfile {
     let path = Homepath()
 
     func createProfileCatalog(_ profile: String?) -> Bool {
-        let fm = FileManager.default
+        let fmanager = FileManager.default
         // First check if profilecatalog exists, if yes bail out
         if let fullpathmacserial = path.fullpathmacserial, let profile {
             let fullpathprofileString = fullpathmacserial.appending("/") + profile
-            guard fm.locationExists(at: fullpathprofileString, kind: .folder) == false else {
+            guard fmanager.locationExists(at: fullpathprofileString, kind: .folder) == false else {
                 Logger.process.debugMessageOnly("CatalogProfile: profile catalog exist: \(fullpathprofileString)")
                 return false
             }
@@ -28,7 +28,7 @@ struct CatalogForProfile {
 
             do {
                 Logger.process.debugMessageOnly("CatalogProfile creating: \(profileURL)")
-                try fm.createDirectory(at: profileURL, withIntermediateDirectories: true, attributes: nil)
+                try fmanager.createDirectory(at: profileURL, withIntermediateDirectories: true, attributes: nil)
             } catch let err {
                 let error = err
                 path.propagateError(error: error)

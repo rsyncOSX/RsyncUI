@@ -16,7 +16,7 @@ final class Backupconfigfiles {
     var backuppath: String?
 
     func backup() {
-        let fm = FileManager.default
+        let fmanager = FileManager.default
         if let backuppath,
            let fullpathnomacserial {
             let fullpathnomacserialURL = URL(fileURLWithPath: fullpathnomacserial)
@@ -24,7 +24,7 @@ final class Backupconfigfiles {
             let documentsURL = URL(fileURLWithPath: backuppath)
             let documentsbackuppathURL = documentsURL.appendingPathComponent(targetpath)
             do {
-                try fm.copyItem(at: fullpathnomacserialURL, to: documentsbackuppathURL)
+                try fmanager.copyItem(at: fullpathnomacserialURL, to: documentsbackuppathURL)
             } catch let err {
                 let error = err
                 homepath.propagateError(error: error)

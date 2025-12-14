@@ -18,11 +18,11 @@ struct Catalog: Identifiable, Hashable {
 
 struct HomeCatalogsService {
     func homeCatalogs() -> [Catalog] {
-        let fm = FileManager.default
-        let homeURL = fm.homeDirectoryForCurrentUser
+        let fmanager = FileManager.default
+        let homeURL = fmanager.homeDirectoryForCurrentUser
 
         do {
-            return try fm.contentsOfDirectory(
+            return try fmanager.contentsOfDirectory(
                 at: homeURL,
                 includingPropertiesForKeys: [.isDirectoryKey]
             )

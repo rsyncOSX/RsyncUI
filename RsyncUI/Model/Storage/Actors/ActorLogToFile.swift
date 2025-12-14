@@ -77,10 +77,10 @@ actor ActorLogToFile {
     @concurrent
     nonisolated func readloggfile() async -> [String]? {
         let path = await Homepath()
-        let fm = FileManager.default
+        let fmanager = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial {
             let logfileString = fullpathmacserial.appending("/") + SharedConstants().logname
-            guard fm.locationExists(at: logfileString, kind: .file) == true else { return nil }
+            guard fmanager.locationExists(at: logfileString, kind: .file) == true else { return nil }
 
             let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
             let logfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().logname)
