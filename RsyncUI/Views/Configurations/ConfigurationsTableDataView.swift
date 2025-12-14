@@ -15,7 +15,7 @@ struct ConfigurationsTableDataView: View {
     var body: some View {
         Table(configurations ?? [], selection: $selecteduuids) {
             TableColumn("Synchronize ID") { data in
-                if data.parameter4.isEmpty == false {
+                if data.parameter4?.isEmpty == false {
                     if data.backupID.isEmpty == true {
                         Text("Synchronize ID")
                             .foregroundColor(.red)

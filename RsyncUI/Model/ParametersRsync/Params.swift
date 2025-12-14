@@ -13,14 +13,16 @@ struct Params {
     func params(
         config: SynchronizeConfiguration) -> Parameters {
         var rsyncdaemon = false
+        var deleteExtraneous: Bool = false
         if config.rsyncdaemon == 1 { rsyncdaemon = true }
+        if config.parameter4 != nil { deleteExtraneous = true }
         return Parameters(
             task: config.task,
             basicParameters: BasicRsyncParameters(
                 archiveMode: DefaultRsyncParameters.archiveMode.rawValue,
                 verboseOutput: DefaultRsyncParameters.verboseOutput.rawValue,
                 compressionEnabled: DefaultRsyncParameters.compressionEnabled.rawValue,
-                deleteExtraneous: DefaultRsyncParameters.deleteExtraneous.rawValue
+                deleteExtraneous: deleteExtraneous ? DefaultRsyncParameters.deleteExtraneous.rawValue : ""
             ),
             optionalParameters: OptionalRsyncParameters(parameter8: config.parameter8,
                                                         parameter9: config.parameter9,
