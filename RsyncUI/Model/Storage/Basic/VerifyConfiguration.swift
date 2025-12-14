@@ -102,9 +102,9 @@ final class VerifyConfiguration: Connected {
         newconfig.offsiteCatalog = data.newoffsiteCatalog
         newconfig.offsiteServer = data.newoffsiteServer ?? ""
         newconfig.offsiteUsername = data.newoffsiteUsername ?? ""
-        newconfig.parameter1 = ""
-        newconfig.parameter2 = ""
-        newconfig.parameter3 = ""
+        // newconfig.parameter1 = ""
+        // newconfig.parameter2 = ""
+        // newconfig.parameter3 = ""
         // newconfig.parameter4 = delete
         // The default delete parameter is removed
         // If want to use delete, set it in userparams

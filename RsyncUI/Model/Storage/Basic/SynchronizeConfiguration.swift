@@ -43,9 +43,9 @@ struct SynchronizeConfiguration: Identifiable, Codable {
     var localCatalog: String
     var offsiteCatalog: String
     var offsiteUsername: String
-    var parameter1: String?
-    var parameter2: String?
-    var parameter3: String?
+    // var parameter1: String?
+    // var parameter2: String?
+    // var parameter3: String?
     var parameter4: String
     var offsiteServer: String
     var backupID: String
@@ -111,9 +111,9 @@ struct SynchronizeConfiguration: Identifiable, Codable {
         localCatalog = ""
         offsiteCatalog = ""
         offsiteUsername = ""
-        parameter1 = ""
-        parameter2 = ""
-        parameter3 = ""
+        // parameter1 = ""
+        // parameter2 = ""
+        // parameter3 = ""
         parameter4 = ""
         offsiteServer = ""
         backupID = ""
@@ -129,9 +129,9 @@ extension SynchronizeConfiguration: Hashable, Equatable {
             lhs.offsiteServer == rhs.offsiteServer &&
             lhs.hiddenID == rhs.hiddenID &&
             lhs.task == rhs.task &&
-            lhs.parameter1 == rhs.parameter1 &&
-            lhs.parameter2 == rhs.parameter2 &&
-            lhs.parameter3 == rhs.parameter3 &&
+            // lhs.parameter1 == rhs.parameter1 &&
+            // lhs.parameter2 == rhs.parameter2 &&
+            // lhs.parameter3 == rhs.parameter3 &&
             lhs.parameter4 == rhs.parameter4 &&
             lhs.parameter8 == rhs.parameter8 &&
             lhs.parameter9 == rhs.parameter9 &&
@@ -151,9 +151,9 @@ extension SynchronizeConfiguration: Hashable, Equatable {
         hasher.combine(offsiteServer)
         hasher.combine(String(hiddenID))
         hasher.combine(task)
-        hasher.combine(parameter1)
-        hasher.combine(parameter2)
-        hasher.combine(parameter3)
+        // hasher.combine(parameter1)
+        // hasher.combine(parameter2)
+        // hasher.combine(parameter3)
         hasher.combine(parameter4)
         hasher.combine(parameter8)
         hasher.combine(parameter9)
