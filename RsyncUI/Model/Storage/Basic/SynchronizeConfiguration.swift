@@ -43,9 +43,9 @@ struct SynchronizeConfiguration: Identifiable, Codable {
     var localCatalog: String
     var offsiteCatalog: String
     var offsiteUsername: String
-    var parameter1: String
-    var parameter2: String
-    var parameter3: String
+    var parameter1: String?
+    var parameter2: String?
+    var parameter3: String?
     var parameter4: String
     var offsiteServer: String
     var backupID: String
@@ -78,14 +78,14 @@ struct SynchronizeConfiguration: Identifiable, Codable {
         offsiteCatalog = data.offsiteCatalog ?? ""
         offsiteServer = data.offsiteServer ?? ""
         offsiteUsername = data.offsiteUsername ?? ""
-        parameter1 = data.parameter1 ?? ""
+        // parameter1 = data.parameter1 ?? ""
         parameter10 = data.parameter10
         parameter11 = data.parameter11
         parameter12 = data.parameter12
         parameter13 = data.parameter13
         parameter14 = data.parameter14
-        parameter2 = data.parameter2 ?? ""
-        parameter3 = data.parameter3 ?? ""
+        // parameter2 = data.parameter2 ?? ""
+        // parameter3 = data.parameter3 ?? ""
         parameter4 = data.parameter4 ?? ""
         parameter8 = data.parameter8
         parameter9 = data.parameter9
