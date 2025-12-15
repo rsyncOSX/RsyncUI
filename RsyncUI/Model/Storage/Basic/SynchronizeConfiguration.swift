@@ -43,15 +43,11 @@ struct SynchronizeConfiguration: Identifiable, Codable {
     var localCatalog: String
     var offsiteCatalog: String
     var offsiteUsername: String
-    // var parameter1: String?
-    // var parameter2: String?
-    // var parameter3: String?
     var parameter4: String?
     var offsiteServer: String
     var backupID: String
     var dateRun: String?
     var snapshotnum: Int?
-    // parameters choosed by user
     var parameter8: String?
     var parameter9: String?
     var parameter10: String?
@@ -78,14 +74,11 @@ struct SynchronizeConfiguration: Identifiable, Codable {
         offsiteCatalog = data.offsiteCatalog ?? ""
         offsiteServer = data.offsiteServer ?? ""
         offsiteUsername = data.offsiteUsername ?? ""
-        // parameter1 = data.parameter1 ?? ""
         parameter10 = data.parameter10
         parameter11 = data.parameter11
         parameter12 = data.parameter12
         parameter13 = data.parameter13
         parameter14 = data.parameter14
-        // parameter2 = data.parameter2 ?? ""
-        // parameter3 = data.parameter3 ?? ""
         parameter4 = data.parameter4
         parameter8 = data.parameter8
         parameter9 = data.parameter9
@@ -111,9 +104,6 @@ struct SynchronizeConfiguration: Identifiable, Codable {
         localCatalog = ""
         offsiteCatalog = ""
         offsiteUsername = ""
-        // parameter1 = ""
-        // parameter2 = ""
-        // parameter3 = ""
         parameter4 = ""
         offsiteServer = ""
         backupID = ""
@@ -129,9 +119,6 @@ extension SynchronizeConfiguration: Hashable, Equatable {
             lhs.offsiteServer == rhs.offsiteServer &&
             lhs.hiddenID == rhs.hiddenID &&
             lhs.task == rhs.task &&
-            // lhs.parameter1 == rhs.parameter1 &&
-            // lhs.parameter2 == rhs.parameter2 &&
-            // lhs.parameter3 == rhs.parameter3 &&
             lhs.parameter4 == rhs.parameter4 &&
             lhs.parameter8 == rhs.parameter8 &&
             lhs.parameter9 == rhs.parameter9 &&
@@ -151,9 +138,6 @@ extension SynchronizeConfiguration: Hashable, Equatable {
         hasher.combine(offsiteServer)
         hasher.combine(String(hiddenID))
         hasher.combine(task)
-        // hasher.combine(parameter1)
-        // hasher.combine(parameter2)
-        // hasher.combine(parameter3)
         hasher.combine(parameter4)
         hasher.combine(parameter8)
         hasher.combine(parameter9)

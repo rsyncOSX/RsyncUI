@@ -29,9 +29,6 @@ final class UpdateConfigurations {
             if parameters {
                 // Updated parameters only, keep all other
                 // keep last run date
-                // configurations?[index].parameter1 = config.parameter1
-                // configurations?[index].parameter2 = config.parameter2
-                // configurations?[index].parameter3 = config.parameter3
                 configurations?[index].parameter4 = config.parameter4
                 configurations?[index].parameter8 = config.parameter8
                 configurations?[index].parameter9 = config.parameter9
