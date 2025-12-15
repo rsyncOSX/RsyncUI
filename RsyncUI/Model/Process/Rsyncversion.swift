@@ -51,8 +51,8 @@ extension Rsyncversion {
     func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         guard stringoutputfromrsync?.count ?? 0 > 0 else { return }
         if let rsyncversionshort = stringoutputfromrsync?[0] {
-            let s = rsyncversionshort.replacingOccurrences(of: "protocol", with: "\nprotocol")
-            let result = s.replacingOccurrences(of: "(?s)Web site.*", with: "", options: .regularExpression)
+            let short = rsyncversionshort.replacingOccurrences(of: "protocol", with: "\nprotocol")
+            let result = short.replacingOccurrences(of: "(?s)Web site.*", with: "", options: .regularExpression)
             SharedReference.shared.rsyncversionshort = result
 
             if rsyncversionshort.contains("version 3.") {
