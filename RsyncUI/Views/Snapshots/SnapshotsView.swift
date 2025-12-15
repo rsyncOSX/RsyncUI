@@ -15,7 +15,7 @@ struct SnapshotsView: View {
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selectedconfiguuid = Set<SynchronizeConfiguration.ID>()
     // Plan for tagging and administrating snapshots
-    @State private var snaplast: String = PlanSnapshots.Last.rawValue
+    @State private var snaplast: String = PlanSnapshots.last.rawValue
     @State private var snapdayofweek: String = StringDayofweek.sunday.rawValue
     // Update plan and snapday
     @State private var updated: Bool = false
@@ -261,9 +261,9 @@ extension SnapshotsView {
             // Setting values for tagging snapshots
             if let mysnaplast = config.snaplast {
                 if mysnaplast == 0 {
-                    snaplast = PlanSnapshots.Last.rawValue
+                    snaplast = PlanSnapshots.last.rawValue
                 } else {
-                    snaplast = PlanSnapshots.Every.rawValue
+                    snaplast = PlanSnapshots.every.rawValue
                 }
             }
             if let snapdayofweek = config.snapdayoffweek {
@@ -288,7 +288,7 @@ extension SnapshotsView {
             guard config.task == SharedReference.shared.snapshot else { return }
             guard (snapshotdata.getsnapshotdata()?.count ?? 0) > 0 else { return }
             var localsnaplast = 0
-            if snaplast == PlanSnapshots.Last.rawValue {
+            if snaplast == PlanSnapshots.last.rawValue {
                 localsnaplast = 0 // keep selected day of week every week of month
             } else {
                 localsnaplast = 1 // keep last selected day of week pr month
@@ -307,9 +307,9 @@ extension SnapshotsView {
                 return
             }
             switch snaplast {
-            case PlanSnapshots.Last.rawValue:
+            case PlanSnapshots.last.rawValue:
                 selectedconfig.snaplast = 0
-            case PlanSnapshots.Every.rawValue:
+            case PlanSnapshots.every.rawValue:
                 selectedconfig.snaplast = 1
             default:
                 selectedconfig.snaplast = 0
