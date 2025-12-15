@@ -142,10 +142,10 @@ final class ObservableSchedules {
             return
         }
 
-        for i in 0 ..< recomputedschedules.count {
-            if let schedule = recomputedschedules[i].scheduledata?.schedule,
-               let dateRun = recomputedschedules[i].scheduledata?.dateRun?.validate_en_date_from_string() {
-                computefuturedates(profile: recomputedschedules[i].scheduledata?.profile, schedule: schedule, dateRun: dateRun)
+        for index in 0 ..< recomputedschedules.count {
+            if let schedule = recomputedschedules[index].scheduledata?.schedule,
+               let dateRun = recomputedschedules[index].scheduledata?.dateRun?.validate_en_date_from_string() {
+                computefuturedates(profile: recomputedschedules[index].scheduledata?.profile, schedule: schedule, dateRun: dateRun)
             }
         }
 
@@ -175,10 +175,10 @@ final class ObservableSchedules {
 
     // Apply Scheduledata read from file, used by SidebarMainView
     func appendschdeuldatafromfile(_ schedules: [SchedulesConfigurations]) {
-        for i in 0 ..< schedules.count {
-            if let schedule = schedules[i].schedule,
-               let dateRun = schedules[i].dateRun?.validate_en_date_from_string() {
-                computefuturedates(profile: schedules[i].profile, schedule: schedule, dateRun: dateRun)
+        for index in 0 ..< schedules.count {
+            if let schedule = schedules[index].schedule,
+               let dateRun = schedules[index].dateRun?.validate_en_date_from_string() {
+                computefuturedates(profile: schedules[index].profile, schedule: schedule, dateRun: dateRun)
             }
         }
 

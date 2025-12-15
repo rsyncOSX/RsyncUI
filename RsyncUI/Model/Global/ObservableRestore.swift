@@ -50,8 +50,8 @@ final class ObservableRestore {
         )
 
         do {
-            let ok = try validateforrestore()
-            if ok {
+            let isValid = try validateforrestore()
+            if isValid {
                 arguments = computerestorearguments(forDisplay: false)
                 if let arguments {
                     restorefilesinprogress = true

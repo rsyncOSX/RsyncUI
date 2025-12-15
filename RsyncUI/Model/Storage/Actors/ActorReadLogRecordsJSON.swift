@@ -117,9 +117,9 @@ actor ActorReadLogRecordsJSON {
         // Convert to Set for O(1) lookup instead of O(n)
         let uuidsToDelete = uuids
 
-        for i in 0 ..< (records?.count ?? 0) {
+        for index in 0 ..< (records?.count ?? 0) {
             // Remove in one pass instead of building IndexSet
-            records?[i].logrecords?.removeAll { record in
+            records?[index].logrecords?.removeAll { record in
                 uuidsToDelete.contains(record.id)
             }
         }
