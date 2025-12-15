@@ -9,12 +9,12 @@ import Foundation
 import SSHCreateKey
 
 enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case list_remote_files
-    case create_public_SSHkey
-    case copy_public_SSHkey
-    case verify_public_SSHkey
-    // case remote_disk_usage
-    case URL_estimate
+    case listRemoteFiles
+    case createPublicSSHkey
+    case copyPublicSSHkey
+    case verifyPublicSSHkey
+    // case remoteDiskUsage
+    case urlEstimate
 
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
@@ -28,15 +28,15 @@ struct OtherRsyncCommandtoDisplay {
          config: SynchronizeConfiguration,
          profile: String?) {
         let str: [String] = switch display {
-        case .list_remote_files:
+        case .listRemoteFiles:
             Self.listRemoteFiles(config: config)
-        case .create_public_SSHkey:
+        case .createPublicSSHkey:
             Self.createPublicSSHKey(config: config)
-        case .verify_public_SSHkey:
+        case .verifyPublicSSHkey:
             Self.verifyPublicSSHKey(config: config)
-        case .copy_public_SSHkey:
+        case .copyPublicSSHkey:
             Self.copyPublicSSHKey(config: config)
-        case .URL_estimate:
+        case .urlEstimate:
             Self.urlEstimate(profile: profile)
         }
         command = str.joined(separator: ",").replacingOccurrences(of: ",", with: " ")
