@@ -107,9 +107,7 @@ actor ActorReadLogRecordsJSON {
 
     @concurrent
     func deleteLogs(_ uuids: Set<UUID>,
-                    logrecords: [LogRecords]?,
-                    profile _: String?,
-                    validhiddenIDs _: Set<Int>) async -> [LogRecords]? {
+                    logrecords: [LogRecords]?) async -> [LogRecords]? {
         var records = logrecords
 
         Logger.process.debugThreadOnly("ActorReadLogRecordsJSON: deletelogs()")
