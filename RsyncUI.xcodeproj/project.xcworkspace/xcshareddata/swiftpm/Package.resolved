@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/RsyncArguments",
       "state" : {
-        "branch" : "v283",
-        "revision" : "940219b756466f691943dba5bf92815753953e3b"
+        "branch" : "main",
+        "revision" : "f98fb50032b173d789b2b510b6c94f381339461f"
       }
     },
     {
@@ -42,7 +42,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/RsyncProcess",
       "state" : {
-        "branch" : "v283",
+        "branch" : "main",
         "revision" : "1747a3558ad7c4d043082a1eeb611669fc44d3a4"
       }
     },
