@@ -16,7 +16,7 @@ struct SnapshotsView: View {
     @State private var selectedconfiguuid = Set<SynchronizeConfiguration.ID>()
     // Plan for tagging and administrating snapshots
     @State private var snaplast: String = PlanSnapshots.Last.rawValue
-    @State private var snapdayofweek: String = StringDayofweek.Sunday.rawValue
+    @State private var snapdayofweek: String = StringDayofweek.sunday.rawValue
     // Update plan and snapday
     @State private var updated: Bool = false
     // Focus buttons from the menu

@@ -6,23 +6,23 @@
 import Foundation
 
 enum NumDayofweek: Int {
-    case Monday = 2
-    case Tuesday = 3
-    case Wednesday = 4
-    case Thursday = 5
-    case Friday = 6
-    case Saturday = 7
-    case Sunday = 1
+    case monday = 2
+    case tuesday = 3
+    case wednesday = 4
+    case thursday = 5
+    case friday = 6
+    case saturday = 7
+    case sunday = 1
 }
 
 enum StringDayofweek: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case Monday
-    case Tuesday
-    case Wednesday
-    case Thursday
-    case Friday
-    case Saturday
-    case Sunday
+    case monday
+    case tuesday
+    case wednesday
+    case thursday
+    case friday
+    case saturday
+    case sunday
 
     var id: String { rawValue }
     var description: String { rawValue.localizedLowercase }
@@ -89,7 +89,7 @@ struct SynchronizeConfiguration: Identifiable, Codable {
         // For snapshots
         if let snapshotnum = data.snapshotnum {
             self.snapshotnum = snapshotnum
-            snapdayoffweek = data.snapdayoffweek ?? StringDayofweek.Sunday.rawValue
+            snapdayoffweek = data.snapdayoffweek ?? StringDayofweek.sunday.rawValue
             snaplast = data.snaplast ?? 1
         }
         // Last run of task

@@ -9,7 +9,7 @@
 import Foundation
 
 final class TagSnapshots {
-    var day: NumDayofweek = .Monday
+    var day: NumDayofweek = .monday
     var logrecordssnapshot: [LogRecordSnapshot]?
     private var keepallselcteddayofweek: Bool = true
 
@@ -130,22 +130,22 @@ final class TagSnapshots {
 
     private func setweekdaytokeep(snapdayoffweek: String) {
         switch snapdayoffweek {
-        case StringDayofweek.Monday.rawValue:
-            day = .Monday
-        case StringDayofweek.Tuesday.rawValue:
-            day = .Tuesday
-        case StringDayofweek.Wednesday.rawValue:
-            day = .Wednesday
-        case StringDayofweek.Thursday.rawValue:
-            day = .Thursday
-        case StringDayofweek.Friday.rawValue:
-            day = .Friday
-        case StringDayofweek.Saturday.rawValue:
-            day = .Saturday
-        case StringDayofweek.Sunday.rawValue:
-            day = .Sunday
+        case StringDayofweek.monday.rawValue:
+            day = .monday
+        case StringDayofweek.tuesday.rawValue:
+            day = .tuesday
+        case StringDayofweek.wednesday.rawValue:
+            day = .wednesday
+        case StringDayofweek.thursday.rawValue:
+            day = .thursday
+        case StringDayofweek.friday.rawValue:
+            day = .friday
+        case StringDayofweek.saturday.rawValue:
+            day = .saturday
+        case StringDayofweek.sunday.rawValue:
+            day = .sunday
         default:
-            day = .Sunday
+            day = .sunday
         }
     }
 
