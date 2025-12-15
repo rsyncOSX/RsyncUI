@@ -233,9 +233,7 @@ struct LogsbyConfigurationView: View {
         Task {
             async let updatedRecords: [LogRecords]? = ActorReadLogRecordsJSON().deleteLogs(
                 uuids,
-                logrecords: logrecords,
-                profile: rsyncUIdata.profile,
-                validhiddenIDs: validhiddenIDs
+                logrecords: logrecords
             )
             let records = await updatedRecords
             async let updatedLogs: [Log]? = ActorReadLogRecordsJSON().updatelogsbyhiddenID(records, hiddenID)

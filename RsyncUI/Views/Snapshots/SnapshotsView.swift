@@ -130,7 +130,9 @@ struct SnapshotsView: View {
                         "Delete \(snapshotdata.notmappedloguuids?.count ?? 0) logs",
                         isPresented: $isPresentingConfirm) {
                             Button("Delete", role: .destructive) {
-                                deleteLogs(snapshotdata.notmappedloguuids)
+                                if let uuids = snapshotdata.notmappedloguuids {
+                                    deleteLogs(uuids)
+                                }
                             }
                     }
                     .overlay(HStack(alignment: .top) {
@@ -328,25 +330,22 @@ extension SnapshotsView {
         }
     }
 
-    func deleteLogs(_ uuids: Set<UUID>?) {
-        if var records = snapshotdata.readlogrecordsfromfile, let uuids {
-            var indexset = IndexSet()
-            for i in 0 ..< records.count {
-                for j in 0 ..< uuids.count {
-                    if let index = records[i].logrecords?.firstIndex(
-                        where: { $0.id == uuids[uuids.index(uuids.startIndex, offsetBy: j)] }) {
-                        indexset.insert(index)
-                    }
-                }
-                records[i].logrecords?.remove(atOffsets: indexset)
-                indexset.removeAll()
+    func deleteLogs(_ uuids: Set<UUID>) {
+        Task {
+            if let records = snapshotdata.readlogrecordsfromfile {
+                async let updatedRecords: [LogRecords]? = ActorReadLogRecordsJSON().deleteLogs(
+                    uuids,
+                    logrecords: records
+                )
+                let records = await updatedRecords
+                WriteLogRecordsJSON(rsyncUIdata.profile, records)
+                snapshotdata.readlogrecordsfromfile = nil
+                selectedconfig = nil
+                snapshotdata.setsnapshotdata(nil)
+                filterstring = ""
+                isdisabled = true
             }
-            WriteLogRecordsJSON(rsyncUIdata.profile, records)
-            snapshotdata.readlogrecordsfromfile = nil
-            selectedconfig = nil
-            snapshotdata.setsnapshotdata(nil)
-            filterstring = ""
-            isdisabled = true
+            
         }
     }
 }
