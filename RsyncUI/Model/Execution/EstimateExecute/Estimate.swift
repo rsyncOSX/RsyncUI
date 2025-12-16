@@ -46,18 +46,13 @@ final class Estimate {
                     guard SharedReference.shared.norsync == false else { return }
                     guard config.task != SharedReference.shared.halted else { return }
                     
-                    do {
-                        try ValidateArguments().validate(config: config, arguments: arguments)
-                    } catch let err {
-                        let error = err
-                        SharedReference.shared.errorobject?.alert(error: error)
-                    }
-
-                    do {
-                        try ValidateArguments().validate(config: config, arguments: arguments)
-                    } catch let err {
-                        let error = err
-                        SharedReference.shared.errorobject?.alert(error: error)
+                    if SharedReference.shared.validatearguments {
+                        do {
+                            try ValidateArguments().validate(config: config, arguments: arguments)
+                        } catch let err {
+                            let error = err
+                            SharedReference.shared.errorobject?.alert(error: error)
+                        }
                     }
                     
                     let process = RsyncProcess(arguments: arguments,
