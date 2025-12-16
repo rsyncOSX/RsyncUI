@@ -26,14 +26,19 @@ struct ExecuteNoEstTasksView: View {
                                         configurations: rsyncUIdata.configurations)
 
             if progressviewshowinfo {
-                VStack {
-                    ProgressView()
+                HStack {
+                        ProgressView()
 
-                    Text("\(Int(progress))")
-                        .font(.title2)
-                        .contentTransition(.numericText(countsDown: false))
-                        .animation(.default, value: progress)
-                }
+                        Text("\(Int(progress))")
+                            .font(.title2)
+                            .contentTransition(.numericText(countsDown: false))
+                            .animation(.default, value: progress)
+                    }
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.blue, lineWidth: 2)
+                    )
             }
             if focusaborttask { labelaborttask }
         }
