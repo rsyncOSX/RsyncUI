@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct RsyncCommandView: View {
-    @State var selectedrsynccommand: RsyncCommand = .synchronize_data
+    @State var selectedrsynccommand: RsyncCommand = .synchronizeData
 
     let config: SynchronizeConfiguration
 

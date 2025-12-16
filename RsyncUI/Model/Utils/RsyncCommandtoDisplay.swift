@@ -9,9 +9,9 @@
 import Foundation
 
 enum RsyncCommand: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case synchronize_data
-    case restore_data
-    case verify_synchronized_data
+    case synchronizeData = "synchronize_data"
+    case restoreData = "restore_data"
+    case verifySynchronizedData = "verify_synchronized_data"
 
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
@@ -25,7 +25,7 @@ struct RsyncCommandtoDisplay {
          config: SynchronizeConfiguration) {
         var str = ""
         switch display {
-        case .synchronize_data:
+        case .synchronizeData:
             if config.task == SharedReference.shared.halted {
                 str = "Task is halted"
             } else {
@@ -33,12 +33,12 @@ struct RsyncCommandtoDisplay {
                     str = (GetfullpathforRsync().rsyncpath()) + " " + arguments.joined()
                 }
             }
-        case .restore_data:
+        case .restoreData:
             if let arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true,
                                                                                                                 forDisplay: true) {
                 str = (GetfullpathforRsync().rsyncpath()) + " " + arguments.joined()
             }
-        case .verify_synchronized_data:
+        case .verifySynchronizedData:
             if config.task == SharedReference.shared.halted {
                 str = "Task is halted"
             } else {
