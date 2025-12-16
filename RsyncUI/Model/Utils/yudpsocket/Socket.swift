@@ -49,4 +49,5 @@ public enum SocketError: Error {
     case connectionTimeout
     case unknownError
 }
+
 // swiftlint:enable identifier_name

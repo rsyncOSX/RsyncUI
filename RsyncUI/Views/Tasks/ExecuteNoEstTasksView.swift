@@ -27,18 +27,18 @@ struct ExecuteNoEstTasksView: View {
 
             if progressviewshowinfo {
                 HStack {
-                        ProgressView()
+                    ProgressView()
 
-                        Text("\(Int(progress))")
-                            .font(.title2)
-                            .contentTransition(.numericText(countsDown: false))
-                            .animation(.default, value: progress)
-                    }
-                    .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.blue, lineWidth: 2)
-                    )
+                    Text("\(Int(progress))")
+                        .font(.title2)
+                        .contentTransition(.numericText(countsDown: false))
+                        .animation(.default, value: progress)
+                }
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.blue, lineWidth: 2)
+                )
             }
             if focusaborttask { labelaborttask }
         }

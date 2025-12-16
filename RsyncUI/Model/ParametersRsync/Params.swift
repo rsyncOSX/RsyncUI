@@ -13,7 +13,7 @@ struct Params {
     func params(
         config: SynchronizeConfiguration) -> Parameters {
         var rsyncdaemon = false
-        var deleteExtraneous: Bool = false
+        var deleteExtraneous = false
         if config.rsyncdaemon == 1 { rsyncdaemon = true }
         if config.parameter4 != nil { deleteExtraneous = true }
         return Parameters(

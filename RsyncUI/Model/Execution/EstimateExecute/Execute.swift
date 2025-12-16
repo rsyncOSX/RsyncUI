@@ -193,10 +193,11 @@ final class Execute {
 extension Execute {
     private func processTermination(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
         guard setabort == false else { return }
+        let resolvedHiddenID = hiddenID ?? -1
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
         // When creating the logrecord, decrease the snapshotum by 1
-        let element = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: Date().en_string_from_date())
+        let element = ScheduleLogData(hiddenID: resolvedHiddenID, stats: Date().en_string_from_date())
         configrecords.append(element)
         // Prepareoutput prepares output from rsync for extracting the numbers only.
         // It removes all lines except the last 20 lines where summarized numbers are put
@@ -206,12 +207,12 @@ extension Execute {
             do {
                 let stats = try ParseRsyncOutput(preparedoutputfromrsync,
                                                  SharedReference.shared.rsyncversion3 ? .ver3 : .openrsync).getstats()
-                let logData = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: stats ?? defaultstats)
+                let logData = ScheduleLogData(hiddenID: resolvedHiddenID, stats: stats ?? defaultstats)
                 schedulerecords.append(logData)
                 Logger.process.debugMessageOnly("Execute: getstats() SUCCESS")
             } catch let err {
                 if SharedReference.shared.silencemissingstats == false {
-                    let logData = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: defaultstats)
+                    let logData = ScheduleLogData(hiddenID: resolvedHiddenID, stats: defaultstats)
                     schedulerecords.append(logData)
                     Logger.process.debugMessageOnly("Execute: getstats() FAILED")
 
@@ -219,7 +220,7 @@ extension Execute {
                     SharedReference.shared.errorobject?.alert(error: error)
 
                 } else {
-                    let logData = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: defaultstats)
+                    let logData = ScheduleLogData(hiddenID: resolvedHiddenID, stats: defaultstats)
                     schedulerecords.append(logData)
                     Logger.process.debugMessageOnly("Execute: getstats() FAILED")
                 }

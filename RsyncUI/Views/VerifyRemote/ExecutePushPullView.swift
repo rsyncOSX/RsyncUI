@@ -143,9 +143,10 @@ struct ExecutePushPullView: View {
 
     // For a verify run, --dry-run
     func push(config: SynchronizeConfiguration) {
-        let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremotewithparameters(dryRun: dryrun,
-                                                                                                         forDisplay: false,
-                                                                                                         keepdelete: keepdelete)
+        let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremotewithparameters(dryRun:
+            dryrun,
+            forDisplay: false,
+            keepdelete: keepdelete)
 
         let handlers = CreateHandlers().createHandlers(
             fileHandler: fileHandler,
@@ -192,11 +193,12 @@ struct ExecutePushPullView: View {
     func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         showprogressview = false
 
+        let lines = stringoutputfromrsync?.count ?? 0
         if dryrun {
-            max = Double(stringoutputfromrsync?.count ?? 0)
+            max = Double(lines)
         }
 
-        if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
+        if lines > SharedReference.shared.alerttagginglines, let stringoutputfromrsync {
             let suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
             remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
                                                   config: config)

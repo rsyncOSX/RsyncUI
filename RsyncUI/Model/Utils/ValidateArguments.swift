@@ -21,21 +21,19 @@ enum InvalidArguments: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .compress:
-            return "argument --compress is MISSING"
+            "argument --compress is MISSING"
         case .archive:
-            return "argument --archive is MISSING"
+            "argument --archive is MISSING"
         case .delete:
-            return "argument --delete is MISSING"
+            "argument --delete is MISSING"
         case .nodelete:
-            return "argument --delete is INCLUDED"
+            "argument --delete is INCLUDED"
         }
     }
 }
 
 struct ValidateArguments {
-
     func validate(config: SynchronizeConfiguration, arguments: [String]) throws {
-
         let remoteOrLocal: RemoteOrLocal = config.offsiteServer.isEmpty ? .local : .remote
 
         switch remoteOrLocal {

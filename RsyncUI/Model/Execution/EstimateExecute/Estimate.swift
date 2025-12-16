@@ -35,37 +35,36 @@ final class Estimate {
             processTermination: processTermination
         )
 
-        if let localhiddenID = stackoftasks?.removeFirst() {
-            if let config = getConfig(localhiddenID) {
-                if let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: true,
-                                                                                             forDisplay: false) {
-                    // Used to display details of configuration in estimation
-                    localprogressdetails?.configurationtobestimated = config.id
+        guard
+            let localhiddenID = stackoftasks?.removeFirst(),
+            let config = getConfig(localhiddenID),
+            let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: true, forDisplay: false)
+        else { return }
 
-                    // Must check valid rsync exists
-                    guard SharedReference.shared.norsync == false else { return }
-                    guard config.task != SharedReference.shared.halted else { return }
-                    if SharedReference.shared.validatearguments {
-                        do {
-                            try ValidateArguments().validate(config: config, arguments: arguments)
-                        } catch let err {
-                            let error = err
-                            SharedReference.shared.errorobject?.alert(error: error)
-                        }
-                    }
-                    let process = RsyncProcess(arguments: arguments,
-                                               hiddenID: config.hiddenID,
-                                               handlers: handlers,
-                                               useFileHandler: false)
+        // Used to display details of configuration in estimation
+        localprogressdetails?.configurationtobestimated = config.id
 
-                    do {
-                        try process.executeProcess()
-                    } catch let err {
-                        let error = err
-                        SharedReference.shared.errorobject?.alert(error: error)
-                    }
-                }
+        // Must check valid rsync exists
+        guard SharedReference.shared.norsync == false else { return }
+        guard config.task != SharedReference.shared.halted else { return }
+        if SharedReference.shared.validatearguments {
+            do {
+                try ValidateArguments().validate(config: config, arguments: arguments)
+            } catch let err {
+                let error = err
+                SharedReference.shared.errorobject?.alert(error: error)
             }
+        }
+        let process = RsyncProcess(arguments: arguments,
+                                   hiddenID: config.hiddenID,
+                                   handlers: handlers,
+                                   useFileHandler: false)
+
+        do {
+            try process.executeProcess()
+        } catch let err {
+            let error = err
+            SharedReference.shared.errorobject?.alert(error: error)
         }
     }
 
