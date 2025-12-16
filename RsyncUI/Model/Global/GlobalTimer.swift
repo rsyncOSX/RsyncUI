@@ -149,14 +149,14 @@ final class GlobalTimer {
 
         if let item = allSchedules.first {
             let interval = item.time.timeIntervalSince(.now)
-            let t = Timer(timeInterval: interval, repeats: false) { [weak self] _ in
+            let timerInstance = Timer(timeInterval: interval, repeats: false) { [weak self] _ in
                 Task { @MainActor in
                     self?.checkSchedules()
                 }
             }
-            t.tolerance = item.tolerance
-            RunLoop.main.add(t, forMode: .common)
-            timer = t
+            timerInstance.tolerance = item.tolerance
+            RunLoop.main.add(timerInstance, forMode: .common)
+            timer = timerInstance
         }
     }
 

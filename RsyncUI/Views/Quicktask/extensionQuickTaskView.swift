@@ -67,8 +67,8 @@ extension QuicktaskView {
 
         if let config = VerifyConfiguration().verify(getdata) {
             do {
-                let ok = try validateInput(config)
-                if ok {
+                let isValid = try validateInput(config)
+                if isValid {
                     execute(config: config, dryrun: dryrun)
                 }
             } catch let err {
