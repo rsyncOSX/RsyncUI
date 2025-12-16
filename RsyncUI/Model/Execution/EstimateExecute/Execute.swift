@@ -62,6 +62,8 @@ final class Execute {
             if let config = getConfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: false,
                                                                                              forDisplay: false) {
+                    
+                    
                     let process = RsyncProcess(arguments: arguments,
                                                hiddenID: config.hiddenID,
                                                handlers: handlers,
@@ -69,6 +71,13 @@ final class Execute {
                     // Must check valid rsync exists
                     guard SharedReference.shared.norsync == false else { return }
                     guard config.task != SharedReference.shared.halted else { return }
+                    
+                    do {
+                        try ValidateArguments().validate(config: config, arguments: arguments)
+                    } catch let err {
+                        let error = err
+                        SharedReference.shared.errorobject?.alert(error: error)
+                    }
 
                     do {
                         try process.executeProcess()
@@ -96,6 +105,13 @@ final class Execute {
                     // Must check valid rsync exists
                     guard SharedReference.shared.norsync == false else { return }
                     guard config.task != SharedReference.shared.halted else { return }
+                    
+                    do {
+                        try ValidateArguments().validate(config: config, arguments: arguments)
+                    } catch let err {
+                        let error = err
+                        SharedReference.shared.errorobject?.alert(error: error)
+                    }
 
                     let process = RsyncProcess(arguments: arguments,
                                                hiddenID: config.hiddenID,
