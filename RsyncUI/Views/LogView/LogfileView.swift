@@ -11,7 +11,7 @@ import SwiftUI
 
 struct LogfileView: View {
     @State private var logfilerecords: [LogfileRecords]?
-    @State private var whichlogfileispresented: LogfileToReset = .RsyncUIlogfile
+    @State private var whichlogfileispresented: LogfileToReset = .rsyncUIlogfile
 
     var body: some View {
         VStack {
@@ -30,7 +30,7 @@ struct LogfileView: View {
                     helpText: "View logfile"
                 ) {
                     Task {
-                        whichlogfileispresented = .RsyncUIlogfile
+                        whichlogfileispresented = .rsyncUIlogfile
                         logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
                     }
                 }
@@ -41,7 +41,7 @@ struct LogfileView: View {
                     helpText: "View rsync output"
                 ) {
                     Task {
-                        whichlogfileispresented = .RsyncOutputlogfile
+                        whichlogfileispresented = .rsyncOutputlogfile
                         logfilerecords = await ActorCreateOutputforView().createaoutputrsynclogforview()
                     }
                 }
@@ -67,9 +67,9 @@ struct LogfileView: View {
         Task {
             await ActorLogToFile(whichlogfileispresented)
             switch whichlogfileispresented {
-            case .RsyncOutputlogfile:
+            case .rsyncOutputlogfile:
                 logfilerecords = await ActorCreateOutputforView().createaoutputrsynclogforview()
-            case .RsyncUIlogfile:
+            case .rsyncUIlogfile:
                 logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
             }
         }

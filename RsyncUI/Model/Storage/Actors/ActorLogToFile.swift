@@ -24,8 +24,8 @@ enum FilesizeError: LocalizedError {
 }
 
 enum LogfileToReset {
-    case RsyncUIlogfile
-    case RsyncOutputlogfile
+    case rsyncUIlogfile
+    case rsyncOutputlogfile
 }
 
 actor ActorLogToFile {
@@ -221,12 +221,12 @@ actor ActorLogToFile {
     @discardableResult
     init(_ whichlogfile: LogfileToReset) async {
         switch whichlogfile {
-        case .RsyncUIlogfile:
+        case .rsyncUIlogfile:
             // Reset loggfile
             let date = Date().localized_string_from_date()
             let reset = date + ": " + "logfile is reset..." + "\n"
             await writeloggfile(reset, true)
-        case .RsyncOutputlogfile:
+        case .rsyncOutputlogfile:
             // Reset rsync-outputlog
             await resetrsynclogfile()
         }

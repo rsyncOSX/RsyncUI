@@ -27,7 +27,7 @@
 //  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-
+// swiftlint:disable identifier_name
 import Foundation
 
 public typealias Byte = UInt8
@@ -49,3 +49,4 @@ public enum SocketError: Error {
     case connectionTimeout
     case unknownError
 }
+// swiftlint:enable identifier_name

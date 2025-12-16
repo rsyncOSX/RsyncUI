@@ -15,8 +15,8 @@ struct ReadAllTasks {
         let allprofiles = validprofiles.map(\.profilename)
         let rsyncversion3 = SharedReference.shared.rsyncversion3
 
-        for i in 0 ..< allprofiles.count {
-            let profilename = allprofiles[i]
+        for profileIndex in 0 ..< allprofiles.count {
+            let profilename = allprofiles[profileIndex]
 
             async let configurations = ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profilename,
@@ -74,8 +74,8 @@ struct ReadAllTasks {
         var allconfigurations: [SynchronizeConfiguration] = []
         let allprofiles = validprofiles.map(\.profilename)
 
-        for i in 0 ..< allprofiles.count {
-            let profilename = allprofiles[i]
+        for profileIndex in 0 ..< allprofiles.count {
+            let profilename = allprofiles[profileIndex]
 
             let configurations = await ActorReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profilename,
