@@ -187,9 +187,9 @@ final class ObservableSchedules {
 
     // Verify new planned schedule
     func verifynextschedule(plannednextschedule: String) -> Bool {
-        let dates = globaltimer.allSchedules.sorted { s1, s2 in
-            if let id1 = s1.scheduledata?.dateRun?.en_date_from_string(),
-               let id2 = s2.scheduledata?.dateRun?.en_date_from_string() {
+        let dates = globaltimer.allSchedules.sorted { schedule1, schedule2 in
+            if let id1 = schedule1.scheduledata?.dateRun?.en_date_from_string(),
+               let id2 = schedule2.scheduledata?.dateRun?.en_date_from_string() {
                 return id1 < id2
             }
             return false

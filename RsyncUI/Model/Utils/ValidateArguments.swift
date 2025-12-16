@@ -17,7 +17,7 @@ enum InvalidArguments: LocalizedError {
     case archive
     case delete
     case nodelete
-    
+
     var errorDescription: String? {
         switch self {
         case .compress:
@@ -33,31 +33,31 @@ enum InvalidArguments: LocalizedError {
 }
 
 struct ValidateArguments {
-    
+
     func validate(config: SynchronizeConfiguration, arguments: [String]) throws {
-        
+
         let remoteOrLocal: RemoteOrLocal = config.offsiteServer.isEmpty ? .local : .remote
-        
+
         switch remoteOrLocal {
         case .remote:
             guard arguments.contains("--compress") else {
                 throw InvalidArguments.compress
             }
-            
+
             guard arguments.contains("--archive") else {
                 throw InvalidArguments.archive
             }
-            
+
         case .local:
             guard arguments.contains("--compress") == false else {
                 throw InvalidArguments.compress
             }
-            
+
             guard arguments.contains("--archive") else {
                 throw InvalidArguments.archive
             }
         }
-        
+
         if config.parameter4 == nil {
             guard arguments.contains("--delete") == false else {
                 throw InvalidArguments.nodelete
@@ -67,8 +67,7 @@ struct ValidateArguments {
                 throw InvalidArguments.delete
             }
         }
-        
+
         // Validation passed
     }
-    
 }

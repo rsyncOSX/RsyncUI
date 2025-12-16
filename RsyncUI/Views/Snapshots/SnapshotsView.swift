@@ -344,7 +344,7 @@ extension SnapshotsView {
                 snapshotdata.setsnapshotdata(nil)
                 filterstring = ""
                 isdisabled = true
-            }          
+            }
         }
     }
 }

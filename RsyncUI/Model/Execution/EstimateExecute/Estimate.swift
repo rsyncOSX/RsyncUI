@@ -45,7 +45,6 @@ final class Estimate {
                     // Must check valid rsync exists
                     guard SharedReference.shared.norsync == false else { return }
                     guard config.task != SharedReference.shared.halted else { return }
-                    
                     if SharedReference.shared.validatearguments {
                         do {
                             try ValidateArguments().validate(config: config, arguments: arguments)
@@ -54,7 +53,6 @@ final class Estimate {
                             SharedReference.shared.errorobject?.alert(error: error)
                         }
                     }
-                    
                     let process = RsyncProcess(arguments: arguments,
                                                hiddenID: config.hiddenID,
                                                handlers: handlers,
