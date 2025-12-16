@@ -84,14 +84,6 @@ struct Logsettings: View {
                     if togglehideverifyremotefunction {
                         DismissafterMessageView(dismissafter: 2, mytext: "Please restart RsyncUI to take effect")
                     }
-
-                    if togglesilencemissingstats {
-                        DismissafterMessageView(dismissafter: 2, mytext: "Setting applies to next rsync run")
-                    }
-
-                    if togglevalidatearguments {
-                        DismissafterMessageView(dismissafter: 2, mytext: "Setting applies to next rsync run")
-                    }
                 }
 
             Section(header: Text("Save userconfiguration")

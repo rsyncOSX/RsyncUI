@@ -122,5 +122,6 @@ struct UserConfiguration: @MainActor Codable {
         alwaysshowestimateddetailsview = boolToInt(SharedReference.shared.alwaysshowestimateddetailsview)
         hideverifyremotefunction = boolToInt(SharedReference.shared.hideverifyremotefunction)
         silencemissingstats = boolToInt(SharedReference.shared.silencemissingstats)
+        validatearguments = boolToInt(SharedReference.shared.validatearguments)
     }
 }
