@@ -28,4 +28,6 @@ final class ObservableLogSettings {
     var hideverifyremotefunction: Bool = SharedReference.shared.hideverifyremotefunction
     // Silence missing stats
     var silencemissingstats: Bool = SharedReference.shared.silencemissingstats
+    // Validate arguments
+    var validatearguments: Bool = SharedReference.shared.validatearguments
 }

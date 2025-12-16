@@ -14,6 +14,7 @@ struct Logsettings: View {
     @State private var togglealwaysshowestimateddetailsview: Bool = false
     @State private var togglehideverifyremotefunction: Bool = false
     @State private var togglesilencemissingstats: Bool = false
+    @State private var togglevalidatearguments: Bool = false
 
     var body: some View {
         Form {
@@ -62,6 +63,13 @@ struct Logsettings: View {
                             togglesilencemissingstats = logsettings.silencemissingstats
                         }
 
+                    ToggleViewDefault(text: "Validate arguments",
+                                      binding: $logsettings.validatearguments)
+                        .onChange(of: logsettings.validatearguments) {
+                            SharedReference.shared.validatearguments = logsettings.validatearguments
+                            togglevalidatearguments = logsettings.validatearguments
+                        }
+
                     if SharedReference.shared.rsyncversion3 {
                         ToggleViewDefault(text: "Confirm execute", binding: $logsettings.confirmexecute)
                             .onChange(of: logsettings.confirmexecute) {
@@ -78,6 +86,10 @@ struct Logsettings: View {
                     }
 
                     if togglesilencemissingstats {
+                        DismissafterMessageView(dismissafter: 2, mytext: "Setting applies to next rsync run")
+                    }
+
+                    if togglevalidatearguments {
                         DismissafterMessageView(dismissafter: 2, mytext: "Setting applies to next rsync run")
                     }
                 }

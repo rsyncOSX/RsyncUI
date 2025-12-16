@@ -40,6 +40,8 @@ struct UserConfiguration: @MainActor Codable {
     var hideverifyremotefunction: Int = -1
     // Silence missing stats
     var silencemissingstats: Int = -1
+    // Validate arguments
+    var validatearguments: Int = -1
 
     private func intToBool(_ value: Int) -> Bool {
         value == 1
@@ -73,6 +75,7 @@ struct UserConfiguration: @MainActor Codable {
         SharedReference.shared.alwaysshowestimateddetailsview = intToBool(alwaysshowestimateddetailsview)
         SharedReference.shared.hideverifyremotefunction = intToBool(hideverifyremotefunction)
         SharedReference.shared.silencemissingstats = intToBool(silencemissingstats)
+        SharedReference.shared.validatearguments = intToBool(validatearguments)
     }
 
     // Used when reading JSON data from store
@@ -95,6 +98,7 @@ struct UserConfiguration: @MainActor Codable {
         alwaysshowestimateddetailsview = data.alwaysshowestimateddetailsview ?? -1
         hideverifyremotefunction = data.hideverifyremotefunction ?? -1
         silencemissingstats = data.silencemissingstats ?? -1
+        validatearguments = data.validatearguments ?? -1
         setuserconfigdata()
     }
 
