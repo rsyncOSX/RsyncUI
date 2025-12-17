@@ -110,11 +110,12 @@ struct VerifyTasks: View {
         let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: true,
                                                                                   forDisplay: false)
 
-        streamingHandlers = CreateStreamingHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
             fileHandler: { _ in },
             processTermination: { output, hiddenID in
                 processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
-            }
+            },
+            cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
         )
 
         guard SharedReference.shared.norsync == false else { return }

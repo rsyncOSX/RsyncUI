@@ -152,11 +152,12 @@ struct ExecutePushPullView: View {
             forDisplay: false,
             keepdelete: keepdelete)
 
-        streamingHandlers = CreateStreamingHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
             fileHandler: { count in fileHandler(count: count) },
             processTermination: { output, hiddenID in
                 processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
-            }
+            },
+            cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
         )
 
         guard SharedReference.shared.norsync == false else { return }
@@ -184,11 +185,12 @@ struct ExecutePushPullView: View {
                                                                                               forDisplay: false,
                                                                                               keepdelete: keepdelete)
 
-        streamingHandlers = CreateStreamingHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
             fileHandler: { count in fileHandler(count: count) },
             processTermination: { output, hiddenID in
                 processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
-            }
+            },
+            cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
         )
         guard let arguments else { return }
         guard let streamingHandlers else { return }

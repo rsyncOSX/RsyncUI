@@ -298,11 +298,12 @@ extension RestoreTableView {
             }
             guard let arguments else { return }
             
-            streamingHandlers = CreateStreamingHandlers().createHandlers(
+            streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
                 fileHandler: { _ in },
                 processTermination: { output, hiddenID in
                     processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
-                }
+                },
+                cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
             )
 
             guard let streamingHandlers else { return }

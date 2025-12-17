@@ -57,11 +57,12 @@ struct OneTaskDetailsView: View {
                 .argumentsSynchronize(dryRun: true, forDisplay: false)
             guard arguments != nil else { return }
 
-            streamingHandlers = CreateStreamingHandlers().createHandlers(
+            streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
                 fileHandler: { _ in },
                 processTermination: { output, hiddenID in
                     processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
-                }
+                },
+                cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
             )
 
             // Must check valid rsync exists

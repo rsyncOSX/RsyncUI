@@ -51,6 +51,52 @@ struct CreateStreamingHandlers {
         )
     }
 
+    /// Create handlers that automatically perform cleanup after termination.
+    /// Use this to avoid retain cycles by ensuring long-lived references are released
+    /// right after the termination callback completes.
+    /// - Parameters:
+    ///   - fileHandler: Progress callback (file count)
+    ///   - processTermination: Called when process completes (receives final output)
+    ///   - cleanup: Invoked immediately after `processTermination` to release references
+    /// - Returns: ProcessHandlers configured for streaming with enforced cleanup
+    func createHandlersWithCleanup(
+        fileHandler: @escaping (Int) -> Void,
+        processTermination: @escaping ([String]?, Int?) -> Void,
+        cleanup: @escaping () -> Void
+    ) -> ProcessHandlers {
+        #if DEBUG
+            debugValidateStreamingThreading()
+        #endif
+
+        #if DEBUG
+            let printLineClosure: (String) -> Void = { _ in }
+        // let printLineClosure: (String) -> Void = { line in print("line: \(line)") }
+        #else
+            let printLineClosure: (String) -> Void = { _ in }
+        #endif
+
+        return ProcessHandlers(
+            processTermination: { output, hiddenID in
+                processTermination(output, hiddenID)
+                cleanup()
+            },
+            fileHandler: fileHandler,
+            rsyncPath: GetfullpathforRsync().rsyncpath(),
+            checkLineForError: TrimOutputFromRsync().checkForRsyncError(_:),
+            updateProcess: SharedReference.shared.updateprocess,
+            propagateError: { error in
+                SharedReference.shared.errorobject?.alert(error: error)
+            },
+            logger: { command, output in
+                _ = await ActorLogToFile(command, output)
+            },
+            checkForErrorInRsyncOutput: SharedReference.shared.checkforerrorinrsyncoutput,
+            rsyncVersion3: SharedReference.shared.rsyncversion3,
+            environment: MyEnvironment()?.environment,
+            printLine: printLineClosure
+        )
+    }
+
     #if DEBUG
         private static var threadingCheckRan = false
 

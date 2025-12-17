@@ -108,11 +108,12 @@ struct PushPullView: View {
                                                                                               forDisplay: false,
                                                                                               keepdelete: true)
 
-        streamingHandlers = CreateStreamingHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
             fileHandler: { _ in },
             processTermination: { output, hiddenID in
                 pullProcessTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
-            }
+            },
+            cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
         )
 
         guard SharedReference.shared.norsync == false else { return }
@@ -140,11 +141,12 @@ struct PushPullView: View {
         let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremotewithparameters(dryRun: true,
                                                                                                          forDisplay: false,
                                                                                                          keepdelete: true)
-        streamingHandlers = CreateStreamingHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
             fileHandler: { _ in },
             processTermination: { output, hiddenID in
                 pushProcessTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
-            }
+            },
+            cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
         )
 
         guard let arguments else { return }

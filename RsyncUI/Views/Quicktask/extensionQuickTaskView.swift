@@ -112,10 +112,11 @@ extension QuicktaskView {
         // Start progressview
         showprogressview = true
 
-        // Create streaming handlers and retain them
-        streamingHandlers = CreateStreamingHandlers().createHandlers(
+        // Create streaming handlers and retain them (with enforced cleanup)
+        streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
             fileHandler: { count in fileHandler(count: count) },
-            processTermination: { output, exitCode in processTermination(output, exitCode) }
+            processTermination: { output, exitCode in processTermination(output, exitCode) },
+            cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
         )
 
         // Must check valid rsync exists
