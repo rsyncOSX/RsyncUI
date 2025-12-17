@@ -8,7 +8,7 @@
 import Foundation
 import Observation
 import OSLog
-import RsyncProcess
+import RsyncProcessStreaming
 
 @Observable @MainActor
 final class ObservableRestore {
@@ -24,6 +24,10 @@ final class ObservableRestore {
     // Progress count
     var progress: Double = 0
     var max: Double = 0
+
+    // Streaming strong references
+    private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
 
     func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         if dryrun {
@@ -44,7 +48,7 @@ final class ObservableRestore {
 
     func executeRestore() {
         var arguments: [String]?
-        let handlers = CreateHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: fileHandler,
             processTermination: processTermination
         )
@@ -59,12 +63,17 @@ final class ObservableRestore {
                     // Must check valid rsync exists
                     guard SharedReference.shared.norsync == false else { return }
 
-                    let process = RsyncProcess(arguments: arguments,
-                                               handlers: handlers,
-                                               fileHandler: true)
+                    guard let streamingHandlers else { return }
+
+                    let process = RsyncProcessStreaming.RsyncProcess(
+                        arguments: arguments,
+                        handlers: streamingHandlers,
+                        useFileHandler: true
+                    )
                     do {
                         progress = 0
                         try process.executeProcess()
+                        activeStreamingProcess = process
                     } catch let err {
                         let error = err
                         SharedReference.shared.errorobject?.alert(error: error)
