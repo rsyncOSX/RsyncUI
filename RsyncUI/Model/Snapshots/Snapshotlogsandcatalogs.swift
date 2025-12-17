@@ -5,7 +5,7 @@
 
 import Foundation
 import OSLog
-import RsyncProcess
+import RsyncProcessStreaming
 
 @MainActor
 final class Snapshotlogsandcatalogs {
@@ -13,23 +13,33 @@ final class Snapshotlogsandcatalogs {
     var mysnapshotdata: ObservableSnapshotData?
     var config: SynchronizeConfiguration
     var logrecords: [LogRecords]
+    
+    // Streaming strong references
+    private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
 
     func getremotecataloginfo() {
-        let handlers = CreateHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: { _ in },
             processTermination: processTermination
         )
 
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
-        let process = RsyncProcess(arguments: arguments,
-                                   handlers: handlers,
-                                   fileHandler: false)
-        do {
-            try process.executeProcess()
-        } catch let err {
-            let error = err
-            SharedReference.shared.errorobject?.alert(error: error)
-        }
+        guard let arguments else { return }
+        
+            let process = RsyncProcessStreaming.RsyncProcess(
+                arguments: arguments,
+                handlers: streamingHandlers!,
+                useFileHandler: false
+            )
+            do {
+                try process.executeProcess()
+                activeStreamingProcess = process
+            } catch let err {
+                let error = err
+                SharedReference.shared.errorobject?.alert(error: error)
+            }
+        
     }
 
     // Merging remote snaphotcatalogs and existing logs

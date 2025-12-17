@@ -8,7 +8,7 @@
 import Foundation
 import OSLog
 import ParseRsyncOutput
-import RsyncProcess
+import RsyncProcessStreaming
 
 @MainActor
 final class Estimate {
@@ -19,6 +19,10 @@ final class Estimate {
 
     var stackoftasks: [Int]?
     var synchronizeIDwitherror: String = ""
+    
+    // Streaming strong references
+    private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
 
     private func getConfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
         if let index = localconfigurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
@@ -30,7 +34,7 @@ final class Estimate {
     private func startEstimation() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
 
-        let handlers = CreateHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: { _ in },
             processTermination: processTermination
         )
@@ -55,13 +59,16 @@ final class Estimate {
                 SharedReference.shared.errorobject?.alert(error: error)
             }
         }
-        let process = RsyncProcess(arguments: arguments,
-                                   hiddenID: config.hiddenID,
-                                   handlers: handlers,
-                                   useFileHandler: false)
+        let process = RsyncProcessStreaming.RsyncProcess(
+            arguments: arguments,
+            hiddenID: config.hiddenID,
+            handlers: streamingHandlers!,
+            useFileHandler: false
+        )
 
         do {
             try process.executeProcess()
+            activeStreamingProcess = process
         } catch let err {
             let error = err
             SharedReference.shared.errorobject?.alert(error: error)
@@ -139,37 +146,39 @@ extension Estimate {
             config: getConfig(resolvedHiddenID)
         )
 
-        Task {
-            // Create data for output rsync for view
-            record.outputfromrsync =
-                await ActorCreateOutputforView().createOutputForView(originalOutput)
-            localprogressdetails?.appendRecordEstimatedList(record)
+        Task.detached { [self, originalOutput, outputToProcess] in
+            // Create data for output rsync for view off-main
+            let output = await ActorCreateOutputforView().createOutputForView(originalOutput)
+            await MainActor.run {
+                record.outputfromrsync = output
+                self.localprogressdetails?.appendRecordEstimatedList(record)
 
-            if record.datatosynchronize {
-                if let config = getConfig(resolvedHiddenID) {
-                    localprogressdetails?.appendUUIDWithDataToSynchronize(config.id)
+                if record.datatosynchronize {
+                    if let config = self.getConfig(resolvedHiddenID) {
+                        self.localprogressdetails?.appendUUIDWithDataToSynchronize(config.id)
+                    }
                 }
-            }
 
-            // Validate that tagging is correct
-            do {
-                // In case of throwing an error to identify which task
-                if outputToProcess != originalOutput {
-                    synchronizeIDwitherror = record.backupID
+                // Validate that tagging is correct
+                do {
+                    // In case of throwing an error to identify which task
+                    if outputToProcess != originalOutput {
+                        self.synchronizeIDwitherror = record.backupID
+                    }
+                    try self.validateTagging(originalOutput?.count ?? 0, record.datatosynchronize)
+                } catch let err {
+                    let error = err
+                    SharedReference.shared.errorobject?.alert(error: error)
                 }
-                try validateTagging(originalOutput?.count ?? 0, record.datatosynchronize)
-            } catch let err {
-                let error = err
-                SharedReference.shared.errorobject?.alert(error: error)
-            }
 
-            guard stackoftasks?.count ?? 0 > 0 else {
-                localprogressdetails?.estimationIsComplete()
-                Logger.process.debugMessageOnly("Estimate: ESTIMATION is completed")
-                return
+                guard self.stackoftasks?.count ?? 0 > 0 else {
+                    self.localprogressdetails?.estimationIsComplete()
+                    Logger.process.debugMessageOnly("Estimate: ESTIMATION is completed")
+                    return
+                }
+                // Estimate next task
+                self.startEstimation()
             }
-            // Estimate next task
-            startEstimation()
         }
     }
 }

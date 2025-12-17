@@ -8,7 +8,7 @@
 import Foundation
 import OSLog
 import ParseRsyncOutput
-import RsyncProcess
+import RsyncProcessStreaming
 
 enum ErrorDatatoSynchronize: LocalizedError {
     case thereisdatatosynchronize(idwitherror: String)
@@ -41,6 +41,10 @@ final class Execute {
     var stackoftasks: [Int]?
 
     let defaultstats = "0 files : 0.00 MB in 0.00 seconds"
+    
+    // Streaming strong references
+    private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
 
     private func getConfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
         if let index = localconfigurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
@@ -51,7 +55,7 @@ final class Execute {
 
     private func startexecution() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
-        let handlers = CreateHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: localfileHandler,
             processTermination: processTermination
         )
@@ -62,10 +66,12 @@ final class Execute {
             if let config = getConfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: false,
                                                                                              forDisplay: false) {
-                    let process = RsyncProcess(arguments: arguments,
-                                               hiddenID: config.hiddenID,
-                                               handlers: handlers,
-                                               useFileHandler: true)
+                    let process = RsyncProcessStreaming.RsyncProcess(
+                        arguments: arguments,
+                        hiddenID: config.hiddenID,
+                        handlers: streamingHandlers!,
+                        useFileHandler: false
+                    )
                     // Must check valid rsync exists
                     guard SharedReference.shared.norsync == false else { return }
                     guard config.task != SharedReference.shared.halted else { return }
@@ -81,6 +87,7 @@ final class Execute {
 
                     do {
                         try process.executeProcess()
+                        activeStreamingProcess = process
                     } catch let err {
                         let error = err
                         SharedReference.shared.errorobject?.alert(error: error)
@@ -93,7 +100,7 @@ final class Execute {
     private func startexecution_noestimate() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
 
-        let handlers = CreateHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: localfileHandler,
             processTermination: processTermination_noestimation
         )
@@ -115,13 +122,16 @@ final class Execute {
                         }
                     }
 
-                    let process = RsyncProcess(arguments: arguments,
-                                               hiddenID: config.hiddenID,
-                                               handlers: handlers,
-                                               useFileHandler: true)
+                    let process = RsyncProcessStreaming.RsyncProcess(
+                        arguments: arguments,
+                        hiddenID: config.hiddenID,
+                        handlers: streamingHandlers!,
+                        useFileHandler: false
+                    )
 
                     do {
                         try process.executeProcess()
+                        activeStreamingProcess = process
                     } catch let err {
                         let error = err
                         SharedReference.shared.errorobject?.alert(error: error)

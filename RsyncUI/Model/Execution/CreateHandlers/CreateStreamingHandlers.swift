@@ -39,7 +39,15 @@ struct CreateStreamingHandlers {
             checkForErrorInRsyncOutput: SharedReference.shared.checkforerrorinrsyncoutput,
             rsyncVersion3: SharedReference.shared.rsyncversion3,
             environment: MyEnvironment()?.environment,
-            printLine: { line in print("line: \(line)") }
+            printLine: { _ in }
+            /*
+            // Gate per-line streaming logs behind DEBUG
+            #if DEBUG
+                printLine: { line in print("line: \(line)") }
+            #else
+                printLine: { _ in }
+            #endif
+             */
         )
     }
 

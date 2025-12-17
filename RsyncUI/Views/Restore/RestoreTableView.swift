@@ -6,7 +6,7 @@
 //
 
 import OSLog
-import RsyncProcess
+import RsyncProcessStreaming
 import SwiftUI
 
 struct RestoreTableView: View {
@@ -16,6 +16,9 @@ struct RestoreTableView: View {
     @State private var focusaborttask: Bool = false
     // Restore snapshot
     @State var snapshotdata = ObservableSnapshotData()
+    // Streaming strong references
+    @State private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    @State private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
     @State private var snapshotfolder: String = ""
     @State private var snapshotFolderID: SnapshotFolder.ID?
     // Filterstring
@@ -266,10 +269,13 @@ extension RestoreTableView {
     }
 
     func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        gettingfilelist = false
-        restore.restorefilelist.removeAll()
-        Task {
-            restore.restorefilelist = await ActorCreateOutputforView().createoutputforrestore(stringoutputfromrsync)
+        DispatchQueue.main.async {
+            gettingfilelist = false
+            restore.restorefilelist.removeAll()
+        }
+        Task.detached { [stringoutputfromrsync] in
+            let list = await ActorCreateOutputforView().createoutputforrestore(stringoutputfromrsync)
+            await MainActor.run { restore.restorefilelist = list }
         }
     }
 
@@ -292,16 +298,19 @@ extension RestoreTableView {
             }
             guard arguments?.isEmpty == false else { return }
 
-            let handlers = CreateHandlers().createHandlers(
+            streamingHandlers = CreateStreamingHandlers().createHandlers(
                 fileHandler: { _ in },
                 processTermination: processTermination
             )
 
-            let process = RsyncProcess(arguments: arguments,
-                                       handlers: handlers,
-                                       fileHandler: false)
+            let process = RsyncProcessStreaming.RsyncProcess(
+                arguments: arguments ?? [],
+                handlers: streamingHandlers!,
+                useFileHandler: false
+            )
             do {
                 try process.executeProcess()
+                activeStreamingProcess = process
             } catch let err {
                 let error = err
                 SharedReference.shared.errorobject?.alert(error: error)
