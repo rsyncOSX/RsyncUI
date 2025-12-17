@@ -8,12 +8,16 @@
 import Foundation
 import Observation
 import OSLog
-import RsyncProcess
+import RsyncProcessStreaming
 
 @Observable @MainActor
 final class Rsyncversion {
+    // Streaming strong references
+    private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
+    
     func getRsyncVersion() {
-        let handlers = CreateHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: { _ in },
             processTermination: processTermination
         )
@@ -25,11 +29,14 @@ final class Rsyncversion {
             SharedReference.shared.rsyncversionshort = "No valid rsync deteced"
         }
         if SharedReference.shared.norsync == false {
-            let process = RsyncProcess(arguments: ["--version"],
-                                       handlers: handlers,
-                                       fileHandler: false)
+            let process = RsyncProcessStreaming.RsyncProcess(
+                arguments: ["--version"],
+                handlers: streamingHandlers!,
+                useFileHandler: false
+            )
             do {
                 try process.executeProcess()
+                activeStreamingProcess = process
             } catch let err {
                 let error = err
                 SharedReference.shared.errorobject?.alert(error: error)
