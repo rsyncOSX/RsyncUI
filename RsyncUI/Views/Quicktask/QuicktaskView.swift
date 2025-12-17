@@ -6,7 +6,6 @@
 //
 
 import OSLog
-import RsyncProcess
 import SwiftUI
 
 enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvertible {

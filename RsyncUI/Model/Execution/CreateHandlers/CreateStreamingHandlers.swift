@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import RsyncProcess
+import RsyncProcessStreaming
 
 @MainActor
 struct CreateStreamingHandlers {
@@ -18,31 +18,13 @@ struct CreateStreamingHandlers {
     /// - Returns: ProcessHandlers configured for streaming
     func createHandlers(
         fileHandler: @escaping (Int) -> Void,
-        processTermination: @escaping ([String]?, Int?) -> Void,
-        streamingHandler: StreamingOutputHandler? = nil
+        processTermination: @escaping ([String]?, Int?) -> Void
     ) -> ProcessHandlers {
         
-        // Create a print line closure that feeds the streaming handler
-        let printLineClosure: (String) -> Void = { line in
-            // Feed to streaming handler if provided
-            streamingHandler?.handleLine(line)
-            
-            // Also send to RsyncOutputCapture for real-time view
-            RsyncOutputCapture.shared.makePrintLinesClosure()(line)
-        }
-        
-        // Wrap the original processTermination to provide streaming output
-        let wrappedTermination: ([String]?, Int?) -> Void = { output, hiddenID in
-            // If we have a streaming handler, use its accumulated output
-            // This gives us the most recent lines without memory overflow
-            let finalOutput = streamingHandler?.getAllLines() ?? output
-            processTermination(finalOutput, hiddenID)
-        }
-        
         return ProcessHandlers(
-            processTermination: wrappedTermination,
+            processTermination: processTermination,
             fileHandler: fileHandler,
-            rsyncPath: GetfullpathforRsync().rsyncpath,
+            rsyncPath: GetfullpathforRsync().rsyncpath(),
             checkLineForError: TrimOutputFromRsync().checkForRsyncError(_:),
             updateProcess: SharedReference.shared.updateprocess,
             propagateError: { error in
@@ -54,7 +36,7 @@ struct CreateStreamingHandlers {
             checkForErrorInRsyncOutput: SharedReference.shared.checkforerrorinrsyncoutput,
             rsyncVersion3: SharedReference.shared.rsyncversion3,
             environment: MyEnvironment()?.environment,
-            printLine: printLineClosure
+            printLine: { line in print("line: \(line)") }
         )
     }
 }

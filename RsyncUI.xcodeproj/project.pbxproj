@@ -13,6 +13,7 @@
 		E93FBFF12E3DE6A3005225E2 /* RsyncUIicon.icon in Resources */ = {isa = PBXBuildFile; fileRef = E93FBFF02E3DE6A3005225E2 /* RsyncUIicon.icon */; };
 		E952A9A12EB9E139002C11C6 /* ProcessCommand in Frameworks */ = {isa = PBXBuildFile; productRef = E952A9A02EB9E139002C11C6 /* ProcessCommand */; };
 		E95CA3E42C73230800966D69 /* DecodeEncodeGeneric in Frameworks */ = {isa = PBXBuildFile; productRef = E95CA3E32C73230800966D69 /* DecodeEncodeGeneric */; };
+		E97F55DB2EF29BF90053F767 /* RsyncProcessStreaming in Frameworks */ = {isa = PBXBuildFile; productRef = E97F55DA2EF29BF90053F767 /* RsyncProcessStreaming */; };
 		E99DE0F926A32F8B00A08A69 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E99DE0F826A32F8B00A08A69 /* Credits.rtf */; };
 		E9AC986B2ECEF99600D0C654 /* RsyncArguments in Frameworks */ = {isa = PBXBuildFile; productRef = E9AC986A2ECEF99600D0C654 /* RsyncArguments */; };
 		E9B0B9A22ECCEE68004BDC24 /* RsyncArguments in Frameworks */ = {isa = PBXBuildFile; productRef = E9B0B9A12ECCEE68004BDC24 /* RsyncArguments */; };
@@ -91,6 +92,7 @@
 				E9C077762C8CCA65005F8669 /* ParseRsyncOutput in Frameworks */,
 				E9AC986B2ECEF99600D0C654 /* RsyncArguments in Frameworks */,
 				E9B0B9A22ECCEE68004BDC24 /* RsyncArguments in Frameworks */,
+				E97F55DB2EF29BF90053F767 /* RsyncProcessStreaming in Frameworks */,
 				E95CA3E42C73230800966D69 /* DecodeEncodeGeneric in Frameworks */,
 				E913AF962ECCF6310057E4F2 /* RsyncProcess in Frameworks */,
 				E911E85E2C6BCD9D00152CD6 /* SSHCreateKey in Frameworks */,
@@ -172,6 +174,7 @@
 				E9B0B9A12ECCEE68004BDC24 /* RsyncArguments */,
 				E913AF952ECCF6310057E4F2 /* RsyncProcess */,
 				E9AC986A2ECEF99600D0C654 /* RsyncArguments */,
+				E97F55DA2EF29BF90053F767 /* RsyncProcessStreaming */,
 			);
 			productName = RsyncUI;
 			productReference = E985C5C325F3AC0700CB895C /* RsyncUI.app */;
@@ -236,6 +239,7 @@
 				E952A99F2EB9E139002C11C6 /* XCRemoteSwiftPackageReference "ProcessCommand" */,
 				E913AF942ECCF6310057E4F2 /* XCRemoteSwiftPackageReference "RsyncProcess" */,
 				E9AC98692ECEF99600D0C654 /* XCRemoteSwiftPackageReference "RsyncArguments" */,
+				E97F55D92EF29BF90053F767 /* XCRemoteSwiftPackageReference "RsyncProcessStreaming" */,
 			);
 			productRefGroup = E985C5C425F3AC0700CB895C /* Products */;
 			projectDirPath = "";
@@ -623,6 +627,14 @@
 				kind = branch;
 			};
 		};
+		E97F55D92EF29BF90053F767 /* XCRemoteSwiftPackageReference "RsyncProcessStreaming" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rsyncOSX/RsyncProcessStreaming";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		E9AC98692ECEF99600D0C654 /* XCRemoteSwiftPackageReference "RsyncArguments" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/RsyncArguments";
@@ -669,6 +681,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E94B878B2C7321090031B27A /* XCRemoteSwiftPackageReference "DecodeEncodeGeneric" */;
 			productName = DecodeEncodeGeneric;
+		};
+		E97F55DA2EF29BF90053F767 /* RsyncProcessStreaming */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E97F55D92EF29BF90053F767 /* XCRemoteSwiftPackageReference "RsyncProcessStreaming" */;
+			productName = RsyncProcessStreaming;
 		};
 		E9AC986A2ECEF99600D0C654 /* RsyncArguments */ = {
 			isa = XCSwiftPackageProductDependency;
