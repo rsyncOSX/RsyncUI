@@ -252,10 +252,11 @@ extension Execute {
         // When creating the logrecord, decrease the snapshotum by 1
 
         var suboutput: [String]?
+        let resolvedHiddenID = hiddenID ?? -1
 
         let element = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: Date().en_string_from_date())
         configrecords.append(element)
-        if let config = getConfig(hiddenID ?? -1) {
+        if let config = getConfig(resolvedHiddenID) {
             if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
                 suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
             } else {
@@ -266,7 +267,7 @@ extension Execute {
                 let record = RemoteDataNumbers(stringoutputfromrsync: suboutput,
                                                config: config)
                 if let stats = record.stats {
-                    let element = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: stats)
+                    let element = ScheduleLogData(hiddenID: resolvedHiddenID, stats: stats)
                     schedulerecords.append(element)
                     localnoestprogressdetails?.appendRecordExecutedList(record)
                     localnoestprogressdetails?.appendUUIDWithDataToSynchronize(config.id)

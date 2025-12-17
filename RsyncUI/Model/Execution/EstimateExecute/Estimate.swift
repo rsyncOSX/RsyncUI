@@ -132,9 +132,11 @@ extension Estimate {
         originalOutput: [String]?,
         hiddenID: Int?
     ) {
+        let resolvedHiddenID = hiddenID ?? -1
+
         var record = RemoteDataNumbers(
             stringoutputfromrsync: outputToProcess,
-            config: getConfig(hiddenID ?? -1)
+            config: getConfig(resolvedHiddenID)
         )
 
         Task {
@@ -144,7 +146,7 @@ extension Estimate {
             localprogressdetails?.appendRecordEstimatedList(record)
 
             if record.datatosynchronize {
-                if let config = getConfig(hiddenID ?? -1) {
+                if let config = getConfig(resolvedHiddenID) {
                     localprogressdetails?.appendUUIDWithDataToSynchronize(config.id)
                 }
             }
