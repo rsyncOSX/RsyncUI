@@ -26,7 +26,8 @@ struct CreateStreamingHandlers {
 
         // Gate per-line streaming logs behind DEBUG
         #if DEBUG
-            let printLineClosure: (String) -> Void = { line in print("line: \(line)") }
+            let printLineClosure: (String) -> Void = { _ in }
+            // let printLineClosure: (String) -> Void = { line in print("line: \(line)") }
         #else
             let printLineClosure: (String) -> Void = { _ in }
         #endif
