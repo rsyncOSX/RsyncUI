@@ -69,7 +69,7 @@ extension QuicktaskView {
             do {
                 let isValid = try validateInput(config)
                 if isValid {
-                    execute(config: config, dryrun: dryrun)
+                    executestreaming(config: config, dryrun: dryrun)
                 }
             } catch let err {
                 let error = err
@@ -103,12 +103,38 @@ extension QuicktaskView {
             SharedReference.shared.errorobject?.alert(error: error)
         }
     }
+    
+    
+    func executestreaming(config: SynchronizeConfiguration, dryrun: Bool) {
+        let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: dryrun, forDisplay: false) ?? []
+        let streamer = ProcessStreamingExample()
+        do {
+            try streamer.runProcessWithStreaming(
+                command: "/usr/bin/rsync",
+                arguments: arguments,
+                onLineReceived: { line in
+                    // Process each line AS IT ARRIVES
+                    // print("Received: \(line)")
+                    // Update UI, parse progress, etc.
+                },
+                onCompletion: { allLines in
+                    // Final processing with complete output
+                    // print("Complete! Total lines: \(allLines.count)")
+                    Task { @MainActor in
+                        processTermination(allLines, 0)
+                    }
+                }
+            )
+        } catch {
+            propagateError(error: error)
+        }
+    }
 
     func abort() {
         InterruptProcess()
     }
 
-    func processTermination(_ stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+    func processTermination(_ stringoutputfromrsync: [String]?, _: Int?) {
         showprogressview = false
         if dryrun {
             max = Double(stringoutputfromrsync?.count ?? 0)
