@@ -1,3 +1,4 @@
+// swiftlint:disable identifier_name file_header
 //
 //  Copyright (c) <2014>, skysent
 //  All rights reserved.
@@ -27,7 +28,7 @@
 //  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-// swiftlint:disable identifier_name
+
 import Foundation
 
 public typealias Byte = UInt8
@@ -50,4 +51,4 @@ public enum SocketError: Error {
     case unknownError
 }
 
-// swiftlint:enable identifier_name
+// swiftlint:enable identifier_name file_header

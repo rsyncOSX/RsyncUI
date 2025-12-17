@@ -1,9 +1,6 @@
 //
 //  LogRecords.swift
-//  RsyncOSX
-//
-//  Created by Thomas Evensen on 02/05/16.
-//  Copyright © 2016 Thomas Evensen. All rights reserved.
+//  RsyncUI
 //
 
 import Foundation

@@ -1,9 +1,8 @@
 //
 //  SetandValidatepathforrsync.swift
-//  RsyncOSX
+//  RsyncUI
 //
 //  Created by Thomas Evensen on 06/06/2019.
-//  Copyright © 2019 Thomas Evensen. All rights reserved.
 //
 
 import Foundation

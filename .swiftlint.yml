@@ -1,3 +1,18 @@
+opt_in_rules:
+  - force_unwrapping
+  - force_cast
+  - trailing_whitespace
+  - unused_import
+  - explicit_init
+#  - empty_count
+  - file_header
+#  - vertical_whitespace_between_cases
+  - sorted_imports
+  - yoda_condition
+
+#disabled_rules:
+#  - cyclomatic_complexity  # Keep disabled for SwiftUI views
 
 line_length: 135
 type_body_length: 320
+function_body_length: 80

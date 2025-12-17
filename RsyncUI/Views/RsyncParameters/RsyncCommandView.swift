@@ -1,9 +1,8 @@
 //
 //  RsyncCommandView.swift
-//  RsyncOSXSwiftUI
+//  RsyncUI
 //
 //  Created by Thomas Evensen on 07/01/2021.
-//  Copyright © 2021 Thomas Evensen. All rights reserved.
 //
 
 import SwiftUI

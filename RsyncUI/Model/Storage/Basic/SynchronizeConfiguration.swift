@@ -1,6 +1,6 @@
 //
-//  Created by Thomas Evensen on 08/02/16.
-//  Copyright © 2016 Thomas Evensen. All rights reserved.
+//  SynchronizeConfiguration.swift
+//  RsyncUI
 //
 
 import Foundation

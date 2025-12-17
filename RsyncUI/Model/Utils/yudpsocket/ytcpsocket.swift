@@ -1,3 +1,4 @@
+// swiftlint:disable line_length identifier_name file_header
 //
 //  Copyright (c) <2014>, skysent
 //  All rights reserved.
@@ -27,7 +28,6 @@
 //  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-// swiftlint:disable line_length identifier_name
 
 import Foundation
 
@@ -173,4 +173,4 @@ open class TCPServer: Socket {
     }
 }
 
-// swiftlint:enable line_length identifier_name
+// swiftlint:enable line_length identifier_name file_header

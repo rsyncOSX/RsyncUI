@@ -1,9 +1,6 @@
 //
 //  ArgumentsRestore.swift
-//  RsyncOSX
-//
-//  Created by Thomas Evensen on 13/10/2019.
-//  Copyright © 2019 Thomas Evensen. All rights reserved.
+//  RsyncUI
 //
 
 import Foundation
