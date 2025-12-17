@@ -1,5 +1,5 @@
 {
-  "originHash" : "7cd0510ce044e3b03d9a7397a2647c24171f51907385a928ee4cf9867763d0f1",
+  "originHash" : "522c729e947f059cd1e945844c97648d008ce39e2dbcd67c86d815a5a86d61d0",
   "pins" : [
     {
       "identity" : "decodeencodegeneric",
@@ -52,7 +52,7 @@
       "location" : "https://github.com/rsyncOSX/RsyncProcessStreaming",
       "state" : {
         "branch" : "main",
-        "revision" : "16465ab007e5a3d94e014b0c48ad070b0b34fba8"
+        "revision" : "1849c12d6dc1556674c143042fc388b0a4ed5811"
       }
     },
     {
