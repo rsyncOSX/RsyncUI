@@ -110,7 +110,9 @@ struct PushPullView: View {
 
         streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: { _ in },
-            processTermination: pullProcessTermination
+            processTermination: { output, hiddenID in
+                pullProcessTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            }
         )
 
         guard SharedReference.shared.norsync == false else { return }
@@ -140,7 +142,9 @@ struct PushPullView: View {
                                                                                                          keepdelete: true)
         streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: { _ in },
-            processTermination: pushProcessTermination
+            processTermination: { output, hiddenID in
+                pushProcessTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            }
         )
 
         guard let arguments else { return }
@@ -188,6 +192,9 @@ struct PushPullView: View {
                 await MainActor.run { pullremotedatanumbers?.outputfromrsync = out }
             }
         }
+        // Release current streaming before next task
+        activeStreamingProcess = nil
+        streamingHandlers = nil
         // Then do a synchronize task, adjusted for push vs pull
         pushRemote(config: config)
     }
@@ -237,6 +244,9 @@ struct PushPullView: View {
                 await MainActor.run { pushremotedatanumbers?.outputfromrsync = out }
             }
         }
+        // Final cleanup
+        activeStreamingProcess = nil
+        streamingHandlers = nil
     }
 
     func abort() {

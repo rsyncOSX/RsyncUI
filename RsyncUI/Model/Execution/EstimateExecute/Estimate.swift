@@ -36,7 +36,9 @@ final class Estimate {
 
         streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: { _ in },
-            processTermination: processTermination
+            processTermination: { [weak self] output, hiddenID in
+                self?.processTermination(stringoutputfromrsync: output, hiddenID)
+            }
         )
 
         guard
@@ -176,9 +178,15 @@ extension Estimate {
                 guard self.stackoftasks?.count ?? 0 > 0 else {
                     self.localprogressdetails?.estimationIsComplete()
                     Logger.process.debugMessageOnly("Estimate: ESTIMATION is completed")
+                    // Release streaming references when completed
+                    self.activeStreamingProcess = nil
+                    self.streamingHandlers = nil
                     return
                 }
                 // Estimate next task
+                // Release references before starting next to avoid growth
+                self.activeStreamingProcess = nil
+                self.streamingHandlers = nil
                 self.startEstimation()
             }
         }

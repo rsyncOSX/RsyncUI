@@ -59,7 +59,9 @@ struct OneTaskDetailsView: View {
 
             streamingHandlers = CreateStreamingHandlers().createHandlers(
                 fileHandler: { _ in },
-                processTermination: processTermination
+                processTermination: { output, hiddenID in
+                    processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+                }
             )
 
             // Must check valid rsync exists
@@ -137,6 +139,9 @@ struct OneTaskDetailsView: View {
             }
 
             estimateiscompleted = true
+            // Release streaming references to avoid retain cycles
+            activeStreamingProcess = nil
+            streamingHandlers = nil
         }
     }
 }

@@ -112,7 +112,9 @@ struct VerifyTasks: View {
 
         streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: { _ in },
-            processTermination: processTermination
+            processTermination: { output, hiddenID in
+                processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            }
         )
 
         guard SharedReference.shared.norsync == false else { return }
@@ -155,6 +157,9 @@ struct VerifyTasks: View {
             remotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
             presentestimates = true
         }
+        // Release streaming references to avoid retain cycles
+        activeStreamingProcess = nil
+        streamingHandlers = nil
     }
 
     func abort() {

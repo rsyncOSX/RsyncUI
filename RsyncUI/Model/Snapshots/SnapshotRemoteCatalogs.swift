@@ -21,7 +21,9 @@ final class SnapshotRemoteCatalogs {
     func getremotecataloginfo(_ config: SynchronizeConfiguration) {
         streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: { _ in },
-            processTermination: processTermination
+            processTermination: { [weak self] output, hiddenID in
+                self?.processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            }
         )
 
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
@@ -64,5 +66,8 @@ final class SnapshotRemoteCatalogs {
             }
         }
         mysnapshotdata?.snapshotfolders = catalogsanddates ?? []
+        // Release streaming references to avoid retain cycles
+        activeStreamingProcess = nil
+        streamingHandlers = nil
     }
 }

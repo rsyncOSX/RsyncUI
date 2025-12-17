@@ -300,7 +300,9 @@ extension RestoreTableView {
             
             streamingHandlers = CreateStreamingHandlers().createHandlers(
                 fileHandler: { _ in },
-                processTermination: processTermination
+                processTermination: { output, hiddenID in
+                    processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+                }
             )
 
             guard let streamingHandlers else { return }

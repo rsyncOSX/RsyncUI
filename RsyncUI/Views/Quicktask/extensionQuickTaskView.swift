@@ -114,8 +114,8 @@ extension QuicktaskView {
 
         // Create streaming handlers and retain them
         streamingHandlers = CreateStreamingHandlers().createHandlers(
-            fileHandler: { [self] count in fileHandler(count: count) },
-            processTermination: { [self] output, exitCode in processTermination(output, exitCode) }
+            fileHandler: { count in fileHandler(count: count) },
+            processTermination: { output, exitCode in processTermination(output, exitCode) }
         )
 
         // Must check valid rsync exists
@@ -158,8 +158,9 @@ extension QuicktaskView {
             await MainActor.run {
                 rsyncoutput.output = output
                 completed = true
-                // Release process reference on completion
+                // Release process and handler references on completion
                 activeStreamingProcess = nil
+                streamingHandlers = nil
             }
         }
     }

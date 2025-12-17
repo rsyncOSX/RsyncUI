@@ -39,6 +39,9 @@ final class ObservableRestore {
         }
         restorefilesinprogress = false
         presentrestorelist = true
+        // Release streaming references to avoid retain cycles
+        activeStreamingProcess = nil
+        streamingHandlers = nil
     }
 
     func verifyPathForRestore(_ path: String) -> Bool {
@@ -49,8 +52,10 @@ final class ObservableRestore {
     func executeRestore() {
         var arguments: [String]?
         streamingHandlers = CreateStreamingHandlers().createHandlers(
-            fileHandler: fileHandler,
-            processTermination: processTermination
+            fileHandler: { [weak self] count in self?.fileHandler(count: count) },
+            processTermination: { [weak self] output, hiddenID in
+                self?.processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            }
         )
 
         do {

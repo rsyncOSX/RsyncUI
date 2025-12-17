@@ -56,8 +56,13 @@ final class Execute {
     private func startexecution() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
         streamingHandlers = CreateStreamingHandlers().createHandlers(
-            fileHandler: localfileHandler,
-            processTermination: processTermination
+            fileHandler: { [weak self] count in
+                // Forward while keeping self weak to avoid cycles
+                self?.localfileHandler(count)
+            },
+            processTermination: { [weak self] output, hiddenID in
+                self?.processTermination(stringoutputfromrsync: output, hiddenID)
+            }
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
@@ -102,8 +107,12 @@ final class Execute {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
 
         streamingHandlers = CreateStreamingHandlers().createHandlers(
-            fileHandler: localfileHandler,
-            processTermination: processTermination_noestimation
+            fileHandler: { [weak self] count in
+                self?.localfileHandler(count)
+            },
+            processTermination: { [weak self] output, hiddenID in
+                self?.processTermination_noestimation(stringoutputfromrsync: output, hiddenID)
+            }
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
@@ -248,9 +257,15 @@ extension Execute {
                 try update.addLogToPermanentStore(scheduleRecords: schedulerecords)
             } catch { return }
 
+            // Release streaming references when completed
+            activeStreamingProcess = nil
+            streamingHandlers = nil
             return
         }
         // Execute next task
+        // Release references before starting next to avoid growth
+        activeStreamingProcess = nil
+        streamingHandlers = nil
         startexecution()
     }
 
@@ -294,9 +309,15 @@ extension Execute {
                 do {
                     try update.addLogToPermanentStore(scheduleRecords: schedulerecords)
                 } catch { return }
+                // Release streaming references when completed
+                activeStreamingProcess = nil
+                streamingHandlers = nil
                 return
             }
             // Execute next task
+            // Release references before starting next to avoid growth
+            activeStreamingProcess = nil
+            streamingHandlers = nil
             startexecution_noestimate()
         }
     }

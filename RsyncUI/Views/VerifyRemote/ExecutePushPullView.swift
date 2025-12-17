@@ -153,8 +153,10 @@ struct ExecutePushPullView: View {
             keepdelete: keepdelete)
 
         streamingHandlers = CreateStreamingHandlers().createHandlers(
-            fileHandler: fileHandler,
-            processTermination: processTermination
+            fileHandler: { count in fileHandler(count: count) },
+            processTermination: { output, hiddenID in
+                processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            }
         )
 
         guard SharedReference.shared.norsync == false else { return }
@@ -183,8 +185,10 @@ struct ExecutePushPullView: View {
                                                                                               keepdelete: keepdelete)
 
         streamingHandlers = CreateStreamingHandlers().createHandlers(
-            fileHandler: fileHandler,
-            processTermination: processTermination
+            fileHandler: { count in fileHandler(count: count) },
+            processTermination: { output, hiddenID in
+                processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            }
         )
         guard let arguments else { return }
         guard let streamingHandlers else { return }
@@ -227,6 +231,9 @@ struct ExecutePushPullView: View {
             let out = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
             await MainActor.run { remotedatanumbers?.outputfromrsync = out }
         }
+        // Release streaming references to avoid retain cycles
+        activeStreamingProcess = nil
+        streamingHandlers = nil
     }
 
     func fileHandler(count: Int) {
