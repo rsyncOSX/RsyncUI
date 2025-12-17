@@ -160,11 +160,12 @@ struct ExecutePushPullView: View {
         guard SharedReference.shared.norsync == false else { return }
         guard config.task != SharedReference.shared.halted else { return }
         guard let arguments else { return }
+        guard let streamingHandlers else { return }
 
         let process = RsyncProcessStreaming.RsyncProcess(
             arguments: arguments,
             hiddenID: config.hiddenID,
-            handlers: streamingHandlers!,
+            handlers: streamingHandlers,
             useFileHandler: false
         )
         do {
@@ -186,11 +187,12 @@ struct ExecutePushPullView: View {
             processTermination: processTermination
         )
         guard let arguments else { return }
+        guard let streamingHandlers else { return }
 
         let process = RsyncProcessStreaming.RsyncProcess(
             arguments: arguments,
             hiddenID: config.hiddenID,
-            handlers: streamingHandlers!,
+            handlers: streamingHandlers,
             useFileHandler: false
         )
         do {

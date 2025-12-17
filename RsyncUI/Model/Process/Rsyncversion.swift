@@ -15,12 +15,13 @@ final class Rsyncversion {
     // Streaming strong references
     private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
     private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
-    
+
     func getRsyncVersion() {
         streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: { _ in },
             processTermination: processTermination
         )
+        guard let streamingHandlers else { return }
 
         do {
             try SetandValidatepathforrsync().validateLocalPathForRsync()
@@ -31,7 +32,7 @@ final class Rsyncversion {
         if SharedReference.shared.norsync == false {
             let process = RsyncProcessStreaming.RsyncProcess(
                 arguments: ["--version"],
-                handlers: streamingHandlers!,
+                handlers: streamingHandlers,
                 useFileHandler: false
             )
             do {

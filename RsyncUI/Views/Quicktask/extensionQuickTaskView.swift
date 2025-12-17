@@ -77,34 +77,35 @@ extension QuicktaskView {
             }
         }
     }
-/*
-    func execute(config: SynchronizeConfiguration, dryrun: Bool) {
-        let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: dryrun, forDisplay: false)
-        // Start progressview
-        showprogressview = true
 
-        let handlers = CreateHandlers().createHandlers(
-            fileHandler: fileHandler,
-            processTermination: processTermination
-        )
+    /*
+     func execute(config: SynchronizeConfiguration, dryrun: Bool) {
+         let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: dryrun, forDisplay: false)
+         // Start progressview
+         showprogressview = true
 
-        // Must check valid rsync exists
-        guard SharedReference.shared.norsync == false else { return }
-        guard config.task != SharedReference.shared.halted else { return }
+         let handlers = CreateHandlers().createHandlers(
+             fileHandler: fileHandler,
+             processTermination: processTermination
+         )
 
-        let process = RsyncProcess(arguments: arguments,
-                                   hiddenID: config.hiddenID,
-                                   handlers: handlers,
-                                   useFileHandler: true)
-        do {
-            try process.executeProcess()
-        } catch let err {
-            let error = err
-            SharedReference.shared.errorobject?.alert(error: error)
-        }
-    }
-    
-*/
+         // Must check valid rsync exists
+         guard SharedReference.shared.norsync == false else { return }
+         guard config.task != SharedReference.shared.halted else { return }
+
+         let process = RsyncProcess(arguments: arguments,
+                                    hiddenID: config.hiddenID,
+                                    handlers: handlers,
+                                    useFileHandler: true)
+         do {
+             try process.executeProcess()
+         } catch let err {
+             let error = err
+             SharedReference.shared.errorobject?.alert(error: error)
+         }
+     }
+
+     */
     func executestreaming(config: SynchronizeConfiguration, dryrun: Bool) {
         let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: dryrun, forDisplay: false) ?? []
 
@@ -113,19 +114,20 @@ extension QuicktaskView {
 
         // Create streaming handlers and retain them
         streamingHandlers = CreateStreamingHandlers().createHandlers(
-            fileHandler: { [self] count in self.fileHandler(count: count) },
-            processTermination: { [self] output, exitCode in self.processTermination(output, exitCode) }
+            fileHandler: { [self] count in fileHandler(count: count) },
+            processTermination: { [self] output, exitCode in processTermination(output, exitCode) }
         )
 
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
         guard config.task != SharedReference.shared.halted else { return }
+        guard let streamingHandlers else { return }
 
         // Use streaming process with readability handlers; do not use file handler
         let streamingProcess = RsyncProcessStreaming.RsyncProcess(
             arguments: arguments,
             hiddenID: config.hiddenID,
-            handlers: streamingHandlers!,
+            handlers: streamingHandlers,
             useFileHandler: false
         )
         do {

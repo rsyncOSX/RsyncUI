@@ -19,7 +19,7 @@ final class Estimate {
 
     var stackoftasks: [Int]?
     var synchronizeIDwitherror: String = ""
-    
+
     // Streaming strong references
     private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
     private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
@@ -51,6 +51,8 @@ final class Estimate {
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
         guard config.task != SharedReference.shared.halted else { return }
+        guard let streamingHandlers else { return }
+
         if SharedReference.shared.validatearguments {
             do {
                 try ValidateArguments().validate(config: config, arguments: arguments)
@@ -62,7 +64,7 @@ final class Estimate {
         let process = RsyncProcessStreaming.RsyncProcess(
             arguments: arguments,
             hiddenID: config.hiddenID,
-            handlers: streamingHandlers!,
+            handlers: streamingHandlers,
             useFileHandler: false
         )
 

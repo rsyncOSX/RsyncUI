@@ -41,7 +41,7 @@ final class Execute {
     var stackoftasks: [Int]?
 
     let defaultstats = "0 files : 0.00 MB in 0.00 seconds"
-    
+
     // Streaming strong references
     private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
     private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
@@ -66,10 +66,11 @@ final class Execute {
             if let config = getConfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: false,
                                                                                              forDisplay: false) {
+                    guard let streamingHandlers else { return }
                     let process = RsyncProcessStreaming.RsyncProcess(
                         arguments: arguments,
                         hiddenID: config.hiddenID,
-                        handlers: streamingHandlers!,
+                        handlers: streamingHandlers,
                         useFileHandler: false
                     )
                     // Must check valid rsync exists
@@ -121,11 +122,12 @@ final class Execute {
                             SharedReference.shared.errorobject?.alert(error: error)
                         }
                     }
+                    guard let streamingHandlers else { return }
 
                     let process = RsyncProcessStreaming.RsyncProcess(
                         arguments: arguments,
                         hiddenID: config.hiddenID,
-                        handlers: streamingHandlers!,
+                        handlers: streamingHandlers,
                         useFileHandler: false
                     )
 

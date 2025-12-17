@@ -296,7 +296,8 @@ extension RestoreTableView {
             } else {
                 arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments()
             }
-            guard arguments?.isEmpty == false else { return }
+            guard let arguments else { return }
+            guard let streamingHandlers else { return }
 
             streamingHandlers = CreateStreamingHandlers().createHandlers(
                 fileHandler: { _ in },
@@ -304,8 +305,8 @@ extension RestoreTableView {
             )
 
             let process = RsyncProcessStreaming.RsyncProcess(
-                arguments: arguments ?? [],
-                handlers: streamingHandlers!,
+                arguments: arguments,
+                handlers: streamingHandlers,
                 useFileHandler: false
             )
             do {

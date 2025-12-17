@@ -13,7 +13,7 @@ final class Snapshotlogsandcatalogs {
     var mysnapshotdata: ObservableSnapshotData?
     var config: SynchronizeConfiguration
     var logrecords: [LogRecords]
-    
+
     // Streaming strong references
     private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
     private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
@@ -26,20 +26,20 @@ final class Snapshotlogsandcatalogs {
 
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
         guard let arguments else { return }
-        
-            let process = RsyncProcessStreaming.RsyncProcess(
-                arguments: arguments,
-                handlers: streamingHandlers!,
-                useFileHandler: false
-            )
-            do {
-                try process.executeProcess()
-                activeStreamingProcess = process
-            } catch let err {
-                let error = err
-                SharedReference.shared.errorobject?.alert(error: error)
-            }
-        
+        guard let streamingHandlers else { return }
+
+        let process = RsyncProcessStreaming.RsyncProcess(
+            arguments: arguments,
+            handlers: streamingHandlers,
+            useFileHandler: false
+        )
+        do {
+            try process.executeProcess()
+            activeStreamingProcess = process
+        } catch let err {
+            let error = err
+            SharedReference.shared.errorobject?.alert(error: error)
+        }
     }
 
     // Merging remote snaphotcatalogs and existing logs
