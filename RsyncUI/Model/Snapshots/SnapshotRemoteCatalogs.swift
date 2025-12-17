@@ -25,7 +25,7 @@ final class SnapshotRemoteCatalogs {
         )
 
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
-        guard let arguments else { return } ¨
+        guard let arguments else { return }
         guard let streamingHandlers else { return }
 
         let process = RsyncProcessStreaming.RsyncProcess(

@@ -297,13 +297,14 @@ extension RestoreTableView {
                 arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments()
             }
             guard let arguments else { return }
-            guard let streamingHandlers else { return }
-
+            
             streamingHandlers = CreateStreamingHandlers().createHandlers(
                 fileHandler: { _ in },
                 processTermination: processTermination
             )
 
+            guard let streamingHandlers else { return }
+            
             let process = RsyncProcessStreaming.RsyncProcess(
                 arguments: arguments,
                 handlers: streamingHandlers,
