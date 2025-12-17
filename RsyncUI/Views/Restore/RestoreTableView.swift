@@ -297,7 +297,7 @@ extension RestoreTableView {
                 arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments()
             }
             guard let arguments else { return }
-            
+
             streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
                 fileHandler: { _ in },
                 processTermination: { output, hiddenID in
@@ -307,7 +307,7 @@ extension RestoreTableView {
             )
 
             guard let streamingHandlers else { return }
-            
+
             let process = RsyncProcessStreaming.RsyncProcess(
                 arguments: arguments,
                 handlers: streamingHandlers,

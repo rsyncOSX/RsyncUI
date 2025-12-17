@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 16/12/2025.
 //
+// swiftlint:disable cyclomatic_complexity
 
 import Foundation
 import RsyncArguments
@@ -69,14 +70,14 @@ struct ValidateArguments {
                 throw InvalidArguments.delete
             }
         }
-        
+
         if isDryRun {
             guard arguments.contains(DefaultRsyncParameters.dryRunMode.rawValue) else {
                 throw InvalidArguments.dryrun
             }
         }
-        
 
         // Validation passed
     }
 }
+// swiftlint:enable cyclomatic_complexity

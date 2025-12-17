@@ -19,8 +19,8 @@ final class Rsyncversion {
     func getRsyncVersion() {
         streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: { _ in },
-            processTermination: { [weak self] output, hiddenID in
-                self?.processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            processTermination: { output, hiddenID in
+                self.processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
             }
         )
         guard let streamingHandlers else { return }

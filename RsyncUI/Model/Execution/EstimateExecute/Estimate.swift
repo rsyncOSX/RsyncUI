@@ -36,8 +36,8 @@ final class Estimate {
 
         streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: { _ in },
-            processTermination: { [weak self] output, hiddenID in
-                self?.processTermination(stringoutputfromrsync: output, hiddenID)
+            processTermination: { output, hiddenID in
+                self.processTermination(stringoutputfromrsync: output, hiddenID)
             }
         )
 

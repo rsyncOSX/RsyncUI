@@ -60,8 +60,8 @@ final class Execute {
                 // Forward while keeping self weak to avoid cycles
                 self?.localfileHandler(count)
             },
-            processTermination: { [weak self] output, hiddenID in
-                self?.processTermination(stringoutputfromrsync: output, hiddenID)
+            processTermination: { output, hiddenID in
+                self.processTermination(stringoutputfromrsync: output, hiddenID)
             }
         )
 
@@ -110,8 +110,8 @@ final class Execute {
             fileHandler: { [weak self] count in
                 self?.localfileHandler(count)
             },
-            processTermination: { [weak self] output, hiddenID in
-                self?.processTermination_noestimation(stringoutputfromrsync: output, hiddenID)
+            processTermination: { output, hiddenID in
+                self.processTermination_noestimation(stringoutputfromrsync: output, hiddenID)
             }
         )
 

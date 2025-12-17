@@ -53,8 +53,8 @@ final class ObservableRestore {
         var arguments: [String]?
         streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: { [weak self] count in self?.fileHandler(count: count) },
-            processTermination: { [weak self] output, hiddenID in
-                self?.processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            processTermination: { output, hiddenID in
+                self.processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
             }
         )
 
