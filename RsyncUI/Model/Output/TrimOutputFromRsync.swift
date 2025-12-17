@@ -18,7 +18,6 @@ enum Rsyncerror: LocalizedError {
     }
 }
 
-@MainActor
 final class TrimOutputFromRsync {
     var trimmeddata: [String]?
 
