@@ -111,7 +111,7 @@ extension QuicktaskView {
             fileHandler: fileHandler,
             processTermination: processTermination
         )
-        
+
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
         guard config.task != SharedReference.shared.halted else { return }

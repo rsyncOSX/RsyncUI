@@ -20,7 +20,10 @@ struct CreateStreamingHandlers {
         fileHandler: @escaping (Int) -> Void,
         processTermination: @escaping ([String]?, Int?) -> Void
     ) -> ProcessHandlers {
-        
+        #if DEBUG
+            debugValidateStreamingThreading()
+        #endif
+
         return ProcessHandlers(
             processTermination: processTermination,
             fileHandler: fileHandler,
@@ -39,4 +42,21 @@ struct CreateStreamingHandlers {
             printLine: { line in print("line: \(line)") }
         )
     }
+
+    #if DEBUG
+        private static var threadingCheckRan = false
+
+        /// Debug-only guard to ensure streaming callbacks can execute off the main thread
+        /// (matches how RsyncProcessStreaming invokes `checkLineForError`). Runs asynchronously
+        /// to avoid QoS inversion warnings from waiting on a lower-priority queue.
+        private func debugValidateStreamingThreading() {
+            guard Self.threadingCheckRan == false else { return }
+            Self.threadingCheckRan = true
+
+            Task.detached(priority: .userInitiated) {
+                precondition(Thread.isMainThread == false, "Streaming threading check should run off the main thread")
+                _ = try? TrimOutputFromRsync().checkForRsyncError("ok")
+            }
+        }
+    #endif
 }

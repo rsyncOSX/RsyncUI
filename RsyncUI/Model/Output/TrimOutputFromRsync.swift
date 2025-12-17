@@ -18,6 +18,8 @@ enum Rsyncerror: LocalizedError {
     }
 }
 
+/// Intentionally not @MainActor: streaming callbacks are delivered off the main thread
+/// by RsyncProcessStreaming readability handlers.
 final class TrimOutputFromRsync {
     var trimmeddata: [String]?
 

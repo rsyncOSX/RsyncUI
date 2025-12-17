@@ -62,7 +62,6 @@ struct QuicktaskView: View {
     @State var showprogressview = false
     @State var rsyncoutput = ObservableRsyncOutput()
     // Focus buttons from the menu
-    @State var Bool = false
     @State var focusstartexecution: Bool = false
     // Completed task
     @State var completed: Bool = false
