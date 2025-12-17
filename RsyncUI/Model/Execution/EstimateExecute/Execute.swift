@@ -223,18 +223,13 @@ extension Execute {
                 schedulerecords.append(logData)
                 Logger.process.debugMessageOnly("Execute: getstats() SUCCESS")
             } catch let err {
-                if SharedReference.shared.silencemissingstats == false {
-                    let logData = ScheduleLogData(hiddenID: resolvedHiddenID, stats: defaultstats)
-                    schedulerecords.append(logData)
-                    Logger.process.debugMessageOnly("Execute: getstats() FAILED")
+                let logData = ScheduleLogData(hiddenID: resolvedHiddenID, stats: defaultstats)
+                schedulerecords.append(logData)
+                Logger.process.debugMessageOnly("Execute: getstats() FAILED")
 
+                if SharedReference.shared.silencemissingstats == false {
                     let error = err
                     SharedReference.shared.errorobject?.alert(error: error)
-
-                } else {
-                    let logData = ScheduleLogData(hiddenID: resolvedHiddenID, stats: defaultstats)
-                    schedulerecords.append(logData)
-                    Logger.process.debugMessageOnly("Execute: getstats() FAILED")
                 }
             }
         }
@@ -269,7 +264,7 @@ extension Execute {
         let element = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: Date().en_string_from_date())
         configrecords.append(element)
         if let config = getConfig(resolvedHiddenID) {
-            if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
+            if (stringoutputfromrsync?.count ?? 0) > SharedReference.shared.alerttagginglines, let stringoutputfromrsync {
                 suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
             } else {
                 suboutput = stringoutputfromrsync

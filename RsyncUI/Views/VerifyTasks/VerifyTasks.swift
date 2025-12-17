@@ -130,7 +130,7 @@ struct VerifyTasks: View {
     func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         estimating = false
 
-        if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
+        if (stringoutputfromrsync?.count ?? 0) > SharedReference.shared.alerttagginglines, let stringoutputfromrsync {
             let suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
             remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
                                                   config: selectedconfig)
