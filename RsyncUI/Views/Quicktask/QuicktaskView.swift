@@ -6,6 +6,7 @@
 //
 
 import OSLog
+import RsyncProcessStreaming
 import SwiftUI
 
 enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvertible {
@@ -68,6 +69,10 @@ struct QuicktaskView: View {
     // Progress and max if estimate first
     @State var progress: Double = 0
     @State var max: Double = 0
+    
+    // Streaming variants
+    @State var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    @State var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
 
     enum QuicktaskField: Hashable {
         case localcatalogField

@@ -107,25 +107,35 @@ extension QuicktaskView {
 */
     func executestreaming(config: SynchronizeConfiguration, dryrun: Bool) {
         let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: dryrun, forDisplay: false) ?? []
-        let handlers = CreateStreamingHandlers().createHandlers(
-            fileHandler: fileHandler,
-            processTermination: processTermination
+
+        // Start progressview
+        showprogressview = true
+
+        // Create streaming handlers and retain them
+        streamingHandlers = CreateStreamingHandlers().createHandlers(
+            fileHandler: { [self] count in self.fileHandler(count: count) },
+            processTermination: { [self] output, exitCode in self.processTermination(output, exitCode) }
         )
 
         // Must check valid rsync exists
         guard SharedReference.shared.norsync == false else { return }
         guard config.task != SharedReference.shared.halted else { return }
 
-        let process = RsyncProcess(arguments: arguments,
-                                   hiddenID: config.hiddenID,
-                                   handlers: handlers,
-                                   useFileHandler: true)
+        // Use streaming process with readability handlers; do not use file handler
+        let streamingProcess = RsyncProcessStreaming.RsyncProcess(
+            arguments: arguments,
+            hiddenID: config.hiddenID,
+            handlers: streamingHandlers!,
+            useFileHandler: false
+        )
         do {
-            try process.executeProcess()
+            try streamingProcess.executeProcess()
         } catch let err {
             let error = err
             SharedReference.shared.errorobject?.alert(error: error)
         }
+        // Keep strong reference to streaming process while it's running
+        activeStreamingProcess = streamingProcess
     }
 
     func abort() {
@@ -133,18 +143,29 @@ extension QuicktaskView {
     }
 
     func processTermination(_ stringoutputfromrsync: [String]?, _: Int?) {
-        showprogressview = false
-        if dryrun {
-            max = Double(stringoutputfromrsync?.count ?? 0)
+        // Update immediate UI bits on main
+        DispatchQueue.main.async { [self] in
+            showprogressview = false
+            if dryrun {
+                max = Double(stringoutputfromrsync?.count ?? 0)
+            }
         }
-        Task {
-            rsyncoutput.output = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
-            completed = true
+        // Build output off the main thread, then assign on main
+        Task.detached(priority: .userInitiated) { [stringoutputfromrsync] in
+            let output = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
+            await MainActor.run {
+                rsyncoutput.output = output
+                completed = true
+                // Release process reference on completion
+                activeStreamingProcess = nil
+            }
         }
     }
 
     func fileHandler(count: Int) {
-        progress = Double(count)
+        Task { @MainActor in
+            progress = Double(count)
+        }
     }
 
     func propagateError(error: Error) {
