@@ -55,7 +55,7 @@ final class Estimate {
 
         if SharedReference.shared.validatearguments {
             do {
-                try ValidateArguments().validate(config: config, arguments: arguments)
+                try ValidateArguments().validate(config: config, arguments: arguments, isDryRun: true)
             } catch let err {
                 let error = err
                 SharedReference.shared.errorobject?.alert(error: error)

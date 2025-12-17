@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RsyncArguments
 
 enum RemoteOrLocal {
     case remote
@@ -17,6 +18,7 @@ enum InvalidArguments: LocalizedError {
     case archive
     case delete
     case nodelete
+    case dryrun
 
     var errorDescription: String? {
         switch self {
@@ -28,43 +30,52 @@ enum InvalidArguments: LocalizedError {
             "argument --delete is MISSING"
         case .nodelete:
             "argument --delete is INCLUDED"
+        case .dryrun:
+            "argument --dry-run is MISSING"
         }
     }
 }
 
 struct ValidateArguments {
-    func validate(config: SynchronizeConfiguration, arguments: [String]) throws {
+    func validate(config: SynchronizeConfiguration, arguments: [String], isDryRun: Bool = false) throws {
         let remoteOrLocal: RemoteOrLocal = config.offsiteServer.isEmpty ? .local : .remote
 
         switch remoteOrLocal {
         case .remote:
-            guard arguments.contains("--compress") else {
+            guard arguments.contains(DefaultRsyncParameters.compressionEnabled.rawValue) else {
                 throw InvalidArguments.compress
             }
 
-            guard arguments.contains("--archive") else {
+            guard arguments.contains(DefaultRsyncParameters.archiveMode.rawValue) else {
                 throw InvalidArguments.archive
             }
 
         case .local:
-            guard arguments.contains("--compress") == false else {
+            guard arguments.contains(DefaultRsyncParameters.compressionEnabled.rawValue) == false else {
                 throw InvalidArguments.compress
             }
 
-            guard arguments.contains("--archive") else {
+            guard arguments.contains(DefaultRsyncParameters.archiveMode.rawValue) else {
                 throw InvalidArguments.archive
             }
         }
 
         if config.parameter4 == nil {
-            guard arguments.contains("--delete") == false else {
+            guard arguments.contains(DefaultRsyncParameters.deleteExtraneous.rawValue) == false else {
                 throw InvalidArguments.nodelete
             }
         } else {
-            guard arguments.contains("--delete") else {
+            guard arguments.contains(DefaultRsyncParameters.deleteExtraneous.rawValue) else {
                 throw InvalidArguments.delete
             }
         }
+        
+        if isDryRun {
+            guard arguments.contains(DefaultRsyncParameters.dryRunMode.rawValue) else {
+                throw InvalidArguments.dryrun
+            }
+        }
+        
 
         // Validation passed
     }
