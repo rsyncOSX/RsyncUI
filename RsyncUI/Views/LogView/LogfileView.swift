@@ -24,28 +24,7 @@ struct LogfileView: View {
             Spacer()
 
             HStack {
-                ConditionalGlassButton(
-                    systemImage: "document",
-                    text: "Logfile",
-                    helpText: "View logfile"
-                ) {
-                    Task {
-                        whichlogfileispresented = .rsyncUIlogfile
-                        logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
-                    }
-                }
-
-                ConditionalGlassButton(
-                    systemImage: "square.and.arrow.down.badge.checkmark",
-                    text: "rsync",
-                    helpText: "View rsync output"
-                ) {
-                    Task {
-                        whichlogfileispresented = .rsyncOutputlogfile
-                        logfilerecords = await ActorCreateOutputforView().createaoutputrsynclogforview()
-                    }
-                }
-
+                
                 Spacer()
 
                 ConditionalGlassButton(
@@ -66,12 +45,7 @@ struct LogfileView: View {
     func reset() {
         Task {
             await ActorLogToFile(whichlogfileispresented)
-            switch whichlogfileispresented {
-            case .rsyncOutputlogfile:
-                logfilerecords = await ActorCreateOutputforView().createaoutputrsynclogforview()
-            case .rsyncUIlogfile:
-                logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
-            }
+            logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
         }
     }
 }
