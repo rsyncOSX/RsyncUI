@@ -22,8 +22,8 @@ final class Rsyncversion {
             processTermination: { output, hiddenID in
                 self.processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
             },
-            cleanup: { self.activeStreamingProcess = nil;
-                self.streamingHandlers = nil;
+            cleanup: { self.activeStreamingProcess = nil
+                self.streamingHandlers = nil
                 SharedReference.shared.updateprocess(nil)}
         )
         guard let streamingHandlers else { return }
