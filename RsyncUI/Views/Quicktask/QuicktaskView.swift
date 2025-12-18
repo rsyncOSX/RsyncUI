@@ -12,7 +12,7 @@ import SwiftUI
 enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvertible {
     case synchronize
     case syncremote
-    case not_selected
+    case notSelected
 
     var id: String { rawValue }
     var description: String { rawValue.localizedLowercase.replacingOccurrences(of: "_", with: " ") }
@@ -121,8 +121,8 @@ struct QuicktaskView: View {
                                         self.selectedrsynccommand = TypeofTaskQuictask.synchronize
                                     case "syncremote":
                                         self.selectedrsynccommand = TypeofTaskQuictask.syncremote
-                                    case "not_selected":
-                                        self.selectedrsynccommand = TypeofTaskQuictask.not_selected
+                                    case "notSelected":
+                                        self.selectedrsynccommand = TypeofTaskQuictask.notSelected
                                     default:
                                         self.selectedrsynccommand = TypeofTaskQuictask.synchronize
                                     }
@@ -192,7 +192,7 @@ struct QuicktaskView: View {
                                 }
                         }
                     }
-                if selectedrsynccommand == .synchronize || selectedrsynccommand == .not_selected {
+                if selectedrsynccommand == .synchronize || selectedrsynccommand == .notSelected {
                     Section(header: Text("Source and destination")
                         .font(.title3)
                         .fontWeight(.bold)) {

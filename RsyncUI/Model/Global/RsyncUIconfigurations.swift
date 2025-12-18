@@ -2,6 +2,7 @@
 //  RsyncUIconfigurations.swift
 //  RsyncUI
 //
+// swiftlint:disable identifier_name
 
 import Observation
 import SwiftUI
@@ -56,3 +57,4 @@ final class RsyncUIconfigurations {
 
     init() {}
 }
+// swiftlint:enable identifier_name

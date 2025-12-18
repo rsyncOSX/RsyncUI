@@ -27,7 +27,7 @@ extension QuicktaskView {
                     .foregroundColor(Color(.blue))
             }
             .help("Synchronize (⌘R)")
-            .disabled(selectedrsynccommand == .not_selected)
+            .disabled(selectedrsynccommand == .notSelected)
         }
 
         ToolbarItem {
@@ -63,7 +63,7 @@ extension QuicktaskView {
                                  remoteserver,
                                  "")
 
-        guard selectedrsynccommand != .not_selected else { return }
+        guard selectedrsynccommand != .notSelected else { return }
 
         if let config = VerifyConfiguration().verify(getdata) {
             do {
