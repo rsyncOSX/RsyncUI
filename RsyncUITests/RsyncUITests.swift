@@ -4,11 +4,112 @@
 //
 //  Created by Thomas Evensen on 18/12/2025.
 //
-
+// swiftlint:disable all
+// xcodebuild -scheme RsyncUI -project RsyncUI.xcodeproj -destination 'platform=macOS' -only-testing:RsyncUITests test
 import Testing
+import Foundation
+import RsyncArguments
 @testable import RsyncUI
 
 struct RsyncUITests {
+
+    @MainActor
+    @Suite("Arguments Generation Tests", .serialized)
+    struct ArgumentsSynchronizeTests {
+        func makeConfig(
+            task: String = "synchronize",
+            local: String = "/Users/test/Documents/",
+            remote: String = "/backup/Documents/",
+            username: String = "",
+            server: String = ""
+        ) -> SynchronizeConfiguration {
+            var cfg = SynchronizeConfiguration()
+            cfg.task = task
+            cfg.localCatalog = local
+            cfg.offsiteCatalog = remote
+            cfg.offsiteUsername = username
+            cfg.offsiteServer = server
+            cfg.halted = 0
+            return cfg
+        }
+
+        @Test("Synchronize returns dry-run args")
+        func synchronizeDryRunArgs() async {
+            SharedReference.shared.rsyncversion3 = true
+
+            let cfg = makeConfig()
+            let generator = ArgumentsSynchronize(config: cfg)
+            let args = generator.argumentsSynchronize(dryRun: true, forDisplay: false)
+
+            #expect(args != nil)
+            // Accept either common dry-run flags
+            #expect(args!.contains("--dry-run") || args!.contains("-n"))
+        }
+/*
+        @Test("Snapshot task produces arguments")
+        func snapshotArgs() async {
+            SharedReference.shared.rsyncversion3 = true
+
+            var cfg = makeConfig(task: SharedReference.shared.snapshot,
+                                 username: "testuser",
+                                 server: "localhost")
+            let generator = ArgumentsSynchronize(config: cfg)
+            let args = generator.argumentsSynchronize(dryRun: false, forDisplay: false)
+
+            #expect(args != nil)
+        }
+*/
+        @Test("Syncremote task produces arguments")
+        func syncremoteArgs() async {
+            SharedReference.shared.rsyncversion3 = true
+
+            let cfg = makeConfig(task: SharedReference.shared.syncremote,
+                                 username: "testuser",
+                                 server: "testserver.local")
+            let generator = ArgumentsSynchronize(config: cfg)
+            let args = generator.argumentsSynchronize(dryRun: true, forDisplay: false)
+
+            #expect(args != nil)
+        }
+
+        @Test("Push local→remote with keepdelete variations")
+        func pushLocalToRemoteArgs() async {
+            SharedReference.shared.rsyncversion3 = true
+
+            let cfg = makeConfig()
+            let generator = ArgumentsSynchronize(config: cfg)
+
+            let argsKeep = generator.argumentsforpushlocaltoremotewithparameters(dryRun: false,
+                                                                                 forDisplay: false,
+                                                                                 keepdelete: true)
+            let argsNoKeep = generator.argumentsforpushlocaltoremotewithparameters(dryRun: false,
+                                                                                   forDisplay: false,
+                                                                                   keepdelete: false)
+
+            #expect(argsKeep != nil)
+            #expect(argsNoKeep != nil)
+        }
+    }
+
+    @MainActor
+    @Suite("Deeplink URL Tests", .serialized)
+    struct DeeplinkURLTests {
+        @Test("Create estimate-and-synchronize URL with default profile")
+        func createURLDefaultProfile() async {
+            let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: nil)
+            #expect(url != nil)
+            #expect(url!.absoluteString.contains("profile=Default"))
+        }
+
+        @Test("Create estimate-and-synchronize URL with custom profile")
+        func createURLCustomProfile() async {
+            let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: "Work")
+            #expect(url != nil)
+            #expect(url!.absoluteString.contains("profile=Work"))
+        }
+    }
+
+    
 
     @MainActor
     @Suite("Configuration Validation Tests", .serialized)
@@ -545,3 +646,5 @@ struct RsyncUITests {
 
 
 }
+// swiftlint:enable all
+
