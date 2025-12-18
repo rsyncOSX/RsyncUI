@@ -24,7 +24,8 @@ final class Rsyncversion {
             },
             cleanup: { self.activeStreamingProcess = nil
                 self.streamingHandlers = nil
-                SharedReference.shared.updateprocess(nil)}
+                SharedReference.shared.updateprocess(nil)
+            }
         )
         guard let streamingHandlers else { return }
 

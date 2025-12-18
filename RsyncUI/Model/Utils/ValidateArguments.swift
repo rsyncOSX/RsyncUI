@@ -80,4 +80,5 @@ struct ValidateArguments {
         // Validation passed
     }
 }
+
 // swiftlint:enable cyclomatic_complexity

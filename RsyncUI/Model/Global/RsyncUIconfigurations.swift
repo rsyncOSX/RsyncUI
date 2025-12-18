@@ -57,4 +57,5 @@ final class RsyncUIconfigurations {
 
     init() {}
 }
+
 // swiftlint:enable identifier_name

@@ -151,4 +151,5 @@ extension SidebarTasksView {
         }
     }
 }
+
 // swiftlint:enable identifier_name

@@ -97,4 +97,5 @@ struct SettingsNavigationLinkWithHover: View {
         }
     }
 }
+
 // swiftlint:enable identifier_name
