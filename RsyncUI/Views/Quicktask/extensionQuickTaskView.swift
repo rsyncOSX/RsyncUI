@@ -114,7 +114,7 @@ extension QuicktaskView {
 
         // Create streaming handlers and retain them (with enforced cleanup)
         streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
-            fileHandler: { count in fileHandler(count: count) },
+            fileHandler: fileHandler,
             processTermination: { output, exitCode in processTermination(output, exitCode) },
             cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
         )

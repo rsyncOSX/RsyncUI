@@ -153,7 +153,7 @@ struct ExecutePushPullView: View {
             keepdelete: keepdelete)
 
         streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
-            fileHandler: { count in fileHandler(count: count) },
+            fileHandler: fileHandler,
             processTermination: { output, hiddenID in
                 processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
             },
@@ -186,7 +186,7 @@ struct ExecutePushPullView: View {
                                                                                               keepdelete: keepdelete)
 
         streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
-            fileHandler: { count in fileHandler(count: count) },
+            fileHandler: fileHandler,
             processTermination: { output, hiddenID in
                 processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
             },

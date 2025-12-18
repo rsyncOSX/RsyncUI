@@ -56,10 +56,7 @@ final class Execute {
     private func startexecution() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
         streamingHandlers = CreateStreamingHandlers().createHandlers(
-            fileHandler: { [weak self] count in
-                // Forward while keeping self weak to avoid cycles
-                self?.localfileHandler(count)
-            },
+            fileHandler: localfileHandler,
             processTermination: { output, hiddenID in
                 self.processTermination(stringoutputfromrsync: output, hiddenID)
             }
@@ -107,9 +104,7 @@ final class Execute {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
 
         streamingHandlers = CreateStreamingHandlers().createHandlers(
-            fileHandler: { [weak self] count in
-                self?.localfileHandler(count)
-            },
+            fileHandler: localfileHandler,
             processTermination: { output, hiddenID in
                 self.processTermination_noestimation(stringoutputfromrsync: output, hiddenID)
             }
