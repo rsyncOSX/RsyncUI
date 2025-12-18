@@ -23,51 +23,8 @@ struct RsyncRealtimeView: View {
                     .font(.system(.caption, design: .monospaced))
                     .lineLimit(1)
             }
-
+            
             HStack {
-                ConditionalGlassButton(
-                    systemImage: "eyes.inverse",
-                    text: "View",
-                    helpText: "Enable capture rsync output",
-                    textcolor: isTappedview
-                ) {
-                    Task {
-                        isTappedview.toggle()
-                        guard isTappedview else {
-                            await RsyncOutputCapture.shared.disable()
-                            return
-                        }
-
-                        if await RsyncOutputCapture.shared.isCapturing() {
-                            isTappedfile = false
-                            await RsyncOutputCapture.shared.disable()
-                        }
-                        await RsyncOutputCapture.shared.enable()
-                    }
-                }
-
-                ConditionalGlassButton(
-                    systemImage: "square.and.arrow.down.badge.checkmark",
-                    text: "File",
-                    helpText: "Enable capture rsync output",
-                    textcolor: isTappedfile
-                ) {
-                    Task {
-                        isTappedfile.toggle()
-                        guard isTappedfile else {
-                            await RsyncOutputCapture.shared.disable()
-                            return
-                        }
-                        if await RsyncOutputCapture.shared.isCapturing() {
-                            isTappedview = false
-                            await RsyncOutputCapture.shared.disable()
-                        }
-                        if let logURL = URL.userHomeDirectoryURLPath?.appendingPathComponent("rsync-output.log") {
-                            await RsyncOutputCapture.shared.enable(writeToFile: logURL)
-                        }
-                    }
-                }
-
                 Spacer()
 
                 ConditionalGlassButton(
