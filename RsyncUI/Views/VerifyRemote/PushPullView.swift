@@ -108,12 +108,11 @@ struct PushPullView: View {
                                                                                               forDisplay: false,
                                                                                               keepdelete: true)
 
-        streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
+        streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: { _ in },
             processTermination: { output, hiddenID in
                 pullProcessTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
-            },
-            cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
+            }
         )
 
         guard SharedReference.shared.norsync == false else { return }
