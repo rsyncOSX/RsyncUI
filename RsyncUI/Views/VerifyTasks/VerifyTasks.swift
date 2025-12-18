@@ -6,7 +6,7 @@
 //
 
 import OSLog
-import RsyncProcess
+import RsyncProcessStreaming
 import SwiftUI
 
 struct VerifyTasks: View {
@@ -21,6 +21,9 @@ struct VerifyTasks: View {
     @State private var estimating: Bool = false
     // Show warning
     @State private var showmessage: Bool = true
+    // Streaming strong references
+    @State private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    @State private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
 
     var body: some View {
         NavigationStack {
@@ -102,25 +105,33 @@ struct VerifyTasks: View {
         }
     }
 
-    // For a verify run, --dry-run
+    // For a verify run, --dry-run using streaming
     func verify(config: SynchronizeConfiguration) {
         let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: true,
                                                                                   forDisplay: false)
 
-        let handlers = CreateHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
             fileHandler: { _ in },
-            processTermination: processTermination
+            processTermination: { output, hiddenID in
+                processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            },
+            cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
         )
 
         guard SharedReference.shared.norsync == false else { return }
         guard config.task != SharedReference.shared.halted else { return }
+        guard let streamingHandlers else { return }
+        guard let arguments else { return }
 
-        let process = RsyncProcess(arguments: arguments,
-                                   hiddenID: config.hiddenID,
-                                   handlers: handlers,
-                                   useFileHandler: false)
+        let process = RsyncProcessStreaming.RsyncProcess(
+            arguments: arguments,
+            hiddenID: config.hiddenID,
+            handlers: streamingHandlers,
+            useFileHandler: false
+        )
         do {
             try process.executeProcess()
+            activeStreamingProcess = process
         } catch let err {
             let error = err
             SharedReference.shared.errorobject?.alert(error: error)
@@ -130,19 +141,26 @@ struct VerifyTasks: View {
     func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         estimating = false
 
-        if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
-            let suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
-            remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
-                                                  config: selectedconfig)
-        } else {
-            remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
-                                                  config: selectedconfig)
-        }
+        let lines = stringoutputfromrsync?.count ?? 0
+        let threshold = SharedReference.shared.alerttagginglines
+        let prepared: [String]? = {
+            if lines > threshold, let data = stringoutputfromrsync {
+                return PrepareOutputFromRsync().prepareOutputFromRsync(data)
+            } else {
+                return stringoutputfromrsync
+            }
+        }()
 
-        Task {
+        remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: prepared,
+                                              config: selectedconfig)
+
+        Task { @MainActor in
             remotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
             presentestimates = true
         }
+        // Release streaming references to avoid retain cycles
+        activeStreamingProcess = nil
+        streamingHandlers = nil
     }
 
     func abort() {

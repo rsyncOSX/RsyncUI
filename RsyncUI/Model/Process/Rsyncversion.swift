@@ -8,15 +8,25 @@
 import Foundation
 import Observation
 import OSLog
-import RsyncProcess
+import RsyncProcessStreaming
 
 @Observable @MainActor
 final class Rsyncversion {
+    // Streaming strong references
+    private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
+
     func getRsyncVersion() {
-        let handlers = CreateHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
             fileHandler: { _ in },
-            processTermination: processTermination
+            processTermination: { output, hiddenID in
+                self.processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            },
+            cleanup: { self.activeStreamingProcess = nil
+                self.streamingHandlers = nil
+                SharedReference.shared.updateprocess(nil)}
         )
+        guard let streamingHandlers else { return }
 
         do {
             try SetandValidatepathforrsync().validateLocalPathForRsync()
@@ -25,11 +35,14 @@ final class Rsyncversion {
             SharedReference.shared.rsyncversionshort = "No valid rsync deteced"
         }
         if SharedReference.shared.norsync == false {
-            let process = RsyncProcess(arguments: ["--version"],
-                                       handlers: handlers,
-                                       fileHandler: false)
+            let process = RsyncProcessStreaming.RsyncProcess(
+                arguments: ["--version"],
+                handlers: streamingHandlers,
+                useFileHandler: false
+            )
             do {
                 try process.executeProcess()
+                activeStreamingProcess = process
             } catch let err {
                 let error = err
                 SharedReference.shared.errorobject?.alert(error: error)
@@ -63,6 +76,9 @@ extension Rsyncversion {
                 Logger.process.debugMessageOnly("Rsyncversion: default openrsync discovered")
             }
         }
+        // Release streaming references to avoid retain cycles
+        activeStreamingProcess = nil
+        streamingHandlers = nil
     }
 }
 

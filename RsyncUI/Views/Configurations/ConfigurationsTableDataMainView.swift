@@ -41,7 +41,7 @@ struct ConfigurationsTableDataMainView: View {
                 }
             }
             .width(min: 100, max: 150)
-            .defaultVisibility(visible_progress)
+            .defaultVisibility(visibleProgress)
 
             TableColumn("Num") { data in
                 if data.hiddenID == progressdetails.hiddenIDatwork, max > 0, progress <= max {
@@ -64,7 +64,7 @@ struct ConfigurationsTableDataMainView: View {
                 }
             }
             .width(min: 150, max: 250)
-            .defaultVisibility(visible_progress)
+            .defaultVisibility(visibleProgress)
 
             TableColumn("Synchronize ID") { data in
                 if let index = progressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id }) {
@@ -176,7 +176,7 @@ struct ConfigurationsTableDataMainView: View {
         rsyncUIdata.configurations ?? []
     }
 
-    var visible_progress: Visibility {
+    var visibleProgress: Visibility {
         if max == 0 {
             .hidden
         } else {

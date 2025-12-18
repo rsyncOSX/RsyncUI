@@ -6,7 +6,6 @@
 //
 
 import OSLog
-import RsyncProcess
 import SwiftUI
 
 struct RsyncUIView: View {

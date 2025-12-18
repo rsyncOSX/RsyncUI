@@ -5,7 +5,7 @@
 //  Created by Thomas Evensen on 12/12/2024.
 //
 
-import RsyncProcess
+import RsyncProcessStreaming
 import SwiftUI
 
 struct ExecutePushPullView: View {
@@ -20,6 +20,10 @@ struct ExecutePushPullView: View {
 
     @State private var progress: Double = 0
     @State private var max: Double = 0
+
+    // Streaming strong references
+    @State private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    @State private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
 
     let config: SynchronizeConfiguration
 
@@ -50,7 +54,7 @@ struct ExecutePushPullView: View {
                                     .help("Remove the delete parameter, default is true?")
                             }
 
-                            if pushpullcommand == .push_local {
+                            if pushpullcommand == .pushLocal {
                                 ConditionalGlassButton(
                                     systemImage: "arrowshape.right.fill",
                                     helpText: "Push to remote"
@@ -58,7 +62,7 @@ struct ExecutePushPullView: View {
                                     showprogressview = true
                                     push(config: config)
                                 }
-                            } else if pushpullcommand == .pull_remote {
+                            } else if pushpullcommand == .pullRemote {
                                 ConditionalGlassButton(
                                     systemImage: "arrowshape.left.fill",
                                     helpText: "Pull from remote"
@@ -79,7 +83,7 @@ struct ExecutePushPullView: View {
                 } else {
                     Spacer()
 
-                    if pushorpull.rsyncpullmax > 0, pushpullcommand == .pull_remote {
+                    if pushorpull.rsyncpullmax > 0, pushpullcommand == .pullRemote {
                         VStack {
                             ProgressView("",
                                          value: progress,
@@ -100,7 +104,7 @@ struct ExecutePushPullView: View {
                             }
                         }
 
-                    } else if pushorpull.rsyncpushmax > 0, pushpullcommand == .push_local {
+                    } else if pushorpull.rsyncpushmax > 0, pushpullcommand == .pushLocal {
                         VStack {
                             ProgressView("",
                                          value: progress,
@@ -148,20 +152,28 @@ struct ExecutePushPullView: View {
             forDisplay: false,
             keepdelete: keepdelete)
 
-        let handlers = CreateHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
             fileHandler: fileHandler,
-            processTermination: processTermination
+            processTermination: { output, hiddenID in
+                processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            },
+            cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
         )
 
         guard SharedReference.shared.norsync == false else { return }
         guard config.task != SharedReference.shared.halted else { return }
+        guard let arguments else { return }
+        guard let streamingHandlers else { return }
 
-        let process = RsyncProcess(arguments: arguments,
-                                   hiddenID: config.hiddenID,
-                                   handlers: handlers,
-                                   useFileHandler: true)
+        let process = RsyncProcessStreaming.RsyncProcess(
+            arguments: arguments,
+            hiddenID: config.hiddenID,
+            handlers: streamingHandlers,
+            useFileHandler: false
+        )
         do {
             try process.executeProcess()
+            activeStreamingProcess = process
         } catch let err {
             let error = err
             SharedReference.shared.errorobject?.alert(error: error)
@@ -173,17 +185,25 @@ struct ExecutePushPullView: View {
                                                                                               forDisplay: false,
                                                                                               keepdelete: keepdelete)
 
-        let handlers = CreateHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
             fileHandler: fileHandler,
-            processTermination: processTermination
+            processTermination: { output, hiddenID in
+                processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            },
+            cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
         )
+        guard let arguments else { return }
+        guard let streamingHandlers else { return }
 
-        let process = RsyncProcess(arguments: arguments,
-                                   hiddenID: config.hiddenID,
-                                   handlers: handlers,
-                                   useFileHandler: true)
+        let process = RsyncProcessStreaming.RsyncProcess(
+            arguments: arguments,
+            hiddenID: config.hiddenID,
+            handlers: streamingHandlers,
+            useFileHandler: false
+        )
         do {
             try process.executeProcess()
+            activeStreamingProcess = process
         } catch let err {
             let error = err
             SharedReference.shared.errorobject?.alert(error: error)
@@ -191,29 +211,35 @@ struct ExecutePushPullView: View {
     }
 
     func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        showprogressview = false
+        DispatchQueue.main.async {
+            showprogressview = false
 
-        let lines = stringoutputfromrsync?.count ?? 0
-        if dryrun {
-            max = Double(lines)
+            let lines = stringoutputfromrsync?.count ?? 0
+            if dryrun {
+                max = Double(lines)
+            }
+
+            if lines > SharedReference.shared.alerttagginglines, let stringoutputfromrsync {
+                let suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
+                remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
+                                                      config: config)
+            } else {
+                remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
+                                                      config: config)
+            }
         }
 
-        if lines > SharedReference.shared.alerttagginglines, let stringoutputfromrsync {
-            let suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
-            remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
-                                                  config: config)
-        } else {
-            remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
-                                                  config: config)
+        Task.detached { [stringoutputfromrsync] in
+            let out = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
+            await MainActor.run { remotedatanumbers?.outputfromrsync = out }
         }
-
-        Task {
-            remotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
-        }
+        // Release streaming references to avoid retain cycles
+        activeStreamingProcess = nil
+        streamingHandlers = nil
     }
 
     func fileHandler(count: Int) {
-        progress = Double(count)
+        DispatchQueue.main.async { progress = Double(count) }
     }
 
     func abort() {

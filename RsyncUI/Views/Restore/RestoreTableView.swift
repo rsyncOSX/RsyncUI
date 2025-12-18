@@ -6,7 +6,7 @@
 //
 
 import OSLog
-import RsyncProcess
+import RsyncProcessStreaming
 import SwiftUI
 
 struct RestoreTableView: View {
@@ -16,6 +16,9 @@ struct RestoreTableView: View {
     @State private var focusaborttask: Bool = false
     // Restore snapshot
     @State var snapshotdata = ObservableSnapshotData()
+    // Streaming strong references
+    @State private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    @State private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
     @State private var snapshotfolder: String = ""
     @State private var snapshotFolderID: SnapshotFolder.ID?
     // Filterstring
@@ -266,10 +269,13 @@ extension RestoreTableView {
     }
 
     func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        gettingfilelist = false
-        restore.restorefilelist.removeAll()
-        Task {
-            restore.restorefilelist = await ActorCreateOutputforView().createoutputforrestore(stringoutputfromrsync)
+        DispatchQueue.main.async {
+            gettingfilelist = false
+            restore.restorefilelist.removeAll()
+        }
+        Task.detached { [stringoutputfromrsync] in
+            let list = await ActorCreateOutputforView().createoutputforrestore(stringoutputfromrsync)
+            await MainActor.run { restore.restorefilelist = list }
         }
     }
 
@@ -290,18 +296,26 @@ extension RestoreTableView {
             } else {
                 arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments()
             }
-            guard arguments?.isEmpty == false else { return }
+            guard let arguments else { return }
 
-            let handlers = CreateHandlers().createHandlers(
+            streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
                 fileHandler: { _ in },
-                processTermination: processTermination
+                processTermination: { output, hiddenID in
+                    processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+                },
+                cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
             )
 
-            let process = RsyncProcess(arguments: arguments,
-                                       handlers: handlers,
-                                       fileHandler: false)
+            guard let streamingHandlers else { return }
+
+            let process = RsyncProcessStreaming.RsyncProcess(
+                arguments: arguments,
+                handlers: streamingHandlers,
+                useFileHandler: false
+            )
             do {
                 try process.executeProcess()
+                activeStreamingProcess = process
             } catch let err {
                 let error = err
                 SharedReference.shared.errorobject?.alert(error: error)

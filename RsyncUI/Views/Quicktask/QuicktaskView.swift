@@ -6,13 +6,13 @@
 //
 
 import OSLog
-import RsyncProcess
+import RsyncProcessStreaming
 import SwiftUI
 
 enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvertible {
     case synchronize
     case syncremote
-    case not_selected
+    case notSelected
 
     var id: String { rawValue }
     var description: String { rawValue.localizedLowercase.replacingOccurrences(of: "_", with: " ") }
@@ -63,13 +63,16 @@ struct QuicktaskView: View {
     @State var showprogressview = false
     @State var rsyncoutput = ObservableRsyncOutput()
     // Focus buttons from the menu
-    @State var Bool = false
     @State var focusstartexecution: Bool = false
     // Completed task
     @State var completed: Bool = false
     // Progress and max if estimate first
     @State var progress: Double = 0
     @State var max: Double = 0
+
+    // Streaming variants
+    @State var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    @State var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
 
     enum QuicktaskField: Hashable {
         case localcatalogField
@@ -118,8 +121,8 @@ struct QuicktaskView: View {
                                         self.selectedrsynccommand = TypeofTaskQuictask.synchronize
                                     case "syncremote":
                                         self.selectedrsynccommand = TypeofTaskQuictask.syncremote
-                                    case "not_selected":
-                                        self.selectedrsynccommand = TypeofTaskQuictask.not_selected
+                                    case "notSelected":
+                                        self.selectedrsynccommand = TypeofTaskQuictask.notSelected
                                     default:
                                         self.selectedrsynccommand = TypeofTaskQuictask.synchronize
                                     }
@@ -189,7 +192,7 @@ struct QuicktaskView: View {
                                 }
                         }
                     }
-                if selectedrsynccommand == .synchronize || selectedrsynccommand == .not_selected {
+                if selectedrsynccommand == .synchronize || selectedrsynccommand == .notSelected {
                     Section(header: Text("Source and destination")
                         .font(.title3)
                         .fontWeight(.bold)) {

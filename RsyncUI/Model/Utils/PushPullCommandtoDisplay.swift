@@ -10,8 +10,8 @@ import Foundation
 import SSHCreateKey
 
 enum PushPullCommand: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case pull_remote
-    case push_local
+    case pullRemote
+    case pushLocal
     case none
 
     var id: String { rawValue }
@@ -28,7 +28,7 @@ struct PushPullCommandtoDisplay {
          keepdelete: Bool) {
         var str = ""
         switch display {
-        case .pull_remote:
+        case .pullRemote:
             if config.offsiteServer.isEmpty == false, config.task == SharedReference.shared.synchronize {
                 if let arguments = ArgumentsPullRemote(config: config).argumentspullremotewithparameters(dryRun: dryRun,
                                                                                                          forDisplay: true, keepdelete: keepdelete) {
@@ -37,7 +37,7 @@ struct PushPullCommandtoDisplay {
             } else {
                 str = "Use macOS Finder"
             }
-        case .push_local:
+        case .pushLocal:
             if config.offsiteServer.isEmpty == false, config.task == SharedReference.shared.synchronize {
                 if let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremotewithparameters(dryRun: dryRun,
                                                                                                                     forDisplay: true, keepdelete: keepdelete) {

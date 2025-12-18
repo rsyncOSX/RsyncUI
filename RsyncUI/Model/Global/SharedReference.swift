@@ -5,6 +5,7 @@
 
 import Foundation
 import Observation
+import OSLog
 
 public extension Thread {
     static var isMain: Bool { isMainThread }
@@ -89,6 +90,7 @@ final class SharedReference {
         if task != nil {
             process = task
         } else {
+            Logger.process.debugMessageOnly("SharedReference: Process set to NIL")
             process = nil
         }
     }

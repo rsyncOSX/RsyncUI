@@ -6,7 +6,7 @@
 //
 
 import OSLog
-import RsyncProcess
+import RsyncProcessStreaming
 import SwiftUI
 
 struct PushPullView: View {
@@ -21,6 +21,10 @@ struct PushPullView: View {
     @State private var pushremotedatanumbers: RemoteDataNumbers?
     // If aborted
     @State private var isaborted: Bool = false
+
+    // Streaming strong references
+    @State private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    @State private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
 
     let config: SynchronizeConfiguration
     let isadjusted: Bool
@@ -51,7 +55,7 @@ struct PushPullView: View {
                                     systemImage: "arrowshape.right.fill",
                                     helpText: "Push local"
                                 ) {
-                                    pushpullcommand = .push_local
+                                    pushpullcommand = .pushLocal
                                     verifypath.removeAll()
                                     verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
                                 }
@@ -66,7 +70,7 @@ struct PushPullView: View {
                                     systemImage: "arrowshape.left.fill",
                                     helpText: "Pull remote"
                                 ) {
-                                    pushpullcommand = .pull_remote
+                                    pushpullcommand = .pullRemote
                                     verifypath.removeAll()
                                     verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
                                 }
@@ -104,20 +108,27 @@ struct PushPullView: View {
                                                                                               forDisplay: false,
                                                                                               keepdelete: true)
 
-        let handlers = CreateHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: { _ in },
-            processTermination: pullProcessTermination
+            processTermination: { output, hiddenID in
+                pullProcessTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            }
         )
 
         guard SharedReference.shared.norsync == false else { return }
         guard config.task != SharedReference.shared.halted else { return }
+        guard let arguments else { return }
+        guard let streamingHandlers else { return }
 
-        let process = RsyncProcess(arguments: arguments,
-                                   hiddenID: config.hiddenID,
-                                   handlers: handlers,
-                                   useFileHandler: false)
+        let process = RsyncProcessStreaming.RsyncProcess(
+            arguments: arguments,
+            hiddenID: config.hiddenID,
+            handlers: streamingHandlers,
+            useFileHandler: false
+        )
         do {
             try process.executeProcess()
+            activeStreamingProcess = process
         } catch let err {
             let error = err
             SharedReference.shared.errorobject?.alert(error: error)
@@ -129,17 +140,26 @@ struct PushPullView: View {
         let arguments = ArgumentsSynchronize(config: config).argumentsforpushlocaltoremotewithparameters(dryRun: true,
                                                                                                          forDisplay: false,
                                                                                                          keepdelete: true)
-        let handlers = CreateHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
             fileHandler: { _ in },
-            processTermination: pushProcessTermination
+            processTermination: { output, hiddenID in
+                pushProcessTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            },
+            cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
         )
 
-        let process = RsyncProcess(arguments: arguments,
-                                   hiddenID: config.hiddenID,
-                                   handlers: handlers,
-                                   useFileHandler: false)
+        guard let arguments else { return }
+        guard let streamingHandlers else { return }
+
+        let process = RsyncProcessStreaming.RsyncProcess(
+            arguments: arguments,
+            hiddenID: config.hiddenID,
+            handlers: streamingHandlers,
+            useFileHandler: false
+        )
         do {
             try process.executeProcess()
+            activeStreamingProcess = process
         } catch let err {
             let error = err
             SharedReference.shared.errorobject?.alert(error: error)
@@ -147,69 +167,87 @@ struct PushPullView: View {
     }
 
     func pullProcessTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
-            let suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
-            pullremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
-                                                      config: config)
-        } else {
-            pullremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
-                                                      config: config)
-        }
-        guard isaborted == false else {
-            progress = false
-            return
-        }
-        // Rsync output pull
-        pushorpull.rsyncpull = stringoutputfromrsync
-        pushorpull.rsyncpullmax = (stringoutputfromrsync?.count ?? 0) - 16
-        if pushorpull.rsyncpullmax < 0 {
-            pushorpull.rsyncpullmax = 0
-        }
-
-        if isadjusted == false {
-            Task {
-                pullremotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
+        DispatchQueue.main.async {
+            if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
+                let suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
+                pullremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
+                                                          config: config)
+            } else {
+                pullremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
+                                                          config: config)
+            }
+            guard isaborted == false else {
+                progress = false
+                return
+            }
+            // Rsync output pull
+            pushorpull.rsyncpull = stringoutputfromrsync
+            pushorpull.rsyncpullmax = (stringoutputfromrsync?.count ?? 0) - 16
+            if pushorpull.rsyncpullmax < 0 {
+                pushorpull.rsyncpullmax = 0
             }
         }
+        if isadjusted == false {
+            Task.detached { [stringoutputfromrsync] in
+                let out = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
+                await MainActor.run { pullremotedatanumbers?.outputfromrsync = out }
+            }
+        }
+        // Release current streaming before next task
+        activeStreamingProcess = nil
+        streamingHandlers = nil
         // Then do a synchronize task, adjusted for push vs pull
         pushRemote(config: config)
     }
 
     // This is a normal synchronize task, dry-run = true
     func pushProcessTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        guard isaborted == false else {
+        DispatchQueue.main.async {
+            guard isaborted == false else {
+                progress = false
+                return
+            }
             progress = false
-            return
-        }
-        progress = false
-        if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
-            let suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
-            pushremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
-                                                      config: config)
-        } else {
-            pushremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
-                                                      config: config)
-        }
+            if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
+                let suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
+                pushremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
+                                                          config: config)
+            } else {
+                pushremotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
+                                                          config: config)
+            }
 
-        // Rsync output push
-        pushorpull.rsyncpush = stringoutputfromrsync
-        pushorpull.rsyncpushmax = (stringoutputfromrsync?.count ?? 0) - 16
-        if pushorpull.rsyncpushmax < 0 {
-            pushorpull.rsyncpushmax = 0
+            // Rsync output push
+            pushorpull.rsyncpush = stringoutputfromrsync
+            pushorpull.rsyncpushmax = (stringoutputfromrsync?.count ?? 0) - 16
+            if pushorpull.rsyncpushmax < 0 {
+                pushorpull.rsyncpushmax = 0
+            }
         }
 
         if isadjusted {
             // Adjust both outputs
             pushorpull.adjustoutput()
-            Task {
-                pullremotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(pushorpull.adjustedpull)
-                pushremotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(pushorpull.adjustedpush)
+            let adjustedPull = pushorpull.adjustedpull
+            let adjustedPush = pushorpull.adjustedpush
+            Task.detached { [adjustedPull, adjustedPush] in
+                async let outPull = ActorCreateOutputforView().createOutputForView(adjustedPull)
+                async let outPush = ActorCreateOutputforView().createOutputForView(adjustedPush)
+                let (pull, push) = await (outPull, outPush)
+                await MainActor.run {
+                    pullremotedatanumbers?.outputfromrsync = pull
+                    pushremotedatanumbers?.outputfromrsync = push
+                }
             }
         } else {
-            Task {
-                pushremotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
+            Task.detached { [stringoutputfromrsync] in
+                let out = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
+                await MainActor.run { pushremotedatanumbers?.outputfromrsync = out }
             }
         }
+        // Final cleanup
+        activeStreamingProcess = nil
+        streamingHandlers = nil
     }
 
     func abort() {

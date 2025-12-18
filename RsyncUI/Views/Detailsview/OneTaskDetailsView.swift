@@ -8,13 +8,16 @@
 import Foundation
 import Observation
 import OSLog
-import RsyncProcess
+import RsyncProcessStreaming
 import SwiftUI
 
 struct OneTaskDetailsView: View {
     @Bindable var progressdetails: ProgressDetails
     @State private var estimateiscompleted = false
     @State private var remotedatanumbers: RemoteDataNumbers?
+    // Streaming strong references
+    @State private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    @State private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
 
     let selecteduuids: Set<SynchronizeConfiguration.ID>
     let configurations: [SynchronizeConfiguration]
@@ -54,22 +57,30 @@ struct OneTaskDetailsView: View {
                 .argumentsSynchronize(dryRun: true, forDisplay: false)
             guard arguments != nil else { return }
 
-            let handlers = CreateHandlers().createHandlers(
+            streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
                 fileHandler: { _ in },
-                processTermination: processTermination
+                processTermination: { output, hiddenID in
+                    processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+                },
+                cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
             )
 
             // Must check valid rsync exists
             guard SharedReference.shared.norsync == false else { return }
             guard selectedconfig?.task != SharedReference.shared.halted else { return }
+            guard let streamingHandlers else { return }
+            guard let arguments else { return }
 
-            let process = RsyncProcess(arguments: arguments,
-                                       hiddenID: selectedconfig?.hiddenID ?? -1,
-                                       handlers: handlers,
-                                       useFileHandler: false)
+            let process = RsyncProcessStreaming.RsyncProcess(
+                arguments: arguments,
+                hiddenID: selectedconfig?.hiddenID ?? -1,
+                handlers: streamingHandlers,
+                useFileHandler: false
+            )
 
             do {
                 try process.executeProcess()
+                activeStreamingProcess = process
             } catch let err {
                 let error = err
                 SharedReference.shared.errorobject?.alert(error: error)
@@ -90,6 +101,7 @@ struct OneTaskDetailsView: View {
         }
     }
 
+    @MainActor
     func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         var selectedconfig: SynchronizeConfiguration?
         let selected = configurations.filter { config in
@@ -99,14 +111,18 @@ struct OneTaskDetailsView: View {
             selectedconfig = selected[0]
         }
 
-        if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
-            let suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
-            remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: suboutput,
-                                                  config: selectedconfig)
-        } else {
-            remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: stringoutputfromrsync,
-                                                  config: selectedconfig)
-        }
+        let lines = stringoutputfromrsync?.count ?? 0
+        let threshold = SharedReference.shared.alerttagginglines
+        let prepared: [String]? = {
+            if lines > threshold, let data = stringoutputfromrsync {
+                return PrepareOutputFromRsync().prepareOutputFromRsync(data)
+            } else {
+                return stringoutputfromrsync
+            }
+        }()
+
+        remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: prepared,
+                                              config: selectedconfig)
 
         // Validate that tagging is correct
         do {
@@ -116,7 +132,7 @@ struct OneTaskDetailsView: View {
             SharedReference.shared.errorobject?.alert(error: error)
         }
 
-        Task {
+        Task { @MainActor in
             remotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
 
             if let remotedatanumbers {
@@ -124,6 +140,9 @@ struct OneTaskDetailsView: View {
             }
 
             estimateiscompleted = true
+            // Release streaming references to avoid retain cycles
+            activeStreamingProcess = nil
+            streamingHandlers = nil
         }
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import OSLog
 import ParseRsyncOutput
-import RsyncProcess
+import RsyncProcessStreaming
 
 enum ErrorDatatoSynchronize: LocalizedError {
     case thereisdatatosynchronize(idwitherror: String)
@@ -42,6 +42,10 @@ final class Execute {
 
     let defaultstats = "0 files : 0.00 MB in 0.00 seconds"
 
+    // Streaming strong references
+    private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
+
     private func getConfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
         if let index = localconfigurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
             return localconfigurations[index]
@@ -51,9 +55,11 @@ final class Execute {
 
     private func startexecution() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
-        let handlers = CreateHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: localfileHandler,
-            processTermination: processTermination
+            processTermination: { output, hiddenID in
+                self.processTermination(stringoutputfromrsync: output, hiddenID)
+            }
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
@@ -62,10 +68,13 @@ final class Execute {
             if let config = getConfig(localhiddenID) {
                 if let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: false,
                                                                                              forDisplay: false) {
-                    let process = RsyncProcess(arguments: arguments,
-                                               hiddenID: config.hiddenID,
-                                               handlers: handlers,
-                                               useFileHandler: true)
+                    guard let streamingHandlers else { return }
+                    let process = RsyncProcessStreaming.RsyncProcess(
+                        arguments: arguments,
+                        hiddenID: config.hiddenID,
+                        handlers: streamingHandlers,
+                        useFileHandler: true
+                    )
                     // Must check valid rsync exists
                     guard SharedReference.shared.norsync == false else { return }
                     guard config.task != SharedReference.shared.halted else { return }
@@ -81,6 +90,7 @@ final class Execute {
 
                     do {
                         try process.executeProcess()
+                        activeStreamingProcess = process
                     } catch let err {
                         let error = err
                         SharedReference.shared.errorobject?.alert(error: error)
@@ -93,9 +103,11 @@ final class Execute {
     private func startexecution_noestimate() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
 
-        let handlers = CreateHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: localfileHandler,
-            processTermination: processTermination_noestimation
+            processTermination: { output, hiddenID in
+                self.processTermination_noestimation(stringoutputfromrsync: output, hiddenID)
+            }
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
@@ -114,14 +126,18 @@ final class Execute {
                             SharedReference.shared.errorobject?.alert(error: error)
                         }
                     }
+                    guard let streamingHandlers else { return }
 
-                    let process = RsyncProcess(arguments: arguments,
-                                               hiddenID: config.hiddenID,
-                                               handlers: handlers,
-                                               useFileHandler: true)
+                    let process = RsyncProcessStreaming.RsyncProcess(
+                        arguments: arguments,
+                        hiddenID: config.hiddenID,
+                        handlers: streamingHandlers,
+                        useFileHandler: true
+                    )
 
                     do {
                         try process.executeProcess()
+                        activeStreamingProcess = process
                     } catch let err {
                         let error = err
                         SharedReference.shared.errorobject?.alert(error: error)
@@ -211,18 +227,13 @@ extension Execute {
                 schedulerecords.append(logData)
                 Logger.process.debugMessageOnly("Execute: getstats() SUCCESS")
             } catch let err {
-                if SharedReference.shared.silencemissingstats == false {
-                    let logData = ScheduleLogData(hiddenID: resolvedHiddenID, stats: defaultstats)
-                    schedulerecords.append(logData)
-                    Logger.process.debugMessageOnly("Execute: getstats() FAILED")
+                let logData = ScheduleLogData(hiddenID: resolvedHiddenID, stats: defaultstats)
+                schedulerecords.append(logData)
+                Logger.process.debugMessageOnly("Execute: getstats() FAILED")
 
+                if SharedReference.shared.silencemissingstats == false {
                     let error = err
                     SharedReference.shared.errorobject?.alert(error: error)
-
-                } else {
-                    let logData = ScheduleLogData(hiddenID: resolvedHiddenID, stats: defaultstats)
-                    schedulerecords.append(logData)
-                    Logger.process.debugMessageOnly("Execute: getstats() FAILED")
                 }
             }
         }
@@ -241,9 +252,15 @@ extension Execute {
                 try update.addLogToPermanentStore(scheduleRecords: schedulerecords)
             } catch { return }
 
+            // Release streaming references when completed
+            activeStreamingProcess = nil
+            streamingHandlers = nil
             return
         }
         // Execute next task
+        // Release references before starting next to avoid growth
+        activeStreamingProcess = nil
+        streamingHandlers = nil
         startexecution()
     }
 
@@ -257,7 +274,7 @@ extension Execute {
         let element = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: Date().en_string_from_date())
         configrecords.append(element)
         if let config = getConfig(resolvedHiddenID) {
-            if (stringoutputfromrsync?.count ?? 0) > 20, let stringoutputfromrsync {
+            if (stringoutputfromrsync?.count ?? 0) > SharedReference.shared.alerttagginglines, let stringoutputfromrsync {
                 suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
             } else {
                 suboutput = stringoutputfromrsync
@@ -287,9 +304,15 @@ extension Execute {
                 do {
                     try update.addLogToPermanentStore(scheduleRecords: schedulerecords)
                 } catch { return }
+                // Release streaming references when completed
+                activeStreamingProcess = nil
+                streamingHandlers = nil
                 return
             }
             // Execute next task
+            // Release references before starting next to avoid growth
+            activeStreamingProcess = nil
+            streamingHandlers = nil
             startexecution_noestimate()
         }
     }

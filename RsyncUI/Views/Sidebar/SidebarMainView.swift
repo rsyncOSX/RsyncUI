@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 12/12/2023.
 //
+// swiftlint:disable identifier_name
 
 import OSLog
 import SwiftUI
@@ -318,3 +319,5 @@ struct NavigationLinkWithHover: View {
         }
     }
 }
+
+// swiftlint:enable identifier_name

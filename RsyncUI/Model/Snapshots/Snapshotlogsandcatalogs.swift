@@ -5,7 +5,7 @@
 
 import Foundation
 import OSLog
-import RsyncProcess
+import RsyncProcessStreaming
 
 @MainActor
 final class Snapshotlogsandcatalogs {
@@ -14,18 +14,30 @@ final class Snapshotlogsandcatalogs {
     var config: SynchronizeConfiguration
     var logrecords: [LogRecords]
 
+    // Streaming strong references
+    private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
+
     func getremotecataloginfo() {
-        let handlers = CreateHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: { _ in },
-            processTermination: processTermination
+            processTermination: { output, hiddenID in
+                self.processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            }
         )
 
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
-        let process = RsyncProcess(arguments: arguments,
-                                   handlers: handlers,
-                                   fileHandler: false)
+        guard let arguments else { return }
+        guard let streamingHandlers else { return }
+
+        let process = RsyncProcessStreaming.RsyncProcess(
+            arguments: arguments,
+            handlers: streamingHandlers,
+            useFileHandler: false
+        )
         do {
             try process.executeProcess()
+            activeStreamingProcess = process
         } catch let err {
             let error = err
             SharedReference.shared.errorobject?.alert(error: error)
@@ -126,5 +138,8 @@ final class Snapshotlogsandcatalogs {
         mergeremotecatalogsandlogs()
         // Getting data is completed
         mysnapshotdata?.snapshotlist = false
+        // Release streaming references to avoid retain cycles
+        activeStreamingProcess = nil
+        streamingHandlers = nil
     }
 }
