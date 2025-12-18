@@ -107,7 +107,7 @@ extension QuicktaskView {
 
      */
     func executestreaming(config: SynchronizeConfiguration, dryrun: Bool) {
-        let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: dryrun, forDisplay: false) ?? []
+        let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: dryrun, forDisplay: false)
 
         // Start progressview
         showprogressview = true
@@ -123,13 +123,14 @@ extension QuicktaskView {
         guard SharedReference.shared.norsync == false else { return }
         guard config.task != SharedReference.shared.halted else { return }
         guard let streamingHandlers else { return }
+        guard let arguments else { return }
 
         // Use streaming process with readability handlers; do not use file handler
         let streamingProcess = RsyncProcessStreaming.RsyncProcess(
             arguments: arguments,
             hiddenID: config.hiddenID,
             handlers: streamingHandlers,
-            useFileHandler: false
+            useFileHandler: true
         )
         do {
             try streamingProcess.executeProcess()
