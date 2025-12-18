@@ -73,7 +73,7 @@ final class Execute {
                         arguments: arguments,
                         hiddenID: config.hiddenID,
                         handlers: streamingHandlers,
-                        useFileHandler: false
+                        useFileHandler: true
                     )
                     // Must check valid rsync exists
                     guard SharedReference.shared.norsync == false else { return }
@@ -132,7 +132,7 @@ final class Execute {
                         arguments: arguments,
                         hiddenID: config.hiddenID,
                         handlers: streamingHandlers,
-                        useFileHandler: false
+                        useFileHandler: true
                     )
 
                     do {
