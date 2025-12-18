@@ -55,7 +55,7 @@ struct PushPullView: View {
                                     systemImage: "arrowshape.right.fill",
                                     helpText: "Push local"
                                 ) {
-                                    pushpullcommand = .push_local
+                                    pushpullcommand = .pushLocal
                                     verifypath.removeAll()
                                     verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
                                 }
@@ -70,7 +70,7 @@ struct PushPullView: View {
                                     systemImage: "arrowshape.left.fill",
                                     helpText: "Pull remote"
                                 ) {
-                                    pushpullcommand = .pull_remote
+                                    pushpullcommand = .pullRemote
                                     verifypath.removeAll()
                                     verifypath.append(Verify(task: .executenpushpullview(configID: config.id)))
                                 }

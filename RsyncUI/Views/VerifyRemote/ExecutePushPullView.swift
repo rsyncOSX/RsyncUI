@@ -54,7 +54,7 @@ struct ExecutePushPullView: View {
                                     .help("Remove the delete parameter, default is true?")
                             }
 
-                            if pushpullcommand == .push_local {
+                            if pushpullcommand == .pushLocal {
                                 ConditionalGlassButton(
                                     systemImage: "arrowshape.right.fill",
                                     helpText: "Push to remote"
@@ -62,7 +62,7 @@ struct ExecutePushPullView: View {
                                     showprogressview = true
                                     push(config: config)
                                 }
-                            } else if pushpullcommand == .pull_remote {
+                            } else if pushpullcommand == .pullRemote {
                                 ConditionalGlassButton(
                                     systemImage: "arrowshape.left.fill",
                                     helpText: "Pull from remote"
@@ -83,7 +83,7 @@ struct ExecutePushPullView: View {
                 } else {
                     Spacer()
 
-                    if pushorpull.rsyncpullmax > 0, pushpullcommand == .pull_remote {
+                    if pushorpull.rsyncpullmax > 0, pushpullcommand == .pullRemote {
                         VStack {
                             ProgressView("",
                                          value: progress,
@@ -104,7 +104,7 @@ struct ExecutePushPullView: View {
                             }
                         }
 
-                    } else if pushorpull.rsyncpushmax > 0, pushpullcommand == .push_local {
+                    } else if pushorpull.rsyncpushmax > 0, pushpullcommand == .pushLocal {
                         VStack {
                             ProgressView("",
                                          value: progress,
