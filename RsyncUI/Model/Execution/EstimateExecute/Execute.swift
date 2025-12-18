@@ -55,11 +55,14 @@ final class Execute {
 
     private func startexecution() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
-        streamingHandlers = CreateStreamingHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
             fileHandler: localfileHandler,
             processTermination: { output, hiddenID in
                 self.processTermination(stringoutputfromrsync: output, hiddenID)
-            }
+            },
+            cleanup: { self.activeStreamingProcess = nil
+                self.streamingHandlers = nil
+                SharedReference.shared.updateprocess(nil)}
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
@@ -103,11 +106,14 @@ final class Execute {
     private func startexecution_noestimate() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
 
-        streamingHandlers = CreateStreamingHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
             fileHandler: localfileHandler,
             processTermination: { output, hiddenID in
                 self.processTermination_noestimation(stringoutputfromrsync: output, hiddenID)
-            }
+            },
+            cleanup: { self.activeStreamingProcess = nil
+                self.streamingHandlers = nil
+                SharedReference.shared.updateprocess(nil)}
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
