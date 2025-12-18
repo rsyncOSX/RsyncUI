@@ -24,14 +24,6 @@ struct CreateStreamingHandlers {
             debugValidateStreamingThreading()
         #endif
 
-        // Gate per-line streaming logs behind DEBUG
-        #if DEBUG
-            let printLineClosure: (String) -> Void = { _ in }
-            // let printLineClosure: (String) -> Void = { line in print("line: \(line)") }
-        #else
-            let printLineClosure: (String) -> Void = { _ in }
-        #endif
-
         return ProcessHandlers(
             processTermination: processTermination,
             fileHandler: fileHandler,
@@ -47,7 +39,7 @@ struct CreateStreamingHandlers {
             checkForErrorInRsyncOutput: SharedReference.shared.checkforerrorinrsyncoutput,
             rsyncVersion3: SharedReference.shared.rsyncversion3,
             environment: MyEnvironment()?.environment,
-            printLine: printLineClosure
+            printLine: RsyncOutputCapture.shared.makePrintLinesClosure()
         )
     }
 
@@ -68,13 +60,6 @@ struct CreateStreamingHandlers {
             debugValidateStreamingThreading()
         #endif
 
-        #if DEBUG
-            let printLineClosure: (String) -> Void = { _ in }
-        // let printLineClosure: (String) -> Void = { line in print("line: \(line)") }
-        #else
-            let printLineClosure: (String) -> Void = { _ in }
-        #endif
-
         return ProcessHandlers(
             processTermination: { output, hiddenID in
                 processTermination(output, hiddenID)
@@ -93,7 +78,7 @@ struct CreateStreamingHandlers {
             checkForErrorInRsyncOutput: SharedReference.shared.checkforerrorinrsyncoutput,
             rsyncVersion3: SharedReference.shared.rsyncversion3,
             environment: MyEnvironment()?.environment,
-            printLine: printLineClosure
+            printLine: RsyncOutputCapture.shared.makePrintLinesClosure()
         )
     }
 

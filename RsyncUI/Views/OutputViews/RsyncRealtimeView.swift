@@ -5,8 +5,7 @@
 //  Created by Thomas Evensen on 12/11/2025.
 //
 
-import Observation
-import RsyncProcess
+import RsyncProcessStreaming
 import SwiftUI
 
 struct RsyncRealtimeView: View {
