@@ -23,7 +23,7 @@ struct RsyncRealtimeView: View {
                     .font(.system(.caption, design: .monospaced))
                     .lineLimit(1)
             }
-            
+
             HStack {
                 Spacer()
 

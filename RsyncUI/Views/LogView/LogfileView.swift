@@ -24,7 +24,6 @@ struct LogfileView: View {
             Spacer()
 
             HStack {
-                
                 Spacer()
 
                 ConditionalGlassButton(

@@ -143,13 +143,11 @@ struct VerifyTasks: View {
 
         let lines = stringoutputfromrsync?.count ?? 0
         let threshold = SharedReference.shared.alerttagginglines
-        let prepared: [String]? = {
-            if lines > threshold, let data = stringoutputfromrsync {
-                return PrepareOutputFromRsync().prepareOutputFromRsync(data)
-            } else {
-                return stringoutputfromrsync
-            }
-        }()
+        let prepared: [String]? = if lines > threshold, let data = stringoutputfromrsync {
+            PrepareOutputFromRsync().prepareOutputFromRsync(data)
+        } else {
+            stringoutputfromrsync
+        }
 
         remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: prepared,
                                               config: selectedconfig)

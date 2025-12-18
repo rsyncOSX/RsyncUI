@@ -70,25 +70,4 @@ actor ActorCreateOutputforView {
             return []
         }
     }
-
-    // $Home/rsync-output.log
-    @concurrent
-    nonisolated func createaoutputrsynclogforview() async -> [LogfileRecords] {
-        Logger.process.debugThreadOnly("ActorCreateOutputforView: createaoutputrsynclog()")
-
-        if let logURL = URL.userHomeDirectoryURLPath?.appendingPathComponent("rsync-output.log") {
-            do {
-                let data = try Data(contentsOf: logURL)
-                let logfile = String(data: data, encoding: .utf8)
-                if let rsyncOutputLog = logfile.map({ line in
-                    line.components(separatedBy: .newlines)
-                }) {
-                    return rsyncOutputLog.map { record in
-                        LogfileRecords(line: record)
-                    }
-                }
-            } catch {}
-        }
-        return []
-    }
 }

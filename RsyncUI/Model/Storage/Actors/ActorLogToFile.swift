@@ -26,19 +26,6 @@ enum LogfileToReset {
 
 actor ActorLogToFile {
     @concurrent
-    nonisolated func resetrsynclogfile() async {
-        if let logURL = URL.userHomeDirectoryURLPath?.appendingPathComponent("rsync-output.log") {
-            do {
-                let date = Date().localized_string_from_date()
-                let reset = date + ": " + "rsync-output.log is reset..." + "\n"
-                if let newdata = reset.data(using: .utf8) {
-                    try newdata.write(to: logURL)
-                }
-            } catch {}
-        }
-    }
-
-    @concurrent
     nonisolated func writeloggfile(_ newlogadata: String, _ reset: Bool) async {
         let path = await Homepath()
         if let fullpathmacserial = path.fullpathmacserial {
@@ -215,7 +202,7 @@ actor ActorLogToFile {
     init() async {}
 
     @discardableResult
-    init(_ whichlogfile: LogfileToReset) async {
+    init(_: LogfileToReset) async {
         let date = Date().localized_string_from_date()
         let reset = date + ": " + "logfile is reset..." + "\n"
         await writeloggfile(reset, true)
