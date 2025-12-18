@@ -1,5 +1,5 @@
 {
-  "originHash" : "522c729e947f059cd1e945844c97648d008ce39e2dbcd67c86d815a5a86d61d0",
+  "originHash" : "b9f8aab86af8db60376245539d2bbf7304adf01538fba94aaeb4a7ba360ec558",
   "pins" : [
     {
       "identity" : "decodeencodegeneric",
@@ -35,15 +35,6 @@
       "state" : {
         "branch" : "main",
         "revision" : "f98fb50032b173d789b2b510b6c94f381339461f"
-      }
-    },
-    {
-      "identity" : "rsyncprocess",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/rsyncOSX/RsyncProcess",
-      "state" : {
-        "branch" : "main",
-        "revision" : "1747a3558ad7c4d043082a1eeb611669fc44d3a4"
       }
     },
     {
