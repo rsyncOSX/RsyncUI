@@ -1,4 +1,4 @@
-# RsyncUI TODO — December 18, 2025
+# RsyncUI TODO — December 19, 2025
 
 This document tracks proposed next steps after v2.8.2rc2 preparations. Tasks are grouped by priority and include file indices and acceptance criteria.
 
@@ -12,10 +12,10 @@ Legend: [H] High • [M] Medium • [L] Low • [Opt] Optional • [✓] Complet
 - Status: **COMPLETE as of December 18, 2025**
 - Implementation:
   - All process execution uses `RsyncProcessStreaming` package
-  - Event handlers: `processOutput`, `processTermination`
-  - Strong reference patterns prevent premature deallocation
+  - Simplified handler creation via `ProcessHandlers` factory with built-in cleanup hooks
+  - Event handlers: `processOutput`, `processTermination`; optional file handler toggle per use case
+  - Strong reference patterns with explicit post-termination cleanup to avoid leaks
   - Streaming output enables real-time progress updates
-  - No `[weak self]` in process closure handlers
 - Files updated:
   - [RsyncUI/Model/Execution/EstimateExecute/Estimate.swift](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift)
   - [RsyncUI/Model/Execution/EstimateExecute/Execute.swift](RsyncUI/Model/Execution/EstimateExecute/Execute.swift)
@@ -23,7 +23,7 @@ Legend: [H] High • [M] Medium • [L] Low • [Opt] Optional • [✓] Complet
   - [RsyncUI/Views/Detailsview/OneTaskDetailsView.swift](RsyncUI/Views/Detailsview/OneTaskDetailsView.swift)
   - [RsyncUI/Views/VerifyRemote/ExecutePushPullView.swift](RsyncUI/Views/VerifyRemote/ExecutePushPullView.swift)
   - [RsyncUI/Views/VerifyTasks/VerifyTasks.swift](RsyncUI/Views/VerifyTasks/VerifyTasks.swift)
-- Impact: Code quality score improved to 9.4/10, unified streaming process architecture
+- Impact: Code quality score improved to 9.4/10, unified streaming process architecture with simpler lifecycle
 
 ---
 
@@ -130,13 +130,14 @@ Legend: [H] High • [M] Medium • [L] Low • [Opt] Optional • [✓] Complet
 
 ---
 
-## [M] 8) Deep Link & Widget Tests
+## [M] 8) Deep Link & Widget Tests — PARTIAL (Dec 19)
 
 - Add tests for:
   - [RsyncUI/Model/Deeplink/DeeplinkURL.swift](RsyncUI/Model/Deeplink/DeeplinkURL.swift): profile validation, no ongoing action, `externalURL` casing
   - Widget URL JSON roundtrip:
     - [RsyncUI/Model/Storage/Widgets/WriteWidgetsURLStringsJSON.swift](RsyncUI/Model/Storage/Widgets/WriteWidgetsURLStringsJSON.swift)
     - [WidgetEstimate/WidgetEstimate.swift](WidgetEstimate/WidgetEstimate.swift)
+- Status update (Dec 19): Added RsyncUITests coverage for DeeplinkURL creation and configuration validation in [RsyncUITests/RsyncUITests.swift](RsyncUITests/RsyncUITests.swift); widget JSON roundtrip still pending.
 - Acceptance Criteria:
   - Deterministic tests validating URL generation and parsing
 
@@ -165,10 +166,21 @@ Legend: [H] High • [M] Medium • [L] Low • [Opt] Optional • [✓] Complet
 
 ---
 
+## [✓] 11) RsyncUITests Expansion — COMPLETED (Dec 19)
+
+- Added suites in [RsyncUITests/RsyncUITests.swift](RsyncUITests/RsyncUITests.swift):
+  - Arguments generation (`ArgumentsSynchronize` dry-run, keepdelete, syncremote)
+  - Deeplink URL creation (`createURLestimateandsynchronize` default/custom profile)
+  - Configuration validation (`VerifyConfiguration` for local/remote and syncremote tasks)
+- Framework: Using `@Suite` and `@Test` from `Testing` with `@MainActor` isolation
+- Acceptance: Tests pass locally and document intended behaviors for critical paths
+
+---
+
 ## Notes
 
 - Keep SwiftLint rules for `force_unwrapping` and `force_cast` enabled.
 - Prefer `SharedReference.shared.alerttagginglines` over hardcoded thresholds.
 - Document optional-handling patterns in `CODE_QUALITY_ANALYSIS.md` to guide contributions.
-- **Process Execution Pattern (Dec 18):** Use strong capture in RsyncProcessStreaming closures (no `[weak self]`) to maintain process lifetime through completion.
-- **Code Quality (Dec 18):** Score improved to 9.4/10 with RsyncProcessStreaming migration completion and closure capture pattern refinement.
+- **Process Execution Pattern (Dec 19):** Use strong capture in RsyncProcessStreaming closures with explicit post-termination cleanup to release handlers/process references.
+- **Code Quality (Dec 19):** Score 9.4/10 with simplified streaming lifecycle and expanded test coverage.
