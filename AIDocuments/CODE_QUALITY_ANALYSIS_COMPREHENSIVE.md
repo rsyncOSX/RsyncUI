@@ -237,15 +237,23 @@ private let fileBufferSizeBytes = 4096
 - Appropriate log levels (debug, info, error)
 - Contextual information included
 - Zero `print()` statements
+- **Smart DEBUG flag usage:** Internal app logging only active in DEBUG builds
 
 **Example:**
 ```swift
 let logger = Logger(subsystem: "com.rsyncui", category: "Execution")
 logger.info("Starting rsync: \(command)")
 logger.error("Process failed: \(error)")
+
+// DEBUG-only logging (zero overhead in release builds)
+func debugMessageOnly(_ message: String) {
+    #if DEBUG
+        debug("\(message)")
+    #endif
+}
 ```
 
-**Impact:** Production-ready debugging capability with minimal performance overhead.
+**Impact:** Production-ready debugging capability with minimal performance overhead. Internal app state logging has zero overhead in release builds due to `#if DEBUG` compilation flags.
 
 ### 5.2 Error Messages
 
@@ -349,8 +357,10 @@ class ConfigurationTests: XCTestCase {
 2. **File I/O** - JSON configuration files accessed frequently
    - Mitigation: Caching through observables
 
-3. **Logging volume** - Substantial logging of rsync output
-   - Mitigation: OSLog handles efficiently
+3. **Logging volume** - Two distinct types:
+   - **Rsync output:** Always captured and displayed to users (operational necessity - shows sync progress, file transfers, errors)
+   - **Internal debugging:** Only active behind `#if DEBUG` flag (zero overhead in production)
+   - Mitigation: OSLog handles efficiently; DEBUG logs compiled out in release builds
 
 ---
 
