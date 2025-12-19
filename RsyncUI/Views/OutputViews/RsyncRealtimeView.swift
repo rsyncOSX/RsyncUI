@@ -44,5 +44,8 @@ struct RsyncRealtimeView: View {
                 await RsyncOutputCapture.shared.disable()
             }
         }
+        .task {
+            await RsyncOutputCapture.shared.enable()
+        }
     }
 }
