@@ -193,7 +193,7 @@ extension TasksView {
                     Button {
                         openWindow(id: "liversynclog")
                     } label: {
-                        Image(systemName: "square.and.arrow.down.badge.checkmark")
+                        Image(systemName: "eyes.inverse")
                     }
                     .help("Rsync output")
                 }
