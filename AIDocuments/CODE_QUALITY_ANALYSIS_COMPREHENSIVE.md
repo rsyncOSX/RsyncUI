@@ -1,7 +1,7 @@
 # RsyncUI - Comprehensive Code Quality Analysis
 
-**Analysis Date:** December 18, 2025  
-**Version:** Latest (RsyncProcessStreaming migration complete)  
+**Analysis Date:** December 19, 2025  
+**Version:** Latest (RsyncProcessStreaming simplified APIs)  
 **Analyzer:** GitHub Copilot  
 **Status:** Production-Ready  
 
@@ -21,11 +21,12 @@ RsyncUI is a mature, production-grade Swift application demonstrating exceptiona
 - ✅ **Clean architecture** - Well-organized module structure
 - ✅ **SwiftLint enforcement** - Automated quality gates
 - ✅ **Production-ready error handling** - Consistent patterns
-- ✅ **RsyncProcessStreaming migration complete** - Unified streaming process execution
+- ✅ **RsyncProcessStreaming streamlined** - Unified streaming process execution with simpler handler lifecycle
+- ✅ **RsyncUITests expanded** - New suites for arguments, deeplinks, and configuration validation
 
 ### Enhancement Opportunities
 - ⚠️ **Sentinel values** - ~30+ instances of `?? -1` pattern
-- ⚠️ **Unit test coverage** - Limited automated tests
+- ⚠️ **Unit test coverage** - Improving, still partial
 - ⚠️ **Magic numbers** - Hardcoded constants throughout
 - ⚠️ **Configuration breadth** - SwiftLint rules could expand
 
@@ -158,12 +159,12 @@ class ObservableExecutionState {
 
 ### 3.2 Process Streaming ✅ EXCELLENT
 
-**Status:** RsyncProcessStreaming migration complete
+**Status:** RsyncProcessStreaming simplified and current
 - All process execution uses `RsyncProcessStreaming` package
-- Event-driven handlers: `processOutput`, `processTermination`
-- Strong reference patterns prevent premature deallocation
-- Streaming output enables real-time progress updates
-- **Pattern:** Handlers do not use `[weak self]` to maintain process lifetime
+- Consolidated `ProcessHandlers` builder with built-in cleanup
+- Event-driven handlers: `processOutput`, `processTermination`, with optional file handler toggle
+- Strong reference patterns with explicit post-termination cleanup to avoid leaks
+- Streaming output enables real-time progress updates without extra plumbing
 
 ---
 
@@ -259,11 +260,11 @@ logger.error("Process failed: \(error)")
 
 ### 6.1 Unit Testing
 
-**Status:** Limited coverage
-- Test target exists: `RsyncUITests`
-- Current content: Minimal/empty
+**Status:** Coverage improving
+- Test target: `RsyncUITests`
+- New suites cover arguments generation, deeplink URL creation, and configuration validation (using `@Suite` + `@Test` in `Testing` framework)
 
-**Recommendation:** Implement tests for:
+**Recommendation:** Continue expanding tests for:
 1. **Model layer** (highest ROI)
    - Configuration validation
    - Process argument generation
@@ -500,10 +501,9 @@ func execute(config: Configuration, completion: @escaping () -> Void) async thro
 RsyncUI represents a **high-quality, professionally-maintained codebase** that successfully balances feature richness with code safety and maintainability. The application demonstrates mature Swift development practices and would serve as an excellent reference implementation for macOS application development.
 
 **Recent Improvements (December 2025):**
-- ✅ Completed migration to RsyncProcessStreaming for unified process execution
-- ✅ Eliminated legacy process handling patterns
-- ✅ Strengthened closure capture semantics with proper strong reference patterns
+- ✅ Simplified RsyncProcessStreaming handler creation with automatic cleanup
 - ✅ Enhanced real-time output streaming capabilities
+- ✅ Expanded RsyncUITests with suites for arguments, deeplink URLs, and configuration validation
 
 The identified enhancement opportunities are refinements rather than critical issues. The suggested roadmap provides a clear path for incremental improvements while maintaining the high quality standards already established.
 
@@ -515,5 +515,5 @@ The identified enhancement opportunities are refinements rather than critical is
 - **Analysis Method:** Static code analysis and pattern recognition
 - **Scope:** Entire RsyncUI codebase (~18,000 lines)
 - **Coverage:** All Swift source files
-- **Last Updated:** December 18, 2025
-- **Key Update:** RsyncProcessStreaming migration completion documented
+- **Last Updated:** December 19, 2025
+- **Key Update:** RsyncProcessStreaming simplification documented; RsyncUITests expanded with new suites
