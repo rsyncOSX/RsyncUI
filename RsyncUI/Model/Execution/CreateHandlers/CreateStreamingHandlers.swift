@@ -38,8 +38,7 @@ struct CreateStreamingHandlers {
             },
             checkForErrorInRsyncOutput: SharedReference.shared.checkforerrorinrsyncoutput,
             rsyncVersion3: SharedReference.shared.rsyncversion3,
-            environment: MyEnvironment()?.environment,
-            printLine: RsyncOutputCapture.shared.makePrintLinesClosure()
+            environment: MyEnvironment()?.environment
         )
     }
 
@@ -77,8 +76,7 @@ struct CreateStreamingHandlers {
             },
             checkForErrorInRsyncOutput: SharedReference.shared.checkforerrorinrsyncoutput,
             rsyncVersion3: SharedReference.shared.rsyncversion3,
-            environment: MyEnvironment()?.environment,
-            printLine: RsyncOutputCapture.shared.makePrintLinesClosure()
+            environment: MyEnvironment()?.environment
         )
     }
 

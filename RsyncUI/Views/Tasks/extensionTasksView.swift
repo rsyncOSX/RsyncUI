@@ -177,25 +177,12 @@ extension TasksView {
                 }
 
                 ToolbarItem {
-                    Spacer()
-                }
-
-                ToolbarItem {
                     Button {
                         openWindow(id: "rsyncuilog")
                     } label: {
                         Image(systemName: "doc.plaintext")
                     }
                     .help("View logfile")
-                }
-
-                ToolbarItem {
-                    Button {
-                        openWindow(id: "liversynclog")
-                    } label: {
-                        Image(systemName: "eyes.inverse")
-                    }
-                    .help("Rsync output")
                 }
             }
         }

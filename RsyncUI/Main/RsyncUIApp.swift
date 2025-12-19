@@ -60,12 +60,6 @@ struct RsyncUIApp: App {
             }
         }
 
-        Window("Rsync ouput", id: "liversynclog") {
-            RsyncRealtimeView()
-        }
-        .defaultPosition(.center)
-        .defaultSize(width: 600, height: 400)
-
         Window("RsyncUI log", id: "rsyncuilog") {
             LogfileView()
         }
