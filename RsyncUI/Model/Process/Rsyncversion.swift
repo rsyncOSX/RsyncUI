@@ -17,14 +17,10 @@ final class Rsyncversion {
     private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
 
     func getRsyncVersion() {
-        streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
+        streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: { _ in },
             processTermination: { output, hiddenID in
                 self.processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
-            },
-            cleanup: { self.activeStreamingProcess = nil
-                self.streamingHandlers = nil
-                SharedReference.shared.updateprocess(nil)
             }
         )
         guard let streamingHandlers else { return }
