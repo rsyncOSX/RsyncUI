@@ -18,23 +18,35 @@ struct ExecuteEstTasksView: View {
     @State private var focusaborttask: Bool = false
     @State private var doubleclick: Bool = false
     // Progress of synchronization
-    @State private var progress: Double = 0
+    @State private var progresscount: Double = 0
     @State private var maxcount: Double = 0
 
     var body: some View {
         VStack(alignment: .leading) {
-            ListofTasksMainView(
-                rsyncUIdata: rsyncUIdata,
-                selecteduuids: $selecteduuids,
-                doubleclick: $doubleclick,
-                progress: $progress,
-                progressdetails: progressdetails,
-                max: maxcount
-            )
-            .onChange(of: progressdetails.hiddenIDatwork) {
-                maxcount = progressdetails.getMaxCountByTask()
+            
+            ZStack {
+                ListofTasksMainView(
+                    rsyncUIdata: rsyncUIdata,
+                    selecteduuids: $selecteduuids,
+                    doubleclick: $doubleclick,
+                    progress: $progresscount,
+                    progressdetails: progressdetails,
+                    max: maxcount
+                )
+                .onChange(of: progressdetails.hiddenIDatwork) {
+                    maxcount = progressdetails.getMaxCountByTask()
+                }
+                
+                Text("Synchronizing tasks, please wait...")
+                    .font(.title2)
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                    )
+                
             }
-
+            
             if focusaborttask { labelaborttask }
         }
         .onAppear {
@@ -71,7 +83,7 @@ struct ExecuteEstTasksView: View {
 
 extension ExecuteEstTasksView {
     func fileHandler(count: Int) {
-        progress = Double(count)
+        progresscount = Double(count)
     }
 
     func abort() {
