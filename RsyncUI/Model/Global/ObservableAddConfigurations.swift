@@ -41,9 +41,12 @@ final class ObservableAddConfigurations {
 
     var showsaveurls: Bool = false
 
-    let helptext1 = "Red Synchronize ID means\n--delete parameter is ADDED\n" +
-        "To REMOVE --delete parameter,\nselect Rsync parameters view\nto remove"
-    let helptext2 = "To ADD --delete parameter select\nRsync parameters view"
+    // When --delete parameter is present (shown in red)
+    let helptext1 = "The Synchronize ID is shown in RED because\nthe --delete parameter is currently ENABLED\n\n" +
+        "To disable the --delete parameter:\nGo to Rsync Parameters view and remove it"
+
+    // When --delete parameter is not present (shown in blue)
+    let helptext2 = "To enable the --delete parameter:\nGo to Rsync Parameters view and add it"
 
     @ObservationIgnored var whichhelptext: Int = 1
 
