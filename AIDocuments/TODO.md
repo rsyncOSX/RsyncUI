@@ -1,4 +1,4 @@
-# RsyncUI TODO — December 19, 2025
+# RsyncUI TODO — December 21, 2025
 
 This document tracks proposed next steps after v2.8.2rc2 preparations. Tasks are grouped by priority and include file indices and acceptance criteria.
 
@@ -27,40 +27,35 @@ Legend: [H] High • [M] Medium • [L] Low • [Opt] Optional • [✓] Complet
 
 ---
 
-## [H] 1) Extract RsyncOutputProcessing Swift Package
+## [✓] 1) Extract ParseRsyncOutput Swift Package — COMPLETED (Dec 9)
 
-- Goal: Isolate rsync output parsing/processing into a reusable Swift Package.
-- Move (sources):
-  - [RsyncUI/Model/Utils/PrepareOutputFromRsync.swift](RsyncUI/Model/Utils/PrepareOutputFromRsync.swift)
-  - [RsyncUI/Model/Output/TrimOutputFromRsync.swift](RsyncUI/Model/Output/TrimOutputFromRsync.swift)
-  - [RsyncUI/Model/Output/TrimOutputForRestore.swift](RsyncUI/Model/Output/TrimOutputForRestore.swift)
-- Update imports in callers:
-  - [RsyncUI/Model/Execution/EstimateExecute/Execute.swift](RsyncUI/Model/Execution/EstimateExecute/Execute.swift)
-  - [RsyncUI/Views/VerifyRemote/ExecutePushPullView.swift](RsyncUI/Views/VerifyRemote/ExecutePushPullView.swift)
-  - [RsyncUI/Views/VerifyTasks/VerifyTasks.swift](RsyncUI/Views/VerifyTasks/VerifyTasks.swift)
-- Public API (minimal):
-  - `PrepareOutputFromRsync.prepareOutputFromRsync(_:) -> [String]` (filters + tail N)
-  - `TrimOutputFromRsync.checkForRsyncError(_:) throws` (detects "rsync error:")
-  - Restore trim type exposing `trimmeddata`
-- Acceptance Criteria:
-  - Package builds standalone + under app
-  - All references update cleanly; no regressions in Verify/Execute/Estimate flows
-  - No UI dependencies in the package
+- Goal: ✅ Isolated rsync output parsing/processing into reusable Swift Package.
+- Status: **COMPLETE as of December 9, 2025**
+- Implementation:
+  - Package: [ParseRsyncOutput](https://github.com/rsyncOSX/ParseRsyncOutput)
+  - Integrated into RsyncUI via XCRemoteSwiftPackageReference
+  - Files using ParseRsyncOutput:
+    - [RsyncUI/Model/Execution/EstimateExecute/Execute.swift](RsyncUI/Model/Execution/EstimateExecute/Execute.swift)
+    - [RsyncUI/Model/Execution/EstimateExecute/Estimate.swift](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift)
+    - [RsyncUI/Model/Execution/EstimateExecute/RemoteDataNumbers.swift](RsyncUI/Model/Execution/EstimateExecute/RemoteDataNumbers.swift)
+- Impact: Reduced code duplication, improved testability, and shared rsync parsing logic across projects
 
 ---
 
-## [H] 2) Add Unit Tests for Output Processing
+## [✓] 2) Add Unit Tests for Output Processing — COMPLETED (Dec 9)
 
-- Scope (RsyncOutputProcessingTests):
-  - 20-line tail trimming
-  - Directory line filter (exclude trailing "/")
-  - Error detection via `checkForRsyncError` (throws on "rsync error:")
-  - Restore trimming shape (prefixing, whitespace normalization)
-  - Malformed/empty output handling
-- Fixtures: Add realistic rsync outputs to test bundle.
-- Acceptance Criteria:
-  - Tests run/passing locally (and in CI when added)
-  - Edge cases covered (<= N lines, all directories, mixed content)
+- Scope (ParseRsyncOutputTests): ✅ Complete
+  - Tail trimming (20-line limit)
+  - Directory line filtering (trailing "/" exclusion)
+  - Error detection via rsync error patterns
+  - Output formatting and whitespace handling
+  - Malformed/empty output edge cases
+- Fixtures: ✅ Realistic rsync outputs in [ParseRsyncOutput/TestData/](ParseRsyncOutput/TestData/)
+  - [ver2.txt](ParseRsyncOutput/TestData/ver2.txt)
+  - [ver3.txt](ParseRsyncOutput/TestData/ver3.txt)
+  - [openrsync.txt](ParseRsyncOutput/TestData/openrsync.txt)
+  - [command.txt](ParseRsyncOutput/TestData/command.txt)
+- Status: Tests passing; comprehensive edge case coverage
 
 ---
 
@@ -143,14 +138,13 @@ Legend: [H] High • [M] Medium • [L] Low • [Opt] Optional • [✓] Complet
 
 ---
 
-## [M] 9) Docs Refresh After Extraction
+## [✓] 9) Docs Refresh After Extraction — COMPLETED (Dec 21)
 
-- README: Add RsyncOutputProcessing box to architecture diagram
-- Update:
-  - [CODE_QUALITY_ANALYSIS.md](CODE_QUALITY_ANALYSIS.md) (Key Achievements)
-  - [CHANGELOG_2.8.2rc2.md](CHANGELOG_2.8.2rc2.md) (package + tests)
-- Acceptance Criteria:
-  - Docs reflect package structure and new tests
+- README: ✅ Architecture updated to reflect ParseRsyncOutput package
+- Updated:
+  - [CODE_QUALITY_ANALYSIS_COMPREHENSIVE.md](CODE_QUALITY_ANALYSIS_COMPREHENSIVE.md) (Key Achievements)
+  - [TODO.md](TODO.md) (Status for tasks 1-2)
+- Status: Documentation reflects package structure and integrated tests
 
 ---
 
@@ -183,4 +177,5 @@ Legend: [H] High • [M] Medium • [L] Low • [Opt] Optional • [✓] Complet
 - Prefer `SharedReference.shared.alerttagginglines` over hardcoded thresholds.
 - Document optional-handling patterns in `CODE_QUALITY_ANALYSIS.md` to guide contributions.
 - **Process Execution Pattern (Dec 19):** Use strong capture in RsyncProcessStreaming closures with explicit post-termination cleanup to release handlers/process references.
-- **Code Quality (Dec 19):** Score 9.4/10 with simplified streaming lifecycle and expanded test coverage.
+- **Code Quality (Dec 21):** Score 9.4/10 with simplified streaming lifecycle and expanded test coverage. ParseRsyncOutput extraction adds architectural robustness.
+- **Latest Updates (Dec 21):** ParseRsyncOutput package (Task 1) and unit tests (Task 2) verified as complete and integrated. Ready for continued enhancement on remaining priorities.
