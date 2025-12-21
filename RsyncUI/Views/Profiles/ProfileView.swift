@@ -48,7 +48,13 @@ struct ProfileView: View {
                     }
                 }
 
-                ProfilesToUpdateView(allconfigurations: allconfigurations)
+                VStack(alignment: .leading) {
+                    ProfilesToUpdateView(allconfigurations: allconfigurations)
+
+                    if uuidprofile != nil {
+                        ConfigurationsTableLoadDataView(rsyncUIdata: rsyncUIdata, uuidprofile: $uuidprofile)
+                    }
+                }
             }
 
             EditValueScheme(300, "Create profile - press Enter when added",
@@ -84,6 +90,7 @@ extension ProfileView {
                 // Remove the profile record
                 if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == uuidprofile }) {
                     rsyncUIdata.validprofiles.remove(at: index)
+                    uuidprofile = nil
                 }
             }
         }
