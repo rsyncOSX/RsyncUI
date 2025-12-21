@@ -18,7 +18,7 @@ struct ProfileView: View {
     @State private var newprofile: String = ""
 
     @State private var allconfigurations: [SynchronizeConfiguration] = []
-    
+
     @State private var confirmdelete: Bool = false
 
     var body: some View {
@@ -42,10 +42,10 @@ struct ProfileView: View {
                     confirmdelete = true
                 }
                 .confirmationDialog("Delete profile: \(localselectedprofile ?? "")?",
-                    isPresented: $confirmdelete) {
-                        Button("Delete", role: .destructive) {
-                            deleteProfile()
-                        }
+                                    isPresented: $confirmdelete) {
+                    Button("Delete", role: .destructive) {
+                        deleteProfile()
+                    }
                 }
 
                 ProfilesToUpdateView(allconfigurations: allconfigurations)
@@ -89,4 +89,3 @@ extension ProfileView {
         }
     }
 }
-

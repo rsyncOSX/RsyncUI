@@ -23,7 +23,6 @@ struct ExecuteEstTasksView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            
             ZStack {
                 ListofTasksMainView(
                     rsyncUIdata: rsyncUIdata,
@@ -36,7 +35,7 @@ struct ExecuteEstTasksView: View {
                 .onChange(of: progressdetails.hiddenIDatwork) {
                     maxcount = progressdetails.getMaxCountByTask()
                 }
-                
+
                 Text("Synchronizing tasks, please wait...")
                     .font(.title2)
                     .padding()
@@ -44,9 +43,8 @@ struct ExecuteEstTasksView: View {
                         RoundedRectangle(cornerRadius: 12)
                             .stroke(Color.gray.opacity(0.3), lineWidth: 1)
                     )
-                
             }
-            
+
             if focusaborttask { labelaborttask }
         }
         .onAppear {
