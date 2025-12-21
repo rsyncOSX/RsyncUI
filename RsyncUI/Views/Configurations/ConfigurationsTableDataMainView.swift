@@ -148,7 +148,7 @@ struct ConfigurationsTableDataMainView: View {
                 }
             }
             .width(min: 50, max: 90)
-            TableColumn("Min/hour/day") { data in
+            TableColumn("Time last") { data in
                 var seconds: Double {
                     if let date = data.dateRun {
                         let lastbackup = date.en_date_from_string()

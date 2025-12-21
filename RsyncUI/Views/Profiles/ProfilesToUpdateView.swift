@@ -26,7 +26,7 @@ struct ProfilesToUpdateView: View {
             TableColumn("Task", value: \.task)
                 .width(max: 80)
 
-            TableColumn("Min/hour/day") { data in
+            TableColumn("Time last") { data in
                 var seconds: Double {
                     if let date = data.dateRun {
                         let lastbackup = date.en_date_from_string()
