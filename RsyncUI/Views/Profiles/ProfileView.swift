@@ -17,8 +17,9 @@ struct ProfileView: View {
     @State private var localselectedprofile: String?
     @State private var newprofile: String = ""
 
-    @State private var isPresentingConfirm: Bool = false
     @State private var allconfigurations: [SynchronizeConfiguration] = []
+    
+    @State private var confirmdelete: Bool = false
 
     var body: some View {
         VStack {
@@ -36,7 +37,16 @@ struct ProfileView: View {
                     }
                     localselectedprofile = record[0].profilename
                 }
-                .frame(width: 200)
+                .frame(width: 300)
+                .onDeleteCommand {
+                    confirmdelete = true
+                }
+                .confirmationDialog("Delete profile: \(localselectedprofile ?? "")?",
+                    isPresented: $confirmdelete) {
+                        Button("Delete", role: .destructive) {
+                            deleteProfile()
+                        }
+                }
 
                 ProfilesToUpdateView(allconfigurations: allconfigurations)
             }
@@ -51,23 +61,6 @@ struct ProfileView: View {
             allconfigurations = await ReadAllTasks().readAllMarkedTasks(rsyncUIdata.validprofiles)
         }
         .navigationTitle("Profile create or delete")
-        .toolbar {
-            ToolbarItem {
-                Button {
-                    isPresentingConfirm = (localselectedprofile?.isEmpty == false && localselectedprofile != nil)
-                } label: {
-                    Image(systemName: "trash.fill")
-                        .foregroundColor(Color(.blue))
-                }
-                .help("Delete profile")
-                .confirmationDialog("Delete \(localselectedprofile ?? "")?",
-                                    isPresented: $isPresentingConfirm) {
-                    Button("Delete", role: .destructive) {
-                        deleteProfile()
-                    }
-                }
-            }
-        }
     }
 }
 
@@ -96,3 +89,4 @@ extension ProfileView {
         }
     }
 }
+
