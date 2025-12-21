@@ -32,7 +32,7 @@ struct TableofNotExeSchedules: View {
             }
             .width(max: 120)
 
-            TableColumn("Min/hour/day") { data in
+            TableColumn("Time last") { data in
                 var seconds: Double {
                     if let date = data.scheduledata?.dateRun {
                         let lastbackup = date.en_date_from_string()
