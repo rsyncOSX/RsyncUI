@@ -143,7 +143,6 @@ extension Estimate {
         originalOutput: [String]?,
         hiddenID: Int?
     ) {
-        
         guard let hiddenID else { return }
 
         var record = RemoteDataNumbers(
