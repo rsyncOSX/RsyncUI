@@ -35,10 +35,15 @@ struct PushPullView: View {
                 Spacer()
 
                 HStack {
+                    ProgressView()
+                    
                     Text("Estimating \(config.backupID), please wait ...")
                         .font(.title2)
-
-                    ProgressView()
+                        .padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                        )
                 }
 
                 Spacer()
