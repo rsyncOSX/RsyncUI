@@ -19,11 +19,14 @@ struct CompletedView: View {
                     Image(systemName: "hand.thumbsup.fill")
                         .font(.title)
                         .imageScale(.large)
-                        .foregroundColor(.green)
                     Text("Synchronize data is completed")
-                        .foregroundColor(.green)
                         .font(.title)
                 }
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                )
                 .onAppear {
                     Task {
                         try await Task.sleep(seconds: 1)

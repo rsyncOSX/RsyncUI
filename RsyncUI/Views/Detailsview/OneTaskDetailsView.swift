@@ -30,17 +30,22 @@ struct OneTaskDetailsView: View {
                         DetailsView(remotedatanumbers: remotedatanumbers)
                     }
                 } else {
-                    VStack {
+                    HStack {
+                        
+                        ProgressView()
+                        
                         // Only one task is estimated if selected, if more than one
                         // task is selected multiple estimation is selected. That is why
                         // that is why (uuid: selecteduuids.first)
                         if let config = getConfig(uuid: selecteduuids.first) {
                             Text("Estimating now: " + "\(config.backupID)")
-                                .foregroundColor(.green)
                                 .font(.title)
+                                .padding()
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                                )
                         }
-
-                        ProgressView()
                     }
                 }
             }
