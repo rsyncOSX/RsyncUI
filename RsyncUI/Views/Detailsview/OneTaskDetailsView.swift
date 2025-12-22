@@ -31,9 +31,8 @@ struct OneTaskDetailsView: View {
                     }
                 } else {
                     HStack {
-                        
                         ProgressView()
-                        
+
                         // Only one task is estimated if selected, if more than one
                         // task is selected multiple estimation is selected. That is why
                         // that is why (uuid: selecteduuids.first)

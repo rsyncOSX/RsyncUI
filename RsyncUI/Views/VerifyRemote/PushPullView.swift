@@ -36,7 +36,7 @@ struct PushPullView: View {
 
                 HStack {
                     ProgressView()
-                    
+
                     Text("Estimating \(config.backupID), please wait ...")
                         .font(.title2)
                         .padding()
