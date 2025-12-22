@@ -209,11 +209,12 @@ final class Execute {
 extension Execute {
     private func processTermination(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
         guard setabort == false else { return }
-        let resolvedHiddenID = hiddenID ?? -1
+        guard let hiddenID else { return }
+
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
         // When creating the logrecord, decrease the snapshotum by 1
-        let element = ScheduleLogData(hiddenID: resolvedHiddenID, stats: Date().en_string_from_date())
+        let element = ScheduleLogData(hiddenID: hiddenID, stats: Date().en_string_from_date())
         configrecords.append(element)
         // Prepareoutput prepares output from rsync for extracting the numbers only.
         // It removes all lines except the last 20 lines where summarized numbers are put
@@ -223,11 +224,11 @@ extension Execute {
             do {
                 let stats = try ParseRsyncOutput(preparedoutputfromrsync,
                                                  SharedReference.shared.rsyncversion3 ? .ver3 : .openrsync).getstats()
-                let logData = ScheduleLogData(hiddenID: resolvedHiddenID, stats: stats ?? defaultstats)
+                let logData = ScheduleLogData(hiddenID: hiddenID, stats: stats ?? defaultstats)
                 schedulerecords.append(logData)
                 Logger.process.debugMessageOnly("Execute: getstats() SUCCESS")
             } catch let err {
-                let logData = ScheduleLogData(hiddenID: resolvedHiddenID, stats: defaultstats)
+                let logData = ScheduleLogData(hiddenID: hiddenID, stats: defaultstats)
                 schedulerecords.append(logData)
                 Logger.process.debugMessageOnly("Execute: getstats() FAILED")
 
@@ -270,11 +271,11 @@ extension Execute {
         // When creating the logrecord, decrease the snapshotum by 1
 
         var suboutput: [String]?
-        let resolvedHiddenID = hiddenID ?? -1
+        guard let hiddenID else { return }
 
-        let element = ScheduleLogData(hiddenID: hiddenID ?? -1, stats: Date().en_string_from_date())
+        let element = ScheduleLogData(hiddenID: hiddenID, stats: Date().en_string_from_date())
         configrecords.append(element)
-        if let config = getConfig(resolvedHiddenID) {
+        if let config = getConfig(hiddenID) {
             if (stringoutputfromrsync?.count ?? 0) > SharedReference.shared.alerttagginglines, let stringoutputfromrsync {
                 suboutput = PrepareOutputFromRsync().prepareOutputFromRsync(stringoutputfromrsync)
             } else {
@@ -285,7 +286,7 @@ extension Execute {
                 let record = RemoteDataNumbers(stringoutputfromrsync: suboutput,
                                                config: config)
                 if let stats = record.stats {
-                    let element = ScheduleLogData(hiddenID: resolvedHiddenID, stats: stats)
+                    let element = ScheduleLogData(hiddenID: hiddenID, stats: stats)
                     schedulerecords.append(element)
                     localnoestprogressdetails?.appendRecordExecutedList(record)
                     localnoestprogressdetails?.appendUUIDWithDataToSynchronize(config.id)
