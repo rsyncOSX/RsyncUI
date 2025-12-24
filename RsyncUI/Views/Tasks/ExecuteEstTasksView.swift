@@ -37,7 +37,7 @@ struct ExecuteEstTasksView: View {
                 }
 
                 Text("Synchronizing tasks, please wait...")
-                    .font(.title2)
+                    .font(.title)
                     .padding()
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
