@@ -43,7 +43,7 @@
       "location" : "https://github.com/rsyncOSX/RsyncProcessStreaming",
       "state" : {
         "branch" : "main",
-        "revision" : "4f7c7734f8e077ed99ce4e5c8d4e53e987476e1e"
+        "revision" : "c53f5fe529e11b00c3234cf9e14700e9eff15f91"
       }
     },
     {
@@ -62,15 +62,6 @@
       "state" : {
         "branch" : "main",
         "revision" : "c95fa29c73cd124cefbf647edfef24dbf3339734"
-      }
-    },
-    {
-      "identity" : "swift-atomics",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-atomics.git",
-      "state" : {
-        "revision" : "b601256eab081c0f92f059e12818ac1d4f178ff7",
-        "version" : "1.3.0"
       }
     }
   ],
