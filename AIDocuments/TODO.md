@@ -1,6 +1,6 @@
-# RsyncUI TODO — December 21, 2025
+# RsyncUI TODO — December 25, 2025
 
-This document tracks proposed next steps after v2.8.2rc2 preparations. Tasks are grouped by priority and include file indices and acceptance criteria.
+This document tracks proposed next steps after v2.8.4rc2 release. Tasks are grouped by priority and include file indices and acceptance criteria.
 
 Legend: [H] High • [M] Medium • [L] Low • [Opt] Optional • [✓] Completed
 
@@ -90,18 +90,24 @@ Legend: [H] High • [M] Medium • [L] Low • [Opt] Optional • [✓] Complet
 
 ---
 
-## [M] 5) Standardize Optional Handling Patterns — MOSTLY DONE
+## [M] 5) Standardize Optional Handling Patterns — SIGNIFICANT PROGRESS (Dec 22-25)
 
 - Applied patterns:
   - Guard-chain flattening
   - Single binding for counts
   - Single resolution for sentinel values
+  - Early returns for nil optionals
 - Files updated:
-  - [RsyncUI/Model/Execution/EstimateExecute/Estimate.swift](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift) — guard chain for ID/config/arguments
+  - [RsyncUI/Model/Execution/EstimateExecute/Estimate.swift](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift) — guard chain for hiddenID with early return (Dec 22)
+  - [RsyncUI/Model/Execution/EstimateExecute/Execute.swift](RsyncUI/Model/Execution/EstimateExecute/Execute.swift) — replaced `resolvedHiddenID = hiddenID ?? -1` with guard statements (Dec 22)
   - [RsyncUI/Views/VerifyRemote/ExecutePushPullView.swift](RsyncUI/Views/VerifyRemote/ExecutePushPullView.swift) — `let lines = …` and shared threshold
-  - [RsyncUI/Model/Execution/EstimateExecute/Execute.swift](RsyncUI/Model/Execution/EstimateExecute/Execute.swift) — `resolvedHiddenID` single binding
-- Remaining: Continue replicating patterns in remaining `?? -1` sentinel usages (~30+ locations).
+- Progress: Reduced from ~30+ to ~20 instances (33% reduction)
+- Remaining: ~20 sentinel usages, primarily in:
+  - SSH port handling (SharedReference.shared.sshport)
+  - Configuration decoding (SynchronizeConfiguration, UserConfiguration)
+  - Log records initialization
 - **Updated Note (Dec 18):** RsyncProcessStreaming handlers now use strong capture (no `[weak self]`) to maintain process lifetime.
+- **Updated Note (Dec 22):** Major refactoring of hiddenID handling eliminates sentinel pattern in critical execution paths.
 
 ---
 
@@ -177,5 +183,5 @@ Legend: [H] High • [M] Medium • [L] Low • [Opt] Optional • [✓] Complet
 - Prefer `SharedReference.shared.alerttagginglines` over hardcoded thresholds.
 - Document optional-handling patterns in `CODE_QUALITY_ANALYSIS.md` to guide contributions.
 - **Process Execution Pattern (Dec 19):** Use strong capture in RsyncProcessStreaming closures with explicit post-termination cleanup to release handlers/process references.
-- **Code Quality (Dec 21):** Score 9.4/10 with simplified streaming lifecycle and expanded test coverage. ParseRsyncOutput extraction adds architectural robustness.
-- **Latest Updates (Dec 21):** ParseRsyncOutput package (Task 1) and unit tests (Task 2) verified as complete and integrated. Ready for continued enhancement on remaining priorities.
+- **Code Quality (Dec 25):** Score 9.5/10 (↑ from 9.4) with sentinel value reduction, simplified streaming lifecycle and expanded test coverage. ParseRsyncOutput extraction adds architectural robustness.
+- **Latest Updates (Dec 25):** v2.8.4rc2 released. Sentinel values reduced by 33% through hiddenID refactoring. UI feedback enhanced with ProgressView indicators. Code cleanup completed. ParseRsyncOutput package (Task 1) and unit tests (Task 2) verified as complete and integrated. Ready for continued enhancement on remaining priorities.
