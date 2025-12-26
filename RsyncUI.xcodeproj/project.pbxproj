@@ -756,7 +756,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/RsyncProcessStreaming";
 			requirement = {
-				branch = main;
+				branch = "AsyncStream-test-no-stats";
 				kind = branch;
 			};
 		};

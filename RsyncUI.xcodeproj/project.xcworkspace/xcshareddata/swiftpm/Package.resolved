@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/RsyncProcessStreaming",
       "state" : {
-        "branch" : "main",
-        "revision" : "2ca105a6c243790f8d45d3dd461040d03489917b"
+        "branch" : "AsyncStream-test-no-stats",
+        "revision" : "ab98e20dd6416777369a825433e5a1eafe1743c3"
       }
     },
     {
