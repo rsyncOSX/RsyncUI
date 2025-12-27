@@ -51,7 +51,7 @@ final class ObservableParametersRsync {
             if sshport == "-1" { sshport = "" }
             sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
             // --delete parameter4
-            if (configuration?.parameter4 ?? "").isEmpty { adddelete = false } else { adddelete = true }
+            if configuration?.parameter4 == nil { adddelete = false } else { adddelete = true }
 
         } else {
             reset()

@@ -299,7 +299,7 @@ struct RsyncParametersView: View {
             parameters.parameter13 != (selectedconfig.parameter13 ?? "") ||
             parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
             parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
-            parameters.adddelete == (selectedconfig.parameter4?.isEmpty == true) ||
+            parameters.adddelete == (selectedconfig.parameter4 == nil) ||
             // parameters.sshport != String(selectedconfig.sshport ?? -1) ||
             parameters.sshkeypathandidentityfile != (selectedconfig.sshkeypathandidentityfile ?? "") {
             return true
