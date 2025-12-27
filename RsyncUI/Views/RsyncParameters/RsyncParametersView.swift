@@ -133,24 +133,50 @@ struct RsyncParametersView: View {
                             }
                         }
 
-                    Section(header: Text("Add --delete parameter")
-                        .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
-                        .fontWeight(.bold)
-                        .font(.title3)) {
-                            Toggle("", isOn: $parameters.adddelete)
-                                .toggleStyle(.switch)
-                                .onChange(of: parameters.adddelete) {
-                                    parameters.adddelete(parameters.adddelete)
+                    if selectedconfig  != nil {
+                        
+                        if selectedconfig?.parameter4 == "--delete" {
+                            Section(header: Text("Remove --delete parameter")
+                                .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
+                                .fontWeight(.bold)
+                                .font(.title3)) {
+                                    Toggle("", isOn: $parameters.adddelete)
+                                        .toggleStyle(.switch)
+                                        .onChange(of: parameters.adddelete) {
+                                            parameters.adddelete(parameters.adddelete)
+                                        }
+                                        .disabled(selecteduuids.isEmpty == true)
+                                        .onTapGesture {
+                                            withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                                backup.toggle()
+                                            }
+                                        }
                                 }
-                                .disabled(selecteduuids.isEmpty == true)
-                                .onTapGesture {
-                                    withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                        backup.toggle()
-                                    }
+                            Spacer()
+                        } else {
+                            Section(header: Text("Add --delete parameter")
+                                .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
+                                .fontWeight(.bold)
+                                .font(.title3)) {
+                                    Toggle("", isOn: $parameters.adddelete)
+                                        .toggleStyle(.switch)
+                                        .onChange(of: parameters.adddelete) {
+                                            parameters.adddelete(parameters.adddelete)
+                                        }
+                                        .disabled(selecteduuids.isEmpty == true)
+                                        .onTapGesture {
+                                            withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                                backup.toggle()
+                                            }
+                                        }
                                 }
-                        }
 
-                    Spacer()
+                            Spacer()
+                            
+                        }
+                    } else {
+                        Spacer()
+                    }
                 }
 
                 Spacer()
