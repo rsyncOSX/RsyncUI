@@ -756,7 +756,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rsyncOSX/RsyncProcessStreaming";
 			requirement = {
-				branch = "main-updated-split-lines";
+				branch = main;
 				kind = branch;
 			};
 		};
