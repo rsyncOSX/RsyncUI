@@ -160,7 +160,7 @@ struct RsyncParametersView: View {
 
                 Spacer()
 
-                VStack(alignment: .leading) {
+                VStack(alignment: .center) {
                     if deleteparameterpresent {
                         HStack {
                             Text("If \(Text("red Synchronize ID").foregroundColor(.red)) click")
