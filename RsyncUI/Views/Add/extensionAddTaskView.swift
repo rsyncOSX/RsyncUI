@@ -118,22 +118,60 @@ extension AddTaskView {
 
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
+        
+        ToolbarItem {
+            Button {
+                newdata.resetForm()
+                selectedconfig = nil
+                showAddPopover.toggle()
+            }
+                label: { Image(systemName: "plus") }
+                .help("Quick add task")
+                .sheet(isPresented: $showAddPopover) { addTaskSheetView }
+        }
+        
         ToolbarItem {
             Button { addtaskpath.append(AddTasks(task: .homecatalogs)) }
                 label: { Image(systemName: "house.fill") }
                 .help("Home catalogs")
         }
+        
         ToolbarItem {
             Button { addtaskpath.append(AddTasks(task: .globalchanges)) }
                 label: { Image(systemName: "globe") }
                 .help("Global change and update")
         }
+        
     }
 }
 
 // MARK: - Task List View
 
 extension AddTaskView {
+    var addTaskSheetView: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Quick Add Task").font(.headline)
+            pickerselecttypeoftask
+            synchronizeID
+            catalogSectionView
+            if newdata.selectedrsynccommand != .snapshot {
+                remoteuserandserver
+            }
+            HStack {
+                ConditionalGlassButton(systemImage: "plus",
+                                       text: "Add",
+                                       helpText: "Add task") {
+                    addConfig()
+                    showAddPopover = false
+                    newdata.resetForm()
+                }
+                Button("Cancel") { showAddPopover = false }
+            }
+        }
+        .padding()
+        .frame(minWidth: 380)
+    }
+
     var taskListView: some View {
         ListofTasksAddView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
             .onChange(of: selecteduuids) { handleSelectionChange() }

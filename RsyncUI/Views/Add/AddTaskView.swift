@@ -48,6 +48,7 @@ struct AddTaskView: View {
     @State var confirmcopyandpaste: Bool = false
     @State var stringestimate: String = ""
     @State var showhelp: Bool = false
+    @State var showAddPopover: Bool = false
 
     var body: some View {
         NavigationStack(path: $addtaskpath) {
