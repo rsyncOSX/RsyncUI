@@ -8,6 +8,13 @@
 import SwiftUI
 
 extension RsyncParametersView {
+    func clearSelection() {
+        selectedconfig = nil
+        selecteduuids.removeAll()
+        parameters.reset()
+        backup = false
+    }
+    
     func saveRsyncParameters() {
         if let updatedconfiguration = parameters.updatersyncparameters(),
            let configurations = rsyncUIdata.configurations {
@@ -26,16 +33,14 @@ extension RsyncParametersView {
             HStack {
                 Text("Inspector").font(.title3).fontWeight(.bold)
                 Spacer()
-                Button {
-                    selectedconfig = nil
-                    selecteduuids.removeAll()
-                    parameters.reset()
-                    backup = false
-                    showhelp = false
-                } label: { Image(systemName: "xmark.circle") }
-                    .buttonStyle(.borderless)
-                    .help("Clear selection")
+                if selectedconfig != nil {
+                    Button { clearSelection() }
+                        label: { Image(systemName: "xmark.circle") }
+                        .buttonStyle(.borderless)
+                        .help("Clear selection")
+                }
             }
+
 
             if let selectedconfig {
                 inspectorSummary(selectedconfig)
@@ -90,7 +95,7 @@ extension RsyncParametersView {
                 }
 
             } else {
-                Text("Select a task from the list to view and inspect.")
+                Text("Select a task from the list to view and update its details.")
                     .font(.callout)
                     .foregroundStyle(.secondary)
             }
