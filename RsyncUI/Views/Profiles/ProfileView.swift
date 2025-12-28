@@ -20,6 +20,7 @@ struct ProfileView: View {
     @State private var allconfigurations: [SynchronizeConfiguration] = []
 
     @State private var confirmdelete: Bool = false
+    @State private var showAddProfileSheet: Bool = false
 
     var body: some View {
         VStack {
@@ -56,12 +57,25 @@ struct ProfileView: View {
                     }
                 }
             }
-
-            EditValueScheme(300, "Create profile - press Enter when added",
-                            $newprofile)
         }
         .onSubmit {
             createProfile()
+        }
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                Button(action: {
+                    showAddProfileSheet = true
+                }) {
+                    Image(systemName: "plus")
+                }
+                .help("Add new profile")
+            }
+        }
+        .sheet(isPresented: $showAddProfileSheet) {
+            AddProfileSheet(rsyncUIdata: rsyncUIdata,
+                           selectedprofileID: $selectedprofileID,
+                           showSheet: $showAddProfileSheet,
+                           newdata: newdata)
         }
         .task {
             allconfigurations = await ReadAllTasks().readAllMarkedTasks(rsyncUIdata.validprofiles)
@@ -93,6 +107,74 @@ extension ProfileView {
                     uuidprofile = nil
                 }
             }
+        }
+    }
+}
+
+// MARK: - Add Profile Sheet
+
+struct AddProfileSheet: View {
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var selectedprofileID: ProfilesnamesRecord.ID?
+    @Binding var showSheet: Bool
+    var newdata: ObservableProfiles
+    
+    @State private var profileName: String = ""
+    @State private var showError: Bool = false
+    @State private var errorMessage: String = ""
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Add New Profile")
+                .font(.headline)
+            
+            TextField("Profile Name", text: $profileName)
+                .textFieldStyle(.roundedBorder)
+                .frame(width: 300)
+            
+            if showError {
+                Text(errorMessage)
+                    .foregroundColor(.red)
+                    .font(.caption)
+            }
+            
+            HStack(spacing: 12) {
+                Button("Cancel") {
+                    showSheet = false
+                }
+                .keyboardShortcut(.cancelAction)
+                
+                Button("Add") {
+                    addProfile()
+                }
+                .keyboardShortcut(.defaultAction)
+                .disabled(profileName.trimmingCharacters(in: .whitespaces).isEmpty)
+            }
+        }
+        .padding(24)
+        .frame(width: 400)
+    }
+    
+    private func addProfile() {
+        let trimmedName = profileName.trimmingCharacters(in: .whitespaces)
+        
+        guard !trimmedName.isEmpty else {
+            errorMessage = "Profile name cannot be empty"
+            showError = true
+            return
+        }
+        
+        if newdata.createProfile(trimmedName) {
+            // Add a profile record
+            rsyncUIdata.validprofiles.append(ProfilesnamesRecord(trimmedName))
+            if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.profilename == trimmedName }) {
+                // Set the profile picker and let the picker do the job
+                selectedprofileID = rsyncUIdata.validprofiles[index].id
+            }
+            showSheet = false
+        } else {
+            errorMessage = "Failed to create profile. It may already exist."
+            showError = true
         }
     }
 }
