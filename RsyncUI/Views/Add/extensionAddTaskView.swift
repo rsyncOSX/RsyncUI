@@ -95,7 +95,7 @@ extension AddTaskView {
             } else {
                 HStack {
                     Text("To add --delete click")
-                    Button { newdata.whichhelptext = 2; showhelp.toggle()}
+                    Button { newdata.whichhelptext = 2; showhelp.toggle() }
                         label: { Image(systemName: "questionmark.circle") }
                         .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
                     Text("for more information")
@@ -116,30 +116,28 @@ extension AddTaskView {
 
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
-        
         ToolbarItem {
             Button {
                 newdata.resetForm()
                 selectedconfig = nil
                 showAddPopover.toggle()
             }
-                label: { Image(systemName: "plus") }
-                .help("Quick add task")
-                .sheet(isPresented: $showAddPopover) { addTaskSheetView }
+            label: { Image(systemName: "plus") }
+            .help("Quick add task")
+            .sheet(isPresented: $showAddPopover) { addTaskSheetView }
         }
-        
+
         ToolbarItem {
             Button { addtaskpath.append(AddTasks(task: .homecatalogs)) }
                 label: { Image(systemName: "house.fill") }
                 .help("Home catalogs")
         }
-        
+
         ToolbarItem {
             Button { addtaskpath.append(AddTasks(task: .globalchanges)) }
                 label: { Image(systemName: "globe") }
                 .help("Global change and update")
         }
-        
     }
 }
 
@@ -209,7 +207,7 @@ extension AddTaskView {
                             pickerselecttypeoftask
                             trailingslash
                         }
-                        
+
                         updateButton
                     }
                 }
@@ -225,7 +223,7 @@ extension AddTaskView {
                 }
 
                 saveURLSection
-                
+
             } else {
                 Text("Select a task from the list to view and update its details.")
                     .font(.callout)

@@ -73,9 +73,9 @@ struct ProfileView: View {
         }
         .sheet(isPresented: $showAddProfileSheet) {
             AddProfileSheet(rsyncUIdata: rsyncUIdata,
-                           selectedprofileID: $selectedprofileID,
-                           showSheet: $showAddProfileSheet,
-                           newdata: newdata)
+                            selectedprofileID: $selectedprofileID,
+                            showSheet: $showAddProfileSheet,
+                            newdata: newdata)
         }
         .task {
             allconfigurations = await ReadAllTasks().readAllMarkedTasks(rsyncUIdata.validprofiles)
@@ -118,32 +118,32 @@ struct AddProfileSheet: View {
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
     @Binding var showSheet: Bool
     var newdata: ObservableProfiles
-    
+
     @State private var profileName: String = ""
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
-    
+
     var body: some View {
         VStack(spacing: 20) {
             Text("Add New Profile")
                 .font(.headline)
-            
+
             TextField("Profile Name", text: $profileName)
                 .textFieldStyle(.roundedBorder)
                 .frame(width: 300)
-            
+
             if showError {
                 Text(errorMessage)
                     .foregroundColor(.red)
                     .font(.caption)
             }
-            
+
             HStack(spacing: 12) {
                 Button("Cancel") {
                     showSheet = false
                 }
                 .keyboardShortcut(.cancelAction)
-                
+
                 Button("Add") {
                     addProfile()
                 }
@@ -154,16 +154,16 @@ struct AddProfileSheet: View {
         .padding(24)
         .frame(width: 400)
     }
-    
+
     private func addProfile() {
         let trimmedName = profileName.trimmingCharacters(in: .whitespaces)
-        
+
         guard !trimmedName.isEmpty else {
             errorMessage = "Profile name cannot be empty"
             showError = true
             return
         }
-        
+
         if newdata.createProfile(trimmedName) {
             // Add a profile record
             rsyncUIdata.validprofiles.append(ProfilesnamesRecord(trimmedName))
