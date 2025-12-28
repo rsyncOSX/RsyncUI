@@ -152,6 +152,7 @@ extension AddTaskView {
         VStack(alignment: .leading, spacing: 12) {
             Text("Quick Add Task").font(.headline)
             pickerselecttypeoftask
+            trailingslash
             synchronizeID
             catalogSectionView
             if newdata.selectedrsynccommand != .snapshot {
@@ -169,7 +170,7 @@ extension AddTaskView {
             }
         }
         .padding()
-        .frame(minWidth: 380)
+        .frame(minWidth: 500)
     }
 
     var taskListView: some View {
