@@ -28,7 +28,7 @@ struct RsyncParametersView: View {
                                     whichhelptext: $parameters.whichhelptext,
                                     deleteparameterpresent: deleteparameterpresent)
                     taskListView
-                    
+
                     Spacer()
                 }
                 if showhelp {

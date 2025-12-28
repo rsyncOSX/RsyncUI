@@ -38,11 +38,9 @@ extension RsyncParametersView {
             }
 
             if let selectedconfig {
-                
                 inspectorSummary(selectedconfig)
-                
+
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Parameters 8–14").font(.headline)
                     EditRsyncParameter(200, $parameters.parameter8)
                         .onChange(of: parameters.parameter8) { parameters.configuration?.parameter8 = parameters.parameter8 }
                     EditRsyncParameter(200, $parameters.parameter9)
@@ -66,7 +64,7 @@ extension RsyncParametersView {
                         setsshport
                     }
                 }
-                
+
                 let isDeletePresent = selectedconfig.parameter4 == "--delete"
                 let headerText = isDeletePresent ? "Remove --delete parameter" : "Add --delete parameter"
                 VStack(alignment: .leading, spacing: 8) {
@@ -80,7 +78,6 @@ extension RsyncParametersView {
                 }
 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Options").font(.headline)
                     Toggle("Backup", isOn: $backup)
                         .toggleStyle(.switch)
                         .onChange(of: backup) {
@@ -90,7 +87,6 @@ extension RsyncParametersView {
                             }
                             parameters.setbackup()
                         }
-                    
                 }
 
             } else {
@@ -104,20 +100,18 @@ extension RsyncParametersView {
         .background(.thinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
-    
+
     @ViewBuilder
     func inspectorSummary(_ config: SynchronizeConfiguration) -> some View {
-        
         HStack {
+            addupdateButton
             VStack(alignment: .leading, spacing: 4) {
                 Text(config.backupID).font(.headline)
                 Text(config.task).font(.subheadline).foregroundStyle(.secondary)
             }
-            
-            addupdateButton
         }
     }
-    
+
     var addupdateButton: some View {
         if notifydataisupdated {
             ConditionalGlassButton(
@@ -153,12 +147,12 @@ extension RsyncParametersView {
          parameters.parameter13,
          parameters.parameter14].filter { $0.isEmpty == false }
     }
-    
+
     var taskListView: some View {
         ListofTasksAddView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
             .onChange(of: selecteduuids) { handleSelectionChange() }
     }
-    
+
     func handleSelectionChange() {
         if let configurations = rsyncUIdata.configurations {
             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
@@ -167,7 +161,6 @@ extension RsyncParametersView {
                 if configurations[index].parameter12 != "--backup" {
                     backup = false
                 }
-                showhelp = false
             } else {
                 selectedconfig = nil
                 parameters.setvalues(selectedconfig)
@@ -176,7 +169,7 @@ extension RsyncParametersView {
             }
         }
     }
-    
+
     var setsshpath: some View {
         EditValueErrorScheme(300, "ssh-keypath and identityfile",
                              $parameters.sshkeypathandidentityfile,
@@ -210,8 +203,7 @@ extension RsyncParametersView {
         let parameter = rsyncUIdata.configurations?.filter { $0.parameter4?.isEmpty == false }
         return parameter?.count ?? 0 > 0
     }
-    
-    @ViewBuilder
+
     var helpSheetView: some View {
         switch parameters.whichhelptext {
         case 1: HelpView(text: parameters.helptext1, add: false, deleteparameterpresent: false)
@@ -220,4 +212,3 @@ extension RsyncParametersView {
         }
     }
 }
-

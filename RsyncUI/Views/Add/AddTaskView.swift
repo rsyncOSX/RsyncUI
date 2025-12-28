@@ -58,7 +58,7 @@ struct AddTaskView: View {
                                     whichhelptext: $newdata.whichhelptext,
                                     deleteparameterpresent: deleteparameterpresent)
                     taskListView
-                    
+
                     Spacer()
                 }
                 if showhelp {

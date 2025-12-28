@@ -151,7 +151,6 @@ extension AddTaskView {
     }
 
     var inspectorView: some View {
-        
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Text("Inspector").font(.title3).fontWeight(.bold)
@@ -204,14 +203,13 @@ extension AddTaskView {
 
     @ViewBuilder
     func inspectorSummary(_ config: SynchronizeConfiguration) -> some View {
-        
         HStack {
+            addButton
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(config.backupID).font(.headline)
                 Text(config.task).font(.subheadline).foregroundStyle(.secondary)
             }
-            
-            addButton
         }
     }
 }
