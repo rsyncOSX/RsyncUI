@@ -204,8 +204,14 @@ extension AddTaskView {
                 inspectorSummary(selectedconfig)
 
                 VStack(alignment: .leading, spacing: 8) {
-                    pickerselecttypeoftask
-                    trailingslash
+                    HStack {
+                        VStack(alignment: .leading) {
+                            pickerselecttypeoftask
+                            trailingslash
+                        }
+                        
+                        updateButton
+                    }
                 }
 
                 synchronizeID
@@ -219,7 +225,7 @@ extension AddTaskView {
                 }
 
                 saveURLSection
-                updateButton
+                
             } else {
                 Text("Select a task from the list to view and update its details.")
                     .font(.callout)
