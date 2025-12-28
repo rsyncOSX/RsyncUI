@@ -35,9 +35,6 @@ struct SidebarMainView: View {
     // NavigationStack is utilized
     // Navigation path for executetasks
     @State var executetaskpath: [Tasks] = []
-    // Navigation addtasks and verify
-    // Needed here because if not empty sidebar is disabled
-    @State private var addtaskpath: [AddTasks] = []
     // Verify navigation
     // @State private var verifypath: [Verify] = []
     // Check if new version
@@ -197,9 +194,10 @@ struct SidebarMainView: View {
     func selectView(_ view: Sidebaritems) -> some View {
         switch view {
         case .tasks:
-            AddTaskView(rsyncUIdata: rsyncUIdata,
-                        selecteduuids: $selecteduuids,
-                        addtaskpath: $addtaskpath)
+            NavigationStack {
+                AddTaskView(rsyncUIdata: rsyncUIdata,
+                            selecteduuids: $selecteduuids)
+            }
         case .log_listings:
             LogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
         case .rsync_parameters:
@@ -234,7 +232,6 @@ struct SidebarMainView: View {
 
     var disablesidebarmeny: Bool {
         executetaskpath.isEmpty == false ||
-            addtaskpath.isEmpty == false ||
             // verifypath.isEmpty == false ||
             SharedReference.shared.process != nil
     }

@@ -8,16 +8,6 @@
 import OSLog
 import SwiftUI
 
-enum AddTaskDestinationView: String, Identifiable {
-    case globalchanges
-    var id: String { rawValue }
-}
-
-struct AddTasks: Hashable, Identifiable {
-    let id = UUID()
-    var task: AddTaskDestinationView
-}
-
 enum AddConfigurationField: Hashable {
     case localcatalogField
     case remotecatalogField
@@ -39,7 +29,6 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    @Binding var addtaskpath: [AddTasks]
 
     @State var newdata = ObservableAddConfigurations()
     @State var selectedconfig: SynchronizeConfiguration?
@@ -49,9 +38,11 @@ struct AddTaskView: View {
     @State var stringestimate: String = ""
     @State var showhelp: Bool = false
     @State var showAddPopover: Bool = false
+    
+    @State var presentglobaltaskview: Bool = false
 
     var body: some View {
-        NavigationStack(path: $addtaskpath) {
+        NavigationStack {
             HStack(alignment: .top, spacing: 16) {
                 VStack(alignment: .center, spacing: 12) {
                     HelpSectionView(showhelp: $showhelp,
@@ -73,7 +64,9 @@ struct AddTaskView: View {
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
         .toolbar { toolbarContent }
         .navigationTitle("Add and update tasks: profile \(rsyncUIdata.profile ?? "Default")")
-        .navigationDestination(for: AddTasks.self) { makeView(view: $0.task) }
+        .navigationDestination(isPresented: $presentglobaltaskview) {
+            GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
+        }
         .padding()
     }
 }

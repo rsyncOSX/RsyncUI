@@ -30,14 +30,7 @@ extension AddTaskView {
 // MARK: - View Builders
 
 extension AddTaskView {
-    @MainActor @ViewBuilder
-    func makeView(view: AddTaskDestinationView) -> some View {
-        switch view {
-        case .globalchanges:
-            GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
-        }
-    }
-
+    
     var catalogSectionView: some View {
         Group {
             if newdata.selectedrsynccommand == .syncremote {
@@ -99,7 +92,7 @@ extension AddTaskView {
         }
 
         ToolbarItem {
-            Button { addtaskpath.append(AddTasks(task: .globalchanges)) }
+            Button { presentglobaltaskview = true }
                 label: { Image(systemName: "globe") }
                 .help("Global change and update")
         }
