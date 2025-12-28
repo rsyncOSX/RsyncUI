@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 enum AddTaskDestinationView: String, Identifiable {
-    case homecatalogs, globalchanges
+    case globalchanges
     var id: String { rawValue }
 }
 
@@ -56,6 +56,8 @@ struct AddTaskView: View {
                 VStack(alignment: .center, spacing: 12) {
                     helpSection
                     taskListView
+                    
+                    Spacer()
                 }
                 if showhelp {
                     helpSheetView

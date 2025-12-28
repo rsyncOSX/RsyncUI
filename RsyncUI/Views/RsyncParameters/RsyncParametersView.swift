@@ -13,10 +13,6 @@ struct RsyncParametersView: View {
 
     @State var parameters = ObservableParametersRsync()
     @State var selectedconfig: SynchronizeConfiguration?
-    // @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    // @State private var selectedrsynccommand = RsyncCommand.synchronize_data
-    // Focus buttons from the menu
-    @State var focusaborttask: Bool = false
     // Backup switch
     @State var backup: Bool = false
     // Present a help sheet
@@ -30,6 +26,8 @@ struct RsyncParametersView: View {
                 VStack(alignment: .center, spacing: 12) {
                     helpSection
                     taskListView
+                    
+                    Spacer()
                 }
                 if showhelp {
                     helpSheetView
@@ -55,7 +53,6 @@ struct RsyncParametersView: View {
             parameters.setvalues(selectedconfig)
             backup = false
         }
-        .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
             ToolbarItem {
                 Button {

@@ -33,11 +33,6 @@ extension AddTaskView {
     @MainActor @ViewBuilder
     func makeView(view: AddTaskDestinationView) -> some View {
         switch view {
-        case .homecatalogs:
-            HomeCatalogsView(newdata: newdata,
-                             path: $addtaskpath,
-                             homecatalogs: HomeCatalogsService().homeCatalogs(),
-                             attachedVolumes: AttachedVolumesService().attachedVolumes())
         case .globalchanges:
             GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
         }
@@ -125,12 +120,6 @@ extension AddTaskView {
             label: { Image(systemName: "plus") }
             .help("Quick add task")
             .sheet(isPresented: $showAddPopover) { addTaskSheetView }
-        }
-
-        ToolbarItem {
-            Button { addtaskpath.append(AddTasks(task: .homecatalogs)) }
-                label: { Image(systemName: "house.fill") }
-                .help("Home catalogs")
         }
 
         ToolbarItem {

@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct HelpView: View {
-    @Environment(\.dismiss) var dismiss
-
+   
     let text: String
     let add: Bool
     let deleteparameterpresent: Bool

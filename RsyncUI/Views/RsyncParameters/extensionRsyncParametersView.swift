@@ -176,14 +176,6 @@ extension RsyncParametersView {
             }
     }
     
-    var labelaborttask: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear {
-                focusaborttask = false
-                abort()
-            }
-    }
-
     var setsshpath: some View {
         EditValueErrorScheme(300, "ssh-keypath and identityfile",
                              $parameters.sshkeypathandidentityfile,
