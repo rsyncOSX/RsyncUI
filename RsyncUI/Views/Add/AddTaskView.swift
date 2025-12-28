@@ -57,10 +57,13 @@ struct AddTaskView: View {
                     helpSection
                     taskListView
                 }
-                inspectorView
+                if showhelp {
+                    helpSheetView
+                } else {
+                    inspectorView
+                }
             }
         }
-        .sheet(isPresented: $showhelp) { helpSheetView }
         .onSubmit { handleSubmit() }
         .onAppear { handleOnAppear() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }

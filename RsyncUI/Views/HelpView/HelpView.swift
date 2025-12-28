@@ -65,22 +65,11 @@ struct HelpView: View {
                 }
                 .padding()
             }
-
-            if #available(macOS 26.0, *) {
-                Button("Close", role: .close) {
-                    dismiss()
-                }
-                .buttonStyle(RefinedGlassButtonStyle())
-
-            } else {
-                Button("Close") {
-                    dismiss()
-                }
-                .padding()
-                .buttonStyle(.borderedProminent)
-            }
         }
         .padding()
+        .frame(maxWidth: 420)
+        .background(.thinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }
 

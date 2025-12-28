@@ -87,7 +87,7 @@ extension AddTaskView {
             if deleteparameterpresent {
                 HStack {
                     Text("If \(Text("red Synchronize ID").foregroundColor(.red)) click")
-                    Button { newdata.whichhelptext = 1; showhelp = true }
+                    Button { newdata.whichhelptext = 1; showhelp.toggle() }
                         label: { Image(systemName: "questionmark.circle") }
                         .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
                     Text("for more information")
@@ -95,7 +95,7 @@ extension AddTaskView {
             } else {
                 HStack {
                     Text("To add --delete click")
-                    Button { newdata.whichhelptext = 2; showhelp = true }
+                    Button { newdata.whichhelptext = 2; showhelp.toggle()}
                         label: { Image(systemName: "questionmark.circle") }
                         .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
                     Text("for more information")
@@ -412,6 +412,7 @@ extension AddTaskView {
             selectedconfig = configurations[index]
             newdata.updateview(configurations[index])
             updateURLString()
+            showhelp = false
         } else {
             selectedconfig = nil
             newdata.updateview(nil)
