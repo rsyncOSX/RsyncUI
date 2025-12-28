@@ -31,7 +31,7 @@ extension RsyncParametersView {
                     selecteduuids.removeAll()
                     parameters.reset()
                     backup = false
-                    parameters.showdetails = false
+                    showhelp = false
                 } label: { Image(systemName: "xmark.circle") }
                     .buttonStyle(.borderless)
                     .help("Clear selection")
@@ -161,11 +161,11 @@ extension RsyncParametersView {
                 if configurations[index].parameter12 != "--backup" {
                     backup = false
                 }
+                showhelp = false
             } else {
                 selectedconfig = nil
                 parameters.setvalues(selectedconfig)
                 backup = false
-                parameters.showdetails = false
             }
         }
     }
