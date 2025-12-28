@@ -54,17 +54,15 @@ extension AddTaskView {
         }
     }
 
-    var addOrUpdateButton: some View {
-        Group {
-            if newdata.selectedconfig != nil {
-                ConditionalGlassButton(systemImage: "arrow.down", text: "Update", helpText: "Update task") {
-                    validateAndUpdate()
-                }
-            } else {
-                ConditionalGlassButton(systemImage: "plus", text: "Add", helpText: "Add task") {
-                    addConfig()
-                }
-            }
+    var addButton: some View {
+        ConditionalGlassButton(systemImage: "plus", text: "Add", helpText: "Add task") {
+            addConfig()
+        }
+    }
+
+    var updateButton: some View {
+        ConditionalGlassButton(systemImage: "arrow.down", text: "Update", helpText: "Update task") {
+            validateAndUpdate()
         }
     }
 
@@ -187,6 +185,59 @@ extension AddTaskView {
     var confirmationMessage: String {
         let count = newdata.copyandpasteconfigurations?.count ?? 0
         return count == 1 ? "Copy 1 configuration" : "Copy \(count) configurations"
+    }
+
+    var inspectorView: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("Inspector").font(.title3).fontWeight(.bold)
+                Spacer()
+                if selectedconfig != nil {
+                    Button { clearSelection() }
+                        label: { Image(systemName: "xmark.circle") }
+                        .buttonStyle(.borderless)
+                        .help("Clear selection")
+                }
+            }
+
+            if let selectedconfig {
+                inspectorSummary(selectedconfig)
+
+                VStack(alignment: .leading, spacing: 8) {
+                    pickerselecttypeoftask
+                    trailingslash
+                }
+
+                synchronizeID
+                catalogSectionView
+
+                VStack(alignment: .leading) { remoteuserandserver }
+                    .disabled(selectedconfig.task == SharedReference.shared.snapshot)
+
+                if selectedconfig.task == SharedReference.shared.snapshot {
+                    VStack(alignment: .leading) { snapshotnum }
+                }
+
+                saveURLSection
+                updateButton
+            } else {
+                Text("Select a task from the list to view and update its details.")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .padding()
+        .frame(maxWidth: 420)
+        .background(.thinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+
+    @ViewBuilder
+    func inspectorSummary(_ config: SynchronizeConfiguration) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(config.backupID).font(.headline)
+            Text(config.task).font(.subheadline).foregroundStyle(.secondary)
+        }
     }
 }
 
@@ -317,6 +368,15 @@ extension AddTaskView {
 // MARK: - Event Handlers
 
 extension AddTaskView {
+    func clearSelection() {
+        selecteduuids.removeAll()
+        selectedconfig = nil
+        newdata.updateview(nil)
+        newdata.showsaveurls = false
+        changesnapshotnum = false
+        stringestimate = ""
+    }
+
     func handleSubmit() {
         switch focusField {
         case .synchronizeIDField: focusField = .localcatalogField

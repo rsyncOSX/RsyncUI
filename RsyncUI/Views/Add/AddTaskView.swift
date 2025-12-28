@@ -52,34 +52,12 @@ struct AddTaskView: View {
 
     var body: some View {
         NavigationStack(path: $addtaskpath) {
-            HStack {
-                VStack(alignment: .leading) {
-                    Section(header: Text("Add or update").font(.title3).fontWeight(.bold)) {
-                        HStack {
-                            addOrUpdateButton
-                            VStack(alignment: .trailing) {
-                                pickerselecttypeoftask.disabled(selectedconfig != nil)
-                                trailingslash
-                            }
-                        }
-                    }
-
-                    VStack(alignment: .leading) { synchronizeID }
-                    catalogSectionView
-                    VStack(alignment: .leading) { remoteuserandserver }
-                        .disabled(selectedconfig?.task == SharedReference.shared.snapshot)
-
-                    if selectedconfig?.task == SharedReference.shared.snapshot {
-                        VStack(alignment: .leading) { snapshotnum }
-                    }
-
-                    saveURLSection
-                }
-
-                VStack(alignment: .center) {
+            HStack(alignment: .top, spacing: 16) {
+                VStack(alignment: .center, spacing: 12) {
                     helpSection
                     taskListView
                 }
+                inspectorView
             }
         }
         .sheet(isPresented: $showhelp) { helpSheetView }
