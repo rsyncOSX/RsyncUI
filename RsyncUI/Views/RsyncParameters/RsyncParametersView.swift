@@ -133,7 +133,7 @@ struct RsyncParametersView: View {
                             }
                         }
 
-                    if let selectedconfig = selectedconfig {
+                    if let selectedconfig {
                         let isDeletePresent = selectedconfig.parameter4 == "--delete"
                         let headerText = isDeletePresent ? "Remove --delete parameter" : "Add --delete parameter"
                         Section(header: Text(headerText)

@@ -53,12 +53,15 @@ struct AddTaskView: View {
         NavigationStack(path: $addtaskpath) {
             HStack {
                 VStack(alignment: .leading) {
-                    addOrUpdateButton
-                    VStack(alignment: .trailing) {
-                        pickerselecttypeoftask.disabled(selectedconfig != nil)
-                        trailingslash
+                    Section(header: Text("Add or update").font(.title3).fontWeight(.bold)) {
+                        HStack {
+                            addOrUpdateButton
+                            VStack(alignment: .trailing) {
+                                pickerselecttypeoftask.disabled(selectedconfig != nil)
+                                trailingslash
+                            }
+                        }
                     }
-                    .padding(.bottom, 10)
 
                     VStack(alignment: .leading) { synchronizeID }
                     catalogSectionView
@@ -72,7 +75,7 @@ struct AddTaskView: View {
                     saveURLSection
                 }
 
-                VStack(alignment: .leading) {
+                VStack(alignment: .center) {
                     helpSection
                     taskListView
                 }

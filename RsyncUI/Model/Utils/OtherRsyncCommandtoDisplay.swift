@@ -17,25 +17,25 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
     case urlEstimate
 
     var id: String { rawValue }
-    
+
     var description: String {
         // First handle special cases like SSH and URL
         let withSpecialCases = rawValue
-            .replacingOccurrences(of:  "SSH", with: "Ssh")
-            .replacingOccurrences(of: "URL", with:  "Url")
-        
+            .replacingOccurrences(of: "SSH", with: "Ssh")
+            .replacingOccurrences(of: "URL", with: "Url")
+
         // Then insert spaces before capitals
         let result = withSpecialCases.replacingOccurrences(
             of: "([A-Z])",
             with: " $1",
-            options: . regularExpression
-        ).trimmingCharacters(in:  . whitespaces)
-        
+            options: .regularExpression
+        ).trimmingCharacters(in: .whitespaces)
+
         // Capitalize first letter and fix acronyms back to uppercase
         let capitalized = result.prefix(1).uppercased() + result.dropFirst()
         return capitalized
             .replacingOccurrences(of: "Ssh", with: "SSH")
-            .replacingOccurrences(of: "Url", with:  "URL")
+            .replacingOccurrences(of: "Url", with: "URL")
     }
 }
 
