@@ -37,41 +37,6 @@ struct RsyncParametersView: View {
                     inspectorView
                 }
             }
-            HStack {
-                /*
-                VStack(alignment: .leading) {
-                    
-                    if notifydataisupdated {
-                        ConditionalGlassButton(
-                            systemImage: "arrow.down",
-                            text: "Update",
-                            helpText: "Update parameters"
-                        ) {
-                            saveRsyncParameters()
-                            selecteduuids.removeAll()
-                        }
-                        .disabled(selectedconfig == nil)
-                        .padding(.bottom, 10)
-
-                    } else {
-                        ConditionalGlassButton(
-                            systemImage: "plus",
-                            text: "Add",
-                            helpText: "Save parameters"
-                        ) {
-                            saveRsyncParameters()
-                        }
-                        .disabled(selectedconfig == nil)
-                        .padding(.bottom, 10)
-                    }
-                }
-
-                Spacer()
-*/
-            }
-
-            Spacer()
-            if focusaborttask { labelaborttask }
         }
         .onAppear {
             if selecteduuids.count > 0 {

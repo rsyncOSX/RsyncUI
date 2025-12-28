@@ -38,58 +38,35 @@ extension RsyncParametersView {
             }
 
             if let selectedconfig {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(selectedconfig.backupID).font(.headline)
-                    Text(selectedconfig.task).font(.subheadline).foregroundStyle(.secondary)
-                }
-
-                Divider()
-
+                
+                inspectorSummary(selectedconfig)
+                
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Parameters 8–14").font(.headline)
-                    EditRsyncParameter(380, $parameters.parameter8)
+                    EditRsyncParameter(200, $parameters.parameter8)
                         .onChange(of: parameters.parameter8) { parameters.configuration?.parameter8 = parameters.parameter8 }
-                    EditRsyncParameter(380, $parameters.parameter9)
+                    EditRsyncParameter(200, $parameters.parameter9)
                         .onChange(of: parameters.parameter9) { parameters.configuration?.parameter9 = parameters.parameter9 }
-                    EditRsyncParameter(380, $parameters.parameter10)
+                    EditRsyncParameter(200, $parameters.parameter10)
                         .onChange(of: parameters.parameter10) { parameters.configuration?.parameter10 = parameters.parameter10 }
-                    EditRsyncParameter(380, $parameters.parameter11)
+                    EditRsyncParameter(200, $parameters.parameter11)
                         .onChange(of: parameters.parameter11) { parameters.configuration?.parameter11 = parameters.parameter11 }
-                    EditRsyncParameter(380, $parameters.parameter12)
+                    EditRsyncParameter(200, $parameters.parameter12)
                         .onChange(of: parameters.parameter12) { parameters.configuration?.parameter12 = parameters.parameter12 }
-                    EditRsyncParameter(380, $parameters.parameter13)
+                    EditRsyncParameter(200, $parameters.parameter13)
                         .onChange(of: parameters.parameter13) { parameters.configuration?.parameter13 = parameters.parameter13 }
-                    EditRsyncParameter(380, $parameters.parameter14)
+                    EditRsyncParameter(200, $parameters.parameter14)
                         .onChange(of: parameters.parameter14) { parameters.configuration?.parameter14 = parameters.parameter14 }
                 }
 
-                Divider()
-
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Task specific SSH parameter").font(.headline)
-                    HStack {
+                    VStack(alignment: .leading, spacing: 8) {
                         setsshpath
                         setsshport
                     }
                 }
-
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Options").font(.headline)
-                    Toggle("Backup", isOn: $backup)
-                        .toggleStyle(.switch)
-                        .onChange(of: backup) {
-                            guard selectedconfig != nil else {
-                                backup = false
-                                return
-                            }
-                            parameters.setbackup()
-                        }
-                    Toggle("Show command", isOn: $parameters.showdetails)
-                        .toggleStyle(.switch)
-                }
-
-                Divider()
-
+                
                 let isDeletePresent = selectedconfig.parameter4 == "--delete"
                 let headerText = isDeletePresent ? "Remove --delete parameter" : "Add --delete parameter"
                 VStack(alignment: .leading, spacing: 8) {
@@ -100,31 +77,22 @@ extension RsyncParametersView {
                         .toggleStyle(.switch)
                         .onChange(of: parameters.adddelete) { parameters.adddelete(parameters.adddelete) }
                         .disabled(selecteduuids.isEmpty)
-                    HStack(spacing: 6) {
-                        if deleteparameterpresent {
-                            Text("If red Synchronize ID click")
-                            Button {
-                                parameters.whichhelptext = 1
-                                showhelp = true
-                            } label: { Image(systemName: "questionmark.circle") }
-                                .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
-                            Text("for more information")
-                        } else {
-                            Text("To add --delete click")
-                            Button {
-                                parameters.whichhelptext = 2
-                                showhelp = true
-                            } label: { Image(systemName: "questionmark.circle") }
-                                .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
-                            Text("for more information")
-                        }
-                    }
                 }
 
-                if parameters.showdetails {
-                    RsyncCommandView(config: selectedconfig)
-                        .frame(maxWidth: .infinity)
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Options").font(.headline)
+                    Toggle("Backup", isOn: $backup)
+                        .toggleStyle(.switch)
+                        .onChange(of: backup) {
+                            guard !selecteduuids.isEmpty else {
+                                backup = false
+                                return
+                            }
+                            parameters.setbackup()
+                        }
+                    
                 }
+
             } else {
                 Text("Select a task from the list to view and inspect.")
                     .font(.callout)
@@ -135,6 +103,45 @@ extension RsyncParametersView {
         .frame(maxWidth: 420)
         .background(.thinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+    
+    @ViewBuilder
+    func inspectorSummary(_ config: SynchronizeConfiguration) -> some View {
+        
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(config.backupID).font(.headline)
+                Text(config.task).font(.subheadline).foregroundStyle(.secondary)
+            }
+            
+            addupdateButton
+        }
+    }
+    
+    var addupdateButton: some View {
+        if notifydataisupdated {
+            ConditionalGlassButton(
+                systemImage: "arrow.down",
+                text: "Update",
+                helpText: "Update parameters"
+            ) {
+                saveRsyncParameters()
+                selecteduuids.removeAll()
+            }
+            .disabled(selectedconfig == nil)
+            .padding(.bottom, 10)
+
+        } else {
+            ConditionalGlassButton(
+                systemImage: "plus",
+                text: "Add",
+                helpText: "Save parameters"
+            ) {
+                saveRsyncParameters()
+            }
+            .disabled(selectedconfig == nil)
+            .padding(.bottom, 10)
+        }
     }
 
     var currentFlagStrings: [String] {
@@ -243,3 +250,4 @@ extension RsyncParametersView {
         }
     }
 }
+
