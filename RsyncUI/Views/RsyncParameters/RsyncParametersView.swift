@@ -9,7 +9,8 @@ import SwiftUI
 
 struct RsyncParametersView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>    
+    @Binding var togglechooseview: Bool
 
     @State var parameters = ObservableParametersRsync()
     @State var selectedconfig: SynchronizeConfiguration?
@@ -56,6 +57,7 @@ struct RsyncParametersView: View {
             backup = false
         }
         .toolbar(content: {
+            
             ToolbarItem {
                 Button {
                     presentarguments = true
@@ -63,6 +65,11 @@ struct RsyncParametersView: View {
                     Image(systemName: "command")
                 }
                 .help("Show arguments")
+            }
+            
+            ToolbarItem {
+                ToggleViewToolbar(text: "Parameter",
+                                  binding: $togglechooseview)
             }
         })
         .navigationTitle("Parameters for rsync: profile \(rsyncUIdata.profile ?? "Default")")

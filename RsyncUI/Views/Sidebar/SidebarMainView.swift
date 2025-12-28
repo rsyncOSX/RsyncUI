@@ -10,7 +10,7 @@ import OSLog
 import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
-    case synchronize, tasks, rsync_parameters, verify_tasks, snapshots, log_listings, restore, profiles
+    case synchronize, tasks, verify_tasks, snapshots, log_listings, restore, profiles
     var id: String { rawValue }
 }
 
@@ -195,15 +195,11 @@ struct SidebarMainView: View {
         switch view {
         case .tasks:
             NavigationStack {
-                AddTaskView(rsyncUIdata: rsyncUIdata,
+                DefaultView(rsyncUIdata: rsyncUIdata,
                             selecteduuids: $selecteduuids)
             }
         case .log_listings:
             LogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
-        case .rsync_parameters:
-            NavigationStack {
-                RsyncParametersView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
-            }
         case .restore:
             NavigationStack {
                 RestoreTableView(profile: $rsyncUIdata.profile,
@@ -278,8 +274,6 @@ struct SidebarRow: View {
             "text.badge.plus"
         case .log_listings:
             "text.alignleft"
-        case .rsync_parameters:
-            "command.circle.fill"
         case .restore:
             "arrowshape.turn.up.forward"
         case .snapshots:

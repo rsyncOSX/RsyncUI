@@ -80,6 +80,8 @@ extension AddTaskView {
 
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
+        
+        
         ToolbarItem {
             Button {
                 newdata.resetForm()
@@ -95,6 +97,11 @@ extension AddTaskView {
             Button { presentglobaltaskview = true }
                 label: { Image(systemName: "globe") }
                 .help("Global change and update")
+        }
+        
+        ToolbarItem {
+            ToggleViewToolbar(text: "Tasks",
+                              binding: $togglechooseview)
         }
     }
 }
