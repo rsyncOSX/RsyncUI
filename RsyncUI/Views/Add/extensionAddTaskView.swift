@@ -77,30 +77,6 @@ extension AddTaskView {
         }
     }
 
-    var helpSection: some View {
-        Group {
-            if deleteparameterpresent {
-                HStack {
-                    Text("If \(Text("red Synchronize ID").foregroundColor(.red)) click")
-                    Button { newdata.whichhelptext = 1; showhelp.toggle() }
-                        label: { Image(systemName: "questionmark.circle") }
-                        .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
-                    Text("for more information")
-                }
-            } else {
-                HStack {
-                    Text("To add --delete click")
-                    Button { newdata.whichhelptext = 2; showhelp.toggle() }
-                        label: { Image(systemName: "questionmark.circle") }
-                        .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
-                    Text("for more information")
-                }
-            }
-        }
-        .padding(.bottom, 10)
-    }
-
-    @ViewBuilder
     var helpSheetView: some View {
         switch newdata.whichhelptext {
         case 1: HelpView(text: newdata.helptext1, add: false, deleteparameterpresent: false)

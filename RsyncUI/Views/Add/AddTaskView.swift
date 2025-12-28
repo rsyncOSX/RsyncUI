@@ -54,7 +54,9 @@ struct AddTaskView: View {
         NavigationStack(path: $addtaskpath) {
             HStack(alignment: .top, spacing: 16) {
                 VStack(alignment: .center, spacing: 12) {
-                    helpSection
+                    HelpSectionView(showhelp: $showhelp,
+                                    whichhelptext: $newdata.whichhelptext,
+                                    deleteparameterpresent: deleteparameterpresent)
                     taskListView
                     
                     Spacer()

@@ -24,7 +24,9 @@ struct RsyncParametersView: View {
         NavigationStack {
             HStack(alignment: .top, spacing: 16) {
                 VStack(alignment: .center, spacing: 12) {
-                    helpSection
+                    HelpSectionView(showhelp: $showhelp,
+                                    whichhelptext: $parameters.whichhelptext,
+                                    deleteparameterpresent: deleteparameterpresent)
                     taskListView
                     
                     Spacer()

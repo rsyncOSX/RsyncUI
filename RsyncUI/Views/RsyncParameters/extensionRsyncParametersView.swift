@@ -155,25 +155,26 @@ extension RsyncParametersView {
     }
     
     var taskListView: some View {
-        ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                    configurations: rsyncUIdata.configurations)
-            .frame(maxWidth: .infinity, maxHeight: 330)
-            .onChange(of: selecteduuids) {
-                if let configurations = rsyncUIdata.configurations {
-                    if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                        selectedconfig = configurations[index]
-                        parameters.setvalues(configurations[index])
-                        if configurations[index].parameter12 != "--backup" {
-                            backup = false
-                        }
-                    } else {
-                        selectedconfig = nil
-                        parameters.setvalues(selectedconfig)
-                        backup = false
-                        parameters.showdetails = false
-                    }
+        ListofTasksAddView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
+            .onChange(of: selecteduuids) { handleSelectionChange() }
+    }
+    
+    func handleSelectionChange() {
+        if let configurations = rsyncUIdata.configurations {
+            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                selectedconfig = configurations[index]
+                parameters.setvalues(configurations[index])
+                if configurations[index].parameter12 != "--backup" {
+                    backup = false
                 }
+                showhelp = false
+            } else {
+                selectedconfig = nil
+                parameters.setvalues(selectedconfig)
+                backup = false
+                parameters.showdetails = false
             }
+        }
     }
     
     var setsshpath: some View {
@@ -208,29 +209,6 @@ extension RsyncParametersView {
     var deleteparameterpresent: Bool {
         let parameter = rsyncUIdata.configurations?.filter { $0.parameter4?.isEmpty == false }
         return parameter?.count ?? 0 > 0
-    }
-
-    var helpSection: some View {
-        Group {
-            if deleteparameterpresent {
-                HStack {
-                    Text("If \(Text("red Synchronize ID").foregroundColor(.red)) click")
-                    Button { parameters.whichhelptext = 1; showhelp.toggle() }
-                        label: { Image(systemName: "questionmark.circle") }
-                        .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
-                    Text("for more information")
-                }
-            } else {
-                HStack {
-                    Text("To add --delete click")
-                    Button { parameters.whichhelptext = 2; showhelp.toggle() }
-                        label: { Image(systemName: "questionmark.circle") }
-                        .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
-                    Text("for more information")
-                }
-            }
-        }
-        .padding(.bottom, 10)
     }
     
     @ViewBuilder
