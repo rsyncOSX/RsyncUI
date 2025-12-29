@@ -46,7 +46,7 @@ struct TasksView: View {
     // Selected profile
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
     // Save output from real synchronize task to logfile
-    @Binding var saveactualsynclogdata: Bool
+    @State var saveactualsynclogdata: Bool = false
 
     // Focus buttons from the menu
     @State var focusstartestimation: Bool = false

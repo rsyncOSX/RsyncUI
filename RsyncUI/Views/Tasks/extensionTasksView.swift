@@ -189,7 +189,8 @@ extension TasksView {
                     Button {
                         saveactualsynclogdata.toggle()
                     } label: {
-                        Image(systemName: "square.and.arrow.down")
+                        Image(systemName: "square.and.arrow.down.fill")
+                            .foregroundStyle(saveactualsynclogdata ? . green : .primary)
                     }
                     .help("Save actual synchronize log to logfile")
                 }

@@ -37,8 +37,6 @@ struct SidebarTasksView: View {
     @Binding var columnVisibility: NavigationSplitViewVisibility
     // Selected profile
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
-    // Save output from real synchronize task to logfile
-    @Binding var saveactualsynclogdata: Bool
 
     var body: some View {
         NavigationStack(path: $executetaskpath) {
@@ -49,8 +47,7 @@ struct SidebarTasksView: View {
                       executetaskpath: $executetaskpath,
                       urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
                       columnVisibility: $columnVisibility,
-                      selectedprofileID: $selectedprofileID,
-                      saveactualsynclogdata: $saveactualsynclogdata)
+                      selectedprofileID: $selectedprofileID)
                 .navigationDestination(for: Tasks.self) { which in
                     makeView(view: which.task)
                 }
