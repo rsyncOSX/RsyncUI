@@ -163,7 +163,6 @@ struct SidebarMainView: View {
         .onChange(of: urlcommandestimateandsynchronize) {
             // URL code
             // Binding to listen for initiating deep link execute estimate and synchronize from
-            // toolbar in TasksView
             let valueprofile = rsyncUIdata.profile
             if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: valueprofile) {
                 handleURLSidebarMainView(url, externalURL: false)

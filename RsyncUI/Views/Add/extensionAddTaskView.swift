@@ -81,7 +81,6 @@ extension AddTaskView {
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
         
-        
         ToolbarItem {
             Button {
                 newdata.resetForm()
@@ -102,6 +101,10 @@ extension AddTaskView {
         ToolbarItem {
             ToggleViewToolbar(text: "Tasks",
                               binding: $togglechooseview)
+        }
+        
+        ToolbarItem {
+            Spacer()
         }
     }
 }

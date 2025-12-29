@@ -71,6 +71,10 @@ struct RsyncParametersView: View {
                 ToggleViewToolbar(text: "Parameter",
                                   binding: $togglechooseview)
             }
+            
+            ToolbarItem {
+                Spacer()
+            }
         })
         .navigationTitle("Parameters for rsync: profile \(rsyncUIdata.profile ?? "Default")")
         .navigationDestination(isPresented: $presentarguments) {
