@@ -137,16 +137,17 @@ struct AddProfileSheet: View {
             }
 
             HStack(spacing: 12) {
+                ConditionalGlassButton(systemImage: "plus",
+                                       text: "Add",
+                                       helpText: "Add task") {
+                    addProfile()
+                    showSheet = false
+                }
+                
                 Button("Cancel") {
                     showSheet = false
                 }
                 .keyboardShortcut(.cancelAction)
-
-                Button("Add") {
-                    addProfile()
-                }
-                .keyboardShortcut(.defaultAction)
-                .disabled(profileName.trimmingCharacters(in: .whitespaces).isEmpty)
             }
         }
         .padding(24)

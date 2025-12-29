@@ -128,6 +128,7 @@ extension AddTaskView {
                     newdata.resetForm()
                 }
                 Button("Cancel") { showAddPopover = false }
+                    .keyboardShortcut(.cancelAction)
             }
         }
         .padding()
