@@ -55,6 +55,9 @@ struct AddTaskView: View {
                 }
                 if showhelp {
                     helpSheetView
+                        .onAppear {
+                            clearSelection()
+                        }
                 } else {
                     inspectorView
                 }

@@ -78,7 +78,6 @@ struct HelpSectionView: View {
     let deleteparameterpresent: Bool
 
     var body: some View {
-        Group {
             if deleteparameterpresent {
                 HStack {
                     Text("If \(Text("red Synchronize ID").foregroundColor(.red)) click")
@@ -87,6 +86,7 @@ struct HelpSectionView: View {
                         .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
                     Text("for more information")
                 }
+                .padding(.bottom, 10)
             } else {
                 HStack {
                     Text("To add --delete click")
@@ -95,10 +95,9 @@ struct HelpSectionView: View {
                         .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
                     Text("for more information")
                 }
+                .padding(.bottom, 10)
             }
         }
-        .padding(.bottom, 10)
-    }
 }
 
 // swiftlint:enable line_length

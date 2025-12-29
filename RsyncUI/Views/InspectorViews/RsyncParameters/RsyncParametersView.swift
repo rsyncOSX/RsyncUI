@@ -34,6 +34,9 @@ struct RsyncParametersView: View {
                 }
                 if showhelp {
                     helpSheetView
+                        .onAppear {
+                            clearSelection()
+                        }
                 } else {
                     inspectorView
                 }
