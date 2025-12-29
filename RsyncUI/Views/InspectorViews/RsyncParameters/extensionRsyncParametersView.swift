@@ -14,6 +14,14 @@ extension RsyncParametersView {
     var toolbarContent: some ToolbarContent {
         ToolbarItem {
             Button {
+                showcommand.toggle()
+            } label: {
+                Image(systemName: "command")
+            }
+        }
+
+        ToolbarItem {
+            Button {
                 presentarguments = true
             } label: {
                 Image(systemName: "command")

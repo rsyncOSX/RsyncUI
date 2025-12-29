@@ -44,6 +44,8 @@ struct AddTaskView: View {
     @State var presentglobaltaskview: Bool = false
     // Show Inspector view
     @State var showinspector: Bool = false
+    // Show resulting rsync command
+    @State var showcommand: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -52,7 +54,11 @@ struct AddTaskView: View {
                     HelpSectionView(showhelp: $showhelp,
                                     whichhelptext: $newdata.whichhelptext,
                                     deleteparameterpresent: deleteparameterpresent)
-                    taskListView
+
+                    VStack(alignment: .leading) {
+                        taskListView
+                        if showcommand, let selectedconfig { RsyncCommandView(config: selectedconfig) }
+                    }
 
                     Spacer()
                 }

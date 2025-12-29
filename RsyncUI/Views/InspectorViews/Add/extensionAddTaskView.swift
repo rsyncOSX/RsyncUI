@@ -91,6 +91,14 @@ extension AddTaskView {
     var toolbarContent: some ToolbarContent {
         ToolbarItem {
             Button {
+                showcommand.toggle()
+            } label: {
+                Image(systemName: "command")
+            }
+        }
+
+        ToolbarItem {
+            Button {
                 newdata.resetForm()
                 selectedconfig = nil
                 showAddPopover.toggle()

@@ -22,6 +22,8 @@ struct RsyncParametersView: View {
     @State var presentarguments: Bool = false
     // Show Inspector view
     @State var showinspector: Bool = false
+    // Show resulting rsync command
+    @State var showcommand: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -30,12 +32,17 @@ struct RsyncParametersView: View {
                     HelpSectionView(showhelp: $showhelp,
                                     whichhelptext: $parameters.whichhelptext,
                                     deleteparameterpresent: deleteparameterpresent)
-                    taskListView
+
+                    VStack(alignment: .leading) {
+                        taskListView
+                        if showcommand, let selectedconfig { RsyncCommandView(config: selectedconfig) }
+                    }
 
                     Spacer()
                 }
 
                 if showhelp { helpSheetView }
+                if showcommand, let selectedconfig { RsyncCommandView(config: selectedconfig) }
             }
             .inspector(isPresented: $showinspector) {
                 inspectorView
