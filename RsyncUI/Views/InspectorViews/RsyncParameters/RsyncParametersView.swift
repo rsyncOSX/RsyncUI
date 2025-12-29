@@ -9,9 +9,10 @@ import SwiftUI
 
 struct RsyncParametersView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var togglechooseview: Bool
 
+    @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    
     @State var parameters = ObservableParametersRsync()
     @State var selectedconfig: SynchronizeConfiguration?
     // Backup switch

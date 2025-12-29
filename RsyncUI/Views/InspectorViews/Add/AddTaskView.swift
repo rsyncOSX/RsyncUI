@@ -28,8 +28,9 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 
 struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var togglechooseview: Bool
+    
+    @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
     @FocusState var focusField: AddConfigurationField?
 

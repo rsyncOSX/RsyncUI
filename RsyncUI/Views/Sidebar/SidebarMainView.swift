@@ -194,8 +194,7 @@ struct SidebarMainView: View {
         switch view {
         case .tasks:
             NavigationStack {
-                DefaultView(rsyncUIdata: rsyncUIdata,
-                            selecteduuids: $selecteduuids)
+                DefaultView(rsyncUIdata: rsyncUIdata)
             }
         case .log_listings:
             LogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
