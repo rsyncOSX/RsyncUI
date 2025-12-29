@@ -1,404 +1,78 @@
 # RsyncUI - Comprehensive Code Quality Analysis
 
-**Analysis Date:** December 25, 2025  
-**Version:** v2.8.4rc2 (RsyncProcessStreaming simplified APIs + ParseRsyncOutput integration)  
-**Analyzer:** GitHub Copilot  
-**Status:** Production-Ready  
+**Analysis Date:** December 29, 2025  
+**Version:** v2.8.4 (Sonoma)  
+**Analyzer:** GitHub Copilot (GPT-5.1-Codex-Max)  
+**Status:** Production-ready with focused follow-ups
 
 ---
 
 ## Executive Summary
 
-**Overall Code Quality Score: 9.5/10** ⭐ (↑ from 9.4)
+**Overall Code Quality Score: 9.3/10** ⭐
 
-RsyncUI is a mature, production-grade Swift application demonstrating exceptional code quality standards and modern development practices. The codebase reflects significant investment in safety, maintainability, and user experience.
+RsyncUI remains a well-structured, safety-focused macOS SwiftUI app. Core execution flows use modern async/await and the RsyncProcessStreaming package with explicit lifecycle cleanup, and logging is consistently OSLog-based. The main risks are persistent sentinel defaults (`?? -1`), tri-state configuration encoding, and the absence of CI and telemetry hooks. Test coverage is meaningful for arguments/deeplinks/config validation but does not yet exercise the streaming execution paths.
 
-### Key Achievements
-- ✅ **Zero force unwraps and force casts** - Bulletproof safety
-- ✅ **Zero TODO/FIXME markers** - Fully completed codebase
-- ✅ **Modern Swift concurrency** - Async/await, actors, @MainActor
-- ✅ **Professional logging** - OSLog throughout, zero print statements
-- ✅ **Clean architecture** - Well-organized module structure
-- ✅ **SwiftLint enforcement** - Automated quality gates
-- ✅ **Production-ready error handling** - Consistent patterns
-- ✅ **RsyncProcessStreaming streamlined** - Unified streaming process execution with simpler handler lifecycle
-- ✅ **ParseRsyncOutput extracted** - Reusable package with comprehensive unit tests, shared across projects
-- ✅ **RsyncUITests expanded** - New suites for arguments, deeplinks, and configuration validation
+### What Improved Since v2.8.4rc2
+- Streaming handlers now release state deterministically after termination in Estimate/Execute and UI detail views ([RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193), [RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323](RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323), [RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118](RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118)).
+- SwiftLint rules expanded to cover trailing whitespace, unused imports, explicit init, and sorted imports with reasonable caps for line/function/type length ([.swiftlint.yml#L1-L12](.swiftlint.yml#L1-L12)).
+- App shutdown now performs structured cleanup (timers/process termination) when the window closes ([RsyncUI/Main/RsyncUIApp.swift#L15-L90](RsyncUI/Main/RsyncUIApp.swift#L15-L90)).
 
-### Enhancement Opportunities
-- ⚠️ **Sentinel values** - ~20 instances of `?? -1` pattern (↓ from 30+)
-- ⚠️ **Unit test coverage** - Improving, still partial
-- ⚠️ **Magic numbers** - Hardcoded constants throughout
-- ⚠️ **Configuration breadth** - SwiftLint rules could expand
+### Key Risks (Prioritized)
+1) Sentinel defaults and tri-state ints: 20+ `?? -1` usages remain in SSH parameters and configuration decoding, risking ambiguous “unset vs false” handling ([RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L66](RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L66), [RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24](RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24), [RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124](RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124)).
+2) Test coverage gaps: current suites exercise arguments, deeplinks, and config validation but skip streaming Estimate/Execute flows, error tagging, and log persistence ([RsyncUITests/RsyncUITests.swift#L17-L214](RsyncUITests/RsyncUITests.swift#L17-L214)).
+3) Missing CI: no repo-level workflow enforces SwiftLint/builds; regressions could slip in without automation.
+4) Telemetry backlog: counters for default-stats fallbacks and rsync error occurrences are still not implemented (tracked in TODO).
 
 ---
 
-## 1. Architecture & Organization
+## Architecture & Lifecycle
+- SwiftUI entry uses `NSApplicationDelegateAdaptor` and performs cleanup on window close (timer invalidation + process termination guard) to avoid orphaned subprocesses ([RsyncUI/Main/RsyncUIApp.swift#L15-L90](RsyncUI/Main/RsyncUIApp.swift#L15-L90), [RsyncUI/Model/Global/SharedReference.swift#L82-L120](RsyncUI/Model/Global/SharedReference.swift#L82-L120)).
+- Execution stack keeps strong streaming references and releases them immediately after termination to prevent leaks ([RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193), [RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323](RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323)).
+- UI single-task estimation uses handler factories with explicit cleanup hooks, aligning UI and model lifecycles ([RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118](RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118)).
 
-### 1.1 Project Structure
+## Safety & Optional Handling
+- Guard/if-let patterns dominate in Estimate/Execute; hiddenID handling avoids force unwraps.
+- Remaining risk: sentinel `-1` continues to stand in for nil/false, especially for SSH port and user config booleans, which complicates validation logic ([RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L85](RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L85), [RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24](RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24), [RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124](RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124)).
 
-The project follows a clear separation of concerns:
+## Concurrency & Performance
+- Async/await with @MainActor usage is consistent in core flows; background work is isolated via `Task.detached` with results marshalled back to the main actor ([RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193)).
+- Process lifecycle is deterministic: handlers are nilled and processes released after each termination, reducing retain-cycle risk ([RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323](RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323)).
 
-```
-RsyncUI/
-├── Main/                 # App entry points
-├── Model/                # Business logic & data models
-│   ├── Deeplink/        # URL scheme handling
-│   ├── Execution/       # Rsync execution logic
-│   ├── FilesAndCatalogs/# Volume & catalog management
-│   ├── Global/          # Observable state management
-│   ├── Process/         # Process handling
-│   └── [Other domains]
-├── Views/               # UI layer
-│   ├── Configurations/
-│   ├── Profiles/
-│   ├── Settings/
-│   └── [Other views]
-└── Preview Content/     # Design-time resources
-```
+## Logging & Diagnostics
+- OSLog wrappers gate debug logging behind `#if DEBUG`, keeping release builds quiet ([RsyncUI/Main/RsyncUIApp.swift#L82-L118](RsyncUI/Main/RsyncUIApp.swift#L82-L118)). No `print` usage in the codebase.
+- Centralized process reference updates emit debug breadcrumbs, aiding leak detection ([RsyncUI/Model/Global/SharedReference.swift#L82-L120](RsyncUI/Model/Global/SharedReference.swift#L82-L120)).
 
-**Assessment:** Excellent domain-driven organization. Clear separation between business logic (Model) and presentation (Views).
+## Testing Status
+- Implemented suites cover argument generation, deeplink URL creation, and configuration validation using the `Testing` framework ([RsyncUITests/RsyncUITests.swift#L17-L214](RsyncUITests/RsyncUITests.swift#L17-L214)).
+- Missing automated coverage for streaming handlers, tagging validation, error propagation paths, and log persistence.
 
-### 1.2 Module Dependencies
-
-**Strengths:**
-- Well-defined module boundaries
-- Limited cross-domain coupling
-- Clear unidirectional data flow through Observables
-- Proper use of @Observable for state management
-
-**Key Modules:**
-- **Global observables** - Centralized app state
-- **Execution models** - Encapsulated rsync logic
-- **Process handlers** - Subprocess management
-- **View models** - Implicit through @Observable
+## Standards & Tooling
+- SwiftLint enabled with force unwrap/cast bans plus whitespace/import/order rules; line/function/type length caps are modest ([.swiftlint.yml#L1-L12](.swiftlint.yml#L1-L12)).
+- No CI workflow present; lint/build compliance depends on local discipline.
 
 ---
 
-## 2. Safety & Reliability
+## Recommended Actions (Next 2-3 Iterations)
+1) Eliminate sentinel `-1` defaults for SSH and user config: make ports optional/validated ints and convert tri-state ints to real booleans or enums. Start with [RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L85](RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L85), [RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24](RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24), and [RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124](RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124).
+2) Add CI: GitHub Actions job running SwiftLint + `xcodebuild -scheme RsyncUI build` on macOS to block regressions.
+3) Implement telemetry counters for default-stats fallbacks and rsync error detections (per TODO) to observe silent failures without user alerts.
+4) Expand tests to cover streaming execution and error-tagging flows: estimations with >alerttagginglines outputs, interrupted processes, and log persistence success/failure.
+5) Consider tightening lint thresholds (cyclomatic complexity, tighter function length) after above changes stabilize.
 
-### 2.1 Type Safety ✅ EXCELLENT
-
-**Force Unwrapping:** Zero violations
-- No `!` operators in production code
-- All optionals properly handled with guard, if-let, or nil coalescing
-- SwiftLint rules enforced
-
-**Force Casting:** Zero violations
-- All type conversions use safe `as?` patterns
-- No `as!` operators detected
-
-**Impact:** Eliminates entire categories of runtime crashes.
-
-### 2.2 Optional Handling Patterns
-
-**Current Patterns:**
-```swift
-// Pattern 1: Sentinel values (~30 occurrences)
-let config = getConfig(hiddenID ?? -1)  // ⚠️ Magic number
-
-// Pattern 2: Guard chains (preferred)
-guard let hiddenID = hiddenID,
-      let config = getConfig(hiddenID)
-else { return }
-
-// Pattern 3: if-let binding
-if let value = optional {
-    // use value
-}
-```
-
-**Recommendation:** Progressively migrate sentinel patterns to explicit guard chains for improved readability and type safety.
-
-**Recent Progress (Dec 22-25, 2025):** Significant reduction in sentinel values achieved. Estimate.swift and Execute.swift now use proper guard chains for hiddenID handling, reducing total instances by ~33%.
-
-### 2.3 Error Handling ✅ STRONG
-
-**Implementation Quality:**
-- 20+ proper do-catch blocks
-- Errors logged with context
-- No generic error swallowing
-- Appropriate use of try? (3 instances, all justified)
-
-**Example Pattern:**
-```swift
-do {
-    let data = try decoder.decode(Configuration.self, from: jsonData)
-    return data
-} catch {
-    logger.error("Failed to decode: \(error.localizedDescription)")
-    throw ConfigurationError.decodingFailed(error)
-}
-```
+## Residual Risks
+- Configuration ambiguity from sentinel values may cause subtle differences between “unset” and “false” in future refactors until cleaned up.
+- Lack of CI means lint/build breaks could slip through reviews.
+- No automated testing of process interruption and cleanup; regressions might only appear at runtime.
 
 ---
 
-## 3. Concurrency & Performance
-
-### 3.1 Modern Swift Concurrency ✅ EXCELLENT
-
-**Adoption:**
-- ✅ Async/await throughout codebase
-- ✅ @MainActor for UI state
-- ✅ Swift actors for thread-safe state
-- ✅ Proper isolation levels
-- ✅ No callback pyramids
-
-**Example:**
-```swift
-@MainActor
-class ObservableExecutionState {
-    @Published var isRunning: Bool = false
-    
-    func execute(async) {
-        isRunning = true
-        defer { isRunning = false }
-        // execution logic
-    }
-}
-```
-
-**Performance Impact:** Eliminates race conditions and improves responsiveness.
-
-### 3.2 Process Streaming & Output Processing ✅ EXCELLENT
-
-**Status:** RsyncProcessStreaming simplified and current
-- All process execution uses `RsyncProcessStreaming` package
-- Consolidated `ProcessHandlers` builder with built-in cleanup
-- Event-driven handlers: `processOutput`, `processTermination`, with optional file handler toggle
-- Strong reference patterns with explicit post-termination cleanup to avoid leaks
-- Streaming output enables real-time progress updates without extra plumbing
-
-**Output Processing - ParseRsyncOutput Package:**
-- ✅ Extracted into standalone package: [ParseRsyncOutput](https://github.com/rsyncOSX/ParseRsyncOutput)
-- Integrated into RsyncUI via XCRemoteSwiftPackageReference
-- Comprehensive unit tests with real rsync output fixtures
-- Reusable across multiple projects for consistency
-- Handles tail trimming, error detection, and format normalization
-
----
-
-## 4. Code Quality Standards
-
-### 4.1 Naming Conventions ✅ EXCELLENT
-
-**Observations:**
-- Clear, descriptive class names
-- Consistent abbreviations (e.g., `Ssh` for SSH, `Rsync` for rsync)
-- Boolean properties prefixed with `is` or `has`
-- Action methods use verb prefixes
-
-**Examples:**
-- `ObservableOutputfromrsync` - Clear purpose
-- `EstimateExecute` - Describes action
-- `CatalogForProfile` - Relationship clear
-- `isExecuting` - Boolean naming pattern
-
-### 4.2 Code Organization
-
-**File Size Analysis:**
-- Most files: 100-400 lines (optimal)
-- Some utility files: 500-700 lines (acceptable)
-- Clear separation of concerns within files
-
-**Consistency:**
-- Consistent property organization (state, computed properties, methods)
-- Logical method grouping
-- MARK comments used effectively
-
-### 4.3 SwiftLint Compliance
-
-**Current Configuration:**
-- 2 rules actively enforced
-- **Recommendation:** Expand to include:
-  - `trailing_whitespace`
-  - `line_length` (120 character limit)
-  - `cyclomatic_complexity`
-  - `function_body_length`
-  - `type_body_length`
-
-### 4.4 Magic Numbers & Constants
-
-**Identified Issues:**
-```swift
-// Examples of magic numbers
-if count > 20 { ... }          // ⚠️ Threshold undefined
-let timeout = 30000            // ⚠️ Milliseconds?
-let bufferSize = 4096          // ⚠️ Purpose unclear
-```
-
-**Recommendation:** Extract to named constants:
-```swift
-private let largeTransferThreshold = 20
-private let processTimeoutMilliseconds = 30000
-private let fileBufferSizeBytes = 4096
-```
-
----
-
-## 5. Logging & Debugging
-
-### 5.1 OSLog Implementation ✅ EXCELLENT
-
-**Status:** Professional logging throughout
-
-**Patterns:**
-- Using `OSLog` subsystem and category
-- Appropriate log levels (debug, info, error)
-- Contextual information included
-- Zero `print()` statements
-- **Smart DEBUG flag usage:** Internal app logging only active in DEBUG builds
-
-**Example:**
-```swift
-let logger = Logger(subsystem: "com.rsyncui", category: "Execution")
-logger.info("Starting rsync: \(command)")
-logger.error("Process failed: \(error)")
-
-// DEBUG-only logging (zero overhead in release builds)
-func debugMessageOnly(_ message: String) {
-    #if DEBUG
-        debug("\(message)")
-    #endif
-}
-```
-
-**Impact:** Production-ready debugging capability with minimal performance overhead. Internal app state logging has zero overhead in release builds due to `#if DEBUG` compilation flags.
-
-### 5.2 Error Messages
-
-**Quality:** Contextual and actionable
-- Include operation being attempted
-- Show relevant parameters (sanitized)
-- Guide toward recovery when possible
-
----
-
-## 6. Testing & Verification
-
-### 6.1 Unit Testing
-
-**Status:** Coverage improving
-- Test target: `RsyncUITests`
-- New suites cover arguments generation, deeplink URL creation, and configuration validation (using `@Suite` + `@Test` in `Testing` framework)
-
-**Recommendation:** Continue expanding tests for:
-1. **Model layer** (highest ROI)
-   - Configuration validation
-   - Process argument generation
-   - Schedule calculation
-   
-2. **Data layer**
-   - JSON encoding/decoding
-   - File I/O operations
-   - Catalog operations
-
-3. **Critical paths**
-   - Execute flow
-   - Estimate logic
-   - Error recovery
-
-**Example Test Structure:**
-```swift
-class ConfigurationTests: XCTestCase {
-    func testValidConfigurationCreation() {
-        let config = Configuration(name: "Test", path: "/tmp")
-        XCTAssertEqual(config.name, "Test")
-    }
-    
-    func testInvalidConfigurationRejected() {
-        XCTAssertThrowsError(
-            try Configuration(name: "", path: "")
-        )
-    }
-}
-```
-
-### 6.2 Manual Testing & QA
-
-**Strengths:**
-- Extensive preview content for design verification
-- Multiple configuration examples
-- Edge case handling observable in code
-
----
-
-## 7. Dependencies & Frameworks
-
-### 7.1 Framework Usage
-
-**Core Frameworks:**
-- SwiftUI - Modern UI framework
-- Foundation - Standard library
-- OSLog - System logging
-- Combine - Reactive patterns (being phased out for @Observable)
-
-**Internal Packages (owned):**
-- ParseRsyncOutput - Output parsing and processing (comprehensive test coverage)
-- RsyncProcessStreaming - Unified streaming process execution
-- RsyncArguments - Argument generation
-- ProcessCommand - Process handling utilities
-- Other domain-specific packages
-
-**External Dependencies:** None detected (excellent for stability)
-
-**Apple Frameworks Utilized:**
-- AppKit/Cocoa - Native macOS integration
-- NaturalLanguage - Possibly for processing
-- Combine/Observation - State management
-
-### 7.2 Dependency Analysis
-
-**Strengths:**
-- Minimal external dependencies
-- Heavy reliance on system frameworks (stable)
-- Clear abstraction layers
-
----
-
-## 8. Performance Characteristics
-
-### 8.1 Memory Management
-
-**Observations:**
-- No memory leaks detected in analysis
-- Proper lifecycle management with @MainActor
-- Careful handling of async resources
-
-### 8.2 Resource Usage
-
-**Identified Concerns:**
-1. **Process spawning** - Each rsync operation creates subprocess
-   - Mitigation: Queuing likely implemented
-   
-2. **File I/O** - JSON configuration files accessed frequently
-   - Mitigation: Caching through observables
-
-3. **Logging volume** - Two distinct types:
-   - **Rsync output:** Always captured and displayed to users (operational necessity - shows sync progress, file transfers, errors)
-   - **Internal debugging:** Only active behind `#if DEBUG` flag (zero overhead in production)
-   - Mitigation: OSLog handles efficiently; DEBUG logs compiled out in release builds
-
----
-
-## 9. Security Considerations
-
-### 9.1 Input Validation
-
-**Status:** Appears comprehensive
-- Path validation (implies checks)
-- Command argument construction (shell-safe patterns)
-- SSH key handling (centralized)
-
-**Recommendations:**
-```swift
-// Validate user input before use
-func validatePath(_ path: String) -> Bool {
-    return !path.isEmpty && FileManager.default.fileExists(atPath: path)
-}
-
-// Sanitize shell arguments
-func escapeShellArgument(_ argument: String) -> String {
+## Quick Reference
+- App lifecycle cleanup: [RsyncUI/Main/RsyncUIApp.swift#L15-L90](RsyncUI/Main/RsyncUIApp.swift#L15-L90)
+- Shared process state/kill guard: [RsyncUI/Model/Global/SharedReference.swift#L82-L120](RsyncUI/Model/Global/SharedReference.swift#L82-L120)
+- Streaming handler lifecycle (model): [RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193), [RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323](RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323)
+- Streaming handler lifecycle (view): [RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118](RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118)
+- Tests in place today: [RsyncUITests/RsyncUITests.swift#L17-L214](RsyncUITests/RsyncUITests.swift#L17-L214)
     // Implement shell-safe escaping
 }
 ```

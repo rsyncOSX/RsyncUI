@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 13/12/2025.
 //
+// swiftlint:disable file_length
 import OSLog
 import SwiftUI
 
@@ -439,3 +440,4 @@ extension AddTaskView {
         (rsyncUIdata.configurations?.filter { $0.parameter4?.isEmpty == false }.count ?? 0) > 0
     }
 }
+// swiftlint:enable file_length

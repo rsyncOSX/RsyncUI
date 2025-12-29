@@ -63,11 +63,9 @@ struct ProfileView: View {
         }
         .toolbar {
             ToolbarItem(placement: .automatic) {
-                Button(action: {
+                Button("", systemImage: "plus", action: {
                     showAddProfileSheet = true
-                }) {
-                    Image(systemName: "plus")
-                }
+                })
                 .help("Add new profile")
             }
         }
