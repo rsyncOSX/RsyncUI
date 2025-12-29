@@ -62,7 +62,7 @@ struct AddTaskView: View {
 
                     Spacer()
                 }
-                if showhelp { helpSheetView }
+                if showhelp, showinspector == false { helpSheetView }
             }
         }
         .onSubmit { handleSubmit() }

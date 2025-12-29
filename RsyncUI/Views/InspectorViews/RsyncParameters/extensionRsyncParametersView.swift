@@ -12,20 +12,12 @@ import SwiftUI
 extension RsyncParametersView {
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
-        ToolbarItem {
-            Button {
-                showcommand.toggle()
-            } label: {
-                Image(systemName: "command")
-            }
-            .help("Show rsync command")
-        }
 
         ToolbarItem {
             Button {
                 presentarguments = true
             } label: {
-                Image(systemName: "command.circle.fill")
+                Image(systemName: "command")
             }
             .help("Show arguments")
         }
@@ -122,23 +114,6 @@ extension RsyncParametersView {
             }
         }
     }
-}
-
-// MARK: - Inspector Components
-
-extension RsyncParametersView {
-    /*
-     @ViewBuilder
-     func inspectorSummary(_ config: SynchronizeConfiguration) -> some View {
-         HStack {
-             addupdateButton
-             VStack(alignment: .leading, spacing: 4) {
-                 Text(config.backupID).font(.headline)
-                 Text(config.task).font(.subheadline).foregroundStyle(.secondary)
-             }
-         }
-     }
-     */
 }
 
 // MARK: - Buttons
