@@ -199,7 +199,7 @@ extension AddTaskView {
             }
         }
         .padding()
-        .frame(maxWidth: 420)
+        .frame(maxWidth: 500)
         .background(.thinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }

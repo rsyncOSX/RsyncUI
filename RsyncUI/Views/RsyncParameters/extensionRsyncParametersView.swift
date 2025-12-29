@@ -46,19 +46,19 @@ extension RsyncParametersView {
                 inspectorSummary(selectedconfig)
 
                 VStack(alignment: .leading, spacing: 8) {
-                    EditRsyncParameter(200, $parameters.parameter8)
+                    EditRsyncParameter(250, $parameters.parameter8)
                         .onChange(of: parameters.parameter8) { parameters.configuration?.parameter8 = parameters.parameter8 }
-                    EditRsyncParameter(200, $parameters.parameter9)
+                    EditRsyncParameter(250, $parameters.parameter9)
                         .onChange(of: parameters.parameter9) { parameters.configuration?.parameter9 = parameters.parameter9 }
-                    EditRsyncParameter(200, $parameters.parameter10)
+                    EditRsyncParameter(250, $parameters.parameter10)
                         .onChange(of: parameters.parameter10) { parameters.configuration?.parameter10 = parameters.parameter10 }
-                    EditRsyncParameter(200, $parameters.parameter11)
+                    EditRsyncParameter(250, $parameters.parameter11)
                         .onChange(of: parameters.parameter11) { parameters.configuration?.parameter11 = parameters.parameter11 }
-                    EditRsyncParameter(200, $parameters.parameter12)
+                    EditRsyncParameter(250, $parameters.parameter12)
                         .onChange(of: parameters.parameter12) { parameters.configuration?.parameter12 = parameters.parameter12 }
-                    EditRsyncParameter(200, $parameters.parameter13)
+                    EditRsyncParameter(250, $parameters.parameter13)
                         .onChange(of: parameters.parameter13) { parameters.configuration?.parameter13 = parameters.parameter13 }
-                    EditRsyncParameter(200, $parameters.parameter14)
+                    EditRsyncParameter(250, $parameters.parameter14)
                         .onChange(of: parameters.parameter14) { parameters.configuration?.parameter14 = parameters.parameter14 }
                 }
 
@@ -101,7 +101,7 @@ extension RsyncParametersView {
             }
         }
         .padding()
-        .frame(maxWidth: 420)
+        .frame(maxWidth: 500)
         .background(.thinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
