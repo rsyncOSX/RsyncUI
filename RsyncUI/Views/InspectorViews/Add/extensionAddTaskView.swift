@@ -27,10 +27,7 @@ extension AddTaskView {
     }
 }
 
-// MARK: - View Builders
-
 extension AddTaskView {
-    
     var catalogSectionView: some View {
         Group {
             if newdata.selectedrsynccommand == .syncremote {
@@ -80,7 +77,6 @@ extension AddTaskView {
 
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
-        
         ToolbarItem {
             Button {
                 newdata.resetForm()
@@ -97,12 +93,12 @@ extension AddTaskView {
                 label: { Image(systemName: "globe") }
                 .help("Global change and update")
         }
-        
+
         ToolbarItem {
             ToggleViewToolbar(text: "Tasks",
                               binding: $togglechooseview)
         }
-        
+
         ToolbarItem {
             Spacer()
         }
@@ -175,8 +171,6 @@ extension AddTaskView {
                             pickerselecttypeoftask
                             trailingslash
                         }
-
-                        updateButton
                     }
                 }
 
@@ -207,7 +201,7 @@ extension AddTaskView {
     @ViewBuilder
     func inspectorSummary(_ config: SynchronizeConfiguration) -> some View {
         HStack {
-            addButton
+            updateButton
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(config.backupID).font(.headline)

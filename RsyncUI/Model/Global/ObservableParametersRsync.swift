@@ -29,7 +29,7 @@ final class ObservableParametersRsync {
     var sshcreatekey: SSHCreateKey?
     // Add parameters
     var adddelete: Bool = false
-    
+
     let helptext1 = "Red Synchronize ID\n means --delete parameter is ADDED\nTo REMOVE --delete parameter uncheck"
     let helptext2 = "To ADD --delete parameter check"
 

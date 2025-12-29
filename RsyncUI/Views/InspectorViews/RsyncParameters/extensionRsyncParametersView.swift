@@ -8,13 +8,34 @@
 import SwiftUI
 
 extension RsyncParametersView {
+    @ToolbarContentBuilder
+    var toolbarContent: some ToolbarContent {
+        ToolbarItem {
+            Button {
+                presentarguments = true
+            } label: {
+                Image(systemName: "command")
+            }
+            .help("Show arguments")
+        }
+
+        ToolbarItem {
+            ToggleViewToolbar(text: "Parameter",
+                              binding: $togglechooseview)
+        }
+
+        ToolbarItem {
+            Spacer()
+        }
+    }
+
     func clearSelection() {
         selectedconfig = nil
         selecteduuids.removeAll()
         parameters.reset()
         backup = false
     }
-    
+
     func saveRsyncParameters() {
         if let updatedconfiguration = parameters.updatersyncparameters(),
            let configurations = rsyncUIdata.configurations {
@@ -40,7 +61,6 @@ extension RsyncParametersView {
                         .help("Clear selection")
                 }
             }
-
 
             if let selectedconfig {
                 inspectorSummary(selectedconfig)

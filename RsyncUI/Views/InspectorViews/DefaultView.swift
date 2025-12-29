@@ -11,19 +11,21 @@ struct DefaultView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @State private var togglechooseview: Bool = true
-    
-    
+
     var body: some View {
         Group {
-            if togglechooseview  {
+            if togglechooseview {
                 AddTaskView(rsyncUIdata: rsyncUIdata,
                             selecteduuids: $selecteduuids,
                             togglechooseview: $togglechooseview)
             } else {
                 RsyncParametersView(rsyncUIdata: rsyncUIdata,
-                       selecteduuids: $selecteduuids,
-                        togglechooseview: $togglechooseview)
+                                    selecteduuids: $selecteduuids,
+                                    togglechooseview: $togglechooseview)
             }
+        }
+        .onChange(of: togglechooseview) {
+            selecteduuids.removeAll()
         }
     }
 }

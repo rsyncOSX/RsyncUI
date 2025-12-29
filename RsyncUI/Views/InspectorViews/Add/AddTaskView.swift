@@ -39,7 +39,7 @@ struct AddTaskView: View {
     @State var stringestimate: String = ""
     @State var showhelp: Bool = false
     @State var showAddPopover: Bool = false
-    
+
     @State var presentglobaltaskview: Bool = false
 
     var body: some View {

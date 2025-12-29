@@ -54,14 +54,14 @@ struct ToggleViewToolbar: View {
     private var mytext: String
     private var mybinding: Binding<Bool>
 
-    var body:  some View {
+    var body: some View {
         Toggle(isOn: mybinding) {
             Text(mytext)
-                .font(.caption)  // Smaller text
-                .foregroundColor(mybinding.wrappedValue ? . blue : (colorScheme == . dark ? .white : .black))
+                .font(.caption) // Smaller text
+                .foregroundColor(mybinding.wrappedValue ? .blue : (colorScheme == .dark ? .white : .black))
         }
         .toggleStyle(.switch)
-        .controlSize(.small)  // Smaller switch
+        .controlSize(.small) // Smaller switch
     }
 
     init(text: String, binding: Binding<Bool>) {
