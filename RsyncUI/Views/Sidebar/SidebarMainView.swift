@@ -53,6 +53,8 @@ struct SidebarMainView: View {
     // Calendar
     @State private var schedules = ObservableSchedules()
     let globaltimer = GlobalTimer.shared
+    // Save output from real synchronize task to logfile
+    @State var saveactualsynclogdata: Bool = false
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
@@ -101,6 +103,11 @@ struct SidebarMainView: View {
                             mountingvolumenow = false
                         }
                     }
+            }
+            
+            if saveactualsynclogdata {
+                MessageView(mytext: "Save synchronize log\nto logfile", size: .caption2)
+                    .padding([.bottom], -30)
             }
 
             // Next scheduled action
@@ -215,7 +222,8 @@ struct SidebarMainView: View {
                              queryitem: $queryitem,
                              urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
                              columnVisibility: $columnVisibility,
-                             selectedprofileID: $selectedprofileID)
+                             selectedprofileID: $selectedprofileID,
+                             saveactualsynclogdata: $saveactualsynclogdata)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, selectedprofileID: $selectedprofileID)
         case .verify_tasks:

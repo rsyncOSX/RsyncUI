@@ -184,6 +184,15 @@ extension TasksView {
                     }
                     .help("View logfile")
                 }
+                
+                ToolbarItem {
+                    Button {
+                        saveactualsynclogdata.toggle()
+                    } label: {
+                        Image(systemName: "square.and.arrow.down")
+                    }
+                    .help("Save actual synchronize log to logfile")
+                }
             }
         }
 
