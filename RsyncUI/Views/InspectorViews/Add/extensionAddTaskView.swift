@@ -8,7 +8,7 @@
 import OSLog
 import SwiftUI
 
-// MARK: - Main Actions
+// MARK: - Configuration Actions
 
 extension AddTaskView {
     func addConfig() {
@@ -28,6 +28,8 @@ extension AddTaskView {
     }
 }
 
+// MARK: - View Builders
+
 extension AddTaskView {
     var catalogSectionView: some View {
         Group {
@@ -39,7 +41,11 @@ extension AddTaskView {
             }
         }
     }
+}
 
+// MARK: - Buttons
+
+extension AddTaskView {
     var addButton: some View {
         ConditionalGlassButton(systemImage: "plus", text: "Add", helpText: "Add task") {
             addConfig()
@@ -67,7 +73,11 @@ extension AddTaskView {
             }
         }
     }
+}
 
+// MARK: - Help & Toolbar
+
+extension AddTaskView {
     var helpSheetView: some View {
         switch newdata.whichhelptext {
         case 1: HelpView(text: newdata.helptext1, add: false, deleteparameterpresent: false)
@@ -106,7 +116,7 @@ extension AddTaskView {
     }
 }
 
-// MARK: - Task List View
+// MARK: - Task List & Inspector Views
 
 extension AddTaskView {
     var addTaskSheetView: some View {
@@ -213,7 +223,7 @@ extension AddTaskView {
     }
 }
 
-// MARK: - Form Sections
+// MARK: - Form Field Sections
 
 extension AddTaskView {
     var synchronizeID: some View {
@@ -311,7 +321,7 @@ extension AddTaskView {
     }
 }
 
-// MARK: - Pickers
+// MARK: - Picker Controls
 
 extension AddTaskView {
     var trailingslash: some View {
@@ -337,7 +347,7 @@ extension AddTaskView {
     }
 }
 
-// MARK: - Event Handlers
+// MARK: - Business Logic & User Actions
 
 extension AddTaskView {
     func clearSelection() {
