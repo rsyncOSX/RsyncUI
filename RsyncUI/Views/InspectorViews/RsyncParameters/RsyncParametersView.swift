@@ -31,10 +31,10 @@ struct RsyncParametersView: View {
                                     whichhelptext: $parameters.whichhelptext,
                                     deleteparameterpresent: deleteparameterpresent)
                     taskListView
-                    
+
                     Spacer()
                 }
-                
+
                 if showhelp { helpSheetView }
             }
             .inspector(isPresented: $showinspector) {

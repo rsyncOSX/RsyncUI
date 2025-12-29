@@ -30,7 +30,7 @@ struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var togglechooseview: Bool
-    
+
     @FocusState var focusField: AddConfigurationField?
 
     @State var newdata = ObservableAddConfigurations()

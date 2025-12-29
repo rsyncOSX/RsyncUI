@@ -144,6 +144,7 @@ extension AddTaskView {
         }
         .padding()
         .frame(minWidth: 500)
+        .onSubmit { handleSubmit() }
     }
 
     var taskListView: some View {
@@ -162,35 +163,32 @@ extension AddTaskView {
         return count == 1 ? "Copy 1 configuration" : "Copy \(count) configurations"
     }
 
-    
     var inspectorView: some View {
         VStack(alignment: .leading, spacing: 12) {
-            
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack {
-                        updateButton
-                        
-                        VStack(alignment: .leading) {
-                            pickerselecttypeoftask
-                            trailingslash
-                        }
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    updateButton
+
+                    VStack(alignment: .leading) {
+                        pickerselecttypeoftask
+                        trailingslash
                     }
                 }
+            }
 
-                synchronizeID
-                catalogSectionView
+            synchronizeID
+            catalogSectionView
 
-                VStack(alignment: .leading) { remoteuserandserver }
+            VStack(alignment: .leading) { remoteuserandserver }
                 .disabled(selectedconfig?.task == SharedReference.shared.snapshot)
 
-                if selectedconfig?.task == SharedReference.shared.snapshot {
-                    VStack(alignment: .leading) { snapshotnum }
-                }
-
-                saveURLSection
-
+            if selectedconfig?.task == SharedReference.shared.snapshot {
+                VStack(alignment: .leading) { snapshotnum }
             }
+
+            saveURLSection
         }
+    }
 
     @ViewBuilder
     func inspectorSummary(_ config: SynchronizeConfiguration) -> some View {
@@ -332,7 +330,6 @@ extension AddTaskView {
 // MARK: - Business Logic & User Actions
 
 extension AddTaskView {
-    
     func clearSelection() {
         selecteduuids.removeAll()
         selectedconfig = nil
@@ -341,7 +338,7 @@ extension AddTaskView {
         changesnapshotnum = false
         stringestimate = ""
     }
-    
+
     func handleSubmit() {
         switch focusField {
         case .synchronizeIDField: focusField = .localcatalogField
