@@ -74,7 +74,7 @@ final class SharedReference {
     // Mac serialnumer
     @ObservationIgnored var macserialnumber: String?
     // Reference to the active process
-    @ObservationIgnored var process: Process?
+    var process: Process?
     // Object for propogate errors to views
     @ObservationIgnored var errorobject: AlertError?
     // let bundleIdentifier: String = "no.blogspot.RsyncUI"

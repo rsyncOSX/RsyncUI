@@ -226,7 +226,6 @@ struct SidebarMainView: View {
 
     var disablesidebarmeny: Bool {
         executetaskpath.isEmpty == false ||
-            // verifypath.isEmpty == false ||
             SharedReference.shared.process != nil
     }
 
