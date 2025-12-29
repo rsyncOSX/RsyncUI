@@ -95,6 +95,7 @@ extension AddTaskView {
             } label: {
                 Image(systemName: "command")
             }
+            .help("Show rsync command")
         }
 
         ToolbarItem {

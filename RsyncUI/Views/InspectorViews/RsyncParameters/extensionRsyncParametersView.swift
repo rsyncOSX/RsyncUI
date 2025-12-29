@@ -18,13 +18,14 @@ extension RsyncParametersView {
             } label: {
                 Image(systemName: "command")
             }
+            .help("Show rsync command")
         }
 
         ToolbarItem {
             Button {
                 presentarguments = true
             } label: {
-                Image(systemName: "command")
+                Image(systemName: "command.circle.fill")
             }
             .help("Show arguments")
         }
