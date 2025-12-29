@@ -104,7 +104,7 @@ struct SidebarMainView: View {
                         }
                     }
             }
-            
+
             if saveactualsynclogdata {
                 MessageView(mytext: "Save synchronize log\nto logfile", size: .caption2)
                     .padding([.bottom], -30)

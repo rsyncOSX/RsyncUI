@@ -143,7 +143,7 @@ struct AddProfileSheet: View {
                     addProfile()
                     showSheet = false
                 }
-                
+
                 Button("Cancel") {
                     showSheet = false
                 }

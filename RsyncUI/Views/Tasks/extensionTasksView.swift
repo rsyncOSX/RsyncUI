@@ -184,7 +184,7 @@ extension TasksView {
                     }
                     .help("View logfile")
                 }
-                
+
                 ToolbarItem {
                     Button {
                         saveactualsynclogdata.toggle()
