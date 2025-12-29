@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - Toolbar
+
 extension RsyncParametersView {
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
@@ -28,7 +30,11 @@ extension RsyncParametersView {
             Spacer()
         }
     }
+}
 
+// MARK: - Business Logic & Actions
+
+extension RsyncParametersView {
     func clearSelection() {
         selectedconfig = nil
         selecteduuids.removeAll()
@@ -48,7 +54,11 @@ extension RsyncParametersView {
             selectedconfig = nil
         }
     }
+}
 
+// MARK: - Inspector View
+
+extension RsyncParametersView {
     var inspectorView: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
@@ -125,7 +135,11 @@ extension RsyncParametersView {
         .background(.thinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
+}
 
+// MARK: - Inspector Components
+
+extension RsyncParametersView {
     @ViewBuilder
     func inspectorSummary(_ config: SynchronizeConfiguration) -> some View {
         HStack {
@@ -136,7 +150,11 @@ extension RsyncParametersView {
             }
         }
     }
+}
 
+// MARK: - Buttons
+
+extension RsyncParametersView {
     var addupdateButton: some View {
         if notifydataisupdated {
             ConditionalGlassButton(
@@ -162,7 +180,11 @@ extension RsyncParametersView {
             .padding(.bottom, 10)
         }
     }
+}
 
+// MARK: - Computed Properties
+
+extension RsyncParametersView {
     var currentFlagStrings: [String] {
         [parameters.parameter8,
          parameters.parameter9,
@@ -172,12 +194,20 @@ extension RsyncParametersView {
          parameters.parameter13,
          parameters.parameter14].filter { $0.isEmpty == false }
     }
+}
 
+// MARK: - Task List View
+
+extension RsyncParametersView {
     var taskListView: some View {
         ListofTasksAddView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
             .onChange(of: selecteduuids) { handleSelectionChange() }
     }
+}
 
+// MARK: - Event Handlers
+
+extension RsyncParametersView {
     func handleSelectionChange() {
         if let configurations = rsyncUIdata.configurations {
             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
@@ -194,7 +224,11 @@ extension RsyncParametersView {
             }
         }
     }
+}
 
+// MARK: - SSH Configuration Fields
+
+extension RsyncParametersView {
     var setsshpath: some View {
         EditValueErrorScheme(300, "ssh-keypath and identityfile",
                              $parameters.sshkeypathandidentityfile,
@@ -205,7 +239,11 @@ extension RsyncParametersView {
         EditValueErrorScheme(150, "ssh-port", $parameters.sshport,
                              parameters.setsshport(parameters.sshport))
     }
+}
 
+// MARK: - State Properties
+
+extension RsyncParametersView {
     var notifydataisupdated: Bool {
         guard let selectedconfig else { return false }
         if parameters.parameter8 != (selectedconfig.parameter8 ?? "") ||
@@ -228,7 +266,11 @@ extension RsyncParametersView {
         let parameter = rsyncUIdata.configurations?.filter { $0.parameter4?.isEmpty == false }
         return parameter?.count ?? 0 > 0
     }
+}
 
+// MARK: - Help View
+
+extension RsyncParametersView {
     var helpSheetView: some View {
         switch parameters.whichhelptext {
         case 1: HelpView(text: parameters.helptext1, add: false, deleteparameterpresent: false)
