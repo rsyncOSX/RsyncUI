@@ -78,26 +78,26 @@ struct HelpSectionView: View {
     let deleteparameterpresent: Bool
 
     var body: some View {
-            if deleteparameterpresent {
-                HStack {
-                    Text("If \(Text("red Synchronize ID").foregroundColor(.red)) click")
-                    Button { whichhelptext = 1; showhelp.toggle() }
-                        label: { Image(systemName: "questionmark.circle") }
-                        .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
-                    Text("for more information")
-                }
-                .padding(.bottom, 10)
-            } else {
-                HStack {
-                    Text("To add --delete click")
-                    Button { whichhelptext = 2; showhelp.toggle() }
-                        label: { Image(systemName: "questionmark.circle") }
-                        .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
-                    Text("for more information")
-                }
-                .padding(.bottom, 10)
+        if deleteparameterpresent {
+            HStack {
+                Text("If \(Text("red Synchronize ID").foregroundColor(.red)) click")
+                Button { whichhelptext = 1; showhelp.toggle() }
+                    label: { Image(systemName: "questionmark.circle") }
+                    .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
+                Text("for more information")
             }
+            .padding(.bottom, 10)
+        } else {
+            HStack {
+                Text("To add --delete click")
+                Button { whichhelptext = 2; showhelp.toggle() }
+                    label: { Image(systemName: "questionmark.circle") }
+                    .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
+                Text("for more information")
+            }
+            .padding(.bottom, 10)
         }
+    }
 }
 
 // swiftlint:enable line_length
