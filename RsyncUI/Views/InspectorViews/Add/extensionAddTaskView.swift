@@ -24,7 +24,8 @@ extension AddTaskView {
     func validateAndUpdate() {
         let profile = rsyncUIdata.profile
         rsyncUIdata.configurations = newdata.updateConfig(profile, rsyncUIdata.configurations)
-        selecteduuids.removeAll()
+        // Reset after Update
+        clearSelection()
     }
 }
 
@@ -161,6 +162,7 @@ extension AddTaskView {
         return count == 1 ? "Copy 1 configuration" : "Copy \(count) configurations"
     }
 
+/*
     var inspectorView: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
@@ -209,6 +211,36 @@ extension AddTaskView {
         .background(.thinMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
+*/
+    
+    var inspectorView: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        updateButton
+                        
+                        VStack(alignment: .leading) {
+                            pickerselecttypeoftask
+                            trailingslash
+                        }
+                    }
+                }
+
+                synchronizeID
+                catalogSectionView
+
+                VStack(alignment: .leading) { remoteuserandserver }
+                .disabled(selectedconfig?.task == SharedReference.shared.snapshot)
+
+                if selectedconfig?.task == SharedReference.shared.snapshot {
+                    VStack(alignment: .leading) { snapshotnum }
+                }
+
+                saveURLSection
+
+            }
+        }
 
     @ViewBuilder
     func inspectorSummary(_ config: SynchronizeConfiguration) -> some View {
@@ -350,6 +382,7 @@ extension AddTaskView {
 // MARK: - Business Logic & User Actions
 
 extension AddTaskView {
+    
     func clearSelection() {
         selecteduuids.removeAll()
         selectedconfig = nil
@@ -358,7 +391,7 @@ extension AddTaskView {
         changesnapshotnum = false
         stringestimate = ""
     }
-
+    
     func handleSubmit() {
         switch focusField {
         case .synchronizeIDField: focusField = .localcatalogField
@@ -389,17 +422,20 @@ extension AddTaskView {
     }
 
     func handleSelectionChange() {
-        guard let configurations = rsyncUIdata.configurations else { return }
-        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-            selectedconfig = configurations[index]
-            newdata.updateview(configurations[index])
-            updateURLString()
-            showhelp = false
-        } else {
-            selectedconfig = nil
-            newdata.updateview(nil)
-            stringestimate = ""
-            newdata.showsaveurls = false
+        showhelp = false
+        if let configurations = rsyncUIdata.configurations {
+            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                selectedconfig = configurations[index]
+                newdata.updateview(configurations[index])
+                updateURLString()
+                showinspector = true
+            } else {
+                selectedconfig = nil
+                newdata.updateview(nil)
+                stringestimate = ""
+                newdata.showsaveurls = false
+                showinspector = false
+            }
         }
     }
 

@@ -20,6 +20,8 @@ struct RsyncParametersView: View {
     @State var showhelp: Bool = false
     // Present arguments view
     @State var presentarguments: Bool = false
+    // Show Inspector view
+    @State var showinspector: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -29,41 +31,39 @@ struct RsyncParametersView: View {
                                     whichhelptext: $parameters.whichhelptext,
                                     deleteparameterpresent: deleteparameterpresent)
                     taskListView
-
+                    
                     Spacer()
                 }
-                if showhelp {
-                    helpSheetView
-                        .onAppear {
-                            clearSelection()
-                        }
-                } else {
-                    inspectorView
+                
+                if showhelp { helpSheetView }
+            }
+            .inspector(isPresented: $showinspector) {
+                inspectorView
+                    .inspectorColumnWidth(min: 300, ideal: 400, max: 500)
+            }
+            .onAppear {
+                if selecteduuids.count > 0 {
+                    // Reset preselected tasks, must do a few seconds timout
+                    // before clearing it out
+                    Task {
+                        try await Task.sleep(seconds: 2)
+                        selecteduuids.removeAll()
+                    }
                 }
             }
-        }
-        .onAppear {
-            if selecteduuids.count > 0 {
-                // Reset preselected tasks, must do a few seconds timout
-                // before clearing it out
-                Task {
-                    try await Task.sleep(seconds: 2)
-                    selecteduuids.removeAll()
-                }
+            .onChange(of: rsyncUIdata.profile) {
+                selectedconfig = nil
+                // selecteduuids.removeAll()
+                // done on Sidebar Main view
+                parameters.setvalues(selectedconfig)
+                backup = false
             }
+            .toolbar { toolbarContent }
+            .navigationTitle("Parameters for rsync: profile \(rsyncUIdata.profile ?? "Default")")
+            .navigationDestination(isPresented: $presentarguments) {
+                ArgumentsView(rsyncUIdata: rsyncUIdata)
+            }
+            .padding()
         }
-        .onChange(of: rsyncUIdata.profile) {
-            selectedconfig = nil
-            // selecteduuids.removeAll()
-            // done on Sidebar Main view
-            parameters.setvalues(selectedconfig)
-            backup = false
-        }
-        .toolbar { toolbarContent }
-        .navigationTitle("Parameters for rsync: profile \(rsyncUIdata.profile ?? "Default")")
-        .navigationDestination(isPresented: $presentarguments) {
-            ArgumentsView(rsyncUIdata: rsyncUIdata)
-        }
-        .padding()
     }
 }

@@ -41,6 +41,8 @@ struct AddTaskView: View {
     @State var showAddPopover: Bool = false
 
     @State var presentglobaltaskview: Bool = false
+    // Show Inspector view
+    @State var showinspector: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -53,14 +55,7 @@ struct AddTaskView: View {
 
                     Spacer()
                 }
-                if showhelp {
-                    helpSheetView
-                        .onAppear {
-                            clearSelection()
-                        }
-                } else {
-                    inspectorView
-                }
+                if showhelp { helpSheetView }
             }
         }
         .onSubmit { handleSubmit() }
@@ -72,5 +67,9 @@ struct AddTaskView: View {
             GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
         }
         .padding()
+        .inspector(isPresented: $showinspector) {
+            inspectorView
+                .inspectorColumnWidth(min: 300, ideal: 400, max: 500)
+        }
     }
 }

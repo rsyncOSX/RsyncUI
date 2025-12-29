@@ -35,6 +35,7 @@ extension RsyncParametersView {
 // MARK: - Business Logic & Actions
 
 extension RsyncParametersView {
+    
     func clearSelection() {
         selectedconfig = nil
         selecteduuids.removeAll()
@@ -50,8 +51,8 @@ extension RsyncParametersView {
                                      configurations: configurations)
             updateconfigurations.updateConfiguration(updatedconfiguration, true)
             rsyncUIdata.configurations = updateconfigurations.configurations
-            parameters.reset()
-            selectedconfig = nil
+            // Reset all after update
+            clearSelection()
         }
     }
 }
@@ -61,19 +62,8 @@ extension RsyncParametersView {
 extension RsyncParametersView {
     var inspectorView: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Text("Inspector").font(.title3).fontWeight(.bold)
-                Spacer()
-                if selectedconfig != nil {
-                    Button { clearSelection() }
-                        label: { Image(systemName: "xmark.circle") }
-                        .buttonStyle(.borderless)
-                        .help("Clear selection")
-                }
-            }
-
-            if let selectedconfig {
-                inspectorSummary(selectedconfig)
+            
+                addupdateButton
 
                 VStack(alignment: .leading, spacing: 8) {
                     EditRsyncParameter(250, $parameters.parameter8)
@@ -100,7 +90,7 @@ extension RsyncParametersView {
                     }
                 }
 
-                let isDeletePresent = selectedconfig.parameter4 == "--delete"
+                let isDeletePresent = selectedconfig?.parameter4 == "--delete"
                 let headerText = isDeletePresent ? "Remove --delete parameter" : "Add --delete parameter"
                 VStack(alignment: .leading, spacing: 8) {
                     Text(headerText)
@@ -124,22 +114,14 @@ extension RsyncParametersView {
                         }
                 }
 
-            } else {
-                Text("Select a task from the list to view and update its details.")
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
             }
-        }
-        .padding()
-        .frame(maxWidth: 500)
-        .background(.thinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }
 
 // MARK: - Inspector Components
 
 extension RsyncParametersView {
+    /*
     @ViewBuilder
     func inspectorSummary(_ config: SynchronizeConfiguration) -> some View {
         HStack {
@@ -150,6 +132,7 @@ extension RsyncParametersView {
             }
         }
     }
+    */
 }
 
 // MARK: - Buttons
@@ -209,6 +192,7 @@ extension RsyncParametersView {
 
 extension RsyncParametersView {
     func handleSelectionChange() {
+        showhelp = false
         if let configurations = rsyncUIdata.configurations {
             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                 selectedconfig = configurations[index]
@@ -216,11 +200,12 @@ extension RsyncParametersView {
                 if configurations[index].parameter12 != "--backup" {
                     backup = false
                 }
-                showhelp = false
+                showinspector = true
             } else {
                 selectedconfig = nil
                 parameters.setvalues(selectedconfig)
                 backup = false
+                showinspector = false
             }
         }
     }
