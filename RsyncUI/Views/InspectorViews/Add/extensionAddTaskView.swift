@@ -162,56 +162,6 @@ extension AddTaskView {
         return count == 1 ? "Copy 1 configuration" : "Copy \(count) configurations"
     }
 
-/*
-    var inspectorView: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Text("Inspector").font(.title3).fontWeight(.bold)
-                Spacer()
-                if selectedconfig != nil {
-                    Button { clearSelection() }
-                        label: { Image(systemName: "xmark.circle") }
-                        .buttonStyle(.borderless)
-                        .help("Clear selection")
-                }
-            }
-
-            if let selectedconfig {
-                inspectorSummary(selectedconfig)
-
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack {
-                        VStack(alignment: .leading) {
-                            pickerselecttypeoftask
-                            trailingslash
-                        }
-                    }
-                }
-
-                synchronizeID
-                catalogSectionView
-
-                VStack(alignment: .leading) { remoteuserandserver }
-                    .disabled(selectedconfig.task == SharedReference.shared.snapshot)
-
-                if selectedconfig.task == SharedReference.shared.snapshot {
-                    VStack(alignment: .leading) { snapshotnum }
-                }
-
-                saveURLSection
-
-            } else {
-                Text("Select a task from the list to view and update its details.")
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
-            }
-        }
-        .padding()
-        .frame(maxWidth: 500)
-        .background(.thinMaterial)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-    }
-*/
     
     var inspectorView: some View {
         VStack(alignment: .leading, spacing: 12) {
