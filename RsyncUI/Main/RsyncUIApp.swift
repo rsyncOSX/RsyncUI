@@ -22,7 +22,7 @@ struct RsyncUIApp: App {
                 .task {
                     Homepath().createRootProfileCatalog()
                 }
-                .frame(minWidth: 1100, idealWidth: 1300, minHeight: 510)
+                .frame(minWidth: 1100, idealWidth: 1300, minHeight: 550)
                 .sheet(isPresented: $showabout) { AboutView() }
                 .onDisappear {
                     // Quit the app when the main window is closed
