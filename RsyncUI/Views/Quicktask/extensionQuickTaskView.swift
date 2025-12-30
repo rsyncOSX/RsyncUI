@@ -56,12 +56,12 @@ extension QuicktaskView {
 
     func getConfigAndExecute() {
         let getdata = NewTask(selectedrsynccommand.rawValue,
-                                 localcatalog,
-                                 remotecatalog,
-                                 trailingslashoptions,
-                                 remoteuser,
-                                 remoteserver,
-                                 "")
+                              localcatalog,
+                              remotecatalog,
+                              trailingslashoptions,
+                              remoteuser,
+                              remoteserver,
+                              "")
 
         guard selectedrsynccommand != .notSelected else { return }
 

@@ -56,12 +56,12 @@ final class ObservableAddConfigurations {
 
     func addConfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
         let getdata = NewTask(selectedrsynccommand.rawValue,
-                                 localcatalog.replacingOccurrences(of: "\"", with: ""),
-                                 remotecatalog.replacingOccurrences(of: "\"", with: ""),
-                                 trailingslashoptions,
-                                 remoteuser,
-                                 remoteserver,
-                                 backupID)
+                              localcatalog.replacingOccurrences(of: "\"", with: ""),
+                              remotecatalog.replacingOccurrences(of: "\"", with: ""),
+                              trailingslashoptions,
+                              remoteuser,
+                              remoteserver,
+                              backupID)
         // If newconfig is verified add it
         if let newconfig = VerifyConfiguration().verify(getdata) {
             let updateconfigurations =
@@ -95,20 +95,20 @@ final class ObservableAddConfigurations {
         }
 
         if localcatalog.hasSuffix("/") == false,
-            remotecatalog.hasSuffix("/") == false {
+           remotecatalog.hasSuffix("/") == false {
             trailingslashoptions = .do_not_add
         }
 
         let updateddata = NewTask(selectedrsynccommand.rawValue,
-                                     localcatalog.replacingOccurrences(of: "\"", with: ""),
-                                     remotecatalog.replacingOccurrences(of: "\"", with: ""),
-                                     trailingslashoptions,
-                                     remoteuser,
-                                     remoteserver,
-                                     backupID,
-                                     selectedconfig?.hiddenID ?? -1,
-                                     Int(mysnapshotnum))
-        
+                                  localcatalog.replacingOccurrences(of: "\"", with: ""),
+                                  remotecatalog.replacingOccurrences(of: "\"", with: ""),
+                                  trailingslashoptions,
+                                  remoteuser,
+                                  remoteserver,
+                                  backupID,
+                                  selectedconfig?.hiddenID ?? -1,
+                                  Int(mysnapshotnum))
+
         if let updatedconfig = VerifyConfiguration().verify(updateddata) {
             let updateconfigurations =
                 UpdateConfigurations(profile: profile,

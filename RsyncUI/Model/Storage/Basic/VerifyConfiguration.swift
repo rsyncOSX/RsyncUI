@@ -37,7 +37,6 @@ enum ValidateInputError: LocalizedError {
 
 @MainActor
 final class VerifyConfiguration: Connected {
-    
     // Verify parameters for new config.
     func verify(_ data: NewTask) -> SynchronizeConfiguration? {
         var newconfig = SynchronizeConfiguration()

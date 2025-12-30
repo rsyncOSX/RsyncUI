@@ -181,20 +181,20 @@ extension AddTaskView {
     // Disable the Add+ button
     var disableadd: Bool {
         // Both catalogs must be provided
-        if newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty {
+        if newdata.localcatalog.isEmpty, newdata.remotecatalog.isEmpty {
             return true
         }
         // Can't have remoteuser without remoteserver
-        if newdata.remoteuser.isEmpty == false && newdata.remoteserver.isEmpty {
+        if newdata.remoteuser.isEmpty == false, newdata.remoteserver.isEmpty {
             return true
         }
         // Can't have remoteserver without remoteuser
-        if newdata.remoteuser.isEmpty && newdata.remoteserver.isEmpty == false {
+        if newdata.remoteuser.isEmpty, newdata.remoteserver.isEmpty == false {
             return true
         }
         // For syncremote command, both remoteuser AND remoteserver are required
-        if newdata.selectedrsynccommand.rawValue == "syncremote" &&
-            (newdata.remoteuser.isEmpty || newdata.remoteserver.isEmpty) {
+        if newdata.selectedrsynccommand.rawValue == "syncremote",
+           newdata.remoteuser.isEmpty || newdata.remoteserver.isEmpty {
             return true
         }
         return false
