@@ -12,7 +12,6 @@ import SwiftUI
 extension RsyncParametersView {
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
-
         ToolbarItem {
             Button {
                 presentarguments = true

@@ -89,7 +89,6 @@ extension AddTaskView {
 
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
-        
         if selectedconfig != nil {
             ToolbarItem {
                 Button {
@@ -100,7 +99,7 @@ extension AddTaskView {
                 .help("Show rsync command")
             }
         }
-        
+
         ToolbarItem {
             Button {
                 newdata.resetForm()
@@ -134,31 +133,28 @@ extension AddTaskView {
 extension AddTaskView {
     var addTaskSheetView: some View {
         VStack(alignment: .leading, spacing: 12) {
-            
             Text("Add Task").font(.headline)
-            
+
             HStack {
                 pickerselecttypeoftask
                 trailingslash
             }
-            
+
             synchronizeID
             catalogSectionView
             remoteuserandserver
-            
+
             HStack {
-                
                 ConditionalGlassButton(systemImage: "plus",
                                        text: "Add",
                                        helpText: "Add task") {
                     addConfig()
                     showAddPopover = false
                     newdata.resetForm()
-                }.disabled( disableadd)
-                                       
-                
+                }.disabled(disableadd)
+
                 Spacer()
-                
+
                 if #available(macOS 26.0, *) {
                     Button("Close", role: .close) {
                         showAddPopover = false
@@ -181,17 +177,17 @@ extension AddTaskView {
         .frame(minWidth: 500)
         .onSubmit { handleSubmit() }
     }
-    
+
     // Disable the Add+ button
     var disableadd: Bool {
         if newdata.selectedrsynccommand.rawValue == "synchronize" ||
             newdata.selectedrsynccommand.rawValue == "snapshot" {
             return false
         }
-        if newdata.remoteuser.isEmpty  == false && newdata.remoteserver.isEmpty {
+        if newdata.remoteuser.isEmpty == false && newdata.remoteserver.isEmpty {
             return true
         }
-        if newdata.remoteuser.isEmpty  && newdata.remoteserver.isEmpty == false  {
+        if newdata.remoteuser.isEmpty && newdata.remoteserver.isEmpty == false {
             return true
         }
         if newdata.remoteuser.isEmpty || newdata.remoteserver.isEmpty &&
@@ -218,10 +214,8 @@ extension AddTaskView {
     }
 
     var inspectorView: some View {
-        
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                
                 updateButton
                 trailingslash
             }

@@ -12,7 +12,7 @@ struct RsyncParametersView: View {
     @Binding var togglechooseview: Bool
 
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    
+
     @State var parameters = ObservableParametersRsync()
     @State var selectedconfig: SynchronizeConfiguration?
     // Backup switch
@@ -27,7 +27,6 @@ struct RsyncParametersView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .center, spacing: 12) {
-                
                 HelpSectionView(showhelp: $showhelp,
                                 whichhelptext: $parameters.whichhelptext,
                                 deleteparameterpresent: deleteparameterpresent)
