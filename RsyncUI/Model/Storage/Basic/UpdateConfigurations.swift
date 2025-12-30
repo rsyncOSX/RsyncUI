@@ -2,6 +2,7 @@
 //  UpdateConfigurations.swift
 //
 //
+// REFACTOR
 
 import Foundation
 import OSLog
@@ -34,13 +35,30 @@ final class UpdateConfigurations {
 
     private func validateConfigurations(_ configurations: [SynchronizeConfiguration]) -> Bool {
         let hiddenIDs = configurations.map(\.hiddenID)
-        return hiddenIDs.count == Set(hiddenIDs).count
+        guard hiddenIDs.count == Set(hiddenIDs).count else { return false }
+
+        let requiredFieldsOK = configurations.allSatisfy { config in
+            config.hiddenID >= 0 &&
+                config.task.isEmpty == false &&
+                config.localCatalog.isEmpty == false &&
+                config.offsiteCatalog.isEmpty == false
+        }
+
+        let remoteFieldsOK = configurations.allSatisfy { config in
+            if config.offsiteServer.isEmpty {
+                return true
+            }
+            return config.offsiteUsername.isEmpty == false
+        }
+
+        return requiredFieldsOK && remoteFieldsOK
     }
 
     private func configurationsWithNewHiddenIDs(_ newConfigs: [SynchronizeConfiguration]) -> [SynchronizeConfiguration] {
         var nextHiddenID = maxhiddenID + 1
         return newConfigs.map { config in
             var updatedConfig = config
+            updatedConfig.id = UUID()
             updatedConfig.hiddenID = nextHiddenID
             nextHiddenID += 1
             return updatedConfig
@@ -101,8 +119,12 @@ final class UpdateConfigurations {
 
     // Add new configurations
     func addConfiguration(_ config: SynchronizeConfiguration) -> Bool {
+        if configurations == nil {
+            configurations = [SynchronizeConfiguration]()
+        }
         let beforecount = (configurations?.count ?? 0)
         var newconfig: SynchronizeConfiguration = config
+        newconfig.id = UUID()
         newconfig.hiddenID = maxhiddenID + 1
         configurations?.append(newconfig)
         let aftercount = (configurations?.count ?? 0)
