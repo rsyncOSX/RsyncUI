@@ -123,8 +123,8 @@ enum RsyncUITests {
             username: String? = nil,
             server: String? = nil,
             backupID: String? = "TestBackup"
-        ) -> AppendTask {
-            AppendTask(
+        ) -> NewTask {
+            NewTask(
                 task,
                 localCatalog,
                 offsiteCatalog,
@@ -541,7 +541,7 @@ enum RsyncUITests {
 
         @Test("Preserve hidden ID for updates")
         func preserveHiddenIDForUpdates() async {
-            let task = AppendTask(
+            let task = NewTask(
                 "synchronize",
                 "/Users/test/Documents",
                 "/backup/Documents",

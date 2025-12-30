@@ -55,7 +55,7 @@ extension QuicktaskView {
     }
 
     func getConfigAndExecute() {
-        let getdata = AppendTask(selectedrsynccommand.rawValue,
+        let getdata = NewTask(selectedrsynccommand.rawValue,
                                  localcatalog,
                                  remotecatalog,
                                  trailingslashoptions,

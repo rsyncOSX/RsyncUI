@@ -55,7 +55,7 @@ final class ObservableAddConfigurations {
     @ObservationIgnored var whichhelptext: Int = 1
 
     func addConfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
-        let getdata = AppendTask(selectedrsynccommand.rawValue,
+        let getdata = NewTask(selectedrsynccommand.rawValue,
                                  localcatalog.replacingOccurrences(of: "\"", with: ""),
                                  remotecatalog.replacingOccurrences(of: "\"", with: ""),
                                  trailingslashoptions,
@@ -94,11 +94,12 @@ final class ObservableAddConfigurations {
             }
         }
 
-        if localcatalog.hasSuffix("/") == false, remotecatalog.hasSuffix("/") == false {
+        if localcatalog.hasSuffix("/") == false,
+            remotecatalog.hasSuffix("/") == false {
             trailingslashoptions = .do_not_add
         }
 
-        let updateddata = AppendTask(selectedrsynccommand.rawValue,
+        let updateddata = NewTask(selectedrsynccommand.rawValue,
                                      localcatalog.replacingOccurrences(of: "\"", with: ""),
                                      remotecatalog.replacingOccurrences(of: "\"", with: ""),
                                      trailingslashoptions,
@@ -107,6 +108,7 @@ final class ObservableAddConfigurations {
                                      backupID,
                                      selectedconfig?.hiddenID ?? -1,
                                      Int(mysnapshotnum))
+        
         if let updatedconfig = VerifyConfiguration().verify(updateddata) {
             let updateconfigurations =
                 UpdateConfigurations(profile: profile,

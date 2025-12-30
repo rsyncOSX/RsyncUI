@@ -415,7 +415,6 @@ extension AddTaskView {
     }
 
     func handleSelectionChange() {
-        showhelp = false
         if let configurations = rsyncUIdata.configurations {
             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                 selectedconfig = configurations[index]

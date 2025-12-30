@@ -35,66 +35,11 @@ enum ValidateInputError: LocalizedError {
     }
 }
 
-struct AppendTask {
-    var newtask: String
-    var newlocalCatalog: String
-    var newoffsiteCatalog: String
-    var newtrailingslashoptions: TrailingSlash
-    // Can be nil
-    var newoffsiteUsername: String?
-    var newoffsiteServer: String?
-    var newbackupID: String?
-    // Use hiddenID for update
-    var hiddenID: Int?
-    // For snapshottask, snapshotnum might be reset
-    var snapshotnum: Int?
-
-    init(_ task: String,
-         _ localCatalog: String,
-         _ offsiteCatalog: String,
-         _ trailingslashoptions: TrailingSlash,
-         _ offsiteUsername: String?,
-         _ offsiteServer: String?,
-         _ backupID: String?) {
-        newtask = task
-        newlocalCatalog = localCatalog
-        newoffsiteCatalog = offsiteCatalog
-        newtrailingslashoptions = trailingslashoptions
-        newoffsiteUsername = offsiteUsername
-        newoffsiteServer = offsiteServer
-        newbackupID = backupID
-    }
-
-    init(_ task: String,
-         _ localCatalog: String,
-         _ offsiteCatalog: String,
-         _ trailingslashoptions: TrailingSlash,
-         _ offsiteUsername: String?,
-         _ offsiteServer: String?,
-         _ backupID: String?,
-         _ updatedhiddenID: Int,
-         _ updatesnapshotnum: Int?) {
-        newtask = task
-        newlocalCatalog = localCatalog
-        newoffsiteCatalog = offsiteCatalog
-        newtrailingslashoptions = trailingslashoptions
-        newoffsiteUsername = offsiteUsername
-        newoffsiteServer = offsiteServer
-        newbackupID = backupID
-        hiddenID = updatedhiddenID
-        snapshotnum = updatesnapshotnum
-    }
-}
-
 @MainActor
 final class VerifyConfiguration: Connected {
-    // let archive: String = "--archive" parameter1
-    // let verbose: String = "--verbose" parameter2
-    // let compress: String = "--compress" parameter3
-    // let delete: String = "--delete" parameter4
-
+    
     // Verify parameters for new config.
-    func verify(_ data: AppendTask) -> SynchronizeConfiguration? {
+    func verify(_ data: NewTask) -> SynchronizeConfiguration? {
         var newconfig = SynchronizeConfiguration()
         newconfig.task = data.newtask
         newconfig.backupID = data.newbackupID ?? ""
@@ -136,7 +81,7 @@ final class VerifyConfiguration: Connected {
         return newconfig
     }
 
-    private func handleTrailingSlash(data: AppendTask, newconfig: inout SynchronizeConfiguration) {
+    private func handleTrailingSlash(data: NewTask, newconfig: inout SynchronizeConfiguration) {
         switch data.newtrailingslashoptions {
         case .do_not_add:
             newconfig.localCatalog = data.newlocalCatalog.hasSuffix("/") ?
@@ -154,7 +99,7 @@ final class VerifyConfiguration: Connected {
         }
     }
 
-    private func handleSnapshotAndSyncRemote(data: AppendTask, newconfig: inout SynchronizeConfiguration) {
+    private func handleSnapshotAndSyncRemote(data: NewTask, newconfig: inout SynchronizeConfiguration) {
         if data.newtask == SharedReference.shared.snapshot, newconfig.snapshotnum == nil {
             newconfig.task = SharedReference.shared.snapshot
             newconfig.snapshotnum = 1
@@ -164,7 +109,7 @@ final class VerifyConfiguration: Connected {
         }
     }
 
-    private func shouldCreateRemoteSnapshot(data: AppendTask, newconfig: SynchronizeConfiguration) -> Bool {
+    private func shouldCreateRemoteSnapshot(data: NewTask, newconfig: SynchronizeConfiguration) -> Bool {
         data.newtask == SharedReference.shared.snapshot && newconfig.snapshotnum == 1
     }
 
