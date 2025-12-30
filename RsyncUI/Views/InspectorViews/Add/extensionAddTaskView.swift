@@ -151,7 +151,7 @@ extension AddTaskView {
                     addConfig()
                     showAddPopover = false
                     newdata.resetForm()
-                }.disabled(disableadd)
+                }.disabled(!disableadd)
 
                 Spacer()
 
@@ -178,26 +178,9 @@ extension AddTaskView {
         .onSubmit { handleSubmit() }
     }
 
-    // Disable the Add+ button
+    // The verify returns true when data is OK
     var disableadd: Bool {
-        // Both catalogs must be provided
-        if newdata.localcatalog.isEmpty, newdata.remotecatalog.isEmpty {
-            return true
-        }
-        // Can't have remoteuser without remoteserver
-        if newdata.remoteuser.isEmpty == false, newdata.remoteserver.isEmpty {
-            return true
-        }
-        // Can't have remoteserver without remoteuser
-        if newdata.remoteuser.isEmpty, newdata.remoteserver.isEmpty == false {
-            return true
-        }
-        // For syncremote command, both remoteuser AND remoteserver are required
-        if newdata.selectedrsynccommand.rawValue == "syncremote",
-           newdata.remoteuser.isEmpty || newdata.remoteserver.isEmpty {
-            return true
-        }
-        return false
+        VerifyObservableAddConfiguration(observed: newdata).verify()
     }
 
     var taskListView: some View {
