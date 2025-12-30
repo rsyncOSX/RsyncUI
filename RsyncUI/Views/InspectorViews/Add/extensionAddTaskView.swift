@@ -134,14 +134,18 @@ extension AddTaskView {
 extension AddTaskView {
     var addTaskSheetView: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Quick Add Task").font(.headline)
-            pickerselecttypeoftask
-            trailingslash
+            
+            Text("Add Task").font(.headline)
+            
+            HStack {
+                pickerselecttypeoftask
+                trailingslash
+            }
+            
             synchronizeID
             catalogSectionView
-            if newdata.selectedrsynccommand != .snapshot {
-                remoteuserandserver
-            }
+            remoteuserandserver
+            
             HStack {
                 
                 ConditionalGlassButton(systemImage: "plus",
@@ -150,7 +154,8 @@ extension AddTaskView {
                     addConfig()
                     showAddPopover = false
                     newdata.resetForm()
-                }
+                }.disabled( disableadd)
+                                       
                 
                 Spacer()
                 
@@ -176,6 +181,25 @@ extension AddTaskView {
         .frame(minWidth: 500)
         .onSubmit { handleSubmit() }
     }
+    
+    // Disable the Add+ button
+    var disableadd: Bool {
+        if newdata.selectedrsynccommand.rawValue == "synchronize" ||
+            newdata.selectedrsynccommand.rawValue == "snapshot" {
+            return false
+        }
+        if newdata.remoteuser.isEmpty  == false && newdata.remoteserver.isEmpty {
+            return true
+        }
+        if newdata.remoteuser.isEmpty  && newdata.remoteserver.isEmpty == false  {
+            return true
+        }
+        if newdata.remoteuser.isEmpty || newdata.remoteserver.isEmpty &&
+            newdata.selectedrsynccommand.rawValue == "syncremote" {
+            return true
+        }
+        return false
+    }
 
     var taskListView: some View {
         ListofTasksAddView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
@@ -194,23 +218,18 @@ extension AddTaskView {
     }
 
     var inspectorView: some View {
+        
         VStack(alignment: .leading, spacing: 12) {
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    updateButton
-
-                    VStack(alignment: .leading) {
-                        pickerselecttypeoftask
-                        trailingslash
-                    }
-                }
+            HStack {
+                
+                updateButton
+                trailingslash
             }
 
             synchronizeID
             catalogSectionView
 
             VStack(alignment: .leading) { remoteuserandserver }
-                .disabled(selectedconfig?.task == SharedReference.shared.snapshot)
 
             if selectedconfig?.task == SharedReference.shared.snapshot {
                 VStack(alignment: .leading) { snapshotnum }
