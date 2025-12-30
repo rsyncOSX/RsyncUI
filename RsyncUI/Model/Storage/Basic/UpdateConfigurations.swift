@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import OSLog
 
 @MainActor
 final class UpdateConfigurations {
@@ -20,6 +21,30 @@ final class UpdateConfigurations {
             return setofhiddenIDs.max() ?? 0
         }
         return 0
+    }
+
+    private func persistConfigurations() {
+        guard let configurations else { return }
+        guard validateConfigurations(configurations) else {
+            Logger.process.error("UpdateConfigurations: validation failed, refused to persist")
+            return
+        }
+        WriteSynchronizeConfigurationJSON(localeprofile, configurations)
+    }
+
+    private func validateConfigurations(_ configurations: [SynchronizeConfiguration]) -> Bool {
+        let hiddenIDs = configurations.map(\.hiddenID)
+        return hiddenIDs.count == Set(hiddenIDs).count
+    }
+
+    private func configurationsWithNewHiddenIDs(_ newConfigs: [SynchronizeConfiguration]) -> [SynchronizeConfiguration] {
+        var nextHiddenID = maxhiddenID + 1
+        return newConfigs.map { config in
+            var updatedConfig = config
+            updatedConfig.hiddenID = nextHiddenID
+            nextHiddenID += 1
+            return updatedConfig
+        }
     }
 
     // Function is updating Configurations in memory (by record) and
@@ -52,7 +77,7 @@ final class UpdateConfigurations {
                 configurations?[index].snapdayoffweek = config.snapdayoffweek
                 configurations?[index].snapshotnum = config.snapshotnum
             }
-            WriteSynchronizeConfigurationJSON(localeprofile, configurations)
+            persistConfigurations()
         }
     }
 
@@ -71,7 +96,7 @@ final class UpdateConfigurations {
         // Remove all marked configurations in one go by IndexSet
         configurations?.remove(atOffsets: indexset)
         // No need for deleting the logs, only logrecords with valid hiddenIDs are loaded
-        WriteSynchronizeConfigurationJSON(localeprofile, configurations)
+        persistConfigurations()
     }
 
     // Add new configurations
@@ -81,7 +106,7 @@ final class UpdateConfigurations {
         newconfig.hiddenID = maxhiddenID + 1
         configurations?.append(newconfig)
         let aftercount = (configurations?.count ?? 0)
-        WriteSynchronizeConfigurationJSON(localeprofile, configurations)
+        persistConfigurations()
         if aftercount > beforecount {
             return true
         } else {
@@ -91,22 +116,26 @@ final class UpdateConfigurations {
 
     // Write Import configurations
     func addImportConfigurations(_ importconfigurations: [SynchronizeConfiguration]) -> [SynchronizeConfiguration]? {
-        if importconfigurations.count > 0, var configurations {
-            configurations += importconfigurations
-            WriteSynchronizeConfigurationJSON(localeprofile, configurations)
-            return configurations
+        guard importconfigurations.isEmpty == false else { return nil }
+        if configurations == nil {
+            configurations = [SynchronizeConfiguration]()
         }
-        return nil
+        let reassigned = configurationsWithNewHiddenIDs(importconfigurations)
+        configurations?.append(contentsOf: reassigned)
+        persistConfigurations()
+        return configurations
     }
 
     // Write Copy and Paste tasks
     func writeCopyAndPasteTask(_ copyandpastetasks: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
-        if let copyandpastetasks, var configurations {
-            configurations += copyandpastetasks
-            WriteSynchronizeConfigurationJSON(localeprofile, configurations)
-            return configurations
+        guard let copyandpastetasks, copyandpastetasks.isEmpty == false else { return nil }
+        if configurations == nil {
+            configurations = [SynchronizeConfiguration]()
         }
-        return nil
+        let reassigned = configurationsWithNewHiddenIDs(copyandpastetasks)
+        configurations?.append(contentsOf: reassigned)
+        persistConfigurations()
+        return configurations
     }
 
     init(profile: String?, configurations: [SynchronizeConfiguration]?) {
