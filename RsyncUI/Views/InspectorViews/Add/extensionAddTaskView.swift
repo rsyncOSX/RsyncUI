@@ -218,18 +218,6 @@ extension AddTaskView {
             saveURLSection
         }
     }
-
-    @ViewBuilder
-    func inspectorSummary(_ config: SynchronizeConfiguration) -> some View {
-        HStack {
-            updateButton
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text(config.backupID).font(.headline)
-                Text(config.task).font(.subheadline).foregroundStyle(.secondary)
-            }
-        }
-    }
 }
 
 // MARK: - Form Field Sections
@@ -269,7 +257,9 @@ extension AddTaskView {
             catalogField(catalog: $newdata.remotecatalog,
                          placeholder: "Add Destination folder - required",
                          focus: .remotecatalogField,
-                         selectedValue: newdata.selectedconfig?.offsiteCatalog)
+                         selectedValue: newdata.selectedconfig?.offsiteCatalog,
+                         showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
+                             newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty)
         }
     }
 
@@ -282,22 +272,27 @@ extension AddTaskView {
             catalogField(catalog: $newdata.localcatalog,
                          placeholder: "Add Remote folder - required",
                          focus: .localcatalogField,
-                         selectedValue: newdata.selectedconfig?.localCatalog)
+                         selectedValue: newdata.selectedconfig?.localCatalog,
+                         showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
+                             newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty)
         }
     }
 
     func catalogField(catalog: Binding<String>, placeholder: String,
-                      focus: AddConfigurationField, selectedValue: String?) -> some View {
+                      focus: AddConfigurationField, selectedValue: String?,
+                      showErrorBorder: Bool = false) -> some View {
         HStack {
             if newdata.selectedconfig == nil {
                 EditValueScheme(300, placeholder, catalog)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(.continue)
+                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
             } else {
                 EditValueScheme(300, nil, catalog)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(.continue)
                     .onAppear { if let value = selectedValue { catalog.wrappedValue = value } }
+                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
             }
             OpencatalogView(selecteditem: catalog, catalogs: true)
         }
@@ -306,25 +301,30 @@ extension AddTaskView {
     var remoteuserandserver: some View {
         Section(header: Text("Remote parameters").modifier(FixedTag(200, .leading)).font(.title3).fontWeight(.bold)) {
             remoteField(value: $newdata.remoteuser, placeholder: "Add remote user",
-                        focus: .remoteuserField, selectedValue: newdata.selectedconfig?.offsiteUsername)
+                        focus: .remoteuserField, selectedValue: newdata.selectedconfig?.offsiteUsername,
+                        showErrorBorder: newdata.remoteuser.isEmpty && !newdata.remoteserver.isEmpty)
             remoteField(value: $newdata.remoteserver, placeholder: "Add remote server",
                         focus: .remoteserverField, selectedValue: newdata.selectedconfig?.offsiteServer,
-                        submitLabel: .return)
+                        submitLabel: .return,
+                        showErrorBorder: !newdata.remoteuser.isEmpty && newdata.remoteserver.isEmpty)
         }
     }
 
     func remoteField(value: Binding<String>, placeholder: String, focus: AddConfigurationField,
-                     selectedValue: String?, submitLabel: SubmitLabel = .continue) -> some View {
+                     selectedValue: String?, submitLabel: SubmitLabel = .continue,
+                     showErrorBorder: Bool = false) -> some View {
         Group {
             if newdata.selectedconfig == nil {
                 EditValueScheme(300, placeholder, value)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(submitLabel)
+                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
             } else {
                 EditValueScheme(300, nil, value)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(submitLabel)
                     .onAppear { if let val = selectedValue { value.wrappedValue = val } }
+                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
             }
         }
     }
