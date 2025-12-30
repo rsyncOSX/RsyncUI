@@ -9,11 +9,11 @@ import SwiftUI
 
 struct DefaultView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @State private var togglechooseview: Bool = true
+    @State private var togglechooseview: Bool = false
 
     var body: some View {
         Group {
-            if togglechooseview {
+            if togglechooseview == false {
                 AddTaskView(rsyncUIdata: rsyncUIdata,
                             togglechooseview: $togglechooseview)
             } else {

@@ -89,15 +89,18 @@ extension AddTaskView {
 
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
-        ToolbarItem {
-            Button {
-                showcommand.toggle()
-            } label: {
-                Image(systemName: "command")
+        
+        if selectedconfig != nil {
+            ToolbarItem {
+                Button {
+                    showcommand.toggle()
+                } label: {
+                    Image(systemName: "command")
+                }
+                .help("Show rsync command")
             }
-            .help("Show rsync command")
         }
-
+        
         ToolbarItem {
             Button {
                 newdata.resetForm()

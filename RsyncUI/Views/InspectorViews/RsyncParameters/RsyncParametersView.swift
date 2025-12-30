@@ -26,19 +26,17 @@ struct RsyncParametersView: View {
 
     var body: some View {
         NavigationStack {
-            HStack(alignment: .top, spacing: 16) {
-                VStack(alignment: .center, spacing: 12) {
-                    
-                    HelpSectionView(showhelp: $showhelp,
-                                    whichhelptext: $parameters.whichhelptext,
-                                    deleteparameterpresent: deleteparameterpresent)
+            VStack(alignment: .center, spacing: 12) {
+                
+                HelpSectionView(showhelp: $showhelp,
+                                whichhelptext: $parameters.whichhelptext,
+                                deleteparameterpresent: deleteparameterpresent)
 
-                    taskListView
+                taskListView
 
-                    Spacer()
-                }
-                if showhelp, showinspector == false { helpSheetView }
+                Spacer()
             }
+            .sheet(isPresented: $showhelp) { helpSheetView }
             .inspector(isPresented: $showinspector) {
                 inspectorView
                     .inspectorColumnWidth(min: 300, ideal: 400, max: 500)

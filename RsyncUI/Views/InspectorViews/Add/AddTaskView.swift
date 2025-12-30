@@ -50,22 +50,20 @@ struct AddTaskView: View {
 
     var body: some View {
         NavigationStack {
-            HStack(alignment: .top, spacing: 16) {
-                VStack(alignment: .center, spacing: 12) {
-                    HelpSectionView(showhelp: $showhelp,
-                                    whichhelptext: $newdata.whichhelptext,
-                                    deleteparameterpresent: deleteparameterpresent)
+            VStack(alignment: .center, spacing: 12) {
+                HelpSectionView(showhelp: $showhelp,
+                                whichhelptext: $newdata.whichhelptext,
+                                deleteparameterpresent: deleteparameterpresent)
 
-                    VStack(alignment: .leading) {
-                        taskListView
-                        if showcommand, let selectedconfig { RsyncCommandView(config: selectedconfig) }
-                    }
-
-                    Spacer()
+                VStack(alignment: .leading) {
+                    taskListView
+                    if showcommand, let selectedconfig { RsyncCommandView(config: selectedconfig) }
                 }
-                if showhelp, showinspector == false { helpSheetView }
+
+                Spacer()
             }
         }
+        .sheet(isPresented: $showhelp) { helpSheetView }
         .onSubmit { handleSubmit() }
         .onAppear { handleOnAppear() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }

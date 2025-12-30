@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct HelpView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     let text: String
     let add: Bool
     let deleteparameterpresent: Bool
@@ -56,6 +58,24 @@ struct HelpView: View {
                                 .font(.body)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
+                        
+                        Spacer()
+
+                        if #available(macOS 26.0, *) {
+                            Button("Close", role: .close) {
+                                dismiss()
+                            }
+                            .buttonStyle(RefinedGlassButtonStyle())
+
+                        } else {
+                            Button {
+                                dismiss()
+                            } label: {
+                                Image(systemName: "return")
+                            }
+                            .help("Close")
+                            .buttonStyle(.borderedProminent)
+                        }
                     }
                     .padding()
                     .background(Color.orange.opacity(0.1))
@@ -85,6 +105,8 @@ struct HelpSectionView: View {
                     label: { Image(systemName: "questionmark.circle") }
                     .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
                 Text("for more information")
+                
+                
             }
             .padding(.bottom, 10)
         } else {
@@ -94,6 +116,8 @@ struct HelpSectionView: View {
                     label: { Image(systemName: "questionmark.circle") }
                     .buttonStyle(HelpButtonStyle(redorwhitebutton: deleteparameterpresent))
                 Text("for more information")
+                
+                
             }
             .padding(.bottom, 10)
         }
