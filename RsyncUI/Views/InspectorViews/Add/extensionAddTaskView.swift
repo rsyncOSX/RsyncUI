@@ -143,6 +143,7 @@ extension AddTaskView {
                 remoteuserandserver
             }
             HStack {
+                
                 ConditionalGlassButton(systemImage: "plus",
                                        text: "Add",
                                        helpText: "Add task") {
@@ -150,8 +151,25 @@ extension AddTaskView {
                     showAddPopover = false
                     newdata.resetForm()
                 }
-                Button("Cancel") { showAddPopover = false }
+                
+                Spacer()
+                
+                if #available(macOS 26.0, *) {
+                    Button("Close", role: .close) {
+                        showAddPopover = false
+                    }
+                    .buttonStyle(RefinedGlassButtonStyle())
                     .keyboardShortcut(.cancelAction)
+
+                } else {
+                    Button {
+                        showAddPopover = false
+                    } label: {
+                        Image(systemName: "return")
+                    }
+                    .help("Close")
+                    .keyboardShortcut(.cancelAction)
+                }
             }
         }
         .padding()
