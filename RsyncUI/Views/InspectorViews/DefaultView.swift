@@ -16,30 +16,50 @@ enum InspectorTab: Hashable {
 struct DefaultView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var selectedTab: InspectorTab = .add
-
+    @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    
     var body: some View {
-        TabView(selection: $selectedTab) {
-            AddTaskView(rsyncUIdata: rsyncUIdata, selectedTab: $selectedTab)
+        VStack(alignment: .leading, spacing: 0) {
+            // Shared task list table
+            ListofTasksAddView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
+                .frame(minHeight: 200)
+                .onChange(of: rsyncUIdata.profile) {
+                    selecteduuids.removeAll()
+                }
+            
+            Divider()
+            
+            // Tab-specific inspector views
+            TabView(selection: $selectedTab) {
+                AddTaskView(rsyncUIdata: rsyncUIdata,
+                            selectedTab: $selectedTab,
+                            selecteduuids: $selecteduuids)
                 .tabItem {
                     Label("Add", systemImage: "plus.circle")
                 }
                 .tag(InspectorTab.add)
                 .id(InspectorTab.add)
-
-            RsyncParametersView(rsyncUIdata: rsyncUIdata, selectedTab: $selectedTab)
+                
+                RsyncParametersView(rsyncUIdata: rsyncUIdata,
+                                    selectedTab: $selectedTab,
+                                    selecteduuids: $selecteduuids)
                 .tabItem {
                     Label("Parameters", systemImage: "slider.horizontal.3")
                 }
                 .tag(InspectorTab.parameters)
                 .id(InspectorTab.parameters)
-/*
-            GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
-                .tabItem {
-                    Label("Global", systemImage: "gearshape")
-                }
-                .tag(InspectorTab.global)
-                .id(InspectorTab.global)
- */
+                
+            }
         }
     }
 }
+
+
+/*
+ GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
+ .tabItem {
+ Label("Global", systemImage: "gearshape")
+ }
+ .tag(InspectorTab.global)
+ .id(InspectorTab.global)
+ */

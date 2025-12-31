@@ -157,15 +157,6 @@ extension RsyncParametersView {
     }
 }
 
-// MARK: - Task List View
-
-extension RsyncParametersView {
-    var taskListView: some View {
-        ListofTasksAddView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
-            .onChange(of: selecteduuids) { handleSelectionChange() }
-    }
-}
-
 // MARK: - Event Handlers
 
 extension RsyncParametersView {

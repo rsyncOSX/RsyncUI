@@ -175,16 +175,7 @@ extension AddTaskView {
         VerifyObservableAddConfiguration(observed: newdata).verify()
     }
 
-    var taskListView: some View {
-        ListofTasksAddView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
-            .onChange(of: selecteduuids) { handleSelectionChange() }
-            .copyable(copyitems.filter { selecteduuids.contains($0.id) })
-            .pasteDestination(for: CopyItem.self) { handlePaste($0) }
-            validator: { $0.filter { $0.task != SharedReference.shared.snapshot } }
-            .confirmationDialog(confirmationMessage, isPresented: $confirmcopyandpaste) {
-                Button("Copy") { handleCopyConfirmation() }
-            }
-    }
+
 
     var confirmationMessage: String {
         let count = newdata.copyandpasteconfigurations?.count ?? 0

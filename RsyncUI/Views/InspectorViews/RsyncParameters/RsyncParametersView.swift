@@ -10,8 +10,7 @@ import SwiftUI
 struct RsyncParametersView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedTab: InspectorTab
-
-    @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @State var parameters = ObservableParametersRsync()
     @State var selectedconfig: SynchronizeConfiguration?
     // Backup switch
@@ -28,8 +27,6 @@ struct RsyncParametersView: View {
                 HelpSectionView(showhelp: $showhelp,
                                 whichhelptext: $parameters.whichhelptext,
                                 deleteparameterpresent: deleteparameterpresent)
-
-                taskListView
 
                 Spacer()
             }

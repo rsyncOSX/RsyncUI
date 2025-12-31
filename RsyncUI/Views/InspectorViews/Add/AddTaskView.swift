@@ -29,8 +29,7 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedTab: InspectorTab
-
-    @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @FocusState var focusField: AddConfigurationField?
 
@@ -54,9 +53,8 @@ struct AddTaskView: View {
                             whichhelptext: $newdata.whichhelptext,
                             deleteparameterpresent: deleteparameterpresent)
 
-            VStack(alignment: .leading) {
-                taskListView
-                if showcommand, let selectedconfig { RsyncCommandView(config: selectedconfig) }
+            if showcommand, let selectedconfig {
+                RsyncCommandView(config: selectedconfig)
             }
 
             Spacer()
