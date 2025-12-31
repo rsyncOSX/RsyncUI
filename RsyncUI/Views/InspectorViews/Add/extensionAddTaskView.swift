@@ -112,17 +112,6 @@ extension AddTaskView {
         }
 
         ToolbarItem {
-            Button { presentglobaltaskview = true }
-                label: { Image(systemName: "globe") }
-                .help("Global change and update")
-        }
-
-        ToolbarItem {
-            ToggleViewToolbar(text: "Tasks",
-                              binding: $togglechooseview)
-        }
-
-        ToolbarItem {
             Spacer()
         }
     }

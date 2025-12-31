@@ -22,11 +22,6 @@ extension RsyncParametersView {
         }
 
         ToolbarItem {
-            ToggleViewToolbar(text: "Parameter",
-                              binding: $togglechooseview)
-        }
-
-        ToolbarItem {
             Spacer()
         }
     }

@@ -28,7 +28,6 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 
 struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var togglechooseview: Bool
 
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
@@ -49,7 +48,6 @@ struct AddTaskView: View {
     @State var showcommand: Bool = false
 
     var body: some View {
-        NavigationStack {
             VStack(alignment: .center, spacing: 12) {
                 HelpSectionView(showhelp: $showhelp,
                                 whichhelptext: $newdata.whichhelptext,
@@ -62,16 +60,12 @@ struct AddTaskView: View {
 
                 Spacer()
             }
-        }
         .sheet(isPresented: $showhelp) { helpSheetView }
         .onSubmit { handleSubmit() }
         .onAppear { handleOnAppear() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
         .toolbar { toolbarContent }
         .navigationTitle("Add and update tasks: profile \(rsyncUIdata.profile ?? "Default")")
-        .navigationDestination(isPresented: $presentglobaltaskview) {
-            GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
-        }
         .padding()
         .inspector(isPresented: $showinspector) {
             inspectorView
