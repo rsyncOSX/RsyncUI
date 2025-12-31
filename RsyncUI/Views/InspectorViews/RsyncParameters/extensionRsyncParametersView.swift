@@ -77,7 +77,7 @@ extension RsyncParametersView {
                 EditRsyncParameter(250, $parameters.parameter14)
                     .onChange(of: parameters.parameter14) { parameters.configuration?.parameter14 = parameters.parameter14 }
             }
-/*
+
             VStack(alignment: .leading, spacing: 8) {
                 Text("Task specific SSH parameter").font(.headline)
                 VStack(alignment: .leading, spacing: 8) {
@@ -85,7 +85,7 @@ extension RsyncParametersView {
                     setsshport
                 }
             }
-  */
+
             let isDeletePresent = selectedconfig?.parameter4 == "--delete"
             let headerText = isDeletePresent ? "Remove --delete parameter" : "Add --delete parameter"
             VStack(alignment: .leading, spacing: 8) {
@@ -109,9 +109,7 @@ extension RsyncParametersView {
                         parameters.setbackup()
                     }
             }
-
         }
-         
     }
 }
 
@@ -198,14 +196,12 @@ extension RsyncParametersView {
 
 extension RsyncParametersView {
     var setsshpath: some View {
-        EditValueErrorScheme(300, "ssh-keypath and identityfile",
-                             $parameters.sshkeypathandidentityfile,
-                             parameters.sshkeypath(parameters.sshkeypathandidentityfile))
+        EditValueScheme(300, parameters.sshkeypathandidentityfile, $parameters.sshkeypathandidentityfile)
+                             
     }
 
     var setsshport: some View {
-        EditValueErrorScheme(150, "ssh-port", $parameters.sshport,
-                             parameters.setsshport(parameters.sshport))
+        EditValueScheme(150, parameters.sshport, $parameters.sshport)
     }
 }
 

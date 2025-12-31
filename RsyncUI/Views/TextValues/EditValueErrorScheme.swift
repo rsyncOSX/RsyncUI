@@ -33,7 +33,11 @@ struct EditValueErrorScheme<T: LosslessStringConvertible>: View {
     init(_ width: CGFloat, _ str: String?, _ value: Binding<T>, _ error: Bool) {
         mywidth = width
         myvalue = value
-        myprompt = Text(str ?? "")
+        if let str {
+            myprompt = Text(str)
+        } else {
+            myprompt = nil
+        }
         myerror = error
     }
 
