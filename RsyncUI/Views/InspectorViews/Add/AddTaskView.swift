@@ -55,7 +55,7 @@ struct AddTaskView: View {
                             deleteparameterpresent: deleteparameterpresent)
 
             VStack(alignment: .leading) {
-                taskListView
+                taskListViewadd
                 if showcommand, let selectedconfig { RsyncCommandView(config: selectedconfig) }
             }
 
@@ -66,7 +66,6 @@ struct AddTaskView: View {
         .onAppear { handleOnAppear() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
         .toolbar { toolbarContent }
-        .navigationTitle("Add and update tasks: profile \(rsyncUIdata.profile ?? "Default")")
         .inspector(isPresented: $showinspector) {
             inspectorView
                 .inspectorColumnWidth(min: 300, ideal: 400, max: 500)

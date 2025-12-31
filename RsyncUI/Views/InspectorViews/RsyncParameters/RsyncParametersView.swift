@@ -24,13 +24,12 @@ struct RsyncParametersView: View {
     @State var showinspector: Bool = false
 
     var body: some View {
-        NavigationStack {
             VStack(alignment: .center, spacing: 12) {
                 HelpSectionView(showhelp: $showhelp,
                                 whichhelptext: $parameters.whichhelptext,
                                 deleteparameterpresent: deleteparameterpresent)
 
-                taskListView
+                taskListViewparameters
 
                 Spacer()
             }
@@ -46,12 +45,6 @@ struct RsyncParametersView: View {
                 parameters.setvalues(selectedconfig)
                 backup = false
             }
-            .toolbar { toolbarContent }
-            .navigationTitle("Parameters for rsync: profile \(rsyncUIdata.profile ?? "Default")")
-            .navigationDestination(isPresented: $presentarguments) {
-                ArgumentsView(rsyncUIdata: rsyncUIdata)
-            }
             .padding()
         }
-    }
 }

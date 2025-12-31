@@ -175,7 +175,7 @@ extension AddTaskView {
         VerifyObservableAddConfiguration(observed: newdata).verify()
     }
 
-    var taskListView: some View {
+    var taskListViewadd: some View {
         ListofTasksAddView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
             .onChange(of: selecteduuids) { handleSelectionChange() }
             .copyable(copyitems.filter { selecteduuids.contains($0.id) })
