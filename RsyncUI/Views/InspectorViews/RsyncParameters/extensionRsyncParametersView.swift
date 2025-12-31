@@ -77,7 +77,7 @@ extension RsyncParametersView {
                 EditRsyncParameter(250, $parameters.parameter14)
                     .onChange(of: parameters.parameter14) { parameters.configuration?.parameter14 = parameters.parameter14 }
             }
-
+/*
             VStack(alignment: .leading, spacing: 8) {
                 Text("Task specific SSH parameter").font(.headline)
                 VStack(alignment: .leading, spacing: 8) {
@@ -85,7 +85,7 @@ extension RsyncParametersView {
                     setsshport
                 }
             }
-
+  */
             let isDeletePresent = selectedconfig?.parameter4 == "--delete"
             let headerText = isDeletePresent ? "Remove --delete parameter" : "Add --delete parameter"
             VStack(alignment: .leading, spacing: 8) {
@@ -109,7 +109,9 @@ extension RsyncParametersView {
                         parameters.setbackup()
                     }
             }
+
         }
+         
     }
 }
 
