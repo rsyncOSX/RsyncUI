@@ -51,9 +51,6 @@ struct RsyncParametersView: View {
             .navigationDestination(isPresented: $presentarguments) {
                 ArgumentsView(rsyncUIdata: rsyncUIdata)
             }
-            .onChange(of: selectedTab) {
-                showinspector = false
-            }
             .padding()
         }
     }

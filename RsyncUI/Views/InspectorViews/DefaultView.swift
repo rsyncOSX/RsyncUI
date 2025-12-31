@@ -24,18 +24,21 @@ struct DefaultView: View {
                     Label("Add", systemImage: "plus.circle")
                 }
                 .tag(InspectorTab.add)
+                .id(InspectorTab.add)
 
             RsyncParametersView(rsyncUIdata: rsyncUIdata, selectedTab: $selectedTab)
                 .tabItem {
                     Label("Parameters", systemImage: "slider.horizontal.3")
                 }
                 .tag(InspectorTab.parameters)
-            
+                .id(InspectorTab.parameters)
+
             GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
                 .tabItem {
                     Label("Global", systemImage: "gearshape")
                 }
                 .tag(InspectorTab.global)
+                .id(InspectorTab.global)
         }
     }
 }
