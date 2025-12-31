@@ -19,17 +19,17 @@ struct DefaultView: View {
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            // Shared task list table
+        HStack(alignment: .top, spacing: 0) {
+            // Shared task list table on the left
             ListofTasksAddView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
-                .frame(minHeight: 200)
+                .frame(minWidth: 300)
                 .onChange(of: rsyncUIdata.profile) {
                     selecteduuids.removeAll()
                 }
             
             Divider()
             
-            // Tab-specific inspector views
+            // Tab-specific inspector views on the right
             TabView(selection: $selectedTab) {
                 AddTaskView(rsyncUIdata: rsyncUIdata,
                             selectedTab: $selectedTab,
