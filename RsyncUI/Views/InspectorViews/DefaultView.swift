@@ -10,7 +10,7 @@ import SwiftUI
 enum InspectorTab: Hashable {
     case add
     case parameters
-    case global
+    // case global
 }
 
 struct DefaultView: View {
@@ -32,13 +32,14 @@ struct DefaultView: View {
                 }
                 .tag(InspectorTab.parameters)
                 .id(InspectorTab.parameters)
-
+/*
             GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
                 .tabItem {
                     Label("Global", systemImage: "gearshape")
                 }
                 .tag(InspectorTab.global)
                 .id(InspectorTab.global)
+ */
         }
     }
 }

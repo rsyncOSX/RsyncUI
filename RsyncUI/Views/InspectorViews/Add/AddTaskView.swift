@@ -55,7 +55,7 @@ struct AddTaskView: View {
                             deleteparameterpresent: deleteparameterpresent)
 
             VStack(alignment: .leading) {
-                taskListViewadd
+                taskListView
                 if showcommand, let selectedconfig { RsyncCommandView(config: selectedconfig) }
             }
 
