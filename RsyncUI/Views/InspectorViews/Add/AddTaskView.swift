@@ -48,16 +48,25 @@ struct AddTaskView: View {
     @State var showcommand: Bool = false
 
     var body: some View {
-        VStack(alignment: .center, spacing: 12) {
+        VStack(alignment: .leading, spacing: 0) {
             HelpSectionView(showhelp: $showhelp,
                             whichhelptext: $newdata.whichhelptext,
                             deleteparameterpresent: deleteparameterpresent)
-
-            if showcommand, let selectedconfig {
-                RsyncCommandView(config: selectedconfig)
+                .padding()
+            
+            Divider()
+            
+            VStack(alignment: .center, spacing: 12) {
+                if showcommand, let selectedconfig {
+                    RsyncCommandView(config: selectedconfig)
+                }
+                Spacer()
             }
-
-            Spacer()
+            .inspector(isPresented: $showinspector) {
+                inspectorView
+                    .inspectorColumnWidth(min: 300, ideal: 400, max: 500)
+            }
+            .padding()
         }
         .sheet(isPresented: $showhelp) { helpSheetView }
         .onSubmit { handleSubmit() }
@@ -67,10 +76,5 @@ struct AddTaskView: View {
             handleSelectionChange()
         }
         .toolbar { toolbarContent }
-        .inspector(isPresented: $showinspector) {
-            inspectorView
-                .inspectorColumnWidth(min: 300, ideal: 400, max: 500)
-        }
-        .padding()
     }
 }

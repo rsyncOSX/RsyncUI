@@ -23,18 +23,24 @@ struct RsyncParametersView: View {
     @State var showinspector: Bool = false
 
     var body: some View {
-            VStack(alignment: .center, spacing: 12) {
+            VStack(alignment: .leading, spacing: 0) {
                 HelpSectionView(showhelp: $showhelp,
                                 whichhelptext: $parameters.whichhelptext,
                                 deleteparameterpresent: deleteparameterpresent)
-
-                Spacer()
+                    .padding()
+                
+                Divider()
+                
+                VStack(alignment: .center, spacing: 12) {
+                    Spacer()
+                }
+                .inspector(isPresented: $showinspector) {
+                    inspectorView
+                        .inspectorColumnWidth(min: 300, ideal: 400, max: 500)
+                }
+                .padding()
             }
             .sheet(isPresented: $showhelp) { helpSheetView }
-            .inspector(isPresented: $showinspector) {
-                inspectorView
-                    .inspectorColumnWidth(min: 300, ideal: 400, max: 500)
-            }
             .onChange(of: rsyncUIdata.profile) {
                 selectedconfig = nil
                 // selecteduuids.removeAll()
@@ -45,6 +51,5 @@ struct RsyncParametersView: View {
             .onChange(of: selecteduuids) {
                 handleSelectionChange()
             }
-            .padding()
         }
 }

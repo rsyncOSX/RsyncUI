@@ -91,17 +91,6 @@ extension AddTaskView {
     var toolbarContent: some ToolbarContent {
         // Only show toolbar items when this tab is active
         if selectedTab == .add {
-            if selectedconfig != nil {
-                ToolbarItem {
-                    Button {
-                        showcommand.toggle()
-                    } label: {
-                        Image(systemName: "command")
-                    }
-                    .help("Show rsync command")
-                }
-            }
-
             ToolbarItem {
                 Button {
                     newdata.resetForm()
