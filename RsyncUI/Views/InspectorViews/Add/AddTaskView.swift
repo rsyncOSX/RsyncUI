@@ -67,10 +67,13 @@ struct AddTaskView: View {
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
         .toolbar { toolbarContent }
         .navigationTitle("Add and update tasks: profile \(rsyncUIdata.profile ?? "Default")")
-        .padding()
         .inspector(isPresented: $showinspector) {
             inspectorView
                 .inspectorColumnWidth(min: 300, ideal: 400, max: 500)
         }
+        .onChange(of: selectedTab) {
+            showinspector = false
+        }
+        .padding()
     }
 }
