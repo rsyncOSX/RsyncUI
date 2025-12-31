@@ -42,6 +42,9 @@ struct RsyncParametersView: View {
                 parameters.setvalues(selectedconfig)
                 backup = false
             }
+            .onChange(of: selecteduuids) {
+                handleSelectionChange()
+            }
             .padding()
         }
 }

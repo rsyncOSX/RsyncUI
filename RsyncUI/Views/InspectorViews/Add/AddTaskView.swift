@@ -63,6 +63,9 @@ struct AddTaskView: View {
         .onSubmit { handleSubmit() }
         .onAppear { handleOnAppear() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
+        .onChange(of: selecteduuids) {
+            handleSelectionChange()
+        }
         .toolbar { toolbarContent }
         .inspector(isPresented: $showinspector) {
             inspectorView
