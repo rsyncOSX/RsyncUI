@@ -7,25 +7,35 @@
 
 import SwiftUI
 
+enum InspectorTab: Hashable {
+    case add
+    case parameters
+    case global
+}
+
 struct DefaultView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @State private var selectedTab: InspectorTab = .add
 
     var body: some View {
-        TabView {
-            AddTaskView(rsyncUIdata: rsyncUIdata)
+        TabView(selection: $selectedTab) {
+            AddTaskView(rsyncUIdata: rsyncUIdata, selectedTab: $selectedTab)
                 .tabItem {
                     Label("Add", systemImage: "plus.circle")
                 }
+                .tag(InspectorTab.add)
 
-            RsyncParametersView(rsyncUIdata: rsyncUIdata)
+            RsyncParametersView(rsyncUIdata: rsyncUIdata, selectedTab: $selectedTab)
                 .tabItem {
                     Label("Parameters", systemImage: "slider.horizontal.3")
                 }
+                .tag(InspectorTab.parameters)
             
             GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
                 .tabItem {
                     Label("Global", systemImage: "gearshape")
                 }
+                .tag(InspectorTab.global)
         }
     }
 }

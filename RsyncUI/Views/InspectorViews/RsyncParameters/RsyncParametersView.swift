@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RsyncParametersView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var selectedTab: InspectorTab
 
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State var parameters = ObservableParametersRsync()

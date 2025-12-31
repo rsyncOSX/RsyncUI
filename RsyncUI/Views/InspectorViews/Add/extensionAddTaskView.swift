@@ -89,30 +89,33 @@ extension AddTaskView {
 
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
-        if selectedconfig != nil {
+        // Only show toolbar items when this tab is active
+        if selectedTab == .add {
+            if selectedconfig != nil {
+                ToolbarItem {
+                    Button {
+                        showcommand.toggle()
+                    } label: {
+                        Image(systemName: "command")
+                    }
+                    .help("Show rsync command")
+                }
+            }
+
             ToolbarItem {
                 Button {
-                    showcommand.toggle()
-                } label: {
-                    Image(systemName: "command")
+                    newdata.resetForm()
+                    selectedconfig = nil
+                    showAddPopover.toggle()
                 }
-                .help("Show rsync command")
+                label: { Image(systemName: "plus") }
+                .help("Quick add task")
+                .sheet(isPresented: $showAddPopover) { addTaskSheetView }
             }
-        }
 
-        ToolbarItem {
-            Button {
-                newdata.resetForm()
-                selectedconfig = nil
-                showAddPopover.toggle()
+            ToolbarItem {
+                Spacer()
             }
-            label: { Image(systemName: "plus") }
-            .help("Quick add task")
-            .sheet(isPresented: $showAddPopover) { addTaskSheetView }
-        }
-
-        ToolbarItem {
-            Spacer()
         }
     }
 }
