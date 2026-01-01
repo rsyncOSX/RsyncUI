@@ -58,8 +58,12 @@ extension RsyncParametersView {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Task specific SSH parameter").font(.headline)
                 VStack(alignment: .leading, spacing: 8) {
-                    setsshpath
-                    setsshport
+                    setsshpath(path: $parameters.sshkeypathandidentityfile,
+                               placeholder: "set SSH keypath and identityfile",
+                               selectedValue: parameters.sshkeypathandidentityfile)
+                    sshportfield(port: $parameters.sshport,
+                                 placeholder: "set SSH port",
+                                 selectedValue: parameters.sshport)
                 }
             }
 
@@ -163,12 +167,63 @@ extension RsyncParametersView {
 // MARK: - SSH Configuration Fields
 
 extension RsyncParametersView {
-    var setsshpath: some View {
-        EditValueScheme(300, parameters.sshkeypathandidentityfile, $parameters.sshkeypathandidentityfile)
+    
+    func setsshpath(path: Binding<String>, placeholder: String,
+                      selectedValue: String?) -> some View {
+        // Determine if the current value should show an error border
+        let showErrorBorder: Bool = {
+            // Prefer the binding's current value; otherwise, consider the provided selectedValue
+            let valueToValidate = path.wrappedValue.isEmpty ? (selectedValue ?? "") : path.wrappedValue
+            return !valueToValidate.isEmpty && !isValidSSHkeypathandidentityfile(valueToValidate)
+        }()
+        return HStack {
+            if parameters.sshkeypathandidentityfile.isEmpty {
+                EditValueScheme(300, placeholder, path)
+                    .textContentType(.none)
+                    .submitLabel(.continue)
+                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
+            } else {
+                EditValueScheme(300, nil, path)
+                    .textContentType(.none)
+                    .submitLabel(.continue)
+                    .onAppear { if let value = selectedValue { path.wrappedValue = value } }
+                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
+            }
+        }
     }
+    
+    func sshportfield(port: Binding<String>, placeholder: String,
+                      selectedValue: String?) -> some View {
+        // Determine if the current value should show an error border
+        let showErrorBorder: Bool = {
+            // Prefer the binding's current value; otherwise, consider the provided selectedValue
+            let valueToValidate = port.wrappedValue.isEmpty ? (selectedValue ?? "") : port.wrappedValue
+            return !valueToValidate.isEmpty && !isValidSSHPort(valueToValidate)
+        }()
 
-    var setsshport: some View {
-        EditValueScheme(150, parameters.sshport, $parameters.sshport)
+        return HStack {
+            if parameters.sshport.isEmpty {
+                EditValueScheme(150, placeholder, port)
+                    .textContentType(.none)
+                    .submitLabel(.continue)
+                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
+            } else {
+                EditValueScheme(150, nil, port)
+                    .textContentType(.none)
+                    .submitLabel(.continue)
+                    .onAppear { if let value = selectedValue { port.wrappedValue = value } }
+                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
+            }
+        }
+    }
+    
+    func isValidSSHPort(_ input: String) -> Bool {
+        guard let port = Int(input.trimmingCharacters(in: .whitespacesAndNewlines)) else { return false }
+        return (22...65535).contains(port)
+    }
+    
+    func isValidSSHkeypathandidentityfile(_ input: String) -> Bool {
+        return true
     }
 }
 
