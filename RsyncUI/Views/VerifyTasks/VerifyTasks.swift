@@ -41,6 +41,10 @@ struct VerifyTasks: View {
                                 }
                             }
                         }
+                    
+                    if selecteduuids.count == 1 {
+                        
+                    }
 
                     if estimating {
                         ProgressView()
