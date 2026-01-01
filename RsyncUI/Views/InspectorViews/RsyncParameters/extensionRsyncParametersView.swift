@@ -174,7 +174,7 @@ extension RsyncParametersView {
         let showErrorBorder: Bool = {
             // Prefer the binding's current value; otherwise, consider the provided selectedValue
             let valueToValidate = path.wrappedValue.isEmpty ? (selectedValue ?? "") : path.wrappedValue
-            return !valueToValidate.isEmpty && !isValidSSHkeypathandidentityfile(valueToValidate)
+            return !valueToValidate.isEmpty && !isValidSSHKeyPath(valueToValidate)
         }()
         return HStack {
             if parameters.sshkeypathandidentityfile.isEmpty {
@@ -217,13 +217,25 @@ extension RsyncParametersView {
         }
     }
     
-    func isValidSSHPort(_ input: String) -> Bool {
-        guard let port = Int(input.trimmingCharacters(in: .whitespacesAndNewlines)) else { return false }
+    func isValidSSHPort(_ port: String) -> Bool {
+        guard let port = Int(port.trimmingCharacters(in: .whitespacesAndNewlines)) else { return false }
         return (22...65535).contains(port)
     }
     
-    func isValidSSHkeypathandidentityfile(_ input: String) -> Bool {
-        return true
+    
+    func isValidSSHKeyPath(_ keyPath: String) -> Bool {
+        // Check starts with tilde
+        guard keyPath.hasPrefix("~") else { return false }
+        
+        // Check contains two or more slashes
+        let slashCount = keyPath.filter { $0 == "/" }.count
+        guard slashCount >= 2 else { return false }
+        
+        // Expand to full path
+        let expandedPath = (keyPath as NSString).expandingTildeInPath
+        
+        // Check existence
+        return FileManager.default.fileExists(atPath: expandedPath)
     }
 }
 
