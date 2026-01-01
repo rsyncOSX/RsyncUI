@@ -36,7 +36,6 @@ struct AddTaskView: View {
     @State var newdata = ObservableAddConfigurations()
     @State var selectedconfig: SynchronizeConfiguration?
     @State var changesnapshotnum: Bool = false
-    @State var confirmcopyandpaste: Bool = false
     @State var stringestimate: String = ""
     @State var showhelp: Bool = false
     @State var showAddPopover: Bool = false
@@ -64,7 +63,7 @@ struct AddTaskView: View {
             }
             .inspector(isPresented: $showinspector) {
                 inspectorView
-                    .inspectorColumnWidth(min: 300, ideal: 400, max: 500)
+                    .inspectorColumnWidth(min: 400, ideal: 500, max: 600)
             }
             .padding()
         }

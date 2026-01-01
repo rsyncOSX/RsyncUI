@@ -36,7 +36,7 @@ struct RsyncParametersView: View {
             }
             .inspector(isPresented: $showinspector) {
                 inspectorView
-                    .inspectorColumnWidth(min: 300, ideal: 400, max: 500)
+                    .inspectorColumnWidth(min: 400, ideal: 500, max: 600)
             }
             .padding()
         }

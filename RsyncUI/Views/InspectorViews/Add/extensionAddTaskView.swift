@@ -164,11 +164,6 @@ extension AddTaskView {
         VerifyObservableAddConfiguration(observed: newdata).verify()
     }
 
-    var confirmationMessage: String {
-        let count = newdata.copyandpasteconfigurations?.count ?? 0
-        return count == 1 ? "Copy 1 configuration" : "Copy \(count) configurations"
-    }
-
     var inspectorView: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
@@ -398,19 +393,6 @@ extension AddTaskView {
         }
     }
 
-    func handlePaste(_ items: [CopyItem]) {
-        newdata.prepareCopyAndPasteTasks(items, rsyncUIdata.configurations ?? [])
-        guard items.count > 0 else { return }
-        confirmcopyandpaste = true
-    }
-
-    func handleCopyConfirmation() {
-        confirmcopyandpaste = false
-        rsyncUIdata.configurations = newdata.writeCopyAndPasteTasks(rsyncUIdata.profile, rsyncUIdata.configurations ?? [])
-        if SharedReference.shared.duplicatecheck, let configurations = rsyncUIdata.configurations {
-            VerifyDuplicates(configurations)
-        }
-    }
 
     func loadTrailingSlashPreference() {
         if let value = UserDefaults.standard.value(forKey: "trailingslashoptions") as? String {
@@ -428,10 +410,7 @@ extension AddTaskView {
 // MARK: - Computed Properties
 
 extension AddTaskView {
-    var copyitems: [CopyItem] {
-        rsyncUIdata.configurations?.map { CopyItem(id: $0.id, task: $0.task) } ?? []
-    }
-
+    
     var deleteparameterpresent: Bool {
         (rsyncUIdata.configurations?.filter { $0.parameter4?.isEmpty == false }.count ?? 0) > 0
     }

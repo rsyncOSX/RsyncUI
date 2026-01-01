@@ -12,6 +12,8 @@ struct ListofTasksAddView: View {
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @State private var confirmdelete: Bool = false
+    @State var confirmcopyandpaste: Bool = false
+    @State var newdata = ObservableAddConfigurations()
 
     var body: some View {
         ConfigurationsTableDataView(selecteduuids: $selecteduuids,
@@ -27,6 +29,21 @@ struct ListofTasksAddView: View {
             .onDeleteCommand {
                 confirmdelete = true
             }
+            .copyable(copyitems.filter { selecteduuids.contains($0.id) })
+                        .pasteDestination(for: CopyItem.self) { handlePaste($0) }
+                        validator: { $0.filter { $0.task != SharedReference.shared.snapshot } }
+                        .confirmationDialog(confirmationMessage, isPresented: $confirmcopyandpaste) {
+                            Button("Copy") { handleCopyConfirmation() }
+                        }
+    }
+    
+    var copyitems: [CopyItem] {
+        rsyncUIdata.configurations?.map { CopyItem(id: $0.id, task: $0.task) } ?? []
+    }
+
+    var confirmationMessage: String {
+        let count = newdata.copyandpasteconfigurations?.count ?? 0
+        return count == 1 ? "Copy 1 configuration" : "Copy \(count) configurations"
     }
 
     func delete() {
@@ -37,6 +54,20 @@ struct ListofTasksAddView: View {
             deleteconfigurations.deleteconfigurations(selecteduuids)
             selecteduuids.removeAll()
             rsyncUIdata.configurations = deleteconfigurations.configurations
+        }
+    }
+    
+    func handlePaste(_ items: [CopyItem]) {
+        newdata.prepareCopyAndPasteTasks(items, rsyncUIdata.configurations ?? [])
+        guard items.count > 0 else { return }
+        confirmcopyandpaste = true
+    }
+
+    func handleCopyConfirmation() {
+        confirmcopyandpaste = false
+        rsyncUIdata.configurations = newdata.writeCopyAndPasteTasks(rsyncUIdata.profile, rsyncUIdata.configurations ?? [])
+        if SharedReference.shared.duplicatecheck, let configurations = rsyncUIdata.configurations {
+            VerifyDuplicates(configurations)
         }
     }
 }
