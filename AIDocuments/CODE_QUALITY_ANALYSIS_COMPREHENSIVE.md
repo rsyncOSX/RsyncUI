@@ -15,12 +15,12 @@ RsyncUI remains a well-structured, safety-focused macOS SwiftUI app. Core execut
 
 ### What Improved Since v2.8.4rc2
 
-- Streaming handlers now release state deterministically after termination in Estimate/Execute and UI detail views ([../RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193), [RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323](RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323), [RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118](RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118)).
+- Streaming handlers now release state deterministically after termination in Estimate/Execute and UI detail views ([https://github.com/rsyncOSX/RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193), [https://github.com/rsyncOSX/RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323](RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323), [https://github.com/rsyncOSX/RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118](RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118)).
 - SwiftLint rules expanded to cover trailing whitespace, unused imports, explicit init, and sorted imports with reasonable caps for line/function/type length ([.swiftlint.yml#L1-L12](.swiftlint.yml#L1-L12)).
-- App shutdown now performs structured cleanup (timers/process termination) when the window closes ([RsyncUI/Main/RsyncUIApp.swift#L15-L90](RsyncUI/Main/RsyncUIApp.swift#L15-L90)).
+- App shutdown now performs structured cleanup (timers/process termination) when the window closes ([https://github.com/rsyncOSX/RsyncUI/Main/RsyncUIApp.swift#L15-L90](RsyncUI/Main/RsyncUIApp.swift#L15-L90)).
 
 ### Key Risks (Prioritized)
-1) Sentinel defaults and tri-state ints: 20+ `?? -1` usages remain in SSH parameters and configuration decoding, risking ambiguous “unset vs false” handling ([RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L66](RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L66), [RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24](RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24), [RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124](RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124)).
+1) Sentinel defaults and tri-state ints: 20+ `?? -1` usages remain in SSH parameters and configuration decoding, risking ambiguous “unset vs false” handling ([https://github.com/rsyncOSX/RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L66](RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L66), [https://github.com/rsyncOSX/RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24](RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24), [https://github.com/rsyncOSX/RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124](RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124)).
 2) Test coverage gaps: current suites exercise arguments, deeplinks, and config validation but skip streaming Estimate/Execute flows, error tagging, and log persistence ([RsyncUITests/RsyncUITests.swift#L17-L214](RsyncUITests/RsyncUITests.swift#L17-L214)).
 3) Missing CI: no repo-level workflow enforces SwiftLint/builds; regressions could slip in without automation.
 4) Telemetry backlog: counters for default-stats fallbacks and rsync error occurrences are still not implemented (tracked in TODO).
@@ -28,21 +28,21 @@ RsyncUI remains a well-structured, safety-focused macOS SwiftUI app. Core execut
 ---
 
 ## Architecture & Lifecycle
-- SwiftUI entry uses `NSApplicationDelegateAdaptor` and performs cleanup on window close (timer invalidation + process termination guard) to avoid orphaned subprocesses ([RsyncUI/Main/RsyncUIApp.swift#L15-L90](RsyncUI/Main/RsyncUIApp.swift#L15-L90), [RsyncUI/Model/Global/SharedReference.swift#L82-L120](RsyncUI/Model/Global/SharedReference.swift#L82-L120)).
-- Execution stack keeps strong streaming references and releases them immediately after termination to prevent leaks ([RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193), [RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323](RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323)).
-- UI single-task estimation uses handler factories with explicit cleanup hooks, aligning UI and model lifecycles ([RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118](RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118)).
+- SwiftUI entry uses `NSApplicationDelegateAdaptor` and performs cleanup on window close (timer invalidation + process termination guard) to avoid orphaned subprocesses ([https://github.com/rsyncOSX/RsyncUI/Main/RsyncUIApp.swift#L15-L90](RsyncUI/Main/RsyncUIApp.swift#L15-L90), [https://github.com/rsyncOSX/RsyncUI/Model/Global/SharedReference.swift#L82-L120](RsyncUI/Model/Global/SharedReference.swift#L82-L120)).
+- Execution stack keeps strong streaming references and releases them immediately after termination to prevent leaks ([https://github.com/rsyncOSX/RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193), [https://github.com/rsyncOSX/RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323](RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323)).
+- UI single-task estimation uses handler factories with explicit cleanup hooks, aligning UI and model lifecycles ([https://github.com/rsyncOSX/RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118](RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118)).
 
 ## Safety & Optional Handling
 - Guard/if-let patterns dominate in Estimate/Execute; hiddenID handling avoids force unwraps.
-- Remaining risk: sentinel `-1` continues to stand in for nil/false, especially for SSH port and user config booleans, which complicates validation logic ([RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L85](RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L85), [RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24](RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24), [RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124](RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124)).
+- Remaining risk: sentinel `-1` continues to stand in for nil/false, especially for SSH port and user config booleans, which complicates validation logic ([https://github.com/rsyncOSX/RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L85](RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L85), [https://github.com/rsyncOSX/RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24](RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24), [https://github.com/rsyncOSX/RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124](RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124)).
 
 ## Concurrency & Performance
-- Async/await with @MainActor usage is consistent in core flows; background work is isolated via `Task.detached` with results marshalled back to the main actor ([RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193)).
-- Process lifecycle is deterministic: handlers are nilled and processes released after each termination, reducing retain-cycle risk ([RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323](RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323)).
+- Async/await with @MainActor usage is consistent in core flows; background work is isolated via `Task.detached` with results marshalled back to the main actor ([https://github.com/rsyncOSX/RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193)).
+- Process lifecycle is deterministic: handlers are nilled and processes released after each termination, reducing retain-cycle risk ([https://github.com/rsyncOSX/RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323](RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323)).
 
 ## Logging & Diagnostics
-- OSLog wrappers gate debug logging behind `#if DEBUG`, keeping release builds quiet ([RsyncUI/Main/RsyncUIApp.swift#L82-L118](RsyncUI/Main/RsyncUIApp.swift#L82-L118)). No `print` usage in the codebase.
-- Centralized process reference updates emit debug breadcrumbs, aiding leak detection ([RsyncUI/Model/Global/SharedReference.swift#L82-L120](RsyncUI/Model/Global/SharedReference.swift#L82-L120)).
+- OSLog wrappers gate debug logging behind `#if DEBUG`, keeping release builds quiet ([https://github.com/rsyncOSX/RsyncUI/Main/RsyncUIApp.swift#L82-L118](RsyncUI/Main/RsyncUIApp.swift#L82-L118)). No `print` usage in the codebase.
+- Centralized process reference updates emit debug breadcrumbs, aiding leak detection ([https://github.com/rsyncOSX/RsyncUI/Model/Global/SharedReference.swift#L82-L120](RsyncUI/Model/Global/SharedReference.swift#L82-L120)).
 
 ## Testing Status
 - Implemented suites cover argument generation, deeplink URL creation, and configuration validation using the `Testing` framework ([RsyncUITests/RsyncUITests.swift#L17-L214](RsyncUITests/RsyncUITests.swift#L17-L214)).
@@ -55,7 +55,7 @@ RsyncUI remains a well-structured, safety-focused macOS SwiftUI app. Core execut
 ---
 
 ## Recommended Actions (Next 2-3 Iterations)
-1) Eliminate sentinel `-1` defaults for SSH and user config: make ports optional/validated ints and convert tri-state ints to real booleans or enums. Start with [RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L85](RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L85), [RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24](RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24), and [RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124](RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124).
+1) Eliminate sentinel `-1` defaults for SSH and user config: make ports optional/validated ints and convert tri-state ints to real booleans or enums. Start with [https://github.com/rsyncOSX/RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L85](RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L85), [https://github.com/rsyncOSX/RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24](RsyncUI/Model/ParametersRsync/SSHParams.swift#L12-L24), and [https://github.com/rsyncOSX/RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124](RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124).
 2) Add CI: GitHub Actions job running SwiftLint + `xcodebuild -scheme RsyncUI build` on macOS to block regressions.
 3) Implement telemetry counters for default-stats fallbacks and rsync error detections (per TODO) to observe silent failures without user alerts.
 4) Expand tests to cover streaming execution and error-tagging flows: estimations with >alerttagginglines outputs, interrupted processes, and log persistence success/failure.
@@ -69,10 +69,10 @@ RsyncUI remains a well-structured, safety-focused macOS SwiftUI app. Core execut
 ---
 
 ## Quick Reference
-- App lifecycle cleanup: [RsyncUI/Main/RsyncUIApp.swift#L15-L90](RsyncUI/Main/RsyncUIApp.swift#L15-L90)
-- Shared process state/kill guard: [RsyncUI/Model/Global/SharedReference.swift#L82-L120](RsyncUI/Model/Global/SharedReference.swift#L82-L120)
-- Streaming handler lifecycle (model): [RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193), [RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323](RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323)
-- Streaming handler lifecycle (view): [RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118](RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118)
+- App lifecycle cleanup: [https://github.com/rsyncOSX/RsyncUI/Main/RsyncUIApp.swift#L15-L90](RsyncUI/Main/RsyncUIApp.swift#L15-L90)
+- Shared process state/kill guard: [https://github.com/rsyncOSX/RsyncUI/Model/Global/SharedReference.swift#L82-L120](RsyncUI/Model/Global/SharedReference.swift#L82-L120)
+- Streaming handler lifecycle (model): [https://github.com/rsyncOSX/RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193), [https://github.com/rsyncOSX/RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323](RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323)
+- Streaming handler lifecycle (view): [https://github.com/rsyncOSX/RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118](RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118)
 - Tests in place today: [RsyncUITests/RsyncUITests.swift#L17-L214](RsyncUITests/RsyncUITests.swift#L17-L214)
     // Implement shell-safe escaping
 }
