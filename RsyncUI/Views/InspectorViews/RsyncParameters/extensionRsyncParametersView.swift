@@ -167,9 +167,8 @@ extension RsyncParametersView {
 // MARK: - SSH Configuration Fields
 
 extension RsyncParametersView {
-    
     func setsshpath(path: Binding<String>, placeholder: String,
-                      selectedValue: String?) -> some View {
+                    selectedValue: String?) -> some View {
         // Determine if the current value should show an error border
         let showErrorBorder: Bool = {
             // Prefer the binding's current value; otherwise, consider the provided selectedValue
@@ -191,7 +190,7 @@ extension RsyncParametersView {
             }
         }
     }
-    
+
     func sshportfield(port: Binding<String>, placeholder: String,
                       selectedValue: String?) -> some View {
         // Determine if the current value should show an error border
@@ -216,24 +215,23 @@ extension RsyncParametersView {
             }
         }
     }
-    
+
     func isValidSSHPort(_ port: String) -> Bool {
         guard let port = Int(port.trimmingCharacters(in: .whitespacesAndNewlines)) else { return false }
-        return (22...65535).contains(port)
+        return (22 ... 65535).contains(port)
     }
-    
-    
+
     func isValidSSHKeyPath(_ keyPath: String) -> Bool {
         // Check starts with tilde
         guard keyPath.hasPrefix("~") else { return false }
-        
+
         // Check contains two or more slashes
         let slashCount = keyPath.filter { $0 == "/" }.count
         guard slashCount >= 2 else { return false }
-        
+
         // Expand to full path
         let expandedPath = (keyPath as NSString).expandingTildeInPath
-        
+
         // Check existence
         return FileManager.default.fileExists(atPath: expandedPath)
     }
