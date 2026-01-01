@@ -85,7 +85,7 @@ extension AddTaskView {
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
         // Only show toolbar items when this tab is active
-        if selectedTab == .add {
+        if selectedTab == .edit {
             ToolbarItem {
                 Button {
                     newdata.resetForm()

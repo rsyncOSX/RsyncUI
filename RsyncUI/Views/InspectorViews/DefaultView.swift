@@ -8,14 +8,14 @@
 import SwiftUI
 
 enum InspectorTab: Hashable {
-    case add
+    case edit
     case parameters
     // case global
 }
 
 struct DefaultView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @State private var selectedTab: InspectorTab = .add
+    @State private var selectedTab: InspectorTab = .edit
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
     var body: some View {
@@ -35,10 +35,10 @@ struct DefaultView: View {
                             selectedTab: $selectedTab,
                             selecteduuids: $selecteduuids)
                     .tabItem {
-                        Label("Add", systemImage: "plus.circle")
+                        Label("Edit", systemImage: "plus.circle")
                     }
-                    .tag(InspectorTab.add)
-                    .id(InspectorTab.add)
+                    .tag(InspectorTab.edit)
+                    .id(InspectorTab.edit)
 
                 RsyncParametersView(rsyncUIdata: rsyncUIdata,
                                     selectedTab: $selectedTab,
