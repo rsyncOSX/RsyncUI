@@ -1,7 +1,7 @@
 # RsyncUI - Comprehensive Code Quality Analysis
 
 **Analysis Date:** January 1, 2026  
-**Version:** v2.8.4 (Sonoma)  
+**Version:** v2.8.5 (Sonoma)  
 **Analyzer:** GitHub Copilot (Claude Sonnet 4.5)  
 **Status:** Production-ready with focused follow-ups
 
@@ -14,7 +14,8 @@
 RsyncUI remains a well-structured, safety-focused macOS SwiftUI app. Core execution flows use modern async/await and the RsyncProcessStreaming package with explicit lifecycle cleanup, and logging is consistently OSLog-based. The main risks are persistent sentinel defaults (`?? -1`), tri-state configuration encoding, and the absence of CI and telemetry hooks. Test coverage is meaningful for arguments/deeplinks/config validation but does not yet exercise the streaming execution paths.
 
 ### What Improved Since v2.8.4rc2
-- Streaming handlers now release state deterministically after termination in Estimate/Execute and UI detail views ([RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193), [RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323](RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323), [RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118](RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118)).
+
+- Streaming handlers now release state deterministically after termination in Estimate/Execute and UI detail views ([../RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193), [RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323](RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323), [RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118](RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118)).
 - SwiftLint rules expanded to cover trailing whitespace, unused imports, explicit init, and sorted imports with reasonable caps for line/function/type length ([.swiftlint.yml#L1-L12](.swiftlint.yml#L1-L12)).
 - App shutdown now performs structured cleanup (timers/process termination) when the window closes ([RsyncUI/Main/RsyncUIApp.swift#L15-L90](RsyncUI/Main/RsyncUIApp.swift#L15-L90)).
 
