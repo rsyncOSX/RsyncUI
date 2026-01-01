@@ -53,9 +53,9 @@ struct AddTaskView: View {
                             whichhelptext: $newdata.whichhelptext,
                             deleteparameterpresent: deleteparameterpresent)
                 .padding()
-            
+
             Divider()
-            
+
             VStack(alignment: .center, spacing: 12) {
                 if showcommand, let selectedconfig {
                     RsyncCommandView(config: selectedconfig)

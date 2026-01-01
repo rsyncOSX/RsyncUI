@@ -23,33 +23,33 @@ struct RsyncParametersView: View {
     @State var showinspector: Bool = false
 
     var body: some View {
-            VStack(alignment: .leading, spacing: 0) {
-                HelpSectionView(showhelp: $showhelp,
-                                whichhelptext: $parameters.whichhelptext,
-                                deleteparameterpresent: deleteparameterpresent)
-                    .padding()
-                
-                Divider()
-                
-                VStack(alignment: .center, spacing: 12) {
-                    Spacer()
-                }
-                .inspector(isPresented: $showinspector) {
-                    inspectorView
-                        .inspectorColumnWidth(min: 300, ideal: 400, max: 500)
-                }
+        VStack(alignment: .leading, spacing: 0) {
+            HelpSectionView(showhelp: $showhelp,
+                            whichhelptext: $parameters.whichhelptext,
+                            deleteparameterpresent: deleteparameterpresent)
                 .padding()
+
+            Divider()
+
+            VStack(alignment: .center, spacing: 12) {
+                Spacer()
             }
-            .sheet(isPresented: $showhelp) { helpSheetView }
-            .onChange(of: rsyncUIdata.profile) {
-                selectedconfig = nil
-                // selecteduuids.removeAll()
-                // done on Sidebar Main view
-                parameters.setvalues(selectedconfig)
-                backup = false
+            .inspector(isPresented: $showinspector) {
+                inspectorView
+                    .inspectorColumnWidth(min: 300, ideal: 400, max: 500)
             }
-            .onChange(of: selecteduuids) {
-                handleSelectionChange()
-            }
+            .padding()
         }
+        .sheet(isPresented: $showhelp) { helpSheetView }
+        .onChange(of: rsyncUIdata.profile) {
+            selectedconfig = nil
+            // selecteduuids.removeAll()
+            // done on Sidebar Main view
+            parameters.setvalues(selectedconfig)
+            backup = false
+        }
+        .onChange(of: selecteduuids) {
+            handleSelectionChange()
+        }
+    }
 }

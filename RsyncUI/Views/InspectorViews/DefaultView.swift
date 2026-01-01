@@ -17,7 +17,7 @@ struct DefaultView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var selectedTab: InspectorTab = .add
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
             // Shared task list table on the left
@@ -26,29 +26,28 @@ struct DefaultView: View {
                 .onChange(of: rsyncUIdata.profile) {
                     selecteduuids.removeAll()
                 }
-            
+
             Divider()
-            
+
             // Tab-specific inspector views on the right
             TabView(selection: $selectedTab) {
                 AddTaskView(rsyncUIdata: rsyncUIdata,
                             selectedTab: $selectedTab,
                             selecteduuids: $selecteduuids)
-                .tabItem {
-                    Label("Add", systemImage: "plus.circle")
-                }
-                .tag(InspectorTab.add)
-                .id(InspectorTab.add)
-                
+                    .tabItem {
+                        Label("Add", systemImage: "plus.circle")
+                    }
+                    .tag(InspectorTab.add)
+                    .id(InspectorTab.add)
+
                 RsyncParametersView(rsyncUIdata: rsyncUIdata,
                                     selectedTab: $selectedTab,
                                     selecteduuids: $selecteduuids)
-                .tabItem {
-                    Label("Parameters", systemImage: "slider.horizontal.3")
-                }
-                .tag(InspectorTab.parameters)
-                .id(InspectorTab.parameters)
-                
+                    .tabItem {
+                        Label("Parameters", systemImage: "slider.horizontal.3")
+                    }
+                    .tag(InspectorTab.parameters)
+                    .id(InspectorTab.parameters)
             }
             .onChange(of: selectedTab) {
                 selecteduuids.removeAll()
@@ -56,7 +55,6 @@ struct DefaultView: View {
         }
     }
 }
-
 
 /*
  GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)

@@ -164,8 +164,6 @@ extension AddTaskView {
         VerifyObservableAddConfiguration(observed: newdata).verify()
     }
 
-
-
     var confirmationMessage: String {
         let count = newdata.copyandpasteconfigurations?.count ?? 0
         return count == 1 ? "Copy 1 configuration" : "Copy \(count) configurations"

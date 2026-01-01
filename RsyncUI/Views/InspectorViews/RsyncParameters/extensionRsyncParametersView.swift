@@ -188,7 +188,6 @@ extension RsyncParametersView {
 extension RsyncParametersView {
     var setsshpath: some View {
         EditValueScheme(300, parameters.sshkeypathandidentityfile, $parameters.sshkeypathandidentityfile)
-                             
     }
 
     var setsshport: some View {
