@@ -29,22 +29,26 @@ struct VerifyTasks: View {
         NavigationStack {
             VStack {
                 ZStack {
-                    ListofTasksAddView(rsyncUIdata: rsyncUIdata,
-                                       selecteduuids: $selecteduuids)
-                        .onChange(of: selecteduuids) {
-                            if let configurations = rsyncUIdata.configurations {
-                                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                                    selectedconfig = configurations[index]
+                    VStack {
+                        ListofTasksAddView(rsyncUIdata: rsyncUIdata,
+                                           selecteduuids: $selecteduuids)
+                            .onChange(of: selecteduuids) {
+                                if let configurations = rsyncUIdata.configurations {
+                                    if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                                        selectedconfig = configurations[index]
 
-                                } else {
-                                    selectedconfig = nil
+                                    } else {
+                                        selectedconfig = nil
+                                    }
                                 }
                             }
-                        }
-                    
-                    if selecteduuids.count == 1 {
                         
+                        if selecteduuids.count == 1, let selectedconfig {
+                             RsyncCommandView(config: selectedconfig)
+                                .padding()
+                        }
                     }
+                    
 
                     if estimating {
                         ProgressView()
