@@ -47,11 +47,6 @@ extension AddTaskView {
 // MARK: - Buttons
 
 extension AddTaskView {
-    var addButton: some View {
-        ConditionalGlassButton(systemImage: "plus", text: "Add", helpText: "Add task") {
-            addConfig()
-        }
-    }
 
     var updateButton: some View {
         ConditionalGlassButton(systemImage: "arrow.down", text: "Update", helpText: "Update task") {
@@ -155,7 +150,7 @@ extension AddTaskView {
             }
         }
         .padding()
-        .frame(minWidth: 500)
+        .frame(minWidth: 600)
         .onSubmit { handleSubmit() }
     }
 
@@ -191,11 +186,11 @@ extension AddTaskView {
     var synchronizeID: some View {
         Section(header: Text("Synchronize ID").modifier(FixedTag(200, .leading)).font(.title3).fontWeight(.bold)) {
             if newdata.selectedconfig == nil {
-                EditValueScheme(300, "Add synchronize ID", $newdata.backupID)
+                EditValueScheme(400, "Add synchronize ID", $newdata.backupID)
                     .focused($focusField, equals: .synchronizeIDField)
                     .textContentType(.none).submitLabel(.continue)
             } else {
-                EditValueScheme(300, nil, $newdata.backupID)
+                EditValueScheme(400, nil, $newdata.backupID)
                     .focused($focusField, equals: .synchronizeIDField)
                     .textContentType(.none).submitLabel(.continue)
                     .onAppear { if let id = newdata.selectedconfig?.backupID { newdata.backupID = id } }
@@ -205,7 +200,7 @@ extension AddTaskView {
 
     var snapshotnum: some View {
         Section(header: Text("Snapshotnumber").modifier(FixedTag(200, .leading))) {
-            EditValueScheme(300, nil, $newdata.snapshotnum)
+            EditValueScheme(400, nil, $newdata.snapshotnum)
                 .focused($focusField, equals: .snapshotnumField)
                 .textContentType(.none).submitLabel(.return)
                 .disabled(!changesnapshotnum)
@@ -248,12 +243,12 @@ extension AddTaskView {
                       showErrorBorder: Bool = false) -> some View {
         HStack {
             if newdata.selectedconfig == nil {
-                EditValueScheme(300, placeholder, catalog)
+                EditValueScheme(400, placeholder, catalog)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(.continue)
                     .border(showErrorBorder ? Color.red : Color.clear, width: 2)
             } else {
-                EditValueScheme(300, nil, catalog)
+                EditValueScheme(400, nil, catalog)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(.continue)
                     .onAppear { if let value = selectedValue { catalog.wrappedValue = value } }
@@ -280,12 +275,12 @@ extension AddTaskView {
                      showErrorBorder: Bool = false) -> some View {
         Group {
             if newdata.selectedconfig == nil {
-                EditValueScheme(300, placeholder, value)
+                EditValueScheme(400, placeholder, value)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(submitLabel)
                     .border(showErrorBorder ? Color.red : Color.clear, width: 2)
             } else {
-                EditValueScheme(300, nil, value)
+                EditValueScheme(400, nil, value)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(submitLabel)
                     .onAppear { if let val = selectedValue { value.wrappedValue = val } }

@@ -7,29 +7,6 @@
 
 import SwiftUI
 
-// MARK: - Toolbar
-
-extension RsyncParametersView {
-    @ToolbarContentBuilder
-    var toolbarContent: some ToolbarContent {
-        // Only show toolbar items when this tab is active
-        if selectedTab == .parameters {
-            ToolbarItem {
-                Button {
-                    presentarguments = true
-                } label: {
-                    Image(systemName: "command")
-                }
-                .help("Show arguments")
-            }
-
-            ToolbarItem {
-                Spacer()
-            }
-        }
-    }
-}
-
 // MARK: - Business Logic & Actions
 
 extension RsyncParametersView {
