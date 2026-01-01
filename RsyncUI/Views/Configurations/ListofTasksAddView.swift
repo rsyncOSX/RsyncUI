@@ -30,13 +30,13 @@ struct ListofTasksAddView: View {
                 confirmdelete = true
             }
             .copyable(copyitems.filter { selecteduuids.contains($0.id) })
-                        .pasteDestination(for: CopyItem.self) { handlePaste($0) }
-                        validator: { $0.filter { $0.task != SharedReference.shared.snapshot } }
-                        .confirmationDialog(confirmationMessage, isPresented: $confirmcopyandpaste) {
-                            Button("Copy") { handleCopyConfirmation() }
-                        }
+            .pasteDestination(for: CopyItem.self) { handlePaste($0) }
+            validator: { $0.filter { $0.task != SharedReference.shared.snapshot } }
+            .confirmationDialog(confirmationMessage, isPresented: $confirmcopyandpaste) {
+                Button("Copy") { handleCopyConfirmation() }
+            }
     }
-    
+
     var copyitems: [CopyItem] {
         rsyncUIdata.configurations?.map { CopyItem(id: $0.id, task: $0.task) } ?? []
     }
@@ -56,7 +56,7 @@ struct ListofTasksAddView: View {
             rsyncUIdata.configurations = deleteconfigurations.configurations
         }
     }
-    
+
     func handlePaste(_ items: [CopyItem]) {
         newdata.prepareCopyAndPasteTasks(items, rsyncUIdata.configurations ?? [])
         guard items.count > 0 else { return }

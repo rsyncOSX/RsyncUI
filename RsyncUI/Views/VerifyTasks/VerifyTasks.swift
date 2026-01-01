@@ -42,13 +42,12 @@ struct VerifyTasks: View {
                                     }
                                 }
                             }
-                        
+
                         if selecteduuids.count == 1, let selectedconfig {
-                             RsyncCommandView(config: selectedconfig)
+                            RsyncCommandView(config: selectedconfig)
                                 .padding()
                         }
                     }
-                    
 
                     if estimating {
                         ProgressView()

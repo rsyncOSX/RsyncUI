@@ -47,7 +47,6 @@ extension AddTaskView {
 // MARK: - Buttons
 
 extension AddTaskView {
-
     var updateButton: some View {
         ConditionalGlassButton(systemImage: "arrow.down", text: "Update", helpText: "Update task") {
             validateAndUpdate()
@@ -388,7 +387,6 @@ extension AddTaskView {
         }
     }
 
-
     func loadTrailingSlashPreference() {
         if let value = UserDefaults.standard.value(forKey: "trailingslashoptions") as? String {
             newdata.trailingslashoptions = TrailingSlash(rawValue: value) ?? .add
@@ -405,7 +403,6 @@ extension AddTaskView {
 // MARK: - Computed Properties
 
 extension AddTaskView {
-    
     var deleteparameterpresent: Bool {
         (rsyncUIdata.configurations?.filter { $0.parameter4?.isEmpty == false }.count ?? 0) > 0
     }
