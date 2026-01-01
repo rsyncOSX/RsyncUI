@@ -44,12 +44,12 @@ final class ObservableAddConfigurations {
     // When --delete parameter is present (shown in red)
     let helptext1 = "The Synchronize ID is shown in RED because\nthe --delete parameter is currently ENABLED\n\n" +
         "To disable the --delete parameter:\n\n" +
-        "on the toolbar, toggle the Switch to enable\n" +
+        "select tabview Parameters, toggle the Switch to enable\n" +
         "parameter editing, select the task and disable it"
 
     // When --delete parameter is not present (shown in blue)
     let helptext2 = "To enable the --delete parameter:\n\n" +
-        "on the toolbar, toggle the Switch to enable\n" +
+        "select tabview Parameters, toggle the Switch to enable\n" +
         "parameter editing, select the task and enable it"
 
     @ObservationIgnored var whichhelptext: Int = 1
