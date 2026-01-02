@@ -48,8 +48,9 @@ final class VerifyConfiguration: Connected {
         newconfig.offsiteUsername = data.newoffsiteUsername ?? ""
         newconfig.parameter4 = nil
         newconfig.dateRun = ""
-        newconfig.hiddenID = data.hiddenID ?? -1
-
+        if let hiddenID = data.hiddenID {
+            newconfig.hiddenID = hiddenID
+        }
         guard data.newlocalCatalog.isEmpty == false else {
             propagateError(error: ValidateInputError.localcatalog)
             return nil
