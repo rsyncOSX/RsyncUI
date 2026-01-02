@@ -49,27 +49,6 @@ struct ToggleViewDefault: View {
     }
 }
 
-struct ToggleViewToolbar: View {
-    @Environment(\.colorScheme) var colorScheme
-    private var mytext: String
-    private var mybinding: Binding<Bool>
-
-    var body: some View {
-        Toggle(isOn: mybinding) {
-            Text(mytext)
-                .font(.caption) // Smaller text
-                .foregroundColor(mybinding.wrappedValue ? .blue : (colorScheme == .dark ? .white : .black))
-        }
-        .toggleStyle(.switch)
-        .controlSize(.small) // Smaller switch
-    }
-
-    init(text: String, binding: Binding<Bool>) {
-        mytext = text
-        mybinding = binding
-    }
-}
-
 struct DismissafterMessageView: View {
     private var dismissafter: Double
     private var mytext: String

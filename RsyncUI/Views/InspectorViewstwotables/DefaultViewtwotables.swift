@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct DefaultViewtwotables: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var selectedTab: InspectorTab = .edit

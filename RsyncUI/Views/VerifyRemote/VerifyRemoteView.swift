@@ -166,22 +166,4 @@ struct VerifyRemoteView: View {
             }
         }
     }
-
-    var remoteconfigurations: Bool {
-        let remotes = configurationsdata.configurations?.filter { configuration in
-            configuration.offsiteServer.isEmpty == false &&
-                configuration.task == SharedReference.shared.synchronize &&
-                SharedReference.shared.rsyncversion3 == true
-        } ?? []
-        if remotes.count > 0 {
-            return true
-        } else {
-            return false
-        }
-    }
-
-    func allTasksAreHalted() -> Bool {
-        let haltedtasks = configurationsdata.configurations?.filter { $0.task == SharedReference.shared.halted }
-        return haltedtasks?.count ?? 0 == configurationsdata.configurations?.count ?? 0
-    }
 }

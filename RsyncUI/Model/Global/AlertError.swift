@@ -17,10 +17,6 @@ final class AlertError {
         activeError = error
     }
 
-    func clearError() {
-        activeError = nil
-    }
-
     var isPresentingAlert: Binding<Bool> {
         Binding<Bool>(
             get: { self.activeError != nil },

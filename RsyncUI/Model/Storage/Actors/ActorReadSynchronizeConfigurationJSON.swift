@@ -58,10 +58,3 @@ actor ActorReadSynchronizeConfigurationJSON {
         Logger.process.debugMessageOnly("ActorReadSynchronizeConfigurationJSON: DEINIT")
     }
 }
-
-@MainActor
-struct ReportError {
-    func propagateError(error: Error) {
-        SharedReference.shared.errorobject?.alert(error: error)
-    }
-}
