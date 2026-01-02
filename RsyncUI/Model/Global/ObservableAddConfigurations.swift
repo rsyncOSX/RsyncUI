@@ -99,7 +99,7 @@ final class ObservableAddConfigurations {
            remotecatalog.hasSuffix("/") == false {
             trailingslashoptions = .do_not_add
         }
-        
+
         guard let hiddenID = selectedconfig?.hiddenID else { return nil }
         let updateddata = NewTask(selectedrsynccommand.rawValue,
                                   localcatalog.replacingOccurrences(of: "\"", with: ""),

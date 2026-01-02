@@ -47,7 +47,8 @@ final class ObservableParametersRsync {
             parameter12 = configuration?.parameter12 ?? ""
             parameter13 = configuration?.parameter13 ?? ""
             parameter14 = configuration?.parameter14 ?? ""
-            if let configsshport = configuration?.sshport, configsshport != -1 {
+            if let configsshport = configuration?.sshport,
+               configsshport != -1 {
                 sshport = String(configsshport)
             } else {
                 sshport = ""
