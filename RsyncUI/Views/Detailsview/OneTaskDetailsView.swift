@@ -74,10 +74,11 @@ struct OneTaskDetailsView: View {
             guard selectedconfig?.task != SharedReference.shared.halted else { return }
             guard let streamingHandlers else { return }
             guard let arguments else { return }
+            guard let hiddenID = selectedconfig?.hiddenID else { return }
 
             let process = RsyncProcessStreaming.RsyncProcess(
                 arguments: arguments,
-                hiddenID: selectedconfig?.hiddenID ?? -1,
+                hiddenID: hiddenID,
                 handlers: streamingHandlers,
                 useFileHandler: false
             )
