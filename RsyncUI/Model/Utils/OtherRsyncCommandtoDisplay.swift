@@ -76,49 +76,95 @@ struct OtherRsyncCommandtoDisplay {
 
     private static func createPublicSSHKey(config: SynchronizeConfiguration) -> [String] {
         if config.offsiteServer.isEmpty == false {
-            let createsshkeys = SSHCreateKey(sharedSSHPort: String(SharedReference.shared.sshport ?? -1),
-                                             sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
-            do {
-                let arguments = try createsshkeys.argumentsCreateKey()
-                let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
-                return [createsshkeys.createKeyCommand, cleanedArguments]
-            } catch {}
+            var sshcreatekeys: SSHCreateKey?
+            let sshport = SharedReference.shared.sshport
+            let sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile
+
+            if let port = sshport, let keypath = sshkeypathandidentityfile {
+                // Both values are not nil
+                sshcreatekeys = SSHCreateKey(sharedSSHPort: String(port),
+                                            sharedSSHKeyPathAndIdentityFile: keypath)
+            } else if let port = sshport {
+                // Only port is not nil
+                sshcreatekeys = SSHCreateKey(sharedSSHPort: String(port),
+                                            sharedSSHKeyPathAndIdentityFile: nil)
+            } else if let keypath = sshkeypathandidentityfile {
+                // Only keypath is not nil
+                sshcreatekeys = SSHCreateKey(sharedSSHPort: nil,
+                                            sharedSSHKeyPathAndIdentityFile: keypath)
+            }
+            guard let sshcreatekeys else {
+                return ["No SSH key configuration"]
+            }
+            let arguments = (try? sshcreatekeys.argumentsCreateKey()) ?? []
+            let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
+            let createCmd = sshcreatekeys.createKeyCommand
+            return [createCmd, cleanedArguments]
         } else {
             return ["No remote server on task"]
         }
-        return []
     }
 
     private static func verifyPublicSSHKey(config: SynchronizeConfiguration) -> [String] {
         if config.offsiteServer.isEmpty == false {
-            let createsshkeys = SSHCreateKey(sharedSSHPort: String(SharedReference.shared.sshport ?? -1),
-                                             sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
-            do {
-                let tmpstr = try createsshkeys.argumentsVerifyRemotePublicSSHKey(offsiteServer: config.offsiteServer,
-                                                                                 offsiteUsername: config.offsiteUsername)
-                let cleanedArguments = tmpstr.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
-                return [cleanedArguments]
-            } catch {}
+            var sshcreatekeys: SSHCreateKey?
+            let sshport = SharedReference.shared.sshport
+            let sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile
+
+            if let port = sshport, let keypath = sshkeypathandidentityfile {
+                // Both values are not nil
+                sshcreatekeys = SSHCreateKey(sharedSSHPort: String(port),
+                                            sharedSSHKeyPathAndIdentityFile: keypath)
+            } else if let port = sshport {
+                // Only port is not nil
+                sshcreatekeys = SSHCreateKey(sharedSSHPort: String(port),
+                                            sharedSSHKeyPathAndIdentityFile: nil)
+            } else if let keypath = sshkeypathandidentityfile {
+                // Only keypath is not nil
+                sshcreatekeys = SSHCreateKey(sharedSSHPort: nil,
+                                            sharedSSHKeyPathAndIdentityFile: keypath)
+            }
+            guard let sshcreatekeys else {
+                return ["No SSH key configuration"]
+            }
+            let arguments = (try? sshcreatekeys.argumentsVerifyRemotePublicSSHKey(offsiteServer: config.offsiteServer,offsiteUsername: config.offsiteUsername)) ?? []
+            let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
+            let createCmd = sshcreatekeys.createKeyCommand
+            return [createCmd, cleanedArguments]
         } else {
             return ["No remote server on task"]
         }
-        return []
     }
 
     private static func copyPublicSSHKey(config: SynchronizeConfiguration) -> [String] {
         if config.offsiteServer.isEmpty == false {
-            let createsshkeys = SSHCreateKey(sharedSSHPort: String(SharedReference.shared.sshport ?? -1),
-                                             sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
-            do {
-                let tmpstr = try createsshkeys.argumentsSSHCopyID(offsiteServer: config.offsiteServer,
-                                                                  offsiteUsername: config.offsiteUsername)
-                let cleanedArguments = tmpstr.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
-                return [cleanedArguments]
-            } catch {}
+            var sshcreatekeys: SSHCreateKey?
+            let sshport = SharedReference.shared.sshport
+            let sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile
+
+            if let port = sshport, let keypath = sshkeypathandidentityfile {
+                // Both values are not nil
+                sshcreatekeys = SSHCreateKey(sharedSSHPort: String(port),
+                                            sharedSSHKeyPathAndIdentityFile: keypath)
+            } else if let port = sshport {
+                // Only port is not nil
+                sshcreatekeys = SSHCreateKey(sharedSSHPort: String(port),
+                                            sharedSSHKeyPathAndIdentityFile: nil)
+            } else if let keypath = sshkeypathandidentityfile {
+                // Only keypath is not nil
+                sshcreatekeys = SSHCreateKey(sharedSSHPort: nil,
+                                            sharedSSHKeyPathAndIdentityFile: keypath)
+            }
+            guard let sshcreatekeys else {
+                return ["No SSH key configuration"]
+            }
+            let arguments = (try? sshcreatekeys.argumentsSSHCopyID(offsiteServer: config.offsiteServer,offsiteUsername: config.offsiteUsername)) ?? []
+            let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
+            let createCmd = sshcreatekeys.createKeyCommand
+            return [createCmd, cleanedArguments]
         } else {
             return ["No remote server on task"]
         }
-        return []
     }
 
     private static func urlEstimate(profile: String?) -> [String] {
@@ -127,3 +173,4 @@ struct OtherRsyncCommandtoDisplay {
         return [urlestimate?.absoluteString ?? ""]
     }
 }
+
