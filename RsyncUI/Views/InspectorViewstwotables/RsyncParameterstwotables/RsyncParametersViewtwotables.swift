@@ -1,5 +1,5 @@
 //
-//  RsyncParametersView.swift
+//  RsyncParametersViewtwotables.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 20/11/2023.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct RsyncParametersView_twotables: View {
+struct RsyncParametersViewtwotables: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selectedTab: InspectorTab_twotables
+    @Binding var selectedTab: InspectorTabtwotables
 
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State var parameters = ObservableParametersRsync()

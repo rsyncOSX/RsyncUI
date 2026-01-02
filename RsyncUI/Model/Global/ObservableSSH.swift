@@ -21,7 +21,9 @@ final class ObservableSSH {
     var sshcreatekey: SSHCreateKey?
 
     init() {
-        sshcreatekey = SSHCreateKey(sharedSSHPort: String(SharedReference.shared.sshport ?? -1),
-                                    sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
+        if let sshport = SharedReference.shared.sshport, let sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile {
+            sshcreatekey = SSHCreateKey(sharedSSHPort: String(sshport),
+                                        sharedSSHKeyPathAndIdentityFile: sshkeypathandidentityfile)
+        }
     }
 }

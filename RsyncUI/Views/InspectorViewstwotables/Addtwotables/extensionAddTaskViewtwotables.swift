@@ -10,7 +10,7 @@ import SwiftUI
 
 // MARK: - Configuration Actions
 
-extension AddTaskView_twotables {
+extension AddTaskViewtwotables {
     func addConfig() {
         let profile = rsyncUIdata.profile
         rsyncUIdata.configurations = newdata.addConfig(profile, rsyncUIdata.configurations)
@@ -31,7 +31,7 @@ extension AddTaskView_twotables {
 
 // MARK: - View Builders
 
-extension AddTaskView_twotables {
+extension AddTaskViewtwotables {
     var catalogSectionView: some View {
         Group {
             if newdata.selectedrsynccommand == .syncremote {
@@ -46,7 +46,7 @@ extension AddTaskView_twotables {
 
 // MARK: - Buttons
 
-extension AddTaskView_twotables {
+extension AddTaskViewtwotables {
     var addButton: some View {
         ConditionalGlassButton(systemImage: "plus", text: "Add", helpText: "Add task") {
             addConfig()
@@ -78,7 +78,7 @@ extension AddTaskView_twotables {
 
 // MARK: - Help & Toolbar
 
-extension AddTaskView_twotables {
+extension AddTaskViewtwotables {
     var helpSheetView: some View {
         switch newdata.whichhelptext {
         case 1: HelpView(text: newdata.helptext1, add: false, deleteparameterpresent: false)
@@ -91,7 +91,6 @@ extension AddTaskView_twotables {
     var toolbarContent: some ToolbarContent {
         // Only show toolbar items when this tab is active
         if selectedTab == .edit {
-            
             ToolbarItem {
                 Button {
                     showinspector = false
@@ -113,7 +112,7 @@ extension AddTaskView_twotables {
 
 // MARK: - Task List & Inspector Views
 
-extension AddTaskView_twotables {
+extension AddTaskViewtwotables {
     var addTaskSheetView: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Add Task").font(.headline)
@@ -205,7 +204,7 @@ extension AddTaskView_twotables {
 
 // MARK: - Form Field Sections
 
-extension AddTaskView_twotables {
+extension AddTaskViewtwotables {
     var synchronizeID: some View {
         Section(header: Text("Synchronize ID").modifier(FixedTag(200, .leading)).font(.title3).fontWeight(.bold)) {
             if newdata.selectedconfig == nil {
@@ -315,7 +314,7 @@ extension AddTaskView_twotables {
 
 // MARK: - Picker Controls
 
-extension AddTaskView_twotables {
+extension AddTaskViewtwotables {
     var trailingslash: some View {
         Picker("Trailing /", selection: $newdata.trailingslashoptions) {
             ForEach(TrailingSlash.allCases) { Text($0.description).tag($0) }
@@ -341,7 +340,7 @@ extension AddTaskView_twotables {
 
 // MARK: - Business Logic & User Actions
 
-extension AddTaskView_twotables {
+extension AddTaskViewtwotables {
     func clearSelection() {
         selecteduuids.removeAll()
         selectedconfig = nil
@@ -440,7 +439,7 @@ extension AddTaskView_twotables {
 
 // MARK: - Computed Properties
 
-extension AddTaskView_twotables {
+extension AddTaskViewtwotables {
     var copyitems: [CopyItem] {
         rsyncUIdata.configurations?.map { CopyItem(id: $0.id, task: $0.task) } ?? []
     }

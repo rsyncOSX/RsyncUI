@@ -1,5 +1,5 @@
 //
-//  DefaultView.swift
+//  DefaultViewtwotables.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 28/12/2025.
@@ -7,25 +7,25 @@
 
 import SwiftUI
 
-enum InspectorTab_twotables: Hashable {
+enum InspectorTabtwotables: Hashable {
     case edit
     case parameters
 }
 
-struct DefaultView_twotables: View {
+struct DefaultViewtwotables: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @State private var selectedTab: InspectorTab_twotables = .edit
+    @State private var selectedTab: InspectorTabtwotables = .edit
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            AddTaskView_twotables(rsyncUIdata: rsyncUIdata, selectedTab: $selectedTab)
+            AddTaskViewtwotables(rsyncUIdata: rsyncUIdata, selectedTab: $selectedTab)
                 .tabItem {
                     Label("Edit", systemImage: "plus.circle")
                 }
                 .tag(InspectorTab.edit)
                 .id(InspectorTab.edit)
 
-            RsyncParametersView_twotables(rsyncUIdata: rsyncUIdata, selectedTab: $selectedTab)
+            RsyncParametersViewtwotables(rsyncUIdata: rsyncUIdata, selectedTab: $selectedTab)
                 .tabItem {
                     Label("Parameters", systemImage: "slider.horizontal.3")
                 }

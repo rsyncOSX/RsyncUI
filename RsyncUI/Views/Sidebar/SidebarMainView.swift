@@ -195,7 +195,7 @@ struct SidebarMainView: View {
         case .tasks:
             if SharedReference.shared.usetwotablesInspector {
                 NavigationStack {
-                    DefaultView_twotables(rsyncUIdata: rsyncUIdata)
+                    DefaultViewtwotables(rsyncUIdata: rsyncUIdata)
                 }
             } else {
                 NavigationStack {

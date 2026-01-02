@@ -1,5 +1,5 @@
 //
-//  extensionRsyncParametersView.swift
+//  extensionRsyncParametersViewtwotables.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 28/12/2025.
@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - Toolbar
 
-extension RsyncParametersView_twotables {
+extension RsyncParametersViewtwotables {
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
         // Only show toolbar items when this tab is active
@@ -32,7 +32,7 @@ extension RsyncParametersView_twotables {
 
 // MARK: - Business Logic & Actions
 
-extension RsyncParametersView_twotables {
+extension RsyncParametersViewtwotables {
     func clearSelection() {
         selectedconfig = nil
         selecteduuids.removeAll()
@@ -56,70 +56,70 @@ extension RsyncParametersView_twotables {
 
 // MARK: - Inspector View
 
-extension RsyncParametersView_twotables {
+extension RsyncParametersViewtwotables {
     var inspectorView: some View {
-            VStack(alignment: .leading, spacing: 12) {
-                addupdateButton
+        VStack(alignment: .leading, spacing: 12) {
+            addupdateButton
 
-                VStack(alignment: .leading, spacing: 8) {
-                    EditRsyncParameter(350, $parameters.parameter8)
-                        .onChange(of: parameters.parameter8) { parameters.configuration?.parameter8 = parameters.parameter8 }
-                    EditRsyncParameter(350, $parameters.parameter9)
-                        .onChange(of: parameters.parameter9) { parameters.configuration?.parameter9 = parameters.parameter9 }
-                    EditRsyncParameter(350, $parameters.parameter10)
-                        .onChange(of: parameters.parameter10) { parameters.configuration?.parameter10 = parameters.parameter10 }
-                    EditRsyncParameter(350, $parameters.parameter11)
-                        .onChange(of: parameters.parameter11) { parameters.configuration?.parameter11 = parameters.parameter11 }
-                    EditRsyncParameter(350, $parameters.parameter12)
-                        .onChange(of: parameters.parameter12) { parameters.configuration?.parameter12 = parameters.parameter12 }
-                    EditRsyncParameter(350, $parameters.parameter13)
-                        .onChange(of: parameters.parameter13) { parameters.configuration?.parameter13 = parameters.parameter13 }
-                    EditRsyncParameter(350, $parameters.parameter14)
-                        .onChange(of: parameters.parameter14) { parameters.configuration?.parameter14 = parameters.parameter14 }
-                }
+            VStack(alignment: .leading, spacing: 8) {
+                EditRsyncParameter(350, $parameters.parameter8)
+                    .onChange(of: parameters.parameter8) { parameters.configuration?.parameter8 = parameters.parameter8 }
+                EditRsyncParameter(350, $parameters.parameter9)
+                    .onChange(of: parameters.parameter9) { parameters.configuration?.parameter9 = parameters.parameter9 }
+                EditRsyncParameter(350, $parameters.parameter10)
+                    .onChange(of: parameters.parameter10) { parameters.configuration?.parameter10 = parameters.parameter10 }
+                EditRsyncParameter(350, $parameters.parameter11)
+                    .onChange(of: parameters.parameter11) { parameters.configuration?.parameter11 = parameters.parameter11 }
+                EditRsyncParameter(350, $parameters.parameter12)
+                    .onChange(of: parameters.parameter12) { parameters.configuration?.parameter12 = parameters.parameter12 }
+                EditRsyncParameter(350, $parameters.parameter13)
+                    .onChange(of: parameters.parameter13) { parameters.configuration?.parameter13 = parameters.parameter13 }
+                EditRsyncParameter(350, $parameters.parameter14)
+                    .onChange(of: parameters.parameter14) { parameters.configuration?.parameter14 = parameters.parameter14 }
+            }
 
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Task specific SSH parameter").font(.headline)
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Task specific SSH parameter").font(.headline)
-                    VStack(alignment: .leading, spacing: 8) {
-                        setsshpath(path: $parameters.sshkeypathandidentityfile,
-                                   placeholder: "set SSH keypath and identityfile",
-                                   selectedValue: parameters.sshkeypathandidentityfile)
-                        sshportfield(port: $parameters.sshport,
-                                     placeholder: "set SSH port",
-                                     selectedValue: parameters.sshport)
-                    }
-                }
-
-                let isDeletePresent = selectedconfig?.parameter4 == "--delete"
-                let headerText = isDeletePresent ? "Remove --delete parameter" : "Add --delete parameter"
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(headerText)
-                        .font(.headline)
-                        .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
-                    Toggle("--delete", isOn: $parameters.adddelete)
-                        .toggleStyle(.switch)
-                        .onChange(of: parameters.adddelete) { parameters.adddelete(parameters.adddelete) }
-                        .disabled(selecteduuids.isEmpty)
-                }
-
-                VStack(alignment: .leading, spacing: 8) {
-                    Toggle("Backup", isOn: $backup)
-                        .toggleStyle(.switch)
-                        .onChange(of: backup) {
-                            guard !selecteduuids.isEmpty else {
-                                backup = false
-                                return
-                            }
-                            parameters.setbackup()
-                        }
+                    setsshpath(path: $parameters.sshkeypathandidentityfile,
+                               placeholder: "set SSH keypath and identityfile",
+                               selectedValue: parameters.sshkeypathandidentityfile)
+                    sshportfield(port: $parameters.sshport,
+                                 placeholder: "set SSH port",
+                                 selectedValue: parameters.sshport)
                 }
             }
+
+            let isDeletePresent = selectedconfig?.parameter4 == "--delete"
+            let headerText = isDeletePresent ? "Remove --delete parameter" : "Add --delete parameter"
+            VStack(alignment: .leading, spacing: 8) {
+                Text(headerText)
+                    .font(.headline)
+                    .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
+                Toggle("--delete", isOn: $parameters.adddelete)
+                    .toggleStyle(.switch)
+                    .onChange(of: parameters.adddelete) { parameters.adddelete(parameters.adddelete) }
+                    .disabled(selecteduuids.isEmpty)
+            }
+
+            VStack(alignment: .leading, spacing: 8) {
+                Toggle("Backup", isOn: $backup)
+                    .toggleStyle(.switch)
+                    .onChange(of: backup) {
+                        guard !selecteduuids.isEmpty else {
+                            backup = false
+                            return
+                        }
+                        parameters.setbackup()
+                    }
+            }
         }
+    }
 }
 
 // MARK: - Buttons
 
-extension RsyncParametersView_twotables {
+extension RsyncParametersViewtwotables {
     var addupdateButton: some View {
         if notifydataisupdated {
             ConditionalGlassButton(
@@ -149,7 +149,7 @@ extension RsyncParametersView_twotables {
 
 // MARK: - Computed Properties
 
-extension RsyncParametersView_twotables {
+extension RsyncParametersViewtwotables {
     var currentFlagStrings: [String] {
         [parameters.parameter8,
          parameters.parameter9,
@@ -163,7 +163,7 @@ extension RsyncParametersView_twotables {
 
 // MARK: - Task List View
 
-extension RsyncParametersView_twotables {
+extension RsyncParametersViewtwotables {
     var taskListView: some View {
         ListofTasksAddView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
             .onChange(of: selecteduuids) { handleSelectionChange() }
@@ -172,7 +172,7 @@ extension RsyncParametersView_twotables {
 
 // MARK: - Event Handlers
 
-extension RsyncParametersView_twotables {
+extension RsyncParametersViewtwotables {
     func handleSelectionChange() {
         if let configurations = rsyncUIdata.configurations {
             guard selecteduuids.count == 1 else {
@@ -198,7 +198,7 @@ extension RsyncParametersView_twotables {
 
 // MARK: - SSH Configuration Fields
 
-extension RsyncParametersView_twotables {
+extension RsyncParametersViewtwotables {
     func setsshpath(path: Binding<String>, placeholder: String,
                     selectedValue: String?) -> some View {
         // Determine if the current value should show an error border
@@ -270,7 +270,7 @@ extension RsyncParametersView_twotables {
 
 // MARK: - State Properties
 
-extension RsyncParametersView_twotables {
+extension RsyncParametersViewtwotables {
     var notifydataisupdated: Bool {
         guard let selectedconfig else { return false }
         if parameters.parameter8 != (selectedconfig.parameter8 ?? "") ||
@@ -297,7 +297,7 @@ extension RsyncParametersView_twotables {
 
 // MARK: - Help View
 
-extension RsyncParametersView_twotables {
+extension RsyncParametersViewtwotables {
     var helpSheetView: some View {
         switch parameters.whichhelptext {
         case 1: HelpView(text: parameters.helptext1, add: false, deleteparameterpresent: false)

@@ -1,5 +1,5 @@
 //
-//  AddTaskView.swift
+//  AddTaskViewtwotables.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 11/12/2023.
@@ -8,10 +8,9 @@
 import OSLog
 import SwiftUI
 
-
-struct AddTaskView_twotables: View {
+struct AddTaskViewtwotables: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selectedTab: InspectorTab_twotables
+    @Binding var selectedTab: InspectorTabtwotables
 
     @FocusState var focusField: AddConfigurationField?
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
