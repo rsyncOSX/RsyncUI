@@ -1,0 +1,51 @@
+//
+//  RsyncParametersView.swift
+//  RsyncUI
+//
+//  Created by Thomas Evensen on 20/11/2023.
+//
+
+import SwiftUI
+
+struct RsyncParametersView_twotables: View {
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var selectedTab: InspectorTab_twotables
+
+    @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    @State var parameters = ObservableParametersRsync()
+    @State var selectedconfig: SynchronizeConfiguration?
+    // Backup switch
+    @State var backup: Bool = false
+    // Present a help sheet
+    @State var showhelp: Bool = false
+    // Present arguments view
+    @State var presentarguments: Bool = false
+    // Show Inspector view
+    @State var showinspector: Bool = false
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            HelpSectionView(showhelp: $showhelp,
+                            whichhelptext: $parameters.whichhelptext,
+                            deleteparameterpresent: deleteparameterpresent)
+
+            taskListView
+        }
+        .inspector(isPresented: $showinspector) {
+            inspectorView
+                .inspectorColumnWidth(min: 400, ideal: 500, max: 600)
+        }
+        .sheet(isPresented: $showhelp) { helpSheetView }
+        .onChange(of: rsyncUIdata.profile) {
+            selectedconfig = nil
+            // selecteduuids.removeAll()
+            // done on Sidebar Main view
+            parameters.setvalues(selectedconfig)
+            backup = false
+        }
+        .onChange(of: selecteduuids) {
+            handleSelectionChange()
+        }
+        .padding()
+    }
+}

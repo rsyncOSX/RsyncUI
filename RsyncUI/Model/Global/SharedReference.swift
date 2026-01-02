@@ -85,6 +85,8 @@ final class SharedReference {
     let alerttagginglines = 20
     // Hide Verify Remote function in main Sidebar
     @ObservationIgnored var hideverifyremotefunction: Bool = true
+    // USw two tables Inspector sheet
+    @ObservationIgnored var usetwotablesInspector: Bool = true
 
     func updateprocess(_ task: Process?) {
         if task != nil {

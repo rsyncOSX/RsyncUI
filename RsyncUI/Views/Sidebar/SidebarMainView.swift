@@ -193,8 +193,14 @@ struct SidebarMainView: View {
     func selectView(_ view: Sidebaritems) -> some View {
         switch view {
         case .tasks:
-            NavigationStack {
-                DefaultView(rsyncUIdata: rsyncUIdata)
+            if SharedReference.shared.usetwotablesInspector {
+                NavigationStack {
+                    DefaultView_twotables(rsyncUIdata: rsyncUIdata)
+                }
+            } else {
+                NavigationStack {
+                    DefaultView(rsyncUIdata: rsyncUIdata)
+                }
             }
         case .log_listings:
             LogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
