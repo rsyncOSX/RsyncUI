@@ -46,6 +46,7 @@ struct VerifyTasks: View {
                         if selecteduuids.count == 1, let selectedconfig {
                             RsyncCommandView(config: selectedconfig)
                                 .padding()
+                            ArgumentsView(config: selectedconfig)
                         }
                     }
 

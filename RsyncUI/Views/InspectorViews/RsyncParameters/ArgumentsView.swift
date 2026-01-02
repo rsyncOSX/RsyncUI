@@ -8,43 +8,14 @@
 import SwiftUI
 
 struct ArgumentsView: View {
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
-
-    @State private var selectedconfig: SynchronizeConfiguration?
     @State private var otherselectedrsynccommand = OtherRsyncCommand.listRemoteFiles
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
+    let config: SynchronizeConfiguration
+
     var body: some View {
-        VStack {
-            ConfigurationsTableDataView(selecteduuids: $selecteduuids,
-                                        configurations: rsyncUIdata.configurations)
-                .frame(maxWidth: .infinity)
-                .onChange(of: selecteduuids) {
-                    if let configurations = rsyncUIdata.configurations {
-                        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                            selectedconfig = configurations[index]
-                        } else {
-                            selectedconfig = nil
-                        }
-                    }
-                }
-                .onChange(of: rsyncUIdata.profile) {
-                    selecteduuids.removeAll()
-                    selectedconfig = nil
-                }
+        OtherRsyncCommandsView(otherselectedrsynccommand: $otherselectedrsynccommand, config: config)
 
-            VStack(alignment: .leading) {
-                Text("Select a task")
-                    .font(.title3)
-                    .fontWeight(.bold)
-
-                OtherRsyncCommandsView(rsyncUIdata: rsyncUIdata,
-                                       config: $selectedconfig,
-                                       otherselectedrsynccommand: $otherselectedrsynccommand)
-                    .disabled(selectedconfig == nil)
-                    .padding()
-            }
-        }
-        .padding()
+            .padding()
     }
 }

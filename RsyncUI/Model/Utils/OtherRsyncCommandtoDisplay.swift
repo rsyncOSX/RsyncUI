@@ -14,7 +14,7 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
     case copyPublicSSHkey
     case verifyPublicSSHkey
     // case remoteDiskUsage
-    case urlEstimate
+    // case urlEstimate
 
     var id: String { rawValue }
 
@@ -44,8 +44,7 @@ struct OtherRsyncCommandtoDisplay {
     var command: String
 
     init(display: OtherRsyncCommand,
-         config: SynchronizeConfiguration,
-         profile: String?) {
+         config: SynchronizeConfiguration) {
         let str: [String] = switch display {
         case .listRemoteFiles:
             Self.listRemoteFiles(config: config)
@@ -55,8 +54,6 @@ struct OtherRsyncCommandtoDisplay {
             Self.verifyPublicSSHKey(config: config)
         case .copyPublicSSHkey:
             Self.copyPublicSSHKey(config: config)
-        case .urlEstimate:
-            Self.urlEstimate(profile: profile)
         }
         command = str.joined(separator: ",").replacingOccurrences(of: ",", with: " ")
     }

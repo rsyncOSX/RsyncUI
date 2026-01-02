@@ -8,19 +8,14 @@
 import SwiftUI
 
 struct OtherRsyncCommandsView: View {
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var config: SynchronizeConfiguration?
     @Binding var otherselectedrsynccommand: OtherRsyncCommand
+
+    let config: SynchronizeConfiguration
 
     var body: some View {
         HStack {
             pickerselectcommand
-
-            Spacer()
-
-            if config != nil {
-                showcommand
-            }
+            showcommand
         }
     }
 
@@ -34,7 +29,7 @@ struct OtherRsyncCommandsView: View {
     }
 
     var showcommand: some View {
-        Text(commandstring ?? "")
+        Text(commandstring)
             .textSelection(.enabled)
             .lineLimit(nil)
             .multilineTextAlignment(.leading)
@@ -46,12 +41,8 @@ struct OtherRsyncCommandsView: View {
             )
     }
 
-    var commandstring: String? {
-        if let config {
-            return OtherRsyncCommandtoDisplay(display: otherselectedrsynccommand,
-                                              config: config,
-                                              profile: rsyncUIdata.profile).command
-        }
-        return nil
+    var commandstring: String {
+        OtherRsyncCommandtoDisplay(display: otherselectedrsynccommand,
+                                   config: config).command
     }
 }
