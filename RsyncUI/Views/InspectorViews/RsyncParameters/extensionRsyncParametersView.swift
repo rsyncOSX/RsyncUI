@@ -124,20 +124,6 @@ extension RsyncParametersView {
     }
 }
 
-// MARK: - Computed Properties
-
-extension RsyncParametersView {
-    var currentFlagStrings: [String] {
-        [parameters.parameter8,
-         parameters.parameter9,
-         parameters.parameter10,
-         parameters.parameter11,
-         parameters.parameter12,
-         parameters.parameter13,
-         parameters.parameter14].filter { $0.isEmpty == false }
-    }
-}
-
 // MARK: - Event Handlers
 
 extension RsyncParametersView {

@@ -177,16 +177,6 @@ struct ConditionalGlassButton: View {
         self.action = action
     }
 
-    init(systemImage: String, text: String? = nil, helpText: String, role: ButtonRole? = nil,
-         textcolor: Bool, action: @escaping () -> Void) {
-        self.systemImage = systemImage
-        self.text = text
-        self.helpText = helpText
-        self.role = role
-        self.textcolor = textcolor
-        self.action = action
-    }
-
     var body: some View {
         if #available(macOS 26.0, *) {
             if systemImage.isEmpty {

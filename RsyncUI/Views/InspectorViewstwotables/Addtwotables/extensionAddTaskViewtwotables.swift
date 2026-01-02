@@ -47,12 +47,6 @@ extension AddTaskViewtwotables {
 // MARK: - Buttons
 
 extension AddTaskViewtwotables {
-    var addButton: some View {
-        ConditionalGlassButton(systemImage: "plus", text: "Add", helpText: "Add task") {
-            addConfig()
-        }
-    }
-
     var updateButton: some View {
         ConditionalGlassButton(systemImage: "arrow.down", text: "Update", helpText: "Update task") {
             validateAndUpdate()
