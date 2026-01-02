@@ -190,7 +190,22 @@ final class ObservableParametersRsync {
     }
 
     init() {
-        sshcreatekey = SSHCreateKey(sharedSSHPort: String(SharedReference.shared.sshport ?? -1),
-                                    sharedSSHKeyPathAndIdentityFile: SharedReference.shared.sshkeypathandidentityfile)
+        let sshport = SharedReference.shared.sshport
+        let sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile
+
+        if let port = sshport, let keypath = sshkeypathandidentityfile {
+            // Both values are not nil
+            sshcreatekey = SSHCreateKey(sharedSSHPort: String(port),
+                                        sharedSSHKeyPathAndIdentityFile: keypath)
+        } else if let port = sshport {
+            // Only port is not nil
+            sshcreatekey = SSHCreateKey(sharedSSHPort: String(port),
+                                        sharedSSHKeyPathAndIdentityFile: nil)
+        } else if let keypath = sshkeypathandidentityfile {
+            // Only keypath is not nil
+            sshcreatekey = SSHCreateKey(sharedSSHPort: nil,
+                                        sharedSSHKeyPathAndIdentityFile: keypath)
+        }
+        // If both are nil, sshcreatekey remains nil
     }
 }
