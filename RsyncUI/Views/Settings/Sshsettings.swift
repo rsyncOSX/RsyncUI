@@ -29,11 +29,12 @@ struct Sshsettings: View {
             Section(header: Text("Global ssh-keypath and ssh-port")
                 .font(.title3)
                 .fontWeight(.bold)) {
-                    EditValueErrorScheme(400, "Global ssh-keypath and identityfile", $sshsettings.sshkeypathandidentityfile,
-                                         sshsettings.sshkeypath(sshsettings.sshkeypathandidentityfile))
-
-                    EditValueErrorScheme(400, "Global ssh-port",
-                                         $sshsettings.sshportnumber, sshsettings.setsshport(sshsettings.sshportnumber))
+                    setsshpath(path: $sshsettings.sshkeypathandidentityfile,
+                               placeholder: "set SSH keypath and identityfile",
+                               selectedValue: sshsettings.sshkeypathandidentityfile)
+                    sshportfield(port: $sshsettings.sshportnumber,
+                                 placeholder: "set SSH port",
+                                 selectedValue: sshsettings.sshportnumber)
                 }
 
             Section(header: Text("Save userconfiguration")
@@ -79,5 +80,73 @@ extension Sshsettings {
                 showsshkeyiscreated = true
             }
         }
+    }
+    
+    func setsshpath(path: Binding<String>, placeholder: String,
+                    selectedValue: String?) -> some View {
+        // Determine if the current value should show an error border
+        let showErrorBorder: Bool = {
+            // Prefer the binding's current value; otherwise, consider the provided selectedValue
+            let valueToValidate = path.wrappedValue.isEmpty ? (selectedValue ?? "") : path.wrappedValue
+            return !valueToValidate.isEmpty && !isValidSSHKeyPath(valueToValidate)
+        }()
+        return HStack {
+            if sshsettings.sshkeypathandidentityfile.isEmpty {
+                EditValueScheme(300, placeholder, path)
+                    .textContentType(.none)
+                    .submitLabel(.continue)
+                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
+            } else {
+                EditValueScheme(300, nil, path)
+                    .textContentType(.none)
+                    .submitLabel(.continue)
+                    .onAppear { if let value = selectedValue { path.wrappedValue = value } }
+                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
+            }
+        }
+    }
+
+    func sshportfield(port: Binding<String>, placeholder: String,
+                      selectedValue: String?) -> some View {
+        // Determine if the current value should show an error border
+        let showErrorBorder: Bool = {
+            // Prefer the binding's current value; otherwise, consider the provided selectedValue
+            let valueToValidate = port.wrappedValue.isEmpty ? (selectedValue ?? "") : port.wrappedValue
+            return !valueToValidate.isEmpty && !isValidSSHPort(valueToValidate)
+        }()
+        return HStack {
+            if sshsettings.sshportnumber.isEmpty {
+                EditValueScheme(150, placeholder, port)
+                    .textContentType(.none)
+                    .submitLabel(.continue)
+                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
+            } else {
+                EditValueScheme(150, nil, port)
+                    .textContentType(.none)
+                    .submitLabel(.continue)
+                    .onAppear { if let value = selectedValue { port.wrappedValue = value } }
+                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
+            }
+        }
+    }
+
+    func isValidSSHPort(_ port: String) -> Bool {
+        guard let port = Int(port.trimmingCharacters(in: .whitespacesAndNewlines)) else { return false }
+        return (22 ... 65535).contains(port)
+    }
+
+    func isValidSSHKeyPath(_ keyPath: String) -> Bool {
+        // Check starts with tilde
+        guard keyPath.hasPrefix("~") else { return false }
+
+        // Check contains two or more slashes
+        let slashCount = keyPath.filter { $0 == "/" }.count
+        guard slashCount >= 2 else { return false }
+
+        // Expand to full path
+        let expandedPath = (keyPath as NSString).expandingTildeInPath
+
+        // Check existence
+        return FileManager.default.fileExists(atPath: expandedPath)
     }
 }

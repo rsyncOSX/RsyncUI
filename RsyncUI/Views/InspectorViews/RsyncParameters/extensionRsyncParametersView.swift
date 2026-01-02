@@ -199,7 +199,6 @@ extension RsyncParametersView {
             let valueToValidate = port.wrappedValue.isEmpty ? (selectedValue ?? "") : port.wrappedValue
             return !valueToValidate.isEmpty && !isValidSSHPort(valueToValidate)
         }()
-
         return HStack {
             if parameters.sshport.isEmpty {
                 EditValueScheme(150, placeholder, port)
