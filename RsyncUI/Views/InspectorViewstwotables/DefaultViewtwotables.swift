@@ -7,14 +7,10 @@
 
 import SwiftUI
 
-enum InspectorTabtwotables: Hashable {
-    case edit
-    case parameters
-}
 
 struct DefaultViewtwotables: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @State private var selectedTab: InspectorTabtwotables = .edit
+    @State private var selectedTab: InspectorTab = .edit
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -22,13 +18,13 @@ struct DefaultViewtwotables: View {
                 .tabItem {
                     Label("Edit", systemImage: "plus.circle")
                 }
-                .tag(InspectorTabtwotables.edit)
+                .tag(InspectorTab.edit)
 
             RsyncParametersViewtwotables(rsyncUIdata: rsyncUIdata, selectedTab: $selectedTab)
                 .tabItem {
                     Label("Parameters", systemImage: "slider.horizontal.3")
                 }
-                .tag(InspectorTabtwotables.parameters)
+                .tag(InspectorTab.parameters)
         }
         .id(selectedTab)
     }

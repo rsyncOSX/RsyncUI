@@ -10,7 +10,7 @@ import SwiftUI
 
 struct AddTaskViewtwotables: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selectedTab: InspectorTabtwotables
+    @Binding var selectedTab: InspectorTab
 
     @FocusState var focusField: AddConfigurationField?
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
