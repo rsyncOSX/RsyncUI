@@ -83,15 +83,15 @@ struct OtherRsyncCommandtoDisplay {
             if let port = sshport, let keypath = sshkeypathandidentityfile {
                 // Both values are not nil
                 sshcreatekeys = SSHCreateKey(sharedSSHPort: String(port),
-                                            sharedSSHKeyPathAndIdentityFile: keypath)
+                                             sharedSSHKeyPathAndIdentityFile: keypath)
             } else if let port = sshport {
                 // Only port is not nil
                 sshcreatekeys = SSHCreateKey(sharedSSHPort: String(port),
-                                            sharedSSHKeyPathAndIdentityFile: nil)
+                                             sharedSSHKeyPathAndIdentityFile: nil)
             } else if let keypath = sshkeypathandidentityfile {
                 // Only keypath is not nil
                 sshcreatekeys = SSHCreateKey(sharedSSHPort: nil,
-                                            sharedSSHKeyPathAndIdentityFile: keypath)
+                                             sharedSSHKeyPathAndIdentityFile: keypath)
             }
             guard let sshcreatekeys else {
                 return ["No SSH key configuration"]
@@ -114,20 +114,20 @@ struct OtherRsyncCommandtoDisplay {
             if let port = sshport, let keypath = sshkeypathandidentityfile {
                 // Both values are not nil
                 sshcreatekeys = SSHCreateKey(sharedSSHPort: String(port),
-                                            sharedSSHKeyPathAndIdentityFile: keypath)
+                                             sharedSSHKeyPathAndIdentityFile: keypath)
             } else if let port = sshport {
                 // Only port is not nil
                 sshcreatekeys = SSHCreateKey(sharedSSHPort: String(port),
-                                            sharedSSHKeyPathAndIdentityFile: nil)
+                                             sharedSSHKeyPathAndIdentityFile: nil)
             } else if let keypath = sshkeypathandidentityfile {
                 // Only keypath is not nil
                 sshcreatekeys = SSHCreateKey(sharedSSHPort: nil,
-                                            sharedSSHKeyPathAndIdentityFile: keypath)
+                                             sharedSSHKeyPathAndIdentityFile: keypath)
             }
             guard let sshcreatekeys else {
                 return ["No SSH key configuration"]
             }
-            let arguments = (try? sshcreatekeys.argumentsVerifyRemotePublicSSHKey(offsiteServer: config.offsiteServer,offsiteUsername: config.offsiteUsername)) ?? []
+            let arguments = (try? sshcreatekeys.argumentsVerifyRemotePublicSSHKey(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)) ?? []
             let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
             let createCmd = sshcreatekeys.createKeyCommand
             return [createCmd, cleanedArguments]
@@ -145,20 +145,20 @@ struct OtherRsyncCommandtoDisplay {
             if let port = sshport, let keypath = sshkeypathandidentityfile {
                 // Both values are not nil
                 sshcreatekeys = SSHCreateKey(sharedSSHPort: String(port),
-                                            sharedSSHKeyPathAndIdentityFile: keypath)
+                                             sharedSSHKeyPathAndIdentityFile: keypath)
             } else if let port = sshport {
                 // Only port is not nil
                 sshcreatekeys = SSHCreateKey(sharedSSHPort: String(port),
-                                            sharedSSHKeyPathAndIdentityFile: nil)
+                                             sharedSSHKeyPathAndIdentityFile: nil)
             } else if let keypath = sshkeypathandidentityfile {
                 // Only keypath is not nil
                 sshcreatekeys = SSHCreateKey(sharedSSHPort: nil,
-                                            sharedSSHKeyPathAndIdentityFile: keypath)
+                                             sharedSSHKeyPathAndIdentityFile: keypath)
             }
             guard let sshcreatekeys else {
                 return ["No SSH key configuration"]
             }
-            let arguments = (try? sshcreatekeys.argumentsSSHCopyID(offsiteServer: config.offsiteServer,offsiteUsername: config.offsiteUsername)) ?? []
+            let arguments = (try? sshcreatekeys.argumentsSSHCopyID(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)) ?? []
             let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
             let createCmd = sshcreatekeys.createKeyCommand
             return [createCmd, cleanedArguments]
@@ -173,4 +173,3 @@ struct OtherRsyncCommandtoDisplay {
         return [urlestimate?.absoluteString ?? ""]
     }
 }
-
