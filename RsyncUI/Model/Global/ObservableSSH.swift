@@ -21,9 +21,22 @@ final class ObservableSSH {
     var sshcreatekey: SSHCreateKey?
 
     init() {
-        if let sshport = SharedReference.shared.sshport, let sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile {
-            sshcreatekey = SSHCreateKey(sharedSSHPort: String(sshport),
-                                        sharedSSHKeyPathAndIdentityFile: sshkeypathandidentityfile)
+        let sshport = SharedReference.shared.sshport
+        let sshkeypathandidentityfile = SharedReference.shared.sshkeypathandidentityfile
+
+        if let port = sshport, let keypath = sshkeypathandidentityfile {
+            // Both values are not nil
+            sshcreatekey = SSHCreateKey(sharedSSHPort: String(port),
+                                        sharedSSHKeyPathAndIdentityFile: keypath)
+        } else if let port = sshport {
+            // Only port is not nil
+            sshcreatekey = SSHCreateKey(sharedSSHPort: String(port),
+                                        sharedSSHKeyPathAndIdentityFile: nil)
+        } else if let keypath = sshkeypathandidentityfile {
+            // Only keypath is not nil
+            sshcreatekey = SSHCreateKey(sharedSSHPort: nil,
+                                        sharedSSHKeyPathAndIdentityFile: keypath)
         }
+        // If both are nil, sshcreatekey remains nil
     }
 }
