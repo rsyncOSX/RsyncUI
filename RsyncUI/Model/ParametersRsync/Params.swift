@@ -14,8 +14,19 @@ struct Params {
         config: SynchronizeConfiguration) -> Parameters {
         var rsyncdaemon = false
         var deleteExtraneous = false
+        var sshport = ""
+        var sshkeypathandidentityfile = ""
+
         if config.rsyncdaemon == 1 { rsyncdaemon = true }
         if config.parameter4 != nil { deleteExtraneous = true }
+
+        if let configsshport = config.sshport, configsshport != -1 {
+            sshport = String(configsshport)
+        }
+        if let configurationsshcreatekey = config.sshkeypathandidentityfile {
+            sshkeypathandidentityfile = configurationsshcreatekey
+        }
+
         return Parameters(
             task: config.task,
             basicParameters: BasicRsyncParameters(
@@ -35,8 +46,8 @@ struct Params {
             sshParameters: SSHParameters(
                 offsiteServer: config.offsiteServer,
                 offsiteUsername: config.offsiteUsername,
-                sshport: String(config.sshport ?? -1),
-                sshkeypathandidentityfile: config.sshkeypathandidentityfile ?? "",
+                sshport: String(sshport),
+                sshkeypathandidentityfile: sshkeypathandidentityfile,
                 sharedsshport: String(SharedReference.shared.sshport ?? -1),
                 sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile,
                 rsyncversion3: SharedReference.shared.rsyncversion3

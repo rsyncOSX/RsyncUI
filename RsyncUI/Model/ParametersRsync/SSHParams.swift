@@ -12,11 +12,20 @@ import RsyncArguments
 struct SSHParams {
     func sshparams(
         config: SynchronizeConfiguration) -> SSHParameters {
-        SSHParameters(
+        var sshport = ""
+        var sshkeypathandidentityfile = ""
+        if let configsshport = config.sshport, configsshport != -1 {
+            sshport = String(configsshport)
+        }
+        if let configurationsshcreatekey = config.sshkeypathandidentityfile {
+            sshkeypathandidentityfile = configurationsshcreatekey
+        }
+
+        return SSHParameters(
             offsiteServer: config.offsiteServer,
             offsiteUsername: config.offsiteUsername,
-            sshport: String(config.sshport ?? -1),
-            sshkeypathandidentityfile: config.sshkeypathandidentityfile ?? "",
+            sshport: String(sshport),
+            sshkeypathandidentityfile: sshkeypathandidentityfile,
             sharedsshport: String(SharedReference.shared.sshport ?? -1),
             sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile,
             rsyncversion3: SharedReference.shared.rsyncversion3

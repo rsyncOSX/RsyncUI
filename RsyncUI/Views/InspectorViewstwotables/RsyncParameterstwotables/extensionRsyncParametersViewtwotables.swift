@@ -258,6 +258,15 @@ extension RsyncParametersViewtwotables {
 
 extension RsyncParametersViewtwotables {
     var notifydataisupdated: Bool {
+        var sshport = ""
+        var sshkeypathandidentityfile = ""
+
+        if let configsshport = selectedconfig?.sshport, configsshport != -1 {
+            sshport = String(configsshport)
+        }
+        if let configurationsshcreatekey = selectedconfig?.sshkeypathandidentityfile {
+            sshkeypathandidentityfile = configurationsshcreatekey
+        }
         guard let selectedconfig else { return false }
         if parameters.parameter8 != (selectedconfig.parameter8 ?? "") ||
             parameters.parameter9 != (selectedconfig.parameter9 ?? "") ||
@@ -268,8 +277,8 @@ extension RsyncParametersViewtwotables {
             parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
             parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
             parameters.adddelete == (selectedconfig.parameter4 == nil) ||
-            // parameters.sshport != String(selectedconfig.sshport ?? -1) ||
-            parameters.sshkeypathandidentityfile != (selectedconfig.sshkeypathandidentityfile ?? "") {
+            parameters.sshport != String(sshport) ||
+            parameters.sshkeypathandidentityfile != sshkeypathandidentityfile {
             return true
         }
         return false
