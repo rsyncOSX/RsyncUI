@@ -38,6 +38,8 @@ struct UserConfiguration: @MainActor Codable {
     var alwaysshowestimateddetailsview: Int = -1
     // Hide Verify View
     var hideverifyremotefunction: Int = -1
+    // Use two tables Inspector
+    var usetwotablesInspector: Int = -1
     // Silence missing stats
     var silencemissingstats: Int = -1
     // Validate arguments
@@ -74,6 +76,7 @@ struct UserConfiguration: @MainActor Codable {
         SharedReference.shared.observemountedvolumes = intToBool(observemountedvolumes)
         SharedReference.shared.alwaysshowestimateddetailsview = intToBool(alwaysshowestimateddetailsview)
         SharedReference.shared.hideverifyremotefunction = intToBool(hideverifyremotefunction)
+        SharedReference.shared.usetwotablesInspector = intToBool(usetwotablesInspector)
         SharedReference.shared.silencemissingstats = intToBool(silencemissingstats)
         SharedReference.shared.validatearguments = intToBool(validatearguments)
     }
@@ -97,6 +100,7 @@ struct UserConfiguration: @MainActor Codable {
         observemountedvolumes = data.observemountedvolumes ?? -1
         alwaysshowestimateddetailsview = data.alwaysshowestimateddetailsview ?? -1
         hideverifyremotefunction = data.hideverifyremotefunction ?? -1
+        usetwotablesInspector = data.usetwotablesInspector ?? -1
         silencemissingstats = data.silencemissingstats ?? -1
         validatearguments = data.validatearguments ?? -1
         setuserconfigdata()
@@ -121,6 +125,7 @@ struct UserConfiguration: @MainActor Codable {
         observemountedvolumes = boolToInt(SharedReference.shared.observemountedvolumes)
         alwaysshowestimateddetailsview = boolToInt(SharedReference.shared.alwaysshowestimateddetailsview)
         hideverifyremotefunction = boolToInt(SharedReference.shared.hideverifyremotefunction)
+        usetwotablesInspector = boolToInt(SharedReference.shared.usetwotablesInspector)
         silencemissingstats = boolToInt(SharedReference.shared.silencemissingstats)
         validatearguments = boolToInt(SharedReference.shared.validatearguments)
     }

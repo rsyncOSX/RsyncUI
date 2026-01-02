@@ -13,6 +13,7 @@ struct Logsettings: View {
     @State private var toggleobservemountedvolumes: Bool = false
     @State private var togglealwaysshowestimateddetailsview: Bool = false
     @State private var togglehideverifyremotefunction: Bool = false
+    @State private var toggleusetwotablesInspector: Bool = false
     @State private var togglesilencemissingstats: Bool = false
     @State private var togglevalidatearguments: Bool = false
 
@@ -56,6 +57,13 @@ struct Logsettings: View {
                             togglehideverifyremotefunction = logsettings.hideverifyremotefunction
                         }
 
+                    ToggleViewDefault(text: "Use two tables Inspector",
+                                      binding: $logsettings.usetwotablesInspector)
+                        .onChange(of: logsettings.usetwotablesInspector) {
+                            SharedReference.shared.usetwotablesInspector = logsettings.usetwotablesInspector
+                            toggleusetwotablesInspector = logsettings.usetwotablesInspector
+                        }
+
                     ToggleViewDefault(text: "Silence missing stats",
                                       binding: $logsettings.silencemissingstats)
                         .onChange(of: logsettings.silencemissingstats) {
@@ -82,6 +90,10 @@ struct Logsettings: View {
                     }
 
                     if togglehideverifyremotefunction {
+                        DismissafterMessageView(dismissafter: 2, mytext: "Please restart RsyncUI to take effect")
+                    }
+
+                    if toggleusetwotablesInspector {
                         DismissafterMessageView(dismissafter: 2, mytext: "Please restart RsyncUI to take effect")
                     }
                 }
