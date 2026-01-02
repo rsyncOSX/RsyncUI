@@ -16,6 +16,8 @@ struct Params {
         var deleteExtraneous = false
         var sshport = ""
         var sshkeypathandidentityfile = ""
+        var sharedsshport = ""
+        var sharedsshkeypathandidentityfile = ""
 
         if config.rsyncdaemon == 1 { rsyncdaemon = true }
         if config.parameter4 != nil { deleteExtraneous = true }
@@ -25,6 +27,12 @@ struct Params {
         }
         if let configurationsshcreatekey = config.sshkeypathandidentityfile {
             sshkeypathandidentityfile = configurationsshcreatekey
+        }
+        if let configsharedsshport = SharedReference.shared.sshport, configsharedsshport != -1 {
+            sharedsshport = String(configsharedsshport)
+        }
+        if let configsharedsshcreatekey = SharedReference.shared.sshkeypathandidentityfile {
+            sharedsshkeypathandidentityfile = configsharedsshcreatekey
         }
 
         return Parameters(
@@ -48,8 +56,8 @@ struct Params {
                 offsiteUsername: config.offsiteUsername,
                 sshport: String(sshport),
                 sshkeypathandidentityfile: sshkeypathandidentityfile,
-                sharedsshport: String(SharedReference.shared.sshport ?? -1),
-                sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile,
+                sharedsshport: String(sharedsshport),
+                sharedsshkeypathandidentityfile: sharedsshkeypathandidentityfile,
                 rsyncversion3: SharedReference.shared.rsyncversion3
             ),
             paths: PathConfiguration(

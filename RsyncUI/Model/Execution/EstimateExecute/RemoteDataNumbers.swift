@@ -71,7 +71,9 @@ struct RemoteDataNumbers: Identifiable, Hashable {
 
     init(stringoutputfromrsync: [String]?,
          config: SynchronizeConfiguration?) {
-        hiddenID = config?.hiddenID ?? -1
+        if let hiddenID = config?.hiddenID {
+            self.hiddenID = hiddenID
+        }
         task = config?.task ?? ""
         localCatalog = config?.localCatalog ?? ""
         offsiteServer = config?.offsiteServer ?? "localhost"
