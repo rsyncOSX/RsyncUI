@@ -29,11 +29,12 @@ Legend: [H] High • [M] Medium • [L] Low • [Opt] Optional • [✓] Complet
 
 ---
 
-## [H] 3) Remove Sentinel Defaults (SSH & User Config)
+## [✓] 3) Remove Sentinel Defaults (SSH & User Config) — PARTIAL (Jan 2, 2026)
 
 - Goal: Eliminate `?? -1` sentinels for SSH ports and tri-state booleans; switch to optionals/enums with validation.
-- Locations: ObservableParametersRsync (SSH fields), SSHParams, UserConfiguration decode/encode, any `sshport ?? -1` patterns.
-- Acceptance: No sentinel magic numbers in SSH/config paths; validation errors surfaced via AlertError; tests cover nil/invalid ports and booleans.
+- Status: SSH port and path validation COMPLETE; remaining tri-state booleans in UserConfiguration pending.
+- Locations: ObservableParametersRsync (user config booleans remaining), UserConfiguration decode/encode for non-SSH fields.
+- Acceptance: SSH ports and paths validated; remaining sentinel cleanup for user config tri-state booleans; validation errors surfaced via AlertError; tests cover nil/invalid ports and paths.
 
 ---
 

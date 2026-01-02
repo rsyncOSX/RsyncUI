@@ -81,7 +81,7 @@ extension Sshsettings {
             }
         }
     }
-    
+
     func setsshpath(path: Binding<String>, placeholder: String,
                     selectedValue: String?) -> some View {
         // Determine if the current value should show an error border
