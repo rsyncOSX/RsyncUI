@@ -22,15 +22,14 @@ struct DefaultViewtwotables: View {
                 .tabItem {
                     Label("Edit", systemImage: "plus.circle")
                 }
-                .tag(InspectorTab.edit)
-                .id(InspectorTab.edit)
+                .tag(InspectorTabtwotables.edit)
 
             RsyncParametersViewtwotables(rsyncUIdata: rsyncUIdata, selectedTab: $selectedTab)
                 .tabItem {
                     Label("Parameters", systemImage: "slider.horizontal.3")
                 }
-                .tag(InspectorTab.parameters)
-                .id(InspectorTab.parameters)
+                .tag(InspectorTabtwotables.parameters)
         }
+        .id(selectedTab)
     }
 }
