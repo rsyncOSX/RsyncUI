@@ -99,7 +99,8 @@ final class ObservableAddConfigurations {
            remotecatalog.hasSuffix("/") == false {
             trailingslashoptions = .do_not_add
         }
-
+        
+        guard let hiddenID = selectedconfig?.hiddenID else { return nil }
         let updateddata = NewTask(selectedrsynccommand.rawValue,
                                   localcatalog.replacingOccurrences(of: "\"", with: ""),
                                   remotecatalog.replacingOccurrences(of: "\"", with: ""),
@@ -107,7 +108,7 @@ final class ObservableAddConfigurations {
                                   remoteuser,
                                   remoteserver,
                                   backupID,
-                                  selectedconfig?.hiddenID ?? -1,
+                                  hiddenID,
                                   Int(mysnapshotnum))
 
         if let updatedconfig = VerifyConfiguration().verify(updateddata) {

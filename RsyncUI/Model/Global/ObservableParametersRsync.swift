@@ -47,9 +47,16 @@ final class ObservableParametersRsync {
             parameter12 = configuration?.parameter12 ?? ""
             parameter13 = configuration?.parameter13 ?? ""
             parameter14 = configuration?.parameter14 ?? ""
-            sshport = String(configuration?.sshport ?? -1)
-            if sshport == "-1" { sshport = "" }
-            sshkeypathandidentityfile = configuration?.sshkeypathandidentityfile ?? ""
+            if let configsshport = configuration?.sshport, configsshport != -1 {
+                sshport = String(configsshport)
+            } else {
+                sshport = ""
+            }
+            if let configurationsshcreatekey = configuration?.sshkeypathandidentityfile {
+                sshkeypathandidentityfile = configurationsshcreatekey
+            } else {
+                sshkeypathandidentityfile = ""
+            }
             // --delete parameter4
             if configuration?.parameter4 == nil { adddelete = false } else { adddelete = true }
 
