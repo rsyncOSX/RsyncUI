@@ -84,25 +84,92 @@ struct UserConfiguration: @MainActor Codable {
     // Used when reading JSON data from store
     @discardableResult
     init(_ data: DecodeUserConfiguration) {
-        rsyncversion3 = data.rsyncversion3 ?? -1
-        addsummarylogrecord = data.addsummarylogrecord ?? 1
+        if let value = data.rsyncversion3 {
+            rsyncversion3 = value
+        } else {
+            rsyncversion3 = -1
+        }
+
+        if let value = data.addsummarylogrecord {
+            addsummarylogrecord = value
+        } else {
+            addsummarylogrecord = 1
+        }
+
         localrsyncpath = data.localrsyncpath
         pathforrestore = data.pathforrestore
-        marknumberofdayssince = data.marknumberofdayssince ?? "5"
+
+        if let value = data.marknumberofdayssince {
+            marknumberofdayssince = value
+        } else {
+            marknumberofdayssince = "5"
+        }
+
         sshkeypathandidentityfile = data.sshkeypathandidentityfile
         sshport = data.sshport
         environment = data.environment
         environmentvalue = data.environmentvalue
-        checkforerrorinrsyncoutput = data.checkforerrorinrsyncoutput ?? -1
-        confirmexecute = data.confirmexecute ?? -1
-        synchronizewithouttimedelay = data.synchronizewithouttimedelay ?? -1
-        sidebarishidden = data.sidebarishidden ?? -1
-        observemountedvolumes = data.observemountedvolumes ?? -1
-        alwaysshowestimateddetailsview = data.alwaysshowestimateddetailsview ?? -1
-        hideverifyremotefunction = data.hideverifyremotefunction ?? -1
-        usetwotablesInspector = data.usetwotablesInspector ?? -1
-        silencemissingstats = data.silencemissingstats ?? -1
-        validatearguments = data.validatearguments ?? -1
+
+        if let value = data.checkforerrorinrsyncoutput {
+            checkforerrorinrsyncoutput = value
+        } else {
+            checkforerrorinrsyncoutput = -1
+        }
+
+        if let value = data.confirmexecute {
+            confirmexecute = value
+        } else {
+            confirmexecute = -1
+        }
+
+        if let value = data.synchronizewithouttimedelay {
+            synchronizewithouttimedelay = value
+        } else {
+            synchronizewithouttimedelay = -1
+        }
+
+        if let value = data.sidebarishidden {
+            sidebarishidden = value
+        } else {
+            sidebarishidden = -1
+        }
+
+        if let value = data.observemountedvolumes {
+            observemountedvolumes = value
+        } else {
+            observemountedvolumes = -1
+        }
+
+        if let value = data.alwaysshowestimateddetailsview {
+            alwaysshowestimateddetailsview = value
+        } else {
+            alwaysshowestimateddetailsview = -1
+        }
+
+        if let value = data.hideverifyremotefunction {
+            hideverifyremotefunction = value
+        } else {
+            hideverifyremotefunction = -1
+        }
+
+        if let value = data.usetwotablesInspector {
+            usetwotablesInspector = value
+        } else {
+            usetwotablesInspector = -1
+        }
+
+        if let value = data.silencemissingstats {
+            silencemissingstats = value
+        } else {
+            silencemissingstats = -1
+        }
+
+        if let value = data.validatearguments {
+            validatearguments = value
+        } else {
+            validatearguments = -1
+        }
+
         setuserconfigdata()
     }
 
