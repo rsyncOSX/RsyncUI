@@ -24,7 +24,11 @@ struct LogRecords: Identifiable, Codable {
     // Used when reading JSON data from store
     init(_ data: DecodeLogRecords) {
         dateStart = data.dateStart ?? ""
-        hiddenID = data.hiddenID ?? -1
+        if let datahideenID = data.hiddenID {
+            hiddenID = datahideenID
+        } else {
+            hiddenID = -1
+        }
         offsiteserver = data.offsiteserver
         logrecords = data.logrecords?.map { record in
             Log(dateExecuted: record.dateExecuted, resultExecuted: record.resultExecuted)

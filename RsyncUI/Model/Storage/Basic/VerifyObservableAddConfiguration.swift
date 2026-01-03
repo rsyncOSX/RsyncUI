@@ -39,8 +39,11 @@ struct VerifyObservableAddConfiguration: Connected {
         newconfig.offsiteUsername = data.newoffsiteUsername ?? ""
         newconfig.parameter4 = nil
         newconfig.dateRun = ""
-        newconfig.hiddenID = data.hiddenID ?? -1
-
+        if let datahideenID = data.hiddenID {
+            newconfig.hiddenID = datahideenID
+        } else {
+            newconfig.hiddenID = -1
+        }
         guard data.newlocalCatalog.isEmpty == false else {
             return false
         }

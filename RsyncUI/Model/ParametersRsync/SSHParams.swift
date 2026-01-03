@@ -14,20 +14,28 @@ struct SSHParams {
         config: SynchronizeConfiguration) -> SSHParameters {
         var sshport = ""
         var sshkeypathandidentityfile = ""
+        var sharedsshport = ""
+        var sharedsshkeypathandidentityfile = ""
+
         if let configsshport = config.sshport, configsshport != -1 {
             sshport = String(configsshport)
         }
         if let configurationsshcreatekey = config.sshkeypathandidentityfile {
             sshkeypathandidentityfile = configurationsshcreatekey
         }
-
+        if let configsharedsshport = SharedReference.shared.sshport, configsharedsshport != -1 {
+            sharedsshport = String(configsharedsshport)
+        }
+        if let configsharedsshcreatekey = SharedReference.shared.sshkeypathandidentityfile {
+            sharedsshkeypathandidentityfile = configsharedsshcreatekey
+        }
         return SSHParameters(
             offsiteServer: config.offsiteServer,
             offsiteUsername: config.offsiteUsername,
             sshport: String(sshport),
             sshkeypathandidentityfile: sshkeypathandidentityfile,
-            sharedsshport: String(SharedReference.shared.sshport ?? -1),
-            sharedsshkeypathandidentityfile: SharedReference.shared.sshkeypathandidentityfile,
+            sharedsshport: String(sharedsshport),
+            sharedsshkeypathandidentityfile: sharedsshkeypathandidentityfile,
             rsyncversion3: SharedReference.shared.rsyncversion3
         )
     }

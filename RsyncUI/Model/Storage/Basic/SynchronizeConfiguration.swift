@@ -69,7 +69,11 @@ struct SynchronizeConfiguration: Identifiable, Codable {
     // see in ReadSynchronizeConfigurationJSON
     init(_ data: DecodeSynchronizeConfiguration) {
         backupID = data.backupID ?? ""
-        hiddenID = data.hiddenID ?? -1
+        if let datahideenID = data.hiddenID {
+            hiddenID = datahideenID
+        } else {
+            hiddenID = -1
+        }
         localCatalog = data.localCatalog ?? ""
         offsiteCatalog = data.offsiteCatalog ?? ""
         offsiteServer = data.offsiteServer ?? ""
@@ -84,7 +88,9 @@ struct SynchronizeConfiguration: Identifiable, Codable {
         parameter9 = data.parameter9
         rsyncdaemon = data.rsyncdaemon
         sshkeypathandidentityfile = data.sshkeypathandidentityfile
-        sshport = data.sshport ?? -1
+        if let datasshport = data.sshport, datasshport != -1 {
+            sshport = datasshport
+        }
         task = data.task ?? ""
         // For snapshots
         if let snapshotnum = data.snapshotnum {
