@@ -20,11 +20,10 @@ struct VerifyObservableAddConfiguration: Connected {
             return Int(observed.snapshotnum)
         }()
 
-        let hiddenID: Int
-        if let selectedConfig = observed.selectedconfig {
-            hiddenID = selectedConfig.hiddenID
+        let hiddenID: Int = if let selectedConfig = observed.selectedconfig {
+            selectedConfig.hiddenID
         } else {
-            hiddenID = -1
+            -1
         }
 
         let data = NewTask(observed.selectedrsynccommand.rawValue,
