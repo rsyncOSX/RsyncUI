@@ -87,6 +87,8 @@ final class SharedReference {
     @ObservationIgnored var hideverifyremotefunction: Bool = true
     // USw two tables Inspector sheet
     @ObservationIgnored var usetwotablesInspector: Bool = true
+    // Loge everything to logfile
+    @ObservationIgnored var saveactualsynclogdata: Bool = false
 
     func updateprocess(_ task: Process?) {
         if task != nil {

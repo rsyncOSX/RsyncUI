@@ -188,6 +188,7 @@ extension TasksView {
                 ToolbarItem {
                     Button {
                         saveactualsynclogdata.toggle()
+                        SharedReference.shared.saveactualsynclogdata = saveactualsynclogdata
                     } label: {
                         Image(systemName: "square.and.arrow.down.fill")
                             .foregroundStyle(saveactualsynclogdata ? .green : .primary)
