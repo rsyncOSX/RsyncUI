@@ -59,6 +59,13 @@ final class Execute {
             fileHandler: localfileHandler,
             processTermination: { output, hiddenID in
                 self.processTermination(stringoutputfromrsync: output, hiddenID)
+                if SharedReference.shared.saveactualsynclogdata {
+                    Task {
+                        Logger.process.debugMessageOnly("Execute: LOGGING details to logfile")
+                        _ = await ActorLogToFile().logOutput("rsync", output)
+                    }
+                }
+                
             }
         )
 
@@ -258,21 +265,6 @@ extension Execute {
             streamingHandlers = nil
             SharedReference.shared.updateprocess(nil)
             // If logging details to file it must be here
-            if SharedReference.shared.saveactualsynclogdata {
-                guard let outdata = localprogressdetails?.estimatedlist else { return }
-                for item in outdata {
-                    // Flatten any nested arrays and optionals, then extract the `record` string
-                    let records: [String] = (item.outputfromrsync ?? [])
-                        .compactMap { $0 }
-                        .map { $0.record }
-                    // TODO: write `records` to file or aggregate as needed
-                    Task {
-                        Logger.process.debugMessageOnly("Execute: LOGGING details to logfile")
-                        _ = await ActorLogToFile().logOutput("rsync", records)
-                    }
-                }
-            }
-            
             return
         }
         // Execute next task
