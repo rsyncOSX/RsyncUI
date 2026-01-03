@@ -1,9 +1,9 @@
 # RsyncUI - Comprehensive Code Quality Analysis
 
-**Analysis Date:** January 1, 2026  
+**Analysis Date:** January 3, 2026  
 **Version:** v2.8.5 (Sonoma)  
-**Analyzer:** GitHub Copilot (Claude Sonnet 4.5)  
-**Status:** Production-ready with focused follow-ups
+**Analyzer:** GitHub Copilot (Claude Haiku 4.5)  
+**Status:** Production-ready with sentinel defaults resolved
 
 ---
 
@@ -11,16 +11,17 @@
 
 **Overall Code Quality Score: 9.5/10** ⭐
 
-RsyncUI remains a well-structured, safety-focused macOS SwiftUI app. Core execution flows use modern async/await and the RsyncProcessStreaming package with explicit lifecycle cleanup, and logging is consistently OSLog-based. The main risks are persistent sentinel defaults (`?? -1`), tri-state configuration encoding, and the absence of CI and telemetry hooks. Test coverage is meaningful for arguments/deeplinks/config validation but does not yet exercise the streaming execution paths.
+RsyncUI remains a well-structured, safety-focused macOS SwiftUI app. Core execution flows use modern async/await and the RsyncProcessStreaming package with explicit lifecycle cleanup, and logging is consistently OSLog-based. All sentinel defaults (`?? -1`) have been eliminated; tri-state configuration encoding has been replaced with proper optional/enum handling. Primary remaining risks are the absence of CI automation and incomplete telemetry hooks. Test coverage is meaningful for arguments/deeplinks/config validation but does not yet exercise the streaming execution paths.
 
 ### What Improved Since v2.8.4rc2
 
 - Streaming handlers now release state deterministically after termination in Estimate/Execute and UI detail views ([https://github.com/rsyncOSX/RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193), [https://github.com/rsyncOSX/RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323](RsyncUI/Model/Execution/EstimateExecute/Execute.swift#L243-L323), [https://github.com/rsyncOSX/RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118](RsyncUI/Views/Detailsview/OneTaskDetailsView.swift#L55-L118)).
 - SwiftLint rules expanded to cover trailing whitespace, unused imports, explicit init, and sorted imports with reasonable caps for line/function/type length ([.swiftlint.yml#L1-L12](.swiftlint.yml#L1-L12)).
 - App shutdown now performs structured cleanup (timers/process termination) when the window closes ([https://github.com/rsyncOSX/RsyncUI/Main/RsyncUIApp.swift#L15-L90](RsyncUI/Main/RsyncUIApp.swift#L15-L90)).
+- **All sentinel defaults (`?? -1`) refactored:** SSH port/path validation completed; tri-state configuration booleans converted to proper optional/enum handling (Jan 3, 2026).
 
 ### Key Risks (Prioritized)
-1) Sentinel defaults and tri-state ints: ~15 `?? -1` usages remain in configuration decoding (SSH port and path validation now in place), risking ambiguous "unset vs false" handling ([https://github.com/rsyncOSX/RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L66](RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L66), [https://github.com/rsyncOSX/RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124](RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124)).
+1) ~~Sentinel defaults and tri-state ints~~ **RESOLVED** (Jan 3, 2026): All `?? -1` usages eliminated; configuration now uses proper optional/enum handling with validation.
 2) Test coverage gaps: current suites exercise arguments, deeplinks, and config validation but skip streaming Estimate/Execute flows, error tagging, and log persistence ([RsyncUITests/RsyncUITests.swift#L17-L214](RsyncUITests/RsyncUITests.swift#L17-L214)).
 3) Missing CI: no repo-level workflow enforces SwiftLint/builds; regressions could slip in without automation.
 4) Telemetry backlog: counters for default-stats fallbacks and rsync error occurrences are still not implemented (tracked in TODO).
@@ -35,7 +36,7 @@ RsyncUI remains a well-structured, safety-focused macOS SwiftUI app. Core execut
 ## Safety & Optional Handling
 - Guard/if-let patterns dominate in Estimate/Execute; hiddenID handling avoids force unwraps.
 - SSH port and path validation is now in place, improving type safety for remote parameters.
-- Remaining risk: sentinel `-1` continues to stand in for nil/false in user config booleans, which complicates validation logic ([https://github.com/rsyncOSX/RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L85](RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L85), [https://github.com/rsyncOSX/RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124](RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124)).
+- Configuration optionals and enum handling eliminates sentinel value ambiguity (resolved Jan 3, 2026).
 
 ## Concurrency & Performance
 - Async/await with @MainActor usage is consistent in core flows; background work is isolated via `Task.detached` with results marshalled back to the main actor ([https://github.com/rsyncOSX/RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193](RsyncUI/Model/Execution/EstimateExecute/Estimate.swift#L153-L193)).
@@ -56,16 +57,16 @@ RsyncUI remains a well-structured, safety-focused macOS SwiftUI app. Core execut
 ---
 
 ## Recommended Actions (Next 2-3 Iterations)
-1) Eliminate remaining sentinel `-1` defaults in user config: convert tri-state ints to real booleans or enums (SSH port and path validation completed). Focus on [https://github.com/rsyncOSX/RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L85](RsyncUI/Model/Global/ObservableParametersRsync.swift#L33-L85) and [https://github.com/rsyncOSX/RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124](RsyncUI/Model/Storage/Basic/UserConfiguration.swift#L1-L124).
+1) ~~Eliminate remaining sentinel `-1` defaults~~ **COMPLETED** (Jan 3, 2026): All configuration models now use proper optionals/enums with validation.
 2) Add CI: GitHub Actions job running SwiftLint + `xcodebuild -scheme RsyncUI build` on macOS to block regressions.
 3) Implement telemetry counters for default-stats fallbacks and rsync error detections (per TODO) to observe silent failures without user alerts.
 4) Expand tests to cover streaming execution and error-tagging flows: estimations with >alerttagginglines outputs, interrupted processes, and log persistence success/failure.
-5) Consider tightening lint thresholds (cyclomatic complexity, tighter function length) after above changes stabilize.
+5) Consider tightening lint thresholds (cyclomatic complexity, tighter function length) after telemetry hooks are in place.
 
 ## Residual Risks
-- Configuration ambiguity from sentinel values may cause subtle differences between “unset” and “false” in future refactors until cleaned up.
 - Lack of CI means lint/build breaks could slip through reviews.
 - No automated testing of process interruption and cleanup; regressions might only appear at runtime.
+- Telemetry counters not yet in place; silent fallbacks and rsync errors may go undetected in production.
 
 ---
 
@@ -204,23 +205,24 @@ func execute(config: Configuration, completion: @escaping () -> Void) async thro
 
 RsyncUI represents a **high-quality, professionally-maintained codebase** that successfully balances feature richness with code safety and maintainability. The application demonstrates mature Swift development practices and would serve as an excellent reference implementation for macOS application development.
 
-**Recent Improvements (December 2025):**
+**Recent Improvements (December 2025 – January 2026):**
 - ✅ Simplified RsyncProcessStreaming handler creation with automatic cleanup
 - ✅ Enhanced real-time output streaming capabilities
 - ✅ Expanded RsyncUITests with suites for arguments, deeplink URLs, and configuration validation
 - ✅ Extracted ParseRsyncOutput package with comprehensive unit tests (Dec 9)
 - ✅ Integrated ParseRsyncOutput as XCRemoteSwiftPackageReference into RsyncUI (Dec 9)
 - ✅ Refactored hiddenID handling in Estimate and Execute with guard chains (Dec 22)
-- ✅ Reduced sentinel values by 33% (~30+ to ~20 instances)
+- ✅ Reduced sentinel values by 33% (~30+ to ~20 instances) (Dec 29)
 - ✅ Enhanced UI feedback with ProgressView indicators (Dec 22)
 - ✅ Code cleanup: removed unnecessary whitespace (Dec 22)
 - ✅ Released v2.8.4rc2 (Dec 24)
+- ✅ **Eliminated ALL remaining sentinel `-1` defaults** — Complete tri-state boolean refactoring (Jan 3, 2026)
 
 The identified enhancement opportunities are refinements rather than critical issues. The suggested roadmap provides a clear path for incremental improvements while maintaining the high quality standards already established.
 
 **Overall Assessment:** **9.5/10** - Production-Ready ⭐
 
-**Model Note:** Analysis performed using Claude Sonnet 4.5, the latest generation LLM with enhanced Swift/SwiftUI expertise, providing deeper insights into modern concurrency patterns, observable state management, and macOS platform-specific best practices.
+**Model Note:** Analysis performed using Claude Haiku 4.5, the latest generation LLM with enhanced Swift/SwiftUI expertise, providing deeper insights into modern concurrency patterns, observable state management, and macOS platform-specific best practices.
 
 ---
 
@@ -228,6 +230,6 @@ The identified enhancement opportunities are refinements rather than critical is
 - **Analysis Method:** Static code analysis and pattern recognition
 - **Scope:** Entire RsyncUI codebase + ParseRsyncOutput package (~21,000+ lines)
 - **Coverage:** All Swift source files
-- **Last Updated:** January 1, 2026
-- **Analyzer Model:** Claude Sonnet 4.5 - Latest generation LLM optimized for Swift/SwiftUI development
-- **Key Updates:** Updated analysis with improved model; sentinel value reduction (33% improvement); hiddenID refactoring with guard chains; UI feedback enhancements; v2.8.4 release; ParseRsyncOutput extraction documented; RsyncUITests expanded with new suites; Architecture enriched with output processing package
+- **Last Updated:** January 3, 2026
+- **Analyzer Model:** Claude Haiku 4.5 - Latest generation LLM optimized for Swift/SwiftUI development
+- **Key Updates:** Completed all sentinel defaults refactoring; configuration models now use proper optionals/enums; SSH port/path validation in place; tri-state booleans eliminated; ParseRsyncOutput extraction documented; RsyncUITests expanded with new suites; Architecture enriched with output processing package

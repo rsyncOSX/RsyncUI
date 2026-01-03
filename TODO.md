@@ -1,4 +1,4 @@
-# RsyncUI TODO — December 29, 2025
+# RsyncUI TODO — January 3, 2026
 
 This document tracks proposed next steps after v2.8.4. Tasks are grouped by priority and include acceptance criteria.
 
@@ -29,12 +29,12 @@ Legend: [H] High • [M] Medium • [L] Low • [Opt] Optional • [✓] Complet
 
 ---
 
-## [✓] 3) Remove Sentinel Defaults (SSH & User Config) — PARTIAL (Jan 2, 2026)
+## [✓] 3) Remove Sentinel Defaults (SSH & User Config) — COMPLETED (Jan 3, 2026)
 
 - Goal: Eliminate `?? -1` sentinels for SSH ports and tri-state booleans; switch to optionals/enums with validation.
-- Status: SSH port and path validation COMPLETE; remaining tri-state booleans in UserConfiguration pending.
-- Locations: ObservableParametersRsync (user config booleans remaining), UserConfiguration decode/encode for non-SSH fields.
-- Acceptance: SSH ports and paths validated; remaining sentinel cleanup for user config tri-state booleans; validation errors surfaced via AlertError; tests cover nil/invalid ports and paths.
+- Status: COMPLETE — All sentinel `-1` defaults removed; SSH port/path validation in place; tri-state booleans converted to proper optional/enum handling.
+- Locations: ObservableParametersRsync, UserConfiguration, and all configuration decode/encode paths refactored.
+- Acceptance: ✓ SSH ports and paths validated; ✓ sentinel cleanup for all user config fields; ✓ validation errors surfaced via AlertError; ✓ tests cover nil/invalid ports and paths; ✓ no remaining `?? -1` patterns in codebase.
 
 ---
 
@@ -97,6 +97,8 @@ Legend: [H] High • [M] Medium • [L] Low • [Opt] Optional • [✓] Complet
 
 ## Notes
 
-- Keep SwiftLint force unwrap/cast bans; consider tightening cyclomatic/function length after sentinel cleanup lands.
+- Keep SwiftLint force unwrap/cast bans; can now consider tightening cyclomatic/function length (sentinel cleanup complete).
+- Next major focus areas: CI automation (task 6) and telemetry hooks (task 4) to prevent regressions and surface silent failures.
+- Streaming execution tests (task 7) should follow telemetry integration to ensure comprehensive coverage.
 - Prefer `SharedReference.shared.alerttagginglines` over hardcoded thresholds.
 - Use strong-capture streaming handlers with explicit post-termination cleanup to avoid leaks.
