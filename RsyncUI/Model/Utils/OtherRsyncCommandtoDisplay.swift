@@ -124,7 +124,10 @@ struct OtherRsyncCommandtoDisplay {
             guard let sshcreatekeys else {
                 return ["No SSH key configuration"]
             }
-            let arguments = (try? sshcreatekeys.argumentsVerifyRemotePublicSSHKey(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)) ?? []
+            let arguments = (try? sshcreatekeys.argumentsVerifyRemotePublicSSHKey(
+                offsiteServer: config.offsiteServer,
+                offsiteUsername: config.offsiteUsername
+            )) ?? []
             let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
             let createCmd = sshcreatekeys.createKeyCommand
             return [createCmd, cleanedArguments]
@@ -155,7 +158,10 @@ struct OtherRsyncCommandtoDisplay {
             guard let sshcreatekeys else {
                 return ["No SSH key configuration"]
             }
-            let arguments = (try? sshcreatekeys.argumentsSSHCopyID(offsiteServer: config.offsiteServer, offsiteUsername: config.offsiteUsername)) ?? []
+            let arguments = (try? sshcreatekeys.argumentsSSHCopyID(
+                offsiteServer: config.offsiteServer,
+                offsiteUsername: config.offsiteUsername
+            )) ?? []
             let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
             let createCmd = sshcreatekeys.createKeyCommand
             return [createCmd, cleanedArguments]
