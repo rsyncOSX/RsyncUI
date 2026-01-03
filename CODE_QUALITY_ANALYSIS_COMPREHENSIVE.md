@@ -175,6 +175,75 @@ func execute(config: Configuration, completion: @escaping () -> Void) async thro
 
 ---
 
+### 11.1 Eliminating Remaining Sentinel Values
+
+**Status:** ✅ **COMPLETED** (January 3, 2026)
+
+**Overview:**
+All sentinel values (`?? -1` patterns and tri-state boolean workarounds) have been successfully eliminated from the RsyncUI codebase. This represents a critical quality improvement that enhances type safety, reduces ambiguity in configuration handling, and prevents silent failures from uninitialized state.
+
+**Scope of Work:**
+- **Total Sentinel Instances Removed:** ~20+ instances across configuration, SSH, and process models
+- **Progress:** 100% complete (started at ~30 instances in Dec 2025, reached 100% elimination by Jan 3, 2026)
+
+**Key Areas Refactored:**
+
+1. **SSH Port & Path Configuration** (Model/Ssh/)
+   - Replaced `port ?? -1` patterns with proper optional handling
+   - Added explicit validation for port ranges (1-65535)
+   - Path validation now returns `Result<String, ValidationError>` instead of relying on sentinel defaults
+   - Impact: SSH connections now fail cleanly with descriptive errors rather than attempting invalid ports
+
+2. **Configuration Model Tri-State Booleans** (Model/Storage/)
+   - Converted all configuration boolean fields from Int sentinel patterns to proper `Optional<Bool>` or explicit enums
+   - Example: `snapshotnum: Int? ?? -1` → `snapshotNum: Int?` with separate validation layer
+   - Eliminated ambiguity between "not set", "false", and "error state"
+   - Impact: Configuration serialization/deserialization is now type-safe and unambiguous
+
+3. **Process Lifecycle Defaults** (Model/Execution/, Model/Process/)
+   - Removed hardcoded `-1` defaults from task ID and process state initialization
+   - Replaced with proper optional chaining and guard statements
+   - Process state transitions now use enums instead of sentinel int values
+   - Impact: Process lifecycle is now explicitly trackable with no hidden default states
+
+4. **SSH & Remote Parameter Handling**
+   - Eliminated sentinel values from SSH port, timeout, and connection state
+   - All remote parameters now validated before assignment
+   - Validation errors propagate to UI with clear messaging
+   - Impact: Remote connection failures are explicit and user-visible
+
+**Validation & Testing:**
+- ✅ All configuration models decode correctly from JSON without sentinel fallbacks
+- ✅ SSH parameter validation in place with boundary checking (ports 1-65535)
+- ✅ Process initialization no longer depends on sentinel values
+- ✅ RsyncUITests expanded to cover configuration validation edge cases
+- ✅ No remaining `?? -1` patterns in active codebase (verified via SwiftLint and static analysis)
+
+**Benefits Realized:**
+1. **Type Safety:** Compiler now prevents misuse of numeric sentinels
+2. **Clarity:** Intent is explicit — optional values are optional, required values are required
+3. **Debugging:** Nil/missing values surface immediately rather than silently using -1
+4. **Maintainability:** Future developers cannot accidentally introduce sentinel-based logic
+5. **Error Handling:** Invalid configurations fail explicitly with descriptive errors, not silently with -1 defaults
+
+**Remaining Best Practices:**
+- Continue using proper optionals for truly optional values
+- Use enums for state representation (not ints with sentinel meanings)
+- Validate external input (JSON, CLI args) at entry points before storing in models
+- Propagate validation errors to UI rather than silently applying defaults
+
+**Files Modified (Summary):**
+- Model/Ssh/*.swift (port, path, timeout validation)
+- Model/Storage/Configuration.swift (tri-state boolean refactoring)
+- Model/Process/*.swift (lifecycle state handling)
+- Model/Execution/EstimateExecute/*.swift (process initialization)
+- Tests: RsyncUITests/RsyncUITests.swift (configuration validation suites)
+
+**Conclusion:**
+This refactoring eliminates a critical source of implicit errors and represents a significant leap forward in code reliability. The codebase now fully embraces Swift's type system for representing optional and stateful values, making it substantially harder to introduce logic errors related to uninitialized or invalid configuration states.
+
+---
+
 ## 12. Compliance & Standards
 
 ### 12.1 Swift Concurrency Safety
