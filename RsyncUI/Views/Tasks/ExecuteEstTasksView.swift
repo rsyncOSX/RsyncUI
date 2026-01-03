@@ -36,13 +36,19 @@ struct ExecuteEstTasksView: View {
                     maxcount = progressdetails.getMaxCountByTask()
                 }
 
-                Text("Synchronizing tasks, please wait...")
-                    .font(.title)
-                    .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                    )
+                HStack {
+                    
+                    ProgressView()
+                    
+                    Text("Synchronizing tasks, please wait...")
+                        .font(.title)
+                        .padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                        )
+                }
+                
             }
 
             if focusaborttask { labelaborttask }
