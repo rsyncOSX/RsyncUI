@@ -30,6 +30,16 @@ struct RsyncParametersViewtwotables: View {
                             deleteparameterpresent: deleteparameterpresent)
 
             taskListView
+                .overlay {
+                    if let config = rsyncUIdata.configurations, config.isEmpty {
+                        ContentUnavailableView {
+                            Label("There are no tasks added",
+                                  systemImage: "doc.richtext.fill")
+                        } description: {
+                            Text("Select the + button in EDIT tab on the toolbar to add a task")
+                        }
+                    }
+                }
         }
         .inspector(isPresented: $showinspector) {
             inspectorView

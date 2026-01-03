@@ -26,6 +26,16 @@ struct DefaultView: View {
                 .onChange(of: rsyncUIdata.profile) {
                     selecteduuids.removeAll()
                 }
+                .overlay {
+                    if let config = rsyncUIdata.configurations, config.isEmpty {
+                    ContentUnavailableView {
+                        Label("There are no tasks added",
+                              systemImage: "doc.richtext.fill")
+                    } description: {
+                        Text("Select the + button on the toolbar to add a task")
+                    }
+                }
+            }
 
             Divider()
 

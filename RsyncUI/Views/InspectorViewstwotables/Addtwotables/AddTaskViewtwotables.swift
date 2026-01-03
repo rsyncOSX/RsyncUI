@@ -37,6 +37,16 @@ struct AddTaskViewtwotables: View {
                             deleteparameterpresent: deleteparameterpresent)
 
             taskListView
+                .overlay {
+                    if let config = rsyncUIdata.configurations, config.isEmpty {
+                        ContentUnavailableView {
+                            Label("There are no tasks added",
+                                  systemImage: "doc.richtext.fill")
+                        } description: {
+                            Text("Select the + button on the toolbar to add a task")
+                        }
+                    }
+                }
 
             if showcommand, let selectedconfig {
                 RsyncCommandView(config: selectedconfig)
