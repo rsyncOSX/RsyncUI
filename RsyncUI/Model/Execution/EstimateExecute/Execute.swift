@@ -4,6 +4,7 @@
 //
 //  Created by Thomas Evensen on 10/06/2025.
 //
+// swiftlint:disable cyclomatic_complexity
 
 import Foundation
 import OSLog
@@ -65,7 +66,6 @@ final class Execute {
                         _ = await ActorLogToFile().logOutput("rsync", output)
                     }
                 }
-                
             }
         )
 
@@ -328,3 +328,4 @@ extension Execute {
     }
 }
 
+// swiftlint:enable cyclomatic_complexity

@@ -37,9 +37,8 @@ struct ExecuteEstTasksView: View {
                 }
 
                 HStack {
-                    
                     ProgressView()
-                    
+
                     Text("Synchronizing tasks, please wait...")
                         .font(.title)
                         .padding()
@@ -48,7 +47,6 @@ struct ExecuteEstTasksView: View {
                                 .stroke(Color.gray.opacity(0.3), lineWidth: 1)
                         )
                 }
-                
             }
 
             if focusaborttask { labelaborttask }
