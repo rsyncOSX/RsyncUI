@@ -11,7 +11,6 @@ import SwiftUI
 
 struct LogfileView: View {
     @State private var logfilerecords: [LogfileRecords]?
-    @State private var whichlogfileispresented: LogfileToReset = .rsyncUIlogfile
 
     var body: some View {
         VStack {
@@ -28,7 +27,7 @@ struct LogfileView: View {
 
                 ConditionalGlassButton(
                     systemImage: "trash",
-                    text: "Clear",
+                    text: "Reset",
                     helpText: "Reset logfile"
                 ) {
                     reset()

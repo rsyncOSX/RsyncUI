@@ -20,10 +20,6 @@ enum FilesizeError: LocalizedError {
     }
 }
 
-enum LogfileToReset {
-    case rsyncUIlogfile
-}
-
 actor ActorLogToFile {
     private let homepath: Homepath?
     private let fileManager = FileManager.default
