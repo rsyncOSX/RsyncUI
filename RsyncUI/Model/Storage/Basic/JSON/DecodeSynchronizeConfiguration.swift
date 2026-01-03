@@ -13,14 +13,11 @@ struct DecodeSynchronizeConfiguration: Codable {
     let offsiteCatalog: String?
     let offsiteServer: String?
     let offsiteUsername: String?
-    // let parameter1: String?
     let parameter10: String?
     let parameter11: String?
     let parameter12: String?
     let parameter13: String?
     let parameter14: String?
-    // let parameter2: String?
-    // let parameter3: String?
     let parameter4: String?
     let parameter8: String?
     let parameter9: String?
@@ -47,8 +44,6 @@ struct DecodeSynchronizeConfiguration: Codable {
         case parameter12
         case parameter13
         case parameter14
-        // case parameter2
-        // case parameter3
         case parameter4
         case parameter8
         case parameter9
