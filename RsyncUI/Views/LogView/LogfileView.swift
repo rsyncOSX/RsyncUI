@@ -43,7 +43,7 @@ struct LogfileView: View {
 
     func reset() {
         Task {
-            await ActorLogToFile(whichlogfileispresented)
+            await ActorLogToFile().reset()
             logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
         }
     }

@@ -124,22 +124,19 @@ actor ActorLogToFile {
 
     // MARK: - Initializers
 
-    @discardableResult
     init() async {
         homepath = await Homepath()
     }
 
-    @discardableResult
-    init(_: LogfileToReset) async {
+    // MARK: - Reset and Logging Methods
+
+    func reset() async {
         let date = Date().localized_string_from_date()
-        let reset = "\(date): logfile is reset...\n"
-        homepath = await Homepath()
-        await writeloggfile(reset, true)
+        let resetMessage = "\(date): logfile is reset...\n"
+        await writeloggfile(resetMessage, true)
     }
 
-    @discardableResult
-    init(_ command: String, _ stringoutputfromrsync: [String]?) async {
-        homepath = await Homepath()
+    func logOutput(_ command: String, _ stringoutputfromrsync: [String]?) async {
         guard let stringoutputfromrsync, !stringoutputfromrsync.isEmpty else { return }
 
         let date = Date().localized_string_from_date()
@@ -149,4 +146,3 @@ actor ActorLogToFile {
         await writeloggfile(logEntry, false)
     }
 }
-
