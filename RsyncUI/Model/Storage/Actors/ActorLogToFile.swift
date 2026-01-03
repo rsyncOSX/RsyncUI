@@ -29,17 +29,13 @@ actor ActorLogToFile {
     private let fileManager = FileManager.default
     private let logName = SharedConstants().logname
     private let maxLogfileSize = SharedConstants().logfilesize
+    private lazy var fileSizeChecker = FileSize()
 
     // MARK: - Helper Properties
 
     private var logfileURL: URL? {
         guard let fullpathmacserial = homepath?.fullpathmacserial else { return nil }
         return URL(fileURLWithPath: fullpathmacserial).appendingPathComponent(logName)
-    }
-
-    private var logfilePath: String? {
-        guard let fullpathmacserial = homepath?.fullpathmacserial else { return nil }
-        return fullpathmacserial.appending("/") + logName
     }
 
     // MARK: - Public Methods
@@ -50,10 +46,24 @@ actor ActorLogToFile {
         Logger.process.debugThreadOnly("ActorLogToFile: writeloggfile()")
 
         do {
-            let logfiledata = try await prepareLogData(newlogadata, reset: reset)
-            try logfiledata.write(to: logURL)
-            Logger.process.debugMessageOnly("ActorLogToFile: writeloggfile() logfile \(logURL.path)")
+            guard let newdata = newlogadata.data(using: .utf8) else {
+                throw NSError(domain: "ActorLogToFile", code: 1, userInfo: [NSLocalizedDescriptionKey: "Failed to encode log data"])
+            }
 
+            if reset {
+                try newdata.write(to: logURL)
+            } else {
+                let logPath = logURL.path
+                if fileManager.locationExists(at: logPath, kind: .file) {
+                    Logger.process.debugMessageOnly("ActorLogToFile: append existing logfile \(logURL.path)")
+                    try appendDataToFile(logURL, newdata)
+                } else {
+                    Logger.process.debugMessageOnly("ActorLogToFile: create new logfile \(logURL.path)")
+                    try newdata.write(to: logURL)
+                }
+            }
+
+            Logger.process.debugMessageOnly("ActorLogToFile: writeloggfile() logfile \(logURL.path)")
             try await checkFileSizeAfterWrite()
         } catch {
             await homepath?.propagateError(error: error)
@@ -69,8 +79,7 @@ actor ActorLogToFile {
 
     private func readLogfileContent() async -> String? {
         guard let logURL = logfileURL,
-              let logPath = logfilePath,
-              fileManager.locationExists(at: logPath, kind: .file) else {
+              fileManager.fileExists(atPath: logURL.path) else {
             return nil
         }
 
@@ -88,8 +97,7 @@ actor ActorLogToFile {
     }
 
     private func checkAndResetIfTooBig() async throws {
-        let checker = FileSize()
-        if let size = try await checker.filesize(),
+        if let size = try await fileSizeChecker.filesize(),
            Int(truncating: size) > maxLogfileSize {
             let date = Date().localized_string_from_date()
             let resetMessage = date + ": logfile is reset by RsyncUI by checking filesize when reading logfile...\n"
@@ -99,46 +107,19 @@ actor ActorLogToFile {
     }
 
     private func checkFileSizeAfterWrite() async throws {
-        let checker = FileSize()
-        if let size = try await checker.filesize(),
+        if let size = try await fileSizeChecker.filesize(),
            Int(truncating: size) > maxLogfileSize {
             throw FilesizeError.toobig
         }
     }
 
-    private func prepareLogData(_ newlogadata: String, reset: Bool) async throws -> Data {
-        guard let newdata = newlogadata.data(using: .utf8) else {
-            throw NSError(domain: "ActorLogToFile", code: 1, userInfo: [NSLocalizedDescriptionKey: "Failed to encode log data"])
+    private func appendDataToFile(_ url: URL, _ data: Data) throws {
+        let fileHandle = try FileHandle(forWritingTo: url)
+        defer {
+            do { try fileHandle.close() } catch { /* ignore close errors */ }
         }
-
-        guard let logURL = logfileURL,
-              let logPath = logfilePath else {
-            throw NSError(domain: "ActorLogToFile", code: 2, userInfo: [NSLocalizedDescriptionKey: "Invalid log file path"])
-        }
-
-        Logger.process.debugThreadOnly("ActorLogToFile: prepareLogData()")
-
-        if reset {
-            return newdata
-        }
-
-        if fileManager.locationExists(at: logPath, kind: .file) {
-            Logger.process.debugMessageOnly("ActorLogToFile: append existing logfile \(logURL.path)")
-            var existingData = try Data(contentsOf: logURL)
-            existingData.append(newdata)
-            return existingData
-        } else {
-            Logger.process.debugMessageOnly("ActorLogToFile: create new logfile \(logURL.path)")
-            return newdata
-        }
-    }
-
-    private func appendlogg(command: String, stringoutputfromrsync: [String]) async {
-        let date = Date().localized_string_from_date()
-        let header = "\n\(date): \(command)\n"
-        let output = stringoutputfromrsync.joined(separator: "\n")
-        let logfile = await (readLogfileContent() ?? "") + header + output + "\n"
-        await writeloggfile(logfile, true)
+        try fileHandle.seekToEnd()
+        try fileHandle.write(contentsOf: data)
     }
 
     // MARK: - Initializers
@@ -159,9 +140,13 @@ actor ActorLogToFile {
     @discardableResult
     init(_ command: String, _ stringoutputfromrsync: [String]?) async {
         homepath = await Homepath()
-        if let stringoutputfromrsync {
-            await appendlogg(command: command, stringoutputfromrsync: stringoutputfromrsync)
-        }
+        guard let stringoutputfromrsync, !stringoutputfromrsync.isEmpty else { return }
+
+        let date = Date().localized_string_from_date()
+        let header = "\n\(date): \(command)\n"
+        let output = stringoutputfromrsync.joined(separator: "\n")
+        let logEntry = header + output + "\n"
+        await writeloggfile(logEntry, false)
     }
 }
 
