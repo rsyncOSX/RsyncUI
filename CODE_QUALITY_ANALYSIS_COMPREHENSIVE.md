@@ -228,7 +228,7 @@ The identified enhancement opportunities are refinements rather than critical is
 
 **Document Metadata:**
 - **Analysis Method:** Static code analysis and pattern recognition
-- **Scope:** Entire RsyncUI codebase + ParseRsyncOutput package (~21,000+ lines)
+- **Scope:** Entire RsyncUI codebase + all packages (187 Swift files, 20,663 lines)
 - **Coverage:** All Swift source files
 - **Last Updated:** January 3, 2026
 - **Analyzer Model:** Claude Haiku 4.5 - Latest generation LLM optimized for Swift/SwiftUI development
