@@ -20,6 +20,13 @@ struct VerifyObservableAddConfiguration: Connected {
             return Int(observed.snapshotnum)
         }()
 
+        let hiddenID: Int
+        if let selectedConfig = observed.selectedconfig {
+            hiddenID = selectedConfig.hiddenID
+        } else {
+            hiddenID = -1
+        }
+
         let data = NewTask(observed.selectedrsynccommand.rawValue,
                            observed.localcatalog.replacingOccurrences(of: "\"", with: ""),
                            observed.remotecatalog.replacingOccurrences(of: "\"", with: ""),
@@ -27,7 +34,7 @@ struct VerifyObservableAddConfiguration: Connected {
                            observed.remoteuser,
                            observed.remoteserver,
                            observed.backupID,
-                           observed.selectedconfig?.hiddenID ?? -1,
+                           hiddenID,
                            snapshotvalue)
 
         var newconfig = SynchronizeConfiguration()
