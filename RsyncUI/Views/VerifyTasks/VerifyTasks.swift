@@ -19,8 +19,6 @@ struct VerifyTasks: View {
     @State private var presentestimates: Bool = false
     // Estimating
     @State private var estimating: Bool = false
-    // Show warning
-    @State private var showmessage: Bool = true
     // Streaming strong references
     @State private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
     @State private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
@@ -38,11 +36,11 @@ struct VerifyTasks: View {
                                 if let configurations = rsyncUIdata.configurations {
                                     if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                         selectedconfig = configurations[index]
-                                        showmessage = true
+                                        showinspector = true
 
                                     } else {
                                         selectedconfig = nil
-                                        showmessage = false
+                                        showinspector = false
                                     }
                                 }
                             }
@@ -50,18 +48,6 @@ struct VerifyTasks: View {
 
                     if estimating {
                         ProgressView()
-                    }
-
-                    if showmessage {
-                        Text("Verify task **always** include the --dry-run parameter")
-                            .foregroundColor(.blue)
-                            .font(.title)
-                            .onAppear {
-                                Task {
-                                    try await Task.sleep(seconds: 3)
-                                    showmessage = false
-                                }
-                            }
                     }
                 }
 
@@ -104,7 +90,7 @@ struct VerifyTasks: View {
             })
             .inspector(isPresented: $showinspector) {
                 inspectorView
-                    .inspectorColumnWidth(min: 400, ideal: 500, max: 600)
+                    .inspectorColumnWidth(min: 500, ideal: 600, max: 700)
             }
             .padding()
             .navigationTitle("Verify tasks - dry-run parameter is enabled")
@@ -118,7 +104,7 @@ struct VerifyTasks: View {
 
     var inspectorView: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack {
+            VStack (alignment: .leading) {
                 if let selectedconfig {
                     RsyncCommandView(config: selectedconfig)
                     ArgumentsView(config: selectedconfig)
