@@ -24,6 +24,8 @@ struct VerifyTasks: View {
     // Streaming strong references
     @State private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
     @State private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
+    // Show Inspector view
+    @State var showinspector: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -36,18 +38,14 @@ struct VerifyTasks: View {
                                 if let configurations = rsyncUIdata.configurations {
                                     if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                         selectedconfig = configurations[index]
+                                        showmessage = true
 
                                     } else {
                                         selectedconfig = nil
+                                        showmessage = false
                                     }
                                 }
                             }
-
-                        if selecteduuids.count == 1, let selectedconfig {
-                            RsyncCommandView(config: selectedconfig)
-                                .padding()
-                            ArgumentsView(config: selectedconfig)
-                        }
                     }
 
                     if estimating {
@@ -104,10 +102,26 @@ struct VerifyTasks: View {
                 }
 
             })
+            .inspector(isPresented: $showinspector) {
+                inspectorView
+                    .inspectorColumnWidth(min: 400, ideal: 500, max: 600)
+            }
+            .padding()
             .navigationTitle("Verify tasks - dry-run parameter is enabled")
             .navigationDestination(isPresented: $presentestimates) {
                 if let remotedatanumbers {
                     DetailsView(remotedatanumbers: remotedatanumbers)
+                }
+            }
+        }
+    }
+
+    var inspectorView: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                if let selectedconfig {
+                    RsyncCommandView(config: selectedconfig)
+                    ArgumentsView(config: selectedconfig)
                 }
             }
         }
