@@ -39,13 +39,13 @@ struct OneTaskDetailsView: View {
                         if let config = getConfig(uuid: selecteduuids.first) {
                             Text("Estimating now: " + "\(config.backupID)")
                                 .font(.title)
-                                .padding()
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                                )
                         }
                     }
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                    )
                 }
             }
         }

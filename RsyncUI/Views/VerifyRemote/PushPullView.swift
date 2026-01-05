@@ -39,12 +39,12 @@ struct PushPullView: View {
 
                     Text("Estimating \(config.backupID), please wait ...")
                         .font(.title2)
-                        .padding()
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                        )
                 }
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                )
 
                 Spacer()
 
