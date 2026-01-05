@@ -55,7 +55,7 @@ final class Execute {
     }
 
     private func startexecution() {
-        guard (stackoftasks?.count ?? 0) > 0 else { return }
+        guard !(stackoftasks?.isEmpty ?? true) else { return }
         streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: localfileHandler,
             processTermination: { output, hiddenID in
@@ -108,8 +108,7 @@ final class Execute {
     }
 
     private func startexecution_noestimate() {
-        guard (stackoftasks?.count ?? 0) > 0 else { return }
-
+        guard !(stackoftasks?.isEmpty ?? true) else { return }
         streamingHandlers = CreateStreamingHandlers().createHandlers(
             fileHandler: localfileHandler,
             processTermination: { output, hiddenID in
@@ -185,7 +184,7 @@ final class Execute {
             selecteduuids.contains($0.id) && $0.task != SharedReference.shared.halted
         }
         stackoftasks = taskstosynchronize.map(\.hiddenID)
-        guard stackoftasks?.count ?? 0 > 0 else { return }
+        guard !(stackoftasks?.isEmpty ?? true) else { return }
         Logger.process.debugMessageOnly("Execute: START EXECUTION")
         startexecution()
     }
@@ -246,7 +245,7 @@ extension Execute {
             }
         }
 
-        guard stackoftasks?.count ?? 0 > 0 else {
+        guard !(stackoftasks?.isEmpty ?? true) else {
             let update = Logging(profile: structprofile,
                                  configurations: localconfigurations)
             let updateconfigurations = update.setCurrentDateOnConfiguration(configrecords: configrecords)
@@ -301,7 +300,7 @@ extension Execute {
                 }
             }
 
-            guard stackoftasks?.count ?? 0 > 0 else {
+            guard !(stackoftasks?.isEmpty ?? true) else {
                 let update = Logging(profile: structprofile,
                                      configurations: localconfigurations)
                 let updateconfigurations = update.setCurrentDateOnConfiguration(configrecords: configrecords)
