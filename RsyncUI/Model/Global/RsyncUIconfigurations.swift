@@ -34,22 +34,22 @@ final class RsyncUIconfigurations {
 
     @ObservationIgnored var oneormoresnapshottasksisremote: Bool {
         guard SharedReference.shared.rsyncversion3 else { return false }
-        return configurations?.filter { $0.task == SharedReference.shared.snapshot &&
-            $0.offsiteServer.isEmpty == false
-        }.isEmpty == false
+        return configurations?.contains { $0.task == SharedReference.shared.snapshot &&
+            !$0.offsiteServer.isEmpty
+        } ?? false
     }
 
     @ObservationIgnored var oneormoresynchronizetasksisremoteVer3x: Bool {
         guard SharedReference.shared.rsyncversion3 else { return false }
-        return configurations?.filter { $0.task == SharedReference.shared.synchronize &&
-            $0.offsiteServer.isEmpty == false
-        }.isEmpty == false
+        return configurations?.contains { $0.task == SharedReference.shared.synchronize &&
+            !$0.offsiteServer.isEmpty
+        } ?? false
     }
 
     @ObservationIgnored var oneormoresynchronizetasksisremoteOpenrsync: Bool {
-        configurations?.filter { $0.task == SharedReference.shared.synchronize &&
-            $0.offsiteServer.isEmpty == false
-        }.isEmpty == false
+        configurations?.contains { $0.task == SharedReference.shared.synchronize &&
+            !$0.offsiteServer.isEmpty
+        } ?? false
     }
 
     @ObservationIgnored var externalurlrequestinprogress: Bool = false

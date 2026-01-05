@@ -27,7 +27,7 @@ final class ProgressDetails {
     var numberofconfigurationsestimated: Double = 0
     // UUID for configuration to be estimated
     var configurationtobestimated: UUID?
-    
+
     let reduceestimatedcountV3: Double = 15
     let reduceestimatedcountopenrsync: Double = 13
 
