@@ -14,7 +14,7 @@ struct OtherRsyncCommandsView: View {
     let config: SynchronizeConfiguration
 
     var body: some View {
-        VStack(alignment: .leading) { 
+        VStack(alignment: .leading) {
             Picker("", selection: $otherselectedrsynccommand) {
                 ForEach(OtherRsyncCommand.allCases) { Text($0.description)
                     .tag($0)
@@ -22,7 +22,7 @@ struct OtherRsyncCommandsView: View {
             }
             .pickerStyle(RadioGroupPickerStyle())
             .padding(10)
-            
+
             showcommand
         }
         .padding(10)

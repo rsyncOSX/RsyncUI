@@ -104,7 +104,7 @@ struct VerifyTasks: View {
 
     var inspectorView: some View {
         VStack(alignment: .leading, spacing: 12) {
-            VStack (alignment: .leading) {
+            VStack(alignment: .leading) {
                 if let selectedconfig {
                     RsyncCommandView(config: selectedconfig)
                         .padding(10)
