@@ -13,16 +13,18 @@ struct RsyncCommandView: View {
     let config: SynchronizeConfiguration
 
     var body: some View {
-        HStack(alignment: .bottom) {
+        VStack(alignment: .leading) {
             Picker("", selection: $selectedrsynccommand) {
                 ForEach(RsyncCommand.allCases) { Text($0.description)
                     .tag($0)
                 }
             }
             .pickerStyle(RadioGroupPickerStyle())
+            .padding(10)
 
             showcommand
         }
+        .padding(10)
     }
 
     var showcommand: some View {

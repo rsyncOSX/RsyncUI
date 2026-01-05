@@ -8,24 +8,24 @@
 import SwiftUI
 
 struct OtherRsyncCommandsView: View {
-    @Binding var otherselectedrsynccommand: OtherRsyncCommand
+    @State private var otherselectedrsynccommand = OtherRsyncCommand.listRemoteFiles
+    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
     let config: SynchronizeConfiguration
 
     var body: some View {
-        HStack {
-            pickerselectcommand
+        VStack(alignment: .leading) { 
+            Picker("", selection: $otherselectedrsynccommand) {
+                ForEach(OtherRsyncCommand.allCases) { Text($0.description)
+                    .tag($0)
+                }
+            }
+            .pickerStyle(RadioGroupPickerStyle())
+            .padding(10)
+            
             showcommand
         }
-    }
-
-    var pickerselectcommand: some View {
-        Picker("", selection: $otherselectedrsynccommand) {
-            ForEach(OtherRsyncCommand.allCases) { Text($0.description)
-                .tag($0)
-            }
-        }
-        .pickerStyle(RadioGroupPickerStyle())
+        .padding(10)
     }
 
     var showcommand: some View {
