@@ -27,6 +27,8 @@ final class ProgressDetails {
     var numberofconfigurationsestimated: Double = 0
     // UUID for configuration to be estimated
     var configurationtobestimated: UUID?
+    
+    let reduceestimatedcount: Double = 16
 
     // For execution
     var hiddenIDatwork: Int = -1
@@ -37,7 +39,7 @@ final class ProgressDetails {
             var num = 0.0
             if SharedReference.shared.rsyncversion3 {
                 // Reduce count with 16 last rows which contains summarized status from rsync
-                num = Double(max?[0].outputfromrsync?.count ?? 0) - 16
+                num = Double(max?[0].outputfromrsync?.count ?? 0) - reduceestimatedcount
                 if num <= 0 { num = 0 }
                 Logger.process.debugMessageOnly("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num)")
                 return num

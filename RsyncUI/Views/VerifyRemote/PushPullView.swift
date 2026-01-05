@@ -28,6 +28,7 @@ struct PushPullView: View {
 
     let config: SynchronizeConfiguration
     let isadjusted: Bool
+    let reduceestimatedcount: Int = 16
 
     var body: some View {
         VStack {
@@ -187,7 +188,7 @@ struct PushPullView: View {
             }
             // Rsync output pull
             pushorpull.rsyncpull = stringoutputfromrsync
-            pushorpull.rsyncpullmax = (stringoutputfromrsync?.count ?? 0) - 16
+            pushorpull.rsyncpullmax = (stringoutputfromrsync?.count ?? 0) - reduceestimatedcount
             if pushorpull.rsyncpullmax < 0 {
                 pushorpull.rsyncpullmax = 0
             }
@@ -224,7 +225,7 @@ struct PushPullView: View {
 
             // Rsync output push
             pushorpull.rsyncpush = stringoutputfromrsync
-            pushorpull.rsyncpushmax = (stringoutputfromrsync?.count ?? 0) - 16
+            pushorpull.rsyncpushmax = (stringoutputfromrsync?.count ?? 0) - reduceestimatedcount
             if pushorpull.rsyncpushmax < 0 {
                 pushorpull.rsyncpushmax = 0
             }
