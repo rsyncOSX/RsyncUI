@@ -28,7 +28,7 @@ struct PushPullView: View {
 
     let config: SynchronizeConfiguration
     let isadjusted: Bool
-    let reduceestimatedcount: Int = 16
+    let reduceestimatedcount: Int = 15
 
     var body: some View {
         VStack {
