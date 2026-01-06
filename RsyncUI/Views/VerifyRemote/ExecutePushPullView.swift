@@ -260,4 +260,3 @@ struct ExecutePushPullView: View {
         InterruptProcess()
     }
 }
-
