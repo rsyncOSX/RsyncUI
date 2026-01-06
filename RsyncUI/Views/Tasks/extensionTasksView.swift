@@ -218,21 +218,6 @@ extension TasksView {
                     .help("Estimate & Synchronize")
                 }
             }
-
-            if SharedReference.shared.hideverifyremotefunction == false,
-               SharedReference.shared.rsyncversion3,
-               rsyncUIdata.oneormoretasksissnapshot == false,
-               rsyncUIdata.oneormoresynchronizetasksisremoteVer3x {
-                ToolbarItem {
-                    Button {
-                        openWindow(id: "verify")
-                    } label: {
-                        Image(systemName: "bolt.shield")
-                            .foregroundColor(Color(.yellow))
-                    }
-                    .help("Verify remote")
-                }
-            }
         }
     }
 }

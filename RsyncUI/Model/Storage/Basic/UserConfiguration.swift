@@ -37,8 +37,6 @@ struct UserConfiguration: @MainActor Codable {
     var observemountedvolumes: Int = -1
     // Always show the summarized estimate view
     var alwaysshowestimateddetailsview: Int = -1
-    // Hide Verify View
-    var hideverifyremotefunction: Int = -1
     // Use two tables Inspector
     var usetwotablesInspector: Int = -1
     // Silence missing stats
@@ -76,7 +74,6 @@ struct UserConfiguration: @MainActor Codable {
         SharedReference.shared.sidebarishidden = intToBool(sidebarishidden)
         SharedReference.shared.observemountedvolumes = intToBool(observemountedvolumes)
         SharedReference.shared.alwaysshowestimateddetailsview = intToBool(alwaysshowestimateddetailsview)
-        SharedReference.shared.hideverifyremotefunction = intToBool(hideverifyremotefunction)
         SharedReference.shared.usetwotablesInspector = intToBool(usetwotablesInspector)
         SharedReference.shared.silencemissingstats = intToBool(silencemissingstats)
         SharedReference.shared.validatearguments = intToBool(validatearguments)
@@ -147,12 +144,6 @@ struct UserConfiguration: @MainActor Codable {
             alwaysshowestimateddetailsview = -1
         }
 
-        if let value = data.hideverifyremotefunction {
-            hideverifyremotefunction = value
-        } else {
-            hideverifyremotefunction = -1
-        }
-
         if let value = data.usetwotablesInspector {
             usetwotablesInspector = value
         } else {
@@ -192,7 +183,6 @@ struct UserConfiguration: @MainActor Codable {
         sidebarishidden = boolToInt(SharedReference.shared.sidebarishidden)
         observemountedvolumes = boolToInt(SharedReference.shared.observemountedvolumes)
         alwaysshowestimateddetailsview = boolToInt(SharedReference.shared.alwaysshowestimateddetailsview)
-        hideverifyremotefunction = boolToInt(SharedReference.shared.hideverifyremotefunction)
         usetwotablesInspector = boolToInt(SharedReference.shared.usetwotablesInspector)
         silencemissingstats = boolToInt(SharedReference.shared.silencemissingstats)
         validatearguments = boolToInt(SharedReference.shared.validatearguments)

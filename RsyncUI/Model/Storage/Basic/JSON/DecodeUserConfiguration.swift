@@ -34,8 +34,6 @@ struct DecodeUserConfiguration: Codable {
     let observemountedvolumes: Int?
     // Alwasy show the summarized estimate view
     let alwaysshowestimateddetailsview: Int?
-    // Hide Verify function
-    let hideverifyremotefunction: Int?
     // Use two tables Inspector
     let usetwotablesInspector: Int?
     // Silence missing stats
@@ -59,7 +57,6 @@ struct DecodeUserConfiguration: Codable {
         case sidebarishidden
         case observemountedvolumes
         case alwaysshowestimateddetailsview
-        case hideverifyremotefunction
         case usetwotablesInspector
         case silencemissingstats
         case validatearguments
@@ -82,7 +79,6 @@ struct DecodeUserConfiguration: Codable {
         sidebarishidden = try values.decodeIfPresent(Int.self, forKey: .sidebarishidden)
         observemountedvolumes = try values.decodeIfPresent(Int.self, forKey: .observemountedvolumes)
         alwaysshowestimateddetailsview = try values.decodeIfPresent(Int.self, forKey: .alwaysshowestimateddetailsview)
-        hideverifyremotefunction = try values.decodeIfPresent(Int.self, forKey: .hideverifyremotefunction)
         usetwotablesInspector = try values.decodeIfPresent(Int.self, forKey: .usetwotablesInspector)
         silencemissingstats = try values.decodeIfPresent(Int.self, forKey: .silencemissingstats)
         validatearguments = try values.decodeIfPresent(Int.self, forKey: .validatearguments)

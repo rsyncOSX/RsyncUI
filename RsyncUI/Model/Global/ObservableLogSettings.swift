@@ -24,8 +24,6 @@ final class ObservableLogSettings {
     var observemountedvolumes: Bool = SharedReference.shared.observemountedvolumes
     // Always show the summarized estimated view
     var alwaysshowestimateddetailsview: Bool = SharedReference.shared.alwaysshowestimateddetailsview
-    // Hide Verify Remote view
-    var hideverifyremotefunction: Bool = SharedReference.shared.hideverifyremotefunction
     // Use two tables Inspector
     var usetwotablesInspector: Bool = SharedReference.shared.usetwotablesInspector
     // Silence missing stats

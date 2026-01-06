@@ -83,8 +83,6 @@ final class SharedReference {
     @ObservationIgnored var alwaysshowestimateddetailsview: Bool = true
     // Value for alert tagging
     let alerttagginglines = 20
-    // Hide Verify Remote function in main Sidebar
-    @ObservationIgnored var hideverifyremotefunction: Bool = true
     // USw two tables Inspector sheet
     @ObservationIgnored var usetwotablesInspector: Bool = true
     // Loge everything to logfile
