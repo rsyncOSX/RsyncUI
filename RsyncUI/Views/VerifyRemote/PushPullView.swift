@@ -94,15 +94,13 @@ struct PushPullView: View {
             pullRemote(config: config)
         }
         .toolbar(content: {
-            if progress {
-                ToolbarItem {
-                    ConditionalGlassButton(
-                        systemImage: "stop.fill",
-                        helpText: "Abort"
-                    ) {
-                        isaborted = true
-                        abort()
-                    }
+            ToolbarItem {
+                ConditionalGlassButton(
+                    systemImage: "stop.fill",
+                    helpText: "Abort"
+                ) {
+                    isaborted = true
+                    abort()
                 }
             }
         })

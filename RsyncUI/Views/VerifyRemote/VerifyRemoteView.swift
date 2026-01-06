@@ -30,7 +30,7 @@ struct VerifyRemoteView: View {
     @State private var isadjusted: Bool = false
     // Decide push or pull
     @State private var pushorpull = ObservableVerifyRemotePushPull()
-    @State private var pushpullcommand = PushPullCommand.none
+    @State private var pushpullcommand = PushPullCommand.pushLocal
     @State private var verifypath: [Verify] = []
     // Show Inspector view
     @State var showinspector: Bool = false

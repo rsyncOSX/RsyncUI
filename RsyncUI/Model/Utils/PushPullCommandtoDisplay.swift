@@ -12,7 +12,6 @@ import SSHCreateKey
 enum PushPullCommand: String, CaseIterable, Identifiable, CustomStringConvertible {
     case pullRemote
     case pushLocal
-    case none
 
     var id: String { rawValue }
     var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
@@ -46,8 +45,6 @@ struct PushPullCommandtoDisplay {
             } else {
                 str = "Use macOS Finder"
             }
-        case .none:
-            str = "Select either pull or push"
         }
         command = str
     }

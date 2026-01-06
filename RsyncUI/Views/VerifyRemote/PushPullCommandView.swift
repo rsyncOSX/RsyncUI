@@ -15,11 +15,9 @@ struct PushPullCommandView: View {
     let config: SynchronizeConfiguration
 
     var body: some View {
-        HStack {
+        VStack(alignment: .leading) {
             pickerselectcommand
-
-            Spacer()
-
+                .padding()
             showcommand
         }
     }

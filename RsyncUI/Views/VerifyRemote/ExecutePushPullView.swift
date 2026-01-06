@@ -25,6 +25,8 @@ struct ExecutePushPullView: View {
     @State private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
     @State private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
 
+    @State private var showinspector: Bool = true
+
     let config: SynchronizeConfiguration
 
     var body: some View {
@@ -32,119 +34,64 @@ struct ExecutePushPullView: View {
             if let remotedatanumbers {
                 DetailsView(remotedatanumbers: remotedatanumbers)
             } else {
-                if showprogressview == false {
-                    VStack {
-                        HStack {
-                            VStack(alignment: .trailing) {
-                                Toggle("--dry-run", isOn: $dryrun)
-                                    .toggleStyle(.switch)
-                                    .onTapGesture {
-                                        withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                            dryrun.toggle()
-                                        }
-                                    }
-
-                                Toggle("--delete", isOn: $keepdelete)
-                                    .toggleStyle(.switch)
-                                    .onTapGesture {
-                                        withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                                            keepdelete.toggle()
-                                        }
-                                    }
-                                    .help("Remove the delete parameter, default is true?")
-                            }
-
-                            if pushpullcommand == .pushLocal {
-                                ConditionalGlassButton(
-                                    systemImage: "arrowshape.right.fill",
-                                    helpText: "Push to remote"
-                                ) {
-                                    showprogressview = true
-                                    push(config: config)
-                                }
-                            } else if pushpullcommand == .pullRemote {
-                                ConditionalGlassButton(
-                                    systemImage: "arrowshape.left.fill",
-                                    helpText: "Pull from remote"
-                                ) {
-                                    showprogressview = true
-                                    pull(config: config)
-                                }
-                            }
-                        }
-
-                        PushPullCommandView(pushpullcommand: $pushpullcommand,
-                                            dryrun: $dryrun,
-                                            keepdelete: $keepdelete,
-                                            config: config)
-                            .padding()
-                    }
-
-                } else {
-                    Spacer()
-
-                    if pushorpull.rsyncpullmax > 0, pushpullcommand == .pullRemote {
-                        HStack {
-                            let totalPull = Double(pushorpull.rsyncpullmax)
-                            ProgressView("",
-                                         value: min(Swift.max(progress, 0), totalPull),
-                                         total: totalPull)
-                                .frame(alignment: .center)
-                                .frame(width: 180)
-                                .padding(10)
-
-                            HStack {
-                                Text("\(Int(pushorpull.rsyncpullmax)): ")
-                                    .padding()
-                                    .font(.title2)
-
-                                Text("\(Int(progress))")
-                                    .padding()
-                                    .font(.title2)
-                                    .contentTransition(.numericText(countsDown: false))
-                                    .animation(.default, value: progress)
-                            }
+                if pushorpull.rsyncpullmax > 0, pushpullcommand == .pullRemote {
+                    HStack {
+                        let totalPull = Double(pushorpull.rsyncpullmax)
+                        ProgressView("",
+                                     value: min(Swift.max(progress, 0), totalPull),
+                                     total: totalPull)
+                            .frame(alignment: .center)
+                            .frame(width: 180)
                             .padding(10)
-                        }
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                        )
 
-                    } else if pushorpull.rsyncpushmax > 0, pushpullcommand == .pushLocal {
                         HStack {
-                            let totalPush = Double(pushorpull.rsyncpushmax)
-                            ProgressView("",
-                                         value: min(Swift.max(progress, 0), totalPush),
-                                         total: totalPush)
-                                .frame(alignment: .center)
-                                .frame(width: 180)
-                                .padding(10)
+                            Text("\(Int(pushorpull.rsyncpullmax)): ")
+                                .padding()
+                                .font(.title2)
 
-                            HStack {
-                                Text("\(Int(pushorpull.rsyncpushmax)): ")
-                                    .padding()
-                                    .font(.title2)
-
-                                Text("\(Int(progress))")
-                                    .padding()
-                                    .font(.title2)
-                                    .contentTransition(.numericText(countsDown: false))
-                                    .animation(.default, value: progress)
-                            }
-                            .padding(10)
+                            Text("\(Int(progress))")
+                                .padding()
+                                .font(.title2)
+                                .contentTransition(.numericText(countsDown: false))
+                                .animation(.default, value: progress)
                         }
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                        )
-
-                    } else {
-                        SynchronizeProgressView(max: max, progress: progress, statusText: "Synchronizing...")
+                        .padding(10)
                     }
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                    )
 
-                    Spacer()
+                } else if pushorpull.rsyncpushmax > 0, pushpullcommand == .pushLocal {
+                    HStack {
+                        let totalPush = Double(pushorpull.rsyncpushmax)
+                        ProgressView("",
+                                     value: min(Swift.max(progress, 0), totalPush),
+                                     total: totalPush)
+                            .frame(alignment: .center)
+                            .frame(width: 180)
+                            .padding(10)
+
+                        HStack {
+                            Text("\(Int(pushorpull.rsyncpushmax)): ")
+                                .padding()
+                                .font(.title2)
+
+                            Text("\(Int(progress))")
+                                .padding()
+                                .font(.title2)
+                                .contentTransition(.numericText(countsDown: false))
+                                .animation(.default, value: progress)
+                        }
+                        .padding(10)
+                    }
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                    )
                 }
+
+                Spacer()
             }
         }
         .toolbar(content: {
@@ -157,6 +104,65 @@ struct ExecutePushPullView: View {
                 }
             }
         })
+        .inspector(isPresented: $showinspector) {
+            inspectorView
+                .inspectorColumnWidth(min: 400, ideal: 500, max: 600)
+        }
+    }
+
+    var inspectorView: some View {
+        VStack {
+            HStack {
+                if pushpullcommand == .pushLocal {
+                    ConditionalGlassButton(
+                        systemImage: "arrowshape.right.fill",
+                        helpText: "Push to remote"
+                    ) {
+                        showprogressview = true
+                        push(config: config)
+                    }
+                } else if pushpullcommand == .pullRemote {
+                    ConditionalGlassButton(
+                        systemImage: "arrowshape.left.fill",
+                        helpText: "Pull from remote"
+                    ) {
+                        showprogressview = true
+                        pull(config: config)
+                    }
+                }
+
+                VStack(alignment: .leading) {
+                    Toggle("--dry-run", isOn: $dryrun)
+                        .toggleStyle(.switch)
+                        .onTapGesture {
+                            withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                dryrun.toggle()
+                            }
+                        }
+
+                    Toggle("--delete", isOn: $keepdelete)
+                        .toggleStyle(.switch)
+                        .onTapGesture {
+                            withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
+                                keepdelete.toggle()
+                            }
+                        }
+                        .help("Remove the delete parameter, default is true?")
+                }
+            }
+
+            PushPullCommandView(pushpullcommand: $pushpullcommand,
+                                dryrun: $dryrun,
+                                keepdelete: $keepdelete,
+                                config: config)
+                .padding(10)
+        }
+
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+        )
+        .padding(10)
     }
 
     // For a verify run, --dry-run
