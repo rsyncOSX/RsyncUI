@@ -32,7 +32,7 @@ struct DetailsView: View {
                         Text(filesChangedText)
                         let transferSizeText = remotedatanumbers.totaltransferredfilessizeInt == 1
                             ? "byte for transfer"
-                            : "\(remotedatanumbers.totaltransferredfilessizeInt) bytes for transfer"
+                            : "\(remotedatanumbers.totaltransferredfilessize) bytes for transfer"
                         Text(transferSizeText)
                     }
                     .padding()

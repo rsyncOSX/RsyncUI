@@ -14,6 +14,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var filestransferred: String = ""
     var filestransferredInt: Int = 0
     var totaltransferredfilessizeInt: Int = 0
+    var totaltransferredfilessize: String = ""
     var numberoffiles: String = ""
     var totalfilesize: String = ""
     var totalfilesizeInt: Int = 0
@@ -113,6 +114,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
             newfilesInt = parsersyncoutput.numbersonly?.numberofcreatedfiles ?? 0
             deletefilesInt = parsersyncoutput.numbersonly?.numberofdeletedfiles ?? 0
             totaltransferredfilessizeInt = Int(parsersyncoutput.numbersonly?.totaltransferredfilessize ?? 0)
+            totaltransferredfilessize = parsersyncoutput.formatted_totaltransferredfilessize
             totalfilesizeInt = Int(parsersyncoutput.numbersonly?.totalfilesize ?? 0)
             numberoffiles = parsersyncoutput.formatted_numberoffiles
             totalfilesize = parsersyncoutput.formatted_totalfilesize
