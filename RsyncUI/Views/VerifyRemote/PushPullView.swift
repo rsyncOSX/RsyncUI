@@ -130,7 +130,7 @@ struct PushPullView: View {
             arguments: arguments,
             hiddenID: config.hiddenID,
             handlers: streamingHandlers,
-            useFileHandler: true
+            useFileHandler: false
         )
         do {
             try process.executeProcess()
@@ -161,7 +161,7 @@ struct PushPullView: View {
             arguments: arguments,
             hiddenID: config.hiddenID,
             handlers: streamingHandlers,
-            useFileHandler: true
+            useFileHandler: false
         )
         do {
             try process.executeProcess()

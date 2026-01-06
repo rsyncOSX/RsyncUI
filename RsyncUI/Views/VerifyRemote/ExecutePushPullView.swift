@@ -84,7 +84,7 @@ struct ExecutePushPullView: View {
                     Spacer()
 
                     if pushorpull.rsyncpullmax > 0, pushpullcommand == .pullRemote {
-                        VStack {
+                        HStack {
                             ProgressView("",
                                          value: progress,
                                          total: Double(pushorpull.rsyncpullmax))
@@ -103,9 +103,13 @@ struct ExecutePushPullView: View {
                                     .animation(.default, value: progress)
                             }
                         }
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                        )
 
                     } else if pushorpull.rsyncpushmax > 0, pushpullcommand == .pushLocal {
-                        VStack {
+                        HStack {
                             ProgressView("",
                                          value: progress,
                                          total: Double(pushorpull.rsyncpushmax))
@@ -124,6 +128,10 @@ struct ExecutePushPullView: View {
                                     .animation(.default, value: progress)
                             }
                         }
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                        )
 
                     } else {
                         SynchronizeProgressView(max: max, progress: progress, statusText: "Synchronizing...")
@@ -169,7 +177,7 @@ struct ExecutePushPullView: View {
             arguments: arguments,
             hiddenID: config.hiddenID,
             handlers: streamingHandlers,
-            useFileHandler: false
+            useFileHandler: true
         )
         do {
             try process.executeProcess()
@@ -199,7 +207,7 @@ struct ExecutePushPullView: View {
             arguments: arguments,
             hiddenID: config.hiddenID,
             handlers: streamingHandlers,
-            useFileHandler: false
+            useFileHandler: true
         )
         do {
             try process.executeProcess()
