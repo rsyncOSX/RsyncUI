@@ -26,6 +26,8 @@ final class RsyncUIconfigurations {
     // Toggle sidebar
     var columnVisibility = NavigationSplitViewVisibility.doubleColumn
     // .doubleColumn or .detailOnly
+    // Only used within Verify tasks, the property is observable
+    var validprofilesverifytasks: [ProfilesnamesRecord] = []
 
     @ObservationIgnored var oneormoretasksissnapshot: Bool {
         guard SharedReference.shared.rsyncversion3 else { return false }

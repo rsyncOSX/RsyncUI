@@ -19,11 +19,9 @@ struct Verify: Hashable, Identifiable {
 }
 
 struct VerifyRemoteView: View {
-    @Environment(\.dismiss) private var dismiss
-
-    @State private var selectedprofileID: ProfilesnamesRecord.ID?
     @State private var configurationsdata = RsyncUIconfigurations()
 
+    @State private var selectedprofileID: ProfilesnamesRecord.ID?
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedconfig: SynchronizeConfiguration?
     // Selected task is halted
@@ -36,6 +34,69 @@ struct VerifyRemoteView: View {
     @State private var verifypath: [Verify] = []
 
     var body: some View {
+        
+        NavigationSplitView {
+            // Only show profile picker if there are other profiles
+            // Id default only, do not show profile picker
+            
+       
+                Picker("", selection: $selectedprofileID) {
+                    Text("Default")
+                        .tag(nil as ProfilesnamesRecord.ID?)
+                    ForEach(configurationsdata.validprofilesverifytasks, id: \.self) { profile in
+                        Text(profile.profilename)
+                            .tag(profile.id)
+                    }
+                }
+                .frame(width: 180)
+                .padding([.bottom, .top, .trailing], 7)
+            
+            
+            
+        } detail: {
+            ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+                                        configurations: configurationsdata.configurations)
+                .onChange(of: selecteduuids) {
+                    if let configurations = configurationsdata.configurations {
+                        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                            selectedconfig = configurations[index]
+                            if selectedconfig?.task == SharedReference.shared.halted {
+                                selectedtaskishalted = true
+                                selectedconfig = nil
+                            } else {
+                                selectedtaskishalted = false
+                            }
+                        } else {
+                            selectedconfig = nil
+                        }
+                    }
+                }
+        }
+        .task {
+            let catalognames = Homepath().getFullPathMacSerialCatalogsAsStringNames()
+            configurationsdata.validprofilesverifytasks = catalognames.map { catalog in
+                ProfilesnamesRecord(catalog)
+            }
+        }
+        .task(id: selectedprofileID) {
+            selecteduuids.removeAll()
+            selectedconfig = nil
+            let profile: String? = if let index = configurationsdata
+                .validprofilesverifytasks
+                .firstIndex(where: { $0.id == selectedprofileID }) {
+                configurationsdata.validprofilesverifytasks[index].profilename
+            } else {
+                nil
+            }
+            configurationsdata.configurations = await ActorReadSynchronizeConfigurationJSON()
+                .readjsonfilesynchronizeconfigurations(profile,
+                                                       SharedReference.shared.rsyncversion3)
+        }
+        
+    }
+    
+        
+/*
         NavigationStack(path: $verifypath) {
             VStack {
                 ZStack {
@@ -98,21 +159,6 @@ struct VerifyRemoteView: View {
 
                     Spacer()
 
-                    if #available(macOS 26.0, *) {
-                        Button("Close", role: .close) {
-                            dismiss()
-                        }
-                        .buttonStyle(RefinedGlassButtonStyle())
-
-                    } else {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Image(systemName: "return")
-                        }
-                        .help("Close")
-                        .buttonStyle(.borderedProminent)
-                    }
                 }
             }
             .navigationTitle("Verify remote")
@@ -142,28 +188,31 @@ struct VerifyRemoteView: View {
         }
         .padding()
     }
-
-    @MainActor @ViewBuilder
-    func makeView(view: DestinationVerifyView) -> some View {
-        switch view {
-        case let .executenpushpullview(configuuid):
-            if let index = configurationsdata.configurations?.firstIndex(where: { $0.id == configuuid }) {
-                if let config = configurationsdata.configurations?[index] {
-                    ExecutePushPullView(pushorpull: $pushorpull,
-                                        pushpullcommand: $pushpullcommand,
-                                        config: config)
-                }
-            }
-        case let .pushpullview(configuuid):
-            if let index = configurationsdata.configurations?.firstIndex(where: { $0.id == configuuid }) {
-                if let config = configurationsdata.configurations?[index] {
-                    PushPullView(pushorpull: $pushorpull,
-                                 verifypath: $verifypath,
-                                 pushpullcommand: $pushpullcommand,
-                                 config: config,
-                                 isadjusted: isadjusted)
-                }
-            }
-        }
-    }
+ 
+ 
+ @MainActor @ViewBuilder
+ func makeView(view: DestinationVerifyView) -> some View {
+     switch view {
+     case let .executenpushpullview(configuuid):
+         if let index = configurationsdata.configurations?.firstIndex(where: { $0.id == configuuid }) {
+             if let config = configurationsdata.configurations?[index] {
+                 ExecutePushPullView(pushorpull: $pushorpull,
+                                     pushpullcommand: $pushpullcommand,
+                                     config: config)
+             }
+         }
+     case let .pushpullview(configuuid):
+         if let index = configurationsdata.configurations?.firstIndex(where: { $0.id == configuuid }) {
+             if let config = configurationsdata.configurations?[index] {
+                 PushPullView(pushorpull: $pushorpull,
+                              verifypath: $verifypath,
+                              pushpullcommand: $pushpullcommand,
+                              config: config,
+                              isadjusted: isadjusted)
+             }
+         }
+     }
+ }
+*/
+    
 }
