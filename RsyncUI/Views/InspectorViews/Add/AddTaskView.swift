@@ -43,8 +43,6 @@ struct AddTaskView: View {
     @State var presentglobaltaskview: Bool = false
     // Show Inspector view
     @State var showinspector: Bool = false
-    // Show resulting rsync command
-    @State var showcommand: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -56,9 +54,6 @@ struct AddTaskView: View {
             Divider()
 
             VStack(alignment: .center, spacing: 12) {
-                if showcommand, let selectedconfig {
-                    RsyncCommandView(config: selectedconfig)
-                }
                 Spacer()
             }
             .inspector(isPresented: $showinspector) {

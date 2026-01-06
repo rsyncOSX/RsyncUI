@@ -25,9 +25,6 @@ struct AddTaskViewtwotables: View {
     @State var presentglobaltaskview: Bool = false
     // Show Inspector view
     @State var showinspector: Bool = false
-    // Show resulting rsync command
-    @State var showcommand: Bool = false
-
     @State var confirmcopyandpaste: Bool = false
 
     var body: some View {
@@ -47,10 +44,6 @@ struct AddTaskViewtwotables: View {
                         }
                     }
                 }
-
-            if showcommand, let selectedconfig {
-                RsyncCommandView(config: selectedconfig)
-            }
         }
         .inspector(isPresented: $showinspector) {
             inspectorView
