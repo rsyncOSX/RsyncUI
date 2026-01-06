@@ -85,11 +85,13 @@ struct ExecutePushPullView: View {
 
                     if pushorpull.rsyncpullmax > 0, pushpullcommand == .pullRemote {
                         HStack {
+                            let totalPull = Double(pushorpull.rsyncpullmax)
                             ProgressView("",
-                                         value: progress,
-                                         total: Double(pushorpull.rsyncpullmax))
+                                         value: min(Swift.max(progress, 0), totalPull),
+                                         total: totalPull)
                                 .frame(alignment: .center)
                                 .frame(width: 180)
+                                .padding(10)
 
                             HStack {
                                 Text("\(Int(pushorpull.rsyncpullmax)): ")
@@ -102,6 +104,7 @@ struct ExecutePushPullView: View {
                                     .contentTransition(.numericText(countsDown: false))
                                     .animation(.default, value: progress)
                             }
+                            .padding(10)
                         }
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
@@ -110,11 +113,13 @@ struct ExecutePushPullView: View {
 
                     } else if pushorpull.rsyncpushmax > 0, pushpullcommand == .pushLocal {
                         HStack {
+                            let totalPush = Double(pushorpull.rsyncpushmax)
                             ProgressView("",
-                                         value: progress,
-                                         total: Double(pushorpull.rsyncpushmax))
+                                         value: min(Swift.max(progress, 0), totalPush),
+                                         total: totalPush)
                                 .frame(alignment: .center)
                                 .frame(width: 180)
+                                .padding(10)
 
                             HStack {
                                 Text("\(Int(pushorpull.rsyncpushmax)): ")
@@ -127,6 +132,7 @@ struct ExecutePushPullView: View {
                                     .contentTransition(.numericText(countsDown: false))
                                     .animation(.default, value: progress)
                             }
+                            .padding(10)
                         }
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
@@ -254,3 +260,4 @@ struct ExecutePushPullView: View {
         InterruptProcess()
     }
 }
+
