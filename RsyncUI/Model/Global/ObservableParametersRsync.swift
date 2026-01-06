@@ -135,50 +135,6 @@ final class ObservableParametersRsync {
         adddelete = false
     }
 
-    func sshkeypath(_ keypath: String) -> Bool {
-        guard configuration != nil else { return false }
-        guard keypath.isEmpty == false else {
-            configuration?.sshkeypathandidentityfile = nil
-            return false
-        }
-        let verified = verifysshkeypath(keypath)
-        if verified {
-            configuration?.sshkeypathandidentityfile = keypath
-            return true
-        }
-        return false
-    }
-
-    func setsshport(_ port: String) -> Bool {
-        guard configuration != nil else { return false }
-        guard port.isEmpty == false else {
-            configuration?.sshport = nil
-            return false
-        }
-        let verified = verifysshport(port)
-        if verified {
-            configuration?.sshport = Int(port)
-            return true
-        }
-        return false
-    }
-
-    // Verify SSH keypathidentityfile
-    func verifysshkeypath(_ keypath: String) -> Bool {
-        guard keypath.isEmpty == false else { return false }
-        if keypath.first != "~" { return false }
-        let number = keypath.filter { $0 == "/" }.count
-        guard number == 2 else { return false }
-        return true
-    }
-
-    // Verify SSH port is a valid INT
-    func verifysshport(_ port: String) -> Bool {
-        guard port.isEmpty == false else { return false }
-        if Int(port) != nil { return true }
-        return false
-    }
-
     // parameter4 --delete
     func adddelete(_ adddelete: Bool) {
         guard configuration != nil else { return }

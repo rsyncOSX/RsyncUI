@@ -169,10 +169,4 @@ struct OtherRsyncCommandtoDisplay {
             return ["No remote server on task"]
         }
     }
-
-    private static func urlEstimate(profile: String?) -> [String] {
-        let deeplinkurl = DeeplinkURL()
-        let urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: profile)
-        return [urlestimate?.absoluteString ?? ""]
-    }
 }

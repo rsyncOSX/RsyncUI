@@ -32,10 +32,7 @@ final class ObservableAddConfigurations {
     var created: Bool = false
     var showAlertfordelete: Bool = false
     var selectedconfig: SynchronizeConfiguration?
-    var localhome: String {
-        URL.userHomeDirectoryURLPath?.path() ?? ""
-    }
-
+    
     var snapshotnum: String = ""
     var copyandpasteconfigurations: [SynchronizeConfiguration]?
 

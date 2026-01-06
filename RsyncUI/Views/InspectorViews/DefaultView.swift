@@ -66,11 +66,3 @@ struct DefaultView: View {
     }
 }
 
-/*
- GlobalChangeTaskView(rsyncUIdata: rsyncUIdata)
- .tabItem {
- Label("Global", systemImage: "gearshape")
- }
- .tag(InspectorTab.global)
- .id(InspectorTab.global)
- */
