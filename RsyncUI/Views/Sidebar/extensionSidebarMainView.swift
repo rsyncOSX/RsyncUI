@@ -65,8 +65,9 @@ extension SidebarMainView {
                 async let loadprofile = loadProfileForExternalURLLink(nil)
                 guard await loadprofile else { return }
             }
-            guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
-            queryitem = queryitems[0]
+            if let count = rsyncUIdata.configurations?.count, count > 0 {
+                queryitem = queryitems[0]
+            }
         }
     }
 
@@ -76,8 +77,9 @@ extension SidebarMainView {
                 async let loadprofile = loadProfileForExternalURLLink(profile)
                 guard await loadprofile else { return }
             }
-            guard rsyncUIdata.configurations?.count ?? 0 > 0 else { return }
-            queryitem = queryitems[0]
+            if let count = rsyncUIdata.configurations?.count, count > 0 {
+                queryitem = queryitems[0]
+            }
         }
     }
 

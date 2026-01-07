@@ -175,7 +175,13 @@ extension Estimate {
                     SharedReference.shared.errorobject?.alert(error: error)
                 }
 
-                guard self.stackoftasks?.count ?? 0 > 0 else {
+                if let count = self.stackoftasks?.count, count > 0 {
+                    // Estimate next task
+                    // Release references before starting next to avoid growth
+                    self.activeStreamingProcess = nil
+                    self.streamingHandlers = nil
+                    self.startEstimation()
+                } else {
                     self.localprogressdetails?.estimationIsComplete()
                     Logger.process.debugMessageOnly("Estimate: ESTIMATION is completed")
                     // Release streaming references when completed
@@ -183,11 +189,6 @@ extension Estimate {
                     self.streamingHandlers = nil
                     return
                 }
-                // Estimate next task
-                // Release references before starting next to avoid growth
-                self.activeStreamingProcess = nil
-                self.streamingHandlers = nil
-                self.startEstimation()
             }
         }
     }

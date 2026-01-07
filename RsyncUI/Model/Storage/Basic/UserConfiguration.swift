@@ -57,8 +57,8 @@ struct UserConfiguration: @MainActor Codable {
         SharedReference.shared.addsummarylogrecord = intToBool(addsummarylogrecord)
         SharedReference.shared.localrsyncpath = localrsyncpath
         SharedReference.shared.pathforrestore = pathforrestore
-        if Int(marknumberofdayssince) ?? 0 > 0 {
-            SharedReference.shared.marknumberofdayssince = Int(marknumberofdayssince) ?? 0
+        if let days = Int(marknumberofdayssince), days > 0 {
+            SharedReference.shared.marknumberofdayssince = days
         }
         SharedReference.shared.sshkeypathandidentityfile = sshkeypathandidentityfile
         SharedReference.shared.sshport = sshport

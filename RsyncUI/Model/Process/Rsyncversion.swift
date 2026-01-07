@@ -59,23 +59,24 @@ final class Rsyncversion {
 
 extension Rsyncversion {
     func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        guard stringoutputfromrsync?.count ?? 0 > 0 else { return }
-        if let rsyncversionshort = stringoutputfromrsync?[0] {
-            let short = rsyncversionshort.replacingOccurrences(of: "protocol", with: "\nprotocol")
-            let result = short.replacingOccurrences(of: "(?s)Web site.*", with: "", options: .regularExpression)
-            SharedReference.shared.rsyncversionshort = result
+        if let output = stringoutputfromrsync, !output.isEmpty {
+            if let rsyncversionshort = stringoutputfromrsync?[0] {
+                let short = rsyncversionshort.replacingOccurrences(of: "protocol", with: "\nprotocol")
+                let result = short.replacingOccurrences(of: "(?s)Web site.*", with: "", options: .regularExpression)
+                SharedReference.shared.rsyncversionshort = result
 
-            if rsyncversionshort.contains("version 3.") {
-                SharedReference.shared.rsyncversion3 = true
-                Logger.process.debugMessageOnly("Rsyncversion: version 3.x of rsync discovered")
-            } else {
-                SharedReference.shared.rsyncversion3 = false
-                Logger.process.debugMessageOnly("Rsyncversion: default openrsync discovered")
+                if rsyncversionshort.contains("version 3.") {
+                    SharedReference.shared.rsyncversion3 = true
+                    Logger.process.debugMessageOnly("Rsyncversion: version 3.x of rsync discovered")
+                } else {
+                    SharedReference.shared.rsyncversion3 = false
+                    Logger.process.debugMessageOnly("Rsyncversion: default openrsync discovered")
+                }
             }
+            // Release streaming references to avoid retain cycles
+            activeStreamingProcess = nil
+            streamingHandlers = nil
         }
-        // Release streaming references to avoid retain cycles
-        activeStreamingProcess = nil
-        streamingHandlers = nil
     }
 }
 

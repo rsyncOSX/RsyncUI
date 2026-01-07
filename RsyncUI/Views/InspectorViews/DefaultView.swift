@@ -65,4 +65,3 @@ struct DefaultView: View {
         }
     }
 }
-

@@ -26,7 +26,7 @@ final class RsyncUIconfigurations {
     // Toggle sidebar
     var columnVisibility = NavigationSplitViewVisibility.doubleColumn
     // .doubleColumn or .detailOnly
-   
+
     @ObservationIgnored var oneormoretasksissnapshot: Bool {
         guard SharedReference.shared.rsyncversion3 else { return false }
         return (configurations?.contains { $0.task == SharedReference.shared.snapshot } ?? false)

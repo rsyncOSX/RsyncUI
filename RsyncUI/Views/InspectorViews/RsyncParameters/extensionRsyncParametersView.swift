@@ -253,8 +253,7 @@ extension RsyncParametersView {
     }
 
     var deleteparameterpresent: Bool {
-        let parameter = rsyncUIdata.configurations?.filter { $0.parameter4?.isEmpty == false }
-        return parameter?.count ?? 0 > 0
+        rsyncUIdata.configurations?.contains(where: { $0.parameter4?.isEmpty == false }) ?? false
     }
 }
 

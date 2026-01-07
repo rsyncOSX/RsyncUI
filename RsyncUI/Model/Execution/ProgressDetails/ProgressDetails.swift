@@ -132,7 +132,9 @@ final class ProgressDetails {
     }
 
     func confirmExecuteTasks() -> Bool {
-        let filterconfirm = estimatedlist?.filter { $0.confirmexecute == true }
-        return filterconfirm?.count ?? 0 > 0
+        if let filterconfirm = estimatedlist?.filter({ $0.confirmexecute == true }) {
+            return !filterconfirm.isEmpty
+        }
+        return false
     }
 }
