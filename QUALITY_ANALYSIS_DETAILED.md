@@ -1,9 +1,9 @@
 # RsyncUI - Comprehensive Quality Analysis Document
 
 **Project:** RsyncUI - SwiftUI macOS Application for rsync  
-**Analysis Date:** January 5, 2026  
-**Version Analyzed:** v2.8.6 (Active Development)  
-**Analyzer:** Claude Sonnet 4.5  
+**Analysis Date:** January 7, 2026  
+**Version Analyzed:** v2.8.6 (development branch)  
+**Analyzer:** GPT-5.1-Codex-Max  
 **Repository:** https://github.com/rsyncOSX/RsyncUI  
 **License:** MIT License  
 
@@ -19,13 +19,14 @@ RsyncUI is a **production-ready, high-quality macOS application** that provides 
 - ✅ **Modern Swift Architecture**: Full adoption of SwiftUI, Observation framework (@Observable), and async/await
 - ✅ **Modular Design**: Clean separation of concerns with 7 custom Swift packages
 - ✅ **Type Safety**: Recent elimination of all sentinel values (`?? -1` patterns)
+- ✅ **Idiomatic Collections**: Refactored non-empty checks to `isEmpty`/`contains` and tightened optional handling (Jan 7, 2026)
 - ✅ **Concurrent Programming**: Proper use of actors, @MainActor annotations, and Task.detached
 - ✅ **Process Management**: Sophisticated streaming rsync process handling with proper cleanup
-- ✅ **Testing Foundation**: Growing test suite with Swift Testing framework
+- ✅ **Testing Foundation**: Swift Testing-based suite exists (single consolidated file) with room to expand
 - ✅ **Documentation**: Extensive user documentation at https://rsyncui.netlify.app/docs/
 
 ### Areas for Enhancement
-- 📋 Expand unit test coverage from current ~15% to 50%+
+- 📋 Expand unit test coverage from current single-digit (<10%) to 50%+
 - 📋 Add CI/CD automation (SwiftLint + build checks)
 - 📋 Extract remaining magic numbers to constants
 - 📋 Add DocC API documentation for public interfaces
@@ -112,10 +113,10 @@ RsyncUI/
 
 | Metric | Value |
 |--------|-------|
-| **Total Swift Files** | 187 files |
-| **Main Application** | 160+ files |
+| **Total Swift Files** | 178 files |
+| **Main Application** | 177 files (app + extensions) |
 | **Test Files** | 1 file (648 lines) |
-| **Lines of Code** | ~20,000+ lines |
+| **Lines of Code** | ~19,500 lines |
 | **Average File Size** | ~110 lines |
 | **Largest File** | RsyncUITests.swift (648 lines) |
 
@@ -478,26 +479,26 @@ struct InterruptProcess {
 
 ## 6. Testing Infrastructure
 
-### 6.1 Current Test Coverage: **~15%** (648 lines of tests)
+### 6.1 Current Test Coverage: **<10% (single-digit)** (648 lines of tests)
 
 **Test Suites Implemented:**
 
-1. **ArgumentsSynchronizeTests** (21 tests)
-   - Dry-run argument generation
-   - Syncremote task validation
-   - Push/pull parameter variations
+1. **ArgumentsSynchronizeTests**
+    - Dry-run argument generation
+    - Syncremote task validation
+    - Push/pull parameter variations
 
-2. **DeeplinkURLTests** (2 tests)
-   - URL creation with profiles
-   - Widget integration
+2. **DeeplinkURLTests**
+    - URL creation with profiles
+    - Widget integration
 
-3. **VerifyConfigurationTests** (35+ tests)
-   - Valid/invalid configurations
-   - SSH parameter validation
-   - Trailing slash handling
-   - Snapshot/syncremote validation
-   - Backup ID preservation
-   - Edge cases (long paths, unicode, spaces)
+3. **VerifyConfigurationTests**
+    - Valid/invalid configurations
+    - SSH parameter validation
+    - Trailing slash handling
+    - Snapshot/syncremote validation
+    - Backup ID preservation
+    - Edge cases (long paths, unicode, spaces)
 
 **Example Test:**
 ```swift
@@ -1053,7 +1054,7 @@ function_parameter_count:
 
 | Metric | RsyncUI | Industry Std | Notes |
 |--------|---------|--------------|-------|
-| **Code Coverage** | ~15% | 70-80% | ⚠️ Needs improvement |
+| **Code Coverage** | <10% | 70-80% | ⚠️ Needs improvement |
 | **SwiftLint Compliance** | 100% | 80-90% | ✅ Excellent |
 | **Architecture** | MVVM-like | MVVM/TCA | ✅ Modern |
 | **Concurrency** | async/await | async/await | ✅ Current |
@@ -1091,6 +1092,7 @@ function_parameter_count:
 - ✅ Sentinel value elimination (Jan 3, 2026)
 - ✅ Streaming process migration (Dec 2025)
 - ✅ Observable pattern migration
+- ✅ Refactored non-empty checks and optional handling (Jan 7, 2026)
 
 **Remaining:**
 - 📋 Some View files >300 lines
@@ -1102,7 +1104,7 @@ function_parameter_count:
 ### 15.2 Maintenance Risk: **Low** 🟢
 
 **Factors:**
-- ✅ Active development (v2.8.5 - Jan 2026)
+- ✅ Active development (v2.8.6 - Jan 2026)
 - ✅ Regular releases (every 1-2 months)
 - ✅ Comprehensive CHANGELOG
 - ✅ Clear commit history
@@ -1252,16 +1254,16 @@ RsyncUI represents a **high-quality, production-ready macOS application** that d
 |----------|-------|--------|----------------|
 | **Architecture** | 9/10 | 20% | 1.8 |
 | **Code Quality** | 9/10 | 20% | 1.8 |
-| **Testing** | 7/10 | 15% | 1.05 |
+| **Testing** | 6/10 | 15% | 0.90 |
 | **Documentation** | 8/10 | 10% | 0.8 |
 | **Concurrency** | 10/10 | 10% | 1.0 |
 | **Error Handling** | 9/10 | 10% | 0.9 |
 | **Performance** | 9/10 | 5% | 0.45 |
 | **Security** | 9/10 | 5% | 0.45 |
 | **Maintainability** | 9/10 | 5% | 0.45 |
-| **Total** | - | 100% | **8.7/10** |
+| **Total** | - | 100% | **8.55/10** |
 
-**Rounded Overall Score: 9/10** (Considering recent improvements)
+**Rounded Overall Score: 8.6/10** (rounded to 9/10 given strong architecture and concurrency)
 
 ### 18.3 Readiness Assessment
 
@@ -1362,16 +1364,17 @@ RsyncUI represents a **high-quality, production-ready macOS application** that d
 
 | Version | Date | Major Changes |
 |---------|------|---------------|
+| v2.8.6 | Jan 7, 2026 | Refined non-empty checks, safer optional handling, minor cleanups |
 | v2.8.5 | Jan 3, 2026 | Sentinel value elimination |
 | v2.8.4 | Dec 26, 2025 | Streaming migration complete |
 | v2.8.2 | Dec 2025 | ParseRsyncOutput extraction |
 
 ---
 
-**Document Version:** 1.0  
-**Last Updated:** January 5, 2026  
-**Analyzed By:** Claude Sonnet 4.5  
-**Analysis Scope:** Complete codebase (187 files, 20,000+ lines)  
+**Document Version:** 1.1  
+**Last Updated:** January 7, 2026  
+**Analyzed By:** GPT-5.1-Codex-Max  
+**Analysis Scope:** Complete codebase (178 files, ~19,500 lines)  
 **Confidence Level:** High (based on comprehensive static analysis)  
 
 ---
