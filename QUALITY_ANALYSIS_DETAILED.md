@@ -1,8 +1,8 @@
 # RsyncUI - Comprehensive Quality Analysis Document
 
 **Project:** RsyncUI - SwiftUI macOS Application for rsync  
-**Analysis Date:** January 7, 2026  
-**Version Analyzed:** v2.8.6 (development branch)  
+**Analysis Date:** January 8, 2026  
+**Version Analyzed:** v2.8.6 (released Jan 8, 2026)  
 **Analyzer:** GPT-5.1-Codex-Max  
 **Repository:** https://github.com/rsyncOSX/RsyncUI  
 **License:** MIT License  
@@ -1104,7 +1104,7 @@ function_parameter_count:
 ### 15.2 Maintenance Risk: **Low** 🟢
 
 **Factors:**
-- ✅ Active development (v2.8.6 - Jan 2026)
+- ✅ Active maintenance (v2.8.6 released Jan 8, 2026)
 - ✅ Regular releases (every 1-2 months)
 - ✅ Comprehensive CHANGELOG
 - ✅ Clear commit history
@@ -1364,15 +1364,15 @@ RsyncUI represents a **high-quality, production-ready macOS application** that d
 
 | Version | Date | Major Changes |
 |---------|------|---------------|
-| v2.8.6 | Jan 7, 2026 | Refined non-empty checks, safer optional handling, minor cleanups |
+| v2.8.6 | Jan 8, 2026 | Refined non-empty checks, safer optional handling, minor cleanups (released) |
 | v2.8.5 | Jan 3, 2026 | Sentinel value elimination |
 | v2.8.4 | Dec 26, 2025 | Streaming migration complete |
 | v2.8.2 | Dec 2025 | ParseRsyncOutput extraction |
 
 ---
 
-**Document Version:** 1.1  
-**Last Updated:** January 7, 2026  
+**Document Version:** 1.2  
+**Last Updated:** January 8, 2026  
 **Analyzed By:** GPT-5.1-Codex-Max  
 **Analysis Scope:** Complete codebase (178 files, ~19,500 lines)  
 **Confidence Level:** High (based on comprehensive static analysis)  
