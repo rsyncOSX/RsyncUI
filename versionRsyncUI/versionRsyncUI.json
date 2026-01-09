@@ -1,18 +1,22 @@
 [
   {
     "version": "2.8.0",
-    "url": "https://github.com/rsyncOSX/RsyncUI/releases/download/v2.8.5/RsyncUI.2.8.5.dmg"
+    "url": "https://github.com/rsyncOSX/RsyncUI/releases/download/v2.8.6/RsyncUI.2.8.6.dmg"
   },
   {
     "version": "2.8.1",
-    "url": "https://github.com/rsyncOSX/RsyncUI/releases/download/v2.8.5/RsyncUI.2.8.5.dmg"
+    "url": "https://github.com/rsyncOSX/RsyncUI/releases/download/v2.8.6/RsyncUI.2.8.6.dmg"
   },
   {
     "version": "2.8.2",
-    "url": "https://github.com/rsyncOSX/RsyncUI/releases/download/v2.8.5/RsyncUI.2.8.5.dmg"
+    "url": "https://github.com/rsyncOSX/RsyncUI/releases/download/v2.8.6/RsyncUI.2.8.6.dmg"
   },
   {
     "version": "2.8.4",
-    "url": "https://github.com/rsyncOSX/RsyncUI/releases/download/v2.8.5/RsyncUI.2.8.5.dmg"
+    "url": "https://github.com/rsyncOSX/RsyncUI/releases/download/v2.8.6/RsyncUI.2.8.6.dmg"
+  },
+  {
+    "version": "2.8.5",
+    "url": "https://github.com/rsyncOSX/RsyncUI/releases/download/v2.8.6/RsyncUI.2.8.6.dmg"
   }
 ]
