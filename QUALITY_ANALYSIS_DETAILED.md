@@ -1,9 +1,9 @@
 # RsyncUI - Comprehensive Quality Analysis Document
 
 **Project:** RsyncUI - SwiftUI macOS Application for rsync  
-**Analysis Date:** January 8, 2026  
-**Version Analyzed:** v2.8.6 (released Jan 8, 2026)  
-**Analyzer:** GPT-5.1-Codex-Max  
+**Analysis Date:** January 10, 2026  
+**Version Analyzed:** v2.8.7 (released Jan 10, 2026)  
+**Analyzer:** Claude Sonnet 4.5  
 **Repository:** https://github.com/rsyncOSX/RsyncUI  
 **License:** MIT License  
 
@@ -77,33 +77,76 @@ RsyncUI/
 
 ### 1.3 Custom Swift Packages (All Developed by Author)
 
+All packages track the `main` branch and are updated to latest revisions as of v2.8.7:
+
 1. **SSHCreateKey** - SSH key generation and management
    - Repository: https://github.com/rsyncOSX/SSHCreateKey
    - Purpose: Public/private SSH key pair creation
+   - Revision: `c95fa29` (main branch)
 
 2. **DecodeEncodeGeneric** - Generic JSON codec
    - Repository: https://github.com/rsyncOSX/DecodeEncodeGeneric
    - Purpose: Reusable JSON encoding/decoding utilities
+   - Revision: `b5ecbbb` (main branch)
 
 3. **ParseRsyncOutput** - Rsync output parser
    - Repository: https://github.com/rsyncOSX/ParseRsyncOutput
    - Purpose: Extract statistics from rsync output
+   - Revision: `e079e0c` (main branch)
 
 4. **RsyncUIDeepLinks** - Deep linking support
    - Repository: https://github.com/rsyncOSX/RsyncUIDeepLinks
    - Purpose: URL scheme handling for widgets and automation
+   - Revision: `6053575` (main branch)
 
 5. **ProcessCommand** - Process execution wrapper
    - Repository: https://github.com/rsyncOSX/ProcessCommand
    - Purpose: Command-line process management
+   - Revision: `99ab2a2` (main branch)
 
 6. **RsyncArguments** - Rsync argument builder
    - Repository: https://github.com/rsyncOSX/RsyncArguments
    - Purpose: Type-safe rsync command generation
+   - Revision: `f98fb50` (main branch)
 
 7. **RsyncProcessStreaming** - Streaming process handler
    - Repository: https://github.com/rsyncOSX/RsyncProcessStreaming
    - Purpose: Real-time rsync output streaming and progress tracking
+   - Revision: `32e9bd3` (main branch)
+   - **Updated in v2.8.7**: Enhanced streaming capabilities and bug fixes
+
+### 1.4 Version 2.8.7 Updates (Jan 8-10, 2026)
+
+**Release Focus:** Package maintenance and code cleanup
+
+#### Key Changes in v2.8.7:
+
+**Package Updates:**
+- ✅ Updated **RsyncProcessStreaming** package to main branch with latest improvements
+- ✅ Synchronized all 7 Swift packages to their latest main branch revisions
+- ✅ Updated Package.resolved with current commit hashes for reproducible builds
+
+**Code Cleanup:**
+- ✅ Removed unused `logger` and `rsyncVersion3` parameters from handler creation in `CreateStreamingHandlers.swift`
+- ✅ Cleaned up `createKeyCommand` from rsync command output display in `OtherRsyncCommandtoDisplay.swift`
+- ✅ Simplified handler initialization reducing unnecessary parameter passing
+
+**Version Management:**
+- ✅ Bumped version to 2.8.7 in project configuration (MARKETING_VERSION)
+- ✅ Updated version file (`versionRsyncUI.json`) to reference v2.8.7 release
+- ✅ Updated README.md with v2.8.7 release information
+
+**Technical Details:**
+- **Commits:** 13 commits focusing on package updates and code refinement
+- **Files Changed:** 8 files (project config, package resolution, utilities, version files)
+- **Build Number:** Incremented from 177 to current
+- **All packages now on main branch:** Ensures latest stable features and bug fixes
+
+**Quality Impact:**
+- Code simplification improves maintainability
+- Package updates bring latest bug fixes and performance improvements
+- Cleaner handler initialization reduces complexity
+- Better version tracking and documentation
 
 ---
 
