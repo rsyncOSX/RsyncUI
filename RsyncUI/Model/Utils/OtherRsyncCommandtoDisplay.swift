@@ -129,8 +129,7 @@ struct OtherRsyncCommandtoDisplay {
                 offsiteUsername: config.offsiteUsername
             )) ?? []
             let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
-            let createCmd = sshcreatekeys.createKeyCommand
-            return [createCmd, cleanedArguments]
+            return [cleanedArguments]
         } else {
             return ["No remote server on task"]
         }
@@ -163,8 +162,7 @@ struct OtherRsyncCommandtoDisplay {
                 offsiteUsername: config.offsiteUsername
             )) ?? []
             let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
-            let createCmd = sshcreatekeys.createKeyCommand
-            return [createCmd, cleanedArguments]
+            return [cleanedArguments]
         } else {
             return ["No remote server on task"]
         }
