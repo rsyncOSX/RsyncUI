@@ -27,7 +27,8 @@ struct OneTaskDetailsView: View {
             ZStack {
                 if estimateiscompleted == true {
                     if let remotedatanumbers {
-                        DetailsView(remotedatanumbers: remotedatanumbers)
+                        DetailsView(remotedatanumbers: remotedatanumbers,
+                                    itemizechanges: progressdetails.itemizechanges)
                     }
                 } else {
                     HStack {

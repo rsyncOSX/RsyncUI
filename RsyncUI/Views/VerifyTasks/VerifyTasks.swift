@@ -96,7 +96,7 @@ struct VerifyTasks: View {
             .navigationTitle("Verify tasks - dry-run parameter is enabled")
             .navigationDestination(isPresented: $presentestimates) {
                 if let remotedatanumbers {
-                    DetailsView(remotedatanumbers: remotedatanumbers)
+                    DetailsView(remotedatanumbers: remotedatanumbers, itemizechanges: false)
                 }
             }
         }

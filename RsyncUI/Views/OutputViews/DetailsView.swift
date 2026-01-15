@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import RsyncAnalyse
 
 struct DetailsView: View {
     let remotedatanumbers: RemoteDataNumbers
+    let itemizechanges: Bool
 
     var body: some View {
         HStack {
@@ -56,10 +58,23 @@ struct DetailsView: View {
                 }
             }
 
-            Table(remotedatanumbers.outputfromrsync ?? []) {
-                TableColumn("Output from rsync" + ": \(remotedatanumbers.outputfromrsync?.count ?? 0) rows") { data in
-                    Text(data.record)
+            if let records = remotedatanumbers.outputfromrsync {
+                if itemizechanges {
+                    Table(records) {
+                        TableColumn("Output from rsync (\(records.count) rows)") { data in
+                            RsyncOutputRowView(record: data.record)
+                        }
+                    }
+                } else {
+                    Table(records) {
+                        TableColumn("Output from rsync (\(records.count) rows)") { data in
+                            Text(data.record)
+                        }
+                    }
                 }
+            } else {
+                Text("No rsync output available")
+                    .foregroundColor(.secondary)
             }
         }
     }

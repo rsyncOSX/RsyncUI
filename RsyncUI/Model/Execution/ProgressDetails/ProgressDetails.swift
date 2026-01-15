@@ -27,6 +27,10 @@ final class ProgressDetails {
     var numberofconfigurationsestimated: Double = 0
     // UUID for configuration to be estimated
     var configurationtobestimated: UUID?
+    // True if the two following arguments for rsync is present
+    // - `--itemize-changes` - output change-summary for all updates
+    // - `--update` - evaluates the timestamp
+    @ObservationIgnored var itemizechanges: Bool = false
 
     let reduceestimatedcountV3: Double = 15
     let reduceestimatedcountopenrsync: Double = 13
