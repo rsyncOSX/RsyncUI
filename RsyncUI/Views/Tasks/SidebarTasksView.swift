@@ -120,7 +120,7 @@ struct SidebarTasksView: View {
     private func dryRunDetailsViewContent() -> some View {
         if let estimates = progressdetails.estimatedlist?.filter({ $0.id == selecteduuids.first }) {
             if estimates.count == 1 {
-                DetailsView(remotedatanumbers: estimates[0], itemizechanges: progressdetails.itemizechanges)
+                DetailsView(remotedatanumbers: estimates[0], itemizechanges: estimates[0].itemizechanges)
                     .onDisappear {
                         selecteduuids.removeAll()
                     }

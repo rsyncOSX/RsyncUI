@@ -24,6 +24,8 @@ struct VerifyTasks: View {
     @State private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
     // Show Inspector view
     @State var showinspector: Bool = false
+    // itemizechanges
+    @State private var itemizechanges: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -96,7 +98,7 @@ struct VerifyTasks: View {
             .navigationTitle("Verify tasks - dry-run parameter is enabled")
             .navigationDestination(isPresented: $presentestimates) {
                 if let remotedatanumbers {
-                    DetailsView(remotedatanumbers: remotedatanumbers, itemizechanges: false)
+                    DetailsView(remotedatanumbers: remotedatanumbers, itemizechanges: remotedatanumbers.itemizechanges)
                 }
             }
         }
@@ -130,6 +132,8 @@ struct VerifyTasks: View {
         guard let streamingHandlers else { return }
         guard let arguments else { return }
 
+        itemizechanges = arguments.contains("--itemize-changes") && arguments.contains("--update")
+        
         let process = RsyncProcessStreaming.RsyncProcess(
             arguments: arguments,
             hiddenID: config.hiddenID,
@@ -158,6 +162,8 @@ struct VerifyTasks: View {
 
         remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: prepared,
                                               config: selectedconfig)
+        remotedatanumbers?.itemizechanges = itemizechanges
+        
 
         Task { @MainActor in
             remotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)

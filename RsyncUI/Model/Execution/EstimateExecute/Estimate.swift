@@ -14,6 +14,7 @@ import RsyncProcessStreaming
 final class Estimate {
     private var localconfigurations: [SynchronizeConfiguration]
     private var structprofile: String?
+    private var itemizechanges: Bool = false
 
     weak var localprogressdetails: ProgressDetails?
 
@@ -47,6 +48,12 @@ final class Estimate {
             let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: true, forDisplay: false)
         else { return }
 
+        // Check if the arguments --itemize-changes and --update are included within the arguments
+        if arguments.contains("--itemize-changes") && arguments.contains("--update") {
+            itemizechanges = true
+        } else {
+            itemizechanges = false
+        }
         // Used to display details of configuration in estimation
         localprogressdetails?.configurationtobestimated = config.id
 
@@ -147,8 +154,10 @@ extension Estimate {
 
         var record = RemoteDataNumbers(
             stringoutputfromrsync: outputToProcess,
-            config: getConfig(hiddenID)
+            config: getConfig(hiddenID),
         )
+        // Mark if arguments --itemize-changes and --update are included within the arguments
+        record.itemizechanges = itemizechanges
 
         Task.detached { [self, originalOutput, outputToProcess] in
             // Create data for output rsync for view off-main
