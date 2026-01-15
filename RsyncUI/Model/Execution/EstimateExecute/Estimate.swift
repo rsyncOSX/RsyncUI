@@ -172,16 +172,20 @@ extension Estimate {
                     }
                 }
 
-                // Validate that tagging is correct
-                do {
-                    // In case of throwing an error to identify which task
-                    if outputToProcess != originalOutput {
-                        self.synchronizeIDwitherror = record.backupID
+                // Only validate if itemizechanges == false, due to the parameters --itemize-changes and --update
+                // produces much more output than the normal output does. This is the natuer of the parameters
+                if itemizechanges == false {
+                    // Validate that tagging is correct
+                    do {
+                        // In case of throwing an error to identify which task
+                        if outputToProcess != originalOutput {
+                            self.synchronizeIDwitherror = record.backupID
+                        }
+                        try self.validateTagging(originalOutput?.count ?? 0, record.datatosynchronize)
+                    } catch let err {
+                        let error = err
+                        SharedReference.shared.errorobject?.alert(error: error)
                     }
-                    try self.validateTagging(originalOutput?.count ?? 0, record.datatosynchronize)
-                } catch let err {
-                    let error = err
-                    SharedReference.shared.errorobject?.alert(error: error)
                 }
 
                 if let count = self.stackoftasks?.count, count > 0 {

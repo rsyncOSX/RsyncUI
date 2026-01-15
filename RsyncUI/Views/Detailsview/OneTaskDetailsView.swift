@@ -127,13 +127,20 @@ struct OneTaskDetailsView: View {
 
         remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: prepared,
                                               config: selectedconfig)
+        let itemizechanges = remotedatanumbers?.itemizechanges
 
         // Validate that tagging is correct
-        do {
-            try validateTagging(stringoutputfromrsync?.count ?? 0, remotedatanumbers?.datatosynchronize ?? true)
-        } catch let err {
-            let error = err
-            SharedReference.shared.errorobject?.alert(error: error)
+        // Only validate if itemizechanges == false, due to the parameters --itemize-changes and --update
+        // produces much more output than the normal output does. This is the natuer of the parameters
+        
+        if itemizechanges == false {
+            // Validate that tagging is correct
+            do {
+                try validateTagging(stringoutputfromrsync?.count ?? 0, remotedatanumbers?.datatosynchronize ?? true)
+            } catch let err {
+                let error = err
+                SharedReference.shared.errorobject?.alert(error: error)
+            }
         }
 
         Task { @MainActor in

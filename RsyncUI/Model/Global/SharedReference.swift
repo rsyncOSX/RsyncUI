@@ -82,7 +82,7 @@ final class SharedReference {
     @ObservationIgnored var observemountedvolumes: Bool = false
     @ObservationIgnored var alwaysshowestimateddetailsview: Bool = true
     // Value for alert tagging
-    let alerttagginglines = 20
+    let alerttagginglines = 18
     // USw two tables Inspector sheet
     @ObservationIgnored var usetwotablesInspector: Bool = true
     // Loge everything to logfile
