@@ -1,5 +1,5 @@
 {
-  "originHash" : "c04289bfca234cc9bdadbb905ff0182c6c289be65fcb60843d07d9c7d1037f09",
+  "originHash" : "57890df380a5af590189340a125324fa0a7a1e38c8fa5c35ba67cad0c32db5f2",
   "pins" : [
     {
       "identity" : "decodeencodegeneric",
@@ -43,7 +43,7 @@
       "location" : "https://github.com/rsyncOSX/RsyncArguments",
       "state" : {
         "branch" : "main",
-        "revision" : "6f19817ad31da80603e9aa39b0302639849702c2"
+        "revision" : "0ff6518136c208dfbecc1a918f045048ca79853d"
       }
     },
     {
