@@ -88,6 +88,8 @@ enum EnumRsyncArguments: String, CaseIterable, Identifiable, CustomStringConvert
     case maxdelete = "--max-delete"
     case include = "--include"
     case filter = "--filter"
+    case itemizechanges = "--itemize-changes"
+    case update = "--update"
     case add
 
     var id: String { rawValue }
