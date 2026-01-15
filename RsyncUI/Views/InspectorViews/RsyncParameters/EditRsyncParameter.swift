@@ -30,8 +30,13 @@ struct EditRsyncParameter: View {
                     guard selectedparameter.rawValue != EnumRsyncArguments.add.rawValue else { return }
                     let argument = selectedparameter.rawValue
                     let value = parameter(myvalue.wrappedValue)
-                    myvalue.wrappedValue = argument + value
-                    selectedparameter = EnumRsyncArguments.add
+                    if argument == "--itemize-changes" || argument == "--update" {
+                        myvalue.wrappedValue = argument
+                        selectedparameter = EnumRsyncArguments.add
+                    } else {
+                        myvalue.wrappedValue = argument + value
+                        selectedparameter = EnumRsyncArguments.add
+                    }
                 }
         }
     }
