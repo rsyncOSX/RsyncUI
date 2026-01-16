@@ -30,6 +30,7 @@ struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedTab: InspectorTab
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
+    @Binding var showinspector: Bool
 
     @FocusState var focusField: AddConfigurationField?
 
@@ -41,8 +42,6 @@ struct AddTaskView: View {
     @State var showAddPopover: Bool = false
 
     @State var presentglobaltaskview: Bool = false
-    // Show Inspector view
-    @State var showinspector: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {

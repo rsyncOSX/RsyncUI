@@ -10,6 +10,7 @@ import SwiftUI
 struct RsyncParametersViewtwotables: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedTab: InspectorTab
+    @Binding var showinspector: Bool
 
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State var parameters = ObservableParametersRsync()
@@ -20,8 +21,6 @@ struct RsyncParametersViewtwotables: View {
     @State var showhelp: Bool = false
     // Present arguments view
     @State var presentarguments: Bool = false
-    // Show Inspector view
-    @State var showinspector: Bool = false
 
     var body: some View {
         VStack(alignment: .leading) {

@@ -11,6 +11,7 @@ import SwiftUI
 struct AddTaskViewtwotables: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedTab: InspectorTab
+    @Binding var showinspector: Bool
 
     @FocusState var focusField: AddConfigurationField?
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
@@ -23,8 +24,6 @@ struct AddTaskViewtwotables: View {
     @State var showAddPopover: Bool = false
 
     @State var presentglobaltaskview: Bool = false
-    // Show Inspector view
-    @State var showinspector: Bool = false
     @State var confirmcopyandpaste: Bool = false
 
     var body: some View {
