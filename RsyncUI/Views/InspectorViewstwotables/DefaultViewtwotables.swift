@@ -12,12 +12,14 @@ struct DefaultViewtwotables: View {
     @State private var selectedTab: InspectorTab = .edit
     // Show Inspector view, if true shwo inspectors by default on both views
     @State var showinspector: Bool = false
+    @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
     var body: some View {
         TabView(selection: $selectedTab) {
             AddTaskViewtwotables(rsyncUIdata: rsyncUIdata,
                                  selectedTab: $selectedTab,
-                                 showinspector: $showinspector)
+                                 showinspector: $showinspector,
+                                 selecteduuids: $selecteduuids)
                 .tabItem {
                     Label("Edit", systemImage: "plus.circle")
                 }
@@ -25,7 +27,8 @@ struct DefaultViewtwotables: View {
 
             RsyncParametersViewtwotables(rsyncUIdata: rsyncUIdata,
                                          selectedTab: $selectedTab,
-                                         showinspector: $showinspector)
+                                         showinspector: $showinspector,
+                                         selecteduuids: $selecteduuids)
                 .tabItem {
                     Label("Parameters", systemImage: "slider.horizontal.3")
                 }

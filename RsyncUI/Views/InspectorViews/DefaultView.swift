@@ -63,9 +63,6 @@ struct DefaultView: View {
                     .tag(InspectorTab.parameters)
                     .id(InspectorTab.parameters)
             }
-            .onChange(of: selectedTab) {
-                selecteduuids.removeAll()
-            }
         }
     }
 }

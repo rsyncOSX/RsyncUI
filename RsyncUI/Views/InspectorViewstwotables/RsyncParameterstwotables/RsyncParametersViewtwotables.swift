@@ -11,8 +11,8 @@ struct RsyncParametersViewtwotables: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedTab: InspectorTab
     @Binding var showinspector: Bool
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
-    @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State var parameters = ObservableParametersRsync()
     @State var selectedconfig: SynchronizeConfiguration?
     // Backup switch

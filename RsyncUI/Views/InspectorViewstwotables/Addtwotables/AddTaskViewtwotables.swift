@@ -12,10 +12,10 @@ struct AddTaskViewtwotables: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedTab: InspectorTab
     @Binding var showinspector: Bool
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @FocusState var focusField: AddConfigurationField?
-    @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
-
+    
     @State var newdata = ObservableAddConfigurations()
     @State var selectedconfig: SynchronizeConfiguration?
     @State var changesnapshotnum: Bool = false
