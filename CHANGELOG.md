@@ -1,6 +1,32 @@
-# Changelog - RsyncUI v2.8.5 to v2.8.6
+# Changelog - RsyncUI v2.8.6 to v2.9.0
 
 All notable changes to this project will be documented in this file.
+
+## [2.9.0] - 2026-01-16
+
+### Major Changes
+
+#### New Swift Package Integration
+- **Added RsyncAnalyse Package**: Integrated new custom Swift Package for enhanced rsync output analysis
+  - Repository: https://github.com/rsyncOSX/RsyncAnalyse
+  - Purpose: Advanced parsing and analysis of rsync command output
+  - Enhanced output interpretation and statistics extraction
+  - Improved error detection and reporting from rsync operations
+  - Better handling of rsync progress and transfer information
+
+#### Code Quality Improvements
+- **Enhanced Output Processing**: Leveraging RsyncAnalyse package for more sophisticated rsync output handling
+  - More accurate parsing of rsync statistics
+  - Better detection of errors and warnings
+  - Improved progress tracking during sync operations
+
+### Technical Details
+
+**Version Number**: 2.9.0
+
+**Date**: January 16, 2026
+
+---
 
 ## [2.8.6] - 2026-01-08
 
