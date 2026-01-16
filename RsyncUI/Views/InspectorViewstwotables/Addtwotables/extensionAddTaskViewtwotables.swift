@@ -358,15 +358,6 @@ extension AddTaskViewtwotables {
         }
     }
 
-    func handleOnAppear() {
-        if selecteduuids.count > 0 {
-            Task {
-                try await Task.sleep(seconds: 2)
-                selecteduuids.removeAll()
-            }
-        }
-    }
-
     func handleProfileChange() {
         newdata.resetForm()
         selecteduuids.removeAll()

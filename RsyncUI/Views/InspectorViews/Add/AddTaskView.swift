@@ -63,7 +63,6 @@ struct AddTaskView: View {
         }
         .sheet(isPresented: $showhelp) { helpSheetView }
         .onSubmit { handleSubmit() }
-        .onAppear { handleOnAppear() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
         .onChange(of: selecteduuids) {
             handleSelectionChange()
