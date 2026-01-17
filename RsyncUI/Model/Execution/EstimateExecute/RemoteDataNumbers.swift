@@ -48,7 +48,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var preparedoutputfromrsync: [String]?
     // Number of lines in output to handle
     let numberoflines = 20
-    
+
     // True if the two following arguments for rsync is present
     // - `--itemize-changes` - output change-summary for all updates
     // - `--update` - evaluates the timestamp

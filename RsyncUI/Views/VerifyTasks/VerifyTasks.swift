@@ -133,7 +133,7 @@ struct VerifyTasks: View {
         guard let arguments else { return }
 
         itemizechanges = arguments.contains("--itemize-changes") && arguments.contains("--update")
-        
+
         let process = RsyncProcessStreaming.RsyncProcess(
             arguments: arguments,
             hiddenID: config.hiddenID,
@@ -163,7 +163,6 @@ struct VerifyTasks: View {
         remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: prepared,
                                               config: selectedconfig)
         remotedatanumbers?.itemizechanges = itemizechanges
-        
 
         Task { @MainActor in
             remotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)

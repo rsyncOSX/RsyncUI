@@ -5,8 +5,8 @@
 //  Created by Thomas Evensen on 07/06/2024.
 //
 
-import SwiftUI
 import RsyncAnalyse
+import SwiftUI
 
 struct DetailsView: View {
     let remotedatanumbers: RemoteDataNumbers

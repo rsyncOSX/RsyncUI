@@ -11,7 +11,7 @@ struct DefaultViewtwotables: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var selectedTab: InspectorTab = .edit
     // Show Inspector view, if true shwo inspectors by default on both views
-   
+
     var body: some View {
         TabView(selection: $selectedTab) {
             AddTaskViewtwotables(rsyncUIdata: rsyncUIdata,

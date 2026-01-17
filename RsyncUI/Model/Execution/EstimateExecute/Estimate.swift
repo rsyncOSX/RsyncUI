@@ -49,7 +49,7 @@ final class Estimate {
         else { return }
 
         // Check if the arguments --itemize-changes and --update are included within the arguments
-        if arguments.contains("--itemize-changes") && arguments.contains("--update") {
+        if arguments.contains("--itemize-changes"), arguments.contains("--update") {
             itemizechanges = true
         } else {
             itemizechanges = false
@@ -154,7 +154,7 @@ extension Estimate {
 
         var record = RemoteDataNumbers(
             stringoutputfromrsync: outputToProcess,
-            config: getConfig(hiddenID),
+            config: getConfig(hiddenID)
         )
         // Mark if arguments --itemize-changes and --update are included within the arguments
         record.itemizechanges = itemizechanges

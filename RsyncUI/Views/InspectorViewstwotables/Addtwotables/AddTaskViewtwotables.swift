@@ -11,12 +11,12 @@ import SwiftUI
 struct AddTaskViewtwotables: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedTab: InspectorTab
-    
+
     @State var showinspector: Bool = false
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
     @FocusState var focusField: AddConfigurationField?
-    
+
     @State var newdata = ObservableAddConfigurations()
     @State var selectedconfig: SynchronizeConfiguration?
     @State var changesnapshotnum: Bool = false

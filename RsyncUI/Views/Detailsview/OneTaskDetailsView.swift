@@ -132,7 +132,7 @@ struct OneTaskDetailsView: View {
         // Validate that tagging is correct
         // Only validate if itemizechanges == false, due to the parameters --itemize-changes and --update
         // produces much more output than the normal output does. This is the natuer of the parameters
-        
+
         if itemizechanges == false {
             // Validate that tagging is correct
             do {
