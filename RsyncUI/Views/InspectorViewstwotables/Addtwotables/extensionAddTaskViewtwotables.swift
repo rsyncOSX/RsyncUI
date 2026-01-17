@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 13/12/2025.
 //
-/* swiftlint:disable file_length */
 import OSLog
 import SwiftUI
 
@@ -110,7 +109,6 @@ extension AddTaskViewtwotables {
     var addTaskSheetView: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Add Task").font(.headline)
-
             HStack {
                 pickerselecttypeoftask
                 trailingslash
@@ -119,7 +117,6 @@ extension AddTaskViewtwotables {
             synchronizeID
             catalogSectionView
             remoteuserandserver
-
             HStack {
                 ConditionalGlassButton(systemImage: "plus",
                                        text: "Add",
@@ -128,16 +125,13 @@ extension AddTaskViewtwotables {
                     showAddPopover = false
                     newdata.resetForm()
                 }.disabled(!disableadd)
-
                 Spacer()
-
                 if #available(macOS 26.0, *) {
                     Button("Close", role: .close) {
                         showAddPopover = false
                     }
                     .buttonStyle(RefinedGlassButtonStyle())
                     .keyboardShortcut(.cancelAction)
-
                 } else {
                     Button {
                         showAddPopover = false
@@ -181,16 +175,12 @@ extension AddTaskViewtwotables {
                 updateButton
                 trailingslash
             }
-
             synchronizeID
             catalogSectionView
-
             VStack(alignment: .leading) { remoteuserandserver }
-
             if selectedconfig?.task == SharedReference.shared.snapshot {
                 VStack(alignment: .leading) { snapshotnum }
             }
-
             saveURLSection
         }
     }
@@ -433,5 +423,3 @@ extension AddTaskViewtwotables {
         (rsyncUIdata.configurations?.filter { $0.parameter4?.isEmpty == false }.count ?? 0) > 0
     }
 }
-
-/* swiftlint:enable file_length */
