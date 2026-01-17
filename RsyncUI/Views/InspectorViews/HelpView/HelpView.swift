@@ -40,9 +40,12 @@ struct HelpView: View {
                         .font(.body)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    Text("The --delete parameter ensures complete synchronization between source and destination by removing files at the destination that no longer exist in the source.")
-                        .font(.body)
-                        .fixedSize(horizontal: false, vertical: true)
+                    Text("""
+                    The --delete parameter ensures complete synchronization between source and destination by \
+                    removing files at the destination that no longer exist in the source.
+                    """)
+                    .font(.body)
+                    .fixedSize(horizontal: false, vertical: true)
 
                     HStack(alignment: .top, spacing: 8) {
                         Image(systemName: "exclamationmark.triangle.fill")
@@ -54,9 +57,12 @@ struct HelpView: View {
                                 .font(.body)
                                 .fontWeight(.semibold)
 
-                            Text("If you are new to rsync, please read the Important and Limitations sections in the RsyncUI documentation before enabling this parameter.")
-                                .font(.body)
-                                .fixedSize(horizontal: false, vertical: true)
+                            Text("""
+                            If you are new to rsync, please read the Important and Limitations sections in the \
+                            RsyncUI documentation before enabling this parameter.
+                            """)
+                            .font(.body)
+                            .fixedSize(horizontal: false, vertical: true)
                         }
 
                         Spacer()

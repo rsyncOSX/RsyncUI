@@ -56,7 +56,8 @@ struct Homepath {
             Logger.process.info("Homepath: the following folders were found in \(fullpathmacserial): \(array)")
             return array
         } catch {
-            Logger.process.errorMessageOnly("Homepath: failed to read directory at \(fullpathmacserial): \(error.localizedDescription)")
+            Logger.process.errorMessageOnly(
+                "Homepath: failed to read directory at \(fullpathmacserial): \(error.localizedDescription)")
             return []
         }
     }

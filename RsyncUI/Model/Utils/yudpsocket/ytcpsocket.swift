@@ -1,4 +1,4 @@
-/* swiftlint:disable line_length identifier_name file_header */
+// swiftlint:disable line_length identifier_name file_header
 //
 //  Copyright (c) <2014>, skysent
 //  All rights reserved.
@@ -173,4 +173,4 @@ open class TCPServer: Socket {
     }
 }
 
-/* swiftlint:enable line_length identifier_name file_header */
+// swiftlint:enable line_length identifier_name file_header

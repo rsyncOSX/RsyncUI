@@ -1,4 +1,4 @@
-/* swiftlint:disable identifier_name file_header */
+// swiftlint:disable identifier_name file_header
 //
 //  Copyright (c) <2014>, skysent
 //  All rights reserved.
@@ -51,4 +51,4 @@ public enum SocketError: Error {
     case unknownError
 }
 
-/* swiftlint:enable identifier_name file_header */
+// swiftlint:enable identifier_name file_header

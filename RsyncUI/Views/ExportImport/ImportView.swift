@@ -75,7 +75,8 @@ struct ImportView: View {
                                     if selecteduuids.isEmpty == true {
                                         rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(configurations)
                                     } else {
-                                        rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(configurations.filter { selecteduuids.contains($0.id) })
+                                        rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(
+                                            configurations.filter { selecteduuids.contains($0.id) })
                                     }
                                     if SharedReference.shared.duplicatecheck {
                                         if let configurations = rsyncUIdata.configurations {
