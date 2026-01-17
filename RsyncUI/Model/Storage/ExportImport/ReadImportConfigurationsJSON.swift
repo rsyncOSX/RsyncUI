@@ -30,10 +30,12 @@ final class ReadImportConfigurationsJSON {
                 maxhiddenID += 1
                 return element
             }
-            Logger.process.debugMessageOnly("ReadImportConfigurationsJSON - \(filenameimport) read import configurations from permanent storage")
+            let message = "ReadImportConfigurationsJSON - \(filenameimport) read import configurations from permanent storage"
+            Logger.process.debugMessageOnly(message)
 
         } catch {
-            Logger.process.errorMessageOnly("ReadImportConfigurationsJSON - \(filenameimport): some ERROR read import configurations from permanent storage")
+            let message = "ReadImportConfigurationsJSON - \(filenameimport): ERROR reading import configurations"
+            Logger.process.errorMessageOnly(message)
             return
         }
     }
