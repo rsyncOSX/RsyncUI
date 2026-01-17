@@ -18,6 +18,7 @@ struct OneTaskDetailsView: View {
     // Streaming strong references
     @State private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
     @State private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
+    @State private var itemizechanges: Bool = false
 
     let selecteduuids: Set<SynchronizeConfiguration.ID>
     let configurations: [SynchronizeConfiguration]
@@ -84,6 +85,13 @@ struct OneTaskDetailsView: View {
                 useFileHandler: false
             )
 
+            // Check if the arguments --itemize-changes and --update are included within the arguments
+            if arguments.contains("--itemize-changes"), arguments.contains("--update") {
+                itemizechanges = true
+            } else {
+                itemizechanges = false
+            }
+            
             do {
                 try process.executeProcess()
                 activeStreamingProcess = process
@@ -127,7 +135,7 @@ struct OneTaskDetailsView: View {
 
         remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: prepared,
                                               config: selectedconfig)
-        let itemizechanges = remotedatanumbers?.itemizechanges
+        remotedatanumbers?.itemizechanges = itemizechanges
 
         // Validate that tagging is correct
         // Only validate if itemizechanges == false, due to the parameters --itemize-changes and --update
