@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 12/02/2022.
 //
-// swiftlint:disable cyclomatic_complexity
+/* swiftlint:disable cyclomatic_complexity */
 
 import Foundation
 
@@ -189,4 +189,4 @@ struct UserConfiguration: @MainActor Codable {
     }
 }
 
-// swiftlint:enable cyclomatic_complexity
+/* swiftlint:enable cyclomatic_complexity */

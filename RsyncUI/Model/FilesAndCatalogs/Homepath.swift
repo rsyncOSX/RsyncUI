@@ -11,7 +11,7 @@
 //
 //  Created by Thomas Evensen on 24/06/2024.
 //
-// swiftlint:disable line_length
+/* swiftlint:disable line_length */
 
 import Foundation
 import OSLog
@@ -141,4 +141,4 @@ public enum LocationKind {
     case folder
 }
 
-// swiftlint:enable line_length
+/* swiftlint:enable line_length */

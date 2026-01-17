@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 09/05/2025.
 //
-// swiftlint:disable line_length
+/* swiftlint:disable line_length */
 
 import SwiftUI
 
@@ -120,4 +120,4 @@ struct HelpSectionView: View {
     }
 }
 
-// swiftlint:enable line_length
+/* swiftlint:enable line_length */

@@ -91,7 +91,7 @@ struct OneTaskDetailsView: View {
             } else {
                 itemizechanges = false
             }
-            
+
             do {
                 try process.executeProcess()
                 activeStreamingProcess = process

@@ -2,7 +2,7 @@
 //  GetfullpathforRsync.swift
 //  RsyncUI
 //
-// swiftlint:disable line_length
+/* swiftlint:disable line_length */
 
 import Foundation
 import OSLog
@@ -40,4 +40,4 @@ struct GetfullpathforRsync {
     }
 }
 
-// swiftlint:enable line_length
+/* swiftlint:enable line_length */

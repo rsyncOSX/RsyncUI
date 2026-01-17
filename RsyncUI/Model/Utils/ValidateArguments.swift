@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 16/12/2025.
 //
-// swiftlint:disable cyclomatic_complexity
+/* swiftlint:disable cyclomatic_complexity */
 
 import Foundation
 import RsyncArguments
@@ -81,4 +81,4 @@ struct ValidateArguments {
     }
 }
 
-// swiftlint:enable cyclomatic_complexity
+/* swiftlint:enable cyclomatic_complexity */

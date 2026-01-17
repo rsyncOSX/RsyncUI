@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 19/04/2021.
 //
-// swiftlint:disable line_length
+/* swiftlint:disable line_length */
 
 import DecodeEncodeGeneric
 import Foundation
@@ -45,4 +45,4 @@ final class ReadLogRecordsJSON {
     }
 }
 
-// swiftlint:enable line_length
+/* swiftlint:enable line_length */

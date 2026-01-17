@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 01/02/2021.
 //
-// swiftlint:disable identifier_name
+/* swiftlint:disable identifier_name */
 
 import Observation
 import SwiftUI
@@ -98,4 +98,4 @@ struct SettingsNavigationLinkWithHover: View {
     }
 }
 
-// swiftlint:enable identifier_name
+/* swiftlint:enable identifier_name */

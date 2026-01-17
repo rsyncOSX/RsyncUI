@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 12/02/2022.
 //
-// swiftlint:disable line_length
+/* swiftlint:disable line_length */
 
 import DecodeEncodeGeneric
 import Foundation
@@ -62,4 +62,4 @@ struct WriteWidgetsURLStringsJSON {
     }
 }
 
-// swiftlint:enable line_length
+/* swiftlint:enable line_length */

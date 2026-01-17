@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 18/12/2025.
 //
-// swiftlint:disable all
+/* swiftlint:disable all */
 // xcodebuild -scheme RsyncUI -project RsyncUI.xcodeproj -destination 'platform=macOS' -only-testing:RsyncUITests test
 import Foundation
 import RsyncArguments
@@ -512,7 +512,7 @@ enum RsyncUITests {
                 "backup-with-dash",
                 "backup.with.dots",
                 "backup123",
-                "Backup With Spaces",
+                "Backup With Spaces"
             ]
 
             let verifier = VerifyConfiguration()
@@ -609,7 +609,7 @@ enum RsyncUITests {
                 "/simple/path",
                 "/path/with/many/levels/deep",
                 "/path/",
-                "relative/path",
+                "relative/path"
             ]
 
             let verifier = VerifyConfiguration()
@@ -644,4 +644,4 @@ enum RsyncUITests {
     }
 }
 
-// swiftlint:enable all
+/* swiftlint:enable all */

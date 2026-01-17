@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 22/07/2024.
 //
-// swiftlint:disable line_length
+/* swiftlint:disable line_length */
 
 import DecodeEncodeGeneric
 import Foundation
@@ -56,4 +56,4 @@ final class WriteExportConfigurationsJSON {
     }
 }
 
-// swiftlint:enable line_length
+/* swiftlint:enable line_length */

@@ -4,7 +4,7 @@
 //
 //  Created by Thomas Evensen on 09/08/2025.
 //
-// swiftlint:disable trailing_comma
+/* swiftlint:disable trailing_comma */
 
 import Foundation
 
@@ -22,7 +22,7 @@ struct AttachedVolumesService: Sendable {
         let keys: [URLResourceKey] = [
             .volumeNameKey,
             .volumeIsRemovableKey,
-            .volumeIsEjectableKey,
+            .volumeIsEjectableKey
         ]
 
         guard let paths = FileManager.default.mountedVolumeURLs(
@@ -41,4 +41,4 @@ struct AttachedVolumesService: Sendable {
     }
 }
 
-// swiftlint:enable trailing_comma
+/* swiftlint:enable trailing_comma */
