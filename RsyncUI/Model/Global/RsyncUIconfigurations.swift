@@ -39,6 +39,7 @@ final class RsyncUIconfigurations {
         } ?? false
     }
 
+    // Ver 3.x of rsync
     @ObservationIgnored var oneormoresynchronizetasksisremoteVer3x: Bool {
         guard SharedReference.shared.rsyncversion3 else { return false }
         return configurations?.contains { $0.task == SharedReference.shared.synchronize &&
@@ -46,7 +47,8 @@ final class RsyncUIconfigurations {
         } ?? false
     }
 
-    @ObservationIgnored var oneormoresynchronizetasksisremoteOpenrsync: Bool {
+    // Openrsync
+    @ObservationIgnored var oneormoresynchronizetasksisremoteOrsync: Bool {
         configurations?.contains { $0.task == SharedReference.shared.synchronize &&
             !$0.offsiteServer.isEmpty
         } ?? false

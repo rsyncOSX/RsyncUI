@@ -254,7 +254,7 @@ struct SidebarMainView: View {
                    rsyncUIdata.oneormoresnapshottasksisremote == false,
                    item == .restore { return nil }
             } else {
-                if rsyncUIdata.oneormoresynchronizetasksisremoteOpenrsync == false,
+                if rsyncUIdata.oneormoresynchronizetasksisremoteOrsync == false,
                    item == .restore { return nil }
             }
 
