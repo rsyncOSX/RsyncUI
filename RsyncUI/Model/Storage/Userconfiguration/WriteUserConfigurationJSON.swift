@@ -37,7 +37,7 @@ struct WriteUserConfigurationJSON {
             Logger.process.debugMessageOnly("WriteUserConfigurationJSON: Writing user configurations to permanent storage")
 
         } catch let err {
-            Logger.process.errorMessageOnly("WriteUserConfigurationJSON: some ERROR writing user configurations from permanent storage")
+            Logger.process.errorMessageOnly("WriteUserConfigurationJSON: ERROR writing user configurations to permanent storage")
             let error = err
             path.propagateError(error: error)
         }

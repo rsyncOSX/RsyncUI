@@ -47,7 +47,8 @@ struct ImportView: View {
                                     if selecteduuids.isEmpty == true {
                                         rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(configurations)
                                     } else {
-                                        rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(configurations.filter { selecteduuids.contains($0.id) })
+                                        rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(
+                                            configurations.filter { selecteduuids.contains($0.id) })
                                     }
                                     if SharedReference.shared.duplicatecheck {
                                         if let configurations = rsyncUIdata.configurations {
@@ -123,8 +124,9 @@ struct ImportView: View {
                                       case let .success(url):
                                           filenameimport = url.relativePath
                                           guard filenameimport.isEmpty == false else { return }
-                                          if let importconfigurations = ReadImportConfigurationsJSON(filenameimport,
-                                                                                                     maxhiddenId: maxhiddenID).importconfigurations {
+                                          let reader = ReadImportConfigurationsJSON(filenameimport,
+                                                                                    maxhiddenId: maxhiddenID)
+                                          if let importconfigurations = reader.importconfigurations {
                                               configurations = importconfigurations
                                           }
                                       case let .failure(error):

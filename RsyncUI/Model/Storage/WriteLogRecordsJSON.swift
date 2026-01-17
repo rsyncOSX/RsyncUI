@@ -31,7 +31,9 @@ final class WriteLogRecordsJSON {
                 do {
                     try jsonData.write(to: logrecordfileURL)
                 } catch let err {
-                    Logger.process.errorMessageOnly("WriteLogRecordsJSON - \(profile ?? "default profile"): some ERROR writing logrecords to permanent storage")
+                    Logger.process.errorMessageOnly(
+                        "WriteLogRecordsJSON - \(profile ?? "default profile"): some ERROR writing logrecords to permanent storage"
+                    )
                     let error = err
                     path.propagateError(error: error)
                 }

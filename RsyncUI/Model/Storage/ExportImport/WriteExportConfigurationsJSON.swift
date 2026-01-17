@@ -26,7 +26,10 @@ final class WriteExportConfigurationsJSON {
                     )
                 } catch let err {
                     Logger.process.errorMessageOnly(
-                        "WriteExportConfigurationsJSON - failed to write export configurations to permanent storage at \(exportpath): \(String(describing: err))"
+                        """
+                        WriteExportConfigurationsJSON - failed to write export configurations to \
+                        permanent storage at \(exportpath): \(String(describing: err))
+                        """
                     )
                     let error = err
                     propagateError(error: error)
