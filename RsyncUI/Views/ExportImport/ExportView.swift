@@ -79,7 +79,6 @@ struct ExportView: View {
                         dismiss()
                     }
                     .buttonStyle(RefinedGlassButtonStyle())
-
                 } else {
                     Spacer()
 

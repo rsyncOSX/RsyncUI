@@ -32,7 +32,6 @@ final class ReadLogRecordsJSON {
                 let item = LogRecords(element)
                 return validhiddenIDs.contains(item.hiddenID) ? item : nil
             }
-
         } catch {
             Logger.process.errorMessageOnly(
                 "ReadLogRecordsJSON - \(profile ?? "default profile"): some ERROR reading logrecords from permanent storage"

@@ -34,7 +34,6 @@ struct WriteUserConfigurationJSON {
             let encodeddata = try encodejsondata.encode(userconfiguration)
             writeJSONToPersistentStore(jsonData: encodeddata)
             Logger.process.debugMessageOnly("WriteUserConfigurationJSON: Writing user configurations to permanent storage")
-
         } catch let err {
             Logger.process.errorMessageOnly("WriteUserConfigurationJSON: ERROR writing user configurations to permanent storage")
             let error = err

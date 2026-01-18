@@ -25,7 +25,6 @@ actor ActorGetversionofRsyncUI {
             } else {
                 return false
             }
-
         } catch {
             Logger.process.warning("CheckfornewversionofRsyncUI: loading data failed)")
             return false
@@ -48,7 +47,6 @@ actor ActorGetversionofRsyncUI {
             } else {
                 return nil
             }
-
         } catch {
             Logger.process.warning("CheckfornewversionofRsyncUI: loading data failed)")
             return nil

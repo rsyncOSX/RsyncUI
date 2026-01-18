@@ -71,7 +71,6 @@ struct HelpView: View {
                                 dismiss()
                             }
                             .buttonStyle(RefinedGlassButtonStyle())
-
                         } else {
                             Button {
                                 dismiss()

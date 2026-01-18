@@ -120,7 +120,6 @@ struct SidebarMainView: View {
             }
 
             MessageView(mytext: SharedReference.shared.rsyncversionshort ?? "", size: .caption2)
-
         } detail: {
             selectView(selectedview)
         }

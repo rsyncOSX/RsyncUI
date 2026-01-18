@@ -25,7 +25,6 @@ struct EstimateTableView: View {
                         if data.backupID.isEmpty == true {
                             Text("Synchronize ID")
                                 .foregroundColor(color(uuid: data.id))
-
                         } else {
                             Text(data.backupID)
                                 .foregroundColor(color(uuid: data.id))
@@ -35,7 +34,6 @@ struct EstimateTableView: View {
                     if data.backupID.isEmpty == true {
                         Text("Synchronize ID")
                             .foregroundColor(color(uuid: data.id))
-
                     } else {
                         Text(data.backupID)
                             .foregroundColor(color(uuid: data.id))

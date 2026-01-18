@@ -37,7 +37,6 @@ actor ActorReadSchedule {
                     }
                 }
             }
-
         } catch {
             let message = "ActorReadSchedule - read Calendar from permanent storage " +
                 "\(filename) failed with error: some ERROR reading"

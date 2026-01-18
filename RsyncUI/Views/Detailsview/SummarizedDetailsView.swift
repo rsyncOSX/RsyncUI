@@ -71,7 +71,6 @@ struct SummarizedDetailsView: View {
                                             executetaskpath.append(Tasks(task: .executestimatedview))
                                         }
                                     }
-
                                 } else {
                                     Button {
                                         isPresentingConfirm = progressdetails.confirmExecuteTasks()
@@ -95,7 +94,6 @@ struct SummarizedDetailsView: View {
                                         }
                                     }
                                 }
-
                             } else {
                                 ConditionalGlassButton(
                                     systemImage: "play.fill",

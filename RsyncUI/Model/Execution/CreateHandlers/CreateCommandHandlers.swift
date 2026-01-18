@@ -12,7 +12,6 @@ import ProcessCommand
 struct CreateCommandHandlers {
     func createcommandhandlers(
         processTermination: @escaping ([String]?, Bool) -> Void
-
     ) -> ProcessHandlersCommand {
         ProcessHandlersCommand(
             processtermination: processTermination,

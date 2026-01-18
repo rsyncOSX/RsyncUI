@@ -39,7 +39,6 @@ struct VerifyTasks: View {
                                     if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                         selectedconfig = configurations[index]
                                         showinspector = true
-
                                     } else {
                                         selectedconfig = nil
                                         showinspector = false
@@ -88,7 +87,6 @@ struct VerifyTasks: View {
                         .help("Abort (⌘K)")
                     }
                 }
-
             })
             .inspector(isPresented: $showinspector) {
                 inspectorView

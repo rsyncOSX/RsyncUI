@@ -39,7 +39,6 @@ struct WriteWidgetsURLStringsJSON {
             let encodeddata = try encodejsondata.encode(urlwidgetstrings)
             writeJSONToPersistentStore(jsonData: encodeddata)
             Logger.process.debugMessageOnly("WriteWidgetsURLStringsJSON: Writing URL-strings to permanent storage")
-
         } catch let err {
             Logger.process.errorMessageOnly("WriteWidgetsURLStringsJSON: ERROR writing user configurations to permanent storage")
             let error = err

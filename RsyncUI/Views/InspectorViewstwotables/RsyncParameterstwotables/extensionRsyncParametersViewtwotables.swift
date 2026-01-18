@@ -109,7 +109,6 @@ extension RsyncParametersViewtwotables {
             }
             .disabled(selectedconfig == nil)
             .padding(.bottom, 10)
-
         } else {
             ConditionalGlassButton(
                 systemImage: "plus",

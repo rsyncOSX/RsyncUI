@@ -135,7 +135,6 @@ extension AddTaskView {
                     }
                     .buttonStyle(RefinedGlassButtonStyle())
                     .keyboardShortcut(.cancelAction)
-
                 } else {
                     Button {
                         showAddPopover = false

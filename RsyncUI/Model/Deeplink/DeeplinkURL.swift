@@ -28,7 +28,6 @@ struct DeeplinkURL {
                     }
                 }
             }
-
         } catch let err {
             let error = err
             SharedReference.shared.errorobject?.alert(error: error)

@@ -188,7 +188,6 @@ struct ConditionalGlassButton: View {
                 }
                 .buttonStyle(RefinedGlassButtonStyle())
                 .help(helpText)
-
             } else {
                 Button(role: role, action: action) {
                     Label {

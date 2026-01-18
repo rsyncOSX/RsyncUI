@@ -31,7 +31,6 @@ struct WriteSchedule {
         do {
             let encodeddata = try encodejsondata.encode(calendar)
             writeJSONToPersistentStore(jsonData: encodeddata)
-
         } catch {
             Logger.process.errorMessageOnly("WriteSchedule some ERROR writing")
             return

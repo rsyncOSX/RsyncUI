@@ -9,6 +9,14 @@ opt_in_rules:
 #  - vertical_whitespace_between_cases
   - sorted_imports
   - yoda_condition
+  - closure_spacing
+  - implicit_return
+  - discouraged_optional_boolean
+  - multiline_arguments
+  - vertical_whitespace_closing_braces
+  - redundant_nil_coalescing
+  - unused_declaration
+  - weak_delegate
 
 #disabled_rules:
 #  - cyclomatic_complexity  # Keep disabled for SwiftUI views

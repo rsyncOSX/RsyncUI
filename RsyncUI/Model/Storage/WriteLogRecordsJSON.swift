@@ -45,7 +45,6 @@ final class WriteLogRecordsJSON {
         do {
             let encodeddata = try encodejsondata.encode(logrecords)
             writeJSONToPersistentStore(jsonData: encodeddata, profile)
-
         } catch let err {
             let error = err
             path.propagateError(error: error)

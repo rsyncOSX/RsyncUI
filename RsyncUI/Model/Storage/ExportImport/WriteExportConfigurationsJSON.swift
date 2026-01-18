@@ -42,7 +42,6 @@ final class WriteExportConfigurationsJSON {
         do {
             let encodeddata = try encodejsondata.encode(configurations)
             writeJSONToPersistentStore(jsonData: encodeddata)
-
         } catch let err {
             let error = err
             propagateError(error: error)

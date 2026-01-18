@@ -60,7 +60,6 @@ final class ObservableParametersRsync {
             }
             // --delete parameter4
             if configuration?.parameter4 == nil { adddelete = false } else { adddelete = true }
-
         } else {
             reset()
         }

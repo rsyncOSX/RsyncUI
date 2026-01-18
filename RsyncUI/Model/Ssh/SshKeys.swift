@@ -31,7 +31,6 @@ final class SshKeys {
             } catch {
                 return false
             }
-
         } else {
             return false
         }

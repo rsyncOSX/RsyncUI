@@ -234,7 +234,6 @@ extension TasksView {
                   progressdetails.executeAnotherDryRun(rsyncUIdata.profile) == true {
             doubleclick = false
             executetaskpath.append(Tasks(task: .onetaskdetailsview))
-
         } else if selectedconfig != nil,
                   progressdetails.allTasksEstimated(rsyncUIdata.profile) == false {
             doubleclick = false
@@ -251,7 +250,6 @@ extension TasksView {
             selecteduuids = progressdetails.getUUIDsWithDataToSynchronize()
             // Change view, see SidebarTasksView
             executetaskpath.append(Tasks(task: .executestimatedview))
-
         } else if selecteduuids.count >= 1,
                   progressdetails.tasksAreEstimated(selecteduuids) == true {
             // One or some tasks are selected and estimated
@@ -259,7 +257,6 @@ extension TasksView {
             selecteduuids = progressdetails.getUUIDsWithDataToSynchronize()
             // Change view, see SidebarTasksView
             executetaskpath.append(Tasks(task: .executestimatedview))
-
         } else {
             // Execute all tasks, no estimate
             // Execute tasks, no estimate, ask to execute

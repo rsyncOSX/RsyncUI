@@ -86,7 +86,6 @@ struct AboutView: View {
                             dismiss()
                         }
                         .buttonStyle(RefinedGlassButtonStyle())
-
                     } else {
                         Button("Close") {
                             dismiss()
@@ -94,13 +93,11 @@ struct AboutView: View {
                         .buttonStyle(.borderedProminent)
                     }
                 }
-
             } header: {
                 if SharedReference.shared.newversion {
                     Text("There is a new version available for download")
                         .font(.title3)
                         .fontWeight(.bold)
-
                 } else {
                     Text("Changelog")
                         .font(.title3)

@@ -76,7 +76,6 @@ struct ConfigurationsTableDataMainView: View {
                         if data.backupID.isEmpty == true {
                             Text("Synchronize ID")
                                 .foregroundColor(.yellow)
-
                         } else {
                             Text(data.backupID)
                                 .foregroundColor(.yellow)
@@ -89,7 +88,6 @@ struct ConfigurationsTableDataMainView: View {
                         if data.backupID.isEmpty == true {
                             Text("Synchronize ID")
                                 .foregroundColor(color)
-
                         } else {
                             Text(data.backupID)
                                 .foregroundColor(color)
@@ -98,7 +96,6 @@ struct ConfigurationsTableDataMainView: View {
                 } else {
                     if data.backupID.isEmpty == true {
                         Text("Synchronize ID")
-
                     } else {
                         Text(data.backupID)
                     }

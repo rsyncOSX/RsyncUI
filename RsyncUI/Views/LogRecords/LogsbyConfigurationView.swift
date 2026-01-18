@@ -100,7 +100,6 @@ struct LogsbyConfigurationView: View {
             HStack {
                 if showindebounce {
                     indebounce
-
                 } else {
                     if selecteduuids.isEmpty {
                         let logText = logs.count == 1 ?
@@ -111,7 +110,6 @@ struct LogsbyConfigurationView: View {
                         if filterstring.isEmpty == false {
                             Label("Filtered by: \(filterstring)", systemImage: "magnifyingglass")
                         }
-
                     } else {
                         let logText = logs.count == 1 ?
                             "Logrecords by selected task: 1 log" :

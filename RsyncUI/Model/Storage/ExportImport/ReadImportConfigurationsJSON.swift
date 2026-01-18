@@ -31,7 +31,6 @@ final class ReadImportConfigurationsJSON {
             }
             let message = "ReadImportConfigurationsJSON - \(filenameimport) read import configurations from permanent storage"
             Logger.process.debugMessageOnly(message)
-
         } catch {
             let message = "ReadImportConfigurationsJSON - \(filenameimport): ERROR reading import configurations"
             Logger.process.errorMessageOnly(message)

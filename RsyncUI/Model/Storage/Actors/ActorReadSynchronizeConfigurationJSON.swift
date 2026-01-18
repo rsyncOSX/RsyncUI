@@ -44,7 +44,6 @@ actor ActorReadSynchronizeConfigurationJSON {
             }
 
             return tasks
-
         } catch {
             let profileName = profile ?? "default profile"
             let errorMessage = "ActorReadSynchronizeConfigurationJSON - \(profileName): " +

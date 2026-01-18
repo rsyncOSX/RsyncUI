@@ -20,7 +20,6 @@ final class WriteSynchronizeConfigurationJSON {
             if let profile {
                 let tempURL = fullpathmacserialURL.appendingPathComponent(profile)
                 configurationfileURL = tempURL.appendingPathComponent(SharedConstants().fileconfigurationsjson)
-
             } else {
                 configurationfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().fileconfigurationsjson)
             }
@@ -45,7 +44,6 @@ final class WriteSynchronizeConfigurationJSON {
         do {
             let encodeddata = try encodejsondata.encode(configurations)
             writeJSONToPersistentStore(jsonData: encodeddata, profile)
-
         } catch let err {
             let error = err
             path.propagateError(error: error)

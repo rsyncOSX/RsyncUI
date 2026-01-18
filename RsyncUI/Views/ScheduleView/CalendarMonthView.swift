@@ -66,7 +66,6 @@ struct CalendarMonthView: View {
                                                 istappeddayint: $istappeddayint,
                                                 day: day,
                                                 style: .thereisaschedule)
-
                             } else if isTappedNoSchedule(day) {
                                 CalendarDayView(dateRun: $dateRun,
                                                 dateAdded: $dateAdded,

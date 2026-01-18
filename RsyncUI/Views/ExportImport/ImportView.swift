@@ -58,7 +58,6 @@ struct ImportView: View {
                                 }
                                 .buttonStyle(RefinedGlassButtonStyle())
                             }
-
                         } else {
                             Button("Import tasks") {
                                 isShowingDialog = true
@@ -96,7 +95,6 @@ struct ImportView: View {
                                 dismiss()
                             }
                             .buttonStyle(RefinedGlassButtonStyle())
-
                         } else {
                             Button("Close") {
                                 activeSheet = nil
@@ -106,7 +104,6 @@ struct ImportView: View {
                     }
                 }
                 .frame(minWidth: 600, minHeight: 500)
-
             } else {
                 HStack {
                     ConditionalGlassButton(
@@ -140,7 +137,6 @@ struct ImportView: View {
                             dismiss()
                         }
                         .buttonStyle(RefinedGlassButtonStyle())
-
                     } else {
                         Button("Close") {
                             activeSheet = nil

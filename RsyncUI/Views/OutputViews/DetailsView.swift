@@ -44,7 +44,6 @@ struct DetailsView: View {
                             .fill(.blue.gradient)
                     }
                     .padding()
-
                 } else {
                     Text("No data to synchronize")
                         .font(.title2)
