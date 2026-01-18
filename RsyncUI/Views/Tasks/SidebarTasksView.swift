@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 10/11/2023.
 //
-/* swiftlint:disable identifier_name */
 
 import OSLog
 import SwiftUI
@@ -151,5 +150,3 @@ extension SidebarTasksView {
         }
     }
 }
-
-/* swiftlint:enable identifier_name */

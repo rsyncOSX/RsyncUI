@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 12/02/2022.
 //
-/* swiftlint:disable cyclomatic_complexity */
 
 import Foundation
 
@@ -188,5 +187,3 @@ struct UserConfiguration: @MainActor Codable {
         validatearguments = boolToInt(SharedReference.shared.validatearguments)
     }
 }
-
-/* swiftlint:enable cyclomatic_complexity */

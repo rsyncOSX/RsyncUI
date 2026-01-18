@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 09/08/2025.
 //
-/* swiftlint:disable trailing_comma */
 
 import Foundation
 
@@ -40,5 +39,3 @@ struct AttachedVolumesService: Sendable {
             .map { AttachedVolume($0) }
     }
 }
-
-/* swiftlint:enable trailing_comma */

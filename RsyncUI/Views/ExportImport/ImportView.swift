@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 21/07/2024.
 //
-/* swiftlint:disable line_length */
 
 import SwiftUI
 import UniformTypeIdentifiers
@@ -158,5 +157,3 @@ struct ImportView: View {
         .item
     }
 }
-
-/* swiftlint:enable line_length */

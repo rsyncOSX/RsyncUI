@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 10/06/2025.
 //
-/* swiftlint:disable cyclomatic_complexity */
 
 import Foundation
 import OSLog
@@ -326,5 +325,3 @@ extension Execute {
         }
     }
 }
-
-/* swiftlint:enable cyclomatic_complexity */

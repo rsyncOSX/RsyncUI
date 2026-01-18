@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 03/06/2021.
 //
-/* swiftlint:disable identifier_name */
 
 import Foundation
 import Observation
@@ -120,5 +119,3 @@ final class ObservableGlobalchangeConfigurations {
         resetForm()
     }
 }
-
-/* swiftlint:enable identifier_name */

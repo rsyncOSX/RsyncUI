@@ -4,7 +4,6 @@
 //
 //  Created by Thomas Evensen on 27/03/2025.
 //
-/* swiftlint:disable function_parameter_count */
 
 import Foundation
 import Observation
@@ -235,5 +234,3 @@ final class ObservableSchedules {
         }
     }
 }
-
-/* swiftlint:enable function_parameter_count */
