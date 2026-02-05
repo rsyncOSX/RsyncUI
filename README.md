@@ -1,19 +1,32 @@
-## Hi there 👋
+# RsyncUI
 
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD)
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v2.9.0/total)
 [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
-This is the repository for RsyncUI, a SwiftUI based macOS application. RsyncUI is released for *macOS Sonoma and later*. RsyncUI is a GUI on the Apple macOS platform for the command line tool [rsync](https://github.com/WayneD/rsync). It is `rsync` which executes the synchronize data tasks. The GUI is *only* for organizing tasks, setting parameters to `rsync` and make it easier to use `rsync`.
+A SwiftUI-based macOS GUI for [rsync](https://github.com/WayneD/rsync). The application organizes synchronization tasks, configures rsync parameters, and provides a user-friendly interface for the rsync command line tool.
 
-| Homebrew | macOS versions |   Latest version   |
-| ----------- |   ----------- | ----------- |
-| `brew install --cask rsyncui`    | macOS Sonoma and later | v2.9.0 - [January 29, 2026](https://github.com/rsyncOSX/RsyncUI/releases) - in *active development* |
-| |  | [documentation](https://rsyncui.netlify.app/docs/) and [changelog](https://rsyncui.netlify.app/blog/) |
+## Requirements
 
-If you find RsyncUI useful, I would appreciate it if you could consider giving me a star. Each star serves as motivation for me to continue developing RsyncUI.
+- macOS Sonoma or later
 
-The [user documentation](https://rsyncui.netlify.app/docs/)([repo](https://github.com/rsyncOSX/rsyncuidocs)) is based upon a fork of the excellent Hugo based theme [Docsy](https://github.com/google/docsy). RsyncUI might be installed by Homebrew or by direct download. It is *signed* and *notarized* by Apple.
+## Installation
+
+Install via Homebrew:
+```bash
+brew install --cask rsyncui
+```
+
+Or download directly from the [releases page](https://github.com/rsyncOSX/RsyncUI/releases). The application is signed and notarized by Apple.
+
+## Version
+
+Current version: v2.9.0 (January 29, 2026) - in active development
+
+## Documentation
+
+- [User documentation](https://rsyncui.netlify.app/docs/) ([repository](https://github.com/rsyncOSX/rsyncuidocs))
+- [Changelog](https://rsyncui.netlify.app/blog/)
 
 ![](images/rsyncui.png)
 
