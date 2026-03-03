@@ -60,6 +60,18 @@ struct Sshsettings: View {
             if showsshkeyiscreated { DismissafterMessageView(dismissafter: 2, mytext: "ssh-key is created, see logfile.") }
         }
         .formStyle(.grouped)
+        .onChange(of: sshsettings.sshportnumber) {
+            if isValidSSHPort(sshsettings.sshportnumber) {
+                SharedReference.shared.sshport = Int(sshsettings.sshportnumber)
+                saveConfiguration()
+            }
+        }
+        .onChange(of: sshsettings.sshkeypathandidentityfile) {
+            if isValidSSHKeyPath(sshsettings.sshkeypathandidentityfile) {
+                SharedReference.shared.sshkeypathandidentityfile = sshsettings.sshkeypathandidentityfile
+                saveConfiguration()
+            }
+        }
     }
 }
 
@@ -124,12 +136,7 @@ extension Sshsettings {
 
     func isValidSSHPort(_ port: String) -> Bool {
         guard let port = Int(port.trimmingCharacters(in: .whitespacesAndNewlines)) else { return false }
-
-        let valid = (22 ... 65535).contains(port)
-        if valid {
-            saveConfiguration()
-        }
-        return valid
+        return (22 ... 65535).contains(port)
     }
 
     func isValidSSHKeyPath(_ keyPath: String) -> Bool {
@@ -144,11 +151,6 @@ extension Sshsettings {
         let expandedPath = (keyPath as NSString).expandingTildeInPath
 
         // Check existence
-        let valid = FileManager.default.fileExists(atPath: expandedPath)
-
-        if valid {
-            saveConfiguration()
-        }
-        return valid
+        return FileManager.default.fileExists(atPath: expandedPath)
     }
 }
