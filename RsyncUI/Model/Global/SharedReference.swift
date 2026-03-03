@@ -84,7 +84,7 @@ final class SharedReference {
     // Value for alert tagging
     let alerttagginglines = 20
     // USw two tables Inspector sheet
-    @ObservationIgnored var usetwotablesInspector: Bool = true
+    @ObservationIgnored var usetwotablesInspector: Bool = false
     // Loge everything to logfile
     @ObservationIgnored var saveactualsynclogdata: Bool = false
 
