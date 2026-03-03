@@ -124,7 +124,12 @@ extension Sshsettings {
 
     func isValidSSHPort(_ port: String) -> Bool {
         guard let port = Int(port.trimmingCharacters(in: .whitespacesAndNewlines)) else { return false }
-        return (22 ... 65535).contains(port)
+
+        let valid = (22 ... 65535).contains(port)
+        if valid {
+            saveConfiguration()
+        }
+        return valid
     }
 
     func isValidSSHKeyPath(_ keyPath: String) -> Bool {
@@ -139,6 +144,11 @@ extension Sshsettings {
         let expandedPath = (keyPath as NSString).expandingTildeInPath
 
         // Check existence
-        return FileManager.default.fileExists(atPath: expandedPath)
+        let valid = FileManager.default.fileExists(atPath: expandedPath)
+
+        if valid {
+            saveConfiguration()
+        }
+        return valid
     }
 }
