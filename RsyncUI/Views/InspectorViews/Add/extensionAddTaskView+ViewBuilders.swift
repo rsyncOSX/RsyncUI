@@ -33,7 +33,7 @@ extension AddTaskView {
     var toolbarContent: some ToolbarContent {
         // Only show toolbar items when this tab is active
         if selectedTab == .edit {
-            ToolbarItem {
+            ToolbarItem(placement: .status) {
                 Button {
                     newdata.resetForm()
                     selectedconfig = nil
@@ -42,10 +42,6 @@ extension AddTaskView {
                 label: { Image(systemName: "plus") }
                 .help("Quick add task")
                 .sheet(isPresented: $showAddPopover) { addTaskSheetView }
-            }
-
-            ToolbarItem {
-                Spacer()
             }
         }
     }
