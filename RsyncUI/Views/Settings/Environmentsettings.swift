@@ -12,6 +12,10 @@ struct Environmentsettings: View {
     @State private var environmentvalue: String = ""
     @State private var environment: String = ""
 
+    private func saveConfiguration() {
+        _ = WriteUserConfigurationJSON(UserConfiguration())
+    }
+
     var body: some View {
         Form {
             Section(header: Text("Rsync environment")
@@ -20,18 +24,6 @@ struct Environmentsettings: View {
                     setenvironment
 
                     setenvironmenvariable
-                }
-
-            Section(header: Text("Save userconfiguration")
-                .font(.title3)
-                .fontWeight(.bold)) {
-                    ConditionalGlassButton(
-                        systemImage: "square.and.arrow.down",
-                        text: "Save",
-                        helpText: "Save userconfiguration"
-                    ) {
-                        _ = WriteUserConfigurationJSON(UserConfiguration())
-                    }
                 }
         }
         .formStyle(.grouped)
@@ -46,6 +38,7 @@ struct Environmentsettings: View {
             }
             .onChange(of: environment) {
                 SharedReference.shared.environment = environment
+                saveConfiguration()
             }
     }
 
@@ -58,6 +51,7 @@ struct Environmentsettings: View {
             }
             .onChange(of: environmentvalue) {
                 SharedReference.shared.environmentvalue = environmentvalue
+                saveConfiguration()
             }
     }
 }

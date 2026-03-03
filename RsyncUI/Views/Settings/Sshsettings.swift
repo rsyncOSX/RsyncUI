@@ -14,6 +14,10 @@ struct Sshsettings: View {
     /// Show keys are created
     @State private var showsshkeyiscreated: Bool = false
 
+    private func saveConfiguration() {
+        _ = WriteUserConfigurationJSON(UserConfiguration())
+    }
+
     var body: some View {
         Form {
             Section(header: Text("Global ssh-keys")
@@ -35,18 +39,6 @@ struct Sshsettings: View {
                     sshportfield(port: $sshsettings.sshportnumber,
                                  placeholder: "set SSH port",
                                  selectedValue: sshsettings.sshportnumber)
-                }
-
-            Section(header: Text("Save userconfiguration")
-                .font(.title3)
-                .fontWeight(.bold)) {
-                    ConditionalGlassButton(
-                        systemImage: "square.and.arrow.down",
-                        text: "Save",
-                        helpText: "Save userconfiguration"
-                    ) {
-                        _ = WriteUserConfigurationJSON(UserConfiguration())
-                    }
                 }
 
             if localsshkeys == false {

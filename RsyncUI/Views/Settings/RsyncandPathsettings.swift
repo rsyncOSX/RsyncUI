@@ -11,6 +11,11 @@ import SwiftUI
 struct RsyncandPathsettings: View {
     @State private var rsyncpathsettings = ObservableRsyncPathSetting()
 
+    /// Helper function to keep the save logic in one place
+    private func saveConfiguration() {
+        _ = WriteUserConfigurationJSON(UserConfiguration())
+    }
+
     var body: some View {
         Form {
             Section(header: Text("Version rsync")
@@ -30,6 +35,7 @@ struct RsyncandPathsettings: View {
                                     rsyncpathsettings.localrsyncpath = ""
                                 }
                                 Rsyncversion().getRsyncVersion()
+                                saveConfiguration()
                             }
 
                         ToggleViewDefault(text: "Apple Silicon",
@@ -67,24 +73,16 @@ struct RsyncandPathsettings: View {
                     setmarkdays
                 }
 
-            Section(header: Text("Backup configurations & Save userconfiguration")
+            Section(header: Text("Backup configurations")
                 .font(.title3)
                 .fontWeight(.bold)) {
                     HStack {
                         ConditionalGlassButton(
                             systemImage: "wrench.adjustable.fill",
-                            text: "Backup configurations",
+                            text: "Backup",
                             helpText: "Backup configurations"
                         ) {
                             _ = Backupconfigfiles()
-                        }
-
-                        ConditionalGlassButton(
-                            systemImage: "square.and.arrow.down",
-                            text: "Save",
-                            helpText: "Save userconfiguration"
-                        ) {
-                            _ = WriteUserConfigurationJSON(UserConfiguration())
                         }
                     }
                 }
@@ -109,6 +107,7 @@ struct RsyncandPathsettings: View {
                rsyncpathsettings.setandvalidatepathforrsync(rsyncpathsettings.localrsyncpath) {
                 Rsyncversion().getRsyncVersion()
             }
+            saveConfiguration()
         }
     }
 
@@ -142,6 +141,7 @@ struct RsyncandPathsettings: View {
                 rsyncpathsettings.temporarypathforrestore.append("/")
             }
             SharedReference.shared.pathforrestore = rsyncpathsettings.temporarypathforrestore
+            saveConfiguration()
         }
     }
 
@@ -158,6 +158,7 @@ struct RsyncandPathsettings: View {
                 return
             }
             rsyncpathsettings.markdays(days: rsyncpathsettings.marknumberofdayssince)
+            saveConfiguration()
         }
     }
 }
