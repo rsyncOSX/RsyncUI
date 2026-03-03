@@ -62,7 +62,7 @@ struct ProfileView: View {
             createProfile()
         }
         .toolbar {
-            ToolbarItem(placement: .automatic) {
+            ToolbarItem(placement: .status) {
                 Button("", systemImage: "plus", action: {
                     showAddProfileSheet = true
                 })
