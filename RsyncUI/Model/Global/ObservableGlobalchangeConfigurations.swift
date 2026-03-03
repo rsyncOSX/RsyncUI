@@ -30,9 +30,9 @@ final class ObservableGlobalchangeConfigurations {
     var showAlertforupdate: Bool = false
     var whatischanged: Set<GlobalchangeConfiguration> = []
     var globalchangedconfigurations: [SynchronizeConfiguration]?
-    // Not changed snapshots, but if snapshots then merge with globalchangedconfigurations
+    /// Not changed snapshots, but if snapshots then merge with globalchangedconfigurations
     var notchangedsnapshotconfigurations: [SynchronizeConfiguration]?
-    // Selecte UUIDS for change
+    /// Selecte UUIDS for change
     var selecteduuids = Set<SynchronizeConfiguration.ID>()
 
     func resetForm() {

@@ -16,7 +16,9 @@ enum OtherRsyncCommand: String, CaseIterable, Identifiable, CustomStringConverti
     // case remoteDiskUsage
     // case urlEstimate
 
-    var id: String { rawValue }
+    var id: String {
+        rawValue
+    }
 
     var description: String {
         // First handle special cases like SSH and URL

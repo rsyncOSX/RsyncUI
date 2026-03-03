@@ -10,7 +10,9 @@ import SwiftUI
 
 enum SideSettingsbaritems: String, Identifiable, CaseIterable {
     case rsync_and_path, log, ssh, environment, about
-    var id: String { rawValue }
+    var id: String {
+        rawValue
+    }
 }
 
 struct SidebarSettingsView: View {

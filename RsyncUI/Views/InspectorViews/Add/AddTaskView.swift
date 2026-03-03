@@ -22,8 +22,13 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
     case snapshot
     case syncremote
 
-    var id: String { rawValue }
-    var description: String { rawValue.localizedLowercase }
+    var id: String {
+        rawValue
+    }
+
+    var description: String {
+        rawValue.localizedLowercase
+    }
 }
 
 struct AddTaskView: View {

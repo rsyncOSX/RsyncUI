@@ -69,7 +69,7 @@ struct ReadAllTasks {
         seconds / (60 * 60 * 24) > Double(SharedReference.shared.marknumberofdayssince)
     }
 
-    // Put profilename in Backup ID
+    /// Put profilename in Backup ID
     func readalltasks(_ validprofiles: [ProfilesnamesRecord]) async -> [SynchronizeConfiguration] {
         var allconfigurations: [SynchronizeConfiguration] = []
         let allprofiles = validprofiles.map(\.profilename)

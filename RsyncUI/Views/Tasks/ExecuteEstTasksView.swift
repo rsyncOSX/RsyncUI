@@ -12,7 +12,7 @@ struct ExecuteEstTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var progressdetails: ProgressDetails
     @Binding var selecteduuids: Set<UUID>
-    // Navigation path for executetasks
+    /// Navigation path for executetasks
     @Binding var executetaskpath: [Tasks]
 
     @State private var focusaborttask: Bool = false

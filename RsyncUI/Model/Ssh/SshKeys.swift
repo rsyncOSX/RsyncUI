@@ -15,7 +15,7 @@ final class SshKeys {
 
     var sshcreatekey: SSHCreateKey?
 
-    // Create rsa keypair
+    /// Create rsa keypair
     func createPublicPrivateRSAKeyPair() -> Bool {
         let present = sshcreatekey?.validatePublicKeyPresent()
         if present == false {
@@ -40,12 +40,13 @@ final class SshKeys {
         sshcreatekey?.validatePublicKeyPresent() ?? false
     }
 
-    // Execute command
+    /// Execute command
     func executesshcreatekeys() {
         guard arguments != nil else { return }
 
         let handlers = CreateCommandHandlers().createcommandhandlers(
-            processTermination: processTermination)
+            processTermination: processTermination
+        )
 
         let process = ProcessCommand(command: command,
                                      arguments: arguments,

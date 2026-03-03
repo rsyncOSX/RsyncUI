@@ -31,7 +31,7 @@ struct ArgumentsSynchronizeTests {
     }
 
     @Test("Synchronize returns dry-run args")
-    func synchronizeDryRunArgs() async {
+    func synchronizeDryRunArgs() {
         SharedReference.shared.rsyncversion3 = true
 
         let cfg = makeConfig()
@@ -45,7 +45,7 @@ struct ArgumentsSynchronizeTests {
         }
     }
 
-    /*
+    /**
      @Test("Snapshot task produces arguments")
      func snapshotArgs() async {
          SharedReference.shared.rsyncversion3 = true
@@ -60,7 +60,7 @@ struct ArgumentsSynchronizeTests {
      }
      */
     @Test("Syncremote task produces arguments")
-    func syncremoteArgs() async {
+    func syncremoteArgs() {
         SharedReference.shared.rsyncversion3 = true
 
         let cfg = makeConfig(task: SharedReference.shared.syncremote,
@@ -73,7 +73,7 @@ struct ArgumentsSynchronizeTests {
     }
 
     @Test("Push local→remote with keepdelete variations")
-    func pushLocalToRemoteArgs() async {
+    func pushLocalToRemoteArgs() {
         SharedReference.shared.rsyncversion3 = true
 
         let cfg = makeConfig()

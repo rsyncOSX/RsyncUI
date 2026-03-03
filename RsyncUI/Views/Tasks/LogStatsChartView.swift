@@ -13,16 +13,26 @@ enum DataInChart: String, CaseIterable, Identifiable, CustomStringConvertible {
     case numberoffiles
     case transferreddata
 
-    var id: String { rawValue }
-    var description: String { rawValue.localizedLowercase }
+    var id: String {
+        rawValue
+    }
+
+    var description: String {
+        rawValue.localizedLowercase
+    }
 }
 
 enum TypeofChart: String, CaseIterable, Identifiable, CustomStringConvertible {
     case linemarkchart
     case barchart
 
-    var id: String { rawValue }
-    var description: String { rawValue.localizedLowercase }
+    var id: String {
+        rawValue
+    }
+
+    var description: String {
+        rawValue.localizedLowercase
+    }
 }
 
 struct LogStatsChartView: View {
@@ -41,7 +51,7 @@ struct LogStatsChartView: View {
     @State private var numberofdata: String = ""
 
     @State private var selectedDataPoint: LogEntry.ID?
-    // Read and prepare chardata
+    /// Read and prepare chardata
     @State private var chartdata = ObservableChartData()
 
     var body: some View {
@@ -250,7 +260,7 @@ struct LogStatsChartView: View {
         }
     }
 
-    // Verify number
+    /// Verify number
     private func verifyNumbers(_ number: String) -> Bool {
         guard number.isEmpty == false else { return false }
         if Int(number) != nil { return true }
@@ -263,18 +273,16 @@ struct LogStatsChartView: View {
         if let parsedlogs = chartdata.parsedlogs {
             if datainchart == .numberoffiles {
                 if numberofdata.isEmpty || numberofdatabool == false {
-                    let allmaxlogentries = await actorreadchartsdata.parsemaxfilesbydate(from: parsedlogs)
+                    return await actorreadchartsdata.parsemaxfilesbydate(from: parsedlogs)
                     // Check if more data pr one date
-                    return allmaxlogentries
                 } else {
                     let allmaxlogentries = await actorreadchartsdata.parsemaxfilesbydate(from: parsedlogs)
                     return await actorreadchartsdata.parsemaxNNfilesbydate(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
                 }
             } else {
                 if numberofdata.isEmpty || numberofdatabool == false {
-                    let allmaxlogentries = await actorreadchartsdata.parsemaxfilesbytransferredsize(from: parsedlogs)
+                    return await actorreadchartsdata.parsemaxfilesbytransferredsize(from: parsedlogs)
                     // Check if more data pr one date
-                    return allmaxlogentries
                 } else {
                     let allmaxlogentries = await actorreadchartsdata.parsemaxfilesbytransferredsize(from: parsedlogs)
                     return await actorreadchartsdata.parsemaxNNfilesbytransferredsize(from: allmaxlogentries,

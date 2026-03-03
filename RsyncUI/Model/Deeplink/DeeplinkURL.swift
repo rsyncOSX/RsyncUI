@@ -9,7 +9,7 @@ import Foundation
 import OSLog
 import RsyncUIDeepLinks
 
-// URL code
+/// URL code
 @MainActor
 struct DeeplinkURL {
     let deeplinks = RsyncUIDeepLinks()

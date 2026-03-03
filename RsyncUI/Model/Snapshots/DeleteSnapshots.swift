@@ -45,7 +45,8 @@ final class DeleteSnapshots {
             mysnapshotdata?.remainingsnapshotstodelete = (mysnapshotdata?.maxnumbertodelete ?? 0) - remaining
             if let config = localeconfig {
                 let handlers = CreateCommandHandlers().createcommandhandlers(
-                    processTermination: processTermination)
+                    processTermination: processTermination
+                )
 
                 let delete = ArgumentsSnapshotDeleteCatalogs(config: config, remotecatalog: remotecatalog)
                 let process = ProcessCommand(command: delete.getCommand(),

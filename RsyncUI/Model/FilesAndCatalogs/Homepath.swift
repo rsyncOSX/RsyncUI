@@ -17,18 +17,18 @@ import OSLog
 
 @MainActor
 struct Homepath {
-    // full path without macserialnumber
+    /// full path without macserialnumber
     var fullpathnomacserial: String?
-    // full path with macserialnumber
+    /// full path with macserialnumber
     var fullpathmacserial: String?
 
-    // Documentscatalog
+    /// Documentscatalog
     var documentscatalog: String? {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
         return paths.firstObject as? String
     }
 
-    // Mac serialnumber
+    /// Mac serialnumber
     var macserialnumber: String? {
         if SharedReference.shared.macserialnumber == nil {
             SharedReference.shared.macserialnumber = Macserialnumber().getMacSerialNumber()
@@ -56,13 +56,14 @@ struct Homepath {
             return array
         } catch {
             Logger.process.errorMessageOnly(
-                "Homepath: failed to read directory at \(fullpathmacserial): \(error.localizedDescription)")
+                "Homepath: failed to read directory at \(fullpathmacserial): \(error.localizedDescription)"
+            )
             return []
         }
     }
 
-    // Create profile catalog at first start of RsyncOSX.
-    // If profile catalog exists - bail out, no need to create
+    /// Create profile catalog at first start of RsyncOSX.
+    /// If profile catalog exists - bail out, no need to create
     func createRootProfileCatalog() {
         let fmanager = FileManager.default
 

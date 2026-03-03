@@ -17,18 +17,18 @@ struct SnapshotsView: View {
     // Plan for tagging and administrating snapshots
     @State private var snaplast: String = PlanSnapshots.last.rawValue
     @State private var snapdayofweek: String = StringDayofweek.sunday.rawValue
-    // Update plan and snapday
+    /// Update plan and snapday
     @State private var updated: Bool = false
     // Focus buttons from the menu
     @State private var focustagsnapshot: Bool = false
     @State private var focusaborttask: Bool = false
-    // Delete is completed and reload of data
+    /// Delete is completed and reload of data
     @State private var deleteiscompleted: Bool = false
-    // Filter
+    /// Filter
     @State private var filterstring: String = ""
-    // For the weekly or monthly plans
+    /// For the weekly or monthly plans
     @State private var isdisabled: Bool = true
-    // confirmationDialog delete logrecords
+    /// confirmationDialog delete logrecords
     @State private var isPresentingConfirm: Bool = false
 
     var body: some View {
@@ -145,8 +145,7 @@ struct SnapshotsView: View {
                     .symbolVariant(.fill)
                     .symbolVariant(.circle)
                     .allowsHitTesting(false)
-                    .offset(x: 10, y: -10)
-                    )
+                    .offset(x: 10, y: -10))
                 }
             }
 

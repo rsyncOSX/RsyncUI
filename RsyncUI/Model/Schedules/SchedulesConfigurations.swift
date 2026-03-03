@@ -12,8 +12,13 @@ enum ScheduleType: String, CaseIterable, Identifiable, CustomStringConvertible {
     case daily
     case weekly
 
-    var id: String { rawValue }
-    var description: String { rawValue.localizedCapitalized }
+    var id: String {
+        rawValue
+    }
+
+    var description: String {
+        rawValue.localizedCapitalized
+    }
 }
 
 struct SchedulesConfigurations: Identifiable, Codable {
@@ -39,14 +44,6 @@ struct SchedulesConfigurations: Identifiable, Codable {
 }
 
 extension SchedulesConfigurations: Hashable, Equatable {
-    static func == (lhs: SchedulesConfigurations, rhs: SchedulesConfigurations) -> Bool {
-        lhs.id == rhs.id &&
-            lhs.profile == rhs.profile &&
-            lhs.dateAdded == rhs.dateAdded &&
-            lhs.dateRun == rhs.dateRun &&
-            lhs.schedule == rhs.schedule
-    }
-
     func hash(into hasher: inout Hasher) {
         hasher.combine(profile)
         hasher.combine(dateRun)

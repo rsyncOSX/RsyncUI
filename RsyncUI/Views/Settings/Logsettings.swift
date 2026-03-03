@@ -12,7 +12,6 @@ struct Logsettings: View {
     @State private var logsettings = ObservableLogSettings()
     @State private var toggleobservemountedvolumes: Bool = false
     @State private var togglealwaysshowestimateddetailsview: Bool = false
-    // @State private var toggleusetwotablesInspector: Bool = false
     @State private var togglesilencemissingstats: Bool = false
     @State private var togglevalidatearguments: Bool = false
 
@@ -48,14 +47,7 @@ struct Logsettings: View {
                             SharedReference.shared.alwaysshowestimateddetailsview = logsettings.alwaysshowestimateddetailsview
                             togglealwaysshowestimateddetailsview = logsettings.alwaysshowestimateddetailsview
                         }
-/*
-                    ToggleViewDefault(text: "Use two tables Inspector",
-                                      binding: $logsettings.usetwotablesInspector)
-                        .onChange(of: logsettings.usetwotablesInspector) {
-                            SharedReference.shared.usetwotablesInspector = logsettings.usetwotablesInspector
-                            toggleusetwotablesInspector = logsettings.usetwotablesInspector
-                        }
-*/
+
                     ToggleViewDefault(text: "Silence missing stats",
                                       binding: $logsettings.silencemissingstats)
                         .onChange(of: logsettings.silencemissingstats) {
@@ -80,11 +72,6 @@ struct Logsettings: View {
                     if toggleobservemountedvolumes {
                         DismissafterMessageView(dismissafter: 2, mytext: "Please restart RsyncUI to take effect")
                     }
-/*
-                    if toggleusetwotablesInspector {
-                        DismissafterMessageView(dismissafter: 2, mytext: "Please restart RsyncUI to take effect")
-                    }
- */
                 }
 
             Section(header: Text("Save userconfiguration")

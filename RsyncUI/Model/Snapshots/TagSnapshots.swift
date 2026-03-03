@@ -39,7 +39,7 @@ final class TagSnapshots {
         return false
     }
 
-    // Keep snapshots every choosen day this month ex current week
+    /// Keep snapshots every choosen day this month ex current week
     private func currentdaymonth(index: Int) -> Bool {
         if let datesnapshot = logrecordssnapshot?[index].dateExecuted.localized_date_from_string() {
             let year = datecomponentsfromdate(localizeddate: datesnapshot).year

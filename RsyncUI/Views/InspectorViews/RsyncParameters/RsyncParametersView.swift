@@ -15,11 +15,11 @@ struct RsyncParametersView: View {
 
     @State var parameters = ObservableParametersRsync()
     @State var selectedconfig: SynchronizeConfiguration?
-    // Backup switch
+    /// Backup switch
     @State var backup: Bool = false
-    // Present a help sheet
+    /// Present a help sheet
     @State var showhelp: Bool = false
-    // Present arguments view
+    /// Present arguments view
     @State var presentarguments: Bool = false
 
     var body: some View {

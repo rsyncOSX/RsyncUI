@@ -8,7 +8,7 @@ import OSLog
 import SwiftUI
 
 extension SidebarMainView {
-    // URL code
+    /// URL code
     func handleURLSidebarMainView(_ url: URL, externalURL: Bool) {
         let deeplinkurl = DeeplinkURL()
         // Verify URL action is valid
@@ -141,7 +141,7 @@ extension SidebarMainView {
         }
     }
 
-    // Must check that no tasks are running
+    /// Must check that no tasks are running
     private func tasksAreInProgress() async -> Bool {
         guard SharedReference.shared.process == nil else { return true }
         // And no execution is in progress
@@ -152,8 +152,8 @@ extension SidebarMainView {
         return false
     }
 
-    // Must load profile for URL-link async to make sure profile is
-    // loaded ahead of start requested action. Only for external URL requests
+    /// Must load profile for URL-link async to make sure profile is
+    /// loaded ahead of start requested action. Only for external URL requests
     func loadProfileForExternalURLLink(_ profile: String?) async -> Bool {
         rsyncUIdata.externalurlrequestinprogress = true
         if profile == nil {

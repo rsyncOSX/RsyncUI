@@ -37,7 +37,7 @@ enum ValidateInputError: LocalizedError {
 
 @MainActor
 final class VerifyConfiguration: Connected {
-    // Verify parameters for new config.
+    /// Verify parameters for new config.
     func verify(_ data: NewTask) -> SynchronizeConfiguration? {
         var newconfig = SynchronizeConfiguration()
         newconfig.task = data.newtask
@@ -113,13 +113,14 @@ final class VerifyConfiguration: Connected {
         data.newtask == SharedReference.shared.snapshot && newconfig.snapshotnum == 1
     }
 
-    // Create remote snapshot catalog
+    /// Create remote snapshot catalog
     private func snapshotcreateremotecatalog(config: SynchronizeConfiguration) {
         guard config.offsiteServer.isEmpty == false else { return }
         let args = ArgumentsSnapshotCreateCatalog(config: config)
 
         let handlers = CreateCommandHandlers().createcommandhandlers(
-            processTermination: { _, _ in })
+            processTermination: { _, _ in }
+        )
 
         let process = ProcessCommand(command: args.getCommand(),
                                      arguments: args.getArguments(),
@@ -132,7 +133,7 @@ final class VerifyConfiguration: Connected {
         }
     }
 
-    // Validate input, throws errors
+    /// Validate input, throws errors
     private func validateInput(config: SynchronizeConfiguration) throws -> Bool {
         guard config.localCatalog.isEmpty == false,
               config.offsiteCatalog.isEmpty == false
@@ -202,8 +203,7 @@ extension Connected {
             let port = 22
             if server.isEmpty == false {
                 let tcpconnection = TCPconnections()
-                let success = tcpconnection.verifyTCPconnection(server, port: port, timeout: 1)
-                return success
+                return tcpconnection.verifyTCPconnection(server, port: port, timeout: 1)
             } else {
                 return true
             }

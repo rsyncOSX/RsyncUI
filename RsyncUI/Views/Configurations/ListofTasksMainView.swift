@@ -11,11 +11,11 @@ struct ListofTasksMainView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     @Binding var doubleclick: Bool
-    // Progress of synchronization
+    /// Progress of synchronization
     @Binding var progress: Double
 
     @State private var confirmdelete: Bool = false
-    // Filterstring
+    /// Filterstring
     @State private var filterstring: String = ""
 
     let progressdetails: ProgressDetails
@@ -30,7 +30,8 @@ struct ListofTasksMainView: View {
                                         max: max)
             .overlay {
                 if (rsyncUIdata.configurations ?? []).filter(
-                    { filterstring.isEmpty ? true : $0.backupID.contains(filterstring) }).isEmpty {
+                    { filterstring.isEmpty ? true : $0.backupID.contains(filterstring) }
+                ).isEmpty {
                     ContentUnavailableView {
                         Label("There are no tasks by this Synchronize ID", systemImage: "doc.richtext.fill")
                     } description: {

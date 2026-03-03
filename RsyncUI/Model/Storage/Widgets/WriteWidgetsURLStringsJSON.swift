@@ -13,7 +13,7 @@ import RsyncUIDeepLinks
 @MainActor
 struct WriteWidgetsURLStringsJSON {
     let deeplinks = RsyncUIDeepLinks()
-    // They are Sandboxed and Documents catalog, to reade the URL-strings is in a Container
+    /// They are Sandboxed and Documents catalog, to reade the URL-strings is in a Container
     let estimatestringsandboxcatalog = "Library/Containers/no.blogspot.RsyncUI.WidgetEstimate/Data/Documents"
 
     private func writeJSONToPersistentStore(jsonData: Data?) {

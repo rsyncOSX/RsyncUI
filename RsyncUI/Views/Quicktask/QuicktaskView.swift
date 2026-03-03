@@ -14,8 +14,13 @@ enum TypeofTaskQuictask: String, CaseIterable, Identifiable, CustomStringConvert
     case syncremote
     case notSelected
 
-    var id: String { rawValue }
-    var description: String { rawValue.localizedLowercase.replacingOccurrences(of: "_", with: " ") }
+    var id: String {
+        rawValue
+    }
+
+    var description: String {
+        rawValue.localizedLowercase.replacingOccurrences(of: "_", with: " ")
+    }
 }
 
 enum ValidateInputQuicktask: LocalizedError {
@@ -62,9 +67,9 @@ struct QuicktaskView: View {
     // Executed labels
     @State var showprogressview = false
     @State var rsyncoutput = ObservableRsyncOutput()
-    // Focus buttons from the menu
+    /// Focus buttons from the menu
     @State var focusstartexecution: Bool = false
-    // Completed task
+    /// Completed task
     @State var completed: Bool = false
     // Progress and max if estimate first
     @State var progress: Double = 0

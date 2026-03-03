@@ -144,7 +144,7 @@ final class ObservableSchedules {
         addtaskandcallback(futureschedule)
     }
 
-    // Recompute the calendardata to only show active schedules in row.
+    /// Recompute the calendardata to only show active schedules in row.
     func recomputeschedules() {
         let recomputedschedules = globaltimer.allSchedules.filter { item in
             if let dateRunString = item.scheduledata?.dateRun {
@@ -191,7 +191,7 @@ final class ObservableSchedules {
         }
     }
 
-    // Apply Scheduledata read from file, used by SidebarMainView
+    /// Apply Scheduledata read from file, used by SidebarMainView
     func appendschdeuldatafromfile(_ schedules: [SchedulesConfigurations]) {
         for index in 0 ..< schedules.count {
             if let schedule = schedules[index].schedule,
@@ -203,7 +203,7 @@ final class ObservableSchedules {
         globaltimer.setfirsscheduledate()
     }
 
-    // Verify new planned schedule
+    /// Verify new planned schedule
     func verifynextschedule(plannednextschedule: String) -> Bool {
         let dates = globaltimer.allSchedules.sorted { schedule1, schedule2 in
             if let id1 = schedule1.scheduledata?.dateRun?.en_date_from_string(),
@@ -238,14 +238,14 @@ final class ObservableSchedules {
         return plannednextschedule.en_date_from_string() > Date.now
     }
 
-    // Delete by IndexSet
+    /// Delete by IndexSet
     func delete(_ uuids: Set<UUID>) {
         globaltimer.allSchedules.removeAll { schedule in
             uuids.contains(schedule.id)
         }
     }
 
-    // Delete by IndexSet
+    /// Delete by IndexSet
     func deletenotexecuted(_ uuids: Set<UUID>) {
         globaltimer.notExecutedSchedulesafterWakeUp.removeAll { schedule in
             uuids.contains(schedule.id)

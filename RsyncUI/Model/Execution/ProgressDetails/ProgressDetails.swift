@@ -12,26 +12,26 @@ import OSLog
 @Observable @MainActor
 final class ProgressDetails {
     var estimatedlist: [RemoteDataNumbers]?
-    // UUIDs with data to be transferred
+    /// UUIDs with data to be transferred
     var uuidswithdatatosynchronize = Set<UUID>()
-    // Estimate
+    /// Estimate
     var estimatealltasksinprogress: Bool = false
-    // Estimate on task, same profile
-    // If one task in profile is estimated, this is set true
-    // Used to decide if new profile is selected.
-    // The estiamed list is used for progress if executing.
+    /// Estimate on task, same profile
+    /// If one task in profile is estimated, this is set true
+    /// Used to decide if new profile is selected.
+    /// The estiamed list is used for progress if executing.
     var onetaskisestimated: Bool = false
     // Profilename and timestamp start estimation
     var profile: String?
     var numberofconfigurations: Int = 0
     var numberofconfigurationsestimated: Double = 0
-    // UUID for configuration to be estimated
+    /// UUID for configuration to be estimated
     var configurationtobestimated: UUID?
 
     let reduceestimatedcountV3: Double = 15
     let reduceestimatedcountopenrsync: Double = 13
 
-    // For execution
+    /// For execution
     var hiddenIDatwork: Int = -1
 
     func getMaxCountByTask() -> Double {

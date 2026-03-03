@@ -10,13 +10,13 @@ import Foundation
 @MainActor
 struct UserConfiguration: @MainActor Codable {
     var rsyncversion3: Int = -1
-    // Detailed logging
+    /// Detailed logging
     var addsummarylogrecord: Int = 1
-    // local path for rsync
+    /// local path for rsync
     var localrsyncpath: String?
-    // temporary path for restore
+    /// temporary path for restore
     var pathforrestore: String?
-    // days for mark days since last synchronize
+    /// days for mark days since last synchronize
     var marknumberofdayssince: String = "5"
     // Global ssh keypath and port
     var sshkeypathandidentityfile: String?
@@ -24,23 +24,21 @@ struct UserConfiguration: @MainActor Codable {
     // Environment variable
     var environment: String?
     var environmentvalue: String?
-    // Check for error in output from rsync
+    /// Check for error in output from rsync
     var checkforerrorinrsyncoutput: Int = -1
-    // Automatic execution
+    /// Automatic execution
     var confirmexecute: Int?
-    // Timedelay Syncjronize URL-actions
+    /// Timedelay Syncjronize URL-actions
     var synchronizewithouttimedelay: Int = -1
-    // Hide or show the Sidebar on startup
+    /// Hide or show the Sidebar on startup
     var sidebarishidden: Int = -1
-    // Observe mounting local atteched discs
+    /// Observe mounting local atteched discs
     var observemountedvolumes: Int = -1
-    // Always show the summarized estimate view
+    /// Always show the summarized estimate view
     var alwaysshowestimateddetailsview: Int = -1
-    // Use two tables Inspector
-    var usetwotablesInspector: Int = -1
-    // Silence missing stats
+    /// Silence missing stats
     var silencemissingstats: Int = -1
-    // Validate arguments
+    /// Validate arguments
     var validatearguments: Int = -1
 
     private func intToBool(_ value: Int) -> Bool {
@@ -73,12 +71,11 @@ struct UserConfiguration: @MainActor Codable {
         SharedReference.shared.sidebarishidden = intToBool(sidebarishidden)
         SharedReference.shared.observemountedvolumes = intToBool(observemountedvolumes)
         SharedReference.shared.alwaysshowestimateddetailsview = intToBool(alwaysshowestimateddetailsview)
-        SharedReference.shared.usetwotablesInspector = intToBool(usetwotablesInspector)
         SharedReference.shared.silencemissingstats = intToBool(silencemissingstats)
         SharedReference.shared.validatearguments = intToBool(validatearguments)
     }
 
-    // Used when reading JSON data from store
+    /// Used when reading JSON data from store
     @discardableResult
     init(_ data: DecodeUserConfiguration) {
         if let value = data.rsyncversion3 {
@@ -143,12 +140,6 @@ struct UserConfiguration: @MainActor Codable {
             alwaysshowestimateddetailsview = -1
         }
 
-        if let value = data.usetwotablesInspector {
-            usetwotablesInspector = value
-        } else {
-            usetwotablesInspector = -1
-        }
-
         if let value = data.silencemissingstats {
             silencemissingstats = value
         } else {
@@ -164,7 +155,7 @@ struct UserConfiguration: @MainActor Codable {
         setuserconfigdata()
     }
 
-    // Default values user configuration
+    /// Default values user configuration
     @discardableResult
     init() {
         rsyncversion3 = boolToInt(SharedReference.shared.rsyncversion3)
@@ -182,7 +173,6 @@ struct UserConfiguration: @MainActor Codable {
         sidebarishidden = boolToInt(SharedReference.shared.sidebarishidden)
         observemountedvolumes = boolToInt(SharedReference.shared.observemountedvolumes)
         alwaysshowestimateddetailsview = boolToInt(SharedReference.shared.alwaysshowestimateddetailsview)
-        usetwotablesInspector = boolToInt(SharedReference.shared.usetwotablesInspector)
         silencemissingstats = boolToInt(SharedReference.shared.silencemissingstats)
         validatearguments = boolToInt(SharedReference.shared.validatearguments)
     }

@@ -15,16 +15,16 @@ struct VerifyTasks: View {
     @State private var remotedatanumbers: RemoteDataNumbers?
     @State private var selectedconfig: SynchronizeConfiguration?
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    // Present arguments view
+    /// Present arguments view
     @State private var presentestimates: Bool = false
-    // Estimating
+    /// Estimating
     @State private var estimating: Bool = false
     // Streaming strong references
     @State private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
     @State private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
-    // Show Inspector view
+    /// Show Inspector view
     @State var showinspector: Bool = false
-    // itemizechanges
+    /// itemizechanges
     @State private var itemizechanges: Bool = false
 
     var body: some View {
@@ -112,7 +112,7 @@ struct VerifyTasks: View {
         }
     }
 
-    // For a verify run, --dry-run using streaming
+    /// For a verify run, --dry-run using streaming
     func verify(config: SynchronizeConfiguration) {
         let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: true,
                                                                                   forDisplay: false)

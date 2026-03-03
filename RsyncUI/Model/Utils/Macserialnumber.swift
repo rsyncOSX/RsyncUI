@@ -10,7 +10,7 @@ import Foundation
 struct Macserialnumber {
     // private var macSerialNumber: String?
 
-    // Function for computing MacSerialNumber
+    /// Function for computing MacSerialNumber
     func getMacSerialNumber() -> String {
         // Get the platform expert
         let platformExpert: io_service_t = IOServiceGetMatchingService(kIOMainPortDefault,

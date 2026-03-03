@@ -12,7 +12,7 @@ final class UpdateConfigurations {
     var configurations: [SynchronizeConfiguration]?
     private var localeprofile: String?
 
-    // MaxhiddenID is used when new configurations are added.
+    /// MaxhiddenID is used when new configurations are added.
     var maxhiddenID: Int {
         if let configs = configurations {
             var setofhiddenIDs = Set<Int>()
@@ -65,8 +65,8 @@ final class UpdateConfigurations {
         }
     }
 
-    // Function is updating Configurations in memory (by record) and
-    // then saves updated Configurations from memory to persistent store
+    /// Function is updating Configurations in memory (by record) and
+    /// then saves updated Configurations from memory to persistent store
     func updateConfiguration(_ config: SynchronizeConfiguration, _ parameters: Bool) {
         if let index = configurations?.firstIndex(where: { $0.hiddenID == config.hiddenID }) {
             if parameters {
@@ -99,7 +99,7 @@ final class UpdateConfigurations {
         }
     }
 
-    // Delete by IndexSet
+    /// Delete by IndexSet
     func deleteconfigurations(_ uuids: Set<UUID>) {
         var indexset = IndexSet()
         if let configurations {
@@ -117,7 +117,7 @@ final class UpdateConfigurations {
         persistConfigurations()
     }
 
-    // Add new configurations
+    /// Add new configurations
     func addConfiguration(_ config: SynchronizeConfiguration) -> Bool {
         if configurations == nil {
             configurations = [SynchronizeConfiguration]()
@@ -136,7 +136,7 @@ final class UpdateConfigurations {
         }
     }
 
-    // Write Import configurations
+    /// Write Import configurations
     func addImportConfigurations(_ importconfigurations: [SynchronizeConfiguration]) -> [SynchronizeConfiguration]? {
         guard importconfigurations.isEmpty == false else { return nil }
         if configurations == nil {
@@ -148,7 +148,7 @@ final class UpdateConfigurations {
         return configurations
     }
 
-    // Write Copy and Paste tasks
+    /// Write Copy and Paste tasks
     func writeCopyAndPasteTask(_ copyandpastetasks: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
         guard let copyandpastetasks, copyandpastetasks.isEmpty == false else { return nil }
         if configurations == nil {

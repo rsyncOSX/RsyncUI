@@ -15,7 +15,7 @@ struct VerifyConfigurationAdvancedTests {
     // MARK: - Syncremote Validation Tests
 
     @Test("Reject syncremote without rsync version 3")
-    func rejectSyncremoteWithoutVersion3() async {
+    func rejectSyncremoteWithoutVersion3() {
         SharedReference.shared.rsyncversion3 = false
 
         let task = makeValidTask(
@@ -31,7 +31,7 @@ struct VerifyConfigurationAdvancedTests {
     }
 
     @Test("Reject syncremote without remote server")
-    func rejectSyncremoteWithoutServer() async {
+    func rejectSyncremoteWithoutServer() {
         SharedReference.shared.rsyncversion3 = true
 
         let task = makeValidTask(
@@ -47,7 +47,7 @@ struct VerifyConfigurationAdvancedTests {
     }
 
     @Test("Reject syncremote without username")
-    func rejectSyncremoteWithoutUsername() async {
+    func rejectSyncremoteWithoutUsername() {
         SharedReference.shared.rsyncversion3 = true
 
         let task = makeValidTask(
@@ -65,7 +65,7 @@ struct VerifyConfigurationAdvancedTests {
     // MARK: - Backup ID Tests
 
     @Test("Handle nil backup ID")
-    func handleNilBackupID() async {
+    func handleNilBackupID() {
         let task = makeValidTask(backupID: nil)
         let verifier = VerifyConfiguration()
 
@@ -76,7 +76,7 @@ struct VerifyConfigurationAdvancedTests {
     }
 
     @Test("Preserve backup ID")
-    func preserveBackupID() async {
+    func preserveBackupID() {
         let task = makeValidTask(backupID: "MyBackup-2024")
         let verifier = VerifyConfiguration()
 
@@ -87,7 +87,7 @@ struct VerifyConfigurationAdvancedTests {
     }
 
     @Test("Handle empty backup ID")
-    func handleEmptyBackupID() async {
+    func handleEmptyBackupID() {
         let task = makeValidTask(backupID: "")
         let verifier = VerifyConfiguration()
 
@@ -98,7 +98,7 @@ struct VerifyConfigurationAdvancedTests {
     }
 
     @Test("Handle backup ID with special characters")
-    func handleBackupIDWithSpecialCharacters() async {
+    func handleBackupIDWithSpecialCharacters() {
         let specialIDs = [
             "backup_with_underscore",
             "backup-with-dash",
@@ -121,7 +121,7 @@ struct VerifyConfigurationAdvancedTests {
     // MARK: - Hidden ID Tests
 
     @Test("Default hidden ID for new configuration")
-    func defaultHiddenID() async {
+    func defaultHiddenID() {
         let task = makeValidTask()
         let verifier = VerifyConfiguration()
 
@@ -132,7 +132,7 @@ struct VerifyConfigurationAdvancedTests {
     }
 
     @Test("Preserve hidden ID for updates")
-    func preserveHiddenIDForUpdates() async {
+    func preserveHiddenIDForUpdates() {
         let task = NewTask(
             "synchronize",
             "/Users/test/Documents",
@@ -155,7 +155,7 @@ struct VerifyConfigurationAdvancedTests {
     // MARK: - Edge Cases and Complex Scenarios
 
     @Test("Handle very long path names")
-    func handleLongPaths() async {
+    func handleLongPaths() {
         let longPath = "/Users/test/" + String(repeating: "very_long_folder_name/", count: 20)
         let task = makeValidTask(
             localCatalog: longPath,
@@ -169,7 +169,7 @@ struct VerifyConfigurationAdvancedTests {
     }
 
     @Test("Handle paths with spaces")
-    func handlePathsWithSpaces() async {
+    func handlePathsWithSpaces() {
         let task = makeValidTask(
             localCatalog: "/Users/test/My Documents",
             offsiteCatalog: "/backup/My Documents"
@@ -183,7 +183,7 @@ struct VerifyConfigurationAdvancedTests {
     }
 
     @Test("Handle paths with unicode characters")
-    func handleUnicodePaths() async {
+    func handleUnicodePaths() {
         let task = makeValidTask(
             localCatalog: "/Users/test/文档",
             offsiteCatalog: "/backup/文档"
@@ -196,7 +196,7 @@ struct VerifyConfigurationAdvancedTests {
     }
 
     @Test("Trailing slash handling with various separators")
-    func trailingSlashVariousSeparators() async {
+    func trailingSlashVariousSeparators() {
         let paths = [
             "/simple/path",
             "/path/with/many/levels/deep",
@@ -222,7 +222,7 @@ struct VerifyConfigurationAdvancedTests {
     // MARK: - Parameter Preservation Tests
 
     @Test("Initialize with default parameter values")
-    func initializeDefaultParameters() async {
+    func initializeDefaultParameters() {
         let task = makeValidTask()
         let verifier = VerifyConfiguration()
 

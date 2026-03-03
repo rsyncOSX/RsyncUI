@@ -19,9 +19,9 @@ struct GlobalChangeTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
 
     @State private var newdata = ObservableGlobalchangeConfigurations()
-    // Alert button
+    /// Alert button
     @State private var showingAlert = false
-    // Focusfield
+    /// Focusfield
     @FocusState private var focusField: ReplaceConfigurationField?
 
     var body: some View {
@@ -278,7 +278,7 @@ struct GlobalChangeTaskView: View {
         }
     }
 
-    // Headers (in sections)
+    /// Headers (in sections)
     var headerlocalremote: some View {
         Text("Folder parameters")
             .modifier(FixedTag(300, .leading))

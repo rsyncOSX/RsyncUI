@@ -12,7 +12,7 @@ import Observation
 final class NoEstProgressDetails {
     var executenoestimationcompleted: Bool = false
     var executelist: [RemoteDataNumbers]?
-    // UUIDs with data to be transferred
+    /// UUIDs with data to be transferred
     var uuidswithdatatosynchronize = Set<UUID>()
 
     func executeAllTasksNoEstimationComplete() {

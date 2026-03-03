@@ -13,7 +13,7 @@ import Testing
 @Suite("Deeplink URL Tests", .serialized)
 struct DeeplinkURLTests {
     @Test("Create estimate-and-synchronize URL with default profile")
-    func createURLDefaultProfile() async {
+    func createURLDefaultProfile() {
         let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: nil)
         #expect(url != nil)
         if let unwrappedURL = url {
@@ -22,7 +22,7 @@ struct DeeplinkURLTests {
     }
 
     @Test("Create estimate-and-synchronize URL with custom profile")
-    func createURLCustomProfile() async {
+    func createURLCustomProfile() {
         let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: "Work")
         #expect(url != nil)
         if let unwrappedURL = url {

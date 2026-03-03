@@ -60,7 +60,7 @@ struct EditRsyncParameter: View {
         return ""
     }
 
-    // Split an Rsync argument into argument and value
+    /// Split an Rsync argument into argument and value
     private func split(_ str: String) -> [String]? {
         let argument: String?
         let value: String?
@@ -97,12 +97,17 @@ enum EnumRsyncArguments: String, CaseIterable, Identifiable, CustomStringConvert
     case update = "--update"
     case add
 
-    var id: String { rawValue }
-    var description: String { rawValue.localizedLowercase }
+    var id: String {
+        rawValue
+    }
+
+    var description: String {
+        rawValue.localizedLowercase
+    }
 }
 
 struct ArgumentsRsyncUserSelect {
-    // Preselected parameters for storing a backup of deleted or changed files before
-    // rsync synchronises the directories
+    /// Preselected parameters for storing a backup of deleted or changed files before
+    /// rsync synchronises the directories
     let backupstrings = ["--backup", "--backup-dir=~/backup", "--backup-dir=../backup"]
 }

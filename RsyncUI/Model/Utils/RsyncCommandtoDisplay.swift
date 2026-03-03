@@ -12,8 +12,13 @@ enum RsyncCommand: String, CaseIterable, Identifiable, CustomStringConvertible {
     case restoreData = "restore_data"
     case verifySynchronizedData = "verify_synchronized_data"
 
-    var id: String { rawValue }
-    var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
+    var id: String {
+        rawValue
+    }
+
+    var description: String {
+        rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ")
+    }
 }
 
 @MainActor

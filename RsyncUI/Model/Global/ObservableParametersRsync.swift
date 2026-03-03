@@ -11,10 +11,10 @@ import SSHCreateKey
 
 @Observable @MainActor
 final class ObservableParametersRsync {
-    // Set the current value as placeholder text
+    /// Set the current value as placeholder text
     var sshport: String = ""
-    // SSH keypath and identityfile, the settings View is picking up the current value
-    // Set the current value as placeholder text
+    /// SSH keypath and identityfile, the settings View is picking up the current value
+    /// Set the current value as placeholder text
     var sshkeypathandidentityfile: String = ""
     // Rsync parameters
     var parameter8: String = ""
@@ -27,7 +27,7 @@ final class ObservableParametersRsync {
     // Selected configuration
     var configuration: SynchronizeConfiguration?
     var sshcreatekey: SSHCreateKey?
-    // Add parameters
+    /// Add parameters
     var adddelete: Bool = false
 
     let helptext1 = "Red Synchronize ID\n means --delete parameter is ADDED\n\n" +
@@ -95,7 +95,7 @@ final class ObservableParametersRsync {
         }
     }
 
-    // Return the updated configuration
+    /// Return the updated configuration
     func updatersyncparameters() -> SynchronizeConfiguration? {
         if var configuration {
             if parameter8.isEmpty { configuration.parameter8 = nil } else { configuration.parameter8 = parameter8 }
@@ -134,7 +134,7 @@ final class ObservableParametersRsync {
         adddelete = false
     }
 
-    // parameter4 --delete
+    /// parameter4 --delete
     func adddelete(_ adddelete: Bool) {
         guard configuration != nil else { return }
         if adddelete {

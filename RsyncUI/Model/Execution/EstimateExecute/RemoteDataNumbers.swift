@@ -33,25 +33,25 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     var offsiteServer: String = ""
     var backupID: String = ""
 
-    // Detailed output used in Views, allocated as part of process termination estimate
+    /// Detailed output used in Views, allocated as part of process termination estimate
     var outputfromrsync: [RsyncOutputData]?
-    // True if data to synchronize
+    /// True if data to synchronize
     var datatosynchronize: Bool = false
-    // Ask if synchronizing so much data
-    // is true or not. If not either yes,
-    // new task or no if like server is not
-    // online.
+    /// Ask if synchronizing so much data
+    /// is true or not. If not either yes,
+    /// new task or no if like server is not
+    /// online.
     var confirmexecute: Bool = false
-    // Summarized stats
+    /// Summarized stats
     var stats: String?
-    // A reduced number of output
+    /// A reduced number of output
     var preparedoutputfromrsync: [String]?
-    // Number of lines in output to handle
+    /// Number of lines in output to handle
     let numberoflines = 20
 
-    // True if the two following arguments for rsync is present
-    // - `--itemize-changes` - output change-summary for all updates
-    // - `--update` - evaluates the timestamp
+    /// True if the two following arguments for rsync is present
+    /// - `--itemize-changes` - output change-summary for all updates
+    /// - `--update` - evaluates the timestamp
     var itemizechanges: Bool = false
 
     private mutating func defaultvalues() {

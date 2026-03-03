@@ -14,7 +14,7 @@ struct RestoreTableView: View {
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var gettingfilelist: Bool = false
     @State private var focusaborttask: Bool = false
-    // Restore snapshot
+    /// Restore snapshot
     @State var snapshotdata = ObservableSnapshotData()
     // Streaming strong references
     @State private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?

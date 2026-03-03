@@ -37,15 +37,15 @@ struct TasksView: View {
     @Bindable var progressdetails: ProgressDetails
     @Bindable var schedules: ObservableSchedules
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    // Navigation path for executetasks
+    /// Navigation path for executetasks
     @Binding var executetaskpath: [Tasks]
-    // For URL commands within RsyncUI
+    /// For URL commands within RsyncUI
     @Binding var urlcommandestimateandsynchronize: Bool
-    // Show or hide Toolbox
+    /// Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
-    // Selected profile
+    /// Selected profile
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
-    // Save output from real synchronize task to logfile
+    /// Save output from real synchronize task to logfile
     @State var saveactualsynclogdata: Bool = false
 
     // Focus buttons from the menu
@@ -57,11 +57,11 @@ struct TasksView: View {
     // Local data for present local and remote info about task
     @State var selectedconfig: SynchronizeConfiguration?
     @State var doubleclick: Bool = false
-    // Alert button
+    /// Alert button
     @State var showingAlert = false
-    // Progress synchronizing
+    /// Progress synchronizing
     @State var progress: Double = 0
-    // Not used, only for parameter
+    /// Not used, only for parameter
     @State var maxcount: Double = 0
     // For estimates is true
     @State var thereareestimates: Bool = false
@@ -206,8 +206,8 @@ extension TasksView {
         return haltedtasks?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0
     }
 
-    // Double click action is discovered in the ListofTasksMainView
-    // Must do some checks her as well
+    /// Double click action is discovered in the ListofTasksMainView
+    /// Must do some checks her as well
     func doubleClickActionFunction() {
         guard SharedReference.shared.norsync == false else { return }
         // Must check if task is halted

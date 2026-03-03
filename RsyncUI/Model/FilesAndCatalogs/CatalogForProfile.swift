@@ -35,7 +35,7 @@ struct CatalogForProfile {
         return true
     }
 
-    // Function for deleting profile directory
+    /// Function for deleting profile directory
     func deleteProfileCatalog(_ profile: String?) -> Bool {
         let fmanager = FileManager.default
         if let fullpathmacserial = path.fullpathmacserial, let profile {

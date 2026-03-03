@@ -11,7 +11,8 @@ import RsyncArguments
 @MainActor
 struct Params {
     func params(
-        config: SynchronizeConfiguration) -> Parameters {
+        config: SynchronizeConfiguration
+    ) -> Parameters {
         var rsyncdaemon = false
         var deleteExtraneous = false
         var sshport = ""

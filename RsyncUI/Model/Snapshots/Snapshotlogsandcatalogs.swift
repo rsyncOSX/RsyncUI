@@ -44,7 +44,7 @@ final class Snapshotlogsandcatalogs {
         }
     }
 
-    // Merging remote snaphotcatalogs and existing logs
+    /// Merging remote snaphotcatalogs and existing logs
     private func mergeremotecatalogsandlogs() {
         var adjustedlogrecords: [LogRecordSnapshot]?
         let mycatalogs = catalogsanddates
@@ -84,8 +84,8 @@ final class Snapshotlogsandcatalogs {
         mysnapshotdata?.readlogrecordsfromfile = logrecords
     }
 
-    // Mapping all UUIDS not used logrecords. Those logrecords may be deleted.
-    // For snapshots, only log records with matched snap catalogs should be used
+    /// Mapping all UUIDS not used logrecords. Those logrecords may be deleted.
+    /// For snapshots, only log records with matched snap catalogs should be used
     private func mapnotuselogrecords() -> Set<UUID> {
         var mergedalluuids = Set<UUID>()
         var mergeuseduuids = Set<UUID>()

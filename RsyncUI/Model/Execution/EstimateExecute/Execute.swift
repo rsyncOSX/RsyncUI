@@ -34,7 +34,7 @@ final class Execute {
     // Collect loggdata for later save to permanent storage (hiddenID, log)
     private var configrecords = [ScheduleLogData]()
     private var schedulerecords = [ScheduleLogData]()
-    // Report progress to caller
+    /// Report progress to caller
     var localfileHandler: (Int) -> Void
     // Update configurations
     var localupdateconfigurations: ([SynchronizeConfiguration]) -> Void

@@ -13,7 +13,7 @@ import OSLog
 final class ObservableChartData {
     var parsedlogs: [LogEntry]?
 
-    // Only read logrecords from store once
+    /// Only read logrecords from store once
     func readandparselogs(profile: String?, validhiddenIDs: Set<Int>, hiddenID: Int) async {
         guard parsedlogs == nil else { return }
         // Read logrecords

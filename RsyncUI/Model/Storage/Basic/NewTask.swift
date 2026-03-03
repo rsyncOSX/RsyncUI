@@ -16,9 +16,9 @@ struct NewTask {
     var newoffsiteUsername: String?
     var newoffsiteServer: String?
     var newbackupID: String?
-    // Use hiddenID for update
+    /// Use hiddenID for update
     var hiddenID: Int?
-    // For snapshottask, snapshotnum might be reset
+    /// For snapshottask, snapshotnum might be reset
     var snapshotnum: Int?
 
     init(_ task: String,

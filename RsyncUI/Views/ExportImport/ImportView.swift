@@ -47,7 +47,8 @@ struct ImportView: View {
                                         rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(configurations)
                                     } else {
                                         rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(
-                                            configurations.filter { selecteduuids.contains($0.id) })
+                                            configurations.filter { selecteduuids.contains($0.id) }
+                                        )
                                     }
                                     if SharedReference.shared.duplicatecheck {
                                         if let configurations = rsyncUIdata.configurations {
@@ -75,7 +76,8 @@ struct ImportView: View {
                                         rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(configurations)
                                     } else {
                                         rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(
-                                            configurations.filter { selecteduuids.contains($0.id) })
+                                            configurations.filter { selecteduuids.contains($0.id) }
+                                        )
                                     }
                                     if SharedReference.shared.duplicatecheck {
                                         if let configurations = rsyncUIdata.configurations {

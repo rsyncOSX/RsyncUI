@@ -42,7 +42,7 @@ struct DecodeLog: Codable, Hashable {
         resultExecuted = try values.decodeIfPresent(String.self, forKey: .resultExecuted)
     }
 
-    // This init is used in WriteConfigurationJSON
+    /// This init is used in WriteConfigurationJSON
     init() {
         dateExecuted = nil
         resultExecuted = nil

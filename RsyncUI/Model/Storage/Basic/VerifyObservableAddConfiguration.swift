@@ -13,7 +13,7 @@ import ProcessCommand
 struct VerifyObservableAddConfiguration: Connected {
     var observed: ObservableAddConfigurations
 
-    // Validate current values from ObservableAddConfigurations. Returns true when input is valid.
+    /// Validate current values from ObservableAddConfigurations. Returns true when input is valid.
     func verify() -> Bool {
         let snapshotvalue: Int? = {
             guard observed.snapshotnum.isEmpty == false else { return nil }

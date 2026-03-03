@@ -19,10 +19,10 @@ struct ProfilesnamesRecord: Identifiable, Equatable, Hashable {
 final class RsyncUIconfigurations {
     var configurations: [SynchronizeConfiguration]?
     var profile: String?
-    // This is observed when URL actions are initiated.
-    // Before commence the real action must be sure that selected profile data is loaded from store
+    /// This is observed when URL actions are initiated.
+    /// Before commence the real action must be sure that selected profile data is loaded from store
     @ObservationIgnored var validprofiles: [ProfilesnamesRecord] = []
-    // Toggle sidebar
+    /// Toggle sidebar
     var columnVisibility = NavigationSplitViewVisibility.doubleColumn
     // .doubleColumn or .detailOnly
 
@@ -38,7 +38,7 @@ final class RsyncUIconfigurations {
         } ?? false
     }
 
-    // Ver 3.x of rsync
+    /// Ver 3.x of rsync
     @ObservationIgnored var oneormoresynchronizetasksisremoteVer3x: Bool {
         guard SharedReference.shared.rsyncversion3 else { return false }
         return configurations?.contains { $0.task == SharedReference.shared.synchronize &&
@@ -46,7 +46,7 @@ final class RsyncUIconfigurations {
         } ?? false
     }
 
-    // Openrsync
+    /// Openrsync
     @ObservationIgnored var oneormoresynchronizetasksisremoteOrsync: Bool {
         configurations?.contains { $0.task == SharedReference.shared.synchronize &&
             !$0.offsiteServer.isEmpty

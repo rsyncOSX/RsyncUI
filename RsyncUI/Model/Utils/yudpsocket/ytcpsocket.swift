@@ -42,7 +42,7 @@ import Foundation
 
 open class TCPClient: Socket {
     open func connect(timeout: Int) -> ResultYTP {
-        let rs: Int32 = c_ytcpsocket_connect(address, port: Int32(self.port), timeout: Int32(timeout))
+        let rs: Int32 = c_ytcpsocket_connect(address, port: Int32(port), timeout: Int32(timeout))
         if rs > 0 {
             fd = rs
             return .success
@@ -109,9 +109,7 @@ open class TCPClient: Socket {
         let readLen = c_ytcpsocket_pull(fd, buff: &buff, len: Int32(expectlen), timeout: Int32(timeout))
         if readLen <= 0 { return nil }
         let rs = buff[0 ... Int(readLen - 1)]
-        let data: [Byte] = Array(rs)
-
-        return data
+        return Array(rs)
     }
 
     open func bytesAvailable() -> Int32? {

@@ -8,7 +8,10 @@
 import Foundation
 
 struct Catalog: Identifiable, Hashable {
-    var id: String { name }
+    var id: String {
+        name
+    }
+
     let name: String
 
     init(_ name: String) {

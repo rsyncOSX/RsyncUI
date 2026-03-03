@@ -27,8 +27,13 @@ final class ArgumentsSnapshotDeleteCatalogs {
         return nil
     }
 
-    func getArguments() -> [String]? { arguments }
-    func getCommand() -> String? { command }
+    func getArguments() -> [String]? {
+        arguments
+    }
+
+    func getCommand() -> String? {
+        command
+    }
 
     init(config: SynchronizeConfiguration, remotecatalog: String) {
         self.config = config

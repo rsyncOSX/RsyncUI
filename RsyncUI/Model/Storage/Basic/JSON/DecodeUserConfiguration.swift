@@ -9,13 +9,13 @@ import Foundation
 
 struct DecodeUserConfiguration: Codable {
     let rsyncversion3: Int?
-    // Detailed logging
+    /// Detailed logging
     let addsummarylogrecord: Int?
-    // local path for rsync
+    /// local path for rsync
     let localrsyncpath: String?
-    // temporary path for restore
+    /// temporary path for restore
     let pathforrestore: String?
-    // days for mark days since last synchronize
+    /// days for mark days since last synchronize
     let marknumberofdayssince: String?
     // Global ssh keypath and port
     let sshkeypathandidentityfile: String?
@@ -24,21 +24,19 @@ struct DecodeUserConfiguration: Codable {
     let environment: String?
     let environmentvalue: String?
     let checkforerrorinrsyncoutput: Int?
-    // Confirm execute
+    /// Confirm execute
     let confirmexecute: Int?
-    // No timedaly synchronize URL actions
+    /// No timedaly synchronize URL actions
     let synchronizewithouttimedelay: Int?
-    // Hide or show the Sidebar on startup
+    /// Hide or show the Sidebar on startup
     let sidebarishidden: Int?
-    // Observe mounting local atteched discs
+    /// Observe mounting local atteched discs
     let observemountedvolumes: Int?
-    // Alwasy show the summarized estimate view
+    /// Alwasy show the summarized estimate view
     let alwaysshowestimateddetailsview: Int?
-    // Use two tables Inspector
-    let usetwotablesInspector: Int?
-    // Silence missing stats
+    /// Silence missing stats
     let silencemissingstats: Int?
-    // Validate arguments
+    /// Validate arguments
     let validatearguments: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -57,7 +55,6 @@ struct DecodeUserConfiguration: Codable {
         case sidebarishidden
         case observemountedvolumes
         case alwaysshowestimateddetailsview
-        case usetwotablesInspector
         case silencemissingstats
         case validatearguments
     }
@@ -79,7 +76,6 @@ struct DecodeUserConfiguration: Codable {
         sidebarishidden = try values.decodeIfPresent(Int.self, forKey: .sidebarishidden)
         observemountedvolumes = try values.decodeIfPresent(Int.self, forKey: .observemountedvolumes)
         alwaysshowestimateddetailsview = try values.decodeIfPresent(Int.self, forKey: .alwaysshowestimateddetailsview)
-        usetwotablesInspector = try values.decodeIfPresent(Int.self, forKey: .usetwotablesInspector)
         silencemissingstats = try values.decodeIfPresent(Int.self, forKey: .silencemissingstats)
         validatearguments = try values.decodeIfPresent(Int.self, forKey: .validatearguments)
     }

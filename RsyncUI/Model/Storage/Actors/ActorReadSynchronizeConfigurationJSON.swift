@@ -31,7 +31,7 @@ actor ActorReadSynchronizeConfigurationJSON {
                 decodeimport.decodeArray(DecodeSynchronizeConfiguration.self, fromFile: filename)
 
             Logger.process.debugThreadOnly("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default") ?? DECODE")
-            let tasks = data.compactMap { element in
+            return data.compactMap { element in
                 // snapshot and syncremote tasks requiere version3.x of rsync
                 if element.task == "snapshot" || element.task == "syncremote" {
                     if rsyncversion3 {
@@ -42,8 +42,6 @@ actor ActorReadSynchronizeConfigurationJSON {
                 }
                 return nil
             }
-
-            return tasks
         } catch {
             let profileName = profile ?? "default profile"
             let errorMessage = "ActorReadSynchronizeConfigurationJSON - \(profileName): " +

@@ -38,7 +38,7 @@ struct VerifyConfigurationTests {
     // MARK: - Valid Configuration Tests
 
     @Test("Valid local synchronization configuration")
-    func validLocalSynchronization() async {
+    func validLocalSynchronization() {
         let task = makeValidTask()
         let verifier = VerifyConfiguration()
 
@@ -54,7 +54,7 @@ struct VerifyConfigurationTests {
     }
 
     @Test("Valid remote synchronization with SSH")
-    func validRemoteSynchronization() async {
+    func validRemoteSynchronization() {
         let task = makeValidTask(
             username: "testuser",
             server: "testserver.local"
@@ -69,7 +69,7 @@ struct VerifyConfigurationTests {
     }
 
     @Test("Valid syncremote task")
-    func validSyncremoteTask() async {
+    func validSyncremoteTask() {
         SharedReference.shared.rsyncversion3 = true
 
         let task = makeValidTask(
@@ -88,7 +88,7 @@ struct VerifyConfigurationTests {
     // MARK: - Missing Catalog Tests
 
     @Test("Reject empty local catalog")
-    func rejectEmptyLocalCatalog() async {
+    func rejectEmptyLocalCatalog() {
         let task = makeValidTask(localCatalog: "")
         let verifier = VerifyConfiguration()
 
@@ -98,7 +98,7 @@ struct VerifyConfigurationTests {
     }
 
     @Test("Reject empty remote catalog")
-    func rejectEmptyRemoteCatalog() async {
+    func rejectEmptyRemoteCatalog() {
         let task = makeValidTask(offsiteCatalog: "")
         let verifier = VerifyConfiguration()
 
@@ -108,7 +108,7 @@ struct VerifyConfigurationTests {
     }
 
     @Test("Reject both catalogs empty")
-    func rejectBothCatalogsEmpty() async {
+    func rejectBothCatalogsEmpty() {
         let task = makeValidTask(
             localCatalog: "",
             offsiteCatalog: ""
@@ -123,7 +123,7 @@ struct VerifyConfigurationTests {
     // MARK: - SSH Configuration Validation Tests
 
     @Test("Reject server without username")
-    func rejectServerWithoutUsername() async {
+    func rejectServerWithoutUsername() {
         let task = makeValidTask(
             username: nil,
             server: "testserver.local"
@@ -136,7 +136,7 @@ struct VerifyConfigurationTests {
     }
 
     @Test("Reject username without server")
-    func rejectUsernameWithoutServer() async {
+    func rejectUsernameWithoutServer() {
         let task = makeValidTask(
             username: "testuser",
             server: nil
@@ -149,7 +149,7 @@ struct VerifyConfigurationTests {
     }
 
     @Test("Reject empty server with username")
-    func rejectEmptyServerWithUsername() async {
+    func rejectEmptyServerWithUsername() {
         let task = makeValidTask(
             username: "testuser",
             server: ""
@@ -162,7 +162,7 @@ struct VerifyConfigurationTests {
     }
 
     @Test("Reject empty username with server")
-    func rejectEmptyUsernameWithServer() async {
+    func rejectEmptyUsernameWithServer() {
         let task = makeValidTask(
             username: "",
             server: "testserver.local"
@@ -177,7 +177,7 @@ struct VerifyConfigurationTests {
     // MARK: - Trailing Slash Handling Tests
 
     @Test("Add trailing slash when specified")
-    func addTrailingSlash() async {
+    func addTrailingSlash() {
         let task = makeValidTask(
             localCatalog: "/Users/test/Documents",
             offsiteCatalog: "/backup/Documents",
@@ -193,7 +193,7 @@ struct VerifyConfigurationTests {
     }
 
     @Test("Remove trailing slash when do_not_add")
-    func removeTrailingSlash() async {
+    func removeTrailingSlash() {
         let task = makeValidTask(
             localCatalog: "/Users/test/Documents/",
             offsiteCatalog: "/backup/Documents/",
@@ -211,7 +211,7 @@ struct VerifyConfigurationTests {
     }
 
     @Test("Preserve paths with do_not_check")
-    func preservePathsNoCheck() async {
+    func preservePathsNoCheck() {
         let task = makeValidTask(
             localCatalog: "/Users/test/Documents",
             offsiteCatalog: "/backup/Documents/",
@@ -227,7 +227,7 @@ struct VerifyConfigurationTests {
     }
 
     @Test("Handle already present trailing slash with add option")
-    func handleExistingTrailingSlashWithAdd() async {
+    func handleExistingTrailingSlashWithAdd() {
         let task = makeValidTask(
             localCatalog: "/Users/test/Documents/",
             offsiteCatalog: "/backup/Documents/",
@@ -245,7 +245,7 @@ struct VerifyConfigurationTests {
     // MARK: - Snapshot Validation Tests
 
     @Test("Reject snapshot task without rsync version 3")
-    func rejectSnapshotWithoutVersion3() async {
+    func rejectSnapshotWithoutVersion3() {
         SharedReference.shared.rsyncversion3 = false
 
         let task = makeValidTask(

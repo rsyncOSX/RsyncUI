@@ -11,7 +11,7 @@ import SwiftUI
 struct ExecuteNoEstTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<UUID>
-    // Navigation path for executetasks
+    /// Navigation path for executetasks
     @Binding var executetaskpath: [Tasks]
 
     @State private var noestprogressdetails = NoEstProgressDetails()

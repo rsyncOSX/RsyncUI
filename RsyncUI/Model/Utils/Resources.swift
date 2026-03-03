@@ -5,7 +5,7 @@
 
 import Foundation
 
-// Enumtype type of resource
+/// Enumtype type of resource
 enum ResourceType {
     case changelog
     case documents
@@ -17,7 +17,7 @@ struct Resources {
     private var changelog: String = "https://rsyncui.netlify.app/blog/"
     private var documents: String = "https://rsyncui.netlify.app/docs/"
     private var urlJSON: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncUI/master/versionRsyncUI/versionRsyncUI.json"
-    // Get the resource.
+    /// Get the resource.
     func getResource(resource: ResourceType) -> String {
         switch resource {
         case .changelog:

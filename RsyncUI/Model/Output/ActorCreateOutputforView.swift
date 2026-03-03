@@ -8,7 +8,7 @@
 import OSLog
 
 actor ActorCreateOutputforView {
-    // From Array[String]
+    /// From Array[String]
     @concurrent
     nonisolated func createOutputForView(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.debugThreadOnly("ActorCreateOutputforView: createaoutputforview()")
@@ -20,7 +20,7 @@ actor ActorCreateOutputforView {
         return []
     }
 
-    // From Set<String>
+    /// From Set<String>
     @concurrent
     nonisolated func createOutputForView(_ setoutputfromrsync: Set<String>?) async -> [RsyncOutputData] {
         Logger.process.debugThreadOnly("ActorCreateOutputforView: createaoutputforview()")
@@ -32,7 +32,7 @@ actor ActorCreateOutputforView {
         return []
     }
 
-    // Show filelist for Restore, the TrimOutputForRestore prepares list
+    /// Show filelist for Restore, the TrimOutputForRestore prepares list
     @concurrent
     nonisolated func createoutputforrestore(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.debugThreadOnly("ActorCreateOutputforView: createoutputforrestore()")
@@ -46,7 +46,7 @@ actor ActorCreateOutputforView {
         return []
     }
 
-    // After a restore, present files
+    /// After a restore, present files
     @concurrent
     nonisolated func createoutputafterrestore(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.debugThreadOnly("ActorCreateOutputforView: createoutputafterrestore()")
@@ -58,7 +58,7 @@ actor ActorCreateOutputforView {
         return []
     }
 
-    // Logfile
+    /// Logfile
     @concurrent
     nonisolated func createaoutputlogfileforview() async -> [LogfileRecords] {
         Logger.process.debugThreadOnly("ActorCreateOutputforView: createaoutputlogfileforview()")

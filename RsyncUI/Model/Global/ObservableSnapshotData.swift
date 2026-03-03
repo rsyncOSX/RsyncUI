@@ -16,16 +16,16 @@ final class ObservableSnapshotData {
     // Deleteobject
     var delete: DeleteSnapshots?
     var inprogressofdelete: Bool = false
-    // Show progress view when getting data
+    /// Show progress view when getting data
     var snapshotlist: Bool = false
     // UUIDs for DELETE snapshots
     var snapshotuuidsfordelete = Set<LogRecordSnapshot.ID>()
     var snapshotfolders: [SnapshotFolder] = []
     var logrecordssnapshot: [LogRecordSnapshot]?
-    // Originally loaded logrecords, to be used if cleaning up logrecords
-    // with no snapshot catalogs
+    /// Originally loaded logrecords, to be used if cleaning up logrecords
+    /// with no snapshot catalogs
     var readlogrecordsfromfile: [LogRecords]?
-    // UUIDs for logrecords with no snapshot catalogs
+    /// UUIDs for logrecords with no snapshot catalogs
     var notmappedloguuids: Set<Log.ID>?
 
     func setsnapshotdata(_ data: [LogRecordSnapshot]?) {

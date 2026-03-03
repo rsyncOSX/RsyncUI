@@ -11,7 +11,7 @@ import SwiftUI
 struct SummarizedDetailsView: View {
     @Bindable var progressdetails: ProgressDetails
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    // Navigation path for executetasks
+    /// Navigation path for executetasks
     @Binding var executetaskpath: [Tasks]
 
     @State private var focusstartexecution: Bool = false
@@ -19,7 +19,7 @@ struct SummarizedDetailsView: View {
 
     let configurations: [SynchronizeConfiguration]
     let profile: String?
-    // URL code
+    /// URL code
     let queryitem: URLQueryItem?
 
     var body: some View {
@@ -144,7 +144,7 @@ struct SummarizedDetailsView: View {
             }
     }
 
-    // URL code
+    /// URL code
     var datatosynchronizeURL: Bool {
         if queryitem != nil, progressdetails.estimatealltasksinprogress == false {
             let datatosynchronize = progressdetails.estimatedlist?.filter { $0.datatosynchronize == true }

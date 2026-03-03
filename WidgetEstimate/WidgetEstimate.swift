@@ -83,8 +83,7 @@ struct RsyncUIEstimateProvider: @preconcurrency TimelineProvider {
     var queryelements: URLComponents? {
         if let url {
             do {
-                let queryelement = try RsyncUIDeepLinks().validateScheme(url)
-                return queryelement
+                return try RsyncUIDeepLinks().validateScheme(url)
             } catch {
                 return nil
             }

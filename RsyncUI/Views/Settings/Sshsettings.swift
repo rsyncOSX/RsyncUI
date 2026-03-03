@@ -11,7 +11,7 @@ import SwiftUI
 struct Sshsettings: View {
     @State private var sshsettings = ObservableSSH()
     @State private var localsshkeys: Bool = SshKeys().validatepublickeypresent()
-    // Show keys are created
+    /// Show keys are created
     @State private var showsshkeyiscreated: Bool = false
 
     var body: some View {

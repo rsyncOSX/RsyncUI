@@ -14,7 +14,7 @@ struct LogsbyConfigurationView: View {
     @State private var hiddenID = -1
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var selectedloguuids = Set<Log.ID>()
-    // Alert for delete
+    /// Alert for delete
     @State private var confirmdelete = false
     // Filterstring
     @State private var filterstring: String = ""

@@ -17,7 +17,7 @@ struct DefaultView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var selectedTab: InspectorTab = .edit
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    // Show Inspector view, if true shwo inspectors by default on both views
+    /// Show Inspector view, if true shwo inspectors by default on both views
     @State var showinspector: Bool = false
 
     var body: some View {

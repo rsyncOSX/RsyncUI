@@ -10,10 +10,12 @@ import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
     case synchronize, tasks, verify_tasks, snapshots, log_listings, restore, profiles
-    var id: String { rawValue }
+    var id: String {
+        rawValue
+    }
 }
 
-// The sidebar is context sensitive, it is computed everytime a new profile is loaded
+/// The sidebar is context sensitive, it is computed everytime a new profile is loaded
 struct MenuItem: Identifiable, Hashable {
     var menuitem: Sidebaritems
     let id = UUID()
@@ -30,24 +32,24 @@ struct SidebarMainView: View {
     @State private var progressdetails = ProgressDetails()
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State var selectedview: Sidebaritems = .synchronize
-    // paths used in NavigationStack, there are three parts where
-    // NavigationStack is utilized
-    // Navigation path for executetasks
+    /// paths used in NavigationStack, there are three parts where
+    /// NavigationStack is utilized
+    /// Navigation path for executetasks
     @State var executetaskpath: [Tasks] = []
-    // Verify navigation
-    // @State private var verifypath: [Verify] = []
-    // Check if new version
+    /// Verify navigation
+    /// @State private var verifypath: [Verify] = []
+    /// Check if new version
     @State private var newversion = CheckfornewversionofRsyncUI()
-    // URL code
+    /// URL code
     @State var queryitem: URLQueryItem?
     // Bindings in TaskView triggered when Toolbar Icons, in TaskView, are pressed
     // Toolbar Icons with yellow icons
     @State var urlcommandestimateandsynchronize = false
     @State var urlcommandverify = false
-    // Toggle sidebar
+    /// Toggle sidebar
     @State var columnVisibility = NavigationSplitViewVisibility.doubleColumn
-    // .doubleColumn
-    // .detailOnly
+    /// .doubleColumn
+    /// .detailOnly
     @State var mountingvolumenow: Bool = false
     // Calendar
     @State private var schedules = ObservableSchedules()
@@ -191,14 +193,8 @@ struct SidebarMainView: View {
     func selectView(_ view: Sidebaritems) -> some View {
         switch view {
         case .tasks:
-            if SharedReference.shared.usetwotablesInspector {
-                NavigationStack {
-                    DefaultViewtwotables(rsyncUIdata: rsyncUIdata)
-                }
-            } else {
-                NavigationStack {
-                    DefaultView(rsyncUIdata: rsyncUIdata)
-                }
+            NavigationStack {
+                DefaultView(rsyncUIdata: rsyncUIdata)
             }
         case .log_listings:
             LogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
@@ -233,11 +229,11 @@ struct SidebarMainView: View {
             SharedReference.shared.process != nil
     }
 
-    // The Sidebar meny is context sensitive. There are three Sidebar meny options
-    // which are context sensitive:
-    // - Snapshots
-    // - Verify remote
-    // - Restore
+    /// The Sidebar meny is context sensitive. There are three Sidebar meny options
+    /// which are context sensitive:
+    /// - Snapshots
+    /// - Verify remote
+    /// - Restore
     var menuitems: [MenuItem] {
         Sidebaritems.allCases.compactMap { item in
             // Return nil if there is one or more snapshot tasks

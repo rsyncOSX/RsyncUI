@@ -23,7 +23,7 @@ enum Rsyncerror: LocalizedError {
 final class TrimOutputFromRsync {
     var trimmeddata: [String]?
 
-    // Check for error in output form rsync
+    /// Check for error in output form rsync
     func checkForRsyncError(_ line: String) throws {
         let error = line.contains("rsync error:")
         if error {

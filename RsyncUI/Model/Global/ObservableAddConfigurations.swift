@@ -12,8 +12,13 @@ import OSLog
 enum TrailingSlash: String, CaseIterable, Identifiable, CustomStringConvertible {
     case add, do_not_add, do_not_check
 
-    var id: String { rawValue }
-    var description: String { rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ") }
+    var id: String {
+        rawValue
+    }
+
+    var description: String {
+        rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ")
+    }
 }
 
 @Observable @MainActor
@@ -37,14 +42,14 @@ final class ObservableAddConfigurations {
 
     var showsaveurls: Bool = false
 
-    // When --delete parameter is present (shown in red)
+    /// When --delete parameter is present (shown in red)
     let helptext1 = "The Synchronize ID is shown in RED because\n" +
         "the --delete parameter is currently ENABLED\n\n" +
         "To disable the --delete parameter:\n\n" +
         "select tabview Parameters,\n" +
         "select the task toggle the Switch to disable"
 
-    // When --delete parameter is not present (shown in blue)
+    /// When --delete parameter is not present (shown in blue)
     let helptext2 = "To enable the --delete parameter:\n\n" +
         "select tabview Parameters,\n" +
         "select the task toggle the Switch to enable"
@@ -152,7 +157,7 @@ final class ObservableAddConfigurations {
         }
     }
 
-    // Prepare for Copy and Paste tasks
+    /// Prepare for Copy and Paste tasks
     func prepareCopyAndPasteTasks(_ items: [CopyItem], _ configurations: [SynchronizeConfiguration]) {
         copyandpasteconfigurations = nil
         copyandpasteconfigurations = [SynchronizeConfiguration]()
@@ -174,7 +179,7 @@ final class ObservableAddConfigurations {
         }
     }
 
-    // After accept of Copy and Paste a write operation is performed
+    /// After accept of Copy and Paste a write operation is performed
     func writeCopyAndPasteTasks(_ profile: String?, _ configurations: [SynchronizeConfiguration]) -> [SynchronizeConfiguration]? {
         let updateconfigurations =
             UpdateConfigurations(profile: profile,
@@ -183,7 +188,7 @@ final class ObservableAddConfigurations {
     }
 }
 
-// Compute max hiddenID as part of copy and paste function..
+/// Compute max hiddenID as part of copy and paste function..
 struct MaxhiddenID {
     func computemaxhiddenID(_ configurations: [SynchronizeConfiguration]?) -> Int {
         if let configs = configurations {

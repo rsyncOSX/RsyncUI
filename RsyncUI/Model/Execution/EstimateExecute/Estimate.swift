@@ -86,7 +86,7 @@ final class Estimate {
         }
     }
 
-    // Used in Estimate
+    /// Used in Estimate
     private func validateTagging(_ lines: Int, _ tagged: Bool) throws {
         if lines > SharedReference.shared.alerttagginglines, tagged == false {
             throw ErrorDatatoSynchronize.thereisdatatosynchronize(idwitherror: synchronizeIDwitherror)

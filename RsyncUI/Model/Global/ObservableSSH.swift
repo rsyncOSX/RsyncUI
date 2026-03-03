@@ -11,9 +11,9 @@ import SSHCreateKey
 
 @Observable @MainActor
 final class ObservableSSH {
-    // Global SSH parameters
-    // Have to convert String -> Int before saving
-    // Set the current value as placeholder text
+    /// Global SSH parameters
+    /// Have to convert String -> Int before saving
+    /// Set the current value as placeholder text
     var sshportnumber: String = .init(SharedReference.shared.sshport ?? 22)
     // SSH keypath and identityfile, the settings View is picking up the current value
     // Set the current value as placeholder text

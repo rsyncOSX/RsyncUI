@@ -21,7 +21,7 @@ struct LogRecords: Identifiable, Codable {
     var dateStart: String
     var logrecords: [Log]?
 
-    // Used when reading JSON data from store
+    /// Used when reading JSON data from store
     init(_ data: DecodeLogRecords) {
         dateStart = data.dateStart ?? ""
         if let datahideenID = data.hiddenID {
@@ -35,7 +35,7 @@ struct LogRecords: Identifiable, Codable {
         }
     }
 
-    // Create an empty record with no values
+    /// Create an empty record with no values
     init() {
         hiddenID = -1
         dateStart = ""
@@ -57,12 +57,6 @@ extension LogRecords: Hashable, Equatable {
 }
 
 extension Log: Hashable, Equatable {
-    static func == (lhs: Log, rhs: Log) -> Bool {
-        lhs.dateExecuted == rhs.dateExecuted &&
-            lhs.resultExecuted == rhs.resultExecuted &&
-            lhs.id == rhs.id
-    }
-
     func hash(into hasher: inout Hasher) {
         hasher.combine(dateExecuted)
         hasher.combine(resultExecuted)

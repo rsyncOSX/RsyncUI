@@ -13,7 +13,9 @@ enum DestinationView: String, Identifiable {
          summarizeddetailsview, onetaskdetailsview,
          dryrunonetaskalreadyestimated, quick_synchronize,
          completedview, charts
-    var id: String { rawValue }
+    var id: String {
+        rawValue
+    }
 }
 
 struct Tasks: Hashable, Identifiable {
@@ -27,14 +29,14 @@ struct SidebarTasksView: View {
     @Bindable var schedules: ObservableSchedules
 
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    // Navigation path for executetasks
+    /// Navigation path for executetasks
     @Binding var executetaskpath: [Tasks]
     // URL code
     @Binding var queryitem: URLQueryItem?
     @Binding var urlcommandestimateandsynchronize: Bool
-    // Show or hide Toolbox
+    /// Show or hide Toolbox
     @Binding var columnVisibility: NavigationSplitViewVisibility
-    // Selected profile
+    /// Selected profile
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
 
     var body: some View {
@@ -135,7 +137,7 @@ struct SidebarTasksView: View {
 }
 
 extension SidebarTasksView {
-    // URL code
+    /// URL code
     private func handleQueryItem() {
         Logger.process.debugMessageOnly("SidebarTasksView: Change on queryitem discovered")
         if queryitem != nil {

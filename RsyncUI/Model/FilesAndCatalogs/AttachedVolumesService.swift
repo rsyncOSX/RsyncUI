@@ -8,7 +8,10 @@
 import Foundation
 
 struct AttachedVolume: Identifiable, Hashable {
-    var id: URL { volumeURL }
+    var id: URL {
+        volumeURL
+    }
+
     let volumeURL: URL
 
     init(_ url: URL) {

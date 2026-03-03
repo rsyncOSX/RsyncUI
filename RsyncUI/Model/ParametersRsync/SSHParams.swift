@@ -11,7 +11,8 @@ import RsyncArguments
 @MainActor
 struct SSHParams {
     func sshparams(
-        config: SynchronizeConfiguration) -> SSHParameters {
+        config: SynchronizeConfiguration
+    ) -> SSHParameters {
         var sshport = ""
         var sshkeypathandidentityfile = ""
         var sharedsshport = ""

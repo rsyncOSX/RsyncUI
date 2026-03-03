@@ -27,12 +27,12 @@ struct ScheduledItem: Identifiable, Hashable {
         self.scheduledata = scheduledata
     }
 
-    // Execute the wrapped callback
+    /// Execute the wrapped callback
     func execute() {
         callbackWrapper.callback()
     }
 
-    // Implement Hashable based on id only
+    /// Implement Hashable based on id only
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
@@ -47,20 +47,20 @@ struct ScheduledItem: Identifiable, Hashable {
 final class GlobalTimer {
     static let shared = GlobalTimer()
 
-    // Exposed Array of not executed Schedule
+    /// Exposed Array of not executed Schedule
     var allSchedules = [ScheduledItem]()
-    // Schedules not executed after WakeUp - func handleWake()
+    /// Schedules not executed after WakeUp - func handleWake()
     @ObservationIgnored
     var notExecutedSchedulesafterWakeUp: [ScheduledItem] = []
 
     // MARK: - Properties
 
-    // var scheduledata: [SchedulesConfigurations]?
-    // First schedule to execute
+    /// var scheduledata: [SchedulesConfigurations]?
+    /// First schedule to execute
     var firstscheduledate: SchedulesConfigurations?
-    // Trigger execution
+    /// Trigger execution
     var scheduledprofile: String = ""
-    // Trigger for not executed tasks after wakeup
+    /// Trigger for not executed tasks after wakeup
     var thereisnotexecutedschedulesafterwakeup: Bool = false
 
     @ObservationIgnored
@@ -76,18 +76,16 @@ final class GlobalTimer {
 
     // MARK: - Public API
 
-    // Verifying that there is a schedule in Set already, if false add schedule
-    // to set.
+    /// Verifying that there is a schedule in Set already, if false add schedule
+    /// to set.
     private func validatescheduleinset(_ schedule: ScheduledItem) -> Bool {
-        let validate = allSchedules.contains(where: { $0.time == schedule.time && $0.tolerance == schedule.tolerance })
-        return validate
+        allSchedules.contains(where: { $0.time == schedule.time && $0.tolerance == schedule.tolerance })
     }
 
-    // Check if there already is a timer in Set which more recent time which already is
-    // in Set. If false it executes the scheduleNextTimer.
+    /// Check if there already is a timer in Set which more recent time which already is
+    /// in Set. If false it executes the scheduleNextTimer.
     private func validateallschedulesalreadyintimer(_ schedule: ScheduledItem) -> Bool {
-        let validate = allSchedules.contains(where: { $0.time < schedule.time })
-        return validate
+        allSchedules.contains(where: { $0.time < schedule.time })
     }
 
     func timerIsActive() -> Bool {
@@ -160,7 +158,7 @@ final class GlobalTimer {
         }
     }
 
-    // Only set when loading data, when new schedules added or deleted
+    /// Only set when loading data, when new schedules added or deleted
     func setfirsscheduledate() {
         let dates = allSchedules.sorted { firstItem, secondItem in
             if let id1 = firstItem.scheduledata?.dateRun?.en_date_from_string(),
@@ -182,7 +180,7 @@ final class GlobalTimer {
 
     // MARK: - Private
 
-    // This function is triggered at time t, it finds the appropriate callback and executes it
+    /// This function is triggered at time t, it finds the appropriate callback and executes it
     private func checkSchedules() {
         if let item = allSchedules.first {
             if allSchedules.count > 0 {
