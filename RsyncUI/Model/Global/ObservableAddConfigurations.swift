@@ -58,7 +58,7 @@ final class ObservableAddConfigurations {
         To enable the --delete parameter select tabview
         Parameters, select the task and toggle the
         Switch to enable.\n
-        For your safety, please read the Documentation 
+        For your safety, please read the Documentation
         for more information about the --delete parameter.
     """
 

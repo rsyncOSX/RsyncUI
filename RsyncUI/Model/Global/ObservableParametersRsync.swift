@@ -32,13 +32,13 @@ final class ObservableParametersRsync {
 
     let helptext1 = """
         The --delete parameter is ADDED\n
-        To REMOVE --delete parameter select 
+        To REMOVE --delete parameter select
         the task and disable it.
     """
     let helptext2 = """
         To ADD --delete parameter
         select the task and enable it.\n
-        For your safety, please read the Documentation 
+        For your safety, please read the Documentation
         for more information about the --delete parameter.
     """
 
