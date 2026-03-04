@@ -10,6 +10,7 @@ import SwiftUI
 @MainActor
 struct LogRecordsTabView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var selectedTab: InspectorTab
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @State private var hiddenID = -1
@@ -151,38 +152,40 @@ struct LogRecordsTabView: View {
             }
         }
         .toolbar(content: {
-            ToolbarItem {
-                Button {
-                    selectedloguuids.removeAll()
-                    selecteduuids.removeAll()
-                } label: {
-                    if selectedloguuids.count == 0 {
-                        Image(systemName: "clear")
-                            .foregroundColor(Color(.blue))
-                    } else {
-                        Image(systemName: "clear")
-                            .foregroundColor(Color(.red))
-                            .overlay(
-                                Group {
-                                    if selectedloguuids.count > 50 {
-                                        // Show "50+" as text with proper sizing
-                                        Text("50+")
-                                            .font(.system(size: 9, weight: .bold))
-                                            .foregroundColor(.white)
-                                            .frame(minWidth: 24, minHeight: 24)
-                                            .background(Circle().fill(Color.red))
-                                    } else {
-                                        // Show number as SF Symbol
-                                        Image(systemName: "\(selectedloguuids.count).circle.fill")
-                                            .foregroundColor(.red)
+            if selectedTab == .logview {
+                ToolbarItem {
+                    Button {
+                        selectedloguuids.removeAll()
+                        selecteduuids.removeAll()
+                    } label: {
+                        if selectedloguuids.count == 0 {
+                            Image(systemName: "clear")
+                                .foregroundColor(Color(.blue))
+                        } else {
+                            Image(systemName: "clear")
+                                .foregroundColor(Color(.red))
+                                .overlay(
+                                    Group {
+                                        if selectedloguuids.count > 50 {
+                                            // Show "50+" as text with proper sizing
+                                            Text("50+")
+                                                .font(.system(size: 9, weight: .bold))
+                                                .foregroundColor(.white)
+                                                .frame(minWidth: 24, minHeight: 24)
+                                                .background(Circle().fill(Color.red))
+                                        } else {
+                                            // Show number as SF Symbol
+                                            Image(systemName: "\(selectedloguuids.count).circle.fill")
+                                                .foregroundColor(.red)
+                                        }
                                     }
-                                }
-                                .allowsHitTesting(false)
-                                .offset(x: 10, y: -10)
-                            )
+                                    .allowsHitTesting(false)
+                                    .offset(x: 10, y: -10)
+                                )
+                        }
                     }
+                    .help("Reset selections")
                 }
-                .help("Reset selections")
             }
         })
         .padding()

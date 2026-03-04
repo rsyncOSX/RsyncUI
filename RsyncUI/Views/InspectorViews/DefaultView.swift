@@ -65,6 +65,7 @@ struct DefaultView: View {
 
                 LogRecordsTabView(
                     rsyncUIdata: rsyncUIdata,
+                    selectedTab: $selectedTab,
                     selecteduuids: $selecteduuids
                 )
                 .tabItem {
