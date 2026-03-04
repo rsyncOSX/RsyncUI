@@ -8,7 +8,7 @@
 import Foundation
 import OSLog
 
-struct TCPconnections: Sendable {
+struct TCPconnections {
     func verifyTCPconnection(_ host: String, port: Int, timeout: Int) -> Bool {
         let client = TCPClient(address: host, port: Int32(port))
         switch client.connect(timeout: timeout) {

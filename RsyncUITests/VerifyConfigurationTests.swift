@@ -33,7 +33,7 @@ func makeValidTask(
 }
 
 @MainActor
-@Suite("Configuration Validation Tests", .serialized)
+@Suite(.serialized)
 struct VerifyConfigurationTests {
     // MARK: - Valid Configuration Tests
 

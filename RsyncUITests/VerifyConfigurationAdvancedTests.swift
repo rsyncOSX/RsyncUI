@@ -10,7 +10,7 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite("Configuration Advanced Validation Tests", .serialized)
+@Suite(.serialized)
 struct VerifyConfigurationAdvancedTests {
     // MARK: - Syncremote Validation Tests
 

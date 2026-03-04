@@ -11,7 +11,7 @@ import RsyncArguments
 import Testing
 
 @MainActor
-@Suite("Arguments Generation Tests", .serialized)
+@Suite(.serialized)
 struct ArgumentsSynchronizeTests {
     func makeConfig(
         task: String = "synchronize",

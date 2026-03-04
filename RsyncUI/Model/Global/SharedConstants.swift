@@ -6,7 +6,7 @@
 //
 
 /// Sendable
-struct SharedConstants: Sendable {
+struct SharedConstants {
     // JSON names
     let filenamelogrecordsjson = "logrecords.json"
     let fileconfigurationsjson = "configurations.json"

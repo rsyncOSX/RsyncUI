@@ -19,7 +19,7 @@ struct AttachedVolume: Identifiable, Hashable {
     }
 }
 
-struct AttachedVolumesService: Sendable {
+struct AttachedVolumesService {
     func attachedVolumes() -> [AttachedVolume] {
         let keys: [URLResourceKey] = [
             .volumeNameKey,

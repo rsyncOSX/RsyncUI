@@ -10,7 +10,7 @@ import Foundation
 import Testing
 
 @MainActor
-@Suite("Deeplink URL Tests", .serialized)
+@Suite(.serialized)
 struct DeeplinkURLTests {
     @Test("Create estimate-and-synchronize URL with default profile")
     func createURLDefaultProfile() {
