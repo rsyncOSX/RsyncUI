@@ -74,6 +74,7 @@ struct DefaultView: View {
                 .tag(InspectorTab.logview)
                 .id(InspectorTab.logview)
             }
+            .navigationTitle("")
         }
     }
 }

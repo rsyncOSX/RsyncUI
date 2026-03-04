@@ -33,7 +33,7 @@ extension AddTaskView {
     var toolbarContent: some ToolbarContent {
         // Only show toolbar items when this tab is active
         if selectedTab == .edit {
-            ToolbarItem(placement: .status) {
+            ToolbarItem(placement: .navigation) {
                 Button {
                     newdata.resetForm()
                     selectedconfig = nil
