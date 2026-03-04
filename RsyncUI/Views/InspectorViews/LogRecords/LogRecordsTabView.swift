@@ -113,7 +113,7 @@ struct LogRecordsTabView: View {
             }
             .padding()
         }
-        .searchable(text: $filterstring)
+        .searchable(if: selectedTab == .logview, text: $filterstring)
         .task {
             let actorreadlogs = ActorReadLogRecordsJSON()
             logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
@@ -226,6 +226,18 @@ struct LogRecordsTabView: View {
             logs = await (updatedLogs ?? [])
             WriteLogRecordsJSON(rsyncUIdata.profile, records)
             selectedloguuids.removeAll()
+        }
+    }
+}
+
+// 1. Create a custom modifier extension
+extension View {
+    @ViewBuilder
+    func searchable(if condition: Bool, text: Binding<String>, prompt: String = "Search") -> some View {
+        if condition {
+            self.searchable(text: text, prompt: prompt)
+        } else {
+            self
         }
     }
 }
