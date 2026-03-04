@@ -261,9 +261,9 @@ extension RsyncParametersView {
 extension RsyncParametersView {
     var helpSheetView: some View {
         switch parameters.whichhelptext {
-        case 1: HelpView(text: parameters.helptext1, add: false, deleteparameterpresent: false)
-        case 2: HelpView(text: parameters.helptext2, add: false, deleteparameterpresent: false)
-        default: HelpView(text: parameters.helptext1, add: false, deleteparameterpresent: false)
+        case 1: HelpView(text: parameters.helptext1)
+        case 2: HelpView(text: parameters.helptext2)
+        default: HelpView(text: parameters.helptext1)
         }
     }
 }
