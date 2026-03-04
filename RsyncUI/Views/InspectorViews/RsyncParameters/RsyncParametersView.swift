@@ -32,6 +32,14 @@ struct RsyncParametersView: View {
             Divider()
 
             VStack(alignment: .center, spacing: 12) {
+                
+                Spacer()
+                
+                if selecteduuids.count == 0 {
+                    Text("No task\nselected")
+                        .font(.title2)
+                }
+                
                 Spacer()
             }
             .inspector(isPresented: $showinspector) {

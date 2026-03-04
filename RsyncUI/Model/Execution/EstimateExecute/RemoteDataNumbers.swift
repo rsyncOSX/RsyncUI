@@ -84,7 +84,7 @@ struct RemoteDataNumbers: Identifiable, Hashable {
         localCatalog = config?.localCatalog ?? ""
         offsiteServer = config?.offsiteServer ?? "localhost"
         offsiteCatalog = config?.offsiteCatalog ?? ""
-        backupID = config?.backupID ?? "Synchronize ID"
+        backupID = config?.backupID ?? "No ID set"
         id = config?.id ?? UUID()
 
         // Prepareoutput prepares output from rsync for extracting the numbers only.

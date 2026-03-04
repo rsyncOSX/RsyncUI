@@ -38,7 +38,7 @@ struct ReadAllTasks {
                 old = profileold.map { element in
                     var newelement = element
                     if newelement.backupID.isEmpty {
-                        newelement.backupID = "Synchronize ID"
+                        newelement.backupID = "No ID set"
                     }
                     newelement.backupID += " : " + profilename
                     return newelement
@@ -48,7 +48,7 @@ struct ReadAllTasks {
                     let profileold = profileold.map { element in
                         var newelement = element
                         if newelement.backupID.isEmpty {
-                            newelement.backupID = "Synchronize ID"
+                            newelement.backupID = "No ID set"
                         }
                         newelement.backupID += " : " + profilename
                         return newelement
