@@ -57,15 +57,6 @@ struct LogRecordsTabView: View {
                         }
                     }
                 }
-                .overlay {
-                    if configurations.count == 0 {
-                        ContentUnavailableView {
-                            Label("No tasks", systemImage: "doc.richtext.fill")
-                        } description: {
-                            Text("Add tasks in Tasks")
-                        }
-                    }
-                }
                 .onDeleteCommand {
                     confirmdelete = true
                 }
@@ -119,8 +110,8 @@ struct LogRecordsTabView: View {
 
                 Spacer()
             }
+            .padding()
         }
-        .navigationTitle("Log listing")
         .searchable(text: $filterstring)
         .task {
             let actorreadlogs = ActorReadLogRecordsJSON()
@@ -152,7 +143,6 @@ struct LogRecordsTabView: View {
                 showindebounce = true
                 try await Task.sleep(seconds: 1)
                 showindebounce = false
-                selecteduuids.removeAll()
                 selectedloguuids.removeAll()
 
                 let actorreadlogs = ActorReadLogRecordsJSON()

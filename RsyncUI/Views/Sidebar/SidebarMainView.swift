@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
-    case synchronize, tasks, verify_tasks, snapshots, log_listings, restore, profiles
+    case synchronize, tasks, verify_tasks, snapshots, restore, profiles
     var id: String {
         rawValue
     }
@@ -82,7 +82,6 @@ struct SidebarMainView: View {
                 if item.menuitem == .tasks ||
                     item.menuitem == .verify_tasks ||
                     item.menuitem == .snapshots ||
-                    item.menuitem == .log_listings ||
                     item.menuitem == .restore { Divider() }
             }
             .listStyle(.sidebar)
@@ -196,8 +195,6 @@ struct SidebarMainView: View {
             NavigationStack {
                 DefaultView(rsyncUIdata: rsyncUIdata)
             }
-        case .log_listings:
-            LogsbyConfigurationView(rsyncUIdata: rsyncUIdata)
         case .restore:
             NavigationStack {
                 RestoreTableView(profile: $rsyncUIdata.profile,
@@ -269,8 +266,6 @@ struct SidebarRow: View {
         switch view {
         case .tasks:
             "text.badge.plus"
-        case .log_listings:
-            "text.alignleft"
         case .restore:
             "arrowshape.turn.up.forward"
         case .snapshots:
