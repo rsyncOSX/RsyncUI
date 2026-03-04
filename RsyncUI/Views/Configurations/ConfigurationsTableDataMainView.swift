@@ -74,7 +74,7 @@ struct ConfigurationsTableDataMainView: View {
                         // If tagging is kind of suspicious and need attention
 
                         if data.backupID.isEmpty == true {
-                            Text("Synchronize ID")
+                            Text("No ID set")
                                 .foregroundColor(.yellow)
                         } else {
                             Text(data.backupID)
@@ -86,7 +86,7 @@ struct ConfigurationsTableDataMainView: View {
                     } else {
                         let color: Color = progressdetails.estimatedlist?[index].datatosynchronize == true ? .blue : .red
                         if data.backupID.isEmpty == true {
-                            Text("Synchronize ID")
+                            Text("No ID set")
                                 .foregroundColor(color)
                         } else {
                             Text(data.backupID)
@@ -95,7 +95,7 @@ struct ConfigurationsTableDataMainView: View {
                     }
                 } else {
                     if data.backupID.isEmpty == true {
-                        Text("Synchronize ID")
+                        Text("No ID set")
                     } else {
                         Text(data.backupID)
                     }

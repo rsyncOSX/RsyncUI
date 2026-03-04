@@ -18,7 +18,7 @@ struct ConfigurationsTableLoadDataView: View {
             TableColumn("Synchronize ID") { data in
                 if data.parameter4?.isEmpty == false {
                     if data.backupID.isEmpty == true {
-                        Text("Synchronize ID")
+                        Text("No ID set")
                             .foregroundColor(.red)
                     } else {
                         Text(data.backupID)
@@ -26,7 +26,7 @@ struct ConfigurationsTableLoadDataView: View {
                     }
                 } else {
                     if data.backupID.isEmpty == true {
-                        Text("Synchronize ID")
+                        Text("No ID set")
                     } else {
                         Text(data.backupID)
                     }

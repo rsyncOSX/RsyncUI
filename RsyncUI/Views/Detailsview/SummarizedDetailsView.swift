@@ -175,7 +175,7 @@ struct SummarizedDetailsView: View {
             TableColumn("Synchronize ID") { data in
                 if data.datatosynchronize {
                     if data.backupID.isEmpty == true {
-                        Text("Synchronize ID")
+                        Text("No ID set")
                             .foregroundColor(.blue)
                     } else {
                         Text(data.backupID)
@@ -183,7 +183,7 @@ struct SummarizedDetailsView: View {
                     }
                 } else {
                     if data.backupID.isEmpty == true {
-                        Text("Synchronize ID")
+                        Text("No ID set")
                     } else {
                         Text(data.backupID)
                     }
