@@ -10,7 +10,7 @@ import SwiftUI
 enum InspectorTab: Hashable {
     case edit
     case parameters
-    // case global
+    case logview
 }
 
 struct DefaultView: View {
@@ -62,6 +62,16 @@ struct DefaultView: View {
                     }
                     .tag(InspectorTab.parameters)
                     .id(InspectorTab.parameters)
+
+                LogRecordsTabView(
+                    rsyncUIdata: rsyncUIdata,
+                    selecteduuids: $selecteduuids
+                )
+                .tabItem {
+                    Label("Log records", systemImage: "slider.horizontal.3")
+                }
+                .tag(InspectorTab.logview)
+                .id(InspectorTab.logview)
             }
         }
     }
