@@ -23,30 +23,21 @@ struct RsyncParametersView: View {
     @State var presentarguments: Bool = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HelpSectionView(showhelp: $showhelp,
-                            whichhelptext: $parameters.whichhelptext,
-                            deleteparameterpresent: deleteparameterpresent)
-                .padding()
+        VStack(alignment: .center, spacing: 12) {
+            Spacer()
 
-            Divider()
-
-            VStack(alignment: .center, spacing: 12) {
-                Spacer()
-
-                if selecteduuids.count == 0 {
-                    Text("No task\nselected")
-                        .font(.title2)
-                }
-
-                Spacer()
+            if selecteduuids.count == 0 {
+                Text("No task\nselected")
+                    .font(.title2)
             }
-            .inspector(isPresented: $showinspector) {
-                inspectorView
-                    .inspectorColumnWidth(min: 400, ideal: 500, max: 600)
-            }
-            .padding()
+
+            Spacer()
         }
+        .inspector(isPresented: $showinspector) {
+            inspectorView
+                .inspectorColumnWidth(min: 400, ideal: 500, max: 600)
+        }
+        .padding()
         .sheet(isPresented: $showhelp) { helpSheetView }
         .onChange(of: rsyncUIdata.profile) {
             selectedconfig = nil

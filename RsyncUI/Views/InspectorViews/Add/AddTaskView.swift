@@ -49,30 +49,21 @@ struct AddTaskView: View {
     @State var presentglobaltaskview: Bool = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HelpSectionView(showhelp: $showhelp,
-                            whichhelptext: $newdata.whichhelptext,
-                            deleteparameterpresent: deleteparameterpresent)
-                .padding()
+        VStack(alignment: .center, spacing: 12) {
+            Spacer()
 
-            Divider()
-
-            VStack(alignment: .center, spacing: 12) {
-                Spacer()
-
-                if selecteduuids.count == 0 {
-                    Text("No task\nselected")
-                        .font(.title2)
-                }
-
-                Spacer()
+            if selecteduuids.count == 0 {
+                Text("No task\nselected")
+                    .font(.title2)
             }
-            .inspector(isPresented: $showinspector) {
-                inspectorView
-                    .inspectorColumnWidth(min: 400, ideal: 500, max: 600)
-            }
-            .padding()
+
+            Spacer()
         }
+        .inspector(isPresented: $showinspector) {
+            inspectorView
+                .inspectorColumnWidth(min: 400, ideal: 500, max: 600)
+        }
+        .padding()
         .sheet(isPresented: $showhelp) { helpSheetView }
         .onSubmit { handleSubmit() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }

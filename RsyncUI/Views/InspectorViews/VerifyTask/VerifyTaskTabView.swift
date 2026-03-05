@@ -100,7 +100,21 @@ struct VerifyTaskTabView: View {
         })
         .inspector(isPresented: $showinspector) {
             inspectorView
-                .inspectorColumnWidth(min: 500, ideal: 600, max: 700)
+                .inspectorColumnWidth(min: 400, ideal: 500, max: 600)
+        }
+        .onAppear {
+            if selecteduuids.count > 0 {
+                if let configurations = rsyncUIdata.configurations {
+                    if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                        selectedconfig = configurations[index]
+                        showinspector = true
+                    } else {
+                        selectedconfig = nil
+                        showinspector = false
+                    }
+                }
+            }
+            
         }
         .padding()
     }
