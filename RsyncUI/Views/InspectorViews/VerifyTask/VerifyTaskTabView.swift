@@ -56,6 +56,8 @@ struct VerifyTaskTabView: View {
             }
         }
         .onChange(of: selecteduuids) {
+            presentestimates = false
+            remotedatanumbers = nil
             if let configurations = rsyncUIdata.configurations {
                 if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                     selectedconfig = configurations[index]
@@ -173,6 +175,8 @@ struct VerifyTaskTabView: View {
     }
 
     func abort() {
+        presentestimates = false
+        remotedatanumbers = nil
         InterruptProcess()
     }
 }

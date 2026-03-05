@@ -65,6 +65,7 @@ struct AddTaskView: View {
             saveURLSection
         }
         .padding()
+        .onAppear { handleSelectionChange() }
         .onSubmit { handleSubmit() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
         .onChange(of: selecteduuids) { handleSelectionChange() }

@@ -76,6 +76,7 @@ struct RsyncParametersView: View {
                     }
             }
         }
+        .onAppear { handleSelectionChange() }
         .onChange(of: rsyncUIdata.profile) {
             selectedconfig = nil
             // selecteduuids.removeAll()
