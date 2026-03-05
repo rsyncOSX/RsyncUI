@@ -230,12 +230,12 @@ struct LogRecordsTabView: View {
     }
 }
 
-// 1. Create a custom modifier extension
+/// 1. Create a custom modifier extension
 extension View {
     @ViewBuilder
     func searchable(if condition: Bool, text: Binding<String>, prompt: String = "Search") -> some View {
         if condition {
-            self.searchable(text: text, prompt: prompt)
+            searchable(text: text, prompt: prompt)
         } else {
             self
         }

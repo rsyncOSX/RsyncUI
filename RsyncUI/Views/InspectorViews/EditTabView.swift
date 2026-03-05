@@ -1,5 +1,5 @@
 //
-//  DefaultView.swift
+//  EditTabView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 28/12/2025.
@@ -28,20 +28,20 @@ struct EditTabView: View {
                 rsyncUIdata: rsyncUIdata,
                 selecteduuids: $selecteduuids
             )
-                .frame(minWidth: 300)
-                .onChange(of: rsyncUIdata.profile) {
-                    selecteduuids.removeAll()
-                }
-                .overlay {
-                    if let config = rsyncUIdata.configurations, config.isEmpty {
-                        ContentUnavailableView {
-                            Label("There are no tasks added",
-                                  systemImage: "doc.richtext.fill")
-                        } description: {
-                            Text("Select the + button on the toolbar to add a task")
-                        }
+            .frame(minWidth: 300)
+            .onChange(of: rsyncUIdata.profile) {
+                selecteduuids.removeAll()
+            }
+            .overlay {
+                if let config = rsyncUIdata.configurations, config.isEmpty {
+                    ContentUnavailableView {
+                        Label("There are no tasks added",
+                              systemImage: "doc.richtext.fill")
+                    } description: {
+                        Text("Select the + button on the toolbar to add a task")
                     }
                 }
+            }
 
             Divider()
 
@@ -77,7 +77,7 @@ struct EditTabView: View {
                 }
                 .tag(InspectorTab.logview)
                 .id(InspectorTab.logview)
-                
+
                 VerifyTaskTabView(
                     rsyncUIdata: rsyncUIdata,
                     selectedTab: $selectedTab,

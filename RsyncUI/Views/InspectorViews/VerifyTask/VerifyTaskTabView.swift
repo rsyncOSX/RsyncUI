@@ -36,74 +36,73 @@ struct VerifyTaskTabView: View {
     @State private var itemizechanges: Bool = false
 
     var body: some View {
-        NavigationStack {
-            ZStack {
-                if estimating {
-                    ProgressView()
-                }
-
-                HStack {
-                    Text("Select a task and select the ")
-
-                    Text(Image(systemName: "play.fill"))
-
-                    Text(" on the toolbar to verify a task")
-                }
-            }
-            .onChange(of: selecteduuids) {
-                if let configurations = rsyncUIdata.configurations {
-                    if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                        selectedconfig = configurations[index]
-                        showinspector = true
-                    } else {
-                        selectedconfig = nil
-                        showinspector = false
+        VStack {
+            if presentestimates, let remotedatanumbers {
+                DetailsView(remotedatanumbers: remotedatanumbers, itemizechanges: remotedatanumbers.itemizechanges)
+            } else {
+                ZStack {
+                    if estimating {
+                        ProgressView()
                     }
-                }
-            }
-            .toolbar(content: {
-                
-                if selectedTab == .verifytask {
-                    if selectedconfig != nil,
-                       selectedconfig?.task != SharedReference.shared.halted {
-                        ToolbarItem {
-                            Button {
-                                if let selectedconfig {
-                                    estimating = true
-                                    verify(config: selectedconfig)
-                                }
-                            } label: {
-                                Image(systemName: "play.fill")
-                            }
-                            .help("Verify task")
+
+                    if showinspector == false {
+                        HStack {
+                            Text("Select a task and select the ")
+
+                            Text(Image(systemName: "play.fill"))
+
+                            Text(" on the toolbar to verify a task")
                         }
                     }
-
-                    if selectedconfig != nil,
-                       selectedconfig?.task != SharedReference.shared.halted {
-                        ToolbarItem {
-                            Button {
-                                abort()
-                            } label: {
-                                Image(systemName: "stop.fill")
-                            }
-                            .help("Abort (⌘K)")
-                        }
-                    }
-                }
-                
-            })
-            .inspector(isPresented: $showinspector) {
-                inspectorView
-                    .inspectorColumnWidth(min: 500, ideal: 600, max: 700)
-            }
-            .padding()
-            .navigationDestination(isPresented: $presentestimates) {
-                if let remotedatanumbers {
-                    DetailsView(remotedatanumbers: remotedatanumbers, itemizechanges: remotedatanumbers.itemizechanges)
                 }
             }
         }
+        .onChange(of: selecteduuids) {
+            if let configurations = rsyncUIdata.configurations {
+                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                    selectedconfig = configurations[index]
+                    showinspector = true
+                } else {
+                    selectedconfig = nil
+                    showinspector = false
+                }
+            }
+        }
+        .toolbar(content: {
+            if selectedTab == .verifytask {
+                if selectedconfig != nil,
+                   selectedconfig?.task != SharedReference.shared.halted {
+                    ToolbarItem {
+                        Button {
+                            if let selectedconfig {
+                                estimating = true
+                                verify(config: selectedconfig)
+                            }
+                        } label: {
+                            Image(systemName: "play.fill")
+                        }
+                        .help("Verify task")
+                    }
+                }
+
+                if selectedconfig != nil,
+                   selectedconfig?.task != SharedReference.shared.halted {
+                    ToolbarItem {
+                        Button {
+                            abort()
+                        } label: {
+                            Image(systemName: "stop.fill")
+                        }
+                        .help("Abort (⌘K)")
+                    }
+                }
+            }
+        })
+        .inspector(isPresented: $showinspector) {
+            inspectorView
+                .inspectorColumnWidth(min: 500, ideal: 600, max: 700)
+        }
+        .padding()
     }
 
     var inspectorView: some View {
