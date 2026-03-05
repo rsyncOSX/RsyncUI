@@ -115,6 +115,11 @@ struct LogRecordsTabView: View {
         }
         .searchable(if: selectedTab == .logview, text: $filterstring)
         .task {
+            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                hiddenID = configurations[index].hiddenID
+            } else {
+                hiddenID = -1
+            }
             let actorreadlogs = ActorReadLogRecordsJSON()
             logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
             logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []

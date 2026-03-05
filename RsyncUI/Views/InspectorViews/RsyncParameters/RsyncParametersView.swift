@@ -16,8 +16,6 @@ struct RsyncParametersView: View {
     @State var selectedconfig: SynchronizeConfiguration?
     /// Backup switch
     @State var backup: Bool = false
-    /// Present a help sheet
-    @State var showhelp: Bool = false
     /// Present arguments view
     @State var presentarguments: Bool = false
 
@@ -78,8 +76,6 @@ struct RsyncParametersView: View {
                     }
             }
         }
-        .padding()
-        .sheet(isPresented: $showhelp) { helpSheetView }
         .onChange(of: rsyncUIdata.profile) {
             selectedconfig = nil
             // selecteduuids.removeAll()
@@ -90,5 +86,6 @@ struct RsyncParametersView: View {
         .onChange(of: selecteduuids) {
             handleSelectionChange()
         }
+        .padding()
     }
 }

@@ -42,7 +42,6 @@ struct AddTaskView: View {
     @State var selectedconfig: SynchronizeConfiguration?
     @State var changesnapshotnum: Bool = false
     @State var stringestimate: String = ""
-    @State var showhelp: Bool = false
     @State var showAddPopover: Bool = false
 
     @State var presentglobaltaskview: Bool = false
@@ -66,12 +65,9 @@ struct AddTaskView: View {
             saveURLSection
         }
         .padding()
-        .sheet(isPresented: $showhelp) { helpSheetView }
         .onSubmit { handleSubmit() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
-        .onChange(of: selecteduuids) {
-            handleSelectionChange()
-        }
+        .onChange(of: selecteduuids) { handleSelectionChange() }
         .toolbar { toolbarContent }
     }
 }
