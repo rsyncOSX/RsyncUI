@@ -11,9 +11,10 @@ enum InspectorTab: Hashable {
     case edit
     case parameters
     case logview
+    case verifytask
 }
 
-struct DefaultView: View {
+struct EditTabView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var selectedTab: InspectorTab = .edit
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
@@ -23,7 +24,10 @@ struct DefaultView: View {
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
             // Shared task list table on the left
-            ListofTasksAddView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
+            ListofTasksAddView(
+                rsyncUIdata: rsyncUIdata,
+                selecteduuids: $selecteduuids
+            )
                 .frame(minWidth: 300)
                 .onChange(of: rsyncUIdata.profile) {
                     selecteduuids.removeAll()
@@ -69,10 +73,21 @@ struct DefaultView: View {
                     selecteduuids: $selecteduuids
                 )
                 .tabItem {
-                    Label("Log records", systemImage: "slider.horizontal.3")
+                    Label("Log Records", systemImage: "slider.horizontal.3")
                 }
                 .tag(InspectorTab.logview)
                 .id(InspectorTab.logview)
+                
+                VerifyTaskTabView(
+                    rsyncUIdata: rsyncUIdata,
+                    selectedTab: $selectedTab,
+                    selecteduuids: $selecteduuids
+                )
+                .tabItem {
+                    Label("Verify Task", systemImage: "slider.horizontal.3")
+                }
+                .tag(InspectorTab.verifytask)
+                .id(InspectorTab.verifytask)
             }
             .navigationTitle("")
         }

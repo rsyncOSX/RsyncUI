@@ -1,4 +1,11 @@
 //
+//  VerifyTaskTabView.swift
+//  RsyncUI
+//
+//  Created by Thomas Evensen on 05/03/2026.
+//
+
+//
 //  VerifyTasks.swift
 //  RsyncUI
 //
@@ -9,13 +16,13 @@ import OSLog
 import RsyncProcessStreaming
 import SwiftUI
 
-struct VerifyTasks: View {
-    
+struct VerifyTaskTabView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var selectedTab: InspectorTab
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @State private var remotedatanumbers: RemoteDataNumbers?
     @State private var selectedconfig: SynchronizeConfiguration?
-    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     /// Present arguments view
     @State private var presentestimates: Bool = false
     /// Estimating
@@ -30,27 +37,9 @@ struct VerifyTasks: View {
 
     var body: some View {
         NavigationStack {
-            VStack {
-                ZStack {
-                    VStack {
-                        ListofTasksAddView(rsyncUIdata: rsyncUIdata,
-                                           selecteduuids: $selecteduuids)
-                            .onChange(of: selecteduuids) {
-                                if let configurations = rsyncUIdata.configurations {
-                                    if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                                        selectedconfig = configurations[index]
-                                        showinspector = true
-                                    } else {
-                                        selectedconfig = nil
-                                        showinspector = false
-                                    }
-                                }
-                            }
-                    }
-
-                    if estimating {
-                        ProgressView()
-                    }
+            ZStack {
+                if estimating {
+                    ProgressView()
                 }
 
                 HStack {
@@ -61,40 +50,54 @@ struct VerifyTasks: View {
                     Text(" on the toolbar to verify a task")
                 }
             }
+            .onChange(of: selecteduuids) {
+                if let configurations = rsyncUIdata.configurations {
+                    if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                        selectedconfig = configurations[index]
+                        showinspector = true
+                    } else {
+                        selectedconfig = nil
+                        showinspector = false
+                    }
+                }
+            }
             .toolbar(content: {
-                if selectedconfig != nil,
-                   selectedconfig?.task != SharedReference.shared.halted {
-                    ToolbarItem {
-                        Button {
-                            if let selectedconfig {
-                                estimating = true
-                                verify(config: selectedconfig)
+                
+                if selectedTab == .verifytask {
+                    if selectedconfig != nil,
+                       selectedconfig?.task != SharedReference.shared.halted {
+                        ToolbarItem {
+                            Button {
+                                if let selectedconfig {
+                                    estimating = true
+                                    verify(config: selectedconfig)
+                                }
+                            } label: {
+                                Image(systemName: "play.fill")
                             }
-                        } label: {
-                            Image(systemName: "play.fill")
+                            .help("Verify task")
                         }
-                        .help("Verify task")
                     }
-                }
 
-                if selectedconfig != nil,
-                   selectedconfig?.task != SharedReference.shared.halted {
-                    ToolbarItem {
-                        Button {
-                            abort()
-                        } label: {
-                            Image(systemName: "stop.fill")
+                    if selectedconfig != nil,
+                       selectedconfig?.task != SharedReference.shared.halted {
+                        ToolbarItem {
+                            Button {
+                                abort()
+                            } label: {
+                                Image(systemName: "stop.fill")
+                            }
+                            .help("Abort (⌘K)")
                         }
-                        .help("Abort (⌘K)")
                     }
                 }
+                
             })
             .inspector(isPresented: $showinspector) {
                 inspectorView
                     .inspectorColumnWidth(min: 500, ideal: 600, max: 700)
             }
             .padding()
-            .navigationTitle("Verify tasks - dry-run parameter is enabled")
             .navigationDestination(isPresented: $presentestimates) {
                 if let remotedatanumbers {
                     DetailsView(remotedatanumbers: remotedatanumbers, itemizechanges: remotedatanumbers.itemizechanges)
@@ -115,6 +118,7 @@ struct VerifyTasks: View {
 
     /// For a verify run, --dry-run using streaming
     func verify(config: SynchronizeConfiguration) {
+        showinspector = false
         let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: true,
                                                                                   forDisplay: false)
 
