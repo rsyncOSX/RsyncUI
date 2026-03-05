@@ -9,7 +9,7 @@ import OSLog
 import SwiftUI
 
 enum Sidebaritems: String, Identifiable, CaseIterable {
-    case synchronize, tasks, verify_tasks, snapshots, restore, profiles
+    case synchronize, tasks, snapshots, restore, profiles
     var id: String {
         rawValue
     }
@@ -80,7 +80,6 @@ struct SidebarMainView: View {
                 NavigationLinkWithHover(item: item, selectedview: $selectedview)
 
                 if item.menuitem == .tasks ||
-                    item.menuitem == .verify_tasks ||
                     item.menuitem == .snapshots ||
                     item.menuitem == .restore { Divider() }
             }
@@ -214,10 +213,6 @@ struct SidebarMainView: View {
                              selectedprofileID: $selectedprofileID)
         case .profiles:
             ProfileView(rsyncUIdata: rsyncUIdata, selectedprofileID: $selectedprofileID)
-        case .verify_tasks:
-            NavigationStack {
-                VerifyTasks(rsyncUIdata: rsyncUIdata)
-            }
         }
     }
 
@@ -274,8 +269,6 @@ struct SidebarRow: View {
             "arrowshape.turn.up.backward"
         case .profiles:
             "arrow.left.arrow.right.circle.fill"
-        case .verify_tasks:
-            "hand.thumbsup.fill"
         }
     }
 }
