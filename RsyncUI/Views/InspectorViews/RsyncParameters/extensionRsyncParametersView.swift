@@ -31,69 +31,6 @@ extension RsyncParametersView {
     }
 }
 
-// MARK: - Inspector View
-
-extension RsyncParametersView {
-    var inspectorView: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            addupdateButton
-
-            VStack(alignment: .leading, spacing: 8) {
-                EditRsyncParameter(350, $parameters.parameter8)
-                    .onChange(of: parameters.parameter8) { parameters.configuration?.parameter8 = parameters.parameter8 }
-                EditRsyncParameter(350, $parameters.parameter9)
-                    .onChange(of: parameters.parameter9) { parameters.configuration?.parameter9 = parameters.parameter9 }
-                EditRsyncParameter(350, $parameters.parameter10)
-                    .onChange(of: parameters.parameter10) { parameters.configuration?.parameter10 = parameters.parameter10 }
-                EditRsyncParameter(350, $parameters.parameter11)
-                    .onChange(of: parameters.parameter11) { parameters.configuration?.parameter11 = parameters.parameter11 }
-                EditRsyncParameter(350, $parameters.parameter12)
-                    .onChange(of: parameters.parameter12) { parameters.configuration?.parameter12 = parameters.parameter12 }
-                EditRsyncParameter(350, $parameters.parameter13)
-                    .onChange(of: parameters.parameter13) { parameters.configuration?.parameter13 = parameters.parameter13 }
-                EditRsyncParameter(350, $parameters.parameter14)
-                    .onChange(of: parameters.parameter14) { parameters.configuration?.parameter14 = parameters.parameter14 }
-            }
-
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Task specific SSH parameter").font(.headline)
-                VStack(alignment: .leading, spacing: 8) {
-                    setsshpath(path: $parameters.sshkeypathandidentityfile,
-                               placeholder: "set SSH keypath and identityfile",
-                               selectedValue: parameters.sshkeypathandidentityfile)
-                    sshportfield(port: $parameters.sshport,
-                                 placeholder: "set SSH port",
-                                 selectedValue: parameters.sshport)
-                }
-            }
-
-            let isDeletePresent = selectedconfig?.parameter4 == "--delete"
-            let headerText = isDeletePresent ? "Remove --delete parameter" : "Add --delete parameter"
-            VStack(alignment: .leading, spacing: 8) {
-                Text(headerText)
-                    .font(.headline)
-                    .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
-                Toggle("--delete", isOn: $parameters.adddelete)
-                    .toggleStyle(.switch)
-                    .onChange(of: parameters.adddelete) { parameters.adddelete(parameters.adddelete) }
-                    .disabled(selecteduuids.isEmpty)
-            }
-
-            VStack(alignment: .leading, spacing: 8) {
-                Toggle("Backup", isOn: $backup)
-                    .toggleStyle(.switch)
-                    .onChange(of: backup) {
-                        guard !selecteduuids.isEmpty else {
-                            backup = false
-                            return
-                        }
-                        parameters.setbackup()
-                    }
-            }
-        }
-    }
-}
-
 // MARK: - Buttons
 
 extension RsyncParametersView {
@@ -129,7 +66,6 @@ extension RsyncParametersView {
     func handleSelectionChange() {
         if let configurations = rsyncUIdata.configurations {
             guard selecteduuids.count == 1 else {
-                showinspector = false
                 return
             }
             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
@@ -138,12 +74,11 @@ extension RsyncParametersView {
                 if configurations[index].parameter12 != "--backup" {
                     backup = false
                 }
-                showinspector = true
+
             } else {
                 selectedconfig = nil
                 parameters.setvalues(selectedconfig)
                 backup = false
-                showinspector = false
             }
         }
     }

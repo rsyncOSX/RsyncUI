@@ -92,23 +92,5 @@ extension AddTaskView {
         .onSubmit { handleSubmit() }
     }
 
-    var inspectorView: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                updateButton
-                trailingslash
-            }
 
-            synchronizeID
-            catalogSectionView
-
-            VStack(alignment: .leading) { remoteuserandserver }
-
-            if selectedconfig?.task == SharedReference.shared.snapshot {
-                VStack(alignment: .leading) { snapshotnum }
-            }
-
-            saveURLSection
-        }
-    }
 }
