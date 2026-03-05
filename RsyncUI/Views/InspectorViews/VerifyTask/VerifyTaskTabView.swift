@@ -108,7 +108,6 @@ struct VerifyTaskTabView: View {
                     }
                 }
             }
-            
         }
         .padding()
     }

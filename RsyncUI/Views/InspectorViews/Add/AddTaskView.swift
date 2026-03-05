@@ -48,7 +48,6 @@ struct AddTaskView: View {
     @State var presentglobaltaskview: Bool = false
 
     var body: some View {
-    
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 updateButton

@@ -91,6 +91,4 @@ extension AddTaskView {
         .frame(minWidth: 600)
         .onSubmit { handleSubmit() }
     }
-
-
 }

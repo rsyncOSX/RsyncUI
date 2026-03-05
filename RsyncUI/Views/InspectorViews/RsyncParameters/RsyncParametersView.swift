@@ -11,7 +11,7 @@ struct RsyncParametersView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedTab: InspectorTab
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    
+
     @State var parameters = ObservableParametersRsync()
     @State var selectedconfig: SynchronizeConfiguration?
     /// Backup switch
@@ -22,7 +22,6 @@ struct RsyncParametersView: View {
     @State var presentarguments: Bool = false
 
     var body: some View {
-
         VStack(alignment: .leading, spacing: 12) {
             addupdateButton
 

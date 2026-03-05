@@ -74,7 +74,6 @@ extension RsyncParametersView {
                 if configurations[index].parameter12 != "--backup" {
                     backup = false
                 }
-
             } else {
                 selectedconfig = nil
                 parameters.setvalues(selectedconfig)
