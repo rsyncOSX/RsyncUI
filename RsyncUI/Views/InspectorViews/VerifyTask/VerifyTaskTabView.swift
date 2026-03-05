@@ -45,13 +45,11 @@ struct VerifyTaskTabView: View {
                         ProgressView()
                     }
 
-                    if showinspector == false {
-                        HStack {
-                            Text("Select a task and select the ")
-
-                            Text(Image(systemName: "play.fill"))
-
-                            Text(" on the toolbar to verify a task")
+                    VStack(alignment: .leading, spacing: 12) {
+                        VStack(alignment: .leading) {
+                            if let selectedconfig {
+                                RsyncCommandView(config: selectedconfig)
+                            }
                         }
                     }
                 }
@@ -98,10 +96,6 @@ struct VerifyTaskTabView: View {
                 }
             }
         })
-        .inspector(isPresented: $showinspector) {
-            inspectorView
-                .inspectorColumnWidth(min: 400, ideal: 500, max: 600)
-        }
         .onAppear {
             if selecteduuids.count > 0 {
                 if let configurations = rsyncUIdata.configurations {
@@ -117,16 +111,6 @@ struct VerifyTaskTabView: View {
             
         }
         .padding()
-    }
-
-    var inspectorView: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            VStack(alignment: .leading) {
-                if let selectedconfig {
-                    RsyncCommandView(config: selectedconfig)
-                }
-            }
-        }
     }
 
     /// For a verify run, --dry-run using streaming

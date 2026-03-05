@@ -19,7 +19,6 @@ struct EditTabView: View {
     @State private var selectedTab: InspectorTab = .edit
     @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
     /// Show Inspector view, if true shwo inspectors by default on both views
-    @State var showinspector: Bool = false
 
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
@@ -42,54 +41,60 @@ struct EditTabView: View {
                     }
                 }
             }
-
-            Divider()
-
-            // Tab-specific inspector views on the right
-            TabView(selection: $selectedTab) {
-                AddTaskView(rsyncUIdata: rsyncUIdata,
-                            selectedTab: $selectedTab,
-                            selecteduuids: $selecteduuids,
-                            showinspector: $showinspector)
+        }
+        .inspector(isPresented: .constant(true)) {
+            if selecteduuids.count == 0 {
+                Text("No task\nselected")
+                    .font(.title2)
+            }
+            else {
+                // Tab-specific inspector views on the right
+                TabView(selection: $selectedTab) {
+                    AddTaskView(rsyncUIdata: rsyncUIdata,
+                                selectedTab: $selectedTab,
+                                selecteduuids: $selecteduuids)
                     .tabItem {
                         Label("Edit", systemImage: "plus.circle")
                     }
                     .tag(InspectorTab.edit)
                     .id(InspectorTab.edit)
-
-                RsyncParametersView(rsyncUIdata: rsyncUIdata,
-                                    selectedTab: $selectedTab,
-                                    selecteduuids: $selecteduuids,
-                                    showinspector: $showinspector)
+                    
+                    RsyncParametersView(rsyncUIdata: rsyncUIdata,
+                                        selectedTab: $selectedTab,
+                                        selecteduuids: $selecteduuids)
                     .tabItem {
                         Label("Parameters", systemImage: "slider.horizontal.3")
                     }
                     .tag(InspectorTab.parameters)
                     .id(InspectorTab.parameters)
-
-                LogRecordsTabView(
-                    rsyncUIdata: rsyncUIdata,
-                    selectedTab: $selectedTab,
-                    selecteduuids: $selecteduuids
-                )
-                .tabItem {
-                    Label("Log Records", systemImage: "slider.horizontal.3")
+                    
+                    LogRecordsTabView(
+                        rsyncUIdata: rsyncUIdata,
+                        selectedTab: $selectedTab,
+                        selecteduuids: $selecteduuids
+                    )
+                    .tabItem {
+                        Label("Log Records", systemImage: "slider.horizontal.3")
+                    }
+                    .tag(InspectorTab.logview)
+                    .id(InspectorTab.logview)
+                    
+                    VerifyTaskTabView(
+                        rsyncUIdata: rsyncUIdata,
+                        selectedTab: $selectedTab,
+                        selecteduuids: $selecteduuids
+                    )
+                    .tabItem {
+                        Label("Verify Task", systemImage: "slider.horizontal.3")
+                    }
+                    .tag(InspectorTab.verifytask)
+                    .id(InspectorTab.verifytask)
                 }
-                .tag(InspectorTab.logview)
-                .id(InspectorTab.logview)
-
-                VerifyTaskTabView(
-                    rsyncUIdata: rsyncUIdata,
-                    selectedTab: $selectedTab,
-                    selecteduuids: $selecteduuids
-                )
-                .tabItem {
-                    Label("Verify Task", systemImage: "slider.horizontal.3")
-                }
-                .tag(InspectorTab.verifytask)
-                .id(InspectorTab.verifytask)
+                .padding()
+                .navigationTitle("")
+                .inspectorColumnWidth(min: 300, ideal: 450, max: 600)
+                
             }
-            .navigationTitle("")
         }
     }
 }

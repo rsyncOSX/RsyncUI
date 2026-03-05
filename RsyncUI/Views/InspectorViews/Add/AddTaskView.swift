@@ -35,7 +35,6 @@ struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedTab: InspectorTab
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    @Binding var showinspector: Bool
 
     @FocusState var focusField: AddConfigurationField?
 
@@ -49,19 +48,23 @@ struct AddTaskView: View {
     @State var presentglobaltaskview: Bool = false
 
     var body: some View {
-        VStack(alignment: .center, spacing: 12) {
-            Spacer()
-
-            if selecteduuids.count == 0 {
-                Text("No task\nselected")
-                    .font(.title2)
+    
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                updateButton
+                trailingslash
             }
 
-            Spacer()
-        }
-        .inspector(isPresented: $showinspector) {
-            inspectorView
-                .inspectorColumnWidth(min: 400, ideal: 500, max: 600)
+            synchronizeID
+            catalogSectionView
+
+            VStack(alignment: .leading) { remoteuserandserver }
+
+            if selectedconfig?.task == SharedReference.shared.snapshot {
+                VStack(alignment: .leading) { snapshotnum }
+            }
+
+            saveURLSection
         }
         .padding()
         .sheet(isPresented: $showhelp) { helpSheetView }
