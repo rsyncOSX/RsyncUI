@@ -33,7 +33,7 @@ extension SidebarMainView {
     }
 
     private func handleQuickTask() {
-        selectedview = .synchronize
+        selection.item = .synchronize
         executetaskpath.append(Tasks(task: .quick_synchronize))
     }
 
@@ -50,7 +50,7 @@ extension SidebarMainView {
         guard let queryitems = deeplinkurl.handleURL(url)?.queryItems, queryitems.count == 1 else { return }
         let profile = queryitems[0].value
 
-        selectedview = .synchronize
+        selection.item = .synchronize
 
         if profile == "Default" || profile == "default" {
             handleDefaultProfileEstimate(queryitems, externalURL)

@@ -15,6 +15,11 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
     }
 }
 
+struct SidebarSelection: Hashable {
+    var profileID: ProfilesnamesRecord.ID?
+    var item: Sidebaritems
+}
+
 /// The sidebar is context sensitive, it is computed everytime a new profile is loaded
 struct MenuItem: Identifiable, Hashable {
     var menuitem: Sidebaritems
@@ -23,15 +28,17 @@ struct MenuItem: Identifiable, Hashable {
 
 struct SidebarMainView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    // The selectedprofileID is updated by the profile picker
-    // The selectedprofileID is monitored by the RsyncUIView and when changed
-    // a new profile is loaded
+    
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
+
     @Bindable var errorhandling: AlertError
     
     @State private var progressdetails = ProgressDetails()
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    @State var selectedview: Sidebaritems = .synchronize
+    
+    @State var selection = SidebarSelection(profileID: nil, item: .synchronize)
+    
+    
     /// paths used in NavigationStack, there are three parts where
     /// NavigationStack is utilized
     /// Navigation path for executetasks
@@ -57,56 +64,81 @@ struct SidebarMainView: View {
     
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
-            // Only show profile picker if there are other profiles
-            // Id default only, do not show profile picker
             
-            if rsyncUIdata.validprofiles.isEmpty == false, selectedview != .profiles {
-                Picker("", selection: $selectedprofileID) {
-                    Text("Default")
-                        .tag(nil as ProfilesnamesRecord.ID?)
-                    ForEach(rsyncUIdata.validprofiles, id: \.self) { profile in
-                        Text(profile.profilename)
-                            .tag(profile.id)
+            List(selection: $selection) {
+                Section("Default") {
+                    
+                    NavigationLink(
+                        value: SidebarSelection(profileID: nil, item: .synchronize)
+                    ) {
+                        SidebarRow(sidebaritem: .synchronize)
+                    }
+                    
+                    NavigationLink(
+                        value: SidebarSelection(profileID: nil, item: .tasks)
+                    ) {
+                        SidebarRow(sidebaritem: .tasks)
+                    }
+                    
+                    if rsyncUIdata.oneormoretasksissnapshot {
+                        NavigationLink(
+                            value: SidebarSelection(profileID: nil, item: .snapshots)
+                        ) {
+                            SidebarRow(sidebaritem: .snapshots)
+                        }
+                    }
+                    
+                    if showRestoreMenu {
+                        NavigationLink(
+                            value: SidebarSelection(profileID: nil, item: .restore)
+                        ) {
+                            SidebarRow(sidebaritem: .restore)
+                        }
                     }
                 }
-                .frame(width: 180)
-                .padding([.bottom, .top, .trailing], 7)
-                .disabled(disablesidebarmeny)
-            }
-            
-            Divider()
-            
-            
-            List(selection: $selectedview) {
                 
-                // Synchronize
-                NavigationLinkWithHover( item: .synchronize, selectedview: $selectedview
-                )
-                
-                // Tasks
-                NavigationLinkWithHover(  item: .tasks,selectedview: $selectedview
-                )
+                ForEach(rsyncUIdata.validprofiles) { profile in
+                    
+                    Section(profile.profilename) {
+                        
+                        NavigationLink(
+                            value: SidebarSelection(profileID: profile.id, item: .synchronize)
+                        ) {
+                            SidebarRow(sidebaritem: .synchronize)
+                        }
+                        
+                        NavigationLink(
+                            value: SidebarSelection(profileID: profile.id, item: .tasks)
+                        ) {
+                            SidebarRow(sidebaritem: .tasks)
+                        }
+                        
+                        if rsyncUIdata.oneormoretasksissnapshot {
+                            NavigationLink(
+                                value: SidebarSelection(profileID: profile.id, item: .snapshots)
+                            ) {
+                                SidebarRow(sidebaritem: .snapshots)
+                            }
+                        }
+                        
+                        if showRestoreMenu {
+                            NavigationLink(
+                                value: SidebarSelection(profileID: profile.id, item: .restore)
+                            ) {
+                                SidebarRow(sidebaritem: .restore)
+                            }
+                        }
+                    }
+                }
                 
                 Divider()
-                
-                // Snapshots (conditional)
-                if rsyncUIdata.oneormoretasksissnapshot {
-                    NavigationLinkWithHover( item: .snapshots,  selectedview: $selectedview
-                    )
-                    Divider()
+                NavigationLink(
+                    value: SidebarSelection(profileID: selection.profileID, item: .profiles)
+                ) {
+                    SidebarRow(sidebaritem: .profiles)
                 }
-                
-                // Restore (conditional)
-                if showRestoreMenu {
-                    NavigationLinkWithHover(   item: .restore, selectedview: $selectedview
-                    )
-                    Divider()
-                }
-                
-                // Profiles
-                NavigationLinkWithHover(   item: .profiles, selectedview: $selectedview
-                )
             }
+            
             .listStyle(.sidebar)
             .disabled(disablesidebarmeny)
             
@@ -145,7 +177,7 @@ struct SidebarMainView: View {
             
             MessageView(mytext: SharedReference.shared.rsyncversionshort ?? "", size: .caption2)
         } detail: {
-            selectView(selectedview)
+            selectView(selection.item)
         }
         .alert(isPresented: errorhandling.isPresentingAlert, content: {
             if let error = errorhandling.activeError {
@@ -201,13 +233,16 @@ struct SidebarMainView: View {
         }
         .onChange(of: globaltimer.scheduledprofile) {
             queryitem = nil
-            if selectedview != .synchronize {
-                selectedview = .synchronize
+            if selection.item != .synchronize {
+                selection.item = .synchronize
             }
             // Trigger as external URL, makes it load profile before execute
             if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: globaltimer.scheduledprofile) {
                 handleURLSidebarMainView(url, externalURL: true)
             }
+        }
+        .onChange(of: selection) {
+            selectedprofileID = selection.profileID
         }
     }
     
