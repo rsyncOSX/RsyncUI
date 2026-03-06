@@ -28,7 +28,7 @@ struct SidebarMainView: View {
     // a new profile is loaded
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
     @Bindable var errorhandling: AlertError
-
+    
     @State private var progressdetails = ProgressDetails()
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State var selectedview: Sidebaritems = .synchronize
@@ -54,12 +54,12 @@ struct SidebarMainView: View {
     // Calendar
     @State private var schedules = ObservableSchedules()
     let globaltimer = GlobalTimer.shared
-
+    
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             // Only show profile picker if there are other profiles
             // Id default only, do not show profile picker
-
+            
             if rsyncUIdata.validprofiles.isEmpty == false, selectedview != .profiles {
                 Picker("", selection: $selectedprofileID) {
                     Text("Default")
@@ -73,24 +73,48 @@ struct SidebarMainView: View {
                 .padding([.bottom, .top, .trailing], 7)
                 .disabled(disablesidebarmeny)
             }
-
+            
             Divider()
-
-            List(menuitems, selection: $selectedview) { item in
-                NavigationLinkWithHover(item: item, selectedview: $selectedview)
-
-                if item.menuitem == .tasks ||
-                    item.menuitem == .snapshots ||
-                    item.menuitem == .restore { Divider() }
+            
+            
+            List(selection: $selectedview) {
+                
+                // Synchronize
+                NavigationLinkWithHover( item: .synchronize, selectedview: $selectedview
+                )
+                
+                // Tasks
+                NavigationLinkWithHover(  item: .tasks,selectedview: $selectedview
+                )
+                
+                Divider()
+                
+                // Snapshots (conditional)
+                if rsyncUIdata.oneormoretasksissnapshot {
+                    NavigationLinkWithHover( item: .snapshots,  selectedview: $selectedview
+                    )
+                    Divider()
+                }
+                
+                // Restore (conditional)
+                if showRestoreMenu {
+                    NavigationLinkWithHover(   item: .restore, selectedview: $selectedview
+                    )
+                    Divider()
+                }
+                
+                // Profiles
+                NavigationLinkWithHover(   item: .profiles, selectedview: $selectedview
+                )
             }
             .listStyle(.sidebar)
             .disabled(disablesidebarmeny)
-
+            
             if newversion.notifynewversion {
                 MessageView(mytext: "New version available\nsee About RsyncUI", size: .caption2)
                     .padding([.bottom], -30)
             }
-
+            
             if mountingvolumenow {
                 MessageView(mytext: "Mounting volume\nplease wait", size: .caption2)
                     .padding([.bottom], -30)
@@ -101,13 +125,13 @@ struct SidebarMainView: View {
                         }
                     }
             }
-
+            
             // Next scheduled action
             if GlobalTimer.shared.timerIsActive() {
                 MessageView(mytext: GlobalTimer.shared.nextScheduleDate() ?? "", size: .caption2)
                     .padding([.bottom], -30)
             }
-
+            
             if GlobalTimer.shared.thereisnotexecutedschedulesafterwakeup {
                 MessageView(mytext: "Not executed schedules\nafter wakeup", size: .caption2)
                     .padding([.bottom], -30)
@@ -118,7 +142,7 @@ struct SidebarMainView: View {
                         }
                     }
             }
-
+            
             MessageView(mytext: SharedReference.shared.rsyncversionshort ?? "", size: .caption2)
         } detail: {
             selectView(selectedview)
@@ -148,7 +172,7 @@ struct SidebarMainView: View {
                 guard scheduledata.count > 0 else { return }
                 schedules.appendschdeuldatafromfile(scheduledata)
             }
-
+            
             // Delete any default UserSetttings applied within AddTask
             UserDefaults.standard.removeObject(forKey: "trailingslashoptions")
             UserDefaults.standard.removeObject(forKey: "selectedrsynccommand")
@@ -186,7 +210,7 @@ struct SidebarMainView: View {
             }
         }
     }
-
+    
     @MainActor @ViewBuilder
     func selectView(_ view: Sidebaritems) -> some View {
         switch view {
@@ -215,48 +239,30 @@ struct SidebarMainView: View {
             ProfileView(rsyncUIdata: rsyncUIdata, selectedprofileID: $selectedprofileID)
         }
     }
-
+    
     var disablesidebarmeny: Bool {
         executetaskpath.isEmpty == false ||
-            SharedReference.shared.process != nil
+        SharedReference.shared.process != nil
     }
-
-    /// The Sidebar meny is context sensitive. There are three Sidebar meny options
-    /// which are context sensitive:
-    /// - Snapshots
-    /// - Verify remote
-    /// - Restore
-    var menuitems: [MenuItem] {
-        Sidebaritems.allCases.compactMap { item in
-            // Return nil if there is one or more snapshot tasks
-            // Do not show the Snapshot sidebar meny
-            if rsyncUIdata.oneormoretasksissnapshot == false,
-               item == .snapshots { return nil }
-            // Return nil if there is no remote tasks, only local attached discs
-            // Do not show the Restore remote sidebar meny
-
-            if SharedReference.shared.rsyncversion3 {
-                if rsyncUIdata.oneormoresynchronizetasksisremoteVer3x == false,
-                   rsyncUIdata.oneormoresnapshottasksisremote == false,
-                   item == .restore { return nil }
-            } else {
-                if rsyncUIdata.oneormoresynchronizetasksisremoteOrsync == false,
-                   item == .restore { return nil }
-            }
-
-            return MenuItem(menuitem: item)
+    
+    var showRestoreMenu: Bool {
+        if SharedReference.shared.rsyncversion3 {
+            return rsyncUIdata.oneormoresynchronizetasksisremoteVer3x ||
+            rsyncUIdata.oneormoresnapshottasksisremote
+        } else {
+            return rsyncUIdata.oneormoresynchronizetasksisremoteOrsync
         }
     }
 }
 
 struct SidebarRow: View {
     var sidebaritem: Sidebaritems
-
+    
     var body: some View {
         Label(sidebaritem.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "),
               systemImage: systemImage(sidebaritem))
     }
-
+    
     func systemImage(_ view: Sidebaritems) -> String {
         switch view {
         case .tasks:
@@ -274,13 +280,13 @@ struct SidebarRow: View {
 }
 
 struct NavigationLinkWithHover: View {
-    let item: MenuItem // Replace with your actual item type
-    @Binding var selectedview: Sidebaritems // Replace with your selection type
+    let item: Sidebaritems
+    @Binding var selectedview: Sidebaritems
     @State private var isHovered = false
-
+    
     var body: some View {
-        NavigationLink(value: item.menuitem) {
-            SidebarRow(sidebaritem: item.menuitem)
+        NavigationLink(value: item) {
+            SidebarRow(sidebaritem: item)
         }
         .listRowBackground(
             RoundedRectangle(cornerRadius: 10)
