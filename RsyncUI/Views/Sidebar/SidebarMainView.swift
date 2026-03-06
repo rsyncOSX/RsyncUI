@@ -60,7 +60,7 @@ struct SidebarMainView: View {
             // Only show profile picker if there are other profiles
             // Id default only, do not show profile picker
 
-            if rsyncUIdata.validprofiles.isEmpty == false {
+            if rsyncUIdata.validprofiles.isEmpty == false && selectedview != .profiles {
                 Picker("", selection: $selectedprofileID) {
                     Text("Default")
                         .tag(nil as ProfilesnamesRecord.ID?)
