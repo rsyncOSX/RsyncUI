@@ -17,33 +17,50 @@ enum InspectorTab: Hashable {
 struct EditTabView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var selectedTab: InspectorTab = .edit
-    @State var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
+    @State private var addFirstTask: Bool = false
     // Show Inspector view, if true shwo inspectors by default on both views
 
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
-            // Shared task list table on the left
-            ListofTasksAddView(
-                rsyncUIdata: rsyncUIdata,
-                selecteduuids: $selecteduuids
-            )
-            .frame(minWidth: 300)
-            .onChange(of: rsyncUIdata.profile) {
-                selecteduuids.removeAll()
-            }
-            .overlay {
-                if let config = rsyncUIdata.configurations, config.isEmpty {
-                    ContentUnavailableView {
-                        Label("There are no tasks added",
-                              systemImage: "doc.richtext.fill")
-                    } description: {
-                        Text("Select the + button on the toolbar to add a task")
+            if addFirstTask {
+                AddFirstTask(
+                    rsyncUIdata: rsyncUIdata,
+                    addFirstTask: $addFirstTask
+                )
+            } else {
+                // Shared task list table on the left
+                ListofTasksAddView(
+                    rsyncUIdata: rsyncUIdata,
+                    selecteduuids: $selecteduuids
+                )
+                .frame(minWidth: 300)
+                .onChange(of: rsyncUIdata.profile) {
+                    selecteduuids.removeAll()
+                }
+                .overlay {
+                    if let config = rsyncUIdata.configurations, config.isEmpty {
+                        ContentUnavailableView {
+                            Label("There are no tasks added",
+                                  systemImage: "doc.richtext.fill")
+                        } description: {
+                            Text("Select the + button on the toolbar to add a task")
+                        }
                     }
                 }
             }
         }
+        .onAppear {
+            // No tasks added, must show the Add button
+            if rsyncUIdata.configurations == nil {
+                addFirstTask = true
+            }
+        }
         .inspector(isPresented: .constant(true)) {
-            if selecteduuids.count == 0 {
+            if addFirstTask {
+                Text("There is no\n task added\nplease add task\nusing the form")
+                    .font(.title2)
+            } else if selecteduuids.count == 0 {
                 Text("No task\nselected")
                     .font(.title2)
             } else {
