@@ -67,6 +67,8 @@ struct RsyncParametersView: View {
                 }
 
                 VStack(alignment: .leading, spacing: 8) {
+                    Text("Append Backup parameter")
+                        .font(.headline)
                     Toggle("Backup", isOn: $backup)
                         .toggleStyle(.switch)
                         .onChange(of: backup) {
