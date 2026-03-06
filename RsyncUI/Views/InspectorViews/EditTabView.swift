@@ -55,6 +55,11 @@ struct EditTabView: View {
             if rsyncUIdata.configurations == nil {
                 addFirstTask = true
             }
+            if let config = rsyncUIdata.configurations {
+                if config.count == 0 {
+                    addFirstTask = true
+                }
+            }
         }
         .inspector(isPresented: .constant(true)) {
             if addFirstTask {
