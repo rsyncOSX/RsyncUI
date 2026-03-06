@@ -63,8 +63,9 @@ struct EditTabView: View {
         }
         .inspector(isPresented: .constant(true)) {
             if addFirstTask {
-                Text("There is no\n task added\nplease add task\nusing the form")
+                Text(important)
                     .font(.title2)
+                    .padding()
             } else if selecteduuids.count == 0 {
                 Text("No task\nselected")
                     .font(.title2)
@@ -117,4 +118,17 @@ struct EditTabView: View {
             }
         }
     }
+    
+    let important = """
+        There is no task added please add task using the form.
+        
+        For your own safety, please read the user doc 
+        Getting Started, Important about the --delete parameter.
+        
+        The --delete parameter is disabled by default.
+        
+        If Synchronize ID is blue the parameter is disabled.
+        
+        If the Synchronize ID is red parameter is enabled.
+        """
 }
