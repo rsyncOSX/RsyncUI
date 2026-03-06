@@ -189,15 +189,3 @@ extension RsyncParametersView {
         rsyncUIdata.configurations?.contains(where: { $0.parameter4?.isEmpty == false }) ?? false
     }
 }
-
-// MARK: - Help View
-
-extension RsyncParametersView {
-    var helpSheetView: some View {
-        switch parameters.whichhelptext {
-        case 1: HelpView(text: parameters.helptext1)
-        case 2: HelpView(text: parameters.helptext2)
-        default: HelpView(text: parameters.helptext1)
-        }
-    }
-}

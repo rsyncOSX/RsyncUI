@@ -21,14 +21,6 @@ extension AddTaskView {
         }
     }
 
-    var helpSheetView: some View {
-        switch newdata.whichhelptext {
-        case 1: HelpView(text: newdata.helptext1)
-        case 2: HelpView(text: newdata.helptext2)
-        default: HelpView(text: newdata.helptext1)
-        }
-    }
-
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
         // Only show toolbar items when this tab is active

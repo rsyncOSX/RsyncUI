@@ -63,9 +63,36 @@ struct EditTabView: View {
         }
         .inspector(isPresented: .constant(true)) {
             if addFirstTask {
+                VStack(alignment: .leading, spacing: 12) {
+                        Text("There is no task added, please add task using the form.\n")
+                        
+                        Text("For your own safety, please read the user doc\n")
+                        + Text("Getting Started").bold()
+                        + Text(", ")
+                        + Text("Important").bold()
+                        + Text(" about the ")
+                        + Text("--delete").font(.system(.body, design: .monospaced))
+                        + Text(" parameter.\n")
+                        
+                        Text("The ")
+                        + Text("--delete").font(.system(.body, design: .monospaced))
+                        + Text(" parameter is disabled by default.\n")
+                        
+                        Text("If Synchronize ID is ")
+                        + Text("blue").foregroundColor(.blue)
+                        + Text(" the parameter is disabled.\n")
+                        
+                        Text("If the Synchronize ID is ")
+                        + Text("red").foregroundColor(.red)
+                        + Text(" parameter is enabled.")
+                    }
+                    .padding()
+                    .font(.title2)
+                /*
                 Text(important)
                     .font(.title2)
                     .padding()
+                 */
             } else if selecteduuids.count == 0 {
                 Text("No task\nselected")
                     .font(.title2)

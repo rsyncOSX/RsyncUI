@@ -30,15 +30,6 @@ final class ObservableParametersRsync {
     /// Add parameters
     var adddelete: Bool = false
 
-    let helptext1 = """
-        The --delete parameter is enabled. To remove it, select the task and disable it.
-    """
-    let helptext2 = """
-        To add --delete, select the task and enable it. For more information, read the Documentation.
-    """
-
-    @ObservationIgnored var whichhelptext: Int = 1
-
     func setvalues(_ config: SynchronizeConfiguration?) {
         if let config {
             configuration = config
