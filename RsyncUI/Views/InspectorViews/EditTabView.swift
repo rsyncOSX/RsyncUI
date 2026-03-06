@@ -91,7 +91,7 @@ struct EditTabView: View {
                 }
                 .padding()
                 .navigationTitle("")
-                .inspectorColumnWidth(min: 500, ideal: 550, max: 600)
+                .inspectorColumnWidth(min: 550, ideal: 600, max: 650)
             }
         }
     }

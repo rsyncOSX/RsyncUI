@@ -54,26 +54,29 @@ struct RsyncParametersView: View {
 
             let isDeletePresent = selectedconfig?.parameter4 == "--delete"
             let headerText = isDeletePresent ? "Remove --delete parameter" : "Add --delete parameter"
-            VStack(alignment: .leading, spacing: 8) {
-                Text(headerText)
-                    .font(.headline)
-                    .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
-                Toggle("--delete", isOn: $parameters.adddelete)
-                    .toggleStyle(.switch)
-                    .onChange(of: parameters.adddelete) { parameters.adddelete(parameters.adddelete) }
-                    .disabled(selecteduuids.isEmpty)
-            }
 
-            VStack(alignment: .leading, spacing: 8) {
-                Toggle("Backup", isOn: $backup)
-                    .toggleStyle(.switch)
-                    .onChange(of: backup) {
-                        guard !selecteduuids.isEmpty else {
-                            backup = false
-                            return
+            HStack {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(headerText)
+                        .font(.headline)
+                        .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
+                    Toggle("--delete", isOn: $parameters.adddelete)
+                        .toggleStyle(.switch)
+                        .onChange(of: parameters.adddelete) { parameters.adddelete(parameters.adddelete) }
+                        .disabled(selecteduuids.isEmpty)
+                }
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Toggle("Backup", isOn: $backup)
+                        .toggleStyle(.switch)
+                        .onChange(of: backup) {
+                            guard !selecteduuids.isEmpty else {
+                                backup = false
+                                return
+                            }
+                            parameters.setbackup()
                         }
-                        parameters.setbackup()
-                    }
+                }
             }
         }
         .onAppear { handleSelectionChange() }
