@@ -15,7 +15,7 @@ struct EditTabView: View {
     var body: some View {
         HStack(alignment: .top, spacing: 0) {
             if !hasTasks {
-                VStack {
+                HStack {
                     AddFirstTask(rsyncUIdata: rsyncUIdata)
                     
                     VStack(alignment: .leading, spacing: 12) {
