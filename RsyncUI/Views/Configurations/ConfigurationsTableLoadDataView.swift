@@ -27,8 +27,10 @@ struct ConfigurationsTableLoadDataView: View {
                 } else {
                     if data.backupID.isEmpty == true {
                         Text("No ID set")
+                            .foregroundColor(.blue)
                     } else {
                         Text(data.backupID)
+                            .foregroundColor(.blue)
                     }
                 }
             }
