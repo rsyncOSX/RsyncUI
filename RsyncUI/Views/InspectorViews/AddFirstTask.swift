@@ -9,8 +9,6 @@ import SwiftUI
 
 struct AddFirstTask: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var addFirstTask: Bool
-
     @State var newdata = ObservableAddConfigurations()
 
     var body: some View {
@@ -35,7 +33,6 @@ struct AddFirstTask: View {
                                        text: "Add",
                                        helpText: "Add task") {
                     addConfig()
-                    addFirstTask = false
                 }
             }
         }
