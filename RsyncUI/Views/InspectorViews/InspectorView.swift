@@ -1,6 +1,5 @@
-
 //
-//  EditTabView.swift
+//  InspectorView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 28/12/2025.
@@ -18,9 +17,9 @@ enum InspectorTab: Hashable {
 struct InspectorView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    
+
     @State private var selectedTab: InspectorTab = .edit
-    
+
     var body: some View {
         if selecteduuids.count == 0 {
             Text("No task\nselected")
@@ -31,21 +30,21 @@ struct InspectorView: View {
                 AddTaskView(rsyncUIdata: rsyncUIdata,
                             selectedTab: $selectedTab,
                             selecteduuids: $selecteduuids)
-                .tabItem {
-                    Label("Edit", systemImage: "plus.circle")
-                }
-                .tag(InspectorTab.edit)
-                .id(InspectorTab.edit)
-                
+                    .tabItem {
+                        Label("Edit", systemImage: "plus.circle")
+                    }
+                    .tag(InspectorTab.edit)
+                    .id(InspectorTab.edit)
+
                 RsyncParametersView(rsyncUIdata: rsyncUIdata,
                                     selectedTab: $selectedTab,
                                     selecteduuids: $selecteduuids)
-                .tabItem {
-                    Label("Parameters", systemImage: "slider.horizontal.3")
-                }
-                .tag(InspectorTab.parameters)
-                .id(InspectorTab.parameters)
-                
+                    .tabItem {
+                        Label("Parameters", systemImage: "slider.horizontal.3")
+                    }
+                    .tag(InspectorTab.parameters)
+                    .id(InspectorTab.parameters)
+
                 LogRecordsTabView(
                     rsyncUIdata: rsyncUIdata,
                     selectedTab: $selectedTab,
@@ -56,7 +55,7 @@ struct InspectorView: View {
                 }
                 .tag(InspectorTab.logview)
                 .id(InspectorTab.logview)
-                
+
                 VerifyTaskTabView(
                     rsyncUIdata: rsyncUIdata,
                     selectedTab: $selectedTab,
@@ -72,7 +71,5 @@ struct InspectorView: View {
             .navigationTitle("")
             .inspectorColumnWidth(min: 550, ideal: 600, max: 650)
         }
-        
     }
-    
 }
