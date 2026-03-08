@@ -81,11 +81,9 @@ struct AddFirstTask: View {
         Section(header: Text("Folder parameters").modifier(FixedTag(200, .leading)).font(.title3).fontWeight(.bold)) {
             catalogField(catalog: $newdata.localcatalog,
                          placeholder: "Add Source folder - required",
-                         focus: .localcatalogField,
                          selectedValue: newdata.selectedconfig?.localCatalog)
             catalogField(catalog: $newdata.remotecatalog,
                          placeholder: "Add Destination folder - required",
-                         focus: .remotecatalogField,
                          selectedValue: newdata.selectedconfig?.offsiteCatalog,
                          showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
                              newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty)
@@ -96,11 +94,9 @@ struct AddFirstTask: View {
         Section(header: Text("Folder parameters").modifier(FixedTag(200, .leading)).font(.title3).fontWeight(.bold)) {
             catalogField(catalog: $newdata.remotecatalog,
                          placeholder: "Add Source folder - required",
-                         focus: .remotecatalogField,
                          selectedValue: newdata.selectedconfig?.offsiteCatalog)
             catalogField(catalog: $newdata.localcatalog,
                          placeholder: "Add Remote folder - required",
-                         focus: .localcatalogField,
                          selectedValue: newdata.selectedconfig?.localCatalog,
                          showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
                              newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty)
@@ -108,7 +104,7 @@ struct AddFirstTask: View {
     }
 
     func catalogField(catalog: Binding<String>, placeholder: String,
-                      focus _: AddConfigurationField, selectedValue _: String?,
+                       selectedValue _: String?,
                       showErrorBorder: Bool = false) -> some View {
         HStack {
             EditValueScheme(400, placeholder, catalog)
