@@ -1,5 +1,5 @@
 //
-//  extensionTaskDetailView+ViewBuilders.swift
+//  extensionAddTaskView+ViewBuilders.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 13/12/2025.
@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - View Builders
 
-extension TaskDetailView {
+extension AddTaskView {
     var catalogSectionView: some View {
         Group {
             if newdata.selectedrsynccommand == .syncremote {

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TasksOverview: View {
+struct EditTabView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var notasks: Bool = false

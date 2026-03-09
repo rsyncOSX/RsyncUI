@@ -1,5 +1,5 @@
 //
-//  extensionTaskDetailView+FormFields.swift
+//  extensionAddTaskView+FormFields.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 13/12/2025.
@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - Form Field Sections
 
-extension TaskDetailView {
+extension AddTaskView {
     var synchronizeID: some View {
         Section(header: Text("Synchronize ID").modifier(FixedTag(200, .leading)).font(.title3).fontWeight(.bold)) {
             if newdata.selectedconfig == nil {

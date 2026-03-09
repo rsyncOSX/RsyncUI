@@ -192,7 +192,7 @@ struct SidebarMainView: View {
         switch view {
         case .tasks:
             NavigationStack {
-                TasksOverview(rsyncUIdata: rsyncUIdata)
+                EditTabView(rsyncUIdata: rsyncUIdata)
             }
         case .restore:
             NavigationStack {

@@ -1,5 +1,5 @@
 //
-//  extensionTaskDetailView.swift
+//  extensionAddTaskView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 13/12/2025.
@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - Configuration Actions
 
-extension TaskDetailView {
+extension AddTask {
     func validateAndUpdate() {
         let profile = rsyncUIdata.profile
         rsyncUIdata.configurations = newdata.updateConfig(profile, rsyncUIdata.configurations)
@@ -20,7 +20,7 @@ extension TaskDetailView {
 
 // MARK: - Buttons
 
-extension TaskDetailView {
+extension AddTask {
     var updateButton: some View {
         ConditionalGlassButton(systemImage: "arrow.down", text: "Update", helpText: "Update task") {
             validateAndUpdate()

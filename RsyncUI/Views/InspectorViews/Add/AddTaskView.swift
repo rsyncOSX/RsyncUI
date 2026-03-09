@@ -31,7 +31,7 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
     }
 }
 
-struct TaskDetailView: View {
+struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedTab: InspectorTab
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
