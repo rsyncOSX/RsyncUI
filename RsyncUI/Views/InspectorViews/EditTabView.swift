@@ -10,11 +10,11 @@ import SwiftUI
 struct EditTabView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
-    @State private var notasks: Bool = false
+    @State private var showNoTasks: Bool = false
 
     var body: some View {
         HStack {
-            if notasks {
+            if showNoTasks {
                 HStack {
                     
                     AddFirstTask(rsyncUIdata: rsyncUIdata)
@@ -57,15 +57,17 @@ struct EditTabView: View {
             }
         }
         .task(id: rsyncUIdata.configurations) {
-            if let config = rsyncUIdata.configurations, config.isEmpty {
-                notasks = true
+            if rsyncUIdata.configurations == nil {
+                showNoTasks = true
+            } else if let config = rsyncUIdata.configurations, config.isEmpty {
+                showNoTasks = true
             } else {
-                notasks = false
+                showNoTasks = false
             }
         }
         .inspector(isPresented: Binding(
-            get: { !notasks },
-            set: { notasks = !$0 }
+            get: { !showNoTasks },
+            set: { showNoTasks = !$0 }
         )) {
             InspectorView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
         }
