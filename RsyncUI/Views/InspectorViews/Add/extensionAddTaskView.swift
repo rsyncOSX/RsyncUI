@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - Configuration Actions
 
-extension AddTask {
+extension AddTaskView {
     func validateAndUpdate() {
         let profile = rsyncUIdata.profile
         rsyncUIdata.configurations = newdata.updateConfig(profile, rsyncUIdata.configurations)
@@ -20,7 +20,7 @@ extension AddTask {
 
 // MARK: - Buttons
 
-extension AddTask {
+extension AddTaskView {
     var updateButton: some View {
         ConditionalGlassButton(systemImage: "arrow.down", text: "Update", helpText: "Update task") {
             validateAndUpdate()
