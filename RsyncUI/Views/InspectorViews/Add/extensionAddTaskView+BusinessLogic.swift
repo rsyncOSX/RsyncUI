@@ -9,6 +9,7 @@ import SwiftUI
 
 // MARK: - Business Logic & User Actions
 
+
 extension AddTaskView {
     func clearSelection() {
         selecteduuids.removeAll()
@@ -27,7 +28,7 @@ extension AddTaskView {
         case .remoteuserField: focusField = .remoteserverField
         case .snapshotnumField: validateAndUpdate()
         case .remoteserverField:
-            if newdata.selectedconfig == nil { addConfig() } else { validateAndUpdate() }
+            validateAndUpdate()
             focusField = nil
         default: return
         }
@@ -83,10 +84,6 @@ extension AddTaskView {
 // MARK: - Computed Properties
 
 extension AddTaskView {
-    /// The verify returns true when data is OK
-    var disableadd: Bool {
-        VerifyObservableAddConfiguration(observed: newdata).verify()
-    }
 
     var deleteparameterpresent: Bool {
         (rsyncUIdata.configurations?.filter { $0.parameter4?.isEmpty == false }.count ?? 0) > 0

@@ -10,16 +10,6 @@ import SwiftUI
 // MARK: - Configuration Actions
 
 extension AddTaskView {
-    func addConfig() {
-        let profile = rsyncUIdata.profile
-        rsyncUIdata.configurations = newdata.addConfig(profile, rsyncUIdata.configurations)
-        if SharedReference.shared.duplicatecheck {
-            if let configurations = rsyncUIdata.configurations {
-                VerifyDuplicates(configurations)
-            }
-        }
-    }
-
     func validateAndUpdate() {
         let profile = rsyncUIdata.profile
         rsyncUIdata.configurations = newdata.updateConfig(profile, rsyncUIdata.configurations)

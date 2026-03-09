@@ -19,7 +19,7 @@ struct InspectorView: View {
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @State private var selectedTab: InspectorTab = .edit
-
+    
     var body: some View {
         if selecteduuids.count == 0 {
             Text("No task\nselected")

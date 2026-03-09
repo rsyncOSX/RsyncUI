@@ -42,7 +42,6 @@ struct AddTaskView: View {
     @State var selectedconfig: SynchronizeConfiguration?
     @State var changesnapshotnum: Bool = false
     @State var stringestimate: String = ""
-    @State var showAddPopover: Bool = false
 
     @State var presentglobaltaskview: Bool = false
 
@@ -69,6 +68,5 @@ struct AddTaskView: View {
         .onSubmit { handleSubmit() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
         .onChange(of: selecteduuids) { handleSelectionChange() }
-        .toolbar { toolbarContent }
     }
 }
