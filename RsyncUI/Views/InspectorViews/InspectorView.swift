@@ -27,7 +27,7 @@ struct InspectorView: View {
         } else {
             // Tab-specific inspector views on the right
             TabView(selection: $selectedTab) {
-                TaskDetailView(rsyncUIdata: rsyncUIdata,
+                AddTaskView(rsyncUIdata: rsyncUIdata,
                             selectedTab: $selectedTab,
                             selecteduuids: $selecteduuids)
                     .tabItem {
