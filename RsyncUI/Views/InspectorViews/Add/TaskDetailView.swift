@@ -1,5 +1,5 @@
 //
-//  AddTaskView.swift
+//  TaskDetailView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 11/12/2023.
@@ -31,7 +31,7 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
     }
 }
 
-struct AddTaskView: View {
+struct TaskDetailView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selectedTab: InspectorTab
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>

@@ -1,5 +1,5 @@
 //
-//  extensionAddTaskView+BusinessLogic.swift
+//  extensionTaskDetailView+BusinessLogic.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 13/12/2025.
@@ -10,7 +10,7 @@ import SwiftUI
 // MARK: - Business Logic & User Actions
 
 
-extension AddTaskView {
+extension TaskDetailView {
     func clearSelection() {
         selecteduuids.removeAll()
         selectedconfig = nil
@@ -83,7 +83,7 @@ extension AddTaskView {
 
 // MARK: - Computed Properties
 
-extension AddTaskView {
+extension TaskDetailView {
 
     var deleteparameterpresent: Bool {
         (rsyncUIdata.configurations?.filter { $0.parameter4?.isEmpty == false }.count ?? 0) > 0
