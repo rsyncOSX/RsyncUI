@@ -42,7 +42,7 @@ struct RsyncParametersView: View {
 
             VStack(alignment: .leading, spacing: 8) {
                 Text("Task specific SSH parameter").font(.headline)
-                VStack(alignment: .leading, spacing: 8) {
+                HStack {
                     setsshpath(path: $parameters.sshkeypathandidentityfile,
                                placeholder: "set SSH keypath and identityfile",
                                selectedValue: parameters.sshkeypathandidentityfile)
@@ -56,15 +56,51 @@ struct RsyncParametersView: View {
             let headerText = isDeletePresent ? "Remove --delete parameter" : "Add --delete parameter"
 
             HStack {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(headerText)
-                        .font(.headline)
-                        .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
-                    Toggle("--delete", isOn: $parameters.adddelete)
-                        .toggleStyle(.switch)
-                        .onChange(of: parameters.adddelete) { parameters.adddelete(parameters.adddelete) }
-                        .disabled(selecteduuids.isEmpty)
+                VStack(alignment: .leading, spacing: 12) {
+                    
+                    HStack {
+                        // 1. The Frame Title
+                        Text("Danger Zone")
+                            .font(.headline)
+                            .foregroundColor(.red)
+                        
+                        Text(headerText)
+                            .font(.headline)
+                            .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
+                        
+                    }
+                    
+                    Divider()
+                        .background(Color.red.opacity(0.5))
+
+                    HStack {
+                        
+                        Toggle("--delete", isOn: $parameters.adddelete)
+                            .toggleStyle(.switch)
+                            .onChange(of: parameters.adddelete) { parameters.adddelete(parameters.adddelete) }
+                            .disabled(selecteduuids.isEmpty)
+
+                        // 3. The New Website Button
+                        Link(destination: URL(string: "https://rsyncui.netlify.app/docs/getting-started/important/")!) {
+                            Text("Info")
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 8)
+                                .background(Color.red)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                        }
+                        .padding(.top, 4)
+                    }
+                    
                 }
+                .padding() // Adds space inside the border
+                .background(Color.red.opacity(0.05)) // Optional: Light red background tint
+                .cornerRadius(10) // Rounds the corners of the frame
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.red, lineWidth: 2) // The red border
+                )
+                .padding() // Outer margin
 
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Append Backup parameter")
