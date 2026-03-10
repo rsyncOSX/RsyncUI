@@ -66,7 +66,7 @@ struct RsyncParametersView: View {
                         
                         Text(headerText)
                             .font(.headline)
-                            .foregroundColor(deleteparameterpresent ? Color(.red) : Color(.blue))
+                            .foregroundColor(isDeletePresent ? Color(.red) : Color(.blue))
                         
                     }
                     
