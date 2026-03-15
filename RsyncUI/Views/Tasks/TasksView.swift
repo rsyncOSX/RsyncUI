@@ -81,47 +81,25 @@ struct TasksView: View {
                 )
                 .frame(maxWidth: .infinity)
                 .onChange(of: selecteduuids) {
-                    if let configurations = rsyncUIdata.configurations {
-                        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                            selectedconfig = configurations[index]
-                            // Must check if rsync version and snapshot
-                            if configurations[index].task == SharedReference.shared.snapshot,
-                               SharedReference.shared.rsyncversion3 == false {
-                                selecteduuids.removeAll()
-                            }
-                        } else {
-                            selectedconfig = nil
-                        }
-                    }
-                    progressdetails.uuidswithdatatosynchronize = selecteduuids
+                    handleSelectedUuidsChange()
                 }
-                .onChange(of: rsyncUIdata.profile) {
-                    reset()
-                }
+                .onChange(of: rsyncUIdata.profile) { reset() }
                 .onChange(of: progressdetails.estimatedlist) {
-                    if progressdetails.estimatedlist == nil {
-                        thereareestimates = false
-                    } else {
-                        thereareestimates = true
-                    }
+                    handleEstimatedListChange()
                 }
                 .onChange(of: focusexport) {
-                    guard focusexport == true else { return }
-                    activeSheet = .exportview
-                    focusexport = false
+                    handleFocusExportChange()
                 }
                 .onChange(of: focusimport) {
-                    // focusimport = true
-                    guard focusimport == true else { return }
-                    activeSheet = .importview
-                    focusimport = false
+                    handleFocusImportChange()
                 }
 
-                Group {
-                    if focusstartestimation { labelstartestimation }
-                    if focusstartexecution { labelstartexecution }
-                    if doubleclick { doubleclickaction }
-                }
+                TasksFocusActionsView(focusStartEstimation: $focusstartestimation,
+                                      focusStartExecution: $focusstartexecution,
+                                      doubleClick: $doubleclick,
+                                      onStartEstimation: handleStartEstimation,
+                                      onStartExecution: execute,
+                                      onDoubleClick: doubleClickActionFunction)
             }
         }
         .navigationTitle("Synchronize tasks: profile \(rsyncUIdata.profile ?? "Default")")
@@ -172,35 +150,45 @@ struct TasksView: View {
         }
     }
 
-    var doubleclickaction: some View {
-        Label("", systemImage: "play.fill")
-            .foregroundStyle(.black)
-            .onAppear {
-                doubleClickActionFunction()
-                doubleclick = false
-            }
-    }
-
-    var labelstartestimation: some View {
-        Label("", systemImage: "play.fill")
-            .foregroundStyle(.black)
-            .onAppear {
-                executetaskpath.append(Tasks(task: .summarizeddetailsview))
-                focusstartestimation = false
-            }
-    }
-
-    var labelstartexecution: some View {
-        Label("", systemImage: "play.fill")
-            .foregroundStyle(.black)
-            .onAppear {
-                execute()
-                focusstartexecution = false
-            }
-    }
 }
 
 extension TasksView {
+    func handleSelectedUuidsChange() {
+        if let configurations = rsyncUIdata.configurations {
+            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+                selectedconfig = configurations[index]
+                // Must check if rsync version and snapshot
+                if configurations[index].task == SharedReference.shared.snapshot,
+                   SharedReference.shared.rsyncversion3 == false {
+                    selecteduuids.removeAll()
+                }
+            } else {
+                selectedconfig = nil
+            }
+        }
+        progressdetails.uuidswithdatatosynchronize = selecteduuids
+    }
+
+    func handleEstimatedListChange() {
+        thereareestimates = progressdetails.estimatedlist != nil
+    }
+
+    func handleFocusExportChange() {
+        guard focusexport == true else { return }
+        activeSheet = .exportview
+        focusexport = false
+    }
+
+    func handleFocusImportChange() {
+        guard focusimport == true else { return }
+        activeSheet = .importview
+        focusimport = false
+    }
+
+    func handleStartEstimation() {
+        executetaskpath.append(Tasks(task: .summarizeddetailsview))
+        focusstartestimation = false
+    }
     func allTasksAreHalted() -> Bool {
         let haltedtasks = rsyncUIdata.configurations?.filter { $0.task == SharedReference.shared.halted }
         return haltedtasks?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0

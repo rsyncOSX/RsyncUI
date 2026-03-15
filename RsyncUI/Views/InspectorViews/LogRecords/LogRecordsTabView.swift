@@ -41,19 +41,7 @@ struct LogRecordsTabView: View {
                     }
                 }
                 .onChange(of: selecteduuids) {
-                    if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                        hiddenID = configurations[index].hiddenID
-                    } else {
-                        hiddenID = -1
-                    }
-                    Task {
-                        let actorreadlogs = ActorReadLogRecordsJSON()
-                        if filterstring.isEmpty == false {
-                            logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
-                        } else {
-                            logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-                        }
-                    }
+                    updateLogsForSelection()
                 }
                 .onDeleteCommand {
                     confirmdelete = true
@@ -81,45 +69,14 @@ struct LogRecordsTabView: View {
                 }
             }
 
-            HStack {
-                if showindebounce {
-                    indebounce
-                } else {
-                    if selecteduuids.isEmpty {
-                        let logText = logs.count == 1 ?
-                            "ALL logrecords, select task for logrecords by task: 1 log" :
-                            "ALL logrecords, select task for logrecords by task: \(logs.count) logs"
-                        Text(logText)
-
-                        if filterstring.isEmpty == false {
-                            Label("Filtered by: \(filterstring)", systemImage: "magnifyingglass")
-                        }
-                    } else {
-                        let logText = logs.count == 1 ?
-                            "Logrecords by selected task: 1 log" :
-                            "Logrecords by selected task: \(logs.count) logs"
-                        Text(logText)
-
-                        if filterstring.isEmpty == false {
-                            Label("Filtered by: \(filterstring)", systemImage: "magnifyingglass")
-                        }
-                    }
-                }
-
-                Spacer()
-            }
-            .padding()
+            LogRecordsFooterView(logsCount: logs.count,
+                                 selectedUuidsIsEmpty: selecteduuids.isEmpty,
+                                 filterString: filterstring,
+                                 showInDebounce: showindebounce)
         }
         .searchable(if: selectedTab == .logview, text: $filterstring)
         .task {
-            if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                hiddenID = configurations[index].hiddenID
-            } else {
-                hiddenID = -1
-            }
-            let actorreadlogs = ActorReadLogRecordsJSON()
-            logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
-            logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+            await loadInitialLogs()
         }
         .onChange(of: filterstring) {
             showindebounce = true
@@ -127,29 +84,13 @@ struct LogRecordsTabView: View {
             filterTask = Task {
                 try? await Task.sleep(seconds: 1)
                 guard Task.isCancelled == false else { return }
-                showindebounce = false
-                let actorreadlogs = ActorReadLogRecordsJSON()
-                if filterstring.isEmpty == false {
-                    logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
-                } else {
-                    logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-                }
+                await updateLogsForFilter()
             }
         }
         .onChange(of: rsyncUIdata.profile) {
             reloadTask?.cancel()
             reloadTask = Task {
-                logs = []
-                logrecords = nil
-                showindebounce = true
-                try? await Task.sleep(seconds: 1)
-                guard Task.isCancelled == false else { return }
-                showindebounce = false
-                selectedloguuids.removeAll()
-
-                let actorreadlogs = ActorReadLogRecordsJSON()
-                logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
-                logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+                await reloadLogsForProfile()
             }
         }
         .toolbar(content: {
@@ -188,11 +129,6 @@ struct LogRecordsTabView: View {
         .padding()
     }
 
-    var indebounce: some View {
-        ProgressView()
-            .controlSize(.small)
-    }
-
     var validhiddenIDs: Set<Int> {
         var temp = Set<Int>()
         if let configurations = rsyncUIdata.configurations {
@@ -222,6 +158,57 @@ struct LogRecordsTabView: View {
         logs = await (updatedLogs ?? [])
         WriteLogRecordsJSON(rsyncUIdata.profile, records)
         selectedloguuids.removeAll()
+    }
+
+    private func loadInitialLogs() async {
+        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+            hiddenID = configurations[index].hiddenID
+        } else {
+            hiddenID = -1
+        }
+        let actorreadlogs = ActorReadLogRecordsJSON()
+        logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+        logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+    }
+
+    private func updateLogsForFilter() async {
+        showindebounce = false
+        let actorreadlogs = ActorReadLogRecordsJSON()
+        if filterstring.isEmpty == false {
+            logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
+        } else {
+            logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+        }
+    }
+
+    private func reloadLogsForProfile() async {
+        logs = []
+        logrecords = nil
+        showindebounce = true
+        try? await Task.sleep(seconds: 1)
+        guard Task.isCancelled == false else { return }
+        showindebounce = false
+        selectedloguuids.removeAll()
+
+        let actorreadlogs = ActorReadLogRecordsJSON()
+        logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+        logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+    }
+
+    private func updateLogsForSelection() {
+        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
+            hiddenID = configurations[index].hiddenID
+        } else {
+            hiddenID = -1
+        }
+        Task {
+            let actorreadlogs = ActorReadLogRecordsJSON()
+            if filterstring.isEmpty == false {
+                logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
+            } else {
+                logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+            }
+        }
     }
 }
 
