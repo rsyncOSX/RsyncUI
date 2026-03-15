@@ -27,32 +27,10 @@ struct GlobalChangeTaskView: View {
     var body: some View {
         HStack {
             // Column 1
-
-            VStack(alignment: .leading) {
-                HStack {
-                    ConditionalGlassButton(
-                        systemImage: "arrow.down",
-                        text: "Update",
-                        helpText: "Update task"
-                    ) {
-                        guard newdata.whatischanged.isEmpty == false else { return }
-                        showingAlert = true
-                    }
-                    .disabled(configurations.isEmpty)
-                }
-
-                VStack(alignment: .leading) { synchronizeID }
-
-                VStack(alignment: .leading) { localandremotecatalog }
-
-                VStack(alignment: .leading) { remoteuserandserver }
-
-                Spacer()
-
-                Text("ALL or SELECTED to be updated")
-                    .padding(.bottom, 10)
-            }
-            .padding()
+            GlobalChangeFormView(newdata: $newdata,
+                                 showingAlert: $showingAlert,
+                                 configurations: configurations,
+                                 focusField: $focusField)
 
             // Column 2
             VStack(alignment: .leading) {
@@ -91,216 +69,19 @@ struct GlobalChangeTaskView: View {
         .onSubmit {
             switch focusField {
             case .localcatalogField:
-                newdata.updateglobalchangedconfigurations()
-                showingAlert = true
+                handleSubmit()
             case .remotecatalogField:
-                newdata.updateglobalchangedconfigurations()
-                showingAlert = true
+                handleSubmit()
             case .remoteuserField:
-                newdata.updateglobalchangedconfigurations()
-                showingAlert = true
+                handleSubmit()
             case .remoteserverField:
-                newdata.updateglobalchangedconfigurations()
-                showingAlert = true
+                handleSubmit()
             case .synchronizeIDField:
-                newdata.updateglobalchangedconfigurations()
-                showingAlert = true
+                handleSubmit()
             default:
                 return
             }
         }
-    }
-
-    var synchronizeID: some View {
-        Section(header: headerID) {
-            HStack {
-                // Synchronize ID
-                EditValueScheme(140, "Synchronize ID", $newdata.occurence_backupID)
-                    .onChange(of: newdata.occurence_backupID) {
-                        Task {
-                            try? await Task.sleep(seconds: 2)
-                            if newdata.occurence_backupID.isEmpty {
-                                if newdata.whatischanged.contains(.backupID) {
-                                    newdata.whatischanged.remove(.backupID)
-                                }
-                            } else {
-                                if newdata.whatischanged.contains(.backupID) == false {
-                                    newdata.whatischanged.insert(.backupID)
-                                }
-                            }
-                        }
-                    }
-                    .disabled(configurations.isEmpty)
-                    .focused($focusField, equals: .synchronizeIDField)
-
-                EditValueScheme(140, "Replace", $newdata.replace_backupID)
-                    .onChange(of: newdata.replace_backupID) {
-                        Task {
-                            try? await Task.sleep(seconds: 2)
-                            if newdata.replace_backupID.isEmpty {
-                                if newdata.whatischanged.contains(.backupID) {
-                                    newdata.whatischanged.remove(.backupID)
-                                }
-                            } else {
-                                if newdata.whatischanged.contains(.backupID) == false {
-                                    newdata.whatischanged.insert(.backupID)
-                                }
-                            }
-                        }
-                    }
-                    .disabled(configurations.isEmpty)
-                    .focused($focusField, equals: .synchronizeIDField)
-            }
-        }
-    }
-
-    var localandremotecatalog: some View {
-        Section(header: headerlocalremote) {
-            HStack {
-                // localcatalog
-                EditValueScheme(140, "Source folder", $newdata.occurence_localcatalog)
-                    .onChange(of: newdata.occurence_localcatalog) {
-                        Task {
-                            try? await Task.sleep(seconds: 2)
-                            if newdata.occurence_localcatalog.isEmpty {
-                                if newdata.whatischanged.contains(.localcatalog) {
-                                    newdata.whatischanged.remove(.localcatalog)
-                                }
-                            } else {
-                                if newdata.whatischanged.contains(.localcatalog) == false {
-                                    newdata.whatischanged.insert(.localcatalog)
-                                }
-                            }
-                        }
-                    }
-                    .disabled(configurations.isEmpty)
-                    .focused($focusField, equals: .localcatalogField)
-
-                // localcatalog
-                EditValueScheme(140, "Replace", $newdata.replace_localcatalog)
-                    .onChange(of: newdata.replace_localcatalog) {
-                        Task {
-                            try? await Task.sleep(seconds: 2)
-                            if newdata.replace_localcatalog.isEmpty {
-                                if newdata.whatischanged.contains(.localcatalog) {
-                                    newdata.whatischanged.remove(.localcatalog)
-                                }
-                            } else {
-                                if newdata.whatischanged.contains(.localcatalog) == false {
-                                    newdata.whatischanged.insert(.localcatalog)
-                                }
-                            }
-                        }
-                    }
-                    .disabled(configurations.isEmpty)
-                    .focused($focusField, equals: .localcatalogField)
-            }
-
-            HStack {
-                EditValueScheme(140, "Destination folder", $newdata.occurence_remotecatalog)
-                    .onChange(of: newdata.occurence_remotecatalog) {
-                        Task {
-                            try? await Task.sleep(seconds: 2)
-                            if newdata.occurence_remotecatalog.isEmpty {
-                                if newdata.whatischanged.contains(.remotecatalog) {
-                                    newdata.whatischanged.remove(.remotecatalog)
-                                }
-                            } else {
-                                if newdata.whatischanged.contains(.remotecatalog) == false {
-                                    newdata.whatischanged.insert(.remotecatalog)
-                                }
-                            }
-                        }
-                    }
-                    .disabled(configurations.isEmpty)
-                    .focused($focusField, equals: .remotecatalogField)
-
-                EditValueScheme(140, "Replace", $newdata.replace_remotecatalog)
-                    .onChange(of: newdata.replace_remotecatalog) {
-                        Task {
-                            try? await Task.sleep(seconds: 2)
-                            if newdata.replace_remotecatalog.isEmpty {
-                                if newdata.whatischanged.contains(.remotecatalog) {
-                                    newdata.whatischanged.remove(.remotecatalog)
-                                }
-                            } else {
-                                if newdata.whatischanged.contains(.remotecatalog) == false {
-                                    newdata.whatischanged.insert(.remotecatalog)
-                                }
-                            }
-                        }
-                    }
-                    .disabled(configurations.isEmpty)
-                    .focused($focusField, equals: .remotecatalogField)
-            }
-        }
-    }
-
-    var remoteuserandserver: some View {
-        Section(header: headerremote) {
-            // Remote user
-            EditValueScheme(300, "Remote user", $newdata.occurence_remoteuser)
-                .onChange(of: newdata.occurence_remoteuser) {
-                    Task {
-                        try? await Task.sleep(seconds: 2)
-                        if newdata.occurence_remoteuser.isEmpty {
-                            if newdata.whatischanged.contains(.remoteuser) {
-                                newdata.whatischanged.remove(.remoteuser)
-                            }
-                        } else {
-                            if newdata.whatischanged.contains(.remoteuser) == false {
-                                newdata.whatischanged.insert(.remoteuser)
-                            }
-                        }
-                    }
-                }
-                .disabled(configurations.isEmpty)
-                .focused($focusField, equals: .remoteuserField)
-
-            // Remote server
-            EditValueScheme(300, "Remote server", $newdata.occurence_remoteserver)
-                .onChange(of: newdata.occurence_remoteserver) {
-                    Task {
-                        try? await Task.sleep(seconds: 2)
-                        if newdata.occurence_remoteserver.isEmpty {
-                            if newdata.whatischanged.contains(.remoteserver) {
-                                newdata.whatischanged.remove(.remoteserver)
-                            }
-                        } else {
-                            if newdata.whatischanged.contains(.remoteserver) == false {
-                                newdata.whatischanged.insert(.remoteserver)
-                            }
-                        }
-                    }
-                }
-                .disabled(configurations.isEmpty)
-                .focused($focusField, equals: .remoteserverField)
-        }
-    }
-
-    /// Headers (in sections)
-    var headerlocalremote: some View {
-        Text("Folder parameters")
-            .modifier(FixedTag(300, .leading))
-            .font(.title3)
-            // .foregroundStyle(.blue)
-            .fontWeight(.bold)
-    }
-
-    var headerremote: some View {
-        Text("Remote parameters")
-            .modifier(FixedTag(300, .leading))
-            .font(.title3)
-            // .foregroundStyle(.blue)
-            .fontWeight(.bold)
-    }
-
-    var headerID: some View {
-        Text("Synchronize ID")
-            .modifier(FixedTag(300, .leading))
-            .font(.title3)
-            // .foregroundStyle(.blue)
-            .fontWeight(.bold)
     }
 
     var configurations: [SynchronizeConfiguration] {
@@ -309,5 +90,10 @@ struct GlobalChangeTaskView: View {
         } else {
             []
         }
+    }
+
+    private func handleSubmit() {
+        newdata.updateglobalchangedconfigurations()
+        showingAlert = true
     }
 }

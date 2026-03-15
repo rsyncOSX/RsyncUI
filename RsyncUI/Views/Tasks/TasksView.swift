@@ -71,22 +71,15 @@ struct TasksView: View {
     var body: some View {
         ZStack {
             HStack {
-                ListofTasksMainView(
-                    rsyncUIdata: rsyncUIdata,
-                    selecteduuids: $selecteduuids,
-                    doubleclick: $doubleclick,
-                    progress: $progress,
-                    progressdetails: progressdetails,
-                    max: maxcount
-                )
-                .frame(maxWidth: .infinity)
-                .onChange(of: selecteduuids) {
-                    handleSelectedUuidsChange()
-                }
+                TasksListPanelView(rsyncUIdata: rsyncUIdata,
+                                   selecteduuids: $selecteduuids,
+                                   doubleclick: $doubleclick,
+                                   progress: $progress,
+                                   progressdetails: progressdetails,
+                                   max: maxcount,
+                                   onSelectedUuidsChange: handleSelectedUuidsChange,
+                                   onEstimatedListChange: handleEstimatedListChange)
                 .onChange(of: rsyncUIdata.profile) { reset() }
-                .onChange(of: progressdetails.estimatedlist) {
-                    handleEstimatedListChange()
-                }
                 .onChange(of: focusexport) {
                     handleFocusExportChange()
                 }

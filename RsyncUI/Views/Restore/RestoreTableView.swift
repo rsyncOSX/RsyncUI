@@ -43,19 +43,7 @@ struct RestoreTableView: View {
 
             if focusaborttask { labelaborttask }
 
-            HStack {
-                VStack(alignment: .leading) {
-                    setfilestorestore
-
-                    setpathforrestore
-                }
-
-                Spacer()
-
-                Toggle("--dry-run", isOn: $restore.dryrun)
-                    .toggleStyle(.switch)
-                    .animation(.easeInOut(duration: 0.35), value: restore.dryrun)
-            }
+            RestoreControlsView(restore: $restore)
             .focusedSceneValue(\.aborttask, $focusaborttask)
             .searchable(text: $filterstring)
             .onChange(of: filterstring) {
@@ -152,38 +140,6 @@ struct RestoreTableView: View {
                 focusaborttask = false
                 abort()
             }
-    }
-
-    var setpathforrestore: some View {
-        EditValueErrorScheme(
-            500,
-            "Path for restore",
-            $restore.pathforrestore,
-            restore.verifyPathForRestore(restore.pathforrestore)
-        )
-        .foregroundStyle(restore.verifyPathForRestore(restore.pathforrestore) ? Color.white : Color.red)
-        .onAppear {
-            if let pathforrestore = SharedReference.shared.pathforrestore {
-                restore.pathforrestore = pathforrestore
-            }
-        }
-        .onChange(of: restore.pathforrestore) {
-            guard restore.verifyPathForRestore(restore.pathforrestore) else {
-                return
-            }
-            if restore.pathforrestore.hasSuffix("/") == false {
-                restore.pathforrestore.append("/")
-            }
-            SharedReference.shared.pathforrestore = restore.pathforrestore
-        }
-    }
-
-    var setfilestorestore: some View {
-        EditValueScheme(
-            500,
-            "Select files to restore or \"./.\" for full restore",
-            $restore.filestorestore
-        )
     }
 
     var snapshotfolderpicker: some View {
