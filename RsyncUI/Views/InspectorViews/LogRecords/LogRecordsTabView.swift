@@ -20,6 +20,8 @@ struct LogRecordsTabView: View {
     // Filterstring
     @State private var filterstring: String = ""
     @State private var showindebounce: Bool = false
+    @State private var filterTask: Task<Void, Never>?
+    @State private var reloadTask: Task<Void, Never>?
 
     @State private var logrecords: [LogRecords]?
     @State private var logs: [Log] = []
@@ -45,16 +47,11 @@ struct LogRecordsTabView: View {
                         hiddenID = -1
                     }
                     Task {
+                        let actorreadlogs = ActorReadLogRecordsJSON()
                         if filterstring.isEmpty == false {
-                            Task {
-                                let actorreadlogs = ActorReadLogRecordsJSON()
-                                logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
-                            }
+                            logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
                         } else {
-                            Task {
-                                let actorreadlogs = ActorReadLogRecordsJSON()
-                                logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-                            }
+                            logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
                         }
                     }
                 }
@@ -126,28 +123,27 @@ struct LogRecordsTabView: View {
         }
         .onChange(of: filterstring) {
             showindebounce = true
-            Task {
-                try await Task.sleep(seconds: 1)
+            filterTask?.cancel()
+            filterTask = Task {
+                try? await Task.sleep(seconds: 1)
+                guard Task.isCancelled == false else { return }
                 showindebounce = false
+                let actorreadlogs = ActorReadLogRecordsJSON()
                 if filterstring.isEmpty == false {
-                    Task {
-                        let actorreadlogs = ActorReadLogRecordsJSON()
-                        logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
-                    }
+                    logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
                 } else {
-                    Task {
-                        let actorreadlogs = ActorReadLogRecordsJSON()
-                        logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-                    }
+                    logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
                 }
             }
         }
         .onChange(of: rsyncUIdata.profile) {
-            Task {
+            reloadTask?.cancel()
+            reloadTask = Task {
                 logs = []
                 logrecords = nil
                 showindebounce = true
-                try await Task.sleep(seconds: 1)
+                try? await Task.sleep(seconds: 1)
+                guard Task.isCancelled == false else { return }
                 showindebounce = false
                 selectedloguuids.removeAll()
 
@@ -165,23 +161,23 @@ struct LogRecordsTabView: View {
                     } label: {
                         if selectedloguuids.count == 0 {
                             Image(systemName: "clear")
-                                .foregroundColor(Color(.blue))
+                                .foregroundStyle(Color(.blue))
                         } else {
                             Image(systemName: "clear")
-                                .foregroundColor(Color(.red))
+                                .foregroundStyle(Color(.red))
                                 .overlay(
                                     Group {
                                         if selectedloguuids.count > 50 {
                                             // Show "50+" as text with proper sizing
                                             Text("50+")
                                                 .font(.system(size: 9, weight: .bold))
-                                                .foregroundColor(.white)
+                                                .foregroundStyle(.white)
                                                 .frame(minWidth: 24, minHeight: 24)
                                                 .background(Circle().fill(Color.red))
                                         } else {
                                             // Show number as SF Symbol
                                             Image(systemName: "\(selectedloguuids.count).circle.fill")
-                                                .foregroundColor(.red)
+                                                .foregroundStyle(.red)
                                         }
                                     }
                                     .allowsHitTesting(false)
@@ -220,18 +216,16 @@ struct LogRecordsTabView: View {
     }
 
     func deleteLogs(_ uuids: Set<UUID>) async {
-        Task {
-            async let updatedRecords: [LogRecords]? = ActorReadLogRecordsJSON().deleteLogs(
-                uuids,
-                logrecords: logrecords
-            )
-            let records = await updatedRecords
-            async let updatedLogs: [Log]? = ActorReadLogRecordsJSON().updatelogsbyhiddenID(records, hiddenID)
-            logrecords = records
-            logs = await (updatedLogs ?? [])
-            WriteLogRecordsJSON(rsyncUIdata.profile, records)
-            selectedloguuids.removeAll()
-        }
+        async let updatedRecords: [LogRecords]? = ActorReadLogRecordsJSON().deleteLogs(
+            uuids,
+            logrecords: logrecords
+        )
+        let records = await updatedRecords
+        async let updatedLogs: [Log]? = ActorReadLogRecordsJSON().updatelogsbyhiddenID(records, hiddenID)
+        logrecords = records
+        logs = await (updatedLogs ?? [])
+        WriteLogRecordsJSON(rsyncUIdata.profile, records)
+        selectedloguuids.removeAll()
     }
 }
 

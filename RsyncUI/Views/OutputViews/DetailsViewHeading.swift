@@ -17,39 +17,39 @@ struct DetailsViewHeading: View {
                     LabeledContent("Synchronize ID: ") {
                         if remotedatanumbers.backupID.count == 0 {
                             Text("Synchronize ID")
-                                .foregroundColor(.blue)
+                                .foregroundStyle(.blue)
                         } else {
                             Text(remotedatanumbers.backupID)
-                                .foregroundColor(.blue)
+                                .foregroundStyle(.blue)
                         }
                     }
                     .padding(-3)
 
                     LabeledContent("Task: ") {
                         Text(remotedatanumbers.task)
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.blue)
                     }
                     .padding(-3)
 
                     LabeledContent("Source folder: ") {
                         Text(remotedatanumbers.localCatalog)
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.blue)
                     }
                     .padding(-3)
 
                     LabeledContent("Destination folder: ") {
                         Text(remotedatanumbers.offsiteCatalog)
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.blue)
                     }
                     .padding(-3)
 
                     LabeledContent("Server: ") {
                         if remotedatanumbers.offsiteServer.count == 0 {
                             Text("localhost")
-                                .foregroundColor(.blue)
+                                .foregroundStyle(.blue)
                         } else {
                             Text(remotedatanumbers.offsiteServer)
-                                .foregroundColor(.blue)
+                                .foregroundStyle(.blue)
                         }
                     }
                     .padding(-3)
@@ -59,25 +59,25 @@ struct DetailsViewHeading: View {
                 VStack(alignment: .leading) {
                     LabeledContent("Total number of files: ") {
                         Text(remotedatanumbers.numberoffiles)
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.blue)
                     }
                     .padding(-3)
 
                     LabeledContent("Total number of catalogs: ") {
                         Text(remotedatanumbers.totaldirectories)
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.blue)
                     }
                     .padding(-3)
 
                     LabeledContent("Total numbers: ") {
                         Text(remotedatanumbers.totalnumbers)
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.blue)
                     }
                     .padding(-3)
 
                     LabeledContent("Total bytes: ") {
                         Text(remotedatanumbers.totalfilesize)
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.blue)
                     }
                     .padding(-3)
                 }

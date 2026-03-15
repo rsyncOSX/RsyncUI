@@ -41,16 +41,16 @@ struct ExportView: View {
             HStack {
                 if exportcatalog.hasSuffix("/") {
                     Text(exportcatalog)
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                 } else {
                     Text(exportcatalog.appending("/"))
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                 }
 
                 setfilename
 
                 Text(".json")
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
 
                 OpencatalogView(selecteditem: $exportcatalog, catalogs: true)
 

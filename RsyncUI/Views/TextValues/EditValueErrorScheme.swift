@@ -30,7 +30,7 @@ struct EditValueErrorScheme<T: LosslessStringConvertible>: View {
         .textFieldStyle(RoundedBorderTextFieldStyle())
         .frame(width: mywidth, alignment: .trailing)
         .lineLimit(1)
-        .foregroundColor(color(error: myerror))
+        .foregroundStyle(color(error: myerror))
     }
 
     init(_ width: CGFloat, _ str: String?, _ value: Binding<T>, _ error: Bool) {

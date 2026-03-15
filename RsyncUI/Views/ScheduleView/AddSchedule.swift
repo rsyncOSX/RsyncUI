@@ -32,7 +32,7 @@ struct AddSchedule: View {
                 Image(systemName: "figure.run")
                     .font(.title)
                     .imageScale(.small)
-                    .foregroundColor(.blue)
+                    .foregroundStyle(.blue)
 
                 TextField("", text: $dateRunMonth)
                     .frame(width: 100)
@@ -43,7 +43,7 @@ struct AddSchedule: View {
                     $dateRunHour,
                     schedules.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour)
                 )
-                .foregroundColor(schedules.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour)
+                .foregroundStyle(schedules.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour)
                     ? Color.white : Color.red)
 
                 ConditionalGlassButton(

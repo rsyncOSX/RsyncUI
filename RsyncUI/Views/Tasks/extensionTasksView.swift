@@ -66,7 +66,7 @@ extension TasksView {
                 executetaskpath.append(Tasks(task: .summarizeddetailsview))
             } label: {
                 Image(systemName: "wand.and.stars")
-                    .foregroundColor(Color(.blue))
+                    .foregroundStyle(Color(.blue))
             }
             .help("Estimate (⌘E)")
         }
@@ -95,7 +95,7 @@ extension TasksView {
                 }
             } label: {
                 Image(systemName: "play.fill")
-                    .foregroundColor(Color(.blue))
+                    .foregroundStyle(Color(.blue))
             }
             .help("Synchronize (⌘R)")
         }
@@ -107,7 +107,7 @@ extension TasksView {
             } label: {
                 if thereareestimates == true {
                     Image(systemName: "clear")
-                        .foregroundColor(Color(.red))
+                        .foregroundStyle(Color(.red))
                 } else {
                     Image(systemName: "clear")
                 }
@@ -213,7 +213,7 @@ extension TasksView {
                         }
                     } label: {
                         Image(systemName: "bolt.shield.fill")
-                            .foregroundColor(Color(.yellow))
+                            .foregroundStyle(Color(.yellow))
                     }
                     .help("Estimate & Synchronize")
                 }

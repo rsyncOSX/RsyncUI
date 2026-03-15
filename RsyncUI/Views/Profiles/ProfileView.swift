@@ -132,7 +132,7 @@ struct AddProfileSheet: View {
 
             if showError {
                 Text(errorMessage)
-                    .foregroundColor(.red)
+                    .foregroundStyle(.red)
                     .font(.caption)
             }
 

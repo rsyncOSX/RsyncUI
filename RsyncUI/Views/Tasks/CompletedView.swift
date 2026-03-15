@@ -29,7 +29,7 @@ struct CompletedView: View {
                 )
                 .onAppear {
                     Task {
-                        try await Task.sleep(seconds: 1)
+                        try? await Task.sleep(seconds: 1)
                         showtext = false
                     }
                 }

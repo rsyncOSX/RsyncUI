@@ -77,7 +77,7 @@ struct DetailsView: View {
                 }
             } else {
                 Text("No rsync output available")
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
         }
     }

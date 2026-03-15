@@ -12,7 +12,7 @@ struct HelpButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .foregroundColor(redorwhitebutton ? .red : .blue)
+            .foregroundStyle(redorwhitebutton ? .red : .blue)
             .contentShape(Capsule())
     }
 }
@@ -105,7 +105,7 @@ private struct PressureAnimatedButton: View {
 
         configuration.label
             .font(font)
-            .foregroundColor(.primary)
+            .foregroundStyle(.primary)
             .padding(.horizontal, horizontalPadding)
             .padding(.vertical, verticalPadding)
             .background(
@@ -183,7 +183,7 @@ struct ConditionalGlassButton: View {
                 Button(role: role, action: action) {
                     if let text {
                         Text(text)
-                            .foregroundColor(textcolor ? .green : (colorScheme == .dark ? .white : .black))
+                            .foregroundStyle(textcolor ? .green : (colorScheme == .dark ? .white : .black))
                     }
                 }
                 .buttonStyle(RefinedGlassButtonStyle())
@@ -193,7 +193,7 @@ struct ConditionalGlassButton: View {
                     Label {
                         if let text {
                             Text(text)
-                                .foregroundColor(textcolor ? .green : (colorScheme == .dark ? .white : .black))
+                                .foregroundStyle(textcolor ? .green : (colorScheme == .dark ? .white : .black))
                         }
                     } icon: {
                         Image(systemName: systemImage)
@@ -215,7 +215,7 @@ struct ConditionalGlassButton: View {
                 Button(role: role, action: action) {
                     if let text {
                         Text(text)
-                            .foregroundColor(textcolor ? .green : (colorScheme == .dark ? .white : .black))
+                            .foregroundStyle(textcolor ? .green : (colorScheme == .dark ? .white : .black))
                     }
                 }
                 .buttonStyle(.borderedProminent)
@@ -225,7 +225,7 @@ struct ConditionalGlassButton: View {
                     Label {
                         if let text {
                             Text(text)
-                                .foregroundColor(textcolor ? .green : (colorScheme == .dark ? .white : .black))
+                                .foregroundStyle(textcolor ? .green : (colorScheme == .dark ? .white : .black))
                         }
                     } icon: {
                         Image(systemName: systemImage)

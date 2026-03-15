@@ -20,23 +20,23 @@ struct EstimateTableView: View {
                 if data.id == estimatinguuid {
                     HStack {
                         Image(systemName: "arrowshape.right.fill")
-                            .foregroundColor(Color(.blue))
+                            .foregroundStyle(Color(.blue))
 
                         if data.backupID.isEmpty == true {
                             Text("No ID set")
-                                .foregroundColor(color(uuid: data.id))
+                                .foregroundStyle(color(uuid: data.id))
                         } else {
                             Text(data.backupID)
-                                .foregroundColor(color(uuid: data.id))
+                                .foregroundStyle(color(uuid: data.id))
                         }
                     }
                 } else {
                     if data.backupID.isEmpty == true {
                         Text("No ID set")
-                            .foregroundColor(color(uuid: data.id))
+                            .foregroundStyle(color(uuid: data.id))
                     } else {
                         Text(data.backupID)
-                            .foregroundColor(color(uuid: data.id))
+                            .foregroundStyle(color(uuid: data.id))
                     }
                 }
             }
@@ -44,7 +44,7 @@ struct EstimateTableView: View {
             TableColumn("Action") { data in
                 if data.task == SharedReference.shared.halted {
                     Image(systemName: "stop.fill")
-                        .foregroundColor(Color(.red))
+                        .foregroundStyle(Color(.red))
                 } else {
                     Text(data.task)
                 }

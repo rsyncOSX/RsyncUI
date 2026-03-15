@@ -31,7 +31,7 @@ struct SnapshotListView: View {
                 if let period = data.period {
                     if period.contains("Delete") {
                         Text(period)
-                            .foregroundColor(.red)
+                            .foregroundStyle(.red)
                     } else {
                         Text(period)
                     }

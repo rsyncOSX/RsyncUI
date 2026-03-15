@@ -23,7 +23,7 @@ struct TimerView: View {
             Image(systemName: "figure.run")
                 .font(.title)
                 .imageScale(.small)
-                .foregroundColor(.blue)
+                .foregroundStyle(.blue)
                 .onReceive(timer) { firedDate in
                     timetosynchronize = 1
                     timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))
@@ -38,7 +38,7 @@ struct TimerView: View {
         } else {
             Text(timeosynchronizestring)
                 .fontWeight(.bold)
-                .foregroundColor(.blue)
+                .foregroundStyle(.blue)
                 .font(.title2)
                 .onReceive(timer) { firedDate in
                     timetosynchronize -= Int(firedDate.timeIntervalSince(startDate))

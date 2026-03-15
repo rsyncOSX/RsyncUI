@@ -111,7 +111,7 @@ struct RsyncUIWidgetEstimateEntryView: View {
                 HStack {
                     Text(entry.date, style: .time)
                     Image(systemName: "bolt.shield.fill")
-                        .foregroundColor(Color(.yellow))
+                        .foregroundStyle(Color(.yellow))
                         .widgetURL(url)
                 }
             }
@@ -121,7 +121,7 @@ struct RsyncUIWidgetEstimateEntryView: View {
                 HStack {
                     Text(entry.date, style: .time)
                     Image(systemName: "bolt.shield.fill")
-                        .foregroundColor(Color(.red))
+                        .foregroundStyle(Color(.red))
                 }
             }
         }

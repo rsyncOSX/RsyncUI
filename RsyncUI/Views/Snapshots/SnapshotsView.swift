@@ -325,7 +325,7 @@ extension SnapshotsView {
             updated = true
         }
         Task {
-            try await Task.sleep(seconds: 2)
+            try? await Task.sleep(seconds: 2)
         }
     }
 

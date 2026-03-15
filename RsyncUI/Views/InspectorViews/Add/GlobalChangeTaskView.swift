@@ -118,7 +118,7 @@ struct GlobalChangeTaskView: View {
                 EditValueScheme(140, "Synchronize ID", $newdata.occurence_backupID)
                     .onChange(of: newdata.occurence_backupID) {
                         Task {
-                            try await Task.sleep(seconds: 2)
+                            try? await Task.sleep(seconds: 2)
                             if newdata.occurence_backupID.isEmpty {
                                 if newdata.whatischanged.contains(.backupID) {
                                     newdata.whatischanged.remove(.backupID)
@@ -136,7 +136,7 @@ struct GlobalChangeTaskView: View {
                 EditValueScheme(140, "Replace", $newdata.replace_backupID)
                     .onChange(of: newdata.replace_backupID) {
                         Task {
-                            try await Task.sleep(seconds: 2)
+                            try? await Task.sleep(seconds: 2)
                             if newdata.replace_backupID.isEmpty {
                                 if newdata.whatischanged.contains(.backupID) {
                                     newdata.whatischanged.remove(.backupID)
@@ -161,7 +161,7 @@ struct GlobalChangeTaskView: View {
                 EditValueScheme(140, "Source folder", $newdata.occurence_localcatalog)
                     .onChange(of: newdata.occurence_localcatalog) {
                         Task {
-                            try await Task.sleep(seconds: 2)
+                            try? await Task.sleep(seconds: 2)
                             if newdata.occurence_localcatalog.isEmpty {
                                 if newdata.whatischanged.contains(.localcatalog) {
                                     newdata.whatischanged.remove(.localcatalog)
@@ -180,7 +180,7 @@ struct GlobalChangeTaskView: View {
                 EditValueScheme(140, "Replace", $newdata.replace_localcatalog)
                     .onChange(of: newdata.replace_localcatalog) {
                         Task {
-                            try await Task.sleep(seconds: 2)
+                            try? await Task.sleep(seconds: 2)
                             if newdata.replace_localcatalog.isEmpty {
                                 if newdata.whatischanged.contains(.localcatalog) {
                                     newdata.whatischanged.remove(.localcatalog)
@@ -200,7 +200,7 @@ struct GlobalChangeTaskView: View {
                 EditValueScheme(140, "Destination folder", $newdata.occurence_remotecatalog)
                     .onChange(of: newdata.occurence_remotecatalog) {
                         Task {
-                            try await Task.sleep(seconds: 2)
+                            try? await Task.sleep(seconds: 2)
                             if newdata.occurence_remotecatalog.isEmpty {
                                 if newdata.whatischanged.contains(.remotecatalog) {
                                     newdata.whatischanged.remove(.remotecatalog)
@@ -218,7 +218,7 @@ struct GlobalChangeTaskView: View {
                 EditValueScheme(140, "Replace", $newdata.replace_remotecatalog)
                     .onChange(of: newdata.replace_remotecatalog) {
                         Task {
-                            try await Task.sleep(seconds: 2)
+                            try? await Task.sleep(seconds: 2)
                             if newdata.replace_remotecatalog.isEmpty {
                                 if newdata.whatischanged.contains(.remotecatalog) {
                                     newdata.whatischanged.remove(.remotecatalog)
@@ -242,7 +242,7 @@ struct GlobalChangeTaskView: View {
             EditValueScheme(300, "Remote user", $newdata.occurence_remoteuser)
                 .onChange(of: newdata.occurence_remoteuser) {
                     Task {
-                        try await Task.sleep(seconds: 2)
+                        try? await Task.sleep(seconds: 2)
                         if newdata.occurence_remoteuser.isEmpty {
                             if newdata.whatischanged.contains(.remoteuser) {
                                 newdata.whatischanged.remove(.remoteuser)
@@ -261,7 +261,7 @@ struct GlobalChangeTaskView: View {
             EditValueScheme(300, "Remote server", $newdata.occurence_remoteserver)
                 .onChange(of: newdata.occurence_remoteserver) {
                     Task {
-                        try await Task.sleep(seconds: 2)
+                        try? await Task.sleep(seconds: 2)
                         if newdata.occurence_remoteserver.isEmpty {
                             if newdata.whatischanged.contains(.remoteserver) {
                                 newdata.whatischanged.remove(.remoteserver)
@@ -283,7 +283,7 @@ struct GlobalChangeTaskView: View {
         Text("Folder parameters")
             .modifier(FixedTag(300, .leading))
             .font(.title3)
-            // .foregroundColor(.blue)
+            // .foregroundStyle(.blue)
             .fontWeight(.bold)
     }
 
@@ -291,7 +291,7 @@ struct GlobalChangeTaskView: View {
         Text("Remote parameters")
             .modifier(FixedTag(300, .leading))
             .font(.title3)
-            // .foregroundColor(.blue)
+            // .foregroundStyle(.blue)
             .fontWeight(.bold)
     }
 
@@ -299,7 +299,7 @@ struct GlobalChangeTaskView: View {
         Text("Synchronize ID")
             .modifier(FixedTag(300, .leading))
             .font(.title3)
-            // .foregroundColor(.blue)
+            // .foregroundStyle(.blue)
             .fontWeight(.bold)
     }
 

@@ -19,7 +19,7 @@ struct EditValueScheme: View {
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .frame(width: mywidth, alignment: .trailing)
             .lineLimit(1)
-            .foregroundColor(colorScheme == .dark ? .white : .black)
+            .foregroundStyle(colorScheme == .dark ? .white : .black)
     }
 
     init(_ width: CGFloat, _ str: String?, _ value: Binding<String>) {

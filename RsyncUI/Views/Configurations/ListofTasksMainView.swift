@@ -17,6 +17,7 @@ struct ListofTasksMainView: View {
     @State private var confirmdelete: Bool = false
     /// Filterstring
     @State private var filterstring: String = ""
+    @State private var filterTask: Task<Void, Never>?
 
     let progressdetails: ProgressDetails
     let max: Double
@@ -58,8 +59,10 @@ struct ListofTasksMainView: View {
                 confirmdelete = true
             }
             .onChange(of: filterstring) {
-                Task {
-                    try await Task.sleep(seconds: 2)
+                filterTask?.cancel()
+                filterTask = Task {
+                    try? await Task.sleep(seconds: 2)
+                    guard Task.isCancelled == false else { return }
                     let shouldInclude = { (config: SynchronizeConfiguration) in
                         filterstring.isEmpty ? true : config.backupID.contains(filterstring)
                     }

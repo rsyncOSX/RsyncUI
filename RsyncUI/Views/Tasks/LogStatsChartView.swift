@@ -167,7 +167,7 @@ struct LogStatsChartView: View {
                         TableColumn("Size (MB)") { item in
                             if datainchart == .transferreddata, selectedDataPoint != nil, typeofchart == .barchart {
                                 Text(String(format: "%.2f", item.transferredMB))
-                                    .foregroundColor(.red)
+                                    .foregroundStyle(.red)
                             } else {
                                 Text(String(format: "%.2f", item.transferredMB))
                             }
@@ -176,7 +176,7 @@ struct LogStatsChartView: View {
                         TableColumn("Files") { item in
                             if datainchart == .numberoffiles, selectedDataPoint != nil, typeofchart == .barchart {
                                 Text(String(item.files))
-                                    .foregroundColor(.red)
+                                    .foregroundStyle(.red)
                             } else {
                                 Text(String(item.files))
                             }

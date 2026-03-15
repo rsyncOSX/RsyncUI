@@ -62,11 +62,11 @@ struct RsyncParametersView: View {
                         // 1. The Frame Title
                         Text("Danger Zone")
                             .font(.headline)
-                            .foregroundColor(.red)
+                            .foregroundStyle(.red)
                         
                         Text(headerText)
                             .font(.headline)
-                            .foregroundColor(isDeletePresent ? Color(.red) : Color(.blue))
+                            .foregroundStyle(isDeletePresent ? Color(.red) : Color(.blue))
                         
                     }
                     
@@ -86,7 +86,7 @@ struct RsyncParametersView: View {
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 8)
                                 .background(Color.red)
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .cornerRadius(8)
                         }
                         .padding(.top, 4)

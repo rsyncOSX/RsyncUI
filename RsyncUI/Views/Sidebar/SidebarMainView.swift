@@ -96,7 +96,7 @@ struct SidebarMainView: View {
                     .padding([.bottom], -30)
                     .onAppear {
                         Task {
-                            try await Task.sleep(seconds: 2)
+                            try? await Task.sleep(seconds: 2)
                             mountingvolumenow = false
                         }
                     }
@@ -113,7 +113,7 @@ struct SidebarMainView: View {
                     .padding([.bottom], -30)
                     .onAppear {
                         Task {
-                            try await Task.sleep(seconds: 5)
+                            try? await Task.sleep(seconds: 5)
                             GlobalTimer.shared.thereisnotexecutedschedulesafterwakeup = false
                         }
                     }

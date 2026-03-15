@@ -75,22 +75,22 @@ struct ConfigurationsTableDataMainView: View {
 
                         if data.backupID.isEmpty == true {
                             Text("No ID set")
-                                .foregroundColor(.yellow)
+                                .foregroundStyle(.yellow)
                         } else {
                             Text(data.backupID)
-                                .foregroundColor(.yellow)
+                                .foregroundStyle(.yellow)
                         }
 
                         Text(rsyncUIdata.profile ?? "Default")
-                            .foregroundColor(.yellow)
+                            .foregroundStyle(.yellow)
                     } else {
                         let color: Color = progressdetails.estimatedlist?[index].datatosynchronize == true ? .blue : .red
                         if data.backupID.isEmpty == true {
                             Text("No ID set")
-                                .foregroundColor(color)
+                                .foregroundStyle(color)
                         } else {
                             Text(data.backupID)
-                                .foregroundColor(color)
+                                .foregroundStyle(color)
                         }
                     }
                 } else {
@@ -105,7 +105,7 @@ struct ConfigurationsTableDataMainView: View {
             TableColumn("Action") { data in
                 if data.task == SharedReference.shared.halted {
                     Image(systemName: "stop.fill")
-                        .foregroundColor(Color(.red))
+                        .foregroundStyle(Color(.red))
                         .contextMenu {
                             ConditionalGlassButton(
                                 systemImage: "stop.fill",
@@ -158,7 +158,7 @@ struct ConfigurationsTableDataMainView: View {
 
                 Text(seconds.latest())
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
-                    .foregroundColor(color)
+                    .foregroundStyle(color)
             }
             .width(max: 90)
 

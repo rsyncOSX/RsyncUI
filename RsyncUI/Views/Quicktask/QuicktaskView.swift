@@ -113,7 +113,7 @@ struct QuicktaskView: View {
                                 UserDefaults.standard.set(selectedrsynccommand.rawValue, forKey: "quickselectedrsynccommand")
                                 Task {
                                     // Sleep for a second, then clear catalog valuse
-                                    try await Task.sleep(seconds: 1)
+                                    try? await Task.sleep(seconds: 1)
                                     localcatalog = ""
                                     remotecatalog = ""
                                     selectedhomecatalog = nil
@@ -383,7 +383,7 @@ struct QuicktaskView: View {
 
     var labelstartexecution: some View {
         Label("", systemImage: "play.fill")
-            .foregroundColor(.black)
+            .foregroundStyle(.black)
             .onAppear {
                 getConfigAndExecute()
             }

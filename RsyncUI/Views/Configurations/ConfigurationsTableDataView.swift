@@ -18,18 +18,18 @@ struct ConfigurationsTableDataView: View {
                 if data.parameter4?.isEmpty == false {
                     if data.backupID.isEmpty == true {
                         Text("No ID set")
-                            .foregroundColor(.red)
+                            .foregroundStyle(.red)
                     } else {
                         Text(data.backupID)
-                            .foregroundColor(.red)
+                            .foregroundStyle(.red)
                     }
                 } else {
                     if data.backupID.isEmpty == true {
                         Text("No ID set")
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.blue)
                     } else {
                         Text(data.backupID)
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.blue)
                     }
                 }
             }
@@ -38,7 +38,7 @@ struct ConfigurationsTableDataView: View {
             TableColumn("Action") { data in
                 if data.task == SharedReference.shared.halted {
                     Image(systemName: "stop.fill")
-                        .foregroundColor(Color(.red))
+                        .foregroundStyle(Color(.red))
                 } else {
                     Text(data.task)
                 }

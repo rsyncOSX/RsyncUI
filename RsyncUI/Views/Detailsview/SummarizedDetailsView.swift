@@ -80,7 +80,7 @@ struct SummarizedDetailsView: View {
                                         }
                                     } label: {
                                         Text(Image(systemName: "play.fill"))
-                                            // .foregroundColor(.blue)
+                                            // .foregroundStyle(.blue)
                                             .font(.title2)
                                             .imageScale(.large)
                                     }
@@ -136,7 +136,7 @@ struct SummarizedDetailsView: View {
 
     var labelstartexecution: some View {
         Label("", systemImage: "play.fill")
-            .foregroundColor(.black)
+            .foregroundStyle(.black)
             .onAppear {
                 executetaskpath.removeAll()
                 executetaskpath.append(Tasks(task: .executestimatedview))
@@ -176,10 +176,10 @@ struct SummarizedDetailsView: View {
                 if data.datatosynchronize {
                     if data.backupID.isEmpty == true {
                         Text("No ID set")
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.blue)
                     } else {
                         Text(data.backupID)
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.blue)
                     }
                 } else {
                     if data.backupID.isEmpty == true {
@@ -206,7 +206,7 @@ struct SummarizedDetailsView: View {
                 // Reset preselected tasks, must do a few seconds timout
                 // before clearing it out
                 Task {
-                    try await Task.sleep(seconds: 2)
+                    try? await Task.sleep(seconds: 2)
                     selecteduuids.removeAll()
                 }
             }
@@ -220,7 +220,7 @@ struct SummarizedDetailsView: View {
                 if files.datatosynchronize {
                     Text(files.newfiles)
                         .frame(maxWidth: .infinity, alignment: .trailing)
-                        .foregroundColor(.blue)
+                        .foregroundStyle(.blue)
                 } else {
                     Text(files.newfiles)
                         .frame(maxWidth: .infinity, alignment: .trailing)
@@ -231,7 +231,7 @@ struct SummarizedDetailsView: View {
                 if files.datatosynchronize {
                     Text(files.deletefiles)
                         .frame(maxWidth: .infinity, alignment: .trailing)
-                        .foregroundColor(.blue)
+                        .foregroundStyle(.blue)
                 } else {
                     Text(files.deletefiles)
                         .frame(maxWidth: .infinity, alignment: .trailing)
@@ -242,7 +242,7 @@ struct SummarizedDetailsView: View {
                 if files.datatosynchronize {
                     Text(files.filestransferred)
                         .frame(maxWidth: .infinity, alignment: .trailing)
-                        .foregroundColor(.blue)
+                        .foregroundStyle(.blue)
                 } else {
                     Text(files.filestransferred)
                         .frame(maxWidth: .infinity, alignment: .trailing)
@@ -253,7 +253,7 @@ struct SummarizedDetailsView: View {
                 if files.datatosynchronize {
                     Text("\(files.totaltransferredfilessizeInt / 1000)")
                         .frame(maxWidth: .infinity, alignment: .trailing)
-                        .foregroundColor(.blue)
+                        .foregroundStyle(.blue)
                 } else {
                     Text("\(files.totaltransferredfilessizeInt / 1000)")
                         .frame(maxWidth: .infinity, alignment: .trailing)

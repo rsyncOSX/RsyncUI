@@ -79,7 +79,7 @@ extension Sshsettings {
     func createKeys() {
         if SshKeys().createPublicPrivateRSAKeyPair() {
             Task {
-                try await Task.sleep(seconds: 1)
+                try? await Task.sleep(seconds: 1)
                 localsshkeys = SshKeys().validatepublickeypresent()
                 showsshkeyiscreated = true
             }

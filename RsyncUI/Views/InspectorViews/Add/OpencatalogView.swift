@@ -19,10 +19,10 @@ struct OpencatalogView: View {
         }, label: {
             if catalogs {
                 Image(systemName: "folder.fill")
-                    .foregroundColor(Color(.blue))
+                    .foregroundStyle(Color(.blue))
             } else {
                 Image(systemName: "text.document.fill")
-                    .foregroundColor(Color(.blue))
+                    .foregroundStyle(Color(.blue))
             }
         })
         .fileImporter(isPresented: $isImporting,

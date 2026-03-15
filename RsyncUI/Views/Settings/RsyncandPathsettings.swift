@@ -97,7 +97,7 @@ struct RsyncandPathsettings: View {
             $rsyncpathsettings.localrsyncpath,
             rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath)
         )
-        .foregroundColor(rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath) ? Color.white : Color.red)
+        .foregroundStyle(rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath) ? Color.white : Color.red)
         .onChange(of: rsyncpathsettings.localrsyncpath) {
             guard rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath) else {
                 return
@@ -126,7 +126,7 @@ struct RsyncandPathsettings: View {
             $rsyncpathsettings.temporarypathforrestore,
             rsyncpathsettings.verifyPathForRestore(rsyncpathsettings.temporarypathforrestore)
         )
-        .foregroundColor(rsyncpathsettings.verifyPathForRestore(rsyncpathsettings.temporarypathforrestore) ?
+        .foregroundStyle(rsyncpathsettings.verifyPathForRestore(rsyncpathsettings.temporarypathforrestore) ?
             Color.white : Color.red)
         .onAppear {
             if let pathforrestore = SharedReference.shared.pathforrestore {
@@ -152,7 +152,7 @@ struct RsyncandPathsettings: View {
             $rsyncpathsettings.marknumberofdayssince,
             rsyncpathsettings.verifystringtoint(rsyncpathsettings.marknumberofdayssince)
         )
-        .foregroundColor(rsyncpathsettings.verifystringtoint(rsyncpathsettings.marknumberofdayssince) ? Color.white : Color.red)
+        .foregroundStyle(rsyncpathsettings.verifystringtoint(rsyncpathsettings.marknumberofdayssince) ? Color.white : Color.red)
         .onChange(of: rsyncpathsettings.marknumberofdayssince) {
             guard rsyncpathsettings.verifystringtoint(rsyncpathsettings.marknumberofdayssince) else {
                 return
