@@ -47,24 +47,14 @@ struct AddTaskView: View {
     @State var presentglobaltaskview: Bool = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                updateButton
-                trailingslash
-            }
-
-            synchronizeID
-            catalogSectionView
-
-            VStack(alignment: .leading) { remoteuserandserver }
-
-            if selectedconfig?.task == SharedReference.shared.snapshot {
-                VStack(alignment: .leading) { snapshotnum }
-            }
-
-            saveURLSection
-        }
-        .padding()
+        AddTaskContentView(updateButton: { updateButton },
+                           trailingslash: { trailingslash },
+                           synchronizeID: { synchronizeID },
+                           catalogSectionView: { catalogSectionView },
+                           remoteuserandserver: { remoteuserandserver },
+                           snapshotView: { snapshotnum },
+                           saveURLSection: { saveURLSection },
+                           showSnapshot: selectedconfig?.task == SharedReference.shared.snapshot)
         .onAppear { handleSelectionChange() }
         .onSubmit { handleSubmit() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }

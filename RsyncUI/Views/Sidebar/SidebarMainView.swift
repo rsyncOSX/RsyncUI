@@ -86,40 +86,15 @@ struct SidebarMainView: View {
             .listStyle(.sidebar)
             .disabled(disablesidebarmeny)
 
-            if newversion.notifynewversion {
-                MessageView(mytext: "New version available\nsee About RsyncUI", size: .caption2)
-                    .padding([.bottom], -30)
-            }
-
-            if mountingvolumenow {
-                MessageView(mytext: "Mounting volume\nplease wait", size: .caption2)
-                    .padding([.bottom], -30)
-                    .onAppear {
-                        Task {
-                            try? await Task.sleep(seconds: 2)
-                            mountingvolumenow = false
-                        }
-                    }
-            }
-
-            // Next scheduled action
-            if GlobalTimer.shared.timerIsActive() {
-                MessageView(mytext: GlobalTimer.shared.nextScheduleDate() ?? "", size: .caption2)
-                    .padding([.bottom], -30)
-            }
-
-            if GlobalTimer.shared.thereisnotexecutedschedulesafterwakeup {
-                MessageView(mytext: "Not executed schedules\nafter wakeup", size: .caption2)
-                    .padding([.bottom], -30)
-                    .onAppear {
-                        Task {
-                            try? await Task.sleep(seconds: 5)
-                            GlobalTimer.shared.thereisnotexecutedschedulesafterwakeup = false
-                        }
-                    }
-            }
-
-            MessageView(mytext: SharedReference.shared.rsyncversionshort ?? "", size: .caption2)
+            SidebarStatusMessagesView(newVersionAvailable: newversion.notifynewversion,
+                                      mountingVolumeNow: $mountingvolumenow,
+                                      timerIsActive: GlobalTimer.shared.timerIsActive(),
+                                      nextScheduleText: GlobalTimer.shared.nextScheduleDate() ?? "",
+                                      showNotExecutedAfterWake: GlobalTimer.shared.thereisnotexecutedschedulesafterwakeup,
+                                      rsyncVersionShort: SharedReference.shared.rsyncversionshort ?? "",
+                                      clearNotExecutedAfterWake: {
+                                          GlobalTimer.shared.thereisnotexecutedschedulesafterwakeup = false
+                                      })
         } detail: {
             selectView(selectedview)
         }
