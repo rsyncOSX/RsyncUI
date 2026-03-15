@@ -4,4 +4,7 @@
    <FileRef
       location = "self:">
    </FileRef>
+   <FileRef
+      location = "group:refactor.md">
+   </FileRef>
 </Workspace>
