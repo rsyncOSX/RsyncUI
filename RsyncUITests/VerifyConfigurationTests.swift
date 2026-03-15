@@ -33,44 +33,44 @@ func makeValidTask(
 }
 
 @MainActor
-@Suite(.serialized)
+@Suite(.serialized, .tags(.validation))
 struct VerifyConfigurationTests {
     // MARK: - Valid Configuration Tests
 
     @Test("Valid local synchronization configuration")
-    func validLocalSynchronization() {
+    func validLocalSynchronization() throws {
         let task = makeValidTask()
         let verifier = VerifyConfiguration()
 
-        let result = verifier.verify(task)
+        let result = try #require(verifier.verify(task))
 
-        #expect(result != nil)
-        #expect(result?.task == "synchronize")
-        #expect(result?.localCatalog == "/Users/test/Documents/")
-        #expect(result?.offsiteCatalog == "/backup/Documents/")
-        #expect(result?.backupID == "TestBackup")
-        #expect(result?.offsiteServer == "")
-        #expect(result?.offsiteUsername == "")
+        #expect(result.task == "synchronize")
+        #expect(result.localCatalog == "/Users/test/Documents/")
+        #expect(result.offsiteCatalog == "/backup/Documents/")
+        #expect(result.backupID == "TestBackup")
+        #expect(result.offsiteServer == "")
+        #expect(result.offsiteUsername == "")
     }
 
     @Test("Valid remote synchronization with SSH")
-    func validRemoteSynchronization() {
+    func validRemoteSynchronization() throws {
         let task = makeValidTask(
             username: "testuser",
             server: "testserver.local"
         )
         let verifier = VerifyConfiguration()
 
-        let result = verifier.verify(task)
+        let result = try #require(verifier.verify(task))
 
-        #expect(result != nil)
-        #expect(result?.offsiteUsername == "testuser")
-        #expect(result?.offsiteServer == "testserver.local")
+        #expect(result.offsiteUsername == "testuser")
+        #expect(result.offsiteServer == "testserver.local")
     }
 
     @Test("Valid syncremote task")
-    func validSyncremoteTask() {
+    func validSyncremoteTask() throws {
+        let originalVersion = SharedReference.shared.rsyncversion3
         SharedReference.shared.rsyncversion3 = true
+        defer { SharedReference.shared.rsyncversion3 = originalVersion }
 
         let task = makeValidTask(
             task: "syncremote",
@@ -79,10 +79,9 @@ struct VerifyConfigurationTests {
         )
         let verifier = VerifyConfiguration()
 
-        let result = verifier.verify(task)
+        let result = try #require(verifier.verify(task))
 
-        #expect(result != nil)
-        #expect(result?.task == "syncremote")
+        #expect(result.task == "syncremote")
     }
 
     // MARK: - Missing Catalog Tests
@@ -177,7 +176,7 @@ struct VerifyConfigurationTests {
     // MARK: - Trailing Slash Handling Tests
 
     @Test("Add trailing slash when specified")
-    func addTrailingSlash() {
+    func addTrailingSlash() throws {
         let task = makeValidTask(
             localCatalog: "/Users/test/Documents",
             offsiteCatalog: "/backup/Documents",
@@ -185,15 +184,14 @@ struct VerifyConfigurationTests {
         )
         let verifier = VerifyConfiguration()
 
-        let result = verifier.verify(task)
+        let result = try #require(verifier.verify(task))
 
-        #expect(result != nil)
-        #expect(result?.localCatalog.hasSuffix("/") == true, "Local catalog should have trailing slash")
-        #expect(result?.offsiteCatalog.hasSuffix("/") == true, "Offsite catalog should have trailing slash")
+        #expect(result.localCatalog.hasSuffix("/") == true, "Local catalog should have trailing slash")
+        #expect(result.offsiteCatalog.hasSuffix("/") == true, "Offsite catalog should have trailing slash")
     }
 
     @Test("Remove trailing slash when do_not_add")
-    func removeTrailingSlash() {
+    func removeTrailingSlash() throws {
         let task = makeValidTask(
             localCatalog: "/Users/test/Documents/",
             offsiteCatalog: "/backup/Documents/",
@@ -201,17 +199,16 @@ struct VerifyConfigurationTests {
         )
         let verifier = VerifyConfiguration()
 
-        let result = verifier.verify(task)
+        let result = try #require(verifier.verify(task))
 
-        #expect(result != nil)
-        #expect(result?.localCatalog.hasSuffix("/") == false, "Local catalog should not have trailing slash")
-        #expect(result?.offsiteCatalog.hasSuffix("/") == false, "Offsite catalog should not have trailing slash")
-        #expect(result?.localCatalog == "/Users/test/Documents")
-        #expect(result?.offsiteCatalog == "/backup/Documents")
+        #expect(result.localCatalog.hasSuffix("/") == false, "Local catalog should not have trailing slash")
+        #expect(result.offsiteCatalog.hasSuffix("/") == false, "Offsite catalog should not have trailing slash")
+        #expect(result.localCatalog == "/Users/test/Documents")
+        #expect(result.offsiteCatalog == "/backup/Documents")
     }
 
     @Test("Preserve paths with do_not_check")
-    func preservePathsNoCheck() {
+    func preservePathsNoCheck() throws {
         let task = makeValidTask(
             localCatalog: "/Users/test/Documents",
             offsiteCatalog: "/backup/Documents/",
@@ -219,15 +216,14 @@ struct VerifyConfigurationTests {
         )
         let verifier = VerifyConfiguration()
 
-        let result = verifier.verify(task)
+        let result = try #require(verifier.verify(task))
 
-        #expect(result != nil)
-        #expect(result?.localCatalog == "/Users/test/Documents", "Should preserve local catalog as-is")
-        #expect(result?.offsiteCatalog == "/backup/Documents/", "Should preserve offsite catalog as-is")
+        #expect(result.localCatalog == "/Users/test/Documents", "Should preserve local catalog as-is")
+        #expect(result.offsiteCatalog == "/backup/Documents/", "Should preserve offsite catalog as-is")
     }
 
     @Test("Handle already present trailing slash with add option")
-    func handleExistingTrailingSlashWithAdd() {
+    func handleExistingTrailingSlashWithAdd() throws {
         let task = makeValidTask(
             localCatalog: "/Users/test/Documents/",
             offsiteCatalog: "/backup/Documents/",
@@ -235,18 +231,19 @@ struct VerifyConfigurationTests {
         )
         let verifier = VerifyConfiguration()
 
-        let result = verifier.verify(task)
+        let result = try #require(verifier.verify(task))
 
-        #expect(result != nil)
-        #expect(result?.localCatalog == "/Users/test/Documents/", "Should not double-add trailing slash")
-        #expect(result?.offsiteCatalog == "/backup/Documents/", "Should not double-add trailing slash")
+        #expect(result.localCatalog == "/Users/test/Documents/", "Should not double-add trailing slash")
+        #expect(result.offsiteCatalog == "/backup/Documents/", "Should not double-add trailing slash")
     }
 
     // MARK: - Snapshot Validation Tests
 
     @Test("Reject snapshot task without rsync version 3")
     func rejectSnapshotWithoutVersion3() {
+        let originalVersion = SharedReference.shared.rsyncversion3
         SharedReference.shared.rsyncversion3 = false
+        defer { SharedReference.shared.rsyncversion3 = originalVersion }
 
         let task = makeValidTask(
             task: "snapshot",
@@ -258,5 +255,44 @@ struct VerifyConfigurationTests {
         let result = verifier.verify(task)
 
         #expect(result == nil, "Should reject snapshot task without rsync v3")
+    }
+
+    @Test("Snapshot task defaults snapshotnum to 1 when missing")
+    func snapshotDefaultsSnapshotNum() throws {
+        let originalVersion = SharedReference.shared.rsyncversion3
+        SharedReference.shared.rsyncversion3 = true
+        defer { SharedReference.shared.rsyncversion3 = originalVersion }
+
+        var task = makeValidTask(task: "snapshot")
+        task.snapshotnum = nil
+        let verifier = VerifyConfiguration()
+
+        let result = try #require(verifier.verify(task))
+
+        #expect(result.snapshotnum == 1, "Snapshot should default snapshotnum to 1")
+    }
+
+    @Test("Snapshot task preserves explicit snapshotnum")
+    func snapshotPreservesSnapshotNum() throws {
+        let originalVersion = SharedReference.shared.rsyncversion3
+        SharedReference.shared.rsyncversion3 = true
+        defer { SharedReference.shared.rsyncversion3 = originalVersion }
+
+        let task = NewTask(
+            "snapshot",
+            "/Users/test/Documents",
+            "/backup/Documents",
+            .add,
+            nil,
+            nil,
+            "TestBackup",
+            1,
+            3
+        )
+        let verifier = VerifyConfiguration()
+
+        let result = try #require(verifier.verify(task))
+
+        #expect(result.snapshotnum == 3, "Snapshot should preserve provided snapshotnum")
     }
 }

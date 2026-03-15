@@ -11,7 +11,7 @@ import RsyncArguments
 import Testing
 
 @MainActor
-@Suite(.serialized)
+@Suite(.serialized, .tags(.arguments))
 struct ArgumentsSynchronizeTests {
     func makeConfig(
         task: String = "synchronize",
@@ -31,18 +31,18 @@ struct ArgumentsSynchronizeTests {
     }
 
     @Test("Synchronize returns dry-run args")
-    func synchronizeDryRunArgs() {
+    func synchronizeDryRunArgs() throws {
+        let originalVersion = SharedReference.shared.rsyncversion3
         SharedReference.shared.rsyncversion3 = true
+        defer { SharedReference.shared.rsyncversion3 = originalVersion }
 
         let cfg = makeConfig()
         let generator = ArgumentsSynchronize(config: cfg)
         let args = generator.argumentsSynchronize(dryRun: true, forDisplay: false)
 
-        #expect(args != nil)
+        let unwrappedArgs = try #require(args)
         // Accept either common dry-run flags
-        if let unwrappedArgs = args {
-            #expect(unwrappedArgs.contains("--dry-run") || unwrappedArgs.contains("-n"))
-        }
+        #expect(unwrappedArgs.contains("--dry-run") || unwrappedArgs.contains("-n"))
     }
 
     /**
@@ -60,8 +60,10 @@ struct ArgumentsSynchronizeTests {
      }
      */
     @Test("Syncremote task produces arguments")
-    func syncremoteArgs() {
+    func syncremoteArgs() throws {
+        let originalVersion = SharedReference.shared.rsyncversion3
         SharedReference.shared.rsyncversion3 = true
+        defer { SharedReference.shared.rsyncversion3 = originalVersion }
 
         let cfg = makeConfig(task: SharedReference.shared.syncremote,
                              username: "testuser",
@@ -69,12 +71,14 @@ struct ArgumentsSynchronizeTests {
         let generator = ArgumentsSynchronize(config: cfg)
         let args = generator.argumentsSynchronize(dryRun: true, forDisplay: false)
 
-        #expect(args != nil)
+        _ = try #require(args)
     }
 
     @Test("Push local→remote with keepdelete variations")
-    func pushLocalToRemoteArgs() {
+    func pushLocalToRemoteArgs() throws {
+        let originalVersion = SharedReference.shared.rsyncversion3
         SharedReference.shared.rsyncversion3 = true
+        defer { SharedReference.shared.rsyncversion3 = originalVersion }
 
         let cfg = makeConfig()
         let generator = ArgumentsSynchronize(config: cfg)
@@ -86,7 +90,7 @@ struct ArgumentsSynchronizeTests {
                                                                                forDisplay: false,
                                                                                keepdelete: false)
 
-        #expect(argsKeep != nil)
-        #expect(argsNoKeep != nil)
+        _ = try #require(argsKeep)
+        _ = try #require(argsNoKeep)
     }
 }
