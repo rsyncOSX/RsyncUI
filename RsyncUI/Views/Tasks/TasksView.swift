@@ -174,7 +174,7 @@ struct TasksView: View {
 
     var doubleclickaction: some View {
         Label("", systemImage: "play.fill")
-            .foregroundColor(.black)
+            .foregroundStyle(.black)
             .onAppear {
                 doubleClickActionFunction()
                 doubleclick = false
@@ -183,7 +183,7 @@ struct TasksView: View {
 
     var labelstartestimation: some View {
         Label("", systemImage: "play.fill")
-            .foregroundColor(.black)
+            .foregroundStyle(.black)
             .onAppear {
                 executetaskpath.append(Tasks(task: .summarizeddetailsview))
                 focusstartestimation = false
@@ -192,7 +192,7 @@ struct TasksView: View {
 
     var labelstartexecution: some View {
         Label("", systemImage: "play.fill")
-            .foregroundColor(.black)
+            .foregroundStyle(.black)
             .onAppear {
                 execute()
                 focusstartexecution = false

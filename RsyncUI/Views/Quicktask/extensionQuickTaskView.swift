@@ -11,7 +11,7 @@ extension QuicktaskView {
             } label: {
                 if localcatalog.isEmpty == false {
                     Image(systemName: "clear")
-                        .foregroundColor(Color(.red))
+                        .foregroundStyle(Color(.red))
                 } else {
                     Image(systemName: "clear")
                 }
@@ -24,7 +24,7 @@ extension QuicktaskView {
                 getConfigAndExecute()
             } label: {
                 Image(systemName: "play.fill")
-                    .foregroundColor(Color(.blue))
+                    .foregroundStyle(Color(.blue))
             }
             .help("Synchronize (⌘R)")
             .disabled(selectedrsynccommand == .notSelected)
@@ -119,23 +119,18 @@ extension QuicktaskView {
     }
 
     func processTermination(_ stringoutputfromrsync: [String]?, _: Int?) {
-        // Update immediate UI bits on main
-        DispatchQueue.main.async { [self] in
+        Task { @MainActor in
             showprogressview = false
             if dryrun {
                 max = Double(stringoutputfromrsync?.count ?? 0)
             }
-        }
-        // Build output off the main thread, then assign on main
-        Task.detached(priority: .userInitiated) { [stringoutputfromrsync] in
+
             let output = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
-            await MainActor.run {
-                rsyncoutput.output = output
-                completed = true
-                // Release process and handler references on completion
-                activeStreamingProcess = nil
-                streamingHandlers = nil
-            }
+            rsyncoutput.output = output
+            completed = true
+            // Release process and handler references on completion
+            activeStreamingProcess = nil
+            streamingHandlers = nil
         }
     }
 

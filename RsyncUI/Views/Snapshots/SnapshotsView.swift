@@ -122,7 +122,7 @@ struct SnapshotsView: View {
                         isPresentingConfirm = (snapshotdata.notmappedloguuids?.count ?? 0 > 0)
                     } label: {
                         Image(systemName: "trash.fill")
-                            .foregroundColor(Color(.blue))
+                            .foregroundStyle(Color(.blue))
                             .badge(snapshotdata.notmappedloguuids?.count ?? 0)
                     }
                     .help("Delete not used log records")
@@ -138,7 +138,7 @@ struct SnapshotsView: View {
                     .overlay(HStack(alignment: .top) {
                         Image(systemName: String((snapshotdata.notmappedloguuids?.count ?? 0) <= 50
                                 ? (snapshotdata.notmappedloguuids?.count ?? 0) : 50))
-                            .foregroundColor(.red)
+                            .foregroundStyle(.red)
                             .frame(maxWidth: .infinity)
                     }
                     .frame(maxHeight: .infinity)

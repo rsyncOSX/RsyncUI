@@ -107,8 +107,8 @@ final class SharedReference {
         // Send SIGTERM for graceful shutdown
         process.terminate()
         // Optional: Wait briefly for graceful shutdown
-        DispatchQueue.global().async {
-            usleep(500_000) // 0.5 seconds
+        Task {
+            try? await Task.sleep(for: .milliseconds(500))
             // Force kill if still running
             if process.isRunning {
                 kill(process.processIdentifier, SIGKILL)

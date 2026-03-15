@@ -105,11 +105,7 @@ struct RestoreTableView: View {
 
                 Toggle("--dry-run", isOn: $restore.dryrun)
                     .toggleStyle(.switch)
-                    .onTapGesture {
-                        withAnimation(Animation.easeInOut(duration: true ? 0.35 : 0)) {
-                            restore.dryrun.toggle()
-                        }
-                    }
+                    .animation(.easeInOut(duration: 0.35), value: restore.dryrun)
             }
             .focusedSceneValue(\.aborttask, $focusaborttask)
             .searchable(text: $filterstring)
@@ -163,7 +159,7 @@ struct RestoreTableView: View {
                     executeRestore()
                 } label: {
                     Image(systemName: "play.fill")
-                        .foregroundColor(Color(.blue))
+                        .foregroundStyle(Color(.blue))
                 }
                 .help("Restore files")
             }
@@ -210,7 +206,7 @@ struct RestoreTableView: View {
             $restore.pathforrestore,
             restore.verifyPathForRestore(restore.pathforrestore)
         )
-        .foregroundColor(restore.verifyPathForRestore(restore.pathforrestore) ? Color.white : Color.red)
+        .foregroundStyle(restore.verifyPathForRestore(restore.pathforrestore) ? Color.white : Color.red)
         .onAppear {
             if let pathforrestore = SharedReference.shared.pathforrestore {
                 restore.pathforrestore = pathforrestore
@@ -281,13 +277,11 @@ extension RestoreTableView {
     }
 
     func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        DispatchQueue.main.async {
+        Task { @MainActor in
             gettingfilelist = false
             restore.restorefilelist.removeAll()
-        }
-        Task.detached { [stringoutputfromrsync] in
             let list = await ActorCreateOutputforView().createoutputforrestore(stringoutputfromrsync)
-            await MainActor.run { restore.restorefilelist = list }
+            restore.restorefilelist = list
         }
     }
 

@@ -44,7 +44,7 @@ struct ToggleViewDefault: View {
                 .toggleStyle(.switch)
 
             Text(mytext ?? "")
-                .foregroundColor(mybinding.wrappedValue ? .blue : (colorScheme == .dark ? .white : .black))
+                .foregroundStyle(mybinding.wrappedValue ? .blue : (colorScheme == .dark ? .white : .black))
                 .toggleStyle(CheckboxToggleStyle())
         }
     }
@@ -67,7 +67,7 @@ struct DismissafterMessageView: View {
                 RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.3))
                 Text(mytext)
                     .font(.title3)
-                    .foregroundColor(Color.blue)
+                    .foregroundStyle(Color.blue)
                     .multilineTextAlignment(.center)
                     .lineLimit(1)
                     .allowsTightening(true)
@@ -75,11 +75,9 @@ struct DismissafterMessageView: View {
             }
             .frame(height: 30, alignment: .center)
             .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 4))
-            .onAppear {
-                Task {
-                    try await Task.sleep(seconds: dismissafter)
-                    showtext = false
-                }
+            .task {
+                try? await Task.sleep(seconds: dismissafter)
+                showtext = false
             }
             .padding(100)
         }
@@ -104,7 +102,7 @@ struct MessageView: View {
                 Text(mytext)
                     // .font(.caption2)
                     .font(textsize)
-                    .foregroundColor(Color.green)
+                    .foregroundStyle(Color.green)
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                     .allowsTightening(false)
@@ -119,7 +117,7 @@ struct MessageView: View {
                 Text(mytext)
                     // .font(.caption2)
                     .font(textsize)
-                    .foregroundColor(Color.blue)
+                    .foregroundStyle(Color.blue)
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                     .allowsTightening(false)

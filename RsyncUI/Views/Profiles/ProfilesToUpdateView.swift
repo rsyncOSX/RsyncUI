@@ -16,7 +16,10 @@ struct ProfilesToUpdateView: View {
             TableColumn("Synchronize ID : profilename") { data in
                 let split = data.backupID.split(separator: " : ")
                 if split.count > 1 {
-                    Text(split[0]) + Text(" : ") + Text(split[1]).foregroundColor(.blue)
+                    let left = Text(String(split[0]))
+                    let middle = Text(" : ")
+                    let right = Text(String(split[1])).foregroundStyle(.blue)
+                    Text("\(left)\(middle)\(right)")
                 } else {
                     Text(data.backupID)
                 }
@@ -38,7 +41,7 @@ struct ProfilesToUpdateView: View {
                 let color: Color = markConfig(seconds) == true ? .red : .white
 
                 Text(seconds.latest())
-                    .foregroundColor(color)
+                    .foregroundStyle(color)
             }
             .width(max: 90)
             TableColumn("Date last") { data in
