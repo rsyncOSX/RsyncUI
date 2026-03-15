@@ -2,64 +2,113 @@ APP = RsyncUI
 BUNDLE_ID = no.blogspot.$(APP)
 VERSION = 2.9.3
 BUILD_PATH = $(PWD)/build
-APP_PATH = "$(BUILD_PATH)/$(APP).app"
-ZIP_PATH = "$(BUILD_PATH)/$(APP).$(VERSION).zip"
 
-# Default target is release build
-build: clean archive notarize sign prepare-dmg open
+# Arch-specific paths
+APP_PATH_ARM64  = "$(BUILD_PATH)/arm64/$(APP).app"
+APP_PATH_X86    = "$(BUILD_PATH)/x86_64/$(APP).app"
+ZIP_PATH_ARM64  = "$(BUILD_PATH)/$(APP).$(VERSION).arm64.zip"
+ZIP_PATH_X86    = "$(BUILD_PATH)/$(APP).$(VERSION).x86_64.zip"
+DMG_ARM64       = "$(APP).$(VERSION).arm64.dmg"
+DMG_X86         = "$(APP).$(VERSION).x86_64.dmg"
 
-# Debug build - skips notarization and signing
-debug: clean archive-debug open-debug
+# Default target builds both architectures
+build: clean archive-arm64 notarize-arm64 sign-arm64 prepare-dmg-arm64 open
+build_x86: clean archive-x86_64 notarize-x86_64 sign-x86_64 prepare-dmg-x86_64 open
+
+# Debug builds
+debug: clean archive-debug-arm64 archive-debug-x86_64 open-debug
 
 # --- MAIN WORKFLOW FUNCTIONS --- #
-archive: clean
-	osascript -e 'display notification "Exporting application archive..." with title "Build the RsyncUI"'
-	echo "Exporting application archive (RELEASE)..."
+
+archive-arm64:
+	osascript -e 'display notification "Exporting arm64 archive..." with title "Build the RsyncUI"'
+	echo "Exporting application archive (RELEASE - arm64)..."
+	xcodebuild \
+		-scheme $(APP) \
+		-destination 'platform=OS X,arch=arm64' \
+		-configuration Release archive \
+		-archivePath $(BUILD_PATH)/arm64/$(APP).xcarchive
+	xcodebuild -exportArchive \
+		-exportOptionsPlist "exportOptions.plist" \
+		-archivePath $(BUILD_PATH)/arm64/$(APP).xcarchive \
+		-exportPath $(BUILD_PATH)/arm64
+	ditto -c -k --keepParent $(APP_PATH_ARM64) $(ZIP_PATH_ARM64)
+	echo "Project archived successfully (RELEASE - arm64)"
+
+archive-x86_64:
+	osascript -e 'display notification "Exporting x86_64 archive..." with title "Build the RsyncUI"'
+	echo "Exporting application archive (RELEASE - x86_64)..."
 	xcodebuild \
 		-scheme $(APP) \
 		-destination 'platform=OS X,arch=x86_64' \
 		-configuration Release archive \
-		-archivePath $(BUILD_PATH)/$(APP).xcarchive
-	echo "Application built, starting the export archive..."
+		-archivePath $(BUILD_PATH)/x86_64/$(APP).xcarchive
 	xcodebuild -exportArchive \
 		-exportOptionsPlist "exportOptions.plist" \
-		-archivePath $(BUILD_PATH)/$(APP).xcarchive \
-		-exportPath $(BUILD_PATH)
-	ditto -c -k --keepParent $(APP_PATH) $(ZIP_PATH)
-	echo "Project archived successfully (RELEASE)"
+		-archivePath $(BUILD_PATH)/x86_64/$(APP).xcarchive \
+		-exportPath $(BUILD_PATH)/x86_64
+	ditto -c -k --keepParent $(APP_PATH_X86) $(ZIP_PATH_X86)
+	echo "Project archived successfully (RELEASE - x86_64)"
 
-archive-debug: clean
-	osascript -e 'display notification "Building debug version..." with title "Build the RsyncUI"'
-	echo "Building application (DEBUG)..."
+archive-debug-arm64:
+	osascript -e 'display notification "Building debug arm64 version..." with title "Build the RsyncUI"'
+	echo "Building application (DEBUG - arm64)..."
+	xcodebuild \
+		-scheme $(APP) \
+		-destination 'platform=OS X,arch=arm64' \
+		-configuration Debug archive \
+		-archivePath $(BUILD_PATH)/arm64/$(APP).xcarchive
+	xcodebuild -exportArchive \
+		-exportOptionsPlist "exportOptions.plist" \
+		-archivePath $(BUILD_PATH)/arm64/$(APP).xcarchive \
+		-exportPath $(BUILD_PATH)/arm64
+	echo "Debug build completed successfully (arm64)"
+
+archive-debug-x86_64:
+	osascript -e 'display notification "Building debug x86_64 version..." with title "Build the RsyncUI"'
+	echo "Building application (DEBUG - x86_64)..."
 	xcodebuild \
 		-scheme $(APP) \
 		-destination 'platform=OS X,arch=x86_64' \
 		-configuration Debug archive \
-		-archivePath $(BUILD_PATH)/$(APP).xcarchive
-	echo "Application built, starting the export archive..."
+		-archivePath $(BUILD_PATH)/x86_64/$(APP).xcarchive
 	xcodebuild -exportArchive \
 		-exportOptionsPlist "exportOptions.plist" \
-		-archivePath $(BUILD_PATH)/$(APP).xcarchive \
-		-exportPath $(BUILD_PATH)
-	echo "Debug build completed successfully"
+		-archivePath $(BUILD_PATH)/x86_64/$(APP).xcarchive \
+		-exportPath $(BUILD_PATH)/x86_64
+	echo "Debug build completed successfully (x86_64)"
 
-notarize:
-	osascript -e 'display notification "Submitting app for notarization..." with title "Build the RsyncUI"'
-	echo "Submitting app for notarization..."
-	xcrun notarytool submit --keychain-profile "RsyncUI" --wait $(ZIP_PATH)
-	echo "RsyncUI successfully notarized"
+notarize-arm64:
+	osascript -e 'display notification "Submitting arm64 app for notarization..." with title "Build the RsyncUI"'
+	echo "Submitting arm64 app for notarization..."
+	xcrun notarytool submit --keychain-profile "RsyncUI" --wait $(ZIP_PATH_ARM64)
+	echo "RsyncUI arm64 successfully notarized"
 
-sign:
-	osascript -e 'display notification "Stapling the RsyncUI..." with title "Build the RsyncUI"'
-	echo "Going to staple an application..."
-	xcrun stapler staple $(APP_PATH)
-	spctl -a -t exec -vvv $(APP_PATH)
-	osascript -e 'display notification "RsyncUI successfully stapled" with title "Build the RsyncUI"'
-	echo "RsyncUI successfully stapled"
+notarize-x86_64:
+	osascript -e 'display notification "Submitting x86_64 app for notarization..." with title "Build the RsyncUI"'
+	echo "Submitting x86_64 app for notarization..."
+	xcrun notarytool submit --keychain-profile "RsyncUI" --wait $(ZIP_PATH_X86)
+	echo "RsyncUI x86_64 successfully notarized"
 
-prepare-dmg:
+sign-arm64:
+	osascript -e 'display notification "Stapling arm64 RsyncUI..." with title "Build the RsyncUI"'
+	echo "Stapling arm64 application..."
+	xcrun stapler staple $(APP_PATH_ARM64)
+	spctl -a -t exec -vvv $(APP_PATH_ARM64)
+	osascript -e 'display notification "RsyncUI arm64 successfully stapled" with title "Build the RsyncUI"'
+	echo "RsyncUI arm64 successfully stapled"
+
+sign-x86_64:
+	osascript -e 'display notification "Stapling x86_64 RsyncUI..." with title "Build the RsyncUI"'
+	echo "Stapling x86_64 application..."
+	xcrun stapler staple $(APP_PATH_X86)
+	spctl -a -t exec -vvv $(APP_PATH_X86)
+	osascript -e 'display notification "RsyncUI x86_64 successfully stapled" with title "Build the RsyncUI"'
+	echo "RsyncUI x86_64 successfully stapled"
+
+prepare-dmg-arm64:
 	../create-dmg/create-dmg \
-		--volname "RsyncUI ver $(VERSION)" \
+		--volname "RsyncUI ver $(VERSION) (Apple Silicon)" \
 		--background "./images/background.png" \
 		--window-pos 200 120 \
 		--window-size 500 320 \
@@ -68,14 +117,31 @@ prepare-dmg:
 		--hide-extension "RsyncUI.app" \
 		--app-drop-link 375 175 \
 		--no-internet-enable \
-		--codesign 93M47F4H9T\
-		"$(APP).$(VERSION).dmg" \
-		$(APP_PATH)
+		--codesign 93M47F4H9T \
+		$(DMG_ARM64) \
+		$(APP_PATH_ARM64)
+
+prepare-dmg-x86_64:
+	../create-dmg/create-dmg \
+		--volname "RsyncUI ver $(VERSION) (Intel)" \
+		--background "./images/background.png" \
+		--window-pos 200 120 \
+		--window-size 500 320 \
+		--icon-size 80 \
+		--icon "RsyncUI.app" 125 175 \
+		--hide-extension "RsyncUI.app" \
+		--app-drop-link 375 175 \
+		--no-internet-enable \
+		--codesign 93M47F4H9T \
+		$(DMG_X86) \
+		$(APP_PATH_X86)
 
 # --- HELPERS --- #
+
 clean:
 	rm -rf $(BUILD_PATH)
-	if [ -a $(PWD)/$(APP).$(VERSION).dmg ]; then rm $(PWD)/$(APP).$(VERSION).dmg; fi;
+	if [ -a $(PWD)/$(DMG_ARM64) ]; then rm $(PWD)/$(DMG_ARM64); fi;
+	if [ -a $(PWD)/$(DMG_X86) ]; then rm $(PWD)/$(DMG_X86); fi;
 
 check:
 	xcrun notarytool log f62c4146-0758-4942-baac-9575190858b8 --keychain-profile "RsyncUI"
@@ -89,9 +155,15 @@ open:
 	open $(PWD)
 
 open-debug:
-	osascript -e 'display notification "RsyncUI debug build ready" with title "Build the RsyncUI"'
+	osascript -e 'display notification "RsyncUI debug builds ready" with title "Build the RsyncUI"'
 	echo "Opening working folder..."
 	open $(PWD)
-	echo "Debug build complete - app is at: $(APP_PATH)"
+	echo "Debug builds complete - arm64: $(APP_PATH_ARM64) | x86_64: $(APP_PATH_X86)"
 
-.PHONY: build debug archive archive-debug notarize sign prepare-dmg clean check history open open-debug
+.PHONY: build debug \
+        archive-arm64 \
+        archive-debug-arm64 \
+        notarize-arm64 \
+        sign-arm64 \
+        prepare-dmg-arm64 \
+        clean check history open open-debug
