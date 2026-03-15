@@ -35,6 +35,27 @@ Created new SwiftUI subviews to shrink large bodies and isolate responsibilities
 - `RsyncUI/Views/Sidebar/SidebarStatusMessagesView.swift`
 - `RsyncUI/Views/InspectorViews/Add/AddTaskContentView.swift`
 
+## Notable Behavior Changes
+- None intended. UI flows and task execution behavior should be identical; changes are structural and accessibility-oriented.
+
+## Files Added / Removed
+**Added:**
+- `RsyncUI/Views/InspectorViews/LogRecords/LogRecordsFooterView.swift`
+- `RsyncUI/Views/Tasks/TasksFocusActionsView.swift`
+- `RsyncUI/Views/Snapshots/SnapshotsMainContentView.swift`
+- `RsyncUI/Views/Restore/RestoreContentView.swift`
+- `RsyncUI/Views/Restore/RestoreControlsView.swift`
+- `RsyncUI/Views/ScheduleView/CalendarMonthGridView.swift`
+- `RsyncUI/Views/Detailsview/SummarizedDetailsContentView.swift`
+- `RsyncUI/Views/Tasks/TasksListPanelView.swift`
+- `RsyncUI/Views/InspectorViews/Add/GlobalChangeFormView.swift`
+- `RsyncUI/Views/Quicktask/QuicktaskFormView.swift`
+- `RsyncUI/Views/Sidebar/SidebarStatusMessagesView.swift`
+- `RsyncUI/Views/InspectorViews/Add/AddTaskContentView.swift`
+
+**Removed:**
+- None
+
 ## Key Files Refactored
 - `RsyncUI/Views/Tasks/TasksView.swift`
 - `RsyncUI/Views/InspectorViews/LogRecords/LogRecordsTabView.swift`
@@ -55,6 +76,9 @@ Created new SwiftUI subviews to shrink large bodies and isolate responsibilities
 ## Diagnostics Run
 - `XcodeRefreshCodeIssuesInFile` for all refactored files; no outstanding issues remain.
 
+## Known Exceptions
+- A debug-only `Task.detached` remains in `CreateStreamingHandlers` for threading verification.
+
 ## What To Do Next
 1. **Optional view model extraction**
    - Some views still have substantial business logic. If desired, extract to `@Observable` view models for `QuicktaskView`, `TasksView`, and `SidebarMainView`.
@@ -68,3 +92,6 @@ Created new SwiftUI subviews to shrink large bodies and isolate responsibilities
 
 4. **Performance pass**
    - Evaluate large tables/lists for expensive inline computations and consider caching or precomputing where appropriate.
+
+5. **Optional follow-ups**
+   - Further subview extraction in `SidebarMainView`, `QuicktaskView`, and `AddTaskView` if desired.
