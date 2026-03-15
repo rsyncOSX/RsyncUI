@@ -95,3 +95,14 @@ Created new SwiftUI subviews to shrink large bodies and isolate responsibilities
 
 5. **Optional follow-ups**
    - Further subview extraction in `SidebarMainView`, `QuicktaskView`, and `AddTaskView` if desired.
+
+
+## Testing Recommendations
+- Add tests for `VerifyConfiguration` error propagation for each `ValidateInputError` case.
+- Verify snapshot side effects by asserting when `snapshotcreateremotecatalog` is invoked and when it is not.
+- Expand `DeeplinkURL.handleURL` tests for invalid schemes, unsupported actions, and `validateNoAction`.
+- Strengthen `ArgumentsSynchronize` coverage by validating specific argument flags per task type.
+- Add JSON decode/encode tests for `DecodeSynchronizeConfiguration`, `DecodeLogRecords`, and `DecodeUserConfiguration`, including invalid and backward-compat cases.
+- Cover storage read/write flows for log records, schedules, widgets, and configurations.
+- Add utility tests for `SSHParams`, `Rsyncversion`, and `GetfullpathforRsync`.
+- Add async/actor tests for storage actors (`ActorReadSchedule`, `ActorReadSynchronizeConfigurationJSON`, `ActorLogToFile`).
