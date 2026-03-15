@@ -31,7 +31,10 @@ extension AddTaskView {
                     selectedconfig = nil
                     showAddPopover.toggle()
                 }
-                label: { Image(systemName: "plus") }
+                label: {
+                    Label("Quick add task", systemImage: "plus")
+                        .labelStyle(.iconOnly)
+                }
                 .help("Quick add task")
                 .sheet(isPresented: $showAddPopover) { addTaskSheetView }
             }
@@ -72,7 +75,8 @@ extension AddTaskView {
                     Button {
                         showAddPopover = false
                     } label: {
-                        Image(systemName: "return")
+                        Label("Close", systemImage: "return")
+                            .labelStyle(.iconOnly)
                     }
                     .help("Close")
                     .keyboardShortcut(.cancelAction)

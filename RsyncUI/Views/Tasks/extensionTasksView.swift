@@ -65,7 +65,8 @@ extension TasksView {
 
                 executetaskpath.append(Tasks(task: .summarizeddetailsview))
             } label: {
-                Image(systemName: "wand.and.stars")
+                Label("Estimate", systemImage: "wand.and.stars")
+                    .labelStyle(.iconOnly)
                     .foregroundStyle(Color(.blue))
             }
             .help("Estimate (⌘E)")
@@ -94,7 +95,8 @@ extension TasksView {
                     execute()
                 }
             } label: {
-                Image(systemName: "play.fill")
+                Label("Synchronize", systemImage: "play.fill")
+                    .labelStyle(.iconOnly)
                     .foregroundStyle(Color(.blue))
             }
             .help("Synchronize (⌘R)")
@@ -105,12 +107,9 @@ extension TasksView {
                 selecteduuids.removeAll()
                 reset()
             } label: {
-                if thereareestimates == true {
-                    Image(systemName: "clear")
-                        .foregroundStyle(Color(.red))
-                } else {
-                    Image(systemName: "clear")
-                }
+                Label("Reset estimates", systemImage: "clear")
+                    .labelStyle(.iconOnly)
+                    .foregroundStyle(thereareestimates ? Color(.red) : .primary)
             }
             .help("Reset estimates")
         }
@@ -143,7 +142,8 @@ extension TasksView {
                             executetaskpath.append(Tasks(task: .onetaskdetailsview))
                         }
                     } label: {
-                        Image(systemName: "text.magnifyingglass")
+                        Label("Rsync output estimated task", systemImage: "text.magnifyingglass")
+                            .labelStyle(.iconOnly)
                     }
                     .help("Rsync output estimated task")
                 }
@@ -152,7 +152,8 @@ extension TasksView {
                     Button {
                         executetaskpath.append(Tasks(task: .quick_synchronize))
                     } label: {
-                        Image(systemName: "hare")
+                        Label("Quick synchronize", systemImage: "hare")
+                            .labelStyle(.iconOnly)
                     }
                     .help("Quick synchronize")
                 }
@@ -161,7 +162,8 @@ extension TasksView {
                     Button {
                         executetaskpath.append(Tasks(task: .charts))
                     } label: {
-                        Image(systemName: "chart.bar.fill")
+                        Label("Charts", systemImage: "chart.bar.fill")
+                            .labelStyle(.iconOnly)
                     }
                     .help("Charts")
                     .disabled(selecteduuids.count != 1 || selectedconfig?.task == SharedReference.shared.syncremote)
@@ -171,7 +173,8 @@ extension TasksView {
                     Button {
                         activeSheet = .scheduledtasksview
                     } label: {
-                        Image(systemName: "calendar.circle.fill")
+                        Label("Schedule", systemImage: "calendar.circle.fill")
+                            .labelStyle(.iconOnly)
                     }
                     .help("Schedule")
                 }
@@ -180,7 +183,8 @@ extension TasksView {
                     Button {
                         openWindow(id: "rsyncuilog")
                     } label: {
-                        Image(systemName: "doc.plaintext")
+                        Label("View logfile", systemImage: "doc.plaintext")
+                            .labelStyle(.iconOnly)
                     }
                     .help("View logfile")
                 }
@@ -190,7 +194,8 @@ extension TasksView {
                         saveactualsynclogdata.toggle()
                         SharedReference.shared.saveactualsynclogdata = saveactualsynclogdata
                     } label: {
-                        Image(systemName: "square.and.arrow.down.fill")
+                        Label("Save actual synchronize log to logfile", systemImage: "square.and.arrow.down.fill")
+                            .labelStyle(.iconOnly)
                             .foregroundStyle(saveactualsynclogdata ? .green : .primary)
                     }
                     .help("Save actual synchronize log to logfile")
@@ -212,7 +217,8 @@ extension TasksView {
                             urlcommandestimateandsynchronize = true
                         }
                     } label: {
-                        Image(systemName: "bolt.shield.fill")
+                        Label("Estimate & Synchronize", systemImage: "bolt.shield.fill")
+                            .labelStyle(.iconOnly)
                             .foregroundStyle(Color(.yellow))
                     }
                     .help("Estimate & Synchronize")

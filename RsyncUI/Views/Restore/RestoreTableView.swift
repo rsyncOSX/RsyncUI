@@ -141,7 +141,8 @@ struct RestoreTableView: View {
                 Button {
                     getListOfFilesForRestore()
                 } label: {
-                    Image(systemName: "square.and.arrow.down.fill")
+                    Label("Get list of files", systemImage: "square.and.arrow.down.fill")
+                        .labelStyle(.iconOnly)
                 }
                 .help("Get list of files for restore")
             }
@@ -161,7 +162,8 @@ struct RestoreTableView: View {
                 Button {
                     executeRestore()
                 } label: {
-                    Image(systemName: "play.fill")
+                    Label("Restore files", systemImage: "play.fill")
+                        .labelStyle(.iconOnly)
                         .foregroundStyle(Color(.blue))
                 }
                 .help("Restore files")
@@ -178,7 +180,8 @@ struct RestoreTableView: View {
                     guard restore.selectedconfig != nil else { return }
                     restore.presentrestorelist = true
                 } label: {
-                    Image(systemName: "doc.plaintext")
+                    Label("Output from rsync", systemImage: "doc.plaintext")
+                        .labelStyle(.iconOnly)
                 }
                 .help("Output from rsync")
             }
@@ -188,7 +191,8 @@ struct RestoreTableView: View {
             Button {
                 abort()
             } label: {
-                Image(systemName: "stop.fill")
+                Label("Abort", systemImage: "stop.fill")
+                    .labelStyle(.iconOnly)
             }
             .help("Abort (⌘K)")
         }

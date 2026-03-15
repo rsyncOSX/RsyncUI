@@ -121,7 +121,8 @@ struct SnapshotsView: View {
                     Button {
                         isPresentingConfirm = (snapshotdata.notmappedloguuids?.count ?? 0 > 0)
                     } label: {
-                        Image(systemName: "trash.fill")
+                        Label("Delete not used log records", systemImage: "trash.fill")
+                            .labelStyle(.iconOnly)
                             .foregroundStyle(Color(.blue))
                             .badge(snapshotdata.notmappedloguuids?.count ?? 0)
                     }
@@ -154,7 +155,8 @@ struct SnapshotsView: View {
                     Button {
                         tagSnapshots()
                     } label: {
-                        Image(systemName: "tag")
+                        Label("Tag snapshot", systemImage: "tag")
+                            .labelStyle(.iconOnly)
                     }
                     .help("Tag snapshot")
                 }
@@ -164,7 +166,8 @@ struct SnapshotsView: View {
                 Button {
                     focusaborttask = true
                 } label: {
-                    Image(systemName: "stop.fill")
+                    Label("Abort", systemImage: "stop.fill")
+                        .labelStyle(.iconOnly)
                 }
                 .help("Abort (⌘K)")
             }

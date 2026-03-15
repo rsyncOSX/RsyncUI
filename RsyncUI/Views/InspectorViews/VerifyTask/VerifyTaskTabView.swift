@@ -79,7 +79,8 @@ struct VerifyTaskTabView: View {
                                 verify(config: selectedconfig)
                             }
                         } label: {
-                            Image(systemName: "play.fill")
+                            Label("Verify task", systemImage: "play.fill")
+                                .labelStyle(.iconOnly)
                         }
                         .help("Verify task")
                     }
@@ -91,7 +92,8 @@ struct VerifyTaskTabView: View {
                         Button {
                             abort()
                         } label: {
-                            Image(systemName: "stop.fill")
+                            Label("Abort", systemImage: "stop.fill")
+                                .labelStyle(.iconOnly)
                         }
                         .help("Abort (⌘K)")
                     }

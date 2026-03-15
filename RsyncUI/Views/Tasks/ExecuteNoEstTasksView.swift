@@ -56,7 +56,8 @@ struct ExecuteNoEstTasksView: View {
                 Button {
                     abort()
                 } label: {
-                    Image(systemName: "stop.fill")
+                    Label("Abort", systemImage: "stop.fill")
+                        .labelStyle(.iconOnly)
                 }
                 .help("Abort (⌘K)")
             }

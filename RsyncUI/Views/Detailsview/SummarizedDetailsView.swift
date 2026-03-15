@@ -60,7 +60,8 @@ struct SummarizedDetailsView: View {
                                             executetaskpath.append(Tasks(task: .executestimatedview))
                                         }
                                     } label: {
-                                        Image(systemName: "play.fill")
+                                        Label("Synchronize", systemImage: "play.fill")
+                                            .labelStyle(.iconOnly)
                                     }
                                     .buttonStyle(RefinedGlassButtonStyle())
                                     .help("Synchronize")
@@ -79,8 +80,8 @@ struct SummarizedDetailsView: View {
                                             executetaskpath.append(Tasks(task: .executestimatedview))
                                         }
                                     } label: {
-                                        Text(Image(systemName: "play.fill"))
-                                            // .foregroundStyle(.blue)
+                                        Label("Synchronize", systemImage: "play.fill")
+                                            .labelStyle(.iconOnly)
                                             .font(.title2)
                                             .imageScale(.large)
                                     }

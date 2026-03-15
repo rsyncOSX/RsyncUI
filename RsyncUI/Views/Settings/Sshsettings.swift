@@ -49,7 +49,8 @@ struct Sshsettings: View {
                             Button {
                                 createKeys()
                             } label: {
-                                Image(systemName: "key")
+                                Label("Create keys", systemImage: "key")
+                                    .labelStyle(.iconOnly)
                             }
                             .help("Create keys")
                             .buttonStyle(.borderedProminent)

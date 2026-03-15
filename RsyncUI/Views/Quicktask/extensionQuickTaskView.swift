@@ -9,12 +9,9 @@ extension QuicktaskView {
             Button {
                 resetForm()
             } label: {
-                if localcatalog.isEmpty == false {
-                    Image(systemName: "clear")
-                        .foregroundStyle(Color(.red))
-                } else {
-                    Image(systemName: "clear")
-                }
+                Label("Clear saved quicktask", systemImage: "clear")
+                    .labelStyle(.iconOnly)
+                    .foregroundStyle(localcatalog.isEmpty == false ? Color(.red) : .primary)
             }
             .help("Clear saved quicktask")
         }
@@ -23,7 +20,8 @@ extension QuicktaskView {
             Button {
                 getConfigAndExecute()
             } label: {
-                Image(systemName: "play.fill")
+                Label("Synchronize", systemImage: "play.fill")
+                    .labelStyle(.iconOnly)
                     .foregroundStyle(Color(.blue))
             }
             .help("Synchronize (⌘R)")
@@ -34,7 +32,8 @@ extension QuicktaskView {
             Button {
                 abort()
             } label: {
-                Image(systemName: "stop.fill")
+                Label("Abort", systemImage: "stop.fill")
+                    .labelStyle(.iconOnly)
             }
             .help("Abort (⌘K)")
         }

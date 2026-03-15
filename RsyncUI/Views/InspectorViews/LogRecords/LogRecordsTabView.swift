@@ -159,31 +159,27 @@ struct LogRecordsTabView: View {
                         selectedloguuids.removeAll()
                         selecteduuids.removeAll()
                     } label: {
-                        if selectedloguuids.count == 0 {
-                            Image(systemName: "clear")
-                                .foregroundStyle(Color(.blue))
-                        } else {
-                            Image(systemName: "clear")
-                                .foregroundStyle(Color(.red))
-                                .overlay(
-                                    Group {
-                                        if selectedloguuids.count > 50 {
-                                            // Show "50+" as text with proper sizing
-                                            Text("50+")
-                                                .font(.system(size: 9, weight: .bold))
-                                                .foregroundStyle(.white)
-                                                .frame(minWidth: 24, minHeight: 24)
-                                                .background(Circle().fill(Color.red))
-                                        } else {
-                                            // Show number as SF Symbol
-                                            Image(systemName: "\(selectedloguuids.count).circle.fill")
-                                                .foregroundStyle(.red)
-                                        }
+                        Label("Reset selections", systemImage: "clear")
+                            .labelStyle(.iconOnly)
+                            .foregroundStyle(selectedloguuids.count == 0 ? Color(.blue) : Color(.red))
+                            .overlay(
+                                Group {
+                                    if selectedloguuids.count > 50 {
+                                        // Show "50+" as text with proper sizing
+                                        Text("50+")
+                                            .font(.system(size: 9, weight: .bold))
+                                            .foregroundStyle(.white)
+                                            .frame(minWidth: 24, minHeight: 24)
+                                            .background(Circle().fill(Color.red))
+                                    } else if selectedloguuids.count > 0 {
+                                        // Show number as SF Symbol
+                                        Image(systemName: "\(selectedloguuids.count).circle.fill")
+                                            .foregroundStyle(.red)
                                     }
-                                    .allowsHitTesting(false)
-                                    .offset(x: 10, y: -10)
-                                )
-                        }
+                                }
+                                .allowsHitTesting(false)
+                                .offset(x: 10, y: -10)
+                            )
                     }
                     .help("Reset selections")
                 }

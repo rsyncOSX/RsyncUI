@@ -235,7 +235,8 @@ struct CalendarMonthView: View {
                 Button {
                     activeSheet = nil
                 } label: {
-                    Image(systemName: "return")
+                    Label("Close", systemImage: "return")
+                        .labelStyle(.iconOnly)
                 }
                 .help("Close")
                 .buttonStyle(.borderedProminent)
