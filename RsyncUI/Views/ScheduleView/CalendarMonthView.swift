@@ -34,65 +34,17 @@ struct CalendarMonthView: View {
 
     var body: some View {
         HStack {
-            VStack {
-                if date.endOfCurrentMonth == Date.now.endOfCurrentMonth {
-                    Text("\(date.en_string_from_date())")
-                        .font(.title)
-                        .padding()
-                } else {
-                    Text("\(Date.fullMonthNames[date.monthInt - 1])")
-                        .font(.title)
-                        .padding()
-                }
-
-                HStack {
-                    ForEach(daysOfWeek.indices, id: \.self) { index in
-                        Text(daysOfWeek[index])
-                            .fontWeight(.black)
-                            .foregroundStyle(defaultcolor)
-                            .frame(maxWidth: .infinity)
-                    }
-                }
-                .frame(width: 450)
-
-                LazyVGrid(columns: columns) {
-                    ForEach(days, id: \.self) { day in
-                        if day.monthInt != date.monthInt {
-                            Text("")
-                        } else {
-                            if thereIsASchedule(day), day >= Date() {
-                                CalendarDayView(dateRun: $dateRun,
-                                                dateAdded: $dateAdded,
-                                                istappeddayint: $istappeddayint,
-                                                day: day,
-                                                style: .thereisaschedule)
-                            } else if isTappedNoSchedule(day) {
-                                CalendarDayView(dateRun: $dateRun,
-                                                dateAdded: $dateAdded,
-                                                istappeddayint: $istappeddayint,
-                                                day: day,
-                                                style: .istappednoschedule)
-                            } else {
-                                CalendarDayView(dateRun: $dateRun,
-                                                dateAdded: $dateAdded,
-                                                istappeddayint: $istappeddayint,
-                                                day: day,
-                                                style: .normalday)
-                            }
-                        }
-                    }
-                }
-                .frame(width: 400)
-
-                Spacer()
-
-                if let first = globaltimer.firstscheduledate, globaltimer.timerIsActive() {
-                    HStack {
-                        Text(first.profile ?? "")
-                        Text(first.dateRun ?? "")
-                    }
-                }
-            }
+            CalendarMonthGridView(date: $date,
+                                  daysOfWeek: daysOfWeek,
+                                  columns: columns,
+                                  days: days,
+                                  dateRun: $dateRun,
+                                  dateAdded: $dateAdded,
+                                  istappeddayint: $istappeddayint,
+                                  defaultcolor: defaultcolor,
+                                  thereIsASchedule: thereIsASchedule,
+                                  isTappedNoSchedule: isTappedNoSchedule,
+                                  firstScheduledText: firstScheduledText)
 
             VStack(alignment: .leading) {
                 AddSchedule(rsyncUIdata: rsyncUIdata,
@@ -164,12 +116,7 @@ struct CalendarMonthView: View {
             }
         }
         .onAppear {
-            days = date.calendarDisplayDays
-            if let last = days.last {
-                schedules.lastdateinnextmonth = last.startOfDay
-            }
-            date = Date.now
-            schedules.lastdateinnextmonth = Date.now.endOfCurrentMonth
+            initializeCalendar()
         }
         .onChange(of: date) {
             days = date.calendarDisplayDays
@@ -253,5 +200,21 @@ struct CalendarMonthView: View {
 
     func isTappedNoSchedule(_ date: Date) -> Bool {
         date.dayInt == istappeddayint
+    }
+
+    var firstScheduledText: String? {
+        guard let first = globaltimer.firstscheduledate, globaltimer.timerIsActive() else { return nil }
+        let profile = first.profile ?? ""
+        let runDate = first.dateRun ?? ""
+        return "\(profile) \(runDate)"
+    }
+
+    private func initializeCalendar() {
+        days = date.calendarDisplayDays
+        if let last = days.last {
+            schedules.lastdateinnextmonth = last.startOfDay
+        }
+        date = Date.now
+        schedules.lastdateinnextmonth = Date.now.endOfCurrentMonth
     }
 }
