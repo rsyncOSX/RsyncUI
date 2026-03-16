@@ -42,7 +42,7 @@ struct AddTaskView: View {
     @State var selectedconfig: SynchronizeConfiguration?
     @State var changesnapshotnum: Bool = false
     @State var stringestimate: String = ""
-    @State var showAddPopover: Bool = false
+    @Binding var showAddPopover: Bool
 
     @State var presentglobaltaskview: Bool = false
 
@@ -59,6 +59,12 @@ struct AddTaskView: View {
         .onSubmit { handleSubmit() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
         .onChange(of: selecteduuids) { handleSelectionChange() }
-        .toolbar { toolbarContent }
+        .onChange(of: showAddPopover) { _, isPresented in
+            if isPresented {
+                newdata.resetForm()
+                selectedconfig = nil
+            }
+        }
+        .sheet(isPresented: $showAddPopover) { addTaskSheetView }
     }
 }

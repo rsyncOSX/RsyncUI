@@ -21,26 +21,6 @@ extension AddTaskView {
         }
     }
 
-    @ToolbarContentBuilder
-    var toolbarContent: some ToolbarContent {
-        // Only show toolbar items when this tab is active
-        if selectedTab == .edit {
-            ToolbarItem(placement: .navigation) {
-                Button {
-                    newdata.resetForm()
-                    selectedconfig = nil
-                    showAddPopover.toggle()
-                }
-                label: {
-                    Label("Quick add task", systemImage: "plus")
-                        .labelStyle(.iconOnly)
-                }
-                .help("Quick add task")
-                .sheet(isPresented: $showAddPopover) { addTaskSheetView }
-            }
-        }
-    }
-
     var addTaskSheetView: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Add Task").font(.headline)

@@ -11,6 +11,7 @@ struct EditTabView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var showNoTasks: Bool = false
+    @State private var showAddPopover: Bool = false
 
     var body: some View {
         HStack {
@@ -44,7 +45,20 @@ struct EditTabView: View {
             get: { !showNoTasks },
             set: { showNoTasks = !$0 }
         )) {
-            InspectorView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids)
+            InspectorView(rsyncUIdata: rsyncUIdata,
+                          selecteduuids: $selecteduuids,
+                          showAddPopover: $showAddPopover)
         }
+        .toolbar(content: {
+            ToolbarItem(placement: .navigation) {
+                Button {
+                    showAddPopover.toggle()
+                } label: {
+                    Label("Quick add task", systemImage: "plus")
+                        .labelStyle(.iconOnly)
+                }
+                .help("Quick add task")
+            }
+        })
     }
 }
