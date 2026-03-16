@@ -9,14 +9,14 @@ ZIP_PATH_X86    = "$(BUILD_PATH)/$(APP).$(VERSION).x86_64.zip"
 DMG_X86         = "$(APP).$(VERSION).x86_64.dmg"
 
 # Default target builds both architectures
-build: clean archive-x86_64 notarize-x86_64 sign-x86_64 prepare-dmg-x86_64 open
+build: clean archive notarize-x86_64 sign-x86_64 prepare-dmg-x86_64 open
 
 # Debug builds
 debug: clean archive-debug-arm64 archive-debug-x86_64 open-debug
 
 # --- MAIN WORKFLOW FUNCTIONS --- #
 
-archive-x86_64:
+archive:
 	osascript -e 'display notification "Exporting x86_64 archive..." with title "Build the RsyncUI"'
 	echo "Exporting application archive (RELEASE - x86_64)..."
 	xcodebuild \
@@ -98,7 +98,7 @@ open-debug:
 	echo "Debug builds complete - x86_64: $(APP_PATH_X86)"
 
 .PHONY: build debug \
-        archive-x86_64 \
+        archive \
         archive-debug-x86_64 \
         notarize-x86_64 \
         sign-x86_64 \

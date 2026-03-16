@@ -9,14 +9,14 @@ ZIP_PATH_ARM64  = "$(BUILD_PATH)/$(APP).$(VERSION).arm64.zip"
 DMG_ARM64       = "$(APP).$(VERSION).arm64.dmg"
 
 # Default target builds both architectures
-build: clean archive-arm64 notarize-arm64 sign-arm64 prepare-dmg-arm64 open
+build: clean archive notarize-arm64 sign-arm64 prepare-dmg-arm64 open
 
 # Debug builds
 debug: clean archive-debug-arm64 open-debug
 
 # --- MAIN WORKFLOW FUNCTIONS --- #
 
-archive-arm64:
+archive:
 	osascript -e 'display notification "Exporting arm64 archive..." with title "Build the RsyncUI"'
 	echo "Exporting application archive (RELEASE - arm64)..."
 	xcodebuild \
@@ -98,7 +98,7 @@ open-debug:
 	echo "Debug builds complete - arm64: $(APP_PATH_ARM64)"
 
 .PHONY: build debug \
-        archive-arm64 \
+        archive \
         archive-debug-arm64 \
         notarize-arm64 \
         sign-arm64 \
