@@ -44,21 +44,21 @@ struct RestoreTableView: View {
             if focusaborttask { labelaborttask }
 
             RestoreControlsView(restore: $restore)
-            .focusedSceneValue(\.aborttask, $focusaborttask)
-            .searchable(text: $filterstring)
-            .onChange(of: filterstring) {
-                filterTask?.cancel()
-                filterTask = Task {
-                    try? await Task.sleep(seconds: 1)
-                    guard Task.isCancelled == false else { return }
-                    if filterstring.isEmpty == false {
-                        restore.restorefilelist = restore.restorefilelist.filter { $0.record.contains(filterstring) }
-                    } else {
-                        getListOfFilesForRestore()
+                .focusedSceneValue(\.aborttask, $focusaborttask)
+                .searchable(text: $filterstring)
+                .onChange(of: filterstring) {
+                    filterTask?.cancel()
+                    filterTask = Task {
+                        try? await Task.sleep(seconds: 1)
+                        guard Task.isCancelled == false else { return }
+                        if filterstring.isEmpty == false {
+                            restore.restorefilelist = restore.restorefilelist.filter { $0.record.contains(filterstring) }
+                        } else {
+                            getListOfFilesForRestore()
+                        }
                     }
                 }
-            }
-            .toolbar { restoretoolbarcontent }
+                .toolbar { restoretoolbarcontent }
         }
         .navigationTitle("Restore files")
         .navigationDestination(isPresented: $restore.presentrestorelist) {

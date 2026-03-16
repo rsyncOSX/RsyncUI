@@ -55,16 +55,16 @@ struct AddTaskView: View {
                            snapshotView: { snapshotnum },
                            saveURLSection: { saveURLSection },
                            showSnapshot: selectedconfig?.task == SharedReference.shared.snapshot)
-        .onAppear { handleSelectionChange() }
-        .onSubmit { handleSubmit() }
-        .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
-        .onChange(of: selecteduuids) { handleSelectionChange() }
-        .onChange(of: showAddPopover) { _, isPresented in
-            if isPresented {
-                newdata.resetForm()
-                selectedconfig = nil
+            .onAppear { handleSelectionChange() }
+            .onSubmit { handleSubmit() }
+            .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
+            .onChange(of: selecteduuids) { handleSelectionChange() }
+            .onChange(of: showAddPopover) { _, isPresented in
+                if isPresented {
+                    newdata.resetForm()
+                    selectedconfig = nil
+                }
             }
-        }
-        .sheet(isPresented: $showAddPopover) { addTaskSheetView }
+            .sheet(isPresented: $showAddPopover) { addTaskSheetView }
     }
 }

@@ -57,24 +57,21 @@ struct RsyncParametersView: View {
 
             HStack {
                 VStack(alignment: .leading, spacing: 12) {
-                    
                     HStack {
                         // 1. The Frame Title
                         Text("Danger Zone")
                             .font(.headline)
                             .foregroundStyle(.red)
-                        
+
                         Text(headerText)
                             .font(.headline)
                             .foregroundStyle(isDeletePresent ? Color(.red) : Color(.blue))
-                        
                     }
-                    
+
                     Divider()
                         .background(Color.red.opacity(0.5))
 
                     HStack {
-                        
                         Toggle("--delete", isOn: $parameters.adddelete)
                             .toggleStyle(.switch)
                             .onChange(of: parameters.adddelete) { parameters.adddelete(parameters.adddelete) }
@@ -91,7 +88,6 @@ struct RsyncParametersView: View {
                         }
                         .padding(.top, 4)
                     }
-                    
                 }
                 .padding() // Adds space inside the border
                 .background(Color.red.opacity(0.05)) // Optional: Light red background tint

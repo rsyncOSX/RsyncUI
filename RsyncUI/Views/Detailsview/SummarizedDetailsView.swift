@@ -30,14 +30,14 @@ struct SummarizedDetailsView: View {
                                          configurations: configurations,
                                          profile: profile,
                                          queryitem: queryitem)
-            .focusedSceneValue(\.startexecution, $focusstartexecution)
-            .onAppear {
-                guard progressdetails.estimatealltasksinprogress == false else {
-                    return
+                .focusedSceneValue(\.startexecution, $focusstartexecution)
+                .onAppear {
+                    guard progressdetails.estimatealltasksinprogress == false else {
+                        return
+                    }
+                    progressdetails.resetCounts()
+                    progressdetails.startEstimation()
                 }
-                progressdetails.resetCounts()
-                progressdetails.startEstimation()
-            }
         }
 
         Spacer()
@@ -54,5 +54,4 @@ struct SummarizedDetailsView: View {
                 focusstartexecution = false
             }
     }
-
 }

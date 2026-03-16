@@ -16,9 +16,7 @@ struct EditTabView: View {
     var body: some View {
         HStack {
             if showNoTasks {
-                
                 AddFirstTask(rsyncUIdata: rsyncUIdata)
-                
             } else {
                 // Shared task list table on the left
                 ListofTasksAddView(
@@ -29,7 +27,6 @@ struct EditTabView: View {
                 .onChange(of: rsyncUIdata.profile) {
                     selecteduuids.removeAll()
                 }
-                
             }
         }
         .task(id: rsyncUIdata.configurations) {

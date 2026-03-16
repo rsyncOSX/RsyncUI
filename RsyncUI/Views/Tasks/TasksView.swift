@@ -79,13 +79,13 @@ struct TasksView: View {
                                    max: maxcount,
                                    onSelectedUuidsChange: handleSelectedUuidsChange,
                                    onEstimatedListChange: handleEstimatedListChange)
-                .onChange(of: rsyncUIdata.profile) { reset() }
-                .onChange(of: focusexport) {
-                    handleFocusExportChange()
-                }
-                .onChange(of: focusimport) {
-                    handleFocusImportChange()
-                }
+                    .onChange(of: rsyncUIdata.profile) { reset() }
+                    .onChange(of: focusexport) {
+                        handleFocusExportChange()
+                    }
+                    .onChange(of: focusimport) {
+                        handleFocusImportChange()
+                    }
 
                 TasksFocusActionsView(focusStartEstimation: $focusstartestimation,
                                       focusStartExecution: $focusstartexecution,
@@ -142,7 +142,6 @@ struct TasksView: View {
             }
         }
     }
-
 }
 
 extension TasksView {
@@ -182,6 +181,7 @@ extension TasksView {
         executetaskpath.append(Tasks(task: .summarizeddetailsview))
         focusstartestimation = false
     }
+
     func allTasksAreHalted() -> Bool {
         let haltedtasks = rsyncUIdata.configurations?.filter { $0.task == SharedReference.shared.halted }
         return haltedtasks?.count ?? 0 == rsyncUIdata.configurations?.count ?? 0

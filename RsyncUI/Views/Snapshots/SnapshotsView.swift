@@ -179,7 +179,6 @@ struct SnapshotsView: View {
                 abort()
             }
     }
-
 }
 
 extension SnapshotsView {
