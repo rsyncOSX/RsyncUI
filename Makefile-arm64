@@ -23,7 +23,10 @@ archive:
 		-scheme $(APP) \
 		-destination 'platform=OS X,arch=arm64' \
 		-configuration Release archive \
-		-archivePath $(BUILD_PATH)/arm64/$(APP).xcarchive
+		-archivePath $(BUILD_PATH)/arm64/$(APP).xcarchive \
+		ARCHS=arm64 \
+		ONLY_ACTIVE_ARCH=NO \
+		EXCLUDED_ARCHS=x86_64
 	xcodebuild -exportArchive \
 		-exportOptionsPlist "exportOptions.plist" \
 		-archivePath $(BUILD_PATH)/arm64/$(APP).xcarchive \
@@ -38,7 +41,10 @@ archive-debug-arm64:
 		-scheme $(APP) \
 		-destination 'platform=OS X,arch=arm64' \
 		-configuration Debug archive \
-		-archivePath $(BUILD_PATH)/arm64/$(APP).xcarchive
+		-archivePath $(BUILD_PATH)/arm64/$(APP).xcarchive \
+		ARCHS=arm64 \
+		ONLY_ACTIVE_ARCH=NO \
+		EXCLUDED_ARCHS=x86_64
 	xcodebuild -exportArchive \
 		-exportOptionsPlist "exportOptions.plist" \
 		-archivePath $(BUILD_PATH)/arm64/$(APP).xcarchive \
