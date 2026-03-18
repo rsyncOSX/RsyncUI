@@ -51,7 +51,7 @@ struct ScheduledItem: Identifiable, Hashable {
 @Observable
 @MainActor
 final class GlobalTimer {
-    static let shared = GlobalTimer()
+    @MainActor static let shared = GlobalTimer()
 
     /// Exposed Array of not executed Schedule
     var allSchedules = [ScheduledItem]()

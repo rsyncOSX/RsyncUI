@@ -100,6 +100,7 @@ final class SharedReference {
         }
     }
 
+    // Verify 
     func checkeandterminateprocess() {
         guard let process, process.isRunning else {
             return
@@ -107,12 +108,9 @@ final class SharedReference {
         // Send SIGTERM for graceful shutdown
         process.terminate()
         // Optional: Wait briefly for graceful shutdown
-        Task {
+        Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(500))
-            // Force kill if still running
-            if process.isRunning {
-                kill(process.processIdentifier, SIGKILL)
-            }
+            if process.isRunning { kill(process.processIdentifier, SIGKILL) }
         }
         self.process = nil
     }

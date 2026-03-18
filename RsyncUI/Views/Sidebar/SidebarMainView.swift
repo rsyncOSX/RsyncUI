@@ -53,7 +53,7 @@ struct SidebarMainView: View {
     @State var mountingvolumenow: Bool = false
     // Calendar
     @State private var schedules = ObservableSchedules()
-    let globaltimer = GlobalTimer.shared
+    @State private var globaltimer = GlobalTimer.shared
 
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
