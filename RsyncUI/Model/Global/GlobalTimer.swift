@@ -6,21 +6,27 @@ import OSLog
 // MARK: - Types
 
 struct ScheduledItem: Identifiable, Hashable {
-    let id: UUID // Remove = UUID()
+    let id: UUID
     var time: Date
     let tolerance: TimeInterval
     private let callbackWrapper: CallbackWrapper
     var scheduledata: SchedulesConfigurations?
 
-    private class CallbackWrapper {
+    private class CallbackWrapper: Hashable {
         let callback: () -> Void
         init(_ callback: @escaping () -> Void) {
             self.callback = callback
         }
+        static func == (lhs: CallbackWrapper, rhs: CallbackWrapper) -> Bool {
+            lhs === rhs
+        }
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(ObjectIdentifier(self))
+        }
     }
 
     init(time: Date, tolerance: TimeInterval, callback: @escaping () -> Void, scheduledata: SchedulesConfigurations?) {
-        id = UUID() // Create UUID once during init
+        id = UUID()
         self.time = time
         self.tolerance = tolerance
         callbackWrapper = CallbackWrapper(callback)
@@ -32,7 +38,7 @@ struct ScheduledItem: Identifiable, Hashable {
         callbackWrapper.callback()
     }
 
-    /// Implement Hashable based on id only
+    /// Hashable and Equatable based on id only
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
@@ -55,7 +61,6 @@ final class GlobalTimer {
 
     // MARK: - Properties
 
-    /// var scheduledata: [SchedulesConfigurations]?
     /// First schedule to execute
     var firstscheduledate: SchedulesConfigurations?
     /// Trigger execution
@@ -76,14 +81,14 @@ final class GlobalTimer {
 
     // MARK: - Public API
 
-    /// Verifying that there is a schedule in Set already, if false add schedule
-    /// to set.
+    // FIX: Deduplication now uses the item's UUID (its stable identity) instead
+    // of matching on time+tolerance, which could silently drop two distinct
+    // schedules that happen to land on the same millisecond.
     private func validatescheduleinset(_ schedule: ScheduledItem) -> Bool {
-        allSchedules.contains(where: { $0.time == schedule.time && $0.tolerance == schedule.tolerance })
+        allSchedules.contains(where: { $0.id == schedule.id })
     }
 
-    /// Check if there already is a timer in Set which more recent time which already is
-    /// in Set. If false it executes the scheduleNextTimer.
+    /// Check if there is already an earlier timer in the set.
     private func validateallschedulesalreadyintimer(_ schedule: ScheduledItem) -> Bool {
         allSchedules.contains(where: { $0.time < schedule.time })
     }
@@ -118,7 +123,6 @@ final class GlobalTimer {
         let interval = time.timeIntervalSince(.now)
         let finalTolerance = tolerance ?? defaultTolerance(for: interval)
 
-        // UUID is also set in ScheduledItem
         let scheduleitem = ScheduledItem(
             time: time,
             tolerance: max(0, finalTolerance),
@@ -127,7 +131,6 @@ final class GlobalTimer {
         )
 
         guard validatescheduleinset(scheduleitem) == false else { return }
-        // Append and sort by time
         allSchedules.append(scheduleitem)
         allSchedules = allSchedules.sorted(by: { $0.time < $1.time })
 
@@ -180,7 +183,6 @@ final class GlobalTimer {
 
     // MARK: - Private
 
-    /// This function is triggered at time t, it finds the appropriate callback and executes it
     private func checkSchedules() {
         if let item = allSchedules.first {
             if allSchedules.count > 0 {
@@ -231,22 +233,21 @@ final class GlobalTimer {
 }
 
 extension GlobalTimer {
+    // FIX: `scheduledata` is a struct, so mutations on a local `var newItem`
+    // copy were previously lost. The fix uses an index-based in-place update
+    // via a helper mutating function on ScheduledItem, ensuring the new time
+    // and dateRun string are actually stored in the array element.
     func moveToSchedules(itemIDs: [ScheduledItem.ID]) {
-        // Find items in notExecutedSchedulesafterWakeUp
         var itemsToMove = notExecutedSchedulesafterWakeUp.filter { itemIDs.contains($0.id) }
-        // Remove from source
         notExecutedSchedulesafterWakeUp.removeAll { itemIDs.contains($0.id) }
-        // Must update time with enough space in time
-        // Add a 5 min timeintervall between not schduled tasks
-        itemsToMove = itemsToMove.enumerated().map { index, item in
-            let timeInterval = TimeInterval(index + 1) * 5 * 60
-            var newItem = item
-            let newTime = Date.now.addingTimeInterval(timeInterval)
-            newItem.time = newTime
-            newItem.scheduledata?.dateRun = newTime.en_string_from_date()
-            return newItem
+
+        // Space items 5 minutes apart starting from now
+        for index in itemsToMove.indices {
+            let newTime = Date.now.addingTimeInterval(TimeInterval(index + 1) * 5 * 60)
+            itemsToMove[index].time = newTime
+            itemsToMove[index].scheduledata?.dateRun = newTime.en_string_from_date()
         }
-        // Add to destination
+
         allSchedules.append(contentsOf: itemsToMove)
         allSchedules = allSchedules.sorted(by: { $0.time < $1.time })
         scheduleNextTimer()

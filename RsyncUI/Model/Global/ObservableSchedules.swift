@@ -86,14 +86,17 @@ final class ObservableSchedules {
         )
     }
 
+    // FIX: Added a Logger.process.warning for unhandled dayInterval values so
+    // future schedule types don't silently compute zero occurrences.
     private func calculateScheduleIndex(timeInterval: TimeInterval, dayInterval: Int) -> Int {
         switch dayInterval {
         case 1:
-            Int(timeInterval / (60 * 60 * 24))
+            return Int(timeInterval / (60 * 60 * 24))
         case 7:
-            Int(timeInterval / (60 * 60 * 24 * 7))
+            return Int(timeInterval / (60 * 60 * 24 * 7))
         default:
-            0
+            Logger.process.warning("ObservableSchedules: unhandled dayInterval \(dayInterval), returning 0")
+            return 0
         }
     }
 
@@ -118,19 +121,20 @@ final class ObservableSchedules {
         }
     }
 
+    // FIX: The original code incremented a local copy of `month` but never
+    // wrote it back into `components`, so the computed date was always the
+    // last day of the *current* month instead of next month.
     func computelastdateinnextmonth() -> Date? {
         let calendar = Calendar.current
         var components = calendar.dateComponents([.year, .month], from: Date())
-        if var month = components.month {
-            month += 1
-            // Request the last day of that month
-            components.day = 0 // Setting day to 0 gives the last day of the previous month
-            if let baseDate = calendar.date(from: components),
-               let lastDayOfNextMonth = calendar.date(byAdding: .month, value: 1, to: baseDate) {
-                return lastDayOfNextMonth
-            } else {
-                return nil
-            }
+        // Advance month by 1 on the components struct itself (not a local copy)
+        components.month = (components.month ?? 0) + 1
+        // day = 0 means "last day of the previous month", so after advancing
+        // the month by 1 this gives the last day of next month.
+        components.day = 0
+        if let baseDate = calendar.date(from: components),
+           let lastDayOfNextMonth = calendar.date(byAdding: .month, value: 1, to: baseDate) {
+            return lastDayOfNextMonth
         }
         return nil
     }
@@ -145,6 +149,8 @@ final class ObservableSchedules {
     }
 
     /// Recompute the calendardata to only show active schedules in row.
+    // FIX: Clear all existing schedules before recomputing to prevent
+    // accumulating duplicates across repeated calls.
     func recomputeschedules() {
         let recomputedschedules = globaltimer.allSchedules.filter { item in
             if let dateRunString = item.scheduledata?.dateRun {
@@ -158,6 +164,9 @@ final class ObservableSchedules {
             globaltimer.firstscheduledate = nil
             return
         }
+
+        // Remove all existing entries before recomputing to avoid duplicates
+        globaltimer.invalidateAllSchedulesAndTimer()
 
         for index in 0 ..< recomputedschedules.count {
             if let schedule = recomputedschedules[index].scheduledata?.schedule,
