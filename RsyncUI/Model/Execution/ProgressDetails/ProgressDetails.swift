@@ -68,7 +68,7 @@ final class ProgressDetails {
         let answer = estimatedlist?.filter {
             uuids.contains($0.id)
         }
-        return (answer?.count ?? 0 == 1) && (estimatedlist?.count ?? 0 == 1)
+        return ((answer?.count ?? 0) == 1) && ((estimatedlist?.count ?? 0) == 1)
     }
 
     func setProfileAndNumberOfConfigurations(_ profilename: String?, _ num: Int) {
