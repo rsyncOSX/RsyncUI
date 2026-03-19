@@ -73,7 +73,6 @@ struct RsyncUIView: View {
                                                        SharedReference.shared.rsyncversion3)
         }
     }
-
 }
 
 extension Task where Success == Never, Failure == Never {

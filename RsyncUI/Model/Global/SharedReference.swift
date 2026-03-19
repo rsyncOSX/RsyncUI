@@ -100,7 +100,7 @@ final class SharedReference {
         }
     }
 
-    // Verify 
+    /// Verify
     func checkeandterminateprocess() {
         guard let process, process.isRunning else {
             return

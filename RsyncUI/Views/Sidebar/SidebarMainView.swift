@@ -99,7 +99,7 @@ struct SidebarMainView: View {
             selectView(selectedview)
         }
         .alert(errorhandling.activeError?.localizedDescription ?? "No error", isPresented: errorhandling.isPresentingAlert) {
-            Button("OK", role: .cancel) { }
+            Button("OK", role: .cancel) {}
         }
         .task {
             newversion.notifynewversion = await ActorGetversionofRsyncUI().getversionsofrsyncui()

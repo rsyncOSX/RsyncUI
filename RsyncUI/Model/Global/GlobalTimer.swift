@@ -17,9 +17,11 @@ struct ScheduledItem: Identifiable, Hashable {
         init(_ callback: @escaping () -> Void) {
             self.callback = callback
         }
+
         static func == (lhs: CallbackWrapper, rhs: CallbackWrapper) -> Bool {
             lhs === rhs
         }
+
         func hash(into hasher: inout Hasher) {
             hasher.combine(ObjectIdentifier(self))
         }

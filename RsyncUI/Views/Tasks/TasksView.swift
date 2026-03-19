@@ -106,7 +106,7 @@ struct TasksView: View {
             Button("Synchronize") {
                 executetaskpath.append(Tasks(task: .executenoestimatetasksview))
             }
-            Button("Cancel", role: .cancel) { }
+            Button("Cancel", role: .cancel) {}
         }
         .sheet(item: $activeSheet) { sheetType in
             switch sheetType {
