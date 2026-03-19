@@ -78,12 +78,12 @@ struct SnapshotsView: View {
                     Button {
                         isPresentingConfirm = (snapshotdata.notmappedloguuids?.count ?? 0 > 0)
                     } label: {
-                        Label("Delete not used log records", systemImage: "trash.fill")
+                        Label("Delete unused log records", systemImage: "trash.fill")
                             .labelStyle(.iconOnly)
                             .foregroundStyle(Color(.blue))
                             .badge(snapshotdata.notmappedloguuids?.count ?? 0)
                     }
-                    .help("Delete not used log records")
+                    .help("Delete unused log records")
                     .confirmationDialog(snapshotdata.notmappedloguuids?.count ?? 0 == 1 ? "Delete 1 log" :
                         "Delete \(snapshotdata.notmappedloguuids?.count ?? 0) logs",
                         isPresented: $isPresentingConfirm) {

@@ -24,8 +24,8 @@ struct DetailsView: View {
                         if SharedReference.shared.rsyncversion3 {
                             Text(remotedatanumbers.newfilesInt == 1 ? "1 new file" : "\(remotedatanumbers.newfilesInt) new files")
                             let deleteText = remotedatanumbers.deletefilesInt == 1
-                                ? "1 file for delete"
-                                : "\(remotedatanumbers.deletefilesInt) files for delete"
+                                ? "1 file to delete"
+                                : "\(remotedatanumbers.deletefilesInt) files to delete"
                             Text(deleteText)
                         }
                         let filesChangedText = remotedatanumbers.filestransferredInt == 1
@@ -33,7 +33,7 @@ struct DetailsView: View {
                             : "\(remotedatanumbers.filestransferredInt) files changed"
                         Text(filesChangedText)
                         let transferSizeText = remotedatanumbers.totaltransferredfilessizeInt == 1
-                            ? "byte for transfer"
+                            ? "1 byte for transfer"
                             : "\(remotedatanumbers.totaltransferredfilessize) bytes for transfer"
                         Text(transferSizeText)
                     }

@@ -194,7 +194,7 @@ extension TasksView {
                         saveactualsynclogdata.toggle()
                         SharedReference.shared.saveactualsynclogdata = saveactualsynclogdata
                     } label: {
-                        Label("Save actual synchronize log to logfile", systemImage: "square.and.arrow.down.fill")
+                        Label("Save sync log to log file", systemImage: "square.and.arrow.down.fill")
                             .labelStyle(.iconOnly)
                             .foregroundStyle(saveactualsynclogdata ? .green : .primary)
                     }

@@ -126,7 +126,7 @@ struct AboutView: View {
     }
 
     var rsyncuiconfigpathpath: some View {
-        Text("RsyncUI configpath: " + configpath)
+        Text("RsyncUI config path: " + configpath)
     }
 }
 

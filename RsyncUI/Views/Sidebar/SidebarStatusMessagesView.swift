@@ -11,12 +11,12 @@ struct SidebarStatusMessagesView: View {
 
     var body: some View {
         if newVersionAvailable {
-            MessageView(mytext: "New version available\nsee About RsyncUI", size: .caption2)
+            MessageView(mytext: "New version available.\nSee About RsyncUI.", size: .caption2)
                 .padding([.bottom], -30)
         }
 
         if mountingVolumeNow {
-            MessageView(mytext: "Mounting volume\nplease wait", size: .caption2)
+            MessageView(mytext: "Mounting volume, please wait", size: .caption2)
                 .padding([.bottom], -30)
                 .onAppear {
                     Task {
@@ -32,7 +32,7 @@ struct SidebarStatusMessagesView: View {
         }
 
         if showNotExecutedAfterWake {
-            MessageView(mytext: "Not executed schedules\nafter wakeup", size: .caption2)
+            MessageView(mytext: "Scheduled tasks missed\nafter wake", size: .caption2)
                 .padding([.bottom], -30)
                 .onAppear {
                     Task {

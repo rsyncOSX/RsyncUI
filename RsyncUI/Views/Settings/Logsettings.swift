@@ -30,12 +30,12 @@ struct Logsettings: View {
                             SharedReference.shared.checkforerrorinrsyncoutput = logsettings.checkforerrorinrsyncoutput
                             saveConfiguration()
                         }
-                    ToggleViewDefault(text: "Add summary logrecord", binding: $logsettings.addsummarylogrecord)
+                    ToggleViewDefault(text: "Add summary log record", binding: $logsettings.addsummarylogrecord)
                         .onChange(of: logsettings.addsummarylogrecord) {
                             SharedReference.shared.addsummarylogrecord = logsettings.addsummarylogrecord
                             saveConfiguration()
                         }
-                    ToggleViewDefault(text: "No time delay Synchronize URL-actions", binding: $logsettings.synchronizewithouttimedelay)
+                    ToggleViewDefault(text: "Skip time delay for URL-triggered sync", binding: $logsettings.synchronizewithouttimedelay)
                         .onChange(of: logsettings.synchronizewithouttimedelay) {
                             SharedReference.shared.synchronizewithouttimedelay = logsettings.synchronizewithouttimedelay
                             saveConfiguration()
@@ -51,7 +51,7 @@ struct Logsettings: View {
                             toggleobservemountedvolumes = logsettings.observemountedvolumes
                             saveConfiguration()
                         }
-                    ToggleViewDefault(text: "Always present the summarized estimate view",
+                    ToggleViewDefault(text: "Always show estimate summary",
                                       binding: $logsettings.alwaysshowestimateddetailsview)
                         .onChange(of: logsettings.alwaysshowestimateddetailsview) {
                             SharedReference.shared.alwaysshowestimateddetailsview = logsettings.alwaysshowestimateddetailsview
@@ -59,7 +59,7 @@ struct Logsettings: View {
                             saveConfiguration()
                         }
 
-                    ToggleViewDefault(text: "Silence missing stats",
+                    ToggleViewDefault(text: "Suppress missing stats warnings",
                                       binding: $logsettings.silencemissingstats)
                         .onChange(of: logsettings.silencemissingstats) {
                             SharedReference.shared.silencemissingstats = logsettings.silencemissingstats
@@ -67,7 +67,7 @@ struct Logsettings: View {
                             saveConfiguration()
                         }
 
-                    ToggleViewDefault(text: "Validate arguments",
+                    ToggleViewDefault(text: "Validate rsync arguments",
                                       binding: $logsettings.validatearguments)
                         .onChange(of: logsettings.validatearguments) {
                             SharedReference.shared.validatearguments = logsettings.validatearguments
@@ -84,7 +84,7 @@ struct Logsettings: View {
                     }
 
                     if toggleobservemountedvolumes {
-                        DismissafterMessageView(dismissafter: 2, mytext: "Please restart RsyncUI to take effect")
+                        DismissafterMessageView(dismissafter: 2, mytext: "Restart RsyncUI for this change to take effect")
                     }
                 }
         }

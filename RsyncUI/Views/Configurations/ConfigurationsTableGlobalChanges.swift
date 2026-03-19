@@ -70,10 +70,10 @@ struct ConfigurationsTableGlobalChanges: View {
         .overlay {
             if configurations.isEmpty {
                 ContentUnavailableView {
-                    Label("Most likely, you try to update snapshot tasks, not allowed",
+                    Label("Snapshot tasks cannot be updated this way.",
                           systemImage: "doc.richtext.fill")
                 } description: {
-                    Text("Or there are no tasks to update")
+                    Text("No tasks are available to update.")
                 }
             }
         }

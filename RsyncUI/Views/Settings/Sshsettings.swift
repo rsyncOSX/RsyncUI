@@ -34,10 +34,10 @@ struct Sshsettings: View {
                 .font(.title3)
                 .fontWeight(.bold)) {
                     setsshpath(path: $sshsettings.sshkeypathandidentityfile,
-                               placeholder: "set SSH keypath and identityfile",
+                               placeholder: "Set SSH key path and identity file",
                                selectedValue: sshsettings.sshkeypathandidentityfile)
                     sshportfield(port: $sshsettings.sshportnumber,
-                                 placeholder: "set SSH port",
+                                 placeholder: "Set SSH port",
                                  selectedValue: sshsettings.sshportnumber)
                 }
 
@@ -58,7 +58,7 @@ struct Sshsettings: View {
                     }
             }
 
-            if showsshkeyiscreated { DismissafterMessageView(dismissafter: 2, mytext: "ssh-key is created, see logfile.") }
+            if showsshkeyiscreated { DismissafterMessageView(dismissafter: 2, mytext: "SSH key created. See the log file for details.") }
         }
         .formStyle(.grouped)
         .onChange(of: sshsettings.sshportnumber) {

@@ -26,7 +26,7 @@ extension AddTaskView {
     }
 
     var snapshotnum: some View {
-        Section(header: Text("Snapshotnumber").modifier(FixedTag(200, .leading))) {
+        Section(header: Text("Snapshot Number").modifier(FixedTag(200, .leading))) {
             EditValueScheme(400, nil, $newdata.snapshotnum)
                 .focused($focusField, equals: .snapshotnumField)
                 .textContentType(.none).submitLabel(.return)

@@ -66,10 +66,10 @@ struct SnapshotListView: View {
                selectedconfig?.task == SharedReference.shared.snapshot,
                snapshotdata.snapshotlist == false {
                 ContentUnavailableView {
-                    Label("There are no snapshot records by this search string in Date or Tag",
+                    Label("No snapshots match this search",
                           systemImage: "doc.richtext.fill")
                 } description: {
-                    Text("Change search string to filter records")
+                    Text("Try searching by date or tag.")
                 }
             }
         }

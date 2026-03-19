@@ -27,13 +27,13 @@ struct LogRecordsFooterView: View {
     private var footerText: Text {
         if selectedUuidsIsEmpty {
             let logText = logsCount == 1 ?
-                "ALL logrecords, select task for logrecords by task: 1 log" :
-                "ALL logrecords, select task for logrecords by task: \(logsCount) logs"
+                "All log records — select a task to filter: 1 record" :
+                "All log records — select a task to filter: \(logsCount) records"
             return Text(logText)
         } else {
             let logText = logsCount == 1 ?
-                "Logrecords by selected task: 1 log" :
-                "Logrecords by selected task: \(logsCount) logs"
+                "Log records for selected task: 1 record" :
+                "Log records for selected task: \(logsCount) records"
             return Text(logText)
         }
     }

@@ -102,7 +102,7 @@ struct TasksView: View {
         .focusedSceneValue(\.importtasks, $focusimport)
         .focusedSceneValue(\.showquicktask, $showquicktask)
         .toolbar { taskviewtoolbarcontent }
-        .alert("Synchronize all tasks with NO estimating first?", isPresented: $showingAlert) {
+        .alert("Synchronize all tasks without estimating first?", isPresented: $showingAlert) {
             Button("Synchronize") {
                 executetaskpath.append(Tasks(task: .executenoestimatetasksview))
             }

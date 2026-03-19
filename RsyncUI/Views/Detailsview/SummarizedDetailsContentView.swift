@@ -214,7 +214,7 @@ struct SummarizedDetailsContentView: View {
                 }
             }
             .width(max: 55)
-            TableColumn("kB trans") { files in
+            TableColumn("kB transferred") { files in
                 if files.datatosynchronize {
                     Text("\(files.totaltransferredfilessizeInt / 1000)")
                         .frame(maxWidth: .infinity, alignment: .trailing)
@@ -225,17 +225,17 @@ struct SummarizedDetailsContentView: View {
                 }
             }
             .width(max: 100)
-            TableColumn("Tot files") { files in
+            TableColumn("Total files") { files in
                 Text(files.numberoffiles)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .width(max: 90)
-            TableColumn("Tot kB") { files in
+            TableColumn("Total kB") { files in
                 Text("\(files.totalfilesizeInt / 1000)")
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .width(max: 80)
-            TableColumn("Tot cat") { files in
+            TableColumn("Total catalogs") { files in
                 Text(files.totaldirectories)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }

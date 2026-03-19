@@ -43,7 +43,7 @@ enum DuplicateError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .duplicate:
-            "Oh my, you've got a duplicate hiddenID!"
+            "Duplicate task ID detected. Please check your configuration."
         }
     }
 }

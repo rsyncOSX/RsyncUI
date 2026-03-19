@@ -57,9 +57,9 @@ struct LogRecordsTabView: View {
                 }
                 .overlay { if logs.count == 0 {
                     ContentUnavailableView {
-                        Label("There are no logs by this filter", systemImage: "doc.richtext.fill")
+                        Label("No log records match this filter", systemImage: "doc.richtext.fill")
                     } description: {
-                        Text("Try to search for other filter in Date or Result")
+                        Text("Try a different date or result filter.")
                     }
                 } else if showindebounce {
                     ContentUnavailableView {

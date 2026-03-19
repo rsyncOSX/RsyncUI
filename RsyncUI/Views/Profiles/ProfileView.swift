@@ -78,7 +78,7 @@ struct ProfileView: View {
         .task {
             allconfigurations = await ReadAllTasks().readAllMarkedTasks(rsyncUIdata.validprofiles)
         }
-        .navigationTitle("Profile create or delete")
+        .navigationTitle("Manage Profiles")
     }
 }
 
@@ -139,7 +139,7 @@ struct AddProfileSheet: View {
             HStack(spacing: 12) {
                 ConditionalGlassButton(systemImage: "plus",
                                        text: "Add",
-                                       helpText: "Add task") {
+                                       helpText: "Create profile") {
                     addProfile()
                     showSheet = false
                 }

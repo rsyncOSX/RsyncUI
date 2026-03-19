@@ -53,10 +53,10 @@ struct ProfilesToUpdateView: View {
         .overlay {
             if allconfigurations.count == 0 {
                 ContentUnavailableView {
-                    Label("All tasks has been synchronized in the past \(SharedReference.shared.marknumberofdayssince) days",
+                    Label("All tasks have been synchronized in the past \(SharedReference.shared.marknumberofdayssince) days",
                           systemImage: "play.fill")
                 } description: {
-                    Text("This is only due to Marknumberofdayssince set in the settings")
+                    Text("This threshold is set in Settings.")
                 }
             }
         }
