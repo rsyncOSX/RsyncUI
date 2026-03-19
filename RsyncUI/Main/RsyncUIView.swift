@@ -15,6 +15,7 @@ struct RsyncUIView: View {
     @State private var rsyncversion = Rsyncversion()
     @State private var start: Bool = true
     @State private var rsyncUIdata = RsyncUIconfigurations()
+    @State private var errorhandling = AlertError()
 
     var body: some View {
         VStack {
@@ -37,6 +38,7 @@ struct RsyncUIView: View {
         }
         .padding()
         .task {
+            SharedReference.shared.errorobject = errorhandling
             ReadUserConfigurationJSON().readuserconfiguration()
             // Get version of rsync
             rsyncversion.getRsyncVersion()
@@ -72,10 +74,6 @@ struct RsyncUIView: View {
         }
     }
 
-    var errorhandling: AlertError {
-        SharedReference.shared.errorobject = AlertError()
-        return SharedReference.shared.errorobject ?? AlertError()
-    }
 }
 
 extension Task where Success == Never, Failure == Never {
