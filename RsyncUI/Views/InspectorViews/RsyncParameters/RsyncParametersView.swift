@@ -84,14 +84,14 @@ struct RsyncParametersView: View {
                                 .padding(.vertical, 8)
                                 .background(Color.red)
                                 .foregroundStyle(.white)
-                                .cornerRadius(8)
+                                .clipShape(.rect(cornerRadius: 8))
                         }
                         .padding(.top, 4)
                     }
                 }
                 .padding() // Adds space inside the border
                 .background(Color.red.opacity(0.05)) // Optional: Light red background tint
-                .cornerRadius(10) // Rounds the corners of the frame
+                .clipShape(.rect(cornerRadius: 10)) // Rounds the corners of the frame
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.red, lineWidth: 2) // The red border

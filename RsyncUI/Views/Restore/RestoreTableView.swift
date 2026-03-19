@@ -152,7 +152,7 @@ struct RestoreTableView: View {
             }
         }
         .frame(width: 150)
-        .accentColor(.blue)
+        .tint(.blue)
         .onChange(of: snapshotFolderID) {
             if let index = snapshotdata.snapshotfolders.firstIndex(where: { $0.id == snapshotFolderID }) {
                 snapshotfolder = snapshotdata.snapshotfolders[index].folder
