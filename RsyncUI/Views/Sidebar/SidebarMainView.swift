@@ -98,13 +98,9 @@ struct SidebarMainView: View {
         } detail: {
             selectView(selectedview)
         }
-        .alert(isPresented: errorhandling.isPresentingAlert, content: {
-            if let error = errorhandling.activeError {
-                Alert(localizedError: error)
-            } else {
-                Alert(title: Text("No error"))
-            }
-        })
+        .alert(errorhandling.activeError?.localizedDescription ?? "No error", isPresented: errorhandling.isPresentingAlert) {
+            Button("OK", role: .cancel) { }
+        }
         .task {
             newversion.notifynewversion = await ActorGetversionofRsyncUI().getversionsofrsyncui()
             SharedReference.shared.newversion = newversion.notifynewversion

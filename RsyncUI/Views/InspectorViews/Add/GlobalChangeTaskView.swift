@@ -37,24 +37,21 @@ struct GlobalChangeTaskView: View {
                 ConfigurationsTableGlobalChanges(newdata: $newdata)
             }
         }
-        .alert(isPresented: $showingAlert) {
-            Alert(
-                title: Text("Update all configurations?"),
-                primaryButton: .default(Text("Update")) {
-                    newdata.updateglobalchangedconfigurations()
-                    // any snapshotstasks
-                    if let snapshotstask = newdata.notchangedsnapshotconfigurations,
-                       let globalupdate = newdata.globalchangedconfigurations {
-                        rsyncUIdata.configurations = globalupdate + snapshotstask
-                    } else {
-                        rsyncUIdata.configurations = newdata.globalchangedconfigurations
-                    }
-                    WriteSynchronizeConfigurationJSON(rsyncUIdata.profile, rsyncUIdata.configurations)
-                },
-                secondaryButton: .cancel {
-                    newdata.globalchangedconfigurations = rsyncUIdata.configurations
+        .alert("Update all configurations?", isPresented: $showingAlert) {
+            Button("Update") {
+                newdata.updateglobalchangedconfigurations()
+                // any snapshotstasks
+                if let snapshotstask = newdata.notchangedsnapshotconfigurations,
+                   let globalupdate = newdata.globalchangedconfigurations {
+                    rsyncUIdata.configurations = globalupdate + snapshotstask
+                } else {
+                    rsyncUIdata.configurations = newdata.globalchangedconfigurations
                 }
-            )
+                WriteSynchronizeConfigurationJSON(rsyncUIdata.profile, rsyncUIdata.configurations)
+            }
+            Button("Cancel", role: .cancel) {
+                newdata.globalchangedconfigurations = rsyncUIdata.configurations
+            }
         }
         .onAppear {
             // Synchronize and syncremote tasks

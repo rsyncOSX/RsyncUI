@@ -102,14 +102,11 @@ struct TasksView: View {
         .focusedSceneValue(\.importtasks, $focusimport)
         .focusedSceneValue(\.showquicktask, $showquicktask)
         .toolbar { taskviewtoolbarcontent }
-        .alert(isPresented: $showingAlert) {
-            Alert(
-                title: Text("Synchronize all tasks with NO estimating first?"),
-                primaryButton: .default(Text("Synchronize")) {
-                    executetaskpath.append(Tasks(task: .executenoestimatetasksview))
-                },
-                secondaryButton: .cancel()
-            )
+        .alert("Synchronize all tasks with NO estimating first?", isPresented: $showingAlert) {
+            Button("Synchronize") {
+                executetaskpath.append(Tasks(task: .executenoestimatetasksview))
+            }
+            Button("Cancel", role: .cancel) { }
         }
         .sheet(item: $activeSheet) { sheetType in
             switch sheetType {
