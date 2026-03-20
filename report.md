@@ -167,10 +167,10 @@ func localized_string_from_date() -> String {
 
 ---
 
-#### Issue S4 — `ConditionalGlassButton`: unreachable `#available` check
-**File:** `RsyncUI/Views/Modifiers/ButtonStyles.swift:205–212`
+#### Issue S4 — `ConditionalGlassButton`: unreachable `#available` check and inconsistent role usage
+**File:** `RsyncUI/Views/Modifiers/ButtonStyles.swift:205–237`
 
-Inside the `else` branch of `if #available(macOS 26.0, *)`, there is another `if #available(macOS 26.0, *)` check:
+Inside the `else` branch of `if #available(macOS 26.0, *)`, there is another `if #available(macOS 26.0, *)` check that can never be true:
 
 ```swift
 } else {
@@ -178,31 +178,79 @@ Inside the `else` branch of `if #available(macOS 26.0, *)`, there is another `if
         if #available(macOS 26.0, *) {   // ← this branch is never reached
             return role == .close ? .cancel : role
         }
-        return role
+        return role                      // ← always executes: fallbackRole == role
     }()
 ```
 
-The inner `#available(macOS 26.0, *)` can never be true inside the `else` block. This is dead code. `fallbackRole` is also declared but `role` (not `fallbackRole`) is used in the first button in that branch:
+Because the inner `#available` is dead code, `fallbackRole` is always equal to `role`. The two buttons in the `else` branch are also inconsistent: the `systemImage.isEmpty` button passes `role`, while the non-empty-image button passes `fallbackRole` — but since both are equal, this is currently harmless:
 
 ```swift
-Button(role: role, action: action) {   // role, not fallbackRole
+Button(role: role, action: action) { ... }        // systemImage.isEmpty branch
+Button(role: fallbackRole, action: action) { ... } // non-empty image branch
 ```
 
-**Recommendation:** Remove the inner `#available` and use `role` directly, or fix the `fallbackRole` variable to be used consistently.
+The original intent (comment says "use .cancel for close buttons") was to map `.close → .cancel` for pre-macOS 26 fallback, but that mapping is inside dead code and never applied.
+
+**Recommendation:** Remove the `fallbackRole` closure entirely and apply the `.close → .cancel` mapping unconditionally in the `else` branch, then use it consistently in both buttons:
+
+```swift
+} else {
+    let fallbackRole: ButtonRole? = role == .close ? .cancel : role
+
+    if systemImage.isEmpty {
+        Button(role: fallbackRole, action: action) { ... }
+            .buttonStyle(.borderedProminent)
+            .help(helpText)
+    } else {
+        Button(role: fallbackRole, action: action) { ... }
+            .buttonStyle(.borderedProminent)
+            .help(helpText)
+    }
+}
+```
 
 ---
 
 #### Issue S5 — `ActorGetversionofRsyncUI` duplicates network fetch logic
 **File:** `RsyncUI/Model/Newversion/ActorGetversionofRsyncUI.swift`
 
-`getversionsofrsyncui()` and `downloadlinkofrsyncui()` both fetch and decode the same `VersionsofRsyncUI` array, differing only in what they return. If network conditions are slow or the remote changes between calls, results may diverge.
+`getversionsofrsyncui()` and `downloadlinkofrsyncui()` both fetch and decode the same `VersionsofRsyncUI` array from the same URL, and duplicate the `Logger.process.debugMessageOnly` call and `Bundle.main` version lookup. They differ only in the return type (`Bool` vs `String?`) and what they extract from the result. If both are called in sequence, the network fetch fires twice; if the remote changes between calls, results may diverge.
 
-**Recommendation:** Extract one shared private method:
+```swift
+// getversionsofrsyncui() — returns Bool
+let versionsofrsyncui = try await versions.decodeArray(VersionsofRsyncUI.self,
+                                                        fromURL: Resources().getResource(resource: .urlJSON))
+let runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+let check = versionsofrsyncui.filter { runningversion.isEmpty ? true : $0.version == runningversion }
+return check.count > 0
+
+// downloadlinkofrsyncui() — returns String?  (identical fetch + filter, different return)
+let versionsofrsyncui = try await versions.decodeArray(VersionsofRsyncUI.self, ...)
+let runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+let check = versionsofrsyncui.filter { ... }
+return check.count > 0 ? check[0].url : nil
+```
+
+**Recommendation:** Extract the shared fetch + filter into a single private method, then have the two public methods call it:
+
 ```swift
 @concurrent
-nonisolated private func fetchVersions() async throws -> [VersionsofRsyncUI] {
-    try await DecodeGeneric().decodeArray(VersionsofRsyncUI.self,
-                                          fromURL: Resources().getResource(resource: .urlJSON))
+nonisolated private func fetchMatchingVersions() async throws -> [VersionsofRsyncUI] {
+    let all = try await DecodeGeneric().decodeArray(VersionsofRsyncUI.self,
+                                                    fromURL: Resources().getResource(resource: .urlJSON))
+    Logger.process.debugMessageOnly("CheckfornewversionofRsyncUI: \(all)")
+    let runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+    return all.filter { runningversion.isEmpty ? true : $0.version == runningversion }
+}
+
+@concurrent
+nonisolated func getversionsofrsyncui() async -> Bool {
+    (try? await fetchMatchingVersions())?.isEmpty == false
+}
+
+@concurrent
+nonisolated func downloadlinkofrsyncui() async -> String? {
+    try? await fetchMatchingVersions().first?.url
 }
 ```
 

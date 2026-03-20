@@ -203,14 +203,7 @@ struct ConditionalGlassButton: View {
                 .help(helpText)
             }
         } else {
-            // For older macOS versions, use .cancel for close buttons, or nil for others
-            let fallbackRole: ButtonRole? = {
-                if #available(macOS 26.0, *) {
-                    return role == .close ? .cancel : role
-                }
-                return role
-            }()
-
+            // For macOS versions before 26.0, use standard bordered prominent style
             if systemImage.isEmpty {
                 Button(role: role, action: action) {
                     if let text {
@@ -221,7 +214,7 @@ struct ConditionalGlassButton: View {
                 .buttonStyle(.borderedProminent)
                 .help(helpText)
             } else {
-                Button(role: fallbackRole, action: action) {
+                Button(role: role, action: action) {
                     Label {
                         if let text {
                             Text(text)
