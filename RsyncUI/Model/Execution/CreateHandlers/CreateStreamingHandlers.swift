@@ -31,7 +31,9 @@ struct CreateStreamingHandlers {
             checkLineForError: TrimOutputFromRsync().checkForRsyncError(_:),
             updateProcess: SharedReference.shared.updateprocess,
             propagateError: { error in
-                SharedReference.shared.errorobject?.alert(error: error)
+                Task { @MainActor in
+                        SharedReference.shared.errorobject?.alert(error: error)
+                    }
             },
             checkForErrorInRsyncOutput: SharedReference.shared.checkforerrorinrsyncoutput,
             environment: MyEnvironment()?.environment
@@ -65,7 +67,9 @@ struct CreateStreamingHandlers {
             checkLineForError: TrimOutputFromRsync().checkForRsyncError(_:),
             updateProcess: SharedReference.shared.updateprocess,
             propagateError: { error in
-                SharedReference.shared.errorobject?.alert(error: error)
+                Task { @MainActor in
+                        SharedReference.shared.errorobject?.alert(error: error)
+                    }
             },
             checkForErrorInRsyncOutput: SharedReference.shared.checkforerrorinrsyncoutput,
             environment: MyEnvironment()?.environment
@@ -82,6 +86,9 @@ struct CreateStreamingHandlers {
             guard Self.threadingCheckRan == false else { return }
             Self.threadingCheckRan = true
 
+            // Task.detached is required here to guarantee this runs off the main actor,
+            // regardless of caller isolation — this validates streaming callbacks are not
+            // invoked on the main thread.
             Task.detached(priority: .userInitiated) {
                 precondition(Thread.isMainThread == false, "Streaming threading check should run off the main thread")
                 _ = try? TrimOutputFromRsync().checkForRsyncError("ok")

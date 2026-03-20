@@ -95,12 +95,8 @@ extension Logger {
     }
 
     func debugThreadOnly(_ message: String) {
-        #if DEBUG
-            if Thread.checkIsMainThread() {
-                debug("\(message) Running on main thread")
-            } else {
-                debug("\(message) NOT on main thread, currently on \(Thread.current)")
-            }
-        #endif
+    #if DEBUG
+        debug("\(message) isolation: \(Thread.isMainThread ? "main" : "background")")
+    #endif
     }
 }

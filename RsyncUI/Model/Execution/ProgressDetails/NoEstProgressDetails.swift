@@ -8,7 +8,7 @@
 import Foundation
 import Observation
 
-@Observable
+@Observable @MainActor
 final class NoEstProgressDetails {
     var executenoestimationcompleted: Bool = false
     var executelist: [RemoteDataNumbers]?
