@@ -90,7 +90,7 @@ The SwiftUI correctness checklist requires `@State` properties to be `private`. 
 
 ---
 
-#### Issue S2 — Duplicated light/dark mode branching in `MessageView`
+#### Issue S2 ✅ DONE — Duplicated light/dark mode branching in `MessageView`
 **File:** `RsyncUI/Views/Modifiers/Viewmodifiers.swift:92–136`
 
 `MessageView` duplicates its entire `ZStack` body for dark vs light mode, differing only in `foregroundStyle` color:
@@ -127,7 +127,7 @@ var body: some View {
 
 ---
 
-#### Issue S3 — Deprecated `NSCalendar` bridge in `extensions.swift`
+#### Issue S3 ✅ DONE — Deprecated `NSCalendar` bridge in `extensions.swift`
 **File:** `RsyncUI/Model/Utils/extensions.swift:12–45`
 
 The `Date` extension uses the legacy `NSCalendar` bridge and `DateFormatter.behavior10_4`:
@@ -167,7 +167,7 @@ func localized_string_from_date() -> String {
 
 ---
 
-#### Issue S4 — `ConditionalGlassButton`: unreachable `#available` check and inconsistent role usage
+#### Issue S4 ✅ DONE — `ConditionalGlassButton`: unreachable `#available` check and inconsistent role usage
 **File:** `RsyncUI/Views/Modifiers/ButtonStyles.swift:205–237`
 
 Inside the `else` branch of `if #available(macOS 26.0, *)`, there is another `if #available(macOS 26.0, *)` check that can never be true:
@@ -211,7 +211,7 @@ The original intent (comment says "use .cancel for close buttons") was to map `.
 
 ---
 
-#### Issue S5 — `ActorGetversionofRsyncUI` duplicates network fetch logic
+#### Issue S5 ✅ DONE — `ActorGetversionofRsyncUI` duplicates network fetch logic
 **File:** `RsyncUI/Model/Newversion/ActorGetversionofRsyncUI.swift`
 
 `getversionsofrsyncui()` and `downloadlinkofrsyncui()` both fetch and decode the same `VersionsofRsyncUI` array from the same URL, and duplicate the `Logger.process.debugMessageOnly` call and `Bundle.main` version lookup. They differ only in the return type (`Bool` vs `String?`) and what they extract from the result. If both are called in sequence, the network fetch fires twice; if the remote changes between calls, results may diverge.
