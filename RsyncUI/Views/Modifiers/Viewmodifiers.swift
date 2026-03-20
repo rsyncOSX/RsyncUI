@@ -96,37 +96,19 @@ struct MessageView: View {
     private var textsize: Font
 
     var body: some View {
-        if colorScheme == .dark {
-            ZStack {
-                RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.3))
-                Text(mytext)
-                    // .font(.caption2)
-                    .font(textsize)
-                    .foregroundStyle(Color.green)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-                    .allowsTightening(false)
-                    .minimumScaleFactor(0.5)
-            }
-            .frame(height: 30, alignment: .center)
-            .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1))
-            .padding()
-        } else {
-            ZStack {
-                RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.3))
-                Text(mytext)
-                    // .font(.caption2)
-                    .font(textsize)
-                    .foregroundStyle(Color.blue)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-                    .allowsTightening(false)
-                    .minimumScaleFactor(0.5)
-            }
-            .frame(height: 30, alignment: .center)
-            .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1))
-            .padding()
+        ZStack {
+            RoundedRectangle(cornerRadius: 15).fill(Color.gray.opacity(0.3))
+            Text(mytext)
+                .font(textsize)
+                .foregroundStyle(colorScheme == .dark ? Color.green : Color.blue)
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+                .allowsTightening(false)
+                .minimumScaleFactor(0.5)
         }
+        .frame(height: 30, alignment: .center)
+        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1))
+        .padding()
     }
 
     init(mytext: String, size: Font) {

@@ -9,14 +9,11 @@ import Foundation
 
 extension Date {
     func dayMonth() -> Int {
-        let calendar = Calendar.current
-        let dateComponent = (calendar as NSCalendar).components(.day, from: self)
-        return dateComponent.day ?? 1
+        Calendar.current.component(.day, from: self)
     }
 
     func getWeekday() -> Int {
-        let calendar = Calendar.current
-        return (calendar as NSCalendar).components(.weekday, from: self).weekday ?? 1
+        Calendar.current.component(.weekday, from: self)
     }
 
     func isSelectedDayOfWeek(day: NumDayofweek) -> Bool {
@@ -62,19 +59,11 @@ extension Date {
     }
 
     func localized_string_from_date() -> String {
-        let dateformatter = DateFormatter()
-        dateformatter.formatterBehavior = .behavior10_4
-        dateformatter.dateStyle = .medium
-        dateformatter.timeStyle = .short
-        return dateformatter.string(from: self)
+        self.formatted(date: .abbreviated, time: .shortened)
     }
 
     func long_localized_string_from_date() -> String {
-        let dateformatter = DateFormatter()
-        dateformatter.formatterBehavior = .behavior10_4
-        dateformatter.dateStyle = .medium
-        dateformatter.timeStyle = .long
-        return dateformatter.string(from: self)
+        self.formatted(date: .abbreviated, time: .complete)
     }
 
     func en_string_from_date() -> String {
@@ -107,29 +96,16 @@ extension Date {
     func shortlocalized_string_from_date() -> String {
         // MM-dd-yyyy HH:mm
         let dateformatter = DateFormatter()
-        dateformatter.formatterBehavior = .behavior10_4
-        dateformatter.dateStyle = .medium
-        dateformatter.timeStyle = .short
         dateformatter.dateFormat = "MM-dd-yyyy:HH:mm"
         return dateformatter.string(from: self)
     }
 
     func localized_weekday_from_date() -> String {
-        let dateformatter = DateFormatter()
-        dateformatter.formatterBehavior = .behavior10_4
-        dateformatter.dateStyle = .medium
-        dateformatter.timeStyle = .short
-        dateformatter.dateFormat = "EEEE"
-        return dateformatter.string(from: self)
+        self.formatted(.dateTime.weekday(.wide))
     }
 
     func localized_month_from_date() -> String {
-        let dateformatter = DateFormatter()
-        dateformatter.formatterBehavior = .behavior10_4
-        dateformatter.dateStyle = .medium
-        dateformatter.timeStyle = .short
-        dateformatter.dateFormat = "MMMM"
-        return dateformatter.string(from: self)
+        self.formatted(.dateTime.month(.wide))
     }
 
     static let firstDayOfWeek = Calendar.current.firstWeekday
@@ -265,11 +241,8 @@ extension String {
     }
 
     func localized_date_from_string() -> Date {
-        let dateformatter = DateFormatter()
-        dateformatter.formatterBehavior = .behavior10_4
-        dateformatter.dateStyle = .medium
-        dateformatter.timeStyle = .short
-        return dateformatter.date(from: self) ?? Date()
+        let strategy = Date.FormatStyle(date: .abbreviated, time: .shortened).parseStrategy
+        return (try? Date(self, strategy: strategy)) ?? Date()
     }
 }
 
