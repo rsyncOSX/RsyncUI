@@ -271,7 +271,7 @@ nonisolated func downloadlinkofrsyncui() async -> String? {
 
 ### 4.2 Issues Found
 
-#### Issue C1 — `NoEstProgressDetails` lacks `@MainActor` isolation
+#### Issue C1 ✅ DONE — `NoEstProgressDetails` lacks `@MainActor` isolation
 **File:** `RsyncUI/Model/Execution/ProgressDetails/NoEstProgressDetails.swift`
 
 `NoEstProgressDetails` is `@Observable` but has no isolation annotation:
@@ -295,7 +295,7 @@ final class NoEstProgressDetails { ... }
 
 ---
 
-#### Issue C2 — `Task.detached` in debug threading check without documented reason
+#### Issue C2 ✅ DONE — `Task.detached` in debug threading check without documented reason
 **File:** `RsyncUI/Model/Execution/CreateHandlers/CreateStreamingHandlers.swift:85`
 
 ```swift
@@ -317,7 +317,7 @@ Task.detached(priority: .userInitiated) { ... }
 
 ---
 
-#### Issue C3 — `SharedReference.shared.errorobject?.alert(error:)` called from actor context
+#### Issue C3 ✅ DONE — `SharedReference.shared.errorobject?.alert(error:)` called from actor context
 **Files:** `Execute.swift`, `Estimate.swift`, `CreateStreamingHandlers.swift`, others
 
 `SharedReference.shared` is declared as `@MainActor static let shared`. Accessing it from inside an `actor` method or a `@concurrent nonisolated` function requires a main actor hop. For example, in `CreateStreamingHandlers.createHandlers`:
@@ -577,13 +577,13 @@ Model/Execution/
 
 ## 8. Priority Action List
 
-1. **Add `@MainActor` to `NoEstProgressDetails`** (C1) — data-race safety.
-2. **Fix `ConditionalGlassButton` unreachable `#available` branch** (S4) — correctness bug.
+1. ✅ **Add `@MainActor` to `NoEstProgressDetails`** (C1) — data-race safety.
+2. ✅ **Fix `ConditionalGlassButton` unreachable `#available` branch** (S4) — dead `fallbackRole` closure and nested `#available` removed; both `else`-branch buttons now use `role` consistently.
 3. **Add `private` to `@State` properties** (S1) — SwiftUI correctness requirement.
-4. **Add explicit main-actor hop in `propagateError` closure** (C3) — defensive concurrency.
-5. **Replace `NSCalendar` bridge with `Calendar.component`** (S3) — remove deprecated API.
+4. ✅ **Add explicit main-actor hop in `propagateError` closure** (C3) — defensive concurrency.
+5. ✅ **Replace `NSCalendar` bridge with `Calendar.component`** (S3) — `dayMonth()`, `getWeekday()` updated; `localized_string_from_date()` now uses `Date.FormatStyle`. Note: `ispreviousmonth` and `isnexttwomonths` computed properties still use the `NSCalendar` cast and are a remaining cleanup target.
 6. **Extract `computestackoftasks` duplication** — reduces Estimate/Execute divergence risk.
 7. **Extract `DateFormattingKit`** as local package — highest reuse, zero dependencies.
 8. **Extract `AlertErrorKit`** — small, zero dependencies, immediately reusable.
 9. **Extract `RsyncUIComponents`** — makes glass button system independently testable and previewable.
-10. **Add `Task.detached` comment in `CreateStreamingHandlers`** (C2) — documents design intent.
+10. ✅ **Add `Task.detached` comment in `CreateStreamingHandlers`** (C2) — documents design intent.
