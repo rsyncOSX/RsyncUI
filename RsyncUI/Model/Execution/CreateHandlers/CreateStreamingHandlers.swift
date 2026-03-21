@@ -32,8 +32,8 @@ struct CreateStreamingHandlers {
             updateProcess: SharedReference.shared.updateprocess,
             propagateError: { error in
                 Task { @MainActor in
-                        SharedReference.shared.errorobject?.alert(error: error)
-                    }
+                    SharedReference.shared.errorobject?.alert(error: error)
+                }
             },
             checkForErrorInRsyncOutput: SharedReference.shared.checkforerrorinrsyncoutput,
             environment: MyEnvironment()?.environment
@@ -68,8 +68,8 @@ struct CreateStreamingHandlers {
             updateProcess: SharedReference.shared.updateprocess,
             propagateError: { error in
                 Task { @MainActor in
-                        SharedReference.shared.errorobject?.alert(error: error)
-                    }
+                    SharedReference.shared.errorobject?.alert(error: error)
+                }
             },
             checkForErrorInRsyncOutput: SharedReference.shared.checkforerrorinrsyncoutput,
             environment: MyEnvironment()?.environment

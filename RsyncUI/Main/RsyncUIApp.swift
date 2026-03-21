@@ -95,8 +95,8 @@ extension Logger {
     }
 
     func debugThreadOnly(_ message: String) {
-    #if DEBUG
-        debug("\(message) isolation: \(Thread.isMainThread ? "main" : "background")")
-    #endif
+        #if DEBUG
+            debug("\(message) isolation: \(Thread.isMainThread ? "main" : "background")")
+        #endif
     }
 }

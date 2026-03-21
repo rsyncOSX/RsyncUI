@@ -59,11 +59,11 @@ extension Date {
     }
 
     func localized_string_from_date() -> String {
-        self.formatted(date: .abbreviated, time: .shortened)
+        formatted(date: .abbreviated, time: .shortened)
     }
 
     func long_localized_string_from_date() -> String {
-        self.formatted(date: .abbreviated, time: .complete)
+        formatted(date: .abbreviated, time: .complete)
     }
 
     func en_string_from_date() -> String {
@@ -101,11 +101,11 @@ extension Date {
     }
 
     func localized_weekday_from_date() -> String {
-        self.formatted(.dateTime.weekday(.wide))
+        formatted(.dateTime.weekday(.wide))
     }
 
     func localized_month_from_date() -> String {
-        self.formatted(.dateTime.month(.wide))
+        formatted(.dateTime.month(.wide))
     }
 
     static let firstDayOfWeek = Calendar.current.firstWeekday

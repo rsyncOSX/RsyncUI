@@ -10,7 +10,7 @@ import OSLog
 
 actor ActorGetversionofRsyncUI {
     @concurrent
-    nonisolated private func fetchMatchingVersions() async throws -> [VersionsofRsyncUI] {
+    private nonisolated func fetchMatchingVersions() async throws -> [VersionsofRsyncUI] {
         let all = try await DecodeGeneric().decodeArray(VersionsofRsyncUI.self,
                                                         fromURL: Resources().getResource(resource: .urlJSON))
         Logger.process.debugMessageOnly("CheckfornewversionofRsyncUI: \(all)")
