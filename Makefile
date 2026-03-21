@@ -1,6 +1,6 @@
 APP = RsyncUI
 BUNDLE_ID = no.blogspot.$(APP)
-VERSION = 2.9.3
+VERSION := $(shell grep -m 1 'MARKETING_VERSION' RsyncUI.xcodeproj/project.pbxproj | awk -F' = ' '{print $$2}' | tr -d ';')
 BUILD_PATH = $(PWD)/build
 APP_PATH = "$(BUILD_PATH)/$(APP).app"
 ZIP_PATH = "$(BUILD_PATH)/$(APP).$(VERSION).zip"
