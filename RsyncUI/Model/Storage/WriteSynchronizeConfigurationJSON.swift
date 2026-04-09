@@ -11,49 +11,44 @@ import OSLog
 
 @MainActor
 final class WriteSynchronizeConfigurationJSON {
-    let path = Homepath()
-
-    private func writeJSONToPersistentStore(jsonData: Data?, _ profile: String?) {
-        if let fullpathmacserial = path.fullpathmacserial {
-            var configurationfileURL: URL?
-            let fullpathmacserialURL = URL(fileURLWithPath: fullpathmacserial)
-            if let profile {
-                let tempURL = fullpathmacserialURL.appendingPathComponent(profile)
-                configurationfileURL = tempURL.appendingPathComponent(SharedConstants().fileconfigurationsjson)
-            } else {
-                configurationfileURL = fullpathmacserialURL.appendingPathComponent(SharedConstants().fileconfigurationsjson)
-            }
-            if let configurationfileURL {
-                Logger.process.debugMessageOnly(
-                    "WriteSynchronizeConfigurationJSON: writeJSONToPersistentStore \(configurationfileURL)"
-                )
-            }
-            if let jsonData, let configurationfileURL {
-                do {
-                    try jsonData.write(to: configurationfileURL)
-                } catch let err {
-                    let error = err
-                    path.propagateError(error: error)
-                }
-            }
-        }
-    }
-
-    private func encodeJSONData(_ configurations: [SynchronizeConfiguration], _ profile: String?) {
-        let encodejsondata = EncodeGeneric()
-        do {
-            let encodeddata = try encodejsondata.encode(configurations)
-            writeJSONToPersistentStore(jsonData: encodeddata, profile)
-        } catch let err {
-            let error = err
-            path.propagateError(error: error)
-        }
-    }
-
     @discardableResult
     init(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) {
-        if let configurations {
-            encodeJSONData(configurations, profile)
+        guard let configurations else { return }
+        let path = Homepath()
+        guard let fullpathmacserial = path.fullpathmacserial else { return }
+
+        // Build URL on main actor (fast)
+        let base = URL(fileURLWithPath: fullpathmacserial)
+        let fileURL: URL
+        if let profile {
+            fileURL = base.appendingPathComponent(profile)
+                .appendingPathComponent(SharedConstants().fileconfigurationsjson)
+        } else {
+            fileURL = base.appendingPathComponent(SharedConstants().fileconfigurationsjson)
+        }
+
+        // Encode on main actor (CPU-bound, fast)
+        let encodeddata: Data
+        do {
+            encodeddata = try EncodeGeneric().encode(configurations)
+        } catch let err {
+            path.propagateError(error: err)
+            return
+        }
+
+        // Write off the main thread
+        Logger.process.debugMessageOnly("WriteSynchronizeConfigurationJSON: writing to \(fileURL)")
+        Task.detached(priority: .utility) {
+            do {
+                try encodeddata.write(to: fileURL)
+            } catch {
+                await MainActor.run {
+                    SharedReference.shared.errorobject?.alert(error: error)
+                }
+                Logger.process.errorMessageOnly(
+                    "WriteSynchronizeConfigurationJSON: write failed - \(error.localizedDescription)"
+                )
+            }
         }
     }
 

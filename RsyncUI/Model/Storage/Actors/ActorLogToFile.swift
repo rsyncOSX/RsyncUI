@@ -21,7 +21,7 @@ enum FilesizeError: LocalizedError {
 }
 
 actor ActorLogToFile {
-    private let homepath: Homepath?
+    private var homepath: Homepath?
     private let fileManager = FileManager.default
     private let logName = SharedConstants().logname
     private let maxLogfileSize = SharedConstants().logfilesize
@@ -29,15 +29,22 @@ actor ActorLogToFile {
 
     // MARK: - Helper Properties
 
-    private var logfileURL: URL? {
-        guard let fullpathmacserial = homepath?.fullpathmacserial else { return nil }
+    private func getHomepath() async -> Homepath? {
+        if homepath == nil {
+            homepath = await Homepath()
+        }
+        return homepath
+    }
+
+    private func getLogfileURL() async -> URL? {
+        guard let fullpathmacserial = (await getHomepath())?.fullpathmacserial else { return nil }
         return URL(fileURLWithPath: fullpathmacserial).appendingPathComponent(logName)
     }
 
     // MARK: - Public Methods
 
     func writeloggfile(_ newlogadata: String, _ reset: Bool) async {
-        guard let logURL = logfileURL else { return }
+        guard let logURL = await getLogfileURL() else { return }
 
         Logger.process.debugThreadOnly("ActorLogToFile: writeloggfile()")
 
@@ -62,7 +69,7 @@ actor ActorLogToFile {
             Logger.process.debugMessageOnly("ActorLogToFile: writeloggfile() logfile \(logURL.path)")
             try await checkFileSizeAfterWrite()
         } catch {
-            await homepath?.propagateError(error: error)
+            await getHomepath()?.propagateError(error: error)
         }
     }
 
@@ -74,7 +81,7 @@ actor ActorLogToFile {
     // MARK: - Private Methods
 
     private func readLogfileContent() async -> String? {
-        guard let logURL = logfileURL,
+        guard let logURL = await getLogfileURL(),
               fileManager.fileExists(atPath: logURL.path) else {
             return nil
         }
@@ -87,7 +94,7 @@ actor ActorLogToFile {
             Logger.process.debugMessageOnly("ActorLogToFile: read logfile \(logURL.path)")
             return String(data: data, encoding: .utf8)
         } catch {
-            await homepath?.propagateError(error: error)
+            await getHomepath()?.propagateError(error: error)
             return nil
         }
     }
@@ -120,9 +127,7 @@ actor ActorLogToFile {
 
     // MARK: - Initializers
 
-    init() async {
-        homepath = await Homepath()
-    }
+    init() {}
 
     // MARK: - Reset and Logging Methods
 
