@@ -36,10 +36,10 @@ final class Logging {
         let logging = Logging(profile: profile, configurations: configurations)
 
         if profile == nil {
-            logging.logrecords = await ActorReadLogRecordsJSON()
+            logging.logrecords = await ActorReadLogRecords()
                 .readjsonfilelogrecords(nil, logging.validhiddenIDs)
         } else {
-            logging.logrecords = await ActorReadLogRecordsJSON()
+            logging.logrecords = await ActorReadLogRecords()
                 .readjsonfilelogrecords(profile, logging.validhiddenIDs)
         }
 

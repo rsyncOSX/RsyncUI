@@ -271,19 +271,19 @@ struct LogStatsChartView: View {
         if let parsedlogs = chartdata.parsedlogs {
             if datainchart == .numberoffiles {
                 if numberofdata.isEmpty || numberofdatabool == false {
-                    return await ActorLogChartsData().parsemaxfilesbydate(from: parsedlogs)
+                    return await ActorReadLogRecords().parsemaxfilesbydate(from: parsedlogs)
                     // Check if more data pr one date
                 } else {
-                    let allmaxlogentries = await ActorLogChartsData().parsemaxfilesbydate(from: parsedlogs)
-                    return await ActorLogChartsData().parsemaxNNfilesbydate(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
+                    let allmaxlogentries = await ActorReadLogRecords().parsemaxfilesbydate(from: parsedlogs)
+                    return await ActorReadLogRecords().parsemaxNNfilesbydate(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
                 }
             } else {
                 if numberofdata.isEmpty || numberofdatabool == false {
-                    return await ActorLogChartsData().parsemaxfilesbytransferredsize(from: parsedlogs)
+                    return await ActorReadLogRecords().parsemaxfilesbytransferredsize(from: parsedlogs)
                     // Check if more data pr one date
                 } else {
-                    let allmaxlogentries = await ActorLogChartsData().parsemaxfilesbytransferredsize(from: parsedlogs)
-                    return await ActorLogChartsData().parsemaxNNfilesbytransferredsize(from: allmaxlogentries,
+                    let allmaxlogentries = await ActorReadLogRecords().parsemaxfilesbytransferredsize(from: parsedlogs)
+                    return await ActorReadLogRecords().parsemaxNNfilesbytransferredsize(from: allmaxlogentries,
                                                                                        count: Int(numberofdata) ?? 20)
                 }
             }

@@ -148,12 +148,12 @@ struct LogRecordsTabView: View {
     }
 
     func deleteLogs(_ uuids: Set<UUID>) async {
-        async let updatedRecords: [LogRecords]? = ActorReadLogRecordsJSON().deleteLogs(
+        async let updatedRecords: [LogRecords]? = ActorReadLogRecords().deleteLogs(
             uuids,
             logrecords: logrecords
         )
         let records = await updatedRecords
-        async let updatedLogs: [Log]? = ActorReadLogRecordsJSON().updatelogsbyhiddenID(records, hiddenID)
+        async let updatedLogs: [Log]? = ActorReadLogRecords().updatelogsbyhiddenID(records, hiddenID)
         logrecords = records
         logs = await (updatedLogs ?? [])
         WriteLogRecordsJSON(rsyncUIdata.profile, records)
@@ -166,14 +166,14 @@ struct LogRecordsTabView: View {
         } else {
             hiddenID = -1
         }
-        let actorreadlogs = ActorReadLogRecordsJSON()
+        let actorreadlogs = ActorReadLogRecords()
         logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
         logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
     }
 
     private func updateLogsForFilter() async {
         showindebounce = false
-        let actorreadlogs = ActorReadLogRecordsJSON()
+        let actorreadlogs = ActorReadLogRecords()
         if filterstring.isEmpty == false {
             logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
         } else {
@@ -190,7 +190,7 @@ struct LogRecordsTabView: View {
         showindebounce = false
         selectedloguuids.removeAll()
 
-        let actorreadlogs = ActorReadLogRecordsJSON()
+        let actorreadlogs = ActorReadLogRecords()
         logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
         logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
     }
@@ -202,7 +202,7 @@ struct LogRecordsTabView: View {
             hiddenID = -1
         }
         Task {
-            let actorreadlogs = ActorReadLogRecordsJSON()
+            let actorreadlogs = ActorReadLogRecords()
             if filterstring.isEmpty == false {
                 logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
             } else {

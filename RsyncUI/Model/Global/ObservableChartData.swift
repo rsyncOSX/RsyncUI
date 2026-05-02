@@ -17,9 +17,9 @@ final class ObservableChartData {
     func readandparselogs(profile: String?, validhiddenIDs: Set<Int>, hiddenID: Int) async {
         guard parsedlogs == nil else { return }
         // Read logrecords
-        let actorreadlogs = ActorReadLogRecordsJSON()
+        let actorreadlogs = ActorReadLogRecords()
         let logrecords = await actorreadlogs.readjsonfilelogrecords(profile, validhiddenIDs)
-        let actorreadchartsdata = ActorLogChartsData()
+        let actorreadchartsdata = ActorReadLogRecords()
         let alllogs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
         // LogEntry logs
         parsedlogs = await actorreadchartsdata.parselogrecords(from: alllogs)
