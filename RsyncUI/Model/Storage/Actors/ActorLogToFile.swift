@@ -37,7 +37,7 @@ actor ActorLogToFile {
     }
 
     private func getLogfileURL() async -> URL? {
-        guard let fullpathmacserial = (await getHomepath())?.fullpathmacserial else { return nil }
+        guard let fullpathmacserial = await (getHomepath())?.fullpathmacserial else { return nil }
         return URL(fileURLWithPath: fullpathmacserial).appendingPathComponent(logName)
     }
 

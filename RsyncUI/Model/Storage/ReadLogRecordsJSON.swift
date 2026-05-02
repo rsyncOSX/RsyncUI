@@ -9,11 +9,10 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-@MainActor
 final class ReadLogRecordsJSON {
-    func readjsonfilelogrecords(_ profile: String?, _ validhiddenIDs: Set<Int>) -> [LogRecords]? {
+    func readjsonfilelogrecords(_ profile: String?, _ validhiddenIDs: Set<Int>) async -> [LogRecords]? {
         var filename = ""
-        let path = Homepath()
+        let path = await Homepath()
 
         if let profile, let fullpathmacserial = path.fullpathmacserial {
             filename = fullpathmacserial.appending("/") + profile.appending("/") + SharedConstants().filenamelogrecordsjson

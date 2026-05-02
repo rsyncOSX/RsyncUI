@@ -45,7 +45,7 @@ final class Execute {
     // Streaming strong references
     private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
     private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
-    // Shared log actor — created once, reused across all sync operations
+    /// Shared log actor — created once, reused across all sync operations
     private let logFileActor = ActorLogToFile()
 
     private func getConfig(_ hiddenID: Int) -> SynchronizeConfiguration? {

@@ -19,12 +19,11 @@ final class WriteLogRecordsJSON {
 
         // Build URL on main actor (fast)
         let base = URL(fileURLWithPath: fullpathmacserial)
-        let fileURL: URL
-        if let profile {
-            fileURL = base.appendingPathComponent(profile)
+        let fileURL: URL = if let profile {
+            base.appendingPathComponent(profile)
                 .appendingPathComponent(SharedConstants().filenamelogrecordsjson)
         } else {
-            fileURL = base.appendingPathComponent(SharedConstants().filenamelogrecordsjson)
+            base.appendingPathComponent(SharedConstants().filenamelogrecordsjson)
         }
 
         // Encode on main actor (CPU-bound, fast)

@@ -163,13 +163,15 @@ final class Logging {
          configurations: [SynchronizeConfiguration]?) {
         localeprofile = profile
         structconfigurations = configurations
-        if localeprofile == nil {
-            logrecords = ReadLogRecordsJSON().readjsonfilelogrecords(nil, validhiddenIDs)
-        } else {
-            logrecords = ReadLogRecordsJSON().readjsonfilelogrecords(localeprofile, validhiddenIDs)
-        }
-        if logrecords == nil {
-            logrecords = [LogRecords]()
+        Task {
+            if localeprofile == nil {
+                logrecords = await ReadLogRecordsJSON().readjsonfilelogrecords(nil, validhiddenIDs)
+            } else {
+                logrecords = await ReadLogRecordsJSON().readjsonfilelogrecords(localeprofile, validhiddenIDs)
+            }
+            if logrecords == nil {
+                logrecords = [LogRecords]()
+            }
         }
     }
 }

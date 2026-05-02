@@ -10,9 +10,8 @@ import Foundation
 import OSLog
 
 actor ActorReadLogRecordsJSON {
-    @concurrent
-    nonisolated func readjsonfilelogrecords(_ profile: String?,
-                                            _ validhiddenIDs: Set<Int>) async -> [LogRecords]? {
+    func readjsonfilelogrecords(_ profile: String?,
+                                _ validhiddenIDs: Set<Int>) async -> [LogRecords]? {
         let path = await Homepath()
         var filename = ""
         Logger.process.debugThreadOnly("ActorReadLogRecordsJSON: readjsonfilelogrecords()")
@@ -45,8 +44,7 @@ actor ActorReadLogRecordsJSON {
         return nil
     }
 
-    @concurrent
-    nonisolated func updatelogsbyhiddenID(_ logrecords: [LogRecords]?, _ hiddenID: Int) async -> [Log]? {
+    func updatelogsbyhiddenID(_ logrecords: [LogRecords]?, _ hiddenID: Int) async -> [Log]? {
         Logger.process.debugThreadOnly("ActorReadLogRecordsJSON: updatelogsbyhiddenID()")
         if let logrecords {
             // hiddenID == -1, merge logrecords for all tasks.
@@ -70,8 +68,7 @@ actor ActorReadLogRecordsJSON {
         return nil
     }
 
-    @concurrent
-    nonisolated func updatelogsbyfilter(_ logrecords: [LogRecords]?, _ filterstring: String, _ hiddenID: Int) async -> [Log]? {
+    func updatelogsbyfilter(_ logrecords: [LogRecords]?, _ filterstring: String, _ hiddenID: Int) async -> [Log]? {
         Logger.process.debugThreadOnly("ActorReadLogRecordsJSON: updatelogsbyfilter()")
         guard filterstring != "" else { return nil }
         if let logrecords {
@@ -105,7 +102,6 @@ actor ActorReadLogRecordsJSON {
         return nil
     }
 
-    @concurrent
     func deleteLogs(_ uuids: Set<UUID>,
                     logrecords: [LogRecords]?) async -> [LogRecords]? {
         var records = logrecords
