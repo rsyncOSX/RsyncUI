@@ -12,7 +12,7 @@ actor ActorGetversionofRsyncUI {
     private func fetchMatchingVersions() async throws -> [VersionsofRsyncUI] {
         let all = try await DecodeGeneric().decodeArray(VersionsofRsyncUI.self,
                                                         fromURL: Resources().getResource(resource: .urlJSON))
-        Logger.process.debugMessageOnly("CheckfornewversionofRsyncUI: \(all)")
+        Logger.process.debugThreadOnly("CheckfornewversionofRsyncUI: \(all)")
         let runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
         return all.filter { runningversion.isEmpty ? true : $0.version == runningversion }
     }

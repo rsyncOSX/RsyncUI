@@ -268,24 +268,23 @@ struct LogStatsChartView: View {
     }
 
     private func readAndSortLogData() async -> [LogEntry] {
-        let actorreadchartsdata = ActorLogChartsData()
-
+        
         if let parsedlogs = chartdata.parsedlogs {
             if datainchart == .numberoffiles {
                 if numberofdata.isEmpty || numberofdatabool == false {
-                    return await actorreadchartsdata.parsemaxfilesbydate(from: parsedlogs)
+                    return await ActorLogChartsData().parsemaxfilesbydate(from: parsedlogs)
                     // Check if more data pr one date
                 } else {
-                    let allmaxlogentries = await actorreadchartsdata.parsemaxfilesbydate(from: parsedlogs)
-                    return await actorreadchartsdata.parsemaxNNfilesbydate(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
+                    let allmaxlogentries = await ActorLogChartsData().parsemaxfilesbydate(from: parsedlogs)
+                    return await ActorLogChartsData().parsemaxNNfilesbydate(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
                 }
             } else {
                 if numberofdata.isEmpty || numberofdatabool == false {
-                    return await actorreadchartsdata.parsemaxfilesbytransferredsize(from: parsedlogs)
+                    return await ActorLogChartsData().parsemaxfilesbytransferredsize(from: parsedlogs)
                     // Check if more data pr one date
                 } else {
-                    let allmaxlogentries = await actorreadchartsdata.parsemaxfilesbytransferredsize(from: parsedlogs)
-                    return await actorreadchartsdata.parsemaxNNfilesbytransferredsize(from: allmaxlogentries,
+                    let allmaxlogentries = await ActorLogChartsData().parsemaxfilesbytransferredsize(from: parsedlogs)
+                    return await ActorLogChartsData().parsemaxNNfilesbytransferredsize(from: allmaxlogentries,
                                                                                       count: Int(numberofdata) ?? 20)
                 }
             }

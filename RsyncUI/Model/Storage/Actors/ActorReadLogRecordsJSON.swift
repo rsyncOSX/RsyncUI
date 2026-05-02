@@ -10,6 +10,7 @@ import Foundation
 import OSLog
 
 actor ActorReadLogRecordsJSON {
+    
     func readjsonfilelogrecords(_ profile: String?,
                                 _ validhiddenIDs: Set<Int>) async -> [LogRecords]? {
         let path = await Homepath()

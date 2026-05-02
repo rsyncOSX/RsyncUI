@@ -63,7 +63,7 @@ struct ConfigurationsTableLoadDataView: View {
             let record = rsyncUIdata.validprofiles.filter { $0.id == uuidprofile }
             guard record.count > 0 else { return }
             profile = record[0].profilename
-            configurations = await ActorReadSynchronizeConfigurationJSON()
+            configurations = ReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profile,
                                                        SharedReference.shared.rsyncversion3)
         }
@@ -74,7 +74,7 @@ struct ConfigurationsTableLoadDataView: View {
                 let record = rsyncUIdata.validprofiles.filter { $0.id == uuidprofile }
                 guard record.count > 0 else { return }
                 profile = record[0].profilename
-                configurations = await ActorReadSynchronizeConfigurationJSON()
+                configurations = ReadSynchronizeConfigurationJSON()
                     .readjsonfilesynchronizeconfigurations(profile,
                                                            SharedReference.shared.rsyncversion3)
             }

@@ -167,7 +167,7 @@ extension SidebarMainView {
             }
         }
 
-        rsyncUIdata.configurations = await ActorReadSynchronizeConfigurationJSON()
+        rsyncUIdata.configurations = ReadSynchronizeConfigurationJSON()
             .readjsonfilesynchronizeconfigurations(profile,
                                                    SharedReference.shared.rsyncversion3)
 

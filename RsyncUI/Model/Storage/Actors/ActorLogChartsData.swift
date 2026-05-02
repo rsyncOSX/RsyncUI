@@ -24,8 +24,7 @@ actor ActorLogChartsData {
     /// Extract all logrecords, sorting by number of files or transferred size in MB later
     func parselogrecords(from logrecords: [Log]) async -> [LogEntry] {
         // "resultExecuted": "43 files : 0.73 MB in 0.49 seconds"
-        Logger.process.debugThreadOnly("ActorLogChartsData: parselogrecords()")
-        Logger.process.debugMessageOnly("ActorLogChartsData: number of records \(logrecords.count)")
+        Logger.process.debugThreadOnly("ActorLogChartsData: number of records \(logrecords.count)")
         // return logrecords.compactMap { logrecord in
         return logrecords.compactMap { logrecord in
             let numbers = extractnumbersasdoubles(from: logrecord.resultExecuted ?? "")

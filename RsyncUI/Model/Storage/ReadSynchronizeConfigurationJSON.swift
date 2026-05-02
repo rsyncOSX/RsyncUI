@@ -9,11 +9,12 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-actor ActorReadSynchronizeConfigurationJSON {
+@MainActor
+struct ReadSynchronizeConfigurationJSON {
     func readjsonfilesynchronizeconfigurations(_ profile: String?,
-                                                           _ rsyncversion3: Bool) async -> [SynchronizeConfiguration]? {
+                                                           _ rsyncversion3: Bool) -> [SynchronizeConfiguration]? {
         var filename = ""
-        let path = await Homepath()
+        let path = Homepath()
         Logger.process.debugThreadOnly("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations()")
         if let profile, let fullpathmacserial = path.fullpathmacserial {
             filename = fullpathmacserial.appending("/") + profile.appending("/") + SharedConstants().fileconfigurationsjson
@@ -48,9 +49,5 @@ actor ActorReadSynchronizeConfigurationJSON {
             Logger.process.errorMessageOnly("\(errorMessage)")
         }
         return nil
-    }
-
-    deinit {
-        Logger.process.debugMessageOnly("ActorReadSynchronizeConfigurationJSON: DEINIT")
     }
 }

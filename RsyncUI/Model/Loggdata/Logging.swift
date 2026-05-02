@@ -165,9 +165,9 @@ final class Logging {
         structconfigurations = configurations
         Task {
             if localeprofile == nil {
-                logrecords = await ReadLogRecordsJSON().readjsonfilelogrecords(nil, validhiddenIDs)
+                logrecords = await ActorReadLogRecordsJSON().readjsonfilelogrecords(nil, validhiddenIDs)
             } else {
-                logrecords = await ReadLogRecordsJSON().readjsonfilelogrecords(localeprofile, validhiddenIDs)
+                logrecords = await ActorReadLogRecordsJSON().readjsonfilelogrecords(localeprofile, validhiddenIDs)
             }
             if logrecords == nil {
                 logrecords = [LogRecords]()
