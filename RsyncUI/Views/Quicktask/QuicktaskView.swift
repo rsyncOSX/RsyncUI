@@ -89,7 +89,6 @@ struct QuicktaskView: View {
     @FocusState var focusField: QuicktaskField?
 
     @State var selectedhomecatalog: Catalog.ID?
-    @State var selectedAttachedVolume: AttachedVolume.ID?
     @State var selectedAttachedVolumeCatalogs: String?
 
     let homecatalogs: [Catalog]

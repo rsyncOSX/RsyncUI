@@ -8,6 +8,5 @@ import Testing
 extension Tag {
     @Tag static var arguments: Self
     @Tag static var deeplink: Self
-    @Tag static var edgeCase: Self
     @Tag static var validation: Self
 }

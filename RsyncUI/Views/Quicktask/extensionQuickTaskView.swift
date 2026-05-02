@@ -49,7 +49,6 @@ extension QuicktaskView {
         remoteuser = ""
         remoteserver = ""
         selectedhomecatalog = nil
-        selectedAttachedVolume = nil
         selectedAttachedVolumeCatalogs = nil
     }
 

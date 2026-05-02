@@ -184,8 +184,4 @@ extension RsyncParametersView {
         }
         return false
     }
-
-    var deleteparameterpresent: Bool {
-        rsyncUIdata.configurations?.contains(where: { $0.parameter4?.isEmpty == false }) ?? false
-    }
 }
