@@ -17,7 +17,7 @@ enum LogStoreService {
     }
 }
 
-extension Collection where Element == SynchronizeConfiguration {
+extension Collection<SynchronizeConfiguration> {
     var hiddenIDs: Set<Int> {
         Set(map(\.hiddenID))
     }

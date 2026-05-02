@@ -5,7 +5,7 @@
 
 import Foundation
 
-struct LogEntry: Identifiable, Equatable, Sendable {
+struct LogEntry: Identifiable, Equatable {
     let id: String
     let date: Date
     let files: Int
@@ -21,12 +21,12 @@ struct LogEntry: Identifiable, Equatable, Sendable {
     }
 }
 
-enum LogChartMetric: String, Equatable, Sendable {
+enum LogChartMetric: String, Equatable {
     case files
     case transferredMB
 }
 
-enum LogChartLimit: Equatable, Sendable {
+enum LogChartLimit: Equatable {
     case maxPerDay
     case topNPerDay(Int)
 }
@@ -45,7 +45,7 @@ enum LogChartReducer {
         switch limit {
         case .maxPerDay:
             return maxPerDay
-        case .topNPerDay(let count):
+        case let .topNPerDay(count):
             return topEntries(from: maxPerDay, count: count, metric: metric)
         }
     }
