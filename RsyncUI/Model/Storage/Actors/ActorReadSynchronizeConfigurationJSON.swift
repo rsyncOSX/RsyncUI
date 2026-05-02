@@ -10,8 +10,7 @@ import Foundation
 import OSLog
 
 actor ActorReadSynchronizeConfigurationJSON {
-    @concurrent
-    nonisolated func readjsonfilesynchronizeconfigurations(_ profile: String?,
+    func readjsonfilesynchronizeconfigurations(_ profile: String?,
                                                            _ rsyncversion3: Bool) async -> [SynchronizeConfiguration]? {
         var filename = ""
         let path = await Homepath()
