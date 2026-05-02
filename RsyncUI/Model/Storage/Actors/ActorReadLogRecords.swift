@@ -1,5 +1,5 @@
 //
-//  ActorReadLogRecordsJSON.swift
+//  ActorReadLogRecords.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 04/12/2024.
@@ -128,7 +128,7 @@ actor ActorReadLogRecords {
 
         return records
     }
-    
+
     /// Parse logrecords and extract numbers for synchronize and snapshot tasks
     /// Extract all logrecords, sorting by number of files or transferred size in MB later
     func parselogrecords(from logrecords: [Log]) async -> [LogEntry] {

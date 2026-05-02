@@ -29,7 +29,7 @@ final class Logging {
         return temp
     }
 
-    static func create (
+    static func create(
         profile: String?,
         configurations: [SynchronizeConfiguration]?
     ) async -> Logging {

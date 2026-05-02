@@ -249,7 +249,7 @@ extension Execute {
         guard !(stackoftasks?.isEmpty ?? true) else {
             Task {
                 let update = await Logging.create(profile: structprofile,
-                                     configurations: localconfigurations)
+                                                  configurations: localconfigurations)
                 let updateconfigurations = update.setCurrentDateOnConfiguration(configrecords: configrecords)
                 // Send date stamped configurations back to caller
                 localupdateconfigurations(updateconfigurations)
@@ -266,7 +266,6 @@ extension Execute {
                 streamingHandlers = nil
                 SharedReference.shared.updateprocess(nil)
                 // If logging details to file it must be here
-                return
             }
             return
         }
@@ -307,7 +306,7 @@ extension Execute {
             guard !(stackoftasks?.isEmpty ?? true) else {
                 Task {
                     let update = await Logging.create(profile: structprofile,
-                                         configurations: localconfigurations)
+                                                      configurations: localconfigurations)
                     let updateconfigurations = update.setCurrentDateOnConfiguration(configrecords: configrecords)
                     // Send date stamped configurations back to caller
                     localupdateconfigurations(updateconfigurations)
@@ -321,7 +320,6 @@ extension Execute {
                     // Release streaming references when completed
                     activeStreamingProcess = nil
                     streamingHandlers = nil
-                    return
                 }
                 return
             }
