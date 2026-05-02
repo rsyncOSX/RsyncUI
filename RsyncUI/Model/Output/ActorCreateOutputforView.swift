@@ -19,17 +19,6 @@ actor ActorCreateOutputforView {
         return []
     }
 
-    /// From Set<String>
-    func createOutputForView(_ setoutputfromrsync: Set<String>?) async -> [RsyncOutputData] {
-        Logger.process.debugThreadOnly("ActorCreateOutputforView: createaoutputforview()")
-        if let setoutputfromrsync {
-            return setoutputfromrsync.map { line in
-                RsyncOutputData(record: line)
-            }
-        }
-        return []
-    }
-
     /// Show filelist for Restore, the TrimOutputForRestore prepares list
     func createoutputforrestore(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.debugThreadOnly("ActorCreateOutputforView: createoutputforrestore()")
