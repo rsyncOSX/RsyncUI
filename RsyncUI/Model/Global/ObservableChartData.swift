@@ -14,11 +14,17 @@ final class ObservableChartData {
     var parsedlogs: [LogEntry]?
 
     /// Only read logrecords from store once
-    func readandparselogs(profile: String?, validhiddenIDs: Set<Int>, hiddenID: Int) async {
+    func readandparselogs(
+        profile: String?,
+        configurations: [SynchronizeConfiguration]?,
+        hiddenID: Int
+    ) async {
         guard parsedlogs == nil else { return }
-        // Read logrecords
         let actorreadlogs = ActorReadLogRecords()
-        let logrecords = await actorreadlogs.readjsonfilelogrecords(profile, validhiddenIDs)
+        let logrecords = await LogStoreService.loadStore(
+            profile: profile,
+            configurations: configurations
+        )
         let alllogs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
         parsedlogs = await actorreadlogs.parselogrecords(from: alllogs)
     }

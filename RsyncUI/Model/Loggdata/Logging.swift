@@ -19,33 +19,15 @@ final class Logging {
     var logrecords: [LogRecords]?
     var localeprofile: String?
 
-    var validhiddenIDs: Set<Int> {
-        var temp = Set<Int>()
-        if let configurations = structconfigurations {
-            for config in configurations {
-                temp.insert(config.hiddenID)
-            }
-        }
-        return temp
-    }
-
     static func create(
         profile: String?,
         configurations: [SynchronizeConfiguration]?
     ) async -> Logging {
         let logging = Logging(profile: profile, configurations: configurations)
-
-        if profile == nil {
-            logging.logrecords = await ActorReadLogRecords()
-                .readjsonfilelogrecords(nil, logging.validhiddenIDs)
-        } else {
-            logging.logrecords = await ActorReadLogRecords()
-                .readjsonfilelogrecords(profile, logging.validhiddenIDs)
-        }
-
-        if logging.logrecords == nil {
-            logging.logrecords = []
-        }
+        logging.logrecords = await LogStoreService.loadStore(
+            profile: profile,
+            configurations: configurations
+        )
 
         return logging
     }

@@ -182,16 +182,6 @@ struct SnapshotsView: View {
 }
 
 extension SnapshotsView {
-    var validhiddenIDs: Set<Int> {
-        var temp = Set<Int>()
-        if let configurations = rsyncUIdata.configurations {
-            for config in configurations {
-                temp.insert(config.hiddenID)
-            }
-        }
-        return temp
-    }
-
     func abort() {
         snapshotdata.setsnapshotdata(nil)
         snapshotdata.delete?.snapshotcatalogstodelete = nil
@@ -224,10 +214,12 @@ extension SnapshotsView {
 
             if let config = selectedconfig {
                 Task {
-                    let actorreadlogs = ActorReadLogRecords()
-                    async let logrecords = actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+                    async let logrecords = LogStoreService.loadStore(
+                        profile: rsyncUIdata.profile,
+                        configurations: rsyncUIdata.configurations
+                    )
                     _ = await Snapshotlogsandcatalogs(config: config,
-                                                      logrecords: logrecords ?? [],
+                                                      logrecords: logrecords,
                                                       snapshotdata: snapshotdata)
                 }
             }

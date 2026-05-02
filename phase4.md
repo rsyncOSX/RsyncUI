@@ -19,7 +19,7 @@ This file expands `cleanup.md` Phase 4 with concrete duplicate paths in the curr
 
 ### A. Loading the same log store from multiple entry points
 
-These all perform the same domain step: read persisted log records for a profile, restricted to valid task IDs.
+Before the refactor, these entry points all performed the same domain step: read persisted log records for a profile, restricted to valid task IDs.
 
 - `Logging.create(...)` loads the store during scheduled log insertion (`Logging.swift:32-50`).
 - `LogRecordsTabView.loadInitialLogs()` loads it for the log table (`LogRecordsTabView.swift:163-172`).
@@ -27,13 +27,20 @@ These all perform the same domain step: read persisted log records for a profile
 - `SnapshotsView.getData()` loads the same store before snapshot/catalog merging (`SnapshotsView.swift:225-232`).
 - `ObservableChartData.readandparselogs(...)` loads the same store before chart parsing (`ObservableChartData.swift:17-24`).
 
-This is the clearest service boundary:
+Phase 4A lands as one shared loading boundary:
 
 ```swift
-func loadStore(profile: String?, configurations: [SynchronizeConfiguration]?) async throws -> LogStore
+typealias LogStore = [LogRecords]
+
+enum LogStoreService {
+    static func loadStore(
+        profile: String?,
+        configurations: [SynchronizeConfiguration]?
+    ) async -> LogStore
+}
 ```
 
-`LogStore` would hold the already-filtered `[LogRecords]` plus derived indexes if needed.
+That keeps `Logging.create(...)`, `LogRecordsTabView`, `SnapshotsView`, and `ObservableChartData` on the same entry point even before the broader log-domain service exists.
 
 ### B. `validhiddenIDs` is repeated in four places
 
@@ -49,22 +56,24 @@ if let configurations = configurations {
 return temp
 ```
 
-Current copies:
+Before the refactor, the repeated copies were:
 
 - `Logging.validhiddenIDs`
 - `LogRecordsTabView.validhiddenIDs`
 - `SnapshotsView.validhiddenIDs`
 - `LogStatsChartView.validhiddenIDs`
 
-This should become either:
+Phase 4B uses one shared configuration helper:
 
 ```swift
 extension Collection where Element == SynchronizeConfiguration {
     var hiddenIDs: Set<Int> { ... }
+    func hiddenID(for configurationID: SynchronizeConfiguration.ID?) -> Int? { ... }
+    func backupID(for configurationID: SynchronizeConfiguration.ID?) -> String? { ... }
 }
 ```
 
-or be internal to the new log-data service so views never build this set themselves.
+That removes the repeated `validhiddenIDs` loop and also centralizes selection-to-configuration lookups that already drifted into the same views.
 
 ### C. Selection-to-log resolution is UI-owned in multiple places
 

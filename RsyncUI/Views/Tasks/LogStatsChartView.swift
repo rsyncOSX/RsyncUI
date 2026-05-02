@@ -85,7 +85,6 @@ struct LogStatsChartView: View {
                     }
 
                 EditValueErrorScheme(50, "Num", $numberofdata, setNumber(numberofdata))
-
             }
 
             HStack {
@@ -188,46 +187,25 @@ struct LogStatsChartView: View {
         .padding()
         .task {
             await chartdata.readandparselogs(profile: rsyncUIdata.profile,
-                                             validhiddenIDs: validhiddenIDs,
+                                             configurations: rsyncUIdata.configurations,
                                              hiddenID: hiddenID)
 
             logentries = await readAndSortLogData()
         }
-        
         .task(id: datainchart) {
             logentries = await readAndSortLogData()
         }
 
         var synchronizeid: String {
-            if let configurations = rsyncUIdata.configurations {
-                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                    return configurations[index].backupID
-                } else {
-                    return ""
-                }
-            }
-            return ""
-        }
-
-        var validhiddenIDs: Set<Int> {
-            var temp = Set<Int>()
-            if let configurations = rsyncUIdata.configurations {
-                for config in configurations {
-                    temp.insert(config.hiddenID)
-                }
-            }
-            return temp
+            rsyncUIdata.configurations?.backupID(for: selecteduuids.first) ?? ""
         }
 
         var hiddenID: Int {
             if let configurations = rsyncUIdata.configurations {
-                if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                    return configurations[index].hiddenID
-                } else {
-                    return 0
-                }
+                configurations.hiddenID(for: selecteduuids.first) ?? 0
+            } else {
+                -1
             }
-            return -1
         }
 
         var subtitle: String {
@@ -273,7 +251,7 @@ struct LogStatsChartView: View {
                     return await ActorReadLogRecords().parsemaxNNfilesbydate(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
                 }
             } else {
-                if numberofdata.isEmpty  {
+                if numberofdata.isEmpty {
                     return await ActorReadLogRecords().parsemaxfilesbytransferredsize(from: parsedlogs)
                     // Check if more data pr one date
                 } else {

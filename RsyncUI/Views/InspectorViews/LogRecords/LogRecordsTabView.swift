@@ -129,16 +129,6 @@ struct LogRecordsTabView: View {
         .padding()
     }
 
-    var validhiddenIDs: Set<Int> {
-        var temp = Set<Int>()
-        if let configurations = rsyncUIdata.configurations {
-            for config in configurations {
-                temp.insert(config.hiddenID)
-            }
-        }
-        return temp
-    }
-
     var configurations: [SynchronizeConfiguration] {
         if let configurations = rsyncUIdata.configurations {
             configurations
@@ -161,13 +151,12 @@ struct LogRecordsTabView: View {
     }
 
     private func loadInitialLogs() async {
-        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-            hiddenID = configurations[index].hiddenID
-        } else {
-            hiddenID = -1
-        }
+        hiddenID = configurations.hiddenID(for: selecteduuids.first) ?? -1
         let actorreadlogs = ActorReadLogRecords()
-        logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+        logrecords = await LogStoreService.loadStore(
+            profile: rsyncUIdata.profile,
+            configurations: rsyncUIdata.configurations
+        )
         logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
     }
 
@@ -191,16 +180,15 @@ struct LogRecordsTabView: View {
         selectedloguuids.removeAll()
 
         let actorreadlogs = ActorReadLogRecords()
-        logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+        logrecords = await LogStoreService.loadStore(
+            profile: rsyncUIdata.profile,
+            configurations: rsyncUIdata.configurations
+        )
         logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
     }
 
     private func updateLogsForSelection() {
-        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-            hiddenID = configurations[index].hiddenID
-        } else {
-            hiddenID = -1
-        }
+        hiddenID = configurations.hiddenID(for: selecteduuids.first) ?? -1
         Task {
             let actorreadlogs = ActorReadLogRecords()
             if filterstring.isEmpty == false {
