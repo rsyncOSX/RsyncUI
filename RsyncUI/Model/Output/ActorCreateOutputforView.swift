@@ -9,8 +9,7 @@ import OSLog
 
 actor ActorCreateOutputforView {
     /// From Array[String]
-    @concurrent
-    nonisolated func createOutputForView(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
+    func createOutputForView(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.debugThreadOnly("ActorCreateOutputforView: createaoutputforview()")
         if let stringoutputfromrsync {
             return stringoutputfromrsync.map { line in
@@ -20,21 +19,8 @@ actor ActorCreateOutputforView {
         return []
     }
 
-    /// From Set<String>
-    @concurrent
-    nonisolated func createOutputForView(_ setoutputfromrsync: Set<String>?) async -> [RsyncOutputData] {
-        Logger.process.debugThreadOnly("ActorCreateOutputforView: createaoutputforview()")
-        if let setoutputfromrsync {
-            return setoutputfromrsync.map { line in
-                RsyncOutputData(record: line)
-            }
-        }
-        return []
-    }
-
     /// Show filelist for Restore, the TrimOutputForRestore prepares list
-    @concurrent
-    nonisolated func createoutputforrestore(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
+    func createoutputforrestore(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.debugThreadOnly("ActorCreateOutputforView: createoutputforrestore()")
         if let stringoutputfromrsync {
             if let trimmeddata = await TrimOutputForRestore(stringoutputfromrsync).trimmeddata {
@@ -47,8 +33,7 @@ actor ActorCreateOutputforView {
     }
 
     /// After a restore, present files
-    @concurrent
-    nonisolated func createoutputafterrestore(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
+    func createoutputafterrestore(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.debugThreadOnly("ActorCreateOutputforView: createoutputafterrestore()")
         if let stringoutputfromrsync {
             return stringoutputfromrsync.map { filename in
@@ -59,8 +44,7 @@ actor ActorCreateOutputforView {
     }
 
     /// Logfile
-    @concurrent
-    nonisolated func createaoutputlogfileforview() async -> [LogfileRecords] {
+    func createaoutputlogfileforview() async -> [LogfileRecords] {
         Logger.process.debugThreadOnly("ActorCreateOutputforView: createaoutputlogfileforview()")
         if let data = await ActorLogToFile().readloggfile() {
             return data.map { record in

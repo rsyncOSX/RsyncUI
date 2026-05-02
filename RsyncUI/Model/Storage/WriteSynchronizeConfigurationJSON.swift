@@ -19,12 +19,11 @@ final class WriteSynchronizeConfigurationJSON {
 
         // Build URL on main actor (fast)
         let base = URL(fileURLWithPath: fullpathmacserial)
-        let fileURL: URL
-        if let profile {
-            fileURL = base.appendingPathComponent(profile)
+        let fileURL: URL = if let profile {
+            base.appendingPathComponent(profile)
                 .appendingPathComponent(SharedConstants().fileconfigurationsjson)
         } else {
-            fileURL = base.appendingPathComponent(SharedConstants().fileconfigurationsjson)
+            base.appendingPathComponent(SharedConstants().fileconfigurationsjson)
         }
 
         // Encode on main actor (CPU-bound, fast)

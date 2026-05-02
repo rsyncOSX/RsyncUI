@@ -18,11 +18,11 @@ struct ReadAllTasks {
         for profileIndex in 0 ..< allprofiles.count {
             let profilename = allprofiles[profileIndex]
 
-            async let configurations = ActorReadSynchronizeConfigurationJSON()
+            let configurations = ReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profilename,
                                                        rsyncversion3)
 
-            let profileold = await configurations?.filter { element in
+            let profileold = configurations?.filter { element in
                 var seconds: Double {
                     if let date = element.dateRun {
                         let lastbackup = date.en_date_from_string()
@@ -77,7 +77,7 @@ struct ReadAllTasks {
         for profileIndex in 0 ..< allprofiles.count {
             let profilename = allprofiles[profileIndex]
 
-            let configurations = await ActorReadSynchronizeConfigurationJSON()
+            let configurations = ReadSynchronizeConfigurationJSON()
                 .readjsonfilesynchronizeconfigurations(profilename,
                                                        SharedReference.shared.rsyncversion3)
 

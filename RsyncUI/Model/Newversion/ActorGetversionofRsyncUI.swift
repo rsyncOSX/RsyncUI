@@ -9,17 +9,15 @@ import DecodeEncodeGeneric
 import OSLog
 
 actor ActorGetversionofRsyncUI {
-    @concurrent
-    private nonisolated func fetchMatchingVersions() async throws -> [VersionsofRsyncUI] {
+    private func fetchMatchingVersions() async throws -> [VersionsofRsyncUI] {
         let all = try await DecodeGeneric().decodeArray(VersionsofRsyncUI.self,
                                                         fromURL: Resources().getResource(resource: .urlJSON))
-        Logger.process.debugMessageOnly("CheckfornewversionofRsyncUI: \(all)")
+        Logger.process.debugThreadOnly("CheckfornewversionofRsyncUI: \(all)")
         let runningversion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
         return all.filter { runningversion.isEmpty ? true : $0.version == runningversion }
     }
 
-    @concurrent
-    nonisolated func getversionsofrsyncui() async -> Bool {
+    func getversionsofrsyncui() async -> Bool {
         do {
             return try await fetchMatchingVersions().isEmpty == false
         } catch {
@@ -28,8 +26,7 @@ actor ActorGetversionofRsyncUI {
         }
     }
 
-    @concurrent
-    nonisolated func downloadlinkofrsyncui() async -> String? {
+    func downloadlinkofrsyncui() async -> String? {
         do {
             return try await fetchMatchingVersions().first?.url
         } catch {

@@ -9,7 +9,7 @@ import Foundation
 import Observation
 import OSLog
 
-@Observable @MainActor
+@Observable
 final class ObservableChartData {
     var parsedlogs: [LogEntry]?
 
