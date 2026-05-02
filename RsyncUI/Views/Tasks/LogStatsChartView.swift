@@ -268,7 +268,6 @@ struct LogStatsChartView: View {
     }
 
     private func readAndSortLogData() async -> [LogEntry] {
-        
         if let parsedlogs = chartdata.parsedlogs {
             if datainchart == .numberoffiles {
                 if numberofdata.isEmpty || numberofdatabool == false {
@@ -285,7 +284,7 @@ struct LogStatsChartView: View {
                 } else {
                     let allmaxlogentries = await ActorLogChartsData().parsemaxfilesbytransferredsize(from: parsedlogs)
                     return await ActorLogChartsData().parsemaxNNfilesbytransferredsize(from: allmaxlogentries,
-                                                                                      count: Int(numberofdata) ?? 20)
+                                                                                       count: Int(numberofdata) ?? 20)
                 }
             }
         }

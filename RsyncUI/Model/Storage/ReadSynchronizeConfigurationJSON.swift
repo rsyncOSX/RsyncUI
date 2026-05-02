@@ -1,5 +1,5 @@
 //
-//  ActorReadSynchronizeConfigurationJSON.swift
+//  ReadSynchronizeConfigurationJSON.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 19/04/2021.
@@ -12,7 +12,7 @@ import OSLog
 @MainActor
 struct ReadSynchronizeConfigurationJSON {
     func readjsonfilesynchronizeconfigurations(_ profile: String?,
-                                                           _ rsyncversion3: Bool) -> [SynchronizeConfiguration]? {
+                                               _ rsyncversion3: Bool) -> [SynchronizeConfiguration]? {
         var filename = ""
         let path = Homepath()
         Logger.process.debugThreadOnly("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations()")

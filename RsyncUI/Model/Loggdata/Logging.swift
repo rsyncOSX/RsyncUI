@@ -29,6 +29,27 @@ final class Logging {
         return temp
     }
 
+    static func create (
+        profile: String?,
+        configurations: [SynchronizeConfiguration]?
+    ) async -> Logging {
+        let logging = Logging(profile: profile, configurations: configurations)
+
+        if profile == nil {
+            logging.logrecords = await ActorReadLogRecordsJSON()
+                .readjsonfilelogrecords(nil, logging.validhiddenIDs)
+        } else {
+            logging.logrecords = await ActorReadLogRecordsJSON()
+                .readjsonfilelogrecords(profile, logging.validhiddenIDs)
+        }
+
+        if logging.logrecords == nil {
+            logging.logrecords = []
+        }
+
+        return logging
+    }
+
     func increasesnapshotnum(index: Int) {
         if let num = structconfigurations?[index].snapshotnum {
             structconfigurations?[index].snapshotnum = num + 1
@@ -163,15 +184,5 @@ final class Logging {
          configurations: [SynchronizeConfiguration]?) {
         localeprofile = profile
         structconfigurations = configurations
-        Task {
-            if localeprofile == nil {
-                logrecords = await ActorReadLogRecordsJSON().readjsonfilelogrecords(nil, validhiddenIDs)
-            } else {
-                logrecords = await ActorReadLogRecordsJSON().readjsonfilelogrecords(localeprofile, validhiddenIDs)
-            }
-            if logrecords == nil {
-                logrecords = [LogRecords]()
-            }
-        }
     }
 }

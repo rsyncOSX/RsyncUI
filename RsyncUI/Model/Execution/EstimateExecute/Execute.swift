@@ -247,24 +247,27 @@ extension Execute {
         }
 
         guard !(stackoftasks?.isEmpty ?? true) else {
-            let update = Logging(profile: structprofile,
-                                 configurations: localconfigurations)
-            let updateconfigurations = update.setCurrentDateOnConfiguration(configrecords: configrecords)
-            // Send date stamped configurations back to caller
-            localupdateconfigurations(updateconfigurations)
+            Task {
+                let update = await Logging.create(profile: structprofile,
+                                     configurations: localconfigurations)
+                let updateconfigurations = update.setCurrentDateOnConfiguration(configrecords: configrecords)
+                // Send date stamped configurations back to caller
+                localupdateconfigurations(updateconfigurations)
 
-            Logger.process.debugMessageOnly("Execute: EXECUTION is completed")
-            guard SharedReference.shared.addsummarylogrecord else { return }
-            // Update logrecords
-            do {
-                try update.addLogToPermanentStore(scheduleRecords: schedulerecords)
-            } catch { return }
+                Logger.process.debugMessageOnly("Execute: EXECUTION is completed")
+                guard SharedReference.shared.addsummarylogrecord else { return }
+                // Update logrecords
+                do {
+                    try update.addLogToPermanentStore(scheduleRecords: schedulerecords)
+                } catch { return }
 
-            // Release streaming references when completed
-            activeStreamingProcess = nil
-            streamingHandlers = nil
-            SharedReference.shared.updateprocess(nil)
-            // If logging details to file it must be here
+                // Release streaming references when completed
+                activeStreamingProcess = nil
+                streamingHandlers = nil
+                SharedReference.shared.updateprocess(nil)
+                // If logging details to file it must be here
+                return
+            }
             return
         }
         // Execute next task
@@ -302,21 +305,24 @@ extension Execute {
             }
 
             guard !(stackoftasks?.isEmpty ?? true) else {
-                let update = Logging(profile: structprofile,
-                                     configurations: localconfigurations)
-                let updateconfigurations = update.setCurrentDateOnConfiguration(configrecords: configrecords)
-                // Send date stamped configurations back to caller
-                localupdateconfigurations(updateconfigurations)
-                localnoestprogressdetails?.executeAllTasksNoEstimationComplete()
-                Logger.process.debugMessageOnly("Execute: execution is completed")
-                guard SharedReference.shared.addsummarylogrecord else { return }
-                // Update logrecords
-                do {
-                    try update.addLogToPermanentStore(scheduleRecords: schedulerecords)
-                } catch { return }
-                // Release streaming references when completed
-                activeStreamingProcess = nil
-                streamingHandlers = nil
+                Task {
+                    let update = await Logging.create(profile: structprofile,
+                                         configurations: localconfigurations)
+                    let updateconfigurations = update.setCurrentDateOnConfiguration(configrecords: configrecords)
+                    // Send date stamped configurations back to caller
+                    localupdateconfigurations(updateconfigurations)
+                    localnoestprogressdetails?.executeAllTasksNoEstimationComplete()
+                    Logger.process.debugMessageOnly("Execute: execution is completed")
+                    guard SharedReference.shared.addsummarylogrecord else { return }
+                    // Update logrecords
+                    do {
+                        try update.addLogToPermanentStore(scheduleRecords: schedulerecords)
+                    } catch { return }
+                    // Release streaming references when completed
+                    activeStreamingProcess = nil
+                    streamingHandlers = nil
+                    return
+                }
                 return
             }
             // Execute next task

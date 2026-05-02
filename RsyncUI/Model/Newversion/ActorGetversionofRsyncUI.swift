@@ -17,7 +17,7 @@ actor ActorGetversionofRsyncUI {
         return all.filter { runningversion.isEmpty ? true : $0.version == runningversion }
     }
 
-     func getversionsofrsyncui() async -> Bool {
+    func getversionsofrsyncui() async -> Bool {
         do {
             return try await fetchMatchingVersions().isEmpty == false
         } catch {
