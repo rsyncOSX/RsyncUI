@@ -47,7 +47,6 @@ struct LogStatsChartView: View {
     @State private var typeofchartbool: Bool = true // True Barchart
     @State private var typeofchart: TypeofChart = .barchart
 
-    @State private var numberofdatabool: Bool = false
     @State private var numberofdata: String = ""
 
     @State private var selectedDataPoint: LogEntry.ID?
@@ -87,8 +86,6 @@ struct LogStatsChartView: View {
 
                 EditValueErrorScheme(50, "Num", $numberofdata, setNumber(numberofdata))
 
-                Toggle("Apply selection", isOn: $numberofdatabool)
-                    .toggleStyle(.switch)
             }
 
             HStack {
@@ -196,9 +193,7 @@ struct LogStatsChartView: View {
 
             logentries = await readAndSortLogData()
         }
-        .task(id: numberofdatabool) {
-            logentries = await readAndSortLogData()
-        }
+        
         .task(id: datainchart) {
             logentries = await readAndSortLogData()
         }
@@ -270,7 +265,7 @@ struct LogStatsChartView: View {
     private func readAndSortLogData() async -> [LogEntry] {
         if let parsedlogs = chartdata.parsedlogs {
             if datainchart == .numberoffiles {
-                if numberofdata.isEmpty || numberofdatabool == false {
+                if numberofdata.isEmpty {
                     return await ActorReadLogRecords().parsemaxfilesbydate(from: parsedlogs)
                     // Check if more data pr one date
                 } else {
@@ -278,7 +273,7 @@ struct LogStatsChartView: View {
                     return await ActorReadLogRecords().parsemaxNNfilesbydate(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
                 }
             } else {
-                if numberofdata.isEmpty || numberofdatabool == false {
+                if numberofdata.isEmpty  {
                     return await ActorReadLogRecords().parsemaxfilesbytransferredsize(from: parsedlogs)
                     // Check if more data pr one date
                 } else {

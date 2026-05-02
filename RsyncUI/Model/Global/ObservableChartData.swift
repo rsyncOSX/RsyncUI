@@ -19,10 +19,8 @@ final class ObservableChartData {
         // Read logrecords
         let actorreadlogs = ActorReadLogRecords()
         let logrecords = await actorreadlogs.readjsonfilelogrecords(profile, validhiddenIDs)
-        let actorreadchartsdata = ActorReadLogRecords()
         let alllogs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-        // LogEntry logs
-        parsedlogs = await actorreadchartsdata.parselogrecords(from: alllogs)
+        parsedlogs = await actorreadlogs.parselogrecords(from: alllogs)
     }
 
     deinit {
