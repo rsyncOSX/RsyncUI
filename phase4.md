@@ -158,31 +158,54 @@ Then:
 
 ### F. Chart preparation is split across three layers
 
-Current flow:
+The current chart path mixes persistence, transformation, and UI policy:
 
-1. `ObservableChartData.readandparselogs(...)` loads logs and converts them to parsed entries (`ObservableChartData.swift:17-24`).
-2. `LogStatsChartView.readAndSortLogData()` decides which aggregation to use and calls actor helpers (`LogStatsChartView.swift:265-287`).
-3. `ActorReadLogRecords` implements:
+1. `ObservableChartData.readandparselogs(...)` reads persisted logs and turns them into parsed chart entries (`ObservableChartData.swift:17-24`).
+2. `LogStatsChartView.readAndSortLogData()` decides which aggregation to run based on the selected chart mode (`LogStatsChartView.swift:265-287`).
+3. `ActorReadLogRecords` provides the actual parsing and reduction helpers:
    - `parselogrecords` (`ActorReadLogRecords.swift:134-163`)
    - `parsemaxfilesbydate` (`182-197`)
    - `parsemaxNNfilesbydate` (`200-203`)
-   - `parsemaxfilesbytransferredsize` (`227-243`)
    - `parsemaxNNfilesbytransferredsize` (`213-216`)
+   - `parsemaxfilesbytransferredsize` (`227-243`)
 
-This means the chart view owns data-policy decisions. It should instead ask for chart-ready data:
+That split is awkward for two reasons:
+
+- the view decides domain policy (`files` vs `transferredMB`, max-per-day vs top-N)
+- chart-specific transformation code lives in a storage actor instead of a log/chart domain boundary
+
+After the refactor, the chart pipeline should collapse into one service request that returns chart-ready data, with the view only choosing presentation state:
 
 ```swift
-enum LogChartMetric { case files, transferredMB }
-enum LogChartLimit { case maxPerDay, topNPerDay(Int) }
+enum LogChartMetric {
+    case files
+    case transferredMB
+}
+
+enum LogChartLimit {
+    case maxPerDay
+    case topNPerDay(Int)
+}
 
 func chartEntries(
-    for hiddenID: Int?,
+    for configurationID: SynchronizeConfiguration.ID?,
     metric: LogChartMetric,
     limit: LogChartLimit
 ) async throws -> [LogEntry]
 ```
 
-Then `LogStatsChartView` only owns chart presentation toggles.
+That boundary should own the full sequence:
+
+1. resolve `configurationID -> hiddenID`
+2. load/select the relevant logs
+3. parse `resultExecuted` into typed values
+4. reduce the parsed records into the requested chart series
+
+With that split:
+
+- `LogStatsChartView` keeps only UI state such as metric toggles, chart style, and selected point
+- `ObservableChartData` becomes either plain observable UI state or disappears entirely
+- `ActorReadLogRecords` stops exposing chart-specific helpers and returns to storage-oriented responsibilities
 
 ### G. Snapshot-specific merge logic repeats log-merging work
 

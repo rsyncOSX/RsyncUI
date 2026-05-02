@@ -6,7 +6,6 @@
 //
 
 import Charts
-import OSLog
 import SwiftUI
 
 enum DataInChart: String, CaseIterable, Identifiable, CustomStringConvertible {
@@ -39,7 +38,7 @@ struct LogStatsChartView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
-    @State private var logentries: [LogEntry]?
+    @State private var logentries = [LogEntry]()
 
     @State private var datainchartbool: Bool = true // True files
     @State private var datainchart: DataInChart = .numberoffiles
@@ -50,12 +49,10 @@ struct LogStatsChartView: View {
     @State private var numberofdata: String = ""
 
     @State private var selectedDataPoint: LogEntry.ID?
-    /// Read and prepare chardata
-    @State private var chartdata = ObservableChartData()
 
     var body: some View {
         VStack {
-            Text("Statistics: number of records in chart \(logentries?.count ?? 0) for \(synchronizeid)")
+            Text("Statistics: number of records in chart \(logentries.count) for \(synchronizeid)")
                 .font(.title)
                 .padding(.bottom, 10)
 
@@ -84,12 +81,12 @@ struct LogStatsChartView: View {
                         }
                     }
 
-                EditValueErrorScheme(50, "Num", $numberofdata, setNumber(numberofdata))
+                EditValueErrorScheme(100, "Records", $numberofdata, setNumber(numberofdata))
             }
 
             HStack {
                 if typeofchart == .linemarkchart {
-                    Chart(logentries ?? []) { entry in
+                    Chart(logentries) { entry in
                         switch datainchart {
                         case .numberoffiles:
                             LineMark(
@@ -120,7 +117,7 @@ struct LogStatsChartView: View {
                     }
                     .padding()
                 } else {
-                    Chart(logentries ?? []) { entry in
+                    Chart(logentries) { entry in
                         switch datainchart {
                         case .numberoffiles:
                             BarMark(
@@ -154,58 +151,41 @@ struct LogStatsChartView: View {
                     .padding()
                 }
 
-                if let logentries {
-                    Table(logentries, selection: $selectedDataPoint) {
-                        TableColumn("Date") { item in
-                            Text(item.date, style: .date)
-                        }
-                        .alignment(.leading)
-                        TableColumn("Size (MB)") { item in
-                            if datainchart == .transferreddata, selectedDataPoint != nil, typeofchart == .barchart {
-                                Text(String(format: "%.2f", item.transferredMB))
-                                    .foregroundStyle(.red)
-                            } else {
-                                Text(String(format: "%.2f", item.transferredMB))
-                            }
-                        }
-                        .alignment(.trailing)
-                        TableColumn("Files") { item in
-                            if datainchart == .numberoffiles, selectedDataPoint != nil, typeofchart == .barchart {
-                                Text(String(item.files))
-                                    .foregroundStyle(.red)
-                            } else {
-                                Text(String(item.files))
-                            }
-                        }
-                        .alignment(.trailing)
+                Table(logentries, selection: $selectedDataPoint) {
+                    TableColumn("Date") { item in
+                        Text(item.date, style: .date)
                     }
-                    .padding()
-                    .frame(width: 400)
+                    .alignment(.leading)
+                    TableColumn("Size (MB)") { item in
+                        if datainchart == .transferreddata, selectedDataPoint != nil, typeofchart == .barchart {
+                            Text(String(format: "%.2f", item.transferredMB))
+                                .foregroundStyle(.red)
+                        } else {
+                            Text(String(format: "%.2f", item.transferredMB))
+                        }
+                    }
+                    .alignment(.trailing)
+                    TableColumn("Files") { item in
+                        if datainchart == .numberoffiles, selectedDataPoint != nil, typeofchart == .barchart {
+                            Text(String(item.files))
+                                .foregroundStyle(.red)
+                        } else {
+                            Text(String(item.files))
+                        }
+                    }
+                    .alignment(.trailing)
                 }
+                .padding()
+                .frame(width: 400)
             }
         }
         .padding()
-        .task {
-            await chartdata.readandparselogs(profile: rsyncUIdata.profile,
-                                             configurations: rsyncUIdata.configurations,
-                                             hiddenID: hiddenID)
-
-            logentries = await readAndSortLogData()
-        }
-        .task(id: datainchart) {
-            logentries = await readAndSortLogData()
+        .task(id: chartRefreshKey) {
+            await reloadChartData()
         }
 
         var synchronizeid: String {
             rsyncUIdata.configurations?.backupID(for: selecteduuids.first) ?? ""
-        }
-
-        var hiddenID: Int {
-            if let configurations = rsyncUIdata.configurations {
-                configurations.hiddenID(for: selecteduuids.first) ?? 0
-            } else {
-                -1
-            }
         }
 
         var subtitle: String {
@@ -219,6 +199,35 @@ struct LogStatsChartView: View {
 
             return readdatabyfilesormb
         }
+    }
+
+    private var chartMetric: LogChartMetric {
+        switch datainchart {
+        case .numberoffiles:
+            .files
+        case .transferreddata:
+            .transferredMB
+        }
+    }
+
+    private var chartLimit: LogChartLimit {
+        guard numberofdata.isEmpty == false else {
+            return .maxPerDay
+        }
+
+        return .topNPerDay(Int(numberofdata) ?? 20)
+    }
+
+    private var chartRefreshKey: ChartRefreshKey {
+        ChartRefreshKey(
+            profile: rsyncUIdata.profile,
+            selectedConfigurationID: selecteduuids.first,
+            metric: chartMetric,
+            limit: chartLimit,
+            configurations: (rsyncUIdata.configurations ?? []).map {
+                ConfigurationKey(id: $0.id, hiddenID: $0.hiddenID)
+            }
+        )
     }
 
     private func setNumber(_ number: String) -> Bool {
@@ -240,27 +249,35 @@ struct LogStatsChartView: View {
         return false
     }
 
-    private func readAndSortLogData() async -> [LogEntry] {
-        if let parsedlogs = chartdata.parsedlogs {
-            if datainchart == .numberoffiles {
-                if numberofdata.isEmpty {
-                    return await ActorReadLogRecords().parsemaxfilesbydate(from: parsedlogs)
-                    // Check if more data pr one date
-                } else {
-                    let allmaxlogentries = await ActorReadLogRecords().parsemaxfilesbydate(from: parsedlogs)
-                    return await ActorReadLogRecords().parsemaxNNfilesbydate(from: allmaxlogentries, count: Int(numberofdata) ?? 20)
-                }
-            } else {
-                if numberofdata.isEmpty {
-                    return await ActorReadLogRecords().parsemaxfilesbytransferredsize(from: parsedlogs)
-                    // Check if more data pr one date
-                } else {
-                    let allmaxlogentries = await ActorReadLogRecords().parsemaxfilesbytransferredsize(from: parsedlogs)
-                    return await ActorReadLogRecords().parsemaxNNfilesbytransferredsize(from: allmaxlogentries,
-                                                                                        count: Int(numberofdata) ?? 20)
-                }
-            }
+    private func reloadChartData() async {
+        let entries = await LogStoreService.chartEntries(
+            profile: rsyncUIdata.profile,
+            configurations: rsyncUIdata.configurations,
+            configurationID: selecteduuids.first,
+            metric: chartMetric,
+            limit: chartLimit
+        )
+
+        if logentries != entries {
+            logentries = entries
         }
-        return []
+
+        if let selectedDataPoint,
+           entries.contains(where: { $0.id == selectedDataPoint }) == false {
+            self.selectedDataPoint = nil
+        }
     }
+}
+
+private struct ConfigurationKey: Equatable {
+    let id: SynchronizeConfiguration.ID
+    let hiddenID: Int
+}
+
+private struct ChartRefreshKey: Equatable {
+    let profile: String?
+    let selectedConfigurationID: SynchronizeConfiguration.ID?
+    let metric: LogChartMetric
+    let limit: LogChartLimit
+    let configurations: [ConfigurationKey]
 }
