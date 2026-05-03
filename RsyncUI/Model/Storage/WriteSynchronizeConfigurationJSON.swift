@@ -10,9 +10,8 @@ import Foundation
 import OSLog
 
 @MainActor
-final class WriteSynchronizeConfigurationJSON {
-    @discardableResult
-    init(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) {
+enum WriteSynchronizeConfigurationJSON {
+    static func write(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) async {
         guard let configurations else { return }
         let path = Homepath()
         guard let fullpathmacserial = path.fullpathmacserial else { return }
@@ -26,32 +25,14 @@ final class WriteSynchronizeConfigurationJSON {
             base.appendingPathComponent(SharedConstants().fileconfigurationsjson)
         }
 
-        // Encode on main actor (CPU-bound, fast)
-        let encodeddata: Data
         do {
-            encodeddata = try EncodeGeneric().encode(configurations)
-        } catch let err {
-            path.propagateError(error: err)
-            return
+            let encodeddata = try EncodeGeneric().encode(configurations)
+            try await SharedJSONStorageWriter.shared.write(encodeddata, to: fileURL)
+        } catch {
+            path.propagateError(error: error)
+            Logger.process.errorMessageOnly(
+                "WriteSynchronizeConfigurationJSON: persist failed - \(error.localizedDescription)"
+            )
         }
-
-        // Write off the main thread
-        Logger.process.debugMessageOnly("WriteSynchronizeConfigurationJSON: writing to \(fileURL)")
-        Task.detached(priority: .utility) {
-            do {
-                try encodeddata.write(to: fileURL)
-            } catch {
-                await MainActor.run {
-                    SharedReference.shared.errorobject?.alert(error: error)
-                }
-                Logger.process.errorMessageOnly(
-                    "WriteSynchronizeConfigurationJSON: write failed - \(error.localizedDescription)"
-                )
-            }
-        }
-    }
-
-    deinit {
-        Logger.process.debugMessageOnly("WriteSynchronizeConfigurationJSON DEINIT")
     }
 }

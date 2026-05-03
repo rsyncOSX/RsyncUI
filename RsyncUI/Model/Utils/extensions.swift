@@ -149,16 +149,6 @@ extension Date {
         return lastDay
     }
 
-    var endOfNextMonth: Date? {
-        guard let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: self),
-              let interval = Calendar.current.dateInterval(of: .month, for: nextMonth),
-              let lastDay = Calendar.current.date(byAdding: .day, value: -1, to: interval.end)
-        else {
-            return nil
-        }
-        return lastDay
-    }
-
     var numberOfDaysInMonth: Int {
         Calendar.current.component(.day, from: endOfCurrentMonth)
     }

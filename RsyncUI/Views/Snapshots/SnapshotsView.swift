@@ -182,16 +182,6 @@ struct SnapshotsView: View {
 }
 
 extension SnapshotsView {
-    var validhiddenIDs: Set<Int> {
-        var temp = Set<Int>()
-        if let configurations = rsyncUIdata.configurations {
-            for config in configurations {
-                temp.insert(config.hiddenID)
-            }
-        }
-        return temp
-    }
-
     func abort() {
         snapshotdata.setsnapshotdata(nil)
         snapshotdata.delete?.snapshotcatalogstodelete = nil
@@ -224,10 +214,12 @@ extension SnapshotsView {
 
             if let config = selectedconfig {
                 Task {
-                    let actorreadlogs = ActorReadLogRecordsJSON()
-                    async let logrecords = actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+                    async let logrecords = LogStoreService.loadStore(
+                        profile: rsyncUIdata.profile,
+                        configurations: rsyncUIdata.configurations
+                    )
                     _ = await Snapshotlogsandcatalogs(config: config,
-                                                      logrecords: logrecords ?? [],
+                                                      logrecords: logrecords,
                                                       snapshotdata: snapshotdata)
                 }
             }
@@ -270,9 +262,11 @@ extension SnapshotsView {
             let updateconfiguration =
                 UpdateConfigurations(profile: rsyncUIdata.profile,
                                      configurations: rsyncUIdata.configurations)
-            updateconfiguration.updateConfiguration(selectedconfig, false)
-            rsyncUIdata.configurations = updateconfiguration.configurations
-            updated = true
+            Task { @MainActor in
+                await updateconfiguration.updateConfiguration(selectedconfig, false)
+                rsyncUIdata.configurations = updateconfiguration.configurations
+                updated = true
+            }
         }
         Task {
             try? await Task.sleep(seconds: 2)
@@ -282,12 +276,12 @@ extension SnapshotsView {
     func deleteLogs(_ uuids: Set<UUID>) {
         Task {
             if let records = snapshotdata.readlogrecordsfromfile {
-                async let updatedRecords: [LogRecords]? = ActorReadLogRecordsJSON().deleteLogs(
+                async let updatedRecords: [LogRecords]? = ActorReadLogRecords().deleteLogs(
                     uuids,
                     logrecords: records
                 )
                 let records = await updatedRecords
-                WriteLogRecordsJSON(rsyncUIdata.profile, records)
+                await WriteLogRecordsJSON.write(rsyncUIdata.profile, records)
                 snapshotdata.readlogrecordsfromfile = nil
                 selectedconfig = nil
                 snapshotdata.setsnapshotdata(nil)

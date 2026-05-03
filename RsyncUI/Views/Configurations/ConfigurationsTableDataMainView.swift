@@ -228,8 +228,12 @@ struct ConfigurationsTableDataMainView: View {
                     break
                 }
             }
-            WriteSynchronizeConfigurationJSON(rsyncUIdata.profile, rsyncUIdata.configurations)
-            selecteduuids.removeAll()
+            let profile = rsyncUIdata.profile
+            let configurations = rsyncUIdata.configurations
+            Task { @MainActor in
+                await WriteSynchronizeConfigurationJSON.write(profile, configurations)
+                selecteduuids.removeAll()
+            }
         }
     }
 }

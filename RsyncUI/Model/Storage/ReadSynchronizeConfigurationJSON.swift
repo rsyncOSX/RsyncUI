@@ -15,7 +15,7 @@ struct ReadSynchronizeConfigurationJSON {
                                                _ rsyncversion3: Bool) -> [SynchronizeConfiguration]? {
         var filename = ""
         let path = Homepath()
-        Logger.process.debugThreadOnly("ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations()")
+        Logger.process.debugThreadOnly("ReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations()")
         if let profile, let fullpathmacserial = path.fullpathmacserial {
             filename = fullpathmacserial.appending("/") + profile.appending("/") + SharedConstants().fileconfigurationsjson
         } else {
@@ -23,14 +23,12 @@ struct ReadSynchronizeConfigurationJSON {
                 filename = fullpathmacserial.appending("/") + SharedConstants().fileconfigurationsjson
             }
         }
-        let message = "ActorReadSynchronizeConfigurationJSON: readjsonfilesynchronizeconfigurations \(filename)"
-        Logger.process.debugMessageOnly(message)
         let decodeimport = DecodeGeneric()
         do {
             let data = try
                 decodeimport.decodeArray(DecodeSynchronizeConfiguration.self, fromFile: filename)
 
-            Logger.process.debugThreadOnly("ActorReadSynchronizeConfigurationJSON - \(profile ?? "default") ?? DECODE")
+            Logger.process.debugThreadOnly("ReadSynchronizeConfigurationJSON - \(profile ?? "default") ?? DECODE")
             return data.compactMap { element in
                 // snapshot and syncremote tasks requiere version3.x of rsync
                 if element.task == "snapshot" || element.task == "syncremote" {

@@ -249,8 +249,8 @@ extension Execute {
         guard !(stackoftasks?.isEmpty ?? true) else {
             Task {
                 let update = await Logging.create(profile: structprofile,
-                                     configurations: localconfigurations)
-                let updateconfigurations = update.setCurrentDateOnConfiguration(configrecords: configrecords)
+                                                  configurations: localconfigurations)
+                let updateconfigurations = await update.setCurrentDateOnConfiguration(configrecords: configrecords)
                 // Send date stamped configurations back to caller
                 localupdateconfigurations(updateconfigurations)
 
@@ -258,7 +258,7 @@ extension Execute {
                 guard SharedReference.shared.addsummarylogrecord else { return }
                 // Update logrecords
                 do {
-                    try update.addLogToPermanentStore(scheduleRecords: schedulerecords)
+                    try await update.addLogToPermanentStore(scheduleRecords: schedulerecords)
                 } catch { return }
 
                 // Release streaming references when completed
@@ -266,7 +266,6 @@ extension Execute {
                 streamingHandlers = nil
                 SharedReference.shared.updateprocess(nil)
                 // If logging details to file it must be here
-                return
             }
             return
         }
@@ -307,8 +306,8 @@ extension Execute {
             guard !(stackoftasks?.isEmpty ?? true) else {
                 Task {
                     let update = await Logging.create(profile: structprofile,
-                                         configurations: localconfigurations)
-                    let updateconfigurations = update.setCurrentDateOnConfiguration(configrecords: configrecords)
+                                                      configurations: localconfigurations)
+                    let updateconfigurations = await update.setCurrentDateOnConfiguration(configrecords: configrecords)
                     // Send date stamped configurations back to caller
                     localupdateconfigurations(updateconfigurations)
                     localnoestprogressdetails?.executeAllTasksNoEstimationComplete()
@@ -316,12 +315,11 @@ extension Execute {
                     guard SharedReference.shared.addsummarylogrecord else { return }
                     // Update logrecords
                     do {
-                        try update.addLogToPermanentStore(scheduleRecords: schedulerecords)
+                        try await update.addLogToPermanentStore(scheduleRecords: schedulerecords)
                     } catch { return }
                     // Release streaming references when completed
                     activeStreamingProcess = nil
                     streamingHandlers = nil
-                    return
                 }
                 return
             }

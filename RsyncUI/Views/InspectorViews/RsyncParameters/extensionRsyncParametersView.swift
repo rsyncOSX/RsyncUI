@@ -20,13 +20,15 @@ extension RsyncParametersView {
     func saveRsyncParameters() {
         if let updatedconfiguration = parameters.updatersyncparameters(),
            let configurations = rsyncUIdata.configurations {
-            let updateconfigurations =
-                UpdateConfigurations(profile: rsyncUIdata.profile,
-                                     configurations: configurations)
-            updateconfigurations.updateConfiguration(updatedconfiguration, true)
-            rsyncUIdata.configurations = updateconfigurations.configurations
-            // Reset all after update
-            clearSelection()
+            Task { @MainActor in
+                let updateconfigurations =
+                    UpdateConfigurations(profile: rsyncUIdata.profile,
+                                         configurations: configurations)
+                await updateconfigurations.updateConfiguration(updatedconfiguration, true)
+                rsyncUIdata.configurations = updateconfigurations.configurations
+                // Reset all after update
+                clearSelection()
+            }
         }
     }
 }
@@ -183,9 +185,5 @@ extension RsyncParametersView {
             return true
         }
         return false
-    }
-
-    var deleteparameterpresent: Bool {
-        rsyncUIdata.configurations?.contains(where: { $0.parameter4?.isEmpty == false }) ?? false
     }
 }

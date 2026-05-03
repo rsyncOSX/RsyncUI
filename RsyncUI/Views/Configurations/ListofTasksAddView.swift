@@ -48,12 +48,14 @@ struct ListofTasksAddView: View {
 
     func delete() {
         if let configurations = rsyncUIdata.configurations {
-            let deleteconfigurations =
-                UpdateConfigurations(profile: rsyncUIdata.profile,
-                                     configurations: configurations)
-            deleteconfigurations.deleteconfigurations(selecteduuids)
-            selecteduuids.removeAll()
-            rsyncUIdata.configurations = deleteconfigurations.configurations
+            Task { @MainActor in
+                let deleteconfigurations =
+                    UpdateConfigurations(profile: rsyncUIdata.profile,
+                                         configurations: configurations)
+                await deleteconfigurations.deleteconfigurations(selecteduuids)
+                selecteduuids.removeAll()
+                rsyncUIdata.configurations = deleteconfigurations.configurations
+            }
         }
     }
 
@@ -65,9 +67,14 @@ struct ListofTasksAddView: View {
 
     func handleCopyConfirmation() {
         confirmcopyandpaste = false
-        rsyncUIdata.configurations = newdata.writeCopyAndPasteTasks(rsyncUIdata.profile, rsyncUIdata.configurations ?? [])
-        if SharedReference.shared.duplicatecheck, let configurations = rsyncUIdata.configurations {
-            VerifyDuplicates(configurations)
+        Task { @MainActor in
+            rsyncUIdata.configurations = await newdata.writeCopyAndPasteTasks(
+                rsyncUIdata.profile,
+                rsyncUIdata.configurations ?? []
+            )
+            if SharedReference.shared.duplicatecheck, let configurations = rsyncUIdata.configurations {
+                VerifyDuplicates(configurations)
+            }
         }
     }
 }

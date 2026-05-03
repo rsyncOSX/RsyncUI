@@ -167,8 +167,8 @@ struct VerifyTaskTabView: View {
                                               config: selectedconfig)
         remotedatanumbers?.itemizechanges = itemizechanges
 
-        Task { @MainActor in
-            remotedatanumbers?.outputfromrsync = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
+        Task {
+            remotedatanumbers?.outputfromrsync = await CreateOutputforView().createOutputForView(stringoutputfromrsync)
             presentestimates = true
         }
         // Release streaming references to avoid retain cycles

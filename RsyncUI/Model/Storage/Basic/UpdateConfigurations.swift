@@ -24,13 +24,13 @@ final class UpdateConfigurations {
         return 0
     }
 
-    private func persistConfigurations() {
+    private func persistConfigurations() async {
         guard let configurations else { return }
         guard validateConfigurations(configurations) else {
             Logger.process.error("UpdateConfigurations: validation failed, refused to persist")
             return
         }
-        WriteSynchronizeConfigurationJSON(localeprofile, configurations)
+        await WriteSynchronizeConfigurationJSON.write(localeprofile, configurations)
     }
 
     private func validateConfigurations(_ configurations: [SynchronizeConfiguration]) -> Bool {
@@ -67,7 +67,7 @@ final class UpdateConfigurations {
 
     /// Function is updating Configurations in memory (by record) and
     /// then saves updated Configurations from memory to persistent store
-    func updateConfiguration(_ config: SynchronizeConfiguration, _ parameters: Bool) {
+    func updateConfiguration(_ config: SynchronizeConfiguration, _ parameters: Bool) async {
         if let index = configurations?.firstIndex(where: { $0.hiddenID == config.hiddenID }) {
             if parameters {
                 // Updated parameters only, keep all other
@@ -95,12 +95,12 @@ final class UpdateConfigurations {
                 configurations?[index].snapdayoffweek = config.snapdayoffweek
                 configurations?[index].snapshotnum = config.snapshotnum
             }
-            persistConfigurations()
+            await persistConfigurations()
         }
     }
 
     /// Delete by IndexSet
-    func deleteconfigurations(_ uuids: Set<UUID>) {
+    func deleteconfigurations(_ uuids: Set<UUID>) async {
         var indexset = IndexSet()
         if let configurations {
             for configuration in configurations {
@@ -114,11 +114,11 @@ final class UpdateConfigurations {
         // Remove all marked configurations in one go by IndexSet
         configurations?.remove(atOffsets: indexset)
         // No need for deleting the logs, only logrecords with valid hiddenIDs are loaded
-        persistConfigurations()
+        await persistConfigurations()
     }
 
     /// Add new configurations
-    func addConfiguration(_ config: SynchronizeConfiguration) -> Bool {
+    func addConfiguration(_ config: SynchronizeConfiguration) async -> Bool {
         if configurations == nil {
             configurations = [SynchronizeConfiguration]()
         }
@@ -128,7 +128,7 @@ final class UpdateConfigurations {
         newconfig.hiddenID = maxhiddenID + 1
         configurations?.append(newconfig)
         let aftercount = (configurations?.count ?? 0)
-        persistConfigurations()
+        await persistConfigurations()
         if aftercount > beforecount {
             return true
         } else {
@@ -137,26 +137,26 @@ final class UpdateConfigurations {
     }
 
     /// Write Import configurations
-    func addImportConfigurations(_ importconfigurations: [SynchronizeConfiguration]) -> [SynchronizeConfiguration]? {
+    func addImportConfigurations(_ importconfigurations: [SynchronizeConfiguration]) async -> [SynchronizeConfiguration]? {
         guard importconfigurations.isEmpty == false else { return nil }
         if configurations == nil {
             configurations = [SynchronizeConfiguration]()
         }
         let reassigned = configurationsWithNewHiddenIDs(importconfigurations)
         configurations?.append(contentsOf: reassigned)
-        persistConfigurations()
+        await persistConfigurations()
         return configurations
     }
 
     /// Write Copy and Paste tasks
-    func writeCopyAndPasteTask(_ copyandpastetasks: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
+    func writeCopyAndPasteTask(_ copyandpastetasks: [SynchronizeConfiguration]?) async -> [SynchronizeConfiguration]? {
         guard let copyandpastetasks, copyandpastetasks.isEmpty == false else { return nil }
         if configurations == nil {
             configurations = [SynchronizeConfiguration]()
         }
         let reassigned = configurationsWithNewHiddenIDs(copyandpastetasks)
         configurations?.append(contentsOf: reassigned)
-        persistConfigurations()
+        await persistConfigurations()
         return configurations
     }
 

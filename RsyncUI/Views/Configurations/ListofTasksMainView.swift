@@ -78,12 +78,14 @@ struct ListofTasksMainView: View {
 
     func delete() {
         if let configurations = rsyncUIdata.configurations {
-            let deleteconfigurations =
-                UpdateConfigurations(profile: rsyncUIdata.profile,
-                                     configurations: configurations)
-            deleteconfigurations.deleteconfigurations(selecteduuids)
-            selecteduuids.removeAll()
-            rsyncUIdata.configurations = deleteconfigurations.configurations
+            Task { @MainActor in
+                let deleteconfigurations =
+                    UpdateConfigurations(profile: rsyncUIdata.profile,
+                                         configurations: configurations)
+                await deleteconfigurations.deleteconfigurations(selecteduuids)
+                selecteduuids.removeAll()
+                rsyncUIdata.configurations = deleteconfigurations.configurations
+            }
         }
     }
 }

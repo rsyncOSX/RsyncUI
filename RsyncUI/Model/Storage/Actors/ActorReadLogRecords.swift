@@ -1,5 +1,5 @@
 //
-//  ActorReadLogRecordsJSON.swift
+//  ActorReadLogRecords.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 04/12/2024.
@@ -9,7 +9,7 @@ import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
-actor ActorReadLogRecordsJSON {
+actor ActorReadLogRecords {
     func readjsonfilelogrecords(_ profile: String?,
                                 _ validhiddenIDs: Set<Int>) async -> [LogRecords]? {
         let path = await Homepath()
@@ -69,7 +69,7 @@ actor ActorReadLogRecordsJSON {
     }
 
     func updatelogsbyfilter(_ logrecords: [LogRecords]?, _ filterstring: String, _ hiddenID: Int) async -> [Log]? {
-        Logger.process.debugThreadOnly("ActorReadLogRecordsJSON: updatelogsbyfilter()")
+        Logger.process.debugThreadOnly("ActorReadLogRecords: updatelogsbyfilter()")
         guard filterstring != "" else { return nil }
         if let logrecords {
             if hiddenID == -1 {
@@ -106,7 +106,7 @@ actor ActorReadLogRecordsJSON {
                     logrecords: [LogRecords]?) async -> [LogRecords]? {
         var records = logrecords
 
-        Logger.process.debugThreadOnly("ActorReadLogRecordsJSON: deletelogs()")
+        Logger.process.debugThreadOnly("ActorReadLogRecords: deletelogs()")
 
         // Convert to Set for O(1) lookup instead of O(n)
         let uuidsToDelete = uuids
@@ -122,6 +122,6 @@ actor ActorReadLogRecordsJSON {
     }
 
     deinit {
-        Logger.process.debugMessageOnly("ActorReadLogRecordsJSON: DEINIT")
+        Logger.process.debugMessageOnly("ActorReadLogRecords: DEINIT")
     }
 }

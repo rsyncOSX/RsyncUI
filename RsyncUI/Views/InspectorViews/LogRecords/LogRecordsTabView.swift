@@ -129,16 +129,6 @@ struct LogRecordsTabView: View {
         .padding()
     }
 
-    var validhiddenIDs: Set<Int> {
-        var temp = Set<Int>()
-        if let configurations = rsyncUIdata.configurations {
-            for config in configurations {
-                temp.insert(config.hiddenID)
-            }
-        }
-        return temp
-    }
-
     var configurations: [SynchronizeConfiguration] {
         if let configurations = rsyncUIdata.configurations {
             configurations
@@ -148,32 +138,31 @@ struct LogRecordsTabView: View {
     }
 
     func deleteLogs(_ uuids: Set<UUID>) async {
-        async let updatedRecords: [LogRecords]? = ActorReadLogRecordsJSON().deleteLogs(
+        async let updatedRecords: [LogRecords]? = ActorReadLogRecords().deleteLogs(
             uuids,
             logrecords: logrecords
         )
         let records = await updatedRecords
-        async let updatedLogs: [Log]? = ActorReadLogRecordsJSON().updatelogsbyhiddenID(records, hiddenID)
+        async let updatedLogs: [Log]? = ActorReadLogRecords().updatelogsbyhiddenID(records, hiddenID)
         logrecords = records
         logs = await (updatedLogs ?? [])
-        WriteLogRecordsJSON(rsyncUIdata.profile, records)
+        await WriteLogRecordsJSON.write(rsyncUIdata.profile, records)
         selectedloguuids.removeAll()
     }
 
     private func loadInitialLogs() async {
-        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-            hiddenID = configurations[index].hiddenID
-        } else {
-            hiddenID = -1
-        }
-        let actorreadlogs = ActorReadLogRecordsJSON()
-        logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+        hiddenID = configurations.hiddenID(for: selecteduuids.first) ?? -1
+        let actorreadlogs = ActorReadLogRecords()
+        logrecords = await LogStoreService.loadStore(
+            profile: rsyncUIdata.profile,
+            configurations: rsyncUIdata.configurations
+        )
         logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
     }
 
     private func updateLogsForFilter() async {
         showindebounce = false
-        let actorreadlogs = ActorReadLogRecordsJSON()
+        let actorreadlogs = ActorReadLogRecords()
         if filterstring.isEmpty == false {
             logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
         } else {
@@ -190,19 +179,18 @@ struct LogRecordsTabView: View {
         showindebounce = false
         selectedloguuids.removeAll()
 
-        let actorreadlogs = ActorReadLogRecordsJSON()
-        logrecords = await actorreadlogs.readjsonfilelogrecords(rsyncUIdata.profile, validhiddenIDs)
+        let actorreadlogs = ActorReadLogRecords()
+        logrecords = await LogStoreService.loadStore(
+            profile: rsyncUIdata.profile,
+            configurations: rsyncUIdata.configurations
+        )
         logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
     }
 
     private func updateLogsForSelection() {
-        if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-            hiddenID = configurations[index].hiddenID
-        } else {
-            hiddenID = -1
-        }
+        hiddenID = configurations.hiddenID(for: selecteduuids.first) ?? -1
         Task {
-            let actorreadlogs = ActorReadLogRecordsJSON()
+            let actorreadlogs = ActorReadLogRecords()
             if filterstring.isEmpty == false {
                 logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
             } else {

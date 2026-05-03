@@ -7,16 +7,6 @@
 
 import SwiftUI
 
-struct HelpButtonStyle: ButtonStyle {
-    let redorwhitebutton: Bool
-
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .foregroundStyle(redorwhitebutton ? .red : .blue)
-            .contentShape(Capsule())
-    }
-}
-
 @available(macOS 26.0, *)
 private extension Color {
     @MainActor static var glassBorderLight = Color.white.opacity(0.35)
