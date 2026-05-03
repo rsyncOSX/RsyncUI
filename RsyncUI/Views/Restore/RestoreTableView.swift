@@ -188,10 +188,10 @@ extension RestoreTableView {
     }
 
     func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        Task { @MainActor in
+        Task { 
             gettingfilelist = false
             restore.restorefilelist.removeAll()
-            let list = await ActorCreateOutputforView().createoutputforrestore(stringoutputfromrsync)
+            let list = await CreateOutputforView().createoutputforrestore(stringoutputfromrsync)
             restore.restorefilelist = list
         }
     }

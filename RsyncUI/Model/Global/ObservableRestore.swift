@@ -35,7 +35,7 @@ final class ObservableRestore {
         }
         Task {
             restorefilelist = await
-                ActorCreateOutputforView().createoutputafterrestore(stringoutputfromrsync)
+                CreateOutputforView().createoutputafterrestore(stringoutputfromrsync)
         }
         restorefilesinprogress = false
         presentrestorelist = true

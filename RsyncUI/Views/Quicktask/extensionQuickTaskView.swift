@@ -123,7 +123,7 @@ extension QuicktaskView {
                 max = Double(stringoutputfromrsync?.count ?? 0)
             }
 
-            let output = await ActorCreateOutputforView().createOutputForView(stringoutputfromrsync)
+            let output = await CreateOutputforView().createOutputForView(stringoutputfromrsync)
             rsyncoutput.output = output
             completed = true
             // Release process and handler references on completion

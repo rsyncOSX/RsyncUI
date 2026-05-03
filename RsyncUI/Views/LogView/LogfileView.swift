@@ -36,14 +36,14 @@ struct LogfileView: View {
         }
         .padding()
         .task {
-            logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
+            logfilerecords = await CreateOutputforView().createaoutputlogfileforview()
         }
     }
 
     func reset() {
         Task {
             await ActorLogToFile().reset()
-            logfilerecords = await ActorCreateOutputforView().createaoutputlogfileforview()
+            logfilerecords = await CreateOutputforView().createaoutputlogfileforview()
         }
     }
 }
