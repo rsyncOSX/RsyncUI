@@ -107,7 +107,8 @@ struct AboutView: View {
         }
         .task {
             if SharedReference.shared.newversion {
-                urlstring = await GetversionofRsyncUI().downloadlinkofrsyncui() ?? ""
+                let result = await loadData()
+                urlstring = result
             }
         }
         .formStyle(.grouped)
@@ -141,5 +142,10 @@ extension AboutView {
         if urlstring.isEmpty == false, let url = URL(string: urlstring) {
             NSWorkspace.shared.open(url)
         }
+    }
+    
+    func loadData() async -> String {
+        async let urlstring = await GetversionofRsyncUI().downloadlinkofrsyncui() ?? ""
+        return await urlstring
     }
 }
