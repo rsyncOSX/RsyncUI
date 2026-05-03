@@ -10,18 +10,6 @@ import OSLog
 import ParseRsyncOutput
 import RsyncProcessStreaming
 
-enum ErrorDatatoSynchronize: LocalizedError {
-    case thereisdatatosynchronize(idwitherror: String)
-
-    var errorDescription: String? {
-        switch self {
-        case let .thereisdatatosynchronize(idwitherror):
-            "There are errors in tagging data\n for synchronize ID \(idwitherror)\n"
-                + "Most likely number of rows\n> 20 lines and no data to synchronize"
-        }
-    }
-}
-
 @MainActor
 final class Execute {
     private var localconfigurations: [SynchronizeConfiguration]

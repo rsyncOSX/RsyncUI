@@ -109,12 +109,6 @@ struct OneTaskDetailsView: View {
         return nil
     }
 
-    func validateTagging(_ lines: Int, _ tagged: Bool) throws {
-        if lines > SharedReference.shared.alerttagginglines, tagged == false {
-            throw ErrorDatatoSynchronize.thereisdatatosynchronize(idwitherror: "Current Synchronization ID")
-        }
-    }
-
     @MainActor
     func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         var selectedconfig: SynchronizeConfiguration?
@@ -136,20 +130,6 @@ struct OneTaskDetailsView: View {
         remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: prepared,
                                               config: selectedconfig)
         remotedatanumbers?.itemizechanges = itemizechanges
-
-        // Validate that tagging is correct
-        // Only validate if itemizechanges == false, due to the parameters --itemize-changes and --update
-        // produces much more output than the normal output does. This is the natuer of the parameters
-
-        if itemizechanges == false {
-            // Validate that tagging is correct
-            do {
-                try validateTagging(stringoutputfromrsync?.count ?? 0, remotedatanumbers?.datatosynchronize ?? true)
-            } catch let err {
-                let error = err
-                SharedReference.shared.errorobject?.alert(error: error)
-            }
-        }
 
         Task {
             remotedatanumbers?.outputfromrsync = await CreateOutputforView().createOutputForView(stringoutputfromrsync)

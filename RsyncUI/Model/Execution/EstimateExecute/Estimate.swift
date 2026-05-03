@@ -86,13 +86,6 @@ final class Estimate {
         }
     }
 
-    /// Used in Estimate
-    private func validateTagging(_ lines: Int, _ tagged: Bool) throws {
-        if lines > SharedReference.shared.alerttagginglines, tagged == false {
-            throw ErrorDatatoSynchronize.thereisdatatosynchronize(idwitherror: synchronizeIDwitherror)
-        }
-    }
-
     private func computestackoftasks(_ selecteduuids: Set<UUID>) -> [Int] {
         if selecteduuids.count > 0 {
             let configurations = localconfigurations.filter { selecteduuids.contains($0.id) &&
@@ -159,7 +152,7 @@ extension Estimate {
         // Mark if arguments --itemize-changes and --update are included within the arguments
         record.itemizechanges = itemizechanges
 
-        Task { [self, originalOutput, outputToProcess] in
+        Task { [self, originalOutput] in
             // Create data for output rsync for view off-main
             let output = await CreateOutputforView().createOutputForView(originalOutput)
             record.outputfromrsync = output
@@ -168,22 +161,6 @@ extension Estimate {
             if record.datatosynchronize {
                 if let config = getConfig(hiddenID) {
                     localprogressdetails?.appendUUIDWithDataToSynchronize(config.id)
-                }
-            }
-
-            // Only validate if itemizechanges == false, due to the parameters --itemize-changes and --update
-            // produces much more output than the normal output does. This is the nature of the parameters
-            if itemizechanges == false {
-                // Validate that tagging is correct
-                do {
-                    // In case of throwing an error to identify which task
-                    if outputToProcess != originalOutput {
-                        synchronizeIDwitherror = record.backupID
-                    }
-                    try validateTagging(originalOutput?.count ?? 0, record.datatosynchronize)
-                } catch let err {
-                    let error = err
-                    SharedReference.shared.errorobject?.alert(error: error)
                 }
             }
 
