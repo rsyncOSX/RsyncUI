@@ -2,32 +2,21 @@
 
 This file expands `cleanup.md` Phase 1 with a concrete inventory of the current concurrency and persistence boundaries. The goal of Phase 1 is not to change behavior yet, but to map exactly **what must stay async**, **what should stop being actor-isolated**, and **where later refactors should land**.
 
-## Status snapshot
-
-| Area | Status | Notes |
-|---|---|---|
-| 1A. Actor ownership inventory | **Done** | The app-owned actor set is now down to `ActorLogToFile` and `ActorReadLogRecords`, which matches the two actor boundaries that Phase 1 intentionally keeps. |
-| 1B. Thin actor removal | **Done** | `ActorCreateOutputforView` and `ActorGetversionofRsyncUI` were replaced by plain async helpers: `CreateOutputforView.swift` and `GetversionofRsyncUI.swift`. |
-| 1C. Detached JSON writes | **Done** | `WriteSynchronizeConfigurationJSON` and `WriteLogRecordsJSON` no longer use `Task.detached`; both now await `SharedJSONStorageWriter.shared.write(...)`. |
-| 1D. Explicit detached exception | **Done** | The only remaining `Task.detached` site is the debug-only threading assertion in `CreateStreamingHandlers.swift`, which is the documented exception. |
-| 1E. Async caller propagation | **Done** | Configuration/log persistence callers now await the shared writer boundary through `UpdateConfigurations`, `Logging`, import/copy/delete flows, and log-delete views. |
-| 1F. Post-removal adapter cleanup | **Partial** | The thin actors are gone, but several downstream `Task` bridges that call `CreateOutputforView` still remain for later cleanup. |
-
 ## 1. Current-state summary
 
-- App-owned actors now live in two files:
+- **Done - 1A. Actor ownership inventory:** App-owned actors now live in two files:
   - `RsyncUI/Model/Storage/Actors/ActorLogToFile.swift:23`
   - `RsyncUI/Model/Storage/Actors/ActorReadLogRecords.swift:12`
-- Thin actor removals already landed:
+- **Done - 1B. Thin actor removal:** Thin actor removals already landed:
   - `RsyncUI/Model/Output/CreateOutputforView.swift:10`
   - `RsyncUI/Model/Newversion/GetversionofRsyncUI.swift:11`
-- The only executable `Task.detached` site is:
+- **Done - 1D. Explicit detached exception:** The only executable `Task.detached` site is:
   - `RsyncUI/Model/Execution/CreateHandlers/CreateStreamingHandlers.swift:92-95`
-- The shared async JSON write boundary already exists:
+- **Done - 1C. Detached JSON writes:** The shared async JSON write boundary already exists:
   - `RsyncUI/Model/Storage/SharedJSONStorageWriter.swift:9-18`
   - `RsyncUI/Model/Storage/WriteSynchronizeConfigurationJSON.swift:12-38`
   - `RsyncUI/Model/Storage/WriteLogRecordsJSON.swift:12-38`
-- The storage layer is now split across:
+- **Done - 1E. Async caller propagation:** The storage layer is now split across:
   - `@MainActor` read/write helpers that still build paths and encode/decode
   - actor-based log persistence and logfile serialization
   - one shared awaited JSON writer for configuration/log-store writes
@@ -39,6 +28,8 @@ This file expands `cleanup.md` Phase 1 with a concrete inventory of the current 
 - Phase 4 groundwork already exists:
   - `RsyncUI/Model/Loggdata/LogStoreService.swift:10-32`
   - `hiddenIDs`, `hiddenID(for:)`, and `backupID(for:)` are already centralized there.
+
+**Partial - 1F. Post-removal adapter cleanup:** The actor removals are landed, but several downstream `Task` bridges that call `CreateOutputforView` still remain and are cataloged below in the task inventory and refactor seams.
 
 ## 2. Actor matrix
 
@@ -58,6 +49,8 @@ This file expands `cleanup.md` Phase 1 with a concrete inventory of the current 
 | `RsyncUI/Model/Execution/CreateHandlers/CreateStreamingHandlers.swift:92-95` | **Done** | Repository-wide search shows this is now the only executable `Task.detached` site. | This remains the documented exception because it intentionally sheds main-actor isolation for the debug-only threading assertion. |
 
 Phase 1 landing for the first two rows is complete: both JSON writes route through one shared actor-backed file writer, path building and encoding stay on the main actor, and `WriteSynchronizeConfigurationJSON.write` / `WriteLogRecordsJSON.write` are the awaited entry points. Sync UI actions may still bridge with `Task`, but persistence itself is no longer fire-and-forget detached work.
+
+This means both **1C** and **1D** are **done** in the detailed matrix above.
 
 ## 4. `@MainActor` storage and helper types
 
@@ -123,6 +116,8 @@ Both models are `@MainActor Codable`, which means Phase 2 must review whether th
 | `RsyncUI/Views/Detailsview/SummarizedDetailsContentView.swift:173-176` | Delayed clearing of preselected task state | **Keep** | Pure UI timing task. |
 
 ### B. Task sites that are mostly sync-to-async adapters and should shrink later
+
+This section is where **1F** remains **partially done**: the thin actors are gone, but these adapter-style `Task` bridges still need cleanup.
 
 | File and lines | What the task is compensating for | Classification | Where to refactor |
 |---|---|---|---|
