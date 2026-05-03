@@ -89,7 +89,9 @@ struct SnapshotsView: View {
                         isPresented: $isPresentingConfirm) {
                             Button("Delete", role: .destructive) {
                                 if let uuids = snapshotdata.notmappedloguuids {
-                                    deleteLogs(uuids)
+                                    Task {
+                                        await deleteLogs(uuids)
+                                    }
                                 }
                             }
                     }
@@ -273,21 +275,18 @@ extension SnapshotsView {
         }
     }
 
-    func deleteLogs(_ uuids: Set<UUID>) {
-        Task {
-            if let records = snapshotdata.readlogrecordsfromfile {
-                async let updatedRecords: [LogRecords]? = ActorReadLogRecords().deleteLogs(
-                    uuids,
-                    logrecords: records
-                )
-                let records = await updatedRecords
-                await WriteLogRecordsJSON.write(rsyncUIdata.profile, records)
-                snapshotdata.readlogrecordsfromfile = nil
-                selectedconfig = nil
-                snapshotdata.setsnapshotdata(nil)
-                filterstring = ""
-                isdisabled = true
-            }
-        }
+    func deleteLogs(_ uuids: Set<UUID>) async {
+        guard let records = snapshotdata.readlogrecordsfromfile else { return }
+
+        _ = await LogStoreService.deleteLogs(
+            uuids,
+            profile: rsyncUIdata.profile,
+            in: records
+        )
+        snapshotdata.readlogrecordsfromfile = nil
+        selectedconfig = nil
+        snapshotdata.setsnapshotdata(nil)
+        filterstring = ""
+        isdisabled = true
     }
 }

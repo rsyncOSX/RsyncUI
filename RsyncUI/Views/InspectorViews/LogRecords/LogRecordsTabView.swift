@@ -13,7 +13,6 @@ struct LogRecordsTabView: View {
     @Binding var selectedTab: InspectorTab
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
-    @State private var hiddenID = -1
     @State private var selectedloguuids = Set<Log.ID>()
     /// Alert for delete
     @State private var confirmdelete = false
@@ -138,36 +137,41 @@ struct LogRecordsTabView: View {
     }
 
     func deleteLogs(_ uuids: Set<UUID>) async {
-        async let updatedRecords: [LogRecords]? = ActorReadLogRecords().deleteLogs(
+        let records = await LogStoreService.deleteLogs(
             uuids,
-            logrecords: logrecords
+            profile: rsyncUIdata.profile,
+            in: logrecords
         )
-        let records = await updatedRecords
-        async let updatedLogs: [Log]? = ActorReadLogRecords().updatelogsbyhiddenID(records, hiddenID)
         logrecords = records
-        logs = await (updatedLogs ?? [])
-        await WriteLogRecordsJSON.write(rsyncUIdata.profile, records)
+        logs = LogStoreService.visibleLogs(
+            from: records,
+            configurations: rsyncUIdata.configurations,
+            configurationID: selecteduuids.first,
+            filterString: filterstring
+        )
         selectedloguuids.removeAll()
     }
 
     private func loadInitialLogs() async {
-        hiddenID = configurations.hiddenID(for: selecteduuids.first) ?? -1
-        let actorreadlogs = ActorReadLogRecords()
         logrecords = await LogStoreService.loadStore(
             profile: rsyncUIdata.profile,
             configurations: rsyncUIdata.configurations
         )
-        logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+        logs = LogStoreService.visibleLogs(
+            from: logrecords,
+            configurations: rsyncUIdata.configurations,
+            configurationID: selecteduuids.first
+        )
     }
 
     private func updateLogsForFilter() async {
         showindebounce = false
-        let actorreadlogs = ActorReadLogRecords()
-        if filterstring.isEmpty == false {
-            logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
-        } else {
-            logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-        }
+        logs = LogStoreService.visibleLogs(
+            from: logrecords,
+            configurations: rsyncUIdata.configurations,
+            configurationID: selecteduuids.first,
+            filterString: filterstring
+        )
     }
 
     private func reloadLogsForProfile() async {
@@ -179,24 +183,25 @@ struct LogRecordsTabView: View {
         showindebounce = false
         selectedloguuids.removeAll()
 
-        let actorreadlogs = ActorReadLogRecords()
         logrecords = await LogStoreService.loadStore(
             profile: rsyncUIdata.profile,
             configurations: rsyncUIdata.configurations
         )
-        logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
+        logs = LogStoreService.visibleLogs(
+            from: logrecords,
+            configurations: rsyncUIdata.configurations,
+            configurationID: selecteduuids.first,
+            filterString: filterstring
+        )
     }
 
     private func updateLogsForSelection() {
-        hiddenID = configurations.hiddenID(for: selecteduuids.first) ?? -1
-        Task {
-            let actorreadlogs = ActorReadLogRecords()
-            if filterstring.isEmpty == false {
-                logs = await actorreadlogs.updatelogsbyfilter(logrecords, filterstring, hiddenID) ?? []
-            } else {
-                logs = await actorreadlogs.updatelogsbyhiddenID(logrecords, hiddenID) ?? []
-            }
-        }
+        logs = LogStoreService.visibleLogs(
+            from: logrecords,
+            configurations: rsyncUIdata.configurations,
+            configurationID: selecteduuids.first,
+            filterString: filterstring
+        )
     }
 }
 
