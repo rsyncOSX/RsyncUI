@@ -1,18 +1,18 @@
 # Phase 4 - Log-data service unification
 
-This file expands `cleanup.md` Phase 4 with concrete duplicate paths in the current code. The main issue is that log-data behavior is split across UI views, `Logging`, snapshot-specific code, and `ActorReadLogRecords`, so the same load/filter/sort/delete/persist work is repeated in several places.
+This file expands `cleanup.md` Phase 4 with concrete duplicate paths in the current code. The main issue is no longer direct view-to-actor coupling; after the latest Phase 3A work, log-data behavior is still split across `LogStoreService`, `Logging`, snapshot-specific code, and a few remaining view-owned orchestration paths.
 
 ## 1. Current duplication map
 
 | Responsibility | Current duplicate locations | Notes |
 |---|---|---|
-| Load log store from JSON | `RsyncUI/Model/Loggdata/Logging.swift:32-50`, `RsyncUI/Views/InspectorViews/LogRecords/LogRecordsTabView.swift:163-172`, `RsyncUI/Views/InspectorViews/LogRecords/LogRecordsTabView.swift:184-196`, `RsyncUI/Views/Snapshots/SnapshotsView.swift:225-232`, `RsyncUI/Model/Global/ObservableChartData.swift:17-24` | Same `ActorReadLogRecords().readjsonfilelogrecords(profile, validhiddenIDs)` entry point is triggered from multiple UI/model layers. |
-| Build `validhiddenIDs` | `RsyncUI/Model/Loggdata/Logging.swift:22-30`, `RsyncUI/Views/InspectorViews/LogRecords/LogRecordsTabView.swift:132-140`, `RsyncUI/Views/Snapshots/SnapshotsView.swift:185-193`, `RsyncUI/Views/Tasks/LogStatsChartView.swift:212-220` | Same loop over configurations repeated four times. |
-| Resolve selected task `hiddenID` | `RsyncUI/Views/InspectorViews/LogRecords/LogRecordsTabView.swift:163-168`, `RsyncUI/Views/InspectorViews/LogRecords/LogRecordsTabView.swift:198-203`, `RsyncUI/Views/Tasks/LogStatsChartView.swift:222-231` | The same `selecteduuids.first -> configuration -> hiddenID` mapping is duplicated. |
-| Merge/sort logs for one task or all tasks | `RsyncUI/Model/Storage/Actors/ActorReadLogRecords.swift:55-77`, `RsyncUI/Model/Storage/Actors/ActorReadLogRecords.swift:79-111`, `RsyncUI/Model/Snapshots/Snapshotlogsandcatalogs.swift:89-104` | "Merge all logs", "sort by date desc", and "find used vs unused UUIDs" are domain operations, but are split across the actor and snapshot helper. |
-| Delete logs and persist | `RsyncUI/Views/InspectorViews/LogRecords/LogRecordsTabView.swift:150-160`, `RsyncUI/Views/Snapshots/SnapshotsView.swift:282-297` | Both views call `ActorReadLogRecords().deleteLogs(...)`, then `WriteLogRecordsJSON(...)`, then manually fix local UI state. |
-| Log result number parsing | `RsyncUI/Model/Loggdata/Logging.swift:121-134`, `RsyncUI/Model/Storage/Actors/ActorReadLogRecords.swift:165-178` | The same regex-based number extraction exists twice. |
-| Chart preparation | `RsyncUI/Model/Global/ObservableChartData.swift:17-24`, `RsyncUI/Views/Tasks/LogStatsChartView.swift:265-287`, `RsyncUI/Model/Storage/Actors/ActorReadLogRecords.swift:134-243` | The chart pipeline is fragmented: load + parse in one type, aggregation decisions in another, helpers in the actor. |
+| Load log store from JSON | `RsyncUI/Model/Loggdata/Logging.swift:27-30`, `RsyncUI/Views/InspectorViews/LogRecords/LogRecordsTabView.swift:156-159`, `RsyncUI/Views/InspectorViews/LogRecords/LogRecordsTabView.swift:186-189`, `RsyncUI/Views/Snapshots/SnapshotsView.swift:219-222`, `RsyncUI/Model/Loggdata/LogChartService.swift` | The read path is now shared through `LogStoreService.loadStore(...)`, but loading is still initiated from several layers. |
+| Build `validhiddenIDs` | `LogStoreService.loadStore(...)`, `LogChartService.chartEntries(...)`, `Logging.create(...)` | The low-level loop is centralized, but multiple service/model entry points still trigger log-store loading separately. |
+| Resolve selected task `hiddenID` | `LogStoreService.visibleLogs(...)`, `LogChartService.chartEntries(...)` | Selection resolution is now shared by helper APIs, but the log-domain still has separate read-side entry points for visible logs and chart data. |
+| Merge/sort logs for one task or all tasks | `RsyncUI/Model/Loggdata/LogStoreService.swift`, `RsyncUI/Model/Snapshots/Snapshotlogsandcatalogs.swift:89-104` | General log presentation moved into `LogStoreService`, but snapshot-specific "unused log" calculation still flattens log data separately. |
+| Delete logs and persist | `RsyncUI/Model/Loggdata/LogStoreService.swift`, callers in `LogRecordsTabView.swift` and `SnapshotsView.swift` | The mutation path is centralized now; remaining work is reducing caller-owned reset/orchestration and extending the same model to other write-side log flows. |
+| Log result number parsing | `RsyncUI/Model/Loggdata/Logging.swift:103-116`, `RsyncUI/Model/Loggdata/LogChartService.swift:128-140` | The same regex-based number extraction still exists twice. |
+| Chart preparation | `RsyncUI/Model/Loggdata/LogChartService.swift`, `RsyncUI/Views/Tasks/LogStatsChartView.swift:252-269` | The chart pipeline is much smaller now, but parsing/reduction still lives in a chart service while the view still owns refresh policy and selection state. |
 | Snapshot/log merge | `RsyncUI/Views/Snapshots/SnapshotsView.swift:225-232`, `RsyncUI/Model/Snapshots/Snapshotlogsandcatalogs.swift:47-104` | Snapshot data assembly is driven from the view and the helper keeps its own copy of loaded log records. |
 
 ## 2. Detailed duplicate paths
@@ -25,7 +25,7 @@ Before the refactor, these entry points all performed the same domain step: read
 - `LogRecordsTabView.loadInitialLogs()` loads it for the log table (`LogRecordsTabView.swift:163-172`).
 - `LogRecordsTabView.reloadLogsForProfile()` reloads the exact same store after a profile change (`LogRecordsTabView.swift:184-196`).
 - `SnapshotsView.getData()` loads the same store before snapshot/catalog merging (`SnapshotsView.swift:225-232`).
-- `ObservableChartData.readandparselogs(...)` loads the same store before chart parsing (`ObservableChartData.swift:17-24`).
+- `LogStoreService.chartEntries(...)` now loads the same store before chart parsing (`LogChartService.swift:144-161`).
 
 This item is **done**: `LogStoreService.loadStore(...)` is now the shared read entry point used by `Logging`, `LogRecordsTabView`, `SnapshotsView`, and chart loading.
 
@@ -42,7 +42,7 @@ enum LogStoreService {
 }
 ```
 
-That keeps `Logging.create(...)`, `LogRecordsTabView`, `SnapshotsView`, and `ObservableChartData` on the same entry point even before the broader log-domain service exists.
+That keeps `Logging.create(...)`, `LogRecordsTabView`, `SnapshotsView`, and chart loading on the same entry point even before the broader log-domain service exists.
 
 ### B. Shared configuration helper - **Done**
 
@@ -79,15 +79,15 @@ extension Collection where Element == SynchronizeConfiguration {
 
 That removes the repeated `validhiddenIDs` loop and also centralizes selection-to-configuration lookups that already drifted into the same views.
 
-### C. Selection-to-log resolution - **Partial**
+### C. Selection-to-log resolution - **Done**
 
 The UI repeatedly converts `selecteduuids.first` into a `hiddenID`:
 
-- `LogRecordsTabView.loadInitialLogs()` (`LogRecordsTabView.swift:163-168`)
-- `LogRecordsTabView.updateLogsForSelection()` (`LogRecordsTabView.swift:198-203`)
-- `LogStatsChartView.hiddenID` (`LogStatsChartView.swift:222-231`)
+- `LogRecordsTabView.loadInitialLogs()` now resolves through `LogStoreService.visibleLogs(...)`.
+- `LogRecordsTabView.updateLogsForSelection()` now resolves through `LogStoreService.visibleLogs(...)`.
+- `LogStatsChartView` already resolves chart data through `LogStoreService.chartEntries(...)`.
 
-This item is **partially done**: chart loading now resolves through `LogStoreService.chartEntries(...)`, but `LogRecordsTabView` still resolves `configurationID -> hiddenID` locally.
+This item is **done for the current read-side boundary**: selection-to-log resolution is now owned by `LogStoreService` APIs instead of being reimplemented inside the log table view.
 
 That mapping is not presentation logic; it is domain selection logic. A service API should accept either:
 
@@ -101,40 +101,38 @@ or:
 func hiddenID(for configurationID: SynchronizeConfiguration.ID?) -> Int?
 ```
 
-so the resolution is implemented once.
+That still leaves separate service entry points for visible logs and chart entries, but the configuration lookup itself is no longer duplicated in the view layer.
 
-### D. Delete-and-persist service - **Not done**
+### D. Delete-and-persist service - **Done**
 
-This item is **not done**: `LogRecordsTabView` and `SnapshotsView` still perform delete + persist work directly.
+This item is **done for the current service boundary**: `LogRecordsTabView` and `SnapshotsView` now delete through `LogStoreService.deleteLogs(...)`.
 
 #### `LogRecordsTabView.deleteLogs`
 
-1. Calls `ActorReadLogRecords().deleteLogs(uuids, logrecords: logrecords)`
-2. Recomputes visible logs with `updatelogsbyhiddenID`
-3. Persists with `WriteLogRecordsJSON(rsyncUIdata.profile, records)`
-4. Clears UI selection
+1. Calls `LogStoreService.deleteLogs(uuids, profile: rsyncUIdata.profile, in: logrecords)`
+2. Refreshes visible logs with `LogStoreService.visibleLogs(...)`
+3. Clears UI selection
 
 #### `SnapshotsView.deleteLogs`
 
-1. Calls `ActorReadLogRecords().deleteLogs(uuids, logrecords: records)`
-2. Persists with `WriteLogRecordsJSON(rsyncUIdata.profile, records)`
-3. Clears snapshot-specific local state
+1. Calls `LogStoreService.deleteLogs(uuids, profile: rsyncUIdata.profile, in: records)`
+2. Clears snapshot-specific local state
 
-The data mutation part should move behind one service call:
+The data mutation part now lives behind one service call:
 
 ```swift
-func deleteLogs(
+static func deleteLogs(
     _ ids: Set<Log.ID>,
     profile: String?,
     in store: LogStore
-) async throws -> LogStore
+) async -> LogStore?
 ```
 
-Then each view only refreshes its own presentation state.
+Each view still owns its presentation reset logic, which is fine for now; the remaining Phase 4 work is to reduce the amount of view-owned orchestration around the delete flow, not to move deletion back out of the service.
 
 ### E. Shared log-result parser - **Partial**
 
-This item is **partially done**: the old actor-level chart parser was removed, but parsing is still duplicated between `Logging` and `LogChartService`.
+This item is **partially done**: the old actor-level chart parser is gone, but parsing is still duplicated between `Logging` and `LogChartService`.
 
 Both files define:
 
@@ -144,8 +142,8 @@ Both files define:
 
 Current copies:
 
-- `Logging.swift:121-134`
-- `ActorReadLogRecords.swift:165-178`
+- `Logging.swift:103-116`
+- `LogChartService.swift`
 
 This is risky because scheduled log insertion validates log format in one place, while chart parsing interprets the same format elsewhere. If the log string format changes, both sites must change together.
 
@@ -170,21 +168,16 @@ Then:
 
 This item is **done**: `ObservableChartData` is gone, `LogStatsChartView` now asks `LogStoreService` for chart entries, and `LogChartReducer` has test coverage.
 
-The current chart path mixes persistence, transformation, and UI policy:
+The current chart path is much cleaner, but it still mixes domain reduction and UI refresh policy:
 
-1. `ObservableChartData.readandparselogs(...)` reads persisted logs and turns them into parsed chart entries (`ObservableChartData.swift:17-24`).
-2. `LogStatsChartView.readAndSortLogData()` decides which aggregation to run based on the selected chart mode (`LogStatsChartView.swift:265-287`).
-3. `ActorReadLogRecords` provides the actual parsing and reduction helpers:
-   - `parselogrecords` (`ActorReadLogRecords.swift:134-163`)
-   - `parsemaxfilesbydate` (`182-197`)
-   - `parsemaxNNfilesbydate` (`200-203`)
-   - `parsemaxNNfilesbytransferredsize` (`213-216`)
-   - `parsemaxfilesbytransferredsize` (`227-243`)
+1. `LogStoreService.chartEntries(...)` loads the store and resolves the selected configuration (`LogChartService.swift:144-161`).
+2. `LogChartReducer` parses raw log results and applies the requested reduction (`LogChartService.swift:34-142`).
+3. `LogStatsChartView.reloadChartData()` still owns refresh timing and selected-point cleanup (`LogStatsChartView.swift:252-269`).
 
 That split is awkward for two reasons:
 
 - the view decides domain policy (`files` vs `transferredMB`, max-per-day vs top-N)
-- chart-specific transformation code lives in a storage actor instead of a log/chart domain boundary
+- chart-specific parsing still duplicates log-result parsing already used by `Logging`
 
 After the refactor, the chart pipeline should collapse into one service request that returns chart-ready data, with the view only choosing presentation state:
 
@@ -216,8 +209,8 @@ That boundary should own the full sequence:
 With that split:
 
 - `LogStatsChartView` keeps only UI state such as metric toggles, chart style, and selected point
-- `ObservableChartData` becomes either plain observable UI state or disappears entirely
-- `ActorReadLogRecords` stops exposing chart-specific helpers and returns to storage-oriented responsibilities
+- `LogStatsChartView` can stay focused on refresh policy and presentation state instead of carrying more chart-domain decisions
+- the remaining parser duplication between `Logging` and `LogChartService` becomes easier to remove
 
 ### G. Snapshot/log merge service - **Not done**
 
@@ -227,12 +220,11 @@ This item is **not done**: `Snapshotlogsandcatalogs` still owns merge logic and 
 
 - `Snapshotlogsandcatalogs.swift:89-104`
 
-That repeats the "flatten all task logs into `[Log]`" behavior already present in:
+That repeats the "flatten all task logs into `[Log]`" behavior now owned by:
 
-- `ActorReadLogRecords.updatelogsbyhiddenID(..., -1)` (`ActorReadLogRecords.swift:57-69`)
-- `ActorReadLogRecords.updatelogsbyfilter(..., -1)` (`ActorReadLogRecords.swift:82-97`)
+- `LogStoreService.visibleLogs(from:hiddenID:filterString:)` with `hiddenID == -1`
 
-The snapshot flow also keeps its own raw `logrecords` copy and stores it into `ObservableSnapshotData.readlogrecordsfromfile` for later cleanup (`Snapshotlogsandcatalogs.swift:82-85`), which is another sign that the snapshot UI is compensating for missing service-level store ownership.
+The snapshot flow also keeps its own raw `logrecords` copy and stores it into `ObservableSnapshotData.readlogrecordsfromfile` for later cleanup (`Snapshotlogsandcatalogs.swift:82-85`), which is another sign that the snapshot UI is compensating for missing service-level store ownership even after delete-and-persist moved into `LogStoreService`.
 
 A unified service should expose snapshot-specific helpers on top of the same loaded store:
 
