@@ -83,7 +83,7 @@ final class Logging {
         return nil
     }
 
-    func setCurrentDateOnConfiguration(configrecords: [ScheduleLogData]) -> [SynchronizeConfiguration] {
+    func setCurrentDateOnConfiguration(configrecords: [ScheduleLogData]) async -> [SynchronizeConfiguration] {
         for record in configrecords {
             let hiddenID = record.hiddenID
             // stats is set to date
@@ -96,7 +96,7 @@ final class Logging {
                 structconfigurations?[index].dateRun = date
             }
         }
-        WriteSynchronizeConfigurationJSON(localeprofile, structconfigurations)
+        await WriteSynchronizeConfigurationJSON.write(localeprofile, structconfigurations)
         return structconfigurations ?? []
     }
 
@@ -119,7 +119,7 @@ final class Logging {
         case insertionFailed(ids: [Int])
     }
 
-    func addLogToPermanentStore(scheduleRecords: [ScheduleLogData]) throws {
+    func addLogToPermanentStore(scheduleRecords: [ScheduleLogData]) async throws {
         let dateString = Date().en_string_from_date()
         var failedInserts: [Int] = []
 
@@ -139,7 +139,7 @@ final class Logging {
             }
         }
 
-        try persistLogs()
+        await persistLogs()
 
         if !failedInserts.isEmpty {
             throw LogError.insertionFailed(ids: failedInserts)
@@ -157,9 +157,8 @@ final class Logging {
         return "(\(snapshotNumber)) \(stats)"
     }
 
-    private func persistLogs() throws {
-        // Renamed and potentially throwing version
-        WriteLogRecordsJSON(localeprofile, logrecords)
+    private func persistLogs() async {
+        await WriteLogRecordsJSON.write(localeprofile, logrecords)
     }
 
     init(profile: String?,

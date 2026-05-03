@@ -43,6 +43,8 @@ This file expands `cleanup.md` Phase 1 with a concrete inventory of the current 
 | `RsyncUI/Model/Storage/WriteLogRecordsJSON.swift:40-50` | Writes encoded log JSON off the main actor | **Remove** | Same fix as configuration writes: move to a shared async persistence layer with explicit completion and error propagation. |
 | `RsyncUI/Model/Execution/CreateHandlers/CreateStreamingHandlers.swift:92-95` | Debug-only assertion that streaming callbacks can run off the main actor | **Keep as an explicit exception** | This is one of the few valid uses of `Task.detached`: it intentionally sheds main-actor isolation to verify threading behavior. Leave it isolated to debug-only validation. |
 
+Phase 1 landing for the first two rows: route both JSON writes through one shared actor-backed file writer, keep path building and encoding on the main actor, and make `WriteSynchronizeConfigurationJSON.write` / `WriteLogRecordsJSON.write` awaited entry points. Sync UI actions can still bridge with `Task`, but persistence itself should no longer be fire-and-forget detached work.
+
 ## 4. `@MainActor` storage and helper types
 
 These are the main-actor boundaries that most directly shape later cleanup work.

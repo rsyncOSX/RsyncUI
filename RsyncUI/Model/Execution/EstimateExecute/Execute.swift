@@ -250,7 +250,7 @@ extension Execute {
             Task {
                 let update = await Logging.create(profile: structprofile,
                                                   configurations: localconfigurations)
-                let updateconfigurations = update.setCurrentDateOnConfiguration(configrecords: configrecords)
+                let updateconfigurations = await update.setCurrentDateOnConfiguration(configrecords: configrecords)
                 // Send date stamped configurations back to caller
                 localupdateconfigurations(updateconfigurations)
 
@@ -258,7 +258,7 @@ extension Execute {
                 guard SharedReference.shared.addsummarylogrecord else { return }
                 // Update logrecords
                 do {
-                    try update.addLogToPermanentStore(scheduleRecords: schedulerecords)
+                    try await update.addLogToPermanentStore(scheduleRecords: schedulerecords)
                 } catch { return }
 
                 // Release streaming references when completed
@@ -307,7 +307,7 @@ extension Execute {
                 Task {
                     let update = await Logging.create(profile: structprofile,
                                                       configurations: localconfigurations)
-                    let updateconfigurations = update.setCurrentDateOnConfiguration(configrecords: configrecords)
+                    let updateconfigurations = await update.setCurrentDateOnConfiguration(configrecords: configrecords)
                     // Send date stamped configurations back to caller
                     localupdateconfigurations(updateconfigurations)
                     localnoestprogressdetails?.executeAllTasksNoEstimationComplete()
@@ -315,7 +315,7 @@ extension Execute {
                     guard SharedReference.shared.addsummarylogrecord else { return }
                     // Update logrecords
                     do {
-                        try update.addLogToPermanentStore(scheduleRecords: schedulerecords)
+                        try await update.addLogToPermanentStore(scheduleRecords: schedulerecords)
                     } catch { return }
                     // Release streaming references when completed
                     activeStreamingProcess = nil

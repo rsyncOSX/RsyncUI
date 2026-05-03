@@ -262,9 +262,11 @@ extension SnapshotsView {
             let updateconfiguration =
                 UpdateConfigurations(profile: rsyncUIdata.profile,
                                      configurations: rsyncUIdata.configurations)
-            updateconfiguration.updateConfiguration(selectedconfig, false)
-            rsyncUIdata.configurations = updateconfiguration.configurations
-            updated = true
+            Task { @MainActor in
+                await updateconfiguration.updateConfiguration(selectedconfig, false)
+                rsyncUIdata.configurations = updateconfiguration.configurations
+                updated = true
+            }
         }
         Task {
             try? await Task.sleep(seconds: 2)
@@ -279,7 +281,7 @@ extension SnapshotsView {
                     logrecords: records
                 )
                 let records = await updatedRecords
-                WriteLogRecordsJSON(rsyncUIdata.profile, records)
+                await WriteLogRecordsJSON.write(rsyncUIdata.profile, records)
                 snapshotdata.readlogrecordsfromfile = nil
                 selectedconfig = nil
                 snapshotdata.setsnapshotdata(nil)

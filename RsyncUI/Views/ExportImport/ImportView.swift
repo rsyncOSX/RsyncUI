@@ -40,22 +40,22 @@ struct ImportView: View {
                                 isPresented: $isShowingDialog
                             ) {
                                 Button("Import", role: .none) {
-                                    let updateconfigurations =
-                                        UpdateConfigurations(profile: rsyncUIdata.profile,
-                                                             configurations: rsyncUIdata.configurations)
-                                    if selecteduuids.isEmpty == true {
-                                        rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(configurations)
-                                    } else {
-                                        rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(
+                                    Task { @MainActor in
+                                        let updateconfigurations =
+                                            UpdateConfigurations(profile: rsyncUIdata.profile,
+                                                                 configurations: rsyncUIdata.configurations)
+                                        let importedConfigurations = selecteduuids.isEmpty ?
+                                            configurations :
                                             configurations.filter { selecteduuids.contains($0.id) }
-                                        )
-                                    }
-                                    if SharedReference.shared.duplicatecheck {
-                                        if let configurations = rsyncUIdata.configurations {
-                                            VerifyDuplicates(configurations)
+                                        rsyncUIdata.configurations = await updateconfigurations
+                                            .addImportConfigurations(importedConfigurations)
+                                        if SharedReference.shared.duplicatecheck {
+                                            if let configurations = rsyncUIdata.configurations {
+                                                VerifyDuplicates(configurations)
+                                            }
                                         }
+                                        activeSheet = nil
                                     }
-                                    activeSheet = nil
                                 }
                                 .buttonStyle(RefinedGlassButtonStyle())
                             }
@@ -69,22 +69,22 @@ struct ImportView: View {
                                 isPresented: $isShowingDialog
                             ) {
                                 Button("Import", role: .none) {
-                                    let updateconfigurations =
-                                        UpdateConfigurations(profile: rsyncUIdata.profile,
-                                                             configurations: rsyncUIdata.configurations)
-                                    if selecteduuids.isEmpty == true {
-                                        rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(configurations)
-                                    } else {
-                                        rsyncUIdata.configurations = updateconfigurations.addImportConfigurations(
+                                    Task { @MainActor in
+                                        let updateconfigurations =
+                                            UpdateConfigurations(profile: rsyncUIdata.profile,
+                                                                 configurations: rsyncUIdata.configurations)
+                                        let importedConfigurations = selecteduuids.isEmpty ?
+                                            configurations :
                                             configurations.filter { selecteduuids.contains($0.id) }
-                                        )
-                                    }
-                                    if SharedReference.shared.duplicatecheck {
-                                        if let configurations = rsyncUIdata.configurations {
-                                            VerifyDuplicates(configurations)
+                                        rsyncUIdata.configurations = await updateconfigurations
+                                            .addImportConfigurations(importedConfigurations)
+                                        if SharedReference.shared.duplicatecheck {
+                                            if let configurations = rsyncUIdata.configurations {
+                                                VerifyDuplicates(configurations)
+                                            }
                                         }
+                                        activeSheet = nil
                                     }
-                                    activeSheet = nil
                                 }
                                 .buttonStyle(.borderedProminent)
                             }

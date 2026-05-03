@@ -146,7 +146,7 @@ struct LogRecordsTabView: View {
         async let updatedLogs: [Log]? = ActorReadLogRecords().updatelogsbyhiddenID(records, hiddenID)
         logrecords = records
         logs = await (updatedLogs ?? [])
-        WriteLogRecordsJSON(rsyncUIdata.profile, records)
+        await WriteLogRecordsJSON.write(rsyncUIdata.profile, records)
         selectedloguuids.removeAll()
     }
 

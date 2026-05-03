@@ -42,7 +42,7 @@ final class ObservableAddConfigurations {
 
     var showsaveurls: Bool = false
 
-    func addConfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
+    func addConfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) async -> [SynchronizeConfiguration]? {
         let getdata = NewTask(selectedrsynccommand.rawValue,
                               localcatalog.replacingOccurrences(of: "\"", with: ""),
                               remotecatalog.replacingOccurrences(of: "\"", with: ""),
@@ -55,7 +55,7 @@ final class ObservableAddConfigurations {
             let updateconfigurations =
                 UpdateConfigurations(profile: profile,
                                      configurations: configurations)
-            if updateconfigurations.addConfiguration(newconfig) == true {
+            if await updateconfigurations.addConfiguration(newconfig) == true {
                 resetForm()
                 return updateconfigurations.configurations
             }
@@ -63,7 +63,7 @@ final class ObservableAddConfigurations {
         return configurations
     }
 
-    func updateConfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) -> [SynchronizeConfiguration]? {
+    func updateConfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) async -> [SynchronizeConfiguration]? {
         var mysnapshotnum = 0
 
         if snapshotnum.isEmpty == false {
@@ -102,7 +102,7 @@ final class ObservableAddConfigurations {
             let updateconfigurations =
                 UpdateConfigurations(profile: profile,
                                      configurations: configurations)
-            updateconfigurations.updateConfiguration(updatedconfig, false)
+            await updateconfigurations.updateConfiguration(updatedconfig, false)
             resetForm()
             return updateconfigurations.configurations
         }
@@ -166,11 +166,14 @@ final class ObservableAddConfigurations {
     }
 
     /// After accept of Copy and Paste a write operation is performed
-    func writeCopyAndPasteTasks(_ profile: String?, _ configurations: [SynchronizeConfiguration]) -> [SynchronizeConfiguration]? {
+    func writeCopyAndPasteTasks(
+        _ profile: String?,
+        _ configurations: [SynchronizeConfiguration]
+    ) async -> [SynchronizeConfiguration]? {
         let updateconfigurations =
             UpdateConfigurations(profile: profile,
                                  configurations: configurations)
-        return updateconfigurations.writeCopyAndPasteTask(copyandpasteconfigurations)
+        return await updateconfigurations.writeCopyAndPasteTask(copyandpasteconfigurations)
     }
 }
 

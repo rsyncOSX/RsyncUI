@@ -10,9 +10,8 @@ import Foundation
 import OSLog
 
 @MainActor
-final class WriteLogRecordsJSON {
-    @discardableResult
-    init(_ profile: String?, _ logrecords: [LogRecords]?) {
+enum WriteLogRecordsJSON {
+    static func write(_ profile: String?, _ logrecords: [LogRecords]?) async {
         guard let logrecords else { return }
         let path = Homepath()
         guard let fullpathmacserial = path.fullpathmacserial else { return }
@@ -26,32 +25,14 @@ final class WriteLogRecordsJSON {
             base.appendingPathComponent(SharedConstants().filenamelogrecordsjson)
         }
 
-        // Encode on main actor (CPU-bound, fast)
-        let encodeddata: Data
         do {
-            encodeddata = try EncodeGeneric().encode(logrecords)
-        } catch let err {
-            path.propagateError(error: err)
-            return
+            let encodeddata = try EncodeGeneric().encode(logrecords)
+            try await SharedJSONStorageWriter.shared.write(encodeddata, to: fileURL)
+        } catch {
+            path.propagateError(error: error)
+            Logger.process.errorMessageOnly(
+                "WriteLogRecordsJSON: persist failed - \(error.localizedDescription)"
+            )
         }
-
-        // Write off the main thread
-        Logger.process.debugMessageOnly("WriteLogRecordsJSON: writing to \(fileURL)")
-        Task.detached(priority: .utility) {
-            do {
-                try encodeddata.write(to: fileURL)
-            } catch {
-                await MainActor.run {
-                    SharedReference.shared.errorobject?.alert(error: error)
-                }
-                Logger.process.errorMessageOnly(
-                    "WriteLogRecordsJSON: write failed - \(error.localizedDescription)"
-                )
-            }
-        }
-    }
-
-    deinit {
-        Logger.process.debugMessageOnly("WriteLogRecordsJSON DEINIT")
     }
 }
