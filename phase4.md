@@ -2,18 +2,6 @@
 
 This file expands `cleanup.md` Phase 4 with concrete duplicate paths in the current code. The main issue is that log-data behavior is split across UI views, `Logging`, snapshot-specific code, and `ActorReadLogRecords`, so the same load/filter/sort/delete/persist work is repeated in several places.
 
-## Status snapshot
-
-| Area | Status | Notes |
-|---|---|---|
-| 4A. Shared loading boundary | **Done** | `LogStoreService.loadStore(...)` exists and is now the shared read entry point used by `Logging`, `LogRecordsTabView`, `SnapshotsView`, and chart loading. |
-| 4B. Shared configuration helper | **Done** | `Collection<SynchronizeConfiguration>` now provides `hiddenIDs`, `hiddenID(for:)`, and `backupID(for:)`. |
-| 4C. Selection-to-log resolution | **Partial** | Chart loading now resolves through `LogStoreService.chartEntries(...)`, but `LogRecordsTabView` still resolves `configurationID -> hiddenID` locally. |
-| 4D. Delete-and-persist service | **Not done** | `LogRecordsTabView` and `SnapshotsView` still perform delete + persist work directly. |
-| 4E. Shared log-result parser | **Partial** | The old actor-level chart parser was removed, but parsing is still duplicated between `Logging` and `LogChartService`. |
-| 4F. Unified chart preparation | **Done** | `ObservableChartData` is gone, `LogStatsChartView` now asks `LogStoreService` for chart entries, and `LogChartReducer` has test coverage. |
-| 4G. Snapshot/log merge service | **Not done** | `Snapshotlogsandcatalogs` still owns merge logic and still stores raw `readlogrecordsfromfile` for later delete. |
-
 ## 1. Current duplication map
 
 | Responsibility | Current duplicate locations | Notes |
@@ -29,7 +17,7 @@ This file expands `cleanup.md` Phase 4 with concrete duplicate paths in the curr
 
 ## 2. Detailed duplicate paths
 
-### A. Loading the same log store from multiple entry points
+### A. Shared loading boundary - **Done**
 
 Before the refactor, these entry points all performed the same domain step: read persisted log records for a profile, restricted to valid task IDs.
 
@@ -38,6 +26,8 @@ Before the refactor, these entry points all performed the same domain step: read
 - `LogRecordsTabView.reloadLogsForProfile()` reloads the exact same store after a profile change (`LogRecordsTabView.swift:184-196`).
 - `SnapshotsView.getData()` loads the same store before snapshot/catalog merging (`SnapshotsView.swift:225-232`).
 - `ObservableChartData.readandparselogs(...)` loads the same store before chart parsing (`ObservableChartData.swift:17-24`).
+
+This item is **done**: `LogStoreService.loadStore(...)` is now the shared read entry point used by `Logging`, `LogRecordsTabView`, `SnapshotsView`, and chart loading.
 
 Phase 4A lands as one shared loading boundary:
 
@@ -54,7 +44,7 @@ enum LogStoreService {
 
 That keeps `Logging.create(...)`, `LogRecordsTabView`, `SnapshotsView`, and `ObservableChartData` on the same entry point even before the broader log-domain service exists.
 
-### B. `validhiddenIDs` is repeated in four places
+### B. Shared configuration helper - **Done**
 
 All four implementations do this:
 
@@ -75,6 +65,8 @@ Before the refactor, the repeated copies were:
 - `SnapshotsView.validhiddenIDs`
 - `LogStatsChartView.validhiddenIDs`
 
+This item is **done**: `Collection<SynchronizeConfiguration>` now provides `hiddenIDs`, `hiddenID(for:)`, and `backupID(for:)`.
+
 Phase 4B uses one shared configuration helper:
 
 ```swift
@@ -87,13 +79,15 @@ extension Collection where Element == SynchronizeConfiguration {
 
 That removes the repeated `validhiddenIDs` loop and also centralizes selection-to-configuration lookups that already drifted into the same views.
 
-### C. Selection-to-log resolution is UI-owned in multiple places
+### C. Selection-to-log resolution - **Partial**
 
 The UI repeatedly converts `selecteduuids.first` into a `hiddenID`:
 
 - `LogRecordsTabView.loadInitialLogs()` (`LogRecordsTabView.swift:163-168`)
 - `LogRecordsTabView.updateLogsForSelection()` (`LogRecordsTabView.swift:198-203`)
 - `LogStatsChartView.hiddenID` (`LogStatsChartView.swift:222-231`)
+
+This item is **partially done**: chart loading now resolves through `LogStoreService.chartEntries(...)`, but `LogRecordsTabView` still resolves `configurationID -> hiddenID` locally.
 
 That mapping is not presentation logic; it is domain selection logic. A service API should accept either:
 
@@ -109,7 +103,9 @@ func hiddenID(for configurationID: SynchronizeConfiguration.ID?) -> Int?
 
 so the resolution is implemented once.
 
-### D. Delete-and-persist is duplicated in two views
+### D. Delete-and-persist service - **Not done**
+
+This item is **not done**: `LogRecordsTabView` and `SnapshotsView` still perform delete + persist work directly.
 
 #### `LogRecordsTabView.deleteLogs`
 
@@ -136,7 +132,9 @@ func deleteLogs(
 
 Then each view only refreshes its own presentation state.
 
-### E. Number parsing is duplicated in `Logging` and `ActorReadLogRecords`
+### E. Shared log-result parser - **Partial**
+
+This item is **partially done**: the old actor-level chart parser was removed, but parsing is still duplicated between `Logging` and `LogChartService`.
 
 Both files define:
 
@@ -168,7 +166,9 @@ Then:
 - Chart preparation uses it for `LogEntry`.
 - Snapshot-related code can inspect snapshot number explicitly instead of relying on raw string format.
 
-### F. Chart preparation is split across three layers
+### F. Unified chart preparation - **Done**
+
+This item is **done**: `ObservableChartData` is gone, `LogStatsChartView` now asks `LogStoreService` for chart entries, and `LogChartReducer` has test coverage.
 
 The current chart path mixes persistence, transformation, and UI policy:
 
@@ -219,7 +219,9 @@ With that split:
 - `ObservableChartData` becomes either plain observable UI state or disappears entirely
 - `ActorReadLogRecords` stops exposing chart-specific helpers and returns to storage-oriented responsibilities
 
-### G. Snapshot-specific merge logic repeats log-merging work
+### G. Snapshot/log merge service - **Not done**
+
+This item is **not done**: `Snapshotlogsandcatalogs` still owns merge logic and still stores raw `readlogrecordsfromfile` for later delete.
 
 `Snapshotlogsandcatalogs` merges all logs again to compute `notmappedloguuids`:
 
