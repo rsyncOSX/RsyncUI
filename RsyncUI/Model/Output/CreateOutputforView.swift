@@ -1,5 +1,5 @@
 //
-//  ActorCreateOutputforView.swift
+//  CreateOutputforView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 02/07/2025.

@@ -102,8 +102,15 @@ struct SidebarMainView: View {
             Button("OK", role: .cancel) {}
         }
         .task {
-            newversion.notifynewversion = await ActorGetversionofRsyncUI().getversionsofrsyncui()
-            SharedReference.shared.newversion = newversion.notifynewversion
+            let result = await loadData()
+
+            newversion.notifynewversion = result.version
+            SharedReference.shared.newversion = result.version
+
+            if result.scheduledata.count > 0 {
+                schedules.appendschdeuldatafromfile(result.scheduledata)
+            }
+
             if SharedReference.shared.sidebarishidden {
                 columnVisibility = .detailOnly
             }
@@ -113,11 +120,6 @@ struct SidebarMainView: View {
                 // Observer for mounting volumes
                 observerDidMountNotification()
                 observerDidUnmountNotification()
-            }
-            if let scheduledata = ReadSchedule()
-                .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) {
-                guard scheduledata.count > 0 else { return }
-                schedules.appendschdeuldatafromfile(scheduledata)
             }
 
             // Delete any default UserSetttings applied within AddTask
@@ -156,6 +158,14 @@ struct SidebarMainView: View {
                 handleURLSidebarMainView(url, externalURL: true)
             }
         }
+    }
+
+    func loadData() async -> (version: Bool, scheduledata: [SchedulesConfigurations]) {
+        async let version = GetversionofRsyncUI().getversionsofrsyncui()
+        async let scheduledata = ReadSchedule()
+            .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) ?? []
+
+        return await (version, scheduledata)
     }
 
     @MainActor @ViewBuilder

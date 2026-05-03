@@ -188,7 +188,7 @@ extension RestoreTableView {
     }
 
     func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        Task { 
+        Task {
             gettingfilelist = false
             restore.restorefilelist.removeAll()
             let list = await CreateOutputforView().createoutputforrestore(stringoutputfromrsync)

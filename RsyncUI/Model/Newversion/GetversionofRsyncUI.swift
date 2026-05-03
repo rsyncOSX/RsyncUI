@@ -1,5 +1,5 @@
 //
-//  ActorGetversionofRsyncUI.swift
+//  GetversionofRsyncUI.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 02/07/2025.
@@ -8,7 +8,7 @@
 import DecodeEncodeGeneric
 import OSLog
 
-actor ActorGetversionofRsyncUI {
+struct GetversionofRsyncUI {
     private func fetchMatchingVersions() async throws -> [VersionsofRsyncUI] {
         let all = try await DecodeGeneric().decodeArray(VersionsofRsyncUI.self,
                                                         fromURL: Resources().getResource(resource: .urlJSON))
