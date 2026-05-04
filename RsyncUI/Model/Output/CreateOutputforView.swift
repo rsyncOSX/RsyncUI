@@ -9,7 +9,7 @@ import OSLog
 
 struct CreateOutputforView {
     /// From Array[String]
-    func createOutputForView(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
+    func createOutputForView(_ stringoutputfromrsync: [String]?) -> [RsyncOutputData] {
         Logger.process.debugThreadOnly("CreateOutputforView: createaoutputforview()")
         if let stringoutputfromrsync {
             return stringoutputfromrsync.map { line in
@@ -33,7 +33,7 @@ struct CreateOutputforView {
     }
 
     /// After a restore, present files
-    func createoutputafterrestore(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
+    func createoutputafterrestore(_ stringoutputfromrsync: [String]?) -> [RsyncOutputData] {
         Logger.process.debugThreadOnly("CreateOutputforView: createoutputafterrestore()")
         if let stringoutputfromrsync {
             return stringoutputfromrsync.map { filename in

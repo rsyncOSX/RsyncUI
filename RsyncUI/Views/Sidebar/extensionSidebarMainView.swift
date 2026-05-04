@@ -60,26 +60,20 @@ extension SidebarMainView {
     }
 
     private func handleDefaultProfileEstimate(_ queryitems: [URLQueryItem], _ externalURL: Bool) {
-        Task {
-            if externalURL {
-                async let loadprofile = loadProfileForExternalURLLink(nil)
-                guard await loadprofile else { return }
-            }
-            if let count = rsyncUIdata.configurations?.count, count > 0 {
-                queryitem = queryitems[0]
-            }
+        if externalURL {
+            guard loadProfileForExternalURLLink(nil) else { return }
+        }
+        if let count = rsyncUIdata.configurations?.count, count > 0 {
+            queryitem = queryitems[0]
         }
     }
 
     private func handleNamedProfileEstimate(_ profile: String, _ queryitems: [URLQueryItem], _ externalURL: Bool) {
-        Task {
-            if externalURL {
-                async let loadprofile = loadProfileForExternalURLLink(profile)
-                guard await loadprofile else { return }
-            }
-            if let count = rsyncUIdata.configurations?.count, count > 0 {
-                queryitem = queryitems[0]
-            }
+        if externalURL {
+            guard loadProfileForExternalURLLink(profile) else { return }
+        }
+        if let count = rsyncUIdata.configurations?.count, count > 0 {
+            queryitem = queryitems[0]
         }
     }
 
@@ -91,8 +85,8 @@ extension SidebarMainView {
             queue: .main
         ) { notification in
             if let volumeURL = notification.userInfo?[NSWorkspace.volumeURLUserInfoKey] as? URL {
-                Task {
-                    guard await tasksAreInProgress() == false else { return }
+                Task { @MainActor in
+                    guard tasksAreInProgress() == false else { return }
                     await verifyAndLoadProfileMountedVolume(volumeURL)
                 }
             }
@@ -106,8 +100,8 @@ extension SidebarMainView {
             object: nil,
             queue: .main
         ) { _ in
-            Task {
-                guard await tasksAreInProgress() == false else { return }
+            Task { @MainActor in
+                guard tasksAreInProgress() == false else { return }
                 await verifyAndLoadProfileMountedVolume(nil)
             }
         }
@@ -142,7 +136,7 @@ extension SidebarMainView {
     }
 
     /// Must check that no tasks are running
-    private func tasksAreInProgress() async -> Bool {
+    private func tasksAreInProgress() -> Bool {
         guard SharedReference.shared.process == nil else { return true }
         // And no execution is in progress
         guard rsyncUIdata.executetasksinprogress == false else { return true }
@@ -154,7 +148,7 @@ extension SidebarMainView {
 
     /// Must load profile for URL-link async to make sure profile is
     /// loaded ahead of start requested action. Only for external URL requests
-    func loadProfileForExternalURLLink(_ profile: String?) async -> Bool {
+    func loadProfileForExternalURLLink(_ profile: String?) -> Bool {
         rsyncUIdata.externalurlrequestinprogress = true
         if profile == nil {
             rsyncUIdata.profile = nil

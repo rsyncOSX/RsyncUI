@@ -66,7 +66,9 @@ struct OneTaskDetailsView: View {
             streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
                 fileHandler: { _ in },
                 processTermination: { output, hiddenID in
-                    processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+                    Task { @MainActor in
+                        processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+                    }
                 },
                 cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
             )
@@ -131,17 +133,15 @@ struct OneTaskDetailsView: View {
                                               config: selectedconfig)
         remotedatanumbers?.itemizechanges = itemizechanges
 
-        Task {
-            remotedatanumbers?.outputfromrsync = await CreateOutputforView().createOutputForView(stringoutputfromrsync)
+        remotedatanumbers?.outputfromrsync = CreateOutputforView().createOutputForView(stringoutputfromrsync)
 
-            if let remotedatanumbers {
-                progressdetails.appendRecordEstimatedList(remotedatanumbers)
-            }
-
-            estimateiscompleted = true
-            // Release streaming references to avoid retain cycles
-            activeStreamingProcess = nil
-            streamingHandlers = nil
+        if let remotedatanumbers {
+            progressdetails.appendRecordEstimatedList(remotedatanumbers)
         }
+
+        estimateiscompleted = true
+        // Release streaming references to avoid retain cycles
+        activeStreamingProcess = nil
+        streamingHandlers = nil
     }
 }

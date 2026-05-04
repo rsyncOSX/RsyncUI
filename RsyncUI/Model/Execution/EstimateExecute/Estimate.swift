@@ -154,7 +154,7 @@ extension Estimate {
 
         Task { [self, originalOutput] in
             // Create data for output rsync for view off-main
-            let output = await CreateOutputforView().createOutputForView(originalOutput)
+            let output = CreateOutputforView().createOutputForView(originalOutput)
             record.outputfromrsync = output
             localprogressdetails?.appendRecordEstimatedList(record)
 

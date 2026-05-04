@@ -30,21 +30,27 @@ struct LogfileView: View {
                     text: "Reset",
                     helpText: "Reset logfile"
                 ) {
-                    reset()
+                    Task {
+                        await reset()
+                    }
                 }
             }
         }
         .padding()
         .task {
-            logfilerecords = await CreateOutputforView().createaoutputlogfileforview()
+            await loadLogfile()
         }
     }
 
-    func reset() {
-        Task {
-            await ActorLogToFile().reset()
-            logfilerecords = await CreateOutputforView().createaoutputlogfileforview()
-        }
+    @MainActor
+    private func loadLogfile() async {
+        logfilerecords = await CreateOutputforView().createaoutputlogfileforview()
+    }
+
+    @MainActor
+    private func reset() async {
+        await ActorLogToFile().reset()
+        await loadLogfile()
     }
 }
 

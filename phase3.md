@@ -5,10 +5,10 @@ This file expands `cleanup.md` Phase 3 with current progress from the codebase a
 ## 1. Current-state summary
 
 - **Done - 3A. Log-data actor reduction:** `cleanup.md` originally kept three log-data actors: `ActorLogToFile`, `ActorReadLogRecordsJSON`, and `ActorLogChartsData`. The current tree is down to two actor files: `ActorLogToFile.swift` and `ActorReadLogRecords.swift`. Chart preparation moved into `LogChartService` and `LogStoreService`, SwiftUI views now call `LogStoreService` instead of `ActorReadLogRecords`, and `ActorReadLogRecords` is reduced to JSON read responsibility.
-- **Done - 3B. Thin actor removal:** `ActorCreateOutputforView` and `ActorGetversionofRsyncUI` were replaced by plain async helper structs: `CreateOutputforView.swift` and `GetversionofRsyncUI.swift`.
+- **Done - 3B. Thin actor removal:** `ActorCreateOutputforView` and `ActorGetversionofRsyncUI` were replaced by plain helper structs: `CreateOutputforView.swift` and `GetversionofRsyncUI.swift`.
 - **Done - 3C. Detached persistence replacement:** `WriteSynchronizeConfigurationJSON.write(...)` and `WriteLogRecordsJSON.write(...)` now await `SharedJSONStorageWriter.shared.write(...)` instead of launching detached fire-and-forget writes.
-- **Partial - 3D. Unstructured `Task` cleanup:** current search still finds 51 `Task {}` sites. Several are valid callback bridges, debounce flows, or UI timing delays; several others are still adapter-style wrappers around helper calls or view-owned async orchestration.
-- **Partial - 3E. Single log-data boundary review:** chart loading is centralized behind `LogStoreService.chartEntries(...)`, and log filtering/delete/selection now resolve through `LogStoreService`, but snapshot loading and some log-domain work are still split between `LogStoreService`, `Logging`, `SnapshotsView`, and snapshot helpers.
+- **Partial - 3D. Unstructured `Task` cleanup:** current search now finds 50 `Task {}` sites. The first downstream cleanup slice landed: pure `CreateOutputforView` mapping calls in quick task, verify/details, restore-after-execute, logfile reload, and estimate flows no longer need adapter-style helper tasks. Several valid callback bridges, debounce flows, and UI timing delays still remain, along with a smaller set of view-owned orchestration tasks.
+- **Partial - 3E. Single log-data boundary review:** chart loading is centralized behind `LogStoreService.chartEntries(...)`, log filtering/delete/selection resolve through `LogStoreService`, and snapshot loading now funnels through one `loadSnapshotData(for:)` entry point in `SnapshotsView`. Snapshot assembly and some write-side log-domain work are still split between `LogStoreService`, `Logging`, `SnapshotsView`, and snapshot helpers.
 
 ## 2. Git-backed cleanup matrix
 
@@ -17,8 +17,8 @@ This file expands `cleanup.md` Phase 3 with current progress from the codebase a
 | 3A. Log-data actor reduction | `3960220e` deleted `ActorLogChartsData.swift` and replaced `ActorReadLogRecordsJSON.swift` with `ActorReadLogRecords.swift`; `7ce54ce1` deleted `ObservableChartData.swift` and added `LogChartService.swift` | **Done** | The actor count is reduced, views now route log selection/filter/delete through `LogStoreService`, and `ActorReadLogRecords` is back to storage-only reads. |
 | 3B. Thin actor removal | `a51d53cf` renamed `ActorCreateOutputforView.swift` to `CreateOutputforView.swift`; `2db9ac26` renamed `ActorGetversionofRsyncUI.swift` to `GetversionofRsyncUI.swift` | **Done** | The actor wrappers are gone. Remaining work is call-site cleanup, not actor removal. |
 | 3C. Detached persistence replacement | `d35aac7f` started logfile concurrency cleanup; `e7830374` added `SharedJSONStorageWriter.swift` and updated both JSON writers | **Done** | Detached persistence is removed from configuration and log-store writes. |
-| 3D. Unstructured `Task` cleanup | Current search still shows 51 `Task {}` sites, 1 `ActorReadLogRecords(...)` call site, 8 `CreateOutputforView()` call sites, and 2 `GetversionofRsyncUI()` call sites | **Partial** | The easiest accidental async boundaries are removed, but many adapter-style tasks remain. |
-| 3E. Single log-data boundary review | `LogStoreService.swift`, `LogChartService.swift`, `LogRecordsTabView.swift:140-204`, `SnapshotsView.swift:215-291` | **Partial** | Chart entry creation is centralized, and delete/filter/select flows now live behind `LogStoreService`, but snapshot load orchestration is still view-owned. |
+| 3D. Unstructured `Task` cleanup | Current search now shows 50 `Task {}` sites, 1 `ActorReadLogRecords(...)` call site, 7 `CreateOutputforView()` call sites, and 2 `GetversionofRsyncUI()` call sites | **Partial** | The first adapter-cleanup slice is landed, but several orchestration and sync-entry wrapper tasks remain. |
+| 3E. Single log-data boundary review | `LogStoreService.swift`, `LogChartService.swift`, `LogRecordsTabView.swift:140-204`, `SnapshotsView.swift:192-280` | **Partial** | Chart entry creation is centralized, delete/filter/select flows live behind `LogStoreService`, and snapshot reload now goes through `loadSnapshotData(for:)`, but snapshot assembly is still initiated from the view and write-side log-domain work is still split. |
 
 ## 3. Detailed cleanup areas
 
@@ -43,7 +43,7 @@ What is already cleaner:
 
 What still remains after 3A:
 
-- `SnapshotsView.getData()` still launches a view-owned `Task {}` around `LogStoreService.loadStore(...)` and `Snapshotlogsandcatalogs(...)`.
+- `SnapshotsView.getData()` still launches a view-owned `Task {}`, but it now funnels through `loadSnapshotData(for:)` instead of inlining both `LogStoreService.loadStore(...)` and `Snapshotlogsandcatalogs(...)` in the view body.
 - `Logging` still owns store mutation for scheduled log insertion instead of sharing a fuller write-side service API.
 - Snapshot-specific merge and "unused log" calculations still live outside `LogStoreService`.
 
@@ -58,15 +58,15 @@ This item is **done**. Git shows the actor wrappers were replaced in place:
 
 Current replacements:
 
-- `CreateOutputforView.swift` is now a plain helper struct with async methods for output mapping and logfile presentation.
+- `CreateOutputforView.swift` is now a plain helper struct. The pure output-mapping helpers are synchronous, while the logfile and restore-list helpers stay async where they still cross storage or trimming boundaries.
 - `GetversionofRsyncUI.swift` is now a plain helper struct that fetches version metadata and exposes `getversionsofrsyncui()` and `downloadlinkofrsyncui()`.
 
 Current direct helper use shows the actor removal is landed:
 
-- `Estimate.swift`, `ObservableRestore.swift`, `OneTaskDetailsView.swift`, `VerifyTaskTabView.swift`, `RestoreTableView.swift`, `extensionQuickTaskView.swift`, and `LogfileView.swift` all call `CreateOutputforView()` directly.
+- `Estimate.swift`, `ObservableRestore.swift`, `OneTaskDetailsView.swift`, `VerifyTaskTabView.swift`, `RestoreTableView.swift`, `extensionQuickTaskView.swift`, and `LogfileView.swift` all still call `CreateOutputforView()` directly, but the pure-mapping call sites no longer need `await`.
 - `SidebarMainView.swift` and `AboutView.swift` both call `GetversionofRsyncUI()` directly.
 
-The remaining work here is downstream cleanup of `Task {}` wrappers around these helpers, not bringing the actors back.
+The remaining work here is the smaller set of true async helper/service entry points, not bringing the actors back.
 
 ### C. Detached persistence replacement - **Done**
 
@@ -89,7 +89,7 @@ That means the Phase 3 persistence outcome is already in place:
 
 ### D. Unstructured `Task` cleanup - **Partial**
 
-This item is **partially done**: the repo is no longer using actors and detached writes as generic wrappers, but it still contains many `Task {}` sites.
+This item is **partially done**: the repo is no longer using actors and detached writes as generic wrappers, and the first helper-wrapper cleanup slice is landed, but the repo still contains many `Task {}` sites.
 
 #### `Task` sites that still look justified
 
@@ -99,19 +99,18 @@ This item is **partially done**: the repo is no longer using actors and detached
 | `Estimate.swift:155-170`, `Execute.swift:50-57`, `238-323` | Rsync termination callbacks still need async follow-up work | **Keep for now** |
 | `GlobalTimer.swift:155-158`, `211-213` | `Timer` and wake-notification callbacks must bridge back to main-actor state | **Keep** |
 | `RestoreTableView.swift:49-59`, `LogRecordsTabView.swift:84-94`, `ListofTasksMainView.swift:61-75` | Debounce/cancellation behavior is intentional UI logic | **Keep** |
+| `ObservableRestore.swift:51-60`, `OneTaskDetailsView.swift:66-70`, `VerifyTaskTabView.swift:125-130`, `extensionQuickTaskView.swift:86-92`, `LogfileView.swift:28-53`, `extensionSidebarMainView.swift:80-106` | Callback or button-entry bridges that now wrap the sync/async boundary directly instead of wrapping helper work | **Keep** |
 | `SidebarStatusMessagesView.swift`, `QuicktaskFormView.swift`, `ButtonStyles.swift`, `CompletedView.swift`, `SummarizedDetailsContentView.swift` | Simple UI timing and auto-dismiss behavior | **Keep** |
 
 #### `Task` sites that remain cleanup targets
 
 | File and lines | What the task is still compensating for | Status |
 |---|---|---|
-| `ObservableRestore.swift:36-39`, `OneTaskDetailsView.swift:134-173`, `VerifyTaskTabView.swift:170-173`, `extensionQuickTaskView.swift:120-138`, `LogfileView.swift:44-47` | Wrapper tasks around `CreateOutputforView` helper calls | **Partial** |
 | `ConfigurationsTableLoadDataView.swift:71-80` | Profile reload is still wrapped in an ad hoc task instead of one loader path | **Not done** |
-| `extensionSidebarMainView.swift:63-112` | Deeplink and workspace reload flows still create inline tasks around profile-loading work | **Partial** |
-| `SnapshotsView.swift:216-224`, `271-275` | Snapshot load and timing flows still launch view-owned tasks around log-store work | **Partial** |
+| `SnapshotsView.swift:214-215` | Snapshot loading now goes through `loadSnapshotData(for:)`, but the view still owns the task that kicks off snapshot assembly | **Partial** |
 | `InterruptProcess.swift:12-17` | Interrupt logging still depends on a task launched from a sync initializer | **Not done** |
 
-The clearest sign of unfinished work is that `CreateOutputforView()` now exists as a plain helper, but it still has eight call sites and several of them are only async because the old actor wrapper disappeared before the surrounding task adapters were simplified.
+The clearest sign of unfinished work is no longer the pure `CreateOutputforView` mapping path. Those call sites are now simplified. The remaining Phase 3 cleanup targets are the view-owned orchestration tasks and older sync-entry wrappers such as profile reload and interrupt logging.
 
 ### E. Single log-data boundary review - **Partial**
 
@@ -135,11 +134,11 @@ That is real progress, and the shared configuration helpers in `LogStoreService.
 
 What is still incomplete:
 
-- `SnapshotsView.getData()` still launches a `Task {}` that combines `LogStoreService.loadStore(...)` with `Snapshotlogsandcatalogs(...)`.
+- `SnapshotsView.getData()` still launches a `Task {}`, but the actual load path is now centralized in `loadSnapshotData(for:)`.
 - `Logging` still mutates and persists log-store state directly for scheduled inserts instead of going through a fuller write-side service API.
 - Snapshot-related merge and "unused log" calculations are still outside the service boundary.
 
-Phase 3 therefore now has the filter/delete side of the boundary in much better shape, while snapshot assembly and write-side log-domain work remain the next cleanup targets.
+Phase 3 therefore now has the filter/delete side of the boundary in much better shape, and snapshot reload is less ad hoc than before, while snapshot assembly and write-side log-domain work remain the next cleanup targets.
 
 ## 4. Suggested target structure after current Phase 3 work
 
@@ -170,9 +169,9 @@ One reasonable end state is now visible in the code:
 1. **Done** - Remove thin actors by keeping `CreateOutputforView` and `GetversionofRsyncUI` as plain helpers.
 2. **Done** - Keep JSON persistence on one awaited writer instead of detached tasks.
 3. **Partial** - Keep chart preparation behind `LogStoreService.chartEntries(...)` and `LogChartReducer`.
-4. **Partial** - Finish the downstream adapter cleanup around `CreateOutputforView` call sites.
+4. **Partial** - Continue collapsing the remaining async entry points around `CreateOutputforView` and related view callbacks. The pure-mapping helper wrappers are already cleaned up.
 5. **Done** - Move `ActorReadLogRecords` filtering, selection, and delete calls behind `LogStoreService`.
-6. **Partial** - Convert view-owned snapshot and log-delete task flows into clearer async entry points or service calls.
+6. **Partial** - Convert the remaining view-owned snapshot task flow into a clearer service boundary; `SnapshotsView` now has a single `loadSnapshotData(for:)` entry point but still owns the kickoff task.
 7. **Not done** - Recheck the remaining `Task {}` inventory so only callback bridges, debounce tasks, and real UI timing tasks remain.
 
 ## 6. Phase 3 checkpoints
@@ -180,9 +179,9 @@ One reasonable end state is now visible in the code:
 - **Done** - Thin actor wrappers stay removed.
 - **Done** - No persistence path uses `Task.detached`.
 - **Done** - Chart preparation no longer depends on `ActorLogChartsData` or `ObservableChartData`.
-- **Partial** - `Task {}` sites are reduced, but many adapter-style tasks still remain.
+- **Partial** - `Task {}` sites are reduced to 50, and the first helper-wrapper cleanup slice is landed, but several adapter/orchestration tasks still remain.
 - **Done** - `ActorReadLogRecords` is smaller in scope than the old read/chart split, and views no longer call it directly.
 - **Done** - No SwiftUI view directly owns log delete/filter logic.
-- **Not done** - The remaining `Task {}` sites are all documented as either callback bridges, UI debounce flows, or intentional timing delays.
+- **Not done** - The remaining `Task {}` sites are not yet fully reduced to callback bridges, debounce flows, or intentional timing delays.
 
-If you use this file as the execution checklist, the next Phase 3 wins are the `CreateOutputforView` adapter cleanups first, then collapsing snapshot-load orchestration and remaining write-side log-domain work behind the same log-store boundary.
+If you use this file as the execution checklist, the next Phase 3 wins are `ConfigurationsTableLoadDataView` and `InterruptProcess` first, then collapsing the last snapshot-load kickoff task and remaining write-side log-domain work behind the same log-store boundary.

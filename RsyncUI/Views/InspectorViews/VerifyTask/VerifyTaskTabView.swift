@@ -125,7 +125,9 @@ struct VerifyTaskTabView: View {
         streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
             fileHandler: { _ in },
             processTermination: { output, hiddenID in
-                processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+                Task { @MainActor in
+                    processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+                }
             },
             cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
         )
@@ -152,6 +154,7 @@ struct VerifyTaskTabView: View {
         }
     }
 
+    @MainActor
     func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
         estimating = false
 
@@ -167,10 +170,8 @@ struct VerifyTaskTabView: View {
                                               config: selectedconfig)
         remotedatanumbers?.itemizechanges = itemizechanges
 
-        Task {
-            remotedatanumbers?.outputfromrsync = await CreateOutputforView().createOutputForView(stringoutputfromrsync)
-            presentestimates = true
-        }
+        remotedatanumbers?.outputfromrsync = CreateOutputforView().createOutputForView(stringoutputfromrsync)
+        presentestimates = true
         // Release streaming references to avoid retain cycles
         activeStreamingProcess = nil
         streamingHandlers = nil

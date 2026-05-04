@@ -85,7 +85,11 @@ extension QuicktaskView {
         // Create streaming handlers and retain them (with enforced cleanup)
         streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
             fileHandler: fileHandler,
-            processTermination: { output, exitCode in processTermination(output, exitCode) },
+            processTermination: { output, exitCode in
+                Task { @MainActor in
+                    processTermination(output, exitCode)
+                }
+            },
             cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
         )
 
@@ -116,20 +120,18 @@ extension QuicktaskView {
         InterruptProcess()
     }
 
+    @MainActor
     func processTermination(_ stringoutputfromrsync: [String]?, _: Int?) {
-        Task { @MainActor in
-            showprogressview = false
-            if dryrun {
-                max = Double(stringoutputfromrsync?.count ?? 0)
-            }
-
-            let output = await CreateOutputforView().createOutputForView(stringoutputfromrsync)
-            rsyncoutput.output = output
-            completed = true
-            // Release process and handler references on completion
-            activeStreamingProcess = nil
-            streamingHandlers = nil
+        showprogressview = false
+        if dryrun {
+            max = Double(stringoutputfromrsync?.count ?? 0)
         }
+
+        rsyncoutput.output = CreateOutputforView().createOutputForView(stringoutputfromrsync)
+        completed = true
+        // Release process and handler references on completion
+        activeStreamingProcess = nil
+        streamingHandlers = nil
     }
 
     func fileHandler(count: Int) {

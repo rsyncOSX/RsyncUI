@@ -187,13 +187,12 @@ extension RestoreTableView {
         InterruptProcess()
     }
 
-    func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
-        Task {
-            gettingfilelist = false
-            restore.restorefilelist.removeAll()
-            let list = await CreateOutputforView().createoutputforrestore(stringoutputfromrsync)
-            restore.restorefilelist = list
-        }
+    @MainActor
+    func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) async {
+        gettingfilelist = false
+        restore.restorefilelist.removeAll()
+        let list = await CreateOutputforView().createoutputforrestore(stringoutputfromrsync)
+        restore.restorefilelist = list
     }
 
     func getFileList() {
@@ -218,7 +217,9 @@ extension RestoreTableView {
             streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
                 fileHandler: { _ in },
                 processTermination: { output, hiddenID in
-                    processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+                    Task { @MainActor in
+                        await processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+                    }
                 },
                 cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
             )

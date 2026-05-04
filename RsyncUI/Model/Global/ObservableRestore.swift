@@ -33,10 +33,7 @@ final class ObservableRestore {
         if dryrun {
             max = Double(stringoutputfromrsync?.count ?? 0)
         }
-        Task {
-            restorefilelist = await
-                CreateOutputforView().createoutputafterrestore(stringoutputfromrsync)
-        }
+        restorefilelist = CreateOutputforView().createoutputafterrestore(stringoutputfromrsync)
         restorefilesinprogress = false
         presentrestorelist = true
         // Release streaming references to avoid retain cycles
@@ -52,9 +49,15 @@ final class ObservableRestore {
     func executeRestore() {
         var arguments: [String]?
         streamingHandlers = CreateStreamingHandlers().createHandlers(
-            fileHandler: { [weak self] count in self?.fileHandler(count: count) },
-            processTermination: { output, hiddenID in
-                self.processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+            fileHandler: { [weak self] count in
+                Task { @MainActor in
+                    self?.fileHandler(count: count)
+                }
+            },
+            processTermination: { [weak self] output, hiddenID in
+                Task { @MainActor in
+                    self?.processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+                }
             }
         )
 

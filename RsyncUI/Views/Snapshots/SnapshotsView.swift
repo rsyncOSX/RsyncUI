@@ -17,8 +17,6 @@ struct SnapshotsView: View {
     // Plan for tagging and administrating snapshots
     @State private var snaplast: String = PlanSnapshots.last.rawValue
     @State private var snapdayofweek: String = StringDayofweek.sunday.rawValue
-    /// Update plan and snapday
-    @State private var updated: Bool = false
     // Focus buttons from the menu
     @State private var focustagsnapshot: Bool = false
     @State private var focusaborttask: Bool = false
@@ -213,19 +211,24 @@ extension SnapshotsView {
                 self.snapdayofweek = snapdayofweek
             }
             snapshotdata.snapshotlist = true
-
-            if let config = selectedconfig {
-                Task {
-                    async let logrecords = LogStoreService.loadStore(
-                        profile: rsyncUIdata.profile,
-                        configurations: rsyncUIdata.configurations
-                    )
-                    _ = await Snapshotlogsandcatalogs(config: config,
-                                                      logrecords: logrecords,
-                                                      snapshotdata: snapshotdata)
-                }
+            Task {
+                await loadSnapshotData(for: config)
             }
         }
+    }
+
+    @MainActor
+    private func loadSnapshotData(for config: SynchronizeConfiguration) async {
+        let logrecords = await LogStoreService.loadStore(
+            profile: rsyncUIdata.profile,
+            configurations: rsyncUIdata.configurations
+        )
+
+        _ =  Snapshotlogsandcatalogs(
+            config: config,
+            logrecords: logrecords,
+            snapshotdata: snapshotdata
+        )
     }
 
     func tagSnapshots() {
@@ -267,11 +270,7 @@ extension SnapshotsView {
             Task { @MainActor in
                 await updateconfiguration.updateConfiguration(selectedconfig, false)
                 rsyncUIdata.configurations = updateconfiguration.configurations
-                updated = true
             }
-        }
-        Task {
-            try? await Task.sleep(seconds: 2)
         }
     }
 
