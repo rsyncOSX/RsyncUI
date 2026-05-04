@@ -23,10 +23,8 @@ struct ReadSynchronizeConfigurationJSON {
                 filename = fullpathmacserial.appending("/") + SharedConstants().fileconfigurationsjson
             }
         }
-        let decodeimport = DecodeGeneric()
         do {
-            let data = try
-                decodeimport.decodeArray(DecodeSynchronizeConfiguration.self, fromFile: filename)
+            let data = try DecodeGeneric().decodeArray(DecodeSynchronizeConfiguration.self, fromFile: filename)
 
             Logger.process.debugThreadOnly("ReadSynchronizeConfigurationJSON - \(profile ?? "default") ?? DECODE")
             return data.compactMap { element in

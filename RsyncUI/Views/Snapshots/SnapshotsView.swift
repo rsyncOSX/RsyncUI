@@ -224,7 +224,7 @@ extension SnapshotsView {
             configurations: rsyncUIdata.configurations
         )
 
-        _ =  Snapshotlogsandcatalogs(
+        _ = Snapshotlogsandcatalogs(
             config: config,
             logrecords: logrecords,
             snapshotdata: snapshotdata

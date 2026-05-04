@@ -25,11 +25,8 @@ actor ActorReadLogRecords {
 
         Logger.process.debugMessageOnly("ActorReadLogRecordsJSON: readjsonfilelogrecords() from \(filename)")
 
-        let decodeimport = DecodeGeneric()
         do {
-            let data = try
-                decodeimport.decodeArray(DecodeLogRecords.self, fromFile: filename)
-
+            let data = try DecodeGeneric().decodeArray(DecodeLogRecords.self, fromFile: filename)
             Logger.process.debugThreadOnly("ActorReadLogRecordsJSON - \(profile ?? "default")")
             return data.compactMap { element in
                 let item = LogRecords(element)

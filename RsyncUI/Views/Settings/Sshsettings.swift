@@ -15,7 +15,10 @@ struct Sshsettings: View {
     @State private var showsshkeyiscreated: Bool = false
 
     private func saveConfiguration() {
-        _ = WriteUserConfigurationJSON(UserConfiguration())
+        let snapshot = UserConfiguration()
+        Task { @MainActor in
+            await WriteUserConfigurationJSON.write(snapshot)
+        }
     }
 
     var body: some View {
@@ -58,7 +61,9 @@ struct Sshsettings: View {
                     }
             }
 
-            if showsshkeyiscreated { DismissafterMessageView(dismissafter: 2, mytext: "SSH key created. See the log file for details.") }
+            if showsshkeyiscreated {
+                DismissafterMessageView(dismissafter: 2, mytext: "SSH key created. See the log file for details.")
+            }
         }
         .formStyle(.grouped)
         .onChange(of: sshsettings.sshportnumber) {

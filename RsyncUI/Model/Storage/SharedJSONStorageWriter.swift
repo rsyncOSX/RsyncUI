@@ -3,6 +3,7 @@
 //  RsyncUI
 //
 
+import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
@@ -11,8 +12,9 @@ actor SharedJSONStorageWriter {
 
     private init() {}
 
-    func write(_ data: Data, to fileURL: URL) throws {
+    func write(_ value: sending some Encodable & Sendable, to fileURL: URL) throws {
         Logger.process.debugMessageOnly("SharedJSONStorageWriter: writing to \(fileURL)")
-        try data.write(to: fileURL)
+        let encodeddata = try EncodeGeneric().encode(value)
+        try encodeddata.write(to: fileURL)
     }
 }

@@ -17,7 +17,10 @@ struct Logsettings: View {
 
     /// Helper function to keep the save logic in one place
     private func saveConfiguration() {
-        _ = WriteUserConfigurationJSON(UserConfiguration())
+        let snapshot = UserConfiguration()
+        Task { @MainActor in
+            await WriteUserConfigurationJSON.write(snapshot)
+        }
     }
 
     var body: some View {
@@ -35,11 +38,14 @@ struct Logsettings: View {
                             SharedReference.shared.addsummarylogrecord = logsettings.addsummarylogrecord
                             saveConfiguration()
                         }
-                    ToggleViewDefault(text: "Skip time delay for URL-triggered sync", binding: $logsettings.synchronizewithouttimedelay)
-                        .onChange(of: logsettings.synchronizewithouttimedelay) {
-                            SharedReference.shared.synchronizewithouttimedelay = logsettings.synchronizewithouttimedelay
-                            saveConfiguration()
-                        }
+                    ToggleViewDefault(
+                        text: "Skip time delay for URL-triggered sync",
+                        binding: $logsettings.synchronizewithouttimedelay
+                    )
+                    .onChange(of: logsettings.synchronizewithouttimedelay) {
+                        SharedReference.shared.synchronizewithouttimedelay = logsettings.synchronizewithouttimedelay
+                        saveConfiguration()
+                    }
                     ToggleViewDefault(text: "Hide the Sidebar on startup", binding: $logsettings.sidebarishidden)
                         .onChange(of: logsettings.sidebarishidden) {
                             SharedReference.shared.sidebarishidden = logsettings.sidebarishidden

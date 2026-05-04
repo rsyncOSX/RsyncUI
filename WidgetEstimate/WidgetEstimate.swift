@@ -48,7 +48,6 @@ struct RsyncUIEstimateProvider: @preconcurrency TimelineProvider {
     private func readconfiguration() -> String? {
         // Userconfiguration json file
         let userconfigjson = "rsyncuiconfig.json"
-        let decodeuserconfiguration = DecodeGeneric()
         var userconfigurationfile = ""
         if let path = documentscatalog {
             userconfigurationfile = path.appending("/") + userconfigjson
@@ -56,9 +55,8 @@ struct RsyncUIEstimateProvider: @preconcurrency TimelineProvider {
             return nil
         }
         do {
-            let importeddata = try
-                decodeuserconfiguration.decode(DecodeStringEstimate.self,
-                                               fromFile: userconfigurationfile)
+            let importeddata = try DecodeGeneric().decode(DecodeStringEstimate.self,
+                                                          fromFile: userconfigurationfile)
 
             return importeddata.urlstringestimate
         } catch {

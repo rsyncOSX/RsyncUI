@@ -13,7 +13,10 @@ struct RsyncandPathsettings: View {
 
     /// Helper function to keep the save logic in one place
     private func saveConfiguration() {
-        _ = WriteUserConfigurationJSON(UserConfiguration())
+        let snapshot = UserConfiguration()
+        Task { @MainActor in
+            await WriteUserConfigurationJSON.write(snapshot)
+        }
     }
 
     var body: some View {

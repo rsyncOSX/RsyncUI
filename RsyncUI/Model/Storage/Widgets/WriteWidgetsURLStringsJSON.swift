@@ -5,57 +5,45 @@
 //  Created by Thomas Evensen on 12/02/2022.
 //
 
-import DecodeEncodeGeneric
 import Foundation
 import OSLog
 import RsyncUIDeepLinks
 
 @MainActor
-struct WriteWidgetsURLStringsJSON {
-    let deeplinks = RsyncUIDeepLinks()
+enum WriteWidgetsURLStringsJSON {
     /// They are Sandboxed and Documents catalog, to reade the URL-strings is in a Container
-    let estimatestringsandboxcatalog = "Library/Containers/no.blogspot.RsyncUI.WidgetEstimate/Data/Documents"
+    static let estimatestringsandboxcatalog = "Library/Containers/no.blogspot.RsyncUI.WidgetEstimate/Data/Documents"
 
-    private func writeJSONToPersistentStore(jsonData: Data?) {
-        if let userHomeDirectoryPath = URL.userHomeDirectoryURLPath?.path() {
-            let pathestimate = userHomeDirectoryPath.appending("/" + estimatestringsandboxcatalog)
-            let fullpathURL = URL(fileURLWithPath: pathestimate)
-            let estimatefileURL = fullpathURL.appendingPathComponent(SharedReference.shared.userconfigjson)
-            Logger.process.debugMessageOnly("WriteWidgetsURLStringsJSON: URL-string \(estimatefileURL)")
-            if let jsonData {
-                do {
-                    try jsonData.write(to: estimatefileURL)
-                } catch let err {
-                    let error = err
-                    SharedReference.shared.errorobject?.alert(error: error)
-                }
-            }
-        }
-    }
+    static func write(_ urlwidgetstrings: WidgetURLstrings?) async {
+        guard let urlwidgetstrings else { return }
 
-    private func encodeJSONData(_ urlwidgetstrings: WidgetURLstrings) {
-        let encodejsondata = EncodeGeneric()
         do {
-            let encodeddata = try encodejsondata.encode(urlwidgetstrings)
-            writeJSONToPersistentStore(jsonData: encodeddata)
+            let valid = try RsyncUIDeepLinks().validateURLstring(urlwidgetstrings.urlstringestimate ?? "")
+            guard valid else { return }
+        } catch {
+            SharedReference.shared.errorobject?.alert(error: error)
+            return
+        }
+
+        guard let userHomeDirectoryPath = URL.userHomeDirectoryURLPath?.path() else { return }
+
+        let pathestimate = userHomeDirectoryPath.appending("/" + estimatestringsandboxcatalog)
+        let fullpathURL = URL(fileURLWithPath: pathestimate)
+        let estimatefileURL = fullpathURL.appendingPathComponent(SharedReference.shared.userconfigjson)
+        let snapshot = StoredWidgetURLStrings(urlstringestimate: urlwidgetstrings.urlstringestimate)
+
+        Logger.process.debugMessageOnly("WriteWidgetsURLStringsJSON: URL-string \(estimatefileURL)")
+
+        do {
+            try await SharedJSONStorageWriter.shared.write(snapshot, to: estimatefileURL)
             Logger.process.debugMessageOnly("WriteWidgetsURLStringsJSON: Writing URL-strings to permanent storage")
-        } catch let err {
+        } catch {
             Logger.process.errorMessageOnly("WriteWidgetsURLStringsJSON: ERROR writing user configurations to permanent storage")
-            let error = err
             SharedReference.shared.errorobject?.alert(error: error)
         }
     }
+}
 
-    @discardableResult
-    init(_ urlwidgetstrings: WidgetURLstrings?) {
-        if let urlwidgetstrings {
-            do {
-                let valid = try deeplinks.validateURLstring(urlwidgetstrings.urlstringestimate ?? "")
-                if valid { encodeJSONData(urlwidgetstrings) }
-            } catch let err {
-                let error = err
-                SharedReference.shared.errorobject?.alert(error: error)
-            }
-        }
-    }
+private struct StoredWidgetURLStrings: Codable {
+    var urlstringestimate: String?
 }

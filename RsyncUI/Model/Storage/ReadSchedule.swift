@@ -19,11 +19,9 @@ struct ReadSchedule {
             filename = fullpathmacserial.appending("/") + SharedConstants().caldenarfilejson
         }
 
-        let decodeimport = DecodeGeneric()
         do {
-            let data = try
-                decodeimport.decodeArray(DecodeSchedules.self,
-                                         fromFile: filename)
+            let data = try DecodeGeneric().decodeArray(DecodeSchedules.self,
+                                                       fromFile: filename)
 
             return data.compactMap { element in
                 let item = SchedulesConfigurations(element)

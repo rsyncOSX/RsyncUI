@@ -50,7 +50,9 @@ extension AddTaskView {
                                            text: "URL Estimate",
                                            helpText: "URL Estimate & Synchronize") {
                         let data = WidgetURLstrings(urletimate: stringestimate)
-                        WriteWidgetsURLStringsJSON(data)
+                        Task { @MainActor in
+                            await WriteWidgetsURLStringsJSON.write(data)
+                        }
                     }
                 }
             }

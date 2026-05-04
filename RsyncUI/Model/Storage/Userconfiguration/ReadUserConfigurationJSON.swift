@@ -14,15 +14,13 @@ struct ReadUserConfigurationJSON {
     let path = Homepath()
 
     func readuserconfiguration() {
-        let decodeuserconfiguration = DecodeGeneric()
         var userconfigurationfile = ""
         if let fullpathmacserial = path.fullpathmacserial {
             userconfigurationfile = fullpathmacserial.appending("/") + SharedReference.shared.userconfigjson
         }
         do {
-            let importeddata = try
-                decodeuserconfiguration.decode(DecodeUserConfiguration.self,
-                                               fromFile: userconfigurationfile)
+            let importeddata = try DecodeGeneric().decode(DecodeUserConfiguration.self,
+                                                          fromFile: userconfigurationfile)
 
             UserConfiguration(importeddata)
             Logger.process.debugThreadOnly("ReadUserConfigurationJSON: Reading user configurations")

@@ -15,10 +15,8 @@ final class ReadImportConfigurationsJSON {
     var maxhiddenID: Int = -1
 
     private func importjsonfile(_ filenameimport: String) {
-        let decodeimport = DecodeGeneric()
         do {
-            let importeddata = try
-                decodeimport.decodeArray(DecodeSynchronizeConfiguration.self, fromFile: filenameimport)
+            let importeddata = try DecodeGeneric().decodeArray(DecodeSynchronizeConfiguration.self, fromFile: filenameimport)
 
             importconfigurations = importeddata.map { importrecord in
                 var element = SynchronizeConfiguration(importrecord)

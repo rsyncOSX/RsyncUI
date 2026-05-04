@@ -85,7 +85,9 @@ struct AddSchedule: View {
                     }
 
                     if let scheduledatamapped = scheduledatamapped as? [SchedulesConfigurations] {
-                        WriteSchedule(scheduledatamapped)
+                        Task { @MainActor in
+                            await WriteSchedule.write(scheduledatamapped)
+                        }
                     }
                 }
                 .disabled(dateRun.en_date_from_string().isnexttwomonths == false)

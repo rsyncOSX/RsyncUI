@@ -74,7 +74,9 @@ struct CalendarMonthView: View {
                                     }
 
                                     if let scheduledatamapped = scheduledatamapped as? [SchedulesConfigurations] {
-                                        WriteSchedule(scheduledatamapped)
+                                        Task { @MainActor in
+                                            await WriteSchedule.write(scheduledatamapped)
+                                        }
                                     }
 
                                     if globaltimer.allSchedules.isEmpty {

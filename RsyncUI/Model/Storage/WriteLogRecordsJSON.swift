@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 27/04/2021.
 //
 
-import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
@@ -26,8 +25,7 @@ enum WriteLogRecordsJSON {
         }
 
         do {
-            let encodeddata = try EncodeGeneric().encode(logrecords)
-            try await SharedJSONStorageWriter.shared.write(encodeddata, to: fileURL)
+            try await SharedJSONStorageWriter.shared.write(logrecords, to: fileURL)
         } catch {
             path.propagateError(error: error)
             Logger.process.errorMessageOnly(

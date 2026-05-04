@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 27/04/2021.
 //
 
-import DecodeEncodeGeneric
 import Foundation
 import OSLog
 
@@ -26,8 +25,7 @@ enum WriteSynchronizeConfigurationJSON {
         }
 
         do {
-            let encodeddata = try EncodeGeneric().encode(configurations)
-            try await SharedJSONStorageWriter.shared.write(encodeddata, to: fileURL)
+            try await SharedJSONStorageWriter.shared.write(configurations, to: fileURL)
         } catch {
             path.propagateError(error: error)
             Logger.process.errorMessageOnly(

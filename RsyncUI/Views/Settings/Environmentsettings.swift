@@ -13,7 +13,10 @@ struct Environmentsettings: View {
     @State private var environment: String = ""
 
     private func saveConfiguration() {
-        _ = WriteUserConfigurationJSON(UserConfiguration())
+        let snapshot = UserConfiguration()
+        Task { @MainActor in
+            await WriteUserConfigurationJSON.write(snapshot)
+        }
     }
 
     var body: some View {

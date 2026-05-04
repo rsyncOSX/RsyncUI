@@ -69,8 +69,11 @@ struct ExportView: View {
                         activeSheet = nil
                         return
                     }
-                    _ = WriteExportConfigurationsJSON(path, selectedConfigurations())
-                    activeSheet = nil
+                    let configurations = selectedConfigurations()
+                    Task { @MainActor in
+                        await WriteExportConfigurationsJSON.write(path, configurations)
+                        activeSheet = nil
+                    }
                 }
 
                 if #available(macOS 26.0, *) {
