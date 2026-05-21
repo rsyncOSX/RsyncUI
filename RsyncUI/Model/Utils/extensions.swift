@@ -43,19 +43,11 @@ extension Date {
 
     var isnexttwomonths: Bool {
         let calendar = Calendar.current
-        let yearComponent = (calendar as NSCalendar).components(.year, from: self)
-        let monthComponent = (calendar as NSCalendar).components(.month, from: self)
-        let today = Date()
-        let todayComponentyear = (calendar as NSCalendar).components(.year, from: today)
-        let todaymonthComponent = (calendar as NSCalendar).components(.month, from: today)
-        if yearComponent == todayComponentyear {
-            if let selected = monthComponent.month, let today = todaymonthComponent.month {
-                if selected <= today + 1 {
-                    return true
-                }
-            }
-        }
-        return false
+        guard let nextMonth = calendar.date(byAdding: .month, value: 1, to: Date()),
+              let interval = calendar.dateInterval(of: .month, for: nextMonth),
+              let lastSecondOfNextMonth = calendar.date(byAdding: .second, value: -1, to: interval.end)
+        else { return false }
+        return self > Date.now && self <= lastSecondOfNextMonth
     }
 
     func localized_string_from_date() -> String {

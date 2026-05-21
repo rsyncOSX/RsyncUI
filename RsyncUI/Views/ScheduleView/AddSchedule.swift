@@ -22,6 +22,10 @@ struct AddSchedule: View {
     @State private var dateRunMonth: String = Date.now.en_string_month_from_date()
     @State private var dateRunHour: String = ""
 
+    private var plannedRun: String {
+        dateRunMonth + " " + dateRunHour
+    }
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -41,9 +45,9 @@ struct AddSchedule: View {
                     50,
                     "",
                     $dateRunHour,
-                    schedules.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour)
+                    schedules.verifynextschedule(plannednextschedule: plannedRun)
                 )
-                .foregroundStyle(schedules.verifynextschedule(plannednextschedule: dateRunMonth + " " + dateRunHour)
+                .foregroundStyle(schedules.verifynextschedule(plannednextschedule: plannedRun)
                     ? Color.white : Color.red)
 
                 ConditionalGlassButton(
@@ -61,36 +65,27 @@ struct AddSchedule: View {
                     systemImage: "plus",
                     helpText: "Add schedule"
                 ) {
-                    // Just concatenate month + minnutes string
-                    let run = dateRunMonth + " " + dateRunHour
                     let profile: String? = if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
                         rsyncUIdata.validprofiles[index].profilename
                     } else { nil }
 
-                    guard schedules.verifynextschedule(plannednextschedule: run) else {
+                    guard schedules.verifynextschedule(plannednextschedule: plannedRun) else {
                         return
                     }
 
-                    schedules.appendfutureschedule(profile: profile, dateRun: run, schedule: schedule)
+                    guard schedules.appendSchedule(profile: profile, dateRun: plannedRun, schedule: schedule) else {
+                        return
+                    }
 
                     date = Date.now
                     istappeddayint = 0
                     schedules.lastdateinnextmonth = schedules.computelastdateinnextmonth()
-                    // Recompute schedules and set first schedule to execute
-                    schedules.recomputeschedules()
 
-                    let globaltimer = GlobalTimer.shared
-                    let scheduledatamapped = globaltimer.allSchedules.map { item in
-                        item.scheduledata
-                    }
-
-                    if let scheduledatamapped = scheduledatamapped as? [SchedulesConfigurations] {
-                        Task { @MainActor in
-                            await WriteSchedule.write(scheduledatamapped)
-                        }
+                    Task { @MainActor in
+                        await WriteSchedule.write(schedules.scheduleDataForPersistence())
                     }
                 }
-                .disabled(dateRun.en_date_from_string().isnexttwomonths == false)
+                .disabled(schedules.validPlannedScheduleDate(plannedRun) == nil)
             }
             .padding()
         }
@@ -108,7 +103,7 @@ struct AddSchedule: View {
         Picker("",
                selection: $schedule) {
             ForEach(ScheduleType.allCases) { Text($0.description)
-                .tag($0)
+                .tag($0.rawValue)
             }
         }
         .pickerStyle(DefaultPickerStyle())
