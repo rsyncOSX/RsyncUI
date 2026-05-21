@@ -35,7 +35,8 @@ struct SchedulesConfigurations: Identifiable, Codable {
         profile = data.profile
     }
 
-    init(profile: String?, dateAdded: String?, dateRun: String?, schedule: String?) {
+    init(id: UUID = UUID(), profile: String?, dateAdded: String?, dateRun: String?, schedule: String?) {
+        self.id = id
         self.profile = profile
         self.dateAdded = dateAdded
         self.dateRun = dateRun

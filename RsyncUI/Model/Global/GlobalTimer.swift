@@ -58,7 +58,6 @@ final class GlobalTimer {
     /// Exposed Array of not executed Schedule
     var allSchedules = [ScheduledItem]()
     /// Schedules not executed after WakeUp - func handleWake()
-    @ObservationIgnored
     var notExecutedSchedulesafterWakeUp: [ScheduledItem] = []
 
     // MARK: - Properties
@@ -83,11 +82,12 @@ final class GlobalTimer {
 
     // MARK: - Public API
 
-    // FIX: Deduplication now uses the item's UUID (its stable identity) instead
-    // of matching on time+tolerance, which could silently drop two distinct
-    // schedules that happen to land on the same millisecond.
     private func validatescheduleinset(_ schedule: ScheduledItem) -> Bool {
-        allSchedules.contains(where: { $0.id == schedule.id })
+        allSchedules.contains { item in
+            item.time == schedule.time &&
+                item.scheduledata?.profile == schedule.scheduledata?.profile &&
+                item.scheduledata?.schedule == schedule.scheduledata?.schedule
+        }
     }
 
     /// Check if there is already an earlier timer in the set.
@@ -108,6 +108,17 @@ final class GlobalTimer {
         timer?.invalidate()
         timer = nil
         allSchedules.removeAll()
+    }
+
+    func refreshTimerAfterScheduleMutation() {
+        if allSchedules.isEmpty {
+            invalidateAllSchedulesAndTimer()
+            firstscheduledate = nil
+        } else {
+            allSchedules = allSchedules.sorted(by: { $0.time < $1.time })
+            setfirsscheduledate()
+            scheduleNextTimer()
+        }
     }
 
     /// Schedule a task to run at a specific time
@@ -221,10 +232,11 @@ final class GlobalTimer {
         notExecutedSchedulesafterWakeUp = notExecutedSchedulesafterWakeUp.sorted(by: { $0.time < $1.time })
         if allSchedules.isEmpty {
             invalidateAllSchedulesAndTimer()
+            firstscheduledate = nil
+        } else {
+            refreshTimerAfterScheduleMutation()
         }
-        if notExecutedSchedulesafterWakeUp.isEmpty == false {
-            thereisnotexecutedschedulesafterwakeup = true
-        }
+        thereisnotexecutedschedulesafterwakeup = notExecutedSchedulesafterWakeUp.isEmpty == false
     }
 
     // MARK: - Helpers
@@ -251,8 +263,7 @@ extension GlobalTimer {
         }
 
         allSchedules.append(contentsOf: itemsToMove)
-        allSchedules = allSchedules.sorted(by: { $0.time < $1.time })
-        scheduleNextTimer()
-        setfirsscheduledate()
+        refreshTimerAfterScheduleMutation()
+        thereisnotexecutedschedulesafterwakeup = notExecutedSchedulesafterWakeUp.isEmpty == false
     }
 }

@@ -15,36 +15,38 @@ final class ObservableSchedules {
     let globaltimer = GlobalTimer.shared
 
     @ObservationIgnored var lastdateinnextmonth: Date?
+    private(set) var scheduleDefinitions = [SchedulesConfigurations]()
 
-    private func computefuturedates(profile: String?, schedule: String, dateRun: Date) {
-        // Last date in month is NOT set when loading data at startup
+    private func computefuturedates(profile: String?, schedule: String, dateRun: Date, definitionID: UUID) {
         if lastdateinnextmonth == nil {
             lastdateinnextmonth = computelastdateinnextmonth()
         }
 
         switch schedule {
         case ScheduleType.daily.rawValue:
-            computeDailySchedule(profile: profile, dateRun: dateRun)
+            computeDailySchedule(profile: profile, dateRun: dateRun, definitionID: definitionID)
         case ScheduleType.weekly.rawValue:
-            computeWeeklySchedule(profile: profile, dateRun: dateRun)
+            computeWeeklySchedule(profile: profile, dateRun: dateRun, definitionID: definitionID)
         case ScheduleType.once.rawValue:
-            computeOnceSchedule(profile: profile, dateRun: dateRun)
+            computeOnceSchedule(profile: profile, dateRun: dateRun, definitionID: definitionID)
         default:
             return
         }
     }
 
-    private func computeOnceSchedule(profile: String?, dateRun: Date) {
-        guard let lastdateinnextmonth else { return }
-        if dateRun.monthInt <= lastdateinnextmonth.monthInt {
-            appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: ScheduleType.once.rawValue)
-        }
+    private func computeOnceSchedule(profile: String?, dateRun: Date, definitionID: UUID) {
+        guard dateRun <= schedulingHorizon else { return }
+        appendScheduleOccurrence(id: definitionID,
+                                 profile: profile,
+                                 dateRun: dateRun.en_string_from_date(),
+                                 schedule: ScheduleType.once.rawValue)
     }
 
-    private func computeDailySchedule(profile: String?, dateRun: Date) {
+    private func computeDailySchedule(profile: String?, dateRun: Date, definitionID: UUID) {
         var dateComponents = DateComponents()
         dateComponents.day = 1
         computeRepeatingSchedule(
+            definitionID: definitionID,
             profile: profile,
             dateRun: dateRun,
             dateComponents: dateComponents,
@@ -52,10 +54,11 @@ final class ObservableSchedules {
         )
     }
 
-    private func computeWeeklySchedule(profile: String?, dateRun: Date) {
+    private func computeWeeklySchedule(profile: String?, dateRun: Date, definitionID: UUID) {
         var dateComponents = DateComponents()
         dateComponents.day = 7
         computeRepeatingSchedule(
+            definitionID: definitionID,
             profile: profile,
             dateRun: dateRun,
             dateComponents: dateComponents,
@@ -63,31 +66,31 @@ final class ObservableSchedules {
         )
     }
 
-    private func computeRepeatingSchedule(profile: String?, dateRun: Date, dateComponents: DateComponents, scheduleType: String) {
-        guard let lastdateinnextmonth else { return }
-        let timeInterval: TimeInterval = lastdateinnextmonth.timeIntervalSince(dateRun)
+    private func computeRepeatingSchedule(definitionID: UUID, profile: String?, dateRun: Date,
+                                          dateComponents: DateComponents, scheduleType: String) {
+        let timeInterval: TimeInterval = schedulingHorizon.timeIntervalSince(dateRun)
         guard timeInterval > 0 else { return }
 
         let index = calculateScheduleIndex(timeInterval: timeInterval, dayInterval: dateComponents.day ?? 0)
         appendInitialScheduleIfNeeded(
+            definitionID: definitionID,
             profile: profile,
             dateRun: dateRun,
-            lastDayOfMonth: lastdateinnextmonth,
+            lastDayOfMonth: schedulingHorizon,
             scheduleType: scheduleType
         )
 
         addFutureSchedules(
+            definitionID: definitionID,
             profile: profile,
             startDate: dateRun,
             dateComponents: dateComponents,
             scheduleType: scheduleType,
             count: index,
-            lastDayOfMonth: lastdateinnextmonth
+            lastDayOfMonth: schedulingHorizon
         )
     }
 
-    // FIX: Added a Logger.process.warning for unhandled dayInterval values so
-    // future schedule types don't silently compute zero occurrences.
     private func calculateScheduleIndex(timeInterval: TimeInterval, dayInterval: Int) -> Int {
         switch dayInterval {
         case 1:
@@ -100,20 +103,27 @@ final class ObservableSchedules {
         }
     }
 
-    private func appendInitialScheduleIfNeeded(profile: String?, dateRun: Date, lastDayOfMonth: Date, scheduleType: String) {
-        if dateRun.monthInt == lastDayOfMonth.monthInt {
-            appendfutureschedule(profile: profile, dateRun: dateRun.en_string_from_date(), schedule: scheduleType)
+    private func appendInitialScheduleIfNeeded(definitionID: UUID, profile: String?, dateRun: Date,
+                                               lastDayOfMonth: Date, scheduleType: String) {
+        if dateRun >= Date.now, dateRun <= lastDayOfMonth {
+            appendScheduleOccurrence(id: definitionID,
+                                     profile: profile,
+                                     dateRun: dateRun.en_string_from_date(),
+                                     schedule: scheduleType)
         }
     }
 
-    private func addFutureSchedules(profile: String?, startDate: Date, dateComponents: DateComponents,
+    private func addFutureSchedules(definitionID: UUID, profile: String?, startDate: Date, dateComponents: DateComponents,
                                     scheduleType: String, count: Int, lastDayOfMonth: Date) {
         var computedDateRun: Date = startDate
         for _ in 0 ..< count {
             if let futureDate = Calendar.current.date(byAdding: dateComponents, to: computedDateRun) {
                 computedDateRun = futureDate
-                if futureDate.monthInt <= lastDayOfMonth.monthInt {
-                    appendfutureschedule(profile: profile, dateRun: futureDate.en_string_from_date(), schedule: scheduleType)
+                if futureDate <= lastDayOfMonth {
+                    appendScheduleOccurrence(id: definitionID,
+                                             profile: profile,
+                                             dateRun: futureDate.en_string_from_date(),
+                                             schedule: scheduleType)
                 }
             } else {
                 Logger.process.warning("ObservableSchedules: Failed to calculate future dates")
@@ -121,78 +131,85 @@ final class ObservableSchedules {
         }
     }
 
-    // FIX: The original code incremented a local copy of `month` but never
-    // wrote it back into `components`, so the computed date was always the
-    // last day of the *current* month instead of next month.
     func computelastdateinnextmonth() -> Date? {
         let calendar = Calendar.current
-        var components = calendar.dateComponents([.year, .month], from: Date())
-        // Advance month by 1 on the components struct itself (not a local copy)
-        components.month = (components.month ?? 0) + 1
-        // day = 0 means "last day of the previous month", so after advancing
-        // the month by 1 this gives the last day of next month.
-        components.day = 0
-        if let baseDate = calendar.date(from: components),
-           let lastDayOfNextMonth = calendar.date(byAdding: .month, value: 1, to: baseDate) {
-            return lastDayOfNextMonth
-        }
-        return nil
+        guard let nextMonth = calendar.date(byAdding: .month, value: 1, to: Date()),
+              let interval = calendar.dateInterval(of: .month, for: nextMonth),
+              let lastSecondOfNextMonth = calendar.date(byAdding: .second, value: -1, to: interval.end)
+        else { return nil }
+        return lastSecondOfNextMonth
     }
 
-    func appendfutureschedule(profile: String?, dateRun: String, schedule: String) {
-        guard dateRun.en_date_from_string() >= Date.now else { return }
-        let futureschedule = SchedulesConfigurations(profile: profile,
+    func appendSchedule(profile: String?, dateRun: String, schedule: String) -> Bool {
+        guard let plannedDate = validPlannedScheduleDate(dateRun) else { return false }
+        let scheduleDefinition = SchedulesConfigurations(profile: profile,
+                                                         dateAdded: Date.now.en_string_from_date(),
+                                                         dateRun: plannedDate.en_string_from_date(),
+                                                         schedule: schedule)
+        guard scheduleDefinitions.contains(where: { sameScheduleDefinition($0, scheduleDefinition) }) == false else { return false }
+        scheduleDefinitions.append(scheduleDefinition)
+        recomputeschedules()
+        return true
+    }
+
+    func appendScheduleOccurrence(id: UUID, profile: String?, dateRun: String, schedule: String) {
+        guard let parsedDate = dateRun.validate_en_date_from_string(), parsedDate >= Date.now else { return }
+        let futureschedule = SchedulesConfigurations(id: id,
+                                                     profile: profile,
                                                      dateAdded: Date.now.en_string_from_date(),
-                                                     dateRun: dateRun,
+                                                     dateRun: parsedDate.en_string_from_date(),
                                                      schedule: schedule)
         addtaskandcallback(futureschedule)
     }
 
-    /// Recompute the calendardata to only show active schedules in row.
-    // FIX: Clear all existing schedules before recomputing to prevent
-    // accumulating duplicates across repeated calls.
-    func recomputeschedules() {
-        let recomputedschedules = globaltimer.allSchedules.filter { item in
-            if let dateRunString = item.scheduledata?.dateRun {
-                return dateRunString.en_date_from_string() > Date.now
+    func scheduleDataForPersistence() -> [SchedulesConfigurations] {
+        scheduleDefinitions.filter { definition in
+            guard let schedule = definition.schedule,
+                  let dateRun = definition.dateRun?.validate_en_date_from_string()
+            else { return false }
+            if schedule == ScheduleType.once.rawValue {
+                return dateRun > Date.now
             }
-            return false
+            return dateRun <= schedulingHorizon
         }
+    }
 
-        guard recomputedschedules.count > 0 else {
+    /// Recompute the calendardata to only show active schedules in row.
+    func recomputeschedules() {
+        scheduleDefinitions = scheduleDataForPersistence()
+
+        guard scheduleDefinitions.isEmpty == false else {
             globaltimer.invalidateAllSchedulesAndTimer()
             globaltimer.firstscheduledate = nil
             return
         }
 
-        // Remove all existing entries before recomputing to avoid duplicates
         globaltimer.invalidateAllSchedulesAndTimer()
 
-        for index in 0 ..< recomputedschedules.count {
-            if let schedule = recomputedschedules[index].scheduledata?.schedule,
-               let dateRun = recomputedschedules[index].scheduledata?.dateRun?.validate_en_date_from_string() {
-                computefuturedates(profile: recomputedschedules[index].scheduledata?.profile, schedule: schedule, dateRun: dateRun)
+        for index in 0 ..< scheduleDefinitions.count {
+            if let schedule = scheduleDefinitions[index].schedule,
+               let dateRun = scheduleDefinitions[index].dateRun?.validate_en_date_from_string() {
+                computefuturedates(profile: scheduleDefinitions[index].profile,
+                                   schedule: schedule,
+                                   dateRun: dateRun,
+                                   definitionID: scheduleDefinitions[index].id)
             }
         }
 
-        globaltimer.setfirsscheduledate()
+        globaltimer.refreshTimerAfterScheduleMutation()
     }
 
     private func addtaskandcallback(_ schedule: SchedulesConfigurations) {
-        // The Callback for Schedule
         let callback: () -> Void = { [weak self] in
             guard let self else { return }
             globaltimer.scheduleNextTimer()
-            // Setting profile name will trigger execution
             globaltimer.scheduledprofile = schedule.profile ?? "Default"
             Task {
-                // Logging to file that a Schedule is fired
                 await ActorLogToFile.shared.logOutput("Schedule",
                                                       ["ObservableSchedules: schedule FIRED for \(schedule.profile ?? "Default")"])
             }
         }
-        // Then add new schedule
-        if let schedultime = schedule.dateRun?.en_date_from_string() {
+        if let schedultime = schedule.dateRun?.validate_en_date_from_string() {
             globaltimer.addSchedule(time: schedultime,
                                     tolerance: 10,
                                     callback: callback,
@@ -202,38 +219,37 @@ final class ObservableSchedules {
 
     /// Apply Scheduledata read from file, used by SidebarMainView
     func appendschdeuldatafromfile(_ schedules: [SchedulesConfigurations]) {
-        for index in 0 ..< schedules.count {
-            if let schedule = schedules[index].schedule,
-               let dateRun = schedules[index].dateRun?.validate_en_date_from_string() {
-                computefuturedates(profile: schedules[index].profile, schedule: schedule, dateRun: dateRun)
+        scheduleDefinitions = uniquedScheduleDefinitions(schedules).filter { definition in
+            guard let schedule = definition.schedule,
+                  let dateRun = definition.dateRun?.validate_en_date_from_string()
+            else { return false }
+            if schedule == ScheduleType.once.rawValue {
+                return dateRun > Date.now
             }
+            return dateRun <= schedulingHorizon
         }
-
-        globaltimer.setfirsscheduledate()
+        recomputeschedules()
     }
 
     /// Verify new planned schedule
     func verifynextschedule(plannednextschedule: String) -> Bool {
+        guard let plannedDate = validPlannedScheduleDate(plannednextschedule) else { return false }
+
         let dates = globaltimer.allSchedules.sorted { schedule1, schedule2 in
-            if let id1 = schedule1.scheduledata?.dateRun?.en_date_from_string(),
-               let id2 = schedule2.scheduledata?.dateRun?.en_date_from_string() {
+            if let id1 = schedule1.scheduledata?.dateRun?.validate_en_date_from_string(),
+               let id2 = schedule2.scheduledata?.dateRun?.validate_en_date_from_string() {
                 return id1 < id2
             }
             return false
         }
 
         if dates.count > 0 {
-            // Pick the first schedule
-            if let firstschedulestring = dates.first?.scheduledata?.dateRun {
-                let firstscheduledate = firstschedulestring.en_date_from_string()
-                let plannedDate = plannednextschedule.en_date_from_string()
-
-                // Case 1: plannednextschedule is at least 10 minutes AFTER firstscheduledate
+            if let firstschedulestring = dates.first?.scheduledata?.dateRun,
+               let firstscheduledate = firstschedulestring.validate_en_date_from_string() {
                 if plannedDate >= firstscheduledate.addingTimeInterval(10 * 60) {
                     return true
                 }
 
-                // Case 2: plannednextschedule is between (firstscheduledate - 10 min) and > now
                 if plannedDate <= firstscheduledate.addingTimeInterval(-10 * 60),
                    plannedDate > Date.now {
                     return true
@@ -243,15 +259,29 @@ final class ObservableSchedules {
             }
         }
 
-        // No schedules added yet
-        return plannednextschedule.en_date_from_string() > Date.now
+        return plannedDate > Date.now
+    }
+
+    func validPlannedScheduleDate(_ plannednextschedule: String) -> Date? {
+        guard let plannedDate = plannednextschedule.validate_en_date_from_string(),
+              plannedDate > Date.now,
+              plannedDate <= schedulingHorizon
+        else { return nil }
+        return plannedDate
     }
 
     /// Delete by IndexSet
     func delete(_ uuids: Set<UUID>) {
+        let definitionsToRemove = globaltimer.allSchedules.compactMap { schedule -> SchedulesConfigurations? in
+            uuids.contains(schedule.id) ? schedule.scheduledata : nil
+        }
         globaltimer.allSchedules.removeAll { schedule in
             uuids.contains(schedule.id)
         }
+        scheduleDefinitions.removeAll { definition in
+            definitionsToRemove.contains(where: { $0.id == definition.id })
+        }
+        globaltimer.refreshTimerAfterScheduleMutation()
     }
 
     /// Delete by IndexSet
@@ -259,5 +289,27 @@ final class ObservableSchedules {
         globaltimer.notExecutedSchedulesafterWakeUp.removeAll { schedule in
             uuids.contains(schedule.id)
         }
+        globaltimer.thereisnotexecutedschedulesafterwakeup = globaltimer.notExecutedSchedulesafterWakeUp.isEmpty == false
+    }
+
+    private var schedulingHorizon: Date {
+        if lastdateinnextmonth == nil {
+            lastdateinnextmonth = computelastdateinnextmonth()
+        }
+        return lastdateinnextmonth ?? Date.now.endOfCurrentMonth
+    }
+
+    private func uniquedScheduleDefinitions(_ schedules: [SchedulesConfigurations]) -> [SchedulesConfigurations] {
+        var result = [SchedulesConfigurations]()
+        for schedule in schedules where result.contains(where: { sameScheduleDefinition($0, schedule) }) == false {
+            result.append(schedule)
+        }
+        return result
+    }
+
+    private func sameScheduleDefinition(_ lhs: SchedulesConfigurations, _ rhs: SchedulesConfigurations) -> Bool {
+        lhs.profile == rhs.profile &&
+            lhs.dateRun == rhs.dateRun &&
+            lhs.schedule == rhs.schedule
     }
 }

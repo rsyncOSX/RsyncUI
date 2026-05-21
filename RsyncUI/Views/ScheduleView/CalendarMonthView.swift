@@ -69,21 +69,11 @@ struct CalendarMonthView: View {
 
                                     confirmdelete = false
 
-                                    let scheduledatamapped = globaltimer.allSchedules.map { item in
-                                        item.scheduledata
+                                    Task { @MainActor in
+                                        await WriteSchedule.write(schedules.scheduleDataForPersistence())
                                     }
 
-                                    if let scheduledatamapped = scheduledatamapped as? [SchedulesConfigurations] {
-                                        Task { @MainActor in
-                                            await WriteSchedule.write(scheduledatamapped)
-                                        }
-                                    }
-
-                                    if globaltimer.allSchedules.isEmpty {
-                                        globaltimer.firstscheduledate = nil
-                                    } else {
-                                        globaltimer.setfirsscheduledate()
-                                    }
+                                    selecteduuids.removeAll()
                                 }
                         }
                         .onDeleteCommand {
@@ -108,6 +98,7 @@ struct CalendarMonthView: View {
                                 isPresented: $confirmdeletenotexecuted) {
                                     Button("Delete") {
                                         schedules.deletenotexecuted(selecteduuidsnotexecuted)
+                                        selecteduuidsnotexecuted.removeAll()
                                     }
                             }
                             .onDeleteCommand {
