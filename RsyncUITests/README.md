@@ -102,7 +102,7 @@ Comprehensive tests for configuration validation covering:
 
 ### Command Line
 ```bash
-cd /Volumes/MacMini4/GitHub/RsyncUI
+cd /Users/thomas/GitHub/RsyncUI
 swift test
 ```
 
