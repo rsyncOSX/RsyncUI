@@ -185,22 +185,22 @@ struct LogStatsChartView: View {
         .task(id: chartRefreshKey) {
             await reloadChartData()
         }
+    }
 
-        var synchronizeid: String {
-            rsyncUIdata.configurations?.backupID(for: selecteduuids.first) ?? ""
+    private var synchronizeid: String {
+        rsyncUIdata.configurations?.backupID(for: selecteduuids.first) ?? ""
+    }
+
+    private var subtitle: String {
+        var readdatabyfilesormb = ""
+
+        if datainchart == .numberoffiles {
+            readdatabyfilesormb = "Records by files transferred..."
+        } else {
+            readdatabyfilesormb = "Records by max size transferred..."
         }
 
-        var subtitle: String {
-            var readdatabyfilesormb = ""
-
-            if datainchart == .numberoffiles {
-                readdatabyfilesormb = "Records by files transferred..."
-            } else {
-                readdatabyfilesormb = "Records by max size transferred..."
-            }
-
-            return readdatabyfilesormb
-        }
+        return readdatabyfilesormb
     }
 
     private var chartMetric: LogChartMetric {
