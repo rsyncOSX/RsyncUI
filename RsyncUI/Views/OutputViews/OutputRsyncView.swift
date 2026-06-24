@@ -13,7 +13,7 @@ struct OutputRsyncView: View {
     var body: some View {
         Table(output) {
             TableColumn("Output from rsync" + ": \(output.count) rows") { data in
-                Text(data.record)
+                ItemizedOutputRow(record: data.record)
             }
         }
         .padding()

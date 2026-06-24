@@ -137,7 +137,7 @@ struct VerifyTaskTabView: View {
         guard let streamingHandlers else { return }
         guard let arguments else { return }
 
-        itemizechanges = arguments.contains("--itemize-changes") && arguments.contains("--update")
+        itemizechanges = arguments.contains("--itemize-changes")
 
         let process = RsyncProcessStreaming.RsyncProcess(
             arguments: arguments,

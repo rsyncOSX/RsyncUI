@@ -37,12 +37,16 @@ struct ArgumentsSynchronizeTests {
         defer { SharedReference.shared.rsyncversion3 = originalVersion }
 
         let cfg = makeConfig()
+        let originalParameter8 = cfg.parameter8
         let generator = ArgumentsSynchronize(config: cfg)
         let args = generator.argumentsSynchronize(dryRun: true, forDisplay: false)
 
         let unwrappedArgs = try #require(args)
         // Accept either common dry-run flags
         #expect(unwrappedArgs.contains("--dry-run") || unwrappedArgs.contains("-n"))
+        #expect(unwrappedArgs.contains("--itemize-changes"))
+        #expect(cfg.parameter8 == originalParameter8)
+        #expect(unwrappedArgs.dropLast(2).contains("--itemize-changes"))
     }
 
     /**
@@ -71,7 +75,8 @@ struct ArgumentsSynchronizeTests {
         let generator = ArgumentsSynchronize(config: cfg)
         let args = generator.argumentsSynchronize(dryRun: true, forDisplay: false)
 
-        _ = try #require(args)
+        let unwrappedArgs = try #require(args)
+        #expect(unwrappedArgs.contains("--itemize-changes"))
     }
 
     @Test("Push local→remote with keepdelete variations")
@@ -90,7 +95,9 @@ struct ArgumentsSynchronizeTests {
                                                                                forDisplay: false,
                                                                                keepdelete: false)
 
-        _ = try #require(argsKeep)
-        _ = try #require(argsNoKeep)
+        let unwrappedArgsKeep = try #require(argsKeep)
+        let unwrappedArgsNoKeep = try #require(argsNoKeep)
+        #expect(unwrappedArgsKeep.filter { $0 == "--itemize-changes" }.count == 1)
+        #expect(unwrappedArgsNoKeep.filter { $0 == "--itemize-changes" }.count == 1)
     }
 }
