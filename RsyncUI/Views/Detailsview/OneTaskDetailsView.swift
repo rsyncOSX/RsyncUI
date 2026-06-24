@@ -87,12 +87,7 @@ struct OneTaskDetailsView: View {
                 useFileHandler: false
             )
 
-            // Check if the arguments --itemize-changes and --update are included within the arguments
-            if arguments.contains("--itemize-changes"), arguments.contains("--update") {
-                itemizechanges = true
-            } else {
-                itemizechanges = false
-            }
+            itemizechanges = arguments.contains("--itemize-changes")
 
             do {
                 try process.executeProcess()

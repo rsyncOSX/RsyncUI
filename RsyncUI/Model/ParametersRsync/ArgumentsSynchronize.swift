@@ -19,7 +19,10 @@ final class ArgumentsSynchronize {
                                                                                            verify: false,
                                                                                            dryrun: dryRun,
                                                                                            keepDelete: keepdelete)
-                return rsyncparameterssynchronize.computedArguments
+                return RuntimeRsyncArguments.addingItemizedChanges(
+                    to: rsyncparameterssynchronize.computedArguments,
+                    forDisplay: forDisplay
+                )
             } catch {
                 return nil
             }
@@ -38,7 +41,10 @@ final class ArgumentsSynchronize {
                     try rsyncparameterssynchronize.argumentsForSynchronize(forDisplay: forDisplay,
                                                                            verify: false,
                                                                            dryrun: dryRun)
-                    return rsyncparameterssynchronize.computedArguments
+                    return RuntimeRsyncArguments.addingItemizedChanges(
+                        to: rsyncparameterssynchronize.computedArguments,
+                        forDisplay: forDisplay
+                    )
                 } catch {
                     return nil
                 }
@@ -47,7 +53,10 @@ final class ArgumentsSynchronize {
                     try rsyncparameterssynchronize.argumentsForSynchronizeSnapshot(forDisplay: forDisplay,
                                                                                    verify: false,
                                                                                    dryrun: dryRun)
-                    return rsyncparameterssynchronize.computedArguments
+                    return RuntimeRsyncArguments.addingItemizedChanges(
+                        to: rsyncparameterssynchronize.computedArguments,
+                        forDisplay: forDisplay
+                    )
                 } catch {
                     return nil
                 }
@@ -56,7 +65,10 @@ final class ArgumentsSynchronize {
                     try rsyncparameterssynchronize.argumentsForSynchronizeRemote(forDisplay: forDisplay,
                                                                                  verify: false,
                                                                                  dryrun: dryRun)
-                    return rsyncparameterssynchronize.computedArguments
+                    return RuntimeRsyncArguments.addingItemizedChanges(
+                        to: rsyncparameterssynchronize.computedArguments,
+                        forDisplay: forDisplay
+                    )
                 } catch {
                     return nil
                 }

@@ -5,7 +5,6 @@
 //  Created by Thomas Evensen on 07/06/2024.
 //
 
-import RsyncAnalyse
 import SwiftUI
 
 struct DetailsView: View {
@@ -61,11 +60,7 @@ struct DetailsView: View {
                 if itemizechanges {
                     Table(records) {
                         TableColumn("Output from rsync (\(records.count) rows)") { data in
-                            if SharedReference.shared.rsyncversion3 {
-                                RsyncOutputRowView(record: data.record)
-                            } else {
-                                OpenRsyncOutputRowView(record: data.record)
-                            }
+                            ItemizedOutputRow(record: data.record)
                         }
                     }
                 } else {

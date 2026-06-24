@@ -21,7 +21,10 @@ final class ArgumentsVerify {
                     try rsyncparameterssynchronize.argumentsForSynchronize(forDisplay: forDisplay,
                                                                            verify: true,
                                                                            dryrun: true)
-                    return rsyncparameterssynchronize.computedArguments
+                    return RuntimeRsyncArguments.addingItemizedChanges(
+                        to: rsyncparameterssynchronize.computedArguments,
+                        forDisplay: forDisplay
+                    )
                 } catch {
                     return nil
                 }
@@ -30,7 +33,10 @@ final class ArgumentsVerify {
                     try rsyncparameterssynchronize.argumentsForSynchronizeSnapshot(forDisplay: forDisplay,
                                                                                    verify: true,
                                                                                    dryrun: true)
-                    return rsyncparameterssynchronize.computedArguments
+                    return RuntimeRsyncArguments.addingItemizedChanges(
+                        to: rsyncparameterssynchronize.computedArguments,
+                        forDisplay: forDisplay
+                    )
                 } catch {
                     return nil
                 }
@@ -39,7 +45,10 @@ final class ArgumentsVerify {
                     try rsyncparameterssynchronize.argumentsForSynchronizeRemote(forDisplay: forDisplay,
                                                                                  verify: true,
                                                                                  dryrun: true)
-                    return rsyncparameterssynchronize.computedArguments
+                    return RuntimeRsyncArguments.addingItemizedChanges(
+                        to: rsyncparameterssynchronize.computedArguments,
+                        forDisplay: forDisplay
+                    )
                 } catch {
                     return nil
                 }
