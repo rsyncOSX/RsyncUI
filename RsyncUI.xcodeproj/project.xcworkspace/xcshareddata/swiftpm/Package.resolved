@@ -1,5 +1,5 @@
 {
-  "originHash" : "57890df380a5af590189340a125324fa0a7a1e38c8fa5c35ba67cad0c32db5f2",
+  "originHash" : "b9f8aab86af8db60376245539d2bbf7304adf01538fba94aaeb4a7ba360ec558",
   "pins" : [
     {
       "identity" : "decodeencodegeneric",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rsyncOSX/ParseRsyncOutput",
       "state" : {
-        "revision" : "e079e0c9d34bf07f7f2a4312b40feea79ae14847",
-        "version" : "1.0.0"
+        "revision" : "ea07741c109295db902f10c9d378a6dbd2bceb2a",
+        "version" : "1.0.1"
       }
     },
     {
@@ -25,15 +25,6 @@
       "location" : "https://github.com/rsyncOSX/ProcessCommand",
       "state" : {
         "revision" : "c3d070a01d30bac147d7889bb8f38db03015d574",
-        "version" : "1.0.0"
-      }
-    },
-    {
-      "identity" : "rsyncanalyse",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/rsyncOSX/RsyncAnalyse",
-      "state" : {
-        "revision" : "1e26aac6fd08b3ff858da4cf1983e7d6daa39f19",
         "version" : "1.0.0"
       }
     },
