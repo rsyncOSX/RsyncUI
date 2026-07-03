@@ -1,5 +1,6 @@
 # RsyncUI
 [![GitHub license](https://img.shields.io/github/license/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/blob/main/Licence.MD)
+![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v3.0.2/total)
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v3.0.0/total)
 [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
