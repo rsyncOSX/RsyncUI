@@ -23,7 +23,8 @@ extension AddTaskView {
 
     var addTaskSheetView: some View {
         VStack {
-            Text("Add Task").font(.title2)
+            Text("Add Task")
+                .font(.title2)
 
             VStack(alignment: .leading, spacing: 12) {
 

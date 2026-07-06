@@ -123,8 +123,8 @@ struct AddProfileSheet: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            Text("Add New Profile")
-                .font(.headline)
+            Text("Add Profile")
+                .font(.title2)
 
             TextField("Profile Name", text: $profileName)
                 .textFieldStyle(.roundedBorder)
