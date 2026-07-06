@@ -21,7 +21,7 @@ struct ListofTasksAddView: View {
             .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 configuration" :
                 "Delete \(selecteduuids.count) configurations",
                 isPresented: $confirmdelete) {
-                    Button("Delete") {
+                Button("Delete", role: .destructive) {
                         delete()
                         confirmdelete = false
                     }
