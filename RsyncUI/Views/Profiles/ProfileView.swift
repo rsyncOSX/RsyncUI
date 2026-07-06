@@ -135,23 +135,23 @@ struct AddProfileSheet: View {
                     .foregroundStyle(.red)
                     .font(.caption)
             }
-
-            HStack(spacing: 12) {
-                ConditionalGlassButton(systemImage: "plus",
-                                       text: "Add",
-                                       helpText: "Create profile") {
-                    addProfile()
-                    showSheet = false
-                }
-
-                Button("Cancel") {
-                    showSheet = false
-                }
-                .keyboardShortcut(.cancelAction)
-            }
         }
         .padding(24)
         .frame(width: 400)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Add") {
+                    addProfile()
+                    showSheet = false
+                }
+            }
+
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel") {
+                    showSheet = false
+                }
+            }
+        }
     }
 
     private func addProfile() {
