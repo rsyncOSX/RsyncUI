@@ -41,14 +41,7 @@ Build output lands in `./build/`. The release workflow requires a keychain profi
 Tests use **Swift Testing** (Xcode 16+), not XCTest.
 
 ```bash
-# Run all tests
-swift test
-
-# Run a specific suite
-swift test --filter VerifyConfigurationTests
-
-# Run a specific test
-swift test --filter VerifyConfigurationTests/validLocalSynchronization
+xcodebuild test -project RsyncUI.xcodeproj -scheme RsyncUI -destination 'platform=macOS'
 ```
 
 In Xcode: `Cmd+U`. Test files live in `RsyncUITests/`.

@@ -93,22 +93,7 @@ The estimate/execute cleanup from the v2.9.x reports has landed:
 
 ## Open issues
 
-### Issue 1: AGENTS.md still documents `swift test`
-
-`AGENTS.md` still lists `swift test` as the primary test command, but this checkout is an Xcode project and has no `Package.swift`.
-
-Suggested fix:
-
-- Replace the `swift test` examples with:
-
-```bash
-xcodebuild test -project RsyncUI.xcodeproj -scheme RsyncUI -destination 'platform=macOS'
-```
-
-- Keep Xcode `Cmd+U` as an alternative.
-- Keep suite/test filtering examples only if they are rewritten for the Xcode/Swift Testing workflow.
-
-### Issue 2: profile and configuration loading is still duplicated
+### Issue 1: profile and configuration loading is still duplicated
 
 JSON mechanics are centralized, but application-level loading is still spread across:
 
@@ -128,7 +113,7 @@ Create a small `ProfileConfigurationService` or `ConfigurationRepository` that o
 - applying rsync v3 filtering consistently
 - returning empty arrays consistently instead of requiring each caller to choose nil/empty behavior
 
-### Issue 3: `InterruptProcess` still performs work in `init`
+### Issue 2: `InterruptProcess` still performs work in `init`
 
 `RsyncUI/Model/Process/InterruptProcess.swift` is still a `@MainActor` struct whose initializer launches a `Task`, writes an interrupt log, interrupts the active process, and clears `SharedReference.shared.process`.
 
@@ -138,7 +123,7 @@ Suggested fix:
 
 Replace it with a named async API, for example `ProcessInterruptService.interruptCurrentProcess() async`, and use `Task { await ... }` only from synchronous UI actions.
 
-### Issue 4: log-result parsing remains duplicated
+### Issue 3: log-result parsing remains duplicated
 
 Number parsing and log-result validation are still duplicated in:
 
@@ -149,7 +134,7 @@ Suggested fix:
 
 Extract shared log-result parsing into one helper used by both permanent log insertion and chart generation. Add tests for regular sync log results, snapshot-prefixed log results, invalid strings, and decimal transferred-size values.
 
-### Issue 5: schedule responsibilities are still mixed
+### Issue 4: schedule responsibilities are still mixed
 
 Scheduling is better tested now, but responsibilities are still concentrated in:
 
@@ -171,7 +156,7 @@ Split into:
 
 Keep the existing tests and add focused tests for wake recovery ordering and duplicate prevention by task identity plus scheduled date.
 
-### Issue 6: snapshot log assembly still lives partly in the view flow
+### Issue 5: snapshot log assembly still lives partly in the view flow
 
 `SnapshotsView.loadSnapshotData(for:)` loads log records and directly creates `Snapshotlogsandcatalogs`, while `Snapshotlogsandcatalogs` merges remote snapshot catalogs with log records and calculates unused log IDs.
 
@@ -179,7 +164,7 @@ Suggested fix:
 
 Move snapshot log assembly, unused-log calculation, and remote catalog merge policy behind a snapshot-domain service. Keep `SnapshotsView` focused on selection, commands, and presentation state.
 
-### Issue 7: large mixed-responsibility files remain
+### Issue 8: large mixed-responsibility files remain
 
 The remaining hotspots are:
 
@@ -199,22 +184,6 @@ Suggested order:
 3. Extract schedule planner/store/runner boundaries.
 4. Move snapshot log assembly into a service.
 5. Split `Execute.swift` after completion/logging service boundaries are stable.
-
-### Issue 8: project settings still drift between targets
-
-The main app target uses Swift 6.0 with strict concurrency enabled. The test and widget targets still show `SWIFT_VERSION = 5.0`. The widget target also uses `MACOSX_DEPLOYMENT_TARGET = 14.6`, while the app target uses `14.0`.
-
-Suggested fix:
-
-Review whether the test and widget targets should move to Swift 6 settings. If they cannot yet move, document the reason in project notes.
-
-### Issue 9: release update JSON may be stale for 3.x
-
-The Xcode project currently reports app version `3.0.2`, but `versionRsyncUI/versionRsyncUI.json` only lists versions through `2.9.8`.
-
-Suggested fix:
-
-Confirm the intended update-feed policy for 3.x releases. If the in-app latest-version check depends on this file, add the current 3.x entries and remove obsolete entries only if older-app upgrade behavior no longer needs them.
 
 ## Lower-priority cleanup candidates
 
