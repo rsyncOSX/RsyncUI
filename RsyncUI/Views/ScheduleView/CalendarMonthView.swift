@@ -60,7 +60,7 @@ struct CalendarMonthView: View {
                         .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 schedule" :
                             "Delete \(selecteduuids.count) schedules",
                             isPresented: $confirmdelete) {
-                                Button("Delete") {
+                                Button("Delete", role: .destructive) {
                                     schedules.delete(selecteduuids)
 
                                     date = Date.now
@@ -96,7 +96,7 @@ struct CalendarMonthView: View {
                             .confirmationDialog(selecteduuidsnotexecuted.count == 1 ? "Delete 1 schedule" :
                                 "Delete \(selecteduuidsnotexecuted.count) schedules",
                                 isPresented: $confirmdeletenotexecuted) {
-                                    Button("Delete") {
+                                    Button("Delete", role: .destructive) {
                                         schedules.deletenotexecuted(selecteduuidsnotexecuted)
                                         selecteduuidsnotexecuted.removeAll()
                                     }
