@@ -63,10 +63,11 @@ struct ProfileView: View {
         }
         .toolbar {
             ToolbarItem(placement: .status) {
-                Button("", systemImage: "plus", action: {
+                Button("Add Profile", systemImage: "plus", action: {
                     showAddProfileSheet = true
                 })
-                .help("Add new profile")
+                .labelStyle(.iconOnly)
+                .help("Add Profile")
             }
         }
         .sheet(isPresented: $showAddProfileSheet) {
