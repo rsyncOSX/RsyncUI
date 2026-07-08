@@ -128,7 +128,7 @@ extension AddTaskView {
         Picker("Trailing /", selection: $newdata.trailingslashoptions) {
             ForEach(TrailingSlash.allCases) { Text($0.description).tag($0) }
         }
-        .pickerStyle(.segmented)
+        .pickerStyle(.menu)
         .onChange(of: newdata.trailingslashoptions) {
             UserDefaults.standard.set(newdata.trailingslashoptions.rawValue, forKey: "trailingslashoptions")
         }
@@ -139,7 +139,7 @@ extension AddTaskView {
         Picker("Action", selection: $newdata.selectedrsynccommand) {
             ForEach(TypeofTask.allCases) { Text($0.description).tag($0) }
         }
-        .pickerStyle(.segmented)
+        .pickerStyle(.menu)
         .onChange(of: newdata.selectedrsynccommand) {
             UserDefaults.standard.set(newdata.selectedrsynccommand.rawValue, forKey: "selectedrsynccommand")
         }
