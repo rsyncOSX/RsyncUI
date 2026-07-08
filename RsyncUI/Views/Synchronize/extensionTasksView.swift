@@ -9,7 +9,7 @@ import Observation
 import OSLog
 import SwiftUI
 
-extension TasksView {
+extension SynchronizeTasksView {
     @ToolbarContentBuilder
     var taskviewtoolbarcontent: some ToolbarContent {
         ToolbarItem {

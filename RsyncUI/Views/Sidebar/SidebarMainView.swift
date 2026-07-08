@@ -197,7 +197,7 @@ struct SidebarMainView: View {
         switch view {
         case .tasks:
             NavigationStack {
-                EditTabView(rsyncUIdata: rsyncUIdata)
+                TasksView(rsyncUIdata: rsyncUIdata)
             }
         case .restore:
             NavigationStack {
@@ -207,7 +207,7 @@ struct SidebarMainView: View {
         case .snapshots:
             SnapshotsView(rsyncUIdata: rsyncUIdata)
         case .synchronize:
-            SidebarTasksView(rsyncUIdata: rsyncUIdata,
+            SynchronizeView(rsyncUIdata: rsyncUIdata,
                              progressdetails: progressdetails,
                              schedules: schedules,
                              selecteduuids: $selecteduuids,

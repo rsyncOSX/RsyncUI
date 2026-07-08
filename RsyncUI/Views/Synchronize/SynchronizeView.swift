@@ -1,5 +1,5 @@
 //
-//  SidebarTasksView.swift
+//  SynchronizeView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 10/11/2023.
@@ -23,7 +23,7 @@ struct Tasks: Hashable, Identifiable {
     var task: DestinationView
 }
 
-struct SidebarTasksView: View {
+struct SynchronizeView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var progressdetails: ProgressDetails
     @Bindable var schedules: ObservableSchedules
@@ -41,7 +41,7 @@ struct SidebarTasksView: View {
 
     var body: some View {
         NavigationStack(path: $executetaskpath) {
-            TasksView(rsyncUIdata: rsyncUIdata,
+            SynchronizeTasksView(rsyncUIdata: rsyncUIdata,
                       progressdetails: progressdetails,
                       schedules: schedules,
                       selecteduuids: $selecteduuids,
@@ -136,7 +136,7 @@ struct SidebarTasksView: View {
     }
 }
 
-extension SidebarTasksView {
+extension SynchronizeView {
     /// URL code
     private func handleQueryItem() {
         Logger.process.debugMessageOnly("SidebarTasksView: Change on queryitem discovered")

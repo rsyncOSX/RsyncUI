@@ -1,5 +1,5 @@
 //
-//  ListofTasksAddView.swift
+//  TasksTable.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 25/08/2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ListofTasksAddView: View {
+struct TasksTable: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
