@@ -22,51 +22,41 @@ extension AddTaskView {
     }
 
     var addTaskSheetView: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Add Task").font(.headline)
+        VStack {
+            Text("Add Task")
+                .font(.title2)
 
-            HStack {
-                pickerselecttypeoftask
-                trailingslash
+            VStack(alignment: .leading, spacing: 12) {
+
+                HStack {
+                    pickerselecttypeoftask
+                    trailingslash
+                }
+
+                synchronizeID
+                catalogSectionView
+                remoteuserandserver
             }
-
-            synchronizeID
-            catalogSectionView
-            remoteuserandserver
-
-            HStack {
-                ConditionalGlassButton(systemImage: "plus",
-                                       text: "Add",
-                                       helpText: "Add task") {
+        }
+        .padding()
+        .frame(minWidth: 600)
+        .onSubmit { handleSubmit() }
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Add") {
                     Task { @MainActor in
                         if await addConfig() {
                             showAddPopover = false
                         }
                     }
                 }
+            }
 
-                Spacer()
-
-                if #available(macOS 26.0, *) {
-                    Button("Close", role: .close) {
-                        showAddPopover = false
-                    }
-                    .buttonStyle(RefinedGlassButtonStyle())
-                    .keyboardShortcut(.cancelAction)
-                } else {
-                    Button {
-                        showAddPopover = false
-                    } label: {
-                        Label("Close", systemImage: "return")
-                            .labelStyle(.iconOnly)
-                    }
-                    .help("Close")
-                    .keyboardShortcut(.cancelAction)
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel") {
+                    showAddPopover = false
                 }
             }
         }
-        .padding()
-        .frame(minWidth: 600)
-        .onSubmit { handleSubmit() }
     }
 }
