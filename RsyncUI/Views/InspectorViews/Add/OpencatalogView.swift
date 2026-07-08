@@ -19,8 +19,6 @@ struct OpencatalogView: View {
         } label: {
             Label("Browse", systemImage: catalogs ? "folder" : "doc")
                 .labelStyle(.iconOnly)
-                .font(.system(size: 12))
-                .frame(width: 28, height: 22)
         }
         .buttonStyle(.bordered)
         .help("Browse...")

@@ -46,25 +46,39 @@ struct AddTaskView: View {
 
     @State var presentglobaltaskview: Bool = false
 
+    var showSnapshot: Bool {
+        selectedconfig?.task == SharedReference.shared.snapshot
+    }
+
     var body: some View {
-        AddTaskContentView(updateButton: { updateButton },
-                           trailingslash: { trailingslash },
-                           synchronizeID: { synchronizeID },
-                           catalogSectionView: { catalogSectionView },
-                           remoteuserandserver: { remoteuserandserver },
-                           snapshotView: { snapshotnum },
-                           saveURLSection: { saveURLSection },
-                           showSnapshot: selectedconfig?.task == SharedReference.shared.snapshot)
-            .onAppear { handleSelectionChange() }
-            .onSubmit { handleSubmit() }
-            .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
-            .onChange(of: selecteduuids) { handleSelectionChange() }
-            .onChange(of: showAddPopover) { _, isPresented in
-                if isPresented {
-                    newdata.resetForm()
-                    selectedconfig = nil
-                }
+        Form {
+            trailingslash
+
+            synchronizeID
+            catalogSectionView
+
+            remoteuserandserver
+
+            if showSnapshot {
+                snapshotnum
             }
-            .sheet(isPresented: $showAddPopover) { addTaskSheetView }
+
+            saveURLSection
+
+            updateButton
+        }
+        .formStyle(.grouped)
+        .padding()
+        .onAppear { handleSelectionChange() }
+        .onSubmit { handleSubmit() }
+        .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
+        .onChange(of: selecteduuids) { handleSelectionChange() }
+        .onChange(of: showAddPopover) { _, isPresented in
+            if isPresented {
+                newdata.resetForm()
+                selectedconfig = nil
+            }
+        }
+        .sheet(isPresented: $showAddPopover) { addTaskSheetView }
     }
 }
