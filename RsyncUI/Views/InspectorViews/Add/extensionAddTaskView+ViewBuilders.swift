@@ -13,9 +13,9 @@ extension AddTaskView {
     var catalogSectionView: some View {
         Group {
             if newdata.selectedrsynccommand == .syncremote {
-                VStack(alignment: .leading) { localandremotecatalogsyncremote }
+                localandremotecatalogsyncremote
             } else {
-                VStack(alignment: .leading) { localandremotecatalog }
+                localandremotecatalog
                     .disabled(selectedconfig?.task == SharedReference.shared.snapshot)
             }
         }
@@ -26,17 +26,14 @@ extension AddTaskView {
             Text("Add Task")
                 .font(.title2)
 
-            VStack(alignment: .leading, spacing: 12) {
-
-                HStack {
-                    pickerselecttypeoftask
-                    trailingslash
-                }
-
+            Form {
+                pickerselecttypeoftask
+                trailingslash
                 synchronizeID
                 catalogSectionView
                 remoteuserandserver
             }
+            .formStyle(.grouped)
         }
         .padding()
         .frame(minWidth: 600)
