@@ -14,17 +14,17 @@ No rsync execution, storage, parsing, scheduling model, or process pipeline logi
 
 | Commit | Date | Author | Details |
 |---|---:|---|---|
-| `c59e3e37` | 2026-07-08 | Thomas Evensen | Merged PR #137, adding `role: .destructive` to delete buttons. |
-| `744d2a91` | 2026-07-08 | Thomas Evensen | Merged PR #141, replacing `AddFirstTask` with the shared Add Task sheet. |
-| `ffae3f9a` | 2026-07-08 | Thomas Evensen | Merged PR #140, moving the About sheet close button outside `AboutView`. |
-| `1d0a8b82` | 2026-07-08 | Thomas Evensen | Merged PR #139, updating the Add Profile toolbar button. |
-| `a81da0df` | 2026-07-08 | Thomas Evensen | Merged PR #138, moving sheet buttons into `ToolbarItem`s. |
-| `85e47d0c` | 2026-07-08 | Thomas Evensen | Bumped Xcode project build number from `197` to `200`. |
+| `c59e3e37` | 2026-07-08 | timreichen | Merged PR #137, adding `role: .destructive` to delete buttons. |
+| `744d2a91` | 2026-07-08 | timreichen | Merged PR #141, replacing `AddFirstTask` with the shared Add Task sheet. |
+| `ffae3f9a` | 2026-07-08 | timreichen | Merged PR #140, moving the About sheet close button outside `AboutView`. |
+| `1d0a8b82` | 2026-07-08 | timreichen | Merged PR #139, updating the Add Profile toolbar button. |
+| `a81da0df` | 2026-07-08 | timreichen | Merged PR #138, moving sheet buttons into `ToolbarItem`s. |
+| `85e47d0c` | 2026-07-08 | timreichen | Bumped Xcode project build number from `197` to `200`. |
 | `6110ddbd` | 2026-07-08 | timreichen | Refactored Add Task UI: deleted helper views, converted content to grouped `Form`, replaced custom fixed-width fields with standard `TextField`s, and moved sheet actions into toolbar items. |
 | `0b1033aa` | 2026-07-08 | timreichen | Follow-up task form update, mainly grouped form styling and field label cleanup. |
-| `7f33d821` | 2026-07-08 | Thomas Evensen | Merged PR #142, using grouped form style for task fields. |
+| `7f33d821` | 2026-07-08 | timreichen | Merged PR #142, using grouped form style for task fields. |
 | `0b1da0f1` | 2026-07-08 | timreichen | Hid the inspector tab picker label. |
-| `65cef24c` | 2026-07-08 | Thomas Evensen | Merged PR #143, removing the visible inspector tab label. |
+| `65cef24c` | 2026-07-08 | timreichen | Merged PR #143, removing the visible inspector tab label. |
 
 The raw ancestry for the range also includes the PR branch commits `8e720a1c`, `bc3b2cc1`, `ea6799b4`, `38acc560`, and `64528c4d`, which are the side-branch commits merged by the PR merge commits above.
 
