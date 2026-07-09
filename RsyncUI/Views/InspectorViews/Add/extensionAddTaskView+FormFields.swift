@@ -16,7 +16,7 @@ extension AddTaskView {
             TextField("Synchronize ID", text: $newdata.backupID)
                 .focused($focusField, equals: .synchronizeIDField)
                 .textContentType(.none).submitLabel(.continue)
-                .onAppear { if newdata.selectedconfig == nil, let id = newdata.selectedconfig?.backupID { newdata.backupID = id } }
+                .onAppear { if let selectedconfig = newdata.selectedconfig { newdata.backupID = selectedconfig.backupID } }
         }
     }
 
@@ -112,7 +112,7 @@ extension AddTaskView {
             TextField(placeholder, text: value)
                 .focused($focusField, equals: focus)
                 .textContentType(.none).submitLabel(submitLabel)
-                .onAppear { if newdata.selectedconfig == nil, let val = selectedValue { value.wrappedValue = val } }
+                .onAppear { if newdata.selectedconfig != nil, let val = selectedValue { value.wrappedValue = val } }
                 .border(showErrorBorder ? Color.red : Color.clear, width: 2)
     }
 
@@ -140,3 +140,4 @@ extension AddTaskView {
         .onAppear { loadRsyncCommandPreference() }
     }
 }
+
