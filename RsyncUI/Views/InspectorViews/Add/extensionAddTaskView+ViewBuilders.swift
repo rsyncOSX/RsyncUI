@@ -10,28 +10,30 @@ import SwiftUI
 // MARK: - View Builders
 
 extension AddTaskView {
-    var catalogSectionView: some View {
+    @ViewBuilder
+    func CatalogSection() -> some View {
         Group {
             if newdata.selectedrsynccommand == .syncremote {
-                localandremotecatalogsyncremote
+                SyncRemoteFoldersSection()
             } else {
-                localandremotecatalog
+                FoldersSection()
                     .disabled(selectedconfig?.task == SharedReference.shared.snapshot)
             }
         }
     }
 
-    var addTaskSheetView: some View {
+    @ViewBuilder
+    func AddTaskSheetView() -> some View {
         VStack {
             Text("Add Task")
                 .font(.title2)
 
             Form {
-                pickerselecttypeoftask
-                trailingslash
-                synchronizeID
-                catalogSectionView
-                remoteuserandserver
+                TaskTypePicker()
+                TrailingSlashPicker()
+                SynchronizeIDSection()
+                CatalogSection()
+                RemoteSection()
             }
             .formStyle(.grouped)
         }

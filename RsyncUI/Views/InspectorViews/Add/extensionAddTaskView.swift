@@ -39,7 +39,8 @@ extension AddTaskView {
 // MARK: - Buttons
 
 extension AddTaskView {
-    var updateButton: some View {
+    @ViewBuilder
+    func UpdateButton() -> some View {
         Button("Update", systemImage: "arrow.down") {
             Task { @MainActor in
                 _ = await validateAndUpdate()
@@ -48,17 +49,24 @@ extension AddTaskView {
         .help("Update task")
     }
 
-    var saveURLSection: some View {
-        Group {
-            Toggle("Show save URL", isOn: $newdata.showsaveurls).toggleStyle(.switch)
-            if newdata.showsaveurls {
-                ConditionalGlassButton(systemImage: "square.and.arrow.down",
-                                       text: "URL Estimate",
-                                       helpText: "URL Estimate & Synchronize") {
-                    let data = WidgetURLstrings(urletimate: stringestimate)
-                    Task { @MainActor in
-                        await WriteWidgetsURLStringsJSON.write(data)
+    @ViewBuilder
+    func SaveURLSection() -> some View {
+        Section {
+            HStack {
+                Toggle("Show Save URL", isOn: $newdata.showsaveurls).toggleStyle(.switch)
+                    .labelsHidden()
+                Text("Show Save URL")
+
+                Spacer()
+
+                if newdata.showsaveurls {
+                    Button("URL Estimate", systemImage: "square.and.arrow.down") {
+                        let data = WidgetURLstrings(urletimate: stringestimate)
+                        Task { @MainActor in
+                            await WriteWidgetsURLStringsJSON.write(data)
+                        }
                     }
+                    .help("URL Estimate & Synchronize")
                 }
             }
         }

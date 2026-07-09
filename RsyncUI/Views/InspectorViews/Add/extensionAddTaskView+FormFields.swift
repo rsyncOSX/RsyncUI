@@ -10,39 +10,41 @@ import SwiftUI
 // MARK: - Form Field Sections
 
 extension AddTaskView {
-    var synchronizeID: some View {
+    @ViewBuilder
+    func SynchronizeIDSection() -> some View {
         Section("Synchronize ID") {
-            if newdata.selectedconfig == nil {
-                TextField("Synchronize ID", text: $newdata.backupID)
-                    .focused($focusField, equals: .synchronizeIDField)
-                    .textContentType(.none).submitLabel(.continue)
-            } else {
-                TextField("Synchronize ID", text: $newdata.backupID)
-                    .focused($focusField, equals: .synchronizeIDField)
-                    .textContentType(.none).submitLabel(.continue)
-                    .onAppear { if let id = newdata.selectedconfig?.backupID { newdata.backupID = id } }
+            TextField("Synchronize ID", text: $newdata.backupID)
+                .focused($focusField, equals: .synchronizeIDField)
+                .textContentType(.none).submitLabel(.continue)
+                .onAppear { if newdata.selectedconfig == nil, let id = newdata.selectedconfig?.backupID { newdata.backupID = id } }
+        }
+    }
+
+    @ViewBuilder
+    func SnapshotNumberSection() -> some View {
+        Section("Snapshot Number") {
+            HStack {
+                Toggle("Change Snapshot Number", isOn: $changesnapshotnum)
+                    .toggleStyle(.switch)
+                    .labelsHidden()
+                TextField("Change Snapshot Number", text: $newdata.snapshotnum)
+                    .lineLimit(1)
+                    .focused($focusField, equals: .snapshotnumField)
+                    .textContentType(.none).submitLabel(.return)
+                    .disabled(!changesnapshotnum)
             }
         }
     }
 
-    var snapshotnum: some View {
-        Section("Snapshot Number") {
-            EditValueScheme(400, nil, $newdata.snapshotnum)
-                .focused($focusField, equals: .snapshotnumField)
-                .textContentType(.none).submitLabel(.return)
-                .disabled(!changesnapshotnum)
-            ToggleViewDefault(text: "Change snapshotnumber", binding: $changesnapshotnum)
-        }
-    }
-
-    var localandremotecatalog: some View {
+    @ViewBuilder
+    func FoldersSection() -> some View {
         Section("Folders") {
-            catalogField(catalog: $newdata.localcatalog,
-                         placeholder: "Source folder (required)",
+            CatalogField(catalog: $newdata.localcatalog,
+                         placeholder: "Source Folder (required)",
                          focus: .localcatalogField,
                          selectedValue: newdata.selectedconfig?.localCatalog)
-            catalogField(catalog: $newdata.remotecatalog,
-                         placeholder: "Destination folder (required)",
+            CatalogField(catalog: $newdata.remotecatalog,
+                         placeholder: "Destination Folder (required)",
                          focus: .remotecatalogField,
                          selectedValue: newdata.selectedconfig?.offsiteCatalog,
                          showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
@@ -50,13 +52,14 @@ extension AddTaskView {
         }
     }
 
-    var localandremotecatalogsyncremote: some View {
+    @ViewBuilder
+    func SyncRemoteFoldersSection() -> some View {
         Section("Folders") {
-            catalogField(catalog: $newdata.remotecatalog,
+            CatalogField(catalog: $newdata.remotecatalog,
                          placeholder: "Source Folder (required)",
                          focus: .remotecatalogField,
                          selectedValue: newdata.selectedconfig?.offsiteCatalog)
-            catalogField(catalog: $newdata.localcatalog,
+            CatalogField(catalog: $newdata.localcatalog,
                          placeholder: "Remote Folder (required)",
                          focus: .localcatalogField,
                          selectedValue: newdata.selectedconfig?.localCatalog,
@@ -65,38 +68,35 @@ extension AddTaskView {
         }
     }
 
-    func catalogField(catalog: Binding<String>, placeholder: String,
+    @ViewBuilder
+    func CatalogField(catalog: Binding<String>, placeholder: String,
                       focus: AddConfigurationField, selectedValue: String?,
                       showErrorBorder: Bool = false) -> some View {
         HStack {
-            if newdata.selectedconfig == nil {
-                TextField(placeholder, text: catalog)
-                    .focused($focusField, equals: focus)
-                    .textContentType(.none).submitLabel(.continue)
-                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
-            } else {
-                TextField(placeholder, text: catalog)
-                    .focused($focusField, equals: focus)
-                    .textContentType(.none).submitLabel(.continue)
-                    .onAppear { if let value = selectedValue { catalog.wrappedValue = value } }
-                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
-            }
+            TextField(placeholder, text: catalog)
+                .focused($focusField, equals: focus)
+                .textContentType(.none).submitLabel(.continue)
+                .border(showErrorBorder ? Color.red : Color.clear, width: 2)
+                .onAppear {
+                    if newdata.selectedconfig != nil, let value = selectedValue { catalog.wrappedValue = value }
+                }
             OpencatalogView(selecteditem: catalog, catalogs: true)
         }
     }
 
-    var remoteuserandserver: some View {
+    @ViewBuilder
+    func RemoteSection() -> some View {
         Section("Remote") {
-            remoteField(
+            RemoteField(
                 value: $newdata.remoteuser,
-                placeholder: "Remote user",
+                placeholder: "Remote User",
                 focus: .remoteuserField,
                 selectedValue: newdata.selectedconfig?.offsiteUsername,
                 showErrorBorder: newdata.remoteuser.isEmpty && !newdata.remoteserver.isEmpty
             )
-            remoteField(
+            RemoteField(
                 value: $newdata.remoteserver,
-                placeholder: "Remote server",
+                placeholder: "Remote Server",
                 focus: .remoteserverField,
                 selectedValue: newdata.selectedconfig?.offsiteServer,
                 submitLabel: .return,
@@ -105,26 +105,19 @@ extension AddTaskView {
         }
     }
 
-    func remoteField(value: Binding<String>, placeholder: String, focus: AddConfigurationField,
+    @ViewBuilder
+    func RemoteField(value: Binding<String>, placeholder: String, focus: AddConfigurationField,
                      selectedValue: String?, submitLabel: SubmitLabel = .continue,
                      showErrorBorder: Bool = false) -> some View {
-        Group {
-            if newdata.selectedconfig == nil {
-                TextField(placeholder, text: value)
-                    .focused($focusField, equals: focus)
-                    .textContentType(.none).submitLabel(submitLabel)
-                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
-            } else {
-                TextField(placeholder, text: value)
-                    .focused($focusField, equals: focus)
-                    .textContentType(.none).submitLabel(submitLabel)
-                    .onAppear { if let val = selectedValue { value.wrappedValue = val } }
-                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
-            }
-        }
+            TextField(placeholder, text: value)
+                .focused($focusField, equals: focus)
+                .textContentType(.none).submitLabel(submitLabel)
+                .onAppear { if newdata.selectedconfig == nil, let val = selectedValue { value.wrappedValue = val } }
+                .border(showErrorBorder ? Color.red : Color.clear, width: 2)
     }
 
-    var trailingslash: some View {
+    @ViewBuilder
+    func TrailingSlashPicker() -> some View {
         Picker("Trailing /", selection: $newdata.trailingslashoptions) {
             ForEach(TrailingSlash.allCases) { Text($0.description).tag($0) }
         }
@@ -135,7 +128,8 @@ extension AddTaskView {
         .onAppear { loadTrailingSlashPreference() }
     }
 
-    var pickerselecttypeoftask: some View {
+    @ViewBuilder
+    func TaskTypePicker() -> some View {
         Picker("Action", selection: $newdata.selectedrsynccommand) {
             ForEach(TypeofTask.allCases) { Text($0.description).tag($0) }
         }

@@ -52,20 +52,17 @@ struct AddTaskView: View {
 
     var body: some View {
         Form {
-            trailingslash
-
-            synchronizeID
-            catalogSectionView
-
-            remoteuserandserver
-
+            TrailingSlashPicker()
+            SynchronizeIDSection()
+            CatalogSection()
+            RemoteSection()
             if showSnapshot {
-                snapshotnum
+                SnapshotNumberSection()
             }
 
-            saveURLSection
+            SaveURLSection()
 
-            updateButton
+            UpdateButton()
         }
         .formStyle(.grouped)
         .padding()
@@ -79,6 +76,6 @@ struct AddTaskView: View {
                 selectedconfig = nil
             }
         }
-        .sheet(isPresented: $showAddPopover) { addTaskSheetView }
+        .sheet(isPresented: $showAddPopover) { AddTaskSheetView() }
     }
 }
