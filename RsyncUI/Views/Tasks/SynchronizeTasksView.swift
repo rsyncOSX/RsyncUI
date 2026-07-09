@@ -1,5 +1,5 @@
 //
-//  TasksView.swift
+//  SynchronizeTasksView.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 10/11/2023.
@@ -28,7 +28,7 @@ struct CopyItem: Identifiable, Codable, Transferable {
     }
 }
 
-struct TasksView: View {
+struct SynchronizeTasksView: View {
     @Environment(\.openWindow) var openWindow
 
     @Bindable var rsyncUIdata: RsyncUIconfigurations
@@ -141,7 +141,7 @@ struct TasksView: View {
     }
 }
 
-extension TasksView {
+extension SynchronizeTasksView {
     func handleSelectedUuidsChange() {
         if let configurations = rsyncUIdata.configurations {
             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {

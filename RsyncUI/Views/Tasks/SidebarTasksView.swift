@@ -41,7 +41,7 @@ struct SidebarTasksView: View {
 
     var body: some View {
         NavigationStack(path: $executetaskpath) {
-            TasksView(rsyncUIdata: rsyncUIdata,
+            SynchronizeTasksView(rsyncUIdata: rsyncUIdata,
                       progressdetails: progressdetails,
                       schedules: schedules,
                       selecteduuids: $selecteduuids,
