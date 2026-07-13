@@ -44,8 +44,6 @@ struct AddTaskView: View {
     @State var stringestimate: String = ""
     @Binding var showAddPopover: Bool
 
-    @State var presentglobaltaskview: Bool = false
-
     func onAdd() {
         Task { @MainActor in
             if await addConfig() {
@@ -73,6 +71,6 @@ struct AddTaskView: View {
                 selectedconfig = nil
             }
         }
-        .sheet(isPresented: $showAddPopover) { AddTaskSheetView(newdata: $newdata, selectedconfig: $selectedconfig, changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, presentglobaltaskview: $presentglobaltaskview, onAdd: onAdd) }
+        .sheet(isPresented: $showAddPopover) { AddTaskSheetView(newdata: $newdata, selectedconfig: $selectedconfig, changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, onAdd: onAdd) }
     }
 }

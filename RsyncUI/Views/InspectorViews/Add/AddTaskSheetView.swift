@@ -15,8 +15,6 @@ struct AddTaskSheetView: View {
     @Binding var changesnapshotnum: Bool
     @Binding var stringestimate: String
 
-    @Binding var presentglobaltaskview: Bool
-
     var onAdd: () -> Void
 
         var body: some View {

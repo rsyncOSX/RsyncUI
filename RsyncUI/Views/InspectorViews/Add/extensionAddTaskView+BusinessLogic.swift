@@ -79,12 +79,3 @@ extension AddTaskView {
     }
 
 }
-
-// MARK: - Computed Properties
-
-extension AddTaskView {
-    /// The verify returns true when data is OK
-    var ddisableadd: Bool {
-        VerifyObservableAddConfiguration(observed: newdata).verify()
-    }
-}
