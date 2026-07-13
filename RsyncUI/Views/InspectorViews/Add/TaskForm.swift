@@ -191,6 +191,13 @@ struct TaskForm: View {
         }
     }
 
+    var updateButton: some View {
+        Button("Update", systemImage: "arrow.down") {
+            onUpdate?()
+        }
+        .help("Update task")
+    }
+    
     var saveURLSection: some View {
         Group {
             Toggle("Show save URL", isOn: $newdata.showsaveurls).toggleStyle(.switch)
@@ -207,19 +214,13 @@ struct TaskForm: View {
         }
     }
 
-    var updateButton: some View {
-        Button("Update", systemImage: "arrow.down") {
-           onUpdate?()
-        }
-        .help("Update task")
-    }
-
     var body: some View {
 
         switch mode {
         case .add:
             Form {
                 pickerselecttypeoftask
+
                 trailingslash
                 synchronizeID
                 catalogSectionView
@@ -228,23 +229,17 @@ struct TaskForm: View {
             .formStyle(.grouped)
         case .update:
             Form {
-            trailingslash
+                trailingslash
+                synchronizeID
+                catalogSectionView
+                remoteuserandserver
 
-            synchronizeID
-            catalogSectionView
+                if showSnapshot { snapshotnum }
+                saveURLSection
+                updateButton
 
-            remoteuserandserver
-
-            if showSnapshot {
-                snapshotnum
             }
-
-            saveURLSection
-
-            updateButton
-
-        }
-        .formStyle(.grouped)
+            .formStyle(.grouped)
         }
     }
 }
