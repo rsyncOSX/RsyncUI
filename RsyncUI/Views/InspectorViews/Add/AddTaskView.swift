@@ -46,28 +46,22 @@ struct AddTaskView: View {
 
     @State var presentglobaltaskview: Bool = false
 
-    var showSnapshot: Bool {
-        selectedconfig?.task == SharedReference.shared.snapshot
+    func onAdd() {
+        Task { @MainActor in
+            if await addConfig() {
+                showAddPopover = false
+            }
+        }
+    }
+
+    func onUpdate() {
+        Task { @MainActor in
+            _ = await validateAndUpdate()
+        }
     }
 
     var body: some View {
-        Form {
-            trailingslash
-
-            synchronizeID
-            catalogSectionView
-
-            remoteuserandserver
-
-            if showSnapshot {
-                snapshotnum
-            }
-
-            saveURLSection
-
-            updateButton
-        }
-        .formStyle(.grouped)
+        TaskForm(mode: .update, newdata: $newdata, selectedconfig: $selectedconfig, changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, onUpdate: onUpdate)
         .padding()
         .onAppear { handleSelectionChange() }
         .onSubmit { handleSubmit() }
@@ -79,6 +73,6 @@ struct AddTaskView: View {
                 selectedconfig = nil
             }
         }
-        .sheet(isPresented: $showAddPopover) { addTaskSheetView }
+        .sheet(isPresented: $showAddPopover) { AddTaskSheetView(newdata: $newdata, selectedconfig: $selectedconfig, changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, presentglobaltaskview: $presentglobaltaskview, onAdd: onAdd) }
     }
 }
