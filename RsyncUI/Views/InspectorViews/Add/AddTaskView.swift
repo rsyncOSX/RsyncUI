@@ -61,7 +61,7 @@ struct AddTaskView: View {
     }
 
     var body: some View {
-        TaskForm(mode: .update, rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids, newdata: $newdata, selectedconfig: $selectedconfig, changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, onUpdate: onUpdate)
+        TaskForm(mode: .update, newdata: $newdata, selectedconfig: $selectedconfig, changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, onUpdate: onUpdate)
         .padding()
         .onAppear { handleSelectionChange() }
         .onSubmit { handleSubmit() }
@@ -73,6 +73,6 @@ struct AddTaskView: View {
                 selectedconfig = nil
             }
         }
-        .sheet(isPresented: $showAddPopover) { AddTaskSheetView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids, newdata: $newdata, selectedconfig: $selectedconfig, changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, presentglobaltaskview: $presentglobaltaskview, onAdd: onAdd) }
+        .sheet(isPresented: $showAddPopover) { AddTaskSheetView(newdata: $newdata, selectedconfig: $selectedconfig, changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, presentglobaltaskview: $presentglobaltaskview, onAdd: onAdd) }
     }
 }

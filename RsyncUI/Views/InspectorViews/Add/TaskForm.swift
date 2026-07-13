@@ -14,8 +14,6 @@ enum TaskFormMode {
 
 struct TaskForm: View {
     let mode: TaskFormMode
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @FocusState var focusField: AddConfigurationField?
 
@@ -23,8 +21,6 @@ struct TaskForm: View {
     @Binding var selectedconfig: SynchronizeConfiguration?
     @Binding var changesnapshotnum: Bool
     @Binding var stringestimate: String
-
-    @State var presentglobaltaskview: Bool = false
 
     var onUpdate: (() -> Void)?
 
@@ -197,7 +193,7 @@ struct TaskForm: View {
         }
         .help("Update task")
     }
-    
+
     var saveURLSection: some View {
         Group {
             Toggle("Show save URL", isOn: $newdata.showsaveurls).toggleStyle(.switch)

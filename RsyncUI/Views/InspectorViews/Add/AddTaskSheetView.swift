@@ -9,10 +9,7 @@ import SwiftUI
 
 struct AddTaskSheetView: View {
     @Environment(\.dismiss) var dismiss
-
-    @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-
+    
     @Binding var newdata: ObservableAddConfigurations
     @Binding var selectedconfig: SynchronizeConfiguration?
     @Binding var changesnapshotnum: Bool
@@ -27,7 +24,7 @@ struct AddTaskSheetView: View {
                 Text("Add Task")
                     .font(.title2)
 
-                TaskForm(mode: .add, rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids, newdata: $newdata, selectedconfig: $selectedconfig, changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate)
+                TaskForm(mode: .add, newdata: $newdata, selectedconfig: $selectedconfig, changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate)
             }
             .padding()
             .frame(minWidth: 600)
