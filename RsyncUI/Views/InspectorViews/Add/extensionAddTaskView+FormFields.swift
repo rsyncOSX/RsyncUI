@@ -11,13 +11,13 @@ import SwiftUI
 
 extension AddTaskView {
     var synchronizeID: some View {
-        Section(header: AddTaskSectionHeader(title: "Synchronize ID")) {
+        Section("Synchronize ID") {
             if newdata.selectedconfig == nil {
-                EditValueScheme(400, "Add synchronize ID", $newdata.backupID)
+                TextField("Synchronize ID", text: $newdata.backupID)
                     .focused($focusField, equals: .synchronizeIDField)
                     .textContentType(.none).submitLabel(.continue)
             } else {
-                EditValueScheme(400, nil, $newdata.backupID)
+                TextField("Synchronize ID", text: $newdata.backupID)
                     .focused($focusField, equals: .synchronizeIDField)
                     .textContentType(.none).submitLabel(.continue)
                     .onAppear { if let id = newdata.selectedconfig?.backupID { newdata.backupID = id } }
@@ -26,7 +26,7 @@ extension AddTaskView {
     }
 
     var snapshotnum: some View {
-        Section(header: Text("Snapshot Number").modifier(FixedTag(200, .leading))) {
+        Section("Snapshot Number") {
             EditValueScheme(400, nil, $newdata.snapshotnum)
                 .focused($focusField, equals: .snapshotnumField)
                 .textContentType(.none).submitLabel(.return)
@@ -36,13 +36,13 @@ extension AddTaskView {
     }
 
     var localandremotecatalog: some View {
-        Section(header: AddTaskSectionHeader(title: "Folders")) {
+        Section("Folders") {
             catalogField(catalog: $newdata.localcatalog,
-                         placeholder: "Add Source folder - required",
+                         placeholder: "Source folder (required)",
                          focus: .localcatalogField,
                          selectedValue: newdata.selectedconfig?.localCatalog)
             catalogField(catalog: $newdata.remotecatalog,
-                         placeholder: "Add Destination folder - required",
+                         placeholder: "Destination folder (required)",
                          focus: .remotecatalogField,
                          selectedValue: newdata.selectedconfig?.offsiteCatalog,
                          showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
@@ -51,13 +51,13 @@ extension AddTaskView {
     }
 
     var localandremotecatalogsyncremote: some View {
-        Section(header: AddTaskSectionHeader(title: "Folders")) {
+        Section("Folders") {
             catalogField(catalog: $newdata.remotecatalog,
-                         placeholder: "Add Source folder - required",
+                         placeholder: "Source Folder (required)",
                          focus: .remotecatalogField,
                          selectedValue: newdata.selectedconfig?.offsiteCatalog)
             catalogField(catalog: $newdata.localcatalog,
-                         placeholder: "Add Remote folder - required",
+                         placeholder: "Remote Folder (required)",
                          focus: .localcatalogField,
                          selectedValue: newdata.selectedconfig?.localCatalog,
                          showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
@@ -70,12 +70,12 @@ extension AddTaskView {
                       showErrorBorder: Bool = false) -> some View {
         HStack {
             if newdata.selectedconfig == nil {
-                EditValueScheme(400, placeholder, catalog)
+                TextField(placeholder, text: catalog)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(.continue)
                     .border(showErrorBorder ? Color.red : Color.clear, width: 2)
             } else {
-                EditValueScheme(400, nil, catalog)
+                TextField(placeholder, text: catalog)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(.continue)
                     .onAppear { if let value = selectedValue { catalog.wrappedValue = value } }
@@ -86,17 +86,17 @@ extension AddTaskView {
     }
 
     var remoteuserandserver: some View {
-        Section(header: AddTaskSectionHeader(title: "Remote")) {
+        Section("Remote") {
             remoteField(
                 value: $newdata.remoteuser,
-                placeholder: "Add remote user",
+                placeholder: "Remote user",
                 focus: .remoteuserField,
                 selectedValue: newdata.selectedconfig?.offsiteUsername,
                 showErrorBorder: newdata.remoteuser.isEmpty && !newdata.remoteserver.isEmpty
             )
             remoteField(
                 value: $newdata.remoteserver,
-                placeholder: "Add remote server",
+                placeholder: "Remote server",
                 focus: .remoteserverField,
                 selectedValue: newdata.selectedconfig?.offsiteServer,
                 submitLabel: .return,
@@ -110,12 +110,12 @@ extension AddTaskView {
                      showErrorBorder: Bool = false) -> some View {
         Group {
             if newdata.selectedconfig == nil {
-                EditValueScheme(400, placeholder, value)
+                TextField(placeholder, text: value)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(submitLabel)
                     .border(showErrorBorder ? Color.red : Color.clear, width: 2)
             } else {
-                EditValueScheme(400, nil, value)
+                TextField(placeholder, text: value)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(submitLabel)
                     .onAppear { if let val = selectedValue { value.wrappedValue = val } }
@@ -128,7 +128,7 @@ extension AddTaskView {
         Picker("Trailing /", selection: $newdata.trailingslashoptions) {
             ForEach(TrailingSlash.allCases) { Text($0.description).tag($0) }
         }
-        .pickerStyle(DefaultPickerStyle()).frame(width: 180)
+        .pickerStyle(.menu)
         .onChange(of: newdata.trailingslashoptions) {
             UserDefaults.standard.set(newdata.trailingslashoptions.rawValue, forKey: "trailingslashoptions")
         }
@@ -139,7 +139,7 @@ extension AddTaskView {
         Picker("Action", selection: $newdata.selectedrsynccommand) {
             ForEach(TypeofTask.allCases) { Text($0.description).tag($0) }
         }
-        .pickerStyle(DefaultPickerStyle()).frame(width: 180)
+        .pickerStyle(.menu)
         .onChange(of: newdata.selectedrsynccommand) {
             UserDefaults.standard.set(newdata.selectedrsynccommand.rawValue, forKey: "selectedrsynccommand")
         }

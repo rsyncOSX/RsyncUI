@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct AboutView: View {
-    @Environment(\.dismiss) var dismiss
-
     @State private var urlstring = ""
 
     var changelog: String {
@@ -66,7 +64,6 @@ struct AboutView: View {
                         helpText: "Changelog"
                     ) {
                         openChangelog()
-                        dismiss()
                     }
 
                     if SharedReference.shared.newversion {
@@ -77,20 +74,6 @@ struct AboutView: View {
                         ) {
                             openDownload()
                         }
-                    }
-
-                    Spacer()
-
-                    if #available(macOS 26.0, *) {
-                        Button("Close", role: .close) {
-                            dismiss()
-                        }
-                        .buttonStyle(RefinedGlassButtonStyle())
-                    } else {
-                        Button("Close") {
-                            dismiss()
-                        }
-                        .buttonStyle(.borderedProminent)
                     }
                 }
             } header: {

@@ -23,7 +23,22 @@ struct RsyncUIApp: App {
                     Homepath().createRootProfileCatalog()
                 }
                 .frame(minWidth: 1100, idealWidth: 1300, minHeight: 580)
-                .sheet(isPresented: $showabout) { AboutView() }
+                .sheet(isPresented: $showabout) {
+                    AboutView()
+                        .toolbar {
+                            ToolbarItem(placement: .cancellationAction) {
+                                if #available(macOS 26.0, *) {
+                                    Button("Close", role: .close) {
+                                        showabout = false
+                                    }
+                                } else {
+                                    Button("Close") {
+                                        showabout = false
+                                    }
+                                }
+                            }
+                        }
+                }
                 .onDisappear {
                     // Quit the app when the main window is closed
                     performCleanupTask()

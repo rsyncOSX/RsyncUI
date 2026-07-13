@@ -42,6 +42,7 @@ struct InspectorView: View {
                     Text("Logs").tag(InspectorTab.logview)
                     Text("Verify").tag(InspectorTab.verifytask)
                 }
+                .labelsHidden()
                 .pickerStyle(.segmented)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
