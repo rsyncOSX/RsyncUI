@@ -32,7 +32,7 @@ extension AddTaskView {
         case .remoteserverField:
             if newdata.selectedconfig == nil {
                 Task { @MainActor in
-                    _ = await addConfig()
+                    _ = await addConfig(newdata: newdata)
                 }
             } else {
                 Task { @MainActor in

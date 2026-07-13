@@ -11,7 +11,7 @@ import SwiftUI
 
 extension AddTaskView {
     @MainActor
-    func addConfig() async -> Bool {
+    func addConfig(newdata: ObservableAddConfigurations) async -> Bool {
         let profile = rsyncUIdata.profile
         let beforeCount = rsyncUIdata.configurations?.count ?? 0
         rsyncUIdata.configurations = await newdata.addConfig(profile, rsyncUIdata.configurations)

@@ -10,28 +10,27 @@ import SwiftUI
 struct AddTaskSheetView: View {
     @Environment(\.dismiss) var dismiss
     
-    @Binding var newdata: ObservableAddConfigurations
-    @Binding var selectedconfig: SynchronizeConfiguration?
+    @State var newdata = ObservableAddConfigurations()
     @Binding var changesnapshotnum: Bool
     @Binding var stringestimate: String
 
     @Binding var presentglobaltaskview: Bool
 
-    var onAdd: () -> Void
+    var onAdd: (ObservableAddConfigurations) -> Void
 
         var body: some View {
             VStack {
                 Text("Add Task")
                     .font(.title2)
 
-                TaskForm(mode: .add, newdata: $newdata, selectedconfig: $selectedconfig, changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate)
+                TaskForm(mode: .add, newdata: $newdata, selectedconfig: .constant(nil), changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate)
             }
             .padding()
             .frame(minWidth: 600)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Add") {
-                        onAdd()
+                        onAdd(newdata)
                     }
                 }
 
