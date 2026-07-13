@@ -1,5 +1,5 @@
 //
-//  extensionAddTaskView+FormFields.swift
+//  TaskForm.swift
 //  RsyncUI
 //
 //  Created by Thomas Evensen on 13/12/2025.
@@ -7,9 +7,43 @@
 import OSLog
 import SwiftUI
 
-// MARK: - Form Field Sections
+enum TaskFormMode {
+    case add
+    case update
+}
 
-extension AddTaskView {
+struct TaskForm: View {
+    let mode: TaskFormMode
+    @Bindable var rsyncUIdata: RsyncUIconfigurations
+    @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
+
+    @FocusState var focusField: AddConfigurationField?
+
+    @Binding var newdata: ObservableAddConfigurations
+    @Binding var selectedconfig: SynchronizeConfiguration?
+    @Binding var changesnapshotnum: Bool
+    @Binding var stringestimate: String
+
+    @State var presentglobaltaskview: Bool = false
+
+    var onUpdate: (() -> Void)?
+
+    func loadTrailingSlashPreference() {
+        if let value = UserDefaults.standard.value(forKey: "trailingslashoptions") as? String {
+            newdata.trailingslashoptions = TrailingSlash(rawValue: value) ?? .add
+        }
+    }
+
+    func loadRsyncCommandPreference() {
+        if let value = UserDefaults.standard.value(forKey: "selectedrsynccommand") as? String {
+            newdata.selectedrsynccommand = TypeofTask(rawValue: value) ?? .synchronize
+        }
+    }
+
+    var showSnapshot: Bool {
+        selectedconfig?.task == SharedReference.shared.snapshot
+    }
+
     var synchronizeID: some View {
         Section("Synchronize ID") {
             if newdata.selectedconfig == nil {
@@ -46,7 +80,7 @@ extension AddTaskView {
                          focus: .remotecatalogField,
                          selectedValue: newdata.selectedconfig?.offsiteCatalog,
                          showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
-                             newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty)
+                         newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty)
         }
     }
 
@@ -61,7 +95,7 @@ extension AddTaskView {
                          focus: .localcatalogField,
                          selectedValue: newdata.selectedconfig?.localCatalog,
                          showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
-                             newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty)
+                         newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty)
         }
     }
 
@@ -144,5 +178,73 @@ extension AddTaskView {
             UserDefaults.standard.set(newdata.selectedrsynccommand.rawValue, forKey: "selectedrsynccommand")
         }
         .onAppear { loadRsyncCommandPreference() }
+    }
+
+    var catalogSectionView: some View {
+        Group {
+            if newdata.selectedrsynccommand == .syncremote {
+                localandremotecatalogsyncremote
+            } else {
+                localandremotecatalog
+                    .disabled(selectedconfig?.task == SharedReference.shared.snapshot)
+            }
+        }
+    }
+
+    var saveURLSection: some View {
+        Group {
+            Toggle("Show save URL", isOn: $newdata.showsaveurls).toggleStyle(.switch)
+            if newdata.showsaveurls {
+                ConditionalGlassButton(systemImage: "square.and.arrow.down",
+                                       text: "URL Estimate",
+                                       helpText: "URL Estimate & Synchronize") {
+                    let data = WidgetURLstrings(urletimate: stringestimate)
+                    Task { @MainActor in
+                        await WriteWidgetsURLStringsJSON.write(data)
+                    }
+                }
+            }
+        }
+    }
+
+    var updateButton: some View {
+        Button("Update", systemImage: "arrow.down") {
+           onUpdate?()
+        }
+        .help("Update task")
+    }
+
+    var body: some View {
+
+        switch mode {
+        case .add:
+            Form {
+                pickerselecttypeoftask
+                trailingslash
+                synchronizeID
+                catalogSectionView
+                remoteuserandserver
+            }
+            .formStyle(.grouped)
+        case .update:
+            Form {
+            trailingslash
+
+            synchronizeID
+            catalogSectionView
+
+            remoteuserandserver
+
+            if showSnapshot {
+                snapshotnum
+            }
+
+            saveURLSection
+
+            updateButton
+
+        }
+        .formStyle(.grouped)
+        }
     }
 }
