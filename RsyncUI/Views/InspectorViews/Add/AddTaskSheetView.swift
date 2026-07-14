@@ -12,6 +12,18 @@ struct AddTaskSheetView: View {
 
     @State var newdata = ObservableAddConfigurations()
 
+    func loadTrailingSlashPreference() {
+        if let value = UserDefaults.standard.value(forKey: "trailingslashoptions") as? String {
+            newdata.trailingslashoptions = TrailingSlash(rawValue: value) ?? .add
+        }
+    }
+
+    func loadRsyncCommandPreference() {
+        if let value = UserDefaults.standard.value(forKey: "selectedrsynccommand") as? String {
+            newdata.selectedrsynccommand = TypeofTask(rawValue: value) ?? .synchronize
+        }
+    }
+
     var onAdd: (ObservableAddConfigurations) -> Void
 
     var body: some View {
@@ -20,6 +32,10 @@ struct AddTaskSheetView: View {
                 .font(.title2)
 
             TaskForm(newdata: $newdata)
+        }
+        .onAppear {
+            loadTrailingSlashPreference()
+            loadRsyncCommandPreference()
         }
         .padding()
         .frame(minWidth: 600)
