@@ -19,27 +19,36 @@ struct TaskForm: View {
 
     @Binding var newdata: ObservableAddConfigurations
     @State var changesnapshotnum: Bool = false
-    @Binding var stringestimate: String
+
+    var profile: String?
 
     var onUpdate: (() -> Void)?
+
+    var stringestimate: String {
+        if newdata.selectedconfig?.task == SharedReference.shared.synchronize {
+            let deeplinkurl = DeeplinkURL()
+            let urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: profile ?? "Default")
+            return urlestimate?.absoluteString ?? ""
+        }
+        return ""
+    }
 
     init(newdata: Binding<ObservableAddConfigurations>) {
         self.mode = .add
         _newdata = newdata
-        _stringestimate = .constant("")
     }
 
 
     init(
+        profile: String?,
         focusField: FocusState<AddConfigurationField?>,
         newdata: Binding<ObservableAddConfigurations>,
-        stringestimate: Binding<String>,
         onUpdate: (() -> Void)?
     ) {
         self.mode = .update
+        self.profile = profile
         _focusField = focusField
         _newdata = newdata
-        _stringestimate = stringestimate
         self.onUpdate = onUpdate
     }
 

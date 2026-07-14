@@ -14,7 +14,6 @@ extension AddTaskView {
         selecteduuids.removeAll()
         newdata.updateview(nil)
         newdata.showsaveurls = false
-        stringestimate = ""
     }
 
     func handleSubmit() {
@@ -54,23 +53,10 @@ extension AddTaskView {
             }
             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                 newdata.updateview(configurations[index])
-                updateURLString()
             } else {
                 newdata.updateview(nil)
-                stringestimate = ""
                 newdata.showsaveurls = false
             }
         }
     }
-
-    func updateURLString() {
-        if newdata.selectedconfig?.task == SharedReference.shared.synchronize {
-            let deeplinkurl = DeeplinkURL()
-            let urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: rsyncUIdata.profile ?? "Default")
-            stringestimate = urlestimate?.absoluteString ?? ""
-        } else {
-            stringestimate = ""
-        }
-    }
-
 }

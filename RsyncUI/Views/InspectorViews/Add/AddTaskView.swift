@@ -38,7 +38,6 @@ struct AddTaskView: View {
     @FocusState var focusField: AddConfigurationField?
 
     @State var newdata = ObservableAddConfigurations()
-    @State var stringestimate: String = ""
     @Binding var showAddPopover: Bool
 
     func onAdd(newdata: ObservableAddConfigurations) {
@@ -56,7 +55,7 @@ struct AddTaskView: View {
     }
 
     var body: some View {
-        TaskForm(focusField: _focusField, newdata: $newdata, stringestimate: $stringestimate, onUpdate: onUpdate)
+        TaskForm(profile: rsyncUIdata.profile, focusField: _focusField, newdata: $newdata, onUpdate: onUpdate)
         .padding()
         .onAppear { handleSelectionChange() }
         .onSubmit { handleSubmit() }
