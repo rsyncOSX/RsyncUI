@@ -17,19 +17,12 @@ enum InspectorTab: Hashable {
 struct InspectorView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    @Binding var showAddPopover: Bool
 
     @State private var selectedTab: InspectorTab = .edit
 
     var body: some View {
         if selecteduuids.count == 0 {
             ZStack {
-                AddTaskView(rsyncUIdata: rsyncUIdata,
-                            selecteduuids: $selecteduuids,
-                            showAddPopover: $showAddPopover)
-                    .opacity(0)
-                    .allowsHitTesting(false)
-
                 Text("No task\nselected")
                     .font(.title2)
             }
@@ -51,8 +44,7 @@ struct InspectorView: View {
                 InspectorContentView(
                     rsyncUIdata: rsyncUIdata,
                     selectedTab: $selectedTab,
-                    selecteduuids: $selecteduuids,
-                    showAddPopover: $showAddPopover
+                    selecteduuids: $selecteduuids
                 )
             }
             .navigationTitle("")

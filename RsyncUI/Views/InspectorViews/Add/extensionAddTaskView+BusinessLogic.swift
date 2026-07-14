@@ -28,11 +28,7 @@ extension AddTaskView {
                 _ = await validateAndUpdate()
             }
         case .remoteserverField:
-            if newdata.selectedconfig == nil {
-                Task { @MainActor in
-                    _ = await addConfig(newdata: newdata)
-                }
-            } else {
+            if newdata.selectedconfig != nil {
                 Task { @MainActor in
                     _ = await validateAndUpdate()
                 }

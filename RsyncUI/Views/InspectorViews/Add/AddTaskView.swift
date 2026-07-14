@@ -39,15 +39,6 @@ struct AddTaskView: View {
 
     @State var newdata = ObservableAddConfigurations()
     @State var stringestimate: String = ""
-    @Binding var showAddPopover: Bool
-
-    func onAdd(newdata: ObservableAddConfigurations) {
-        Task { @MainActor in
-            if await addConfig(newdata: newdata) {
-                showAddPopover = false
-            }
-        }
-    }
 
     func onUpdate() {
         Task { @MainActor in
@@ -62,6 +53,5 @@ struct AddTaskView: View {
         .onSubmit { handleSubmit() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
         .onChange(of: selecteduuids) { handleSelectionChange() }
-        .sheet(isPresented: $showAddPopover) { AddTaskSheetView(onAdd: onAdd) }
     }
 }

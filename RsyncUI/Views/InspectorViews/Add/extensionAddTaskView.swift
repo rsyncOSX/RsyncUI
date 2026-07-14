@@ -11,19 +11,6 @@ import SwiftUI
 
 extension AddTaskView {
     @MainActor
-    func addConfig(newdata: ObservableAddConfigurations) async -> Bool {
-        let profile = rsyncUIdata.profile
-        let beforeCount = rsyncUIdata.configurations?.count ?? 0
-        rsyncUIdata.configurations = await newdata.addConfig(profile, rsyncUIdata.configurations)
-        if SharedReference.shared.duplicatecheck {
-            if let configurations = rsyncUIdata.configurations {
-                VerifyDuplicates(configurations)
-            }
-        }
-        return (rsyncUIdata.configurations?.count ?? 0) > beforeCount
-    }
-
-    @MainActor
     func validateAndUpdate() async -> Bool {
         let profile = rsyncUIdata.profile
         let selectedHiddenID = newdata.selectedconfig?.hiddenID
