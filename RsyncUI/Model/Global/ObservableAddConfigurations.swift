@@ -135,7 +135,7 @@ final class ObservableAddConfigurations {
                 }
             }
         } else {
-            selectedconfig = nil
+            selectedrsynccommand = .synchronize
             localcatalog = ""
             remotecatalog = ""
             remoteuser = ""
