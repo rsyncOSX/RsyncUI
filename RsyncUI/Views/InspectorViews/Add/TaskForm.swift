@@ -44,18 +44,6 @@ struct TaskForm: View {
         self.onUpdate = onUpdate
     }
 
-    func loadTrailingSlashPreference() {
-        if let value = UserDefaults.standard.value(forKey: "trailingslashoptions") as? String {
-            newdata.trailingslashoptions = TrailingSlash(rawValue: value) ?? .add
-        }
-    }
-
-    func loadRsyncCommandPreference() {
-        if let value = UserDefaults.standard.value(forKey: "selectedrsynccommand") as? String {
-            newdata.selectedrsynccommand = TypeofTask(rawValue: value) ?? .synchronize
-        }
-    }
-
     var showSnapshot: Bool {
         newdata.selectedconfig?.task == SharedReference.shared.snapshot
     }
@@ -182,7 +170,6 @@ struct TaskForm: View {
         .onChange(of: newdata.trailingslashoptions) {
             UserDefaults.standard.set(newdata.trailingslashoptions.rawValue, forKey: "trailingslashoptions")
         }
-        .onAppear { loadTrailingSlashPreference() }
     }
 
     var pickerselecttypeoftask: some View {
@@ -193,7 +180,6 @@ struct TaskForm: View {
         .onChange(of: newdata.selectedrsynccommand) {
             UserDefaults.standard.set(newdata.selectedrsynccommand.rawValue, forKey: "selectedrsynccommand")
         }
-        .onAppear { loadRsyncCommandPreference() }
     }
 
     var catalogSectionView: some View {
