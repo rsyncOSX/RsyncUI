@@ -33,18 +33,13 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 
 struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selectedTab: InspectorTab
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @FocusState var focusField: AddConfigurationField?
 
     @State var newdata = ObservableAddConfigurations()
-    @State var selectedconfig: SynchronizeConfiguration?
-    @State var changesnapshotnum: Bool = false
     @State var stringestimate: String = ""
     @Binding var showAddPopover: Bool
-
-    @State var presentglobaltaskview: Bool = false
 
     func onAdd(newdata: ObservableAddConfigurations) {
         Task { @MainActor in
@@ -61,12 +56,12 @@ struct AddTaskView: View {
     }
 
     var body: some View {
-        TaskForm(mode: .update, newdata: $newdata, selectedconfig: $selectedconfig, changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, onUpdate: onUpdate)
+        TaskForm(focusField: _focusField, newdata: $newdata, stringestimate: $stringestimate, onUpdate: onUpdate)
         .padding()
         .onAppear { handleSelectionChange() }
         .onSubmit { handleSubmit() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
         .onChange(of: selecteduuids) { handleSelectionChange() }
-        .sheet(isPresented: $showAddPopover) { AddTaskSheetView(changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, onAdd: onAdd) }
+        .sheet(isPresented: $showAddPopover) { AddTaskSheetView(onAdd: onAdd) }
     }
 }

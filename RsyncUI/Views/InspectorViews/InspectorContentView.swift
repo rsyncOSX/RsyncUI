@@ -18,7 +18,6 @@ struct InspectorContentView: View {
         case .edit:
             ScrollView {
                 AddTaskView(rsyncUIdata: rsyncUIdata,
-                            selectedTab: $selectedTab,
                             selecteduuids: $selecteduuids,
                             showAddPopover: $showAddPopover)
             }

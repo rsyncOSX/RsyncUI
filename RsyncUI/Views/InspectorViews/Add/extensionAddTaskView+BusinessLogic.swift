@@ -12,10 +12,8 @@ import SwiftUI
 extension AddTaskView {
     func clearSelection() {
         selecteduuids.removeAll()
-        selectedconfig = nil
         newdata.updateview(nil)
         newdata.showsaveurls = false
-        changesnapshotnum = false
         stringestimate = ""
     }
 
@@ -47,7 +45,6 @@ extension AddTaskView {
     func handleProfileChange() {
         newdata.resetForm()
         selecteduuids.removeAll()
-        selectedconfig = nil
     }
 
     func handleSelectionChange() {
@@ -56,11 +53,9 @@ extension AddTaskView {
                 return
             }
             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
-                selectedconfig = configurations[index]
                 newdata.updateview(configurations[index])
                 updateURLString()
             } else {
-                selectedconfig = nil
                 newdata.updateview(nil)
                 stringestimate = ""
                 newdata.showsaveurls = false
@@ -69,7 +64,7 @@ extension AddTaskView {
     }
 
     func updateURLString() {
-        if selectedconfig?.task == SharedReference.shared.synchronize {
+        if newdata.selectedconfig?.task == SharedReference.shared.synchronize {
             let deeplinkurl = DeeplinkURL()
             let urlestimate = deeplinkurl.createURLestimateandsynchronize(valueprofile: rsyncUIdata.profile ?? "Default")
             stringestimate = urlestimate?.absoluteString ?? ""
