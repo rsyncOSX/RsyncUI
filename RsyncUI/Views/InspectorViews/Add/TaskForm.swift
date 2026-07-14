@@ -7,22 +7,44 @@
 import OSLog
 import SwiftUI
 
-enum TaskFormMode {
+private enum TaskFormMode {
     case add
     case update
 }
 
 struct TaskForm: View {
-    let mode: TaskFormMode
+    private let mode: TaskFormMode
 
     @FocusState var focusField: AddConfigurationField?
 
     @Binding var newdata: ObservableAddConfigurations
-    @Binding var selectedconfig: SynchronizeConfiguration?
     @Binding var changesnapshotnum: Bool
     @Binding var stringestimate: String
 
     var onUpdate: (() -> Void)?
+
+    init(newdata: Binding<ObservableAddConfigurations>) {
+        self.mode = .add
+        _newdata = newdata
+        _changesnapshotnum = .constant(false)
+        _stringestimate = .constant("")
+    }
+
+
+    init(
+        focusField: FocusState<AddConfigurationField?>,
+        newdata: Binding<ObservableAddConfigurations>,
+        changesnapshotnum: Binding<Bool>,
+        stringestimate: Binding<String>,
+        onUpdate: (() -> Void)?
+    ) {
+        self.mode = .update
+        _focusField = focusField
+        _newdata = newdata
+        _changesnapshotnum = changesnapshotnum
+        _stringestimate = stringestimate
+        self.onUpdate = onUpdate
+    }
 
     func loadTrailingSlashPreference() {
         if let value = UserDefaults.standard.value(forKey: "trailingslashoptions") as? String {
@@ -37,7 +59,7 @@ struct TaskForm: View {
     }
 
     var showSnapshot: Bool {
-        selectedconfig?.task == SharedReference.shared.snapshot
+        newdata.selectedconfig?.task == SharedReference.shared.snapshot
     }
 
     var synchronizeID: some View {
@@ -182,7 +204,7 @@ struct TaskForm: View {
                 localandremotecatalogsyncremote
             } else {
                 localandremotecatalog
-                    .disabled(selectedconfig?.task == SharedReference.shared.snapshot)
+                    .disabled(newdata.selectedconfig?.task == SharedReference.shared.snapshot)
             }
         }
     }

@@ -44,8 +44,6 @@ struct AddTaskView: View {
     @State var stringestimate: String = ""
     @Binding var showAddPopover: Bool
 
-    @State var presentglobaltaskview: Bool = false
-
     func onAdd(newdata: ObservableAddConfigurations) {
         Task { @MainActor in
             if await addConfig(newdata: newdata) {
@@ -61,12 +59,12 @@ struct AddTaskView: View {
     }
 
     var body: some View {
-        TaskForm(mode: .update, newdata: $newdata, selectedconfig: $selectedconfig, changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, onUpdate: onUpdate)
+        TaskForm(focusField: _focusField, newdata: $newdata, changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, onUpdate: onUpdate)
         .padding()
         .onAppear { handleSelectionChange() }
         .onSubmit { handleSubmit() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
         .onChange(of: selecteduuids) { handleSelectionChange() }
-        .sheet(isPresented: $showAddPopover) { AddTaskSheetView(changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, onAdd: onAdd) }
+        .sheet(isPresented: $showAddPopover) { AddTaskSheetView(onAdd: onAdd) }
     }
 }

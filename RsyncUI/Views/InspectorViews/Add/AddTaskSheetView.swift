@@ -11,8 +11,6 @@ struct AddTaskSheetView: View {
     @Environment(\.dismiss) var dismiss
     
     @State var newdata = ObservableAddConfigurations()
-    @Binding var changesnapshotnum: Bool
-    @Binding var stringestimate: String
 
     var onAdd: (ObservableAddConfigurations) -> Void
 
@@ -21,7 +19,7 @@ struct AddTaskSheetView: View {
                 Text("Add Task")
                     .font(.title2)
 
-                TaskForm(mode: .add, newdata: $newdata, selectedconfig: .constant(nil), changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate)
+                TaskForm(newdata: $newdata)
             }
             .padding()
             .frame(minWidth: 600)
