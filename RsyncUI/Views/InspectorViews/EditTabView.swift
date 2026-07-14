@@ -25,7 +25,7 @@ struct EditTabView: View {
             }
 
         }
-        .onAppear {
+        .onChange(of: rsyncUIdata.configurations, initial: true) {
             if (!showAddPopover) {
                 showAddPopover = rsyncUIdata.configurations?.isEmpty ?? true
             }
