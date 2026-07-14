@@ -55,7 +55,7 @@ struct AddTaskView: View {
     }
 
     var body: some View {
-        TaskForm(profile: rsyncUIdata.profile, focusField: _focusField, newdata: $newdata, onUpdate: onUpdate)
+        TaskForm(profile: $rsyncUIdata.profile, focusField: _focusField, newdata: $newdata, onUpdate: onUpdate)
         .padding()
         .onAppear { handleSelectionChange() }
         .onSubmit { handleSubmit() }

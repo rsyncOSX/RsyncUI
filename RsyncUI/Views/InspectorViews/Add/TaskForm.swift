@@ -20,7 +20,7 @@ struct TaskForm: View {
     @Binding var newdata: ObservableAddConfigurations
     @State var changesnapshotnum: Bool = false
 
-    var profile: String?
+    @Binding var profile: String?
 
     var onUpdate: (() -> Void)?
 
@@ -36,17 +36,18 @@ struct TaskForm: View {
     init(newdata: Binding<ObservableAddConfigurations>) {
         self.mode = .add
         _newdata = newdata
+        _profile = .constant(nil)
     }
 
 
     init(
-        profile: String?,
+        profile: Binding<String?>,
         focusField: FocusState<AddConfigurationField?>,
         newdata: Binding<ObservableAddConfigurations>,
         onUpdate: (() -> Void)?
     ) {
         self.mode = .update
-        self.profile = profile
+        _profile = profile
         _focusField = focusField
         _newdata = newdata
         self.onUpdate = onUpdate
