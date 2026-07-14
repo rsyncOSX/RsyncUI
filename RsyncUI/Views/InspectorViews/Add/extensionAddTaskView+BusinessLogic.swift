@@ -14,7 +14,6 @@ extension AddTaskView {
         selecteduuids.removeAll()
         newdata.updateview(nil)
         newdata.showsaveurls = false
-        changesnapshotnum = false
         stringestimate = ""
     }
 

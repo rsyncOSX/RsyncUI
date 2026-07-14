@@ -18,7 +18,7 @@ struct TaskForm: View {
     @FocusState var focusField: AddConfigurationField?
 
     @Binding var newdata: ObservableAddConfigurations
-    @Binding var changesnapshotnum: Bool
+    @State var changesnapshotnum: Bool = false
     @Binding var stringestimate: String
 
     var onUpdate: (() -> Void)?
@@ -26,7 +26,6 @@ struct TaskForm: View {
     init(newdata: Binding<ObservableAddConfigurations>) {
         self.mode = .add
         _newdata = newdata
-        _changesnapshotnum = .constant(false)
         _stringestimate = .constant("")
     }
 
@@ -34,14 +33,12 @@ struct TaskForm: View {
     init(
         focusField: FocusState<AddConfigurationField?>,
         newdata: Binding<ObservableAddConfigurations>,
-        changesnapshotnum: Binding<Bool>,
         stringestimate: Binding<String>,
         onUpdate: (() -> Void)?
     ) {
         self.mode = .update
         _focusField = focusField
         _newdata = newdata
-        _changesnapshotnum = changesnapshotnum
         _stringestimate = stringestimate
         self.onUpdate = onUpdate
     }

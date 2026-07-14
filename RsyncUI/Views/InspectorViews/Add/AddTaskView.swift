@@ -38,7 +38,6 @@ struct AddTaskView: View {
     @FocusState var focusField: AddConfigurationField?
 
     @State var newdata = ObservableAddConfigurations()
-    @State var changesnapshotnum: Bool = false
     @State var stringestimate: String = ""
     @Binding var showAddPopover: Bool
 
@@ -57,7 +56,7 @@ struct AddTaskView: View {
     }
 
     var body: some View {
-        TaskForm(focusField: _focusField, newdata: $newdata, changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, onUpdate: onUpdate)
+        TaskForm(focusField: _focusField, newdata: $newdata, stringestimate: $stringestimate, onUpdate: onUpdate)
         .padding()
         .onAppear { handleSelectionChange() }
         .onSubmit { handleSubmit() }
