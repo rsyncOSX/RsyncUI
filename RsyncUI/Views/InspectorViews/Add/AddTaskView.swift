@@ -56,12 +56,12 @@ struct AddTaskView: View {
     }
 
     var body: some View {
-        TaskForm(focusField: _focusField, newdata: $newdata, stringestimate: $stringestimate, onUpdate: onUpdate)
+        TaskForm(focusField: $focusField, newdata: $newdata, stringestimate: $stringestimate, onUpdate: onUpdate)
         .padding()
         .onAppear { handleSelectionChange() }
         .onSubmit { handleSubmit() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
         .onChange(of: selecteduuids) { handleSelectionChange() }
-        .sheet(isPresented: $showAddPopover) { AddTaskSheetView(onAdd: onAdd) }
+        .sheet(isPresented: $showAddPopover) { AddTaskSheetView(focusField: $focusField, onAdd: onAdd, onSubmit: handleSubmit) }
     }
 }
