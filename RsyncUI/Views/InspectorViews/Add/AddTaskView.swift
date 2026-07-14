@@ -46,9 +46,9 @@ struct AddTaskView: View {
 
     @State var presentglobaltaskview: Bool = false
 
-    func onAdd() {
+    func onAdd(newdata: ObservableAddConfigurations) {
         Task { @MainActor in
-            if await addConfig() {
+            if await addConfig(newdata: newdata) {
                 showAddPopover = false
             }
         }
@@ -67,12 +67,6 @@ struct AddTaskView: View {
         .onSubmit { handleSubmit() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
         .onChange(of: selecteduuids) { handleSelectionChange() }
-        .onChange(of: showAddPopover) { _, isPresented in
-            if isPresented {
-                newdata.resetForm()
-                selectedconfig = nil
-            }
-        }
-        .sheet(isPresented: $showAddPopover) { AddTaskSheetView(newdata: $newdata, selectedconfig: $selectedconfig, changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, presentglobaltaskview: $presentglobaltaskview, onAdd: onAdd) }
+        .sheet(isPresented: $showAddPopover) { AddTaskSheetView(changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, presentglobaltaskview: $presentglobaltaskview, onAdd: onAdd) }
     }
 }
