@@ -25,11 +25,9 @@ struct EditTabView: View {
             }
 
         }
-        .task(id: rsyncUIdata.configurations) {
-            if rsyncUIdata.configurations == nil {
-                showAddPopover = true
-            } else if let config = rsyncUIdata.configurations, config.isEmpty {
-                showAddPopover = true
+        .onAppear {
+            if (!showAddPopover) {
+                showAddPopover = rsyncUIdata.configurations?.isEmpty ?? true
             }
         }
         .inspector(isPresented: .constant(true)) {
