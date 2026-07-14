@@ -25,7 +25,6 @@ struct InspectorView: View {
         if selecteduuids.count == 0 {
             ZStack {
                 AddTaskView(rsyncUIdata: rsyncUIdata,
-                            selectedTab: $selectedTab,
                             selecteduuids: $selecteduuids,
                             showAddPopover: $showAddPopover)
                     .opacity(0)

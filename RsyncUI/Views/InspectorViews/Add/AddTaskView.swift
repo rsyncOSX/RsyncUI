@@ -33,13 +33,11 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 
 struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selectedTab: InspectorTab
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
     @FocusState var focusField: AddConfigurationField?
 
     @State var newdata = ObservableAddConfigurations()
-    @State var selectedconfig: SynchronizeConfiguration?
     @State var changesnapshotnum: Bool = false
     @State var stringestimate: String = ""
     @Binding var showAddPopover: Bool
