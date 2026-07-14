@@ -67,6 +67,6 @@ struct AddTaskView: View {
         .onSubmit { handleSubmit() }
         .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
         .onChange(of: selecteduuids) { handleSelectionChange() }
-        .sheet(isPresented: $showAddPopover) { AddTaskSheetView(changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, presentglobaltaskview: $presentglobaltaskview, onAdd: onAdd) }
+        .sheet(isPresented: $showAddPopover) { AddTaskSheetView(changesnapshotnum: $changesnapshotnum, stringestimate: $stringestimate, onAdd: onAdd) }
     }
 }
