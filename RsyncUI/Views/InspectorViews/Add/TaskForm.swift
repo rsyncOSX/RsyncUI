@@ -30,7 +30,6 @@ struct TaskForm: View {
         _stringestimate = .constant("")
     }
 
-
     init(
         focusField: FocusState<AddConfigurationField?>.Binding,
         newdata: Binding<ObservableAddConfigurations>,
@@ -58,7 +57,11 @@ struct TaskForm: View {
                 TextField("Synchronize ID", text: $newdata.backupID)
                     .focused($focusField, equals: .synchronizeIDField)
                     .textContentType(.none).submitLabel(.continue)
-                    .onAppear { if let id = newdata.selectedconfig?.backupID { newdata.backupID = id } }
+                    .onAppear {
+                        if let id = newdata.selectedconfig?.backupID {
+                            newdata.backupID = id
+                        }
+                    }
             }
         }
     }
@@ -84,7 +87,7 @@ struct TaskForm: View {
                          focus: .remotecatalogField,
                          selectedValue: newdata.selectedconfig?.offsiteCatalog,
                          showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
-                         newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty)
+                             newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty)
         }
     }
 
@@ -99,13 +102,14 @@ struct TaskForm: View {
                          focus: .localcatalogField,
                          selectedValue: newdata.selectedconfig?.localCatalog,
                          showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
-                         newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty)
+                             newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty)
         }
     }
 
     func catalogField(catalog: Binding<String>, placeholder: String,
                       focus: AddConfigurationField, selectedValue: String?,
-                      showErrorBorder: Bool = false) -> some View {
+                      showErrorBorder: Bool = false) -> some View
+    {
         HStack {
             if newdata.selectedconfig == nil {
                 TextField(placeholder, text: catalog)
@@ -116,7 +120,11 @@ struct TaskForm: View {
                 TextField(placeholder, text: catalog)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(.continue)
-                    .onAppear { if let value = selectedValue { catalog.wrappedValue = value } }
+                    .onAppear {
+                        if let value = selectedValue {
+                            catalog.wrappedValue = value
+                        }
+                    }
                     .border(showErrorBorder ? Color.red : Color.clear, width: 2)
             }
             OpencatalogView(selecteditem: catalog, catalogs: true)
@@ -143,22 +151,26 @@ struct TaskForm: View {
         }
     }
 
+    @ViewBuilder
     func remoteField(value: Binding<String>, placeholder: String, focus: AddConfigurationField,
                      selectedValue: String?, submitLabel: SubmitLabel = .continue,
-                     showErrorBorder: Bool = false) -> some View {
-        Group {
-            if newdata.selectedconfig == nil {
-                TextField(placeholder, text: value)
-                    .focused($focusField, equals: focus)
-                    .textContentType(.none).submitLabel(submitLabel)
-                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
-            } else {
-                TextField(placeholder, text: value)
-                    .focused($focusField, equals: focus)
-                    .textContentType(.none).submitLabel(submitLabel)
-                    .onAppear { if let val = selectedValue { value.wrappedValue = val } }
-                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
-            }
+                     showErrorBorder: Bool = false) -> some View
+    {
+        if newdata.selectedconfig == nil {
+            TextField(placeholder, text: value)
+                .focused($focusField, equals: focus)
+                .textContentType(.none).submitLabel(submitLabel)
+                .border(showErrorBorder ? Color.red : Color.clear, width: 2)
+        } else {
+            TextField(placeholder, text: value)
+                .focused($focusField, equals: focus)
+                .textContentType(.none).submitLabel(submitLabel)
+                .onAppear {
+                    if let val = selectedValue {
+                        value.wrappedValue = val
+                    }
+                }
+                .border(showErrorBorder ? Color.red : Color.clear, width: 2)
         }
     }
 
@@ -182,14 +194,13 @@ struct TaskForm: View {
         }
     }
 
+    @ViewBuilder
     var catalogSectionView: some View {
-        Group {
-            if newdata.selectedrsynccommand == .syncremote {
-                localandremotecatalogsyncremote
-            } else {
-                localandremotecatalog
-                    .disabled(newdata.selectedconfig?.task == SharedReference.shared.snapshot)
-            }
+        if newdata.selectedrsynccommand == .syncremote {
+            localandremotecatalogsyncremote
+        } else {
+            localandremotecatalog
+                .disabled(newdata.selectedconfig?.task == SharedReference.shared.snapshot)
         }
     }
 
@@ -200,24 +211,23 @@ struct TaskForm: View {
         .help("Update task")
     }
 
+    @ViewBuilder
     var saveURLSection: some View {
-        Group {
-            Toggle("Show save URL", isOn: $newdata.showsaveurls).toggleStyle(.switch)
-            if newdata.showsaveurls {
-                ConditionalGlassButton(systemImage: "square.and.arrow.down",
-                                       text: "URL Estimate",
-                                       helpText: "URL Estimate & Synchronize") {
-                    let data = WidgetURLstrings(urletimate: stringestimate)
-                    Task { @MainActor in
-                        await WriteWidgetsURLStringsJSON.write(data)
-                    }
+        Toggle("Show save URL", isOn: $newdata.showsaveurls).toggleStyle(.switch)
+        if newdata.showsaveurls {
+            ConditionalGlassButton(systemImage: "square.and.arrow.down",
+                                   text: "URL Estimate",
+                                   helpText: "URL Estimate & Synchronize")
+            {
+                let data = WidgetURLstrings(urletimate: stringestimate)
+                Task { @MainActor in
+                    await WriteWidgetsURLStringsJSON.write(data)
                 }
             }
         }
     }
 
     var body: some View {
-
         switch mode {
         case .add:
             Form {
@@ -236,10 +246,11 @@ struct TaskForm: View {
                 catalogSectionView
                 remoteuserandserver
 
-                if showSnapshot { snapshotnum }
+                if showSnapshot {
+                    snapshotnum
+                }
                 saveURLSection
                 updateButton
-
             }
             .formStyle(.grouped)
         }
