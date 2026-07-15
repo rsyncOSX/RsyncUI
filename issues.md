@@ -1,92 +1,138 @@
 # Verification and Issue Report
 
-Reviewed range: `c59e3e3^..1f246395` (`c59e3e3` through the current `HEAD`, inclusive).
+Updated: 2026-07-15
+
+Reviewed range: `c59e3e3^..49ceaea2` (`c59e3e3` through the current `HEAD`, inclusive).
+
+Previous review head: `1f246395`
 
 Branch reviewed: `version-3.0.4-tr`
 
-Scope: 33 commits, 22 changed files, 483 insertions, and 469 deletions.
+Scope: 43 commits, 24 changed files, 719 insertions, and 475 deletions.
 
 ## Summary
 
-The branch builds successfully and all 56 automated tests pass. The review found three behavioral issues in the task add/edit refactor, one formatting/lint issue, and one stale-documentation issue. The highest-risk problem is that update-mode form state is not initialized with the selected configuration's task type, so `syncremote` and snapshot edits can use the wrong layout and the wrong validation path.
+The original P1 task-type defect is resolved. The update model now loads the selected configuration's task type, and add-only preferences no longer overwrite update-mode state.
 
-Priority definitions used below:
+The two original P2 issues are not fully resolved. The automatic Add Task sheet can still remain latched after configurations finish loading, and the new submit handler shares focus correctly but invokes `handleSubmit()` against the parent edit model instead of the sheet's local add model. In addition, the latest merge leaves two identical Add toolbar actions in `AddTaskSheetView`.
 
-- **P1**: High priority; can result in invalid or incorrectly edited persisted task data.
-- **P2**: Medium priority; user-visible workflow regression or unreliable presentation state.
+The branch builds successfully and all 56 automated tests pass, but the remaining issues are SwiftUI workflow defects not covered by the current model-focused test suite.
+
+Priority definitions:
+
+- **P1**: High priority; can cause an action to mutate the wrong task/model.
+- **P2**: Medium priority; user-visible workflow or presentation regression.
 - **P3**: Low priority; maintainability, formatting, or documentation defect.
 
-## Findings
+## Resolution Status
 
-### P1 — Update mode does not load the selected task type
+| Original finding | Status | Verification |
+|---|---|---|
+| P1 — Update mode does not load the selected task type | **Resolved** | `updateview(_:)` now maps `config.task` into `selectedrsynccommand`; update-mode `TaskForm` no longer loads add preferences on appearance. |
+| P2 — Return/submit handling was lost from the Add Task sheet | **Not resolved; fix targets wrong model** | The sheet now receives focus and an `onSubmit` closure, but the closure is the parent `AddTaskView.handleSubmit`, which reads and mutates the parent's `newdata`, not the sheet's local `newdata`. |
+| P2 — Automatic and user-requested sheet presentation share a latched Boolean | **Not resolved** | The implementation changed from `.task` to `.onChange`, but the `if !showAddPopover` guard prevents a sheet automatically opened for transient `nil` configurations from closing when a nonempty list arrives. |
+| P3 — Changed Swift files fail formatting checks | **Partially resolved** | `git diff --check` is now clean, but SwiftLint still reports five changed-file warnings and SwiftFormat reports three of five reviewed files require formatting. |
+| P3 — `changestr.md` is stale | **Not resolved** | The document still ends its review at `65cef24`/version 3.0.3 and contains assertions superseded by later commits. |
+
+## Resolved Finding
+
+### Resolved P1 — Update mode now loads the selected task type
+
+Relevant code:
+
+- `RsyncUI/Model/Global/ObservableAddConfigurations.swift:123-145`
+- `RsyncUI/Views/InspectorViews/Add/TaskForm.swift:165-183`
+
+`ObservableAddConfigurations.updateview(_:)` now sets:
+
+```swift
+selectedrsynccommand = TypeofTask(rawValue: config.task) ?? .synchronize
+```
+
+It resets the value to `.synchronize` when the selection is cleared. The trailing-slash and rsync-command preference loaders were also moved from the shared form into `AddTaskSheetView`, so selecting an existing snapshot or `syncremote` task is no longer overwritten by add-form defaults.
+
+Static flow verification confirms that update layout and `VerifyConfiguration` now receive the selected task type. No new automated regression test was added for this behavior, so a targeted model test remains recommended.
+
+## Open Findings
+
+### P1 — Add-sheet Return invokes submit logic on the parent edit model
 
 Affected code:
 
-- `RsyncUI/Views/InspectorViews/Add/AddTaskView.swift:40`
-- `RsyncUI/Views/InspectorViews/Add/TaskForm.swift:198-205`
-- `RsyncUI/Model/Global/ObservableAddConfigurations.swift:123-145`
-- `RsyncUI/Model/Global/ObservableAddConfigurations.swift:67-110`
-- `RsyncUI/Model/Storage/Basic/UpdateConfigurations.swift:86-97`
+- `RsyncUI/Views/InspectorViews/Add/AddTaskSheetView.swift:13-14`
+- `RsyncUI/Views/InspectorViews/Add/AddTaskSheetView.swift:36-43`
+- `RsyncUI/Views/InspectorViews/Add/AddTaskView.swift:59-65`
+- `RsyncUI/Views/InspectorViews/Add/extensionAddTaskView+BusinessLogic.swift:20-43`
 
-`AddTaskView` creates its edit model with the default `selectedrsynccommand == .synchronize`. When a task is selected, `ObservableAddConfigurations.updateview(_:)` copies catalogs, remote fields, ID, and snapshot number, but never copies `config.task` into `selectedrsynccommand`.
+`AddTaskSheetView` owns the form data entered by the user:
 
-The shared `TaskForm` then uses `selectedrsynccommand` to choose the ordinary-sync versus `syncremote` folder layout. `updateConfig` also constructs and validates `NewTask` using this stale value. Finally, `UpdateConfigurations.updateConfiguration` preserves the original persisted task type while applying the newly validated fields.
+```swift
+@State var newdata = ObservableAddConfigurations()
+```
+
+However, `AddTaskView` presents the sheet with `onSubmit: handleSubmit`. That method belongs to the parent edit view and reads the parent's separate `newdata` property. Sharing `$focusField` lets Return advance focus, but the final Return on the remote-server field does not submit the sheet data.
 
 Consequences:
 
-- An existing `syncremote` task is displayed with ordinary synchronization folder semantics.
-- Clearing both remote fields can be validated as an ordinary synchronization and then persisted back into the still-`syncremote` record, bypassing the `syncremote` remote-user/server requirements.
-- Snapshot-specific validation can likewise be bypassed because validation sees `.synchronize` even though the stored task remains a snapshot.
+- With no selected task, final Return tries to add the empty parent model, so the sheet values are not added.
+- With an existing task selected behind the sheet, final Return takes the update branch and can rewrite/reset the selected task even though the user is interacting with Add Task.
+- The sheet remains open because this path does not invoke `onAdd(sheetNewdata)`.
 
-The selected task type should be loaded into the edit model before the form renders or validates. Add regression tests covering update behavior for synchronize, snapshot, and `syncremote` configurations.
+The sheet should own its focus state and submit policy, or its submit callback must receive the sheet's `newdata`. The final field should call the same add action as the toolbar Add button.
 
-### P2 — Return/submit handling was lost from the Add Task sheet
+### P2 — Add Task sheet declares the Add toolbar action twice
 
 Affected code:
 
-- `RsyncUI/Views/InspectorViews/Add/AddTaskSheetView.swift:17-38`
-- `RsyncUI/Views/InspectorViews/Add/TaskForm.swift:62-174`
-- `RsyncUI/Views/InspectorViews/Add/AddTaskView.swift:61-65`
+- `RsyncUI/Views/InspectorViews/Add/AddTaskSheetView.swift:44-67`
 
-The pre-refactor Add Task sheet attached `.onSubmit { handleSubmit() }`. The final `AddTaskSheetView` has no submit handler, while add-mode `TaskForm` owns its own `@FocusState`. The `.onSubmit` attached to `AddTaskView` is outside the presented sheet and cannot handle submissions from the sheet's separate view hierarchy.
+The final merged view applies two `.toolbar` modifiers, and each contains an identical `.confirmationAction` Add button. The second toolbar also contains Cancel. The same `.padding()` and `.frame(minWidth: 600)` chain is duplicated around them.
 
-As a result, the fields still advertise `.continue` and `.return`, but pressing Return in the Add Task sheet neither advances focus nor submits the task. The toolbar Add button still works.
+Depending on toolbar preference composition, the sheet can display two Add actions. Even where SwiftUI collapses or overrides one toolbar, the duplicated action and layout chain are unintended merge residue and make behavior fragile.
 
-Submit behavior should be owned by `AddTaskSheetView`/`TaskForm`, or the add form should receive an explicit submit action and focus-advance policy.
+Keep one padding/frame chain and one toolbar containing exactly one Add action and one Cancel action.
 
-### P2 — Automatic and user-requested sheet presentation share a latched Boolean
+### P2 — Automatic Add Task presentation remains latched
 
 Affected code:
 
 - `RsyncUI/Views/InspectorViews/EditTabView.swift:13`
-- `RsyncUI/Views/InspectorViews/EditTabView.swift:28-34`
-- `RsyncUI/Views/InspectorViews/EditTabView.swift:42-49`
+- `RsyncUI/Views/InspectorViews/EditTabView.swift:28-32`
+- `RsyncUI/Views/InspectorViews/EditTabView.swift:38-48`
 
-`showAddPopover` now represents both automatic first-task presentation and the toolbar's user-requested presentation. The `.task(id: rsyncUIdata.configurations)` body sets this value to `true` for `nil` or empty configurations but has no nonempty/loading-complete transition.
+Current logic:
 
-If `EditTabView` appears while configurations are temporarily `nil`, the Add Task sheet opens. When asynchronous loading later supplies an existing nonempty configuration list, the sheet remains open because the Boolean is never cleared. This can produce a spurious Add Task sheet on a populated profile. The previous `showNoTasks` implementation included an `else` transition back to the populated state.
+```swift
+.onChange(of: rsyncUIdata.configurations, initial: true) {
+    if !showAddPopover {
+        showAddPopover = rsyncUIdata.configurations?.isEmpty ?? true
+    }
+}
+```
 
-Automatic empty-profile presentation should be modeled separately from explicit toolbar presentation, or delayed until configuration loading has definitively completed.
+If initial configurations are temporarily `nil`, this sets `showAddPopover = true`. When asynchronous loading later supplies a nonempty list, the guard is false because the sheet is already presented, so the state is never corrected. A populated profile can therefore retain a spurious Add Task sheet.
 
-### P3 — Changed Swift files do not pass repository formatting checks
+Automatic first-task presentation should use state separate from user-requested toolbar presentation, or it should wait until configuration loading has definitively completed.
 
-Affected files include:
+### P3 — Formatting checks still fail on changed Swift files
 
-- `RsyncUI/Views/InspectorViews/Add/AddTaskSheetView.swift`
-- `RsyncUI/Views/InspectorViews/Add/AddTaskView.swift`
-- `RsyncUI/Views/InspectorViews/Add/TaskForm.swift`
-- `RsyncUI/Views/InspectorViews/Add/extensionAddTaskView+BusinessLogic.swift`
-- `RsyncUI/Views/InspectorViews/EditTabView.swift`
+Current results:
 
-Evidence:
+- `git diff --check c59e3e3^..HEAD`: **passes**.
+- SwiftLint: five warnings in changed files.
+- SwiftFormat: three of five reviewed files require formatting.
 
-- `git diff --check c59e3e3^..HEAD` reports trailing whitespace at `AddTaskSheetView.swift:12`.
-- SwiftLint reports five warnings in changed files: trailing whitespace, consecutive/closing vertical whitespace, and blank lines at the end of scopes.
-- SwiftFormat lint reports that five of the six reviewed task-form files require formatting, including whole-body over-indentation in `AddTaskSheetView` and modifier-chain indentation in `AddTaskView`.
+Changed-file SwiftLint warnings:
 
-Run SwiftFormat on the changed files and resolve the changed-file SwiftLint warnings before merge.
+- `RsyncUI/Views/InspectorViews/EditTabView.swift:26` — vertical whitespace before closing brace.
+- `RsyncUI/Views/InspectorViews/EditTabView.swift:29` — redundant parentheses around the `if` condition.
+- `RsyncUI/Views/InspectorViews/Add/extensionAddTaskView+BusinessLogic.swift:75` — vertical whitespace before closing brace.
+- `RsyncUI/Views/InspectorViews/Add/TaskForm.swift:33` — consecutive blank lines.
+- `RsyncUI/Views/InspectorViews/Add/TaskForm.swift:242` — vertical whitespace before closing brace.
 
-### P3 — `changestr.md` is stale and contradicts the final branch
+SwiftFormat additionally reports modifier-chain indentation in `AddTaskView` and existing formatting rules throughout `TaskForm`.
+
+### P3 — `changestr.md` remains stale
 
 Affected code:
 
@@ -95,28 +141,28 @@ Affected code:
 - `changestr.md:90-95`
 - `changestr.md:124-126`
 
-The committed report only reviews through `65cef24` on `version-3.0.3-tr`, while this branch now ends at `1f246395` and version 3.0.4/build 201. It also states that Add Task `handleSubmit()` behavior was retained, which is no longer true after the later `TaskForm`/`AddTaskSheetView` separation.
-
-Update or remove this report so it does not provide misleading verification status for the current branch.
+The committed report reviews only through `65cef24` on `version-3.0.3-tr`. It does not represent the current 3.0.4 branch and still states that Add Task submit behavior was retained. Update or remove it to avoid conflicting verification records.
 
 ## Verification Performed
 
-### Build
+### Repository build command
 
-The repository's documented command was attempted:
+Command:
 
 ```bash
 make debug
 ```
 
-It stopped before compilation because the notification command failed:
+Result: **did not reach compilation**. The unchanged notification wrapper still fails:
 
 ```text
 osascript: syntax error: A identifier can’t go after this identifier. (-2740)
 make: *** [archive-debug] Error 1
 ```
 
-This failure occurs in the pre-build `osascript` wrapper, not in changed Swift code. Compilation was therefore verified directly:
+### Direct Debug build
+
+Command:
 
 ```bash
 xcodebuild build \
@@ -143,7 +189,7 @@ xcodebuild test \
 
 Result: **TEST SUCCEEDED** — 56 Swift Testing tests passed across 9 suites.
 
-The existing suite exercises model, storage, scheduling, argument, URL, log, and validation behavior. It does not exercise the SwiftUI add/edit form interactions identified above.
+No tests were added for update-form task-type initialization, sheet-local submit behavior, duplicate toolbar actions, or asynchronous sheet presentation.
 
 ### Patch and style checks
 
@@ -152,18 +198,33 @@ Commands:
 ```bash
 git diff --check c59e3e3^..HEAD
 swiftlint lint --config .swiftlint.yml --quiet
-swiftformat --lint <changed-task-form-files> --config .swiftformat
+swiftformat --lint <reviewed-files> --config .swiftformat
 ```
 
 Results:
 
-- Diff check: failed on one trailing-whitespace line.
-- SwiftLint: five warnings in changed files; the full run also encountered its cache-permission error and existing repository-wide identifier-name violations.
-- SwiftFormat: five of six reviewed task-form files require formatting.
+- Diff check passes.
+- SwiftLint still exits nonzero because of its cache-permission error and repository-wide identifier-name violations; five warnings are in files changed by this range.
+- SwiftFormat reports three of five reviewed files require formatting.
 
-## Commit Inventory
+## New Commit Review (`1f246395..49ceaea2`)
 
-All commits reachable in the requested inclusive range were reviewed:
+| Commit | Assessment |
+|---|---|
+| `60ebc5a1` — issue doc | Added the original `issues.md` report. |
+| `747e22f8` — submit fix | Added shared focus binding and submit plumbing, but routes submit to the parent edit handler/model. |
+| `49031146` — P1 fix | Loads the selected task type and moves add preferences out of the shared form. |
+| `9e4bb4a5` — P1 follow-up | Resets task type when selection is cleared. |
+| `6c7051ce` — merge PR #156 | P1 fix is present and verified in the cumulative result. |
+| `5684694c` — presentation fix | Replaced `.task(id:)` with `.onChange(..., initial: true)`. |
+| `b1d55f84` — presentation follow-up | Added the `!showAddPopover` guard, which preserves the transient-`nil` latch. |
+| `4a53bfcb` — merge PR #157 | Automatic sheet issue remains in the cumulative result. |
+| `066b8852` — branch merge | Conflict integration leaves duplicated Add toolbar/layout code in `AddTaskSheetView`. |
+| `49ceaea2` — merge PR #158 | Current head builds/tests, but submit targets the wrong model and duplicate toolbar actions remain. |
+
+## Full Commit Inventory
+
+All 43 commits reachable in the requested inclusive range were reviewed:
 
 | Commit | Date | Author | Subject |
 |---|---|---|---|
@@ -200,15 +261,25 @@ All commits reachable in the requested inclusive range were reviewed:
 | `1f184294` | 2026-07-14 | timreichen | update |
 | `f21fdc01` | 2026-07-14 | timreichen | move changesnapshotnum |
 | `1f246395` | 2026-07-14 | Thomas Evensen | Merge pull request #152 from timreichen/cleanup-TaskForm-bindings |
+| `60ebc5a1` | 2026-07-14 | Thomas Evensen | issue doc |
+| `747e22f8` | 2026-07-14 | timreichen | initial commit |
+| `49031146` | 2026-07-14 | timreichen | initial commit |
+| `9e4bb4a5` | 2026-07-14 | timreichen | update |
+| `6c7051ce` | 2026-07-14 | Thomas Evensen | Merge pull request #156 from timreichen/fix-P1 |
+| `5684694c` | 2026-07-14 | timreichen | initial commit |
+| `b1d55f84` | 2026-07-14 | timreichen | update |
+| `4a53bfcb` | 2026-07-14 | Thomas Evensen | Merge pull request #157 from timreichen/fix-P2 |
+| `066b8852` | 2026-07-14 | timreichen | Merge branch 'version-3.0.4-tr' into fix-P2-submit |
+| `49ceaea2` | 2026-07-15 | Thomas Evensen | Merge pull request #158 from timreichen/fix-P2-submit |
 
 ## Recommended Manual Smoke Checks
 
-1. Select and update one task of each type: synchronize, snapshot, and `syncremote`.
-2. For `syncremote`, confirm folder labels/order and verify that empty remote credentials cannot be persisted.
-3. In the Add Task sheet, use Return through every field and confirm the final Return submits only when valid.
-4. Enter the task screen while configuration loading is intentionally delayed; confirm a populated profile does not retain an automatically opened Add Task sheet.
-5. Verify Add/Cancel/Close toolbar buttons on macOS 14, 15, and 26, including Escape/Return keyboard behavior.
+1. Open Add Task while an existing task is selected, fill the sheet, and press Return through the final field. Confirm the existing task is not updated or deselected.
+2. Confirm exactly one Add action and one Cancel action appear in the sheet toolbar.
+3. Add synchronize, snapshot, and `syncremote` tasks using both the toolbar Add button and keyboard submission.
+4. Select and update one existing task of each type; verify task-specific folder layout and validation.
+5. Delay configuration loading and enter the task screen; confirm a populated profile does not retain an automatically opened Add Task sheet.
 
 ## Conclusion
 
-The branch is not ready to merge without addressing the P1 update-mode task-type defect. The P2 add-sheet submit regression should also be fixed before release. Automated compilation and model tests are green, but they do not cover these SwiftUI workflows.
+The original P1 issue is fixed, but the branch is not ready to merge. The submit fix currently operates on the wrong model and can invoke update behavior on a selected task. The automatic-sheet P2 and formatting/documentation findings also remain, and the latest merge introduced duplicate Add toolbar code.
