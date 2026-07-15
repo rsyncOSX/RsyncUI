@@ -15,7 +15,7 @@ private enum TaskFormMode {
 struct TaskForm: View {
     private let mode: TaskFormMode
 
-    @FocusState var focusField: AddConfigurationField?
+    @FocusState.Binding var focusField: AddConfigurationField?
 
     @Binding var newdata: ObservableAddConfigurations
     @State var changesnapshotnum: Bool = false
@@ -23,15 +23,16 @@ struct TaskForm: View {
 
     var onUpdate: (() -> Void)?
 
-    init(newdata: Binding<ObservableAddConfigurations>) {
+    init(focusField: FocusState<AddConfigurationField?>.Binding, newdata: Binding<ObservableAddConfigurations>) {
         self.mode = .add
+        _focusField = focusField
         _newdata = newdata
         _stringestimate = .constant("")
     }
 
 
     init(
-        focusField: FocusState<AddConfigurationField?>,
+        focusField: FocusState<AddConfigurationField?>.Binding,
         newdata: Binding<ObservableAddConfigurations>,
         stringestimate: Binding<String>,
         onUpdate: (() -> Void)?

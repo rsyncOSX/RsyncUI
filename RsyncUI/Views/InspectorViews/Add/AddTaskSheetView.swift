@@ -9,7 +9,8 @@ import SwiftUI
 
 struct AddTaskSheetView: View {
     @Environment(\.dismiss) var dismiss
-    
+
+    @FocusState.Binding var focusField: AddConfigurationField?
     @State var newdata = ObservableAddConfigurations()
 
     func loadTrailingSlashPreference() {
@@ -25,32 +26,45 @@ struct AddTaskSheetView: View {
     }
 
     var onAdd: (ObservableAddConfigurations) -> Void
+    var onSubmit: () -> Void
 
-        var body: some View {
-            VStack {
-                Text("Add Task")
-                    .font(.title2)
+    var body: some View {
+        VStack {
+            Text("Add Task")
+                .font(.title2)
 
-                TaskForm(newdata: $newdata)
-            }
-            .onAppear {
-                loadTrailingSlashPreference()
-                loadRsyncCommandPreference()
-            }
-            .padding()
-            .frame(minWidth: 600)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Add") {
-                        onAdd(newdata)
+            TaskForm(focusField: $focusField, newdata: $newdata)
+                .onSubmit {
+                    onSubmit()
+                }
+                .onAppear {
+                    loadTrailingSlashPreference()
+                    loadRsyncCommandPreference()
+                }
+                .padding()
+                .frame(minWidth: 600)
+                .toolbar {
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button("Add") {
+                            onAdd(newdata)
+                        }
                     }
                 }
+                .padding()
+                .frame(minWidth: 600)
+                .toolbar {
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button("Add") {
+                            onAdd(newdata)
+                        }
+                    }
 
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
-                        dismiss()
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Cancel") {
+                            dismiss()
+                        }
                     }
                 }
-            }
         }
     }
+}
