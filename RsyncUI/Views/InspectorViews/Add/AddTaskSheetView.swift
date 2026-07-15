@@ -49,15 +49,6 @@ struct AddTaskSheetView: View {
                             onAdd(newdata)
                         }
                     }
-                }
-                .padding()
-                .frame(minWidth: 600)
-                .toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button("Add") {
-                            onAdd(newdata)
-                        }
-                    }
 
                     ToolbarItem(placement: .cancellationAction) {
                         Button("Cancel") {
