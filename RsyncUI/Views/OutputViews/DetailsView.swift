@@ -60,7 +60,10 @@ struct DetailsView: View {
                 if itemizechanges {
                     Table(records) {
                         TableColumn("Output from rsync (\(records.count) rows)") { data in
-                            ItemizedOutputRow(record: data.record)
+                            ItemizedOutputRow(
+                                record: data.record,
+                                rsyncVersion3: SharedReference.shared.rsyncversion3
+                            )
                         }
                     }
                 } else {
