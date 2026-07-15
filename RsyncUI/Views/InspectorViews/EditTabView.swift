@@ -23,11 +23,11 @@ struct EditTabView: View {
             .onChange(of: rsyncUIdata.profile) {
                 selecteduuids.removeAll()
             }
-
         }
         .onChange(of: rsyncUIdata.configurations, initial: true) {
-            if (!showAddPopover) {
-                showAddPopover = rsyncUIdata.configurations?.isEmpty ?? true
+            guard let configurations = rsyncUIdata.configurations else { return }
+            if !showAddPopover {
+                showAddPopover = configurations.isEmpty
             }
         }
         .inspector(isPresented: .constant(true)) {
