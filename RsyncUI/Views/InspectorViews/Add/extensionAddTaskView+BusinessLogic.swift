@@ -17,7 +17,7 @@ extension AddTaskView {
         stringestimate = ""
     }
 
-    func handleSubmit() {
+    func handleSubmit(_ newdata: ObservableAddConfigurations) {
         switch focusField {
         case .synchronizeIDField: focusField = .localcatalogField
         case .localcatalogField: focusField = .remotecatalogField
@@ -72,5 +72,4 @@ extension AddTaskView {
             stringestimate = ""
         }
     }
-
 }

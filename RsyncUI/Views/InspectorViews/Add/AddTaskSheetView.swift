@@ -26,7 +26,7 @@ struct AddTaskSheetView: View {
     }
 
     var onAdd: (ObservableAddConfigurations) -> Void
-    var onSubmit: () -> Void
+    var onSubmit: (ObservableAddConfigurations) -> Void
 
     var body: some View {
         VStack {
@@ -35,20 +35,11 @@ struct AddTaskSheetView: View {
 
             TaskForm(focusField: $focusField, newdata: $newdata)
                 .onSubmit {
-                    onSubmit()
+                    onSubmit(newdata)
                 }
                 .onAppear {
                     loadTrailingSlashPreference()
                     loadRsyncCommandPreference()
-                }
-                .padding()
-                .frame(minWidth: 600)
-                .toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button("Add") {
-                            onAdd(newdata)
-                        }
-                    }
                 }
                 .padding()
                 .frame(minWidth: 600)
