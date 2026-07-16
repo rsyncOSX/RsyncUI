@@ -49,20 +49,15 @@ struct TaskForm: View {
 
     var synchronizeID: some View {
         Section("Synchronize ID") {
-            if newdata.selectedconfig == nil {
-                TextField("Synchronize ID", text: $newdata.backupID)
-                    .focused($focusField, equals: .synchronizeIDField)
-                    .textContentType(.none).submitLabel(.continue)
-            } else {
-                TextField("Synchronize ID", text: $newdata.backupID)
-                    .focused($focusField, equals: .synchronizeIDField)
-                    .textContentType(.none).submitLabel(.continue)
-                    .onAppear {
-                        if let id = newdata.selectedconfig?.backupID {
-                            newdata.backupID = id
-                        }
+            TextField("Synchronize ID", text: $newdata.backupID)
+                .focused($focusField, equals: .synchronizeIDField)
+                .textContentType(.none)
+                .submitLabel(.continue)
+                .onAppear {
+                    if let id = newdata.selectedconfig?.backupID {
+                        newdata.backupID = id
                     }
-            }
+                }
         }
     }
 
@@ -86,8 +81,7 @@ struct TaskForm: View {
                          placeholder: "Destination folder (required)",
                          focus: .remotecatalogField,
                          selectedValue: newdata.selectedconfig?.offsiteCatalog,
-                         showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
-                             newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty)
+                         showErrorBorder: newdata.localcatalog.isEmpty != newdata.remotecatalog.isEmpty)
         }
     }
 
@@ -101,8 +95,7 @@ struct TaskForm: View {
                          placeholder: "Remote Folder (required)",
                          focus: .localcatalogField,
                          selectedValue: newdata.selectedconfig?.localCatalog,
-                         showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
-                             newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty)
+                         showErrorBorder: newdata.localcatalog.isEmpty != newdata.remotecatalog.isEmpty)
         }
     }
 
@@ -111,22 +104,15 @@ struct TaskForm: View {
                       showErrorBorder: Bool = false) -> some View
     {
         HStack {
-            if newdata.selectedconfig == nil {
-                TextField(placeholder, text: catalog)
-                    .focused($focusField, equals: focus)
-                    .textContentType(.none).submitLabel(.continue)
-                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
-            } else {
-                TextField(placeholder, text: catalog)
-                    .focused($focusField, equals: focus)
-                    .textContentType(.none).submitLabel(.continue)
-                    .onAppear {
-                        if let value = selectedValue {
-                            catalog.wrappedValue = value
-                        }
+            TextField(placeholder, text: catalog)
+                .focused($focusField, equals: focus)
+                .textContentType(.none).submitLabel(.continue)
+                .onAppear {
+                    if let value = selectedValue {
+                        catalog.wrappedValue = value
                     }
-                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
-            }
+                }
+                .border(showErrorBorder ? Color.red : Color.clear, width: 2)
             OpencatalogView(selecteditem: catalog, catalogs: true)
         }
     }
@@ -151,27 +137,19 @@ struct TaskForm: View {
         }
     }
 
-    @ViewBuilder
     func remoteField(value: Binding<String>, placeholder: String, focus: AddConfigurationField,
                      selectedValue: String?, submitLabel: SubmitLabel = .continue,
                      showErrorBorder: Bool = false) -> some View
     {
-        if newdata.selectedconfig == nil {
-            TextField(placeholder, text: value)
-                .focused($focusField, equals: focus)
-                .textContentType(.none).submitLabel(submitLabel)
-                .border(showErrorBorder ? Color.red : Color.clear, width: 2)
-        } else {
-            TextField(placeholder, text: value)
-                .focused($focusField, equals: focus)
-                .textContentType(.none).submitLabel(submitLabel)
-                .onAppear {
-                    if let val = selectedValue {
-                        value.wrappedValue = val
-                    }
+        TextField(placeholder, text: value)
+            .focused($focusField, equals: focus)
+            .textContentType(.none).submitLabel(submitLabel)
+            .onAppear {
+                if let val = selectedValue {
+                    value.wrappedValue = val
                 }
-                .border(showErrorBorder ? Color.red : Color.clear, width: 2)
-        }
+            }
+            .border(showErrorBorder ? Color.red : Color.clear, width: 2)
     }
 
     var trailingslash: some View {
