@@ -35,23 +35,17 @@ struct AddTaskView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
-    @FocusState var focusField: AddConfigurationField?
+    @FocusState.Binding var focusField: AddConfigurationField?
+
+    let validateAndUpdate: (ObservableAddConfigurations) async -> Bool
+    let handleSubmit: (ObservableAddConfigurations) -> Void
 
     @State var newdata = ObservableAddConfigurations()
     @State var stringestimate: String = ""
-    @Binding var showAddPopover: Bool
-
-    func onAdd(newdata: ObservableAddConfigurations) {
-        Task { @MainActor in
-            if await addConfig(newdata: newdata) {
-                showAddPopover = false
-            }
-        }
-    }
 
     func onUpdate() {
         Task { @MainActor in
-            _ = await validateAndUpdate()
+            _ = await validateAndUpdate(newdata)
         }
     }
 
@@ -62,6 +56,5 @@ struct AddTaskView: View {
             .onSubmit { handleSubmit(newdata) }
             .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
             .onChange(of: selecteduuids) { handleSelectionChange() }
-            .sheet(isPresented: $showAddPopover) { AddTaskSheetView(focusField: $focusField, onAdd: onAdd, onSubmit: handleSubmit) }
     }
 }

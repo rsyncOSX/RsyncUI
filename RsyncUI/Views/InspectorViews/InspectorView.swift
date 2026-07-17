@@ -17,16 +17,18 @@ enum InspectorTab: Hashable {
 struct InspectorView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
-    @Binding var showAddPopover: Bool
+
+    @FocusState.Binding var focusField: AddConfigurationField?
 
     @State private var selectedTab: InspectorTab = .edit
+
+    let validateAndUpdate: (ObservableAddConfigurations) async -> Bool
+    let handleSubmit: (ObservableAddConfigurations) -> Void
 
     var body: some View {
         if selecteduuids.count == 0 {
             ZStack {
-                AddTaskView(rsyncUIdata: rsyncUIdata,
-                            selecteduuids: $selecteduuids,
-                            showAddPopover: $showAddPopover)
+                AddTaskView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids, focusField: $focusField, validateAndUpdate: validateAndUpdate, handleSubmit: handleSubmit)
                     .opacity(0)
                     .allowsHitTesting(false)
 
@@ -48,12 +50,32 @@ struct InspectorView: View {
 
                 Divider()
 
-                InspectorContentView(
-                    rsyncUIdata: rsyncUIdata,
-                    selectedTab: $selectedTab,
-                    selecteduuids: $selecteduuids,
-                    showAddPopover: $showAddPopover
-                )
+                switch selectedTab {
+                case .edit:
+                    ScrollView {
+                        AddTaskView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids, focusField: $focusField, validateAndUpdate: validateAndUpdate, handleSubmit: handleSubmit)
+                    }
+                case .parameters:
+                    ScrollView {
+                        RsyncParametersView(rsyncUIdata: rsyncUIdata,
+                                            selectedTab: $selectedTab,
+                                            selecteduuids: $selecteduuids)
+                    }
+                case .logview:
+                    LogRecordsTabView(
+                        rsyncUIdata: rsyncUIdata,
+                        selectedTab: $selectedTab,
+                        selecteduuids: $selecteduuids
+                    )
+                case .verifytask:
+                    ScrollView {
+                        VerifyTaskTabView(
+                            rsyncUIdata: rsyncUIdata,
+                            selectedTab: $selectedTab,
+                            selecteduuids: $selecteduuids
+                        )
+                    }
+                }
             }
             .navigationTitle("")
             .inspectorColumnWidth(min: 550, ideal: 600, max: 650)

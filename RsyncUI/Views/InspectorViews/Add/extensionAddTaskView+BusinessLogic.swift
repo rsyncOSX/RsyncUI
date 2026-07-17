@@ -17,31 +17,6 @@ extension AddTaskView {
         stringestimate = ""
     }
 
-    func handleSubmit(_ newdata: ObservableAddConfigurations) {
-        switch focusField {
-        case .synchronizeIDField: focusField = .localcatalogField
-        case .localcatalogField: focusField = .remotecatalogField
-        case .remotecatalogField: focusField = .remoteuserField
-        case .remoteuserField: focusField = .remoteserverField
-        case .snapshotnumField:
-            Task { @MainActor in
-                _ = await validateAndUpdate()
-            }
-        case .remoteserverField:
-            if newdata.selectedconfig == nil {
-                Task { @MainActor in
-                    _ = await addConfig(newdata: newdata)
-                }
-            } else {
-                Task { @MainActor in
-                    _ = await validateAndUpdate()
-                }
-            }
-            focusField = nil
-        default: return
-        }
-    }
-
     func handleProfileChange() {
         newdata.resetForm()
         selecteduuids.removeAll()
