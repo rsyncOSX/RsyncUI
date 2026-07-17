@@ -16,7 +16,7 @@ func makeValidTask(
     task: String = "synchronize",
     localCatalog: String = "/Users/test/Documents",
     offsiteCatalog: String = "/backup/Documents",
-    trailingSlash: TrailingSlash = .add,
+    trailingSlash: Bool = true,
     username: String? = nil,
     server: String? = nil,
     backupID: String? = "TestBackup"
@@ -46,7 +46,7 @@ struct VerifyConfigurationTests {
 
         #expect(result.task == "synchronize")
         #expect(result.localCatalog == "/Users/test/Documents/")
-        #expect(result.offsiteCatalog == "/backup/Documents/")
+        #expect(result.offsiteCatalog == "/backup/Documents")
         #expect(result.backupID == "TestBackup")
         #expect(result.offsiteServer == "")
         #expect(result.offsiteUsername == "")
@@ -180,46 +180,29 @@ struct VerifyConfigurationTests {
         let task = makeValidTask(
             localCatalog: "/Users/test/Documents",
             offsiteCatalog: "/backup/Documents",
-            trailingSlash: .add
+            trailingSlash: true
         )
         let verifier = VerifyConfiguration()
 
         let result = try #require(verifier.verify(task))
 
         #expect(result.localCatalog.hasSuffix("/") == true, "Local catalog should have trailing slash")
-        #expect(result.offsiteCatalog.hasSuffix("/") == true, "Offsite catalog should have trailing slash")
+        #expect(result.offsiteCatalog == "/backup/Documents", "Offsite catalog should remain unchanged")
     }
 
-    @Test("Remove trailing slash when do_not_add")
-    func removeTrailingSlash() throws {
+    @Test("Preserve paths when trailing slash is disabled")
+    func preservePathsWhenTrailingSlashDisabled() throws {
         let task = makeValidTask(
             localCatalog: "/Users/test/Documents/",
             offsiteCatalog: "/backup/Documents/",
-            trailingSlash: .do_not_add
+            trailingSlash: false
         )
         let verifier = VerifyConfiguration()
 
         let result = try #require(verifier.verify(task))
 
-        #expect(result.localCatalog.hasSuffix("/") == false, "Local catalog should not have trailing slash")
-        #expect(result.offsiteCatalog.hasSuffix("/") == false, "Offsite catalog should not have trailing slash")
-        #expect(result.localCatalog == "/Users/test/Documents")
-        #expect(result.offsiteCatalog == "/backup/Documents")
-    }
-
-    @Test("Preserve paths with do_not_check")
-    func preservePathsNoCheck() throws {
-        let task = makeValidTask(
-            localCatalog: "/Users/test/Documents",
-            offsiteCatalog: "/backup/Documents/",
-            trailingSlash: .do_not_check
-        )
-        let verifier = VerifyConfiguration()
-
-        let result = try #require(verifier.verify(task))
-
-        #expect(result.localCatalog == "/Users/test/Documents", "Should preserve local catalog as-is")
-        #expect(result.offsiteCatalog == "/backup/Documents/", "Should preserve offsite catalog as-is")
+        #expect(result.localCatalog == "/Users/test/Documents/", "Local catalog should remain unchanged")
+        #expect(result.offsiteCatalog == "/backup/Documents/", "Offsite catalog should remain unchanged")
     }
 
     @Test("Handle already present trailing slash with add option")
@@ -227,7 +210,7 @@ struct VerifyConfigurationTests {
         let task = makeValidTask(
             localCatalog: "/Users/test/Documents/",
             offsiteCatalog: "/backup/Documents/",
-            trailingSlash: .add
+            trailingSlash: true
         )
         let verifier = VerifyConfiguration()
 
@@ -282,7 +265,7 @@ struct VerifyConfigurationTests {
             "snapshot",
             "/Users/test/Documents",
             "/backup/Documents",
-            .add,
+            true,
             nil,
             nil,
             "TestBackup",

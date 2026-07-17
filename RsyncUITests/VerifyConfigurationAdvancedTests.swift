@@ -137,7 +137,7 @@ struct VerifyConfigurationAdvancedTests {
             "synchronize",
             "/Users/test/Documents",
             "/backup/Documents",
-            .add,
+            true,
             nil,
             nil,
             "TestBackup",
@@ -208,7 +208,7 @@ struct VerifyConfigurationAdvancedTests {
         let task = makeValidTask(
             localCatalog: path,
             offsiteCatalog: path,
-            trailingSlash: .add
+            trailingSlash: true
         )
         let result = try #require(verifier.verify(task))
 
