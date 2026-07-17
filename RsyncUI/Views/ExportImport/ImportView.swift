@@ -108,13 +108,10 @@ struct ImportView: View {
                 .frame(minWidth: 600, minHeight: 500)
             } else {
                 HStack {
-                    ConditionalGlassButton(
-                        systemImage: "",
-                        text: "Import file",
-                        helpText: "Import file"
-                    ) {
+                    Button("Import file") {
                         showimportdialog = true
                     }
+                    .help("Import file")
                     .fileImporter(isPresented: $showimportdialog,
                                   allowedContentTypes: [uutype],
                                   onCompletion: { result in

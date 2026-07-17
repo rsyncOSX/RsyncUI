@@ -41,15 +41,12 @@ struct ConfigurationsTableDataMainView: View {
                 }
                 .opacity(opacity(for: data))
                 .contextMenu {
-                    ConditionalGlassButton(
-                        systemImage: "stop.fill",
-                        text: "Toggle halt task",
-                        helpText: data.task == SharedReference.shared.halted ? "Enable task" : "Halt task"
-                    ) {
+                    Button("Toggle halt task", systemImage: "stop.fill") {
                         if let index = getIndex(data.id) {
                             updateHalted(index)
                         }
                     }
+                    .help(data.task == SharedReference.shared.halted ? "Enable task" : "Halt task")
                 }
             }
             .width(min: 80, max: 200)
@@ -130,7 +127,8 @@ struct ConfigurationsTableDataMainView: View {
         if let index = progressdetails.estimatedlist?.firstIndex(where: { $0.id == data.id }) {
             if progressdetails.estimatedlist?[index].datatosynchronize == false,
                progressdetails.estimatedlist?[index].preparedoutputfromrsync?.count ?? 0 >
-               SharedReference.shared.alerttagginglines {
+               SharedReference.shared.alerttagginglines
+            {
                 // If tagging is kind of suspicious and need attention
                 VStack(alignment: .leading, spacing: 2) {
                     Text(data.backupID.isEmpty ? "No ID set" : data.backupID)
@@ -182,7 +180,8 @@ struct ConfigurationsTableDataMainView: View {
 
     private func updateHalted(_ index: Int) {
         if let halted = rsyncUIdata.configurations?[index].halted,
-           let task = rsyncUIdata.configurations?[index].task {
+           let task = rsyncUIdata.configurations?[index].task
+        {
             if halted == 0 {
                 // Halt task
                 switch task {

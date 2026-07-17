@@ -23,7 +23,8 @@ struct SummarizedDetailsContentView: View {
                         }
                         if let datatosynchronize {
                             if datatosynchronize.count == 0,
-                               SharedReference.shared.alwaysshowestimateddetailsview == false {
+                               SharedReference.shared.alwaysshowestimateddetailsview == false
+                            {
                                 executetaskpath.removeAll()
                             }
                         }
@@ -52,7 +53,8 @@ struct SummarizedDetailsContentView: View {
                                 .buttonStyle(RefinedGlassButtonStyle())
                                 .help("Synchronize")
                                 .confirmationDialog("Synchronize tasks?",
-                                                    isPresented: $isPresentingConfirm) {
+                                                    isPresented: $isPresentingConfirm)
+                                {
                                     Button("Synchronize", role: .destructive) {
                                         executetaskpath.removeAll()
                                         executetaskpath.append(Tasks(task: .executestimatedview))
@@ -74,7 +76,8 @@ struct SummarizedDetailsContentView: View {
                                 .buttonStyle(.borderedProminent)
                                 .help("Synchronize")
                                 .confirmationDialog("Synchronize tasks?",
-                                                    isPresented: $isPresentingConfirm) {
+                                                    isPresented: $isPresentingConfirm)
+                                {
                                     Button("Synchronize", role: .destructive) {
                                         executetaskpath.removeAll()
                                         executetaskpath.append(Tasks(task: .executestimatedview))
@@ -82,13 +85,12 @@ struct SummarizedDetailsContentView: View {
                                 }
                             }
                         } else {
-                            ConditionalGlassButton(
-                                systemImage: "play.fill",
-                                helpText: "Synchronize"
-                            ) {
+                            Button("Synchronize", systemImage: "play.fill") {
                                 executetaskpath.removeAll()
                                 executetaskpath.append(Tasks(task: .executestimatedview))
                             }
+                            .labelStyle(.iconOnly)
+                            .help("Synchronize")
                         }
                     }
                 }
@@ -135,7 +137,8 @@ struct SummarizedDetailsContentView: View {
 
     private var leftcolumndetails: some View {
         Table(progressdetails.estimatedlist ?? [],
-              selection: $selecteduuids) {
+              selection: $selecteduuids)
+        {
             TableColumn("Synchronize ID") { data in
                 HStack(spacing: 4) {
                     if data.datatosynchronize {
@@ -184,7 +187,8 @@ struct SummarizedDetailsContentView: View {
 
     private var rightcolumndetails: some View {
         Table(progressdetails.estimatedlist ?? [],
-              selection: $selecteduuids) {
+              selection: $selecteduuids)
+        {
             TableColumn("New") { files in
                 if files.datatosynchronize {
                     Text(files.newfiles)

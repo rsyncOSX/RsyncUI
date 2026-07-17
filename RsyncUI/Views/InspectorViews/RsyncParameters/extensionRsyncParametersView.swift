@@ -19,7 +19,8 @@ extension RsyncParametersView {
 
     func saveRsyncParameters() {
         if let updatedconfiguration = parameters.updatersyncparameters(),
-           let configurations = rsyncUIdata.configurations {
+           let configurations = rsyncUIdata.configurations
+        {
             Task { @MainActor in
                 let updateconfigurations =
                     UpdateConfigurations(profile: rsyncUIdata.profile,
@@ -38,24 +39,18 @@ extension RsyncParametersView {
 extension RsyncParametersView {
     var addupdateButton: some View {
         if notifydataisupdated {
-            ConditionalGlassButton(
-                systemImage: "arrow.down",
-                text: "Update",
-                helpText: "Update parameters"
-            ) {
+            Button("Update", systemImage: "arrow.down") {
                 saveRsyncParameters()
                 selecteduuids.removeAll()
             }
+            .help("Update parameters")
             .disabled(selectedconfig == nil)
             .padding(.bottom, 10)
         } else {
-            ConditionalGlassButton(
-                systemImage: "plus",
-                text: "Add",
-                helpText: "Save parameters"
-            ) {
+            Button("Add", systemImage: "plus") {
                 saveRsyncParameters()
             }
+            .help("Save parameters")
             .disabled(selectedconfig == nil)
             .padding(.bottom, 10)
         }
@@ -89,7 +84,8 @@ extension RsyncParametersView {
 
 extension RsyncParametersView {
     func setsshpath(path: Binding<String>, placeholder: String,
-                    selectedValue: String?) -> some View {
+                    selectedValue: String?) -> some View
+    {
         // Determine if the current value should show an error border
         let showErrorBorder: Bool = {
             // Prefer the binding's current value; otherwise, consider the provided selectedValue
@@ -106,14 +102,19 @@ extension RsyncParametersView {
                 EditValueScheme(300, nil, path)
                     .textContentType(.none)
                     .submitLabel(.continue)
-                    .onAppear { if let value = selectedValue { path.wrappedValue = value } }
+                    .onAppear {
+                        if let value = selectedValue {
+                            path.wrappedValue = value
+                        }
+                    }
                     .border(showErrorBorder ? Color.red : Color.clear, width: 2)
             }
         }
     }
 
     func sshportfield(port: Binding<String>, placeholder: String,
-                      selectedValue: String?) -> some View {
+                      selectedValue: String?) -> some View
+    {
         // Determine if the current value should show an error border
         let showErrorBorder: Bool = {
             // Prefer the binding's current value; otherwise, consider the provided selectedValue
@@ -130,7 +131,11 @@ extension RsyncParametersView {
                 EditValueScheme(150, nil, port)
                     .textContentType(.none)
                     .submitLabel(.continue)
-                    .onAppear { if let value = selectedValue { port.wrappedValue = value } }
+                    .onAppear {
+                        if let value = selectedValue {
+                            port.wrappedValue = value
+                        }
+                    }
                     .border(showErrorBorder ? Color.red : Color.clear, width: 2)
             }
         }
@@ -181,7 +186,8 @@ extension RsyncParametersView {
             parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
             parameters.adddelete == (selectedconfig.parameter4 == nil) ||
             parameters.sshport != String(sshport) ||
-            parameters.sshkeypathandidentityfile != sshkeypathandidentityfile {
+            parameters.sshkeypathandidentityfile != sshkeypathandidentityfile
+        {
             return true
         }
         return false
