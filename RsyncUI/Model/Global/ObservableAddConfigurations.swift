@@ -11,7 +11,6 @@ import OSLog
 
 @Observable @MainActor
 final class ObservableAddConfigurations {
-    var trailingslash = true
     var selectedrsynccommand = TypeofTask.synchronize
 
     var localcatalog: String = ""
@@ -35,7 +34,6 @@ final class ObservableAddConfigurations {
         let getdata = NewTask(selectedrsynccommand.rawValue,
                               localcatalog.replacingOccurrences(of: "\"", with: ""),
                               remotecatalog.replacingOccurrences(of: "\"", with: ""),
-                              trailingslash,
                               remoteuser,
                               remoteserver,
                               backupID)
@@ -61,15 +59,11 @@ final class ObservableAddConfigurations {
             }
         }
 
-        if localcatalog.hasSuffix("/") == false {
-            trailingslash = false
-        }
-
         guard let hiddenID = selectedconfig?.hiddenID else { return nil }
         let updateddata = NewTask(selectedrsynccommand.rawValue,
                                   localcatalog.replacingOccurrences(of: "\"", with: ""),
                                   remotecatalog.replacingOccurrences(of: "\"", with: ""),
-                                  trailingslash,
+
                                   remoteuser,
                                   remoteserver,
                                   backupID,

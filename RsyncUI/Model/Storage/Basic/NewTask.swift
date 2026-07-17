@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct NewTask {
+struct NewTask
+{
     var newtask: String
     var newlocalCatalog: String
     var newoffsiteCatalog: String
-    var newtrailingslash: Bool
     // Can be nil
     var newoffsiteUsername: String?
     var newoffsiteServer: String?
@@ -24,14 +24,13 @@ struct NewTask {
     init(_ task: String,
          _ localCatalog: String,
          _ offsiteCatalog: String,
-         _ trailingslash: Bool,
          _ offsiteUsername: String?,
          _ offsiteServer: String?,
-         _ backupID: String?) {
+         _ backupID: String?)
+    {
         newtask = task
         newlocalCatalog = localCatalog
         newoffsiteCatalog = offsiteCatalog
-        newtrailingslash = trailingslash
         newoffsiteUsername = offsiteUsername
         newoffsiteServer = offsiteServer
         newbackupID = backupID
@@ -40,16 +39,15 @@ struct NewTask {
     init(_ task: String,
          _ localCatalog: String,
          _ offsiteCatalog: String,
-         _ trailingslash: Bool,
          _ offsiteUsername: String?,
          _ offsiteServer: String?,
          _ backupID: String?,
          _ updatedhiddenID: Int,
-         _ updatesnapshotnum: Int?) {
+         _ updatesnapshotnum: Int?)
+    {
         newtask = task
         newlocalCatalog = localCatalog
         newoffsiteCatalog = offsiteCatalog
-        newtrailingslash = trailingslash
         newoffsiteUsername = offsiteUsername
         newoffsiteServer = offsiteServer
         newbackupID = backupID

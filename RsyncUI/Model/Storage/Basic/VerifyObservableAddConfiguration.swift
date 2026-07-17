@@ -29,7 +29,6 @@ struct VerifyObservableAddConfiguration: Connected {
         let data = NewTask(observed.selectedrsynccommand.rawValue,
                            observed.localcatalog.replacingOccurrences(of: "\"", with: ""),
                            observed.remotecatalog.replacingOccurrences(of: "\"", with: ""),
-                           observed.trailingslash,
                            observed.remoteuser,
                            observed.remoteserver,
                            observed.backupID,
@@ -60,17 +59,9 @@ struct VerifyObservableAddConfiguration: Connected {
 
         newconfig.snapshotnum = (data.snapshotnum ?? 0) > 0 ? data.snapshotnum : nil
 
-        handleTrailingSlash(data: data, newconfig: &newconfig)
         handleSnapshotAndSyncRemote(data: data, newconfig: &newconfig)
 
         return validateInput(config: newconfig)
-    }
-
-    private func handleTrailingSlash(data: NewTask, newconfig: inout SynchronizeConfiguration) {
-        if data.newtrailingslash {
-            newconfig.localCatalog = data.newlocalCatalog.hasSuffix("/") ?
-                data.newlocalCatalog : data.newlocalCatalog + "/"
-        }
     }
 
     private func handleSnapshotAndSyncRemote(data: NewTask, newconfig: inout SynchronizeConfiguration) {

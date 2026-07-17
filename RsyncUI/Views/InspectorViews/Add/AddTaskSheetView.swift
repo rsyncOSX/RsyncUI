@@ -13,12 +13,6 @@ struct AddTaskSheetView: View {
     @FocusState.Binding var focusField: AddConfigurationField?
     @State var newdata = ObservableAddConfigurations()
 
-    func loadTrailingSlashPreference() {
-        if let trailingslashoptions = UserDefaults.standard.value(forKey: "trailingslashoptions") {
-            newdata.trailingslash = trailingslashoptions as? Bool ?? false
-        }
-    }
-
     func loadRsyncCommandPreference() {
         if let value = UserDefaults.standard.value(forKey: "selectedrsynccommand") as? String {
             newdata.selectedrsynccommand = TypeofTask(rawValue: value) ?? .synchronize
@@ -38,7 +32,6 @@ struct AddTaskSheetView: View {
                     onSubmit(newdata)
                 }
                 .onAppear {
-                    loadTrailingSlashPreference()
                     loadRsyncCommandPreference()
                 }
                 .padding()
