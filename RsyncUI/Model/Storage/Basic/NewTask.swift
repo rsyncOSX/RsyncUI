@@ -11,7 +11,7 @@ struct NewTask {
     var newtask: String
     var newlocalCatalog: String
     var newoffsiteCatalog: String
-    var newtrailingslashoptions: TrailingSlash
+    var newtrailingslash: Bool
     // Can be nil
     var newoffsiteUsername: String?
     var newoffsiteServer: String?
@@ -24,14 +24,14 @@ struct NewTask {
     init(_ task: String,
          _ localCatalog: String,
          _ offsiteCatalog: String,
-         _ trailingslashoptions: TrailingSlash,
+         _ trailingslash: Bool,
          _ offsiteUsername: String?,
          _ offsiteServer: String?,
          _ backupID: String?) {
         newtask = task
         newlocalCatalog = localCatalog
         newoffsiteCatalog = offsiteCatalog
-        newtrailingslashoptions = trailingslashoptions
+        newtrailingslash = trailingslash
         newoffsiteUsername = offsiteUsername
         newoffsiteServer = offsiteServer
         newbackupID = backupID
@@ -40,7 +40,7 @@ struct NewTask {
     init(_ task: String,
          _ localCatalog: String,
          _ offsiteCatalog: String,
-         _ trailingslashoptions: TrailingSlash,
+         _ trailingslash: Bool,
          _ offsiteUsername: String?,
          _ offsiteServer: String?,
          _ backupID: String?,
@@ -49,7 +49,7 @@ struct NewTask {
         newtask = task
         newlocalCatalog = localCatalog
         newoffsiteCatalog = offsiteCatalog
-        newtrailingslashoptions = trailingslashoptions
+        newtrailingslash = trailingslash
         newoffsiteUsername = offsiteUsername
         newoffsiteServer = offsiteServer
         newbackupID = backupID

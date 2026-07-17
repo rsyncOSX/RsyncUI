@@ -41,7 +41,7 @@ extension QuicktaskView {
 
     func resetForm() {
         selectedrsynccommand = .synchronize
-        trailingslashoptions = .add
+        trailingslashoptions = true
         dryrun = true
         catalogorfile = true
         localcatalog = ""
