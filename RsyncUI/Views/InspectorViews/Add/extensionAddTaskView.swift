@@ -49,17 +49,10 @@ extension AddTaskView {
     }
 
     var saveURLSection: some View {
-        Group {
-            Toggle("Show save URL", isOn: $newdata.showsaveurls).toggleStyle(.switch)
-            if newdata.showsaveurls {
-                ConditionalGlassButton(systemImage: "square.and.arrow.down",
-                                       text: "URL Estimate",
-                                       helpText: "URL Estimate & Synchronize") {
-                    let data = WidgetURLstrings(urletimate: stringestimate)
-                    Task { @MainActor in
-                        await WriteWidgetsURLStringsJSON.write(data)
-                    }
-                }
+        Button("Save URL for RsyncUI Widget", systemImage: "square.and.arrow.down") {
+            let data = WidgetURLstrings(urletimate: stringestimate)
+            Task { @MainActor in
+                await WriteWidgetsURLStringsJSON.write(data)
             }
         }
     }
