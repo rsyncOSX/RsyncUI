@@ -61,13 +61,17 @@ struct TaskForm: View {
         }
     }
 
-    var snapshotnum: some View {
-        Section("Snapshot Number") {
-            EditValueScheme(400, nil, $newdata.snapshotnum)
-                .focused($focusField, equals: .snapshotnumField)
-                .textContentType(.none).submitLabel(.return)
-                .disabled(!changesnapshotnum)
-            ToggleViewDefault(text: "Change snapshotnumber", binding: $changesnapshotnum)
+    var snapshotSection: some View {
+        Section("Snapshot") {
+            HStack {
+                TextField("Snapshot Number", text: $newdata.snapshotnum)
+                    .focused($focusField, equals: .snapshotnumField)
+                    .textContentType(.none).submitLabel(.return)
+                    .disabled(!changesnapshotnum)
+                Toggle("Change Snapshot Number", isOn: $changesnapshotnum)
+                    .labelsHidden()
+                    .toggleStyle(.switch)
+            }
         }
     }
 
@@ -193,15 +197,13 @@ struct TaskForm: View {
     var saveURLSection: some View {
         Toggle("Show save URL", isOn: $newdata.showsaveurls).toggleStyle(.switch)
         if newdata.showsaveurls {
-            ConditionalGlassButton(systemImage: "square.and.arrow.down",
-                                   text: "URL Estimate",
-                                   helpText: "URL Estimate & Synchronize")
-            {
+            Button("URL Estimate", systemImage: "square.and.arrow.down") {
                 let data = WidgetURLstrings(urletimate: stringestimate)
                 Task { @MainActor in
                     await WriteWidgetsURLStringsJSON.write(data)
                 }
             }
+            .help("URL Estimate & Synchronize")
         }
     }
 
@@ -225,7 +227,7 @@ struct TaskForm: View {
                 remoteuserandserver
 
                 if showSnapshot {
-                    snapshotnum
+                    snapshotSection
                 }
                 saveURLSection
                 updateButton
