@@ -54,11 +54,7 @@ struct ExportView: View {
 
                 OpencatalogView(selecteditem: $exportcatalog, catalogs: true)
 
-                ConditionalGlassButton(
-                    systemImage: "",
-                    text: "Export",
-                    helpText: "Export file"
-                ) {
+                Button("Export") {
                     var path = ""
                     if exportcatalog.hasSuffix("/") == true {
                         path = exportcatalog + filenameexport + ".json"
@@ -75,6 +71,7 @@ struct ExportView: View {
                         activeSheet = nil
                     }
                 }
+                .help("Export file")
 
                 if #available(macOS 26.0, *) {
                     Button("Close", role: .close) {

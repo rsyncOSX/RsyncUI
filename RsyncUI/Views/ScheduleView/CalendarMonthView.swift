@@ -59,47 +59,46 @@ struct CalendarMonthView: View {
                     TableofSchedules(selecteduuids: $selecteduuids)
                         .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 schedule" :
                             "Delete \(selecteduuids.count) schedules",
-                            isPresented: $confirmdelete) {
-                                Button("Delete", role: .destructive) {
-                                    schedules.delete(selecteduuids)
+                            isPresented: $confirmdelete)
+                        {
+                            Button("Delete", role: .destructive) {
+                                schedules.delete(selecteduuids)
 
-                                    date = Date.now
-                                    istappeddayint = 0
-                                    schedules.lastdateinnextmonth = Date.now.endOfCurrentMonth
+                                date = Date.now
+                                istappeddayint = 0
+                                schedules.lastdateinnextmonth = Date.now.endOfCurrentMonth
 
-                                    confirmdelete = false
+                                confirmdelete = false
 
-                                    Task { @MainActor in
-                                        await WriteSchedule.write(schedules.scheduleDataForPersistence())
-                                    }
-
-                                    selecteduuids.removeAll()
+                                Task { @MainActor in
+                                    await WriteSchedule.write(schedules.scheduleDataForPersistence())
                                 }
+
+                                selecteduuids.removeAll()
+                            }
                         }
                         .onDeleteCommand {
                             confirmdelete = true
                         }
 
                     if GlobalTimer.shared.notExecutedSchedulesafterWakeUp.count > 0 {
-                        ConditionalGlassButton(
-                            systemImage: "",
-                            text: "Move to Schedules ↑",
-                            helpText: "Move to Schedules"
-                        ) {
+                        Button("Move to Schedules ↑") {
                             GlobalTimer.shared.moveToSchedules(itemIDs: Array(selecteduuidsnotexecuted))
                             selecteduuidsnotexecuted.removeAll()
                         }
+                        .help("Move to Schedules")
                         .disabled(selecteduuidsnotexecuted.isEmpty)
                         .padding()
 
                         TableofNotExeSchedules(selecteduuids: $selecteduuidsnotexecuted)
                             .confirmationDialog(selecteduuidsnotexecuted.count == 1 ? "Delete 1 schedule" :
                                 "Delete \(selecteduuidsnotexecuted.count) schedules",
-                                isPresented: $confirmdeletenotexecuted) {
-                                    Button("Delete", role: .destructive) {
-                                        schedules.deletenotexecuted(selecteduuidsnotexecuted)
-                                        selecteduuidsnotexecuted.removeAll()
-                                    }
+                                isPresented: $confirmdeletenotexecuted)
+                            {
+                                Button("Delete", role: .destructive) {
+                                    schedules.deletenotexecuted(selecteduuidsnotexecuted)
+                                    selecteduuidsnotexecuted.removeAll()
+                                }
                             }
                             .onDeleteCommand {
                                 confirmdeletenotexecuted = true
@@ -126,36 +125,33 @@ struct CalendarMonthView: View {
     @ToolbarContentBuilder
     private var calendartoolbarcontent: some ToolbarContent {
         ToolbarItem {
-            ConditionalGlassButton(
-                systemImage: "arrow.left",
-                helpText: "Previous month"
-            ) {
+            Button("Previous Month", systemImage: "arrow.left") {
                 date = Calendar.current.date(byAdding: .month, value: -1, to: date) ?? Date.now
                 schedules.lastdateinnextmonth = date.endOfCurrentMonth
                 istappeddayint = 0
             }
+            .labelStyle(.iconOnly)
+            .help("Previous Month")
         }
 
         ToolbarItem {
-            ConditionalGlassButton(
-                systemImage: "clock",
-                helpText: "Today"
-            ) {
+            Button("Today", systemImage: "clock") {
                 date = Date.now
                 schedules.lastdateinnextmonth = Date.now.endOfCurrentMonth
                 istappeddayint = 0
             }
+            .labelStyle(.iconOnly)
+            .help("Today")
         }
 
         ToolbarItem {
-            ConditionalGlassButton(
-                systemImage: "arrow.right",
-                helpText: "Next month"
-            ) {
+            Button("Next Month", systemImage: "arrow.right") {
                 date = Calendar.current.date(byAdding: .month, value: 1, to: date) ?? Date.now
                 schedules.lastdateinnextmonth = date.endOfCurrentMonth
                 istappeddayint = 0
             }
+            .labelStyle(.iconOnly)
+            .help("Next Month")
         }
 
         ToolbarItem {
@@ -168,18 +164,14 @@ struct CalendarMonthView: View {
                     activeSheet = nil
                     dismiss()
                 }
-                .buttonStyle(RefinedGlassButtonStyle())
             }
         } else {
             ToolbarItem {
-                Button {
+                Button("Close", systemImage: "return") {
                     activeSheet = nil
-                } label: {
-                    Label("Close", systemImage: "return")
-                        .labelStyle(.iconOnly)
                 }
+                .labelStyle(.iconOnly)
                 .help("Close")
-                .buttonStyle(.borderedProminent)
             }
         }
     }

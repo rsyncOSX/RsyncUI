@@ -50,24 +50,21 @@ struct AddSchedule: View {
                 .foregroundStyle(schedules.verifynextschedule(plannednextschedule: plannedRun)
                     ? Color.white : Color.red)
 
-                ConditionalGlassButton(
-                    systemImage: "arrow.trianglehead.clockwise",
-                    helpText: "Reset to current date"
-                ) {
+                Button("Today") {
                     dateRunMonth = Date.now.en_string_month_from_date()
                     dateRunHour = hournow
                     istappeddayint = 0
                 }
+                .help("Today")
 
                 Spacer()
 
-                ConditionalGlassButton(
-                    systemImage: "plus",
-                    helpText: "Add schedule"
-                ) {
+                Button("Add Schedule", systemImage: "plus") {
                     let profile: String? = if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
                         rsyncUIdata.validprofiles[index].profilename
-                    } else { nil }
+                    } else {
+                        nil
+                    }
 
                     guard schedules.verifynextschedule(plannednextschedule: plannedRun) else {
                         return
@@ -85,6 +82,8 @@ struct AddSchedule: View {
                         await WriteSchedule.write(schedules.scheduleDataForPersistence())
                     }
                 }
+                .labelStyle(.iconOnly)
+                .help("Add Schedule")
                 .disabled(schedules.validPlannedScheduleDate(plannedRun) == nil)
             }
             .padding()
@@ -101,7 +100,8 @@ struct AddSchedule: View {
 
     var pickerselecttypeoftask: some View {
         Picker("",
-               selection: $schedule) {
+               selection: $schedule)
+        {
             ForEach(ScheduleType.allCases) { Text($0.description)
                 .tag($0.rawValue)
             }

@@ -39,17 +39,18 @@ struct SnapshotsView: View {
                                      deleteiscompleted: $deleteiscompleted,
                                      isdisabled: $isdisabled,
                                      getData: getData)
-            if focustagsnapshot == true { labeltagsnapshot }
-            if focusaborttask { labelaborttask }
+            if focustagsnapshot == true {
+                labeltagsnapshot
+            }
+            if focusaborttask {
+                labelaborttask
+            }
 
             HStack {
-                ConditionalGlassButton(
-                    systemImage: "square.and.arrow.down",
-                    text: "Update",
-                    helpText: "Update plan snapshot"
-                ) {
+                Button("Update", systemImage: "square.and.arrow.down") {
                     updatePlanSnapshot()
                 }
+                .help("Update plan snapshot")
                 .disabled(isdisabled)
 
                 VStack(alignment: .leading) {
@@ -84,14 +85,15 @@ struct SnapshotsView: View {
                     .help("Delete unused log records")
                     .confirmationDialog(snapshotdata.notmappedloguuids?.count ?? 0 == 1 ? "Delete 1 log" :
                         "Delete \(snapshotdata.notmappedloguuids?.count ?? 0) logs",
-                        isPresented: $isPresentingConfirm) {
-                            Button("Delete", role: .destructive) {
-                                if let uuids = snapshotdata.notmappedloguuids {
-                                    Task {
-                                        await deleteLogs(uuids)
-                                    }
+                        isPresented: $isPresentingConfirm)
+                    {
+                        Button("Delete", role: .destructive) {
+                            if let uuids = snapshotdata.notmappedloguuids {
+                                Task {
+                                    await deleteLogs(uuids)
                                 }
                             }
+                        }
                     }
                     .overlay(HStack(alignment: .top) {
                         Image(systemName: String((snapshotdata.notmappedloguuids?.count ?? 0) <= 50
@@ -144,7 +146,8 @@ struct SnapshotsView: View {
 
     var pickersnapdayoffweek: some View {
         Picker("",
-               selection: $snapdayofweek) {
+               selection: $snapdayofweek)
+        {
             ForEach(StringDayofweek.allCases) { Text($0.description)
                 .tag($0)
             }
@@ -155,7 +158,8 @@ struct SnapshotsView: View {
 
     var pickersnaplast: some View {
         Picker("",
-               selection: $snaplast) {
+               selection: $snaplast)
+        {
             ForEach(PlanSnapshots.allCases) { Text($0.description)
                 .tag($0)
             }

@@ -23,72 +23,74 @@ struct RsyncandPathsettings: View {
         Form {
             Section(header: Text("Version rsync")
                 .font(.title3)
-                .fontWeight(.bold)) {
-                    HStack {
-                        ToggleViewDefault(text: "Rsync v3.x",
-                                          binding: $rsyncpathsettings.rsyncversion3)
-                            .onChange(of: rsyncpathsettings.rsyncversion3) {
-                                if SharedReference.shared.norsync {
-                                    SharedReference.shared.localrsyncpath = nil
-                                    SharedReference.shared.rsyncversion3 = false
-                                    rsyncpathsettings.localrsyncpath = ""
-                                } else {
-                                    SharedReference.shared.rsyncversion3 = rsyncpathsettings.rsyncversion3
-                                    SharedReference.shared.localrsyncpath = nil
-                                    rsyncpathsettings.localrsyncpath = ""
-                                }
-                                Rsyncversion().getRsyncVersion()
-                                saveConfiguration()
+                .fontWeight(.bold))
+            {
+                HStack {
+                    ToggleViewDefault(text: "Rsync v3.x",
+                                      binding: $rsyncpathsettings.rsyncversion3)
+                        .onChange(of: rsyncpathsettings.rsyncversion3) {
+                            if SharedReference.shared.norsync {
+                                SharedReference.shared.localrsyncpath = nil
+                                SharedReference.shared.rsyncversion3 = false
+                                rsyncpathsettings.localrsyncpath = ""
+                            } else {
+                                SharedReference.shared.rsyncversion3 = rsyncpathsettings.rsyncversion3
+                                SharedReference.shared.localrsyncpath = nil
+                                rsyncpathsettings.localrsyncpath = ""
                             }
+                            Rsyncversion().getRsyncVersion()
+                            saveConfiguration()
+                        }
 
-                        ToggleViewDefault(text: "Apple Silicon",
-                                          binding: $rsyncpathsettings.macosarm)
-                            .onChange(of: rsyncpathsettings.macosarm) {
-                                SharedReference.shared.macosarm = rsyncpathsettings.macosarm
-                            }
-                            .disabled(true)
-                    }
+                    ToggleViewDefault(text: "Apple Silicon",
+                                      binding: $rsyncpathsettings.macosarm)
+                        .onChange(of: rsyncpathsettings.macosarm) {
+                            SharedReference.shared.macosarm = rsyncpathsettings.macosarm
+                        }
+                        .disabled(true)
                 }
+            }
 
             Section(header: Text("Path rsync")
                 .font(.title3)
-                .fontWeight(.bold)) {
-                    if rsyncpathsettings.localrsyncpath.isEmpty == true {
-                        setrsyncpathdefault
-                    } else {
-                        setrsyncpathlocalpath
-                    }
+                .fontWeight(.bold))
+            {
+                if rsyncpathsettings.localrsyncpath.isEmpty == true {
+                    setrsyncpathdefault
+                } else {
+                    setrsyncpathlocalpath
                 }
+            }
 
             Section(header: Text("Path for restore")
                 .font(.title3)
-                .fontWeight(.bold)) {
-                    HStack {
-                        setpathforrestore
+                .fontWeight(.bold))
+            {
+                HStack {
+                    setpathforrestore
 
-                        OpencatalogView(selecteditem: $rsyncpathsettings.temporarypathforrestore, catalogs: true)
-                    }
+                    OpencatalogView(selecteditem: $rsyncpathsettings.temporarypathforrestore, catalogs: true)
                 }
+            }
 
             Section(header: Text("Mark days after")
                 .font(.title3)
-                .fontWeight(.bold)) {
-                    setmarkdays
-                }
+                .fontWeight(.bold))
+            {
+                setmarkdays
+            }
 
             Section(header: Text("Backup configurations")
                 .font(.title3)
-                .fontWeight(.bold)) {
-                    HStack {
-                        ConditionalGlassButton(
-                            systemImage: "wrench.adjustable.fill",
-                            text: "Backup",
-                            helpText: "Backup configurations"
-                        ) {
-                            _ = Backupconfigfiles()
-                        }
+                .fontWeight(.bold))
+            {
+                HStack {
+                    Button("Backup", systemImage: "wrench.adjustable.fill") {
+                        _ = Backupconfigfiles()
                     }
+                    .help("Backup configurations")
                 }
+            }
         }
         .formStyle(.grouped)
     }
@@ -107,7 +109,8 @@ struct RsyncandPathsettings: View {
             }
             SharedReference.shared.localrsyncpath = rsyncpathsettings.localrsyncpath
             if rsyncpathsettings.verifypathforrsync(rsyncpathsettings.localrsyncpath),
-               rsyncpathsettings.setandvalidatepathforrsync(rsyncpathsettings.localrsyncpath) {
+               rsyncpathsettings.setandvalidatepathforrsync(rsyncpathsettings.localrsyncpath)
+            {
                 Rsyncversion().getRsyncVersion()
             }
             saveConfiguration()

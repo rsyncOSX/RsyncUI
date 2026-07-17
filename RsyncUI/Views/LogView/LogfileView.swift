@@ -25,15 +25,12 @@ struct LogfileView: View {
             HStack {
                 Spacer()
 
-                ConditionalGlassButton(
-                    systemImage: "trash",
-                    text: "Reset",
-                    helpText: "Reset logfile"
-                ) {
+                Button("Reset", systemImage: "trash") {
                     Task {
                         await reset()
                     }
                 }
+                .help("Reset logfile")
             }
         }
         .padding()

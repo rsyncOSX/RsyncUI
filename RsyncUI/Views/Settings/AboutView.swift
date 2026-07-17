@@ -35,45 +35,40 @@ struct AboutView: View {
         Form {
             Section(header: Text("RsyncUI")
                 .font(.title3)
-                .fontWeight(.bold)) {
-                    appnamestring
+                .fontWeight(.bold))
+            {
+                appnamestring
 
-                    copyrightstring
+                copyrightstring
 
-                    HStack {
-                        VStack(alignment: .leading) {
-                            if let appIcon = NSImage(named: NSImage.applicationIconName) {
-                                Image(nsImage: appIcon)
-                                    .resizable()
-                                    .aspectRatio(1.0, contentMode: .fit)
-                                    .frame(width: 64, height: 64)
-                            }
+                HStack {
+                    VStack(alignment: .leading) {
+                        if let appIcon = NSImage(named: NSImage.applicationIconName) {
+                            Image(nsImage: appIcon)
+                                .resizable()
+                                .aspectRatio(1.0, contentMode: .fit)
+                                .frame(width: 64, height: 64)
                         }
-
-                        rsyncversionshortstring
                     }
 
-                    rsyncuiconfigpathpath
+                    rsyncversionshortstring
                 }
+
+                rsyncuiconfigpathpath
+            }
 
             Section {
                 HStack {
-                    ConditionalGlassButton(
-                        systemImage: "doc.plaintext",
-                        text: "Changelog",
-                        helpText: "Changelog"
-                    ) {
+                    Button("Changelog", systemImage: "doc.plaintext") {
                         openChangelog()
                     }
+                    .help("Changelog")
 
                     if SharedReference.shared.newversion {
-                        ConditionalGlassButton(
-                            systemImage: "square.and.arrow.down.fill",
-                            text: "Download",
-                            helpText: "Download"
-                        ) {
+                        Button("Download", systemImage: "square.and.arrow.down.fill") {
                             openDownload()
                         }
+                        .help("Download")
                     }
                 }
             } header: {
