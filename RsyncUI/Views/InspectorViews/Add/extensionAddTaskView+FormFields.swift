@@ -129,6 +129,16 @@ extension AddTaskView {
         Toggle("Trailing / (slash) on source folder", isOn: $newdata.trailingslash)
             .onChange(of: newdata.trailingslash) {
                 UserDefaults.standard.set(newdata.trailingslash, forKey: "trailingslashoptions")
+                
+                if newdata.trailingslash {
+                    if newdata.localcatalog.hasSuffix("/") == false {
+                        newdata.localcatalog.append("/")
+                    }
+                } else {
+                    if newdata.localcatalog.hasSuffix("/") {
+                        newdata.localcatalog.removeLast()
+                    }
+                }
             }
             .onAppear { loadTrailingSlashPreference() }
     }

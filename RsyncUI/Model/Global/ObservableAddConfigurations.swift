@@ -61,13 +61,6 @@ final class ObservableAddConfigurations {
             }
         }
 
-        // If toggled ON remove trailing / to be validated later
-        if trailingslash {
-            if localcatalog.hasSuffix("/") {
-                localcatalog.removeLast()
-            }
-        }
-
         if localcatalog.hasSuffix("/") == false {
             trailingslash = false
         }

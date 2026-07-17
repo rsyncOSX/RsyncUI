@@ -82,7 +82,7 @@ final class VerifyConfiguration: Connected {
     }
 
     private func handleTrailingSlash(data: NewTask, newconfig: inout SynchronizeConfiguration) {
-        if data.newtrailingslashoptions {
+        if data.newtrailingslash {
             newconfig.localCatalog = data.newlocalCatalog.hasSuffix("/") ?
                 data.newlocalCatalog : data.newlocalCatalog + "/"
         }
