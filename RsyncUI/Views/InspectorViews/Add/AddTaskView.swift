@@ -52,8 +52,6 @@ struct AddTaskView: View {
 
     var body: some View {
         Form {
-            trailingslash
-
             synchronizeID
             catalogSectionView
 
