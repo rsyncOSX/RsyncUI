@@ -28,10 +28,6 @@ struct InspectorView: View {
     var body: some View {
         if selecteduuids.count == 0 {
             ZStack {
-                AddTaskView(rsyncUIdata: rsyncUIdata, selecteduuids: $selecteduuids, focusField: $focusField, validateAndUpdate: validateAndUpdate, handleSubmit: handleSubmit)
-                    .opacity(0)
-                    .allowsHitTesting(false)
-
                 Text("No task\nselected")
                     .font(.title2)
             }
