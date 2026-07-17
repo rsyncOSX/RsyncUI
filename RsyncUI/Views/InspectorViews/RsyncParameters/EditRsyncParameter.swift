@@ -10,7 +10,6 @@ import SwiftUI
 struct EditRsyncParameter: View {
     @State private var selectedparameter = EnumRsyncArguments.add
     var myvalue: Binding<String>
-    var mywidth: CGFloat?
 
     var body: some View {
         HStack {
@@ -19,13 +18,10 @@ struct EditRsyncParameter: View {
                     .tag($0)
                 }
             }
-            .pickerStyle(MenuPickerStyle())
-            .frame(width: 120)
+            .labelsHidden()
+            .pickerStyle(.menu)
 
             TextField("", text: myvalue)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .frame(width: mywidth)
-                .lineLimit(1)
                 .onChange(of: selectedparameter) {
                     guard selectedparameter.rawValue != EnumRsyncArguments.add.rawValue else { return }
                     let argument = selectedparameter.rawValue
@@ -38,11 +34,11 @@ struct EditRsyncParameter: View {
                         selectedparameter = EnumRsyncArguments.add
                     }
                 }
+                .frame(maxWidth: .infinity)
         }
     }
 
-    init(_ width: CGFloat, _ value: Binding<String>) {
-        mywidth = width
+    init(_ value: Binding<String>) {
         myvalue = value
     }
 

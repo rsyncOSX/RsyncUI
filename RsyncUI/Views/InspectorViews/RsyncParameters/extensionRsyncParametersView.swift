@@ -37,23 +37,13 @@ extension RsyncParametersView {
 // MARK: - Buttons
 
 extension RsyncParametersView {
-    var addupdateButton: some View {
-        if notifydataisupdated {
-            Button("Update", systemImage: "arrow.down") {
-                saveRsyncParameters()
-                selecteduuids.removeAll()
-            }
-            .help("Update parameters")
-            .disabled(selectedconfig == nil)
-            .padding(.bottom, 10)
-        } else {
-            Button("Add", systemImage: "plus") {
-                saveRsyncParameters()
-            }
-            .help("Save parameters")
-            .disabled(selectedconfig == nil)
-            .padding(.bottom, 10)
+    var updateButton: some View {
+        Button("Update", systemImage: "arrow.down") {
+            saveRsyncParameters()
+            selecteduuids.removeAll()
         }
+        .help("Update parameters")
+        .disabled(selectedconfig == nil)
     }
 }
 
@@ -159,37 +149,5 @@ extension RsyncParametersView {
 
         // Check existence
         return FileManager.default.fileExists(atPath: expandedPath)
-    }
-}
-
-// MARK: - State Properties
-
-extension RsyncParametersView {
-    var notifydataisupdated: Bool {
-        var sshport = ""
-        var sshkeypathandidentityfile = ""
-
-        if let configsshport = selectedconfig?.sshport, configsshport != -1 {
-            sshport = String(configsshport)
-        }
-        if let configurationsshcreatekey = selectedconfig?.sshkeypathandidentityfile {
-            sshkeypathandidentityfile = configurationsshcreatekey
-        }
-        guard let selectedconfig else { return false }
-        if parameters.parameter8 != (selectedconfig.parameter8 ?? "") ||
-            parameters.parameter9 != (selectedconfig.parameter9 ?? "") ||
-            parameters.parameter10 != (selectedconfig.parameter10 ?? "") ||
-            parameters.parameter11 != (selectedconfig.parameter11 ?? "") ||
-            parameters.parameter12 != (selectedconfig.parameter12 ?? "") ||
-            parameters.parameter13 != (selectedconfig.parameter13 ?? "") ||
-            parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
-            parameters.parameter14 != (selectedconfig.parameter14 ?? "") ||
-            parameters.adddelete == (selectedconfig.parameter4 == nil) ||
-            parameters.sshport != String(sshport) ||
-            parameters.sshkeypathandidentityfile != sshkeypathandidentityfile
-        {
-            return true
-        }
-        return false
     }
 }

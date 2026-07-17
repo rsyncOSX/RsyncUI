@@ -20,99 +20,65 @@ struct RsyncParametersView: View {
     @State var presentarguments: Bool = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            addupdateButton
-
-            VStack(alignment: .leading, spacing: 8) {
-                EditRsyncParameter(350, $parameters.parameter8)
+        Form {
+            Section("Parameters") {
+                EditRsyncParameter($parameters.parameter8)
                     .onChange(of: parameters.parameter8) { parameters.configuration?.parameter8 = parameters.parameter8 }
-                EditRsyncParameter(350, $parameters.parameter9)
+                EditRsyncParameter($parameters.parameter9)
                     .onChange(of: parameters.parameter9) { parameters.configuration?.parameter9 = parameters.parameter9 }
-                EditRsyncParameter(350, $parameters.parameter10)
+                EditRsyncParameter($parameters.parameter10)
                     .onChange(of: parameters.parameter10) { parameters.configuration?.parameter10 = parameters.parameter10 }
-                EditRsyncParameter(350, $parameters.parameter11)
+                EditRsyncParameter($parameters.parameter11)
                     .onChange(of: parameters.parameter11) { parameters.configuration?.parameter11 = parameters.parameter11 }
-                EditRsyncParameter(350, $parameters.parameter12)
+                EditRsyncParameter($parameters.parameter12)
                     .onChange(of: parameters.parameter12) { parameters.configuration?.parameter12 = parameters.parameter12 }
-                EditRsyncParameter(350, $parameters.parameter13)
+                EditRsyncParameter($parameters.parameter13)
                     .onChange(of: parameters.parameter13) { parameters.configuration?.parameter13 = parameters.parameter13 }
-                EditRsyncParameter(350, $parameters.parameter14)
+                EditRsyncParameter($parameters.parameter14)
                     .onChange(of: parameters.parameter14) { parameters.configuration?.parameter14 = parameters.parameter14 }
             }
 
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Task specific SSH parameter").font(.headline)
+            Section("SSH") {
+                TextField("SSH keypath and identityfile", text: $parameters.sshkeypathandidentityfile)
+                TextField("SSH port", text: $parameters.sshport)
+            }
+
+            Section("Backup") {
+                Toggle("--backup Parameter", isOn: $backup)
+                    .toggleStyle(.switch)
+                    .onChange(of: backup) {
+                        guard !selecteduuids.isEmpty else {
+                            backup = false
+                            return
+                        }
+                        parameters.setbackup()
+                    }
+            }
+
+            Section {
                 HStack {
-                    setsshpath(path: $parameters.sshkeypathandidentityfile,
-                               placeholder: "set SSH keypath and identityfile",
-                               selectedValue: parameters.sshkeypathandidentityfile)
-                    sshportfield(port: $parameters.sshport,
-                                 placeholder: "set SSH port",
-                                 selectedValue: parameters.sshport)
-                }
-            }
-
-            let isDeletePresent = selectedconfig?.parameter4 == "--delete"
-            let headerText = isDeletePresent ? "Remove --delete parameter" : "Add --delete parameter"
-
-            HStack {
-                VStack(alignment: .leading, spacing: 12) {
-                    HStack {
-                        // 1. The Frame Title
-                        Text("Danger Zone")
-                            .font(.headline)
-                            .foregroundStyle(.red)
-
-                        Text(headerText)
-                            .font(.headline)
-                            .foregroundStyle(isDeletePresent ? Color(.red) : Color(.blue))
-                    }
-
-                    Divider()
-                        .background(Color.red.opacity(0.5))
-
-                    HStack {
-                        Toggle("--delete", isOn: $parameters.adddelete)
-                            .toggleStyle(.switch)
-                            .onChange(of: parameters.adddelete) { parameters.adddelete(parameters.adddelete) }
-                            .disabled(selecteduuids.isEmpty)
-
-                        // 3. The New Website Button
+                    Toggle(isOn: $parameters.adddelete, label: {
                         Link(destination: URL(string: "https://rsyncui.netlify.app/docs/getting-started/important/")!) {
-                            Text("Info")
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 8)
-                                .background(Color.red)
-                                .foregroundStyle(.white)
-                                .clipShape(.rect(cornerRadius: 8))
+                            Text("--delete Parameter")
+                            Image(systemName: "info.circle")
                         }
-                        .padding(.top, 4)
-                    }
-                }
-                .padding() // Adds space inside the border
-                .background(Color.red.opacity(0.05)) // Optional: Light red background tint
-                .clipShape(.rect(cornerRadius: 10)) // Rounds the corners of the frame
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.red, lineWidth: 2) // The red border
-                )
-                .padding() // Outer margin
+                        .foregroundStyle(.red)
 
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Append Backup parameter")
-                        .font(.headline)
-                    Toggle("Backup", isOn: $backup)
-                        .toggleStyle(.switch)
-                        .onChange(of: backup) {
-                            guard !selecteduuids.isEmpty else {
-                                backup = false
-                                return
-                            }
-                            parameters.setbackup()
-                        }
+                    })
+                    .toggleStyle(.switch)
+                    .onChange(of: parameters.adddelete) { parameters.adddelete(parameters.adddelete) }
+                    .disabled(selecteduuids.isEmpty)
+                    .tint(.red)
                 }
             }
+            header: {
+                Text("Danger Zone")
+                    .foregroundStyle(.red)
+            }
+
+            updateButton
         }
+        .formStyle(.grouped)
         .onAppear { handleSelectionChange() }
         .onChange(of: rsyncUIdata.profile) {
             selectedconfig = nil
