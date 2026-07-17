@@ -41,7 +41,6 @@ extension QuicktaskView {
 
     func resetForm() {
         selectedrsynccommand = .synchronize
-        trailingslashoptions = true
         dryrun = true
         catalogorfile = true
         localcatalog = ""
@@ -56,7 +55,6 @@ extension QuicktaskView {
         let getdata = NewTask(selectedrsynccommand.rawValue,
                               localcatalog,
                               remotecatalog,
-                              trailingslashoptions,
                               remoteuser,
                               remoteserver,
                               "")
