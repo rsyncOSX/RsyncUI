@@ -6,7 +6,7 @@ struct QuicktaskFormView: View {
     @Binding var selectedrsynccommand: TypeofTaskQuictask
     @Binding var remoteuser: String
     @Binding var remoteserver: String
-    @Binding var trailingslashoptions: TrailingSlash
+    @Binding var trailingslashoptions: Bool
     @Binding var dryrun: Bool
     @Binding var catalogorfile: Bool
     @Binding var selectedhomecatalog: Catalog.ID?
@@ -56,31 +56,14 @@ struct QuicktaskFormView: View {
                         }
 
                         Spacer()
-
-                        Picker("Trailing /",
-                               selection: $trailingslashoptions) {
-                            ForEach(TrailingSlash.allCases) { Text($0.description)
-                                .tag($0)
-                            }
-                        }
-                        .pickerStyle(DefaultPickerStyle())
-                        .frame(width: 180)
+                        
+                        Toggle("Trailing / on source", isOn: $trailingslashoptions)
                         .onChange(of: trailingslashoptions) {
-                            UserDefaults.standard.set(trailingslashoptions.rawValue, forKey: "quicktrailingslash")
+                            UserDefaults.standard.set(trailingslashoptions, forKey: "quicktrailingslash")
                         }
                         .onAppear {
-                            if let trailingslashoptions = UserDefaults.standard.value(forKey: "quicktrailingslash") {
-                                guard let trailing = trailingslashoptions as? String else { return }
-                                switch trailing {
-                                case "do_not_check":
-                                    self.trailingslashoptions = TrailingSlash.do_not_check
-                                case "do_not_add":
-                                    self.trailingslashoptions = TrailingSlash.do_not_add
-                                case "add":
-                                    self.trailingslashoptions = TrailingSlash.add
-                                default:
-                                    self.trailingslashoptions = TrailingSlash.add
-                                }
+                            if let trailingslash = UserDefaults.standard.value(forKey: "trailingslashoptions") {
+                                trailingslashoptions = trailingslash as? Bool ?? false
                             }
                         }
                     }
@@ -95,9 +78,7 @@ struct QuicktaskFormView: View {
                             .animation(.easeInOut(duration: 0.35), value: catalogorfile)
                             .onChange(of: catalogorfile) {
                                 if catalogorfile {
-                                    trailingslashoptions = .do_not_add
-                                } else {
-                                    trailingslashoptions = .add
+                                    trailingslashoptions = true
                                 }
                             }
                             .onChange(of: catalogorfile) {

@@ -32,6 +32,19 @@ struct ItemizedOutputTests {
         #expect(metadata.kind == .metadata)
     }
 
+    @Test("Preserves whitespace in itemized paths")
+    func preservesPathWhitespace() throws {
+        let openRsyncAdded = try #require(ItemizedOutputRecord(">f+++++++  leading.txt"))
+        let openRsyncDeleted = try #require(ItemizedOutputRecord("*deleting  leading-delete.txt"))
+        let rsyncAdded = try #require(ItemizedOutputRecord(">f+++++++++ trailing-space ", rsyncVersion3: true))
+        let rsyncDeleted = try #require(ItemizedOutputRecord("*deleting    leading-delete.txt", rsyncVersion3: true))
+
+        #expect(openRsyncAdded.path == " leading.txt")
+        #expect(openRsyncDeleted.path == " leading-delete.txt")
+        #expect(rsyncAdded.path == "trailing-space ")
+        #expect(rsyncDeleted.path == " leading-delete.txt")
+    }
+
     @Test("Adds itemize flag once before source and destination")
     func addsRuntimeFlag() {
         let arguments = ["-a", "--dry-run", "/source/", "/destination/"]
@@ -57,5 +70,16 @@ struct ItemizedOutputTests {
         )
 
         #expect(updated.joined() == "-a --itemize-changes /source/ /destination/ ")
+    }
+
+    @Test("Adds itemize flag before the option terminator")
+    func preservesOptionTerminator() {
+        let arguments = ["-a", "--", "--itemize-changes", "/destination/"]
+        let updated = RuntimeRsyncArguments.addingItemizedChanges(
+            to: arguments,
+            forDisplay: false
+        )
+
+        #expect(updated == ["-a", "--itemize-changes", "--", "--itemize-changes", "/destination/"])
     }
 }

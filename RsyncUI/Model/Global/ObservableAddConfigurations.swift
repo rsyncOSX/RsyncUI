@@ -9,21 +9,9 @@ import Foundation
 import Observation
 import OSLog
 
-enum TrailingSlash: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case add, do_not_add, do_not_check
-
-    var id: String {
-        rawValue
-    }
-
-    var description: String {
-        rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ")
-    }
-}
-
 @Observable @MainActor
 final class ObservableAddConfigurations {
-    var trailingslashoptions = TrailingSlash.add
+    var trailingslash = true
     var selectedrsynccommand = TypeofTask.synchronize
 
     var localcatalog: String = ""
@@ -47,7 +35,7 @@ final class ObservableAddConfigurations {
         let getdata = NewTask(selectedrsynccommand.rawValue,
                               localcatalog.replacingOccurrences(of: "\"", with: ""),
                               remotecatalog.replacingOccurrences(of: "\"", with: ""),
-                              trailingslashoptions,
+                              trailingslash,
                               remoteuser,
                               remoteserver,
                               backupID)
@@ -73,26 +61,15 @@ final class ObservableAddConfigurations {
             }
         }
 
-        // If toggled ON remove trailing /
-        if trailingslashoptions == .do_not_add {
-            if localcatalog.hasSuffix("/") {
-                localcatalog.removeLast()
-            }
-            if remotecatalog.hasSuffix("/") {
-                remotecatalog.removeLast()
-            }
-        }
-
-        if localcatalog.hasSuffix("/") == false,
-           remotecatalog.hasSuffix("/") == false {
-            trailingslashoptions = .do_not_add
+        if localcatalog.hasSuffix("/") == false {
+            trailingslash = false
         }
 
         guard let hiddenID = selectedconfig?.hiddenID else { return nil }
         let updateddata = NewTask(selectedrsynccommand.rawValue,
                                   localcatalog.replacingOccurrences(of: "\"", with: ""),
                                   remotecatalog.replacingOccurrences(of: "\"", with: ""),
-                                  trailingslashoptions,
+                                  trailingslash,
                                   remoteuser,
                                   remoteserver,
                                   backupID,
