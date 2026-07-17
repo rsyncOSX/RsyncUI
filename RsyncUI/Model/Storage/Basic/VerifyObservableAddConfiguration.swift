@@ -29,7 +29,7 @@ struct VerifyObservableAddConfiguration: Connected {
         let data = NewTask(observed.selectedrsynccommand.rawValue,
                            observed.localcatalog.replacingOccurrences(of: "\"", with: ""),
                            observed.remotecatalog.replacingOccurrences(of: "\"", with: ""),
-                           observed.trailingslashoptions,
+                           observed.trailingslash,
                            observed.remoteuser,
                            observed.remoteserver,
                            observed.backupID,
@@ -67,20 +67,9 @@ struct VerifyObservableAddConfiguration: Connected {
     }
 
     private func handleTrailingSlash(data: NewTask, newconfig: inout SynchronizeConfiguration) {
-        switch data.newtrailingslashoptions {
-        case .do_not_add:
-            newconfig.localCatalog = data.newlocalCatalog.hasSuffix("/") ?
-                String(data.newlocalCatalog.dropLast()) : data.newlocalCatalog
-            newconfig.offsiteCatalog = data.newoffsiteCatalog.hasSuffix("/") ?
-                String(data.newoffsiteCatalog.dropLast()) : data.newoffsiteCatalog
-        case .add:
+        if data.newtrailingslashoptions {
             newconfig.localCatalog = data.newlocalCatalog.hasSuffix("/") ?
                 data.newlocalCatalog : data.newlocalCatalog + "/"
-            newconfig.offsiteCatalog = data.newoffsiteCatalog.hasSuffix("/") ?
-                data.newoffsiteCatalog : data.newoffsiteCatalog + "/"
-        case .do_not_check:
-            newconfig.localCatalog = data.newlocalCatalog
-            newconfig.offsiteCatalog = data.newoffsiteCatalog
         }
     }
 

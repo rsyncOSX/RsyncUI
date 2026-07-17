@@ -77,10 +77,10 @@ extension AddTaskView {
             stringestimate = ""
         }
     }
-
+    
     func loadTrailingSlashPreference() {
-        if let value = UserDefaults.standard.value(forKey: "trailingslashoptions") as? String {
-            newdata.trailingslashoptions = TrailingSlash(rawValue: value) ?? .add
+        if let trailingslashoptions = UserDefaults.standard.value(forKey: "trailingslashoptions") {
+            newdata.trailingslash = trailingslashoptions as? Bool ?? false
         }
     }
 

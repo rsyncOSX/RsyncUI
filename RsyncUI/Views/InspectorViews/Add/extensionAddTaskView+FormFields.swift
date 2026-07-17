@@ -125,14 +125,12 @@ extension AddTaskView {
     }
 
     var trailingslash: some View {
-        Picker("Trailing /", selection: $newdata.trailingslashoptions) {
-            ForEach(TrailingSlash.allCases) { Text($0.description).tag($0) }
-        }
-        .pickerStyle(.menu)
-        .onChange(of: newdata.trailingslashoptions) {
-            UserDefaults.standard.set(newdata.trailingslashoptions.rawValue, forKey: "trailingslashoptions")
-        }
-        .onAppear { loadTrailingSlashPreference() }
+        
+        Toggle("Trailing / (slash) on source folder", isOn: $newdata.trailingslash)
+            .onChange(of: newdata.trailingslash) {
+                UserDefaults.standard.set(newdata.trailingslash, forKey: "trailingslashoptions")
+            }
+            .onAppear { loadTrailingSlashPreference() }
     }
 
     var pickerselecttypeoftask: some View {
