@@ -77,6 +77,7 @@ struct TaskForm: View {
 
     var localandremotecatalog: some View {
         Section("Folders") {
+            trailingSlashToggle(for: $newdata.localcatalog)
             catalogField(catalog: $newdata.localcatalog,
                          placeholder: "Source folder (required)",
                          focus: .localcatalogField,
@@ -91,6 +92,7 @@ struct TaskForm: View {
 
     var localandremotecatalogsyncremote: some View {
         Section("Folders") {
+            trailingSlashToggle(for: $newdata.remotecatalog)
             catalogField(catalog: $newdata.remotecatalog,
                          placeholder: "Source Folder (required)",
                          focus: .remotecatalogField,
@@ -156,21 +158,27 @@ struct TaskForm: View {
             .border(showErrorBorder ? Color.red : Color.clear, width: 2)
     }
 
-    var trailingslash: some View {
-        Toggle("Trailing / (slash) on source folder", isOn: $newdata.trailingslash)
-            .onChange(of: newdata.trailingslash) {
-                UserDefaults.standard.set(newdata.trailingslash, forKey: "trailingslashoptions")
+    func trailingSlashToggle(for value: Binding<String>) -> some View {
+        Toggle("Trailing Slash on Source folder", isOn: Binding(
+            get: {
+                value.wrappedValue.hasSuffix("/")
+            },
+            set: { enabled in
+                var text = value.wrappedValue
 
-                if newdata.trailingslash {
-                    if newdata.localcatalog.hasSuffix("/") == false {
-                        newdata.localcatalog.append("/")
+                if enabled {
+                    if !text.hasSuffix("/") {
+                        text += "/"
                     }
                 } else {
-                    if newdata.localcatalog.hasSuffix("/") {
-                        newdata.localcatalog.removeLast()
+                    if text.hasSuffix("/") {
+                        text.removeLast()
                     }
                 }
+
+                value.wrappedValue = text
             }
+        ))
     }
 
     var pickerselecttypeoftask: some View {
@@ -220,7 +228,6 @@ struct TaskForm: View {
             Form {
                 pickerselecttypeoftask
 
-                trailingslash
                 synchronizeID
                 catalogSectionView
                 remoteuserandserver
@@ -228,7 +235,6 @@ struct TaskForm: View {
             .formStyle(.grouped)
         case .update:
             Form {
-                trailingslash
                 synchronizeID
                 catalogSectionView
                 remoteuserandserver

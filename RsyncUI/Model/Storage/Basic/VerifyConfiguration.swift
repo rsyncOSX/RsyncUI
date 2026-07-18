@@ -63,7 +63,6 @@ final class VerifyConfiguration: Connected {
 
         newconfig.snapshotnum = (data.snapshotnum ?? 0) > 0 ? data.snapshotnum : nil
 
-        handleTrailingSlash(data: data, newconfig: &newconfig)
         handleSnapshotAndSyncRemote(data: data, newconfig: &newconfig)
 
         do {
@@ -79,13 +78,6 @@ final class VerifyConfiguration: Connected {
         }
 
         return newconfig
-    }
-
-    private func handleTrailingSlash(data: NewTask, newconfig: inout SynchronizeConfiguration) {
-        if data.newtrailingslash {
-            newconfig.localCatalog = data.newlocalCatalog.hasSuffix("/") ?
-                data.newlocalCatalog : data.newlocalCatalog + "/"
-        }
     }
 
     private func handleSnapshotAndSyncRemote(data: NewTask, newconfig: inout SynchronizeConfiguration) {
