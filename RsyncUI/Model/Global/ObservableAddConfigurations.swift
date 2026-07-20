@@ -9,21 +9,8 @@ import Foundation
 import Observation
 import OSLog
 
-enum TrailingSlash: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case add, do_not_add, do_not_check
-
-    var id: String {
-        rawValue
-    }
-
-    var description: String {
-        rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ")
-    }
-}
-
 @Observable @MainActor
 final class ObservableAddConfigurations {
-    var trailingslashoptions = TrailingSlash.add
     var selectedrsynccommand = TypeofTask.synchronize
 
     var localcatalog: String = ""
@@ -47,7 +34,6 @@ final class ObservableAddConfigurations {
         let getdata = NewTask(selectedrsynccommand.rawValue,
                               localcatalog.replacingOccurrences(of: "\"", with: ""),
                               remotecatalog.replacingOccurrences(of: "\"", with: ""),
-                              trailingslashoptions,
                               remoteuser,
                               remoteserver,
                               backupID)
@@ -73,26 +59,11 @@ final class ObservableAddConfigurations {
             }
         }
 
-        // If toggled ON remove trailing /
-        if trailingslashoptions == .do_not_add {
-            if localcatalog.hasSuffix("/") {
-                localcatalog.removeLast()
-            }
-            if remotecatalog.hasSuffix("/") {
-                remotecatalog.removeLast()
-            }
-        }
-
-        if localcatalog.hasSuffix("/") == false,
-           remotecatalog.hasSuffix("/") == false {
-            trailingslashoptions = .do_not_add
-        }
-
         guard let hiddenID = selectedconfig?.hiddenID else { return nil }
         let updateddata = NewTask(selectedrsynccommand.rawValue,
                                   localcatalog.replacingOccurrences(of: "\"", with: ""),
                                   remotecatalog.replacingOccurrences(of: "\"", with: ""),
-                                  trailingslashoptions,
+
                                   remoteuser,
                                   remoteserver,
                                   backupID,
@@ -123,6 +94,7 @@ final class ObservableAddConfigurations {
     func updateview(_ config: SynchronizeConfiguration?) {
         selectedconfig = config
         if let config = selectedconfig {
+            selectedrsynccommand = TypeofTask(rawValue: config.task) ?? .synchronize
             localcatalog = config.localCatalog
             remotecatalog = config.offsiteCatalog
             remoteuser = config.offsiteUsername
@@ -134,7 +106,7 @@ final class ObservableAddConfigurations {
                 }
             }
         } else {
-            selectedconfig = nil
+            selectedrsynccommand = .synchronize
             localcatalog = ""
             remotecatalog = ""
             remoteuser = ""

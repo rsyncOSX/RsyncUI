@@ -49,7 +49,7 @@ struct QuicktaskView: View {
     @State var selectedrsynccommand = TypeofTaskQuictask.synchronize
     @State var remoteuser: String = ""
     @State var remoteserver: String = ""
-    @State var trailingslashoptions: TrailingSlash = .add
+    @State var trailingslashoptions: Bool = true
     @State var dryrun: Bool = true
     @State var catalogorfile: Bool = true
     @State var focusaborttask: Bool = false
@@ -61,7 +61,6 @@ struct QuicktaskView: View {
     @AppStorage("quickremoteuser") var quickremoteuser: String = ""
     @AppStorage("quickremoteserver") var quickremoteserver: String = ""
 
-    @AppStorage("quicktrailingslashoptions") var quicktrailingslashoptions: String = ""
     @AppStorage("quickcatalogorfile") var quickcatalogorfile: Bool = true
 
     // Executed labels

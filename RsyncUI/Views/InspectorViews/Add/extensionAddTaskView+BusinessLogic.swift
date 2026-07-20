@@ -77,13 +77,7 @@ extension AddTaskView {
             stringestimate = ""
         }
     }
-
-    func loadTrailingSlashPreference() {
-        if let value = UserDefaults.standard.value(forKey: "trailingslashoptions") as? String {
-            newdata.trailingslashoptions = TrailingSlash(rawValue: value) ?? .add
-        }
-    }
-
+    
     func loadRsyncCommandPreference() {
         if let value = UserDefaults.standard.value(forKey: "selectedrsynccommand") as? String {
             newdata.selectedrsynccommand = TypeofTask(rawValue: value) ?? .synchronize

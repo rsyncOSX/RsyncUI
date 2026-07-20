@@ -37,6 +37,7 @@ extension AddTaskView {
 
     var localandremotecatalog: some View {
         Section("Folders") {
+            trailingSlashToggle(for: $newdata.localcatalog)
             catalogField(catalog: $newdata.localcatalog,
                          placeholder: "Source folder (required)",
                          focus: .localcatalogField,
@@ -52,6 +53,7 @@ extension AddTaskView {
 
     var localandremotecatalogsyncremote: some View {
         Section("Folders") {
+            trailingSlashToggle(for: $newdata.remotecatalog)
             catalogField(catalog: $newdata.remotecatalog,
                          placeholder: "Source Folder (required)",
                          focus: .remotecatalogField,
@@ -124,15 +126,27 @@ extension AddTaskView {
         }
     }
 
-    var trailingslash: some View {
-        Picker("Trailing /", selection: $newdata.trailingslashoptions) {
-            ForEach(TrailingSlash.allCases) { Text($0.description).tag($0) }
-        }
-        .pickerStyle(.menu)
-        .onChange(of: newdata.trailingslashoptions) {
-            UserDefaults.standard.set(newdata.trailingslashoptions.rawValue, forKey: "trailingslashoptions")
-        }
-        .onAppear { loadTrailingSlashPreference() }
+    func trailingSlashToggle(for value: Binding<String>) -> some View {
+        Toggle("Trailing Slash on Source folder", isOn: Binding(
+            get: {
+                value.wrappedValue.hasSuffix("/")
+            },
+            set: { enabled in
+                var text = value.wrappedValue
+
+                if enabled {
+                    if !text.hasSuffix("/") {
+                        text += "/"
+                    }
+                } else {
+                    if text.hasSuffix("/") {
+                        text.removeLast()
+                    }
+                }
+
+                value.wrappedValue = text
+            }
+        ))
     }
 
     var pickerselecttypeoftask: some View {

@@ -66,10 +66,10 @@ Comprehensive tests for configuration validation covering:
 - Empty username with server
 
 #### 📁 Trailing Slash Handling Tests
-- Add trailing slash (.add)
-- Remove trailing slash (.do_not_add)
-- Preserve paths (.do_not_check)
-- Handle existing trailing slashes
+- Add a trailing slash to the source path when enabled
+- Preserve paths when disabled
+- Leave the destination path unchanged
+- Avoid duplicating an existing source trailing slash
 
 #### 📸 Snapshot Validation Tests
 - Reject without rsync v3

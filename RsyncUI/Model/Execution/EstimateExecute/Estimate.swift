@@ -25,6 +25,12 @@ final class Estimate {
     private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
     private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
 
+    private func completeEstimation() {
+        localprogressdetails?.estimationIsComplete()
+        activeStreamingProcess = nil
+        streamingHandlers = nil
+    }
+
     private func getConfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
         if let index = localconfigurations.firstIndex(where: { $0.hiddenID == hiddenID }) {
             return localconfigurations[index]
@@ -63,6 +69,8 @@ final class Estimate {
             } catch let err {
                 let error = err
                 SharedReference.shared.errorobject?.alert(error: error)
+                completeEstimation()
+                return
             }
         }
         let process = RsyncProcessStreaming.RsyncProcess(
@@ -177,11 +185,8 @@ extension Estimate {
             streamingHandlers = nil
             startEstimation()
         } else {
-            localprogressdetails?.estimationIsComplete()
+            completeEstimation()
             Logger.process.debugMessageOnly("Estimate: ESTIMATION is completed")
-            // Release streaming references when completed
-            activeStreamingProcess = nil
-            streamingHandlers = nil
             return
         }
     }

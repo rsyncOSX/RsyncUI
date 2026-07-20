@@ -28,7 +28,6 @@ extension AddTaskView {
 
             Form {
                 pickerselecttypeoftask
-                trailingslash
                 synchronizeID
                 catalogSectionView
                 remoteuserandserver

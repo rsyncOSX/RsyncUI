@@ -52,8 +52,6 @@ struct AddTaskView: View {
 
     var body: some View {
         Form {
-            trailingslash
-
             synchronizeID
             catalogSectionView
 
@@ -63,7 +61,12 @@ struct AddTaskView: View {
                 snapshotnum
             }
 
-            saveURLSection
+            Button("URL for RsyncUI Widget", systemImage: "arrow.down") {
+                let data = WidgetURLstrings(urletimate: stringestimate)
+                Task { @MainActor in
+                    await WriteWidgetsURLStringsJSON.write(data)
+                }
+            }
 
             updateButton
         }

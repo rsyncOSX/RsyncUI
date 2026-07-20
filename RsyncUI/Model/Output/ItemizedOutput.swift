@@ -39,14 +39,17 @@ struct ItemizedOutputRecord {
     let path: String
     let code: String
 
-    init?(_ record: String) {
-        let trimmed = record.trimmingCharacters(in: .whitespacesAndNewlines)
+    init?(_ record: String, rsyncVersion3: Bool = false) {
+        let trimmed = record.trimmingCharacters(in: .newlines)
         guard trimmed.isEmpty == false else { return nil }
 
         if trimmed.hasPrefix("*deleting") {
+            let deletionPrefix = rsyncVersion3 ? "*deleting   " : "*deleting "
+            guard trimmed.hasPrefix(deletionPrefix) else { return nil }
+
             kind = .deleted
-            path = trimmed.replacingOccurrences(of: "*deleting", with: "")
-                .trimmingCharacters(in: .whitespaces)
+            path = String(trimmed.dropFirst(deletionPrefix.count))
+            guard path.isEmpty == false else { return nil }
             code = "*deleting"
             return
         }
@@ -55,8 +58,7 @@ struct ItemizedOutputRecord {
         guard let prefixLength else { return nil }
 
         code = String(trimmed.prefix(prefixLength))
-        path = String(trimmed.dropFirst(prefixLength))
-            .trimmingCharacters(in: .whitespaces)
+        path = String(trimmed.dropFirst(prefixLength + 1))
         guard path.isEmpty == false else { return nil }
 
         let attributes = code.dropFirst(2)
@@ -88,9 +90,10 @@ struct ItemizedOutputRecord {
 
 struct ItemizedOutputRow: View {
     let record: String
+    let rsyncVersion3: Bool
 
     var body: some View {
-        if let parsed = ItemizedOutputRecord(record) {
+        if let parsed = ItemizedOutputRecord(record, rsyncVersion3: rsyncVersion3) {
             HStack(spacing: 10) {
                 Label(parsed.kind.rawValue, systemImage: parsed.kind.systemImage)
                     .foregroundStyle(parsed.kind.color)
