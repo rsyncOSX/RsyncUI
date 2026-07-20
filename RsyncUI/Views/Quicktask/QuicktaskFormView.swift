@@ -56,16 +56,20 @@ struct QuicktaskFormView: View {
                         }
 
                         Spacer()
-                        
+
                         Toggle("Trailing / on source", isOn: $trailingslashoptions)
-                        .onChange(of: trailingslashoptions) {
-                            UserDefaults.standard.set(trailingslashoptions, forKey: "quicktrailingslash")
-                        }
-                        .onAppear {
-                            if let trailingslash = UserDefaults.standard.value(forKey: "trailingslashoptions") {
-                                trailingslashoptions = trailingslash as? Bool ?? false
+                            .onChange(of: trailingslashoptions) {
+                                UserDefaults.standard.set(trailingslashoptions, forKey: "quicktrailingslash")
                             }
-                        }
+                            .onAppear {
+                                let storedValue = UserDefaults.standard.object(forKey: "quicktrailingslash")
+                                if let trailingSlash = storedValue as? Bool {
+                                    trailingslashoptions = trailingSlash
+                                } else if let legacyValue = storedValue as? String {
+                                    trailingslashoptions = legacyValue == "add"
+                                    UserDefaults.standard.set(trailingslashoptions, forKey: "quicktrailingslash")
+                                }
+                            }
                     }
 
                     VStack {

@@ -88,6 +88,8 @@ final class Execute {
                         } catch let err {
                             let error = err
                             SharedReference.shared.errorobject?.alert(error: error)
+                            completeExecution()
+                            return
                         }
                     }
 
@@ -126,6 +128,8 @@ final class Execute {
                         } catch let err {
                             let error = err
                             SharedReference.shared.errorobject?.alert(error: error)
+                            completeExecution()
+                            return
                         }
                     }
                     guard let streamingHandlers else { return }

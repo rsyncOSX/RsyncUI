@@ -61,7 +61,6 @@ struct QuicktaskView: View {
     @AppStorage("quickremoteuser") var quickremoteuser: String = ""
     @AppStorage("quickremoteserver") var quickremoteserver: String = ""
 
-    @AppStorage("quicktrailingslashoptions") var quicktrailingslashoptions: String = ""
     @AppStorage("quickcatalogorfile") var quickcatalogorfile: Bool = true
 
     // Executed labels

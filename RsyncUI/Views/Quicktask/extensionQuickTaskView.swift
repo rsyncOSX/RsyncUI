@@ -41,6 +41,7 @@ extension QuicktaskView {
 
     func resetForm() {
         selectedrsynccommand = .synchronize
+        trailingslashoptions = true
         dryrun = true
         catalogorfile = true
         localcatalog = ""
@@ -52,14 +53,18 @@ extension QuicktaskView {
     }
 
     func getConfigAndExecute() {
+        guard selectedrsynccommand != .notSelected else { return }
+
+        let sourceCatalog = QuickTaskSourcePath.applyingTrailingSlash(
+            to: localcatalog,
+            enabled: trailingslashoptions
+        )
         let getdata = NewTask(selectedrsynccommand.rawValue,
-                              localcatalog,
+                              sourceCatalog,
                               remotecatalog,
                               remoteuser,
                               remoteserver,
                               "")
-
-        guard selectedrsynccommand != .notSelected else { return }
 
         if let config = VerifyConfiguration().verify(getdata) {
             do {
@@ -156,5 +161,21 @@ extension QuicktaskView {
             throw ValidateInputQuicktask.offsiteserver
         }
         return true
+    }
+}
+
+enum QuickTaskSourcePath {
+    static func applyingTrailingSlash(to sourceCatalog: String, enabled: Bool) -> String {
+        guard sourceCatalog.isEmpty == false else { return sourceCatalog }
+
+        if enabled {
+            return sourceCatalog.hasSuffix("/") ? sourceCatalog : sourceCatalog.appending("/")
+        }
+
+        var sourceCatalog = sourceCatalog
+        while sourceCatalog.count > 1, sourceCatalog.hasSuffix("/") {
+            sourceCatalog.removeLast()
+        }
+        return sourceCatalog
     }
 }

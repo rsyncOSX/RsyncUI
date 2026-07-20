@@ -137,7 +137,6 @@ struct VerifyConfigurationAdvancedTests {
             "synchronize",
             "/Users/test/Documents",
             "/backup/Documents",
-            true,
             nil,
             nil,
             "TestBackup",
@@ -194,7 +193,7 @@ struct VerifyConfigurationAdvancedTests {
     }
 
     @Test(
-        "Trailing slash handling with various separators",
+        "Preserve catalog paths with various separators",
         arguments: [
             "/simple/path",
             "/path/with/many/levels/deep",
@@ -207,12 +206,12 @@ struct VerifyConfigurationAdvancedTests {
 
         let task = makeValidTask(
             localCatalog: path,
-            offsiteCatalog: path,
-            trailingSlash: true
+            offsiteCatalog: path
         )
         let result = try #require(verifier.verify(task))
 
-        #expect(result.localCatalog.hasSuffix("/") == true, "Path should have trailing slash: \(path)")
+        #expect(result.localCatalog == path)
+        #expect(result.offsiteCatalog == path)
     }
 
     // MARK: - Parameter Preservation Tests

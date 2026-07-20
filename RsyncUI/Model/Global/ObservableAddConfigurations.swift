@@ -94,6 +94,7 @@ final class ObservableAddConfigurations {
     func updateview(_ config: SynchronizeConfiguration?) {
         selectedconfig = config
         if let config = selectedconfig {
+            selectedrsynccommand = TypeofTask(rawValue: config.task) ?? .synchronize
             localcatalog = config.localCatalog
             remotecatalog = config.offsiteCatalog
             remoteuser = config.offsiteUsername
@@ -105,7 +106,7 @@ final class ObservableAddConfigurations {
                 }
             }
         } else {
-            selectedconfig = nil
+            selectedrsynccommand = .synchronize
             localcatalog = ""
             remotecatalog = ""
             remoteuser = ""
