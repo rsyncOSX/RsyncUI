@@ -13,11 +13,11 @@ extension AddTaskView {
     var synchronizeID: some View {
         Section("Synchronize ID") {
             if newdata.selectedconfig == nil {
-                TextField("Synchronize ID", text: $newdata.backupID)
+                TextField("Synchronize ID:", text: $newdata.backupID)
                     .focused($focusField, equals: .synchronizeIDField)
                     .textContentType(.none).submitLabel(.continue)
             } else {
-                TextField("Synchronize ID", text: $newdata.backupID)
+                TextField("Synchronize ID:", text: $newdata.backupID)
                     .focused($focusField, equals: .synchronizeIDField)
                     .textContentType(.none).submitLabel(.continue)
                     .onAppear { if let id = newdata.selectedconfig?.backupID { newdata.backupID = id } }
@@ -37,13 +37,27 @@ extension AddTaskView {
 
     var localandremotecatalog: some View {
         Section("Folders") {
-            trailingSlashToggle(for: $newdata.localcatalog)
+            Toggle("Trailing Slash on Source folder", isOn: $trailingslashoption)
+                .onChange(of: trailingslashoption) {
+                    UserDefaults.standard.set(trailingslashoption, forKey: "trailingslashoptions")
+                    settrailingSlash(for: $newdata.localcatalog)
+                }
+                .onAppear {
+                    let storedValue = UserDefaults.standard.object(forKey: "trailingslashoptions")
+                    if let trailingSlash = storedValue as? Bool {
+                        trailingslashoption = trailingSlash
+                    } else if let legacyValue = storedValue as? String {
+                        trailingslashoption = legacyValue == "add"
+                        UserDefaults.standard.set(trailingslashoption, forKey: "trailingslashoptions")
+                    }
+                }
+            
             catalogField(catalog: $newdata.localcatalog,
-                         placeholder: "Source folder (required)",
+                         placeholder: "Source folder (required):",
                          focus: .localcatalogField,
                          selectedValue: newdata.selectedconfig?.localCatalog)
             catalogField(catalog: $newdata.remotecatalog,
-                         placeholder: "Destination folder (required)",
+                         placeholder: "Destination folder (required):",
                          focus: .remotecatalogField,
                          selectedValue: newdata.selectedconfig?.offsiteCatalog,
                          showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
@@ -53,13 +67,27 @@ extension AddTaskView {
 
     var localandremotecatalogsyncremote: some View {
         Section("Folders") {
-            trailingSlashToggle(for: $newdata.remotecatalog)
+            Toggle("Trailing Slash on Source folder", isOn: $trailingslashoption)
+                .onChange(of: trailingslashoption) {
+                    UserDefaults.standard.set(trailingslashoption, forKey: "trailingslashoptions")
+                    settrailingSlash(for: $newdata.remotecatalog)
+                }
+                .onAppear {
+                    let storedValue = UserDefaults.standard.object(forKey: "trailingslashoptions")
+                    if let trailingSlash = storedValue as? Bool {
+                        trailingslashoption = trailingSlash
+                    } else if let legacyValue = storedValue as? String {
+                        trailingslashoption = legacyValue == "add"
+                        UserDefaults.standard.set(trailingslashoption, forKey: "trailingslashoptions")
+                    }
+                }
+            
             catalogField(catalog: $newdata.remotecatalog,
-                         placeholder: "Source Folder (required)",
+                         placeholder: "Source Folder (required):",
                          focus: .remotecatalogField,
                          selectedValue: newdata.selectedconfig?.offsiteCatalog)
             catalogField(catalog: $newdata.localcatalog,
-                         placeholder: "Remote Folder (required)",
+                         placeholder: "Remote Folder (required):",
                          focus: .localcatalogField,
                          selectedValue: newdata.selectedconfig?.localCatalog,
                          showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
@@ -67,6 +95,24 @@ extension AddTaskView {
         }
     }
 
+    func settrailingSlash(for value: Binding<String>)  {
+        var text = value.wrappedValue
+        guard text.isEmpty == false else { return }
+        
+        if trailingslashoption && !text.isEmpty {
+            if !text.hasSuffix("/") {
+                text += "/"
+            }
+        } else {
+            if text.hasSuffix("/") {
+                text.removeLast()
+            }
+        }
+
+        value.wrappedValue = text
+        
+    }
+    
     func catalogField(catalog: Binding<String>, placeholder: String,
                       focus: AddConfigurationField, selectedValue: String?,
                       showErrorBorder: Bool = false) -> some View {
@@ -91,14 +137,14 @@ extension AddTaskView {
         Section("Remote") {
             remoteField(
                 value: $newdata.remoteuser,
-                placeholder: "Remote user",
+                placeholder: "Remote user:",
                 focus: .remoteuserField,
                 selectedValue: newdata.selectedconfig?.offsiteUsername,
                 showErrorBorder: newdata.remoteuser.isEmpty && !newdata.remoteserver.isEmpty
             )
             remoteField(
                 value: $newdata.remoteserver,
-                placeholder: "Remote server",
+                placeholder: "Remote server:",
                 focus: .remoteserverField,
                 selectedValue: newdata.selectedconfig?.offsiteServer,
                 submitLabel: .return,
@@ -115,40 +161,18 @@ extension AddTaskView {
                 TextField(placeholder, text: value)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(submitLabel)
-                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
+                    .border(showErrorBorder ? Color.red : Color.clear, width: 1)
             } else {
                 TextField(placeholder, text: value)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(submitLabel)
                     .onAppear { if let val = selectedValue { value.wrappedValue = val } }
-                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
+                    .border(showErrorBorder ? Color.red : Color.clear, width: 1)
             }
         }
     }
 
-    func trailingSlashToggle(for value: Binding<String>) -> some View {
-        Toggle("Trailing Slash on Source folder", isOn: Binding(
-            get: {
-                value.wrappedValue.hasSuffix("/")
-            },
-            set: { enabled in
-                var text = value.wrappedValue
-
-                if enabled {
-                    if !text.hasSuffix("/") {
-                        text += "/"
-                    }
-                } else {
-                    if text.hasSuffix("/") {
-                        text.removeLast()
-                    }
-                }
-
-                value.wrappedValue = text
-            }
-        ))
-    }
-
+    
     var pickerselecttypeoftask: some View {
         Picker("Action", selection: $newdata.selectedrsynccommand) {
             ForEach(TypeofTask.allCases) { Text($0.description).tag($0) }

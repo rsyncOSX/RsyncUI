@@ -40,6 +40,9 @@ struct AddTaskView: View {
 
     @State var newdata = ObservableAddConfigurations()
     @State var selectedconfig: SynchronizeConfiguration?
+    
+    @State var trailingslashoption: Bool = true
+    
     @State var changesnapshotnum: Bool = false
     @State var stringestimate: String = ""
     @Binding var showAddPopover: Bool
@@ -53,6 +56,7 @@ struct AddTaskView: View {
     var body: some View {
         Form {
             synchronizeID
+            
             catalogSectionView
 
             remoteuserandserver
