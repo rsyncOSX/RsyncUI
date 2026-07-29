@@ -57,7 +57,7 @@ struct QuicktaskFormView: View {
 
                         Spacer()
 
-                        Toggle("Trailing / on source", isOn: $trailingslashoptions)
+                        Toggle("Trailing Slash on Source folder", isOn: $trailingslashoptions)
                             .onChange(of: trailingslashoptions) {
                                 UserDefaults.standard.set(trailingslashoptions, forKey: "quicktrailingslash")
                             }

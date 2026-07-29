@@ -41,6 +41,7 @@ extension AddTaskView {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Add") {
                     Task { @MainActor in
+                        settrailingSlash(for: $newdata.localcatalog)
                         if await addConfig() {
                             showAddPopover = false
                         }
