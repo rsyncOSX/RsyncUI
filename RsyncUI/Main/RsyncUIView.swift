@@ -26,6 +26,7 @@ struct RsyncUIView: View {
                     Text("https://rsyncui.netlify.app")
                         .font(.title2)
                 }
+                .padding()
                 .task {
                     try? await Task.sleep(seconds: 1)
                     start = false
@@ -36,7 +37,6 @@ struct RsyncUIView: View {
                                 errorhandling: errorhandling)
             }
         }
-        .padding()
         .task {
             SharedReference.shared.errorobject = errorhandling
             await ReadUserConfigurationJSON().readuserconfiguration()
