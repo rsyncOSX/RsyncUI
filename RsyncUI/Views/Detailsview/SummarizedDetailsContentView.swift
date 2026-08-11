@@ -29,12 +29,11 @@ struct SummarizedDetailsContentView: View {
                         }
                     }
             } else {
-                ZStack {
-                    HStack {
-                        leftcolumndetails
-                        rightcolumndetails
-                    }
-
+                HStack {
+                    leftcolumndetails
+                    rightcolumndetails
+                }
+                .overlay(alignment: .center) {
                     if datatosynchronize {
                         if SharedReference.shared.confirmexecute {
                             // Because of the role .destructive keep the if #available(macOS 26.0, *)
