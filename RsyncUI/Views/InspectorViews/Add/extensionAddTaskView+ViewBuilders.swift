@@ -43,7 +43,7 @@ extension AddTaskView {
                     Task { @MainActor in
                         settrailingSlash(for: $newdata.localcatalog)
                         if await addConfig() {
-                            showAddPopover = false
+                            dismissAddSheet()
                         }
                     }
                 }
@@ -51,7 +51,7 @@ extension AddTaskView {
 
             ToolbarItem(placement: .cancellationAction) {
                 Button("Cancel") {
-                    showAddPopover = false
+                    dismissAddSheet()
                 }
             }
         }

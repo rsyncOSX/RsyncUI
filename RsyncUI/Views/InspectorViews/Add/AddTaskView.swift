@@ -32,9 +32,15 @@ enum TypeofTask: String, CaseIterable, Identifiable, CustomStringConvertible {
 }
 
 struct AddTaskView: View {
+    enum Mode {
+        case inspector
+        case add
+    }
+
+    @Environment(\.dismiss) private var dismiss
     @Bindable var rsyncUIdata: RsyncUIconfigurations
-    @Binding var selectedTab: InspectorTab
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
+    var mode: Mode = .inspector
 
     @FocusState var focusField: AddConfigurationField?
 
@@ -45,7 +51,6 @@ struct AddTaskView: View {
     
     @State var changesnapshotnum: Bool = false
     @State var stringestimate: String = ""
-    @Binding var showAddPopover: Bool
 
     @State var presentglobaltaskview: Bool = false
 
@@ -54,38 +59,40 @@ struct AddTaskView: View {
     }
 
     var body: some View {
-        Form {
-            synchronizeID
-            
-            catalogSectionView
+        switch mode {
+        case .inspector:
+            Form {
+                synchronizeID
 
-            remoteuserandserver
+                catalogSectionView
 
-            if showSnapshot {
-                snapshotnum
-            }
+                remoteuserandserver
 
-            Button("URL for RsyncUI Widget", systemImage: "arrow.down") {
-                let data = WidgetURLstrings(urletimate: stringestimate)
-                Task { @MainActor in
-                    await WriteWidgetsURLStringsJSON.write(data)
+                if showSnapshot {
+                    snapshotnum
                 }
-            }
 
-            updateButton
-        }
-        .formStyle(.grouped)
-        .padding()
-        .onAppear { handleSelectionChange() }
-        .onSubmit { handleSubmit() }
-        .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
-        .onChange(of: selecteduuids) { handleSelectionChange() }
-        .onChange(of: showAddPopover) { _, isPresented in
-            if isPresented {
-                newdata.resetForm()
-                selectedconfig = nil
+                Button("URL for RsyncUI Widget", systemImage: "arrow.down") {
+                    let data = WidgetURLstrings(urletimate: stringestimate)
+                    Task { @MainActor in
+                        await WriteWidgetsURLStringsJSON.write(data)
+                    }
+                }
+
+                updateButton
             }
+            .formStyle(.grouped)
+            .padding()
+            .onAppear { handleSelectionChange() }
+            .onSubmit { handleSubmit() }
+            .onChange(of: rsyncUIdata.profile) { handleProfileChange() }
+            .onChange(of: selecteduuids) { handleSelectionChange() }
+        case .add:
+            addTaskSheetView
         }
-        .sheet(isPresented: $showAddPopover) { addTaskSheetView }
+    }
+
+    func dismissAddSheet() {
+        dismiss()
     }
 }
