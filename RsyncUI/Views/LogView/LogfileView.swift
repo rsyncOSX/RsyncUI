@@ -25,7 +25,7 @@ struct LogfileView: View {
             HStack {
                 Spacer()
 
-                ConditionalGlassButton(
+                AdaptiveProminentButton(
                     systemImage: "trash",
                     text: "Reset",
                     helpText: "Reset logfile"

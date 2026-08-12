@@ -38,7 +38,7 @@ extension RsyncParametersView {
 extension RsyncParametersView {
     var addupdateButton: some View {
         if notifydataisupdated {
-            ConditionalGlassButton(
+            AdaptiveProminentButton(
                 systemImage: "arrow.down",
                 text: "Update",
                 helpText: "Update parameters"
@@ -49,7 +49,7 @@ extension RsyncParametersView {
             .disabled(selectedconfig == nil)
             .padding(.bottom, 10)
         } else {
-            ConditionalGlassButton(
+            AdaptiveProminentButton(
                 systemImage: "plus",
                 text: "Add",
                 helpText: "Save parameters"

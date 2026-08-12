@@ -223,31 +223,16 @@ private struct SummaryTablesActionDivider: View {
     @ViewBuilder
     private var synchronizeButton: some View {
         if SharedReference.shared.confirmexecute {
-            if #available(macOS 26.0, *) {
-                Button(action: requestExecution) {
-                    Label("Synchronize", systemImage: "play.fill")
-                        .labelStyle(.iconOnly)
-                }
-                .buttonStyle(RefinedGlassButtonStyle())
-                .help("Synchronize")
-                .confirmationDialog("Synchronize tasks?", isPresented: $isPresentingConfirm) {
-                    Button("Synchronize", role: .destructive, action: execute)
-                }
-            } else {
-                Button(action: requestExecution) {
-                    Label("Synchronize", systemImage: "play.fill")
-                        .labelStyle(.iconOnly)
-                        .font(.title2)
-                        .imageScale(.large)
-                }
-                .buttonStyle(.borderedProminent)
-                .help("Synchronize")
-                .confirmationDialog("Synchronize tasks?", isPresented: $isPresentingConfirm) {
-                    Button("Synchronize", role: .destructive, action: execute)
-                }
+            AdaptiveProminentButton(
+                systemImage: "play.fill",
+                helpText: "Synchronize",
+                action: requestExecution
+            )
+            .confirmationDialog("Synchronize tasks?", isPresented: $isPresentingConfirm) {
+                Button("Synchronize", role: .destructive, action: execute)
             }
         } else {
-            ConditionalGlassButton(
+            AdaptiveProminentButton(
                 systemImage: "play.fill",
                 helpText: "Synchronize",
                 action: execute

@@ -81,7 +81,7 @@ struct CalendarMonthView: View {
                         }
 
                     if GlobalTimer.shared.notExecutedSchedulesafterWakeUp.count > 0 {
-                        ConditionalGlassButton(
+                        AdaptiveProminentButton(
                             systemImage: "",
                             text: "Move to Schedules ↑",
                             helpText: "Move to Schedules"
@@ -126,7 +126,7 @@ struct CalendarMonthView: View {
     @ToolbarContentBuilder
     private var calendartoolbarcontent: some ToolbarContent {
         ToolbarItem {
-            ConditionalGlassButton(
+            AdaptiveProminentButton(
                 systemImage: "arrow.left",
                 helpText: "Previous month"
             ) {
@@ -137,7 +137,7 @@ struct CalendarMonthView: View {
         }
 
         ToolbarItem {
-            ConditionalGlassButton(
+            AdaptiveProminentButton(
                 systemImage: "clock",
                 helpText: "Today"
             ) {
@@ -148,7 +148,7 @@ struct CalendarMonthView: View {
         }
 
         ToolbarItem {
-            ConditionalGlassButton(
+            AdaptiveProminentButton(
                 systemImage: "arrow.right",
                 helpText: "Next month"
             ) {
@@ -162,24 +162,10 @@ struct CalendarMonthView: View {
             Spacer()
         }
 
-        if #available(macOS 26.0, *) {
-            ToolbarItem(placement: .cancellationAction) {
-                Button("Close", role: .close) {
-                    activeSheet = nil
-                    dismiss()
-                }
-                .buttonStyle(RefinedGlassButtonStyle())
-            }
-        } else {
-            ToolbarItem {
-                Button {
-                    activeSheet = nil
-                } label: {
-                    Label("Close", systemImage: "return")
-                        .labelStyle(.iconOnly)
-                }
-                .help("Close")
-                .buttonStyle(.borderedProminent)
+        ToolbarItem(placement: .cancellationAction) {
+            AdaptiveCloseButton {
+                activeSheet = nil
+                dismiss()
             }
         }
     }
