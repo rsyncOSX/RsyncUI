@@ -11,6 +11,7 @@ struct EditTabView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var showAddPopover: Bool = false
+    @State private var isInspectorPresented: Bool = true
 
     var body: some View {
         HStack {
@@ -32,10 +33,16 @@ struct EditTabView: View {
                 showAddPopover = true
             }
         }
-        .inspector(isPresented: .constant(true)) {
+        .inspector(isPresented: $isInspectorPresented) {
             InspectorView(rsyncUIdata: rsyncUIdata,
-                          selecteduuids: $selecteduuids,
-                          showAddPopover: $showAddPopover)
+                          selecteduuids: $selecteduuids)
+                .inspectorColumnWidth(min: 550, ideal: 600, max: 650)
+                .interactiveDismissDisabled()
+        }
+        .sheet(isPresented: $showAddPopover) {
+            AddTaskView(rsyncUIdata: rsyncUIdata,
+                        selecteduuids: $selecteduuids,
+                        mode: .add)
         }
         .toolbar(content: {
             ToolbarItem(placement: .status) {

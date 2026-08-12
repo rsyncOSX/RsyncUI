@@ -15,12 +15,6 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
     }
 }
 
-/// The sidebar is context sensitive, it is computed everytime a new profile is loaded
-struct MenuItem: Identifiable, Hashable {
-    var menuitem: Sidebaritems
-    let id = UUID()
-}
-
 struct SidebarMainView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     // The selectedprofileID is updated by the profile picker
@@ -56,71 +50,41 @@ struct SidebarMainView: View {
     @State private var globaltimer = GlobalTimer.shared
 
     var body: some View {
-        NavigationSplitView(columnVisibility: $columnVisibility) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text("PROFILE")
-                    .font(.caption2)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.secondary)
-                    .padding(.leading, 4)
-
-                Picker("", selection: $selectedprofileID) {
-                    Text("Default")
-                        .tag(nil as ProfilesnamesRecord.ID?)
-                    ForEach(rsyncUIdata.validprofiles, id: \.self) { profile in
-                        Text(profile.profilename)
-                            .tag(profile.id)
+        HStack(spacing: 0) {
+            if columnVisibility != .detailOnly {
+                SidebarPanel(
+                    profiles: rsyncUIdata.validprofiles,
+                    selectedProfileID: $selectedprofileID,
+                    selectedView: $selectedview,
+                    actionItems: actionItems,
+                    toolItems: toolItems,
+                    managementItems: managementItems,
+                    synchronizeBadgeCount: configurationsNeedingSyncCount,
+                    isDisabled: disablesidebarmeny,
+                    newVersionAvailable: newversion.notifynewversion,
+                    mountingVolumeNow: $mountingvolumenow,
+                    timerIsActive: GlobalTimer.shared.timerIsActive(),
+                    nextScheduleText: GlobalTimer.shared.nextScheduleDate() ?? "",
+                    showNotExecutedAfterWake: GlobalTimer.shared.thereisnotexecutedschedulesafterwakeup,
+                    rsyncVersionShort: SharedReference.shared.rsyncversionshort ?? "",
+                    clearNotExecutedAfterWake: {
+                        GlobalTimer.shared.thereisnotexecutedschedulesafterwakeup = false
                     }
-                }
-                .frame(width: 180)
-                .disabled(disablesidebarmeny)
+                )
+
+                Divider()
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
 
-            Divider()
-
-            List(selection: $selectedview) {
-                Section("Actions") {
-                    ForEach(actionItems) { item in
-                        NavigationLinkWithHover(item: item,
-                                                selectedview: $selectedview,
-                                                badgeCount: badgeCount(for: item.menuitem))
-                    }
-                }
-
-                if toolItems.isEmpty == false {
-                    Section("Tools") {
-                        ForEach(toolItems) { item in
-                            NavigationLinkWithHover(item: item,
-                                                    selectedview: $selectedview,
-                                                    badgeCount: badgeCount(for: item.menuitem))
-                        }
-                    }
-                }
-
-                Section("Management") {
-                    ForEach(managementItems) { item in
-                        NavigationLinkWithHover(item: item,
-                                                selectedview: $selectedview,
-                                                badgeCount: badgeCount(for: item.menuitem))
-                    }
-                }
-            }
-            .listStyle(.sidebar)
-            .disabled(disablesidebarmeny)
-
-            SidebarStatusMessagesView(newVersionAvailable: newversion.notifynewversion,
-                                      mountingVolumeNow: $mountingvolumenow,
-                                      timerIsActive: GlobalTimer.shared.timerIsActive(),
-                                      nextScheduleText: GlobalTimer.shared.nextScheduleDate() ?? "",
-                                      showNotExecutedAfterWake: GlobalTimer.shared.thereisnotexecutedschedulesafterwakeup,
-                                      rsyncVersionShort: SharedReference.shared.rsyncversionshort ?? "",
-                                      clearNotExecutedAfterWake: {
-                                          GlobalTimer.shared.thereisnotexecutedschedulesafterwakeup = false
-                                      })
-        } detail: {
             selectView(selectedview)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                Button(action: toggleSidebar) {
+                    Label("Toggle sidebar", systemImage: "sidebar.left")
+                }
+                .help(columnVisibility == .detailOnly ? "Show sidebar" : "Hide sidebar")
+            }
         }
         .alert(errorhandling.activeError?.localizedDescription ?? "No error", isPresented: errorhandling.isPresentingAlert) {
             Button("OK", role: .cancel) {}
@@ -192,6 +156,10 @@ struct SidebarMainView: View {
         return await (version, scheduledata)
     }
 
+    private func toggleSidebar() {
+        columnVisibility = columnVisibility == .detailOnly ? .doubleColumn : .detailOnly
+    }
+
     @MainActor @ViewBuilder
     func selectView(_ view: Sidebaritems) -> some View {
         switch view {
@@ -226,16 +194,16 @@ struct SidebarMainView: View {
             SharedReference.shared.process != nil
     }
 
-    var actionItems: [MenuItem] {
-        menuitems.filter { $0.menuitem == .synchronize || $0.menuitem == .tasks }
+    var actionItems: [Sidebaritems] {
+        menuitems.filter { $0 == .synchronize || $0 == .tasks }
     }
 
-    var toolItems: [MenuItem] {
-        menuitems.filter { $0.menuitem == .snapshots || $0.menuitem == .restore }
+    var toolItems: [Sidebaritems] {
+        menuitems.filter { $0 == .snapshots || $0 == .restore }
     }
 
-    var managementItems: [MenuItem] {
-        menuitems.filter { $0.menuitem == .profiles }
+    var managementItems: [Sidebaritems] {
+        menuitems.filter { $0 == .profiles }
     }
 
     /// The Sidebar meny is context sensitive. There are three Sidebar meny options
@@ -243,7 +211,7 @@ struct SidebarMainView: View {
     /// - Snapshots
     /// - Verify remote
     /// - Restore
-    var menuitems: [MenuItem] {
+    var menuitems: [Sidebaritems] {
         Sidebaritems.allCases.compactMap { item in
             // Return nil if there is one or more snapshot tasks
             // Do not show the Snapshot sidebar meny
@@ -261,13 +229,8 @@ struct SidebarMainView: View {
                    item == .restore { return nil }
             }
 
-            return MenuItem(menuitem: item)
+            return item
         }
-    }
-
-    private func badgeCount(for item: Sidebaritems) -> Int {
-        guard item == .synchronize else { return 0 }
-        return configurationsNeedingSyncCount
     }
 
     private var configurationsNeedingSyncCount: Int {
@@ -278,6 +241,126 @@ struct SidebarMainView: View {
             let daysSince = lastRun.timeIntervalSinceNow * -1 / (60 * 60 * 24)
             return daysSince > Double(SharedReference.shared.marknumberofdayssince)
         }.count
+    }
+}
+
+private struct SidebarPanel: View {
+    let profiles: [ProfilesnamesRecord]
+    @Binding var selectedProfileID: ProfilesnamesRecord.ID?
+    @Binding var selectedView: Sidebaritems
+    let actionItems: [Sidebaritems]
+    let toolItems: [Sidebaritems]
+    let managementItems: [Sidebaritems]
+    let synchronizeBadgeCount: Int
+    let isDisabled: Bool
+    let newVersionAvailable: Bool
+    @Binding var mountingVolumeNow: Bool
+    let timerIsActive: Bool
+    let nextScheduleText: String
+    let showNotExecutedAfterWake: Bool
+    let rsyncVersionShort: String
+    let clearNotExecutedAfterWake: () -> Void
+
+    var body: some View {
+        VStack(spacing: 0) {
+            SidebarProfilePicker(
+                profiles: profiles,
+                selectedProfileID: $selectedProfileID,
+                isDisabled: isDisabled
+            )
+
+            Divider()
+
+            SidebarMenuList(
+                selectedView: $selectedView,
+                actionItems: actionItems,
+                toolItems: toolItems,
+                managementItems: managementItems,
+                synchronizeBadgeCount: synchronizeBadgeCount,
+                isDisabled: isDisabled
+            )
+
+            SidebarStatusMessagesView(
+                newVersionAvailable: newVersionAvailable,
+                mountingVolumeNow: $mountingVolumeNow,
+                timerIsActive: timerIsActive,
+                nextScheduleText: nextScheduleText,
+                showNotExecutedAfterWake: showNotExecutedAfterWake,
+                rsyncVersionShort: rsyncVersionShort,
+                clearNotExecutedAfterWake: clearNotExecutedAfterWake
+            )
+        }
+        .frame(width: 220)
+        .background(.bar)
+    }
+}
+
+private struct SidebarProfilePicker: View {
+    let profiles: [ProfilesnamesRecord]
+    @Binding var selectedProfileID: ProfilesnamesRecord.ID?
+    let isDisabled: Bool
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("PROFILE")
+                .font(.caption2)
+                .fontWeight(.semibold)
+                .foregroundStyle(.secondary)
+
+            Picker("Profile", selection: $selectedProfileID) {
+                Text("Default")
+                    .tag(nil as ProfilesnamesRecord.ID?)
+                ForEach(profiles) { profile in
+                    Text(profile.profilename)
+                        .tag(profile.id as ProfilesnamesRecord.ID?)
+                }
+            }
+            .labelsHidden()
+            .disabled(isDisabled)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+    }
+}
+
+private struct SidebarMenuList: View {
+    @Binding var selectedView: Sidebaritems
+    let actionItems: [Sidebaritems]
+    let toolItems: [Sidebaritems]
+    let managementItems: [Sidebaritems]
+    let synchronizeBadgeCount: Int
+    let isDisabled: Bool
+
+    var body: some View {
+        List(selection: $selectedView) {
+            Section("Actions") {
+                ForEach(actionItems) { item in
+                    SidebarRow(
+                        sidebaritem: item,
+                        badgeCount: item == .synchronize ? synchronizeBadgeCount : 0
+                    )
+                    .tag(item)
+                }
+            }
+
+            if toolItems.isEmpty == false {
+                Section("Tools") {
+                    ForEach(toolItems) { item in
+                        SidebarRow(sidebaritem: item)
+                            .tag(item)
+                    }
+                }
+            }
+
+            Section("Management") {
+                ForEach(managementItems) { item in
+                    SidebarRow(sidebaritem: item)
+                        .tag(item)
+                }
+            }
+        }
+        .listStyle(.sidebar)
+        .disabled(isDisabled)
     }
 }
 
@@ -303,30 +386,6 @@ struct SidebarRow: View {
             "arrowshape.turn.up.backward"
         case .profiles:
             "arrow.left.arrow.right.circle.fill"
-        }
-    }
-}
-
-struct NavigationLinkWithHover: View {
-    let item: MenuItem // Replace with your actual item type
-    @Binding var selectedview: Sidebaritems // Replace with your selection type
-    var badgeCount: Int = 0
-    @State private var isHovered = false
-
-    var body: some View {
-        NavigationLink(value: item.menuitem) {
-            SidebarRow(sidebaritem: item.menuitem, badgeCount: badgeCount)
-        }
-        .listRowBackground(
-            RoundedRectangle(cornerRadius: 10)
-                .fill(isHovered ? Color.blue.opacity(0.2) : Color.clear)
-                .padding(.horizontal, 10)
-        )
-        .listRowInsets(EdgeInsets())
-        .onHover { hovering in
-            withAnimation(.easeInOut(duration: 0.15)) {
-                isHovered = hovering
-            }
         }
     }
 }
