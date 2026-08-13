@@ -14,13 +14,13 @@ struct ProfileView: View {
 
     @State private var newdata = ObservableProfiles()
     @State private var uuidprofile: ProfilesnamesRecord.ID?
-    @State private var localselectedprofile: String?
     @State private var newprofile: String = ""
 
     @State private var allconfigurations: [SynchronizeConfiguration] = []
 
     @State private var confirmdelete: Bool = false
     @State private var showAddProfileSheet: Bool = false
+    @FocusState private var profileTableIsFocused: Bool
 
     var body: some View {
         VStack {
@@ -30,23 +30,13 @@ struct ProfileView: View {
                         Text(name.profilename)
                     }
                 }
-                .onChange(of: uuidprofile) {
-                    let record = rsyncUIdata.validprofiles.filter { $0.id == uuidprofile }
-                    guard record.count > 0 else {
-                        localselectedprofile = nil
-                        return
-                    }
-                    localselectedprofile = record[0].profilename
-                }
                 .frame(width: 300)
-                .onDeleteCommand {
-                    confirmdelete = true
+                .focused($profileTableIsFocused)
+                .onAppear {
+                    profileTableIsFocused = true
                 }
-                .confirmationDialog("Delete profile: \(localselectedprofile ?? "")?",
-                                    isPresented: $confirmdelete) {
-                    Button("Delete", role: .destructive) {
-                        deleteProfile()
-                    }
+                .onDeleteCommand {
+                    requestProfileDeletion()
                 }
 
                 VStack(alignment: .leading) {
@@ -62,12 +52,19 @@ struct ProfileView: View {
             createProfile()
         }
         .toolbar {
+            
             ToolbarItem(placement: .status) {
                 Button("Add Profile", systemImage: "plus", action: {
                     showAddProfileSheet = true
                 })
                 .labelStyle(.iconOnly)
                 .help("Add Profile")
+            }
+        }
+        .confirmationDialog("Delete profile: \(selectedProfile?.profilename ?? "")?",
+                            isPresented: $confirmdelete) {
+            Button("Delete", role: .destructive) {
+                deleteProfile()
             }
         }
         .sheet(isPresented: $showAddProfileSheet) {
@@ -84,6 +81,15 @@ struct ProfileView: View {
 }
 
 extension ProfileView {
+    private var selectedProfile: ProfilesnamesRecord? {
+        rsyncUIdata.validprofiles.first { $0.id == uuidprofile }
+    }
+
+    private func requestProfileDeletion() {
+        guard selectedProfile != nil else { return }
+        confirmdelete = true
+    }
+
     func createProfile() {
         if newdata.createProfile(newprofile) {
             // Add a profile record
@@ -97,11 +103,13 @@ extension ProfileView {
     }
 
     func deleteProfile() {
-        if let deleteprofile = localselectedprofile {
-            if newdata.deleteProfile(deleteprofile) {
-                selectedprofileID = nil
+        if let profile = selectedProfile {
+            if newdata.deleteProfile(profile.profilename) {
+                if selectedprofileID == profile.id {
+                    selectedprofileID = nil
+                }
                 // Remove the profile record
-                if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == uuidprofile }) {
+                if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == profile.id }) {
                     rsyncUIdata.validprofiles.remove(at: index)
                     uuidprofile = nil
                 }

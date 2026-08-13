@@ -41,7 +41,7 @@ struct ConfigurationsTableDataMainView: View {
                 }
                 .opacity(opacity(for: data))
                 .contextMenu {
-                    ConditionalGlassButton(
+                    AdaptiveProminentButton(
                         systemImage: "stop.fill",
                         text: "Toggle halt task",
                         helpText: data.task == SharedReference.shared.halted ? "Enable task" : "Halt task"

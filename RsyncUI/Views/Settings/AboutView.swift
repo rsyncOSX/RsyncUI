@@ -58,7 +58,7 @@ struct AboutView: View {
 
             Section {
                 HStack {
-                    ConditionalGlassButton(
+                    AdaptiveProminentButton(
                         systemImage: "doc.plaintext",
                         text: "Changelog",
                         helpText: "Changelog"
@@ -67,7 +67,7 @@ struct AboutView: View {
                     }
 
                     if SharedReference.shared.newversion {
-                        ConditionalGlassButton(
+                        AdaptiveProminentButton(
                             systemImage: "square.and.arrow.down.fill",
                             text: "Download",
                             helpText: "Download"

@@ -54,7 +54,7 @@ struct ExportView: View {
 
                 OpencatalogView(selecteditem: $exportcatalog, catalogs: true)
 
-                ConditionalGlassButton(
+                AdaptiveProminentButton(
                     systemImage: "",
                     text: "Export",
                     helpText: "Export file"
@@ -76,19 +76,11 @@ struct ExportView: View {
                     }
                 }
 
-                if #available(macOS 26.0, *) {
-                    Button("Close", role: .close) {
-                        activeSheet = nil
-                        dismiss()
-                    }
-                    .buttonStyle(RefinedGlassButtonStyle())
-                } else {
-                    Spacer()
+                Spacer()
 
-                    Button("Close") {
-                        activeSheet = nil
-                    }
-                    .buttonStyle(.borderedProminent)
+                AdaptiveCloseButton {
+                    activeSheet = nil
+                    dismiss()
                 }
             }
         }

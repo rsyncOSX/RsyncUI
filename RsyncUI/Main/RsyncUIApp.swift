@@ -27,14 +27,8 @@ struct RsyncUIApp: App {
                     AboutView()
                         .toolbar {
                             ToolbarItem(placement: .cancellationAction) {
-                                if #available(macOS 26.0, *) {
-                                    Button("Close", role: .close) {
-                                        showabout = false
-                                    }
-                                } else {
-                                    Button("Close") {
-                                        showabout = false
-                                    }
+                                AdaptiveCloseButton {
+                                    showabout = false
                                 }
                             }
                         }
@@ -52,7 +46,7 @@ struct RsyncUIApp: App {
             SnapshotCommands()
 
             CommandGroup(replacing: .help) {
-                ConditionalGlassButton(
+                AdaptiveProminentButton(
                     systemImage: "questionmark.text.page.fill",
                     text: "RsyncUI documentation",
                     helpText: "RsyncUI documentation"
@@ -65,7 +59,7 @@ struct RsyncUIApp: App {
             }
 
             CommandGroup(replacing: .appInfo) {
-                ConditionalGlassButton(
+                AdaptiveProminentButton(
                     systemImage: "",
                     text: "About RsyncUI",
                     helpText: "About"

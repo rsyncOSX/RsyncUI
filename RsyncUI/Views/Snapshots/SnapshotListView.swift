@@ -13,6 +13,7 @@ struct SnapshotListView: View {
 
     @Binding var selectedconfig: SynchronizeConfiguration?
     @State private var confirmdelete: Bool = false
+    @FocusState private var snapshotTableIsFocused: Bool
 
     var body: some View {
         Table(logrecords, selection: $snapshotdata.snapshotuuidsfordelete) {
@@ -49,6 +50,10 @@ struct SnapshotListView: View {
             }
             .width(max: 250)
         }
+        .focused($snapshotTableIsFocused)
+        .onAppear {
+            snapshotTableIsFocused = true
+        }
         .confirmationDialog(snapshotdata.snapshotuuidsfordelete.count == 1 ? "Delete 1 snapshot" :
             "Delete \(snapshotdata.snapshotuuidsfordelete.count) snapshots",
             isPresented: $confirmdelete) {
@@ -58,6 +63,7 @@ struct SnapshotListView: View {
                 }
         }
         .onDeleteCommand {
+            guard snapshotdata.snapshotuuidsfordelete.isEmpty == false else { return }
             confirmdelete = true
         }
         .overlay {

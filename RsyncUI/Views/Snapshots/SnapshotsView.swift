@@ -43,7 +43,7 @@ struct SnapshotsView: View {
             if focusaborttask { labelaborttask }
 
             HStack {
-                ConditionalGlassButton(
+                AdaptiveProminentButton(
                     systemImage: "square.and.arrow.down",
                     text: "Update",
                     helpText: "Update plan snapshot"

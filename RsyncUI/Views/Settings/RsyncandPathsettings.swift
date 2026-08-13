@@ -80,7 +80,7 @@ struct RsyncandPathsettings: View {
                 .font(.title3)
                 .fontWeight(.bold)) {
                     HStack {
-                        ConditionalGlassButton(
+                        AdaptiveProminentButton(
                             systemImage: "wrench.adjustable.fill",
                             text: "Backup",
                             helpText: "Backup configurations"

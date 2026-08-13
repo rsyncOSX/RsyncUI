@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct CalendarMonthView: View {
+    private enum FocusedTable: Hashable {
+        case schedules
+        case notExecutedSchedules
+    }
+
     @Environment(\.dismiss) private var dismiss
 
     @Bindable var rsyncUIdata: RsyncUIconfigurations
@@ -28,6 +33,7 @@ struct CalendarMonthView: View {
     @State private var confirmdelete: Bool = false
     @State private var confirmdeletenotexecuted: Bool = false
     @State private var istappeddayint: Int = 0
+    @FocusState private var focusedTable: FocusedTable?
 
     let defaultcolor: Color = .blue
     let globaltimer = GlobalTimer.shared
@@ -57,6 +63,7 @@ struct CalendarMonthView: View {
 
                 VStack {
                     TableofSchedules(selecteduuids: $selecteduuids)
+                        .focused($focusedTable, equals: .schedules)
                         .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 schedule" :
                             "Delete \(selecteduuids.count) schedules",
                             isPresented: $confirmdelete) {
@@ -77,11 +84,12 @@ struct CalendarMonthView: View {
                                 }
                         }
                         .onDeleteCommand {
+                            guard selecteduuids.isEmpty == false else { return }
                             confirmdelete = true
                         }
 
                     if GlobalTimer.shared.notExecutedSchedulesafterWakeUp.count > 0 {
-                        ConditionalGlassButton(
+                        AdaptiveProminentButton(
                             systemImage: "",
                             text: "Move to Schedules ↑",
                             helpText: "Move to Schedules"
@@ -93,6 +101,7 @@ struct CalendarMonthView: View {
                         .padding()
 
                         TableofNotExeSchedules(selecteduuids: $selecteduuidsnotexecuted)
+                            .focused($focusedTable, equals: .notExecutedSchedules)
                             .confirmationDialog(selecteduuidsnotexecuted.count == 1 ? "Delete 1 schedule" :
                                 "Delete \(selecteduuidsnotexecuted.count) schedules",
                                 isPresented: $confirmdeletenotexecuted) {
@@ -102,6 +111,7 @@ struct CalendarMonthView: View {
                                     }
                             }
                             .onDeleteCommand {
+                                guard selecteduuidsnotexecuted.isEmpty == false else { return }
                                 confirmdeletenotexecuted = true
                             }
                     }
@@ -109,6 +119,7 @@ struct CalendarMonthView: View {
             }
         }
         .onAppear {
+            focusedTable = .schedules
             initializeCalendar()
         }
         .onChange(of: date) {
@@ -126,7 +137,7 @@ struct CalendarMonthView: View {
     @ToolbarContentBuilder
     private var calendartoolbarcontent: some ToolbarContent {
         ToolbarItem {
-            ConditionalGlassButton(
+            AdaptiveProminentButton(
                 systemImage: "arrow.left",
                 helpText: "Previous month"
             ) {
@@ -137,7 +148,7 @@ struct CalendarMonthView: View {
         }
 
         ToolbarItem {
-            ConditionalGlassButton(
+            AdaptiveProminentButton(
                 systemImage: "clock",
                 helpText: "Today"
             ) {
@@ -148,7 +159,7 @@ struct CalendarMonthView: View {
         }
 
         ToolbarItem {
-            ConditionalGlassButton(
+            AdaptiveProminentButton(
                 systemImage: "arrow.right",
                 helpText: "Next month"
             ) {
@@ -162,24 +173,10 @@ struct CalendarMonthView: View {
             Spacer()
         }
 
-        if #available(macOS 26.0, *) {
-            ToolbarItem(placement: .cancellationAction) {
-                Button("Close", role: .close) {
-                    activeSheet = nil
-                    dismiss()
-                }
-                .buttonStyle(RefinedGlassButtonStyle())
-            }
-        } else {
-            ToolbarItem {
-                Button {
-                    activeSheet = nil
-                } label: {
-                    Label("Close", systemImage: "return")
-                        .labelStyle(.iconOnly)
-                }
-                .help("Close")
-                .buttonStyle(.borderedProminent)
+        ToolbarItem(placement: .cancellationAction) {
+            AdaptiveCloseButton {
+                activeSheet = nil
+                dismiss()
             }
         }
     }

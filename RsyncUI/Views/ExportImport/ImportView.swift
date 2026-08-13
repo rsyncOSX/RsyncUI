@@ -30,85 +30,31 @@ struct ImportView: View {
                                                 configurations: configurations)
 
                     HStack {
-                        if #available(macOS 26.0, *) {
-                            Button("Import tasks") {
-                                isShowingDialog = true
-                            }
-                            .buttonStyle(RefinedGlassButtonStyle())
-                            .confirmationDialog(
-                                Text("Import selected or all tasks?"),
-                                isPresented: $isShowingDialog
-                            ) {
-                                Button("Import", role: .none) {
-                                    Task { @MainActor in
-                                        let updateconfigurations =
-                                            UpdateConfigurations(profile: rsyncUIdata.profile,
-                                                                 configurations: rsyncUIdata.configurations)
-                                        let importedConfigurations = selecteduuids.isEmpty ?
-                                            configurations :
-                                            configurations.filter { selecteduuids.contains($0.id) }
-                                        rsyncUIdata.configurations = await updateconfigurations
-                                            .addImportConfigurations(importedConfigurations)
-                                        if SharedReference.shared.duplicatecheck {
-                                            if let configurations = rsyncUIdata.configurations {
-                                                VerifyDuplicates(configurations)
-                                            }
-                                        }
-                                        activeSheet = nil
-                                    }
+                        AdaptiveProminentButton(
+                            systemImage: "",
+                            text: "Import tasks",
+                            helpText: "Import tasks"
+                        ) {
+                            isShowingDialog = true
+                        }
+                        .confirmationDialog(
+                            "Import selected or all tasks?",
+                            isPresented: $isShowingDialog
+                        ) {
+                            Button("Import") {
+                                Task { @MainActor in
+                                    await importSelectedConfigurations()
                                 }
-                                .buttonStyle(RefinedGlassButtonStyle())
-                            }
-                        } else {
-                            Button("Import tasks") {
-                                isShowingDialog = true
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .confirmationDialog(
-                                Text("Import selected or all tasks?"),
-                                isPresented: $isShowingDialog
-                            ) {
-                                Button("Import", role: .none) {
-                                    Task { @MainActor in
-                                        let updateconfigurations =
-                                            UpdateConfigurations(profile: rsyncUIdata.profile,
-                                                                 configurations: rsyncUIdata.configurations)
-                                        let importedConfigurations = selecteduuids.isEmpty ?
-                                            configurations :
-                                            configurations.filter { selecteduuids.contains($0.id) }
-                                        rsyncUIdata.configurations = await updateconfigurations
-                                            .addImportConfigurations(importedConfigurations)
-                                        if SharedReference.shared.duplicatecheck {
-                                            if let configurations = rsyncUIdata.configurations {
-                                                VerifyDuplicates(configurations)
-                                            }
-                                        }
-                                        activeSheet = nil
-                                    }
-                                }
-                                .buttonStyle(.borderedProminent)
                             }
                         }
 
-                        // Because of the role .destructive keep the if #available(macOS 26.0, *)
-                        if #available(macOS 26.0, *) {
-                            Button("Close", role: .close) {
-                                activeSheet = nil
-                                dismiss()
-                            }
-                            .buttonStyle(RefinedGlassButtonStyle())
-                        } else {
-                            Button("Close") {
-                                activeSheet = nil
-                            }
-                            .buttonStyle(.borderedProminent)
-                        }
+                        AdaptiveCloseButton(action: close)
                     }
                 }
                 .frame(minWidth: 600, minHeight: 500)
             } else {
                 HStack {
-                    ConditionalGlassButton(
+                    AdaptiveProminentButton(
                         systemImage: "",
                         text: "Import file",
                         helpText: "Import file"
@@ -135,19 +81,7 @@ struct ImportView: View {
                                       }
                                   })
 
-                    // Because of the role .destructive keep the if #available(macOS 26.0, *)
-                    if #available(macOS 26.0, *) {
-                        Button("Close", role: .close) {
-                            activeSheet = nil
-                            dismiss()
-                        }
-                        .buttonStyle(RefinedGlassButtonStyle())
-                    } else {
-                        Button("Close") {
-                            activeSheet = nil
-                        }
-                        .buttonStyle(.borderedProminent)
-                    }
+                    AdaptiveCloseButton(action: close)
                 }
             }
         }
@@ -156,5 +90,28 @@ struct ImportView: View {
 
     var uutype: UTType {
         .item
+    }
+
+    @MainActor
+    private func importSelectedConfigurations() async {
+        let updateconfigurations = UpdateConfigurations(
+            profile: rsyncUIdata.profile,
+            configurations: rsyncUIdata.configurations
+        )
+        let importedConfigurations = selecteduuids.isEmpty
+            ? configurations
+            : configurations.filter { selecteduuids.contains($0.id) }
+        rsyncUIdata.configurations = await updateconfigurations
+            .addImportConfigurations(importedConfigurations)
+        if SharedReference.shared.duplicatecheck,
+           let configurations = rsyncUIdata.configurations {
+            VerifyDuplicates(configurations)
+        }
+        activeSheet = nil
+    }
+
+    private func close() {
+        activeSheet = nil
+        dismiss()
     }
 }

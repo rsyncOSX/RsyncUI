@@ -50,7 +50,7 @@ struct AddSchedule: View {
                 .foregroundStyle(schedules.verifynextschedule(plannednextschedule: plannedRun)
                     ? Color.white : Color.red)
 
-                ConditionalGlassButton(
+                AdaptiveProminentButton(
                     systemImage: "arrow.trianglehead.clockwise",
                     helpText: "Reset to current date"
                 ) {
@@ -61,7 +61,7 @@ struct AddSchedule: View {
 
                 Spacer()
 
-                ConditionalGlassButton(
+                AdaptiveProminentButton(
                     systemImage: "plus",
                     helpText: "Add schedule"
                 ) {

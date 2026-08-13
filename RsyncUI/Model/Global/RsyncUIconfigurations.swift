@@ -21,7 +21,7 @@ final class RsyncUIconfigurations {
     var profile: String?
     /// This is observed when URL actions are initiated.
     /// Before commence the real action must be sure that selected profile data is loaded from store
-    @ObservationIgnored var validprofiles: [ProfilesnamesRecord] = []
+    var validprofiles: [ProfilesnamesRecord] = []
     /// Toggle sidebar
     var columnVisibility = NavigationSplitViewVisibility.doubleColumn
     // .doubleColumn or .detailOnly

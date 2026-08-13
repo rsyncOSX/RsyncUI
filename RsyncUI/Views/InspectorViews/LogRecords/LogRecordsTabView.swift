@@ -22,6 +22,7 @@ struct LogRecordsTabView: View {
 
     @State private var logrecords: [LogRecords]?
     @State private var logs: [Log] = []
+    @FocusState private var logTableIsFocused: Bool
 
     var body: some View {
         VStack {
@@ -37,7 +38,12 @@ struct LogRecordsTabView: View {
                         }
                     }
                 }
+                .focused($logTableIsFocused)
+                .onAppear {
+                    logTableIsFocused = true
+                }
                 .onDeleteCommand {
+                    guard selectedloguuids.isEmpty == false else { return }
                     confirmdelete = true
                 }
                 .confirmationDialog(selectedloguuids.count == 1 ? "Delete 1 log" :

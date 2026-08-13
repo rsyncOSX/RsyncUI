@@ -14,10 +14,15 @@ struct ListofTasksAddView: View {
     @State private var confirmdelete: Bool = false
     @State var confirmcopyandpaste: Bool = false
     @State var newdata = ObservableAddConfigurations()
+    @FocusState private var configurationsTableIsFocused: Bool
 
     var body: some View {
         ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                     configurations: rsyncUIdata.configurations)
+            .focused($configurationsTableIsFocused)
+            .onAppear {
+                configurationsTableIsFocused = true
+            }
             .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 configuration" :
                 "Delete \(selecteduuids.count) configurations",
                 isPresented: $confirmdelete) {
@@ -27,6 +32,7 @@ struct ListofTasksAddView: View {
                     }
             }
             .onDeleteCommand {
+                guard selecteduuids.isEmpty == false else { return }
                 confirmdelete = true
             }
             .copyable(copyitems.filter { selecteduuids.contains($0.id) })
