@@ -20,6 +20,7 @@ struct ProfileView: View {
 
     @State private var confirmdelete: Bool = false
     @State private var showAddProfileSheet: Bool = false
+    @FocusState private var profileTableIsFocused: Bool
 
     var body: some View {
         VStack {
@@ -30,6 +31,10 @@ struct ProfileView: View {
                     }
                 }
                 .frame(width: 300)
+                .focused($profileTableIsFocused)
+                .onAppear {
+                    profileTableIsFocused = true
+                }
                 .onDeleteCommand {
                     requestProfileDeletion()
                 }
@@ -47,13 +52,7 @@ struct ProfileView: View {
             createProfile()
         }
         .toolbar {
-            ToolbarItem(placement: .status) {
-                Button("Delete Profile", systemImage: "trash", action: requestProfileDeletion)
-                    .labelStyle(.iconOnly)
-                    .help("Delete Profile")
-                    .disabled(selectedProfile == nil)
-            }
-
+            
             ToolbarItem(placement: .status) {
                 Button("Add Profile", systemImage: "plus", action: {
                     showAddProfileSheet = true

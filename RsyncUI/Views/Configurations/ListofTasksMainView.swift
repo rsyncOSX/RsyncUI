@@ -18,6 +18,7 @@ struct ListofTasksMainView: View {
     /// Filterstring
     @State private var filterstring: String = ""
     @State private var filterTask: Task<Void, Never>?
+    @FocusState private var configurationsTableIsFocused: Bool
 
     let progressdetails: ProgressDetails
     let max: Double
@@ -29,6 +30,10 @@ struct ListofTasksMainView: View {
                                         progress: $progress,
                                         progressdetails: progressdetails,
                                         max: max)
+            .focused($configurationsTableIsFocused)
+            .onAppear {
+                configurationsTableIsFocused = true
+            }
             .overlay {
                 if (rsyncUIdata.configurations ?? []).filter(
                     { filterstring.isEmpty ? true : $0.backupID.contains(filterstring) }
@@ -56,6 +61,7 @@ struct ListofTasksMainView: View {
                 doubleclick = true
             }
             .onDeleteCommand {
+                guard selecteduuids.isEmpty == false else { return }
                 confirmdelete = true
             }
             .onChange(of: filterstring) {
