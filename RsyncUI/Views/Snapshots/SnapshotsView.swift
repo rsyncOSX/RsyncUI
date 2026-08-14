@@ -39,8 +39,12 @@ struct SnapshotsView: View {
                                      deleteiscompleted: $deleteiscompleted,
                                      isdisabled: $isdisabled,
                                      getData: getData)
-            if focustagsnapshot == true { labeltagsnapshot }
-            if focusaborttask { labelaborttask }
+            if focustagsnapshot == true {
+                labeltagsnapshot
+            }
+            if focusaborttask {
+                labelaborttask
+            }
 
             HStack {
                 AdaptiveProminentButton(

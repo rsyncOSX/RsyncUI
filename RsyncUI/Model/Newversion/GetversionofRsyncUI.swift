@@ -16,7 +16,9 @@ actor GetversionofRsyncUI {
     private init() {}
 
     private func matchingVersions() async throws -> [VersionsofRsyncUI] {
-        if let cached { return cached }
+        if let cached {
+            return cached
+        }
 
         guard let resourceURL = URL(string: Resources().getResource(resource: .urlJSON)) else {
             throw URLError(.badURL)

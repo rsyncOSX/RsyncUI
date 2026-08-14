@@ -41,7 +41,9 @@ struct ExecuteNoEstTasksView: View {
                         .stroke(Color.blue, lineWidth: 2)
                 )
             }
-            if focusaborttask { labelaborttask }
+            if focusaborttask {
+                labelaborttask
+            }
         }
         .onAppear {
             executeAllNoEstimationTasks()

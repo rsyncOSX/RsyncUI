@@ -10,10 +10,14 @@ struct TasksFocusActionsView: View {
     let onDoubleClick: () -> Void
 
     var body: some View {
-        Group {
-            if focusStartEstimation { triggerStartEstimation }
-            if focusStartExecution { triggerStartExecution }
-            if doubleClick { triggerDoubleClick }
+        if focusStartEstimation {
+            triggerStartEstimation
+        }
+        if focusStartExecution {
+            triggerStartExecution
+        }
+        if doubleClick {
+            triggerDoubleClick
         }
     }
 

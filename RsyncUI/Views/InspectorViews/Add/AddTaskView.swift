@@ -46,9 +46,9 @@ struct AddTaskView: View {
 
     @State var newdata = ObservableAddConfigurations()
     @State var selectedconfig: SynchronizeConfiguration?
-    
+
     @State var trailingslashoption: Bool = true
-    
+
     @State var changesnapshotnum: Bool = false
     @State var stringestimate: String = ""
 

@@ -52,7 +52,11 @@ final class ObservableParametersRsync {
                 sshkeypathandidentityfile = ""
             }
             // --delete parameter4
-            if configuration?.parameter4 == nil { adddelete = false } else { adddelete = true }
+            if configuration?.parameter4 == nil {
+                adddelete = false
+            } else {
+                adddelete = true
+            }
         } else {
             reset()
         }
@@ -91,13 +95,41 @@ final class ObservableParametersRsync {
     /// Return the updated configuration
     func updatersyncparameters() -> SynchronizeConfiguration? {
         if var configuration {
-            if parameter8.isEmpty { configuration.parameter8 = nil } else { configuration.parameter8 = parameter8 }
-            if parameter9.isEmpty { configuration.parameter9 = nil } else { configuration.parameter9 = parameter9 }
-            if parameter10.isEmpty { configuration.parameter10 = nil } else { configuration.parameter10 = parameter10 }
-            if parameter11.isEmpty { configuration.parameter11 = nil } else { configuration.parameter11 = parameter11 }
-            if parameter12.isEmpty { configuration.parameter12 = nil } else { configuration.parameter12 = parameter12 }
-            if parameter13.isEmpty { configuration.parameter13 = nil } else { configuration.parameter13 = parameter13 }
-            if parameter14.isEmpty { configuration.parameter14 = nil } else { configuration.parameter14 = parameter14 }
+            if parameter8.isEmpty {
+                configuration.parameter8 = nil
+            } else {
+                configuration.parameter8 = parameter8
+            }
+            if parameter9.isEmpty {
+                configuration.parameter9 = nil
+            } else {
+                configuration.parameter9 = parameter9
+            }
+            if parameter10.isEmpty {
+                configuration.parameter10 = nil
+            } else {
+                configuration.parameter10 = parameter10
+            }
+            if parameter11.isEmpty {
+                configuration.parameter11 = nil
+            } else {
+                configuration.parameter11 = parameter11
+            }
+            if parameter12.isEmpty {
+                configuration.parameter12 = nil
+            } else {
+                configuration.parameter12 = parameter12
+            }
+            if parameter13.isEmpty {
+                configuration.parameter13 = nil
+            } else {
+                configuration.parameter13 = parameter13
+            }
+            if parameter14.isEmpty {
+                configuration.parameter14 = nil
+            } else {
+                configuration.parameter14 = parameter14
+            }
             if sshport.isEmpty {
                 configuration.sshport = nil
             } else {

@@ -77,7 +77,7 @@ extension AddTaskView {
             stringestimate = ""
         }
     }
-    
+
     func loadRsyncCommandPreference() {
         if let value = UserDefaults.standard.value(forKey: "selectedrsynccommand") as? String {
             newdata.selectedrsynccommand = TypeofTask(rawValue: value) ?? .synchronize

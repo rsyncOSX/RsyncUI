@@ -41,7 +41,9 @@ struct RestoreTableView: View {
 
             Spacer()
 
-            if focusaborttask { labelaborttask }
+            if focusaborttask {
+                labelaborttask
+            }
 
             RestoreControlsView(restore: $restore)
                 .focusedSceneValue(\.aborttask, $focusaborttask)

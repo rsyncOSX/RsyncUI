@@ -20,8 +20,12 @@ struct Params {
         var sharedsshport = ""
         var sharedsshkeypathandidentityfile = ""
 
-        if config.rsyncdaemon == 1 { rsyncdaemon = true }
-        if config.parameter4 != nil { deleteExtraneous = true }
+        if config.rsyncdaemon == 1 {
+            rsyncdaemon = true
+        }
+        if config.parameter4 != nil {
+            deleteExtraneous = true
+        }
 
         if let configsshport = config.sshport, configsshport != -1 {
             sshport = String(configsshport)

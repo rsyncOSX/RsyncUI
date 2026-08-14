@@ -7,8 +7,7 @@
 
 import Foundation
 
-struct NewTask
-{
+struct NewTask {
     var newtask: String
     var newlocalCatalog: String
     var newoffsiteCatalog: String
@@ -26,8 +25,7 @@ struct NewTask
          _ offsiteCatalog: String,
          _ offsiteUsername: String?,
          _ offsiteServer: String?,
-         _ backupID: String?)
-    {
+         _ backupID: String?) {
         newtask = task
         newlocalCatalog = localCatalog
         newoffsiteCatalog = offsiteCatalog
@@ -43,8 +41,7 @@ struct NewTask
          _ offsiteServer: String?,
          _ backupID: String?,
          _ updatedhiddenID: Int,
-         _ updatesnapshotnum: Int?)
-    {
+         _ updatesnapshotnum: Int?) {
         newtask = task
         newlocalCatalog = localCatalog
         newoffsiteCatalog = offsiteCatalog

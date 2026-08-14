@@ -67,7 +67,9 @@ struct AddSchedule: View {
                 ) {
                     let profile: String? = if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == selectedprofileID }) {
                         rsyncUIdata.validprofiles[index].profilename
-                    } else { nil }
+                    } else {
+                        nil
+                    }
 
                     guard schedules.verifynextschedule(plannednextschedule: plannedRun) else {
                         return

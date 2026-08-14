@@ -51,8 +51,11 @@ struct SnapshotListView: View {
             .width(max: 250)
         }
         .focused($snapshotTableIsFocused)
-        .onAppear {
-            snapshotTableIsFocused = true
+        .defaultFocus($snapshotTableIsFocused, true)
+        .onChange(of: snapshotdata.snapshotuuidsfordelete) {
+            if snapshotdata.snapshotuuidsfordelete.isEmpty == false {
+                snapshotTableIsFocused = true
+            }
         }
         .confirmationDialog(snapshotdata.snapshotuuidsfordelete.count == 1 ? "Delete 1 snapshot" :
             "Delete \(snapshotdata.snapshotuuidsfordelete.count) snapshots",

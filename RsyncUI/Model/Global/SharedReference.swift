@@ -110,7 +110,9 @@ final class SharedReference {
         // Optional: Wait briefly for graceful shutdown
         Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(500))
-            if process.isRunning { kill(process.processIdentifier, SIGKILL) }
+            if process.isRunning {
+                kill(process.processIdentifier, SIGKILL)
+            }
         }
         self.process = nil
     }

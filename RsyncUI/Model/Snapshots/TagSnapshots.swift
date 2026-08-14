@@ -18,7 +18,9 @@ final class TagSnapshots {
                 guard index >= 0 else { return }
                 if currentweek(index: index) {
                 } else if currentdaymonth(index: index) {
-                } else { if keepallorlastdayinperiod(index: index) {} }
+                } else {
+                    if keepallorlastdayinperiod(index: index) {}
+                }
             }
         }
     }

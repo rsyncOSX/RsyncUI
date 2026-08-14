@@ -106,7 +106,11 @@ extension RsyncParametersView {
                 EditValueScheme(300, nil, path)
                     .textContentType(.none)
                     .submitLabel(.continue)
-                    .onAppear { if let value = selectedValue { path.wrappedValue = value } }
+                    .onAppear {
+                        if let value = selectedValue {
+                            path.wrappedValue = value
+                        }
+                    }
                     .border(showErrorBorder ? Color.red : Color.clear, width: 2)
             }
         }
@@ -130,7 +134,11 @@ extension RsyncParametersView {
                 EditValueScheme(150, nil, port)
                     .textContentType(.none)
                     .submitLabel(.continue)
-                    .onAppear { if let value = selectedValue { port.wrappedValue = value } }
+                    .onAppear {
+                        if let value = selectedValue {
+                            port.wrappedValue = value
+                        }
+                    }
                     .border(showErrorBorder ? Color.red : Color.clear, width: 2)
             }
         }

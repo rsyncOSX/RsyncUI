@@ -32,8 +32,11 @@ struct ProfileView: View {
                 }
                 .frame(width: 300)
                 .focused($profileTableIsFocused)
-                .onAppear {
-                    profileTableIsFocused = true
+                .defaultFocus($profileTableIsFocused, true)
+                .onChange(of: uuidprofile) {
+                    if uuidprofile != nil {
+                        profileTableIsFocused = true
+                    }
                 }
                 .onDeleteCommand {
                     requestProfileDeletion()
@@ -52,7 +55,6 @@ struct ProfileView: View {
             createProfile()
         }
         .toolbar {
-            
             ToolbarItem(placement: .status) {
                 Button("Add Profile", systemImage: "plus", action: {
                     showAddProfileSheet = true

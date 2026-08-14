@@ -107,9 +107,15 @@ struct QuicktaskView: View {
                               localhome: localhome,
                               focusField: _focusField)
 
-            if showprogressview { SynchronizeProgressView(max: max, progress: progress, statusText: "Synchronizing...") }
-            if focusaborttask { labelaborttask }
-            if focusstartexecution { labelstartexecution }
+            if showprogressview {
+                SynchronizeProgressView(max: max, progress: progress, statusText: "Synchronizing...")
+            }
+            if focusaborttask {
+                labelaborttask
+            }
+            if focusstartexecution {
+                labelstartexecution
+            }
         }
         .onSubmit {
             switch focusField {
