@@ -31,8 +31,11 @@ struct ListofTasksMainView: View {
                                         progressdetails: progressdetails,
                                         max: max)
             .focused($configurationsTableIsFocused)
-            .onAppear {
-                configurationsTableIsFocused = true
+            .defaultFocus($configurationsTableIsFocused, true)
+            .onChange(of: selecteduuids) {
+                if selecteduuids.isEmpty == false {
+                    configurationsTableIsFocused = true
+                }
             }
             .overlay {
                 if (rsyncUIdata.configurations ?? []).filter(
@@ -49,7 +52,7 @@ struct ListofTasksMainView: View {
             .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 configuration" :
                 "Delete \(selecteduuids.count) configurations",
                 isPresented: $confirmdelete) {
-                Button("Delete", role: .destructive) {
+                    Button("Delete", role: .destructive) {
                         delete()
                         confirmdelete = false
                     }

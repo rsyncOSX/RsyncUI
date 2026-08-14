@@ -20,7 +20,11 @@ extension AddTaskView {
                 TextField("Synchronize ID:", text: $newdata.backupID)
                     .focused($focusField, equals: .synchronizeIDField)
                     .textContentType(.none).submitLabel(.continue)
-                    .onAppear { if let id = newdata.selectedconfig?.backupID { newdata.backupID = id } }
+                    .onAppear {
+                        if let id = newdata.selectedconfig?.backupID {
+                            newdata.backupID = id
+                        }
+                    }
             }
         }
     }
@@ -51,7 +55,7 @@ extension AddTaskView {
                         UserDefaults.standard.set(trailingslashoption, forKey: "trailingslashoptions")
                     }
                 }
-            
+
             catalogField(catalog: $newdata.localcatalog,
                          placeholder: "Source folder (required):",
                          focus: .localcatalogField,
@@ -81,7 +85,7 @@ extension AddTaskView {
                         UserDefaults.standard.set(trailingslashoption, forKey: "trailingslashoptions")
                     }
                 }
-            
+
             catalogField(catalog: $newdata.remotecatalog,
                          placeholder: "Source Folder (required):",
                          focus: .remotecatalogField,
@@ -95,11 +99,11 @@ extension AddTaskView {
         }
     }
 
-    func settrailingSlash(for value: Binding<String>)  {
+    func settrailingSlash(for value: Binding<String>) {
         var text = value.wrappedValue
         guard text.isEmpty == false else { return }
-        
-        if trailingslashoption && !text.isEmpty {
+
+        if trailingslashoption, !text.isEmpty {
             if !text.hasSuffix("/") {
                 text += "/"
             }
@@ -110,9 +114,8 @@ extension AddTaskView {
         }
 
         value.wrappedValue = text
-        
     }
-    
+
     func catalogField(catalog: Binding<String>, placeholder: String,
                       focus: AddConfigurationField, selectedValue: String?,
                       showErrorBorder: Bool = false) -> some View {
@@ -126,7 +129,11 @@ extension AddTaskView {
                 TextField(placeholder, text: catalog)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(.continue)
-                    .onAppear { if let value = selectedValue { catalog.wrappedValue = value } }
+                    .onAppear {
+                        if let value = selectedValue {
+                            catalog.wrappedValue = value
+                        }
+                    }
                     .border(showErrorBorder ? Color.red : Color.clear, width: 2)
             }
             OpencatalogView(selecteditem: catalog, catalogs: true)
@@ -166,13 +173,16 @@ extension AddTaskView {
                 TextField(placeholder, text: value)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(submitLabel)
-                    .onAppear { if let val = selectedValue { value.wrappedValue = val } }
+                    .onAppear {
+                        if let val = selectedValue {
+                            value.wrappedValue = val
+                        }
+                    }
                     .border(showErrorBorder ? Color.red : Color.clear, width: 1)
             }
         }
     }
 
-    
     var pickerselecttypeoftask: some View {
         Picker("Action", selection: $newdata.selectedrsynccommand) {
             ForEach(TypeofTask.allCases) { Text($0.description).tag($0) }

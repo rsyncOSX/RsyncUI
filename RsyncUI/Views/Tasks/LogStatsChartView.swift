@@ -247,7 +247,9 @@ struct LogStatsChartView: View {
     /// Verify number
     private func verifyNumbers(_ number: String) -> Bool {
         guard number.isEmpty == false else { return false }
-        if Int(number) != nil { return true }
+        if Int(number) != nil {
+            return true
+        }
         return false
     }
 

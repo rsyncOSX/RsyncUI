@@ -216,17 +216,23 @@ struct SidebarMainView: View {
             // Return nil if there is one or more snapshot tasks
             // Do not show the Snapshot sidebar meny
             if rsyncUIdata.oneormoretasksissnapshot == false,
-               item == .snapshots { return nil }
+               item == .snapshots {
+                return nil
+            }
             // Return nil if there is no remote tasks, only local attached discs
             // Do not show the Restore remote sidebar meny
 
             if SharedReference.shared.rsyncversion3 {
                 if rsyncUIdata.oneormoresynchronizetasksisremoteVer3x == false,
                    rsyncUIdata.oneormoresnapshottasksisremote == false,
-                   item == .restore { return nil }
+                   item == .restore {
+                    return nil
+                }
             } else {
                 if rsyncUIdata.oneormoresynchronizetasksisremoteOrsync == false,
-                   item == .restore { return nil }
+                   item == .restore {
+                    return nil
+                }
             }
 
             return item

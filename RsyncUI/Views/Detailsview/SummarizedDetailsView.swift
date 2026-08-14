@@ -42,7 +42,9 @@ struct SummarizedDetailsView: View {
 
         Spacer()
 
-        if focusstartexecution { labelstartexecution }
+        if focusstartexecution {
+            labelstartexecution
+        }
     }
 
     var labelstartexecution: some View {

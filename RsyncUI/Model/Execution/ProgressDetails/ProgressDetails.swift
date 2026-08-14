@@ -41,12 +41,16 @@ final class ProgressDetails {
             if SharedReference.shared.rsyncversion3 {
                 // Reduce count with 16 last rows which contains summarized status from rsync
                 num = Double(max?[0].outputfromrsync?.count ?? 0) - reduceestimatedcountV3
-                if num <= 0 { num = 0 }
+                if num <= 0 {
+                    num = 0
+                }
                 Logger.process.debugMessageOnly("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num)")
                 return num
             } else {
                 num = Double(max?[0].outputfromrsync?.count ?? 0) - reduceestimatedcountopenrsync
-                if num <= 0 { num = 0 }
+                if num <= 0 {
+                    num = 0
+                }
                 Logger.process.debugMessageOnly("ProgressDetails: EXECUTING getmaxcountbytask() count: \(num)")
                 return num
             }

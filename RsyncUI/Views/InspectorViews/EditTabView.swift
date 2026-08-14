@@ -24,7 +24,6 @@ struct EditTabView: View {
             .onChange(of: rsyncUIdata.profile) {
                 selecteduuids.removeAll()
             }
-
         }
         .task(id: rsyncUIdata.configurations) {
             if rsyncUIdata.configurations == nil {

@@ -50,7 +50,9 @@ struct ExecuteEstTasksView: View {
                 )
             }
 
-            if focusaborttask { labelaborttask }
+            if focusaborttask {
+                labelaborttask
+            }
         }
         .onAppear {
             executeMultipleEstimatedTasks()

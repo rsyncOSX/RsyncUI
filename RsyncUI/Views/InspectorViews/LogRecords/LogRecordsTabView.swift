@@ -39,8 +39,11 @@ struct LogRecordsTabView: View {
                     }
                 }
                 .focused($logTableIsFocused)
-                .onAppear {
-                    logTableIsFocused = true
+                .defaultFocus($logTableIsFocused, true)
+                .onChange(of: selectedloguuids) {
+                    if selectedloguuids.isEmpty == false {
+                        logTableIsFocused = true
+                    }
                 }
                 .onDeleteCommand {
                     guard selectedloguuids.isEmpty == false else { return }
@@ -55,17 +58,18 @@ struct LogRecordsTabView: View {
                             }
                         }
                 }
-                .overlay { if logs.count == 0 {
-                    ContentUnavailableView {
-                        Label("No log records match this filter", systemImage: "doc.richtext.fill")
-                    } description: {
-                        Text("Try a different date or result filter.")
+                .overlay {
+                    if logs.count == 0 {
+                        ContentUnavailableView {
+                            Label("No log records match this filter", systemImage: "doc.richtext.fill")
+                        } description: {
+                            Text("Try a different date or result filter.")
+                        }
+                    } else if showindebounce {
+                        ContentUnavailableView {
+                            Label("Sorting logs", systemImage: "doc.richtext.fill")
+                        } description: {}
                     }
-                } else if showindebounce {
-                    ContentUnavailableView {
-                        Label("Sorting logs", systemImage: "doc.richtext.fill")
-                    } description: {}
-                }
                 }
             }
 

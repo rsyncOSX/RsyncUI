@@ -32,7 +32,9 @@ struct SnapshotsMainContentView: View {
                             }
                         }
 
-                    if snapshotdata.inprogressofdelete == true { progressdelete }
+                    if snapshotdata.inprogressofdelete == true {
+                        progressdelete
+                    }
                 }
 
                 ZStack {
@@ -55,7 +57,9 @@ struct SnapshotsMainContentView: View {
                             }
                         }
 
-                    if snapshotdata.snapshotlist { ProgressView() }
+                    if snapshotdata.snapshotlist {
+                        ProgressView()
+                    }
                 }
             }
 

@@ -118,9 +118,19 @@ struct CalendarMonthView: View {
                 }
             }
         }
+        .defaultFocus($focusedTable, .schedules)
         .onAppear {
-            focusedTable = .schedules
             initializeCalendar()
+        }
+        .onChange(of: selecteduuids) {
+            if selecteduuids.isEmpty == false {
+                focusedTable = .schedules
+            }
+        }
+        .onChange(of: selecteduuidsnotexecuted) {
+            if selecteduuidsnotexecuted.isEmpty == false {
+                focusedTable = .notExecutedSchedules
+            }
         }
         .onChange(of: date) {
             days = date.calendarDisplayDays

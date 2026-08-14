@@ -107,7 +107,9 @@ open class TCPClient: Socket {
 
         var buff = [Byte](repeating: 0x0, count: expectlen)
         let readLen = c_ytcpsocket_pull(fd, buff: &buff, len: Int32(expectlen), timeout: Int32(timeout))
-        if readLen <= 0 { return nil }
+        if readLen <= 0 {
+            return nil
+        }
         let rs = buff[0 ... Int(readLen - 1)]
         return Array(rs)
     }

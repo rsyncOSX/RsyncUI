@@ -59,7 +59,9 @@ struct RestoreContentView: View {
                     }
                 }
 
-                if gettingfilelist { ProgressView() }
+                if gettingfilelist {
+                    ProgressView()
+                }
                 if restore.restorefilesinprogress {
                     SynchronizeProgressView(
                         max: restore.max,

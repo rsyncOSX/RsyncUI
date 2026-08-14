@@ -35,7 +35,9 @@ struct EstimationInProgressView: View {
                 }
             }
 
-            if focusaborttask { labelaborttask }
+            if focusaborttask {
+                labelaborttask
+            }
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .frame(maxWidth: .infinity)
