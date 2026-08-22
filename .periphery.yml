@@ -1,7 +1,7 @@
 project: RsyncUI.xcodeproj
 retain_objc_accessible: true
 retain_public: true
-retain-codable-properties: true
+retain_codable_properties: true
 schemes:
 - RsyncUI
 index_exclude:
