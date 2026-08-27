@@ -33,6 +33,36 @@ struct LogStoreServiceTests {
         #expect(logs.map(\.id) == [second.id, first.id])
     }
 
+    @Test("Visible logs preserve source order when execution dates match")
+    func visibleLogsPreserveOrderForMatchingDates() {
+        let first = makeLog(dateExecuted: "01 Jan 2026 09:00", resultExecuted: "first")
+        let second = makeLog(dateExecuted: "01 Jan 2026 09:00", resultExecuted: "second")
+        let store = [makeLogStore(hiddenID: 7, logs: [first, second])]
+
+        let logs = LogStoreService.visibleLogs(from: store, hiddenID: 7)
+
+        #expect(logs.map(\.id) == [first.id, second.id])
+    }
+
+    @Test("English log-date parsing is safe for concurrent callers")
+    func englishLogDateParsingIsConcurrencySafe() async {
+        let source = "03 Jan 2026 09:00"
+        let dates = await withTaskGroup(of: Date.self, returning: [Date].self) { group in
+            for _ in 0 ..< 200 {
+                group.addTask {
+                    source.en_date_from_string()
+                }
+            }
+
+            return await group.reduce(into: []) { dates, date in
+                dates.append(date)
+            }
+        }
+
+        #expect(Set(dates).count == 1)
+        #expect("not a date".validate_en_date_from_string() == nil)
+    }
+
     @Test("Visible logs merge all tasks when no configuration is selected and apply the current filter")
     func visibleLogsAcrossAllTasksWithFilter() {
         let matchingByResult = makeLog(dateExecuted: "01 Jan 2026 09:00", resultExecuted: "keep this result")

@@ -7,6 +7,24 @@
 
 import Foundation
 
+private enum EnglishDateParser {
+    private static let lock = NSLock()
+    nonisolated(unsafe) private static let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en")
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        formatter.dateFormat = "dd MMM yyyy HH:mm"
+        return formatter
+    }()
+
+    static func date(from string: String) -> Date? {
+        lock.withLock {
+            formatter.date(from: string)
+        }
+    }
+}
+
 extension Date {
     func dayMonth() -> Int {
         Calendar.current.component(.day, from: self)
@@ -205,21 +223,11 @@ extension Date {
 
 extension String {
     func en_date_from_string() -> Date {
-        let dateformatter = DateFormatter()
-        dateformatter.locale = Locale(identifier: "en")
-        dateformatter.dateStyle = .medium
-        dateformatter.timeStyle = .short
-        dateformatter.dateFormat = "dd MMM yyyy HH:mm"
-        return dateformatter.date(from: self) ?? Date()
+        EnglishDateParser.date(from: self) ?? Date()
     }
 
     func validate_en_date_from_string() -> Date? {
-        let dateformatter = DateFormatter()
-        dateformatter.locale = Locale(identifier: "en")
-        dateformatter.dateStyle = .medium
-        dateformatter.timeStyle = .short
-        dateformatter.dateFormat = "dd MMM yyyy HH:mm"
-        return dateformatter.date(from: self)
+        EnglishDateParser.date(from: self)
     }
 
     func localized_date_from_string() -> Date {

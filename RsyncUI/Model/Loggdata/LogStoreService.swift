@@ -108,7 +108,18 @@ private extension LogStoreService {
     }
 
     static func sortedLogs(_ logs: [Log]) -> [Log] {
-        logs.sorted(using: [KeyPathComparator(\Log.date, order: .reverse)])
+        logs.enumerated()
+            .map { offset, log in
+                (offset: offset, log: log, date: log.date)
+            }
+            .sorted { lhs, rhs in
+                if lhs.date == rhs.date {
+                    lhs.offset < rhs.offset
+                } else {
+                    lhs.date > rhs.date
+                }
+            }
+            .map(\.log)
     }
 }
 
