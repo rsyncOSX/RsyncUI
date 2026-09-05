@@ -5,6 +5,11 @@ the Xcode test target passed all 60 tests in 11 suites. The items below are
 evidence-backed findings from the current working tree, ordered by release
 priority.
 
+Follow-up validation: after fixing findings 2 and 3, `xcodebuild test` passed
+all 64 tests in 12 suites. The countdown has deterministic regression coverage;
+Quick Task startup paths were reviewed and compiled, without running a real
+remote synchronization.
+
 ## Fix before publishing 3.0.4
 
 ### 1. The in-app updater cannot offer 3.0.4 to users running 3.0.3
@@ -31,42 +36,31 @@ offering the installed version as an update.
 
 ### 2. Quick Task can leave a permanent progress UI without starting rsync
 
-**Priority: high**
+**Status: fixed**
 
-Quick Task sets `showprogressview = true` before checking whether rsync is
-available and before confirming that it has arguments and streaming handlers
-([`extensionQuickTaskView.swift:82-103`](../RsyncUI/Views/Quicktask/extensionQuickTaskView.swift#L82-L103)).
-Any subsequent `guard` return bypasses `processTermination`, the sole location
-that resets this value ([`extensionQuickTaskView.swift:126-131`](../RsyncUI/Views/Quicktask/extensionQuickTaskView.swift#L126-L131)).
+Quick Task now checks rsync availability, halted tasks, and generated arguments
+before creating handlers or showing progress. Missing rsync reports the existing
+`Validatedrsync.norsync` error. A launch failure clears progress and releases both
+the process and handlers; successful execution retains them until the main-actor
+termination callback performs cleanup. Repeated starts are ignored while a task
+is in progress.
 
-Users without a usable rsync binary can therefore be left on a progress state
-for a task that was never started.
-
-**Required fix:** validate all prerequisites before setting the progress state,
-or reset `showprogressview` and release the handler references on every
-non-start path. Surface the existing "no rsync" error consistently with the
-other execution flows.
+Implementation: [`extensionQuickTaskView.swift`](../RsyncUI/Views/Quicktask/extensionQuickTaskView.swift).
 
 ### 3. The deep-link synchronization countdown expires earlier than advertised
 
-**Priority: high**
+**Status: fixed**
 
-The normal countdown subtracts the entire elapsed duration from the already
-decremented value on every timer event
-([`TimerView.swift:43-49`](../RsyncUI/Views/Detailsview/TimerView.swift#L43-L49)).
-For a nominal six-second delay, the sequence is approximately `6, 5, 3, 0,
--4`, so synchronization begins on the fourth tick rather than after six
-seconds. In the `synchronizewithouttimedelay` branch, resetting the value to
-one on each tick still delays execution until the second tick
-([`TimerView.swift:27-33`](../RsyncUI/Views/Detailsview/TimerView.swift#L27-L33)).
+The countdown now uses a fixed deadline set when the view appears. The displayed
+seconds round up, remain nonnegative, and expiration occurs only at or after the
+full six-second interval. `synchronizewithouttimedelay` explicitly means immediate
+execution on appearance. Expiration is consumed once; cancellation and view
+removal prevent later timer events from starting synchronization.
 
-This timer starts a real synchronization after a deep link, so the timing
-error reduces the user's opportunity to cancel an unexpected operation.
-
-**Required fix:** derive the remaining interval from a fixed deadline (for
-example, `max(0, deadline.timeIntervalSinceNow)`) rather than repeatedly
-subtracting elapsed time, and explicitly define the no-delay path as immediate
-execution or a deliberately documented short confirmation interval.
+Implementation: [`TimerView.swift`](../RsyncUI/Views/Detailsview/TimerView.swift).
+Regression tests cover repeated ticks, the six-second boundary, late ticks,
+immediate execution, cancellation, and duplicate expiration in
+[`SynchronizationCountdownTests.swift`](../RsyncUITests/SynchronizationCountdownTests.swift).
 
 ## User-interface updates worth including
 
@@ -88,19 +82,11 @@ input; retain the inline message for duplicate or filesystem failures.
 
 ### 5. The cancellation control in the deep-link countdown is not accessible
 
-**Priority: medium**
+**Status: fixed alongside finding 3**
 
-`TimerView` makes an `Image` or `Text` cancel the countdown with
-`.onTapGesture` ([`TimerView.swift:23-37`](../RsyncUI/Views/Detailsview/TimerView.swift#L23-L37)
-and [`TimerView.swift:39-53`](../RsyncUI/Views/Detailsview/TimerView.swift#L39-L53)).
-This does not provide a semantic Button, visible action name, keyboard
-activation, or VoiceOver hint. It also conflicts with the user's expectation
-that the displayed countdown describes what will happen.
-
-**Recommended fix:** replace the gesture with a labelled `Button`, such as
-"Cancel synchronization", and expose the remaining time as its accessibility
-value. This also resolves the SwiftUI interaction-pattern issue without an
-AppKit bridge.
+The countdown now uses a semantic Button with a "Cancel synchronization"
+accessibility label, remaining-time accessibility value, and help text.
+Cancellation disables the countdown before dismissing the view.
 
 ## Release hygiene
 
@@ -131,6 +117,6 @@ They also warn that `nonisolated(unsafe)` is unnecessary on the locked static
 Neither warning blocked the archive or tests, but a release build should be
 warning-free so future SDK or strict-concurrency changes are not masked.
 
-**Recommended fix:** import Combine in `TimerView.swift`, and remove
+**Partially resolved:** `TimerView.swift` now imports Combine. Remove
 `nonisolated(unsafe)` after confirming the existing lock-based access remains
 the intended concurrency design.

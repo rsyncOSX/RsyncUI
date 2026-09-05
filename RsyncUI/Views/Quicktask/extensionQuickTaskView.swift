@@ -80,43 +80,44 @@ extension QuicktaskView {
     }
 
     func executestreaming(config: SynchronizeConfiguration, dryrun: Bool) {
-        let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: dryrun, forDisplay: false)
+        guard showprogressview == false else { return }
+        guard SharedReference.shared.norsync == false else {
+            propagateError(error: Validatedrsync.norsync)
+            return
+        }
+        guard config.task != SharedReference.shared.halted else { return }
+        guard let arguments = ArgumentsSynchronize(config: config)
+            .argumentsSynchronize(dryRun: dryrun, forDisplay: false) else { return }
 
-        // Start progressview
-        showprogressview = true
-
-        // Create streaming handlers and retain them (with enforced cleanup)
-        streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
+        let handlers = CreateStreamingHandlers().createHandlers(
             fileHandler: fileHandler,
             processTermination: { output, exitCode in
                 Task { @MainActor in
                     processTermination(output, exitCode)
                 }
-            },
-            cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
+            }
         )
-
-        // Must check valid rsync exists
-        guard SharedReference.shared.norsync == false else { return }
-        guard config.task != SharedReference.shared.halted else { return }
-        guard let streamingHandlers else { return }
-        guard let arguments else { return }
 
         // Use streaming process with readability handlers; do not use file handler
         let streamingProcess = RsyncProcessStreaming.RsyncProcess(
             arguments: arguments,
             hiddenID: config.hiddenID,
-            handlers: streamingHandlers,
+            handlers: handlers,
             useFileHandler: true
         )
+        streamingHandlers = handlers
+        activeStreamingProcess = streamingProcess
+        showprogressview = true
+        progress = 0
+        completed = false
         do {
             try streamingProcess.executeProcess()
         } catch let err {
-            let error = err
-            SharedReference.shared.errorobject?.alert(error: error)
+            showprogressview = false
+            activeStreamingProcess = nil
+            streamingHandlers = nil
+            propagateError(error: err)
         }
-        // Keep strong reference to streaming process while it's running
-        activeStreamingProcess = streamingProcess
     }
 
     func abort() {
