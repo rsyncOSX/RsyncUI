@@ -151,10 +151,8 @@ struct AddProfileSheet: View {
         .frame(width: 400)
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
-                Button("Add") {
-                    addProfile()
-                    showSheet = false
-                }
+                Button("Add", action: addProfile)
+                    .keyboardShortcut(.defaultAction)
             }
 
             ToolbarItem(placement: .cancellationAction) {
@@ -166,7 +164,8 @@ struct AddProfileSheet: View {
     }
 
     private func addProfile() {
-        let trimmedName = profileName.trimmingCharacters(in: .whitespaces)
+        showError = false
+        let trimmedName = profileName.trimmingCharacters(in: .whitespacesAndNewlines)
 
         guard !trimmedName.isEmpty else {
             errorMessage = "Profile name cannot be empty"

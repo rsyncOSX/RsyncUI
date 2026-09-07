@@ -19,11 +19,20 @@ final class Estimate {
     weak var localprogressdetails: ProgressDetails?
 
     var stackoftasks: [Int]?
+    private var isCancelled = false
     var synchronizeIDwitherror: String = ""
 
     // Streaming strong references
     private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
     private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
+
+    func cancel() {
+        isCancelled = true
+        stackoftasks = nil
+        if let process = activeStreamingProcess, process.isRunning {
+            process.cancel()
+        }
+    }
 
     private func completeEstimation() {
         localprogressdetails?.estimationIsComplete()
@@ -39,11 +48,16 @@ final class Estimate {
     }
 
     private func startEstimation() {
-        guard (stackoftasks?.count ?? 0) > 0 else { return }
+        guard !isCancelled, (stackoftasks?.count ?? 0) > 0 else { return }
 
-        streamingHandlers = CreateStreamingHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createResultHandlers(
             fileHandler: { _ in },
-            processTermination: { output, hiddenID in
+            processTermination: { output, hiddenID, outcome in
+                guard !self.isCancelled, outcome == .success else {
+                    self.stackoftasks = nil
+                    self.completeEstimation()
+                    return
+                }
                 self.processTermination(stringoutputfromrsync: output, hiddenID)
             }
         )
@@ -86,6 +100,7 @@ final class Estimate {
         } catch let err {
             let error = err
             SharedReference.shared.errorobject?.alert(error: error)
+            completeEstimation()
         }
     }
 

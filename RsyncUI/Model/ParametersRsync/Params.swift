@@ -11,7 +11,8 @@ import RsyncArguments
 @MainActor
 struct Params {
     func params(
-        config: SynchronizeConfiguration
+        config: SynchronizeConfiguration,
+        restorePath: String? = nil
     ) -> Parameters {
         var rsyncdaemon = false
         var deleteExtraneous = false
@@ -68,7 +69,7 @@ struct Params {
             paths: PathConfiguration(
                 localCatalog: config.localCatalog,
                 offsiteCatalog: config.offsiteCatalog,
-                sharedPathForRestore: SharedReference.shared.pathforrestore ?? ""
+                sharedPathForRestore: restorePath ?? SharedReference.shared.pathforrestore ?? ""
             ),
             snapshotNumber: config.snapshotnum,
             isRsyncDaemon: rsyncdaemon, // Use Bool instead of -1/1

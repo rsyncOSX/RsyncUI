@@ -20,7 +20,40 @@ final class ObservableRestore {
     // Filenames in restore
     var restorefilelist: [RsyncOutputData] = []
     var filestorestore: String = ""
-    var selectedconfig: SynchronizeConfiguration?
+    var selectedconfig: SynchronizeConfiguration? {
+        didSet {
+            if oldValue?.id != selectedconfig?.id {
+                selectedSnapshot = nil
+                clearFileSelection()
+            }
+        }
+    }
+
+    var selectedSnapshot: String? {
+        didSet {
+            if oldValue != selectedSnapshot {
+                clearFileSelection()
+            }
+        }
+    }
+
+    private func clearFileSelection() {
+        restorefilelist.removeAll()
+        filestorestore = ""
+    }
+
+    func configurationForRestore() throws -> SynchronizeConfiguration {
+        guard var config = selectedconfig else { throw RestoreError.notvalidrestore }
+        if config.task == SharedReference.shared.snapshot, let selectedSnapshot {
+            guard selectedSnapshot.hasPrefix("./"),
+                  let number = Int(selectedSnapshot.dropFirst(2)), number > 0, number < Int.max else {
+                throw RestoreError.notvalidrestore
+            }
+            config.snapshotnum = number + 1
+        }
+        return config
+    }
+
     // Progress count
     var progress: Double = 0
     var max: Double = 0
@@ -29,76 +62,89 @@ final class ObservableRestore {
     private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
     private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
 
-    func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) {
+    func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?, outcome: StreamingProcessOutcome) {
         if dryrun {
             max = Double(stringoutputfromrsync?.count ?? 0)
         }
         restorefilelist = CreateOutputforView().createoutputafterrestore(stringoutputfromrsync)
         restorefilesinprogress = false
-        presentrestorelist = true
+        presentrestorelist = outcome == .success
         // Release streaming references to avoid retain cycles
         activeStreamingProcess = nil
         streamingHandlers = nil
     }
 
+    var restoreSummary: String {
+        guard let config = try? configurationForRestore() else { return "Select a task to restore." }
+        let source = config.offsiteServer.isEmpty ? config.offsiteCatalog :
+            "\(config.offsiteUsername)@\(config.offsiteServer):\(config.offsiteCatalog)"
+        let snapshot = config.task == SharedReference.shared.snapshot ?
+        "\nSnapshot: \(Swift.max((config.snapshotnum ?? 1) - 1, 0))" : ""
+        let items = filestorestore == "./." ? "Everything" :
+            (filestorestore.isEmpty ? "No item selected" : filestorestore)
+        let destination = (try? Self.validatedDestination(pathforrestore)) ?? "Choose a destination folder"
+        return "Source: \(source)\(snapshot)\nRestore: \(items)\nDestination: \(destination)"
+    }
+
+    func files(matching query: String) -> [RsyncOutputData] {
+        query.isEmpty ? restorefilelist : restorefilelist.filter { $0.record.localizedStandardContains(query) }
+    }
+
     func verifyPathForRestore(_ path: String) -> Bool {
-        let fmanager = FileManager.default
-        return fmanager.fileExists(atPath: path, isDirectory: nil)
+        (try? Self.validatedDestination(path)) != nil
+    }
+
+    static func validatedDestination(_ path: String) throws -> String {
+        let expanded = (path as NSString).expandingTildeInPath
+        var isDirectory: ObjCBool = false
+        guard expanded.hasPrefix("/"),
+              FileManager.default.fileExists(atPath: expanded, isDirectory: &isDirectory),
+              isDirectory.boolValue,
+              FileManager.default.isWritableFile(atPath: expanded) else { throw RestoreError.invalidDestination }
+        return expanded.hasSuffix("/") ? expanded : expanded + "/"
+    }
+
+    var canRestore: Bool {
+        !restorefilesinprogress && !filestorestore.isEmpty && verifyPathForRestore(pathforrestore)
     }
 
     func executeRestore() {
-        var arguments: [String]?
-        streamingHandlers = CreateStreamingHandlers().createHandlers(
-            fileHandler: { [weak self] count in
-                Task { @MainActor in
-                    self?.fileHandler(count: count)
-                }
-            },
-            processTermination: { [weak self] output, hiddenID in
-                Task { @MainActor in
-                    self?.processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
-                }
-            }
-        )
-
+        guard !restorefilesinprogress, SharedReference.shared.process == nil else { return }
         do {
-            let isValid = try validateforrestore()
-            if isValid {
-                arguments = computerestorearguments(forDisplay: false)
-                if let arguments {
-                    restorefilesinprogress = true
-
-                    // Must check valid rsync exists
-                    guard SharedReference.shared.norsync == false else { return }
-
-                    guard let streamingHandlers else { return }
-
-                    let process = RsyncProcessStreaming.RsyncProcess(
-                        arguments: arguments,
-                        handlers: streamingHandlers,
-                        useFileHandler: true
-                    )
-                    do {
-                        progress = 0
-                        try process.executeProcess()
-                        activeStreamingProcess = process
-                    } catch let err {
-                        let error = err
-                        SharedReference.shared.errorobject?.alert(error: error)
-                    }
+            guard SharedReference.shared.norsync == false else { throw Validatedrsync.norsync }
+            let arguments = try restoreArguments(forDisplay: false)
+            streamingHandlers = CreateStreamingHandlers().createResultHandlers(
+                fileHandler: { [weak self] count in self?.fileHandler(count: count) },
+                processTermination: { [weak self] output, hiddenID, outcome in
+                    self?.processTermination(stringoutputfromrsync: output, hiddenID: hiddenID, outcome: outcome)
                 }
-            }
-        } catch let err {
-            let error = err
+            )
+            guard let streamingHandlers else { return }
+            let process = RsyncProcessStreaming.RsyncProcess(arguments: arguments,
+                                                             handlers: streamingHandlers,
+                                                             useFileHandler: true)
+            restorefilesinprogress = true
+            progress = 0
+            activeStreamingProcess = process
+            try process.executeProcess()
+        } catch {
+            restorefilesinprogress = false
+            activeStreamingProcess = nil
+            streamingHandlers = nil
             propagateError(error: error)
         }
     }
 
-    private func validateforrestore() throws -> Bool {
-        if filestorestore.isEmpty == true || (SharedReference.shared.pathforrestore?.isEmpty ?? true) == true {
+    /// Validate and construct the command from one snapshot of the visible destination.
+    func restoreArguments(forDisplay: Bool) throws -> [String] {
+        let destination = try Self.validatedDestination(pathforrestore)
+        guard !filestorestore.isEmpty, let selectedconfig,
+              selectedconfig.task != SharedReference.shared.syncremote,
+              selectedconfig.task != SharedReference.shared.halted else { throw RestoreError.notvalidrestore }
+        guard let arguments = computerestorearguments(forDisplay: forDisplay, destination: destination) else {
             throw RestoreError.notvalidrestore
         }
-        return true
+        return arguments
     }
 
     private func verifyrestorefile(_ config: SynchronizeConfiguration, _: String) -> String {
@@ -125,13 +171,13 @@ final class ObservableRestore {
         // last snapshot is allowed. The other fix is within the ArgumentsRestore class.
         // Restore arguments
         if config.offsiteCatalog.hasSuffix("/") {
-            if let snapshotnum = selectedconfig?.snapshotnum {
+            if let snapshotnum = config.snapshotnum {
                 config.offsiteCatalog + String(snapshotnum - 1).appending("/") + filestorestore.dropFirst(2)
             } else {
                 ""
             }
         } else {
-            if let snapshotnum = selectedconfig?.snapshotnum {
+            if let snapshotnum = config.snapshotnum {
                 config.offsiteCatalog + String(snapshotnum - 1).appending("/") + filestorestore.dropFirst(2) // drop first "./"
             } else {
                 ""
@@ -139,17 +185,17 @@ final class ObservableRestore {
         }
     }
 
-    private func computerestorearguments(forDisplay: Bool) -> [String]? {
+    private func computerestorearguments(forDisplay: Bool, destination: String) -> [String]? {
         // Restore arguments
         // Full restore
         if filestorestore == "./." {
-            if let config = selectedconfig {
-                return ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun,
-                                                                                                        forDisplay: forDisplay)
+            if let config = try? configurationForRestore() {
+                return ArgumentsRestore(config: config, restoresnapshotbyfiles: false, destination: destination).argumentsrestore(dryRun: dryrun,
+                                                                                                                                  forDisplay: forDisplay)
             }
         } else {
             // Restore by file
-            if var localconf = selectedconfig {
+            if var localconf = try? configurationForRestore() {
                 let snapshot: Bool = (localconf.snapshotnum != nil) ? true : false
                 if snapshot {
                     localconf.offsiteCatalog = verifyrestorefilesnapshot(localconf, filestorestore) ?? ""
@@ -160,13 +206,13 @@ final class ObservableRestore {
                 if snapshot {
                     // Arguments for restore file from last snapshot
                     return ArgumentsRestore(config: localconf,
-                                            restoresnapshotbyfiles: true).argumentsrestore(dryRun: dryrun,
-                                                                                           forDisplay: forDisplay)
+                                            restoresnapshotbyfiles: true, destination: destination).argumentsrestore(dryRun: dryrun,
+                                                                                                                     forDisplay: forDisplay)
                 } else {
                     // Arguments for full restore from last snapshot
                     return ArgumentsRestore(config: localconf,
-                                            restoresnapshotbyfiles: false).argumentsrestore(dryRun: dryrun,
-                                                                                            forDisplay: forDisplay)
+                                            restoresnapshotbyfiles: false, destination: destination).argumentsrestore(dryRun: dryrun,
+                                                                                                                      forDisplay: forDisplay)
                 }
             }
         }
@@ -185,13 +231,16 @@ final class ObservableRestore {
 enum RestoreError: LocalizedError {
     case notvalidtaskforrestore
     case notvalidrestore
+    case invalidDestination
 
     var errorDescription: String? {
         switch self {
         case .notvalidtaskforrestore:
             "Restore not allowed for syncremote task"
         case .notvalidrestore:
-            "Either is path for restore or file to restore empty"
+            "Select a valid task and files to restore."
+        case .invalidDestination:
+            "Choose an existing, writable destination folder for restored files."
         }
     }
 }

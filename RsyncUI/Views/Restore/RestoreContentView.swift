@@ -9,7 +9,6 @@ struct RestoreContentView: View {
     @Binding var profile: String?
 
     let configurations: [SynchronizeConfiguration]
-    let getSnapshotLogsAndCatalogs: () -> Void
 
     var body: some View {
         VStack {
@@ -17,12 +16,10 @@ struct RestoreContentView: View {
                 HStack {
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                                 configurations: configurations)
+                        .disabled(gettingfilelist || restore.restorefilesinprogress)
                         .onChange(of: selecteduuids) {
                             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                 restore.selectedconfig = configurations[index]
-                                if configurations[index].task == SharedReference.shared.snapshot {
-                                    getSnapshotLogsAndCatalogs()
-                                }
                                 restore.restorefilelist.removeAll()
                             } else {
                                 restore.selectedconfig = nil
@@ -44,13 +41,13 @@ struct RestoreContentView: View {
 
                     VStack(alignment: .leading) {
                         RestoreFilesTableView(filestorestore: $restore.filestorestore,
-                                              datalist: restore.restorefilelist)
+                                              datalist: restore.files(matching: filterstring))
                             .onChange(of: profile) {
                                 restore.restorefilelist.removeAll()
                             }
                             .overlay {
                                 if filterstring.count > 0,
-                                   restore.restorefilelist.count == 0 {
+                                   restore.files(matching: filterstring).isEmpty {
                                     ContentUnavailableView.search
                                 }
                             }
@@ -66,7 +63,7 @@ struct RestoreContentView: View {
                     SynchronizeProgressView(
                         max: restore.max,
                         progress: restore.progress,
-                        statusText: "Restoring..."
+                        statusText: restore.dryrun ? "Previewing restore…" : "Restoring files…"
                     )
                 }
 

@@ -24,8 +24,9 @@ final class Execute {
     /// Report progress to caller
     var localfileHandler: (Int) -> Void
     // Update configurations
-    var localupdateconfigurations: ([SynchronizeConfiguration]) -> Void
+    var localupdateconfigurations: ([SynchronizeConfiguration], StreamingProcessOutcome) -> Void
     var stackoftasks: [Int]?
+    private var isCancelled = false
 
     let defaultstats = "0 files : 0.00 MB in 0.00 seconds"
 
@@ -47,14 +48,39 @@ final class Execute {
 
     private func completeExecution() {
         releaseStreamingReferences()
-        SharedReference.shared.updateprocess(nil)
+    }
+
+    func cancel() {
+        isCancelled = true
+        stackoftasks = nil
+        if let process = activeStreamingProcess, process.isRunning {
+            process.cancel()
+        }
+    }
+
+    /// Preserve earlier successful transfers, but never stamp the failed task or show success.
+    private func finishFailedExecution() {
+        stackoftasks = nil
+        Task { [self] in
+            defer { completeExecution() }
+            let update = await Logging.create(profile: structprofile, configurations: localconfigurations)
+            let configurations = await update.setCurrentDateOnConfiguration(configrecords: configrecords)
+            if SharedReference.shared.addsummarylogrecord {
+                try? await update.addLogToPermanentStore(scheduleRecords: schedulerecords)
+            }
+            localupdateconfigurations(configurations, isCancelled ? .cancelled : .failure)
+        }
     }
 
     private func startexecution() {
-        guard !(stackoftasks?.isEmpty ?? true) else { return }
-        streamingHandlers = CreateStreamingHandlers().createHandlers(
+        guard !isCancelled, !(stackoftasks?.isEmpty ?? true) else { return }
+        streamingHandlers = CreateStreamingHandlers().createResultHandlers(
             fileHandler: localfileHandler,
-            processTermination: { output, hiddenID in
+            processTermination: { output, hiddenID, outcome in
+                guard !self.isCancelled, outcome == .success else {
+                    self.finishFailedExecution()
+                    return
+                }
                 self.processTermination(stringoutputfromrsync: output, hiddenID)
                 if SharedReference.shared.saveactualsynclogdata {
                     Task {
@@ -88,7 +114,7 @@ final class Execute {
                         } catch let err {
                             let error = err
                             SharedReference.shared.errorobject?.alert(error: error)
-                            completeExecution()
+                            finishFailedExecution()
                             return
                         }
                     }
@@ -99,6 +125,7 @@ final class Execute {
                     } catch let err {
                         let error = err
                         SharedReference.shared.errorobject?.alert(error: error)
+                        finishFailedExecution()
                     }
                 }
             }
@@ -106,10 +133,14 @@ final class Execute {
     }
 
     private func startexecution_noestimate() {
-        guard !(stackoftasks?.isEmpty ?? true) else { return }
-        streamingHandlers = CreateStreamingHandlers().createHandlers(
+        guard !isCancelled, !(stackoftasks?.isEmpty ?? true) else { return }
+        streamingHandlers = CreateStreamingHandlers().createResultHandlers(
             fileHandler: localfileHandler,
-            processTermination: { output, hiddenID in
+            processTermination: { output, hiddenID, outcome in
+                guard !self.isCancelled, outcome == .success else {
+                    self.finishFailedExecution()
+                    return
+                }
                 self.processTermination_noestimation(stringoutputfromrsync: output, hiddenID)
             }
         )
@@ -128,7 +159,7 @@ final class Execute {
                         } catch let err {
                             let error = err
                             SharedReference.shared.errorobject?.alert(error: error)
-                            completeExecution()
+                            finishFailedExecution()
                             return
                         }
                     }
@@ -147,6 +178,7 @@ final class Execute {
                     } catch let err {
                         let error = err
                         SharedReference.shared.errorobject?.alert(error: error)
+                        finishFailedExecution()
                     }
                 }
             }
@@ -171,7 +203,7 @@ final class Execute {
                       selecteduuids: Set<UUID>,
                       progressdetails: ProgressDetails?,
                       fileHandler: @escaping (Int) -> Void,
-                      updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void) -> Execute {
+                      updateconfigurations: @escaping ([SynchronizeConfiguration], StreamingProcessOutcome) -> Void) -> Execute {
         let execute = Execute(profile: profile,
                               configurations: configurations,
                               selecteduuids: selecteduuids,
@@ -189,7 +221,7 @@ final class Execute {
                       selecteduuids: Set<UUID>,
                       noestprogressdetails: NoEstProgressDetails?,
                       fileHandler: @escaping (Int) -> Void,
-                      updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void) -> Execute {
+                      updateconfigurations: @escaping ([SynchronizeConfiguration], StreamingProcessOutcome) -> Void) -> Execute {
         let execute = Execute(profile: profile,
                               configurations: configurations,
                               selecteduuids: selecteduuids,
@@ -205,7 +237,7 @@ final class Execute {
                  selecteduuids: Set<UUID>,
                  progressdetails: ProgressDetails?,
                  fileHandler: @escaping (Int) -> Void,
-                 updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void) {
+                 updateconfigurations: @escaping ([SynchronizeConfiguration], StreamingProcessOutcome) -> Void) {
         structprofile = profile
         localconfigurations = configurations
         localprogressdetails = progressdetails
@@ -225,7 +257,7 @@ final class Execute {
          selecteduuids: Set<UUID>,
          noestprogressdetails: NoEstProgressDetails?,
          fileHandler: @escaping (Int) -> Void,
-         updateconfigurations: @escaping ([SynchronizeConfiguration]) -> Void) {
+         updateconfigurations: @escaping ([SynchronizeConfiguration], StreamingProcessOutcome) -> Void) {
         structprofile = profile
         localconfigurations = configurations
         localnoestprogressdetails = noestprogressdetails
@@ -283,7 +315,7 @@ extension Execute {
                                                   configurations: localconfigurations)
                 let updateconfigurations = await update.setCurrentDateOnConfiguration(configrecords: configrecords)
                 // Send date stamped configurations back to caller
-                localupdateconfigurations(updateconfigurations)
+                localupdateconfigurations(updateconfigurations, isCancelled ? .cancelled : .success)
 
                 Logger.process.debugMessageOnly("Execute: EXECUTION is completed")
                 guard SharedReference.shared.addsummarylogrecord else { return }
@@ -338,7 +370,7 @@ extension Execute {
                                                       configurations: localconfigurations)
                     let updateconfigurations = await update.setCurrentDateOnConfiguration(configrecords: configrecords)
                     // Send date stamped configurations back to caller
-                    localupdateconfigurations(updateconfigurations)
+                    localupdateconfigurations(updateconfigurations, isCancelled ? .cancelled : .success)
                     localnoestprogressdetails?.executeAllTasksNoEstimationComplete()
                     Logger.process.debugMessageOnly("Execute: execution is completed")
                     guard SharedReference.shared.addsummarylogrecord else { return }

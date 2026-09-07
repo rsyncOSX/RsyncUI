@@ -76,8 +76,8 @@ struct EstimationInProgressView: View {
     }
 
     func abort() {
+        estimate?.cancel()
         estimate = nil
-        InterruptProcess()
         progressdetails.resetCounts()
     }
 

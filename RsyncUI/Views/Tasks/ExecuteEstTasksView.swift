@@ -58,12 +58,10 @@ struct ExecuteEstTasksView: View {
             executeMultipleEstimatedTasks()
         }
         .onDisappear {
+            execute?.cancel()
             execute = nil
             progressdetails.estimatedlist = nil
             rsyncUIdata.executetasksinprogress = false
-            if SharedReference.shared.process != nil {
-                InterruptProcess()
-            }
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
@@ -94,10 +92,10 @@ extension ExecuteEstTasksView {
     }
 
     func abort() {
+        execute?.cancel()
         execute = nil
         progressdetails.hiddenIDatwork = -1
         selecteduuids.removeAll()
-        InterruptProcess()
         executetaskpath.removeAll()
     }
 
@@ -131,13 +129,21 @@ extension ExecuteEstTasksView {
         }
     }
 
-    func updateConfigurations(_ configurations: [SynchronizeConfiguration]) {
-        execute = nil
+    func updateConfigurations(_ configurations: [SynchronizeConfiguration], outcome: StreamingProcessOutcome) {
         rsyncUIdata.configurations = configurations
+        guard outcome != .cancelled else { return }
+        execute = nil
         progressdetails.hiddenIDatwork = -1
         progressdetails.estimatedlist = nil
         rsyncUIdata.executetasksinprogress = false
         selecteduuids.removeAll()
-        executetaskpath.append(Tasks(task: .completedview))
+        if outcome == .cancelled {
+            return
+        }
+        if outcome == .success {
+            executetaskpath.append(Tasks(task: .completedview))
+        } else {
+            executetaskpath.removeAll()
+        }
     }
 }

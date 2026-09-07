@@ -49,10 +49,8 @@ struct ExecuteNoEstTasksView: View {
             executeAllNoEstimationTasks()
         }
         .onDisappear {
+            execute?.cancel()
             execute = nil
-            if SharedReference.shared.process != nil {
-                InterruptProcess()
-            }
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
@@ -83,9 +81,9 @@ extension ExecuteNoEstTasksView {
     }
 
     func abort() {
+        execute?.cancel()
         execute = nil
         selecteduuids.removeAll()
-        InterruptProcess()
         progressviewshowinfo = false
         noestprogressdetails.reset()
     }
@@ -102,11 +100,19 @@ extension ExecuteNoEstTasksView {
         }
     }
 
-    func updateConfigurations(_ configurations: [SynchronizeConfiguration]) {
-        execute = nil
+    func updateConfigurations(_ configurations: [SynchronizeConfiguration], outcome: StreamingProcessOutcome) {
         rsyncUIdata.configurations = configurations
+        guard outcome != .cancelled else { return }
+        execute = nil
         progressviewshowinfo = false
         noestprogressdetails.reset()
-        executetaskpath.append(Tasks(task: .completedview))
+        if outcome == .cancelled {
+            return
+        }
+        if outcome == .success {
+            executetaskpath.append(Tasks(task: .completedview))
+        } else {
+            executetaskpath.removeAll()
+        }
     }
 }
