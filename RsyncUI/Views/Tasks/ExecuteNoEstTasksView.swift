@@ -102,11 +102,15 @@ extension ExecuteNoEstTasksView {
         }
     }
 
-    func updateConfigurations(_ configurations: [SynchronizeConfiguration]) {
+    func updateConfigurations(_ configurations: [SynchronizeConfiguration], succeeded: Bool) {
         execute = nil
         rsyncUIdata.configurations = configurations
         progressviewshowinfo = false
         noestprogressdetails.reset()
-        executetaskpath.append(Tasks(task: .completedview))
+        if succeeded {
+            executetaskpath.append(Tasks(task: .completedview))
+        } else {
+            executetaskpath.removeAll()
+        }
     }
 }

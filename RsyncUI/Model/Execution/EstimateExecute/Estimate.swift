@@ -41,9 +41,14 @@ final class Estimate {
     private func startEstimation() {
         guard (stackoftasks?.count ?? 0) > 0 else { return }
 
-        streamingHandlers = CreateStreamingHandlers().createHandlers(
+        streamingHandlers = CreateStreamingHandlers().createResultHandlers(
             fileHandler: { _ in },
-            processTermination: { output, hiddenID in
+            processTermination: { output, hiddenID, outcome in
+                guard outcome == .success else {
+                    self.stackoftasks = nil
+                    self.completeEstimation()
+                    return
+                }
                 self.processTermination(stringoutputfromrsync: output, hiddenID)
             }
         )
@@ -86,6 +91,7 @@ final class Estimate {
         } catch let err {
             let error = err
             SharedReference.shared.errorobject?.alert(error: error)
+            completeEstimation()
         }
     }
 

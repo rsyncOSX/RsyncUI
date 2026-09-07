@@ -89,11 +89,11 @@ extension QuicktaskView {
         guard let arguments = ArgumentsSynchronize(config: config)
             .argumentsSynchronize(dryRun: dryrun, forDisplay: false) else { return }
 
-        let handlers = CreateStreamingHandlers().createHandlers(
+        let handlers = CreateStreamingHandlers().createResultHandlers(
             fileHandler: fileHandler,
-            processTermination: { output, exitCode in
+            processTermination: { output, hiddenID, outcome in
                 Task { @MainActor in
-                    processTermination(output, exitCode)
+                    processTermination(output, hiddenID, outcome: outcome)
                 }
             }
         )
@@ -125,14 +125,14 @@ extension QuicktaskView {
     }
 
     @MainActor
-    func processTermination(_ stringoutputfromrsync: [String]?, _: Int?) {
+    func processTermination(_ stringoutputfromrsync: [String]?, _: Int?, outcome: StreamingProcessOutcome) {
         showprogressview = false
         if dryrun {
             max = Double(stringoutputfromrsync?.count ?? 0)
         }
 
         rsyncoutput.output = CreateOutputforView().createOutputForView(stringoutputfromrsync)
-        completed = true
+        completed = outcome == .success
         // Release process and handler references on completion
         activeStreamingProcess = nil
         streamingHandlers = nil

@@ -131,13 +131,17 @@ extension ExecuteEstTasksView {
         }
     }
 
-    func updateConfigurations(_ configurations: [SynchronizeConfiguration]) {
+    func updateConfigurations(_ configurations: [SynchronizeConfiguration], succeeded: Bool) {
         execute = nil
         rsyncUIdata.configurations = configurations
         progressdetails.hiddenIDatwork = -1
         progressdetails.estimatedlist = nil
         rsyncUIdata.executetasksinprogress = false
         selecteduuids.removeAll()
-        executetaskpath.append(Tasks(task: .completedview))
+        if succeeded {
+            executetaskpath.append(Tasks(task: .completedview))
+        } else {
+            executetaskpath.removeAll()
+        }
     }
 }

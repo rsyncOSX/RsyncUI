@@ -40,6 +40,34 @@ struct CreateStreamingHandlers {
         )
     }
 
+    /// Completion includes the actual process result, independent of output parsing.
+    func createResultHandlers(
+        fileHandler: @escaping (Int) -> Void,
+        processTermination: @escaping ([String]?, Int?, StreamingProcessOutcome) -> Void
+    ) -> ProcessHandlers {
+        let completion = StreamingProcessCompletion()
+        return ProcessHandlers(
+            processTermination: { output, hiddenID in
+                processTermination(output, hiddenID, completion.outcome)
+            },
+            fileHandler: fileHandler,
+            rsyncPath: GetfullpathforRsync().rsyncpath(),
+            checkLineForError: TrimOutputFromRsync().checkForRsyncError(_:),
+            updateProcess: { process in
+                if let process {
+                    completion.process = process
+                }
+                SharedReference.shared.updateprocess(process)
+            },
+            propagateError: { error in
+                completion.hadError = true
+                SharedReference.shared.errorobject?.alert(error: error)
+            },
+            checkForErrorInRsyncOutput: true,
+            environment: MyEnvironment()?.environment
+        )
+    }
+
     /// Create handlers that automatically perform cleanup after termination.
     /// Use this to avoid retain cycles by ensuring long-lived references are released
     /// right after the termination callback completes.
