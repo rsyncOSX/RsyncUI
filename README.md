@@ -32,5 +32,3 @@ Or download directly from the [releases page](https://github.com/rsyncOSX/RsyncU
 If RsyncUI is useful to you, a ⭐ on [the repository](https://github.com/rsyncOSX/RsyncUI) is always appreciated!
 
 ![](images/rsyncui.png)
-
-![](images/rsyncui.png)
