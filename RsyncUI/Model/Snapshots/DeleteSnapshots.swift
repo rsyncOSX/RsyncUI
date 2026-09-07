@@ -17,11 +17,14 @@ final class DeleteSnapshots {
 
     private func preparesnapshotcatalogsfordelete(logrecordssnapshot: [LogRecordSnapshot]?) {
         if let uuidsfordelete = mysnapshotdata?.snapshotuuidsfordelete, let logrecordssnapshot {
-            snapshotcatalogstodelete = logrecordssnapshot.compactMap { record in
-                let snaproot = localeconfig?.offsiteCatalog
-                let snapcatalog = record.snapshotCatalog
-                let pathfordelete = (snaproot ?? "") + (snapcatalog ?? "").dropFirst(2)
-                return (uuidsfordelete.contains(record.id)) ? pathfordelete : nil
+            do {
+                snapshotcatalogstodelete = try logrecordssnapshot.filter { uuidsfordelete.contains($0.id) }.map { record in
+                    try SnapshotDeletionPath.target(root: localeconfig?.offsiteCatalog ?? "",
+                                                    catalog: record.snapshotCatalog ?? "")
+                }
+            } catch {
+                snapshotcatalogstodelete = nil
+                SharedReference.shared.errorobject?.alert(error: error)
             }
         }
         // Set maxnumber and remaining to delete
@@ -48,11 +51,11 @@ final class DeleteSnapshots {
                     processTermination: processTermination
                 )
 
-                let delete = ArgumentsSnapshotDeleteCatalogs(config: config, remotecatalog: remotecatalog)
-                let process = ProcessCommand(command: delete.getCommand(),
-                                             arguments: delete.getArguments(),
-                                             handlers: handlers)
                 do {
+                    let delete = try ArgumentsSnapshotDeleteCatalogs(config: config, remotecatalog: remotecatalog)
+                    let process = ProcessCommand(command: delete.getCommand(),
+                                                 arguments: delete.getArguments(),
+                                                 handlers: handlers)
                     try process.executeProcess()
                 } catch let err {
                     let error = err
