@@ -23,7 +23,6 @@ struct RestoreTableView: View {
     @State private var snapshotFolderID: SnapshotFolder.ID?
     // Filterstring
     @State private var filterstring: String = ""
-    @State private var filterTask: Task<Void, Never>?
     @Binding var profile: String?
 
     let configurations: [SynchronizeConfiguration]
@@ -48,18 +47,6 @@ struct RestoreTableView: View {
             RestoreControlsView(restore: $restore)
                 .focusedSceneValue(\.aborttask, $focusaborttask)
                 .searchable(text: $filterstring)
-                .onChange(of: filterstring) {
-                    filterTask?.cancel()
-                    filterTask = Task {
-                        try? await Task.sleep(seconds: 1)
-                        guard Task.isCancelled == false else { return }
-                        if filterstring.isEmpty == false {
-                            restore.restorefilelist = restore.restorefilelist.filter { $0.record.contains(filterstring) }
-                        } else {
-                            getListOfFilesForRestore()
-                        }
-                    }
-                }
                 .toolbar { restoretoolbarcontent }
         }
         .navigationTitle("Restore files")

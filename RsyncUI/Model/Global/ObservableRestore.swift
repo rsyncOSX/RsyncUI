@@ -41,6 +41,10 @@ final class ObservableRestore {
         streamingHandlers = nil
     }
 
+    func files(matching query: String) -> [RsyncOutputData] {
+        query.isEmpty ? restorefilelist : restorefilelist.filter { $0.record.localizedStandardContains(query) }
+    }
+
     func verifyPathForRestore(_ path: String) -> Bool {
         (try? Self.validatedDestination(path)) != nil
     }

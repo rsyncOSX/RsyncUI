@@ -44,13 +44,13 @@ struct RestoreContentView: View {
 
                     VStack(alignment: .leading) {
                         RestoreFilesTableView(filestorestore: $restore.filestorestore,
-                                              datalist: restore.restorefilelist)
+                                              datalist: restore.files(matching: filterstring))
                             .onChange(of: profile) {
                                 restore.restorefilelist.removeAll()
                             }
                             .overlay {
                                 if filterstring.count > 0,
-                                   restore.restorefilelist.count == 0 {
+                                   restore.files(matching: filterstring).isEmpty {
                                     ContentUnavailableView.search
                                 }
                             }
