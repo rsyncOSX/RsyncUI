@@ -105,6 +105,7 @@ struct RestoreTableView: View {
                         .foregroundStyle(Color(.blue))
                 }
                 .help("Restore files")
+                .disabled(!restore.canRestore || gettingfilelist || SharedReference.shared.process != nil)
             }
         }
 

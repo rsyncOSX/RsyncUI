@@ -25,13 +25,7 @@ struct RestoreControlsView: View {
                     }
                 }
                 .onChange(of: restore.pathforrestore) {
-                    guard restore.verifyPathForRestore(restore.pathforrestore) else {
-                        return
-                    }
-                    if restore.pathforrestore.hasSuffix("/") == false {
-                        restore.pathforrestore.append("/")
-                    }
-                    SharedReference.shared.pathforrestore = restore.pathforrestore
+                    SharedReference.shared.pathforrestore = try? ObservableRestore.validatedDestination(restore.pathforrestore)
                 }
             }
 
