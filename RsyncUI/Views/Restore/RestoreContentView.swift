@@ -16,6 +16,7 @@ struct RestoreContentView: View {
                 HStack {
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                                 configurations: configurations)
+                        .disabled(gettingfilelist || restore.restorefilesinprogress)
                         .onChange(of: selecteduuids) {
                             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                 restore.selectedconfig = configurations[index]
@@ -62,7 +63,7 @@ struct RestoreContentView: View {
                     SynchronizeProgressView(
                         max: restore.max,
                         progress: restore.progress,
-                        statusText: "Restoring..."
+                        statusText: restore.dryrun ? "Previewing restore…" : "Restoring files…"
                     )
                 }
 

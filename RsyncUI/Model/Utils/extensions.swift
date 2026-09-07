@@ -9,7 +9,7 @@ import Foundation
 
 private enum EnglishDateParser {
     private static let lock = NSLock()
-    nonisolated(unsafe) private static let formatter: DateFormatter = {
+    private static let formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en")
         formatter.dateStyle = .medium

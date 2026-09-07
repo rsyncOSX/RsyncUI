@@ -74,6 +74,18 @@ final class ObservableRestore {
         streamingHandlers = nil
     }
 
+    var restoreSummary: String {
+        guard let config = try? configurationForRestore() else { return "Select a task to restore." }
+        let source = config.offsiteServer.isEmpty ? config.offsiteCatalog :
+            "\(config.offsiteUsername)@\(config.offsiteServer):\(config.offsiteCatalog)"
+        let snapshot = config.task == SharedReference.shared.snapshot ?
+        "\nSnapshot: \(Swift.max((config.snapshotnum ?? 1) - 1, 0))" : ""
+        let items = filestorestore == "./." ? "Everything" :
+            (filestorestore.isEmpty ? "No item selected" : filestorestore)
+        let destination = (try? Self.validatedDestination(pathforrestore)) ?? "Choose a destination folder"
+        return "Source: \(source)\(snapshot)\nRestore: \(items)\nDestination: \(destination)"
+    }
+
     func files(matching query: String) -> [RsyncOutputData] {
         query.isEmpty ? restorefilelist : restorefilelist.filter { $0.record.localizedStandardContains(query) }
     }

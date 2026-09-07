@@ -14,6 +14,7 @@ struct RestoreTableView: View {
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
     @State private var gettingfilelist: Bool = false
     @State private var focusaborttask: Bool = false
+    @State private var confirmingRestore = false
     /// Restore snapshot
     @State var snapshotdata = ObservableSnapshotData()
     // Streaming strong references
@@ -53,11 +54,18 @@ struct RestoreTableView: View {
             }
 
             RestoreControlsView(restore: $restore)
+                .disabled(gettingfilelist || restore.restorefilesinprogress)
                 .focusedSceneValue(\.aborttask, $focusaborttask)
                 .searchable(text: $filterstring)
                 .toolbar { restoretoolbarcontent }
         }
         .navigationTitle("Restore files")
+        .confirmationDialog("Restore files to this destination?", isPresented: $confirmingRestore) {
+            Button("Restore Files", role: .destructive) { executeRestore() }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text(restore.restoreSummary + "\n\nExisting files in the destination may be replaced.")
+        }
         .navigationDestination(isPresented: $restore.presentrestorelist) {
             OutputRsyncView(output: restore.restorefilelist)
         }
@@ -69,8 +77,7 @@ struct RestoreTableView: View {
         ToolbarItem {
             if restore.selectedconfig?.task != SharedReference.shared.syncremote,
                restore.selectedconfig?.task != SharedReference.shared.halted,
-               restore.selectedconfig?.offsiteServer.isEmpty == false,
-               restore.restorefilelist.count == 0 {
+               restore.selectedconfig?.offsiteServer.isEmpty == false {
                 Button {
                     getListOfFilesForRestore()
                 } label: {
@@ -78,6 +85,7 @@ struct RestoreTableView: View {
                         .labelStyle(.iconOnly)
                 }
                 .help("Get list of files for restore")
+                .disabled(gettingfilelist || restore.restorefilesinprogress || SharedReference.shared.process != nil)
             }
         }
 
@@ -89,17 +97,16 @@ struct RestoreTableView: View {
 
         ToolbarItem {
             if restore.selectedconfig?.task != SharedReference.shared.syncremote,
-               restore.selectedconfig?.offsiteServer.isEmpty == false,
-               restore.restorefilelist.count > 0,
-               restore.filestorestore.isEmpty == false {
-                Button {
-                    executeRestore()
-                } label: {
-                    Label("Restore files", systemImage: "play.fill")
-                        .labelStyle(.iconOnly)
-                        .foregroundStyle(Color(.blue))
+               restore.selectedconfig?.task != SharedReference.shared.halted,
+               restore.selectedconfig?.offsiteServer.isEmpty == false {
+                Button(restore.dryrun ? "Preview Restore" : "Restore Files", systemImage: "play.fill") {
+                    if restore.dryrun {
+                        executeRestore()
+                    } else {
+                        confirmingRestore = true
+                    }
                 }
-                .help("Restore files")
+                .labelStyle(.titleAndIcon)
                 .disabled(!restore.canRestore || gettingfilelist || SharedReference.shared.process != nil)
             }
         }
@@ -162,6 +169,7 @@ struct RestoreTableView: View {
 
 extension RestoreTableView {
     func getListOfFilesForRestore() {
+        guard SharedReference.shared.process == nil, !gettingfilelist, !restore.restorefilesinprogress else { return }
         if let config = restore.selectedconfig {
             guard config.task != SharedReference.shared.syncremote else { return }
             guard config.offsiteServer.isEmpty == false else { return }
@@ -186,7 +194,7 @@ extension RestoreTableView {
         if let config = try? restore.configurationForRestore() {
             let requestedSnapshot = restore.selectedSnapshot
             let arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments()
-            guard let arguments else { return }
+            guard let arguments else { gettingfilelist = false; return }
 
             streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
                 fileHandler: { _ in },
@@ -210,8 +218,11 @@ extension RestoreTableView {
                 activeStreamingProcess = process
             } catch let err {
                 let error = err
+                gettingfilelist = false
                 SharedReference.shared.errorobject?.alert(error: error)
             }
+        } else {
+            gettingfilelist = false
         }
     }
 
