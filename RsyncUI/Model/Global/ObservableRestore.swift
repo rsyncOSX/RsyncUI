@@ -20,7 +20,40 @@ final class ObservableRestore {
     // Filenames in restore
     var restorefilelist: [RsyncOutputData] = []
     var filestorestore: String = ""
-    var selectedconfig: SynchronizeConfiguration?
+    var selectedconfig: SynchronizeConfiguration? {
+        didSet {
+            if oldValue?.id != selectedconfig?.id {
+                selectedSnapshot = nil
+                clearFileSelection()
+            }
+        }
+    }
+
+    var selectedSnapshot: String? {
+        didSet {
+            if oldValue != selectedSnapshot {
+                clearFileSelection()
+            }
+        }
+    }
+
+    private func clearFileSelection() {
+        restorefilelist.removeAll()
+        filestorestore = ""
+    }
+
+    func configurationForRestore() throws -> SynchronizeConfiguration {
+        guard var config = selectedconfig else { throw RestoreError.notvalidrestore }
+        if config.task == SharedReference.shared.snapshot, let selectedSnapshot {
+            guard selectedSnapshot.hasPrefix("./"),
+                  let number = Int(selectedSnapshot.dropFirst(2)), number > 0, number < Int.max else {
+                throw RestoreError.notvalidrestore
+            }
+            config.snapshotnum = number + 1
+        }
+        return config
+    }
+
     // Progress count
     var progress: Double = 0
     var max: Double = 0
@@ -126,13 +159,13 @@ final class ObservableRestore {
         // last snapshot is allowed. The other fix is within the ArgumentsRestore class.
         // Restore arguments
         if config.offsiteCatalog.hasSuffix("/") {
-            if let snapshotnum = selectedconfig?.snapshotnum {
+            if let snapshotnum = config.snapshotnum {
                 config.offsiteCatalog + String(snapshotnum - 1).appending("/") + filestorestore.dropFirst(2)
             } else {
                 ""
             }
         } else {
-            if let snapshotnum = selectedconfig?.snapshotnum {
+            if let snapshotnum = config.snapshotnum {
                 config.offsiteCatalog + String(snapshotnum - 1).appending("/") + filestorestore.dropFirst(2) // drop first "./"
             } else {
                 ""
@@ -144,13 +177,13 @@ final class ObservableRestore {
         // Restore arguments
         // Full restore
         if filestorestore == "./." {
-            if let config = selectedconfig {
+            if let config = try? configurationForRestore() {
                 return ArgumentsRestore(config: config, restoresnapshotbyfiles: false, destination: destination).argumentsrestore(dryRun: dryrun,
                                                                                                                                   forDisplay: forDisplay)
             }
         } else {
             // Restore by file
-            if var localconf = selectedconfig {
+            if var localconf = try? configurationForRestore() {
                 let snapshot: Bool = (localconf.snapshotnum != nil) ? true : false
                 if snapshot {
                     localconf.offsiteCatalog = verifyrestorefilesnapshot(localconf, filestorestore) ?? ""

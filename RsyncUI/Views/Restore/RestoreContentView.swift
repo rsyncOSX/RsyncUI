@@ -9,7 +9,6 @@ struct RestoreContentView: View {
     @Binding var profile: String?
 
     let configurations: [SynchronizeConfiguration]
-    let getSnapshotLogsAndCatalogs: () -> Void
 
     var body: some View {
         VStack {
@@ -20,9 +19,6 @@ struct RestoreContentView: View {
                         .onChange(of: selecteduuids) {
                             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                                 restore.selectedconfig = configurations[index]
-                                if configurations[index].task == SharedReference.shared.snapshot {
-                                    getSnapshotLogsAndCatalogs()
-                                }
                                 restore.restorefilelist.removeAll()
                             } else {
                                 restore.selectedconfig = nil

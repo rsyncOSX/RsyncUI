@@ -19,8 +19,6 @@ struct RestoreTableView: View {
     // Streaming strong references
     @State private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
     @State private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
-    @State private var snapshotfolder: String = ""
-    @State private var snapshotFolderID: SnapshotFolder.ID?
     // Filterstring
     @State private var filterstring: String = ""
     @Binding var profile: String?
@@ -35,8 +33,18 @@ struct RestoreTableView: View {
                                filterstring: $filterstring,
                                gettingfilelist: $gettingfilelist,
                                profile: $profile,
-                               configurations: configurations,
-                               getSnapshotLogsAndCatalogs: getSnapshotLogsAndCatalogs)
+                               configurations: configurations)
+                .onChange(of: restore.selectedconfig?.id) {
+                    snapshotdata = ObservableSnapshotData()
+                    filterstring = ""
+                    getSnapshotLogsAndCatalogs()
+                }
+                .onChange(of: profile) {
+                    selecteduuids.removeAll()
+                    restore.selectedconfig = nil
+                    snapshotdata = ObservableSnapshotData()
+                    filterstring = ""
+                }
 
             Spacer()
 
@@ -133,32 +141,21 @@ struct RestoreTableView: View {
     }
 
     var snapshotfolderpicker: some View {
-        Picker("", selection: $snapshotFolderID) {
-            Text("Select a folder")
-                .tag(nil as SnapshotFolder.ID?)
+        Picker("Snapshot", selection: $restore.selectedSnapshot) {
+            Text("Latest snapshot")
+                .tag(nil as String?)
             ForEach(snapshotdata.snapshotfolders) { catalog in
                 Text(catalog.folder)
-                    .tag(catalog.id)
+                    .tag(catalog.folder as String?)
             }
         }
-        .frame(width: 150)
-        .tint(.blue)
-        .onChange(of: snapshotFolderID) {
-            if let index = snapshotdata.snapshotfolders.firstIndex(where: { $0.id == snapshotFolderID }) {
-                snapshotfolder = snapshotdata.snapshotfolders[index].folder
-            } else {
-                restore.restorefilelist.removeAll()
+        .frame(width: 180)
+        .disabled(gettingfilelist || restore.restorefilesinprogress)
+        .onChange(of: snapshotdata.snapshotfolders) {
+            if let selected = restore.selectedSnapshot,
+               !snapshotdata.snapshotfolders.contains(where: { $0.folder == selected }) {
+                restore.selectedSnapshot = nil
             }
-        }
-        .onChange(of: profile) {
-            snapshotdata.snapshotfolders.removeAll()
-        }
-        .onAppear {
-            snapshotdata.snapshotfolders.removeAll()
-        }
-        .onChange(of: snapshotfolder) {
-            restore.restorefilelist.removeAll()
-            restore.filestorestore = ""
         }
     }
 }
@@ -178,37 +175,24 @@ extension RestoreTableView {
     }
 
     @MainActor
-    func processTermination(stringoutputfromrsync: [String]?, hiddenID _: Int?) async {
+    func processTermination(stringoutputfromrsync: [String]?, configID: UUID, snapshot: String?) async {
         gettingfilelist = false
-        restore.restorefilelist.removeAll()
         let list = await CreateOutputforView().createoutputforrestore(stringoutputfromrsync)
+        guard restore.selectedconfig?.id == configID, restore.selectedSnapshot == snapshot else { return }
         restore.restorefilelist = list
     }
 
     func getFileList() {
-        if let config = restore.selectedconfig {
-            var arguments: [String]?
-            let snapshot: Bool = (config.snapshotnum != nil) ? true : false
-            if snapshot, snapshotfolder.isEmpty == false {
-                // Snapshot and other than last snapshot is selected
-                var tempconfig = config
-                if let snapshotnum = Int(snapshotfolder.dropFirst(2)) {
-                    // Must increase the snapshotnum by 1 because the
-                    // config stores next to use snapshotnum and the comnpute
-                    // arguments for restore reduce the snapshotnum by 1
-                    tempconfig.snapshotnum = snapshotnum + 1
-                    arguments = ArgumentsRemoteFileList(config: tempconfig).remotefilelistarguments()
-                }
-            } else {
-                arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments()
-            }
+        if let config = try? restore.configurationForRestore() {
+            let requestedSnapshot = restore.selectedSnapshot
+            let arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments()
             guard let arguments else { return }
 
             streamingHandlers = CreateStreamingHandlers().createHandlersWithCleanup(
                 fileHandler: { _ in },
-                processTermination: { output, hiddenID in
+                processTermination: { output, _ in
                     Task { @MainActor in
-                        await processTermination(stringoutputfromrsync: output, hiddenID: hiddenID)
+                        await processTermination(stringoutputfromrsync: output, configID: config.id, snapshot: requestedSnapshot)
                     }
                 },
                 cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
@@ -232,22 +216,7 @@ extension RestoreTableView {
     }
 
     func executeRestore() {
-        if let config = restore.selectedconfig, restore.filestorestore.isEmpty == false {
-            let snapshot: Bool = (config.snapshotnum != nil) ? true : false
-            if snapshot, snapshotfolder.isEmpty == false {
-                var tempconfig = config
-                if let snapshotnum = Int(snapshotfolder.dropFirst(2)) {
-                    // Must increase the snapshotnum by 1 because the
-                    // config stores next to use snapshotnum and the comnpute
-                    // arguments for restore reduce the snapshotnum by 1
-                    tempconfig.snapshotnum = snapshotnum + 1
-                }
-                restore.selectedconfig = tempconfig
-                restore.executeRestore()
-            } else {
-                restore.executeRestore()
-            }
-        }
+        restore.executeRestore()
     }
 
     func getSnapshotLogsAndCatalogs() {
