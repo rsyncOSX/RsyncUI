@@ -15,8 +15,9 @@ actor SharedJSONStorageWriter {
     func write(_ value: sending some Encodable & Sendable, to fileURL: URL) async throws {
         Logger.process.debugMessageOnly("SharedJSONStorageWriter: writing to \(fileURL)")
         let encodeddata = try EncodeGeneric().encode(value)
-        try await Task.detached(priority: .utility) {
-            try encodeddata.write(to: fileURL)
-        }.value
+        // Do not suspend between accepting a save and committing it: another call
+        // could otherwise overwrite a newer save while this actor is reentrant.
+        // File I/O stays on this storage actor, away from the main actor.
+        try encodeddata.write(to: fileURL, options: .atomic)
     }
 }
