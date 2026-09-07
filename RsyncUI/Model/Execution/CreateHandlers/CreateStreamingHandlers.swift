@@ -20,24 +20,9 @@ struct CreateStreamingHandlers {
         fileHandler: @escaping (Int) -> Void,
         processTermination: @escaping ([String]?, Int?) -> Void
     ) -> ProcessHandlers {
-        #if DEBUG
-            debugValidateStreamingThreading()
-        #endif
-
-        return ProcessHandlers(
-            processTermination: processTermination,
-            fileHandler: fileHandler,
-            rsyncPath: GetfullpathforRsync().rsyncpath(),
-            checkLineForError: TrimOutputFromRsync().checkForRsyncError(_:),
-            updateProcess: SharedReference.shared.updateprocess,
-            propagateError: { error in
-                Task { @MainActor in
-                    SharedReference.shared.errorobject?.alert(error: error)
-                }
-            },
-            checkForErrorInRsyncOutput: SharedReference.shared.checkforerrorinrsyncoutput,
-            environment: MyEnvironment()?.environment
-        )
+        createResultHandlers(fileHandler: fileHandler) { output, hiddenID, _ in
+            processTermination(output, hiddenID)
+        }
     }
 
     /// Completion includes the actual process result, independent of output parsing.
@@ -45,6 +30,9 @@ struct CreateStreamingHandlers {
         fileHandler: @escaping (Int) -> Void,
         processTermination: @escaping ([String]?, Int?, StreamingProcessOutcome) -> Void
     ) -> ProcessHandlers {
+        #if DEBUG
+            debugValidateStreamingThreading()
+        #endif
         let completion = StreamingProcessCompletion()
         return ProcessHandlers(
             processTermination: { output, hiddenID in
@@ -54,13 +42,14 @@ struct CreateStreamingHandlers {
             rsyncPath: GetfullpathforRsync().rsyncpath(),
             checkLineForError: TrimOutputFromRsync().checkForRsyncError(_:),
             updateProcess: { process in
-                if let process {
-                    completion.process = process
-                }
-                SharedReference.shared.updateprocess(process)
+                let current = SharedReference.shared.process
+                SharedReference.shared.updateprocess(completion.updatedProcess(process, current: current))
             },
             propagateError: { error in
                 completion.hadError = true
+                if let error = error as? RsyncProcessError, case .processCancelled = error {
+                    return
+                }
                 SharedReference.shared.errorobject?.alert(error: error)
             },
             checkForErrorInRsyncOutput: true,
@@ -81,27 +70,10 @@ struct CreateStreamingHandlers {
         processTermination: @escaping ([String]?, Int?) -> Void,
         cleanup: @escaping () -> Void
     ) -> ProcessHandlers {
-        #if DEBUG
-            debugValidateStreamingThreading()
-        #endif
-
-        return ProcessHandlers(
-            processTermination: { output, hiddenID in
-                processTermination(output, hiddenID)
-                cleanup()
-            },
-            fileHandler: fileHandler,
-            rsyncPath: GetfullpathforRsync().rsyncpath(),
-            checkLineForError: TrimOutputFromRsync().checkForRsyncError(_:),
-            updateProcess: SharedReference.shared.updateprocess,
-            propagateError: { error in
-                Task { @MainActor in
-                    SharedReference.shared.errorobject?.alert(error: error)
-                }
-            },
-            checkForErrorInRsyncOutput: SharedReference.shared.checkforerrorinrsyncoutput,
-            environment: MyEnvironment()?.environment
-        )
+        createHandlers(fileHandler: fileHandler) { output, hiddenID in
+            processTermination(output, hiddenID)
+            cleanup()
+        }
     }
 
     #if DEBUG
