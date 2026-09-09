@@ -22,6 +22,7 @@ struct SidebarMainView: View {
     // a new profile is loaded
     @Binding var selectedprofileID: ProfilesnamesRecord.ID?
     @Bindable var errorhandling: AlertError
+    @Binding var pendingExternalURL: URL?
 
     @State private var progressdetails = ProgressDetails()
     @State private var selecteduuids = Set<SynchronizeConfiguration.ID>()
@@ -114,10 +115,10 @@ struct SidebarMainView: View {
             UserDefaults.standard.removeObject(forKey: "trailingslashoptions")
             UserDefaults.standard.removeObject(forKey: "selectedrsynccommand")
         }
-        .onOpenURL { incomingURL in
-            // URL code
-            // Deep link triggered RsyncUI from outside
-            handleURLSidebarMainView(incomingURL, externalURL: true)
+        .task(id: pendingExternalURL) {
+            guard let pendingExternalURL else { return }
+            handleURLSidebarMainView(pendingExternalURL, externalURL: true)
+            self.pendingExternalURL = nil
         }
         .onChange(of: urlcommandestimateandsynchronize) {
             // URL code

@@ -16,10 +16,12 @@ struct RsyncUIView: View {
     @State private var start: Bool = true
     @State private var rsyncUIdata = RsyncUIconfigurations()
     @State private var errorhandling = AlertError()
+    @State private var initializationComplete = false
+    @State private var pendingExternalURL: URL?
 
     var body: some View {
         VStack {
-            if start {
+            if start || initializationComplete == false {
                 VStack {
                     Text("RsyncUI a GUI for rsync")
                         .font(.largeTitle)
@@ -34,8 +36,12 @@ struct RsyncUIView: View {
             } else {
                 SidebarMainView(rsyncUIdata: rsyncUIdata,
                                 selectedprofileID: $selectedprofileID,
-                                errorhandling: errorhandling)
+                                errorhandling: errorhandling,
+                                pendingExternalURL: $pendingExternalURL)
             }
+        }
+        .onOpenURL { incomingURL in
+            pendingExternalURL = incomingURL
         }
         .task {
             SharedReference.shared.errorobject = errorhandling
@@ -48,6 +54,7 @@ struct RsyncUIView: View {
             rsyncUIdata.validprofiles = catalognames.map { catalog in
                 ProfilesnamesRecord(catalog)
             }
+            initializationComplete = true
         }
         .task(id: selectedprofileID) {
             var profile: String?
