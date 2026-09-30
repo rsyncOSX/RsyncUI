@@ -34,13 +34,17 @@ struct CreateStreamingHandlers {
             debugValidateStreamingThreading()
         #endif
         let completion = StreamingProcessCompletion()
+        let checkForErrors = SharedReference.shared.checkforerrorinrsyncoutput
         return ProcessHandlers(
             processTermination: { output, hiddenID in
                 processTermination(output, hiddenID, completion.outcome)
             },
             fileHandler: fileHandler,
             rsyncPath: GetfullpathforRsync().rsyncpath(),
-            checkLineForError: TrimOutputFromRsync().checkForRsyncError(_:),
+            checkLineForError: { line in
+                guard checkForErrors else { return }
+                try TrimOutputFromRsync().checkForRsyncError(line)
+            },
             updateProcess: { process in
                 let current = SharedReference.shared.process
                 SharedReference.shared.updateprocess(completion.updatedProcess(process, current: current))
@@ -50,9 +54,16 @@ struct CreateStreamingHandlers {
                 if let error = error as? RsyncProcessError, case .processCancelled = error {
                     return
                 }
-                SharedReference.shared.errorobject?.alert(error: error)
+                if let processError = error as? RsyncProcessError,
+                   case let .processFailed(exitCode, errors) = processError {
+                    SharedReference.shared.errorobject?.alert(
+                        error: RsyncFailureAlert(exitCode: exitCode, chunks: errors)
+                    )
+                } else {
+                    SharedReference.shared.errorobject?.alert(error: error)
+                }
             },
-            checkForErrorInRsyncOutput: true,
+            checkForErrorInRsyncOutput: checkForErrors,
             environment: MyEnvironment()?.environment
         )
     }
