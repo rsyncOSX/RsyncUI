@@ -6,6 +6,8 @@
 
 RsyncUI is a SwiftUI macOS GUI for [rsync](https://github.com/WayneD/rsync) — it handles task organisation and parameter configuration so you can get the most out of rsync without touching the command line.
 
+If RsyncUI is useful to you, a ⭐ on [the repository](https://github.com/rsyncOSX/RsyncUI) is always appreciated!
+
 ## Requirements
 
 - macOS Sonoma or later
@@ -42,7 +44,5 @@ RsyncUI uses the following Swift Package Manager dependencies:
 | [RsyncProcessStreaming](https://github.com/rsyncOSX/RsyncProcessStreaming) | Executes rsync processes and streams their output to handlers for progress, errors, and completion. |
 | [RsyncUIDeepLinks](https://github.com/rsyncOSX/RsyncUIDeepLinks) | Creates, parses, and validates deep-link URLs for profile actions and widget integration. |
 | [SSHCreateKey](https://github.com/rsyncOSX/SSHCreateKey) | Prepares SSH key creation and connection arguments, manages key paths, and checks whether a public key exists. |
-
-If RsyncUI is useful to you, a ⭐ on [the repository](https://github.com/rsyncOSX/RsyncUI) is always appreciated!
 
 ![](images/rsyncui.png)
