@@ -53,7 +53,7 @@ struct Homepath {
                 array.append(filesandfolders.lastPathComponent)
             }
             Logger.process.info("Homepath: the following folders were found in \(fullpathmacserial): \(array)")
-            return array
+            return array.sorted { $0.localizedStandardCompare($1) == .orderedAscending }
         } catch {
             Logger.process.errorMessageOnly(
                 "Homepath: failed to read directory at \(fullpathmacserial): \(error.localizedDescription)"
