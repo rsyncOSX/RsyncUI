@@ -96,6 +96,9 @@ extension ProfileView {
         if newdata.createProfile(newprofile) {
             // Add a profile record
             rsyncUIdata.validprofiles.append(ProfilesnamesRecord(newprofile))
+            rsyncUIdata.validprofiles.sort {
+                $0.profilename.localizedStandardCompare($1.profilename) == .orderedAscending
+            }
             if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.profilename == newprofile }) {
                 // Set the profile picker and let the picker do the job
                 selectedprofileID = rsyncUIdata.validprofiles[index].id
@@ -176,6 +179,9 @@ struct AddProfileSheet: View {
         if newdata.createProfile(trimmedName) {
             // Add a profile record
             rsyncUIdata.validprofiles.append(ProfilesnamesRecord(trimmedName))
+            rsyncUIdata.validprofiles.sort {
+                $0.profilename.localizedStandardCompare($1.profilename) == .orderedAscending
+            }
             if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.profilename == trimmedName }) {
                 // Set the profile picker and let the picker do the job
                 selectedprofileID = rsyncUIdata.validprofiles[index].id
