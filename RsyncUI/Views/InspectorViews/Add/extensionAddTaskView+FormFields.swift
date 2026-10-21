@@ -57,15 +57,15 @@ extension AddTaskView {
                 }
 
             catalogField(catalog: $newdata.localcatalog,
-                         placeholder: "Source folder (required):",
+                         placeholder: "Source folder:",
+                         hint: "Choose a source folder.",
                          focus: .localcatalogField,
                          selectedValue: newdata.selectedconfig?.localCatalog)
             catalogField(catalog: $newdata.remotecatalog,
-                         placeholder: "Destination folder (required):",
+                         placeholder: "Destination folder:",
+                         hint: "Choose a destination folder.",
                          focus: .remotecatalogField,
-                         selectedValue: newdata.selectedconfig?.offsiteCatalog,
-                         showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
-                             newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty)
+                         selectedValue: newdata.selectedconfig?.offsiteCatalog)
         }
     }
 
@@ -87,15 +87,15 @@ extension AddTaskView {
                 }
 
             catalogField(catalog: $newdata.remotecatalog,
-                         placeholder: "Source Folder (required):",
+                         placeholder: "Source folder:",
+                         hint: "Enter the remote source folder.",
                          focus: .remotecatalogField,
                          selectedValue: newdata.selectedconfig?.offsiteCatalog)
             catalogField(catalog: $newdata.localcatalog,
-                         placeholder: "Remote Folder (required):",
+                         placeholder: "Destination folder:",
+                         hint: "Choose a local destination folder.",
                          focus: .localcatalogField,
-                         selectedValue: newdata.selectedconfig?.localCatalog,
-                         showErrorBorder: !newdata.localcatalog.isEmpty && newdata.remotecatalog.isEmpty ||
-                             newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty)
+                         selectedValue: newdata.selectedconfig?.localCatalog)
         }
     }
 
@@ -116,27 +116,29 @@ extension AddTaskView {
         value.wrappedValue = text
     }
 
-    func catalogField(catalog: Binding<String>, placeholder: String,
-                      focus: AddConfigurationField, selectedValue: String?,
-                      showErrorBorder: Bool = false) -> some View {
-        HStack {
-            if newdata.selectedconfig == nil {
-                TextField(placeholder, text: catalog)
-                    .focused($focusField, equals: focus)
-                    .textContentType(.none).submitLabel(.continue)
-                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
-            } else {
+    func catalogField(catalog: Binding<String>, placeholder: LocalizedStringKey,
+                      hint: LocalizedStringKey,
+                      focus: AddConfigurationField, selectedValue: String?) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
                 TextField(placeholder, text: catalog)
                     .focused($focusField, equals: focus)
                     .textContentType(.none).submitLabel(.continue)
                     .onAppear {
-                        if let value = selectedValue {
+                        if newdata.selectedconfig != nil, let value = selectedValue {
                             catalog.wrappedValue = value
                         }
                     }
-                    .border(showErrorBorder ? Color.red : Color.clear, width: 2)
+                if catalog.wrappedValue.isEmpty {
+                    RequiredFieldMarker()
+                }
+                OpencatalogView(selecteditem: catalog, catalogs: true)
             }
-            OpencatalogView(selecteditem: catalog, catalogs: true)
+            if catalog.wrappedValue.isEmpty {
+                Text(hint)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
         }
     }
 
@@ -144,43 +146,70 @@ extension AddTaskView {
         Section("Remote") {
             remoteField(
                 value: $newdata.remoteuser,
-                placeholder: "Remote user:",
                 focus: .remoteuserField,
                 selectedValue: newdata.selectedconfig?.offsiteUsername,
-                showErrorBorder: newdata.remoteuser.isEmpty && !newdata.remoteserver.isEmpty
+                isRequired: remoteUserIsMissing,
+                hint: newdata.selectedrsynccommand == .syncremote
+                    ? "Enter the user for the remote source."
+                    : "Enter a remote user, or clear Remote server for a local task."
             )
             remoteField(
                 value: $newdata.remoteserver,
-                placeholder: "Remote server:",
                 focus: .remoteserverField,
                 selectedValue: newdata.selectedconfig?.offsiteServer,
-                submitLabel: .return,
-                showErrorBorder: !newdata.remoteuser.isEmpty && newdata.remoteserver.isEmpty
+                isRequired: remoteServerIsMissing,
+                hint: newdata.selectedrsynccommand == .syncremote
+                    ? "Enter the server for the remote source."
+                    : "Enter a remote server, or clear Remote user for a local task."
             )
         }
     }
 
-    func remoteField(value: Binding<String>, placeholder: String, focus: AddConfigurationField,
-                     selectedValue: String?, submitLabel: SubmitLabel = .continue,
-                     showErrorBorder: Bool = false) -> some View {
-        Group {
-            if newdata.selectedconfig == nil {
-                TextField(placeholder, text: value)
+    func remoteField(value: Binding<String>, focus: AddConfigurationField,
+                     selectedValue: String?,
+                     isRequired: Bool, hint: LocalizedStringKey) -> some View {
+        let title: LocalizedStringKey = focus == .remoteserverField ? "Remote server:" : "Remote user:"
+        return VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                TextField(title, text: value)
                     .focused($focusField, equals: focus)
-                    .textContentType(.none).submitLabel(submitLabel)
-                    .border(showErrorBorder ? Color.red : Color.clear, width: 1)
-            } else {
-                TextField(placeholder, text: value)
-                    .focused($focusField, equals: focus)
-                    .textContentType(.none).submitLabel(submitLabel)
+                    .textContentType(.none).submitLabel(focus == .remoteserverField ? .return : .continue)
                     .onAppear {
-                        if let val = selectedValue {
+                        if newdata.selectedconfig != nil, let val = selectedValue {
                             value.wrappedValue = val
                         }
                     }
-                    .border(showErrorBorder ? Color.red : Color.clear, width: 1)
+                if isRequired {
+                    RequiredFieldMarker()
+                }
+            }
+            if isRequired {
+                Label {
+                    Text(hint)
+                } icon: {
+                    Image(systemName: "info.circle")
+                }
+                .font(.caption)
+                .foregroundStyle(.secondary)
             }
         }
+    }
+
+    var remoteUserIsMissing: Bool {
+        newdata.remoteuser.isEmpty &&
+            (!newdata.remoteserver.isEmpty || newdata.selectedrsynccommand == .syncremote)
+    }
+
+    var remoteServerIsMissing: Bool {
+        newdata.remoteserver.isEmpty &&
+            (!newdata.remoteuser.isEmpty || newdata.selectedrsynccommand == .syncremote)
+    }
+
+    /// Check completeness without running the connection checks in the full validator.
+    var requiredFieldsAreComplete: Bool {
+        !newdata.localcatalog.replacingOccurrences(of: "\"", with: "").isEmpty &&
+            !newdata.remotecatalog.replacingOccurrences(of: "\"", with: "").isEmpty &&
+            !remoteUserIsMissing && !remoteServerIsMissing
     }
 
     var pickerselecttypeoftask: some View {
@@ -192,5 +221,14 @@ extension AddTaskView {
             UserDefaults.standard.set(newdata.selectedrsynccommand.rawValue, forKey: "selectedrsynccommand")
         }
         .onAppear { loadRsyncCommandPreference() }
+    }
+}
+
+private struct RequiredFieldMarker: View {
+    var body: some View {
+        Text("Required")
+            .font(.caption)
+            .foregroundStyle(.secondary)
+            .fixedSize()
     }
 }

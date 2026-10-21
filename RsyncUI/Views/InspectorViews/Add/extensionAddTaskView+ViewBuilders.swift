@@ -33,6 +33,14 @@ extension AddTaskView {
                 remoteuserandserver
             }
             .formStyle(.grouped)
+
+            if !requiredFieldsAreComplete {
+                Label("Complete the required fields before adding this task.", systemImage: "info.circle")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+            }
         }
         .padding()
         .frame(minWidth: 600)
@@ -47,6 +55,7 @@ extension AddTaskView {
                         }
                     }
                 }
+                .disabled(!requiredFieldsAreComplete)
             }
 
             ToolbarItem(placement: .cancellationAction) {
