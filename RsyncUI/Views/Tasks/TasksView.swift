@@ -95,7 +95,7 @@ struct TasksView: View {
                                       onDoubleClick: doubleClickActionFunction)
             }
         }
-        .navigationTitle("Synchronize tasks: profile \(rsyncUIdata.profile ?? "Default")")
+        .navigationTitle("RsyncUI")
         .focusedSceneValue(\.startestimation, $focusstartestimation)
         .focusedSceneValue(\.startexecution, $focusstartexecution)
         .focusedSceneValue(\.exporttasks, $focusexport)

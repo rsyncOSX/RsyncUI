@@ -33,7 +33,7 @@ struct ConfigurationsTableDataMainView: View {
             }
             .width(min: 30, max: 36)
 
-            TableColumn("Synchronize ID") { data in
+            TableColumn("Task") { data in
                 HStack(spacing: 4) {
                     synchronizeIDText(for: data)
 
@@ -55,30 +55,30 @@ struct ConfigurationsTableDataMainView: View {
             .width(min: 80, max: 200)
 
             TableColumn("Source") { data in
-                Text(data.localCatalog)
+                Text(isRemotePull(data) ? data.offsiteCatalog : data.localCatalog)
+                    .lineLimit(1)
+                    .truncationMode(.middle)
+                    .help(isRemotePull(data) ? data.offsiteCatalog : data.localCatalog)
                     .opacity(opacity(for: data))
             }
             .width(min: 120, max: 300)
 
             TableColumn("Destination") { data in
-                Text(data.offsiteCatalog)
-                    .opacity(opacity(for: data))
-            }
-            .width(min: 120, max: 300)
-
-            TableColumn("Server") { data in
-                Group {
-                    if data.offsiteServer.count > 0 {
-                        Text(data.offsiteServer)
-                    } else {
-                        Text("localhost")
-                    }
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(isRemotePull(data) || data.offsiteServer.isEmpty ? String(localized: "This Mac") : data.offsiteServer)
+                        .font(.subheadline.weight(.medium))
+                    Text(isRemotePull(data) ? data.localCatalog : data.offsiteCatalog)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
+                        .truncationMode(.middle)
                 }
+                .help(isRemotePull(data) ? data.localCatalog : data.offsiteCatalog)
                 .opacity(opacity(for: data))
             }
-            .width(min: 50, max: 100)
+            .width(min: 160, max: 350)
 
-            TableColumn("Last Sync") { data in
+            TableColumn("Last run") { data in
                 if data.hiddenID == progressdetails.hiddenIDatwork, max > 0, progress <= max {
                     VStack(alignment: .trailing, spacing: 2) {
                         Text("\(Int((progress / max) * 100))%")
@@ -86,13 +86,13 @@ struct ConfigurationsTableDataMainView: View {
                             .foregroundStyle(.blue)
                             .contentTransition(.numericText(countsDown: false))
                             .animation(.default, value: progress)
-                        Text("syncing...")
+                        Text("Synchronizing…")
                             .font(.caption2)
                             .foregroundStyle(.secondary)
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
                 } else if data.task == SharedReference.shared.halted {
-                    Text("halted")
+                    Label("Halted", systemImage: "pause.circle")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, alignment: .trailing)
@@ -104,20 +104,20 @@ struct ConfigurationsTableDataMainView: View {
                     VStack(alignment: .trailing, spacing: 2) {
                         Text(seconds.latest())
                             .font(.caption)
-                            .foregroundStyle(isStale ? .red : .primary)
+                            .foregroundStyle(isStale ? .orange : .primary)
                         Text(dateRun)
                             .font(.caption2)
                             .foregroundStyle(.secondary)
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
                 } else {
-                    Text("never")
+                    Label("Never run", systemImage: "minus.circle")
                         .font(.caption)
-                        .foregroundStyle(.orange)
+                        .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }
-            .width(min: 80, max: 130)
+            .width(min: 110, max: 160)
         }
     }
 
@@ -139,13 +139,18 @@ struct ConfigurationsTableDataMainView: View {
                 }
                 .foregroundStyle(.yellow)
             } else {
-                let color: Color = progressdetails.estimatedlist?[index].datatosynchronize == true ? .blue : .red
+                let color: Color = progressdetails.estimatedlist?[index].datatosynchronize == true ? .blue : .primary
                 Text(data.backupID.isEmpty ? "No ID set" : data.backupID)
                     .foregroundStyle(color)
             }
         } else {
             Text(data.backupID.isEmpty ? "No ID set" : data.backupID)
         }
+    }
+
+    private func isRemotePull(_ data: SynchronizeConfiguration) -> Bool {
+        data.task == SharedReference.shared.syncremote ||
+            (data.task == SharedReference.shared.halted && data.halted == 2)
     }
 
     private func statusColor(for data: SynchronizeConfiguration) -> Color {
