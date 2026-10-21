@@ -63,7 +63,6 @@ extension TasksView {
             } label: {
                 Label("Estimate", systemImage: "wand.and.stars")
                     .labelStyle(.titleAndIcon)
-                    .foregroundStyle(Color(.blue))
             }
             .help("Estimate (⌘E)")
 
@@ -91,24 +90,18 @@ extension TasksView {
             } label: {
                 Label("Synchronize", systemImage: "play.fill")
                     .labelStyle(.titleAndIcon)
-                    .foregroundStyle(Color(.blue))
             }
             .help("Synchronize (⌘R)")
 
-            if allTasksAreHalted() == false {
-                Button {
-                    if urlcommandestimateandsynchronize {
-                        urlcommandestimateandsynchronize = false
-                    } else {
-                        urlcommandestimateandsynchronize = true
-                    }
-                } label: {
-                    Label("Estimate & Sync", systemImage: "bolt.shield.fill")
-                        .labelStyle(.titleAndIcon)
-                        .foregroundStyle(Color(.yellow))
-                }
-                .help("Estimate & Synchronize")
+            Button {
+                urlcommandestimateandsynchronize.toggle()
+            } label: {
+                Label("Estimate & Sync", systemImage: "bolt.shield.fill")
+                    .labelStyle(.titleAndIcon)
+                    .foregroundStyle(Color.accentColor)
             }
+            .help("Estimate & Synchronize")
+            .disabled(allTasksAreHalted())
         }
 
         ToolbarItem {
