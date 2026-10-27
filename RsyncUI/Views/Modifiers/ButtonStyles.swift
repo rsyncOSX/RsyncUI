@@ -11,15 +11,15 @@ import SwiftUI
 /// retains the established prominent appearance on earlier macOS releases.
 struct AdaptiveProminentButton: View {
     let systemImage: String
-    let text: String?
-    let helpText: String
+    let text: LocalizedStringKey?
+    let helpText: LocalizedStringKey
     var textcolor: Bool = false
     let action: () -> Void
 
     init(
         systemImage: String,
-        text: String? = nil,
-        helpText: String,
+        text: LocalizedStringKey? = nil,
+        helpText: LocalizedStringKey,
         textcolor: Bool = false,
         action: @escaping () -> Void
     ) {

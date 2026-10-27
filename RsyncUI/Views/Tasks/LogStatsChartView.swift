@@ -195,9 +195,9 @@ struct LogStatsChartView: View {
         var readdatabyfilesormb = ""
 
         if datainchart == .numberoffiles {
-            readdatabyfilesormb = "Records by files transferred..."
+            readdatabyfilesormb = String(localized: "Records by files transferred...")
         } else {
-            readdatabyfilesormb = "Records by max size transferred..."
+            readdatabyfilesormb = String(localized: "Records by max size transferred...")
         }
 
         return readdatabyfilesormb

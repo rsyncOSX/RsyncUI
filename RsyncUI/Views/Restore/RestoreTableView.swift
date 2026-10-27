@@ -64,7 +64,7 @@ struct RestoreTableView: View {
             Button("Restore Files", role: .destructive) { executeRestore() }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text(restore.restoreSummary + "\n\nExisting files in the destination may be replaced.")
+            Text(restore.restoreSummary + String(localized: "\n\nExisting files in the destination may be replaced."))
         }
         .navigationDestination(isPresented: $restore.presentrestorelist) {
             OutputRsyncView(output: restore.restorefilelist)

@@ -36,7 +36,7 @@ extension TasksView {
                     }
 
                     if SharedReference.shared.newversion {
-                        MessageView(mytext: "Update available", size: .caption2)
+                        MessageView(mytext: String(localized: "Update available"), size: .caption2)
                             .padding()
                             .frame(width: 180)
                     }

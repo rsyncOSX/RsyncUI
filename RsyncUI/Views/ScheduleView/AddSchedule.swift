@@ -104,7 +104,7 @@ struct AddSchedule: View {
     var pickerselecttypeoftask: some View {
         Picker("",
                selection: $schedule) {
-            ForEach(ScheduleType.allCases) { Text($0.description)
+            ForEach(ScheduleType.allCases) { Text(LocalizedStringKey($0.description))
                 .tag($0.rawValue)
             }
         }

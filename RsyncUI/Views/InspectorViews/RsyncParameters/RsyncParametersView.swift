@@ -53,7 +53,7 @@ struct RsyncParametersView: View {
             }
 
             let isDeletePresent = selectedconfig?.parameter4 == "--delete"
-            let headerText = isDeletePresent ? "Remove --delete parameter" : "Add --delete parameter"
+            let headerText: LocalizedStringKey = isDeletePresent ? "Remove --delete parameter" : "Add --delete parameter"
 
             HStack {
                 VStack(alignment: .leading, spacing: 12) {

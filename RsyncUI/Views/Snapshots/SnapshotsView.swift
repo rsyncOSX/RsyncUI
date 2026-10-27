@@ -149,7 +149,7 @@ struct SnapshotsView: View {
     var pickersnapdayoffweek: some View {
         Picker("",
                selection: $snapdayofweek) {
-            ForEach(StringDayofweek.allCases) { Text($0.description)
+            ForEach(StringDayofweek.allCases) { Text(LocalizedStringKey($0.description))
                 .tag($0)
             }
         }
@@ -160,7 +160,7 @@ struct SnapshotsView: View {
     var pickersnaplast: some View {
         Picker("",
                selection: $snaplast) {
-            ForEach(PlanSnapshots.allCases) { Text($0.description)
+            ForEach(PlanSnapshots.allCases) { Text(LocalizedStringKey($0.description))
                 .tag($0)
             }
         }

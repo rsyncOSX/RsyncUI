@@ -10,7 +10,7 @@ import SwiftUI
 struct SynchronizeProgressView: View {
     let max: Double
     let progress: Double
-    let statusText: String
+    let statusText: LocalizedStringKey
 
     var body: some View {
         VStack(spacing: 20) {

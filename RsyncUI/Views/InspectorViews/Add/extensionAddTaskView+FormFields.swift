@@ -214,7 +214,7 @@ extension AddTaskView {
 
     var pickerselecttypeoftask: some View {
         Picker("Action", selection: $newdata.selectedrsynccommand) {
-            ForEach(TypeofTask.allCases) { Text($0.description).tag($0) }
+            ForEach(TypeofTask.allCases) { Text(LocalizedStringKey($0.description)).tag($0) }
         }
         .pickerStyle(.menu)
         .onChange(of: newdata.selectedrsynccommand) {

@@ -52,7 +52,7 @@ struct ListofTasksAddView: View {
 
     var confirmationMessage: String {
         let count = newdata.copyandpasteconfigurations?.count ?? 0
-        return count == 1 ? "Copy 1 configuration" : "Copy \(count) configurations"
+        return count == 1 ? String(localized: "Copy 1 configuration") : String(localized: "Copy \(count) configurations")
     }
 
     func delete() {

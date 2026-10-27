@@ -15,7 +15,7 @@ struct EditRsyncParameter: View {
     var body: some View {
         HStack {
             Picker("", selection: $selectedparameter) {
-                ForEach(EnumRsyncArguments.allCases) { Text($0.description)
+                ForEach(EnumRsyncArguments.allCases) { Text(LocalizedStringKey($0.description))
                     .tag($0)
                 }
             }

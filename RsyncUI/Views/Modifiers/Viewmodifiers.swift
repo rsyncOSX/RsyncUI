@@ -33,7 +33,7 @@ struct FixedTag: ViewModifier {
 
 struct ToggleViewDefault: View {
     @Environment(\.colorScheme) var colorScheme
-    private var mytext: String?
+    private var mytext: LocalizedStringKey?
     private var mybinding: Binding<Bool>
 
     var body: some View {
@@ -49,7 +49,7 @@ struct ToggleViewDefault: View {
         }
     }
 
-    init(text: String, binding: Binding<Bool>) {
+    init(text: LocalizedStringKey, binding: Binding<Bool>) {
         mytext = text
         mybinding = binding
     }
@@ -57,7 +57,7 @@ struct ToggleViewDefault: View {
 
 struct DismissafterMessageView: View {
     private var dismissafter: Double
-    private var mytext: String
+    private var mytext: LocalizedStringKey
 
     @State private var showtext: Bool = true
 
@@ -83,7 +83,7 @@ struct DismissafterMessageView: View {
         }
     }
 
-    init(dismissafter: Double, mytext: String) {
+    init(dismissafter: Double, mytext: LocalizedStringKey) {
         self.dismissafter = dismissafter
         self.mytext = mytext
     }

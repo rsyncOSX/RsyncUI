@@ -24,7 +24,7 @@ struct QuicktaskFormView: View {
                     HStack {
                         Picker("Action",
                                selection: $selectedrsynccommand) {
-                            ForEach(TypeofTaskQuictask.allCases) { Text($0.description)
+                            ForEach(TypeofTaskQuictask.allCases) { Text(LocalizedStringKey($0.description))
                                 .tag($0)
                             }
                         }

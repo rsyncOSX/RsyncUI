@@ -1,0 +1,6 @@
+/* English presentation keys; preserve placeholders and configuration identifiers. */
+"Estimate" = "Estimate";
+"Estimate & Synchronize your files." = "Estimate & Synchronize your files.";
+"Estimate: no URL set" = "Estimate: no URL set";
+"Profile: %@" = "Profile: %@";
+"Synchronize" = "Synchronize";

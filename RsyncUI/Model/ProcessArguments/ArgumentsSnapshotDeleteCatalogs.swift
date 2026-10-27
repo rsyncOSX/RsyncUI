@@ -26,7 +26,7 @@ enum SnapshotDeletionError: LocalizedError {
     case invalidPath
 
     var errorDescription: String? {
-        "Cannot delete this snapshot: its folder or configured backup root is invalid."
+        String(localized: "Cannot delete this snapshot: its folder or configured backup root is invalid.")
     }
 }
 

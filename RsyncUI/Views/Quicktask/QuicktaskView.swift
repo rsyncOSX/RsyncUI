@@ -32,13 +32,13 @@ enum ValidateInputQuicktask: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .localcatalog:
-            "Source folder cannot be empty"
+            String(localized: "Source folder cannot be empty")
         case .offsiteusername:
-            "Username cannot be empty"
+            String(localized: "Username cannot be empty")
         case .remotecatalog:
-            "Destination folder cannot be empty"
+            String(localized: "Destination folder cannot be empty")
         case .offsiteserver:
-            "Servername cannot be empty"
+            String(localized: "Servername cannot be empty")
         }
     }
 }

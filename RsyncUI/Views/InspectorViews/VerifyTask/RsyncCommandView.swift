@@ -17,7 +17,7 @@ struct RsyncCommandView: View {
         VStack(alignment: .leading) {
             HStack {
                 Picker("", selection: $selectedrsynccommand) {
-                    ForEach(RsyncCommand.allCases) { Text($0.description)
+                    ForEach(RsyncCommand.allCases) { Text(LocalizedStringKey($0.description))
                         .tag($0)
                     }
                 }
@@ -25,7 +25,7 @@ struct RsyncCommandView: View {
                 .padding(10)
 
                 Picker("", selection: $otherselectedrsynccommand) {
-                    ForEach(OtherRsyncCommand.allCases) { Text($0.description)
+                    ForEach(OtherRsyncCommand.allCases) { Text(LocalizedStringKey($0.description))
                         .tag($0)
                     }
                 }
