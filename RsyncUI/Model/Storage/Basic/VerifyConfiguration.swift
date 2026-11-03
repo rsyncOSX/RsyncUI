@@ -51,12 +51,7 @@ final class VerifyConfiguration: Connected {
         if let hiddenID = data.hiddenID {
             newconfig.hiddenID = hiddenID
         }
-        guard data.newlocalCatalog.isEmpty == false else {
-            propagateError(error: ValidateInputError.localcatalog)
-            return nil
-        }
-
-        guard data.newoffsiteCatalog.isEmpty == false else {
+        guard data.newlocalCatalog.isEmpty == false, data.newoffsiteCatalog.isEmpty == false else {
             propagateError(error: ValidateInputError.localcatalog)
             return nil
         }

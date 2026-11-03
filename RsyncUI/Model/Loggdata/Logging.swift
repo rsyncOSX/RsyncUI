@@ -18,6 +18,7 @@ final class Logging {
     var structconfigurations: [SynchronizeConfiguration]?
     var logrecords: [LogRecords]?
     var localeprofile: String?
+    private(set) var persistenceSucceeded = true
 
     static func create(
         profile: String?,
@@ -96,7 +97,7 @@ final class Logging {
                 structconfigurations?[index].dateRun = date
             }
         }
-        await WriteSynchronizeConfigurationJSON.write(localeprofile, structconfigurations)
+        persistenceSucceeded = await WriteSynchronizeConfigurationJSON.write(localeprofile, structconfigurations)
         return structconfigurations ?? []
     }
 
@@ -158,7 +159,8 @@ final class Logging {
     }
 
     private func persistLogs() async {
-        await WriteLogRecordsJSON.write(localeprofile, logrecords)
+        let saved = await WriteLogRecordsJSON.write(localeprofile, logrecords)
+        persistenceSucceeded = persistenceSucceeded && saved
     }
 
     init(profile: String?,

@@ -27,6 +27,9 @@ final class Execute {
     var localupdateconfigurations: ([SynchronizeConfiguration], StreamingProcessOutcome) -> Void
     var stackoftasks: [Int]?
     private var isCancelled = false
+    private var isFinalizing = false
+    private var isFinished = false
+    private var detailLogTasks = [Task<Bool, Never>]()
 
     let defaultstats = "0 files : 0.00 MB in 0.00 seconds"
 
@@ -51,6 +54,8 @@ final class Execute {
     }
 
     func cancel() {
+        guard !isFinished else { return }
+        SharedReference.shared.quitAfterExternalExecution = false
         isCancelled = true
         stackoftasks = nil
         if let process = activeStreamingProcess, process.isRunning {
@@ -58,18 +63,50 @@ final class Execute {
         }
     }
 
-    /// Preserve earlier successful transfers, but never stamp the failed task or show success.
-    private func finishFailedExecution() {
+    /// All completion callbacks run only after every requested write has finished.
+    private func finalize(_ outcome: StreamingProcessOutcome) {
+        guard !isFinalizing, !isFinished else { return }
+        isFinalizing = true
         stackoftasks = nil
         Task { [self] in
-            defer { completeExecution() }
+            var saved = true
+            for task in detailLogTasks {
+                let result = await task.value
+                saved = saved && result
+            }
+            detailLogTasks.removeAll()
             let update = await Logging.create(profile: structprofile, configurations: localconfigurations)
             let configurations = await update.setCurrentDateOnConfiguration(configrecords: configrecords)
             if SharedReference.shared.addsummarylogrecord {
-                try? await update.addLogToPermanentStore(scheduleRecords: schedulerecords)
+                do {
+                    try await update.addLogToPermanentStore(scheduleRecords: schedulerecords)
+                } catch {
+                    saved = false
+                    SharedReference.shared.errorobject?.alert(error: error)
+                }
             }
-            localupdateconfigurations(configurations, isCancelled ? .cancelled : .failure)
+            saved = saved && update.persistenceSucceeded
+            let result: StreamingProcessOutcome = isCancelled ? .cancelled : (saved ? outcome : .failure)
+            completeExecution()
+            isFinished = true
+            SharedReference.shared.executionFinalizationInProgress = false
+            localupdateconfigurations(configurations, result)
+            if result == .success {
+                localnoestprogressdetails?.executeAllTasksNoEstimationComplete()
+            }
+            SharedReference.shared.finishExternalExecution(success: result == .success)
         }
+    }
+
+    private func finishFailedExecution() {
+        finalize(isCancelled ? .cancelled : .failure)
+    }
+
+    private func logDetails(_ output: [String]?) {
+        guard SharedReference.shared.saveactualsynclogdata else { return }
+        detailLogTasks.append(Task {
+            await ActorLogToFile.shared.logOutput("rsync", output)
+        })
     }
 
     private func startexecution() {
@@ -77,57 +114,57 @@ final class Execute {
         streamingHandlers = CreateStreamingHandlers().createResultHandlers(
             fileHandler: localfileHandler,
             processTermination: { output, hiddenID, outcome in
+                self.logDetails(output)
                 guard !self.isCancelled, outcome == .success else {
                     self.finishFailedExecution()
                     return
                 }
                 self.processTermination(stringoutputfromrsync: output, hiddenID)
-                if SharedReference.shared.saveactualsynclogdata {
-                    Task {
-                        Logger.process.debugMessageOnly("Execute: LOGGING details to logfile")
-                        await ActorLogToFile.shared.logOutput("rsync", output)
-                    }
-                }
             }
         )
 
         if let localhiddenID = stackoftasks?.removeFirst() {
             // For display progress of synchronization of correct task
             localprogressdetails?.hiddenIDatwork = localhiddenID
-            if let config = getConfig(localhiddenID) {
-                if let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: false,
-                                                                                             forDisplay: false) {
-                    guard let streamingHandlers else { return }
-                    let process = RsyncProcessStreaming.RsyncProcess(
-                        arguments: arguments,
-                        hiddenID: config.hiddenID,
-                        handlers: streamingHandlers,
-                        useFileHandler: true
-                    )
-                    // Must check valid rsync exists
-                    guard SharedReference.shared.norsync == false else { return }
-                    guard config.task != SharedReference.shared.halted else { return }
+            if let config = getConfig(localhiddenID), let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: false,
+                                                                                                                                forDisplay: false) {
+                guard let streamingHandlers else {
+                    finishFailedExecution()
+                    return
+                }
+                let process = RsyncProcessStreaming.RsyncProcess(
+                    arguments: arguments,
+                    hiddenID: config.hiddenID,
+                    handlers: streamingHandlers,
+                    useFileHandler: true
+                )
+                // Must check valid rsync exists
+                guard SharedReference.shared.norsync == false, config.task != SharedReference.shared.halted else {
+                    finishFailedExecution()
+                    return
+                }
 
-                    if SharedReference.shared.validatearguments {
-                        do {
-                            try ValidateArguments().validate(config: config, arguments: arguments)
-                        } catch let err {
-                            let error = err
-                            SharedReference.shared.errorobject?.alert(error: error)
-                            finishFailedExecution()
-                            return
-                        }
-                    }
-
+                if SharedReference.shared.validatearguments {
                     do {
-                        try process.executeProcess()
-                        activeStreamingProcess = process
+                        try ValidateArguments().validate(config: config, arguments: arguments)
                     } catch let err {
                         let error = err
                         SharedReference.shared.errorobject?.alert(error: error)
                         finishFailedExecution()
+                        return
                     }
                 }
+
+                do {
+                    try process.executeProcess()
+                    activeStreamingProcess = process
+                } catch let err {
+                    let error = err
+                    SharedReference.shared.errorobject?.alert(error: error)
+                    finishFailedExecution()
+                }
+            } else {
+                finishFailedExecution()
             }
         }
     }
@@ -137,6 +174,7 @@ final class Execute {
         streamingHandlers = CreateStreamingHandlers().createResultHandlers(
             fileHandler: localfileHandler,
             processTermination: { output, hiddenID, outcome in
+                self.logDetails(output)
                 guard !self.isCancelled, outcome == .success else {
                     self.finishFailedExecution()
                     return
@@ -145,43 +183,46 @@ final class Execute {
             }
         )
 
-        if let localhiddenID = stackoftasks?.removeFirst() {
-            if let config = getConfig(localhiddenID) {
-                if let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: false,
-                                                                                             forDisplay: false) {
-                    // Must check valid rsync exists
-                    guard SharedReference.shared.norsync == false else { return }
-                    guard config.task != SharedReference.shared.halted else { return }
+        if let localhiddenID = stackoftasks?.removeFirst(), let config = getConfig(localhiddenID), let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: false,
+                                                                                                                                                                             forDisplay: false) {
+            // Must check valid rsync exists
+            guard SharedReference.shared.norsync == false, config.task != SharedReference.shared.halted else {
+                finishFailedExecution()
+                return
+            }
 
-                    if SharedReference.shared.validatearguments {
-                        do {
-                            try ValidateArguments().validate(config: config, arguments: arguments)
-                        } catch let err {
-                            let error = err
-                            SharedReference.shared.errorobject?.alert(error: error)
-                            finishFailedExecution()
-                            return
-                        }
-                    }
-                    guard let streamingHandlers else { return }
-
-                    let process = RsyncProcessStreaming.RsyncProcess(
-                        arguments: arguments,
-                        hiddenID: config.hiddenID,
-                        handlers: streamingHandlers,
-                        useFileHandler: true
-                    )
-
-                    do {
-                        try process.executeProcess()
-                        activeStreamingProcess = process
-                    } catch let err {
-                        let error = err
-                        SharedReference.shared.errorobject?.alert(error: error)
-                        finishFailedExecution()
-                    }
+            if SharedReference.shared.validatearguments {
+                do {
+                    try ValidateArguments().validate(config: config, arguments: arguments)
+                } catch let err {
+                    let error = err
+                    SharedReference.shared.errorobject?.alert(error: error)
+                    finishFailedExecution()
+                    return
                 }
             }
+            guard let streamingHandlers else {
+                finishFailedExecution()
+                return
+            }
+
+            let process = RsyncProcessStreaming.RsyncProcess(
+                arguments: arguments,
+                hiddenID: config.hiddenID,
+                handlers: streamingHandlers,
+                useFileHandler: true
+            )
+
+            do {
+                try process.executeProcess()
+                activeStreamingProcess = process
+            } catch let err {
+                let error = err
+                SharedReference.shared.errorobject?.alert(error: error)
+                finishFailedExecution()
+            }
+        } else {
+            finishFailedExecution()
         }
     }
 
@@ -210,7 +251,11 @@ final class Execute {
                               progressdetails: progressdetails,
                               fileHandler: fileHandler,
                               updateconfigurations: updateconfigurations)
-        guard !(execute.stackoftasks?.isEmpty ?? true) else { return execute }
+        SharedReference.shared.executionFinalizationInProgress = true
+        guard !(execute.stackoftasks?.isEmpty ?? true) else {
+            execute.finalize(.success)
+            return execute
+        }
         Logger.process.debugMessageOnly("Execute: START EXECUTION")
         execute.startexecution()
         return execute
@@ -228,6 +273,11 @@ final class Execute {
                               noestprogressdetails: noestprogressdetails,
                               fileHandler: fileHandler,
                               updateconfigurations: updateconfigurations)
+        SharedReference.shared.executionFinalizationInProgress = true
+        guard !(execute.stackoftasks?.isEmpty ?? true) else {
+            execute.finalize(.success)
+            return execute
+        }
         execute.startexecution_noestimate()
         return execute
     }
@@ -275,7 +325,10 @@ final class Execute {
 
 extension Execute {
     private func processTermination(stringoutputfromrsync: [String]?, _ hiddenID: Int?) {
-        guard let hiddenID else { return }
+        guard let hiddenID else {
+            finishFailedExecution()
+            return
+        }
 
         // Log records
         // If snahost task the snapshotnum is increased when updating the configuration.
@@ -306,25 +359,7 @@ extension Execute {
         }
 
         guard !(stackoftasks?.isEmpty ?? true) else {
-            Task { [self] in
-                defer {
-                    completeExecution()
-                }
-
-                let update = await Logging.create(profile: structprofile,
-                                                  configurations: localconfigurations)
-                let updateconfigurations = await update.setCurrentDateOnConfiguration(configrecords: configrecords)
-                // Send date stamped configurations back to caller
-                localupdateconfigurations(updateconfigurations, isCancelled ? .cancelled : .success)
-
-                Logger.process.debugMessageOnly("Execute: EXECUTION is completed")
-                guard SharedReference.shared.addsummarylogrecord else { return }
-                // Update logrecords
-                do {
-                    try await update.addLogToPermanentStore(scheduleRecords: schedulerecords)
-                } catch { return }
-                // If logging details to file it must be here
-            }
+            finalize(.success)
             return
         }
         // Execute next task
@@ -338,7 +373,10 @@ extension Execute {
         // When creating the logrecord, decrease the snapshotum by 1
 
         var suboutput: [String]?
-        guard let hiddenID else { return }
+        guard let hiddenID else {
+            finishFailedExecution()
+            return
+        }
 
         let element = ScheduleLogData(hiddenID: hiddenID, stats: Date().en_string_from_date())
         configrecords.append(element)
@@ -361,24 +399,7 @@ extension Execute {
             }
 
             guard !(stackoftasks?.isEmpty ?? true) else {
-                Task { [self] in
-                    defer {
-                        completeExecution()
-                    }
-
-                    let update = await Logging.create(profile: structprofile,
-                                                      configurations: localconfigurations)
-                    let updateconfigurations = await update.setCurrentDateOnConfiguration(configrecords: configrecords)
-                    // Send date stamped configurations back to caller
-                    localupdateconfigurations(updateconfigurations, isCancelled ? .cancelled : .success)
-                    localnoestprogressdetails?.executeAllTasksNoEstimationComplete()
-                    Logger.process.debugMessageOnly("Execute: execution is completed")
-                    guard SharedReference.shared.addsummarylogrecord else { return }
-                    // Update logrecords
-                    do {
-                        try await update.addLogToPermanentStore(scheduleRecords: schedulerecords)
-                    } catch { return }
-                }
+                finalize(.success)
                 return
             }
             // Execute next task

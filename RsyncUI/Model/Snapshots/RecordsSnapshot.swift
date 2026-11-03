@@ -18,17 +18,12 @@ final class RecordsSnapshot {
         if let logrecords = localrecords[0].logrecords {
             data = logrecords.map { record in
                 var datestring: String?
-                var date: Date?
-                if let stringdate = record.dateExecuted {
-                    if stringdate.isEmpty == false {
-                        datestring = stringdate.en_date_from_string().localized_string_from_date()
-                        date = stringdate.en_date_from_string()
-                    }
+                if let stringdate = record.dateExecuted, stringdate.isEmpty == false {
+                    datestring = stringdate.en_date_from_string().localized_string_from_date()
                 }
                 return LogRecordSnapshot(
                     // Pick up the id from the log record itself.
                     idlogrecord: record.id,
-                    date: date ?? Date(),
                     dateExecuted: datestring ?? "",
                     resultExecuted: record.resultExecuted ?? ""
                 )

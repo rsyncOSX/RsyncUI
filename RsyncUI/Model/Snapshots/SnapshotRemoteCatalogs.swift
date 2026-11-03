@@ -14,8 +14,9 @@ final class SnapshotRemoteCatalogs {
     var mysnapshotdata: ObservableSnapshotData?
     var catalogsanddates: [SnapshotFolder]?
 
-    // Streaming strong references
+    /// Streaming strong references
     private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
+    // periphery:ignore - Retains the process while its callbacks use weak self; released on termination.
     private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
 
     func getremotecataloginfo(_ config: SynchronizeConfiguration) {
@@ -27,8 +28,7 @@ final class SnapshotRemoteCatalogs {
         )
 
         let arguments = ArgumentsSnapshotRemoteCatalogs(config: config).remotefilelistarguments()
-        guard let arguments else { return }
-        guard let streamingHandlers else { return }
+        guard let arguments, let streamingHandlers else { return }
 
         let process = RsyncProcessStreaming.RsyncProcess(
             arguments: arguments,

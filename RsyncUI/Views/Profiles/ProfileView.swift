@@ -18,7 +18,7 @@ struct ProfileView: View {
 
     @State private var allconfigurations: [SynchronizeConfiguration] = []
 
-    @State private var confirmdelete: Bool = false
+    @State private var pendingDeletion: ProfilesnamesRecord?
     @State private var showAddProfileSheet: Bool = false
     @FocusState private var profileTableIsFocused: Bool
 
@@ -63,10 +63,10 @@ struct ProfileView: View {
                 .help("Add Profile")
             }
         }
-        .confirmationDialog("Delete profile: \(selectedProfile?.profilename ?? "")?",
-                            isPresented: $confirmdelete) {
+        .confirmationDialog("Delete profile: \(pendingDeletion?.profilename ?? "")?",
+                            item: $pendingDeletion) { profile in
             Button("Delete", role: .destructive) {
-                deleteProfile()
+                deleteProfile(profile)
             }
         }
         .sheet(isPresented: $showAddProfileSheet) {
@@ -89,7 +89,7 @@ extension ProfileView {
 
     private func requestProfileDeletion() {
         guard selectedProfile != nil else { return }
-        confirmdelete = true
+        pendingDeletion = selectedProfile
     }
 
     func createProfile() {
@@ -107,17 +107,15 @@ extension ProfileView {
         }
     }
 
-    func deleteProfile() {
-        if let profile = selectedProfile {
-            if newdata.deleteProfile(profile.profilename) {
-                if selectedprofileID == profile.id {
-                    selectedprofileID = nil
-                }
-                // Remove the profile record
-                if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == profile.id }) {
-                    rsyncUIdata.validprofiles.remove(at: index)
-                    uuidprofile = nil
-                }
+    func deleteProfile(_ profile: ProfilesnamesRecord) {
+        if newdata.deleteProfile(profile.profilename) {
+            if selectedprofileID == profile.id {
+                selectedprofileID = nil
+            }
+            // Remove the profile record
+            if let index = rsyncUIdata.validprofiles.firstIndex(where: { $0.id == profile.id }) {
+                rsyncUIdata.validprofiles.remove(at: index)
+                uuidprofile = nil
             }
         }
     }
@@ -140,8 +138,7 @@ struct AddProfileSheet: View {
             Text("Add Profile")
                 .font(.title2)
 
-            TextField("Profile Name", text: $profileName)
-                .textFieldStyle(.roundedBorder)
+            profileNameField
                 .frame(width: 300)
 
             if showError {
@@ -164,6 +161,11 @@ struct AddProfileSheet: View {
                 }
             }
         }
+    }
+
+    private var profileNameField: some View {
+        TextField("Profile Name", text: $profileName)
+            .modifier(AdaptiveRoundedTextFieldStyle())
     }
 
     private func addProfile() {

@@ -23,42 +23,48 @@ struct Sshsettings: View {
 
     var body: some View {
         Form {
-            Section(header: Text("Global ssh-keys")
-                .font(.title3)
-                .fontWeight(.bold)) {
-                    VStack(alignment: .leading) {
-                        ToggleViewDefault(text: "Public ssh-key is present",
-                                          binding: $localsshkeys)
-                            .disabled(true)
-                    }
+            Section {
+                VStack(alignment: .leading) {
+                    ToggleViewDefault(text: "Public ssh-key is present",
+                                      binding: $localsshkeys)
+                        .disabled(true)
                 }
+            } header: {
+                Text("Global ssh-keys")
+                    .font(.title3)
+                    .fontWeight(.bold)
+            }
 
-            Section(header: Text("Global ssh-keypath and ssh-port")
-                .font(.title3)
-                .fontWeight(.bold)) {
-                    setsshpath(path: $sshsettings.sshkeypathandidentityfile,
-                               placeholder: "Set SSH key path and identity file",
-                               selectedValue: sshsettings.sshkeypathandidentityfile)
-                    sshportfield(port: $sshsettings.sshportnumber,
-                                 placeholder: "Set SSH port",
-                                 selectedValue: sshsettings.sshportnumber)
-                }
+            Section {
+                setsshpath(path: $sshsettings.sshkeypathandidentityfile,
+                           placeholder: "Set SSH key path and identity file",
+                           selectedValue: sshsettings.sshkeypathandidentityfile)
+                sshportfield(port: $sshsettings.sshportnumber,
+                             placeholder: "Set SSH port",
+                             selectedValue: sshsettings.sshportnumber)
+            } header: {
+                Text("Global ssh-keypath and ssh-port")
+                    .font(.title3)
+                    .fontWeight(.bold)
+            }
 
             if localsshkeys == false {
-                Section(header: Text("SSH keys")
-                    .font(.title3)
-                    .fontWeight(.bold)) {
-                        HStack {
-                            Button {
-                                createKeys()
-                            } label: {
-                                Label("Create keys", systemImage: "key")
-                                    .labelStyle(.iconOnly)
-                            }
-                            .help("Create keys")
-                            .buttonStyle(.borderedProminent)
+                Section {
+                    HStack {
+                        Button {
+                            createKeys()
+                        } label: {
+                            Label("Create keys", systemImage: "key")
+                                .labelStyle(.iconOnly)
                         }
+                        .help("Create keys")
+                        .buttonStyle(.borderedProminent)
                     }
+                } header: {
+                    Text("SSH keys")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                }
             }
 
             if showsshkeyiscreated {

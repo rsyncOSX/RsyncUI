@@ -85,9 +85,9 @@ extension QuicktaskView {
             propagateError(error: Validatedrsync.norsync)
             return
         }
-        guard config.task != SharedReference.shared.halted else { return }
-        guard let arguments = ArgumentsSynchronize(config: config)
-            .argumentsSynchronize(dryRun: dryrun, forDisplay: false) else { return }
+        guard config.task != SharedReference.shared.halted,
+              let arguments = ArgumentsSynchronize(config: config)
+                  .argumentsSynchronize(dryRun: dryrun, forDisplay: false) else { return }
 
         let handlers = CreateStreamingHandlers().createResultHandlers(
             fileHandler: fileHandler,

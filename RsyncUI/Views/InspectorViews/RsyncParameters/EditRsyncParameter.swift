@@ -19,11 +19,11 @@ struct EditRsyncParameter: View {
                     .tag($0)
                 }
             }
-            .pickerStyle(MenuPickerStyle())
+            .pickerStyle(.menu)
             .frame(width: 120)
 
             TextField("", text: myvalue)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .modifier(AdaptiveRoundedTextFieldStyle())
                 .frame(width: mywidth)
                 .lineLimit(1)
                 .onChange(of: selectedparameter) {

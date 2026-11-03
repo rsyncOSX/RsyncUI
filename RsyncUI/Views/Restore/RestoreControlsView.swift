@@ -26,7 +26,7 @@ struct RestoreControlsView: View {
 
             HStack {
                 TextField("Destination folder", text: $restore.pathforrestore)
-                    .textFieldStyle(.roundedBorder)
+                    .modifier(AdaptiveRoundedTextFieldStyle())
                 Button("Choose Folder…") { choosingDestination = true }
             }
             .fileImporter(isPresented: $choosingDestination, allowedContentTypes: [.folder]) { result in

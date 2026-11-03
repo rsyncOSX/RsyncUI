@@ -21,13 +21,15 @@ struct Environmentsettings: View {
 
     var body: some View {
         Form {
-            Section(header: Text("Rsync environment")
-                .font(.title3)
-                .fontWeight(.bold)) {
-                    setenvironment
+            Section {
+                setenvironment
 
-                    setenvironmenvariable
-                }
+                setenvironmenvariable
+            } header: {
+                Text("Rsync environment")
+                    .font(.title3)
+                    .fontWeight(.bold)
+            }
         }
         .formStyle(.grouped)
     }

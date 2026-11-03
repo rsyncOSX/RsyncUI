@@ -22,11 +22,9 @@ struct CreateOutputforView {
     /// Show filelist for Restore, the TrimOutputForRestore prepares list
     func createoutputforrestore(_ stringoutputfromrsync: [String]?) async -> [RsyncOutputData] {
         Logger.process.debugThreadOnly("CreateOutputforView: createoutputforrestore()")
-        if let stringoutputfromrsync {
-            if let trimmeddata = await TrimOutputForRestore(stringoutputfromrsync).trimmeddata {
-                return trimmeddata.map { filename in
-                    RsyncOutputData(record: filename)
-                }
+        if let stringoutputfromrsync, let trimmeddata = await TrimOutputForRestore(stringoutputfromrsync).trimmeddata {
+            return trimmeddata.map { filename in
+                RsyncOutputData(record: filename)
             }
         }
         return []

@@ -156,8 +156,7 @@ open class TCPServer: Socket {
         var port: Int32 = 0
         let clientfd: Int32 = c_ytcpsocket_accept(serferfd, ip: &buff, port: &port, timeout: timeout)
 
-        guard clientfd >= 0 else { return nil }
-        guard let address = String(cString: buff, encoding: String.Encoding.utf8) else { return nil }
+        guard clientfd >= 0, let address = String(cString: buff, encoding: String.Encoding.utf8) else { return nil }
 
         let client = TCPClient(address: address, port: port)
         client.fd = clientfd

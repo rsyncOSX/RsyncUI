@@ -117,8 +117,7 @@ struct RestoreTableView: View {
                restore.restorefilelist.count > 0,
                restore.filestorestore.isEmpty == false {
                 Button {
-                    guard SharedReference.shared.process == nil else { return }
-                    guard restore.selectedconfig != nil else { return }
+                    guard SharedReference.shared.process == nil, restore.selectedconfig != nil else { return }
                     restore.presentrestorelist = true
                 } label: {
                     Label("Output from rsync", systemImage: "doc.plaintext")
@@ -171,8 +170,7 @@ extension RestoreTableView {
     func getListOfFilesForRestore() {
         guard SharedReference.shared.process == nil, !gettingfilelist, !restore.restorefilesinprogress else { return }
         if let config = restore.selectedconfig {
-            guard config.task != SharedReference.shared.syncremote else { return }
-            guard config.offsiteServer.isEmpty == false else { return }
+            guard config.task != SharedReference.shared.syncremote, config.offsiteServer.isEmpty == false else { return }
             gettingfilelist = true
             getFileList()
         }

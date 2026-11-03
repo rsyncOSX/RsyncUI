@@ -12,7 +12,7 @@ struct SnapshotListView: View {
     @Binding var filterstring: String
 
     @Binding var selectedconfig: SynchronizeConfiguration?
-    @State private var confirmdelete: Bool = false
+    @State private var pendingDeletion: (ids: Set<LogRecordSnapshot.ID>, configuration: SynchronizeConfiguration)?
     @FocusState private var snapshotTableIsFocused: Bool
 
     var body: some View {
@@ -57,17 +57,16 @@ struct SnapshotListView: View {
                 snapshotTableIsFocused = true
             }
         }
-        .confirmationDialog(snapshotdata.snapshotuuidsfordelete.count == 1 ? "Delete 1 snapshot" :
-            "Delete \(snapshotdata.snapshotuuidsfordelete.count) snapshots",
-            isPresented: $confirmdelete) {
+        .confirmationDialog(pendingDeletion?.ids.count == 1 ? "Delete 1 snapshot" :
+            "Delete \(pendingDeletion?.ids.count ?? 0) snapshots",
+            item: $pendingDeletion) { request in
                 Button("Delete", role: .destructive) {
-                    delete()
-                    confirmdelete = false
+                    delete(request)
                 }
         }
         .onDeleteCommand {
-            guard snapshotdata.snapshotuuidsfordelete.isEmpty == false else { return }
-            confirmdelete = true
+            guard snapshotdata.snapshotuuidsfordelete.isEmpty == false, let selectedconfig else { return }
+            pendingDeletion = (snapshotdata.snapshotuuidsfordelete, selectedconfig)
         }
         .overlay {
             if logrecords.count == 0,
@@ -94,13 +93,12 @@ struct SnapshotListView: View {
         }
     }
 
-    func delete() {
-        if let config = selectedconfig {
-            snapshotdata.delete = DeleteSnapshots(config: config,
-                                                  snapshotdata: snapshotdata,
-                                                  logrecordssnapshot: snapshotdata.getsnapshotdata())
-            snapshotdata.inprogressofdelete = true
-            snapshotdata.delete?.deletesnapshots()
-        }
+    private func delete(_ request: (ids: Set<LogRecordSnapshot.ID>, configuration: SynchronizeConfiguration)) {
+        snapshotdata.snapshotuuidsfordelete = request.ids
+        snapshotdata.delete = DeleteSnapshots(config: request.configuration,
+                                              snapshotdata: snapshotdata,
+                                              logrecordssnapshot: snapshotdata.getsnapshotdata())
+        snapshotdata.inprogressofdelete = true
+        snapshotdata.delete?.deletesnapshots()
     }
 }

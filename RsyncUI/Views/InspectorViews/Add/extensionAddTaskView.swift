@@ -9,8 +9,8 @@ import SwiftUI
 
 // MARK: - Configuration Actions
 
+@MainActor
 extension AddTaskView {
-    @MainActor
     func addConfig() async -> Bool {
         guard requiredFieldsAreComplete else { return false }
         let profile = rsyncUIdata.profile
@@ -24,7 +24,6 @@ extension AddTaskView {
         return (rsyncUIdata.configurations?.count ?? 0) > beforeCount
     }
 
-    @MainActor
     func validateAndUpdate() async -> Bool {
         let profile = rsyncUIdata.profile
         let selectedHiddenID = newdata.selectedconfig?.hiddenID
@@ -47,14 +46,5 @@ extension AddTaskView {
             }
         }
         .help("Update task")
-    }
-
-    var saveURLSection: some View {
-        Button("Save URL for RsyncUI Widget", systemImage: "square.and.arrow.down") {
-            let data = WidgetURLstrings(urletimate: stringestimate)
-            Task { @MainActor in
-                await WriteWidgetsURLStringsJSON.write(data)
-            }
-        }
     }
 }

@@ -3,6 +3,7 @@
 //  RsyncUI
 //
 
+import AppKit
 import Foundation
 import Observation
 import OSLog
@@ -26,6 +27,25 @@ final class SharedReference {
     @MainActor static let shared = SharedReference()
 
     private init() {}
+
+    /// Armed only for an accepted external load-and-estimate request.
+    @ObservationIgnored var quitAfterExternalExecution = false
+    /// Includes async log persistence, after the rsync process has exited.
+    @ObservationIgnored var executionFinalizationInProgress = false
+
+    var showExternalExecutionCompletion = false
+
+    @MainActor
+    func finishExternalExecution(
+        success: Bool,
+        presentCompletion: () -> Void = { SharedReference.shared.showExternalExecutionCompletion = true }
+    ) {
+        let shouldQuit = quitAfterExternalExecution && success
+        quitAfterExternalExecution = false
+        if shouldQuit {
+            presentCompletion()
+        }
+    }
 
     /// Version 3.x of rsync
     @ObservationIgnored var rsyncversion3: Bool = false

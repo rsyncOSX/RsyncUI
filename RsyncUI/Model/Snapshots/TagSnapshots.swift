@@ -29,8 +29,8 @@ final class TagSnapshots {
         if let datesnapshot = logrecordssnapshot?[index].dateExecuted.localized_date_from_string() {
             if datecomponentsfromdate(localizeddate: datesnapshot).weekOfYear ==
                 datecomponentsfromdate(localizeddate: Date()).weekOfYear,
-                datecomponentsfromdate(localizeddate: datesnapshot).year ==
-                datecomponentsfromdate(localizeddate: Date()).year {
+               datecomponentsfromdate(localizeddate: datesnapshot).year ==
+               datecomponentsfromdate(localizeddate: Date()).year {
                 if logrecordssnapshot?[index].resultExecuted != "no record" {
                     logrecordssnapshot?[index].period = "Keep" + " " + "this week"
                 }

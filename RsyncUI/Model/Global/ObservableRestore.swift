@@ -79,7 +79,7 @@ final class ObservableRestore {
         let source = config.offsiteServer.isEmpty ? config.offsiteCatalog :
             "\(config.offsiteUsername)@\(config.offsiteServer):\(config.offsiteCatalog)"
         let snapshot = config.task == SharedReference.shared.snapshot ?
-        "\nSnapshot: \(Swift.max((config.snapshotnum ?? 1) - 1, 0))" : ""
+            String(localized: "\nSnapshot: \(Swift.max((config.snapshotnum ?? 1) - 1, 0))") : ""
         let items = filestorestore == "./." ? String(localized: "Everything") :
             (filestorestore.isEmpty ? String(localized: "No item selected") : filestorestore)
         let destination = (try? Self.validatedDestination(pathforrestore)) ?? String(localized: "Choose a destination folder")
@@ -140,8 +140,8 @@ final class ObservableRestore {
         let destination = try Self.validatedDestination(pathforrestore)
         guard !filestorestore.isEmpty, let selectedconfig,
               selectedconfig.task != SharedReference.shared.syncremote,
-              selectedconfig.task != SharedReference.shared.halted else { throw RestoreError.notvalidrestore }
-        guard let arguments = computerestorearguments(forDisplay: forDisplay, destination: destination) else {
+              selectedconfig.task != SharedReference.shared.halted,
+              let arguments = computerestorearguments(forDisplay: forDisplay, destination: destination) else {
             throw RestoreError.notvalidrestore
         }
         return arguments

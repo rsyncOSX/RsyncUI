@@ -8,29 +8,6 @@
 import Foundation
 import SwiftUI
 
-struct FixedTag: ViewModifier {
-    var width: CGFloat = 0
-    var alignment: Alignment = .leading
-    func body(content: Content) -> some View {
-        content
-            .frame(
-                minWidth: width,
-                idealWidth: width,
-                maxWidth: width,
-                minHeight: nil,
-                idealHeight: nil,
-                maxHeight: nil,
-                alignment: alignment
-            )
-            .lineLimit(1)
-    }
-
-    init(_ setwidth: CGFloat, _ setalignment: Alignment) {
-        width = setwidth
-        alignment = setalignment
-    }
-}
-
 struct ToggleViewDefault: View {
     @Environment(\.colorScheme) var colorScheme
     private var mytext: LocalizedStringKey?
@@ -74,7 +51,7 @@ struct DismissafterMessageView: View {
                     .minimumScaleFactor(0.5)
             }
             .frame(height: 30, alignment: .center)
-            .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 4))
+            .background { RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 4) }
             .task {
                 try? await Task.sleep(seconds: dismissafter)
                 showtext = false
@@ -107,7 +84,7 @@ struct MessageView: View {
                 .minimumScaleFactor(0.5)
         }
         .frame(height: 30, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1))
+        .background { RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1) }
         .padding()
     }
 

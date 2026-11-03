@@ -12,7 +12,6 @@ import SwiftUI
 enum SheetType: Identifiable {
     case importview
     case exportview
-    case scheduledtasksview
 
     var id: Int {
         hashValue
@@ -35,7 +34,6 @@ struct TasksView: View {
     // The object holds the progressdata for the current estimated task
     // which is executed. Data for progressview.
     @Bindable var progressdetails: ProgressDetails
-    @Bindable var schedules: ObservableSchedules
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     /// Navigation path for executetasks
     @Binding var executetaskpath: [Tasks]
@@ -124,15 +122,6 @@ struct TasksView: View {
                 ImportView(rsyncUIdata: rsyncUIdata,
                            activeSheet: $activeSheet,
                            maxhiddenID: MaxhiddenID().computemaxhiddenID(rsyncUIdata.configurations))
-                    .onDisappear {
-                        activeSheet = nil
-                    }
-            case .scheduledtasksview:
-                CalendarMonthView(rsyncUIdata: rsyncUIdata,
-                                  schedules: schedules,
-                                  selectedprofileID: $selectedprofileID,
-                                  activeSheet: $activeSheet)
-                    .frame(minWidth: 1100, idealWidth: 1200, minHeight: 550)
                     .onDisappear {
                         activeSheet = nil
                     }

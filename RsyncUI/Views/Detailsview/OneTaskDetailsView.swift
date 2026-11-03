@@ -44,10 +44,9 @@ struct OneTaskDetailsView: View {
                         }
                     }
                     .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                    )
+                    .overlay { RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                    }
                 }
             }
         }
@@ -74,11 +73,7 @@ struct OneTaskDetailsView: View {
             )
 
             // Must check valid rsync exists
-            guard SharedReference.shared.norsync == false else { return }
-            guard selectedconfig?.task != SharedReference.shared.halted else { return }
-            guard let streamingHandlers else { return }
-            guard let arguments else { return }
-            guard let hiddenID = selectedconfig?.hiddenID else { return }
+            guard SharedReference.shared.norsync == false, selectedconfig?.task != SharedReference.shared.halted, let streamingHandlers, let arguments, let hiddenID = selectedconfig?.hiddenID else { return }
 
             let process = RsyncProcessStreaming.RsyncProcess(
                 arguments: arguments,

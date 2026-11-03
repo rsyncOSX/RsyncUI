@@ -281,14 +281,21 @@ struct LogStatsChartView: View {
 }
 
 private struct ConfigurationKey: Equatable {
+    // periphery:ignore - Used by synthesized Equatable for chart task invalidation.
     let id: SynchronizeConfiguration.ID
+    // periphery:ignore - Used by synthesized Equatable for chart task invalidation.
     let hiddenID: Int
 }
 
 private struct ChartRefreshKey: Equatable {
+    // periphery:ignore - Used by synthesized Equatable for chart task invalidation.
     let profile: String?
+    // periphery:ignore - Used by synthesized Equatable for chart task invalidation.
     let selectedConfigurationID: SynchronizeConfiguration.ID?
+    // periphery:ignore - Used by synthesized Equatable for chart task invalidation.
     let metric: LogChartMetric
+    // periphery:ignore - Used by synthesized Equatable for chart task invalidation.
     let limit: LogChartLimit
+    // periphery:ignore - Used by synthesized Equatable for chart task invalidation.
     let configurations: [ConfigurationKey]
 }

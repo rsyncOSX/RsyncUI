@@ -11,7 +11,7 @@ struct ListofTasksAddView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
 
-    @State private var confirmdelete: Bool = false
+    @State private var pendingDeletion: Set<SynchronizeConfiguration.ID>?
     @State var confirmcopyandpaste: Bool = false
     @State var newdata = ObservableAddConfigurations()
     @FocusState private var configurationsTableIsFocused: Bool
@@ -26,17 +26,16 @@ struct ListofTasksAddView: View {
                     configurationsTableIsFocused = true
                 }
             }
-            .confirmationDialog(selecteduuids.count == 1 ? "Delete 1 configuration" :
-                "Delete \(selecteduuids.count) configurations",
-                isPresented: $confirmdelete) {
+            .confirmationDialog(pendingDeletion?.count == 1 ? "Delete 1 configuration" :
+                "Delete \(pendingDeletion?.count ?? 0) configurations",
+                item: $pendingDeletion) { ids in
                     Button("Delete", role: .destructive) {
-                        delete()
-                        confirmdelete = false
+                        delete(ids)
                     }
             }
             .onDeleteCommand {
                 guard selecteduuids.isEmpty == false else { return }
-                confirmdelete = true
+                pendingDeletion = selecteduuids
             }
             .copyable(copyitems.filter { selecteduuids.contains($0.id) })
             .pasteDestination(for: CopyItem.self) { handlePaste($0) }
@@ -55,13 +54,13 @@ struct ListofTasksAddView: View {
         return count == 1 ? String(localized: "Copy 1 configuration") : String(localized: "Copy \(count) configurations")
     }
 
-    func delete() {
+    func delete(_ ids: Set<SynchronizeConfiguration.ID>) {
         if let configurations = rsyncUIdata.configurations {
             Task { @MainActor in
                 let deleteconfigurations =
                     UpdateConfigurations(profile: rsyncUIdata.profile,
                                          configurations: configurations)
-                await deleteconfigurations.deleteconfigurations(selecteduuids)
+                await deleteconfigurations.deleteconfigurations(ids)
                 selecteduuids.removeAll()
                 rsyncUIdata.configurations = deleteconfigurations.configurations
             }

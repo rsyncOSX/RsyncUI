@@ -9,6 +9,28 @@ import OSLog
 typealias LogStore = [LogRecords]
 
 enum LogStoreService {
+    @MainActor
+    static func latestExecutions(limit: Int = 20) async -> [RecentLoggedExecution] {
+        let path = Homepath()
+        guard let basePath = path.fullpathmacserial else { return [] }
+        let baseURL = URL(fileURLWithPath: basePath)
+        let profiles: [String?] = [nil] + path.getFullPathMacSerialCatalogsAsStringNames().map { Optional($0) }
+        var executions: [RecentLoggedExecution] = []
+        for profile in profiles {
+            let directory = profile.map { baseURL.appendingPathComponent($0) } ?? baseURL
+            let fileURL = directory.appendingPathComponent(SharedConstants().filenamelogrecordsjson)
+            guard let records = try? await SharedJSONStorageReader.shared.decodeArray(
+                DecodeLogRecords.self, from: fileURL
+            ) else { continue }
+            for record in records.map({ LogRecords($0) }) {
+                executions.append(contentsOf: (record.logrecords ?? []).map {
+                    RecentLoggedExecution(profile: profile ?? "Default", hiddenID: record.hiddenID, log: $0)
+                })
+            }
+        }
+        return Array(executions.sorted { $0.log.date > $1.log.date }.prefix(max(0, limit)))
+    }
+
     static func loadStore(
         profile: String?,
         configurations: [SynchronizeConfiguration]?

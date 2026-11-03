@@ -21,7 +21,7 @@ struct RsyncCommandView: View {
                         .tag($0)
                     }
                 }
-                .pickerStyle(RadioGroupPickerStyle())
+                .pickerStyle(.radioGroup)
                 .padding(10)
 
                 Picker("", selection: $otherselectedrsynccommand) {
@@ -29,7 +29,7 @@ struct RsyncCommandView: View {
                         .tag($0)
                     }
                 }
-                .pickerStyle(RadioGroupPickerStyle())
+                .pickerStyle(.radioGroup)
                 .padding(10)
             }
 
@@ -50,10 +50,9 @@ struct RsyncCommandView: View {
             .multilineTextAlignment(.leading)
             .frame(maxWidth: .infinity)
             .padding()
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(.blue, lineWidth: 1)
-            )
+            .overlay { RoundedRectangle(cornerRadius: 8)
+                .stroke(.blue, lineWidth: 1)
+            }
     }
 
     var commandstringrsync: String? {
@@ -68,10 +67,9 @@ struct RsyncCommandView: View {
             .multilineTextAlignment(.leading)
             .frame(maxWidth: .infinity)
             .padding()
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(.blue, lineWidth: 1)
-            )
+            .overlay { RoundedRectangle(cornerRadius: 8)
+                .stroke(.blue, lineWidth: 1)
+            }
     }
 
     var commandstringother: String {

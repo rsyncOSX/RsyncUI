@@ -13,13 +13,6 @@ extension TasksView {
     @ToolbarContentBuilder
     var taskviewtoolbarcontent: some ToolbarContent {
         ToolbarItem {
-            if GlobalTimer.shared.timerIsActive(),
-               columnVisibility == .detailOnly {
-                MessageView(mytext: GlobalTimer.shared.nextScheduleDate() ?? "", size: .caption2)
-            }
-        }
-
-        ToolbarItem {
             if columnVisibility == .detailOnly {
                 VStack {
                     if rsyncUIdata.validprofiles.isEmpty == false {
@@ -46,8 +39,7 @@ extension TasksView {
 
         ToolbarItemGroup(placement: .automatic) {
             Button {
-                guard SharedReference.shared.norsync == false else { return }
-                guard allTasksAreHalted() == false else { return }
+                guard SharedReference.shared.norsync == false, allTasksAreHalted() == false else { return }
                 // This only applies if one task is selected and that task is halted
                 // If more than one task is selected, any halted tasks are ruled out
                 if let selectedconfig {
@@ -67,8 +59,7 @@ extension TasksView {
             .help("Estimate (⌘E)")
 
             Button {
-                guard SharedReference.shared.norsync == false else { return }
-                guard allTasksAreHalted() == false else { return }
+                guard SharedReference.shared.norsync == false, allTasksAreHalted() == false else { return }
                 // This only applies if one task is selected and that task is halted
                 // If more than one task is selected, any halted tasks are ruled out
                 if let selectedconfig {
@@ -121,8 +112,7 @@ extension TasksView {
                 ToolbarItem {
                     Menu {
                         Button {
-                            guard selecteduuids.count > 0 else { return }
-                            guard allTasksAreHalted() == false else { return }
+                            guard selecteduuids.count > 0, allTasksAreHalted() == false else { return }
 
                             guard selecteduuids.count == 1 else {
                                 executetaskpath.append(Tasks(task: .summarizeddetailsview))
@@ -156,12 +146,6 @@ extension TasksView {
                             Label("Charts", systemImage: "chart.bar.fill")
                         }
                         .disabled(selecteduuids.count != 1 || selectedconfig?.task == SharedReference.shared.syncremote)
-
-                        Button {
-                            activeSheet = .scheduledtasksview
-                        } label: {
-                            Label("Schedule", systemImage: "calendar.circle.fill")
-                        }
 
                         Divider()
 

@@ -10,10 +10,11 @@ import OSLog
 
 @MainActor
 enum WriteLogRecordsJSON {
-    static func write(_ profile: String?, _ logrecords: [LogRecords]?) async {
-        guard let logrecords else { return }
+    @discardableResult
+    static func write(_ profile: String?, _ logrecords: [LogRecords]?) async -> Bool {
+        guard let logrecords else { return false }
         let path = Homepath()
-        guard let fullpathmacserial = path.fullpathmacserial else { return }
+        guard let fullpathmacserial = path.fullpathmacserial else { return false }
 
         // Build URL on main actor (fast)
         let base = URL(fileURLWithPath: fullpathmacserial)
@@ -26,11 +27,13 @@ enum WriteLogRecordsJSON {
 
         do {
             try await SharedJSONStorageWriter.shared.write(logrecords, to: fileURL)
+            return true
         } catch {
             path.propagateError(error: error)
             Logger.process.errorMessageOnly(
                 "WriteLogRecordsJSON: persist failed - \(error.localizedDescription)"
             )
+            return false
         }
     }
 }

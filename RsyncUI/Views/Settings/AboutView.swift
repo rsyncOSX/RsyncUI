@@ -33,28 +33,30 @@ struct AboutView: View {
 
     var body: some View {
         Form {
-            Section(header: Text("RsyncUI")
-                .font(.title3)
-                .fontWeight(.bold)) {
-                    appnamestring
+            Section {
+                appnamestring
 
-                    copyrightstring
+                copyrightstring
 
-                    HStack {
-                        VStack(alignment: .leading) {
-                            if let appIcon = NSImage(named: NSImage.applicationIconName) {
-                                Image(nsImage: appIcon)
-                                    .resizable()
-                                    .aspectRatio(1.0, contentMode: .fit)
-                                    .frame(width: 64, height: 64)
-                            }
+                HStack {
+                    VStack(alignment: .leading) {
+                        if let appIcon = NSImage(named: NSImage.applicationIconName) {
+                            Image(nsImage: appIcon)
+                                .resizable()
+                                .aspectRatio(1.0, contentMode: .fit)
+                                .frame(width: 64, height: 64)
                         }
-
-                        rsyncversionshortstring
                     }
 
-                    rsyncuiconfigpathpath
+                    rsyncversionshortstring
                 }
+
+                rsyncuiconfigpathpath
+            } header: {
+                Text("RsyncUI")
+                    .font(.title3)
+                    .fontWeight(.bold)
+            }
 
             Section {
                 HStack {

@@ -16,7 +16,7 @@ struct EditValueScheme: View {
 
     var body: some View {
         TextField("", text: myvalue, prompt: myprompt)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .modifier(AdaptiveRoundedTextFieldStyle())
             .frame(width: mywidth, alignment: .trailing)
             .lineLimit(1)
             .foregroundStyle(colorScheme == .dark ? .white : .black)

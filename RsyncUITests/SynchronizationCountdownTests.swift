@@ -1,5 +1,5 @@
-@testable import RsyncUI
 import Foundation
+@testable import RsyncUI
 import Testing
 
 @Suite("Deep-link synchronization countdown")

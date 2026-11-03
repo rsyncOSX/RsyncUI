@@ -10,13 +10,11 @@ struct LogEntry: Identifiable, Equatable {
     let date: Date
     let files: Int
     let transferredMB: Double
-    let seconds: Double
 
     init(date: Date, files: Int, transferredMB: Double, seconds: Double) {
         self.date = date
         self.files = files
         self.transferredMB = transferredMB
-        self.seconds = seconds
         id = "\(date.timeIntervalSinceReferenceDate)-\(files)-\(transferredMB)-\(seconds)"
     }
 }

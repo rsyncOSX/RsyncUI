@@ -2,12 +2,17 @@ import OSLog
 import SwiftUI
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {
-        true
+    func applicationShouldTerminate(_: NSApplication) -> NSApplication.TerminateReply {
+        // External runs must finish their log writes before the app can quit.
+        if SharedReference.shared.quitAfterExternalExecution,
+           SharedReference.shared.executionFinalizationInProgress {
+            return .terminateCancel
+        }
+        return .terminateNow
     }
 
-    func applicationWillTerminate(_: Notification) {
-        GlobalTimer.shared.invalidateAllSchedulesAndTimer()
+    func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {
+        true
     }
 }
 
@@ -34,6 +39,9 @@ struct RsyncUIApp: App {
                         }
                 }
                 .onDisappear {
+                    // An external run owns its shutdown until persistence finishes.
+                    guard !(SharedReference.shared.quitAfterExternalExecution &&
+                        SharedReference.shared.executionFinalizationInProgress) else { return }
                     // Quit the app when the main window is closed
                     performCleanupTask()
                     NSApplication.shared.terminate(nil)
@@ -82,7 +90,6 @@ struct RsyncUIApp: App {
 
     private func performCleanupTask() {
         Logger.process.debugMessageOnly("RsyncUIApp: performCleanupTask(), RsyncUI shutting down, doing clean up")
-        GlobalTimer.shared.invalidateAllSchedulesAndTimer()
         SharedReference.shared.checkeandterminateprocess()
     }
 }
