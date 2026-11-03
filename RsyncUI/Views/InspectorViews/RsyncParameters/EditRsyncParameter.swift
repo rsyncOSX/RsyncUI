@@ -49,13 +49,11 @@ struct EditRsyncParameter: View {
     private func parameter(_ value: String) -> String {
         if value.isEmpty {
             return "="
-        } else {
-            if let splitparameter = split(value) {
-                guard splitparameter.count > 1 else {
-                    return "="
-                }
-                return "=" + splitparameter[1]
+        } else if let splitparameter = split(value) {
+            guard splitparameter.count > 1 else {
+                return "="
             }
+            return "=" + splitparameter[1]
         }
         return ""
     }

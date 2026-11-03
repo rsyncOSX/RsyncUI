@@ -102,12 +102,10 @@ extension ExecuteEstTasksView {
         var adjustedselecteduuids: Set<SynchronizeConfiguration.ID>?
         if selecteduuids.count > 0 {
             adjustedselecteduuids = selecteduuids
-        } else {
-            if let estimatedlist = progressdetails.estimatedlist {
-                adjustedselecteduuids = Set<SynchronizeConfiguration.ID>()
-                for estimate in estimatedlist where estimate.datatosynchronize {
-                    adjustedselecteduuids?.insert(estimate.id)
-                }
+        } else if let estimatedlist = progressdetails.estimatedlist {
+            adjustedselecteduuids = Set<SynchronizeConfiguration.ID>()
+            for estimate in estimatedlist where estimate.datatosynchronize {
+                adjustedselecteduuids?.insert(estimate.id)
             }
         }
         guard (adjustedselecteduuids?.count ?? 0) > 0 else {

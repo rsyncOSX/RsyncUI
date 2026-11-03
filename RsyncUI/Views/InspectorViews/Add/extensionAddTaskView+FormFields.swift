@@ -107,10 +107,8 @@ extension AddTaskView {
             if !text.hasSuffix("/") {
                 text += "/"
             }
-        } else {
-            if text.hasSuffix("/") {
-                text.removeLast()
-            }
+        } else if text.hasSuffix("/") {
+            text.removeLast()
         }
 
         value.wrappedValue = text

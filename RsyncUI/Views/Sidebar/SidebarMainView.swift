@@ -196,11 +196,9 @@ struct SidebarMainView: View {
                    item == .restore {
                     return nil
                 }
-            } else {
-                if rsyncUIdata.oneormoresynchronizetasksisremoteOrsync == false,
-                   item == .restore {
-                    return nil
-                }
+            } else if rsyncUIdata.oneormoresynchronizetasksisremoteOrsync == false,
+                      item == .restore {
+                return nil
             }
 
             return item

@@ -53,7 +53,7 @@ struct ExternalExecutionCompletionView: View {
         }
         .task {
             do {
-                for remaining in (0..<10).reversed() {
+                for remaining in (0 ..< 10).reversed() {
                     try await Task.sleep(for: .seconds(1))
                     secondsRemaining = remaining
                 }
@@ -66,7 +66,10 @@ struct ExternalExecutionCompletionView: View {
 }
 
 struct RecentLoggedExecution: Identifiable {
-    var id: UUID { log.id }
+    var id: UUID {
+        log.id
+    }
+
     let profile: String
     let hiddenID: Int
     let log: Log
