@@ -14,7 +14,8 @@ extension SidebarMainView {
         // Verify URL action is valid
         guard deeplinkurl.validateNoAction(queryitem) else { return }
         // Verify no other process is running
-        guard SharedReference.shared.process == nil else { return }
+        guard SharedReference.shared.process == nil,
+              !SharedReference.shared.executionFinalizationInProgress else { return }
         // Also veriy that no other query item is processed
         guard queryitem == nil else { return }
         // And no xecution is in progress
@@ -62,6 +63,7 @@ extension SidebarMainView {
     private func handleDefaultProfileEstimate(_ queryitems: [URLQueryItem], _ externalURL: Bool) {
         guard externalURL else {
             if let count = rsyncUIdata.configurations?.count, count > 0 {
+                SharedReference.shared.quitAfterExternalExecution = externalURL
                 queryitem = queryitems[0]
             }
             return
@@ -70,6 +72,7 @@ extension SidebarMainView {
         Task { @MainActor in
             guard await loadProfileForExternalURLLink(nil) else { return }
             if let count = rsyncUIdata.configurations?.count, count > 0 {
+                SharedReference.shared.quitAfterExternalExecution = externalURL
                 queryitem = queryitems[0]
             }
         }
@@ -78,6 +81,7 @@ extension SidebarMainView {
     private func handleNamedProfileEstimate(_ profile: String, _ queryitems: [URLQueryItem], _ externalURL: Bool) {
         guard externalURL else {
             if let count = rsyncUIdata.configurations?.count, count > 0 {
+                SharedReference.shared.quitAfterExternalExecution = externalURL
                 queryitem = queryitems[0]
             }
             return
@@ -86,6 +90,7 @@ extension SidebarMainView {
         Task { @MainActor in
             guard await loadProfileForExternalURLLink(profile) else { return }
             if let count = rsyncUIdata.configurations?.count, count > 0 {
+                SharedReference.shared.quitAfterExternalExecution = externalURL
                 queryitem = queryitems[0]
             }
         }
@@ -153,8 +158,7 @@ extension SidebarMainView {
     private func tasksAreInProgress() -> Bool {
         guard SharedReference.shared.process == nil else { return true }
         // And no execution is in progress
-        guard rsyncUIdata.executetasksinprogress == false else { return true }
-        guard executetaskpath.isEmpty == true else {
+        guard rsyncUIdata.executetasksinprogress == false, executetaskpath.isEmpty == true else {
             return true
         }
         return false

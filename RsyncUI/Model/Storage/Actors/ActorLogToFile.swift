@@ -45,8 +45,9 @@ actor ActorLogToFile {
 
     // MARK: - Public Methods
 
-    func writeloggfile(_ newlogadata: String, _ reset: Bool) async {
-        guard let logURL = await getLogfileURL() else { return }
+    @discardableResult
+    func writeloggfile(_ newlogadata: String, _ reset: Bool) async -> Bool {
+        guard let logURL = await getLogfileURL() else { return false }
 
         Logger.process.debugThreadOnly("ActorLogToFile: writeloggfile()")
 
@@ -70,8 +71,10 @@ actor ActorLogToFile {
 
             Logger.process.debugMessageOnly("ActorLogToFile: writeloggfile() logfile \(logURL.path)")
             try await checkFileSizeAfterWrite()
+            return true
         } catch {
             await getHomepath()?.propagateError(error: error)
+            return false
         }
     }
 
@@ -139,13 +142,14 @@ actor ActorLogToFile {
         await writeloggfile(resetMessage, true)
     }
 
-    func logOutput(_ command: String, _ stringoutputfromrsync: [String]?) async {
-        guard let stringoutputfromrsync, !stringoutputfromrsync.isEmpty else { return }
+    @discardableResult
+    func logOutput(_ command: String, _ stringoutputfromrsync: [String]?) async -> Bool {
+        guard let stringoutputfromrsync, !stringoutputfromrsync.isEmpty else { return true }
 
         let date = Date().localized_string_from_date()
         let header = "\n\(date): \(command)\n"
         let output = stringoutputfromrsync.joined(separator: "\n")
         let logEntry = header + output + "\n"
-        await writeloggfile(logEntry, false)
+        return await writeloggfile(logEntry, false)
     }
 }

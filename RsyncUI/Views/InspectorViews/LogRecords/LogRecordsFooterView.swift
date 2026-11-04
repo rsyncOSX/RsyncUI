@@ -15,7 +15,7 @@ struct LogRecordsFooterView: View {
                 footerText
 
                 if filterString.isEmpty == false {
-                    Label("Filtered by: \(filterString)", systemImage: "magnifyingglass")
+                    Label(String(localized: "Filtered by: \(filterString)"), systemImage: "magnifyingglass")
                 }
             }
 
@@ -27,13 +27,13 @@ struct LogRecordsFooterView: View {
     private var footerText: Text {
         if selectedUuidsIsEmpty {
             let logText = logsCount == 1 ?
-                "All log records — select a task to filter: 1 record" :
-                "All log records — select a task to filter: \(logsCount) records"
+                String(localized: "All log records — select a task to filter: 1 record") :
+                String(localized: "All log records — select a task to filter: \(logsCount) records")
             return Text(logText)
         } else {
             let logText = logsCount == 1 ?
-                "Log records for selected task: 1 record" :
-                "Log records for selected task: \(logsCount) records"
+                String(localized: "Log records for selected task: 1 record") :
+                String(localized: "Log records for selected task: \(logsCount) records")
             return Text(logText)
         }
     }

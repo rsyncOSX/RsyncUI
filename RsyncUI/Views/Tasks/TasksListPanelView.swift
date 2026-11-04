@@ -70,16 +70,20 @@ private struct SynchronizeTasksHeading: View {
 private struct SelectedTaskRouteView: View {
     let configuration: SynchronizeConfiguration
 
-    // A remote pull reverses the local and offsite paths. Halted tasks retain
-    // their original mode in `halted` (2 is a remote pull).
+    /// A remote pull reverses the local and offsite paths. Halted tasks retain
+    /// their original mode in `halted` (2 is a remote pull).
     private var isRemotePull: Bool {
         configuration.task == SharedReference.shared.syncremote ||
             (configuration.task == SharedReference.shared.halted && configuration.halted == 2)
     }
 
     private var remoteEndpoint: String {
-        if configuration.offsiteServer.isEmpty { return String(localized: "This Mac") }
-        if configuration.offsiteUsername.isEmpty { return configuration.offsiteServer }
+        if configuration.offsiteServer.isEmpty {
+            return String(localized: "This Mac")
+        }
+        if configuration.offsiteUsername.isEmpty {
+            return configuration.offsiteServer
+        }
         return "\(configuration.offsiteUsername)@\(configuration.offsiteServer)"
     }
 

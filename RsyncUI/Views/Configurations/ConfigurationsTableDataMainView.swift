@@ -133,18 +133,18 @@ struct ConfigurationsTableDataMainView: View {
                SharedReference.shared.alerttagginglines {
                 // If tagging is kind of suspicious and need attention
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(data.backupID.isEmpty ? "No ID set" : data.backupID)
+                    Text(data.backupID.isEmpty ? String(localized: "No ID set") : data.backupID)
                     Text(rsyncUIdata.profile ?? "Default")
                         .font(.caption2)
                 }
                 .foregroundStyle(.yellow)
             } else {
                 let color: Color = progressdetails.estimatedlist?[index].datatosynchronize == true ? .blue : .primary
-                Text(data.backupID.isEmpty ? "No ID set" : data.backupID)
+                Text(data.backupID.isEmpty ? String(localized: "No ID set") : data.backupID)
                     .foregroundStyle(color)
             }
         } else {
-            Text(data.backupID.isEmpty ? "No ID set" : data.backupID)
+            Text(data.backupID.isEmpty ? String(localized: "No ID set") : data.backupID)
         }
     }
 
@@ -177,10 +177,8 @@ struct ConfigurationsTableDataMainView: View {
     }
 
     private func getIndex(_ id: SynchronizeConfiguration.ID) -> Int? {
-        if let configurations = rsyncUIdata.configurations {
-            if let index = configurations.firstIndex(where: { $0.id == id }) {
-                return index
-            }
+        if let configurations = rsyncUIdata.configurations, let index = configurations.firstIndex(where: { $0.id == id }) {
+            return index
         }
         return nil
     }
@@ -240,7 +238,7 @@ struct ConfigurationTaskBadge: View {
                 .labelStyle(.titleAndIcon)
                 .padding(.horizontal, 4)
                 .padding(.vertical, 1)
-                .background(Color.red.opacity(0.15))
+                .background { Color.red.opacity(0.15) }
                 .foregroundStyle(.red)
                 .clipShape(RoundedRectangle(cornerRadius: 3))
         } else if task.isEmpty == false {
@@ -248,7 +246,7 @@ struct ConfigurationTaskBadge: View {
                 .font(.caption2)
                 .padding(.horizontal, 4)
                 .padding(.vertical, 1)
-                .background(color.opacity(0.15))
+                .background { color.opacity(0.15) }
                 .foregroundStyle(color)
                 .clipShape(RoundedRectangle(cornerRadius: 3))
         }

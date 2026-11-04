@@ -46,9 +46,6 @@ struct SidebarMainView: View {
     /// .doubleColumn
     /// .detailOnly
     @State var mountingvolumenow: Bool = false
-    // Calendar
-    @State private var schedules = ObservableSchedules()
-    @State private var globaltimer = GlobalTimer.shared
 
     var body: some View {
         HStack(spacing: 0) {
@@ -64,13 +61,7 @@ struct SidebarMainView: View {
                     isDisabled: disablesidebarmeny,
                     newVersionAvailable: newversion.notifynewversion,
                     mountingVolumeNow: $mountingvolumenow,
-                    timerIsActive: GlobalTimer.shared.timerIsActive(),
-                    nextScheduleText: GlobalTimer.shared.nextScheduleDate() ?? "",
-                    showNotExecutedAfterWake: GlobalTimer.shared.thereisnotexecutedschedulesafterwakeup,
-                    rsyncVersionShort: SharedReference.shared.rsyncversionshort ?? "",
-                    clearNotExecutedAfterWake: {
-                        GlobalTimer.shared.thereisnotexecutedschedulesafterwakeup = false
-                    }
+                    rsyncVersionShort: SharedReference.shared.rsyncversionshort ?? ""
                 )
 
                 Divider()
@@ -87,18 +78,14 @@ struct SidebarMainView: View {
                 .help(columnVisibility == .detailOnly ? "Show sidebar" : "Hide sidebar")
             }
         }
-        .alert(errorhandling.activeError?.localizedDescription ?? "No error", isPresented: errorhandling.isPresentingAlert) {
+        .alert(errorhandling.activeError?.localizedDescription ?? "No error", item: $errorhandling.activeError) { _ in
             Button("OK", role: .cancel) {}
         }
         .task {
             let result = await loadData()
 
-            newversion.notifynewversion = result.version
-            SharedReference.shared.newversion = result.version
-
-            if result.scheduledata.count > 0 {
-                schedules.appendschdeuldatafromfile(result.scheduledata)
-            }
+            newversion.notifynewversion = result
+            SharedReference.shared.newversion = result
 
             if SharedReference.shared.sidebarishidden {
                 columnVisibility = .detailOnly
@@ -132,29 +119,10 @@ struct SidebarMainView: View {
             // in RsyncUIView
             selecteduuids.removeAll()
         }
-        .onChange(of: globaltimer.firstscheduledate) {
-            if globaltimer.allSchedules.isEmpty {
-                globaltimer.invalidateAllSchedulesAndTimer()
-            }
-        }
-        .onChange(of: globaltimer.scheduledprofile) {
-            queryitem = nil
-            if selectedview != .synchronize {
-                selectedview = .synchronize
-            }
-            // Trigger as external URL, makes it load profile before execute
-            if let url = DeeplinkURL().createURLestimateandsynchronize(valueprofile: globaltimer.scheduledprofile) {
-                handleURLSidebarMainView(url, externalURL: true)
-            }
-        }
     }
 
-    func loadData() async -> (version: Bool, scheduledata: [SchedulesConfigurations]) {
-        async let version = GetversionofRsyncUI.shared.getversionsofrsyncui()
-        async let scheduledata = ReadSchedule()
-            .readjsonfilecalendar(rsyncUIdata.validprofiles.map(\.profilename)) ?? []
-
-        return await (version, scheduledata)
+    func loadData() async -> Bool {
+        await GetversionofRsyncUI.shared.getversionsofrsyncui()
     }
 
     private func toggleSidebar() {
@@ -178,7 +146,6 @@ struct SidebarMainView: View {
         case .synchronize:
             SidebarTasksView(rsyncUIdata: rsyncUIdata,
                              progressdetails: progressdetails,
-                             schedules: schedules,
                              selecteduuids: $selecteduuids,
                              executetaskpath: $executetaskpath,
                              queryitem: $queryitem,
@@ -229,11 +196,9 @@ struct SidebarMainView: View {
                    item == .restore {
                     return nil
                 }
-            } else {
-                if rsyncUIdata.oneormoresynchronizetasksisremoteOrsync == false,
-                   item == .restore {
-                    return nil
-                }
+            } else if rsyncUIdata.oneormoresynchronizetasksisremoteOrsync == false,
+                      item == .restore {
+                return nil
             }
 
             return item
@@ -262,11 +227,7 @@ private struct SidebarPanel: View {
     let isDisabled: Bool
     let newVersionAvailable: Bool
     @Binding var mountingVolumeNow: Bool
-    let timerIsActive: Bool
-    let nextScheduleText: String
-    let showNotExecutedAfterWake: Bool
     let rsyncVersionShort: String
-    let clearNotExecutedAfterWake: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -290,11 +251,7 @@ private struct SidebarPanel: View {
             SidebarStatusMessagesView(
                 newVersionAvailable: newVersionAvailable,
                 mountingVolumeNow: $mountingVolumeNow,
-                timerIsActive: timerIsActive,
-                nextScheduleText: nextScheduleText,
-                showNotExecutedAfterWake: showNotExecutedAfterWake,
-                rsyncVersionShort: rsyncVersionShort,
-                clearNotExecutedAfterWake: clearNotExecutedAfterWake
+                rsyncVersionShort: rsyncVersionShort
             )
         }
         .frame(width: 220)

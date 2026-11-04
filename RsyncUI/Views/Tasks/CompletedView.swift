@@ -23,10 +23,9 @@ struct CompletedView: View {
                         .font(.title)
                 }
                 .padding()
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                )
+                .overlay { RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                }
                 .onAppear {
                     Task {
                         try? await Task.sleep(seconds: 1)

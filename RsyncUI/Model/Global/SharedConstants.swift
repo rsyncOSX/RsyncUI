@@ -10,8 +10,6 @@ struct SharedConstants {
     // JSON names
     let filenamelogrecordsjson = "logrecords.json"
     let fileconfigurationsjson = "configurations.json"
-    /// Caldenarfile
-    let caldenarfilejson: String = "schedule.json"
     /// Filename logfile
     let logname: String = "rsyncui.txt"
     /// filsize logfile warning

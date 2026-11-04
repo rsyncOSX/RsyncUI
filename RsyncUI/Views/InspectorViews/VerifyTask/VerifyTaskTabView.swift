@@ -132,10 +132,7 @@ struct VerifyTaskTabView: View {
             cleanup: { activeStreamingProcess = nil; streamingHandlers = nil }
         )
 
-        guard SharedReference.shared.norsync == false else { return }
-        guard config.task != SharedReference.shared.halted else { return }
-        guard let streamingHandlers else { return }
-        guard let arguments else { return }
+        guard SharedReference.shared.norsync == false, config.task != SharedReference.shared.halted, let streamingHandlers, let arguments else { return }
 
         itemizechanges = arguments.contains("--itemize-changes")
 

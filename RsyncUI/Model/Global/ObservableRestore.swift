@@ -75,15 +75,15 @@ final class ObservableRestore {
     }
 
     var restoreSummary: String {
-        guard let config = try? configurationForRestore() else { return "Select a task to restore." }
+        guard let config = try? configurationForRestore() else { return String(localized: "Select a task to restore.") }
         let source = config.offsiteServer.isEmpty ? config.offsiteCatalog :
             "\(config.offsiteUsername)@\(config.offsiteServer):\(config.offsiteCatalog)"
         let snapshot = config.task == SharedReference.shared.snapshot ?
-        "\nSnapshot: \(Swift.max((config.snapshotnum ?? 1) - 1, 0))" : ""
-        let items = filestorestore == "./." ? "Everything" :
-            (filestorestore.isEmpty ? "No item selected" : filestorestore)
-        let destination = (try? Self.validatedDestination(pathforrestore)) ?? "Choose a destination folder"
-        return "Source: \(source)\(snapshot)\nRestore: \(items)\nDestination: \(destination)"
+            String(localized: "\nSnapshot: \(Swift.max((config.snapshotnum ?? 1) - 1, 0))") : ""
+        let items = filestorestore == "./." ? String(localized: "Everything") :
+            (filestorestore.isEmpty ? String(localized: "No item selected") : filestorestore)
+        let destination = (try? Self.validatedDestination(pathforrestore)) ?? String(localized: "Choose a destination folder")
+        return String(localized: "Source: \(source)\(snapshot)\nRestore: \(items)\nDestination: \(destination)")
     }
 
     func files(matching query: String) -> [RsyncOutputData] {
@@ -140,8 +140,8 @@ final class ObservableRestore {
         let destination = try Self.validatedDestination(pathforrestore)
         guard !filestorestore.isEmpty, let selectedconfig,
               selectedconfig.task != SharedReference.shared.syncremote,
-              selectedconfig.task != SharedReference.shared.halted else { throw RestoreError.notvalidrestore }
-        guard let arguments = computerestorearguments(forDisplay: forDisplay, destination: destination) else {
+              selectedconfig.task != SharedReference.shared.halted,
+              let arguments = computerestorearguments(forDisplay: forDisplay, destination: destination) else {
             throw RestoreError.notvalidrestore
         }
         return arguments
@@ -236,11 +236,11 @@ enum RestoreError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notvalidtaskforrestore:
-            "Restore not allowed for syncremote task"
+            String(localized: "Restore not allowed for syncremote task")
         case .notvalidrestore:
-            "Select a valid task and files to restore."
+            String(localized: "Select a valid task and files to restore.")
         case .invalidDestination:
-            "Choose an existing, writable destination folder for restored files."
+            String(localized: "Choose an existing, writable destination folder for restored files.")
         }
     }
 }

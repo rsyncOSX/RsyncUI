@@ -20,13 +20,13 @@ final class Estimate {
 
     var stackoftasks: [Int]?
     private var isCancelled = false
-    var synchronizeIDwitherror: String = ""
 
     // Streaming strong references
     private var streamingHandlers: RsyncProcessStreaming.ProcessHandlers?
     private var activeStreamingProcess: RsyncProcessStreaming.RsyncProcess?
 
     func cancel() {
+        SharedReference.shared.quitAfterExternalExecution = false
         isCancelled = true
         stackoftasks = nil
         if let process = activeStreamingProcess, process.isRunning {
@@ -34,10 +34,15 @@ final class Estimate {
         }
     }
 
-    private func completeEstimation() {
+    private func completeEstimation(success: Bool = false) {
         localprogressdetails?.estimationIsComplete()
         activeStreamingProcess = nil
         streamingHandlers = nil
+        if !success {
+            SharedReference.shared.quitAfterExternalExecution = false
+        } else if localprogressdetails?.getUUIDsWithDataToSynchronize().isEmpty == true {
+            SharedReference.shared.finishExternalExecution(success: true)
+        }
     }
 
     private func getConfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
@@ -48,7 +53,11 @@ final class Estimate {
     }
 
     private func startEstimation() {
-        guard !isCancelled, (stackoftasks?.count ?? 0) > 0 else { return }
+        guard !isCancelled else { return }
+        guard (stackoftasks?.count ?? 0) > 0 else {
+            completeEstimation(success: true)
+            return
+        }
 
         streamingHandlers = CreateStreamingHandlers().createResultHandlers(
             fileHandler: { _ in },
@@ -66,16 +75,20 @@ final class Estimate {
             let localhiddenID = stackoftasks?.removeFirst(),
             let config = getConfig(localhiddenID),
             let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: true, forDisplay: false)
-        else { return }
+        else {
+            completeEstimation()
+            return
+        }
 
         itemizechanges = arguments.contains("--itemize-changes")
         // Used to display details of configuration in estimation
         localprogressdetails?.configurationtobestimated = config.id
 
         // Must check valid rsync exists
-        guard SharedReference.shared.norsync == false else { return }
-        guard config.task != SharedReference.shared.halted else { return }
-        guard let streamingHandlers else { return }
+        guard SharedReference.shared.norsync == false, config.task != SharedReference.shared.halted, let streamingHandlers else {
+            completeEstimation()
+            return
+        }
 
         if SharedReference.shared.validatearguments {
             do {
@@ -174,7 +187,10 @@ extension Estimate {
         originalOutput: [String]?,
         hiddenID: Int?
     ) {
-        guard let hiddenID else { return }
+        guard let hiddenID else {
+            completeEstimation()
+            return
+        }
 
         var record = RemoteDataNumbers(
             stringoutputfromrsync: outputToProcess,
@@ -187,10 +203,8 @@ extension Estimate {
         record.outputfromrsync = output
         localprogressdetails?.appendRecordEstimatedList(record)
 
-        if record.datatosynchronize {
-            if let config = getConfig(hiddenID) {
-                localprogressdetails?.appendUUIDWithDataToSynchronize(config.id)
-            }
+        if record.datatosynchronize, let config = getConfig(hiddenID) {
+            localprogressdetails?.appendUUIDWithDataToSynchronize(config.id)
         }
 
         if let count = stackoftasks?.count, count > 0 {
@@ -200,8 +214,8 @@ extension Estimate {
             streamingHandlers = nil
             startEstimation()
         } else {
-            completeEstimation()
             Logger.process.debugMessageOnly("Estimate: ESTIMATION is completed")
+            completeEstimation(success: true)
             return
         }
     }

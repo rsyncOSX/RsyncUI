@@ -47,4 +47,21 @@ struct DeeplinkURLTests {
 
         #expect(isValid == false)
     }
+
+    @Test("Only successful external requests present completion, and the request is consumed",
+          arguments: [false, true], [false, true])
+    func externalRequestTermination(external: Bool, succeeded: Bool) {
+        let shared = SharedReference.shared
+        let previous = shared.quitAfterExternalExecution
+        defer { shared.quitAfterExternalExecution = previous }
+        shared.quitAfterExternalExecution = external
+        var presentationCount = 0
+        shared.finishExternalExecution(success: succeeded, presentCompletion: { presentationCount += 1 })
+        #expect(presentationCount == (external && succeeded ? 1 : 0))
+        #expect(!shared.quitAfterExternalExecution)
+
+        // A later manual completion must never consume a stale external request.
+        shared.finishExternalExecution(success: true, presentCompletion: { presentationCount += 1 })
+        #expect(presentationCount == (external && succeeded ? 1 : 0))
+    }
 }

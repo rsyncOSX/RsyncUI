@@ -52,10 +52,8 @@ final class ObservableAddConfigurations {
     func updateConfig(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) async -> [SynchronizeConfiguration]? {
         var mysnapshotnum = 0
 
-        if snapshotnum.isEmpty == false {
-            if Int(snapshotnum) != nil {
-                mysnapshotnum = Int(snapshotnum) ?? 1
-            }
+        if snapshotnum.isEmpty == false, Int(snapshotnum) != nil {
+            mysnapshotnum = Int(snapshotnum) ?? 1
         }
 
         guard let hiddenID = selectedconfig?.hiddenID else { return nil }
@@ -99,10 +97,8 @@ final class ObservableAddConfigurations {
             remoteuser = config.offsiteUsername
             remoteserver = config.offsiteServer
             backupID = config.backupID
-            if config.task == SharedReference.shared.snapshot {
-                if let num = config.snapshotnum {
-                    snapshotnum = String(num)
-                }
+            if config.task == SharedReference.shared.snapshot, let num = config.snapshotnum {
+                snapshotnum = String(num)
             }
         } else {
             selectedrsynccommand = .synchronize

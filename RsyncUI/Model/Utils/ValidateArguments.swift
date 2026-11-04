@@ -23,15 +23,15 @@ enum InvalidArguments: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .compress:
-            "argument --compress is MISSING"
+            String(localized: "argument --compress is MISSING")
         case .archive:
-            "argument --archive is MISSING"
+            String(localized: "argument --archive is MISSING")
         case .delete:
-            "argument --delete is MISSING"
+            String(localized: "argument --delete is MISSING")
         case .nodelete:
-            "argument --delete is INCLUDED"
+            String(localized: "argument --delete is INCLUDED")
         case .dryrun:
-            "argument --dry-run is MISSING"
+            String(localized: "argument --dry-run is MISSING")
         }
     }
 }

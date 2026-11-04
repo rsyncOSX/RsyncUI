@@ -8,32 +8,9 @@
 import Foundation
 import SwiftUI
 
-struct FixedTag: ViewModifier {
-    var width: CGFloat = 0
-    var alignment: Alignment = .leading
-    func body(content: Content) -> some View {
-        content
-            .frame(
-                minWidth: width,
-                idealWidth: width,
-                maxWidth: width,
-                minHeight: nil,
-                idealHeight: nil,
-                maxHeight: nil,
-                alignment: alignment
-            )
-            .lineLimit(1)
-    }
-
-    init(_ setwidth: CGFloat, _ setalignment: Alignment) {
-        width = setwidth
-        alignment = setalignment
-    }
-}
-
 struct ToggleViewDefault: View {
     @Environment(\.colorScheme) var colorScheme
-    private var mytext: String?
+    private var mytext: LocalizedStringKey?
     private var mybinding: Binding<Bool>
 
     var body: some View {
@@ -49,7 +26,7 @@ struct ToggleViewDefault: View {
         }
     }
 
-    init(text: String, binding: Binding<Bool>) {
+    init(text: LocalizedStringKey, binding: Binding<Bool>) {
         mytext = text
         mybinding = binding
     }
@@ -57,7 +34,7 @@ struct ToggleViewDefault: View {
 
 struct DismissafterMessageView: View {
     private var dismissafter: Double
-    private var mytext: String
+    private var mytext: LocalizedStringKey
 
     @State private var showtext: Bool = true
 
@@ -74,7 +51,7 @@ struct DismissafterMessageView: View {
                     .minimumScaleFactor(0.5)
             }
             .frame(height: 30, alignment: .center)
-            .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 4))
+            .background { RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 4) }
             .task {
                 try? await Task.sleep(seconds: dismissafter)
                 showtext = false
@@ -83,7 +60,7 @@ struct DismissafterMessageView: View {
         }
     }
 
-    init(dismissafter: Double, mytext: String) {
+    init(dismissafter: Double, mytext: LocalizedStringKey) {
         self.dismissafter = dismissafter
         self.mytext = mytext
     }
@@ -107,7 +84,7 @@ struct MessageView: View {
                 .minimumScaleFactor(0.5)
         }
         .frame(height: 30, alignment: .center)
-        .background(RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1))
+        .background { RoundedRectangle(cornerRadius: 25).stroke(Color.gray, lineWidth: 1) }
         .padding()
     }
 

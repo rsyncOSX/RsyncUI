@@ -15,7 +15,7 @@ struct LogRecordsTabView: View {
 
     @State private var selectedloguuids = Set<Log.ID>()
     /// Alert for delete
-    @State private var confirmdelete = false
+    @State private var pendingDeletion: Set<Log.ID>?
     // Filterstring
     @State private var filterstring: String = ""
     @State private var showindebounce: Bool = false
@@ -47,14 +47,14 @@ struct LogRecordsTabView: View {
                 }
                 .onDeleteCommand {
                     guard selectedloguuids.isEmpty == false else { return }
-                    confirmdelete = true
+                    pendingDeletion = selectedloguuids
                 }
-                .confirmationDialog(selectedloguuids.count == 1 ? "Delete 1 log" :
-                    "Delete \(selectedloguuids.count) logs",
-                    isPresented: $confirmdelete) {
+                .confirmationDialog(pendingDeletion?.count == 1 ? "Delete 1 log" :
+                    "Delete \(pendingDeletion?.count ?? 0) logs",
+                    item: $pendingDeletion) { ids in
                         Button("Delete", role: .destructive) {
                             Task {
-                                await deleteLogs(selectedloguuids)
+                                await deleteLogs(ids)
                             }
                         }
                 }
@@ -86,14 +86,6 @@ struct LogRecordsTabView: View {
             await updateLogsForFilter()
         }
         .padding()
-    }
-
-    var configurations: [SynchronizeConfiguration] {
-        if let configurations = rsyncUIdata.configurations {
-            configurations
-        } else {
-            []
-        }
     }
 
     func deleteLogs(_ uuids: Set<UUID>) async {

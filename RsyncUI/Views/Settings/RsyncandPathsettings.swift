@@ -21,74 +21,84 @@ struct RsyncandPathsettings: View {
 
     var body: some View {
         Form {
-            Section(header: Text("Version rsync")
-                .font(.title3)
-                .fontWeight(.bold)) {
-                    HStack {
-                        ToggleViewDefault(text: "Rsync v3.x",
-                                          binding: $rsyncpathsettings.rsyncversion3)
-                            .onChange(of: rsyncpathsettings.rsyncversion3) {
-                                if SharedReference.shared.norsync {
-                                    SharedReference.shared.localrsyncpath = nil
-                                    SharedReference.shared.rsyncversion3 = false
-                                    rsyncpathsettings.localrsyncpath = ""
-                                } else {
-                                    SharedReference.shared.rsyncversion3 = rsyncpathsettings.rsyncversion3
-                                    SharedReference.shared.localrsyncpath = nil
-                                    rsyncpathsettings.localrsyncpath = ""
-                                }
-                                Rsyncversion().getRsyncVersion()
-                                saveConfiguration()
+            Section {
+                HStack {
+                    ToggleViewDefault(text: "Rsync v3.x",
+                                      binding: $rsyncpathsettings.rsyncversion3)
+                        .onChange(of: rsyncpathsettings.rsyncversion3) {
+                            if SharedReference.shared.norsync {
+                                SharedReference.shared.localrsyncpath = nil
+                                SharedReference.shared.rsyncversion3 = false
+                                rsyncpathsettings.localrsyncpath = ""
+                            } else {
+                                SharedReference.shared.rsyncversion3 = rsyncpathsettings.rsyncversion3
+                                SharedReference.shared.localrsyncpath = nil
+                                rsyncpathsettings.localrsyncpath = ""
                             }
-
-                        ToggleViewDefault(text: "Apple Silicon",
-                                          binding: $rsyncpathsettings.macosarm)
-                            .onChange(of: rsyncpathsettings.macosarm) {
-                                SharedReference.shared.macosarm = rsyncpathsettings.macosarm
-                            }
-                            .disabled(true)
-                    }
-                }
-
-            Section(header: Text("Path rsync")
-                .font(.title3)
-                .fontWeight(.bold)) {
-                    if rsyncpathsettings.localrsyncpath.isEmpty == true {
-                        setrsyncpathdefault
-                    } else {
-                        setrsyncpathlocalpath
-                    }
-                }
-
-            Section(header: Text("Path for restore")
-                .font(.title3)
-                .fontWeight(.bold)) {
-                    HStack {
-                        setpathforrestore
-
-                        OpencatalogView(selecteditem: $rsyncpathsettings.temporarypathforrestore, catalogs: true)
-                    }
-                }
-
-            Section(header: Text("Mark days after")
-                .font(.title3)
-                .fontWeight(.bold)) {
-                    setmarkdays
-                }
-
-            Section(header: Text("Backup configurations")
-                .font(.title3)
-                .fontWeight(.bold)) {
-                    HStack {
-                        AdaptiveProminentButton(
-                            systemImage: "wrench.adjustable.fill",
-                            text: "Backup",
-                            helpText: "Backup configurations"
-                        ) {
-                            _ = Backupconfigfiles()
+                            Rsyncversion().getRsyncVersion()
+                            saveConfiguration()
                         }
+
+                    ToggleViewDefault(text: "Apple Silicon",
+                                      binding: $rsyncpathsettings.macosarm)
+                        .onChange(of: rsyncpathsettings.macosarm) {
+                            SharedReference.shared.macosarm = rsyncpathsettings.macosarm
+                        }
+                        .disabled(true)
+                }
+            } header: {
+                Text("Version rsync")
+                    .font(.title3)
+                    .fontWeight(.bold)
+            }
+
+            Section {
+                if rsyncpathsettings.localrsyncpath.isEmpty == true {
+                    setrsyncpathdefault
+                } else {
+                    setrsyncpathlocalpath
+                }
+            } header: {
+                Text("Path rsync")
+                    .font(.title3)
+                    .fontWeight(.bold)
+            }
+
+            Section {
+                HStack {
+                    setpathforrestore
+
+                    OpencatalogView(selecteditem: $rsyncpathsettings.temporarypathforrestore, catalogs: true)
+                }
+            } header: {
+                Text("Path for restore")
+                    .font(.title3)
+                    .fontWeight(.bold)
+            }
+
+            Section {
+                setmarkdays
+            } header: {
+                Text("Mark days after")
+                    .font(.title3)
+                    .fontWeight(.bold)
+            }
+
+            Section {
+                HStack {
+                    AdaptiveProminentButton(
+                        systemImage: "wrench.adjustable.fill",
+                        text: "Backup",
+                        helpText: "Backup configurations"
+                    ) {
+                        _ = Backupconfigfiles()
                     }
                 }
+            } header: {
+                Text("Backup configurations")
+                    .font(.title3)
+                    .fontWeight(.bold)
+            }
         }
         .formStyle(.grouped)
     }

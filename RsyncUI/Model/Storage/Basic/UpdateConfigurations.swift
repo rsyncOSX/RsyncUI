@@ -104,10 +104,8 @@ final class UpdateConfigurations {
         var indexset = IndexSet()
         if let configurations {
             for configuration in configurations {
-                if let index = configurations.firstIndex(of: configuration) {
-                    if uuids.contains(configuration.id) {
-                        indexset.insert(index)
-                    }
+                if let index = configurations.firstIndex(of: configuration), uuids.contains(configuration.id) {
+                    indexset.insert(index)
                 }
             }
         }

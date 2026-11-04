@@ -19,6 +19,8 @@ struct RsyncUIView: View {
     @State private var initializationComplete = false
     @State private var pendingExternalURL: URL?
 
+    @Bindable private var shared = SharedReference.shared
+
     var body: some View {
         VStack {
             if start || initializationComplete == false {
@@ -39,6 +41,13 @@ struct RsyncUIView: View {
                                 errorhandling: errorhandling,
                                 pendingExternalURL: $pendingExternalURL)
             }
+        }
+        .sheet(isPresented: $shared.showExternalExecutionCompletion, onDismiss: {
+            // AppKit blocks termination while the completion sheet is modal.
+            // Wait for dismissal to finish before requesting application shutdown.
+            NSApplication.shared.terminate(nil)
+        }) {
+            ExternalExecutionCompletionView()
         }
         .onOpenURL { incomingURL in
             pendingExternalURL = incomingURL

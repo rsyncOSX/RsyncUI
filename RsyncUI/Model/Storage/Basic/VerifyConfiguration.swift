@@ -20,17 +20,17 @@ enum ValidateInputError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .localcatalog:
-            "Either local or remote cannot be empty"
+            String(localized: "Either local or remote cannot be empty")
         case .offsiteusername:
-            "Username cannot be empty"
+            String(localized: "Username cannot be empty")
         case .notconnected:
-            "Not connected, cannot create task"
+            String(localized: "Not connected, cannot create task")
         case .offsiteserver:
-            "Servername cannot be empty"
+            String(localized: "Servername cannot be empty")
         case .snapshotnum:
-            "Snapshotnum must be 1"
+            String(localized: "Snapshotnum must be 1")
         case .rsyncversion2:
-            "Snapshot and syncremote require rsync ver3.x"
+            String(localized: "Snapshot and syncremote require rsync ver3.x")
         }
     }
 }
@@ -51,12 +51,7 @@ final class VerifyConfiguration: Connected {
         if let hiddenID = data.hiddenID {
             newconfig.hiddenID = hiddenID
         }
-        guard data.newlocalCatalog.isEmpty == false else {
-            propagateError(error: ValidateInputError.localcatalog)
-            return nil
-        }
-
-        guard data.newoffsiteCatalog.isEmpty == false else {
+        guard data.newlocalCatalog.isEmpty == false, data.newoffsiteCatalog.isEmpty == false else {
             propagateError(error: ValidateInputError.localcatalog)
             return nil
         }

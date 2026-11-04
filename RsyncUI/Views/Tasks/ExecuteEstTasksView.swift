@@ -44,10 +44,9 @@ struct ExecuteEstTasksView: View {
                         .font(.title)
                 }
                 .padding()
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                )
+                .overlay { RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                }
             }
 
             if focusaborttask {
@@ -103,29 +102,26 @@ extension ExecuteEstTasksView {
         var adjustedselecteduuids: Set<SynchronizeConfiguration.ID>?
         if selecteduuids.count > 0 {
             adjustedselecteduuids = selecteduuids
-        } else {
-            if let estimatedlist = progressdetails.estimatedlist {
-                adjustedselecteduuids = Set<SynchronizeConfiguration.ID>()
-                for estimate in estimatedlist where estimate.datatosynchronize {
-                    adjustedselecteduuids?.insert(estimate.id)
-                }
+        } else if let estimatedlist = progressdetails.estimatedlist {
+            adjustedselecteduuids = Set<SynchronizeConfiguration.ID>()
+            for estimate in estimatedlist where estimate.datatosynchronize {
+                adjustedselecteduuids?.insert(estimate.id)
             }
         }
         guard (adjustedselecteduuids?.count ?? 0) > 0 else {
             progressdetails.estimatedlist = nil
             rsyncUIdata.executetasksinprogress = false
             executetaskpath.removeAll()
+            SharedReference.shared.finishExternalExecution(success: true)
             return
         }
-        if let adjustedselecteduuids {
-            if let configurations = rsyncUIdata.configurations {
-                execute = Execute.start(profile: rsyncUIdata.profile,
-                                        configurations: configurations,
-                                        selecteduuids: adjustedselecteduuids,
-                                        progressdetails: progressdetails,
-                                        fileHandler: fileHandler,
-                                        updateconfigurations: updateConfigurations)
-            }
+        if let adjustedselecteduuids, let configurations = rsyncUIdata.configurations {
+            execute = Execute.start(profile: rsyncUIdata.profile,
+                                    configurations: configurations,
+                                    selecteduuids: adjustedselecteduuids,
+                                    progressdetails: progressdetails,
+                                    fileHandler: fileHandler,
+                                    updateconfigurations: updateConfigurations)
         }
     }
 

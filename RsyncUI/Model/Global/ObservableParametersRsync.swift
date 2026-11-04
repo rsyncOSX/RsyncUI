@@ -79,13 +79,11 @@ final class ObservableParametersRsync {
                     parameter13 = ArgumentsRsyncUserSelect().backupstrings[1] + "_"
                         + localcatalogparts[localcatalogparts.count - 2]
                 }
+            } else if parameter13.isEmpty == false {
+                parameter13 = ""
             } else {
-                if parameter13.isEmpty == false {
-                    parameter13 = ""
-                } else {
-                    parameter13 = ArgumentsRsyncUserSelect().backupstrings[2] + "_"
-                        + localcatalogparts[localcatalogparts.count - 2]
-                }
+                parameter13 = ArgumentsRsyncUserSelect().backupstrings[2] + "_"
+                    + localcatalogparts[localcatalogparts.count - 2]
             }
             configuration?.parameter12 = parameter12
             configuration?.parameter13 = parameter13

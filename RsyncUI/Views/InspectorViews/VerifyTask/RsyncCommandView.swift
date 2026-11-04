@@ -17,19 +17,19 @@ struct RsyncCommandView: View {
         VStack(alignment: .leading) {
             HStack {
                 Picker("", selection: $selectedrsynccommand) {
-                    ForEach(RsyncCommand.allCases) { Text($0.description)
+                    ForEach(RsyncCommand.allCases) { Text(LocalizedStringKey($0.description))
                         .tag($0)
                     }
                 }
-                .pickerStyle(RadioGroupPickerStyle())
+                .pickerStyle(.radioGroup)
                 .padding(10)
 
                 Picker("", selection: $otherselectedrsynccommand) {
-                    ForEach(OtherRsyncCommand.allCases) { Text($0.description)
+                    ForEach(OtherRsyncCommand.allCases) { Text(LocalizedStringKey($0.description))
                         .tag($0)
                     }
                 }
-                .pickerStyle(RadioGroupPickerStyle())
+                .pickerStyle(.radioGroup)
                 .padding(10)
             }
 
@@ -50,10 +50,9 @@ struct RsyncCommandView: View {
             .multilineTextAlignment(.leading)
             .frame(maxWidth: .infinity)
             .padding()
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(.blue, lineWidth: 1)
-            )
+            .overlay { RoundedRectangle(cornerRadius: 8)
+                .stroke(.blue, lineWidth: 1)
+            }
     }
 
     var commandstringrsync: String? {
@@ -68,10 +67,9 @@ struct RsyncCommandView: View {
             .multilineTextAlignment(.leading)
             .frame(maxWidth: .infinity)
             .padding()
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(.blue, lineWidth: 1)
-            )
+            .overlay { RoundedRectangle(cornerRadius: 8)
+                .stroke(.blue, lineWidth: 1)
+            }
     }
 
     var commandstringother: String {

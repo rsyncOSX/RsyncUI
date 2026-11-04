@@ -19,14 +19,14 @@ struct RestoreControlsView: View {
 
             if restore.filestorestore != "./." {
                 LabeledContent("Selected item") {
-                    Text(restore.filestorestore.isEmpty ? "Select an item in the file list" : restore.filestorestore)
+                    Text(restore.filestorestore.isEmpty ? String(localized: "Select an item in the file list") : restore.filestorestore)
                         .textSelection(.enabled)
                 }
             }
 
             HStack {
                 TextField("Destination folder", text: $restore.pathforrestore)
-                    .textFieldStyle(.roundedBorder)
+                    .modifier(AdaptiveRoundedTextFieldStyle())
                 Button("Choose Folder…") { choosingDestination = true }
             }
             .fileImporter(isPresented: $choosingDestination, allowedContentTypes: [.folder]) { result in

@@ -27,7 +27,7 @@ struct SnapshotsView: View {
     /// For the weekly or monthly plans
     @State private var isdisabled: Bool = true
     /// confirmationDialog delete logrecords
-    @State private var isPresentingConfirm: Bool = false
+    @State private var pendingLogDeletion: Set<Log.ID>?
 
     var body: some View {
         VStack {
@@ -78,7 +78,7 @@ struct SnapshotsView: View {
             if snapshotdata.notmappedloguuids?.count ?? 0 > 0 {
                 ToolbarItem {
                     Button {
-                        isPresentingConfirm = (snapshotdata.notmappedloguuids?.count ?? 0 > 0)
+                        pendingLogDeletion = snapshotdata.notmappedloguuids
                     } label: {
                         Label("Delete unused log records", systemImage: "trash.fill")
                             .labelStyle(.iconOnly)
@@ -86,18 +86,16 @@ struct SnapshotsView: View {
                             .badge(snapshotdata.notmappedloguuids?.count ?? 0)
                     }
                     .help("Delete unused log records")
-                    .confirmationDialog(snapshotdata.notmappedloguuids?.count ?? 0 == 1 ? "Delete 1 log" :
-                        "Delete \(snapshotdata.notmappedloguuids?.count ?? 0) logs",
-                        isPresented: $isPresentingConfirm) {
+                    .confirmationDialog(pendingLogDeletion?.count == 1 ? "Delete 1 log" :
+                        "Delete \(pendingLogDeletion?.count ?? 0) logs",
+                        item: $pendingLogDeletion) { uuids in
                             Button("Delete", role: .destructive) {
-                                if let uuids = snapshotdata.notmappedloguuids {
-                                    Task {
-                                        await deleteLogs(uuids)
-                                    }
+                                Task {
+                                    await deleteLogs(uuids)
                                 }
                             }
                     }
-                    .overlay(HStack(alignment: .top) {
+                    .overlay { HStack(alignment: .top) {
                         Image(systemName: String((snapshotdata.notmappedloguuids?.count ?? 0) <= 50
                                 ? (snapshotdata.notmappedloguuids?.count ?? 0) : 50))
                             .foregroundStyle(.red)
@@ -107,7 +105,8 @@ struct SnapshotsView: View {
                     .symbolVariant(.fill)
                     .symbolVariant(.circle)
                     .allowsHitTesting(false)
-                    .offset(x: 10, y: -10))
+                    .offset(x: 10, y: -10)
+                    }
                 }
             }
 
@@ -149,22 +148,22 @@ struct SnapshotsView: View {
     var pickersnapdayoffweek: some View {
         Picker("",
                selection: $snapdayofweek) {
-            ForEach(StringDayofweek.allCases) { Text($0.description)
+            ForEach(StringDayofweek.allCases) { Text(LocalizedStringKey($0.description))
                 .tag($0)
             }
         }
-        .pickerStyle(DefaultPickerStyle())
+        .pickerStyle(.automatic)
         .frame(width: 100)
     }
 
     var pickersnaplast: some View {
         Picker("",
                selection: $snaplast) {
-            ForEach(PlanSnapshots.allCases) { Text($0.description)
+            ForEach(PlanSnapshots.allCases) { Text(LocalizedStringKey($0.description))
                 .tag($0)
             }
         }
-        .pickerStyle(DefaultPickerStyle())
+        .pickerStyle(.automatic)
         .frame(width: 100)
     }
 
@@ -237,8 +236,7 @@ extension SnapshotsView {
 
     func tagSnapshots() {
         if let config = selectedconfig {
-            guard config.task == SharedReference.shared.snapshot else { return }
-            guard (snapshotdata.getsnapshotdata()?.count ?? 0) > 0 else { return }
+            guard config.task == SharedReference.shared.snapshot, (snapshotdata.getsnapshotdata()?.count ?? 0) > 0 else { return }
             var localsnaplast = 0
             if snaplast == PlanSnapshots.last.rawValue {
                 localsnaplast = 0 // keep selected day of week every week of month

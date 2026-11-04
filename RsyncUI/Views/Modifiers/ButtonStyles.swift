@@ -7,19 +7,31 @@
 
 import SwiftUI
 
-/// A primary action button that adopts native Liquid Glass on macOS 26 and
-/// retains the established prominent appearance on earlier macOS releases.
+/// The rounded text-input appearance on both macOS 14 and newer systems.
+struct AdaptiveRoundedTextFieldStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(macOS 27.0, *) {
+            content
+                .textFieldStyle(.bordered)
+                .textInputBorderShape(.roundedRectangle)
+        } else {
+            content.textFieldStyle(.roundedBorder)
+        }
+    }
+}
+
+/// A primary action button with a bordered fallback before macOS 26.
 struct AdaptiveProminentButton: View {
     let systemImage: String
-    let text: String?
-    let helpText: String
+    let text: LocalizedStringKey?
+    let helpText: LocalizedStringKey
     var textcolor: Bool = false
     let action: () -> Void
 
     init(
         systemImage: String,
-        text: String? = nil,
-        helpText: String,
+        text: LocalizedStringKey? = nil,
+        helpText: LocalizedStringKey,
         textcolor: Bool = false,
         action: @escaping () -> Void
     ) {
@@ -32,11 +44,9 @@ struct AdaptiveProminentButton: View {
 
     var body: some View {
         if #available(macOS 26.0, *) {
-            button
-                .buttonStyle(.glassProminent)
+            button.buttonStyle(.glassProminent)
         } else {
-            button
-                .buttonStyle(.borderedProminent)
+            button.buttonStyle(.borderedProminent)
         }
     }
 
@@ -62,7 +72,7 @@ struct AdaptiveProminentButton: View {
     }
 }
 
-/// A close button that uses the semantic close role where it is available.
+/// A close button using the semantic close role when available.
 struct AdaptiveCloseButton: View {
     let action: () -> Void
 
@@ -72,7 +82,7 @@ struct AdaptiveCloseButton: View {
                 .buttonStyle(.glass)
         } else {
             Button("Close", action: action)
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.bordered)
         }
     }
 }

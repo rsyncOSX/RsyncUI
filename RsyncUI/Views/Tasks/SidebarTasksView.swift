@@ -26,7 +26,6 @@ struct Tasks: Hashable, Identifiable {
 struct SidebarTasksView: View {
     @Bindable var rsyncUIdata: RsyncUIconfigurations
     @Bindable var progressdetails: ProgressDetails
-    @Bindable var schedules: ObservableSchedules
 
     @Binding var selecteduuids: Set<SynchronizeConfiguration.ID>
     /// Navigation path for executetasks
@@ -43,7 +42,6 @@ struct SidebarTasksView: View {
         NavigationStack(path: $executetaskpath) {
             TasksView(rsyncUIdata: rsyncUIdata,
                       progressdetails: progressdetails,
-                      schedules: schedules,
                       selecteduuids: $selecteduuids,
                       executetaskpath: $executetaskpath,
                       urlcommandestimateandsynchronize: $urlcommandestimateandsynchronize,
@@ -103,6 +101,10 @@ struct SidebarTasksView: View {
                                   queryitem: queryitem)
                 .onDisappear {
                     queryitem = nil
+                    // Navigation away cancels automatic shutdown; execution inherits it.
+                    if executetaskpath.last?.task != .executestimatedview {
+                        SharedReference.shared.quitAfterExternalExecution = false
+                    }
                 }
         }
     }
@@ -140,14 +142,12 @@ extension SidebarTasksView {
     /// URL code
     private func handleQueryItem() {
         Logger.process.debugMessageOnly("SidebarTasksView: Change on queryitem discovered")
-        if queryitem != nil {
-            if let name = queryitem?.name {
-                if name == "id" {
-                    // The Verify is no longer supported
-                    queryitem = nil
-                } else if name == "profile" {
-                    executetaskpath.append(Tasks(task: .summarizeddetailsview))
-                }
+        if queryitem != nil, let name = queryitem?.name {
+            if name == "id" {
+                // The Verify is no longer supported
+                queryitem = nil
+            } else if name == "profile" {
+                executetaskpath.append(Tasks(task: .summarizeddetailsview))
             }
         }
     }

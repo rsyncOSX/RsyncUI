@@ -16,7 +16,7 @@ struct RestoreFilesTableView: View {
     var body: some View {
         Table(datalist, selection: $selectedid) {
             TableColumn("Files for restore: \(datalist.count) items") { item in
-                Text(item.record == "./." ? "Everything" : item.record)
+                Text(item.record == "./." ? String(localized: "Everything") : item.record)
             }
         }
         .onChange(of: selectedid) {

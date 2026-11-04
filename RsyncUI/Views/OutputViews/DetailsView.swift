@@ -21,19 +21,19 @@ struct DetailsView: View {
                 if remotedatanumbers.datatosynchronize {
                     VStack(alignment: .leading) {
                         if SharedReference.shared.rsyncversion3 {
-                            Text(remotedatanumbers.newfilesInt == 1 ? "1 new file" : "\(remotedatanumbers.newfilesInt) new files")
+                            Text(remotedatanumbers.newfilesInt == 1 ? String(localized: "1 new file") : String(localized: "\(remotedatanumbers.newfilesInt) new files"))
                             let deleteText = remotedatanumbers.deletefilesInt == 1
-                                ? "1 file to delete"
-                                : "\(remotedatanumbers.deletefilesInt) files to delete"
+                                ? String(localized: "1 file to delete")
+                                : String(localized: "\(remotedatanumbers.deletefilesInt) files to delete")
                             Text(deleteText)
                         }
                         let filesChangedText = remotedatanumbers.filestransferredInt == 1
-                            ? "1 file changed"
-                            : "\(remotedatanumbers.filestransferredInt) files changed"
+                            ? String(localized: "1 file changed")
+                            : String(localized: "\(remotedatanumbers.filestransferredInt) files changed")
                         Text(filesChangedText)
                         let transferSizeText = remotedatanumbers.totaltransferredfilessizeInt == 1
-                            ? "1 byte for transfer"
-                            : "\(remotedatanumbers.totaltransferredfilessize) bytes for transfer"
+                            ? String(localized: "1 byte for transfer")
+                            : String(localized: "\(remotedatanumbers.totaltransferredfilessize) bytes for transfer")
                         Text(transferSizeText)
                     }
                     .padding()

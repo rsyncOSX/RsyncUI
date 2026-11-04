@@ -69,7 +69,7 @@ struct RsyncParametersView: View {
                     }
 
                     Divider()
-                        .background(Color.red.opacity(0.5))
+                        .background { Color.red.opacity(0.5) }
 
                     HStack {
                         Toggle("--delete", isOn: $parameters.adddelete)
@@ -82,7 +82,7 @@ struct RsyncParametersView: View {
                             Text("Info")
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 8)
-                                .background(Color.red)
+                                .background { Color.red }
                                 .foregroundStyle(.white)
                                 .clipShape(.rect(cornerRadius: 8))
                         }
@@ -90,12 +90,11 @@ struct RsyncParametersView: View {
                     }
                 }
                 .padding() // Adds space inside the border
-                .background(Color.red.opacity(0.05)) // Optional: Light red background tint
+                .background { Color.red.opacity(0.05) } // Optional: Light red background tint
                 .clipShape(.rect(cornerRadius: 10)) // Rounds the corners of the frame
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.red, lineWidth: 2) // The red border
-                )
+                .overlay { RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.red, lineWidth: 2) // The red border
+                }
                 .padding() // Outer margin
 
                 VStack(alignment: .leading, spacing: 8) {

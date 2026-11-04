@@ -138,7 +138,7 @@ Current coverage focuses on Priority 1: Configuration Validation
 - Priority 3: Data persistence tests (JSON read/write)
 - Priority 4: Duplicate detection tests
 - Priority 5: Process execution tests
-- Priority 6: Schedule logic tests
+- Schedule logic tests have moved to the sibling ScheduleRsync project.
 - Priority 7: Logging tests
 
 ## Writing New Tests

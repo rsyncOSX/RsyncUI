@@ -27,7 +27,7 @@ struct EditValueErrorScheme<T: LosslessStringConvertible>: View {
                 }
             ), prompt: myprompt
         )
-        .textFieldStyle(RoundedBorderTextFieldStyle())
+        .modifier(AdaptiveRoundedTextFieldStyle())
         .frame(width: mywidth, alignment: .trailing)
         .lineLimit(1)
         .foregroundStyle(color(error: myerror))

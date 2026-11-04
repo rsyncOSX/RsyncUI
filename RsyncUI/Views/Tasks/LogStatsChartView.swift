@@ -195,9 +195,9 @@ struct LogStatsChartView: View {
         var readdatabyfilesormb = ""
 
         if datainchart == .numberoffiles {
-            readdatabyfilesormb = "Records by files transferred..."
+            readdatabyfilesormb = String(localized: "Records by files transferred...")
         } else {
-            readdatabyfilesormb = "Records by max size transferred..."
+            readdatabyfilesormb = String(localized: "Records by max size transferred...")
         }
 
         return readdatabyfilesormb
@@ -281,14 +281,21 @@ struct LogStatsChartView: View {
 }
 
 private struct ConfigurationKey: Equatable {
+    // periphery:ignore - Used by synthesized Equatable for chart task invalidation.
     let id: SynchronizeConfiguration.ID
+    // periphery:ignore - Used by synthesized Equatable for chart task invalidation.
     let hiddenID: Int
 }
 
 private struct ChartRefreshKey: Equatable {
+    // periphery:ignore - Used by synthesized Equatable for chart task invalidation.
     let profile: String?
+    // periphery:ignore - Used by synthesized Equatable for chart task invalidation.
     let selectedConfigurationID: SynchronizeConfiguration.ID?
+    // periphery:ignore - Used by synthesized Equatable for chart task invalidation.
     let metric: LogChartMetric
+    // periphery:ignore - Used by synthesized Equatable for chart task invalidation.
     let limit: LogChartLimit
+    // periphery:ignore - Used by synthesized Equatable for chart task invalidation.
     let configurations: [ConfigurationKey]
 }

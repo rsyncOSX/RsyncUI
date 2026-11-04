@@ -15,15 +15,15 @@ struct EditRsyncParameter: View {
     var body: some View {
         HStack {
             Picker("", selection: $selectedparameter) {
-                ForEach(EnumRsyncArguments.allCases) { Text($0.description)
+                ForEach(EnumRsyncArguments.allCases) { Text(LocalizedStringKey($0.description))
                     .tag($0)
                 }
             }
-            .pickerStyle(MenuPickerStyle())
+            .pickerStyle(.menu)
             .frame(width: 120)
 
             TextField("", text: myvalue)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .modifier(AdaptiveRoundedTextFieldStyle())
                 .frame(width: mywidth)
                 .lineLimit(1)
                 .onChange(of: selectedparameter) {
@@ -49,13 +49,11 @@ struct EditRsyncParameter: View {
     private func parameter(_ value: String) -> String {
         if value.isEmpty {
             return "="
-        } else {
-            if let splitparameter = split(value) {
-                guard splitparameter.count > 1 else {
-                    return "="
-                }
-                return "=" + splitparameter[1]
+        } else if let splitparameter = split(value) {
+            guard splitparameter.count > 1 else {
+                return "="
             }
+            return "=" + splitparameter[1]
         }
         return ""
     }

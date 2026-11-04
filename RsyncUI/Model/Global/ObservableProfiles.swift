@@ -11,9 +11,7 @@ import Observation
 @Observable @MainActor
 final class ObservableProfiles {
     func createProfile(_ newprofile: String) -> Bool {
-        guard newprofile != "Default" else { return false }
-        guard newprofile != "default" else { return false }
-        guard newprofile.isEmpty == false else { return false }
+        guard newprofile != "Default", newprofile != "default", newprofile.isEmpty == false else { return false }
         let catalogprofile = CatalogForProfile()
         if catalogprofile.createProfileCatalog(newprofile) {
             return true

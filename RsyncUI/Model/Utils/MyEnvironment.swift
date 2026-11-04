@@ -10,10 +10,8 @@ struct MyEnvironment {
     var environment: [String: String]?
 
     init?() {
-        if let environment = SharedReference.shared.environment {
-            if let environmentvalue = SharedReference.shared.environmentvalue {
-                self.environment = [environment: environmentvalue]
-            }
+        if let environment = SharedReference.shared.environment, let environmentvalue = SharedReference.shared.environmentvalue {
+            self.environment = [environment: environmentvalue]
         }
     }
 }

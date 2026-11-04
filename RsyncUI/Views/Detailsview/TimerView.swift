@@ -20,6 +20,7 @@ struct TimerView: View {
     var body: some View {
         Button {
             countdown?.cancel()
+            SharedReference.shared.quitAfterExternalExecution = false
             dismiss()
         } label: {
             Text(String(remainingSeconds))
@@ -42,6 +43,9 @@ struct TimerView: View {
             updateCountdown(at: date)
         }
         .onDisappear {
+            if remainingSeconds > 0 {
+                SharedReference.shared.quitAfterExternalExecution = false
+            }
             countdown?.cancel()
         }
     }

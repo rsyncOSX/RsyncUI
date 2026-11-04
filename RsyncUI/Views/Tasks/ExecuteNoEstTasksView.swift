@@ -36,10 +36,9 @@ struct ExecuteNoEstTasksView: View {
                         .animation(.default, value: progress)
                 }
                 .padding()
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.blue, lineWidth: 2)
-                )
+                .overlay { RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.blue, lineWidth: 2)
+                }
             }
             if focusaborttask {
                 labelaborttask
