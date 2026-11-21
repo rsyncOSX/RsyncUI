@@ -27,7 +27,7 @@ archive: clean
 		-exportOptionsPlist "exportOptions.plist" \
 		-archivePath $(BUILD_PATH)/$(APP).xcarchive \
 		-exportPath $(BUILD_PATH)
-	find $(APP_PATH) -type f -perm +111 -print0 | xargs -0 -n1 sh -c 'if file "$$1" | grep -q Mach-O; then xcrun lipo -verify_arch arm64 x86_64 "$$1" || { echo "Not universal: $$1"; exit 1; }; fi' _
+	find $(APP_PATH) -type f -perm +111 -print0 | xargs -0 -n1 sh -c 'if file "$$1" | grep -q Mach-O; then { xcrun lipo "$$1" -verify_arch arm64 && xcrun lipo "$$1" -verify_arch x86_64; } || { echo "Not universal: $$1"; exit 1; }; fi' _
 	ditto -c -k --keepParent $(APP_PATH) $(ZIP_PATH)
 	echo "Project archived successfully (RELEASE)"
 
@@ -45,7 +45,7 @@ archive-debug: clean
 		-exportOptionsPlist "exportOptions.plist" \
 		-archivePath $(BUILD_PATH)/$(APP).xcarchive \
 		-exportPath $(BUILD_PATH)
-	find $(APP_PATH) -type f -perm +111 -print0 | xargs -0 -n1 sh -c 'if file "$$1" | grep -q Mach-O; then xcrun lipo -verify_arch arm64 x86_64 "$$1" || { echo "Not universal: $$1"; exit 1; }; fi' _
+	find $(APP_PATH) -type f -perm +111 -print0 | xargs -0 -n1 sh -c 'if file "$$1" | grep -q Mach-O; then { xcrun lipo "$$1" -verify_arch arm64 && xcrun lipo "$$1" -verify_arch x86_64; } || { echo "Not universal: $$1"; exit 1; }; fi' _
 	echo "Debug build completed successfully"
 
 notarize:
