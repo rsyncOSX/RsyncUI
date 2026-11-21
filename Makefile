@@ -4,7 +4,7 @@ VERSION := $(shell grep -m 1 'MARKETING_VERSION' RsyncUI.xcodeproj/project.pbxpr
 BUILD_PATH = $(PWD)/build
 APP_PATH = "$(BUILD_PATH)/$(APP).app"
 ZIP_PATH = "$(BUILD_PATH)/$(APP).$(VERSION).zip"
-INTEL_BUILD_SETTINGS = ARCHS=x86_64 EXCLUDED_ARCHS= ONLY_ACTIVE_ARCH=NO
+UNIVERSAL_BUILD_SETTINGS = ARCHS="arm64 x86_64" EXCLUDED_ARCHS= ONLY_ACTIVE_ARCH=NO
 
 # Default target is release build
 build: clean archive notarize sign prepare-dmg open
@@ -21,13 +21,13 @@ archive: clean
 		-destination 'generic/platform=macOS' \
 		-configuration Release archive \
 		-archivePath $(BUILD_PATH)/$(APP).xcarchive \
-		$(INTEL_BUILD_SETTINGS)
+		$(UNIVERSAL_BUILD_SETTINGS)
 	echo "Application built, starting the export archive..."
 	xcodebuild -exportArchive \
 		-exportOptionsPlist "exportOptions.plist" \
 		-archivePath $(BUILD_PATH)/$(APP).xcarchive \
 		-exportPath $(BUILD_PATH)
-	xcrun lipo -verify_arch x86_64 $(APP_PATH)/Contents/MacOS/$(APP)
+	find $(APP_PATH) -type f -perm +111 -print0 | xargs -0 -n1 sh -c 'if file "$$1" | grep -q Mach-O; then { xcrun lipo "$$1" -verify_arch arm64 && xcrun lipo "$$1" -verify_arch x86_64; } || { echo "Not universal: $$1"; exit 1; }; fi' _
 	ditto -c -k --keepParent $(APP_PATH) $(ZIP_PATH)
 	echo "Project archived successfully (RELEASE)"
 
@@ -39,13 +39,13 @@ archive-debug: clean
 		-destination 'generic/platform=macOS' \
 		-configuration Debug archive \
 		-archivePath $(BUILD_PATH)/$(APP).xcarchive \
-		$(INTEL_BUILD_SETTINGS)
+		$(UNIVERSAL_BUILD_SETTINGS)
 	echo "Application built, starting the export archive..."
 	xcodebuild -exportArchive \
 		-exportOptionsPlist "exportOptions.plist" \
 		-archivePath $(BUILD_PATH)/$(APP).xcarchive \
 		-exportPath $(BUILD_PATH)
-	xcrun lipo -verify_arch x86_64 $(APP_PATH)/Contents/MacOS/$(APP)
+	find $(APP_PATH) -type f -perm +111 -print0 | xargs -0 -n1 sh -c 'if file "$$1" | grep -q Mach-O; then { xcrun lipo "$$1" -verify_arch arm64 && xcrun lipo "$$1" -verify_arch x86_64; } || { echo "Not universal: $$1"; exit 1; }; fi' _
 	echo "Debug build completed successfully"
 
 notarize:
