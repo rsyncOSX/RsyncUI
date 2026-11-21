@@ -25,7 +25,7 @@ Or download directly from the [releases page](https://github.com/rsyncOSX/RsyncU
 
 ## Latest release
 
-- v3.1.0 — October 25, 2026 — in active development
+- v3.5.0 — November 21, 2026 — in active development
 
 ## Documentation
 
