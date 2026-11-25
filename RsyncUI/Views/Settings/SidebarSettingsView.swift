@@ -13,6 +13,21 @@ enum SideSettingsbaritems: String, Identifiable, CaseIterable {
     var id: String {
         rawValue
     }
+
+    var localizedTitle: String {
+        switch self {
+        case .rsync_and_path:
+            NSLocalizedString("Rsync And Path", comment: "")
+        case .log:
+            NSLocalizedString("Log", comment: "")
+        case .ssh:
+            NSLocalizedString("Ssh", comment: "")
+        case .environment:
+            NSLocalizedString("Environment", comment: "")
+        case .about:
+            NSLocalizedString("About", comment: "")
+        }
+    }
 }
 
 struct SidebarSettingsView: View {
@@ -55,7 +70,7 @@ struct SidebarSettingsRow: View {
     var sidebaritem: SideSettingsbaritems
 
     var body: some View {
-        Label(sidebaritem.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "),
+        Label(sidebaritem.localizedTitle,
               systemImage: systemImage(sidebaritem))
     }
 
