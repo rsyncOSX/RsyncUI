@@ -82,7 +82,7 @@ struct LogStatsChartView: View {
                         }
                     }
 
-                EditValueErrorScheme(100, "Records", $numberofdata, setNumber(numberofdata))
+                EditValueErrorScheme(100, NSLocalizedString("Records", comment: ""), $numberofdata, setNumber(numberofdata))
                     .onSubmit { applyChartLimit() }
             }
 

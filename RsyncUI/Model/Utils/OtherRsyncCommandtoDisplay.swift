@@ -68,7 +68,7 @@ struct OtherRsyncCommandtoDisplay {
                 return [rsyncPath, cleanedArguments]
             }
         } else {
-            return ["Use macOS Finder"]
+            return [NSLocalizedString("Use macOS Finder", comment: "")]
         }
         return []
     }
