@@ -17,7 +17,7 @@ enum RsyncCommand: String, CaseIterable, Identifiable, CustomStringConvertible {
     }
 
     var description: String {
-        rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " ")
+        rawValue.replacingOccurrences(of: "_", with: " ").localizedCapitalized
     }
 }
 

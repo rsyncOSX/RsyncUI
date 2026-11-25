@@ -13,6 +13,21 @@ enum Sidebaritems: String, Identifiable, CaseIterable {
     var id: String {
         rawValue
     }
+
+    var localizedTitle: String {
+        switch self {
+        case .synchronize:
+            NSLocalizedString("Synchronize", comment: "")
+        case .tasks:
+            NSLocalizedString("Tasks", comment: "")
+        case .snapshots:
+            NSLocalizedString("Snapshots", comment: "")
+        case .restore:
+            NSLocalizedString("Restore", comment: "")
+        case .profiles:
+            NSLocalizedString("Profiles", comment: "")
+        }
+    }
 }
 
 struct SidebarMainView: View {
@@ -333,7 +348,7 @@ struct SidebarRow: View {
     var badgeCount: Int = 0
 
     var body: some View {
-        Label(sidebaritem.rawValue.localizedCapitalized.replacingOccurrences(of: "_", with: " "),
+        Label(sidebaritem.localizedTitle,
               systemImage: systemImage(sidebaritem))
             .badge(badgeCount > 0 ? badgeCount : 0)
     }

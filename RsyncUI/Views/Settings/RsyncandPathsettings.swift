@@ -135,7 +135,7 @@ struct RsyncandPathsettings: View {
     var setpathforrestore: some View {
         EditValueErrorScheme(
             400,
-            "Path for restore",
+            NSLocalizedString("Path for restore", comment: ""),
             $rsyncpathsettings.temporarypathforrestore,
             rsyncpathsettings.verifyPathForRestore(rsyncpathsettings.temporarypathforrestore)
         )
