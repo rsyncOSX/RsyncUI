@@ -1,0 +1,6 @@
+/* English presentation keys; preserve placeholders and configuration identifiers. */
+"Estimate" = "預估";
+"Estimate & Synchronize your files." = "預估並同步您的檔案。";
+"Estimate: no URL set" = "預估：未設定連結";
+"Profile: %@" = "設定檔：%@";
+"Synchronize" = "同步";
