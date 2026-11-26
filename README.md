@@ -5,7 +5,7 @@
 ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI/v3.0.5/total)
 [![GitHub issues](https://img.shields.io/github/issues/rsyncOSX/RsyncUI)](https://github.com/rsyncOSX/RsyncUI/issues)
 
-> **New test version: RsyncUI 4.0.0.** A redesigned interface, and support for Shortcuts, Siri and Spotlight. It is planned for release in some weeks. Version 4.0.0 is mainly a UI update: the synchronize and rsync execution code is unchanged, with new App Intents for Shortcuts and a minor update to the Estimate model. Read [what is new and how to test it](https://rsyncui.netlify.app/docs/version-400/), and download it from the [RsyncUI-next releases](https://github.com/rsyncOSX/RsyncUI-next/releases).
+> **New test version: RsyncUI 4.0.0.** A redesigned interface, and support for Shortcuts, Siri and Spotlight. It is planned for release in some weeks. Version 4.0.0 is mainly a UI update: the synchronize and rsync execution code is unchanged, with new App Intents for Shortcuts and a minor update to the Estimate model. Simplified and Traditional Chinese localization is included. Read [what is new and how to test it](https://rsyncui.netlify.app/docs/version-400/), and download it from the [RsyncUI-next releases](https://github.com/rsyncOSX/RsyncUI-next/releases). ![GitHub Releases](https://img.shields.io/github/downloads/rsyncosx/RsyncUI-next/total)
 
 RsyncUI is a SwiftUI macOS GUI for [rsync](https://github.com/WayneD/rsync) — it handles task organisation and parameter configuration so you can get the most out of rsync without touching the command line.
 
