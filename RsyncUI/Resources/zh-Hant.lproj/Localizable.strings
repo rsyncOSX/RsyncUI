@@ -188,8 +188,6 @@
 "Log settings" = "日誌設定";
 "Logfile" = "日誌檔案";
 "Logs" = "日誌";
-"Manage Profiles" = "管理設定檔";
-"Management" = "管理";
 "Mark days after" = "超過指定天數後標記";
 "Marked %@ snapshots for delete" = "已標記 %@ 個快照待刪除";
 "Marked %lld snapshots for delete" = "已標記 %lld 個快照待刪除";
@@ -265,7 +263,6 @@
 "Restore Data" = "恢復資料";
 "Restore Files" = "恢復檔案";
 "Restore everything" = "恢復全部內容";
-"Restore files" = "恢復檔案";
 "Restore files to this destination?" = "將檔案恢復到此目標位置？";
 "Restore not allowed for syncremote task" = "遠端拉取（syncremote）任務不支援恢復";
 "Restoring files…" = "正在恢復檔案…";
@@ -307,8 +304,6 @@
 "Snapshot" = "快照";
 "Snapshot Number" = "快照編號";
 "Snapshot and syncremote require rsync ver3.x" = "快照和遠端拉取（syncremote）需要 rsync 3.x";
-"Snapshot tasks: profile %@" = "快照任務：設定檔 %@";
-"Snapshot tasks: profile %lld" = "快照任務：設定檔 %lld";
 "Snapshotnum must be 1" = "快照編號必須為 1";
 "Snapshots" = "快照";
 "Some tasks are snapshots, cannot be exported" = "部分任務為快照任務，無法匯出";
@@ -388,9 +383,7 @@
 "Unnamed task" = "未命名任務";
 "Update" = "更新";
 "Update available" = "有可用更新";
-"Update parameters" = "更新引數";
 "Update plan snapshot" = "更新快照計劃";
-"Update task" = "更新任務";
 "Updated" = "已更新";
 "Updates" = "更新";
 "Use macOS Finder" = "請使用 macOS 訪達";
@@ -409,7 +402,6 @@
 "Version rsync" = "rsync 版本";
 "View logfile" = "檢視日誌檔案";
 "Weekly" = "每週";
-"add" = "新增";
 "argument --archive is MISSING" = "缺少 --archive 引數";
 "argument --compress is MISSING" = "缺少 --compress 引數";
 "argument --delete is INCLUDED" = "包含 --delete 引數";

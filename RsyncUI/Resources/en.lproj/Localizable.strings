@@ -188,8 +188,6 @@
 "Log settings" = "Log settings";
 "Logfile" = "Logfile";
 "Logs" = "Logs";
-"Manage Profiles" = "Manage Profiles";
-"Management" = "Management";
 "Mark days after" = "Mark days after";
 "Marked %@ snapshots for delete" = "Marked %@ snapshots for delete";
 "Marked %lld snapshots for delete" = "Marked %lld snapshots for delete";
@@ -265,7 +263,6 @@
 "Restore Data" = "Restore Data";
 "Restore Files" = "Restore Files";
 "Restore everything" = "Restore everything";
-"Restore files" = "Restore files";
 "Restore files to this destination?" = "Restore files to this destination?";
 "Restore not allowed for syncremote task" = "Restore not allowed for syncremote task";
 "Restoring files…" = "Restoring files…";
@@ -307,8 +304,6 @@
 "Snapshot" = "Snapshot";
 "Snapshot Number" = "Snapshot Number";
 "Snapshot and syncremote require rsync ver3.x" = "Snapshot and syncremote require rsync ver3.x";
-"Snapshot tasks: profile %@" = "Snapshot tasks: profile %@";
-"Snapshot tasks: profile %lld" = "Snapshot tasks: profile %lld";
 "Snapshotnum must be 1" = "Snapshotnum must be 1";
 "Snapshots" = "Snapshots";
 "Some tasks are snapshots, cannot be exported" = "Some tasks are snapshots, cannot be exported";
@@ -388,9 +383,7 @@
 "Unnamed task" = "Unnamed task";
 "Update" = "Update";
 "Update available" = "Update available";
-"Update parameters" = "Update parameters";
 "Update plan snapshot" = "Update plan snapshot";
-"Update task" = "Update task";
 "Updated" = "Updated";
 "Updates" = "Updates";
 "Use macOS Finder" = "Use macOS Finder";
@@ -409,7 +402,6 @@
 "Version rsync" = "Version rsync";
 "View logfile" = "View logfile";
 "Weekly" = "Weekly";
-"add" = "add";
 "argument --archive is MISSING" = "argument --archive is MISSING";
 "argument --compress is MISSING" = "argument --compress is MISSING";
 "argument --delete is INCLUDED" = "argument --delete is INCLUDED";
