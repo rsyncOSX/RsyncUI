@@ -195,7 +195,7 @@ enum HeadlessRunner {
     private static func checkSources(_ configurations: [SynchronizeConfiguration]) throws {
         let fileManager = FileManager.default
         for config in configurations where config.task != "syncremote"
-            && DestinationDeletion.isEnabled(config) {
+            && SynchronizeConfirmationView.usesDestinationDeletion(config) {
             let path = (config.localCatalog as NSString).expandingTildeInPath
             var isDirectory: ObjCBool = false
             let exists = fileManager.fileExists(atPath: path, isDirectory: &isDirectory)

@@ -40,18 +40,13 @@ struct VerifyTaskTabView: View {
             if presentestimates, let remotedatanumbers {
                 DetailsView(remotedatanumbers: remotedatanumbers, itemizechanges: remotedatanumbers.itemizechanges)
             } else {
-                ZStack {
+                VStack(alignment: .leading, spacing: 12) {
                     if estimating {
-                        ProgressView()
+                        ProgressView("Verifying task…")
                     }
-
-                    VStack(alignment: .leading, spacing: 12) {
-                        VStack(alignment: .leading) {
-                            if let selectedconfig {
-                                RsyncCommandView(config: selectedconfig)
-                                ShortcutsApprovalStatusView(config: selectedconfig)
-                            }
-                        }
+                    if let selectedconfig {
+                        RsyncCommandView(config: selectedconfig)
+                        ShortcutsApprovalStatusView(config: selectedconfig)
                     }
                 }
             }
@@ -80,23 +75,10 @@ struct VerifyTaskTabView: View {
                                 verify(config: selectedconfig)
                             }
                         } label: {
-                            Label("Verify task", systemImage: "play.fill")
-                                .labelStyle(.iconOnly)
+                            Label("Verify Task", systemImage: "play.fill")
+                                .labelStyle(.titleAndIcon)
                         }
                         .help("Verify task")
-                    }
-                }
-
-                if selectedconfig != nil,
-                   selectedconfig?.task != SharedReference.shared.halted {
-                    ToolbarItem {
-                        Button {
-                            abort()
-                        } label: {
-                            Label("Abort", systemImage: "stop.fill")
-                                .labelStyle(.iconOnly)
-                        }
-                        .help("Abort (⌘K)")
                     }
                 }
 
@@ -117,6 +99,19 @@ struct VerifyTaskTabView: View {
                             : canAllow
                             ? "Allow Shortcuts to synchronize this task without opening RsyncUI"
                             : "Verify the task first, then click to allow it in Shortcuts.")
+                    }
+                }
+
+                if selectedconfig != nil,
+                   selectedconfig?.task != SharedReference.shared.halted {
+                    ToolbarItem {
+                        Button {
+                            abort()
+                        } label: {
+                            Label("Abort", systemImage: "stop.fill")
+                                .labelStyle(.iconOnly)
+                        }
+                        .help("Abort (⌘K)")
                     }
                 }
             }

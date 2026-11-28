@@ -13,7 +13,9 @@ struct TasksListPanelView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            SynchronizeTasksHeading(
+            TaskWorkspaceHeading(
+                title: "Synchronize",
+                systemImage: "arrow.triangle.2.circlepath",
                 profile: rsyncUIdata.profile ?? "Default",
                 taskCount: rsyncUIdata.configurations?.count ?? 0,
                 selectionCount: selecteduuids.count
@@ -35,8 +37,7 @@ struct TasksListPanelView: View {
                 SelectedTaskRouteView(configuration: configuration)
             }
 
-            Divider()
-            SynchronizeSelectionFooter(selectionCount: selecteduuids.count)
+
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onChange(of: selecteduuids) {
@@ -48,18 +49,29 @@ struct TasksListPanelView: View {
     }
 }
 
-private struct SynchronizeTasksHeading: View {
+struct TaskWorkspaceHeading: View {
+    let title: LocalizedStringKey
+    let systemImage: String
     let profile: String
     let taskCount: Int
     let selectionCount: Int
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            Text("Synchronize")
-                .font(.title2.weight(.semibold))
-            Text("\(profile) profile · \(taskCount) tasks · \(selectionCount) selected")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+        HStack(spacing: 12) {
+            Image(systemName: systemImage)
+                .font(.title2.weight(.medium))
+                .foregroundStyle(.tint)
+                .frame(width: 40, height: 40)
+                .background(.tint.opacity(0.12), in: RoundedRectangle(cornerRadius: 10))
+                .accessibilityHidden(true)
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.title2.weight(.semibold))
+                    .accessibilityAddTraits(.isHeader)
+                Text("\(profile) profile · \(taskCount) tasks · \(selectionCount) selected")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 20)
@@ -67,15 +79,8 @@ private struct SynchronizeTasksHeading: View {
     }
 }
 
-private struct SelectedTaskRouteView: View {
+struct SelectedTaskRouteView: View {
     let configuration: SynchronizeConfiguration
-
-    /// A remote pull reverses the local and offsite paths. Halted tasks retain
-    /// their original mode in `halted` (2 is a remote pull).
-    private var isRemotePull: Bool {
-        configuration.task == SharedReference.shared.syncremote ||
-            (configuration.task == SharedReference.shared.halted && configuration.halted == 2)
-    }
 
     private var remoteEndpoint: String {
         if configuration.offsiteServer.isEmpty {
@@ -98,28 +103,28 @@ private struct SelectedTaskRouteView: View {
                 HStack(alignment: .top, spacing: 20) {
                     TaskEndpointView(
                         title: "Source",
-                        host: isRemotePull ? remoteEndpoint : String(localized: "This Mac"),
-                        path: isRemotePull ? configuration.offsiteCatalog : configuration.localCatalog
+                        host: configuration.displaysRemoteSource ? remoteEndpoint : String(localized: "This Mac"),
+                        path: configuration.displaySourcePath
                     )
                     Image(systemName: "arrow.right")
                         .foregroundStyle(.secondary)
                         .accessibilityHidden(true)
                     TaskEndpointView(
                         title: "Destination",
-                        host: isRemotePull ? String(localized: "This Mac") : remoteEndpoint,
-                        path: isRemotePull ? configuration.localCatalog : configuration.offsiteCatalog
+                        host: configuration.displaysRemoteSource ? String(localized: "This Mac") : remoteEndpoint,
+                        path: configuration.displayDestinationPath
                     )
                 }
                 VStack(alignment: .leading, spacing: 12) {
                     TaskEndpointView(
                         title: "Source",
-                        host: isRemotePull ? remoteEndpoint : String(localized: "This Mac"),
-                        path: isRemotePull ? configuration.offsiteCatalog : configuration.localCatalog
+                        host: configuration.displaysRemoteSource ? remoteEndpoint : String(localized: "This Mac"),
+                        path: configuration.displaySourcePath
                     )
                     TaskEndpointView(
                         title: "Destination",
-                        host: isRemotePull ? String(localized: "This Mac") : remoteEndpoint,
-                        path: isRemotePull ? configuration.localCatalog : configuration.offsiteCatalog
+                        host: configuration.displaysRemoteSource ? String(localized: "This Mac") : remoteEndpoint,
+                        path: configuration.displayDestinationPath
                     )
                 }
             }
@@ -149,27 +154,8 @@ private struct TaskEndpointView: View {
                 .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .accessibilityElement(children: .combine)
-    }
-}
-
-private struct SynchronizeSelectionFooter: View {
-    let selectionCount: Int
-
-    var body: some View {
-        HStack(spacing: 6) {
-            Image(systemName: "info.circle")
-                .accessibilityHidden(true)
-            if selectionCount == 0 {
-                Text("No selection · Actions apply to all enabled tasks")
-            } else {
-                Text("\(selectionCount) selected · Estimate to preview changes")
-            }
-            Spacer(minLength: 0)
-        }
-        .font(.caption)
-        .foregroundStyle(.secondary)
-        .padding(.horizontal, 20)
-        .padding(.vertical, 10)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(title))
+        .accessibilityValue(Text(verbatim: "\(host), \(path)"))
     }
 }

@@ -24,6 +24,16 @@ extension AddTaskView {
         return (rsyncUIdata.configurations?.count ?? 0) > beforeCount
     }
 
+    func addConfigAndDismiss() async {
+        guard !isAdding, requiredFieldsAreComplete else { return }
+        isAdding = true
+        defer { isAdding = false }
+        newdata.applyTrailingSlashToSource(enabled: trailingslashoption)
+        if await addConfig() {
+            dismissAddSheet()
+        }
+    }
+
     func validateAndUpdate() async -> Bool {
         let profile = rsyncUIdata.profile
         let selectedHiddenID = newdata.selectedconfig?.hiddenID
@@ -39,12 +49,17 @@ extension AddTaskView {
 // MARK: - Buttons
 
 extension AddTaskView {
-    var updateButton: some View {
-        Button("Update", systemImage: "arrow.down") {
-            Task { @MainActor in
-                _ = await validateAndUpdate()
+    var saveButton: some View {
+        HStack {
+            Spacer()
+            Button("Save") {
+                Task { @MainActor in
+                    _ = await validateAndUpdate()
+                }
             }
+            .buttonStyle(.borderedProminent)
+            .help("Save task")
+            .disabled(!newdata.hasUnsavedChanges)
         }
-        .help("Update task")
     }
 }

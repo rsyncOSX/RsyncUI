@@ -41,10 +41,10 @@ struct EstimateTableView: View {
                         }
                     }
 
-                    ConfigurationTaskBadge(task: data.task)
+                    ConfigurationTaskBadge(task: data.task, hidesSynchronize: true)
                 }
             }
-            .width(min: 50, max: 150)
+            .width(min: 130, ideal: 160, max: 220)
             TableColumn("Source", value: \.localCatalog)
                 .width(min: 80, max: 300)
             TableColumn("Destination", value: \.offsiteCatalog)
@@ -56,7 +56,7 @@ struct EstimateTableView: View {
                     Text("localhost")
                 }
             }
-            .width(min: 50, max: 90)
+            .width(min: 75, ideal: 85, max: 110)
         }
     }
 

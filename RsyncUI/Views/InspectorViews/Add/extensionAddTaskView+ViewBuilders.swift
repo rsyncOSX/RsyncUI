@@ -21,16 +21,37 @@ extension AddTaskView {
         }
     }
 
+    var taskSummary: some View {
+        Section("What this task will do") {
+            switch newdata.selectedrsynccommand {
+            case .synchronize:
+                Label("Copy from the source folder to the destination.", systemImage: "arrow.right")
+            case .snapshot:
+                Label("Create a snapshot of the source at the destination.", systemImage: "clock.arrow.circlepath")
+            case .syncremote:
+                Label("Pull from the remote source into the local destination.", systemImage: "arrow.down.to.line")
+            }
+            if !newdata.localcatalog.isEmpty && !newdata.remotecatalog.isEmpty {
+                let local = newdata.localcatalog
+                let remote = newdata.remoteserver.isEmpty ? newdata.remotecatalog : "\(newdata.remoteserver):\(newdata.remotecatalog)"
+                LabeledContent("From", value: newdata.selectedrsynccommand == .syncremote ? remote : local)
+                LabeledContent("To", value: newdata.selectedrsynccommand == .syncremote ? local : remote)
+            }
+        }
+    }
+
     var addTaskSheetView: some View {
-        VStack {
-            Text("Add Task")
-                .font(.title2)
+        VStack(alignment: .leading, spacing: 12) {
+            Label("Add Task", systemImage: "folder.badge.plus")
+                .font(.title2.weight(.semibold))
+                .accessibilityAddTraits(.isHeader)
 
             Form {
                 pickerselecttypeoftask
                 synchronizeID
                 catalogSectionView
                 remoteuserandserver
+                taskSummary
             }
             .formStyle(.grouped)
 
@@ -49,13 +70,10 @@ extension AddTaskView {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Add") {
                     Task { @MainActor in
-                        settrailingSlash(for: $newdata.localcatalog)
-                        if await addConfig() {
-                            dismissAddSheet()
-                        }
+                        await addConfigAndDismiss()
                     }
                 }
-                .disabled(!requiredFieldsAreComplete)
+                .disabled(!requiredFieldsAreComplete || isAdding)
             }
 
             ToolbarItem(placement: .cancellationAction) {

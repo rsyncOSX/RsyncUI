@@ -67,31 +67,41 @@ struct TasksView: View {
     @State var showquicktask: Bool = false
 
     var body: some View {
-        ZStack {
-            HStack {
-                TasksListPanelView(rsyncUIdata: rsyncUIdata,
-                                   selecteduuids: $selecteduuids,
-                                   doubleclick: $doubleclick,
-                                   progress: $progress,
-                                   progressdetails: progressdetails,
-                                   max: maxcount,
-                                   onSelectedUuidsChange: handleSelectedUuidsChange,
-                                   onEstimatedListChange: handleEstimatedListChange)
-                    .onChange(of: rsyncUIdata.profile) { reset() }
-                    .onChange(of: focusexport) {
-                        handleFocusExportChange()
-                    }
-                    .onChange(of: focusimport) {
-                        handleFocusImportChange()
-                    }
-
-                TasksFocusActionsView(focusStartEstimation: $focusstartestimation,
-                                      focusStartExecution: $focusstartexecution,
-                                      doubleClick: $doubleclick,
-                                      onStartEstimation: handleStartEstimation,
-                                      onStartExecution: execute,
-                                      onDoubleClick: doubleClickActionFunction)
+        TasksListPanelView(rsyncUIdata: rsyncUIdata,
+                           selecteduuids: $selecteduuids,
+                           doubleclick: $doubleclick,
+                           progress: $progress,
+                           progressdetails: progressdetails,
+                           max: maxcount,
+                           onSelectedUuidsChange: handleSelectedUuidsChange,
+                           onEstimatedListChange: handleEstimatedListChange)
+            .onChange(of: rsyncUIdata.profile) { reset() }
+            .onChange(of: focusexport) {
+                handleFocusExportChange()
             }
+            .onChange(of: focusimport) {
+                handleFocusImportChange()
+            }
+        .onChange(of: focusstartestimation) {
+            if focusstartestimation { handleStartEstimation() }
+        }
+        .onChange(of: focusstartexecution) {
+            guard focusstartexecution else { return }
+            focusstartexecution = false
+            execute()
+        }
+        .onChange(of: doubleclick) {
+            guard doubleclick else { return }
+            doubleclick = false
+            doubleClickActionFunction()
+        }
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            SynchronizeActionBar(
+                selectionCount: selecteduuids.count,
+                canRun: canRun,
+                preview: handleStartEstimation,
+                synchronize: execute
+            )
         }
         .navigationTitle("RsyncUI")
         .focusedSceneValue(\.startestimation, $focusstartestimation)
@@ -100,11 +110,32 @@ struct TasksView: View {
         .focusedSceneValue(\.importtasks, $focusimport)
         .focusedSceneValue(\.showquicktask, $showquicktask)
         .toolbar { taskviewtoolbarcontent }
-        .alert("Synchronize all tasks without estimating first?", isPresented: $showingAlert) {
-            Button("Synchronize") {
-                executetaskpath.append(Tasks(task: .executenoestimatetasksview))
-            }
-            Button("Cancel", role: .cancel) {}
+        .sheet(isPresented: $showingAlert) {
+            SynchronizeConfirmationView(
+                configurations: runnableConfigurations,
+                incompletePreview: progressdetails.profile == rsyncUIdata.profile && (progressdetails.estimatedlist ?? []).contains { estimate in
+                    runnableConfigurations.contains { $0.id == estimate.id } && !estimate.hasUsableStatistics
+                },
+                estimatedIDs: estimatedRunScope,
+                cancel: { showingAlert = false },
+                preview: {
+                    showingAlert = false
+                    executetaskpath.append(Tasks(task: .summarizeddetailsview))
+                },
+                synchronize: {
+                    showingAlert = false
+                    rsyncUIdata.executetasksinprogress = true
+                    executetaskpath.append(Tasks(task: .executenoestimatetasksview))
+                },
+                synchronizeEstimated: {
+                    showingAlert = false
+                    let scope = estimatedRunScope
+                    guard !scope.isEmpty else { return }
+                    selecteduuids = scope
+                    rsyncUIdata.executetasksinprogress = true
+                    executetaskpath.append(Tasks(task: .executestimatedview))
+                }
+            )
         }
         .sheet(item: $activeSheet) { sheetType in
             switch sheetType {
@@ -164,8 +195,9 @@ extension TasksView {
     }
 
     func handleStartEstimation() {
-        executetaskpath.append(Tasks(task: .summarizeddetailsview))
         focusstartestimation = false
+        guard canRun else { return }
+        executetaskpath.append(Tasks(task: .summarizeddetailsview))
     }
 
     func allTasksAreHalted() -> Bool {
@@ -210,8 +242,6 @@ extension TasksView {
 
     func execute() {
         guard canRun else { return }
-        // Synchronize only from an estimate of the current profile that covers
-        // every task in scope. Otherwise ask before synchronizing without estimate.
         let scope = Set(runnableConfigurations.map(\.id))
         let estimates = progressdetails.estimatedlist ?? []
         guard progressdetails.profile == rsyncUIdata.profile,
@@ -235,6 +265,12 @@ extension TasksView {
         Set(estimates.filter { $0.hasUsableStatistics && $0.datatosynchronize }.map(\.id)).intersection(scope)
     }
 
+    private var estimatedRunScope: Set<UUID> {
+        guard progressdetails.profile == rsyncUIdata.profile else { return [] }
+        return Self.estimatedRunScope(for: Set(runnableConfigurations.map(\.id)),
+                                      estimates: progressdetails.estimatedlist ?? [])
+    }
+
     private var runnableConfigurations: [SynchronizeConfiguration] {
         (rsyncUIdata.configurations ?? []).filter {
             $0.task != SharedReference.shared.halted && (selecteduuids.isEmpty || selecteduuids.contains($0.id))
@@ -250,5 +286,58 @@ extension TasksView {
         selectedconfig = nil
         thereareestimates = false
         rsyncUIdata.executetasksinprogress = false
+    }
+}
+
+private struct SynchronizeActionBar: View {
+    let selectionCount: Int
+    let canRun: Bool
+    let preview: () -> Void
+    let synchronize: () -> Void
+
+    var body: some View {
+        VStack(spacing: 0) {
+            Divider()
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 16) {
+                    scope
+                    Spacer(minLength: 12)
+                    actions
+                }
+                VStack(alignment: .trailing, spacing: 8) {
+                    scope
+                    actions
+                }
+                .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
+        }
+        .background(.bar)
+    }
+
+    private var scope: some View {
+        Label {
+            if selectionCount == 0 {
+                Text("All enabled tasks")
+            } else {
+                Text("\(selectionCount) selected")
+            }
+        } icon: {
+            Image(systemName: "checklist")
+        }
+        .font(.callout)
+        .foregroundStyle(.secondary)
+    }
+
+    private var actions: some View {
+        HStack {
+            Button("Estimate (Dry Run)", action: preview)
+                .help("Estimate (Dry Run) (⌘E)")
+            Button("Synchronize", systemImage: "play.fill", action: synchronize)
+                .buttonStyle(.borderedProminent)
+                .help("Synchronize (⌘R)")
+        }
+        .disabled(!canRun)
     }
 }

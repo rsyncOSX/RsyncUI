@@ -40,11 +40,11 @@ extension AddTaskView {
     }
 
     var localandremotecatalog: some View {
-        Section("Folders") {
+        Section("Source and Destination") {
             Toggle("Trailing Slash on Source folder", isOn: $trailingslashoption)
                 .onChange(of: trailingslashoption) {
                     UserDefaults.standard.set(trailingslashoption, forKey: "trailingslashoptions")
-                    settrailingSlash(for: $newdata.localcatalog)
+                    newdata.applyTrailingSlashToSource(enabled: trailingslashoption)
                 }
                 .onAppear {
                     let storedValue = UserDefaults.standard.object(forKey: "trailingslashoptions")
@@ -70,11 +70,11 @@ extension AddTaskView {
     }
 
     var localandremotecatalogsyncremote: some View {
-        Section("Folders") {
+        Section("Source and Destination") {
             Toggle("Trailing Slash on Source folder", isOn: $trailingslashoption)
                 .onChange(of: trailingslashoption) {
                     UserDefaults.standard.set(trailingslashoption, forKey: "trailingslashoptions")
-                    settrailingSlash(for: $newdata.remotecatalog)
+                    newdata.applyTrailingSlashToSource(enabled: trailingslashoption)
                 }
                 .onAppear {
                     let storedValue = UserDefaults.standard.object(forKey: "trailingslashoptions")
@@ -97,21 +97,6 @@ extension AddTaskView {
                          focus: .localcatalogField,
                          selectedValue: newdata.selectedconfig?.localCatalog)
         }
-    }
-
-    func settrailingSlash(for value: Binding<String>) {
-        var text = value.wrappedValue
-        guard text.isEmpty == false else { return }
-
-        if trailingslashoption, !text.isEmpty {
-            if !text.hasSuffix("/") {
-                text += "/"
-            }
-        } else if text.hasSuffix("/") {
-            text.removeLast()
-        }
-
-        value.wrappedValue = text
     }
 
     func catalogField(catalog: Binding<String>, placeholder: LocalizedStringKey,
@@ -211,10 +196,12 @@ extension AddTaskView {
     }
 
     var pickerselecttypeoftask: some View {
-        Picker("Action", selection: $newdata.selectedrsynccommand) {
-            ForEach(TypeofTask.allCases) { Text(LocalizedStringKey($0.description)).tag($0) }
+        Picker("Task type", selection: $newdata.selectedrsynccommand) {
+            Text("Synchronize").tag(TypeofTask.synchronize)
+            Text("Snapshot").tag(TypeofTask.snapshot)
+            Text("Remote pull").tag(TypeofTask.syncremote)
         }
-        .pickerStyle(.menu)
+        .pickerStyle(.segmented)
         .onChange(of: newdata.selectedrsynccommand) {
             UserDefaults.standard.set(newdata.selectedrsynccommand.rawValue, forKey: "selectedrsynccommand")
         }

@@ -35,29 +35,12 @@ extension RsyncParametersView {
 // MARK: - Buttons
 
 extension RsyncParametersView {
-    var addupdateButton: some View {
-        if notifydataisupdated {
-            AdaptiveProminentButton(
-                systemImage: "arrow.down",
-                text: "Update",
-                helpText: "Update parameters"
-            ) {
-                saveRsyncParameters()
-                selecteduuids.removeAll()
-            }
-            .disabled(selectedconfig == nil)
+    var saveButton: some View {
+        Button("Save", action: saveRsyncParameters)
+            .buttonStyle(.borderedProminent)
+            .help("Save parameters")
+            .disabled(!notifydataisupdated)
             .padding(.bottom, 10)
-        } else {
-            AdaptiveProminentButton(
-                systemImage: "plus",
-                text: "Add",
-                helpText: "Save parameters"
-            ) {
-                saveRsyncParameters()
-            }
-            .disabled(selectedconfig == nil)
-            .padding(.bottom, 10)
-        }
     }
 }
 

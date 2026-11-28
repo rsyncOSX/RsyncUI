@@ -36,9 +36,10 @@ struct StarteestimateButton: View {
         Button {
             startestimation = true
         } label: {
-            Text("Estimate")
+            Text("Estimate (Dry Run)")
         }
         .keyboardShortcut("e", modifiers: [.command])
+        .disabled(startestimation == nil)
     }
 }
 
@@ -52,6 +53,7 @@ struct StartexecuteButton: View {
             Text("Synchronize")
         }
         .keyboardShortcut("r", modifiers: [.command])
+        .disabled(startexecution == nil)
     }
 }
 
@@ -65,6 +67,7 @@ struct Abborttask: View {
             Text("Abort task")
         }
         .keyboardShortcut("k", modifiers: [.command])
+        .disabled(aborttask == nil)
     }
 }
 

@@ -14,7 +14,16 @@ struct EditTabView: View {
     @State private var isInspectorPresented: Bool = true
 
     var body: some View {
-        HStack {
+        VStack(spacing: 0) {
+            TaskWorkspaceHeading(
+                title: "Tasks",
+                systemImage: "checklist",
+                profile: rsyncUIdata.profile ?? "Default",
+                taskCount: rsyncUIdata.configurations?.count ?? 0,
+                selectionCount: selecteduuids.count
+            )
+            Divider()
+
             // Shared task list table on the left
             ListofTasksAddView(
                 rsyncUIdata: rsyncUIdata,
@@ -35,22 +44,22 @@ struct EditTabView: View {
         .inspector(isPresented: $isInspectorPresented) {
             InspectorView(rsyncUIdata: rsyncUIdata,
                           selecteduuids: $selecteduuids)
-                .inspectorColumnWidth(min: 550, ideal: 600, max: 650)
+                .inspectorColumnWidth(min: 500, ideal: 520, max: 650)
                 .interactiveDismissDisabled()
         }
+        .navigationTitle("RsyncUI")
         .sheet(isPresented: $showAddPopover) {
             AddTaskView(rsyncUIdata: rsyncUIdata,
                         selecteduuids: $selecteduuids,
                         mode: .add)
         }
         .toolbar(content: {
-            ToolbarItem(placement: .status) {
+            ToolbarItem(placement: .primaryAction) {
                 Button {
                     showAddPopover.toggle()
                 } label: {
                     Label("Add Task", systemImage: "plus")
-                        .labelStyle(.iconOnly)
-                        .help("Add Task")
+                        .labelStyle(.titleAndIcon)
                 }
                 .help("Add new task")
             }

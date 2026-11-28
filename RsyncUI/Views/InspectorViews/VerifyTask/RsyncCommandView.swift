@@ -14,45 +14,29 @@ struct RsyncCommandView: View {
     let config: SynchronizeConfiguration
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Picker("", selection: $selectedrsynccommand) {
-                    ForEach(RsyncCommand.allCases) { Text(LocalizedStringKey($0.description))
-                        .tag($0)
+        VStack(alignment: .leading, spacing: 16) {
+            GroupBox {
+                Picker("Action", selection: $selectedrsynccommand) {
+                    ForEach(RsyncCommand.allCases) { command in
+                        Text(LocalizedStringKey(command.description)).tag(command)
                     }
                 }
-                .pickerStyle(.radioGroup)
-                .padding(10)
-
-                Picker("", selection: $otherselectedrsynccommand) {
-                    ForEach(OtherRsyncCommand.allCases) { Text(LocalizedStringKey($0.description))
-                        .tag($0)
-                    }
-                }
-                .pickerStyle(.radioGroup)
-                .padding(10)
+                CommandPreviewText(command: commandstringrsync ?? "")
+            } label: {
+                Label("Rsync command", systemImage: "terminal")
             }
 
-            VStack(alignment: .leading) {
-                showcommandrsync
-                    .padding(10)
-                showcommandother
-                    .padding(10)
+            GroupBox {
+                Picker("Action", selection: $otherselectedrsynccommand) {
+                    ForEach(OtherRsyncCommand.allCases) { command in
+                        Text(LocalizedStringKey(command.description)).tag(command)
+                    }
+                }
+                CommandPreviewText(command: commandstringother)
+            } label: {
+                Label("Other commands", systemImage: "text.alignleft")
             }
         }
-        .padding(10)
-    }
-
-    var showcommandrsync: some View {
-        Text(commandstringrsync ?? "")
-            .textSelection(.enabled)
-            .lineLimit(nil)
-            .multilineTextAlignment(.leading)
-            .frame(maxWidth: .infinity)
-            .padding()
-            .overlay { RoundedRectangle(cornerRadius: 8)
-                .stroke(.blue, lineWidth: 1)
-            }
     }
 
     var commandstringrsync: String? {
@@ -60,20 +44,40 @@ struct RsyncCommandView: View {
                               config: config).rsynccommand
     }
 
-    var showcommandother: some View {
-        Text(commandstringother)
-            .textSelection(.enabled)
-            .lineLimit(nil)
-            .multilineTextAlignment(.leading)
-            .frame(maxWidth: .infinity)
-            .padding()
-            .overlay { RoundedRectangle(cornerRadius: 8)
-                .stroke(.blue, lineWidth: 1)
-            }
-    }
-
     var commandstringother: String {
         OtherRsyncCommandtoDisplay(display: otherselectedrsynccommand,
                                    config: config).command
+    }
+}
+
+private struct CommandPreviewText: View {
+    let command: String
+    @State private var copied = false
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 8) {
+            Text(verbatim: command)
+                .font(.system(.callout, design: .monospaced))
+                .textSelection(.enabled)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Button("Copy", systemImage: copied ? "checkmark" : "doc.on.doc", action: copy)
+                .labelStyle(.iconOnly)
+                .buttonStyle(.borderless)
+                .help("Copy command")
+                .disabled(command.isEmpty)
+        }
+        .padding(10)
+        .background(.background, in: RoundedRectangle(cornerRadius: 6))
+        .task(id: copied) {
+            guard copied else { return }
+            try? await Task.sleep(for: .seconds(2))
+            copied = false
+        }
+        .onChange(of: command) { copied = false }
+    }
+
+    private func copy() {
+        NSPasteboard.general.clearContents()
+        copied = NSPasteboard.general.setString(command, forType: .string)
     }
 }

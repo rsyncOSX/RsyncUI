@@ -16,7 +16,7 @@ extension TasksView {
             if columnVisibility == .detailOnly {
                 VStack {
                     if rsyncUIdata.validprofiles.isEmpty == false {
-                        Picker("", selection: $selectedprofileID) {
+                        Picker("Profile", selection: $selectedprofileID) {
                             Text("Default")
                                 .tag(nil as ProfilesnamesRecord.ID?)
                             ForEach(rsyncUIdata.validprofiles, id: \.self) { profile in
@@ -24,8 +24,7 @@ extension TasksView {
                                     .tag(profile.id)
                             }
                         }
-                        // .frame(width: 180)
-                        // .padding([.bottom, .top, .trailing], 7)
+                        .labelsHidden()
                     }
 
                     if SharedReference.shared.newversion {
@@ -38,47 +37,6 @@ extension TasksView {
         }
 
         ToolbarItemGroup(placement: .automatic) {
-            Button {
-                guard SharedReference.shared.norsync == false, allTasksAreHalted() == false else { return }
-                // This only applies if one task is selected and that task is halted
-                // If more than one task is selected, any halted tasks are ruled out
-                if let selectedconfig {
-                    guard selectedconfig.task != SharedReference.shared.halted else {
-                        return
-                    }
-                }
-                guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                    return
-                }
-
-                executetaskpath.append(Tasks(task: .summarizeddetailsview))
-            } label: {
-                Label("Estimate", systemImage: "wand.and.stars")
-                    .labelStyle(.titleAndIcon)
-            }
-            .help("Estimate (⌘E)")
-
-            Button {
-                guard SharedReference.shared.norsync == false, allTasksAreHalted() == false else { return }
-                // This only applies if one task is selected and that task is halted
-                // If more than one task is selected, any halted tasks are ruled out
-                if let selectedconfig {
-                    guard selectedconfig.task != SharedReference.shared.halted else {
-                        return
-                    }
-                }
-
-                guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
-                    return
-                }
-                // execute() checks that the estimate covers the tasks to run
-                execute()
-            } label: {
-                Label("Synchronize", systemImage: "play.fill")
-                    .labelStyle(.titleAndIcon)
-            }
-            .help("Synchronize (⌘R)")
-
             Button {
                 urlcommandestimateandsynchronize.toggle()
             } label: {

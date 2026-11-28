@@ -22,27 +22,25 @@ struct ExecuteNoEstTasksView: View {
     @State private var execute: Execute?
 
     var body: some View {
-        ZStack {
-            ConfigurationsTableDataView(selecteduuids: $selecteduuids,
+        ConfigurationsTableDataView(selecteduuids: $selecteduuids,
                                         configurations: rsyncUIdata.configurations)
-
-            if progressviewshowinfo {
-                HStack {
-                    ProgressView()
-
-                    Text("\(Int(progress))")
-                        .font(.title2)
-                        .contentTransition(.numericText(countsDown: false))
-                        .animation(.default, value: progress)
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            HStack {
+                if progressviewshowinfo {
+                    ProgressView("Synchronizing tasks…")
+                    Text("Files processed: \(progress.formatted())")
+                        .monospacedDigit()
                 }
-                .padding()
-                .overlay { RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.blue, lineWidth: 2)
-                }
+                Spacer()
             }
-            if focusaborttask {
-                labelaborttask
-            }
+            .controlSize(.small)
+            .padding()
+            .background(.bar)
+        }
+        .onChange(of: focusaborttask) {
+            guard focusaborttask else { return }
+            focusaborttask = false
+            abort()
         }
         .onAppear {
             executeAllNoEstimationTasks()
@@ -66,13 +64,6 @@ struct ExecuteNoEstTasksView: View {
         })
     }
 
-    var labelaborttask: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear {
-                focusaborttask = false
-                abort()
-            }
-    }
 }
 
 extension ExecuteNoEstTasksView {

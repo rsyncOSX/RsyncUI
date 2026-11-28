@@ -22,7 +22,7 @@ struct ExternalExecutionCompletionView: View {
                     Text(execution.hiddenID.formatted())
                 }
                 TableColumn("Result") { execution in
-                    Text(execution.log.resultExecuted ?? "")
+                    Text((execution.log.resultExecuted ?? "").displayedRunResult)
                 }
             }
             .overlay {

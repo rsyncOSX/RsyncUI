@@ -25,16 +25,21 @@ struct LogRecordsTabView: View {
     @FocusState private var logTableIsFocused: Bool
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 0) {
+            Label("Run History", systemImage: "clock")
+                .font(.headline)
+                .padding(12)
+            Divider()
             HStack {
                 Table(logs, selection: $selectedloguuids) {
                     TableColumn("Date") { data in
                         Text(data.date.localized_string_from_date())
                     }
+                    .width(min: 130, max: 180)
 
                     TableColumn("Result") { data in
                         if let result = data.resultExecuted {
-                            Text(result)
+                            Text(result.displayedRunResult)
                         }
                     }
                 }
@@ -59,24 +64,22 @@ struct LogRecordsTabView: View {
                         }
                 }
                 .overlay {
-                    if logs.count == 0 {
-                        ContentUnavailableView {
-                            Label("No log records match this filter", systemImage: "doc.richtext.fill")
-                        } description: {
-                            Text("Try a different date or result filter.")
-                        }
-                    } else if showindebounce {
-                        ContentUnavailableView {
-                            Label("Sorting logs", systemImage: "doc.richtext.fill")
-                        } description: {}
+                    if showindebounce {
+                        ProgressView("Loading history…")
+                    } else if logs.isEmpty && filterstring.isEmpty {
+                        ContentUnavailableView("No recorded runs", systemImage: "clock")
+                    } else if logs.isEmpty {
+                        ContentUnavailableView.search(text: filterstring)
                     }
                 }
             }
 
+            Divider()
             LogRecordsFooterView(logsCount: logs.count,
                                  selectedUuidsIsEmpty: selecteduuids.isEmpty,
                                  filterString: filterstring,
                                  showInDebounce: showindebounce)
+                .background(.bar)
         }
         .searchable(if: selectedTab == .logview, text: $filterstring)
         .task(id: selecteduuids) { updateLogsForSelection() }
@@ -85,7 +88,6 @@ struct LogRecordsTabView: View {
             guard !Task.isCancelled else { return }
             await updateLogsForFilter()
         }
-        .padding()
     }
 
     func deleteLogs(_ uuids: Set<UUID>) async {

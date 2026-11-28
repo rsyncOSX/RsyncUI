@@ -38,17 +38,22 @@ struct ListofTasksMainView: View {
                 }
             }
             .overlay {
-                if (rsyncUIdata.configurations ?? []).filter(
-                    { filterstring.isEmpty ? true : $0.backupID.contains(filterstring) }
-                ).isEmpty {
+                if rsyncUIdata.configurations?.isEmpty != false {
+                    ContentUnavailableView {
+                        Label("No tasks in this profile", systemImage: "checklist")
+                    } description: {
+                        Text("Open Tasks to add a source and destination.")
+                    }
+                } else if !filterstring.isEmpty,
+                          rsyncUIdata.configurations?.contains(where: { $0.backupID.contains(filterstring) }) == false {
                     ContentUnavailableView {
                         Label("No tasks match this Synchronize ID", systemImage: "doc.richtext.fill")
                     } description: {
-                        Text("Try a different filter, or add a task if you're just getting started.")
+                        Text("Try a different Synchronize ID.")
                     }
                 }
             }
-            .searchable(text: $filterstring)
+            .searchable(text: $filterstring, prompt: "Filter by Synchronize ID")
             .confirmationDialog(pendingDeletion?.count == 1 ? "Delete 1 configuration" :
                 "Delete \(pendingDeletion?.count ?? 0) configurations",
                 item: $pendingDeletion) { ids in
