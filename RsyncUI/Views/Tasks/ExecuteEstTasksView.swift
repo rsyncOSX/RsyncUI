@@ -23,35 +23,30 @@ struct ExecuteEstTasksView: View {
     @State private var execute: Execute?
 
     var body: some View {
-        VStack(alignment: .leading) {
-            ZStack {
-                ListofTasksMainView(
-                    rsyncUIdata: rsyncUIdata,
-                    selecteduuids: $selecteduuids,
-                    doubleclick: $doubleclick,
-                    progress: $progresscount,
-                    progressdetails: progressdetails,
-                    max: maxcount
-                )
-                .onChange(of: progressdetails.hiddenIDatwork) {
-                    maxcount = progressdetails.getMaxCountByTask()
-                }
-
-                HStack {
-                    ProgressView()
-
-                    Text("Synchronizing tasks, please wait...")
-                        .font(.title)
-                }
-                .padding()
-                .overlay { RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                }
+        ListofTasksMainView(
+            rsyncUIdata: rsyncUIdata,
+            selecteduuids: $selecteduuids,
+            doubleclick: $doubleclick,
+            progress: $progresscount,
+            progressdetails: progressdetails,
+            max: maxcount
+        )
+        .onChange(of: progressdetails.hiddenIDatwork) {
+            maxcount = progressdetails.getMaxCountByTask()
+        }
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            HStack {
+                ProgressView("Synchronizing tasks…")
+                Spacer()
             }
-
-            if focusaborttask {
-                labelaborttask
-            }
+            .controlSize(.small)
+            .padding()
+            .background(.bar)
+        }
+        .onChange(of: focusaborttask) {
+            guard focusaborttask else { return }
+            focusaborttask = false
+            abort()
         }
         .onAppear {
             executeMultipleEstimatedTasks()
@@ -76,13 +71,6 @@ struct ExecuteEstTasksView: View {
         })
     }
 
-    var labelaborttask: some View {
-        Label("", systemImage: "play.fill")
-            .onAppear {
-                focusaborttask = false
-                abort()
-            }
-    }
 }
 
 extension ExecuteEstTasksView {
@@ -104,7 +92,7 @@ extension ExecuteEstTasksView {
             adjustedselecteduuids = selecteduuids
         } else if let estimatedlist = progressdetails.estimatedlist {
             adjustedselecteduuids = Set<SynchronizeConfiguration.ID>()
-            for estimate in estimatedlist where estimate.datatosynchronize {
+            for estimate in estimatedlist where estimate.datatosynchronize && estimate.hasUsableStatistics {
                 adjustedselecteduuids?.insert(estimate.id)
             }
         }

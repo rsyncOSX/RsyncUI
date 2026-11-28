@@ -12,7 +12,9 @@ import OSLog
 enum WriteSynchronizeConfigurationJSON {
     @discardableResult
     static func write(_ profile: String?, _ configurations: [SynchronizeConfiguration]?) async -> Bool {
-        guard let configurations else { return false }
+        guard let visible = configurations else { return false }
+        // Never drop tasks hidden because they require rsync 3.x.
+        let configurations = HiddenConfigurations.merge(visible, hidden: HiddenConfigurations.hidden(profile: profile))
         let path = Homepath()
         guard let fullpathmacserial = path.fullpathmacserial else { return false }
 

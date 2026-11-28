@@ -29,6 +29,10 @@ struct ConfigurationsTableDataMainView: View {
                     Circle()
                         .fill(statusColor(for: data))
                         .frame(width: 8, height: 8)
+                        .frame(width: 24, height: 24)
+                        .contentShape(Rectangle())
+                        .help(statusDescription(for: data))
+                        .accessibilityLabel(statusDescription(for: data))
                 }
             }
             .width(min: 30, max: 36)
@@ -55,25 +59,25 @@ struct ConfigurationsTableDataMainView: View {
             .width(min: 80, max: 200)
 
             TableColumn("Source") { data in
-                Text(isRemotePull(data) ? data.offsiteCatalog : data.localCatalog)
+                Text(data.displaySourcePath)
                     .lineLimit(1)
                     .truncationMode(.middle)
-                    .help(isRemotePull(data) ? data.offsiteCatalog : data.localCatalog)
+                    .help(data.displaySourcePath)
                     .opacity(opacity(for: data))
             }
             .width(min: 120, max: 300)
 
             TableColumn("Destination") { data in
                 VStack(alignment: .leading, spacing: 3) {
-                    Text(isRemotePull(data) || data.offsiteServer.isEmpty ? String(localized: "This Mac") : data.offsiteServer)
+                    Text(data.displaysRemoteSource || data.offsiteServer.isEmpty ? String(localized: "This Mac") : data.offsiteServer)
                         .font(.subheadline.weight(.medium))
-                    Text(isRemotePull(data) ? data.localCatalog : data.offsiteCatalog)
+                    Text(data.displayDestinationPath)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
                         .truncationMode(.middle)
                 }
-                .help(isRemotePull(data) ? data.localCatalog : data.offsiteCatalog)
+                .help(data.displayDestinationPath)
                 .opacity(opacity(for: data))
             }
             .width(min: 160, max: 350)
@@ -96,13 +100,12 @@ struct ConfigurationsTableDataMainView: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, alignment: .trailing)
-                } else if let dateRun = data.dateRun {
-                    let lastbackup = dateRun.en_date_from_string()
-                    let seconds = lastbackup.timeIntervalSinceNow * -1
+                } else if let lastRun = data.lastRun, let dateRun = data.dateRun {
+                    let seconds = lastRun.timeIntervalSinceNow * -1
                     let isStale = markConfig(seconds)
 
                     VStack(alignment: .trailing, spacing: 2) {
-                        Text(seconds.latest())
+                        Text("\(seconds.latest()) ago")
                             .font(.caption)
                             .foregroundStyle(isStale ? .orange : .primary)
                         Text(dateRun)
@@ -148,24 +151,27 @@ struct ConfigurationsTableDataMainView: View {
         }
     }
 
-    private func isRemotePull(_ data: SynchronizeConfiguration) -> Bool {
-        data.task == SharedReference.shared.syncremote ||
-            (data.task == SharedReference.shared.halted && data.halted == 2)
-    }
-
     private func statusColor(for data: SynchronizeConfiguration) -> Color {
         if data.task == SharedReference.shared.halted {
             return .gray
         }
-        guard let dateRun = data.dateRun else {
+        guard let lastRun = data.lastRun else {
             return .orange
         }
-        let lastbackup = dateRun.en_date_from_string()
-        let daysSince = lastbackup.timeIntervalSinceNow * -1 / (60 * 60 * 24)
-        if daysSince > Double(SharedReference.shared.marknumberofdayssince) {
-            return .orange
+        return markConfig(lastRun.timeIntervalSinceNow * -1) ? .orange : .green
+    }
+
+    private func statusDescription(for data: SynchronizeConfiguration) -> Text {
+        if data.task == SharedReference.shared.halted {
+            return Text("Halted")
         }
-        return .green
+        guard let lastRun = data.lastRun else {
+            return Text("Never run")
+        }
+        let days = SharedReference.shared.marknumberofdayssince
+        return markConfig(lastRun.timeIntervalSinceNow * -1) ?
+            Text("Not synchronized in the past \(days) days") :
+            Text("Synchronized in the past \(days) days")
     }
 
     private func opacity(for data: SynchronizeConfiguration) -> Double {
@@ -230,6 +236,8 @@ struct ConfigurationsTableDataMainView: View {
 @MainActor
 struct ConfigurationTaskBadge: View {
     let task: String
+    /// In narrow tables, show the badge only for other than plain synchronize tasks
+    var hidesSynchronize: Bool = false
 
     var body: some View {
         if task == SharedReference.shared.halted {
@@ -241,7 +249,7 @@ struct ConfigurationTaskBadge: View {
                 .background { Color.red.opacity(0.15) }
                 .foregroundStyle(.red)
                 .clipShape(RoundedRectangle(cornerRadius: 3))
-        } else if task.isEmpty == false {
+        } else if task.isEmpty == false, !(hidesSynchronize && task == SharedReference.shared.synchronize) {
             Text(task)
                 .font(.caption2)
                 .padding(.horizontal, 4)

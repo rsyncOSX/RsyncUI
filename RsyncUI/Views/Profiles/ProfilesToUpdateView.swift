@@ -39,7 +39,7 @@ struct ProfilesToUpdateView: View {
                         return 0
                     }
                 }
-                let color: Color = markConfig(seconds) == true ? .red : .white
+                let color: Color = markConfig(seconds) == true ? .red : .primary
 
                 Text(seconds.latest())
                     .foregroundStyle(color)

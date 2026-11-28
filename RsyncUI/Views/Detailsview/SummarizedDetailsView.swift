@@ -13,7 +13,7 @@ struct SummarizedDetailsView: View {
     /// Navigation path for executetasks
     @Binding var executetaskpath: [Tasks]
 
-    @State private var focusstartexecution: Bool = false
+    @State private var previewScope = Set<UUID>()
     @State private var isPresentingConfirm: Bool = false
 
     let configurations: [SynchronizeConfiguration]
@@ -27,33 +27,19 @@ struct SummarizedDetailsView: View {
                                          selecteduuids: $selecteduuids,
                                          executetaskpath: $executetaskpath,
                                          isPresentingConfirm: $isPresentingConfirm,
+                                         previewScope: previewScope,
                                          configurations: configurations,
                                          profile: profile,
                                          queryitem: queryitem)
-                .focusedSceneValue(\.startexecution, $focusstartexecution)
                 .onAppear {
-                    guard progressdetails.estimatealltasksinprogress == false else {
-                        return
-                    }
+                    guard previewScope.isEmpty else { return }
+                    previewScope = Set(configurations.filter {
+                        $0.task != SharedReference.shared.halted && (selecteduuids.isEmpty || selecteduuids.contains($0.id))
+                    }.map(\.id))
+                    guard !progressdetails.estimatealltasksinprogress else { return }
                     progressdetails.resetCounts()
                     progressdetails.startEstimation()
                 }
         }
-
-        Spacer()
-
-        if focusstartexecution {
-            labelstartexecution
-        }
-    }
-
-    var labelstartexecution: some View {
-        Label("", systemImage: "play.fill")
-            .foregroundStyle(.black)
-            .onAppear {
-                executetaskpath.removeAll()
-                executetaskpath.append(Tasks(task: .executestimatedview))
-                focusstartexecution = false
-            }
     }
 }

@@ -46,7 +46,7 @@ struct SnapshotListView: View {
             }
             .width(max: 60)
             TableColumn("Result") { data in
-                Text(data.resultExecuted)
+                Text(data.resultExecuted.displayedRunResult)
             }
             .width(max: 250)
         }

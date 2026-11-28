@@ -14,34 +14,28 @@ struct RsyncParametersView: View {
 
     @State var parameters = ObservableParametersRsync()
     @State var selectedconfig: SynchronizeConfiguration?
-    /// Backup switch
-    @State var backup: Bool = false
-    /// Present arguments view
-    @State var presentarguments: Bool = false
+    @State private var showsArguments = true
+    @State private var showsSSH = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            addupdateButton
-
-            VStack(alignment: .leading, spacing: 8) {
-                EditRsyncParameter(350, $parameters.parameter8)
-                    .onChange(of: parameters.parameter8) { parameters.configuration?.parameter8 = parameters.parameter8 }
-                EditRsyncParameter(350, $parameters.parameter9)
-                    .onChange(of: parameters.parameter9) { parameters.configuration?.parameter9 = parameters.parameter9 }
-                EditRsyncParameter(350, $parameters.parameter10)
-                    .onChange(of: parameters.parameter10) { parameters.configuration?.parameter10 = parameters.parameter10 }
-                EditRsyncParameter(350, $parameters.parameter11)
-                    .onChange(of: parameters.parameter11) { parameters.configuration?.parameter11 = parameters.parameter11 }
-                EditRsyncParameter(350, $parameters.parameter12)
-                    .onChange(of: parameters.parameter12) { parameters.configuration?.parameter12 = parameters.parameter12 }
-                EditRsyncParameter(350, $parameters.parameter13)
-                    .onChange(of: parameters.parameter13) { parameters.configuration?.parameter13 = parameters.parameter13 }
-                EditRsyncParameter(350, $parameters.parameter14)
-                    .onChange(of: parameters.parameter14) { parameters.configuration?.parameter14 = parameters.parameter14 }
+            DisclosureGroup("Additional rsync arguments", isExpanded: $showsArguments) {
+                ForEach(parameters.visibleArgumentSlots, id: \.self) { slot in
+                    EditRsyncParameter(Binding(
+                        get: { parameters.argument(in: slot) },
+                        set: { parameters.setArgument($0, in: slot) }
+                    ))
+                }
+                if parameters.canAddArgument {
+                    Button("Add Argument", systemImage: "plus", action: parameters.addArgument)
+                        .buttonStyle(.borderless)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.vertical, 4)
+                        .disabled(selecteduuids.isEmpty)
+                }
             }
 
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Task specific SSH parameter").font(.headline)
+            DisclosureGroup("SSH connection", isExpanded: $showsSSH) {
                 HStack {
                     setsshpath(path: $parameters.sshkeypathandidentityfile,
                                placeholder: "set SSH keypath and identityfile",
@@ -52,64 +46,33 @@ struct RsyncParametersView: View {
                 }
             }
 
-            let isDeletePresent = selectedconfig?.parameter4 == "--delete"
-            let headerText = isDeletePresent ? "Remove --delete parameter" : "Add --delete parameter"
-
-            HStack {
-                VStack(alignment: .leading, spacing: 12) {
-                    HStack {
-                        // 1. The Frame Title
-                        Text("Danger Zone")
-                            .font(.headline)
+            GroupBox("Destination behavior") {
+                VStack(alignment: .leading, spacing: 10) {
+                    Toggle("Delete destination items missing from the source", isOn: $parameters.adddelete)
+                        .onChange(of: parameters.adddelete) { parameters.adddelete(parameters.adddelete) }
+                        .disabled(selecteduuids.isEmpty)
+                    if parameters.adddelete {
+                        Label("File deletion is enabled. Synchronization may remove files from the destination.",
+                              systemImage: "exclamationmark.triangle.fill")
+                            .font(.callout)
                             .foregroundStyle(.red)
-
-                        Text(headerText)
-                            .font(.headline)
-                            .foregroundStyle(isDeletePresent ? Color(.red) : Color(.blue))
+                            .fixedSize(horizontal: false, vertical: true)
                     }
-
+                    Link("About rsync deletion", destination: URL(string: "https://rsyncui.netlify.app/docs/getting-started/important/")!)
                     Divider()
-                        .background { Color.red.opacity(0.5) }
-
-                    HStack {
-                        Toggle("--delete", isOn: $parameters.adddelete)
-                            .toggleStyle(.switch)
-                            .onChange(of: parameters.adddelete) { parameters.adddelete(parameters.adddelete) }
-                            .disabled(selecteduuids.isEmpty)
-
-                        // 3. The New Website Button
-                        Link(destination: URL(string: "https://rsyncui.netlify.app/docs/getting-started/important/")!) {
-                            Text("Info")
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 8)
-                                .background { Color.red }
-                                .foregroundStyle(.white)
-                                .clipShape(.rect(cornerRadius: 8))
-                        }
-                        .padding(.top, 4)
-                    }
+                    Toggle("Backup replaced files", isOn: Binding(
+                        get: { parameters.backupIsEnabled },
+                        set: { parameters.setbackup($0) }
+                    ))
+                    .disabled(selecteduuids.isEmpty)
                 }
-                .padding() // Adds space inside the border
-                .background { Color.red.opacity(0.05) } // Optional: Light red background tint
-                .clipShape(.rect(cornerRadius: 10)) // Rounds the corners of the frame
-                .overlay { RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.red, lineWidth: 2) // The red border
-                }
-                .padding() // Outer margin
-
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Append Backup parameter")
-                        .font(.headline)
-                    Toggle("Backup", isOn: $backup)
-                        .toggleStyle(.switch)
-                        .onChange(of: backup) {
-                            guard !selecteduuids.isEmpty else {
-                                backup = false
-                                return
-                            }
-                            parameters.setbackup()
-                        }
-                }
+                .toggleStyle(.switch)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(8)
+            }
+            HStack {
+                Spacer()
+                saveButton
             }
         }
         .onAppear { handleSelectionChange() }
@@ -118,7 +81,6 @@ struct RsyncParametersView: View {
             // selecteduuids.removeAll()
             // done on Sidebar Main view
             parameters.setvalues(selectedconfig)
-            backup = false
         }
         .onChange(of: selecteduuids) {
             handleSelectionChange()

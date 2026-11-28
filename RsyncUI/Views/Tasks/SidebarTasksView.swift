@@ -115,7 +115,8 @@ struct SidebarTasksView: View {
         if let configurations = rsyncUIdata.configurations {
             OneTaskDetailsView(progressdetails: progressdetails,
                                selecteduuids: selecteduuids,
-                               configurations: configurations)
+                               configurations: configurations,
+                               profile: rsyncUIdata.profile)
         }
     }
 

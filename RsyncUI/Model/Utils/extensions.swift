@@ -107,6 +107,14 @@ extension String {
     }
 }
 
+extension String {
+    /// The stored result of a run, with the singular form for one file.
+    /// The stored text is also read by other parts of the app and is not changed.
+    var displayedRunResult: String {
+        replacingOccurrences(of: #"(?<![\d.,])1 files :"#, with: "1 file :", options: .regularExpression)
+    }
+}
+
 extension Double {
     func latest() -> String {
         let seconds = self
@@ -119,17 +127,17 @@ extension Double {
         // Less than 1 hour (3600 seconds)
         else if seconds < 3600 {
             let minutes = seconds / 60
-            return minutes < 2 ? String(format: String(localized: "%.0f min"), minutes) : String(format: String(localized: "%.0f mins"), minutes)
+            return minutes.rounded() == 1 ? String(format: String(localized: "%.0f min"), minutes) : String(format: String(localized: "%.0f mins"), minutes)
         }
         // Less than 1 day (86400 seconds)
         else if seconds < 86400 {
             let hours = seconds / 3600
-            return hours < 2 ? String(format: String(localized: "%.1f hour"), hours) : String(format: String(localized: "%.1f hours"), hours)
+            return (hours * 10).rounded() == 10 ? String(format: String(localized: "%.1f hour"), hours) : String(format: String(localized: "%.1f hours"), hours)
         }
         // 1 day or more
         else {
             let days = seconds / 86400
-            return days < 2 ? String(format: String(localized: "%.1f day"), days) : String(format: String(localized: "%.1f days"), days)
+            return (days * 10).rounded() == 10 ? String(format: String(localized: "%.1f day"), days) : String(format: String(localized: "%.1f days"), days)
         }
     }
 }

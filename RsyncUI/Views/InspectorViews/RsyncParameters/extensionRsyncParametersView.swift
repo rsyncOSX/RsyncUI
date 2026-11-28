@@ -14,7 +14,6 @@ extension RsyncParametersView {
         selectedconfig = nil
         selecteduuids.removeAll()
         parameters.reset()
-        backup = false
     }
 
     func saveRsyncParameters() {
@@ -36,29 +35,12 @@ extension RsyncParametersView {
 // MARK: - Buttons
 
 extension RsyncParametersView {
-    var addupdateButton: some View {
-        if notifydataisupdated {
-            AdaptiveProminentButton(
-                systemImage: "arrow.down",
-                text: "Update",
-                helpText: "Update parameters"
-            ) {
-                saveRsyncParameters()
-                selecteduuids.removeAll()
-            }
-            .disabled(selectedconfig == nil)
+    var saveButton: some View {
+        Button("Save", action: saveRsyncParameters)
+            .buttonStyle(.borderedProminent)
+            .help("Save parameters")
+            .disabled(!notifydataisupdated)
             .padding(.bottom, 10)
-        } else {
-            AdaptiveProminentButton(
-                systemImage: "plus",
-                text: "Add",
-                helpText: "Save parameters"
-            ) {
-                saveRsyncParameters()
-            }
-            .disabled(selectedconfig == nil)
-            .padding(.bottom, 10)
-        }
     }
 }
 
@@ -73,13 +55,9 @@ extension RsyncParametersView {
             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                 selectedconfig = configurations[index]
                 parameters.setvalues(configurations[index])
-                if configurations[index].parameter12 != "--backup" {
-                    backup = false
-                }
             } else {
                 selectedconfig = nil
                 parameters.setvalues(selectedconfig)
-                backup = false
             }
         }
     }

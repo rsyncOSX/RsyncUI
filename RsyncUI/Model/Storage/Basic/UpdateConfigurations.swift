@@ -13,15 +13,11 @@ final class UpdateConfigurations {
     private var localeprofile: String?
 
     /// MaxhiddenID is used when new configurations are added.
+    /// Includes tasks hidden because they require rsync 3.x, so their IDs are never reused.
     var maxhiddenID: Int {
-        if let configs = configurations {
-            var setofhiddenIDs = Set<Int>()
-            for item in configs {
-                setofhiddenIDs.insert(item.hiddenID)
-            }
-            return setofhiddenIDs.max() ?? 0
-        }
-        return 0
+        let visibleIDs = Set((configurations ?? []).map(\.hiddenID))
+        let allIDs = visibleIDs.union(HiddenConfigurations.hiddenIDs(profile: localeprofile))
+        return allIDs.max() ?? 0
     }
 
     private func persistConfigurations() async {
@@ -60,6 +56,8 @@ final class UpdateConfigurations {
             var updatedConfig = config
             updatedConfig.id = UUID()
             updatedConfig.hiddenID = nextHiddenID
+            // Imported and pasted tasks must be verified again before Shortcuts may run them
+            updatedConfig.shortcutsapproval = nil
             nextHiddenID += 1
             return updatedConfig
         }
@@ -123,6 +121,7 @@ final class UpdateConfigurations {
         let beforecount = (configurations?.count ?? 0)
         var newconfig: SynchronizeConfiguration = config
         newconfig.id = UUID()
+        newconfig.shortcutsapproval = nil
         newconfig.hiddenID = maxhiddenID + 1
         configurations?.append(newconfig)
         let aftercount = (configurations?.count ?? 0)
@@ -156,6 +155,16 @@ final class UpdateConfigurations {
         configurations?.append(contentsOf: reassigned)
         await persistConfigurations()
         return configurations
+    }
+
+    /// Allow or revoke a task in Shortcuts. Allowing stores the fingerprint of
+    /// the task settings, so any later change to them revokes the approval.
+    func setShortcutsApproval(hiddenID: Int, allowed: Bool) async {
+        guard let index = configurations?.firstIndex(where: { $0.hiddenID == hiddenID }),
+              let config = configurations?[index]
+        else { return }
+        configurations?[index].shortcutsapproval = allowed ? config.shortcutsFingerprint : nil
+        await persistConfigurations()
     }
 
     init(profile: String?, configurations: [SynchronizeConfiguration]?) {

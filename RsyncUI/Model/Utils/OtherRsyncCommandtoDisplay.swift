@@ -57,15 +57,13 @@ struct OtherRsyncCommandtoDisplay {
         case .copyPublicSSHkey:
             Self.copyPublicSSHKey(config: config)
         }
-        command = str.joined(separator: ",").replacingOccurrences(of: ",", with: " ")
+        command = str.joined(separator: " ")
     }
 
     private static func listRemoteFiles(config: SynchronizeConfiguration) -> [String] {
         if config.offsiteServer.isEmpty == false {
             if let arguments = ArgumentsRemoteFileList(config: config).remotefilelistarguments() {
-                let rsyncPath = GetfullpathforRsync().rsyncpath()
-                let cleanedArguments = arguments.joined(separator: " ").replacingOccurrences(of: ",", with: " ")
-                return [rsyncPath, cleanedArguments]
+                return [ShellCommand.line(GetfullpathforRsync().rsyncpath(), arguments)]
             }
         } else {
             return [NSLocalizedString("Use macOS Finder", comment: "")]

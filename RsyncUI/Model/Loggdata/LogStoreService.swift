@@ -8,6 +8,20 @@ import OSLog
 
 typealias LogStore = [LogRecords]
 
+enum LogStoreError: LocalizedError {
+    case unreadable
+    case unreadableMovedAside(String)
+
+    var errorDescription: String? {
+        switch self {
+        case .unreadable:
+            String(localized: "The log records file could not be read. It was left unchanged and no new log record was saved.")
+        case let .unreadableMovedAside(name):
+            String(localized: "The log records file could not be read. It was kept as \(name) and a new file was started.")
+        }
+    }
+}
+
 enum LogStoreService {
     @MainActor
     static func latestExecutions(limit: Int = 20) async -> [RecentLoggedExecution] {
@@ -31,36 +45,85 @@ enum LogStoreService {
         return Array(executions.sorted { $0.log.date > $1.log.date }.prefix(max(0, limit)))
     }
 
+    /// Loads the log records for display. A missing or unreadable file shows as empty.
     static func loadStore(
         profile: String?,
         configurations: [SynchronizeConfiguration]?
     ) async -> LogStore {
-        let validHiddenIDs = configurations?.hiddenIDs ?? []
-        let path = await Homepath()
-        guard let fullpathmacserial = path.fullpathmacserial else { return [] }
-
-        let baseURL = URL(fileURLWithPath: fullpathmacserial)
-        let fileURL: URL = if let profile {
-            baseURL.appendingPathComponent(profile)
-                .appendingPathComponent(SharedConstants().filenamelogrecordsjson)
-        } else {
-            baseURL.appendingPathComponent(SharedConstants().filenamelogrecordsjson)
-        }
-
+        guard let fileURL = await storeURL(profile: profile) else { return [] }
         do {
-            let data = try await SharedJSONStorageReader.shared.decodeArray(
-                DecodeLogRecords.self,
-                from: fileURL
-            )
-            return data.compactMap { element in
-                let item = LogRecords(element)
-                return validHiddenIDs.contains(item.hiddenID) ? item : nil
-            }
+            return try await readStore(at: fileURL, validHiddenIDs: configurations?.hiddenIDs ?? []) ?? []
         } catch {
             Logger.process.errorMessageOnly(
                 "LogStoreService.loadStore - \(profile ?? "default profile"): error reading logrecords"
             )
             return []
+        }
+    }
+
+    /// Loads the log records to be changed and written back. It keeps the records
+    /// of tasks hidden because they require rsync 3.x. A file that exists but
+    /// cannot be read is moved aside, never overwritten; if it cannot be moved,
+    /// nil is returned and nothing must be written.
+    static func loadStoreForWriting(
+        profile: String?,
+        configurations: [SynchronizeConfiguration]?
+    ) async -> LogStore? {
+        guard let fileURL = await storeURL(profile: profile) else { return nil }
+        let hiddenIDs = await HiddenConfigurations.hiddenIDs(profile: profile)
+        let validHiddenIDs = (configurations?.hiddenIDs ?? []).union(hiddenIDs)
+        do {
+            return try await readStore(at: fileURL, validHiddenIDs: validHiddenIDs) ?? []
+        } catch {
+            Logger.process.errorMessageOnly(
+                "LogStoreService.loadStoreForWriting - \(profile ?? "default profile"): error reading logrecords"
+            )
+            do {
+                let backup = try setAsideUnreadableStore(at: fileURL)
+                await reportError(LogStoreError.unreadableMovedAside(backup.lastPathComponent))
+                return []
+            } catch {
+                await reportError(LogStoreError.unreadable)
+                return nil
+            }
+        }
+    }
+
+    /// nil when the file does not exist; throws when it exists but cannot be read or decoded.
+    static func readStore(at fileURL: URL, validHiddenIDs: Set<Int>) async throws -> LogStore? {
+        guard FileManager.default.fileExists(atPath: fileURL.path) else { return nil }
+        let data = try await SharedJSONStorageReader.shared.decodeArray(DecodeLogRecords.self, from: fileURL)
+        return data.compactMap { element in
+            let item = LogRecords(element)
+            return validHiddenIDs.contains(item.hiddenID) ? item : nil
+        }
+    }
+
+    /// Renames an unreadable log file so its contents are kept and a new file can be written.
+    static func setAsideUnreadableStore(at fileURL: URL, now: Date = Date()) throws -> URL {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyyMMdd-HHmmss"
+        let backup = fileURL.deletingLastPathComponent()
+            .appendingPathComponent(fileURL.lastPathComponent + ".unreadable-" + formatter.string(from: now))
+        try FileManager.default.moveItem(at: fileURL, to: backup)
+        return backup
+    }
+
+    @MainActor
+    private static func reportError(_ error: LogStoreError) {
+        SharedReference.shared.errorobject?.alert(error: error)
+    }
+
+    private static func storeURL(profile: String?) async -> URL? {
+        let path = await Homepath()
+        guard let fullpathmacserial = path.fullpathmacserial else { return nil }
+        let baseURL = URL(fileURLWithPath: fullpathmacserial)
+        return if let profile {
+            baseURL.appendingPathComponent(profile)
+                .appendingPathComponent(SharedConstants().filenamelogrecordsjson)
+        } else {
+            baseURL.appendingPathComponent(SharedConstants().filenamelogrecordsjson)
         }
     }
 
@@ -111,7 +174,17 @@ enum LogStoreService {
         in store: LogStore?
     ) async -> LogStore? {
         let updatedStore = deletingLogs(ids, from: store)
-        await WriteLogRecordsJSON.write(profile, updatedStore)
+        // The displayed store leaves out tasks hidden because they require rsync 3.x.
+        // Write their records back unchanged so deleting logs never removes them.
+        guard let hiddenRecords = await loadStoreForWriting(profile: profile, configurations: nil) else {
+            // The file on disk cannot be read or moved aside: leave it untouched.
+            return store
+        }
+        let persisted = updatedStore.map { visible in
+            let visibleIDs = Set(visible.map(\.hiddenID))
+            return visible + hiddenRecords.filter { !visibleIDs.contains($0.hiddenID) }
+        }
+        await WriteLogRecordsJSON.write(profile, persisted)
         return updatedStore
     }
 }

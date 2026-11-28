@@ -17,33 +17,18 @@ struct ConfigurationsTableLoadDataView: View {
         Table(configurations ?? []) {
             TableColumn("Synchronize ID") { data in
                 HStack(spacing: 4) {
-                    if data.parameter4?.isEmpty == false {
-                        if data.backupID.isEmpty == true {
-                            Text("No ID set")
-                                .foregroundStyle(.red)
-                        } else {
-                            Text(data.backupID)
-                                .foregroundStyle(.red)
-                        }
-                    } else {
-                        if data.backupID.isEmpty == true {
-                            Text("No ID set")
-                                .foregroundStyle(.blue)
-                        } else {
-                            Text(data.backupID)
-                                .foregroundStyle(.blue)
-                        }
-                    }
+                    ConfigurationNameLabel(configuration: data)
+                        .layoutPriority(1)
 
-                    ConfigurationTaskBadge(task: data.task)
+                    ConfigurationTaskBadge(task: data.task, hidesSynchronize: true)
                 }
             }
-            .width(min: 90, max: 200)
+            .width(min: 130, ideal: 160, max: 220)
 
             TableColumn("Source", value: \.localCatalog)
-                .width(min: 80, max: 300)
+                .width(min: 60, max: 300)
             TableColumn("Destination", value: \.offsiteCatalog)
-                .width(min: 80, max: 300)
+                .width(min: 60, max: 300)
             TableColumn("Server") { data in
                 if data.offsiteServer.count > 0 {
                     Text(data.offsiteServer)
@@ -51,7 +36,7 @@ struct ConfigurationsTableLoadDataView: View {
                     Text("localhost")
                 }
             }
-            .width(min: 50, max: 90)
+            .width(min: 75, ideal: 85, max: 110)
         }
         .task(id: uuidprofile) {
             configurations = []

@@ -54,6 +54,10 @@ struct RemoteDataNumbers: Identifiable, Hashable {
     /// - `--update` - evaluates the timestamp
     var itemizechanges: Bool = false
 
+    var hasUsableStatistics: Bool {
+        stats != nil && filestransferred != "No stats"
+    }
+
     private mutating func defaultvalues() {
         let defaultstats = "0 files : 0.00 MB in 0.00 seconds"
         // Break this loop, the numbers below make no sense if stats is missing

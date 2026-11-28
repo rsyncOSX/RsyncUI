@@ -53,6 +53,8 @@ struct AddTaskView: View {
     @State var stringestimate: String = ""
 
     @State var presentglobaltaskview: Bool = false
+    /// Return can trigger both the field and the default button
+    @State var isAdding: Bool = false
 
     var showSnapshot: Bool {
         selectedconfig?.task == SharedReference.shared.snapshot
@@ -79,7 +81,7 @@ struct AddTaskView: View {
                     }
                 }
 
-                updateButton
+                saveButton
             }
             .formStyle(.grouped)
             .padding()

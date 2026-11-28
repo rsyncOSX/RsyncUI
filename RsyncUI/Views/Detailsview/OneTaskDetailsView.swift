@@ -22,6 +22,7 @@ struct OneTaskDetailsView: View {
 
     let selecteduuids: Set<SynchronizeConfiguration.ID>
     let configurations: [SynchronizeConfiguration]
+    let profile: String?
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -119,15 +120,15 @@ struct OneTaskDetailsView: View {
             stringoutputfromrsync
         }
 
-        remotedatanumbers = RemoteDataNumbers(stringoutputfromrsync: prepared,
-                                              config: selectedconfig)
-        remotedatanumbers?.itemizechanges = itemizechanges
+        var record = RemoteDataNumbers(stringoutputfromrsync: prepared,
+                                       config: selectedconfig)
+        record.itemizechanges = itemizechanges
+        record.outputfromrsync = CreateOutputforView().createOutputForView(stringoutputfromrsync)
 
-        remotedatanumbers?.outputfromrsync = CreateOutputforView().createOutputForView(stringoutputfromrsync)
-
-        if let remotedatanumbers {
-            progressdetails.appendRecordEstimatedList(remotedatanumbers)
-        }
+        remotedatanumbers = record
+        // TasksView only accepts a preview belonging to the current profile
+        progressdetails.profile = profile
+        progressdetails.appendRecordEstimatedList(record)
 
         estimateiscompleted = true
         // Release streaming references to avoid retain cycles

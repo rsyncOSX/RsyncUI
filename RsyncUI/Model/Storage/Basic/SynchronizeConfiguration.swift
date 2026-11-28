@@ -74,6 +74,9 @@ struct SynchronizeConfiguration: Identifiable, Codable {
     var snaplast: Int?
     /// task is halted
     var halted: Int
+    /// Fingerprint of the task settings when the user allowed the task in
+    /// Shortcuts from the Verify tab. Nil if not allowed. See ShortcutsApproval.swift.
+    var shortcutsapproval: String?
 
     /// Used when reading JSON data from store
     /// see in ReadSynchronizeConfigurationJSON
@@ -111,6 +114,7 @@ struct SynchronizeConfiguration: Identifiable, Codable {
         // Last run of task
         dateRun = data.dateRun
         halted = data.halted ?? 0
+        shortcutsapproval = data.shortcutsapproval
     }
 
     /// Create an empty record with no values
@@ -145,6 +149,8 @@ extension SynchronizeConfiguration: Hashable, Equatable {
             lhs.parameter14 == rhs.parameter14 &&
             lhs.dateRun == rhs.dateRun &&
             lhs.backupID == rhs.backupID &&
+            // Lets the task list redraw a row when the task is allowed or revoked in Shortcuts
+            lhs.shortcutsapproval == rhs.shortcutsapproval &&
             lhs.id == rhs.id
     }
 
@@ -164,6 +170,7 @@ extension SynchronizeConfiguration: Hashable, Equatable {
         hasher.combine(parameter14)
         hasher.combine(dateRun)
         hasher.combine(backupID)
+        hasher.combine(shortcutsapproval)
         hasher.combine(id)
     }
 }

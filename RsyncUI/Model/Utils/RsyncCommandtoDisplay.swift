@@ -32,19 +32,19 @@ struct RsyncCommandtoDisplay {
         case .synchronizeData:
             if config.task == SharedReference.shared.halted {
                 str = "Task is halted"
-            } else if let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: true, forDisplay: true) {
-                str = (GetfullpathforRsync().rsyncpath()) + " " + arguments.joined()
+            } else if let arguments = ArgumentsSynchronize(config: config).argumentsSynchronize(dryRun: false, forDisplay: false) {
+                str = ShellCommand.line(GetfullpathforRsync().rsyncpath(), arguments)
             }
         case .restoreData:
-            if let arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: true,
-                                                                                                                forDisplay: true) {
-                str = (GetfullpathforRsync().rsyncpath()) + " " + arguments.joined()
+            if let arguments = ArgumentsRestore(config: config, restoresnapshotbyfiles: false).argumentsrestore(dryRun: false,
+                                                                                                                forDisplay: false) {
+                str = ShellCommand.line(GetfullpathforRsync().rsyncpath(), arguments)
             }
         case .verifySynchronizedData:
             if config.task == SharedReference.shared.halted {
                 str = "Task is halted"
-            } else if let arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: true) {
-                str = (GetfullpathforRsync().rsyncpath()) + " " + arguments.joined()
+            } else if let arguments = ArgumentsVerify(config: config).argumentsverify(forDisplay: false) {
+                str = ShellCommand.line(GetfullpathforRsync().rsyncpath(), arguments)
             }
         }
         rsynccommand = str

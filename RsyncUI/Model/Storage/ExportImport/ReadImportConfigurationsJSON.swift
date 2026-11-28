@@ -24,6 +24,7 @@ enum ReadImportConfigurationsJSON {
                 var element = SynchronizeConfiguration(importrecord)
                 element.hiddenID = nextHiddenID
                 element.dateRun = nil
+                element.shortcutsapproval = nil
                 element.backupID = "IMPORT: " + (importrecord.backupID ?? "")
                 element.id = UUID()
                 return element

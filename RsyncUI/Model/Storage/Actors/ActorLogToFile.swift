@@ -28,6 +28,7 @@ actor ActorLogToFile {
     private let logName = SharedConstants().logname
     private let maxLogfileSize = SharedConstants().logfilesize
     private lazy var fileSizeChecker = FileSize()
+    private var warnedAboutSize = false
 
     // MARK: - Helper Properties
 
@@ -58,6 +59,7 @@ actor ActorLogToFile {
 
             if reset {
                 try newdata.write(to: logURL)
+                warnedAboutSize = false
             } else {
                 let logPath = logURL.path
                 if fileManager.locationExists(at: logPath, kind: .file) {
@@ -70,12 +72,27 @@ actor ActorLogToFile {
             }
 
             Logger.process.debugMessageOnly("ActorLogToFile: writeloggfile() logfile \(logURL.path)")
-            try await checkFileSizeAfterWrite()
-            return true
         } catch {
             await getHomepath()?.propagateError(error: error)
             return false
         }
+        // The data is written. A large logfile is a warning, not a failed write.
+        if Self.shouldWarnAboutSize(await currentLogfileSize(), limit: maxLogfileSize, alreadyWarned: warnedAboutSize) {
+            warnedAboutSize = true
+            await getHomepath()?.propagateError(error: FilesizeError.toobig)
+        }
+        return true
+    }
+
+    /// Warn once per session when the logfile grows past the limit, and again after a reset.
+    static func shouldWarnAboutSize(_ size: Int?, limit: Int, alreadyWarned: Bool) -> Bool {
+        guard let size, size > limit else { return false }
+        return !alreadyWarned
+    }
+
+    private func currentLogfileSize() async -> Int? {
+        guard let size = try? await fileSizeChecker.filesize() else { return nil }
+        return Int(truncating: size)
     }
 
     func readloggfile() async -> [String]? {
@@ -111,13 +128,6 @@ actor ActorLogToFile {
             let resetMessage = date + ": logfile is reset by RsyncUI by checking filesize when reading logfile...\n"
             await writeloggfile(resetMessage, true)
             throw FilesizeError.toobigandresetting
-        }
-    }
-
-    private func checkFileSizeAfterWrite() async throws {
-        if let size = try await fileSizeChecker.filesize(),
-           Int(truncating: size) > maxLogfileSize {
-            throw FilesizeError.toobig
         }
     }
 

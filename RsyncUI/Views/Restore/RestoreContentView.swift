@@ -11,7 +11,11 @@ struct RestoreContentView: View {
     let configurations: [SynchronizeConfiguration]
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
+            TaskWorkspaceHeading(title: "Restore", systemImage: "arrow.uturn.backward",
+                                 profile: profile ?? "Default", taskCount: configurations.count,
+                                 selectionCount: selecteduuids.count)
+            Divider()
             ZStack {
                 HStack {
                     ConfigurationsTableDataView(selecteduuids: $selecteduuids,
@@ -34,7 +38,7 @@ struct RestoreContentView: View {
                                 ContentUnavailableView {
                                     Label("No tasks yet", systemImage: "doc.richtext.fill")
                                 } description: {
-                                    Text("And nothing to restore")
+                                    Text("Select a profile with a backup task to browse its files.")
                                 }
                             }
                         }
