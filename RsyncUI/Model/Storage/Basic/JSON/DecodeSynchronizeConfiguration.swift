@@ -29,6 +29,7 @@ struct DecodeSynchronizeConfiguration: Codable {
     let snaplast: Int?
     let snapshotnum: Int?
     let halted: Int?
+    let shortcutsapproval: String?
 
     enum CodingKeys: String, CodingKey {
         case backupID
@@ -55,6 +56,7 @@ struct DecodeSynchronizeConfiguration: Codable {
         case snaplast
         case snapshotnum
         case halted
+        case shortcutsapproval
     }
 
     init(from decoder: Decoder) throws {
@@ -82,5 +84,6 @@ struct DecodeSynchronizeConfiguration: Codable {
         snaplast = try values.decodeIfPresent(Int.self, forKey: .snaplast)
         snapshotnum = try values.decodeIfPresent(Int.self, forKey: .snapshotnum)
         halted = try values.decodeIfPresent(Int.self, forKey: .halted)
+        shortcutsapproval = try values.decodeIfPresent(String.self, forKey: .shortcutsapproval)
     }
 }

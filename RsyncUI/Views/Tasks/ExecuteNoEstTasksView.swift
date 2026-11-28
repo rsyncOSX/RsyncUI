@@ -50,6 +50,7 @@ struct ExecuteNoEstTasksView: View {
         .onDisappear {
             execute?.cancel()
             execute = nil
+            rsyncUIdata.executetasksinprogress = false
         }
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {
@@ -85,11 +86,14 @@ extension ExecuteNoEstTasksView {
         selecteduuids.removeAll()
         progressviewshowinfo = false
         noestprogressdetails.reset()
+        rsyncUIdata.executetasksinprogress = false
+        executetaskpath.removeAll()
     }
 
     func executeAllNoEstimationTasks() {
         noestprogressdetails.startExecuteAllTasksNoEstimation()
         if let configurations = rsyncUIdata.configurations {
+            rsyncUIdata.executetasksinprogress = true
             execute = Execute.start(profile: rsyncUIdata.profile,
                                     configurations: configurations,
                                     selecteduuids: selecteduuids,
@@ -105,6 +109,7 @@ extension ExecuteNoEstTasksView {
         execute = nil
         progressviewshowinfo = false
         noestprogressdetails.reset()
+        rsyncUIdata.executetasksinprogress = false
         if outcome == .cancelled {
             return
         }

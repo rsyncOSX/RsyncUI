@@ -1,0 +1,3 @@
+/* Siri and Spotlight phrases for App Shortcuts. Every phrase must contain ${applicationName}. */
+"Estimate ${profile} in ${applicationName}" = "Estimate ${profile} in ${applicationName}";
+"Synchronize ${profile} with ${applicationName}" = "Synchronize ${profile} with ${applicationName}";

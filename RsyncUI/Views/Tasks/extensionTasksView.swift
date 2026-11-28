@@ -71,13 +71,8 @@ extension TasksView {
                 guard selecteduuids.count > 0 || rsyncUIdata.configurations?.count ?? 0 > 0 else {
                     return
                 }
-                // Check if there are estimated tasks, if true execute the
-                // estimated tasks view
-                if progressdetails.estimatedlist?.count ?? 0 > 0 {
-                    executetaskpath.append(Tasks(task: .executestimatedview))
-                } else {
-                    execute()
-                }
+                // execute() checks that the estimate covers the tasks to run
+                execute()
             } label: {
                 Label("Synchronize", systemImage: "play.fill")
                     .labelStyle(.titleAndIcon)

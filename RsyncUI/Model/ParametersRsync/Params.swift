@@ -16,29 +16,12 @@ struct Params {
     ) -> Parameters {
         var rsyncdaemon = false
         var deleteExtraneous = false
-        var sshport = ""
-        var sshkeypathandidentityfile = ""
-        var sharedsshport = ""
-        var sharedsshkeypathandidentityfile = ""
 
         if config.rsyncdaemon == 1 {
             rsyncdaemon = true
         }
         if config.parameter4 != nil {
             deleteExtraneous = true
-        }
-
-        if let configsshport = config.sshport, configsshport != -1 {
-            sshport = String(configsshport)
-        }
-        if let configurationsshcreatekey = config.sshkeypathandidentityfile {
-            sshkeypathandidentityfile = configurationsshcreatekey
-        }
-        if let configsharedsshport = SharedReference.shared.sshport, configsharedsshport != -1 {
-            sharedsshport = String(configsharedsshport)
-        }
-        if let configsharedsshcreatekey = SharedReference.shared.sshkeypathandidentityfile {
-            sharedsshkeypathandidentityfile = configsharedsshcreatekey
         }
 
         return Parameters(
@@ -57,15 +40,7 @@ struct Params {
                                                         parameter13: config.parameter13,
                                                         parameter14: config.parameter14),
 
-            sshParameters: SSHParameters(
-                offsiteServer: config.offsiteServer,
-                offsiteUsername: config.offsiteUsername,
-                sshport: String(sshport),
-                sshkeypathandidentityfile: sshkeypathandidentityfile,
-                sharedsshport: String(sharedsshport),
-                sharedsshkeypathandidentityfile: sharedsshkeypathandidentityfile,
-                rsyncversion3: SharedReference.shared.rsyncversion3
-            ),
+            sshParameters: SSHParams().sshparams(config: config),
             paths: PathConfiguration(
                 localCatalog: config.localCatalog,
                 offsiteCatalog: config.offsiteCatalog,

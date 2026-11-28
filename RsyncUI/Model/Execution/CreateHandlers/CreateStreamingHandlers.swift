@@ -20,14 +20,32 @@ struct CreateStreamingHandlers {
         fileHandler: @escaping (Int) -> Void,
         processTermination: @escaping ([String]?, Int?) -> Void
     ) -> ProcessHandlers {
-        createResultHandlers(fileHandler: fileHandler) { output, hiddenID, _ in
+        makeHandlers(fileHandler: fileHandler, reportUnreportedFailure: false) { output, hiddenID, _ in
             processTermination(output, hiddenID)
         }
     }
 
     /// Completion includes the actual process result, independent of output parsing.
+    /// A failed exit that nothing else reported is shown to the user with its exit code.
     func createResultHandlers(
         fileHandler: @escaping (Int) -> Void,
+        processTermination: @escaping ([String]?, Int?, StreamingProcessOutcome) -> Void
+    ) -> ProcessHandlers {
+        makeHandlers(fileHandler: fileHandler, reportUnreportedFailure: true, processTermination: processTermination)
+    }
+
+    /// With "Check for error in output" off, RsyncProcessStreaming does not report a
+    /// non-zero exit. The outcome is still a failure, so say so instead of stopping silently.
+    static func unreportedFailureAlert(outcome: StreamingProcessOutcome,
+                                       hadError: Bool,
+                                       exitStatus: Int32?) -> RsyncFailureAlert? {
+        guard outcome == .failure, hadError == false, let exitStatus, exitStatus != 0 else { return nil }
+        return RsyncFailureAlert(exitCode: exitStatus, chunks: [])
+    }
+
+    private func makeHandlers(
+        fileHandler: @escaping (Int) -> Void,
+        reportUnreportedFailure: Bool,
         processTermination: @escaping ([String]?, Int?, StreamingProcessOutcome) -> Void
     ) -> ProcessHandlers {
         #if DEBUG
@@ -37,7 +55,17 @@ struct CreateStreamingHandlers {
         let checkForErrors = SharedReference.shared.checkforerrorinrsyncoutput
         return ProcessHandlers(
             processTermination: { output, hiddenID in
-                processTermination(output, hiddenID, completion.outcome)
+                let outcome = completion.outcome
+                // terminationStatus may only be read once the process has exited.
+                let exitStatus = completion.process.flatMap { $0.isRunning ? nil : $0.terminationStatus }
+                if reportUnreportedFailure,
+                   let alert = Self.unreportedFailureAlert(outcome: outcome,
+                                                           hadError: completion.hadError,
+                                                           exitStatus: exitStatus) {
+                    completion.hadError = true
+                    SharedReference.shared.errorobject?.alert(error: alert)
+                }
+                processTermination(output, hiddenID, outcome)
             },
             fileHandler: fileHandler,
             rsyncPath: GetfullpathforRsync().rsyncpath(),

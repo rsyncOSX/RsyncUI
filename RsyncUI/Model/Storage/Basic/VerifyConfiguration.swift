@@ -147,7 +147,7 @@ final class VerifyConfiguration: Connected {
             Logger.process.warning("VerifyConfiguration: snapshotnum not set.")
             throw ValidateInputError.snapshotnum
         }
-        guard connected(server: config.offsiteServer) else {
+        guard connected(server: config.offsiteServer, port: Self.sshPort(for: config)) else {
             Logger.process.warning("VerifyConfiguration: not connected to remote server.")
             throw ValidateInputError.notconnected
         }
@@ -170,13 +170,22 @@ final class VerifyConfiguration: Connected {
 }
 
 protocol Connected {
-    func connected(server: String?) -> Bool
+    func connected(server: String?, port: Int) -> Bool
+}
+
+extension VerifyConfiguration {
+    /// The SSH port the task connects to: its own port, else the global port, else 22.
+    static func sshPort(for config: SynchronizeConfiguration,
+                        globalPort: Int? = SharedReference.shared.sshport) -> Int {
+        if let port = config.sshport, port != -1 { return port }
+        if let globalPort, globalPort != -1 { return globalPort }
+        return 22
+    }
 }
 
 extension Connected {
-    func connected(server: String?) -> Bool {
+    func connected(server: String?, port: Int) -> Bool {
         if let server {
-            let port = 22
             if server.isEmpty == false {
                 let tcpconnection = TCPconnections()
                 return tcpconnection.verifyTCPconnection(server, port: port, timeout: 1)

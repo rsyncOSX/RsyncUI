@@ -15,7 +15,6 @@ struct RsyncParametersView: View {
     @State var parameters = ObservableParametersRsync()
     @State var selectedconfig: SynchronizeConfiguration?
     /// Backup switch
-    @State var backup: Bool = false
     /// Present arguments view
     @State var presentarguments: Bool = false
 
@@ -100,15 +99,15 @@ struct RsyncParametersView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Append Backup parameter")
                         .font(.headline)
-                    Toggle("Backup", isOn: $backup)
-                        .toggleStyle(.switch)
-                        .onChange(of: backup) {
-                            guard !selecteduuids.isEmpty else {
-                                backup = false
-                                return
-                            }
-                            parameters.setbackup()
+                    // Read from the arguments, so the toggle always shows what rsync will do
+                    Toggle("Backup", isOn: Binding(
+                        get: { parameters.backupIsEnabled },
+                        set: { enabled in
+                            guard !selecteduuids.isEmpty else { return }
+                            parameters.setbackup(enabled)
                         }
+                    ))
+                    .toggleStyle(.switch)
                 }
             }
         }
@@ -118,7 +117,6 @@ struct RsyncParametersView: View {
             // selecteduuids.removeAll()
             // done on Sidebar Main view
             parameters.setvalues(selectedconfig)
-            backup = false
         }
         .onChange(of: selecteduuids) {
             handleSelectionChange()

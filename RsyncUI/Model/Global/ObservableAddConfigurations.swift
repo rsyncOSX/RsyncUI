@@ -78,6 +78,29 @@ final class ObservableAddConfigurations {
         return configurations
     }
 
+    /// True if the form differs from the task being edited
+    var hasUnsavedChanges: Bool {
+        guard let config = selectedconfig else { return false }
+        if localcatalog.replacingOccurrences(of: "\"", with: "") != config.localCatalog ||
+            remotecatalog.replacingOccurrences(of: "\"", with: "") != config.offsiteCatalog ||
+            remoteuser != config.offsiteUsername ||
+            remoteserver != config.offsiteServer ||
+            backupID != config.backupID {
+            return true
+        }
+        return config.task == SharedReference.shared.snapshot &&
+            snapshotnum != (config.snapshotnum.map(String.init) ?? "")
+    }
+
+    /// The source of a remote pull is the remote folder, otherwise it is the local folder.
+    func applyTrailingSlashToSource(enabled: Bool) {
+        if selectedrsynccommand == .syncremote {
+            remotecatalog = QuickTaskSourcePath.applyingTrailingSlash(to: remotecatalog, enabled: enabled)
+        } else {
+            localcatalog = QuickTaskSourcePath.applyingTrailingSlash(to: localcatalog, enabled: enabled)
+        }
+    }
+
     func resetForm() {
         localcatalog = ""
         remotecatalog = ""

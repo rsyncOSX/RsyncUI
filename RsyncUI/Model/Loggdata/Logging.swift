@@ -25,7 +25,8 @@ final class Logging {
         configurations: [SynchronizeConfiguration]?
     ) async -> Logging {
         let logging = Logging(profile: profile, configurations: configurations)
-        logging.logrecords = await LogStoreService.loadStore(
+        // nil when the existing file cannot be read or moved aside: nothing is then written.
+        logging.logrecords = await LogStoreService.loadStoreForWriting(
             profile: profile,
             configurations: configurations
         )

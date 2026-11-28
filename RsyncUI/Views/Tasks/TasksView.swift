@@ -209,26 +209,40 @@ extension TasksView {
     }
 
     func execute() {
-        // All tasks are estimated and ready for execution.
-        rsyncUIdata.executetasksinprogress = true
-        if selecteduuids.count == 0,
-           progressdetails.allTasksEstimated(rsyncUIdata.profile) == true {
-            // Execute all estimated tasks
-            selecteduuids = progressdetails.getUUIDsWithDataToSynchronize()
-            // Change view, see SidebarTasksView
-            executetaskpath.append(Tasks(task: .executestimatedview))
-        } else if selecteduuids.count >= 1,
-                  progressdetails.tasksAreEstimated(selecteduuids) == true {
-            // One or some tasks are selected and estimated
-            // Execute estimated tasks only
-            selecteduuids = progressdetails.getUUIDsWithDataToSynchronize()
-            // Change view, see SidebarTasksView
-            executetaskpath.append(Tasks(task: .executestimatedview))
-        } else {
-            // Execute all tasks, no estimate
-            // Execute tasks, no estimate, ask to execute
+        guard canRun else { return }
+        // Synchronize only from an estimate of the current profile that covers
+        // every task in scope. Otherwise ask before synchronizing without estimate.
+        let scope = Set(runnableConfigurations.map(\.id))
+        let estimates = progressdetails.estimatedlist ?? []
+        guard progressdetails.profile == rsyncUIdata.profile,
+              Self.hasPreview(for: scope, estimatedIDs: Set(estimates.filter(\.hasUsableStatistics).map(\.id))) else {
             showingAlert = true
+            return
         }
+        if !selecteduuids.isEmpty {
+            selecteduuids = scope
+        }
+        rsyncUIdata.executetasksinprogress = true
+        executetaskpath.append(Tasks(task: .executestimatedview))
+    }
+
+    static func hasPreview(for scope: Set<UUID>, estimatedIDs: Set<UUID>) -> Bool {
+        !scope.isEmpty && scope.isSubset(of: estimatedIDs)
+    }
+
+    /// Tasks in scope with usable statistics and changes to synchronize
+    static func estimatedRunScope(for scope: Set<UUID>, estimates: [RemoteDataNumbers]) -> Set<UUID> {
+        Set(estimates.filter { $0.hasUsableStatistics && $0.datatosynchronize }.map(\.id)).intersection(scope)
+    }
+
+    private var runnableConfigurations: [SynchronizeConfiguration] {
+        (rsyncUIdata.configurations ?? []).filter {
+            $0.task != SharedReference.shared.halted && (selecteduuids.isEmpty || selecteduuids.contains($0.id))
+        }
+    }
+
+    private var canRun: Bool {
+        !SharedReference.shared.norsync && !runnableConfigurations.isEmpty
     }
 
     func reset() {

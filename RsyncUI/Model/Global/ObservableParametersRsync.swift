@@ -29,6 +29,8 @@ final class ObservableParametersRsync {
     var sshcreatekey: SSHCreateKey?
     /// Add parameters
     var adddelete: Bool = false
+    /// Argument slots shown in the view, a shown slot stays while it is edited
+    private var shownArgumentSlots = Set<Int>()
 
     func setvalues(_ config: SynchronizeConfiguration?) {
         if let config {
@@ -51,6 +53,7 @@ final class ObservableParametersRsync {
             } else {
                 sshkeypathandidentityfile = ""
             }
+            showUsedArgumentSlots()
             // --delete parameter4
             if configuration?.parameter4 == nil {
                 adddelete = false
@@ -62,32 +65,78 @@ final class ObservableParametersRsync {
         }
     }
 
-    func setbackup() {
-        if let config = configuration {
-            let localcatalog = config.localCatalog
-            let localcatalogparts = (localcatalog as AnyObject).components(separatedBy: "/")
-            if parameter12.isEmpty == false {
-                parameter12 = ""
-            } else {
-                parameter12 = ArgumentsRsyncUserSelect().backupstrings[0]
-            }
-            guard localcatalogparts.count > 2 else { return }
-            if config.offsiteCatalog.contains("~") {
-                if parameter13.isEmpty == false {
-                    parameter13 = ""
-                } else {
-                    parameter13 = ArgumentsRsyncUserSelect().backupstrings[1] + "_"
-                        + localcatalogparts[localcatalogparts.count - 2]
-                }
-            } else if parameter13.isEmpty == false {
-                parameter13 = ""
-            } else {
-                parameter13 = ArgumentsRsyncUserSelect().backupstrings[2] + "_"
-                    + localcatalogparts[localcatalogparts.count - 2]
-            }
-            configuration?.parameter12 = parameter12
-            configuration?.parameter13 = parameter13
+    /// Slots for user selected arguments
+    private static let parameterSlots: [ReferenceWritableKeyPath<ObservableParametersRsync, String>] = [
+        \.parameter8, \.parameter9, \.parameter10, \.parameter11, \.parameter12, \.parameter13, \.parameter14
+    ]
+    /// The order in which the backup arguments prefer the slots
+    private static let backupSlots = Array(parameterSlots[4...] + parameterSlots[..<4])
+
+    var visibleArgumentSlots: [Int] {
+        Self.parameterSlots.indices.filter { shownArgumentSlots.contains($0) || !argument(in: $0).isEmpty }
+    }
+
+    var canAddArgument: Bool {
+        visibleArgumentSlots.count < Self.parameterSlots.count
+    }
+
+    func argument(in slot: Int) -> String {
+        self[keyPath: Self.parameterSlots[slot]]
+    }
+
+    func setArgument(_ argument: String, in slot: Int) {
+        self[keyPath: Self.parameterSlots[slot]] = argument
+    }
+
+    /// Show the first slot not in use
+    func addArgument() {
+        let visible = visibleArgumentSlots
+        if let slot = Self.parameterSlots.indices.first(where: { !visible.contains($0) }) {
+            shownArgumentSlots.insert(slot)
         }
+    }
+
+    /// Show only the slots in use
+    private func showUsedArgumentSlots() {
+        shownArgumentSlots = Set(Self.parameterSlots.indices.filter { !argument(in: $0).isEmpty })
+    }
+
+    private static func isBackupArgument(_ argument: String) -> Bool {
+        let name = argument.prefix { $0 != "=" }
+        return name == "-b" || name == "--backup" || name == "--backup-dir"
+    }
+
+    /// Read from the arguments, so the toggle always shows what rsync will do.
+    var backupIsEnabled: Bool {
+        Self.parameterSlots.contains { Self.isBackupArgument(self[keyPath: $0]) }
+    }
+
+    /// Add or remove the backup arguments, leaving all other arguments in place.
+    func setbackup(_ enabled: Bool) {
+        guard let configuration, enabled != backupIsEnabled else { return }
+
+        guard enabled else {
+            for slot in Self.parameterSlots where Self.isBackupArgument(self[keyPath: slot]) {
+                self[keyPath: slot] = ""
+            }
+            showUsedArgumentSlots()
+            return
+        }
+
+        let backupstrings = ArgumentsRsyncUserSelect().backupstrings
+        var arguments = [backupstrings[0]]
+        let localcatalogparts = configuration.localCatalog.components(separatedBy: "/")
+        if localcatalogparts.count > 2 {
+            let backupdir = configuration.offsiteCatalog.contains("~") ? backupstrings[1] : backupstrings[2]
+            arguments.append(backupdir + "_" + localcatalogparts[localcatalogparts.count - 2])
+        }
+
+        let freeSlots = Self.backupSlots.filter { self[keyPath: $0].isEmpty }
+        guard freeSlots.count >= arguments.count else { return }
+        for (slot, argument) in zip(freeSlots, arguments) {
+            self[keyPath: slot] = argument
+        }
+        showUsedArgumentSlots()
     }
 
     /// Return the updated configuration
@@ -155,6 +204,7 @@ final class ObservableParametersRsync {
         sshport = ""
         sshkeypathandidentityfile = ""
         adddelete = false
+        showUsedArgumentSlots()
     }
 
     /// parameter4 --delete

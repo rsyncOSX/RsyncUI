@@ -54,3 +54,12 @@ struct ConfigurationsTableDataView: View {
         }
     }
 }
+
+@MainActor
+extension SynchronizeConfiguration {
+    /// Nil if the task is never run, a new task has an empty date
+    var lastRun: Date? {
+        guard let dateRun, !dateRun.isEmpty else { return nil }
+        return dateRun.en_date_from_string()
+    }
+}

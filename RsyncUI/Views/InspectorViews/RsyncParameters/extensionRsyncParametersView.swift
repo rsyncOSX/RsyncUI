@@ -14,7 +14,6 @@ extension RsyncParametersView {
         selectedconfig = nil
         selecteduuids.removeAll()
         parameters.reset()
-        backup = false
     }
 
     func saveRsyncParameters() {
@@ -73,13 +72,9 @@ extension RsyncParametersView {
             if let index = configurations.firstIndex(where: { $0.id == selecteduuids.first }) {
                 selectedconfig = configurations[index]
                 parameters.setvalues(configurations[index])
-                if configurations[index].parameter12 != "--backup" {
-                    backup = false
-                }
             } else {
                 selectedconfig = nil
                 parameters.setvalues(selectedconfig)
-                backup = false
             }
         }
     }

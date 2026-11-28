@@ -49,6 +49,7 @@ struct VerifyTaskTabView: View {
                         VStack(alignment: .leading) {
                             if let selectedconfig {
                                 RsyncCommandView(config: selectedconfig)
+                                ShortcutsApprovalStatusView(config: selectedconfig)
                             }
                         }
                     }
@@ -96,6 +97,26 @@ struct VerifyTaskTabView: View {
                                 .labelStyle(.iconOnly)
                         }
                         .help("Abort (⌘K)")
+                    }
+                }
+
+                if let selectedconfig,
+                   selectedconfig.task != SharedReference.shared.halted {
+                    let allowed = selectedconfig.isAllowedInShortcuts
+                    // Allowing needs a completed verify run of the current settings
+                    let canAllow = presentestimates && remotedatanumbers?.hasUsableStatistics == true
+                    ToolbarItem {
+                        Button {
+                            setShortcutsApproval(selectedconfig, allowed: !allowed)
+                        } label: {
+                            ShortcutsApprovalToolbarLabel(allowed: allowed)
+                        }
+                        .disabled(!allowed && !canAllow)
+                        .help(allowed
+                            ? "Allowed in Shortcuts. Click to revoke."
+                            : canAllow
+                            ? "Allow Shortcuts to synchronize this task without opening RsyncUI"
+                            : "Verify the task first, then click to allow it in Shortcuts.")
                     }
                 }
             }
@@ -174,9 +195,55 @@ struct VerifyTaskTabView: View {
         streamingHandlers = nil
     }
 
+    func setShortcutsApproval(_ config: SynchronizeConfiguration, allowed: Bool) {
+        Task { @MainActor in
+            let update = UpdateConfigurations(profile: rsyncUIdata.profile,
+                                              configurations: rsyncUIdata.configurations)
+            await update.setShortcutsApproval(hiddenID: config.hiddenID, allowed: allowed)
+            rsyncUIdata.configurations = update.configurations
+            selectedconfig = update.configurations?.first { $0.hiddenID == config.hiddenID }
+        }
+    }
+
     func abort() {
         presentestimates = false
         remotedatanumbers = nil
         InterruptProcess()
+    }
+}
+
+/// Whether Shortcuts may synchronize the task, and how to allow it.
+struct ShortcutsApprovalStatusView: View {
+    let config: SynchronizeConfiguration
+
+    var body: some View {
+        if config.isAllowedInShortcuts {
+            Label("Allowed in Shortcuts", systemImage: "checkmark.circle.fill")
+                .foregroundStyle(.green)
+        } else if config.shortcutsapproval != nil {
+            Label("The task has changed since it was allowed in Shortcuts. Verify it again to allow it.",
+                  systemImage: "exclamationmark.triangle")
+                .foregroundStyle(.orange)
+        } else {
+            Label("Not allowed in Shortcuts. Verify the task, then click Not allowed in Shortcuts in the toolbar to allow it.",
+                  systemImage: "xmark.circle")
+                .foregroundStyle(.secondary)
+        }
+    }
+}
+
+/// Toolbar toggle: green checkmark while allowed, red cross while not.
+struct ShortcutsApprovalToolbarLabel: View {
+    let allowed: Bool
+
+    var body: some View {
+        Label {
+            Text(allowed ? "Allowed in Shortcuts" : "Not allowed in Shortcuts")
+        } icon: {
+            Image(systemName: allowed ? "checkmark.circle.fill" : "xmark.circle.fill")
+                .symbolRenderingMode(.palette)
+                .foregroundStyle(.white, allowed ? Color.green : Color.red)
+        }
+        .labelStyle(.titleAndIcon)
     }
 }

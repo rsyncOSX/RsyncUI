@@ -104,7 +104,7 @@ extension ExecuteEstTasksView {
             adjustedselecteduuids = selecteduuids
         } else if let estimatedlist = progressdetails.estimatedlist {
             adjustedselecteduuids = Set<SynchronizeConfiguration.ID>()
-            for estimate in estimatedlist where estimate.datatosynchronize {
+            for estimate in estimatedlist where estimate.datatosynchronize && estimate.hasUsableStatistics {
                 adjustedselecteduuids?.insert(estimate.id)
             }
         }

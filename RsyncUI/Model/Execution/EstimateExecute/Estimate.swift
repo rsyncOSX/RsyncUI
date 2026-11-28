@@ -17,8 +17,11 @@ final class Estimate {
     private var itemizechanges: Bool = false
 
     weak var localprogressdetails: ProgressDetails?
+    /// Optional completion for callers without a view, such as App Intents.
+    private var onComplete: ((Bool) -> Void)?
 
     var stackoftasks: [Int]?
+    private let requestedIDs: Set<UUID>
     private var isCancelled = false
 
     // Streaming strong references
@@ -38,11 +41,24 @@ final class Estimate {
         localprogressdetails?.estimationIsComplete()
         activeStreamingProcess = nil
         streamingHandlers = nil
-        if !success {
+        let records = localprogressdetails?.estimatedlist ?? []
+        let complete = success && Self.hasCompletePreview(records, for: requestedIDs)
+        if let onComplete {
+            self.onComplete = nil
+            onComplete(complete)
+        }
+        guard complete else {
             SharedReference.shared.quitAfterExternalExecution = false
-        } else if localprogressdetails?.getUUIDsWithDataToSynchronize().isEmpty == true {
+            return
+        }
+        if !records.contains(where: \.datatosynchronize) {
             SharedReference.shared.finishExternalExecution(success: true)
         }
+    }
+
+    static func hasCompletePreview(_ records: [RemoteDataNumbers], for requestedIDs: Set<UUID>) -> Bool {
+        !requestedIDs.isEmpty && records.count == requestedIDs.count &&
+            Set(records.map(\.id)) == requestedIDs && records.allSatisfy(\.hasUsableStatistics)
     }
 
     private func getConfig(_ hiddenID: Int) -> SynchronizeConfiguration? {
@@ -117,27 +133,16 @@ final class Estimate {
         }
     }
 
-    private func computestackoftasks(_ selecteduuids: Set<UUID>) -> [Int] {
-        if selecteduuids.count > 0 {
-            let configurations = localconfigurations.filter { selecteduuids.contains($0.id) &&
-                $0.task != SharedReference.shared.halted
-            }
-            return configurations.map(\.hiddenID)
-        } else {
-            // Or go for all
-            let configurations = localconfigurations.filter { $0.task != SharedReference.shared.halted }
-            return configurations.map(\.hiddenID)
-        }
-    }
-
     static func start(profile: String?,
                       configurations: [SynchronizeConfiguration],
                       selecteduuids: Set<UUID>,
-                      progressdetails: ProgressDetails?) -> Estimate {
+                      progressdetails: ProgressDetails?,
+                      onComplete: ((Bool) -> Void)? = nil) -> Estimate {
         let estimate = Estimate(profile: profile,
                                 configurations: configurations,
                                 selecteduuids: selecteduuids,
                                 progressdetails: progressdetails)
+        estimate.onComplete = onComplete
         estimate.localprogressdetails?.setProfileAndNumberOfConfigurations(
             estimate.structprofile,
             estimate.stackoftasks?.count ?? 0
@@ -155,7 +160,11 @@ final class Estimate {
         localconfigurations = configurations
         localprogressdetails = progressdetails
 
-        stackoftasks = computestackoftasks(selecteduuids)
+        let requested = configurations.filter {
+            $0.task != SharedReference.shared.halted && (selecteduuids.isEmpty || selecteduuids.contains($0.id))
+        }
+        requestedIDs = Set(requested.map(\.id))
+        stackoftasks = requested.map(\.hiddenID)
     }
 
     deinit {

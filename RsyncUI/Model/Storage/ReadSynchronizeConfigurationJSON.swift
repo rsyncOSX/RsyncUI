@@ -33,15 +33,14 @@ struct ReadSynchronizeConfigurationJSON {
             )
 
             Logger.process.debugThreadOnly("ReadSynchronizeConfigurationJSON - \(profile ?? "default") ?? DECODE")
-            return data.compactMap { element in
-                if element.task == "snapshot" || element.task == "syncremote" {
-                    if rsyncversion3 {
-                        return SynchronizeConfiguration(element)
-                    }
-                } else {
-                    return SynchronizeConfiguration(element)
-                }
-                return nil
+            let configurations = data.map { SynchronizeConfiguration($0) }
+            // Tasks requiring rsync 3.x are hidden, not dropped: they are written back on save.
+            let hidden = configurations.filter {
+                HiddenConfigurations.isHidden(task: $0.task, rsyncversion3: rsyncversion3)
+            }
+            HiddenConfigurations.set(hidden, profile: profile)
+            return configurations.filter {
+                !HiddenConfigurations.isHidden(task: $0.task, rsyncversion3: rsyncversion3)
             }
         } catch {
             let profileName = profile ?? "default profile"

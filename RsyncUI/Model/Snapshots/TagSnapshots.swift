@@ -9,6 +9,8 @@ final class TagSnapshots {
     var day: NumDayofweek = .monday
     var logrecordssnapshot: [LogRecordSnapshot]?
     private var keepallselcteddayofweek: Bool = true
+    /// The date tags are computed against; injectable for tests.
+    private let now: Date
 
     private func markfordelete() {
         if var index = logrecordssnapshot?.count, let logrecordssnapshot {
@@ -25,10 +27,7 @@ final class TagSnapshots {
 
     private func currentweek(index: Int) -> Bool {
         if let datesnapshot = logrecordssnapshot?[index].dateExecuted.localized_date_from_string() {
-            if datecomponentsfromdate(localizeddate: datesnapshot).weekOfYear ==
-                datecomponentsfromdate(localizeddate: Date()).weekOfYear,
-               datecomponentsfromdate(localizeddate: datesnapshot).year ==
-               datecomponentsfromdate(localizeddate: Date()).year {
+            if Self.isSameWeek(datesnapshot, now) {
                 if logrecordssnapshot?[index].resultExecuted != "no record" {
                     logrecordssnapshot?[index].period = "Keep" + " " + "this week"
                 }
@@ -45,8 +44,8 @@ final class TagSnapshots {
             let year = datecomponentsfromdate(localizeddate: datesnapshot).year
             let month = datecomponentsfromdate(localizeddate: datesnapshot).month
 
-            let monthToday = datecomponentsfromdate(localizeddate: Date()).month
-            let yearToday = datecomponentsfromdate(localizeddate: Date()).year
+            let monthToday = datecomponentsfromdate(localizeddate: now).month
+            let yearToday = datecomponentsfromdate(localizeddate: now).year
 
             if month == monthToday, year == yearToday {
                 if datesnapshot.isSelectedDayOfWeek(day: day) == false {
@@ -79,11 +78,11 @@ final class TagSnapshots {
         if let datesnapshot = logrecordssnapshot?[index].dateExecuted.localized_date_from_string() {
             if let year = datecomponentsfromdate(localizeddate: datesnapshot).year,
                let month = datecomponentsfromdate(localizeddate: datesnapshot).month,
-               let monthToday = datecomponentsfromdate(localizeddate: Date()).month,
-               let yearToday = datecomponentsfromdate(localizeddate: Date()).year {
+               let monthToday = datecomponentsfromdate(localizeddate: now).month,
+               let yearToday = datecomponentsfromdate(localizeddate: now).year {
                 if month != monthToday || year < yearToday {
                     if verifydaytokeepinmonth(datesnapshot) == true {
-                        if month == monthToday - 1 {
+                        if Self.isPreviousMonth(datesnapshot, now) {
                             let tag = "Keep" + " " + datesnapshot.localized_weekday_from_date() + ", "
                                 + datesnapshot.localized_month_from_date() + " " + "previous month"
                             logrecordssnapshot?[index].period = tag
@@ -94,7 +93,7 @@ final class TagSnapshots {
                         }
                         return false
                     } else {
-                        if datesnapshot.ispreviousmonth {
+                        if Self.isPreviousMonth(datesnapshot, now) {
                             let tag = "Delete" + " " + datesnapshot.localized_weekday_from_date() + ", "
                                 + datesnapshot.localized_month_from_date() + " " + "previous month"
                             logrecordssnapshot?[index].period = tag
@@ -111,6 +110,20 @@ final class TagSnapshots {
             return false
         }
         return false
+    }
+
+    /// Same calendar week. A week spanning New Year belongs to one week-year,
+    /// so compare yearForWeekOfYear, not the calendar year.
+    static func isSameWeek(_ date: Date, _ now: Date, calendar: Calendar = .current) -> Bool {
+        let lhs = calendar.dateComponents([.weekOfYear, .yearForWeekOfYear], from: date)
+        let rhs = calendar.dateComponents([.weekOfYear, .yearForWeekOfYear], from: now)
+        return lhs.weekOfYear == rhs.weekOfYear && lhs.yearForWeekOfYear == rhs.yearForWeekOfYear
+    }
+
+    /// The month before now's month, December of the previous year in January.
+    static func isPreviousMonth(_ date: Date, _ now: Date, calendar: Calendar = .current) -> Bool {
+        guard let previous = calendar.date(byAdding: .month, value: -1, to: now) else { return false }
+        return calendar.isDate(date, equalTo: previous, toGranularity: .month)
     }
 
     func verifydaytokeepinmonth(_ date: Date) -> Bool {
@@ -148,7 +161,9 @@ final class TagSnapshots {
 
     init(plan: Int,
          snapdayoffweek: String,
-         data: [LogRecordSnapshot]?) {
+         data: [LogRecordSnapshot]?,
+         now: Date = Date()) {
+        self.now = now
         // which plan to apply
         if plan == 1 {
             keepallselcteddayofweek = true
