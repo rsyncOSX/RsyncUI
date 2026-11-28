@@ -12,9 +12,7 @@ If RsyncUI is useful to you, a ⭐ on [the repository](https://github.com/rsyncO
 
 ## RsyncUI 3.6.0 - to be released sometime later in December 2026 after sufficent user testing.
 
-RsyncUI 3.6.0 brings the redesigned interface and the Shortcuts support, together with a few bug fixes. A detailed list of the changes is in [Docs/version360b218updates.md](Docs/version360b218updates.md).
-
-To see what is new [please read](https://rsyncui.netlify.app/docs/version-360/). 
+RsyncUI 3.6.0 brings the redesigned interface and the Shortcuts support, together with a few bug fixes. A detailed list of the changes is in [Docs/version360b218updates.md](Docs/version360b218updates.md). To see what is new [please read](https://rsyncui.netlify.app/docs/version-360/). 
 
 ## Requirements
 
