@@ -71,7 +71,6 @@ struct SidebarMainView: View {
                     selectedView: $selectedview,
                     actionItems: actionItems,
                     toolItems: toolItems,
-                    managementItems: managementItems,
                     synchronizeBadgeCount: configurationsNeedingSyncCount,
                     isDisabled: disablesidebarmeny,
                     newVersionAvailable: newversion.notifynewversion,
@@ -182,11 +181,7 @@ struct SidebarMainView: View {
     }
 
     var toolItems: [Sidebaritems] {
-        menuitems.filter { $0 == .snapshots || $0 == .restore }
-    }
-
-    var managementItems: [Sidebaritems] {
-        menuitems.filter { $0 == .profiles }
+        menuitems.filter { $0 == .snapshots || $0 == .restore || $0 == .profiles }
     }
 
     /// The Sidebar meny is context sensitive. There are three Sidebar meny options
@@ -223,8 +218,7 @@ struct SidebarMainView: View {
     private var configurationsNeedingSyncCount: Int {
         (rsyncUIdata.configurations ?? []).filter { config in
             guard config.task != SharedReference.shared.halted else { return false }
-            guard let dateRun = config.dateRun else { return true }
-            let lastRun = dateRun.en_date_from_string()
+            guard let lastRun = config.lastRun else { return true }
             let daysSince = lastRun.timeIntervalSinceNow * -1 / (60 * 60 * 24)
             return daysSince > Double(SharedReference.shared.marknumberofdayssince)
         }.count
@@ -237,7 +231,6 @@ private struct SidebarPanel: View {
     @Binding var selectedView: Sidebaritems
     let actionItems: [Sidebaritems]
     let toolItems: [Sidebaritems]
-    let managementItems: [Sidebaritems]
     let synchronizeBadgeCount: Int
     let isDisabled: Bool
     let newVersionAvailable: Bool
@@ -251,6 +244,7 @@ private struct SidebarPanel: View {
                 selectedProfileID: $selectedProfileID,
                 isDisabled: isDisabled
             )
+            .padding(.top, 8)
 
             Divider()
 
@@ -258,7 +252,6 @@ private struct SidebarPanel: View {
                 selectedView: $selectedView,
                 actionItems: actionItems,
                 toolItems: toolItems,
-                managementItems: managementItems,
                 synchronizeBadgeCount: synchronizeBadgeCount,
                 isDisabled: isDisabled
             )
@@ -281,7 +274,7 @@ private struct SidebarProfilePicker: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("PROFILE")
+            Text("Profile")
                 .font(.caption2)
                 .fontWeight(.semibold)
                 .foregroundStyle(.secondary)
@@ -297,7 +290,8 @@ private struct SidebarProfilePicker: View {
             .labelsHidden()
             .disabled(isDisabled)
         }
-        .padding(.horizontal, 12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 16)
         .padding(.vertical, 8)
     }
 }
@@ -306,7 +300,6 @@ private struct SidebarMenuList: View {
     @Binding var selectedView: Sidebaritems
     let actionItems: [Sidebaritems]
     let toolItems: [Sidebaritems]
-    let managementItems: [Sidebaritems]
     let synchronizeBadgeCount: Int
     let isDisabled: Bool
 
@@ -322,17 +315,8 @@ private struct SidebarMenuList: View {
                 }
             }
 
-            if toolItems.isEmpty == false {
-                Section("Tools") {
-                    ForEach(toolItems) { item in
-                        SidebarRow(sidebaritem: item)
-                            .tag(item)
-                    }
-                }
-            }
-
-            Section("Management") {
-                ForEach(managementItems) { item in
+            Section("Tools") {
+                ForEach(toolItems) { item in
                     SidebarRow(sidebaritem: item)
                         .tag(item)
                 }
@@ -356,15 +340,15 @@ struct SidebarRow: View {
     func systemImage(_ view: Sidebaritems) -> String {
         switch view {
         case .tasks:
-            "text.badge.plus"
+            "checklist"
         case .restore:
             "arrowshape.turn.up.forward"
         case .snapshots:
-            "text.badge.plus"
+            "clock.arrow.circlepath"
         case .synchronize:
-            "arrowshape.turn.up.backward"
+            "arrow.triangle.2.circlepath"
         case .profiles:
-            "arrow.left.arrow.right.circle.fill"
+            "person.crop.rectangle.stack"
         }
     }
 }

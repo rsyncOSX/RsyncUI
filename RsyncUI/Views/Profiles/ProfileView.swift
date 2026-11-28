@@ -23,8 +23,13 @@ struct ProfileView: View {
     @FocusState private var profileTableIsFocused: Bool
 
     var body: some View {
-        VStack {
-            HStack {
+        VStack(alignment: .leading, spacing: 0) {
+            Label("Profiles", systemImage: "person.crop.rectangle.stack")
+                .font(.title2.weight(.semibold))
+                .accessibilityAddTraits(.isHeader)
+                .padding(16)
+            Divider()
+            HStack(spacing: 0) {
                 Table(rsyncUIdata.validprofiles, selection: $uuidprofile) {
                     TableColumn("Profiles") { name in
                         Text(name.profilename)
@@ -42,7 +47,12 @@ struct ProfileView: View {
                     requestProfileDeletion()
                 }
 
+                Divider()
                 VStack(alignment: .leading) {
+                    Text("Tasks due for synchronization")
+                        .font(.headline)
+                        .padding(.horizontal, 12)
+                        .padding(.top, 10)
                     ProfilesToUpdateView(allconfigurations: allconfigurations)
 
                     if uuidprofile != nil {
@@ -55,11 +65,11 @@ struct ProfileView: View {
             createProfile()
         }
         .toolbar {
-            ToolbarItem(placement: .status) {
+            ToolbarItem(placement: .primaryAction) {
                 Button("Add Profile", systemImage: "plus", action: {
                     showAddProfileSheet = true
                 })
-                .labelStyle(.iconOnly)
+                .labelStyle(.titleAndIcon)
                 .help("Add Profile")
             }
         }
@@ -78,7 +88,7 @@ struct ProfileView: View {
         .task {
             allconfigurations = await ReadAllTasks().readAllMarkedTasks(rsyncUIdata.validprofiles)
         }
-        .navigationTitle("Manage Profiles")
+        .navigationTitle("RsyncUI")
     }
 }
 
