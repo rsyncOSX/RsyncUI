@@ -30,7 +30,12 @@ struct SnapshotsView: View {
     @State private var pendingLogDeletion: Set<Log.ID>?
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
+            TaskWorkspaceHeading(title: "Snapshots", systemImage: "clock.arrow.circlepath",
+                                 profile: rsyncUIdata.profile ?? "Default",
+                                 taskCount: rsyncUIdata.configurations?.count ?? 0,
+                                 selectionCount: selectedconfiguuid.count)
+            Divider()
             SnapshotsMainContentView(rsyncUIdata: rsyncUIdata,
                                      snapshotdata: $snapshotdata,
                                      selectedconfig: $selectedconfig,
@@ -46,6 +51,7 @@ struct SnapshotsView: View {
                 labelaborttask
             }
 
+            Divider()
             HStack {
                 AdaptiveProminentButton(
                     systemImage: "square.and.arrow.down",
@@ -70,8 +76,10 @@ struct SnapshotsView: View {
 
                 Spacer()
             }
+            .padding(12)
+            .background(.bar)
         }
-        .navigationTitle("Snapshot tasks: profile \(rsyncUIdata.profile ?? "Default")")
+        .navigationTitle("RsyncUI")
         .focusedSceneValue(\.tagsnapshot, $focustagsnapshot)
         .focusedSceneValue(\.aborttask, $focusaborttask)
         .toolbar(content: {

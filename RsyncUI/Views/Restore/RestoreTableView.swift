@@ -47,7 +47,7 @@ struct RestoreTableView: View {
                     filterstring = ""
                 }
 
-            Spacer()
+            Divider()
 
             if focusaborttask {
                 labelaborttask
@@ -56,10 +56,10 @@ struct RestoreTableView: View {
             RestoreControlsView(restore: $restore)
                 .disabled(gettingfilelist || restore.restorefilesinprogress)
                 .focusedSceneValue(\.aborttask, $focusaborttask)
-                .searchable(text: $filterstring)
+                .searchable(text: $filterstring, prompt: "Filter files")
                 .toolbar { restoretoolbarcontent }
         }
-        .navigationTitle("Restore files")
+        .navigationTitle("RsyncUI")
         .confirmationDialog("Restore files to this destination?", isPresented: $confirmingRestore) {
             Button("Restore Files", role: .destructive) { executeRestore() }
             Button("Cancel", role: .cancel) {}
@@ -81,8 +81,8 @@ struct RestoreTableView: View {
                 Button {
                     getListOfFilesForRestore()
                 } label: {
-                    Label("Get list of files", systemImage: "square.and.arrow.down.fill")
-                        .labelStyle(.iconOnly)
+                    Label("List Files", systemImage: "list.bullet")
+                        .labelStyle(.titleAndIcon)
                 }
                 .help("Get list of files for restore")
                 .disabled(gettingfilelist || restore.restorefilesinprogress || SharedReference.shared.process != nil)
